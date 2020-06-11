@@ -1593,7 +1593,7 @@ OnBalloonBreak //This is so dumb XD do I keep this? I don't know -- Update, I'm 
 	--
 	if poppable == "ON"
 	{
-		"\s[110]\_v[img\blop.mp3]"
+		"\s[110]\_v[img\blop.wav]"
 		balloonspopped += 1
 	}
 	else
