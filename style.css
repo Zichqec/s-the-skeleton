@@ -1,0 +1,51 @@
+/*Here is how site looks*/ 
+* { /*this affects all site elements*/
+    font-family: 'Varela Round', sans-serif;
+    color: #fff1f2; /*Text color*/
+    text-align: center;
+}
+
+body {
+    background: #4d1f22;
+}
+
+/*body is an element that woud be affected*/
+
+p { 
+    font-size: 20px;
+}
+
+nav {
+    background: #30090c;
+    padding: 15px;
+}
+
+.navlink:hover {
+    background: #110107;
+    /*padding: 20px;  you can uncomment it if you want*/
+}
+
+.navlink {
+    padding: 15px;
+}
+
+footer{
+    margin-top: 5px;
+    background: #30090c;
+    padding: 5px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #eca5aa;
+}
+
+article {
+    margin-top: 5px;
+    background: #30090c;
+    padding: 10px;
+}
