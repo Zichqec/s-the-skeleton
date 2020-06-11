@@ -1,0 +1,640 @@
+﻿//---------------------------Envelopes--------------------------
+//This .dic file is probably one of the simplest you will have to edit, and in fact, if the way it works doesn't appeal to you, you can completely ignore it if you like!
+//Basically, what this file does is set up certain things that I believe are called envelopes or SakuraScriptEnv on the CROW-SSP Dictionary site (which I link to a few times throughout the walkthrough), but I've always kind of thought of them as variables. Envelopes is probably a less confusing name though.
+//Essentially, what this file is for is for creating lists populated with items, and storing them in a word that can later be called during dialogue. If you've read the walkthrough or gone through any of the other .dic files, you've probably seen these before. They are always preceded with a % sign and have a word in parentheses (well, almost always) afterwards. %(username) is one, which displays the user's name, and %(heshe) is another, which displays the right pronoun depending on what the user selected in bootend.dic or menu.dic. Other ones you might not have seen include %(passmin), which shows how many minutes have passed since the ghost was started, %(screenheight) which shows the height of the display they're currently on, and %(keroname) for the name of the second character, among many, many others. Many of these are predefined by the AYA scripting and will be listed on the CROW-SSP site mentioned above, and many of them you will never have to use. By far the ones you will be using the most will be %(username) and the pronoun ones, and those are the only ones you'll have to worry about normally.
+
+//So where does this file come in? Well, you can define your own envelopes if you want! Which means essentially that you can create a list of items and attach it to almost any word you want. Here's an example.
+
+
+
+
+
+
+
+
+
+
+
+
+ingredients
+{
+	"cilantro"
+	"basil"
+	"lemon pepper"
+	"cloves"
+	"chives"
+	"butter"
+	"salt"
+	"paprika"
+	"sugar"
+	"cinnamon"
+	"pepper"
+	"lemon"
+	"orange zest"
+	"lemon zest"
+	"cumin"
+	"mint"
+	"garlic"
+	"curry powder"
+	"chili powder"
+	"dried peppers"
+	"nutmeg"
+	"ginger"
+	"mustard"
+	"tumeric"
+	"thyme"
+	"rosemary"
+	"allspice"
+	"dill weed"
+	"horseradish"
+	"oregano"
+	"sesame seeds"
+	"peppermint"
+	"peppers"
+	"sage"
+	"vanilla"
+	"wasabi"
+	"lime"
+}
+
+fruveg
+{
+	"grapefruit"
+	"apples"
+	"pears"
+	"grapes"
+	"oranges"
+	"bananas"
+	"tomatoes"
+	"cucumbers"
+	"avocado"
+	"pickles"
+	"cherries"
+	"brocolli"
+	"lettuce"
+}
+
+bakedgoods
+{
+	"bread"
+	"cookies"
+	"cupcakes"
+	"pie"
+	"cheesecake"
+	"dinner rolls"
+	"breadsticks"
+	"biscuits"
+	"muffins"
+	"brownies"
+	"cake"
+	"strudel"
+	"cinnamon rolls"
+	"turnovers"
+}
+
+family
+{
+	"anWD"
+	"anDings"
+	"anWings"
+	"anBarcode"
+	"anBlue"
+	"anAbbi"
+	"anRosie"
+	"anRoman"
+	"anCambria"
+	"anTriton"
+	"anLulo"
+	"anAzo"
+	"anSigil"
+	"anElko"
+}
+
+usersfolder
+{
+	"start bar"
+	"documents folder"
+	"pictures folder"
+	"music folder"
+	"games folder"
+}
+
+//This envelope in particular I think is fun. You can use this in dialogue to pretend like your ghost is looking through your user's files!
+
+colormod
+{
+	"light "
+	"dark "
+	"bright "
+	"soft "
+	""
+	""
+	""
+}
+
+color
+{
+	"red"
+	"orange"
+	"yellow"
+	"green"
+	"cyan"
+	"blue"
+	"purple"
+	"pink"
+	"gray"	
+}
+
+fcolor //flower colors
+{
+	"red"
+	"orange"
+	"yellow"
+	"light blue"
+	"blue"
+	"violet"
+	"pink"
+	"white"
+	"white and purple"
+	"blue and white"
+}
+
+pattern
+{
+	{
+		""
+	}
+	{
+	" with "
+	--
+	"a cutesy heart print"
+	"a zany bone pattern"
+	"an adorable cat-and-dog print"
+	"a cute pawprint pattern"
+	"a soothing plaid pattern"
+	"crazy polka dots"
+	"simple stripes"
+	"a mesmerizing galaxy print"
+	}
+}
+
+animal //plushes -- I've excluded some so that I could write specific dialogue about them
+{
+	"dog"
+	"elephant"
+	"turtle"
+	"tortoise"
+	"fish"
+	"bird"
+	"dragon"
+}
+
+km //Kero choice marker. If the balloon being used is the default one, use the special marker, and if not then use the default marker
+{
+	if nowballoon == "Perseverence - Integrity" 
+	{
+		"\_b[img/km.png,inline,--option=use_self_alpha] "
+	}
+	else
+	{
+		"\![*]"
+	}
+}
+
+
+purple
+{
+	"\f[color,183,129,227]"
+}
+
+default
+{
+	"\f[color,default]"
+}
+
+teal
+{
+	"\f[color,132,184,180]"
+}
+
+red
+{
+	"\f[color,227,142,142]"
+}
+
+orange
+{
+	"\f[color,227,147,093]"
+}
+
+green
+{
+	"\f[color,064,180,103]"
+}
+
+yellow
+{
+	"\f[color,212,206,071]"
+}
+
+blue
+{
+	"\f[color,141,136,247]"
+}
+
+cyan
+{
+	"\f[color,122,218,232]"
+}
+
+pink
+{
+	"\f[color,246,171,247]"
+}
+
+brown
+{
+	"\f[color,181,153,094]"
+}
+
+displayweekday
+{
+	if wd == "Sun"
+	{
+		"Sunday"
+	}
+	elseif wd == "Mon"
+	{
+		"Monday"
+	}
+	elseif wd == "Tue"
+	{
+		"Tuesday"
+	}
+	elseif wd == "Wed"
+	{
+		"Wednesday"
+	}
+	elseif wd == "Thu"
+	{
+		"Thursday"
+	}
+	elseif wd == "Fri"
+	{
+		"Friday"
+	}
+	elseif wd == "Sat"
+	{
+		"Saturday"
+	}
+}
+
+displaymonth
+{
+	if month == 1
+	{
+		"January"
+	}
+	elseif month == 2
+	{
+		"February"
+	}
+	elseif month == 3
+	{
+		"March"
+	}
+	elseif month == 4
+	{
+		"April"
+	}
+	elseif month == 5
+	{
+		"May"
+	}
+	elseif month == 6
+	{
+		"June"
+	}
+	elseif month == 7
+	{
+		"July"
+	}
+	elseif month == 8
+	{
+		"August"
+	}
+	elseif month == 9
+	{
+		"September"
+	}
+	elseif month == 10
+	{
+		"October"
+	}
+	elseif month == 11
+	{
+		"November"
+	}
+	else
+	{
+		"December"
+	}
+}
+
+//This is figuring out what day of the week it is. Leave it alone.
+GetWeekDay
+{
+	if weekday == 0
+	{"Sun"}
+	elseif weekday == 1
+	{"Mon"}
+	elseif weekday == 2
+	{"Tue"}
+	elseif weekday == 3
+	{"Wed"}
+	elseif weekday == 4
+	{"Thu"}
+	elseif weekday == 5
+	{"Fri"}
+	else
+	{"Sat"}
+}
+
+//This is finding out whether it's AM or PM. Leave it alone.
+GetAP
+{
+ 	if hour >= 0 && hour <= 11
+	{
+		"AM"
+	}
+ 	else
+	{
+		"PM"
+	}
+}
+
+//This is figuring out the minute. Leave it alone.
+Getnowmin
+{
+	if minute >= 0 && minute <=9
+		{
+			"0%(minute)"
+		}
+	else
+		{
+			"%(minute)"
+		}
+}
+
+//This is figuring out the hour. Leave it alone.
+Getnowhour
+{
+	if hour12 >= 0 && hour12 <=9
+	{
+		"0%(hour12)"
+	}
+	else
+	{
+		"%(hour12)"
+	}
+}
+
+loadingmoon
+{
+	"\_b[img\Moon0%(loadmoonnum),inline,--option=use_self_alpha]\w4\c"
+	--
+	if loadmoonnum < 8
+	{
+		loadmoonnum += 1
+	}
+	else
+	{
+		loadmoonnum = 1
+	}
+}
+
+
+
+ //**** Don't touch this ***************************************************************
+ //This is code stuff and nothing for you to worry about, just save the .dic and move on! You're done!
+ 
+ On_\person
+{
+ 	person
+}
+
+
+
+//Arrays.....or something. This is called whenever he boots or reloads, and sets up the arrays to be called later. I think. Idk man. -- Update, I removed the arrays I had here... maybe I'll make more arrays in the future I dunno
+
+OnInitArrays
+{
+	
+}
+
+
+//I've put this in mostly for myself because I currently live with people who would not approve of S being married to a guy. I'm probably not gonna put a toggle in his menu for this, but if you want to use it just open script input and put in %(staysafe = 1)
+StSfhim //him
+{
+	if staysafe == 1
+	{
+		"her"
+	}
+	else
+	{
+		"him"
+	}
+}
+
+StSfHe //He
+{
+	if staysafe == 1
+	{
+		"she"
+	}
+	else
+	{
+		"he"
+	}
+}
+
+StSfCHe //Capital He
+{
+	if staysafe == 1
+	{
+		"She"
+	}
+	else
+	{
+		"He"
+	}
+}
+
+StSfhis //his
+{
+	if staysafe == 1
+	{
+		"her"
+	}
+	else
+	{
+		"his"
+	}
+}
+
+StSfhusband //husband
+{
+	if staysafe == 1
+	{
+		"wife"
+	}
+	else
+	{
+		"husband"
+	}
+}
+
+StSfanhusband //husband but with anchor text...
+{
+	if staysafe == 1
+	{
+		"anwife"
+	}
+	else
+	{
+		"anhusband"
+	}
+}
+
+StSffather
+{
+	if staysafe == 1
+	{
+		"mother"
+	}
+	else
+	{
+		"father"
+	}
+}
+
+StSfdad
+{
+	if staysafe == 1
+	{
+		"mom"
+	}
+	else
+	{
+		"dad"
+	}
+}
+
+
+
+
+
+
+
+//Moved this over to word.dic. This isn't an envelope, but this should keep it out of the way but also easy to reach for setting variables...
+
+//Thank you again to Levidre for this, this makes my life so much easier. This function can be called with Raise at the end of any random piece of dialogue. \!raise,OnDialogueVariables,value]. The word value there can be replaced with whatever I want, letting me test to see which variable should be set. This solves SO MUCH. I KNEW there had to be a way to make this work easier.
+OnDialogueVariables
+{
+	if reference0 == "8kids"
+	{
+		thatsanoddnumber = 1
+	}
+	elseif reference0 == "learntimeline"
+	{
+		askedabouttimelines = 1
+	}
+	elseif reference0 == "learnfamily"
+	{
+		knowaboutfamily = 1
+	}
+	elseif reference0 == "complimentdusty"
+	{
+		specialcommu = 1
+		complimentaboutdusty = 1
+		OnCommunicate //This'll put him over into communication without setting the flag for him talking first
+	}
+	elseif reference0 == "gummyfrogs"
+	{
+		love -= 1 //not actually taking a point away, just making it so you get net 0 if you get this option
+	}
+	elseif reference0 == "getonphone"
+	{
+		lookingatphone = 1
+	}
+	elseif reference0 == "getoffphone"
+	{
+		lookingatphone = 0
+	}
+	elseif reference0 == "discoverkit"
+	{
+		knowaboutkit = 1
+	}
+	elseif reference0 == "discoversmol"
+	{
+		knowaboutsmol = 1
+	}
+	elseif reference0 == "discoverbirdy"
+	{
+		knowaboutbirdy = 1
+	}
+	elseif reference0 == "discoversorrel"
+	{
+		knowaboutsorrel = 1
+	}
+	elseif reference0 == "discoverpmd"
+	{
+		knowaboutpmd = 1
+	}
+	elseif reference0 == "discoverbender"
+	{
+		knowaboutbender = 1
+	}
+	elseif reference0 == "discovernine"
+	{
+		knowaboutnine = 1
+	}
+	elseif reference0 == "discoverserif"
+	{
+		knowaboutserif = 1
+	}
+	elseif reference0 == "discoverecho"
+	{
+		knowaboutecho = 1
+	}
+	elseif reference0 == "discoverice"
+	{
+		knowaboutice = 1
+	}
+	elseif reference0 == "discoveromega"
+	{
+		knowaboutomega = 1
+	}
+	elseif reference0 == "dustyspaceandtime"
+	{
+		specialcommu = 1
+		dustyspaceandtime = 1
+		OnCommunicate
+	}
+	elseif reference0 == "abbiisblind"
+	{
+		abbiblind = 1
+	}
+	elseif reference0 == "getadrinkw"
+	{
+		currentlydrinkingw = 1
+	}
+	elseif reference0 == "getadrinkj"
+	{
+		currentlydrinkingj = 1
+	}
+	elseif reference0 == "getadrinkm"
+	{
+		currentlydrinkingm = 1
+	}
+}

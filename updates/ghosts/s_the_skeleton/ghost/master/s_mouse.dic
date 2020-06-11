@@ -1,0 +1,597 @@
+﻿//---------------------------Mouse Functions--------------------------
+
+
+//--OnMouseMove
+//This is a bunch of code determining who the mouse is over. Don't touch any of it.
+
+OnMouseMove
+ {
+	if nowmode != "QUIZ"
+ 	{
+		//---- reference3 determines the character in question
+		if reference3 == 0 //if the character is 0, aka the main character
+		{
+			//---- it will run the mouse functions for that character
+			MouseMoveSakura
+			
+		}
+		else //if the character isn't 0, then it must be the side character.
+		{
+			//---- this will run the mouse functions for the side character.
+			MouseMoveKero
+		}
+	}
+ }
+ 
+OnMouseLeave //Thanks to Levidre for reminding me that this exists because I'm an idiot XD this properly resets the variables when the mouse leaves the character, so that continuous stroking doesn't break
+{
+	if continuousstroke > 160 && continuousstroke > pethighscore //This bit checks to see if you've gotten a high score. The \C in the text displays the previous balloon and then adds onto it. This might not always be perfect, if you let his balloon time out or you make him say something else it might be a little strange, but I think it's good enough to keep this way.
+	{
+		pethighscore = continuousstroke
+		"\C\n\n* (New high score! %(pethighscore)!)\e"
+	}
+	--
+	if currentpetstreak > toppetstreak
+	{
+		toppetstreak = currentpetstreak
+	}
+	--
+	stroke = 0
+	continuousstroke = 0
+	currentpetstreak = 0 //right now this doesnt do anything, but just in case I later want to change him to count your high score by how many consecutive pets you have instead of the stroke count...
+}
+ //*********************Advanced User Info*******************************
+//These text boxes are meant for those who have an interest in expanding or using more complicated functions in their ghost. Also for my own reference in the future since I plan on using this template too, haha. If you have no interest in any of this and just want to keep things as simple as possible, feel free to skip these boxes.
+
+//If you want to have more than two characters at any point, like for example how I added Charger with my Hunter/Smoker ghost, and you want to be able to interact with that character like you can with the others, you will have to add in that character to OnMouseMove above. You'll need to know the p[] you've assigned your third character to, which in Charger's case was 3. You can assign your third character any p you want, just be consistent about using the same p[] everytime. I touch on \p a bit more in the walkthrough.
+//So anyway, as you can see above, OnMouseMove determines who the user is touching, so you'll just have to add in an elseif checking for reference3 == 3, or reference3 == 4, or whatever p number is you're using. More on elseif in the walkthrough and in bootend.dic. After that, you'll just need to copy and paste the other mouse functions below and change the name as you need (for example, MouseMoveCharger, MouseDoubleClickCharger). 
+
+//Note though that the extra character will not be a hard-coded character like 0 and 1! You're basically tricking the program into thinking there's another character, and some functions in things like menu.dic and aitalk.dic won't work quite right if you put in a value other than 0 or 1, and you'll need to be careful about making sure to remove the third character when you're done. But luckily for you, this won't be a problem with any of the mouse functions as far as I'm aware, and you can fill them out for the third character just like you would for the two main ones.
+//***********************************************************************
+
+
+ //--MouseMoveSakura
+ //The petting function for your main character. Remember how it was referred to as sakura in some of the descript.txt and install.txt files?
+ 
+MouseMoveSakura
+{
+	if reference4 != "" //ignore
+ 	{
+ 		stroke++ //if you move the mouse over the right areas, the stroke count will go up.
+		continuousstroke++
+		
+		if continuousstroke > 160
+		{
+			if stroke > 160
+			{
+				stroke = 0 //resetting the stroke count
+				lastinteracted = 0
+				
+				if reference4 == "Head"
+				{
+					PetHead
+				}
+				elseif reference4 == "Dent"
+				{
+					snagged += 1
+					totalsnags += 1
+					SnagDent
+				}
+				elseif reference4 == "Cracks"
+				{
+					snagged += 2
+					totalsnags += 1
+					SnagCracks
+				}
+			}
+		}
+		elseif stroke >= 40
+		{
+ 			stroke = 0 //resetting the stroke count
+			lastinteracted = 0
+		
+			if reference4 == "Head"
+			{
+				PetHead
+			}
+ 			elseif reference4 == "Dent"
+ 			{
+				snagged += 1
+				totalsnags += 1
+				SnagDent
+ 			}
+			elseif reference4 == "Cracks"
+			{
+				snagged += 2
+				totalsnags += 1
+				SnagCracks
+			}	
+		}	
+ 	}
+ 	else
+	{
+ 		// If the mouse isn't over the ghost, it'll zero out the stroke value.
+		stroke = 0
+		continuousstroke = 0
+ 	}
+}
+
+ //---- MouseMoveKero -----------------------------------------------------------------
+ //MouseMoveKero is exactly like the above, except set up for your second character. 
+ 
+MouseMoveKero
+{
+	stroke = 0	
+}
+
+//---- OnMouseDoubleClick -------------------------------------------------------
+//This is set up much like OnMouseMove above, except this is checking to see if the user is double clicking on the ghost. You also don't need to touch any of this. 
+//Advanced users adding a third character, the same principles from OnMouseMove apply here as well! Make sure to add an elseif with the right number for your third character.
+
+OnMouseDoubleClick
+{
+	//---- like with the OnMouseMove function above, this determines who the user is clicking on.
+	
+ 	if reference3 == 0 && reference5 == 0 //if the character is 0, aka your main character. reference5 is which mouse button is being clicked, in this case 0 is a left click
+	{
+		MouseDoubleClickSakura
+ 	}
+	else
+ 	{
+ 		MouseDoubleClickKero
+	}
+}
+
+ //---- MouseDoubleClickSakura ----------------------------------------------------------
+ //Like the petting animation above, this is the reactions they have to being double clicked. These also rely on the collisions you set up in surfaces.txt! This set is specifically for the main character, as indicated by the Sakura in the name again.
+ 
+ //*********************Advanced User Info*******************************
+ //As a note, double clicking on a certain area of your ghost doesn't have to be the user hitting them. You could instead set up a collision for a piece of clothing, and then have the character talk about that bit of clothing when it's double clicked, for example. One of Smoker's double clicks gives her a high-five when she's in a certain pose. Maybe double clicking is patting them, or pointing behind them, or tapping them, or any number of things. You can be creative here with how they respond depending on what areas you've set up as collisions!
+ 
+ //If you don't want your character to be hittable at all, you can just delete everything in MouseDoubleClickSakura except OpenSakuraMenu. So it'd look like
+ 
+ //MouseDoubleClickSakura
+ //{
+ //OpenSakuraMenu
+ //}
+ 
+ //That's all there is to it. This method also applies to the secondary character, Kero, below this set.
+ //***********************************************************************
+ 
+MouseDoubleClickSakura
+ {
+ 	if reference4 == "Head" || reference4 == "Face" || reference4 == "Cracks" || reference4 == "Dent" //here, this is checking to see if the user is double clicking on either the character's head OR their face, which for our purposes means they're hitting the ghost. More about operators at the walkthrough.
+	{
+		lastinteracted = 0
+		if LV > 0 //Negative routes
+		{
+			LV += 3
+			totalpunches += 1
+			if LVCheck == 1 //know his secrets
+			{
+
+				if broken == 1 //broken him down all the way
+				{
+					"\0\s[1550]* (You strike him with your cursor.)\w8\w8\w8\n\n\s[510]* (He stays silent.)\e"
+					"\0\s[1550]* (You punch him in the face.)\w8\w8\w8\n\n\s[510]* (He says nothing.)\e"
+				}
+				else //breaking him, but he's still standing
+				{
+					"\0\s[1550]Ah-!\w8\w8\w8\n\n\s[516]* (You tell him he deserved that, with all the suffering he's caused.)\w8\w8\s[510]\n\n* (He nods slowly.)\e"
+					"\0\s[1550]Gh-!\w8\w8\w8\n\n\s[516]* (You tell him that's only a fraction of his EXP being paid back to him.)\w8\w8\s[510]\n\n* (He nods slowly.)\e"
+					if love >= 30
+					{
+						"\0\s[1550]Ah-!\w8\w8\w8\n\n\s[516]* (You tell him that he shouldn't pretend to be a good person.)\w8\w8\s[510]\n\n* (He nods slowly.)\e"
+					}
+				}
+			
+			}
+			elseif love <= 30 //Just mean for no reason
+			{
+				if LV <= 30 //you've been a bit mean
+				{
+					"\0\s[1550]Ah-!\w8\w8\w8\s[403]\n\n...You've got some nerve, dragging a guy here and then punching him for no reason.\e"
+					"\0\s[1550]Ahk-!\w8\w8\w8\s[403]\n\n...You got a problem with me, pal?\w8\w8\s[405] Or do you just like punching people for no reason.\e"
+					"\0\s[1550]Gh-!\w8\w8\w8\s[413]\n\n...Is this personal, or something?\e"
+					if love >= 30
+					{
+						"\0\s[1550]Ah-!\w8\w8\w8\s[412]\n\n...You know, I thought you were a good person at first.\w8\w8\s[400] I guess I was mistaken.\e"
+					}
+				}
+				elseif LV >=31 //You've been really mean and he hates you a lot
+				{
+					"\0\s[1550]Ah-!\w8\w8\w8\s[403]\n\n...Do you never get tired of being needlessly cruel?\e"
+					"\0\s[1550]Gh-!\w8\w8\w8\s[402]\n\n...Yeah,\w4 I get it by now,\w4 you hate me.\w8\w8\s[403] Care to actually give me a reason why?\e"
+					"\0\s[1550]Kh-!\w8\w8\w8\s[401]\n\n* (He doesn't say anything.)\e"
+				}
+			}
+	
+		}
+		else //if you've not punched him yet
+		{
+			SureAboutThat
+		}	
+	}
+	else
+ 	{
+		if booting == 0 //because passivemode doesn't block this.... should test this later and make sure it works
+		{
+			//Otherwise, if the user doubleclicks somewhere else on the character, they will open their menu as detailed in menu.dic.
+			OpenSakuraMenu
+			lookingatphone = 0
+			lastinteracted = 0
+		}
+	}
+ }
+
+SureAboutThat
+{
+	"\0\_q* (Are you sure you want to punch S in the face..?)\n\n\![*]\q[Yes,ohsoitslikethat] \![*]\q[No!,oopsdidntmeanto]"
+}
+
+
+Select.ohsoitslikethat
+{
+	LV += 1
+	if LVCheck == 1 //Start sad route
+	{
+		if love >= 150 //Full friendship
+		{
+			"\0\s[1550]Ah-!\w8\n\n* (You hear a definite crack as you strike his skull.)\w8\w8\s[501]\n\n* (You tell him that he deserved that, for all the suffering he's caused.)\w8\w8\s[512]\n\n* (He looks like he wants to respond,\w4\s[510] but simply nods instead.)\e"
+		}
+		elseif love >= 20 //getting to know him a little
+		{
+			"\0\s[1550]Ah-!\w8\w8\n\n\s[501]\n\n* (You tell him that he deserved that, for all the suffering he's caused.)\w8\w8\s[512]\n\n* (He looks like he wants to respond,\w4\s[510] but simply nods instead.)\e"
+		}
+		else //He isn't sure what to make of you yet
+		{
+			"\0\s[1550]Ah-!\w8\w8\n\n\s[501]\n\n* (You tell him that he deserved that, for all the suffering he's caused.)\w8\w8\s[512]\n\n* (He looks like he wants to respond,\w4\s[510] but simply nods instead.)\e"
+		}
+	}
+	else //Start mad route
+	{
+		if love >= 150 //Full friendship
+		{
+			"\0\s[1550]Ah-!\w8\n\n* (You hear a definite crack as you strike his skull.)\n\n\w8\w8\s[403]What the hell was that for!?\w8\w8\n\n\s[401]* (He cuts you off before you can say anything.)\w8\w8\n\n\s[405]No.\w8\w8 I don't want to hear it.\w8\w8\s[403] Friends don't punch each other like that.\w8\w8\s[401] I'm leaving.\s[-1]\w8\w8\w8\n\n\w8\w8.\w8\w8.\w8\w8.\w8\w8.\w8\w8.\w8\w8\n\n* (He can't get out on his own, he'll have to come back eventually...)\e" //replaceframe could use indignant frame here
+		}
+		elseif love >= 20 //getting to know him a little
+		{
+			"\0\s[1550]Ah-!\w8\n\n\w8\w8\s[403]What the hell was that for!?\w8\w8\n\n\s[401]* (He cuts you off before you can say anything.)\w8\w8\n\n\s[405]No.\w8\w8 I don't want to hear it.\w8\w8\s[403] Friends don't punch each other like that.\w8\w8\s[401] I'm leaving.\s[-1]\w8\w8\w8\n\n\w8\w8.\w8\w8.\w8\w8.\w8\w8.\w8\w8.\w8\w8\n\n* (He can't get out on his own, he'll have to come back eventually...)\e"
+		}
+		else //He isn't sure what to make of you yet
+		{
+			"\0\s[1550]Ah-!\w8\n\n\w8\w8\s[403]What the hell was that for!?\w8\w8 I don't even know you!\w8\w8\n\n\s[401]I'm not sticking around if that's what you're here to do.\s[-1]\w8\w8\w8\n\n\w8\w8.\w8\w8.\w8\w8.\w8\w8.\w8\w8.\w8\w8\n\n* (He can't get out on his own, he'll have to come back eventually...)\e"
+		}
+	}
+}
+
+/*OnMouseWheel
+{
+	scroll++
+	if scroll > 20 && LV == 0
+	{
+		scroll = 0
+		"\0\s[110]Uh...\w8\w8\s[106] That feels kinda weird,\w4 kiddo.\e"
+	}
+}*/ //I have an idea for this...... later :3c
+
+
+ //---- MouseDoubleClickKero -----------------------------------------------------------
+ //This is just the same as MouseDoubleClickSakura above, except for your secondary character. The same principles apply, including how to make your character unhittable.
+ 
+ 
+MouseDoubleClickKero
+ {
+		//OpenKeroMenu //This will open his menu set up in menu.dic.
+ }
+
+ //*********************Advanced User Info*******************************
+ //There are other mouse related functions you could set up much like the above, such as OnMouseDragStart, OnMouseDragEnd, OnMouseWheel, and others which correspond to various things you can do with your mouse. You can probably guess what those functions do just by their names - OnMouseWheel would be if someone spun their mouse wheel over a certain area, for example. If you're interested in these, I'd recommend doing some reading at the CROW-SSP Encyclopedia to get a better idea of them and settle down for some trial and error learning as you try to put them in.
+ //***********************************************************************
+ 
+ 
+ 
+ 
+ 
+
+
+PetHead
+{
+	currentpetstreak += 1
+	if LV == 0 //Friendship routes
+	{
+		if love >=150 //Full friendship
+		{					
+			love += 1
+			totalpets += 1
+			recentpets += 1
+			
+			if continuousstroke > 500
+			{
+				"\0\s[106]Kiddo,\w4 you're gonna wear a hole in my skull at this rate."
+				"\0\s[106]You feeling alright,\w4 kiddo?\w8\w8 Do you need a hug?\w8\w8 You can just ask and I'll give you a hug."
+				"\0\s[107]Are you going for a high score or something?"
+				"\0\s[107]Are you going for a high score or something?"
+			}
+			elseif continuousstroke > 100
+			{
+				"\0\s[107]Geez,\w4 kiddo,\w4\s[106] isn't that enough for one pet?"
+				"\0\s[107]* (You pet him continuously until his skull starts to warm up from the friction.)"
+			}
+			elseif snagged > 0 //if you've recently snagged his head
+			{
+				"\0\s[108]* (He seems a little nervous at your touch,\w4\s[107] but holds still as you pet him carefully.)"
+				"\0\s[107]* (You take special care as you stroke his skull.)\w8\w8\n\n\s[106]...Thanks, %(username)."
+			}
+			else
+			{
+				"\0\s[102]* (He hums appreciatively.)"
+				"\0\s[102]* (He relaxes against your cursor.)"
+				"\0\s[102]* (You stroke his head very gently.)"
+				"\0\s[102]* (You pat his head gently.)\w8\w8\n\n\s[104]* (He gives you an appreciative smile.)"
+				"\0\s[104]* (You give him a soft pat.)\w8\w8\n\n* (He makes a quiet noise of appreciation.)"
+				"\0\s[102]* (You very carefully stroke the part of his skull that is whole.)\w8\w8\n\n\s[104]* (He seems to appreciate the care you're taking.)"
+				"\0\s[102]* (You move your cursor in a rhythmic pattern.)\w8\w8\n\n* (He's very relaxed.)"
+				"\0\s[102]* (He sighs contently.)"
+				"\0\s[104]* (He smiles appreciatively.)"
+				"\0\s[102]* (You stroke delicately around the sensitive areas.)\w8\w8\n\n\s[104]* (He seems to appreciate how careful you're being.)"
+				"\0\s[102]* (You rub his head soothingly.)\w8\w8\n\n* (He looks soothed.)"
+			}
+			--
+			"\e"
+		}
+		elseif love >= 75 //Good friend
+		{
+			if snagged > 0
+			{
+				"\0\s[201]* (He shifts away from your cursor.)\w8\w8\n\n\s[200]Uh...\w8\w8 Please don't touch my head right now,\w4 thanks.\w8\w8\n\n* (You wonder if his head is still hurting...)\e"
+				"\0\s[201]* (He shifts away from your cursor.)\w8\w8\n\n\s[200]Please don't.\w8\w8\n\n* (You wonder if his head is still hurting...)\e"
+			}
+			elseif recentpets > 5
+			{
+				"\0\s[106]* (He shifts away.)\w8\w8\n\n\s[107]C'mon, %(username),\w4\s[202] isn't that enough for now?\e"
+				"\0\s[202]* (He shuffles out of the way of your cursor.)\w8\w8\n\n\s[106]C'mon, kiddo,\w4 that's enough.\e"
+				"\0\s[107]* (He steps out of the way.)\w8\w8\n\n\s[106]Kiddo, you're gonna wear a hole in my skull if you keep this up.\e"
+			}
+			else
+			{
+				totalpets += 1
+				recentpets += 1
+				love += 1
+				"\0\s[102]* (He holds very still as you stroke his skull.)\w8\w8\n\n\s[202]Uh,\w4 thanks.\e"
+				"\0\s[106]I'm not really sure why you like doing this,\w4\s[107] but ok.\e"
+				"\0\s[0]* (You stroke his skull gently.)\w8\w8\n\n\s[1030]Uh,\w4 thanks.\e"
+				if totalpets > 5
+				{
+					"\0\s[102]* (He doesn't feel as tense under your cursor as he used to.)\e"
+					"\0\s[102]* (He doesn't seem as opposed to this as he used to be.)\e"
+				}
+			}
+		}
+		elseif love >= 20 //getting to know him a little
+		{
+			if snagged > 0
+			{
+				"\0\s[201]* (He shifts away from your cursor.)\w8\w8\n\n\s[200]Uh...\w8\w8 Please don't touch my head right now,\w4 thanks.\w8\w8\n\n* (You wonder if his head is still hurting...)\e"
+				"\0\s[201]* (He shifts away from your cursor.)\w8\w8\n\n\s[200]Please don't.\w8\w8\n\n* (You wonder if his head is still hurting...)\e"
+			}
+			else
+			{
+				totalpets += 1
+				recentpets += 1
+				"\0\s[101]Is there a reason you're stroking my skull?\w8\w8\s[202] It's uh,\w4 a little weird.\e"
+				"\0\s[107]* (He's very quiet...\w8 you're not sure if he's liking this or not.)\e"
+				"\0\s[200]* (He looks mildly uncomfortable,\w4 but he doesn't stop you.)\e"
+			}
+		}
+		else //He isn't sure what to make of you yet
+		{
+			"\s[200]* (He dodges your cursor.)\w8\w8\n\n\s[108]Please don't touch my head.\e"
+			"\s[200]* (He steps out of the way of your cursor.)\w8\w8\n\n\s[108]Please don't touch me.\e"
+			"\s[200]* (He dodges your pet.)\w8\w8\n\n\s[201]I'm married,\w4 please don't.\e"
+		}
+	}
+	elseif LV > 0 //Negative routes
+	{
+		LV += 1
+		if LVCheck == 1 //know his secrets
+		{
+
+			if broken == 1 //broken him down all the way
+			{
+				"\s[515]* (You stroke your cursor over his skull.)\w8\w8\n\n\s[510]* (He doesn't move.)\e"
+				"\s[515]* (You stroke your cursor over his skull.)\w8\w8\n\n\s[510]* (He shivers slightly.)\e"
+			}
+			else //breaking him, but he's still standing
+			{
+				"\s[510]* (You run your cursor over his head.)\w8\w8\n\n\s[515]* (He shudders.)\e"
+				"\s[514]* (You run your cursor over his head.)\w8\w8\n\n\s[510]* (He looks uncomfortable, but says nothing.)\e"
+				"\s[516]* (You run your cursor over his head.)\w8\w8\n\n\s[514]* (He looks down.)\e"
+			}
+	
+		}
+		else //Just mean for no reason
+		{
+			if LV <= 30 //you've been a bit mean
+			{
+				"\s[402]* (He dodges your cursor.)\w8\w8\n\n\s[412]What, trying to make up to me now?\w8\w8\s[401] Not a chance.\e"
+				"\s[402]* (He dodges your cursor.)\w8\w8\n\n\s[412]Don't be a creep.\e"
+				"\s[402]* (He dodges your cursor and scowls at you.)\e"
+			}
+			elseif LV >=31 //You've been really mean and he hates you a lot
+			{
+				"\s[402]* (He dodges your cursor.)\w8\w8\n\n\s[412]Do not touch me.\w8\w8\s[413] Ever.\e"
+				"\s[402]* (He steps away.)\w8\w8\n\n\s[412]No.\w8 No touching.\e"
+				"\s[402]* (He shifts just out of range and gives you a sour look.)\e"
+			}
+		}
+	}
+
+}
+
+
+
+
+
+SnagDent
+{
+	if LV == 0 //Friendship routes
+	{
+		if love >= 75 //Full friendship
+		{
+			"\0\s[301]Ah..!\w8\w8\s[201]\n\nPlease don't do that, kid.\w8 That's a sensitive spot.\e"
+			"\0\s[301]Ah..!\w8\w8\s[201]\n\nI'll assume that was an accident.\w8 Please be careful, my head is uh,\s[200] a little sensitive.\e"
+		}
+		elseif love >= 20 //getting to know him a little
+		{
+			"\0\s[301]Ghk-!\w8\w8\w8\s[201]\n\n\s[515]* (He shudders)\w8\w8\n\n\s[516]Be careful,\w4 please,\w4 that's a really sensitive spot.\e"
+			"\0\s[301]Ghk-!\w8\w8\w8\s[201]\n\nAh,\w4 don't touch that.\w8\w8\s[515] Please.\w8\w8\n\n* (He shivers.)\e"
+		}
+		else //He isn't sure what to make of you yet
+		{
+			love -= 1
+			--
+			"\s[203]* (He dodges your cursor.)\w8\w8\n\nPlease don't touch my head.\w8\s[400] Especially not there, it's very rude.\e"
+			"\s[203]* (He dodges your cursor.)\w8\w8\n\nHey!\w8\w8\s[400] Don't touch my head,\w4 especially not there,\w4 please.\e"
+		}
+	}
+	elseif LV > 0 //Negative routes
+	{
+		LV += 2
+		if LVCheck == 1 //know his secrets
+		{
+
+				if broken == 1 //broken him down all the way
+				{
+					"\s[515]* (You stroke the damaged part of his skull.)\w8\w8\n\n\s[500]* (He shudders, but doesn't move away.)\e"
+					"\s[515]* (You stroke the damaged part of his skull.)\w8\w8\n\n\s[500]* (He chokes back a noise of protest.)\e"
+				}
+				else //breaking him, but he's still standing
+				{
+					"\s[515]* (You stroke the damaged part of his skull.)\w8\w8\n\n\s[500]* (He shudders, but doesn't move away.)\e"
+					"\s[515]* (You stroke the damaged part of his skull.)\w8\w8\n\n\s[500]* (He chokes back a noise of protest.)\e"
+				}
+		}
+		else //Just mean for no reason
+		{
+			if LV <= 30 //you've been a bit mean
+			{
+				"\s[402]* (He dodges your cursor.)\w8\w8\n\n\s[412]No.\w8 Stay away from that.\e"
+				"\s[402]* (He dodges your cursor.)\w8\w8\n\n\s[412]Knock it off.\e"
+			}
+			elseif LV >=31 //You've been really mean and he hates you a lot
+			{
+				"\s[402]* (He dodges your cursor.)\w8\w8\n\n\s[412]No.\w8 Stay away from that.\e"
+				"\s[402]* (He dodges your cursor.)\w8\w8\n\n\s[412]Knock it off.\e"
+			}
+		}
+	}
+}
+
+
+
+
+SnagCracks
+{
+	if LV == 0 //Friendship routes
+	{
+		if love >= 75 //Full friendship
+		{
+			"\0\s[301]Ah..!\w8 \n\n* (Your mouse slips and snags on one of the cracks as you attempt to pet him.)\w8\n\n* (You begin to apologize profusely for the mistake.) \w8\w8\n\n\s[200] Ah-\w8 I'm ok.\w8\s[201] Just be more careful, alright?\e"
+		}
+		elseif love >= 20 //getting to know him a little
+		{
+			"\0\s[301]Ah..!\w8 \n\n* (Your mouse slips and snags on one of the cracks.)\w8\w8\n\n\s[516]%(username), please be more careful where you're pointing that thing.\e"
+			"\0\s[301]Ah..!\w8 \n\n* (Your mouse slips and snags on one of the cracks.)\w8\w8\n\n\s[512]Ah, please stop touching my head if you can't control that thing.\e"
+		}
+		else //He isn't sure what to make of you yet
+		{
+			love -= 1
+			--
+			"\s[1550]Ah-!\n\n* (You make a hasty attempt to pet him, and jam your cursor into one of the cracks on his head instead.)\w8\w8\n\n\s[402] Hey..!\w8\w8\s[400] Don't touch my head,\w4 this is why.\e"
+		}
+	}
+	elseif LV > 0 //Negative routes
+	{
+		LV += 2
+		if LVCheck == 1 //know his secrets
+		{
+			if broken == 1 //broken him down all the way
+			{
+				"\s[500]* (You shove your cursor into the cracks on his head.)\w8\w8\n\n* (He makes a small noise, but doesn't move.)\e"
+				"\s[500]* (You grab the cracks on his head.)\w8\w8\n\n* (He makes a small,\w4 pained noise,\w4 but doesn't move away.)\e"
+			}
+			else //breaking him, but he's still standing
+			{
+				"\0\s[1550]Ah-!\n\n* (You dig your cursor into one of the cracks on his head.)\w8\w8\w8\s[512]\n\n* (He looks away...)\e"
+				"\0\s[1550]Ah-!\n\n* (You dig your cursor into one of the cracks on his head.)\w8\w8\w8\s[511]\n\n* (Fear flickers across his face,\w4\s[515] but he doesn't dare to pull away.)\e"
+			}
+		}
+	}
+	else //Just mean for no reason -- Extra dialogue is added once you pass a certain threshold, but the old stuff stays
+	{
+		"\0\s[1550]Ah-!\n\n* (You dig your cursor into one of the cracks on his head.)\w8\w8\s[413]\n\nKnock it off already!\e"
+		"\0\s[1550]Ah-!\n\n* (You run your cursor over his head roughly, catching on one of the cracks in the process.)\w8\w8\s[413]\n\nCut it out!\e"
+		"\0\s[403]* (He dodges your cursor.)\w8\w8\n\nNo.\w8 Stay away.\e"
+		if LV >=31 //You've been really mean and he hates you a lot
+		{
+			"\0\s[1550]Ah-!\n\n* (There's a sickening crack as you jam your cursor into his eye socket.)\n\n\w8\w8\w8\s[401].\w8.\w8.\w8Are there no depths to which you won't stoop?\e" //replaceframe could use hugging himself here
+			"\0\s[1550]Ah-!\n\n* (You shove your cursor into one of the cracks on his head.)\n\n\w8\w8\w8\s[403].\w8.\w8.\w8You're lucky I can't reach you from here.\e"
+		}
+	}
+}
+
+OnMouseDown //Boop!
+{
+	if reference5 == 0 //Reference5 is which mouse key is being clicked. 0 is a left click.
+	{
+		if LV == 0
+		{
+			if reference4 == "Face" && reference3 == 0
+			{
+				totalboops += 1
+				"\0\s[110]* (You boop his nose!)\w8\w8\w8\n\n"
+				--
+				"\s[106]"
+				"\s[107]"
+				--
+				"...Ok??\e"
+				"...Um,\w4 thanks?\e"
+				"...What was that for??\e"
+				"...Alright,\w4 I guess?\e"
+			}
+		}
+	}
+}
+
+OnMouseDragEnd
+{
+	//if SHIORI3FW.CanTalk == 1
+	if SinceTalk > 1 && mikireflag != 1 //SinceTalk is set up in aitalk, it's the seconds since he stopped talking. mikireflag is to do with him being off screen. This ensures that that dialogue doesnt get interrupted.
+	{
+		"\![get,property,OnCheckPosition,currentghost.scope(0).rect]" //This checks his current coordinates to see if you've dragged him onto a new screen
+		FromDragging = 1
+	}
+	else
+	{
+		OnUpdateCoords //Even if he cant say anything, he'll at least update his position so he knows if you're moving him right or left
+		FromDragging = 2
+	}
+}
+
+
+
+OnUpdateMonitors
+{
+	CurrentXMonitor = NewXMonitor
+	CurrentYMonitor = NewYMonitor
+	CurrentXPos = XCoord
+	CurrentYPos = YCoord
+	FromDragging = 0
+}
+
+OnUpdateCoords //Just should move the coord getting and whatnot into here..... tho wait I can't do this lol. Hrm. Ok I'll move this over to the other thing then...
+{
+	CurrentXPos = XCoord
+	CurrentYPos = YCoord
+}

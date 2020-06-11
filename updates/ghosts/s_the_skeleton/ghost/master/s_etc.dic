@@ -1,0 +1,2141 @@
+﻿//---------------------------Miscellaneous Functions--------------------------
+
+OnFileDrop2
+{
+	if lastinteracted > 6
+	{
+		CameBack += 1
+	}
+	--
+	lastinteracted = 0
+	if LV == 0
+	{
+		_filepath = SPLITPATH(reference0)
+		_filename = _filepath[2]
+		_fileext = TOLOWER(_filepath[3])
+		case _fileext
+		{
+			when ".jpg", ".jpeg", ".bmp", ".png" //These are the formats your ghost will recognize as image files to set as the background. I tested this with .png files and it does not work, so don't bother adding that as an option. [Zi] Seems to be working fine for me... I'm worried it's gonna break later or something lol
+			{
+			Wallpaperfile = reference0
+			
+			"\0\s[110]Oh,\w4\s[104] this is neat.\w8\w8\s[0] Do you want me to set it as your wallpaper?"
+			"\0\s[110]Oh, a picture?\w8\w8\s[1020] Uh, sure, I think I could set that as your wallpaper.\w8\w8\s[208] How do you want it?"
+			--
+			"\n\n[half]/
+			\![*]\q[Centered,SetWallpaper_0]\n/
+			\![*]\q[Tiled,SetWallpaper_1]\n/
+			\![*]\q[Stretched,SetWallpaper_2]\n"
+			--
+			_osver = TOINT(os_version)
+			if "Windows" _in_ os_name && _osver >= 10
+			{
+				"\![*]\q[Span,SetWallpaper_3]\n"
+			}
+			--
+			"\n\n[half]\![*]\q[No thanks,SetWallpaper_Cancel]\e"
+			}
+			when ".mid", ".wav", ".mp3", ".wma", ".au", ".flac", ".m4a" //Music files
+			{
+				"\s[103]Oh hey, is this music?\w8\w8\s[106] Unfortunately, I don't uh...\w8\s[107] know how to read a file like this.\w8\w8\s[0] Maybe someone else could play it for you?\e"
+				"\0\s[1070]A %(_fileext),\w4 huh?\w8\w8\s[106] Sorry,\w4 I can't play this for you.\w8\w8\s[0] Maybe someone else could?\e"
+			}
+			when ".psd", ".sai", ".sai2", ".clip", ".mdp", ".kra", ".xcf" //art files
+			{
+				"\0\s[110]Oh,\w4 is this a drawing?\w8\w8\s[104] That's really cool,\w4 %(username)!\e"
+			}
+			others //Any other file format. As a note here, if you drop something ghost-related on them that does not have an install.txt, then they won't install it and will just say this response. If you are testing your balloon or nar files and you get this response instead of a proper installation, you should check and make sure you have an install.txt in the file!
+			{
+				"\0\s[106]Sorry, I don't recognize that file type.\w8\w8\s[107] I'm not very good with computers, to be honest with you.\e"
+			}		
+		}
+	}
+	elseif LVCheck == 1
+	{
+		_filepath = SPLITPATH(reference0)
+		_filename = _filepath[2]
+		_fileext = TOLOWER(_filepath[3])
+		case _fileext
+		{
+			when ".jpg", ".jpeg", ".bmp"
+			{
+			Wallpaperfile = reference0
+			
+			"\0\s[510]...How do you want your wallpaper set?\n\n[half]/ 
+			\![*]\q[Centered,SetWallpaper_0]\n/
+			\![*]\q[Tiled,SetWallpaper_1]\n/
+			\![*]\q[Stretched,SetWallpaper_2]\n\n[half]/
+			\![*]\q[Forget it,SetWallpaper_Cancel]\e"
+			}
+			others
+			{
+				"\0\s[510]...Sorry, I can't do anything with that file.\e"
+			}
+		}			
+	}
+	else
+	{
+			"\s[400]Hmph.\w8 I'm not doing anything with it.\e"
+			"\s[400]Keep your files to yourself, I don't want them.\e"
+	}
+	
+}
+
+//This set of options sets the wallpaper up. You can replace the dialogue, but make sure to leave the \![set,wallpaper, etc.] tag at the beginning.
+
+Select.SetWallpaper_0
+{
+	if LV == 0
+	{
+		"\![set,wallpaper,%(Wallpaperfile),center]\0\s[104]Ok, I've centered it for you.\w8\w8\s[106] Is it straight? It's hard to tell from here.\e"
+	}
+	else
+	{
+		"\![set,wallpaper,%(Wallpaperfile),center]\0\s[510]...Ok, I've centered it.\e"
+	}
+	
+}
+Select.SetWallpaper_1
+{
+	if LV == 0
+	{
+		"\![set,wallpaper,%(Wallpaperfile),tile]\0\s[0]\s[104]Ok, I've tiled it for you.\w8\w8\s[101] Funky.\e"
+	}
+	else
+	{
+		"\![set,wallpaper,%(Wallpaperfile),tile]\0\s[510]...Ok, I've tiled it.\e"
+	}
+}
+Select.SetWallpaper_2
+{
+	if LV == 0
+	{
+		"\![set,wallpaper,%(Wallpaperfile),stretch]\0\s[104]Ok, I've stretched it across.\w8\w8\s[106] Does it look ok?\e"
+	}
+	else
+	{
+		"\![set,wallpaper,%(Wallpaperfile),stretch]\0\s[510]...Ok, I've stretched it.\e"
+	}
+	
+}
+Select.SetWallpaper_3
+{
+	if LV == 0
+	{
+		"\![set,wallpaper,%(Wallpaperfile),span]\0\s[104]Ok, I've fit it onto both monitors.\w8\w8\s[106] Does it look ok?\e"
+	}
+	else
+	{
+		"\![set,wallpaper,%(Wallpaperfile),span]\0\s[510]...Ok, I've spanned it across.\e"
+	}
+}
+Select.SetWallpaper_Cancel
+{
+	if LV == 0
+	{
+		"\0\s[0]Alrighty then, just let me know if you change your mind.\e"
+	}
+	else
+	{
+		"\0\s[510]...Ok.\e"
+	}
+	
+}
+
+
+ //---- OnInstallBegin -------------------------------------------------------
+ //OnInstallBegin is called when a file with an included install.txt is dropped on your ghost. This primarily means things like .nar files for other ghosts or .zip files containing balloons or shells for your ghosts. Primarily ghost-related things. Replace as you want.
+ 
+OnInstallBegin
+ {
+	if lastinteracted > 6
+	{
+		CameBack += 1
+	}
+	--
+	lastinteracted = 0
+	if LV == 0
+	{
+		"\0\s[0]Oh, you need something installed?\w8\w8\s[1070] Uh, let me see...\e"
+	}
+	elseif LVCheck == 1
+	{
+		"\0\s[510]...Ok, just a moment.\e"
+	}
+	else
+	{
+		"\s[400]Hmph.\w8 I'm not doing anything with it.\e"
+		"\s[400]Keep your files to yourself, I don't want them.\e"
+	}
+ }
+
+ //---- OnInstallComplete -------------------------------------------------------
+ //OnInstallComplete runs once the file above has finished installing.
+ 
+OnInstallComplete
+ {
+	"\0" //this means your main character will be speaking first, therefore the \s[] at the beginning of each line will be defining your main character's pose.
+ 	--
+	if reference0 == "shell" //This is checking to see if what you installed is classified as a shell in the install.txt. Remember the line in install.txt that said type,ghost or type,shell? This is why that line is important, that's what tells the program what it's installing like so.
+ 	{	
+		if reference1 == "Hypothetical Shell that doesn't actually exist" //This is the name of your shell as you defined in descript.txt in the shell folder.
+		{
+		"\s[0]We have installed Hypothetical Shell.\w8\1\s[10]Truncated for space.\e"
+		//Replace if needed.
+		}
+		elseif reference1 == "Another totally real shell wow" //As in other files, you can use elseif to expand a list like this to include as many shells as you have or think you'll make. See bootend.dic for more details about elseif.
+		{
+		"\s[0]We have installed another totally real shell.\e"
+		//Replace if needed.
+		}
+		else //For any other shell they may install.
+		{
+		"\s[0]We've installed a new shell.\w8\1\s[10]It's called  %(reference1).\e"
+		//%(reference1) here would be the name of the shell they installed. Replace if needed.
+		}
+ 	}
+	elseif reference0 == "ghost" //if the type of the file they're installing is a ghost.
+ 	{
+		if LV == 0
+		{
+			"\s[1070]Oh, someone else..?\w8\w8\s[101] Is this how I ended up here?\e"
+		}
+		else
+		{
+			"\s[513]...Looks like someone else for you to-\s[515]\w8\w8\w8\s[510] ...talk to.\e"
+		}
+		//Reference1 here would be the name of the ghost. Replace as needed.
+ 	}
+	elseif reference0 == "balloon" //if the type of file is a balloon
+ 	{
+		if LV == 0
+		{
+		"\s[1070]Oh, it's a...\w8 balloon?\w8\w8\s[205] ...Doesn't look like any balloon I've ever seen, but ok.\e"
+		}
+		else
+		{
+			"\0\s[510]...It's a new balloon.\e"
+		}
+		//Reference1 here would be the name of the balloon. Replace as needed.
+ 	}
+	elseif reference0 == "plugin" //if the type of file is a plug-in, like a saori of some kind.
+ 	{
+		if LV == 0
+		{
+		"\s[1070]Oh, it's a...\w8 'plugin'?\w8\w8\s[1020] Sorry kiddo, got no idea what that is.\w8\s[0] But it's installed now, so it should work for you.\e"
+		}
+		else
+		{
+			"\0\s[510]...It's a new plugin.\e"
+		}
+		//Reference1 here would be the name of the plug-in. Replace as needed.
+ 	}
+}
+
+//---- OnInstallFailure -------------------------------------------------------
+//If the file you dropped fails to install for one reason or another.
+
+OnInstallFailure
+ {
+	if LV == 0
+	{
+	"\0\s[200]Ah,\w4 sorry %(username),\w4 something went wrong." //this first bit of dialogue begins the explanation of what happened. You can replace this with an appropriate intro statement.
+		--
+		if reference0 == "unsupported" //These if statements determine how it happened to finish the piece of dialogue. This 	checks if the reason it failed is because it was unsupported.
+		{
+		"\s[201]I don't think that file is supported.\e"
+		//Replace with whatever dialogue for an unsupported file you may come up with.
+		}	
+		elseif reference0 == "extraction" //This checks if the file didn't extract properly.
+		{
+		"\s[300]I couldn't get it to extract.\e"
+		//See above but for a failed extraction.
+		}
+	}
+	else
+	{
+	"\s[516]Something went wrong." //this first bit of dialogue begins the explanation of what happened. You can replace this with an appropriate intro statement.
+		--
+		if reference0 == "unsupported" //These if statements determine how it happened to finish the piece of dialogue. This 	checks if the reason it failed is because it was unsupported.
+		{
+		"\s[510]The file isn't supported.\e"
+		//Replace with whatever dialogue for an unsupported file you may come up with.
+		}	
+		elseif reference0 == "extraction" //This checks if the file didn't extract properly.
+		{
+		"\s[510]I couldn't extract it.\e"
+		//See above but for a failed extraction.
+		}
+
+	}
+ }
+ 
+ //--OnInstallRefuse
+ //If the file you dropped can't be installed with this ghost.
+ 
+OnInstallRefuse
+ {
+	 if LV == 0
+	 {
+		"\s[106]Sorry kiddo,\w4 I can't install this.\w8\w8\s[1070] Looks like it's meant for someone else,\w4 it says %(reference0)?"
+	 }
+	 else
+	 {
+		"\s[516]...I can't install this.\w8\w8\s[510] It's for %(reference0)."
+	 }
+	//reference0 in this function refers to the ghost this file is associated with, probably the name of the ghost listed in its install.txt file. You would see this if you dropped a shell made for a different ghost on your current ghost, for example. They can't install a shell for themselves they can't use, right? Anyway, replace this with what you wish, you can use the reference0 envelope or not if you want.
+ }
+
+
+//**** Uninstallation ******************************************
+//You may have noticed in the configuration menus in menu.dic an option to turn Uninstall on or off, as well as a greyed out option to uninstall in the right click menu. These following functions relate to the uninstallation process when it's on. Replace the dialogue in each function as we go along.
+
+
+//--OnVanishSelecting
+//When you select the uninstall option in the menu.
+
+OnVanishSelecting
+{
+	if LV == 0
+	{
+	"\0\s[205]* (Is it time to say goodbye..?)\e"
+	}
+	else
+	{
+	"\0\s[404]* (Are you done with him..?)\e"
+	}
+}
+
+//OnVanishSelected
+//When you decide to uninstall them. 
+
+OnVanishSelected
+{
+	if LV == 0
+	{
+	"\0\s[0]* (You say farewell.)\w8\w8\n\n\s[110]Oh, really..?\w8\w8\s[106] Well, alright then.\w8\w8\n\n\s[1010]It was nice hanging out with you,\w4 %(username).\w8\w8 Take care of yourself!\w8\w8\e"
+	}
+	else
+	{
+		if LVCheck == 1
+		{
+			"\0\s[510]* (He leaves \s[-1]quietly.)\w8\w8\e"
+		}
+		else
+		{
+			"\0\s[402]Took you long enough.\w8\w8\e"
+		}
+	}
+}
+
+
+//--OnVanishCancel
+//If you select Uninstall from the menu, but decide not to do it.
+
+OnVanishCancel
+{
+	if LV == 0
+	{
+	"\0\s[0]* (You decide to keep him a while longer.)\e"
+	}
+	elseif LVCheck == 1
+	{
+	"\0\s[510]* (Not just yet.)\e"
+	}
+	else
+	{
+	"\0\s[400]* (He tries to hide his disappointed look.)\e"
+	}
+}
+
+//--TalkVanishButtonHold
+//I believe this calls if you click and hold the button on either the menu option for uninstalling them, or possibly the option itself. Be careful if you're trying to test this! You'd hate to uninstall all your hard work, right? I'd probably just make sure the dialogue looks right via Script Input and leave it at that.
+//[Zi] I've tested this and can't seem to get this dialogue to appear. Ah well.
+
+TalkVanishButtonHold
+{
+	if LV == 0
+	{
+	"\0\s[206]* (He seems agitated.)\e"
+	}
+	elseif LVCheck == 1
+	{
+	"\0\s[510]* (He stays silent.)\e"
+	}
+	else
+	{
+	"\0\s[410]* (He seems agitated.)\e"
+	}
+}
+
+
+ //---- OnVanished -----------------------------------------
+ //OnVanished is a weird little function. Basically, if you uninstall a ghost, it'll automatically go back to the last ghost you were using. They'll then say this line of dialogue about the ghost you just uninstalled. This is very annoying to test as you can imagine! But unlikely to come up super often, I bet. You might as well be thorough and fill this out as well. Make sure to set up both their poses immediately so they both appear when it switches back to them.
+ 
+OnVanished
+ {
+	if LV == 0
+	{
+	"\0\s[206]Oh,\w4 is %(reference0) gone..?\w8\w8\s[204] ...I hope they're alright...\e"
+	}
+	elseif LVCheck == 1
+	{
+	"\0\s[516].\w8.\w8.\w8.\w8.\w8\s[510]\e"
+	}
+	else
+	{
+	"\0\s[404].\w8.\w8.\w8\s[400]Just like that, huh?\w8\w8\s[403] You're a cruel person, %(username).\e"
+	}
+}
+
+
+//**** Mail Checking *******************************************************************
+//The next set of functions have to do with checking your email. This function is a slippery little thing - I've had people test it following my directions and have it work, but I've never actually gotten it to report back the right amount of emails myself. Very frustrating. But perhaps you'll have more luck with it, haha.
+
+
+//*********************Advanced User Info*******************************
+//These text boxes are meant for those who have an interest in expanding or using more complicated functions in their ghost. Also for my own reference in the future since I plan on using this template too, haha. If you have no interest in any of this and just want to keep things as simple as possible, feel free to skip these boxes.
+
+//If you want to set up your ghost to check your mail so you can more easily check these messages instead of just writing the dialogue and moving on, it's a little bit tricky, but not super hard.
+//Basically, you're going to need to find your POP settings for your email account. Googling your provider + POP should bring it up pretty quick. Once you have the info, you'll go to the right click menu, options, then preferences. A big menu should pop up, and you should see POP in the left side. Click that, and input all the info from the POP page you looked up for your account. Tell your ghost to check your email, and if it works, then congratulations!
+//***********************************************************************
+
+
+ //---- OnBIFFBegin ---------------------------------------------------------------
+ //When you first tell the ghost to check your email. An intro statement, if you will. Replace with whatever you like.
+ 
+ 
+ 
+//[Zi] Note to self, at some point I mixed up the breaking and broken dialogue, I think I fixed all the numbers so that it picks the correct one now, but if it acts weird then maybe double check that... 
+OnBIFFBegin
+ {
+	if lastinteracted > 6
+	{
+		CameBack += 1
+	}
+	--
+	lastinteracted = 0
+	if mailfrommenu == 1
+	{
+		mailfrommenu = 0 //Adding this check because of auto email checks... this chunk is for if you've asked him to check for emails through the menu
+		if LV == 0
+		{
+			"\0\s[101]Uh,\w4 alright,\w4 sure.\w8\w8\s[1070] Give me just a moment...\e"
+		}
+		else
+		{
+			if broken == 1
+			{
+				"\s[510]* (He nods, and begins checking for new emails.)\e"
+			}
+			else
+			{
+				"\s[510]...Ok.\e"
+			}
+		} 
+	}
+	else //user is doing this through the right click menu or auto check
+	{
+		if LV == 0
+		{
+			"\0\s[1070]Looking for new emails,\w4 huh..?\w8\w8 Give me just a moment...\e"
+		}
+		else
+		{
+			if LVCheck == 1
+			{
+				"\0\s[510]* (He begins checking for new emails.)\e"
+			}
+			else
+			{
+				"\0\s[410]* (He starts grumpily checking for new emails.)\e"
+			}
+		} 
+	}
+ }
+
+ 
+ //---- OnBIFFComplete ---------------------------------------------------------------
+ //After they've succeeded in checking your mail, they'll report back with how many new emails you have. Replace the dialogue with whatever would be character appropriate.
+ 
+OnBIFFComplete
+ {
+	if reference0 == 0 //If you have no new mail.
+ 	{
+ 		if LV == 0
+	{
+		"\0\s[106]Nope, looks like there's nothing new.\e"
+	}
+	else
+	{
+			"\0\s[516]...No new emails.\e"
+	} 
+	}
+	elseif reference0 == 1 //If you have one new email.
+ 	{
+ 		if LV == 0
+	{
+		"\0\s[0]You've got one new email."
+	}
+	else
+	{
+		"\0\s[516]...One new email.\e"
+	} 
+	}
+	elseif reference0 > 1 && reference0 < 11 //If you have more than one email but less than eleven.
+	{
+		if LV == 0
+	{
+		"\0\s[0]You've got %(reference0) new emails.\w8\s[103] Probably shouldn't let those pile up too much, huh?\e"
+	}
+	else
+	{
+			"\0\s[516]...%(reference0) new emails.\e"
+	} 
+		//reference0 here stores the amount of new email it finds.
+	}
+	elseif reference0 > 100 //If there are over one hundred new emails.
+	{
+		if LV == 0
+	{
+		"\0\s[106]You've uh...\w8\s[107] got a lot of new emails,\w4 kiddo.\w8\w8\s[208] I'd say more than 100,\w4 at least.\e"
+	}
+	else
+	{
+			"\0\s[516]...Over 100 new emails.\e"
+	} 
+	}
+ 	else //For any other number of emails.
+	{
+		if LV == 0
+		{
+		"\0\s[0]You've got %(reference0) new emails.\e"
+		}
+		else
+		{
+				"\0\s[516]...%(reference0) new emails.\e"
+		} 
+ 	}
+}
+
+ //---- OnBIFFFailure ---------------------------------------------------------------
+ //Various error messages that can happen when your ghost tries to connect to an email account. Replace the dialogue as appropriate.
+ 
+OnBIFFFailure
+ {
+	if reference0 == "timeout" //If the connection times out.
+ 	{
+ 		if LV == 0
+		{
+			"\0\s[106]Sorry, looks like the connection timed out.\w8\w8 Maybe try again later?\e"
+		}
+		else
+		{
+				"\0\s[510]...Sorry, the connection timed out.\e"
+		} 
+	}
+ 	elseif reference0 == "kick" //If the account blocks the ghost from accessing it. I think gmail may do this at first to try and protect your account from unapproved applications using it. It gives you the option to change the setting in the warning email they send you about it.
+	{
+		 if LV == 0
+		{
+			"\0\s[106]Sorry, it won't let me in.\w8\w8 Maybe double check your email settings?\e"
+		}
+		else
+		{
+				"\0\s[510]...Sorry, I can't access your inbox.\e"
+		}
+	}
+	elseif reference0 == "defect" //If the information put into the POP menu is wrong.
+ 	{
+		if LV == 0
+		{
+			"\0\s[106]Sorry, looks like something isn't set up quite right.\w8\w8\s[206] Maybe double check your POP settings?\![open,configurationdialog]\e"
+		}
+		else
+		{
+				"\0\s[510]...Sorry, the POP settings aren't right.\![open,configurationdialog]\e"
+		} 
+	
+	}
+ 	else //if there's some other kind of error.
+	{	
+		if LV == 0
+		{
+			"\0\s[106]Sorry, all I've got is some kind of error message.\n\n'%(reference[0])'.\e"
+		}
+		else
+		{
+				"\0\s[510]...Sorry, I got an error.\w8\n\n'%(reference[0])'.\e"
+		} 
+		
+		
+		//reference0 here stores the error message the email server would have given the ghost, hopefully.
+ 	}
+}
+
+
+ //**** Network Update *****************************************************************
+ //The following functions are for the Network Update of your ghost, where it will connect to your website, check for new files, and update itself. This is a handy feature, but tricky to set up. If you have no intention of using Network Update, you can disregard these, but it won't hurt to fill them out anyway just in case. More details about how to set up Network Update are in the walkthrough (http://www.ashido.com/ukagaka/walkthrough.html).
+ 
+ //Replace the dialogue in the next set of functions as appropriate. You can easily test these messages using the Developer panel. Go to Open at the bottom of it and choose one of the four Update Event options to simulate a Ghost's update process. I highly recommend doing this at LEAST once if you're going to use this feature to make sure it flows well.
+
+OnUpdateCheckComplete
+{
+	if reference0 != "none" //reference0 here will say 'none' if there are no new files, and will be a number if there are new files. So if reference0 is anything other than 'none', tell the user there's an update
+	{
+		updateavailable = 1
+	}
+	else //just in case this variable ends up not being reset...
+	{
+		updateavailable = 0
+	}
+	
+}
+
+
+ 
+ //---- OnUpdateBegin -------------------------------------------------------------
+ //When you first tell your ghost to update. An introductory statement, like OnBIFFBegin above. Replace or add more dialogue as appropriate. Note that they end with \w8 to give a little breather time.
+ 
+OnUpdateBegin
+ {
+	if lastinteracted > 6
+	{
+		CameBack += 1
+	}
+	--
+	updateavailable = 0
+	lastinteracted = 0
+	if LV == 0
+	{
+		"\0\s[110]Updates?\w8\w8\s[1010] Sure,\w4 I can check.\w8\w8\s[1070] Let me see...\w8\e"
+	}
+	else
+	{
+		if LVCheck == 1
+		{
+			"\0\s[510]* (He nods and begins checking for updates.)\w8\e"
+		}
+		else
+		{
+			"\0\s[400]Hmph.\w8\w8 Maybe I'll get lucky and there'll be an update that lets me punch you instead.\w8\e"
+		}
+	}
+ }
+
+ //---- OnUpdateReady ---------------------------------------------------------
+ //If the ghost finds new files to update with.
+ 
+OnUpdateReady
+ {
+	reference[0] += 1 //So I'm guessing that this counts starting from 0, so it always shows as 1 less file than it is... this fixes that.
+	if LV == 0
+	{
+		"\0\s[1010]Looks like there are %(reference[0]) new files.\w8\w8\s[1070]\e"
+	}
+	else
+	{
+		if LVCheck == 1
+		{
+			"\0\s[516]There are %(reference[0]) new files.\w8\e"
+		}
+		else
+		{
+			"\0\s[404]There's something new after all.\w8\e"
+		}
+	}
+	booting = 2 //setting this so HOPEFULLY he stops making the shell changing comments when he updates his shell...
+ }
+
+
+//---- OnUpdateComplete -------------------------------------------------------------
+//When the ghost has finished the update process.
+
+OnUpdateComplete
+ {
+	updateavailable = 0
+	if reference0 == "none" //if the ghost had nothing to update with
+ 	{
+ 		if LV == 0
+		{
+			"\0\s[106]Sorry kiddo,\w4 looks like there are no new files.\e"
+		}
+		else
+		{
+			if LVCheck == 1
+			{
+				"\0\s[516]There are no new files.\e"
+			}
+			else
+			{
+				"\0\s[412]There's nothing new.\w8\w8\s[400] Stop wasting my time.\e"
+			}
+		}
+	
+	}
+ 	else //if the ghost has updated successfully
+	{	
+		if poppable == "" //Update 1.1 variables - These wont be set if they've already been set once
+		{
+			DeviceMemories = ""
+			DeviceList = '-' //start with -
+			knowaboutkit = 0
+			knowaboutsmol = 0
+			continuousstroke = 0
+			totalsnags = 0
+			totalpunches = 0
+			pethighscore = 0
+			scroll = 0
+			talkedtoDusty = 0
+			AzuraSongMemories = ""
+			staysafe = 0
+			mailfrommenu = 0
+			knowaboutbirdy = 0
+			knowaboutsorrel = 0
+			knowaboutpmd = 0
+			knowaboutbender = 0
+			knowaboutnine = 0
+			knowaboutserif = 0
+			knowaboutecho = 0
+			knowaboutice = 0
+			knowaboutomega = 0
+			balloonspopped = 0
+			poppable = "OFF"
+			specialcommu = 0
+			complimentaboutdusty = 0
+			dustyspaceandtime = 0
+			totalhugs = 0
+			hugged = 0
+			abbiblind = 0
+			nowscale = 100
+			changedscaling = 0
+		}
+		--
+		if SongMemories == "-"
+		{
+			SongMemories = ""
+		}
+		--
+		
+
+		if LV == 0
+		{
+			"\0\s[1010]Update complete!\w8\w8\s[0] Do you want to see the changelog?\n\n\![*]\q[Yes,seechangelog]\n\![*]\q[No,nochangelog]\e"
+		}
+		else
+		{
+			if LVCheck == 1
+			{
+				"\0\s[510]...Update complete.\w8\w8\s[516] Do you want to see the changelog?\n\n\![*]\q[Yes,seechangelog]\n\![*]\q[No,nochangelog]\e"
+			}
+			else
+			{
+				"\0\s[402]Update complete.\e" //No he's not going to offer you the changelog lol
+			}
+		}
+ 	}
+	booting = 0
+}
+
+ //---- OnUpdateFailure -------------------------------------------------------------
+ //Error messages if the update process fails in some way.
+ 
+OnUpdateFailure
+ {
+	if reference0 == "timeout" //if the connection times out
+ 	{
+ 		if LV == 0
+		{
+			"\0\s[106]Sorry kiddo,\w4\s[107] looks like the connection timed out.\w8\w8\s[0] Maybe try again later?\e"
+		}
+		else
+		{
+			if LVCheck == 1
+			{
+				"\0\s[510]...Sorry,\w4 the connection timed out.\e"
+			}
+			else
+			{
+				"\0\s[400]The connection timed out.\e"
+			}
+		}
+	}
+ 	elseif reference0 == "md5 miss" //This is if the files don't match properly to updates.dau, I think. For example, if a file only partially transferred or somehow got corrupted. This may also come up if you didn't set up the directory and updates.dau properly as outlined on the walkthrough page.
+	{
+		if LV == 0
+		{
+			"\0\s[107]Sorry kiddo, something went wrong.\w8\w8\s[106] The MD5 values don't match.\w8\w8\s[0] You should let Zichqec know so she can fix it.\e"
+		}
+		else
+		{
+			if LVCheck == 1
+			{
+				"\0\s[515]...I'm sorry, the files don't match.\w8\w8\s[516] You should let Zichqec know so she can fix it.\e"
+			}
+			else
+			{
+				"\0\s[400]The files don't match.\w8\w8\s[402] You'll have to talk to Zichqec about that, I can't do anything for you."
+			}
+		}
+
+ 	}
+	else //for other errors
+ 	{
+ 		if LV == 0
+		{
+			"\0\s[106]Sorry kiddo, something went wrong.\w8\w8\s[1070] All it says is '%(reference0)'.\w8\w8\s[106] Maybe you should let Zichqec know about that?"
+		}
+		else
+		{
+			if LVCheck == 1
+			{
+				"\0\s[512]...I'm sorry, something went wrong.\w8\w8 All it says is '%(reference0)'.\w8\w8\s[510] You might try talking to Zichqec about that.\e"
+			}
+			else
+			{
+				"\0\s[410]Something went wrong.\w8\w8 All it says is '%(reference0)'.\w8\w8\s[402] Maybe you should try asking Zichqec about that.\e"
+			}
+		}
+	}
+ }
+
+
+ //---- OnUpdate.OnDownloadBegin ------------------------------------------------
+ //This dialogue plays when they begin downloading a new file. WARNING: if you have big plans for your ghost and are going to make a lot of new image files for it (like... i do, cough) at some point, you're going to want to make these messages very brief, if you even have them at all. The reason is because the user will see these messages for EVERY individual file that they have to download, and if you have, say, 50 pna files in the queue, they will see this dialogue 50 times. Not only that, but displaying the dialogue takes some time, so it also extends the download process.
+ //If you aren't planning on adding a ton of files at any point, or are only intending to update the .dic files which will be at most a handful of files, then you can go ahead and put a short message in here. But if your ghost is going to grow in leaps and bounds as you work on it, try and keep these messages as brief as possible to make the process that much faster for your user.
+ 
+OnUpdate.OnDownloadBegin
+{
+	"\_q* (Downloading %(reference0)...)\n\n"
+	--
+	Update_Process = TOINT(reference1) + 1
+	Update_Total = TOINT(reference2) + 1
+	Update_Remaining = Update_Total - Update_Process
+
+	//defining starting points
+	PointA = 1
+	PointB = 1
+
+	//defining text buffers beforehand, otherwise they don't display right
+	_txt = ""
+
+	//loop calculates how many check boxes to display based on the variables above
+
+	while PointA <= Update_Process
+	{
+		_txt += "\_b[img\update.png,inline,--option=use_self_alpha]"
+		PointA++
+	}
+	//see above except for blank boxes
+	while PointB <= Update_Remaining
+	{
+		_txt += "\_b[img\updatee.png,inline,--option=use_self_alpha]"
+		PointB++
+	}
+	--
+	//using the text buffers to display the correct number of boxes
+	"%(_txt)\n\n%(Update_Process) of %(Update_Total)"
+	--
+	//flavortext
+
+	if "aitalk" _in_ reference0 //this is checking to see what kind of files are being downloaded. In this case, it's looking for files called aitalk in the download queue.
+	{
+ 		if LV == 0
+		{
+			"\0\s[1010]Looks like something new to say randomly.\e"
+		}
+		else
+		{
+			if LVCheck == 1
+			{
+				"\0\s[512]...New random dialogue...\e"
+			}
+			else
+			{
+				"\0\s[412]Hey, it's some new dialogue.\w8\w8\s[402] Maybe you could see some of it if you didn't hit me.\e"
+			}
+		}
+ 	}
+	elseif "mouse" _in_ reference0
+	{
+		if LV == 0
+		{
+			"\s[106]Looks like there might be new petting dialogue.\w8\w8\s[107] If uh, that's what you want to do.\e"
+		}
+		else
+		{
+			if LVCheck == 1
+			{
+				"\s[516]* (Looks like there might be new dialogue for petting or hitting him...\w8\w8 he seems unhappy about it.)\e"
+			}
+			else
+			{
+				"\s[400]Great, look at that.\w8\w8 Something new might happen if you hit me, hooray.\e"
+			}
+		}
+	}
+	else //for files not specified above
+	{
+		""
+	}
+
+
+	--
+	"\e"
+} 
+
+ 
+Select.seechangelog
+{
+	OnChangeLog
+}
+
+
+Select.nochangelog
+{
+	if LV == 0
+	{
+		"\s[1010]Ok,\w4 if you change your mind just let me know.\e"
+	}
+	else
+	{
+		"\s[510]...Ok.\w8\w8 Just tell me if you want to see it later.\e"
+	}
+}
+ 
+OnChangeLog //[Zi] haha I hope I remember to update this
+{
+	"\![set,autoscroll,disable]\_q\b2\_l[90]-Version 1.1-\n\n/ 
+	+Added blinking animations!\n\n/
+	+New shell: Pink Apron!\n\n/
+	+Added blip in animations!\n\n/
+	+New timelines menu that can be unlocked by asking him about timelines\n\n/
+	+Added lots more dialogue to the family menu\n\n/
+	+You can now ask about skeletons in general\n\n/
+	+There may be special dialogue if you pet him for a while without stopping...\n\n/
+	*Head collisions vastly improved\n\n/
+	*Slight improvements to the balloon\n\n/
+	*Rebalanced dialogue, dynamic dialogue should appear more often now\n\n/
+	*Changed the update system, it should be much faster next update!\n\n/
+	*Added colors when referencing certain characters, to help differentiate them\n\n/
+	*Various QoL tweaks and bugfixes\n\n/
+	-Option to ask about your music will only show if you're using a compatible player now (foobar2000, winamp, VLC)\n\n\n/
+	\_l[90]-Hotfix 1.1.1-\n\n/
+	*Fixed a couple typos and formatting issues, if you find any more please do contact me and let me know!\n\n\n"
+	--
+	if reference0 == "frommenu"
+	{
+	"\![*]\q[Back to functions,Onbacktofunctions]\n"
+	}
+	--
+	"\![*]\q[I'm done,cancelnodialogue]\e"
+} //the autoscroll tag at the top there means that it'll display starting from the top. As far as I can tell, that tag is disabled once the balloon changes? Doesn't seem to be causing any problems anyways.
+ 
+ 
+ 
+ 
+
+ //---- OnUpdate.OnMD5CompareBegin ---------------------------------------------------
+ //This checks the hash value of the files in the directory and the files listed in updates.dau, I believe. It will do this for every file the user downloads, so I again remind you of my warning above! For every file they download, they will have to go through three sets of unique dialogue, and it can get old fast. Not to mention it slows things down a lot. Again, I would recommend keeping this very brief, if not just replacing it with "..." instead.
+ 
+OnUpdate.OnMD5CompareBegin
+ {
+	""
+ }
+
+ //---- OnUpdate.OnMD5CompareComplete --------------------------------------------------
+ //After they've checked the MD5 value and it matches. See above about the length of this message.
+ 
+OnUpdate.OnMD5CompareComplete
+ {
+	""
+}
+
+ //---- OnUpdate.OnMD5CompareFailure ---------------------------------------------------
+ //If the MD5 values don't match. If you follow my Network Update directions carefully, this shouldn't come up very often, but don't be surprised if you run into it every now and then by forgetting a file here or there.
+ 
+OnUpdate.OnMD5CompareFailure
+ {
+	"\0\s[1070]The MD5 values don't match.\w8\e"
+ }
+
+ 
+ 
+ //**** Headlines and RSS Feeds *********************************************************
+ //This section has to do with the RSS feeds option on your ghost. If you drag and drop a url on them, they'll add it to a list you can access via the right-click menu, and they'll tell you the last set of updates for the site. This works best with RSS feeds I think, but you can experiment with other sites to see how it works.
+ //The headlines you see under the tab are in the headline folder under your base SSP install. So it'd be SSP\headlines. You should see the folders for each linked headline in there. I've very rarely ever messed with them or used them. Likewise, your RSS feeds you've added will be under SSP\rss and I don't think that option will appear in the headlines/RSS tab until you add an RSS feed to a ghost. If you want to clear your RSS feeds or headlines, just delete either of those two folders.
+ 
+
+ //---- OnHeadlinesenseBegin -----------------------------------------------------------
+ //This dialogue comes up when you select something in your RSS feed as an intro, like the other On[Thing]Begin things we've seen so far. Replace as you need.
+ 
+OnHeadlinesenseBegin
+ {
+	if lastinteracted > 6
+	{
+		CameBack += 1
+	}
+	--
+	lastinteracted = 0
+	if LV == 0
+	{
+		"\0\s[1070]%(reference0)?\w8 Uh, let me see here...\e"
+	}
+	elseif LVCheck == 1
+	{
+		"\0\s[510]%(reference0)...\e"
+	}
+	else
+	{
+		"\s[400]Hmph.\e"
+	}
+ }
+
+ //---- OnHeadlinesense.OnFind --------------------------------------------------------
+ //This actually displays the feed. My set-up for it is pretty simple but gets the job done, it just has the name of the feed, a line space, then a list of links. You shouldn't have to edit any of these and I probably wouldn't honestly.
+ 
+OnHeadlinesense.OnFind
+{
+	//----  What page You're on
+ 	if reference2 == "First" || reference2 == "First and Last"
+	{
+ 		//---- First page
+		"\0\b2%(reference0):"
+ 	}
+	elseif reference2 == "Next"
+ 	{
+		//---- Second page
+ 		"\0\b2%(reference0):"
+	}
+ 	elseif reference2 == "Last"
+	{
+ 		//---- Last page
+		"\0\b2%(reference0):"
+ 	}
+	--
+ 	//---- Headlines
+	"\n\n%reference3\n"
+ 	--
+	//---- Pages
+ 	if reference2 == "First" || reference2 == "Next"
+	{
+ 		//---- Bottom buttons
+		"\![*]\q[Next,] - \![*]\q[Stop,Headline_Cancel]\e"
+ 	}
+	else
+ 	{
+		//---- Bottom buttons
+ 		"\![*]\q[Stop,Headline_Cancel]\e"
+ 	}
+	
+}
+
+
+Select.Headline_Cancel
+{
+	if LV == 0
+	{
+		"\0\s[0]Headline viewing complete.\e"
+	}
+	elseif LVCheck == 1
+	{
+		"\0\s[510]Headline viewing complete.\e"
+	}
+	else
+	{
+		"\0\s[400]Headline viewing complete.\e"
+	}
+	//Actually I take that back, you can change this line of dialogue here for when you're done looking at a headline to something else if you want.
+}
+
+ //---- OnHeadlinesenseComplete -------------------------------------------------------
+ //This is an odd function. As far as I can gather, this is if the headline information gathering was successful, but there's no new information to report. Possibly if none of the feeds have updated? I'm a little fuzzy on this one.
+ 
+OnHeadlinesenseComplete
+ {
+	"\0\s[0]There's no update. %(reference0).\e"
+	//reference0 here supposedly always stores the value no update? Again this isn't hugely clear from what I can see. Anyway, this dialogue has never come up for me while using a ghost, so perhaps someone else who runs into it can offer more clarity. For now, you can leave it as is, or write up something else in here if you like.
+ }
+
+ //---- OnHeadlinesenseFailure ---------------------------------------------------------
+ //This one is more clearly for when the ghost can't get the information it needs about the RSS feed in question.
+ 
+OnHeadlinesenseFailure
+  {  
+	if LV == 0
+	{
+		"\0\s[106]"
+		--
+	}
+	elseif LVCheck == 1
+	{
+		"\0\s[516]"
+		--
+	}
+	else
+	{
+		"\0\s[412]"
+		--
+	}
+	--
+	"The feed can't updated.\w8\n\n[half]" //This sets up an exchange between the two characters. The final part of the exchange continues below in the if statements.
+ 	--
+	if reference0 == "can't download" //if they can't download the rss feed for some reason
+ 	{
+		"It can't be downloaded."
+ 	}
+	elseif reference0 == "can't analyze" //if they can't read the file for some reason
+ 	{
+		"It can't be analyzed."
+ 	}
+	else //other errors
+ 	{
+		"I don't know why."
+ 	}
+	--
+ 	"\e" //And here is the final /e, so you don't need to include it in the if statements above. Another one of the very rare cases this occurs.
+}
+
+//Don't know why this was in the menu and not in etc. This is when the user stops viewing headlines.
+Select.HEADLINECANCEL
+{
+	"\0\s[0]Finished with headlines.\e"
+}
+
+//**** Ghost Creation and Updating ******************************************************
+//These next few are related to creating updates2.dau and .nar files for your ghosts. You'll want to at least make a .nar to distribute your ghost, and if you're going to be using Network Update, you'll also want to make updates2.dau as well. It's unlikely that anyone other than you will see these messages, but you should be thorough and replace them anyway.
+//Primarily, you will see these messages when you're creating your updates file or updating your ghost.nar file. More on this on the walkthrough page. However, you could potentially drag and drop another ghost's folder onto them, and they'll also create a nar for that as well, though I've never done that myself. I really wouldn't mess around too much with this. Just follow the directions on the walkthrough page and fill out the dialogue here as required.
+
+
+ //---- OnUpdatedataCreating -----------------------------------------------------------
+ //This will begin the creation of the updates2.dau file. Not unlike the other beginning functions you've seen throughout this file. Replace with whatever you like.
+ 
+OnUpdatedataCreating
+ {
+	"\0\s[1010]Creating the updates2.dau file.\e"
+ }
+
+ //---- OnUpdatedataCreated -------------------------------------------------------------
+ //After the updates2.dau file has been successfully created. Replace with whatever.
+ 
+OnUpdatedataCreated
+ {
+	"\0\s[1010]Successfully created updates2.dau.\e"
+ }
+
+ //---- OnNarCreating ------------------------------------------------------------------
+ //Along the same lines, this is when they begin creating a .nar file for your ghost. .nars are the format most ghosts will be in, something similar to a .zip file, and this is the format you'll be distributing your ghost in most likely. Replace the dialogue with whatever you like.
+ 
+OnNarCreating
+ {
+	"\0\s[1010]Creating the .nar file.\e"
+ }
+
+ //---- OnNarCreated -------------------------------------------------------------------
+ //After the nar file has been successfully created.
+ 
+OnNarCreated
+ {
+	"\0\s[1010]Successfully created '%(reference0)'.\e"
+	//reference0 here will be the filename of the nar you just created. It should drop the nar in the folder where all your ghosts are listed, ssp\ghost\.
+ }
+
+ //****　Clock Synchronization　**********************************************************
+//**** 미카 (http://homepage2.nifty.com/ko-ki/)의 사전을 참고했습니다．감사＞こ 나무 성
+//This set of functions was done by the above Korean coder, I think. I'll leave their comment there untouched. 
+//If you right click your ghost and go into the Utilities menu, there's an option called NTP Time Sync. That's what this is for!
+ 
+
+ //----OnSNTPBegin ------------------------------------------------------------------
+ //As with the others you've seen above, this is the beginning bit of dialogue for this process.
+ 
+OnSNTPBegin
+ {
+	if lastinteracted > 6
+	{
+		CameBack += 1
+	}
+	--
+	lastinteracted = 0
+	if LV == 0
+	{
+		"\0\s[110]The time..?\w8\w8\s[1070] Uh,\w4 let me see...\w8\e"
+	}
+	else
+	{
+		if broken == 1
+		{
+			"\s[510]* (He nods and begins checking the time online.)\w8\e"
+		}
+		else
+		{
+			"\s[510]...Ok.\e"
+		}
+	} 
+	
+	//"\0\s[0]We're going to check the time.\w9\1\s[10]We are connecting to %(reference0).\e"
+	//%(reference0) here is the site they'll be using to check your clock. I wouldn't worry too much about what the site is or where it's defined, it should be accurate. Replace the dialogue with what you need, you don't have to use reference0 if you don't want to.
+ }
+
+
+ //----　OnSNTPCompare----------------------------------------------------------
+ //Now the ghost is going to compare the current time of your computer's system to the time of the site they connected to. Most of this you don't have to touch, just replace the dialogue as indicated.
+ 
+OnSNTPCompare
+ {
+ 	"Retrieved Time: %reference1[1]/%reference1[2]/%reference1[0] %reference1[3]:%reference1[4]:%reference1[5]\w2\n/
+	Your Time: %reference2[1]/%reference2[2]/%reference2[0] %reference2[3]:%reference2[4]:%reference2[5]\w2\n/
+ 	\n"
+	--
+ 	if reference3 == 0 //if your clock is already accurate.
+	{
+		if LV == 0
+		{
+			"\s[1010]Your clock is accurate.\e"
+		}
+		else
+		{
+				"\s[510]...Your clock is accurate.\e"
+		} 
+			
+ 		//"\0\s[0]Your clock is accurate.\e" //replace this with whatever message you like.
+	}
+ 	else //if your clock doesn't match
+	{
+		
+		if LV == 0
+		{
+			"\0\s[0]Your clock doesn't match.\w8\nShould I fix it?\n\n[half]/
+			\![*]\q[Fix it,OnSNTPEXECUTE]\n/
+			\![*]\q[Leave it alone,OnSNTPCANCEL]\e"
+		}
+		else
+		{
+			"\0\s[516]Your clock doesn't match.\w8\nShould I fix it?\n\n[half]/
+			\![*]\q[Fix it,OnSNTPEXECUTE]\n/
+			\![*]\q[Leave it alone,OnSNTPCANCEL]\e"
+		}	 
+		
+		
+		
+	//you can redo this top line up to the \n\n[half] part, but leave the \q options alone.
+ 		"\0\s[0]Your clock doesn't match.\w8\nShould I fix it?\n\n[half]/
+		\![*]\q[Fix it,OnSNTPEXECUTE]\n/
+ 		\![*]\q[Leave it alone,OnSNTPCANCEL]\e"
+	}
+ }
+
+ //----　OnSNTPEXECUTE ------------------------------------------------------------------
+ ////After they've fixed your clock. Note the \6 tag - that's what actually changes the clock. Do not remove that tag. Replace the rest with what you want.
+ 
+OnSNTPEXECUTE
+ {
+	 
+	if LV == 0
+	{
+		"\0\s[1010]\6Alright, should be all good now.\e"
+	}
+	else
+	{
+		if broken == 1
+		{
+			"\0\s[510]\6* (He silently fixes the clock.)\e"
+		}
+		else
+		{
+			"\0\s[510]\6There, it should be correct now.\e"
+		}
+	} 
+	
+	
+	//"\0\s[0]The clock has been fixed.\6\e"
+ }
+
+ //----　OnSNTPCANCEL ------------------------------------------------------------------
+ //If you decide not to change your clock when they tell you it doesn't match. Replace with what you want.
+ 
+OnSNTPCANCEL
+ {
+	if LV == 0
+	{
+		"\0\s[1010]Ok, let me know if you change your mind.\e"
+	}
+	else
+	{
+		if broken == 1
+		{
+			"\0\s[510]...\e"
+		}
+		else
+		{
+			"\0\s[510]...Ok.\e"
+		}
+	} 
+	
+	//"\0\s[0]The user decided not to change the clock.\e"
+ }
+
+ //----　OnSNTPFailure ------------------------------------------------------------------
+ //If they can't change the clock for some reason, possibly because the site timed out but it could be anything. Replace with what you want.
+ 
+OnSNTPFailure
+ {
+	if LV == 0
+	{
+		"\0\s[206]Ah, sorry, it looks like something went wrong.\w8\w8\s[106] Maybe try again later?\e"
+	}
+	else
+	{
+			"\0\s[510]...Sorry,\w4\s[515] something went wrong.\e"
+	} 
+	
+	
+	//"\0\s[0]The clock wasn't changed.\w8\1\s[10]Something went wrong.\e"
+ }
+
+
+ //--OnDisplayChange----------------------------------------------------------------
+ //This is when you change the resolution of your monitor while your ghost is running. Don't mess with any of this, it should be fine as is.
+ 
+OnDisplayChange
+ {
+	displaybpp    = reference0
+ 	displaywidth  = reference1
+	displayheight = reference2
+ }
+
+
+
+ //---- OnScreenSaverStart -------------------------------------------------------
+ //This happens if your ghost is running when your screensaver starts up. This and OnScreenSaverEnd are optional, you can delete them both if you like. In fact, you can just delete the rest of the functions from this point on if you're tired and lazy, but we're close to the end, so don't give up yet!
+ 
+OnScreenSaverStart
+ {
+	if LV == 0 //Friendship routes
+	{
+		"\0\s[1100]Uh, what's that?\e"
+	}
+	else
+	{
+		""
+	}
+	//Replace with what you want.
+ }
+
+ //---- OnScreenSaverEnd -------------------------------------------------------
+ //When you wiggle your mouse and stop your screensaver.
+ 
+OnScreenSaverEnd
+ {
+		if LV == 0 //Friendship routes
+	{
+		"\0\s[1100]...Um.\w8 That was uh.\w8\s[515] Quite the experience.\e"
+	}
+	
+	elseif LV > 0 //Negative routes
+	{
+		if LVCheck == 1 //know his secrets
+		{
+			"\0\s[515]* (He shudders.)\e"
+		}
+		else //Just mean for no reason
+		{
+			"\0\s[401]* (He tries to hide his trembling.)"
+		}
+	}
+ }
+
+
+ //---- OnApplicationBoot ---------------------------------------------------------------
+ //This supposedly is for when a program starts but I have honestly never gotten it to work or seen it happen. I wouldn't sweat these three related functions too much.
+/*
+OnApplicationBoot
+ {
+	"\0\s[0]%(reference0) just started.\e"
+ }
+
+ //---- OnApplicationClose --------------------------------------------------------------
+ //See above, but for the program closing.
+ 
+OnApplicationClose
+ {
+	"\0\s[0]%(reference0) has closed.\e"
+ }
+
+ //---- OnApplicationFileOpen ----------------------------------------------------------
+ //I believe this is for when the program detailed above opens a document file of some kind.
+ 
+OnApplicationFileOpen
+ {
+	"\0\s[0]Opening %(reference1).\e"
+ }
+*/
+
+
+
+ //---- OnBatteryLow -----------------------------------------------------------------
+ //This is for when your laptop's battery is low. I don't have a laptop, so I've never really been able to test this. Perhaps someone with a laptop can report back to me with more details about the battery related functions?
+ 
+OnBatteryLow
+ {
+	if LV == 0
+	{
+		"\s[202]Hey,\w4 looks like your battery is getting low, there.\w8\w8\s[200] I don't want to find out what happens if I'm still here and your computer shuts down.\e"
+	}
+	//reference0 here is the amount of battery power. Replace as you like.
+ }
+ 
+ //--OnBatteryCritical-----------------------------------------------------------------
+ //Likewise, this is for if your battery is REALLY low. Replace as you like.
+ 
+OnBatteryCritical
+{
+	if LV == 0
+	{
+		"\0\s[201]Uh,\w4 hey,\w4 your battery is REALLY low.\w8\w8\s[300] If you can't get to a charger,\w4\s[200] could you at least send me home?\w8\w8\s[302] I'm uh...\w8\w8\s[515] not fond of the dark.\e"
+	}
+}
+ 
+//--OnBatteryNotify--------------------------------------------------------------------
+//This I believe checks to see if your laptop is plugged in or not. Originally this bit of code was commented out, so I suspect it may not work. It may need a plug-in of some sort. Either way, you can delete it or fill it out as you like.
+//Actually investigating this, leaving this in makes it so the ghost updates you about whether or not your computer is plugged-in constantly, which makes no sense for desktops. No doubt why it was commented out. Just leave it be.
+
+/*
+OnBatteryNotify
+{
+	if reference2 == "online" //If your laptop is plugged in
+	{
+		"\0\s[0]The laptop is plugged in.\e"
+	}
+	elseif reference2 == "offline" //If you unplug your laptop
+	{
+		"\1\s[10]The laptop is not plugged in.\w8\0\s[0]Watch your battery.\e"
+	}
+}
+*/
+
+
+ //---- OnSysResourceLow -----------------------------------------------------------
+ //A notification for if your system resources are low. I've never seen this happen and my system resources can run pretty low sometimes (woo windows xp woooo), so I suspect this one also may not work without the right plug-in, but I could be wrong. You might as well fill it out.
+ 
+OnSysResourceLow
+ {
+	if LV == 0
+	{
+		"\0\s[0]Hey uh,\w4\s[202] this says something about your system resources being low.\w8\w8\s[107] I have no idea what that means,\w4\s[106] do you?\e"
+	}
+ }
+
+
+ //--OnShellScaling
+ //This is a function however that you may actually use! Or at least, I often use it when desktop space is at a premium (which it always is on my computer). If you right click the ghost, you can go to Shell Scaling, which lists a number of different percentages. Those are the percentages your ghost can be scaled in size up or down. You can try them out yourself to get an idea of what I mean. I often scale mine down to get them out of the way sometimes. This adds dialogue whenever you change their scale. You don't have to do this if you don't want to, in which case they will just stay silent when you size them up or down. If that's what you want, just delete the whole thing.
+ 
+OnShellScaling
+{
+	if lastinteracted > 6
+	{
+		CameBack += 1
+	}
+	--
+	lastinteracted = 0
+	nowscale = reference0 //Keeping track of his size
+	changedscaling += 1 //if you've changed his size at least once -- This'll slowly count down to 1 in HourCheck, but it'll never go below 1
+	if LV == 0
+	{
+		if reference0 == 100 //=============Returning him to normal size==============
+		{
+			"\0\s[107]Whew.\w8\w8\s[106] Thanks,\w4 %(username).\e"
+		}
+		elseif changedscaling > 10
+		{
+			"\0\s[108]Kiddo,\w4 seriously,\w4 I'm uh-\s[301]\w8\s[302]\w8\w8 ...\s[107]Starting to get really dizzy.\w8\w8\n\n\s[106]Can we stop,\w4 please?\e"
+		}
+		elseif reference0 > reference1 //=========reference 0 is the new size, reference1 is the old. So this is if he's getting bigger.===========
+		{
+			if reference1 > 100 //If it's larger than 100, you already had him big and then you made him bigger again
+			{
+				"\0\s[1100]Whoa.\w8\w8\s[106] Uh,\w4 I'm starting to feel a little fuzzy, kiddo.\e" //cause his art gets fuzzy... unless you're like me and you turn that off so that he looks crisp at 200% and 200%. RIP my clever dialogue. Ah well, I still think it's funny
+			}
+			elseif reference1 < 100 //You had him under 100%, and now you've made him very large
+			{
+				if reference0 > 100 //He's now above normal height
+				{
+					"\0\s[1100]Ah-\w8\w8\s[107] That's kinda disorienting,\w4 kiddo.\e"
+					changedscaling += 3
+				}
+				else //Otherwise, he's still under normal height
+				{
+					"\0\s[106]That's uh,\w4 a little better?\e"
+				}
+			}
+			elseif reference1 == 100 //He was originally normal size
+			{
+				"\0\s[1100]Whoa.\w8\w8\s[106] Uh,\w4 hey there.\w8\w8\s[104] I'm not used to being so tall.\e"
+			}
+		}
+		elseif reference0 < reference1 //==========So this must be getting smaller============
+		{
+			if reference1 < 100 //If it's smaller than 100, you already had him small and then you made him smaller again
+			{
+				"\0\s[106]Uh...\w8\w8\s[107] Alright,\w4 I guess.\w8\w8\s[202] Careful with that cursor,\w4 yeah..?\e"
+			}
+			elseif reference1 > 100 //You had him over 100%, and now you've made him very small
+			{
+				if reference0 < 100 //He's under normal height
+				{
+					"\0\s[1100]Whoa-\w8\w8\s[106] Kiddo,\w4 can you at least give me a little warning?\w8\w8\s[107] That's really dizzying.\e"
+					changedscaling += 3
+				}
+				else //He's still over normal height
+				{
+					"\0\s[106]Uh,\w4 that's a bit better I guess.\e"
+				}
+			}
+			elseif reference1 == 100 //He was originally normal size
+			{
+				"\0\s[106]...Uh,\w4 hey,\w4 aren't I small enough already?\e"
+			}
+		}
+	}
+}
+
+OnDeviceArrival //This will activate any time the user puts a USB into their computer or connects something via bluetooth. I currently have this set to only activate when you've let him see your computer in the privacy settings
+{
+	
+	if SeePC == "ON" && LV == 0
+	{
+		_device = reference[0][0,","] + reference[0][1,","] + reference[0][2,","] + reference[0][4,","]//reference0 is a big output of all the information about what you plugged in, this'll make it lowercase so that I can check it in the ifs easier. || This big thing splits that device name, and removes the 4th section (3rd if you're counting from 0) because the 4th section changes if the device is bluetooth. Nothing of value is lost here, he should still be able to recognize the device from the other sections. Many thanks to GrayArea and Firefright for helping me on this one!
+		_device = TOLOWER(_device) 
+		
+		if "wacom" _in_ "%(_device)" //Does wacom make things that aren't tablets? I've not heard of such a thing, so he'll assume it's a tablet
+		{
+			"\s[110]Oh,\w4 you plugged in a tablet?\w8\w8\s[103] Are you an artist, %(username)?\e"
+		}
+		elseif "tablet" _in_ "%(_device)" //If it says it's a tablet
+		{
+			"\s[110]Oh,\w4 you plugged in a tablet?\w8\w8\s[103] Are you an artist, %(username)?\e"
+		}
+		elseif "mass storage" _in_ "%(_device)" //Every USB I've ever used has had "mass storage device" in the name somewhere... at least that I can remember
+		{
+			"\0\s[110]Oh,\w4 is that one of those 'jump drives' my kids were telling me about?\w8\w8\s[104] Are you moving some files around?\w8\w8\n\n\s[1070].\w4.\w4.\w4\s[202]You're not planning to move me around, are you?\e"
+		}
+		elseif "webcam" _in_ "%(_device)"
+		{
+			"\0\s[110]Oh,\w4 a webcam?\w8\w8\s[104] Are you planning on chatting with someone?\e"
+		}
+		else
+		{
+			if "%(_device)" _in_ DeviceList
+			{
+				"\0\s[104]Oh hey, I've seen this device before,\w4 you were using it before weren't you?\w8\w8\s[0] What's it for, anyways?\e"
+			}
+			elseif "%(_device)" _in_ DeviceMemories
+			{
+				DeviceList += "%(_device)\n-"
+				"\0\s[1070]Hmm...\w8\w8 have I seen this one before..?\w8\w8\s[206] I'm not sure...\e"
+			}
+			else
+			{
+				DeviceList += "%(_device)\n-"
+				"\s[110]Oh, you've plugged in something new?\w8\w8\s[107] Computers sure do have a lot of little devices, don't they?\e"
+			}
+		}
+	}
+}
+
+OnDeviceRemove
+{
+	if SeePC == "ON" && LV == 0
+	{
+		_device = TOLOWER(reference0)
+		if "wacom" _in_ "%(_device)"
+		{
+			"\0\s[0]Done drawing for now?\w8\w8\s[104] Make sure to store your tablet properly so the cord doesn't get damaged.\e"
+		}
+		elseif "tablet" _in_ "%(_device)"
+		{
+			"\0\s[0]Done drawing for now?\w8\w8\s[104] Make sure to store your tablet properly so the cord doesn't get damaged.\e"
+		}
+		elseif "mass storage" _in_ "%(_device)"
+		{
+			""
+		}
+		else
+		{
+			""
+		}
+	}
+}
+
+OnGhostCalling //Kinda want to add some summoning messages, but I'm not sure what to really give him.... hmmm
+{
+	if LV == 0
+	{
+		if reference0 == "Gaster"
+		{
+			"\0\s[200]...\e"
+		}
+		elseif reference0 == "Dusty"
+		{
+			"\0\s[104]\e"
+		}
+	}
+}
+
+
+OnBalloonBreak //This is so dumb XD do I keep this? I don't know -- Update, I'm keeping it but it's going in the config menu lol
+{
+	if lastinteracted > 6
+	{
+		CameBack += 1
+	}
+	lastinteracted = 0
+	--
+	if poppable == "ON"
+	{
+		"\s[110]\_v[img\blop.mp3]"
+		balloonspopped += 1
+	}
+	else
+	{
+		""
+	}
+	--
+	if OtherAwaitingResponse != ""
+	{
+		OnCommunicate
+	}
+}
+
+OnBalloonClose
+{
+	if OtherAwaitingResponse != ""
+	{
+		OnCommunicate
+	}
+}
+
+OnBalloonTimeout
+{
+	if OtherAwaitingResponse != ""
+	{
+		OnCommunicate
+	}
+}
+
+
+
+//Weather Checking -------------------------------------------------------
+//following functions can go in menu dic, or a seperate dic entirely
+//functions for scraping weather.com for weather data.
+//author: vita @yuyudev on twitter
+//referenced zarla's hunter and smoker ghost, and https://forum.rainmeter.net/viewtopic.php?t=34470
+//
+//please add the following variables to your bootend dic in the function OnFirstBoot
+//curlocation = ""
+//locationcode = ""
+//these two I also added to OnBoot
+//intalkconfig = 0
+//weatherquiet = 0
+
+//starting the weather checking
+OnWeatherLocation
+{
+	if curlocation != "" && curlocation != "Set a location"
+	{
+		"\b2\_q* (Your location is currently set to: %(curlocation))\n\n"
+	}
+	else
+	{
+		"\b2\_q"
+	}
+	--
+	"* (Do you live inside or outside the USA?)\n\n/
+	\![*]\q[In the USA,OnUSALoc]\n/
+    \![*]\q[Outside the USA,OnOtherLoc]\n\n/
+	\![*]\q[Back to config,toconfig]\n\n(Please note that you may need to try this a few times.)"
+	
+}
+
+
+OnUSALoc
+{
+	templocation = ""
+    "(Please enter your zipcode.)\![open,inputbox,OnLocCode,-1]"
+}
+
+OnOtherLoc
+{
+	templocation = ""
+    "(Please go to weather.com, search your city, and enter the long series of letters and numbers at the end of the URL.)\![open,inputbox,OnLocCode,-1]"
+}
+
+OnLocCode
+{
+	locationcode = reference0
+	if "https://weather.com/weather/today/l/" _in_ locationcode
+	{
+		locationcode = REPLACE(locationcode,"https://weather.com/weather/today/l/","") //if someone puts in the whole URL, this gets rid of the unneeded bit...
+	}
+	--
+	//templocation = ""
+	//OnDownloadCurWeather
+	"\![execute,http-get,https://weather.com/weather/today/l/%(locationcode),--async=OnCheckWeatherLoc,--file=weather.html,--timeout=300]anMoon01\w4\canMoon02\w4\canMoon03\w4\canMoon04\w4\canMoon05\w4\canMoon06\w4\canMoon07\w4\canMoon08\w4\canMoon01\w4\canMoon02\w4\canMoon03\w4\canMoon04\w4\canMoon05\w4\canMoon06\w4\canMoon07\w4\canMoon08\w4\canMoon01\w4\canMoon02\w4\canMoon03\w4\canMoon04\w4\canMoon05\w4\canMoon06\w4\canMoon07\w4\canMoon08\w4\canMoon01\w4\canMoon02\w4\canMoon03\w4\canMoon04\w4\canMoon05\w4\canMoon06\w4\canMoon07\w4\canMoon08\w4\canMoon01\w4\canMoon02\w4\canMoon03\w4\canMoon04\w4\canMoon05\w4\canMoon06\w4\canMoon07\w4\canMoon08\w4\canMoon01\w4\canMoon02\w4\canMoon03\w4\canMoon04\w4\canMoon05\w4\canMoon06\w4\canMoon07\w4\canMoon08\w4"
+	
+	
+}
+
+OnCheckWeatherLoc
+{
+    //initialize variables
+    _file = "var\\weather.html"
+    _buff=""
+    _regtemp = ''
+    _regdegree = ''
+    _regfeels = ''
+    _reghumidity = ''
+    _regwind = ''
+    _regstate = ''
+    _regloc = ''
+    _regpollen = ''
+    FCHARSET(1)
+    //array to hold current weather data
+    //[temp, degrees, feels like temp, humidity, wind, state (cloudy, rainy, etc), pollen alert (yes/no)]
+    currentweatherarray = ("","","","","","","")
+    
+    --
+    
+    if FOPEN(_file,'r') {
+    
+        _buff = FREAD(_file) //get the first line of the HTML to check what type of page we got
+        temp = _buff
+        
+        if RE_SEARCH(_buff, '<html dir="ltr" lang="en-US"><head>') { //reg expressions for chrome formatted page
+            _regloc = 'Conditions--location--1YWj_">(.*) Weather</h1><div class='
+        }
+        else {
+        //reg expressions for firefox formatted page
+            _regloc = 'className="h4 today_nowcard-location">(.*)<span class="icon icon-font iconset-social icon-share-circle" className="icon icon-font iconset-social icon-share-circle"></span>'
+        }
+
+        for _buff = FREAD(_file); _buff != -1; _buff = FREAD(_file) {
+            
+            //set location
+            if RE_SEARCH ( _buff, _regloc ) {
+                
+                templocation = RE_GETSTR[1]
+                
+            }
+            
+        }
+    }
+    --
+    
+    FCLOSE(_file);
+	--
+    if templocation != ""
+	{
+		"(Your current location is %(templocation). Is this correct?)\n\n/
+		\![*]\q[Yes,confirmweather]\n/
+		\![*]\q[Enter a different location,weatherlocation]\n/
+		\![*]\q[Cancel,cancelnodialogue]"
+	}
+	else
+	{
+		"(Couldn't get your location,\w4 try again?)\n\n/
+		\![*]\q[Try again,tryweatherlocagain]\n/
+		\![*]\q[Enter a different location,weatherlocation]\n/
+		\![*]\q[Cancel,cancelnodialogue]"
+	}
+}
+
+
+
+Select.tryweatherlocagain
+{
+	"\![execute,http-get,https://weather.com/weather/today/l/%(locationcode),--async=OnCheckWeatherLoc,--file=weather.html,--timeout=300]%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)"
+}
+
+Select.weatherlocation
+{
+	OnWeatherLocation
+}
+
+Select.confirmweather
+{
+	curlocation = templocation
+	if fromfunctionmenu == 1
+	{
+		fromfunctionmenu = 0
+		OnDownloadCurWeather
+	}
+	else
+	{
+		TalkConfig
+	}
+}
+
+
+//current weather functions
+OnDownloadCurWeather
+{
+   "\![execute,http-get,https://weather.com/weather/today/l/%(locationcode),--async=OnCurWeatherFound,--file=weather.html,--timeout=200]%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)"
+}
+
+OnCurWeatherFound
+{ 
+    //initialize variables
+    _file = "var\\weather.html"
+    _buff=""
+    _regtemp = ''
+    _regdegree = ''
+    _regfeels = ''
+    _reghumidity = ''
+    _regwind = ''
+    _regstate = ''
+    _regloc = ''
+    _regpollen = ''
+    FCHARSET(1)
+    //array to hold current weather data
+    //[temp, degrees, feels like temp, humidity, wind, state (cloudy, rainy, etc), pollen alert (yes/no)]
+    currentweatherarray = ("","","","","","","")
+    
+    --
+    
+    if FOPEN(_file,'r') {
+    
+        _buff = FREAD(_file) //get the first line of the HTML to check what type of page we got
+        temp = _buff
+        
+        if RE_SEARCH(_buff, '<html dir="ltr" lang="en-US"><head>') { //reg expressions for chrome formatted page
+            _regtemp = 'CurrentConditions--tempValue--MHmYY">(-?\d*)°</span><div'
+            _regdegree = '(°C|°F)'
+            _regfeels = 'feelsLikeTempValue--2icPt">(-?\d*)°</span><span data'
+            _reghumidity = 'estid="PercentageValue">(\d*)%</span></div>'
+            _regwind = '6.44z"></path></svg>([\w|\s|\d]*)</span></div></div>'
+            _regstate = 'phraseValue--mZC_p">([\w|\s]*)</div></div>'
+            _regloc = 'Conditions--location--1YWj_">(.*) Weather</h1><div class='
+            _regpollen = 'iesListItem--description--2eNsW">([\w|\s]*) pollen is very high in your area</p></'
+        }
+        else {
+        //reg expressions for firefox formatted page
+            _regtemp = '<div class="today_nowcard-temp"><span class="">(-?\d*)<sup>'
+            _regdegree = '(°C|°F)'
+            _regfeels = '<span class="btn-text">Feels Like<!----> </span><span class="deg-feels" className="deg-feels">(-?\d*)<sup>'
+            _reghumidity = '</tr><tr><th>Humidity</th><td><span class=""><span>(\d*)<span class="Percentage__percentSymbol__2Q_AR">%'
+            _regwind = '<tr><th>Wind</th><td><span class="">([\w|\s|\d]*)</span></td></tr><tr><th>'
+            _regstate = '<div class="today_nowcard-phrase">([\w|\s]*)'
+            _regloc = 'className="h4 today_nowcard-location">(.*)<span class="icon icon-font iconset-social icon-share-circle" className="icon icon-font iconset-social icon-share-circle"></span>'
+            _regpollen = ' title="Local Pollen Alert"'
+        }
+
+        for _buff = FREAD(_file); _buff != -1; _buff = FREAD(_file) {
+            
+
+            //current temp
+            if RE_SEARCH ( _buff, _regtemp ) {
+                
+                currentweatherarray[0] = RE_GETSTR[1]
+                
+            }
+    
+            //degrees (F or C)
+            if RE_SEARCH ( _buff, _regdegree ) {
+                currentweatherarray[1] = RE_GETSTR[1]
+                
+            }
+            
+            //feels like temp
+            if RE_SEARCH ( _buff, _regfeels ) {
+                currentweatherarray[2] = RE_GETSTR[1]
+                
+            }
+            
+            //humidity
+            if RE_SEARCH ( _buff, _reghumidity ) {
+                currentweatherarray[3] = RE_GETSTR[1]
+                
+            }
+            
+            //wind
+            if RE_SEARCH ( _buff, _regwind) {
+                currentweatherarray[4] = RE_GETSTR[1]
+                
+            }
+            
+            
+            //state (cloudy, sunny, etc)
+            if RE_SEARCH ( _buff, _regstate ) {
+                
+                currentweatherarray[5] = RE_GETSTR[1]
+                
+            }
+            
+            //set location
+            if RE_SEARCH ( _buff, _regloc ) {
+                
+                curlocation = RE_GETSTR[1]
+                
+            }
+            
+            //search for pollen stuff
+            if RE_SEARCH ( _buff, _regpollen ) {
+                
+                currentweatherarray[6] = "Local Pollen Alert"
+                PollenAlert = 1
+            }
+            
+        }
+    }
+    --
+    
+    FCLOSE(_file);
+    if weather _in_ weatherlist
+	{
+		""
+	}
+	else
+	{
+		weatherlist += "%(weather)\n-"
+	}
+	--
+	humiditylist += "%(humidity)%\n"
+    --
+	if currentweatherarray[0] != ""
+	{
+		loadmoonnum += 2
+		"\![raise,OnDownloadMoonPhase]"
+	}
+	else
+	{
+		if weathertries < 5
+		{
+			"\_q(Couldn't get the weather, trying again...)\n(%(weathertries)/5)\w8\w8\_q\![raise,OnDownloadCurWeather]"
+			weathertries += 1
+		}
+		else
+		{
+			if weatherquiet
+			{
+				weatherquiet = 0
+				weathertries = 1
+				tempurature = "Unknown"
+				ForC = "Unknown"
+				feelslike = "Unknown"
+				humidity = "Unknown"
+				wind = "Unknown"
+				weather = "Unknown"
+				pollen = "Unknown"
+				phase = "Unknown"
+				--
+				"\e"
+			}
+			"(Couldn't get the weather, please try again in a few minutes.)\e"
+			weathertries = 1
+		}
+	}
+
+}
+
+
+Select.tryweatheragain
+{
+	OnDownloadCurWeather
+}
+
+
+OnDownloadMoonPhase
+{
+    "\0\![execute,http-get,https://www.moongiant.com/phase/today/,--async=OnMoonFound,--file=moon.html,--timeout=200]"
+}
+
+OnMoonFound
+	{
+    //file to be read
+    _file = "var\\moon.html"
+    //line being read
+    _buff=""
+    //regular expressions to extract data
+    _regphase=',"Phase: <span>([\w|\s]*)<./span>'
+    _found = 0;
+    //using UTF-8 charset
+    FCHARSET(1)
+    
+    //string for holding phase
+    phase = ""
+    
+
+    
+    --
+    
+    if FOPEN(_file,'r') {
+        for _buff = FREAD(_file); _buff != -1 && !_found; _buff = FREAD(_file) {
+            
+
+            if RE_SEARCH ( _buff, _regphase ) {
+                
+                phase = RE_GETSTR[1]
+                _found = 1; //break loop since we dont need to continue parsing
+                
+            }
+        }
+    }
+    --
+    
+    FCLOSE(_file);
+    
+	--
+    if weatherquiet
+	{
+        weatherquiet = 0
+        --
+        "\e"
+    }
+    
+    --
+	tempurature = TOINT(currentweatherarray[0])
+	ForC = currentweatherarray[1]
+	feelslike = currentweatherarray[2]
+	humidity = TOINT(currentweatherarray[3])
+	wind = currentweatherarray[4]
+	weather = currentweatherarray[5]
+	pollen = currentweatherarray[6]
+	//change the dialogue as you wish
+	//[temp, degrees, feels like temp, humidity, wind, state (cloudy, rainy, etc)]
+	
+	//========================Weather Dialogue=============================
+	
+	if ForC == "°F"
+	{
+		if tempurature > 100
+		{
+			"\0\s[110]Wow,\w4 it's %(tempurature) degrees there.\w8\w8\s[106] Are you doing alright,\w4 %(username)?\w8\w8\s[107] Make sure you stay hydrated."
+		}
+		elseif tempurature > 80
+		{
+			"\0\s[106]It's %(tempurature) degrees there.\w8\w8\s[107] Yeesh,\w4 pretty hot out."
+		}
+		elseif tempurature > 60
+		{
+			"\0\s[104]It's %(tempurature) degrees there.\w8\w8\s[103] Pretty nice out."
+		}
+		elseif tempurature > 40
+		{
+			"\0\s[0]It's %(tempurature) degrees there.\w8\w8\s[104] A little chilly,\w4 huh?"
+		}
+		elseif tempurature > 20
+		{
+			"\0\s[0]It's %(tempurature) degrees there.\w8\w8\s[104] Pretty cold out."
+		}
+		elseif tempurature < 0
+		{
+			"\0\s[106]It's %(tempurature) degrees.\w8\w8\s[107] It's freezing out there,\w4 be careful kiddo."
+		}
+	}
+	else //Celcius
+	{
+		if tempurature > 37
+		{
+			"\0\s[110]Wow,\w4 it's %(tempurature) degrees there.\w8\w8\s[106] Are you doing alright,\w4 %(username)?\w8\w8\s[107] Make sure you stay hydrated."
+		}
+		elseif tempurature > 26
+		{
+			"\0\s[106]It's %(tempurature) degrees there.\w8\w8\s[107] Yeesh,\w4 pretty hot out."
+		}
+		elseif tempurature > 15
+		{
+			"\0\s[104]It's %(tempurature) degrees there.\w8\w8\s[103] Pretty nice out."
+		}
+		elseif tempurature > 4
+		{
+			"\0\s[0]It's %(tempurature) degrees there.\w8\w8\s[104] A little chilly,\w4 huh?"
+		}
+		elseif tempurature > -6
+		{
+			"\0\s[0]It's %(tempurature) degrees there.\w8\w8\s[104] Pretty cold out."
+		}
+		elseif tempurature < -17
+		{
+			"\0\s[106]It's %(tempurature) degrees.\w8\w8\s[107] It's freezing out there,\w4 be careful kiddo."
+		}
+	}
+	--
+	"\w8\w8"
+	--
+	if tempurature > 60
+	{
+		if humidity >= 65
+		{
+			" \s[107]Pretty muggy out,\w4 too."
+		}
+		else
+		{
+			" \s[104]At least it's not too humid."
+		}
+	}
+	--
+	"\w8\w8\n\n"
+	--
+	if weather == "Sunny"
+	{
+		"\s[104]The sun is shining,\w4\s[0] are you glad to see it?"
+	}
+	elseif weather == "Partly Cloudy"
+	{
+		"\s[104]There are a few clouds out there,\w4 pretty nice if you ask me."
+	}
+	else
+	{
+		"%(weather) "
+	}
+	--
+	"%(phase) %(pollen)\n\n\![*]\q[Back to functions,Onbacktofunctions]\n\![*]\q[I'm done,cancelnodialogue]\e"
+	
+
+}
+
+//==================Calendar functions==================
+
+OnSchedule5MinutesToGo
+{
+	"\05 minutes to go %(reference0) %(reference1) %(reference2) %(reference3)\e"
+}
+
+OnScheduleRead
+{
+	"Read %(reference0) %(reference1) %(reference2) %(reference3)"
+}
+
+OnSchedulesenseBegin
+{
+	"Sense begin %(reference0)"
+}
+
+OnSchedulesensecomplete
+{
+	"Sense complete %(reference0) %(reference1)"
+}
+
+OnSchedulesenseFailure
+{
+	"Sense failure %(reference0)"
+}
+
+OnSchedulepostBegin
+{
+	"Schedule pose %(reference0)"
+}
+
+OnSchedulepostComplete
+{
+	"Post complete %(reference0)"
+}
+
+
+
+
+
+On_getaistate //I dont have anything super useful to track with this right now XD but perhaps later when I implement sleeping and maybe moods......
+{
+	"%(totalsnags),%(LV),%(love),%(totalhours),%(totalpets),%(pethighscore)%(CHR(1))total snags, LV,love,total hours,total pets,pet high score%(CHR(1))0,0,%(passhour),0,0,0%(CHR(1))1500,1500,1500,1500,1500,1500"
+}

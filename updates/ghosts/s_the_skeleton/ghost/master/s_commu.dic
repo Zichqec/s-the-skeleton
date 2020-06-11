@@ -1,0 +1,357 @@
+//---------------------------Communication--------------------------
+
+//--OnCommunicate
+
+//OnCommunicate is called when your ghost is either targeted by another ghost for a conversation, or when your ghost is targeting another ghost for conversation. There's no need to touch any of this.
+OnStartTalking
+{
+	SpokeFirst = 1 //setting a flag
+	OnCommunicate
+}
+
+OnCommunicate
+ {
+	if reference0 == "user" || reference0 == "User"
+ 	{
+		//---- answering the user
+ 		ReplyToUser
+	}
+ 	else
+	{
+ 		//---- answering another ghost
+		ReplyToGhost
+ 	}
+}
+
+//Just ignore this.
+ReplyToUser
+{
+	TalkToUser
+}
+
+ReplyToGhost //I'll..... add a friendship check to this later......... or maybe I'll give that its own function, that would be cleaner....
+{
+	if specialcommu == 1 //Using this for if you've said something to S in his menu that another ghost might pick up on
+	{
+		specialcommu = 0 //resetting the variable
+		
+		if complimentaboutdusty == 1 //which convo specifically
+		{
+			complimentaboutdusty = 0 //resetting the variable
+			complimented += 2 //extra points on the compliments because he's flustered now
+			"\C\0\s[110]Ah-\w4 uh-\w8\w8\e SUserComplimentedS01" //Note the \C here. That brings back the last balloon. Powerful tag, but easy to mess up. Use wisely.
+			res_reference0 = "Dusty"
+		}
+		elseif dustyspaceandtime == 1
+		{
+			dustyspaceandtime = 0
+			"\0\s[208].\w4.\w4.\w8\w8\e SpaceAndTimeS01"
+			res_reference0 = "Dusty"
+		}
+	}
+	elseif SpokeFirst == 1 //======================Starting a conversation=======================
+	{
+		SpokeFirst = 0
+		if ghostexcount > 0 //Checking to see if there's another ghost
+		{
+			_number = RAND(ghostexcount) // This checks the number of other ghosts summoned and chooses a random number based on it
+			--
+			checkname = "%(ghostexlist[_number])" // This grabs the reference name of the ghost to check against known names. It should be the sakura name.
+			--
+			// Checking the selected loaded ghost's name vs known names to comment on them
+			case checkname
+			{
+				when "Dusty"
+				{
+					if talkedtoDusty == 0 //if they haven't seen each other before
+					{
+						res_reference0 = "Dusty"
+						talkedtoDusty = 1
+						"\0\s[110]Oh!\w8\w8 Dusty,\w4 is that you?\w8\w8\s[101] I didn't realize you could survive in a place like this.\w8\w8\e SFirstHelloS01"
+					}
+					else //After they've seen each other
+					{
+						"\0\s[104]It's pretty nice that you can exist here,\w4 huh?\w8\w8\s[101] It's got to be better than the void,\w4 anyways.\w8\w8\e NicerThanVoidS01"
+						res_reference0 = "Dusty"
+					}
+				}
+				when "Azura" //=======Azura========
+				{
+					res_reference0 = "Azura"
+					"\s[103]Hey %(res_reference0),\w4\s[0] what are you doing?\e"
+				}
+				when "Gaster" //=========Zarla's Gaster=======
+				{
+					res_reference0 = ""
+					"\0\s[200].\w4.\w4.\w8\w8\n\n* (Doesn't seem like he wants to talk to %(checkname).)\e"
+				}
+				when "Temmie"
+				{
+					res_reference0 = "Temmie"
+					"\0\s[104]Hello Temmie!\w8\w8\e"
+				}
+				when "MiniDev"
+				{
+					res_reference0 = "MiniDev"
+					"\e GetMiniDevStats01"
+				}
+				others //======Any ghost he doesn't know========
+				{
+					AlreadyResponded = 1
+					res_reference0 = checkname
+					"\0\s[104]Hey,\w4 %(res_reference0).\w8\w8\e"
+				}
+			}
+		}
+		else //If there is no other ghost
+		{
+			"\0\s[106]Ah, I don't think anyone else is here, kiddo.\e"
+		}
+	}
+	else //===========================Replying to a conversation========================
+	{
+		//speech = TOLOWER("%(reference1)")
+		speech = SPLIT(reference1,"\e")[0] 
+		ConvoTag = SPLIT(reference1,"\e")[1]
+		--
+		
+		//These split the dialogue S has been sent. The first two lines split it at the \e, into speech, which is what the user would see, and ConvoTag, which are the tags hidden after the \e that he uses to tell where they're at in conversation. The third line makes speech lowercase, in case I want to test for specific words
+		//Actually I'm going to try something, so for now I've commented out the TOLOWER...
+		
+		if reference0 == "Dusty" //=======Conversations with Dusty=========
+		{
+			//---Dusty notices S---
+			if "DFirstHelloD01" _in_ ConvoTag
+			{
+				talkedtoDusty = 1
+				"\0\s[110]Oh!\w8\w8\s[104] I didn't realize you could come here,\w4 Dusty.\w8\w8 "
+				--
+				if totalhours > 20
+				{
+					"\s[0]Yeah,\w4 I spend a lot of time here."
+				}
+				else
+				{
+					"\s[106]I'm not really too sure how I got here,\w4 but uh, yeah I guess."
+				}
+				--
+				"\w8\w8\e DFirstHelloS01"
+				res_reference0 = "Dusty"
+			}
+			elseif "DFirstHelloD02" _in_ ConvoTag
+			{
+				res_reference0 = ""
+				"\C\0\n\n\s[104]Sounds good to me.\e"
+			}
+			
+			//---S notices Dusty---
+			elseif "SFirstHelloD01" _in_ ConvoTag
+			{
+				"\C\0\n\n\s[104]Well that's good to see,\w4 maybe if we're lucky I'll bump into you here more often,\w4 huh?\w8\w8\e SFirstHelloS02"
+				res_reference0 = "Dusty"
+			}
+			
+			//---Obsidian meows at S---
+			elseif "ObsiSaysHiD01" _in_ ConvoTag
+			{
+				"\0\s[104]Hello to you too,\w4 Obsidian.\w8\w8 Keeping Dusty company?\w8\w8\e ObsiSaysHiS01"
+				res_reference0 = "Dusty"
+			}
+			
+			//Dusty asks how S is doing
+			elseif "HowsSDoingD01" _in_ ConvoTag
+			{
+				"\0\s[109]I'm getting pretty tired,\w4 honestly.\w8\w8\e HowsSDoingS01"
+				res_reference0 = "Dusty"
+			}
+			elseif "HowsSDoingD02" _in_ ConvoTag
+			{
+				"\C\0\n\n\s[106]Ah,\w4 I'll pass for the moment,\w4\s[104] but thank you.\e"
+				res_reference0 = ""
+			}
+			elseif "GetSStats1" _in_ ConvoTag
+			{
+				"\e %(passhour),%(thesplit),%(love),%(LV),%(pethighscore),%(totalpets), SGiveStats1"
+				res_reference0 = "Dusty"
+			}
+			elseif "GiveCoords01" _in_ ConvoTag
+			{
+				"\![get,property,OnFacingCoords,currentghost.scope(0).rect]"
+			}
+			
+			//---This is nicer than the void isn't it?---
+			elseif "NicerThanVoidD01" _in_ ConvoTag
+			{
+				if ghostexcount > 1 //If there's more than just the two of them
+				{
+					"\C\0\n\n\s[103]It's great that you get to meet more people here,\w4 too.\w8\w8\e NicerThanVoidS02a"
+				}
+				else
+				{
+					"\C\0\n\n\s[205]I'm just glad we're not alone here,\w4 it's still kinda lonely here when you're by yourself.\w8\w8\e NicerThanVoidS02b"
+				}
+				--
+				res_reference0 = "Dusty"
+			}
+			elseif "NicerThanVoidD02a" _in_ ConvoTag
+			{
+				"\C\0\n\n\s[202]Heh,\w4 she'll have to get over it.\w8\w8\s[102] Besides,\w4 I'm sure she'll get plenty of extra attention when you go back,\w4 right?\w8\w8\e NicerThanVoidS03a"
+				res_reference0 = "Dusty"
+			}
+			elseif "NicerThanVoidD02b" _in_ ConvoTag
+			{
+				"\C\0\n\n\s[1020]Aw geez,\w4 I'm just glad I can help...\e"
+				res_reference0 = ""
+			}
+			
+			
+			//user complimented S and mentioned Dusty
+			elseif "SUserComplimentedD01" _in_ ConvoTag
+			{
+				"\C\0\n\n\s[1030]C-c'mon,\w4 knock it off you guys...\w8\w8\e"
+				res_reference0 = ""
+			}
+			elseif "SpaceAndTimeD01" _in_ ConvoTag
+			{
+				"\C\0\n\n\s[1100]I didn't \f[italic,true]say\f[italic,false] anything..!\w8\w8\e SpaceAndTimeS02"
+				res_reference0 = "Dusty"
+			}
+			elseif "SpaceAndTimeD02" _in_ ConvoTag
+			{
+				"\C\0\n\n\s[206]Sorry,\w4 it's just-\w4\e SpaceAndTimeS03"
+				res_reference0 = "Dusty"
+			}
+		}
+		elseif reference0 == "Azura" //=======Conversations with Azura=========
+		{
+			_azuraspeech = TOLOWER(speech)
+			if "currently playing" _in_ _azuraspeech //If she's playing music, check to see if he recognizes the song
+			{
+				if "friends" _in_ _azuraspeech
+				{
+					"\C\0\n\n\s[104]Oh neat,\w4 I like that one.\e"
+					res_reference0 = ""
+				}
+				elseif "let down" _in_ _azuraspeech
+				{
+					"\C\0\n\n\s[106]Ah,\w4 that's kind of a sad one isn't it?\e"
+					res_reference0 = ""
+				}
+
+				else //If he doesn't recognize the song
+				{
+					res_reference0 = ""
+					AzuraSong = SPLIT(speech,"playing ")[1] //Removes Azura's dialogue
+					//firstpart = SPLIT(speech,"\e")[0]
+					//secondpart = SPLIT(speech,"\e")[1]
+					
+					if AzuraSong _in_ AzuraSongList //Check to see if Azura has played this song for him before
+					{
+						"\C\0\n\n\s[104]Oh yeah,\w4 you were playing this one before,\w4 weren't you?\e"
+					}
+					elseif AzuraSong _in_ AzuraSongMemories
+					{
+						"\C\0\n\n\s[1070]Hmm...\w8\w8 Did you play that one before..?\w8\w8 No...\e"
+						AzuraSongList += "%(AzuraSong)\n-"
+					}
+					elseif AzuraSong _in_ SongList //Check to see if the user has played this song for him before
+					{
+						"\C\0\n\n\s[104]Oh yeah, I think %(username) has played this one for me before.\e"
+					}
+					else //Song isn't in memory
+					{
+						AzuraSongList += "%(AzuraSong)\n-"
+						"\C\0\n\n\s[0]Oh,\w4\s[104] I haven't heard this one before.\e"
+					}
+				}
+			}
+			else
+			{
+				if "nothing in particular" _in_ _azuraspeech //Azura tells him that she isn't doing anything/playing music
+				{
+					"\C\0\n\n\s[0]Oh,\w4 \s[104]alright then.\e"
+					res_reference0 = ""
+				}
+				else //If she's saying hello/something he doesn't recognize
+				{
+					res_reference0 = ""
+					"Hey there, Azura.\e"
+				}
+			}
+		} //==========End conv with Azura===========
+		elseif reference0 == "Temmie"
+		{
+			res_reference0 = ""
+			"\C\0\n\n\s[106]Sorry,\w4 I don't have any muns or flakes with me.\w8\w8\s[104] Maybe next time, huh?\e"
+		}
+		elseif reference0 == "MiniDev" //=============Conversations with MiniDev=================
+		{
+			if "GetMiniDevStats02" _in_ ConvoTag
+			{
+				if MiniDevSOutf > 1 //If he's already noticed MiniDev wearing his outfit he won't do it again
+				{
+					res_reference0 = ""
+					"\0\s[104]Hello MiniDev.\w8\w8\e"
+				}
+				else
+				{
+					MiniDevSOutf = ConvoTag[1]
+					if MiniDevSOutf == 1 //If MiniDev is dressed like S
+					{
+						res_reference0 = "MiniDev"
+						MiniDevSOutf = 2
+						"\0\s[208]Is he copying me..?\e GetMiniDevStats03 OutfitUnlock"
+					}
+					else //If MiniDev is wearing anything else
+					{
+						res_reference0 = ""
+						"\0\s[104]Hi MiniDev.\w8\w8\e"
+					}
+				}
+			}
+		} //===================End convs with MiniDev
+		else //=========Ghosts he doesn't know==========
+		{
+			if AlreadyResponded == 0
+			{
+				AlreadyResponded = 1
+				res_reference0 = reference0
+				"\0\s[104]Hey there.\w8\e"
+			}
+			else
+			{
+				AlreadyResponded = 0
+				res_reference0 = ""
+				"Hope you're doing well.\e"
+			}
+		}
+	}
+}
+
+
+
+
+
+OnFacingCoords
+{
+	res_reference0 = "Dusty"
+	SsXCoord = reference0[0]
+	SsXCoord = TOINT(SsXCoord)
+
+	DsXCoord = ConvoTag[1]
+	DsXCoord = TOINT(DsXCoord)
+	if DsXCoord > SsXCoord
+	{
+		"\0\s[300]You're to my left."
+	}
+	elseif DsXCoord < SsXCoord
+	{
+		"\0\s[205]You're to my right."
+	}
+	else
+	{
+		"\0\s[106]We're overlapping."
+	}
+	--
+	"\e GiveCoords02,%(reference0)"
+}
