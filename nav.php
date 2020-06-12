@@ -1,7 +1,11 @@
-<?php
-echo '<a href="/default.asp">Home</a> -
-<a href="/html/default.asp">HTML Tutorial</a> -
-<a href="/css/default.asp">CSS Tutorial</a> -
-<a href="/js/default.asp">JavaScript Tutorial</a> -
-<a href="default.asp">PHP Tutorial</a>';
-?>
+<nav>
+    <?php
+    echo '<a href="index.html" class="navlink">Home</a>
+    <a href="s_the_skeleton.html" class="navlink">S the Skeleton</a>
+    <a href="#" class="navlink">Dusty</a>
+    <a href="iea.html" class="navlink">Iea</a>
+    <a href="#" class="navlink">Skryim Guard</a>
+    <a href="#" class="navlink">Balloons</a>
+    <a href="#" class="navlink">Other</a>';
+    ?>
+</nav>

@@ -21,6 +21,7 @@ nav {
     background: #ebebeb;
     padding: 15px;
     border-radius: 15px;
+    text-align: center;
 }
 
 .navlink:hover {

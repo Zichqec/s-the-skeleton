@@ -15,7 +15,7 @@
             <a href="index.html" class="navlink">Home</a>
             <a href="s_the_skeleton.html" class="navlink">S the Skeleton</a>
             <a href="#" class="navlink">Dusty</a>
-            <a href="#" class="navlink">Iea</a>
+            <a href="iea.html" class="navlink">Iea</a>
             <a href="#" class="navlink">Skryim Guard</a>
             <a href="#" class="navlink">Balloons</a>
             <a href="#" class="navlink">Other</a>
@@ -23,7 +23,7 @@
     </nav>
     <article>
         <h1>S the Skeleton</h1>
-        <img src="SThumb.png" class="center">
+        <img src="img/SThumb.png" class="center">
         <p>S the Skeleton is an Undertale based OC of mine. He's a chill skeleton who just wants to take care of his family, but is haunted by a dark past.</p>
         <p><a href="http://www.mediafire.com/file/sx6hht4son6j2j0/s_the_skeleton_v1.1.1.nar/file">Download his latest .nar here!</a></p>
        

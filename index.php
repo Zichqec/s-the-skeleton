@@ -10,28 +10,22 @@
 </head>
 
 <body>
-    <nav>
-        <div id="navbar">
-            <a href="index.html" class="navlink">Home</a>
-            <a href="s_the_skeleton.html" class="navlink">S the Skeleton</a>
-            <a href="#" class="navlink">Dusty</a>
-            <a href="#" class="navlink">Iea</a>
-            <a href="#" class="navlink">Skryim Guard</a>
-            <a href="#" class="navlink">Balloons</a>
-            <a href="#" class="navlink">Other</a>
-        </div>
-    </nav>
+
+    <div class="nav">
+    <?php include 'nav.php';?>
+    </div>
+
     <article>
         <!--<h1>Zi's Ukagaka Hub</h1>-->
         <h1>Welcome to Zi's Ukagaka Hub!</h1>
         <p>This is where I host all my ghosts, balloons, and anything related to them. Click the links above for info on specific ghosts/balloons!</p>
-        <img src="AllTogether.png" alt="All my current ghosts and ghosts in progress!" class="center">
+        <img src="img/AllTogether.png" alt="All my current ghosts and ghosts in progress!" width="478" height="340" class="center">
         <br>
     </article>
     <article>
        <h1>What's an Ukagaka/ghost?</h1>
        <p>An Ukagaka, or ghost, is a character that sits on your desktop! They can do little tasks for you such as emptying your recycling bin, checking for new emails, or checking the weather. Mostly they'll just keep you company and say random dialogue, though.<br><br>The ghosts I work on generally have a focus on story; having dynamic menus that you can use to ask about their past, give them items, etc.</p>
-       <img src="Humid.png" alt="Comments about the weather in your area" class="center"><img src="Questions.png" alt="Asking S questions" class="center">
+       <img src="img/Humid.png" alt="Comments about the weather in your area" class="center"width="447" height="235"><img src="img/Questions.png" alt="Asking S questions" class="center" width="447" height="250">
        <h1>How do I use these ghosts?</h1>
        <p>To use a ghost, you'll need a program to run it in. If you're on Windows, I recommend using <a href="http://ssp.shillest.net/">SSP</a>. If you're not on a Windows computer there are some options available, but I have not tested them myself.<br><br>Mac: <a href="https://www14.big.or.jp/~ayase/ese/">Ukagaka on Macs</a>, <a href="http://ccm.sherry.jp/ninni/index.en.html">NiseRingo</a>, <a href="http://tablesalt.o0o0.jp/ukagaka/ct_maconssp.html">PlayonMac+SSP</a>, <a href="https://winebottler.kronenberg.org/">WineBottler</a><br>Linux: <a href="http://ninix-aya.osdn.jp/">NINIX-AYA</a></p>
        <p>For those using SSP, go ahead and download the complete install package from the website. When you run it a catgirl should appear and say something in Japanese. Drag and drop a .nar file from any of my ghosts on her, and she should install them for you. Once she's done, right click her, hover over 'change ghost', and select the appropriate ghost!</p>
