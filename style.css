@@ -55,6 +55,7 @@ footer{
 a {
     
     color: #7b2dbb;
+    text-decoration: None;
 }
 
 a:hover {
