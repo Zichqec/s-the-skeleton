@@ -1,12 +1,14 @@
 /*Here is how site looks*/ 
 * { /*this affects all site elements*/
     font-family: 'Varela Round', sans-serif;
-    color: #fff1f2; /*Text color*/
-    text-align: center;
+    color: #222020; /*Text color*/
+    text-align: left;
 }
 
 body {
-    background: #4d1f22;
+    background: #381f4d;
+    margin-left: 15%;
+    margin-right: 15%;
 }
 
 /*body is an element that woud be affected*/
@@ -16,36 +18,63 @@ p {
 }
 
 nav {
-    background: #30090c;
+    background: #ebebeb;
     padding: 15px;
+    border-radius: 15px;
 }
 
 .navlink:hover {
-    background: #110107;
+    background: #b6b5b6;
     /*padding: 20px;  you can uncomment it if you want*/
 }
 
+.navlink a.active {
+    background-color: #904caf;
+    color: #ebebeb;
+  }
+
 .navlink {
     padding: 15px;
+    text-decoration: none;
+    color: #222020;
 }
 
 footer{
     margin-top: 5px;
-    background: #30090c;
+    background: #ebebeb;
     padding: 5px;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.footlink{
+    text-decoration: none;
+    color: #222020;
 }
 
 a {
-    text-decoration: none;
+    
+    color: #7b2dbb;
 }
 
 a:hover {
     text-decoration: none;
-    color: #eca5aa;
+    color: #212022;
 }
 
 article {
     margin-top: 5px;
-    background: #30090c;
-    padding: 10px;
+    background: #ebebeb;
+    padding: 20px;
+    border-radius: 15px;
 }
+
+h1{
+    text-align: center;
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
