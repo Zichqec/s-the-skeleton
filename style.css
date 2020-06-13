@@ -17,6 +17,10 @@ p {
     font-size: 20px;
 }
 
+ps { 
+    font-size: 15px;
+}
+
 nav {
     background: #ebebeb;
     padding: 15px;
@@ -38,6 +42,12 @@ nav {
     padding: 15px;
     text-decoration: none;
     color: #222020;
+}
+
+.navlinkac {
+    padding: 15px;
+    text-decoration: none;
+    color: #7b2dbb;
 }
 
 footer{
@@ -75,8 +85,25 @@ h1{
     text-align: center;
 }
 
+h3{
+    text-align: center;
+}
+
 .center {
     display: block;
     margin-left: auto;
     margin-right: auto;
+    border-radius: 15px;
   }
+
+.centersq
+{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div.cntr{
+    text-align: center;
+    font-size: 15px;
+}
