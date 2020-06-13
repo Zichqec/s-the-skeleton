@@ -1,0 +1,622 @@
+﻿//---------------------------Menus--------------------------
+
+OnMouseDoubleClick
+{
+	OpenSakuraMenu
+}
+
+OpenSakuraMenu
+{
+	"\0\b2%(idle)"
+	--
+	"Citizen."
+	"What do you need?"
+	"Trouble?"
+	"What is it?"
+	"Everything alright?"
+	"What is it? Dragons?"
+	"Need something?"
+	if race != "Altmer" && race != "Bosmer" && race != "Dunmer" && race != "Nord"
+	{
+		"What is it %(race)?"
+	}
+	if race == "Nord"
+	{
+		"How can I help a brother nord?"
+	}
+	if race == "Khajiit"
+	{
+		"What do you want,\w4 cat?"
+	}
+	if race == "Altmer" || race == "Bosmer" || race == "Dunmer"
+	{
+		"What is it elf?"
+	}
+	--
+	MenuRun
+}
+
+MenuRun
+ {	
+ 	wd = GetWeekDay
+ 	ap = GetAP
+ 	nowmin = Getnowmin
+ 	nowhour = Getnowhour
+	nowday = Getnowday
+	nowmonth = Getnowmonth
+	--
+	"\n\n\_q\b2"
+	--
+ 	"\![*]\q[Hello,altalk]\n"
+	--
+	if lastTalk != ""
+	{
+	  "\![*]\q[What was that?,OnLastTalk]\n"
+	}
+	--
+	if hold == "Whiterun"
+	{
+		"\n\![*]\q[Go on a quest,gotoquest]\n"
+	}
+	--
+	"\![*]\q[Travel,travelmenu]\n\n"
+	--
+	"\![*]\q[Config Menu,configmenu]\n\n[half]"
+	--
+	if debug == 1
+	{
+		"\![*]\q[Test Variable,testvariable]\n\n[half]"
+	}
+	--
+ 	"\n\n\![*]\q[Nevermind,CANCEL]\n___\n\n[half]"
+	//\_l[84,190]
+	--
+	GetDayTimeWidth
+	--
+	_dayTimeWidth = (130 - (WDWidth + HourOne + HourTwo + MinOne + MinTwo + APWidth))
+	"%(wd), %(hour12):%(nowmin) %(ap),\n"
+	///*\_l[dayTimeWidth]*/ //I was trying to have the date and such be center aligned but it's such a pain. Maybe one day I'll try this again idk.... sigh. If anyone knows how to do this better please tell me
+	/*--
+	GetDayOne
+	--
+	GetDayTwo
+	--
+	GetDayLetterWidth
+	--
+	GetMonthWidth*/
+	--
+	//_dateWidth = (130 - (DayOne + DayTwo + DayLetterWidth + MonthWidth)) //193 is the width of the Tamriel Balloon's validrect, divide in half for 97,  + 19 for the width of the 'of'. Should be 116 but might need a little tweaking...
+	--
+	//"\_l[%(_dateWidth)]"
+	--
+	"%(nowday) of %(nowmonth)"
+}
+
+GetDayTimeWidth
+{
+	if wd == 1
+}
+
+GetDayOne //1 is 4 pixels wide (maybe 5?) all others are 7
+{
+	_num1 = SUBSTR(day,0,1) //Dividing the day into two variables...
+	
+	if _num1 != 1
+	{
+		DayOne = 7
+	}
+	else
+	{
+		DayOne = 6
+	}
+}
+
+GetDayTwo
+{
+	_num2 = SUBSTR(day,1,1)
+	if _num2 == NULL //If there is no second number
+	{
+		DayTwo = 0
+	}
+	elseif _num2 == 1
+	{
+		DayTwo = 6
+	}
+	else
+	{
+		DayTwo = 7
+	}
+}
+
+GetDayLetterWidth
+{
+	if day == 1 || day == 21 || day == 31 //st
+	{
+		DayLetterWidth = 12
+	}
+	elseif day == 2 || day == 22 //nd
+	{
+		DayLetterWidth = 17
+	}
+	elseif day == 3 || day == 23 //rd
+	{
+		DayLetterWidth = 14
+	}
+	else //th
+	{
+		DayLetterWidth = 13
+	}
+}
+
+GetMonthWidth
+{
+	if nowmonth == "Morning Star" //All of these properly center align the month name. It might not be perfect but it's closer...
+	{
+		MonthWidth = (76 - 4)
+	}
+	elseif nowmonth == "Sun's Dawn"
+	{
+		MonthWidth = 70
+	}
+	elseif nowmonth == "First Seed"
+	{
+		MonthWidth = 46
+	}
+	elseif nowmonth == "Rain's Hand"
+	{
+		MonthWidth = 12
+	}
+	elseif nowmonth == "Second Seed"
+	{
+		MonthWidth = 27
+	}
+	elseif nowmonth == "Midyear"
+	{
+		MonthWidth = 46
+	}
+	elseif nowmonth == "Sun's Height"
+	{
+		MonthWidth = 43
+	}
+	elseif nowmonth == "Last Seed"
+	{
+		MonthWidth = 46
+	}
+	elseif nowmonth == "Heart Fire"
+	{
+		MonthWidth = 50
+	}
+	elseif nowmonth == "Frostfall"
+	{
+		MonthWidth = 53
+	}
+	elseif nowmonth == "Sun's Dusk"
+	{
+		MonthWidth = 43
+	}
+	elseif nowmonth == "Evening Star"
+	{
+		MonthWidth = 40
+	}
+}
+
+Select.altalk
+{
+	AiTalk
+}
+
+OnLastTalk 
+{
+"%(lastTalk)\e"
+}
+
+Select.gotoquest
+{
+	OnQuestMenu
+}
+
+Select.travelmenu
+{
+	"\b2\_q(Where do you want to go?)\n\n/
+	\![*]\q[Solitude,travelsolitude]\n/
+	\![*]\q[Markarth,travelmarkarth]\n/
+	\![*]\q[Falkreath,travelfalkreath]\n/
+	\![*]\q[Dawnstar,traveldawnstar]\n/
+	\![*]\q[Morthal,travelmorthal]\n/
+	\![*]\q[Whiterun,travelwhiterun]\n/
+	\![*]\q[Winterhold,travelwinterhold]\n/
+	\![*]\q[Windhelm,travelwindhelm]\n/
+	\![*]\q[Riften,travelriften]\n\n/
+	\![*]\q[Back,BACKTOMENU]"
+}
+
+Select.travelsolitude
+{
+	"Watch the skies,\w4 traveler."
+	--
+	"\w8\w8\![change,shell,Solitude]"
+}
+
+Select.travelmarkarth
+{
+	"Watch the skies,\w4 traveler."
+	--
+	"\w8\w8\![change,shell,Markarth]"
+}
+
+Select.travelfalkreath
+{
+	"Watch the skies,\w4 traveler."
+	--
+	"\w8\w8\![change,shell,Falkreath]"
+}
+
+Select.traveldawnstar
+{
+	"Watch the skies,\w4 traveler."
+	--
+	"\w8\w8\![change,shell,Dawnstar]"
+}
+
+Select.travelmorthal
+{
+	"Watch the skies,\w4 traveler."
+	--
+	"\w8\w8\![change,shell,Morthal]"
+}
+
+Select.travelwhiterun
+{
+	"Watch the skies,\w4 traveler."
+	--
+	"\w8\w8\![change,shell,Whiterun]"
+}
+
+Select.travelwinterhold
+{
+	"Watch the skies,\w4 traveler."
+	--
+	"\w8\w8\![change,shell,Winterhold]"
+}
+
+Select.travelwindhelm
+{
+	"Watch the skies,\w4 traveler."
+	--
+	"\w8\w8\![change,shell,Windhelm]"
+}
+
+Select.travelriften
+{
+	"Watch the skies,\w4 traveler."
+	--
+	"\w8\w8\![change,shell,Riften]"
+}
+
+GetWeekDay
+{
+	if weekday == 0
+	{"Sundas"}
+	elseif weekday == 1
+	{"Morndas"}
+	elseif weekday == 2
+	{"Tirdas"}
+	elseif weekday == 3
+	{"Middas"}
+	elseif weekday == 4
+	{"Turdas"}
+	elseif weekday == 5
+	{"Fredas"}
+	else
+	{"Loredas"}
+}
+
+GetAP
+{
+ 	if hour >= 0 && hour <= 11
+ 		{
+ 			"AM"
+ 		}
+ 	else
+ 		{
+ 			"PM"
+ 		}
+}
+
+Getnowmin
+{
+	if minute >= 0 && minute <=9
+	{
+		"0%(minute)"
+	}
+	else
+	{
+		"%(minute)"
+	}
+}
+
+Getnowhour
+{
+	if hour12 >= 0 && hour12 <=9
+	{
+		"0%(hour12)"
+	}
+	else
+	{
+		"%(hour12)"
+	}
+}
+
+Getnowday
+{
+	if day == 1 || day == 21 || day == 31
+	{
+	"%(day)st"
+	}
+	elseif day == 2 || day == 22
+	{
+	"%(day)nd"
+	}
+	elseif day == 3 || day == 23
+	{
+	"%(day)rd"
+	}
+	else
+	{
+	"%(day)th"
+	}
+}
+
+Getnowmonth
+{
+	if month == 1
+	{"Morning Star"}
+	elseif month == 2
+	{"Sun's Dawn"}
+	elseif month == 3
+	{"First Seed"}
+	elseif month == 4
+	{"Rain's Hand"}
+	elseif month == 5
+	{"Second Seed"}
+	elseif month == 6
+	{"Midyear"}
+	elseif month == 7
+	{"Sun's Height"}
+	elseif month == 8
+	{"Last Seed"}
+	elseif month == 9
+	{"Heart Fire"}
+	elseif month == 10
+	{"Frostfall"}
+	elseif month == 11
+	{"Sun's Dusk"}
+	else
+	{"Evening Star"}
+}
+
+Select.BACKTOMENU
+	{
+		MenuRun
+	}
+
+Select.configmenu
+	{
+		TalkConfig
+	}
+
+
+TalkConfig
+{
+	if deleteshitai == ""
+	{
+		deleteshitai = "OFF"
+	}
+	--
+	"\0\b[2]\_q" 
+	--
+	"Your race: %(race)\n"
+	--
+	"Your gender: %(gender) \f[sup,1](\q[Change it?,ChangeGender])\f[sup,0]\n"
+	--
+	"Your name: %(username) \f[sup,1](\q[Change it?,TEACHNAME])\f[sup,0]\n"
+	--
+	"Your sign: %(sign)\n\n"
+	--
+	"Talk Rate: %(talktime) \f[sup,1](\q[Change it,talkinter])\f[sup,0]\n\n"
+	--		
+	"\n\n\![*]Enable Uninstall?\n(Currently: \q[%(deleteshitai),ToggleUninstall])\n"
+	--
+	"\![*]\q[Reset your progress,areyousure]\n\n/
+	\![*]\q[Back to the menu,BACKTOMENU]\_l[60,225]Version 1.0\e"
+}
+
+Select.ChangeGender
+{
+	"\_q(I am a...)\n\n/
+	\![*]\q[Man,pickmale]\n/
+	\![*]\q[Woman,pickfemale]\n/
+	\![*]\q[Person,pickniether]\n\n/
+	\![*]\q[Back,TalkConfig]"
+	
+}
+
+Select.pickmale
+{
+	presuffix = "masculine"
+	himher = "him"
+	heshe = "he"
+	hisher = "his"
+	gender = "man"
+	--
+	TalkConfig
+}
+
+Select.pickfemale
+{
+	presuffix = "feminine"
+	himher = "her"
+	heshe = "she"
+	hisher = "her"
+	gender = "woman"
+	--
+	TalkConfig
+}
+
+Select.pickniether
+{
+	presuffix = "undefine"
+	himher = "them"
+	heshe = "they"
+	hisher = "their"
+	gender = "person"
+	--
+	TalkConfig
+}
+
+
+Select.ToggleUninstall
+{
+	if deleteshitai != "ON"
+	{
+		deleteshitai = "ON"
+	}
+	else
+	{
+		deleteshitai = "OFF"
+	}
+	--
+	TalkConfig
+}
+
+
+Select.talkinter
+ 	{
+ 		"\0\s[0]\b2(How often should he speak?\w8 The interval is currently set to %(talktime).)/
+		//note the new envelope here for %(talktime). You'll see it again in a second. You can replace the dialogue above with whatever you like, just make sure it ends with ./ and not \e.
+ 		\0\n\n[half]/
+ 		\![*]\q[Every 30 seconds,TALKMAX]\n/
+		\![*]\q[Every minute,TALKHIGH]\n/
+ 		\![*]\q[Every 3 minutes,TALKNORMAL]\n/
+		\![*]\q[Every 5 minutes,TALKPOOR]\n/
+ 		\![*]\q[Don't speak,TALKNONE]\n\n[half]/
+		\![*]\q[Don't change,TalksTill]\e"
+	}
+
+Select.TalksTill
+	{
+		"\0%(idle)(No change to the talk rate.)\e"
+	}
+
+//If the user chooses every 30 seconds.
+Select.TALKMAX
+	{
+ 		talktime = "every 30 seconds" //this sets up the envelope properly
+		aitalkinterval = 45 //this changes the actual rate
+		
+ 		"\0%(idle)(He will speak every 30 seconds.)\e"
+	}
+
+//If the user chooses every minute.
+Select.TALKHIGH
+	{
+ 		talktime = "every minute"
+		aitalkinterval = 90
+		
+ 		"\0%(idle)(He will speak every minute.)\e"
+	}
+
+//If the user chooses every three minutes.
+Select.TALKNORMAL
+	{
+ 		talktime = "every 3 minutes"
+		aitalkinterval = 270
+		
+ 		"\0%(idle)(He will speak every three minutes.)\e"
+	}
+
+//If the user chooses every five minutes. This is the default rate the ghost will start up in, as seen in bootend.dic.
+Select.TALKPOOR
+	{
+ 		talktime = "every 5 minutes"
+		aitalkinterval = 400
+		
+ 		"\0%(idle)(He will speak every five minutes.)\e"
+	}
+
+//If the user chooses to not have them speak.
+Select.TALKNONE
+	{
+ 		talktime = "Never"
+		aitalkinterval = 0
+		
+		"\0%(idle)(He will not speak.)\e"
+	}
+
+	
+Select.TEACHNAME
+	{
+		OnTeachName	
+	}
+
+	
+
+Select.CANCEL
+	{
+		"\0%(idle)No lollygaggin'.\e"
+		"\0%(idle)Move along now.\e"
+ 	}
+
+	
+//Going back to the MenuRun function we finished above, this is if someone selects the Functions option, linked to dosomething. As you can see, it ends up as Select.dosomething.
+
+
+
+//This is when the user ends their headline session. Headlines are detailed more in etc.dic. Replace dialogue with what strikes you.
+Select.HEADLINECANCEL
+ {
+ 		"\e"
+}
+
+OnChoiceTimeout
+ {
+	"\0%(idle)No lollygaggin'.\e"
+	"\0%(idle)Move along now.\e"
+ }
+
+ 
+//---- Secondary Character Menu ---------------------------------------------------------
+
+
+Select.testvariable
+{
+	OnCreateCharacter
+}
+
+
+
+Select.areyousure
+{
+	"(Are you sure? This will set all of your progress back to 0 and can't be undone.)\n\n\_q\![*]\q[Yes,reset]  \![*]\q[No,cancelnodialogue]"
+}
+
+Select.reset
+{
+	reset += 1
+	lastTalk = ""
+	passmin = 0 
+	passsec = 0
+ 	username = "USER"
+	stroke = 0
+ 	teachusername = 0	// Related to them learning your name.
+	mikireflag = 0	// Determines behavior at certain points.
+ 	aitalkinterval = 400 //Their default talk rate.
+ 	birthdayprint = "????" //A temporary value for the user's birthday.
+	talktime = "every 5 minutes" //How the value aitalkinterval will display in the config menu.
+	deleteshitai = "OFF" //Sets whether or not the user can uninstall the ghost to "OFF". The user can change it later in the config menu (see menu.dic). 
+	race = ""
+	gender = ""
+	sign = ""
+	booting = 1
+	"\![enter,passivemode]\0\s[20]Halt!\w8\w8 Who goes there?\w8\w8\![raise,OnCreateCharacter,reset]"
+}

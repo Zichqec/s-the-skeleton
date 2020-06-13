@@ -1,0 +1,36 @@
+//---------------------------Surfaces.txt--------------------------
+
+//--The Main Character's Poses---------------------------------------------------------
+
+surface0
+{
+element0,overlay,surface0.png,0,0
+}
+
+surface1
+{
+element0,overlay,surface100.png,0,0
+}
+
+surface2
+{
+element0,overlay,surface101.png,0,0
+}
+
+surface3
+{
+element0,overlay,surface102.png,0,0
+}
+
+surface20
+{
+element0,overlay,surface200.png,0,0
+}
+
+//--The Side Character's poses------------------
+//I actually intended to do the same thing here with Triangle's default pose as I did with Girl, but then I remembered that he has no mouth, so he can't even use talking frames, haha. He can however use blinking frames! So I'm going to copy the same blinking chunk from surface0 and put it here.
+
+surface10
+{
+
+}

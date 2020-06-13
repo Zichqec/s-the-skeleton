@@ -1,0 +1,25 @@
+charset,UTF-8
+version,1
+option,DisableNoDefineSurfaces
+
+//Alright, let's see if I can figure this out. It might be handy to help me find surfaces I need faster.
+//Woah, already this clears out all the images from the list! That's super convenient in itself!
+
+//---Parts---
+group,__disabled
+{
+	9999,__parts
+}
+
+
+//S
+group,SkGrd
+{
+	scope,0
+	
+	0,Crossed
+	1,Hips
+	2,On Sword
+	3,One on Hip
+	20,Attack
+}

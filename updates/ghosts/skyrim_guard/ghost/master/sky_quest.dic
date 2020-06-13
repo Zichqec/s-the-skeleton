@@ -1,0 +1,612 @@
+//----------Quest Menu-----------
+OnQuestMenu
+{
+	"\![reset,sticky-window]\p2\![move,0,0,0,0]\s[-1]\![set,sticky-window,0,2]\0\b2\![quicksection,true](What quest would you like to go on?)\n\n"
+	--
+	if hold == "Whiterun"
+	{
+		"\![*]\q[Bleak Falls Barrow,BleakFalls]"
+	}
+	--
+	"\n\n\![*]\q[Back to menu,ToMainMenu]"
+	--
+	"\n\n(Please note that this is just a proof of concept! I'd love to eventually flesh it out more and add multiple quests for each hold, but it'll be a lot of work. If you're interested in more let me know, it really does motivate me to keep working on it!)\e"
+}
+
+Select.ToMainMenu
+{
+	MenuRun
+}
+
+Select.BleakFalls //Placeholder quest for now. This sets up all the variables for whatever quest you start. How many rooms, what type of dungeon, setting the character's current HP and Stamina to the maximum and such. For now it gives you some lockpicks and potions, that'll change in the future when I add in the ability to buy them.
+{
+	currentquest = "Bleak Falls Barrow"
+	progresstofinish = 7
+	questprogress = 0
+	dungeontype = "nordic"
+	charactermaxhp = 100
+	charactermaxstamina = 100 //these'll eventually be based on your character, but just keeping it simple for now
+	userhp = charactermaxhp
+	currentstamina = charactermaxstamina
+	GetCharacterWeaponStats
+	totallockpicks = 5
+	totalhealthpotions = 3
+	dungeoninv = ""
+	enemiesdefeated = 0
+	chestslooted = 0
+	"Bleak Falls Barrow,\w4 an ancient ruin that everyone in Riverwood warned you to stay away from.\w8 But the promise of treasure awaits inside,\w4 for those few brave enough to face the terror of the undead...\xYou make your way up the giant flights of stairs,\w4 sighing a little in relief as you step inside the door,\w4 out of the freezing cold outside.\w8\n\nIt's quiet here in the entrance,\w4 but what awaits you inside..?\w8 Only one way to find out.\w8 You walk further in,\w4 one hand near your sword at all times.\x"
+	--
+	OnQuestNext
+}
+
+OnQuestNext //This progresses the quest to the next stage, and if you're at the final stage it completes the quest.
+{
+	questprogress += 1
+	if questprogress < progresstofinish
+	{
+		QuestEvents
+	}
+	else
+	{
+		if currentquest == "Bleak Falls Barrow"
+		{
+			"%(questinfo)You feel a little weary,\w4 but as you round the corner you catch sight of a decorated chest,\w4 and breathe a sigh of relief.\w8\n\nYou carefully lift the lid,\w4 and inside find a strange stone with markings on it.\w8 How odd.\w8 Maybe Belethor will buy it from you...\w8\n\nEither way,\w4 you've seen all this place has to offer,\w4 so you quickly head up the stairs and to the exit.\w8\n\nThe fresh air outside is a relief,\w4 no matter how cold it may be.\x"
+		}
+		--
+		"\b2Quest complete! \n\nLoot gathered:\n\n%(dungeoninv)\x\e"
+	}
+}
+
+QuestEvents //Shows the quest screen and picks a random encounter.
+{
+	"%(questinfo)"
+	--
+	"%(randomencounters)"
+}
+
+questinfo //The second window with all your stats
+{
+	"\p2\b2\![quicksection,true]\_l[26]---%(currentquest)---\n\nRoom: %(questprogress)/%(progresstofinish)\n\nYour HP: %(userhp)\nYour stamina: %(currentstamina)\n\nHealing potions left: %(totalhealthpotions)\nLockpicks left: %(totallockpicks)\n\nEnemies defeated: %(enemiesdefeated)\nChests looted: %(chestslooted)\![quicksection,false]\0"
+}
+
+randomencounters //Picks something random to happen, and also regens your hp and stamina a little
+{
+	userhp += 20
+	if userhp > charactermaxhp
+	{
+		userhp = charactermaxhp
+	}
+	--
+	currentstamina += 40
+	if currentstamina > charactermaxstamina
+	{
+		currentstamina = charactermaxstamina
+	}
+	--
+	"%(enemyencounter)"
+	"%(treasure)"
+	"%(allquiet)"
+	
+}
+
+enemyencounter //Picks a random enemy to make you fight
+{
+	if dungeontype == "nordic"
+	{
+		enemy = nordenemies //Setting up enemy stats...
+		enemyname = enemy[0]
+		enemyhp = enemy[1]
+		enemyatk = enemy[2]
+		enemydf = enemy[3]
+		enemyweap = enemy[4]
+		enemymagic = enemy[5]
+		
+		if enemyname != "frostbite spider" //Currently, if it's not a frostbite spider it must be something skeletal
+		{
+			"The ruins are eerily silent as you move forward.\w8 The quiet presses in all around you,\w4 making you afraid to even breathe.\w8\n\nYou take a quiet step forward,\w4 then another.\w8 The silence is so thick you can hear your own joints creaking as you move.\w8\x%(questinfo)You freeze in your tracks and the creaking noises continue.\w8\nThose aren't your bones.\w8\n\nA dessicated hand appears from around the corner,\w4 grasping at the ancient stones.\w8 It's a %(enemyname)!\x"
+			"You move quickly through the ancient ruin,\w4 eager to get out of this crumbling place.\w8 Perhaps a little too fast,\w4 you round a corner and find yourself face to face with a %(enemyname) that seems just as startled as you are!\x"
+			"You hear a guttural growling noise,\w4 the kind only the undead can make.\w8 You take a deep breath,\w4 readying yourself for combat,\w4 then round the corner.\w8 On the opposite end of the hall is a %(enemyname),\w4 and you charge at it before it can react.\x"
+		}
+		else
+		{
+			"As you move from room to room,\w4 you notice threads of cobwebs all about the place.\w8 Some might dismiss them as just a side effect of the age of the ruins,\w4 But you know better.\w8\n\nThe cobwebs grow thicker the further in you go,\w4 and you steel yourself for what you know is coming.\w8\x%(questinfo)A hissing noise from behind you confirms your worst fears,\w4 and you whirl around to see 8 eyes staring back at you.\w8 It's a %(enemyname)!\x"
+		}
+		//"A %(enemyname) approaches!\x"
+		--
+		fightenemy
+	}
+}
+
+fightenemy //Sets up the menu for you to choose actions from
+{
+	"%(BattleStats)\_q\n\n"
+	--
+	if currentstamina >= 100
+	{
+		"\![*]\q[Power attack,powattack]"
+	}
+	else
+	{
+		"\![*]%(gr)Power attack%(wh)"
+	}
+	--
+	"\n\![*]\q[Attack,attack]"
+	--
+	if shield != "none"
+	{
+		"\n\![*]\q[Block,defend]"
+	}
+	else
+	{
+		"\n\![*]\q[Defend,defend]"
+	}
+	--
+	if totalhealthpotions > 0
+	{
+		"\n\![*]\q[Drink a health potion,usehealthpotion]"
+	}
+	else
+	{
+		"\n\![*]%(gr)Drink a health potion%(wh)"
+	}
+	--
+	" (%(totalhealthpotions) left)"
+	--
+	"\n\![*]\q[Run,flee]\*"
+}
+
+Select.powattack //Power attack
+{
+	damagedealt = ((weapatk - enemydf) + RAND(3))
+	damagedealt = (damagedealt * 2)
+	enemyhp = (enemyhp - damagedealt)
+	currentstamina -= 75
+	--
+	if enemyhp <= 0
+	{
+		"%(BattleStats)"
+		--
+		enemyhp = 0
+		enemiesdefeated += 1
+		if enemyname != "frostbite spider"
+		{
+			"You hear multiple bones snap as you bring your sword down with in one final,\w4 powerful blow.\w8 "
+			--
+			if enemyname == "skeleton"
+			{
+				"The magic holding the skeleton together evaporates and the skeleton falls to pieces with a clatter,\w4 bones rolling across the floor.\x"
+			}
+			else
+			{
+				"The %(enemyname) falls to the floor and you watch as the eerie lights in its eyes fade for the final time.\x"
+			}
+		}
+		else
+		{
+			"You charge forward and put all of your strength into one final blow,\w4 hearing a satisfying crunch as your sword embeds itself in the spider's head.\w8 That takes care of that.\x"
+		}
+		//"You did %(damagedealt) damage! You win!\x"
+		--
+		OnQuestNext
+	}
+	else
+	{
+		"%(BattleStats)"
+		--
+		"You charge forward and swing!\w8 You did %(damagedealt) damage!\x"
+		"You bring your sword down in a mighty blow! You did %(damagedealt) damage!\x"
+		--
+		"%(EnemyTurnA)"
+	}
+}
+
+Select.attack //Regular attack
+{
+	damagedealt = ((weapatk - enemydf) + RAND(3))
+	enemyhp = (enemyhp - damagedealt)
+	"%(BattleStats)"
+	--
+	if enemyhp <= 0
+	{
+		enemyhp = 0
+		enemiesdefeated += 1
+		--
+		if enemyname != "frostbite spider"
+		{
+			"You swing again,\w4 and this time there's a loud crunch as your sword connects.\w8 "
+			--
+			if enemyname == "skeleton"
+			{
+				"Bones clatter to the floor as the skeleton in front of you collapses.\x"
+			}
+			else
+			{
+				"The %(enemyname) gives one final hiss as it falls to the floor,\w4 then goes silent.\x"
+			}
+		}
+		else
+		{
+			"The frostbite spider shrieks,\w4 then falls to the ground with its legs curled underneath it.\w8 One less giant spider in the world.\x"
+		}
+		--
+		OnQuestNext
+	}
+	else
+	{
+		currentstamina += 10
+		if currentstamina > charactermaxstamina
+		{
+			currentstamina = charactermaxstamina
+		}
+		--
+		if enemyname != "frostbite spider"
+		{
+			"You swing,\w4 hearing a satisfying crack as your sword strikes bone.\w8 You did %(damagedealt) damage!\x"
+		}
+		else
+		{
+			"The spider charges at you,\w4 but you keep it back with a well placed slash.\w8 You dealt %(damagedealt) damage!\x"
+		}
+		--
+		"%(EnemyTurnA)"
+	}
+}
+
+
+EnemyTurnA //Enemy turn if you've attacked. Most of the time they'll hit.
+{
+	"\![raise,OnEnemyDoesDamageA]"
+	"\![raise,OnEnemyDoesDamageA]"
+	"\![raise,OnEnemyDoesDamageA]"
+	"%(BattleStats)The %(enemyname) swipes at you,\w4 but you dodge the blow!\x"
+	--
+	fightenemy
+}
+
+
+
+OnEnemyDoesDamageA //Enemy manages to damage you
+{
+	userdamagedealt = ((enemyatk - userdf) + RAND(3))
+	userhp = (userhp - userdamagedealt)
+	"%(BattleStats)"
+	--
+	if enemyname != "frostbite spider"
+	{
+		"A loud clang comes from your armor as the %(enemyname) lands a blow.\w8 You took %(userdamagedealt) damage!\x"
+		"The %(enemyname) lands a strike,\w4 you took %(userdamagedealt) damage!\x"
+	}
+	else
+	{
+		"The frostbite spider slashes at your leg,\w4 and manages to get a hit in between your armor pieces.\w8 You took %(userdamagedealt) damage!\x"
+		"You move too slowly and get hit by a spray of frostbite venom.\w8 You took %(userdamagedealt) damage!\x"
+	}
+	//"%(BattleStats)The %(enemyname) attacks,\w4 you took %(userdamagedealt) damage!\x"
+	--
+	if userhp > 0
+	{
+		fightenemy
+	}
+	else
+	{
+		userdefeated
+	}
+}
+
+
+
+Select.defend //Defending
+{
+	currentstamina += 25
+	if currentstamina > charactermaxstamina
+	{
+		currentstamina = charactermaxstamina
+	}
+	--
+	"%(BattleStats)"
+	--
+	"\![raise,OnEnemyDoesDamageD]"
+	"You raise your shield just in time to block the %(enemyname)'s attack!\x"
+	"You manage to deflect the %(enemyname)'s attack!\x"
+	"The %(enemyname) charges,\w4 but you manage to step out of the way!\x"
+	--
+	fightenemy
+}
+
+OnEnemyDoesDamageD //The enemy manages to fo some damage past your defense. Small chance of happening.
+{
+	userdamagedealt = (((enemyatk / 2) - userdf) + RAND(3))
+	--
+	if userdamagedealt < 0
+	{
+		userdamagedealt = 0
+	}
+	--
+	"%(BattleStats)"
+	--
+	userhp = (userhp - userdamagedealt)
+	if reference0 == "potion"
+	{
+		"The %(enemyname) manages to get in a hit while you're distracted.\w8 You took %(userdamagedealt) damage!\x"
+	}
+	else
+	{
+		"You don't raise your shield in time to avoid the %(enemyname)'s blow.\w8 You took %(userdamagedealt) damage!\x"
+	}
+	--
+	if userhp > 0
+	{
+		fightenemy
+	}
+	else
+	{
+		userdefeated
+	}
+}
+
+
+Select.usehealthpotion //Drinking a health potion. This gives you a good chance of avoiding damage, so that it isn't pointless.
+{
+	if userhp == charactermaxhp
+	{
+		"%(BattleStats)You're already at full health!\x"
+		--
+		fightenemy
+	}
+	else
+	{
+		totalhealthpotions -= 1
+		userhp = (userhp + 50)
+		--
+		"%(BattleStats)"
+		--
+		if userhp > charactermaxhp
+		{
+			userhp = charactermaxhp
+			"You quickly gulp down a healing potion while the %(enemyname) prepares its attack. Healed fully!\x"
+		}
+		else
+		{
+			"You drank a health potion. Healed 50 hp!\x"
+		}
+		--
+		"%(BattleStats)The %(enemyname) lashes out while your attention is occupied,\w4 but you manage to deflect the blow!\x"
+		"%(BattleStats)The %(enemyname) charges while you're distracted,\w4 but you manage to step out of the way!\x"
+		"\![raise,OnEnemyDoesDamageD,potion]"
+		--
+		fightenemy
+	}
+}
+
+Select.flee //Attenpt to run away
+{
+	if currentstamina == 0
+	{
+		"%(BattleStats)You don't have enough stamina to run!\x"
+		--
+		fightenemy
+	}
+	else
+	{
+		fleerand = RAND(99)
+		if ((currentstamina / 4) + RAND(99)) > fleerand
+		{
+			currentstamina -= 75
+			if currentstamina < 0
+			{
+				currentstamina = 0
+			}
+			"You turn tail and flee as quickly as you can,\w4 darting around corners and scrabbling over fallen stones.\w8\n\nEventually,\w4 you realize you can no longer hear the footsteps of the %(enemyname).\w8 You've managed to escape them for the time being.\x"
+			--
+			OnQuestNext
+		}
+		else
+		{
+			currentstamina -= 75
+			if currentstamina < 0
+			{
+				currentstamina = 0
+			}
+			--
+			"%(BattleStats)You turn tail and flee,\w4 but the %(enemyname) gives chase!\x"
+			--
+			fightenemy
+		}
+	}
+}
+
+treasure //Find a locked chest. Eventually this will also have things like normal chests and urns and such
+{
+	if dungeontype == "nordic"
+	{
+		//"You found some treasure!\x\![raise,OnQuestNext]"
+		{
+			//"You found a locked chest! "
+			"You round the corner into yet another room full of crumbling stones.\w8 But this one is different,\w4 you realize,\w4 as a glimpse of ancient,\w4 decorated wood catches your eye.\w8 You dig in the rubble for a few minutes until you've cleared off the top.\w8 It's a locked chest!\n\n"
+			--
+			if totallockpicks > 0
+			{
+				"Do you want to try to open it?\n\n\_q\![*]\q[Pick the lock,picklock]\n\![*]\q[Leave it be,leaveitbe]\n\nLockpicks remaining: %(totallockpicks)"
+			}
+			else
+			{
+				"You reach into your pocket,\w4 but are disappointed as you come up empty.\w8 You're out of lockpicks.\xDisappointed,\w4 you leave the chest behind and move on to the next room.\x"
+				--
+				OnQuestNext
+			}
+		}
+	}
+}
+
+Select.picklock //Try to pick the lock
+{
+	if (RAND(99) + lockpicking) > 75 //If your picking attempt succeeds
+	{
+		chestslooted += 1
+		"%(questinfo)"
+		--
+		"The first tumbler clicks,\w4 the second one binds...\w8 Your lockpick carefully dances between the tumblers until eventually you loop around back to the first.\w8 Finally,\w4 with a click and a groan,\w4 the lock turns.\w8 You're in!\x"
+		"You carefully tease the tumblers into position until at last you feel some movement on your shim.\w8 The lock pops open with a grating noise.\w8 You've managed to unlock it!\x"
+		--
+		"%(questinfo)Items obtained:\n\n"
+		--
+		_currentloot = dungeonchestlootNUM
+		"%(_currentloot)\x"
+		--
+		dungeoninv += _currentloot
+		--
+		OnQuestNext
+	}
+	else //If you fail to pick it
+	{
+		
+			totallockpicks -= 1
+			"%(questinfo)You carefully push the tumblers into place with your lockpick,\w4 but it gets caught and snaps as you put just a little too much pressure on it."
+			"%(questinfo)You move too quickly,\w4 and your lockpick snaps as it gets caught in the mechanism."
+			--
+			if totallockpicks > 0
+			{
+			"\n\nWould you like to try again?\n\n\_q\![*]\q[Pick the lock,picklock]\n\![*]\q[Leave it be,leaveitbe]\n\nLockpicks remaining: %(totallockpicks)"
+			}
+			else
+			{
+				"\n\nYou reach into your pocket for another lockpick,\w4 but come up empty handed.\x%(questinfo)You leave the chest behind,\w4 disappointed.\x"
+				--
+				OnQuestNext
+			}
+	}
+}
+
+Select.leaveitbe //Leave the chest behind
+{
+	if dungeontype == "nordic"
+	{
+		"%(questinfo)You decide to leave the old chest behind.\x"
+		--
+		OnQuestNext
+	}
+}
+
+allquiet //Nothing eventful happens, you just regen some hp and stuff and get to read some flavor text
+{
+	if dungeontype == "nordic"
+	{
+		"You can't help but admire the beauty of this ancient tomb as you move from room to room.\w8 One can only imagine what it looked like when it was first constructed,\w4 before it was taken over by the undead."
+		"A thick layer of dust has settled over everything in this tomb,\w4 except for a few places where you can make out footprints.\w8 The dead are definitely not at rest here,\w4 and you remind yourself to be on your toes at all times."
+		"A cloud of bats swoops down from above!\w8 They have no interest in attacking you,\w4 however,\w4 have fluttered away within moments.\w8 You probably startled them as much as they startled you."
+		"The rooms in this place are truly massive.\w8 You'd stay to really take it all in,\w4 if it wasn't infested with things that want to kill you."
+		"As you enter the room,\w4 you feel a strange energy.\w8 In the middle of the room is a strange little wall,\w4 curved,\w4 and covered in some kind of markings.\w8\n\nIf you strain,\w4 you swear you can hear some sort of chanting.\w8\w8 You decide to leave the room quickly."
+		"You spot a magical rune on the floor,\w4 and safely dispatch it by tossing a rock into the circle.\w8 The explosion of destruction magic is oddly beautiful,\w4 so long as you're outside of its deadly reach."
+		"As you climb a set of stairs,\w4 a piece crumbles and sends you tumbling to the floor.\w8 You take no real damage,\w4 but you worry that the loud clatter of your armor might have awoken nearby draugr.\w8\n\nYou sit still for a few moments,\w4 but mercifully,\w4 all remains quiet..."
+	}
+	--
+	"\x\![raise,OnQuestNext]"
+}
+
+nordenemies //Name,hp,atk,df,weap,magic
+{
+	"draugr,50,10,10,sword,frost"
+	"restless draugr,75,15,15,sword,frost"
+	"skeleton,30,10,5,sword,none"
+	"frostbite spider,25,10,5,none"
+}
+
+BattleStats //Stats when battling, replaces quest stats
+{
+	_CEnemyName = enemyname //Stores the enemy name in _CEnemyName, which we're going to make capital
+	_buffer = SUBSTR(_CEnemyName,0,1) //Storing the first character
+	_CEnemyName = ERASE(_CEnemyName,0,1) //Erasing the first character from _Cingredient1
+	_CEnemyName = INSERT(_CEnemyName,0,TOUPPER(_buffer)) //Making the character in the buffer uppercase and inserting it back into _Cingredient1
+	"\p2\s[-1]\![quicksection,true]           ---%(_CEnemyName)---\n              %(enemyhp) HP remaining\n\n\n\n\n\f[height,15]\_l[10]HP: %(userhp)\_l[95]Stamina: %(currentstamina)\![quicksection,false]\0"
+}
+
+GetCharacterWeaponStats //...I'm not sure if I've actually used this yet. The plan is to eventually add more weapon types the user can have.
+{
+	if weapon == "steelsword" //Name,atk
+	{
+		//"steel sword,10"
+		WeapType = "steel sword"
+		weapatk = 20
+	}
+}
+
+userdefeated //If you die
+{
+	userhp = 0
+	_cleared = (questprogress - 1)
+	"%(BattleStats)You fall to the floor,\w4 defeated.\w8 Better luck next time!\n\n\w8Rooms cleared: %(_cleared)\x"
+}
+
+dungeonchestlootNUM //Picking a random amount of dungeon loot
+{
+	"%(dungeonchestloot)%(dungeonchestloot)"
+	"%(dungeonchestloot)%(dungeonchestloot)%(dungeonchestloot)"
+	"%(dungeonchestloot)%(dungeonchestloot)%(dungeonchestloot)%(dungeonchestloot)"
+	"%(dungeonchestloot)%(dungeonchestloot)%(dungeonchestloot)%(dungeonchestloot)%(dungeonchestloot)"
+	"%(dungeonchestloot)%(dungeonchestloot)%(dungeonchestloot)%(dungeonchestloot)%(dungeonchestloot)%(dungeonchestloot)"
+	"%(dungeonchestloot)%(dungeonchestloot)%(dungeonchestloot)%(dungeonchestloot)%(dungeonchestloot)%(dungeonchestloot)%(dungeonchestloot)"
+}
+
+dungeonchestloot //Picking what type of loot for each one of the envelopes above
+{
+	_randgold = RAND(300)
+	"%(_randgold) gold"
+	"%(lootweap)"
+	"%(lootarmor)"
+	"%(lootvaluable)"
+	"%(lootjunk)"
+	--
+	"\n"
+}
+
+lootweap //All of these envelopes pick the exact item you get for reach envelope above
+{
+	"iron sword"
+	"steel sword"
+	"glass sword"
+	"elven sword"
+	"iron mace"
+	"steel mace"
+	"elven mace"
+	"glass mace"
+	"long bow"
+	"hunting bow"
+	"elven bow"
+	"imperial bow"
+}
+
+lootarmor
+{
+	"iron helmet"
+	"iron armor"
+	"steel boots"
+	"steel greaves"
+	"elven helmet"
+	"fur armor"
+}
+
+lootuseful
+{
+	_randlockpicks = RAND(5)
+	"%(_randlockpicks) lockpicks"
+	"common soul gem"
+	"lesser soul gem"
+	"grand soul gem"
+}
+
+lootvaluable
+{
+	"ruby"
+	"garnet"
+	"sapphire"
+	"emerald"
+	"amethyst"
+}
+
+lootjunk
+{
+	"spoon"
+	"enbalming tool"
+	"paper roll"
+	"bowl"
+}

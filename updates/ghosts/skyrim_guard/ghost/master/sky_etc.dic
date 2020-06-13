@@ -1,0 +1,451 @@
+﻿//---------------------------Miscellaneous Functions--------------------------
+
+
+OnFileDrop2
+{
+	_filepath = SPLITPATH(reference0)
+	_filename = _filepath[2]
+	_fileext = TOLOWER(_filepath[3])
+	{
+		"\0\s[0]You shouldn't leave %(_fileext)s laying around.\w8\w8 Someone could get hurt.\w8\w8 And if I see you do it again,\w4 that someone will be you.\w8\w8 Have I made myself clear?\n\n\_q/
+		\![*]\q[I'm sorry.,filesorry]\n/
+		\![*]\q[You have... But I don't care.,filedontcare]"
+	}
+}
+
+Select.filesorry
+{
+	"\0%(idle)See that it doesn't happen again.\e"
+}
+Select.filedontcare
+{
+	"\0%(idle)No?\w8\w8 Do you care about rotting away for a month in a cell?\w8\w8 Ah,\w4 but nobody wants that,\w4 right?\w8\w8 Painful for you,\w4 annoying for me.\w8\w8 So,\w4 you pay my fine...\w8\w8 and you walk away.\n\n\_q/
+	\![*]\q[Fine. Take it.,filetakeit]\n/
+	\![*]\q[I'm not paying you a bribe.,filenotpaying]"
+}
+Select.filetakeit
+{
+	"\0%(idle)See,\w4 that wasn't so difficult,\w4 was it.\e"
+}
+Select.filenotpaying
+{
+	"\0%(idle)Is that so?\w8\w8 Well then,\w4 I'll have to charge you with disturbing the Jarl's peace.\e"
+}
+
+
+//---- OnInstallBegin -------------------------------------------------------
+ 
+OnInstallBegin
+{
+	"\0%(idle)(Installing...)\e"
+}
+ 
+OnInstallComplete
+{
+	"\0%(idle)" //this means your main character will be speaking first, therefore the \s[] at the beginning of each line will be defining your main character's pose.
+ 	--
+		"(Installed %(reference1).)\e"
+}
+
+//---- OnInstallFailure -------------------------------------------------------
+
+OnInstallFailure
+ {
+	"\0%(idle)(Installation failed.\n\n[half]\w5" //this first bit of dialogue begins the explanation of what happened. You can replace this with an appropriate intro statement.
+	--
+	if reference0 == "unsupported"
+	{
+	"This file is unsupported.)\e"
+	}	
+	elseif reference0 == "extraction"
+	{
+	"The file could not be extracted properly.)\e"
+	}
+ }
+ 
+ //--OnInstallRefuse
+ //If the file you dropped can't be installed with this ghost.
+ 
+OnInstallRefuse
+ {
+	"\0%(idle)(Can't install this, it's for %(reference0).)\e"
+	//reference0 in this function refers to the ghost this file is associated with, probably the name of the ghost listed in its install.txt file.
+ }
+
+
+//**** Uninstallation ******************************************
+
+
+//When you select the uninstall option in the menu.
+OnVanishSelecting
+{
+	"\0%(idle)(Do you want to leave Skyrim?)\e"
+}
+
+
+//When you decide to uninstall them. 
+OnVanishSelected
+{
+	"\0%(idle)Safe travels %(race).\w8\w8\e"
+}
+
+
+//If you select Uninstall from the menu, but decide not to do it.
+OnVanishCancel
+{
+	"\0%(idle)(Not yet.)\e"
+}
+
+//--TalkVanishButtonHold
+//I believe this calls if you click and hold the button on either the menu option for uninstalling them, or possibly the option itself. Be careful if you're trying to test this! You'd hate to uninstall all your hard work, right? I'd probably just make sure the dialogue looks right via Script Input and leave it at that.
+//[Zi] I've done a lot of testing and never gotten this to show. Dont know what it does.
+
+TalkVanishButtonHold
+{
+	"\0\s[0]\e"
+}
+
+
+ //---- OnVanished -----------------------------------------
+ //OnVanished is a weird little function. Basically, if you uninstall a ghost, it'll automatically go back to the last ghost you were using. They'll then say this line of dialogue about the ghost you just uninstalled. This is very annoying to test as you can imagine! But unlikely to come up super often, I bet. You might as well be thorough and fill this out as well. Make sure to set up both their poses immediately so they both appear when it switches back to them.
+ 
+OnVanished
+ {
+	"\0%(idle)(%(reference0) has been uninstalled.)\e"
+	
+	//reference0 here is the name of the other ghost.
+}
+
+
+//**** Mail Checking *******************************************************************
+//The next set of functions have to do with checking your email. This function is a slippery little thing - I've had people test it following my directions and have it work, but I've never actually gotten it to report back the right amount of emails myself. Very frustrating. But perhaps you'll have more luck with it, haha.
+
+
+//*********************Advanced User Info*******************************
+//These text boxes are meant for those who have an interest in expanding or using more complicated functions in their ghost. Also for my own reference in the future since I plan on using this template too, haha. If you have no interest in any of this and just want to keep things as simple as possible, feel free to skip these boxes.
+
+//If you want to set up your ghost to check your mail so you can more easily check these messages instead of just writing the dialogue and moving on, it's a little bit tricky, but not super hard.
+//Basically, you're going to need to find your POP settings for your email account. Googling your provider + POP should bring it up pretty quick. Once you have the info, you'll go to the right click menu, options, then preferences. A big menu should pop up, and you should see POP in the left side. Click that, and input all the info from the POP page you looked up for your account. Tell your ghost to check your email, and if it works, then congratulations!
+//***********************************************************************
+
+
+ //---- OnBIFFBegin ---------------------------------------------------------------
+ //When you first tell the ghost to check your email. An intro statement, if you will. Replace with whatever you like.
+ 
+OnBIFFBegin
+{
+	"\0%(idle)\e"
+}
+
+ 
+ //---- OnBIFFComplete ---------------------------------------------------------------
+ //After they've succeeded in checking your mail, they'll report back with how many new emails you have. Replace the dialogue with whatever would be character appropriate.
+ 
+OnBIFFComplete
+{
+	"\0%(idle)"
+	--
+	if reference0 == 0 //If you have no new mail.
+ 	{
+ 		"I haven't seen any couriers today.\e"
+	}
+	elseif reference0 == 1 //If you have one new email.
+ 	{
+ 		"A courier came by today,\w4 said he had a letter for you.\w8\w8 Seemed important.\e"
+	}
+	elseif reference0 > 1 && reference0 < 11 //If you have more than one email but less than eleven.
+	{
+		"A courier came by today with a handful of letters for you.\w8\w8 Said they were for your hands only.\e"
+		//reference0 here stores the amount of new email it finds.
+	}
+ 	else //For any other number of emails.
+	{
+		"A courier came by today,\w4 his bag was stuffed full of letters.\w8\w8 Said they were all for you.\w8\w8 Have you been avoiding him?\e"
+ 	}
+}
+
+ //---- OnBIFFFailure ---------------------------------------------------------------
+ //Various error messages that can happen when your ghost tries to connect to an email account. Replace the dialogue as appropriate.
+ 
+OnBIFFFailure
+ {
+	if reference0 == "timeout" //If the connection times out.
+ 	{
+ 		"\0\s[0](The connection has timed out.)\e"
+	}
+ 	elseif reference0 == "kick" //If the account blocks the ghost from accessing it. I think gmail may do this at first to try and protect your account from unapproved applications using it. It gives you the option to change the setting in the warning email they send you about it.
+	{
+		"\0\s[0](Can't access the account.)\e"
+ 	}
+	elseif reference0 == "defect" //If the information put into the POP menu is wrong.
+ 	{
+ 		"\0\s[0](The email account was not set up properly. It can be reset at the POP menu.)\![open,configurationdialog]\e"
+	}
+ 	else //if there's some other kind of error.
+	{
+		"\0\s[0](Can't connect to the account. The error returned is '%(reference[0])')\e"
+		
+		//reference0 here stores the error message the email server would have given the ghost, hopefully.
+ 	}
+}
+
+//Replace the dialogue in the next set of functions as appropriate. You can easily test these messages using the Developer panel. Go to Open at the bottom of it and choose one of the four Update Event options to simulate a Ghost's update process. I highly recommend doing this at LEAST once if you're going to use this feature to make sure it flows well.
+
+ 
+OnUpdateBegin
+{
+	"\0\s[0](Checking for updates.)\w8\e"
+}
+
+//If the ghost finds new files to update with.
+OnUpdateReady
+ {
+	 _files = (reference[0] + 1)
+	"\0%(idle)(There are %(_files) new files.)\w8\e"
+	
+	//reference0 here storing the number of new files. You don't have to use it if you don't want to.
+	//[Zi] Note that it starts counting from 0, to have it be accurate you'll have to add a +1 to it
+ }
+
+
+//When the ghost has finished the update process.
+OnUpdateComplete
+{
+	if reference0 == "none" //if the ghost had nothing to update with
+ 	{
+ 		"\0\s[0](There are no new files.)\e"
+	}
+ 	else //if the ghost has updated successfully
+	{
+		"\0\s[0](Update successful.)\e"
+ 	}
+}
+
+
+//Error messages if the update process fails in some way.
+OnUpdateFailure
+{
+	if reference0 == "timeout" //if the connection times out
+ 	{
+ 		"\0\s[0](The update connection has timed out.)\e"
+	}
+ 	elseif reference0 == "md5 miss" //This is if the files don't match properly to updates.dau, I think. For example, if a file only partially transferred or somehow got corrupted. This may also come up if you didn't set up the directory and updates.dau properly as outlined on the walkthrough page.
+	{
+		"\0\s[0](The MD5 hash of the files don't match. Let Zichqec know about that.)\e"
+ 	}
+	else //for other errors
+ 	{
+ 		"\0\s[0](The update could not be completed. The error is '%(reference0)'.)\e"
+	}
+}
+
+//You may want to replace these messages with just '...' to make updates take less time. Trust us on this one.
+ 
+OnUpdate.OnDownloadBegin
+{
+	"\_q(Downloading %(reference0)...)\n\n"
+	--
+	Update_Process = TOINT(reference1) + 1
+	Update_Total = TOINT(reference2) + 1
+	Update_Remaining = Update_Total - Update_Process
+
+	//defining starting points
+	PointA = 1
+	PointB = 1
+
+	//defining text buffers beforehand, otherwise they don't display right
+	_txt = ""
+
+	//loop calculates how many check boxes to display based on the variables above
+
+	while PointA <= Update_Process
+	{
+		_txt += "\_b[img\Update1.png,inline,--option=use_self_alpha]"
+		PointA++
+	}
+	//see above except for blank boxes
+	while PointB <= Update_Remaining
+	{
+		_txt += "\_b[img\Update2.png,inline,--option=use_self_alpha]"
+		PointB++
+	}
+	--
+	//using the text buffers to display the correct number of boxes
+	"%(_txt)\n\n%(Update_Process) of %(Update_Total)"
+	--
+	//flavortext
+	""
+	--
+	"\e"
+}
+
+//Again, may want to go with '...'
+OnUpdate.OnMD5CompareBegin
+ {
+	""
+ }
+
+
+ //After they've checked the MD5 value and it matches. See above about the length of this message.
+OnUpdate.OnMD5CompareComplete
+ {
+	""
+}
+
+ //---- OnUpdate.OnMD5CompareFailure ---------------------------------------------------
+ //If the MD5 values don't match. If you follow my Network Update directions carefully, this shouldn't come up very often, but don't be surprised if you run into it every now and then by forgetting a file here or there.
+ 
+OnUpdate.OnMD5CompareFailure
+ {
+	"\0\s[0]The MD5 values don't match.\w8\e"
+ }
+
+
+
+
+//This will begin the creation of the updates2.dau file. Not unlike the other beginning functions you've seen throughout this file. Replace with whatever you like.
+OnUpdatedataCreating
+{
+	"\0\s[0](Creating the updates2.dau file.)\e"
+}
+
+//After the updates2.dau file has been successfully created. Replace with whatever.
+OnUpdatedataCreated
+{
+	"\0\s[0](Successfully created updates2.dau.)\e"
+}
+
+
+//Along the same lines, this is when they begin creating a .nar file for your ghost. .nars are the format most ghosts will be in, something similar to a .zip file, and this is the format you'll be distributing your ghost in most likely. Replace the dialogue with whatever you like.
+OnNarCreating
+{
+	"\0\s[0](Creating the .nar file.)\e"
+}
+
+//After the nar file has been successfully created.
+OnNarCreated
+{
+	"\0\s[0](Successfully created '%(reference0)').\e"
+	//reference0 here will be the filename of the nar you just created. It should drop the nar in the folder where all your ghosts are listed, ssp\ghost\.
+}
+
+//****　Clock Synchronization　**********************************************************
+//**** 미카 (http://homepage2.nifty.com/ko-ki/)의 사전을 참고했습니다．감사＞こ 나무 성
+//This set of functions was done by the above Korean coder, I think. I'll leave their comment there untouched. 
+//If you right click your ghost and go into the Utilities menu, there's an option called NTP Time Sync. That's what this is for!
+ 
+
+
+//As with the others you've seen above, this is the beginning bit of dialogue for this process.
+OnSNTPBegin
+{
+	""
+	//%(reference0) here is the site they'll be using to check your clock. I wouldn't worry too much about what the site is or where it's defined, it should be accurate. Replace the dialogue with what you need, you don't have to use reference0 if you don't want to.
+}
+
+OnSNTPCompare
+ {
+ 	if reference3 == 0 //if your clock is already accurate.
+	{
+ 		"\0%(idle)Don't waste my time.\e" //replace this with whatever message you like.
+	}
+ }
+
+//This is when you change the resolution of your monitor while your ghost is running. Don't mess with any of this, it should be fine as is.
+OnDisplayChange
+{
+	displaybpp    = reference0
+ 	displaywidth  = reference1
+	displayheight = reference2
+}
+
+
+
+
+ //---- OnScreenSaverEnd -------------------------------------------------------
+ //When you wiggle your mouse and stop your screensaver.
+ 
+OnScreenSaverEnd
+{
+	"\0\s[0]What was that?\e" //replaceframe attack
+}
+
+
+
+
+
+OnCommunicate
+ {
+	if reference0 == "user" || reference0 == "User"
+ 	{
+		//---- answering the user
+ 		ReplyToUser
+	}
+ 	else
+	{
+ 		//---- answering another ghost
+		ReplyToGhost
+ 	}
+}
+
+//Just ignore this.
+ReplyToUser
+{
+	TalkToUser
+}
+
+//--ReplyToGhost
+
+
+ReplyToGhost
+{
+ 	res_reference0 = ""
+	"\0%(idle)Move along,\w4 citizen.\e"
+}
+
+
+
+
+
+
+
+
+
+
+
+
+OnTranslate
+	{
+	_talk = reference0
+ 	_talk = REPLACE(_talk, "Anchor 1", "\_a[anchor1]Anchor 1\_a")
+	
+		if reference1 == "" && reference2 == "" { //send input box : no event (ref2) , no special flag (ref1)
+            EVAL('"' + REPLACE(_talk,'"','" + CHR(0x22) + "') + '"')
+        }
+        else { //event result from ghost
+            TOSTR(_talk)
+        }
+	}
+	
+
+	
+//--OnAnchorSelect
+//OnAnchorSelect runs whenever someone clicks one of the links as specified above, or a link that begins with http://.
+
+OnAnchorSelect
+{
+	if "http://" _in_ reference0 //checking to see if the link is a web address
+	{
+	"\j[%(reference0)]\e" // \j is a tag that will open a specified url in the user's browser of choice. This basically just tells the ghost to open the webpage stored in reference0, which would be the address that the user just clicked. I didn't get too much into \j in the walkthrough page because I have literally never used it except here.
+	}
+	else //if it's NOT a web address
+	{
+	case reference0 //case is a unique thing I've only really seen here in anchor.dic, and as far as I can tell it sets up reference0 for evaluation to see if matches any of the below criteria, which are all tagged with when. I wouldn't mess with much of this stuff unless you have a better grasp of this kind of thing than I do, haha. You can add as many things here as you want to set up above as long as you follow the basic format.
+		{
+			when "anchor1" //if the link is this value
+			{
+				"\0\s[0]This dialogue is for when Anchor 1 is clicked.\e"
+			}
+		}
+	}
+}

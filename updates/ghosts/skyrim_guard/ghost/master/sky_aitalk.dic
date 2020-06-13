@@ -1,0 +1,593 @@
+﻿//---------------------------AI Talk--------------------------
+
+AiTalk
+ {
+	if RAND(100) < communicateratio
+ 	{
+ 		StartCommunicate
+	}
+ 	else
+	{
+ 		if mikireflag == 0
+		{
+			if CHAIN.IDName == "" {
+ 				lastTalk = RandomTalk
+			}
+			else {
+				lastTalk = ChainTalk
+			}
+			lastTalk
+		}
+ 		else
+		{ 
+		MikireTalk
+ 		}
+	}
+ }
+
+
+//--RandomTalk 
+
+RandomTalk : nonoverlap
+{
+	"\0%(idle)"
+	--
+	{
+	"I used to be an adventurer like you.\w8\w8 Then I took an arrow in the knee.\e"
+	"Let me guess,\w4 someone stole your sweetroll.\e"
+	"Disrespect the law and you disrespect me.\e"
+	"My cousin's out fighting dragons,\w4 and what do I get?\w8\w8 Guard duty.\e"
+	"Gotta keep my eyes open.\w8\w8 Damn dragons could swoop down at any time.\e"
+	"Fear not.\w8\w8 Come dragon or giant,\w4 we'll be ready.\e"
+	"They say Helgen got hit by a dragon.\w8\w8 One of those horrors comes here, we'll be ready.\e"
+	"Brigands I can handle,\w4 but this talk of dragons?\w8\w8 World's gone mad,\w4 I say.\e"
+	"Everything's in order.\e"
+	"Staying safe,\w4 I hope?\e"
+	"Helgen...\w8\w8 destroyed by a dragon.\w8\w8  Hard to believe,\w4 isn't it?\e"
+	"I mostly deal with petty thievery and drunken brawls.\w8\w8 Been too long since we've had a good bandit raid.\e"
+	"They say Ulfric Stormcloak murdered the High King...\w8\w8 with his voice!\w8\w8 Shouted him apart!\e"
+	"You see those warriors from Hammerfell?\w8\w8 They've got curved swords.\w8\w8 Curved.\w8\w8 Swords.\e"
+	"They say if a vampire so much as scratches you,\w4 you'll turn into one.\w8\w8 That better not be true.\e"
+	"Dragons breathing fire in the sky,\w4 vampires brazenly attacking people on the street.\w8\w8 It's the end of the world I tell you.\e"
+	"We need to do something about these vampire attacks.\e"
+	"Heard they're reforming the Dawnguard.\w8\w8 Vampire hunters or something,\w4 in the old fort near Riften.\w8\w8 Might consider joining up myself.\e"
+	"They say that vampires attacked the Hall of the Vigilant.\w8\w8 Burned it to the ground!\w8\w8 Never heard of vampires doing anything like that before.\e"
+	"Another quiet day...\w8\w8 I hope.\e"
+	"Another quiet day.\e"
+	}
+	
+	
+	if timeslot == "latenight" || timeslot == "midnight"
+	{
+		"Could sure use a warm bed right about now...\e"
+		"I'd be a lot warmer and a lot happier with a bellyful of mead...\e"
+		"I fear the night,\w4 because the werewolves and vampires don't.\e"
+		"Bit late to be wandering around,\w4 isn't it?"
+		"Only burglars and vampires creep around after dark.\w8\w8 So which are you?\e"
+		"You hear that?\w8\w8 I swear,\w4 there's something out there.\w8\w8 In the dark.\e"
+		"Just a few more hours and I can crawl under some furs...\e"
+		
+	}
+	if MainQuest == "complete"
+	{
+		"No matter what else happens,\w4 the guards will always be grateful for what you've done.\e"
+		"Yes,\w4 Dovahkiin?\w8\w8 How can I help you?\e"
+	}
+	
+	
+	//-----Races-----
+	if race == "argonian"
+	{
+		"Stay out of trouble,\w4 argonian.\e"
+		"Stay out of trouble,\w4 lizard.\e"
+	}
+	if race == "nord"
+	{
+		"Staying out of trouble,\w4 kinsmen?\e"
+	}
+	if race == "altmer" || race == "bosmer" || race == "dunmer"
+	{
+		"Don't cross me,\w4 elf."
+		"Stay out of trouble,\w4 elf.\e"
+	}
+	if race == "khajiit"
+	{
+		"Stay out of trouble,\w4 khajiit.\e"
+	}
+	if race == "redguard"
+	{
+		"Stay out of trouble,\w4 redguard.\e"
+	}
+	if race == "imperial"
+	{
+		"Stay out of trouble,\w4 imperial.\e"
+	}
+	if race == "orc"
+	{
+		"Stay out of trouble,\w4 orc.\e"
+	}
+	
+	//-----Weapons-----
+	if weapon == "iron sword"
+	{
+		"Pigsticker like that's not going to get you far.\w8\w8 Best visit the blacksmith.\e"
+		"That iron sword's pretty undependable.\w8\w8 You should try steel.\e"
+		"Iron sword,\w4 huh?\w8\w8 What are you killing,\w4 butterflies?\e"
+	}
+	if weapon == "steel sword"
+	{
+		"Favor a steel sword,\w4 do ya?\w8\w8 Good choice for slashing or stabbing.\e"
+	}
+	if weapon == "elven sword"
+	{
+		"Why the elven blade,\w4 hmm?\w8\w8 Nord steel not good enough for you?\e"
+	}
+	if weapon == "ebony sword"
+	{
+		"Aye,\w4 now that there's a beautiful sword.\w8\w8 Like a sliver of midnight.\e"
+	}
+	if "greatsword" _in_ weapon
+	{
+		"Takes a fair bit of strength to carry a greatsword like that.\w8\w8 But can you use it?\e"
+	}
+	if weapon == "aegisbane" && hold == "Windhelm"
+	{
+		"Ah,\w4 Aegisbane.\w8\w8 Sigil of Clan Shatter-Shield.\w8\w8 But didn't that get stolen awhile back?\w8\w8 Hmph.\w8\w8 Must be rememberin' wrong.\e"
+	}
+	if weapon == "mace of molag bal"
+	{
+		"No...\w8\w8 Get that accursed mace away from me..."
+		"That mace...\w8\w8 get it away from me.\w8\w8 Get it away...\e"
+	}
+	if weapon == "mehrunes razor"
+	{
+		"Who did you have to kill to get that blade?\e"
+	}
+	if weapon == "the rueful axe"
+	{
+		"'Tis a wicked axe you wield there,\w4 friend.\w8\w8 That blade looks sharp enough to cut through a god.\e"
+	}
+	if weapon == "skull of corruption"
+	{
+		"What manner of staff is that?\w8\w8 Such a horror...\e"
+		"What a foul and unnatural weapon you wield.\w8\w8 Never have I seen its like.\e"
+	}
+	if weapon == "volendrung"
+	{
+		"What do you aim to do with that hammer,\w4 friend?\w8\w8 Knock down a house?\e"
+		"That is one...\w8\w8 big hammer.\e"
+	}
+	
+	//-----Armor-----
+	if armor == "hide armor"
+	{
+		"Some advice,\w4 friend.\w8\w8 That armor won't offer much protection in a real fight.\e"
+	}
+	if armor == "studded armor"
+	{
+		"You wear the armor of a brigand.\w8\w8 Best not cause any trouble on my watch.\e"
+	}
+	if armor == "leather armor"
+	{
+		"Fancy the leather armor,\w4 huh?\w8\w8 Something to be said for going light.\e"
+	}
+	if armor == "scaled armor"
+	{
+		"That's fine scale armor you've got there.\w8\w8 Shiny.\e"
+	}
+	if armor == "iron armor"
+	{
+		"That's good armor you've got there,\w4 friend.\w8\w8 Iron,\w4 solid and true.\e"
+		"Hmph.\w8\w8 You wear that armor well,\w4 friend.\w8\w8 Iron may be simple,\w4 but it'll stop enough to keep you in the fight.\e"
+	}
+	if armor == "banded iron armor"
+	{
+		"You wear the armor of a mercenary.\w8\w8 Now that's the life.\e"
+	}
+	if armor == "steel armor"
+	{
+		"Aye,\w4 now that's some fine armor.\w8\w8 Good old-fashioned steel.\e"
+	}
+	if armor == "steel plate armor"
+	{
+		"Aye,\w4 now that's some fine armor.\w8\w8 Good old-fashioned steel.\e"
+		"Ah,\w4 steel plate.\w8\w8 Now that's a solid choice of armor.\e"
+	}
+	if armor == "orcish armor"
+	{
+		"Orcish armor,\w4 hmm?\w8\w8 Had me a set of that once.\w8\w8 Ugly and strong,\w4 like those that forged it.\e"
+	}
+	if armor == "ebony armor"
+	{
+		"Ebony armor.\w8\w8 By Ysmir,\w4 'tis a wondrous sight.\e"
+	}
+	if armor == "dragonplate armor"
+	{
+		"Is your armor made of...\w8\w8 dragon bones?\w8\w8 By the gods,\w4 what I wouldn't do for a set of that.\e"
+	}
+	if armor == "dragonscale armor"
+	{
+		"Is your armor made of...\w8\w8 dragon scales?\w8\w8 By the gods,\w4 what I wouldn't do for a set of that.\e"
+	}
+	if armor == "ancient nord armor"
+	{
+		"Ugh.\w8\w8 That armor stinks of death.\w8\w8 You been grave robbing?\e"
+	}
+	if armor == "wolf armor"
+	{
+		"You wear the garb of a true nord.\w8\w8 I salute you.\e"
+	}
+	if armor == "nightingale armor"
+	{
+		"That armor...\w8\w8 it's like nothing I've ever seen.\w8\w8 Like forged midnight...\e"
+	}
+	if armor == "thieves guild armor" || armor == "master's armor"
+	{
+		"Try to hide it all you want.\w8\w8 I know you're in the Thieves Guild...\w8\w8 and so do the other guards.\e"
+	}
+	
+	//-----Artifacts and Unique items-----
+	if azurasstar == 1
+	{
+		"You wield...\w8\w8 Azura's Star?\w8\w8 How...\w8\w8 how can such a thing be possible?\e"
+		"By Shor,\w4 is that...\w8\w8 is that Azura's Star?\w8\w8 How did you come to possess such a rare treasure?\e"
+	}
+	if ringofnamira == 1
+	{
+		"Ugh.\w8\w8 Your breath is foul.\w8\w8 What've you been eating?\e"
+	}
+	if shield == "spellbreaker"
+	{
+		"Ah,\w4 now that's a fine shield.\w8\w8 And not mere dwarven...\w8\w8 is it?\e"
+		"Your shield...\w8\w8 Dwarf-make,\w4 is it not?\w8\w8 But yet it seems so much...\w8\w8 more.\e"
+	}
+	
+	//-----Skills-----
+	if alchemy >= 30
+	{
+		"Hey,\w4 you mix potions,\w4 right?\w8\w8 Can you brew me an ale?\e"
+		"Fancy yourself an alchemist,\w4 hmm?\w8\w8 Never could get the hang of that.\e"
+	}
+	if archery >= 30
+	{
+		"Favor the bow,\w4 eh?\w8\w8 I'm a sword man,\w4 myself.\e"
+	}
+	if conjuration >= 30
+	{
+		"Hail,\w4 summoner.\w8\w8 Conjure me up a warm bed,\w4 would you?\e"
+	}
+	if destruction >= 30
+	{
+		"Destruction magic's fine,\w4 just don't go burning down any buildings.\e"
+	}
+	if enchanting >= 30
+	{
+		"Don't suppose you'd enchant my sword?\w8\w8 Dull old blade can barely cut butter.\e"
+	}
+	if heavyarmor >= 30
+	{
+		"Best offense is a good defense,\w4 am I right?\e"
+	}
+	if illusion >= 30
+	{
+		"You're the one that casts those illusions.\w8\w8 Impressive.\e"
+	}
+	if lightarmor >= 30
+	{
+		"Lightly armored means light on your feet.\w8\w8 Smart.\e"
+	}
+	if lockpicking >= 30
+	{
+		"Go fiddling with any locks around here,\w4 we're going to have a real problem.\e"
+	}
+	if onehanded >= 30
+	{
+		"You're like me,\w4 eh?\w8\w8 Don't fancy those clunky two-handed weapons.\e"
+	}
+	if pickpocket >= 30
+	{
+		"I find your hand in my pocket,\w4 I'm going to cut it off.\e"
+		"I know your kind,\w4 always sneaking about.\e"
+	}
+	if restoration >= 30
+	{
+		"I have a lot of respect for the restoration school.\w8\w8 Skyrim could use more healers.\e"
+	}
+	if sneak >= 30 || pickpocket >= 30
+	{
+		"Hands to yourself,\w4 sneak thief.\e"
+	}
+	if speech >= 30
+	{
+		"Heard about you and your honeyed words.\e"
+		"Don't think you can barter with me like I'm one of those damned shopkeepers.\e"
+	}
+	if twohanded >= 30
+	{
+		"The gods gave you two hands,\w4 and you use them both for your weapon.\w8\w8 I can respect that.\e"
+	}
+	
+	//-----Hold specific-----
+	if hold == "Dawnstar"
+	{
+		if wakingnightmare != "complete"
+		{
+			"You've come to Dawnstar at a strange time,\w4 friend.\w8\w8 Seems everyone in this town is having nightmares...\e"
+			"The people here are still plagued with nightmares.\w8\w8 It's...\w8\w8 unnatural.\e"
+		}
+		"Dangerous post,\w4 Dawnstar.\w8\w8 If the bandits don't get you,\w4 the animals will.\e"
+		"Old lady Frida is a grouch,\w4 but she sure can ship up a cure for the rattles fast.\e"
+		"You should talk to Rustleif.\w8\w8 Get some proper steel.\e"
+		
+		"Beware of Frostmere Crypt,\w4 friend.\w8\w8 Heard some bandits are living in the ruins now.\e"
+		"Giants have been spotted up near Red Road Pass.\w8\w8 Best to keep away and avoid it entirely.\e"
+		if warfaction == "Stormcloaks"
+		{
+			"We won't give up this port to the Imperials without a fight,\w4 don't you worry.\e"
+		}
+	}
+	if hold == "Markarth"
+	{
+		"Outsiders aren't trusted in Markarth.\w8\w8 Best keep that in mind.\e"
+		"Can't believe I'm posted here.\w8\w8 Even the beds are made of stone.\e"
+		"Break the law in Markarth,\w4 and it's off to Cidhna Mine with you.\e"
+		"Caught a case of Rockjoint,\w4 once.\w8\w8 Bothela at the Hag's Cure fixed me right up.\e"
+		"Let me guess -\w4 you need a drink.\w8\w8 It's the Silver-Blood Inn you're looking for.\e"
+		"You should see that Orc over in Understone Keep,\w4 have him forge you some new armor...\e"
+		"By Shor,\w4 you're hauling around a lot of junk.\w8\w8 Best stop in at Arnleif and Sons Trading Company,\w4 sell it off.\e"
+		"Whole dwarven city underneath the keep.\w8\w8 Nchuand-Zel.\w8\w8 Best steer clear if you don't want a steam centurion carving you up.\e"
+		if vlindrelhall == 0
+		{
+			"Ah,\w4 Vlindrel Hall's a fine home,\w4 if you can afford it.\w8\w8 The steward in the keep can tell you more.\e"
+		}
+		if vlindrelhall == 1
+		{
+			"So you bought Vlindrel Hall,\w4 eh?\w8\w8 Wish I could afford a house that nice.\e"
+		}
+		
+		"Travel southeast and you'll find an orc stronghold,\w4 up around the old Dushnikh orichalcum mine.\e"
+		"There's a small skeever den just east of the city,\w4 at Reachwater Rock.\e"
+		"Beware the region northeast,\w4 across the river.\w8\w8 Forsworn have taken refuge in Broken Tower Redoubt,\w4 and Red Eagle Redoubt.\e"
+		"The Forsworn have been spotted to the north,\w4 near Bruca's Leap Redoubt.\e"
+		"Lots of nasty holes in the Reach,\w4 and Blind Cliff Cave is one of them.\w8\w8 A filthy hagraven nest,\w4 northeast of here.\e"
+		"There's an evil to the north,\w4 friend,\w4 and its name is Ragnvald.\w8\w8 A tomb like so many in Skyrim,\w4 where the dead have found no peace.\e"
+		if warfaction == "Imperials"
+		{
+			"Let's see those Stormcloaks try to break into this canyon.\e"
+		}
+	}
+	if hold == "Riften"
+	{
+		"So is it Riften or Rifton?\w8\w8 This place has changed its name so many times,\w4 I can't even remember.\e"
+		"You could say the Ratway is the city under the city.\w8\w8 Dark,\w4 dangerous,\w4 and no place for decent folk.\e"
+		"There's fine steel at the Scorched Hammer,\w4 if you fancy a new blade.\e"
+		"If it's a bed you need,\w4 talk to Keerava in the Bee and Barb.\w8\w8 She'll set you right.\e"
+		"Need a drink,\w4 you go to the Bee and Barb.\w8\w8 Stay out of the Ragged Flagon,\w4 stay out of the Ratway.\e"
+		"There's an apothecary in town,\w4 yeah.\w8\w8 But it's down on the lower walkway,\w4 so stay sharp if you go down there.\e"
+		if thievesguild != "complete"
+		{
+			"The Thieves Guild used to run this city.\w8\w8 Now they're nothing but braggarts and bullies,\w4 rotting to death down in their Ratway...\e"
+		}
+		if honeyside == 0
+		{
+			"If you're looking to settle in Riften,\w4 there's a house for sale - Honeyside.\w8\w8 See the steward in the keep if you want it.\e"
+		}
+		if honeyside == 1
+		{
+			"Smart thing you did,\w4 buying Honeyside.\w8\w8 Nice place,\w4 and why pay for an inn?\e"
+		}
+		if timeslot == earlymorning || timeslot == morning || timeslot == lunch || timeslot == afternoon
+		{
+			"City's quiet enough now.\w8\w8 But when the sun goes down,\w4 you best be on your guard.\e"
+		}
+		if timeslot == evening || timeslot == latenight || timeslot == midnight
+		{
+			"Careful.\w8\w8 Riften's not the safest place for a nighttime stroll.\e"
+		}
+		
+		"If you journey north,\w4 stay well away from Snapleg Cave.\w8\w8 Damn hagravens have infested the place.\e"
+		"There's a foul presence coming from Darklight Tower,\w4 southwest of the city.\w8\w8 Some say the place is home to necromancers.\e"
+		"City got attacked once by those damned bandits,\w4 come east across the lake,\w4 from Faldar's Tooth.\w8\w8 They won't be trying that again.\e"
+		"Best not to go wandering east of the city.\w8\w8 Bandits been seen around Broken Helm Hollow.\e"
+		"By the gods,\w4 a dragon's been sighted just south of the city,\w4 flying around Lost Tongue Overlook.\e"
+		"Talk of strange happenings at Autumnshade Clearing,\w4 just north of the lake.\w8\w8 My guess?\w8\w8 Spriggans.\e"
+	}
+	if hold == "Solitude"
+	{
+		"If you need potions,\w4 head over to Angeline's Aromatics.\e"
+		"I don't abide fancy clothes,\w4 but you look like you might.\w8\w8 I hear Radiant Raiment has a large selection.\e"
+		"The Winking Skeever's got warm beds and cold mead.\w8\w8 You look like you could use both.\e"
+		"You can sell off that junk at Bits and Pieces.\e"
+		"If it's arms or armor you need,\w4 see Beirand at Castle Dour.\w8\w8 Bloody good blacksmith that one.\e"
+		"Been up to the Blue Palace?\w8\w8 It's a sight to see,\w4 even if it is filled with fops.\e"
+		if bounduntildeath != "complete"
+		{
+			"The Emperor's cousin Vittoria Vici's getting married soon.\w8\w8 The reception is public,\w4 anyone in Solitude can attend.\e"
+		}
+		if proudspiremanor == 0
+		{
+			"Proudspire Manor,\w4 now there's a fine home.\w8\w8 Up for sale,\w4 too.\w8\w8 If you're interested,\w4 talk to the steward,\w4 in the keep.\e"
+		}
+		if proudspiremanor == 1
+		{
+			"You own Proudspire Manor,\w4 hmm?\w8\w8 Beautiful house.\w8\w8 At least from the outside.\e"
+		}
+		
+		"If you must venture southwest,\w4 stay clear of Volskygge.\w8\w8 It's a cursed place,\w4 a tomb where the dead still live...\e"
+		"The road to Whiterun's not safe these days.\w8\w8 Lots of travelers just...\w8\w8 disappear,\w4 south of Dragon Bridge.\w8\w8 Can't find a trace of them.\e"
+		"Off the coast a ways to the east,\w4 you'll find the wreck of the Brinehammer.\w8\w8 Never know what treasures may still be aboard.\e"
+		"You heard of Ravenscar Hollow?\w8\w8 Cave on the island to the west.\w8\w8 Place is a roost for those foul hagravens.\e"
+		"Pinemoon Cave is down to the southwest,\w4 but it ain't fit for exporing.\w8\w8 There are stories...\w8\w8 Vampires,\w4 some say.\e"
+	}
+	if hold == "Whiterun"
+	{
+		"Stormcloaks,\w4 Imperials,\w4 dragons.\w8\w8 Ain't no matter to me what I kill.\w8\w8 Let them come.\e"
+		"If you need potions,\w4 you should try Arcadia's Cauldron.\e"
+		"You look tired,\w4 friend.\w8\w8 The bannered Mare has beds for rent.\e"
+		"The Bannered Mare's got warm beds and cold mead.\w8\w8 You look like you could use both.\e"
+		"Need a blade?\w8\w8 You should talk to Adrianne,\w4 at the forge.\e"
+		"Need supplies?\w8\w8 See Belethor at his store.\w8\w8 Sleazy little man,\w4 but he has good stock.\e"
+		"Be glad you're here in the city,\w4 and not out in Riverwood.\w8\w8 Those poor sods don't even have a wall.\e"
+		"I worry about the other settlements in the hold.\w8\w8 Unwalled,\w4 lightly manned -\w4 prime targets for those damned dragons.\e"
+		"Rorikstead's a nice little hamlet,\w4 but a boring post for a guard.\w8\w8 If a dragon attacks,\w4 well...\w8\w8 then it'll be a different story.\e"
+		"Cause trouble in Whiterun,\w4 and I'll haul you into the Dragonsreach dungeon myself.\e"
+		if breezehome == 0
+		{
+			"Thinking of settling in?\w8\w8 There's a home for sale -\w4 Breezehome.\w8\w8 You should talk to the steward up in the keep if you're interested.\e"
+		}
+		if breezehome == 1
+		{
+			"You're the one that lives in Breezehome,\w4 right?\w8\w8 Fine place.\w8\w8 Almost bought it myself.\e"
+		}
+		if dragonrising == "complete"
+		{
+			"The guards in Dragonsreach say you've aided the Jarl.\w8\w8 On behalf of Whiterun,\w4 I thank you.\e"
+			"I've seen you helping the Jarl.\w8\w8 If only all visitors to Whiterun were as noble.\e"
+		}
+		
+		"The circle of stones to the southwest?\w8\w8 That's Secunda's Kiss.\w8\w8 The giants hold it sacred,\w4 so tread carefully.\e"
+		"Looking to do some hunting?\w8\w8 Avoid Brittleshin Pass.\w8\w8 It's southeast of here.\e"
+		"If you're heading east,\w4 stay clear of Hillgrund's Tomb.\w8\w8 Thing about those old crypts -\w4 the dead have trouble staying that way.\e"
+		"Careful if you cross the river to the east.\w8\w8 Old Hajvarr Iron-Hand and his brigands are holed up in that cave,\w4 White River Watch.\e"
+		"You know,\w4 I saw something near Shimmermist Cave to the northeast.\w8\w8 Some sort of creature.\w8\w8 Small and wicked,\w4 never seen its like before.\e"
+		"Yesterday,\w4 I saw a dragon fly right over the city.\w8\w8 Headed northeast.\w8\w8 Toward Shearpoint,\w4 by the looks of it.\e"
+	}
+	if hold == "Windhelm"
+	{
+		"You should unload some of that unwanted gear.\w8\w8 Head over to Sadri's Used Wares,\w4 talk to the Elf.\e"
+		"We got a nickname for anyone who trifles with us guards here in Windhelm -\w4 'Suicide.'\e"
+		"The dunmer get their drinks down at the New Gnisis Cornerclub.\w8\w8 Why they can't just call it a tavern is beyond me.\e"
+		"Stay away from the Aretino Residence.\w8\w8 That place is cursed.\e"
+		"If it's bed or board you're after,\w4 Candlehearth Hall's got both.\e"
+		"If you need an apothecary,\w4 the White Phial has respectable stock.\e"
+		if bloodontheice != "complete"
+		{
+			"My heart goes out to Clan Shatter-Shield.\w8\w8 Kin murdered,\w4 family warhammer stolen...\w8\w8 There's no fairness in all that.\e"
+		}
+		if disease != "none"
+		{
+			"By the gods,\w4 you're diseased.\w8\w8 Get yourself to the White Phial and purchase a remedy,\w4 before you infect us all.\e"
+		}
+		if hjerim == 0
+		{
+			"Hjerim is a fine house,\w4 and it's up for sale.\w8\w8 You should talk to the steward in the keep if you're interested.\e"
+		}
+		if hjerim == 1
+		{
+			"Don't think you'll get special treatment just because you have a house in the city.\e"
+		}
+		
+		"You hear the news?\w8\w8 There's a dragon roosting up on Mount Anthor,\w4 to the northwest.\e"
+		"Tell me you've seen them.\w8\w8 Those...\w8\w8 things.\w8\w8 Small and evil,\w4 like something out of a nightmare.\w8\w8 They came from Stillborn Cave,\w4 to the north.\w8\w8 I know it.\e"
+		"Maybe you've seen the masts sticking out of the water to the northeast?\w8\w8 That would be the Wreck of the Winter War.\w8\w8 Fine vessel,\w4 back in its day.\e"
+		"South of here,\w4 and west of the road,\w4 lies Cronvangr Cave.\w8\w8 Stay away from that cursed place,\w4 and the vampires that call it home.\e"
+		if race == "Orc"
+		{
+			"I've no problem with your kind,\w4 orc.\w8\w8 But that stronghold they've got in the southeast?\w8\w8 Narzulbur?\w8\w8 It's an affront to by people.\e"
+		}
+		"I've no problem with orcs,\w4 But that stronghold they've got in the southeast?\w8\w8 Narzulbur?\w8\w8 It's an affront to by people.\e"
+		"Across the river to the northeast lies Yngol Barrow.\w8\w8 Steer clear of the foul place,\w4 lest the walking dead claim you as their own.\e"
+		"The Eye of Talos was a fine ship,\w4 once.\w8\w8 Now it lies wrecked,\w4 off an island just north of here.\e"
+	}
+	if hold == "Winterhold"
+	{
+		"If you're here for sight-seeing,\w4 then you've seen the sights.\w8\w8 Might as well head somewhere warmer.\e"
+		"Take care if you go venturing too far from town.\w8\w8 That's a bitter wind coming off the Sea of Ghosts.\e"
+		"Hard to believe I ever complained about Riften being cold...\e"
+		if warfaction == "Stormcloaks"
+		{
+			"Winterhold belongs to Skyrim,\w4 not the Imperials,\w4 or the mages.\e"
+		}
+	}
+	
+	//=================War factions===============
+	if warfaction == "Stormcloaks"
+	{
+		"The Imperials think us all lawless beasts.\w8\w8 I am proof of their ignorance.\e"
+		"The Imperials think we need their laws.\w8\w8 Pffft.\e"
+	}
+}
+
+
+//--Chains
+
+
+
+
+OnMinuteChange
+ {
+	timeslot = GetTimeSlot //this tells the ghost what time it is so the time related conversations above will work.
+	--
+	//Don't touch this part.
+	if mikireflag == 1
+ 	{
+ 		MikireTalk
+	}
+ }
+
+//--OnSecondChange
+//Like the above, this handles what happens every time a second goes by. Most of this you will not have to touch.
+
+OnSecondChange
+ {
+	if passsec == 60
+ 		{
+	 	passsec = 0
+ 		passmin = passmin + 1
+		}
+ 	else
+ 		{
+	 	passsec = passsec + 1
+		}
+	if mikireflag == 1 && reference1 == 0
+		{
+			EndMikireTalk
+ 		}
+		mikireflag = reference1
+	if reference2 == 1
+	{
+ 		""
+	}
+ }
+
+//---- MikireTalk ---------------------------------------------------------------------
+ 
+MikireTalk
+{
+	""
+}
+
+//----EndMikireTalk--------------------------------------------------------------------
+
+ 
+EndMikireTalk
+{
+	""
+}
+
+
+//---- OnSurfaceRestore-----------------------------------------------------------------
+
+OnSurfaceRestore
+{
+	"\0%(idle)\1\s[-1]\e"
+}
+
+ 
+ //--OnKeyPress
+ 
+OnKeyPress
+{
+	if reference0 == "t"
+	{
+	OnAiTalk
+	}
+	elseif reference0 == "r"
+	{
+	OnLastTalk
+	}
+	elseif reference0 == "f1"
+	{
+	"\![open,readme]"
+	}
+}

@@ -83,7 +83,6 @@ OnFirstBoot
 	totalhours = 0
 	displaymin = 0
 	lookingatphone = 0
-	season = "????"
 	lastinteracted = 0
 	totalpets = 0
 	SeePC = "OFF"
@@ -518,6 +517,10 @@ OnClose
 				if timeslot == "earlymorning"
 				{
 					"\0\s[0]Off to get breakfast?\w8\s[1010] Fair enough.\w8\w8\s[101] Or maybe you're just going to bed.\w8\w8\s[1010] Either way, I'll see you later."
+					if passhour > 3
+					{
+						"\0\s[106]Finally off to bed,\w4 huh?\w8\w8\s[107] As long as you're taking care of yourself,\w4 I guess.\w8\w8\s[104] Sleep well,\w4 %(username)."
+					}
 				}
 				elseif timeslot == "morning"
 				{
