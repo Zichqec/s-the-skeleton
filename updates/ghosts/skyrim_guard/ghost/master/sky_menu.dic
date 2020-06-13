@@ -2,7 +2,10 @@
 
 OnMouseDoubleClick
 {
-	OpenSakuraMenu
+	if reference5 == 0 //Reference5 is which mouse key is being clicked. 0 is a left click.
+	{
+		OpenSakuraMenu
+	}
 }
 
 OpenSakuraMenu

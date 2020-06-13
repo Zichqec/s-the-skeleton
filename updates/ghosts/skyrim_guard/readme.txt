@@ -2,7 +2,7 @@
 
 He used to be an adventurer like you, then he took an arrow in the knee.
 
-This is a very barebones ghost atm. I have some ambitious plans I may or may not try in the future, but for now he'll just sit on your desktop and spout obnoxious guard dialogue at you!
+This is a very barebones ghost atm. I have some ambitious plans I may or may not try in the future, but for now he'll just sit on your desktop and spout obnoxious guard dialogue at you! You can go on a proof of concept quest if you're in Whiterun hold, but there's not much to it yet.
 
 He does not have most of the normal ghost functions accessible. If you set it up in the POP menu, you can have him check your email by going through the right click menu, but that's about it.
 

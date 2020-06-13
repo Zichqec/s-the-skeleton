@@ -18,7 +18,7 @@ On_username
 
 On_homeurl
 {
-	"https://zichqec.github.io/s-the-skeleton/updates/ghosts/skyrim_guard/"
+	"https://zichqec.github.io/s-the-skeleton/updates/ghosts/skyrim_guard"
 }
 
 
@@ -34,6 +34,10 @@ On_recommendrootbutton.caption
 
 On_sakura.recommendsites
  {
+	"Zi's Ukagaka Hub"
+	--
+	"%ASC(1)https://zichqec.github.io/s-the-skeleton/index.html%ASC(2)"
+	--
 	"Zichqec's DA"
 	--
 	"%ASC(1)https://www.deviantart.com/zichqec%ASC(2)"
