@@ -191,7 +191,20 @@ OnBIFFFailure
 
 //Replace the dialogue in the next set of functions as appropriate. You can easily test these messages using the Developer panel. Go to Open at the bottom of it and choose one of the four Update Event options to simulate a Ghost's update process. I highly recommend doing this at LEAST once if you're going to use this feature to make sure it flows well.
 
- 
+
+OnUpdateCheckComplete //check without updating
+{
+	if reference0 != "none" //reference0 here will say 'none' if there are no new files, and will be a number if there are new files. So if reference0 is anything other than 'none', tell the user there's an update
+	{
+		updateavailable = 1
+	}
+	else //just in case this variable ends up not being reset...
+	{
+		updateavailable = 0
+	}
+	
+}
+
 OnUpdateBegin
 {
 	"\0\s[0](Checking for updates.)\w8\e"
@@ -211,6 +224,15 @@ OnUpdateReady
 //When the ghost has finished the update process.
 OnUpdateComplete
 {
+	if autoupdate == "" //1.0.1 update. When will I learn.... sigh.
+	{
+		currentversion = 1.0.1
+		autoupdate = "ON"
+		askedalready = 0
+		updateavailable = 0
+	}
+	--
+	
 	if reference0 == "none" //if the ghost had nothing to update with
  	{
  		"\0\s[0](There are no new files.)\e"

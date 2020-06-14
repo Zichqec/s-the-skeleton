@@ -23,6 +23,9 @@ OnFirstBoot
 	sign = ""
 	charactermaxhp = 100
 	charactermaxstamina = 100
+	autoupdate == "ON"
+	askedalready = 0
+	updateavailable = 0
 	booting = 1
 	
 	
@@ -90,6 +93,7 @@ OnBoot
 	lastTalk = ""
 	passmin = 0
 	passsec = 0
+	askedalready = 0
 	
  	"\0\s[0]\0\s[-1]"
 	--

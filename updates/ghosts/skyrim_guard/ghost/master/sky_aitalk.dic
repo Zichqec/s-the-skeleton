@@ -512,7 +512,13 @@ RandomTalk : nonoverlap
 //--Chains
 
 
-
+OnHourChange
+{
+	if autoupdate == "ON" && askedalready == 0 && updateavailable == 0
+	{
+		"\![updatebymyself,checkonly]"
+	}
+}
 
 OnMinuteChange
  {
@@ -522,6 +528,11 @@ OnMinuteChange
 	if mikireflag == 1
  	{
  		MikireTalk
+	}
+	--
+	if minute == 0 && hour == 0 //At midnight he'll reset if he's asked you or not
+	{
+		askedalready = 0
 	}
  }
 
