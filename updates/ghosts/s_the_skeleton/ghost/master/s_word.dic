@@ -113,10 +113,10 @@ family
 usersfolder
 {
 	"start bar"
-	"documents folder"
-	"pictures folder"
-	"music folder"
-	"games folder"
+	"Documents folder"
+	"Pictures folder"
+	"Music folder"
+	"Games folder"
 }
 
 //This envelope in particular I think is fun. You can use this in dialogue to pretend like your ghost is looking through your user's files!
@@ -342,7 +342,7 @@ displaymonth
 }
 
 //This is figuring out what day of the week it is. Leave it alone.
-GetWeekDay
+wd
 {
 	if weekday == 0
 	{"Sun"}
@@ -361,7 +361,7 @@ GetWeekDay
 }
 
 //This is finding out whether it's AM or PM. Leave it alone.
-GetAP
+ap
 {
  	if hour >= 0 && hour <= 11
 	{
@@ -396,6 +396,27 @@ Getnowhour
 	else
 	{
 		"%(hour12)"
+	}
+}
+
+season
+{
+	//[Zi]Ok, so first off, apologies to folks in the southern hemisphere. I may add functionality for that in a later update. But to be fair, S probably doesn't know about the concept yet. Second off, I'm going to go by the meteorological seasons instead of astronomical. Why? Well..... one has static dates and the other does not. I can't give him diaogue for things like the solstice and equinox if they change every year. I COULD technically do it, but I'd have to update him every year to change the dates and that sounds terrible. SO. We're just getting a simple system instead.
+	if month > 2 && month < 6
+	{
+		"Spring"
+	}
+	elseif month > 5 && month < 9
+	{
+		"Summer"
+	}
+	elseif month > 8 && month < 12
+	{
+		"Autumn" 
+	}
+	else
+	{
+		"Winter"
 	}
 }
 

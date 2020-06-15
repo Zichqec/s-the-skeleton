@@ -158,46 +158,16 @@ OnFirstBoot
 	
 	if reference0 == 0 //Don't touch this line.
  	{
-		//---- Alright, here is where the dialogue for your ghost begins! Again, I hope you've studied up on the walkthrough's guide to dialogue coding! However, there are a few unique things about this first conversation that you should keep in mind.
-		//Unlike most dialogue, it should start with "\![enter,passivemode]". Passivemode basically ensures that the balloons won't disappear, the choices won't time out, the ghosts won't talk randomly, you can't bring up menus, and makes sure that this dialogue plays through to the end correctly. This is one of the very few instances you'll ever use it, so make sure to get out of it at the end! I'll tell you when, so don't worry.
-		//You'll also notice that this dialogue is black instead of grey. This is because of the use of the backwards slash as mentioned in the advanced section of the SakuraScripting page. Do you see near the bottom where it has \n\n[half]/ with the other slash at the end before the choices are listed? You will want to replace dialogue up that \n\n[half], but do not mess with the choices beyond that unless you know what you're doing.
-		//Always make sure to keep your dialogue in the quotation marks! And remember, you can't use quotation marks IN dialogue either. You can use two single apostrophes instead if you must. And REMEMBER what I said about \![enter,passivemode]! Do NOT delete that tag!
 		
 		"\0\s[-1]\![change,shell,Red Hoodie]\![enter,passivemode]\0\s[1110]\w8Wh- \w8\w8 ...Oh,\w4 another timeline..?\w8\w8\n\n\s[110]Oh,\w4\s[1020] uh,\w4 hi there.\w8\w8\s[106] Sorry,\w4 I hope I'm not bothering you.\w8\w8\s[107] I have a tendency to fall into random timelines,\w4 I'll probably disappear again soon.\w8\w8\s[208]\n\nLooks like...\w8\w8 a computer this time?\w8\w8\s[107] Could be worse,\w4 I guess.\w8\w8\n\n\s[104]So ah,\w4 my name's S.\w8\w8\s[0] What's yours?\![leave,passivemode]\![open,inputbox,OnNameTeach,-1]\e" //I hope I can change this one day, but for now this makes certain that he starts in the correct shell. If for some reason it can't find Red Hoodie, it should still carry on with the dialogue... but otherwise it'll bump him down to OnShellChanged, where the booting variable ensures that the proper text is read. 
 		
-		//There's a lot going on here, but what you mostly need to remember is to enter Passivemode at the beginning, and make sure not to touch the bottom part that starts with \w5\_q where the options are set up. Do whatever you like with the rest of the dialogue though! Make sure to set up poses for both characters right when you start, otherwise one will be invisible until they speak.
-		//Note also the use of the \x and \c tags. Read more about them in the intermediate SakuraScript section of the walkthrough if you're curious.
-		
-		//*********************Advanced User Info*******************************
-		//You can rename the choices at the bottom anything you like. The basic structure of a choice goes like \q[Displayed Name,Linkedfunction]. So for example, \q[Do a Dance,danceitup] would display "Do a Dance" in the balloon and it would link to the function titled "danceitup".
-		//Note - Do not include quotation marks in the displayed name, or any other symbols like brackets or dialogue coding like \_a, since that'll break the option in the balloon. If you do this you'll notice pretty quickly. Also option names do not word wrap, so don't make them too long if your balloon is small.
-		
-		//If you remember my note from above about the difference between On functions, this is one place it comes up. If your linked function in this menu doesn't start with On, like danceitup up there, you'll have to preface it in the following code with Select.danceitup. You can see this at work below here. However, if it does have On, such as OnDanceitup, then you can simply name the function in the code as OnDanceitup. Take a look whenever functions are defined and how they're called in the files,and it should come together for you.
-		
-		//If you link to a function that doesn't exist, the ghost will do nothing. This can be handy for "Cancel" type functions, just point it at something that doesn't exist if you don't want to have a specific bit of cancel dialogue.
-		
-		//If you want your ghost to just refer to your user as "they" and want to skip the pronoun business altogether, then you can just delete the choices and end the dialogue with \e. You'll want to go into menu.dic and delete the pronoun choice option from the config menu as well.
-		//***********************************************************************
  	}
 	else
  	{
-		//---- This is dialogue for when the user uninstalls the ghost for whatever reason, then reinstalls them again. They will run this dialogue instead of their normal dialogue above. You can change this to reflect the fact the user's uninstalled your ghost once, or you can make it the same as the above, it's up to you. You'll see this if you try to run OnFirstBoot using ![raise].
- 		{
 		reset += 1
  		"\![enter,passivemode]\0\s[1110]\w8Wh- \w8\w8 ...Oh,\w4 another timeline..?\w8\w8\n\n\s[1070].\w8\w8.\w8\w8.\w8\w8Or...\w8\w8 have I been here before..?\w8\w8\n\n\s[110]Oh,\w4\s[1020] uh,\w4 hi there.\w8\w8\s[106] Sorry,\w4 I hope I'm not bothering you.\w8\w8\s[107] I have a tendency to fall into random timelines,\w4 I'll probably disappear again soon.\w8\w8\s[208]\n\nLooks like...\w8\w8 a computer this time?\w8\w8\s[1070] Hmm...\w8\w8\n\n\s[104]Anyways,\w4 ah,\w4 my name's S.\w8\w8\s[0] What's yours?\![leave,passivemode]\![open,inputbox,OnNameTeach,-1]\e"
-		}
  	}
 }
-
-//Below are the choices that were defined at the end of the OnFirstBoot dialogue up there. These define the values your ghost will be using for pronouns according to what the user selected. On the whole, you should not need to touch these.
-
-//*********************Advanced User Info*******************************
-//Notice that after the values are set, there's a -- and then it loads up the next function in the sequence. You can use this basic method to set many values at once, then go to the same function afterwords.
-
-//To define a value, you use a single = mark. If it's a word, you need to put it in quotation marks, but if it's a number, you do not. See the walkthrough page on coding for details.
-
-//Notice how each choice is formatted as Select.choice. This is what I was talking about above with the difference between OnFunction and Function. These choices do not start with On, so they must begin with Select. instead. If you're setting up some quick choices for a menu you're only going to do once, then don't be afraid to use select. instead of having everything start with On.
-//***********************************************************************
 
 Select.choicefirsthehim
 {
@@ -228,28 +198,9 @@ Select.choicefirsttheythem
 	NameInput
 }
 
-
-//--NameInput
-
-//NameInput is the next step in our introduction sequence. Now that the ghost has the pronouns set properly, they can ask the user for their name. It's done in this order so they'll know what prefixes will be appropriate for their name, like Mr. to he/him for example.
-
-//*********************Advanced User Info*******************************
-//Note this functions' name. This isn't a natural function included in the ghost, it's a piece of dialogue created by the original base coder to finish this sequence (cindysuke). I point this out to show you that you can do this too! You can create any number of functions just like this called whatever you want to do and say whatever you want! There are many things you can do with your Ghost if you're creative. Don't feel limited by what's in these files or the listed Shiori functions!
-//Just make sure you test them and they work, alright? I wrote more about coding and functions in the coding page for the walkthrough.
-//***********************************************************************
-
 NameInput
-{
-	//Note that there's a \![leave,passivemode] tag in this dialogue! Don't forget about this! If you leave them in passivemode they won't talk at all and it'd sort of defeat the purpose, right? I actually forgot this for a while with Hunter and Smoker and didn't notice because OnFirstBoot only runs once, so it took me some testing to find out what was wrong. Always make sure to leave passivemode when you're done with it!
-	
+{	
 	"\![leave,passivemode]\![open,inputbox,OnNameTeach,-1]\e"
-	
-	//At the end of this dialogue there's a tag saying "\![open,inputbox,OnNameTeach,-1]". It basically leads to the naming function defined in nameteach.dic, so don't touch it. Make sure it's there though! Otherwise your user won't have a way to put in their name. :o
-	
-	//*********************Advanced User Info*******************************
-	//What this tag basically means is that you're calling a function at the end of the dialogue with the \! tag, you are telling it to open, you're telling it to open an inputbox, and you're telling that inputbox to link to a function called OnNameTeach, which is in the nameteach.dic file. Remember what I said about On functions? I talked a bit about this in the SakuraScripting walkthrough page and the coding page.
-	//The -1 at the end determines how long the box will be open until it times out. -1 means it shouldn't time out at all, I think.
-	//***********************************************************************
 }
 
 //--GetTimeSlot
@@ -287,9 +238,6 @@ GetTimeSlot
 		"midnight"
 	}
 }
-//*********************Advanced User Info*******************************
-//Do you see how this function is determining what time of day it is? It's using larger than/smaller than operators to isolate a range of time to define. For example, "hour >= 21 && hour <= 24" defines an hour that's greater than/equal to 21 AND less than/equal to 24. You can use this basic method to define other things too, such as the seasons. Keep this in mind! You never know when it might come in handy. I talk about operators more in the coding walkthrough page.
-//***********************************************************************
 
 
 //--GetDaySlot
@@ -301,20 +249,7 @@ GetDaySlot
 	"%(month)month %(day)day"
 }
 
-
-//-----------------------Normal Booting----------------------------
-
-//From this point on, the dialogue will be for any normal boot of your ghost. You can specialize this for certain days or times if you like, or if you're uninterested, leave it very simple.
-
-
-//--OnBoot
-
-//As you can probably guess, OnBoot runs when you boot your ghost. It will run every time you boot your ghost, as a matter of fact.
-
-//*********************Advanced User Info*******************************
-//If you're defining new values that depend on what you were doing with your ghost (like say, if you've hit them, if they're in a certain mode of some kind) and are generally temporary, remember to put them in OnBoot and set them back to zero or off. For example, I have a counter in the Hunter Smoker ghost that keeps track of if you've hit one of them so that when you go into their menus, it will know to give you the option to apologize or not. So I made sure to add a hunterpunchcount = 0 tag at the beginning of OnBoot, that way when you boot them up, they start fresh and don't display the option if you haven't done anything wrong yet. It's unlikely this'll come up very much if you're not interested in expanding your ghost, but I'm making a note of it here anyway for enterprising developers, huge success.
-//***********************************************************************
-
+//Normal booting
 OnBoot
  {
 	lastTalk = "" //These values you may recognize from OnFirstBoot up there. Just pay them no mind.
@@ -370,14 +305,13 @@ OnBoot
 		//Note to self for later, I don't feel like adding these now but I probably will later: Triplets Bday 10/12 (Barcode should have a different one... I'll have to pick an arbitrary one), Blue Jeans 8/11, Rosie 4/27, Roman 12/13, Cambria 3/10, Triton 3/23, Lulo 2/26, Azo 3/13, Sigil is technically 9/28... but I may need to bump that around to match with Azo. Or bump Azo around. One of those... Sigil should be 9-10 months later. Elko 2/26. Maaan these are like all clumped up around the same months XD Do I want to spread them out? Mm.... I'll decide later.
 	}
 	--
-		"%(normalboottalk)"
+	"%(normalboottalk)"
 	
 }
 
 
 normalboottalk //Ergh, this is a mess. For now, he'll only acknowledge the time if you're being nice to him. Might change later.
 {
-	
 	if LV == 0 && love >= 20
 	{
 		if RAND(100) < 50
@@ -516,8 +450,11 @@ OnClose
 			{
 				if timeslot == "earlymorning"
 				{
-					"\0\s[0]Off to get breakfast?\w8\s[1010] Fair enough.\w8\w8\s[101] Or maybe you're just going to bed.\w8\w8\s[1010] Either way, I'll see you later."
-					if passhour > 3
+					if passhour < 3 //Earlymorning is from 5-8, so if it's been less than 3 hours then the user's probably a super early riser. Probably.
+					{
+						"\0\s[0]Off to get breakfast?\w8\s[1010] Fair enough.\w8\w8\s[101] Or maybe you're just going to bed.\w8\w8\s[1010] Either way, I'll see you later."
+					}
+					else //If it's been more than 3 hours they've been awake since at least the midnight timeslot, so probably haven't been to bed.
 					{
 						"\0\s[106]Finally off to bed,\w4 huh?\w8\w8\s[107] As long as you're taking care of yourself,\w4 I guess.\w8\w8\s[104] Sleep well,\w4 %(username)."
 					}
@@ -589,9 +526,7 @@ OnClose
 		{
 			"\0\s[0]Alright.\w8 See you around, then."
 			"\0\s[0]Ah, alright.\w8 See you later."
-		}		
-	
-		
+		}
 	}
  	else //This dialogue is for if they haven't been open for at least five minutes.
  	{

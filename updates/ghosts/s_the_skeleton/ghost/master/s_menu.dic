@@ -148,11 +148,8 @@ Select.nomoreupdatesplease //If the user decides to turn off auto updates
 
 MenuRun
  {	
- 	wd = GetWeekDay
- 	ap = GetAP
  	nowmin = Getnowmin
  	nowhour = Getnowhour //I changed this to hour12, because this will display 00:05 instead of 1pm, etc...
-	GetSeason
 	lastinteracted = 0
 	//These four statements basically get the day of the week, whether it's AM or PM, the hour, and the time. It's putting together the information to display the time at the bottom of the balloon. Pay it no mind.
 	--
@@ -717,6 +714,7 @@ Select.infobarcode
 	{
 		"\0\s[208]I asked about her tattoos once,\w4\s[110] she's absolutely covered in them,\w4 to the point that her bones are almost completely a different color.\w8\w8\n\n\s[206]Apparently they're from the war,\w4 her font is pretty obscure and almost impossible for humans to read,\w4 so they used them to send messages back and forth."
 		"\0\s[206]She doesn't have as strong of healing magic as anMWings,\w4 but she has enough that they sometimes worked together as field medics during the war.\w8\w8\s[200] I think that was actually how they met...\s[201] Not the most pleasant place to find a friend,\w4 but it seems to have forged a very strong bond between them."
+		"\0\s[0]Her name is actually Free 3 of 9,\w4\s[106] but uh,\w4 that's a little unwieldy,\w4\s[104] so she just goes by Barcode instead."
 	}
 	if askedaboutabbi == 1
 	{
@@ -3375,13 +3373,11 @@ TestVariable
 	
 	//arrayghostlist1 = ('"' + "%(installedghostlist)" + '"')
 	//arrayghostlist2 = REPLACE(arrayghostlist1,",",'","')
-	_listsize = ARRAYSIZE(installedghostlist)
-	_randghost = installedghostlist[RAND(_listsize)]
-	if _listsize > 1 && _randghost != "Dr. W.D. Gaster" && _randghost != "RYS" && _randghost != "Sanguine" && _randghost != "S the Skeleton"
+	_i = SAORI("screencatch.dll")
+	if _i == "ok"
 	{
-		"\0\s[206]It gets pretty lonely here whenever you're away...\w8\w8\s[202] If you're gonna be gone for long stretches of time,\w4 could you at least bring someone else here for me to talk to?\w8\w8\s[208] Like %(_randghost),\w4 for example.\e"
+	"Captured"
 	}
-
 	
 }
 

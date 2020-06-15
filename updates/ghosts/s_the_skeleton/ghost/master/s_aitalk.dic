@@ -121,12 +121,6 @@ RandomTalk : nonoverlap
 			}
 			if changedscaling > 0 //If you've changed his size at least once
 			{
-				if changedscaling > 10
-				{
-					"\0\s[109]* (He looks kinda dizzy...)\e"
-					"\0\s[109]Mmm...\w8\w8\n\n* (Maybe he should sit down for a minute...)\e"
-				}
-				
 				if nowscale == 100 //Normal size
 				{
 					"\0\s[107]* (He mumbles something about being grateful for his current size.)\e"
@@ -147,6 +141,21 @@ RandomTalk : nonoverlap
 						"\0\s[106]Can you even still see me at this size..?\e"
 					}
 				}
+				elseif nowscale < 0
+				{
+					"\0\s[206]Everything looks so weird...\e"
+					"\0\s[206]Is this some sort of strange curse..?\e"
+				}
+			}
+			if beenbackwards == 1 && nowscale > 0
+			{
+				"\0\s[1070]* (He's muttering something about the world flipping around...)\e"
+				"\0\s[1070]* (He's mumbling something about being inside out...)\w8\w8\n\n* (He's probably thinking about the time you flipped him backwards.)\e"
+			}
+			if changedscaling > 10 || Dragged > 5 //This one is on its own cause I also want it to apply to if you've been dragging him around. For now anyways, I might move this back depending on the dialogue I add. Basically this is if he's dizzy.
+			{
+				"\0\s[109]* (He looks kinda dizzy...)\e"
+				"\0\s[109]Mmm...\w8\w8\n\n* (Maybe he should sit down for a minute...)\e"
 			}
 			if passhour >= 1
 			{
@@ -192,7 +201,20 @@ RandomTalk : nonoverlap
 			}
 			
 			//This one is checking where he is on the screen, and commenting if you've either got him up high, or you've got him on a secondary monitor.
-			"\![get,property,OnCheckPosition,currentghost.scope(0).rect]" //This isn't an if here, but the function it leads to has some ifs.
+			//"\![get,property,OnCheckPosition,currentghost.scope(0).rect]" //This isn't an if here, but the function it leads to has some ifs.
+			
+			if FromDragging != 2
+			{
+				if XCoord < 0 || XCoord > displaywidth || YCoord > displayheight || YCoord < 0 //If he's on a secondary monitor of some sort. 
+				{
+					"\0\s[110]You've sure got a lot of monitor space,\w4 huh?\e"
+				}
+				if YCoord < (displayheight / 2)
+				{
+					"\s[106]I can uh,\w4 see pretty far from all the way up here.\e"
+				}
+			}
+			
 			
 			if SongList != "-"
 			{
@@ -590,7 +612,6 @@ RandomTalk : nonoverlap
 			{
 				_ingredient1 = ingredients
 				_ingredient2 = ingredients
-				_Cingredient1 = _ingredient1
 				_Cingredient1 = _ingredient1 //Puts the result of fruveg into _Cingredient1
 				_buffer = SUBSTR(_Cingredient1,0,1) //Storing the first character
 				_Cingredient1 = ERASE(_Cingredient1,0,1) //Erasing the first character from _Cingredient1
@@ -609,6 +630,7 @@ RandomTalk : nonoverlap
 				"%(family) really liked it when I added more %(_ingredient1)...\e"
 				"Fresh %(_ingredient1) will be vital...\e"
 				"Maybe a little %(_ingredient1), too...\e"
+				"anDad used up most of the %(_ingredient1),\w4 so I'll have to make it with something else...\e"
 				if _ingredient1 != _ingredient2
 				{
 					"Hmm...\w8\w8 maybe andad was right about the %(_ingredient1),\w4 but definitely not the %(_ingredient2)...\e"
@@ -2177,6 +2199,7 @@ OnMinuteChange
 		{
 		snagged -= 1
 		}
+		--
 		if flattered > 0
 		{
 			flattered -= 2
@@ -2185,6 +2208,7 @@ OnMinuteChange
 				flattered = 0
 			}
 		}
+		--
 		if comforted > 0
 		{
 			comforted -= 2
@@ -2193,6 +2217,7 @@ OnMinuteChange
 				comforted = 0
 			}
 		}
+		--
 		if talkedaboutpast > 0
 		{
 			talkedaboutpast -= 2
@@ -2201,24 +2226,30 @@ OnMinuteChange
 				talkedaboutpast = 0
 			}
 		}
+		--
 		if recentpets > 0
 		{
 			recentpets = 0 
 		}
+		--
 		if hugged > 0 //hugged =/= totalhugs
 		{
 			hugged -= 1
 		}
+		--
 		if changedscaling > 1 //if it's above 1 you've changed it recently, but it never goes under 1. If it's at least 1, you've changed it at least once.
 		{
-			changedscaling = 1
+			changedscaling -= 1
 		}
-
+		--
+		if Dragged > 0 //if it's above 1 you've changed it recently, but it never goes under 1. If it's at least 1, you've changed it at least once.
+		{
+			Dragged = 0
+		}
+		--
 		if hour == 0
 		{
 			"\0\s[0]* (It's midnight.)\e"
-			--
-			PollenAlert = 0
 			--
 			if autoupdate == "ON"
 			{
@@ -2318,31 +2349,10 @@ Hourcheck
 	{
 		displaymin = passmin
 	}
-	--
-	GetSeason
  }
 
 
-GetSeason
-{
-	//[Zi]Ok, so first off, apologies to folks in the southern hemisphere. I may add functionality for that in a later update. But to be fair, S probably doesn't know about the concept yet. Second off, I'm going to go by the meteorological seasons instead of astronomical. Why? Well..... one has static dates and the other does not. I can't give him diaogue for things like the solstice and equinox if they change every year. I COULD technically do it, but I'd have to update him every year to change the dates and that sounds terrible. SO. We're just getting a simple system instead.
-	if month > 2 && month < 6
-	{
-		season = "Spring"
-	}
-	elseif month > 5 && month < 9
-	{
-		season = "Summer"
-	}
-	elseif month > 8 && month < 12
-	{
-		season = "Autumn" 
-	}
-	else
-	{
-		season = "Winter"
-	}
-}
+
 
  
 MikireTalk
@@ -2402,33 +2412,28 @@ OnSurfaceRestore
 	currentlydrinkingm = 0
 	currentlydrinkingj = 0
 	"\1\s[-1]"
-	--
-	if FromDragging == 2
-	{
-		"\![raise,OnCheckPosition]"
-	}
 	 --
 	if LV == 0 //Friendship routes
 	{
 		if reference0 == 1040
 		{
-			"\0\s[102]* (Looks like he's done with the drink.)\e"
+			"\0\s[102]* (Looks like he's done with the drink.)"
 			
 		}
 		elseif reference0 == 1050
 		{
-			"\0\s[102]* (Looks like he's done with the drink.)\e"
+			"\0\s[102]* (Looks like he's done with the drink.)"
 			
 		}
 		elseif reference0 == 1060
 		{
 			if RAND(100) < 40 //If less than 40, keep reading his book. Sometimes you get really drawn in, yknow?
 			{
-				"\0\s[1060]\e"
+				"\0\s[1060]"
 			}
 			else
 			{
-				"\0\s[102]* (He stores the book back in his ribcage.)\e" 
+				"\0\s[102]* (He stores the book back in his ribcage.)" 
 			}
 			
 		}
@@ -2438,51 +2443,51 @@ OnSurfaceRestore
 			{
 				if RAND(100) < 40 //If less than 40, keep looking at his phone. They're addictive, you know?
 				{
-					"\0\s[1090]\e"
+					"\0\s[1090]"
 				}
 				else
 				{
 					lookingatphone = 0
-					"\0\s[0]\e" //normal pose, might do an (idles) thing later
+					"\0\s[0]" //normal pose, might do an (idles) thing later
 				}
 			}
 			elseif RAND(100) < 10 //If less than 10, start looking at his phone or at a book
 			{
 				{
 					lookingatphone = 1
-					"\0\s[1090]\e"
+					"\0\s[1090]"
 				}
 				if givenbooks > 0 //if you've given a book he may start reading it
 				{
-				"\0\s[1060]\e"
+				"\0\s[1060]"
 				}
 			}
 			else //Go back to normal
 			{
 				lookingatphone = 0
 				--
-				"\0\s[0]\e"
-				"\0\s[205]\e"
-				"\0\s[104]\e"
-				"\0\s[208]\e"
-				"\0\s[103]\e"
+				"\0\s[0]"
+				"\0\s[205]"
+				"\0\s[104]"
+				"\0\s[208]"
+				"\0\s[103]"
 			}
 		}
 		elseif love >= 20 //getting to know him a little
 		{
-			"\0\s[0]\e"
-			"\0\s[205]\e"
-			"\0\s[200]\e"
-			"\0\s[104]\e"
-			"\0\s[208]\e"
+			"\0\s[0]"
+			"\0\s[205]"
+			"\0\s[200]"
+			"\0\s[104]"
+			"\0\s[208]"
 		}
 		else //He isn't sure what to make of you yet
 		{
-			"\0\s[0]\e"
-			"\0\s[205]\e"
-			"\0\s[200]\e"
-			"\0\s[208]\e"
-			"\0\s[206]\e"
+			"\0\s[0]"
+			"\0\s[205]"
+			"\0\s[200]"
+			"\0\s[208]"
+			"\0\s[206]"
 		}
 	}
 	
@@ -2490,26 +2495,35 @@ OnSurfaceRestore
 	{
 		if LVCheck == 1 //know his secrets
 		{
-			"\s[500]\1\s[-1]\e"
-			"\s[502]\1\s[-1]\e"
-			"\s[503]\1\s[-1]\e"
-			"\s[510]\1\s[-1]\e"
-			"\s[512]\1\s[-1]\e"
-			"\s[513]\1\s[-1]\e"
-			"\s[514]\1\s[-1]\e"
+			"\s[500]\1\s[-1]"
+			"\s[502]\1\s[-1]"
+			"\s[503]\1\s[-1]"
+			"\s[510]\1\s[-1]"
+			"\s[512]\1\s[-1]"
+			"\s[513]\1\s[-1]"
+			"\s[514]\1\s[-1]"
 		}
 		else //Just mean for no reason
 		{
-			"\s[404]\1\s[-1]\e"
-			"\s[400]\1\s[-1]\e"
-			"\s[402]\1\s[-1]\e"
-			"\s[414]\1\s[-1]\e"
-			"\s[410]\1\s[-1]\e"
-			"\s[412]\1\s[-1]\e"
+			"\s[404]\1\s[-1]"
+			"\s[400]\1\s[-1]"
+			"\s[402]\1\s[-1]"
+			"\s[414]\1\s[-1]"
+			"\s[410]\1\s[-1]"
+			"\s[412]\1\s[-1]"
 		
 		}
 	}
- }
+	--
+	if FromDragging == 2 //This SHOULD be taken care of when the balloon closes. If not, it'll happen here.
+	{
+		"\![get,property,OnCheckPosition,currentghost.scope(0).rect]"
+	}
+	else
+	{
+		"\e"
+	}
+}
 
 OnCheckPosition //Checking his position on the screen. This'll be called somewhere in RandomTalk.
 {
@@ -2517,98 +2531,78 @@ OnCheckPosition //Checking his position on the screen. This'll be called somewhe
 	YCoord = TOINT(reference0[1])
 	XCoord = (XCoord + 115) //S's frames are 230 long, so this puts the coord in the middle of hit hitbox
 	YCoord = (YCoord + 135) //Same here but with Y
-	
-	if FromDragging == 1 //If you've just dragged him somewhere new, he'll comment on it (But only if it's been at least a few seconds since he finished talking, so that he doesn't interrupt himself)
+	if XCoord < 0
 	{
-		if XCoord < 0
-		{
-			NewXMonitor = 2
-		}
-		elseif XCoord > displaywidth
-		{
-			NewXMonitor = 2
-		}
-		else
-		{
-			NewXMonitor = 1
-		}
-		--
-		if YCoord > displayheight
-		{
-			NewYMonitor = 2
-		}
-		elseif YCoord < 0
-		{
-			NewYMonitor = 2
-		}
-		elseif YCoord < (displayheight / 2)
-		{
-			NewYMonitor = 1
-		}
-		else
-		{
-			NewYMonitor = 1
-		}
-		--
+		NewXMonitor = 2
+	}
+	elseif XCoord > displaywidth
+	{
+		NewXMonitor = 2
+	}
+	else
+	{
+		NewXMonitor = 1
+	}
+	--
+	if YCoord > displayheight
+	{
+		NewYMonitor = 2
+	}
+	elseif YCoord < 0
+	{
+		NewYMonitor = 2
+	}
+	elseif YCoord < (displayheight / 2)
+	{
+		NewYMonitor = 1
+	}
+	else
+	{
+		NewYMonitor = 1
+	}
+	--
+	if Dragged > 5
+	{
+		"\0\s[106]Kiddo,\w4 could you cut that out please?\w8\w8\s[107] I'm starting to get dizzy."
+		"\0\s[107]Kiddo,\w4 can you stop moving me around so much?\w8\w8\s[106] It's pretty disorienting moving so quickly..."
+	}
+	elseif FromDragging != 2
+	{
 		if NewXMonitor != CurrentXMonitor || NewYMonitor != CurrentYMonitor //If you've dragged him onto a different monitor
 		{
-			if NewXMonitor == 1
+			if NewXMonitor == 1 && NewYMonitor == 1
 			{
-				"You dragged me onto your primary monitor."
+				"\0\s[0]Back over here,\w4 huh?\w8\w8\s[104] Ok.\w8\w8\s[101] What do you even use a second monitor for,\w4 anyways?"
 			}
-			elseif NewXMonitor == 2
+			elseif NewXMonitor == 2 || NewYMonitor == 2
 			{
-				"You dragged me onto your secondary monitor."
-			}
-			
-			if NewYMonitor == 1
-			{
-				"You dragged me onto your primary monitor."
-			}
-			elseif NewYMonitor == 2
-			{
-				"You dragged me onto your secondary monitor."
+				"\0\s[110]You've got a whole other monitor?\w8\w8\s[107] I guess this must not be a laptop."
 			}
 		}
 		else //If you've dragged him around but he's on the same monitor
 		{
-			if XCoord < CurrentXPos
+			if CurrentYPos > (displayheight / 2) && YCoord < (displayheight / 2)
 			{
-				"Shuffle to the left"
+				"\0\s[110]Whoa.\w8\w8\s[106] Uh,\w4 I guess I'm up here now?\w8\w8\s[208] This is kinda weird..."
 			}
-			elseif XCoord > CurrentXPos
+			elseif CurrentYPos < (displayheight / 2) && YCoord > (displayheight / 2)
 			{
-				"Shuffle to the right"
+				"\0\s[107]Whew.\w8\w8\s[106] I guess it's kinda neat that I can float while I'm here,\w4 but I'd much rather stay on the ground."
 			}
-		}
-		--
-		"\![raise,OnUpdateMonitors]" //This is back in Mouse.dic
-	}
-	elseif FromDragging == 0
-	{
-		if XCoord < 0 || XCoord > displaywidth || YCoord > displayheight || YCoord < 0 //If he's on a secondary monitor of some sort. 
-		{
-			"\0\s[110]You've sure got a lot of monitor space,\w4 huh?\e"
-		}
-		else
-		{
-			"\![raise,OnNormalTalk]" //If you have him on the primary monitor. He wont comment on this, so it just loops back to AiTalk to pick something else. Have to do this because we're out of RandomTalk right now...
-		}
-
-		if YCoord < (displayheight / 2)
-		{
-			"\s[106]I can uh,\w4 see pretty far from all the way up here.\e"
-		}
-		else //If you have him on the bottom half of the screen. He wont comment on this, so it just loops back to AiTalk to pick something else. Have to do this because we're out of RandomTalk right now...
-		{
-			"\![raise,OnNormalTalk]"
+			elseif (XCoord - CurrentXPos) < -(displaywidth / 5) || (XCoord - CurrentXPos) > (displaywidth / 5)
+			{
+				"\0\s[110]Oh,\w4 am I in your way %(username)?\w8\w8\s[106] Sorry about that."
+				"\0\s[106]I hope I'm not getting in your way,\w4 %(username)."
+			}
 		}
 	}
-}
-
-OnNormalTalk
-{
-	AiTalk
+	--
+	FromDragging = 0
+	CurrentXMonitor = NewXMonitor
+	CurrentYMonitor = NewYMonitor
+	CurrentXPos = XCoord
+	CurrentYPos = YCoord
+	"\e"
 }
 
 OnKeyPress

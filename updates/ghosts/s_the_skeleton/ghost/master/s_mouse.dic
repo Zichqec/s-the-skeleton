@@ -566,16 +566,25 @@ OnMouseDown //Boop!
 
 OnMouseDragEnd
 {
-	//if SHIORI3FW.CanTalk == 1
-	if SinceTalk > 1 && mikireflag != 1 //SinceTalk is set up in aitalk, it's the seconds since he stopped talking. mikireflag is to do with him being off screen. This ensures that that dialogue doesnt get interrupted.
+	if LV == 0
 	{
-		"\![get,property,OnCheckPosition,currentghost.scope(0).rect]" //This checks his current coordinates to see if you've dragged him onto a new screen
-		FromDragging = 1
-	}
-	else
-	{
-		OnUpdateCoords //Even if he cant say anything, he'll at least update his position so he knows if you're moving him right or left
-		FromDragging = 2
+		//if SHIORI3FW.CanTalk == 1
+		if Dragged > 5
+		{
+			"\![get,property,OnCheckPosition,currentghost.scope(0).rect]"
+		}
+		elseif SinceTalk > 2 && mikireflag != 1 && FromDragging != 2 //SinceTalk is set up in aitalk, it's the seconds since he stopped talking. mikireflag is to do with him being off screen. This ensures that that dialogue doesnt get interrupted.
+		{
+			"\![get,property,OnCheckPosition,currentghost.scope(0).rect]" //This checks his current coordinates to see if you've dragged him onto a new screen
+			FromDragging = 1
+		}
+		else
+		{
+			//OnUpdateCoords //Even if he cant say anything, he'll at least update his position so he knows if you're moving him right or left
+			FromDragging = 2
+		}
+		--
+		Dragged += 1
 	}
 }
 

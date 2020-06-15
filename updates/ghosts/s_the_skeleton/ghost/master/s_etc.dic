@@ -460,7 +460,8 @@ OnBIFFBegin
  
 OnBIFFComplete
  {
-	if reference0 == 0 //If you have no new mail.
+	"Ref 0: %(reference0)\n\nRef 1: %(reference1)\n\nRef 2: %(reference2)\n\nRef 3: %(reference3)\n\nRef 4: %(reference4)\n\nRef 5: %(reference5)\n\nRef 6: %(reference6)\n\nRef 7: %(reference7)\x"
+	/*if reference0 == 0 //If you have no new mail.
  	{
  		if LV == 0
 	{
@@ -515,7 +516,7 @@ OnBIFFComplete
 		{
 				"\0\s[516]...%(reference0) new emails.\e"
 		} 
- 	}
+ 	}*/
 }
 
  //---- OnBIFFFailure ---------------------------------------------------------------
@@ -675,6 +676,32 @@ OnUpdateComplete
 	}
  	else //if the ghost has updated successfully
 	{	
+		if CurrentVersion == "" //Update 1.2 variables - Same as below. I stg I'll add a version number in this update...
+		{
+			CurrentVersion = "1.2"
+			totalboops = 0
+			weatherupdateminute = 0
+			weatherquiet = 0
+			todaysingredients = ""
+			totalwaters = 0
+			currentlydrinkingw = 0
+			currentlydrinkingj = 0
+			currentlydrinkingm = 0
+			switchingtoshell = ""
+			CurrentXMonitor = 1
+			CurrentYMonitor = 1
+			CurrentXPos = 0
+			CurrentYPos = 0
+			NewXMonitor = 0
+			NewYMonitor = 0
+			XCoord = 0
+			YCoord = 0
+			SinceTalk = 0
+			FromDragging = 0
+			CameBack = 0 //needs to be in OnBoot too
+			Dragged = 0
+			beenbackwards = 0
+		}
 		if poppable == "" //Update 1.1 variables - These wont be set if they've already been set once
 		{
 			DeviceMemories = ""
@@ -1450,6 +1477,12 @@ OnShellScaling
 		{
 			"\0\s[108]Kiddo,\w4 seriously,\w4 I'm uh-\s[301]\w8\s[302]\w8\w8 ...\s[107]Starting to get really dizzy.\w8\w8\n\n\s[106]Can we stop,\w4 please?\e"
 		}
+		elseif reference0 < 0 //If he's backwards
+		{
+			changedscaling += 5
+			beenbackwards = 1
+			"\0\s[1100]What the-\w8\w8\s[208] what happened??\w8\w8\s[110] Everything's,\w4 um,\w4 backwards??\e"
+		}
 		elseif reference0 > reference1 //=========reference 0 is the new size, reference1 is the old. So this is if he's getting bigger.===========
 		{
 			if reference1 > 100 //If it's larger than 100, you already had him big and then you made him bigger again
@@ -1593,7 +1626,7 @@ OnBalloonBreak //This is so dumb XD do I keep this? I don't know -- Update, I'm 
 	--
 	if poppable == "ON"
 	{
-		"\s[110]\_v[img\blop.wav]"
+		"\s[110]\_v[img\blop.mp3]"
 		balloonspopped += 1
 	}
 	else
@@ -1601,25 +1634,25 @@ OnBalloonBreak //This is so dumb XD do I keep this? I don't know -- Update, I'm 
 		""
 	}
 	--
-	if OtherAwaitingResponse != ""
+	if FromDragging == 2
 	{
-		OnCommunicate
+		"\![get,property,OnCheckPosition,currentghost.scope(0).rect]"
 	}
 }
 
 OnBalloonClose
 {
-	if OtherAwaitingResponse != ""
+	if FromDragging == 2
 	{
-		OnCommunicate
+		"\![get,property,OnCheckPosition,currentghost.scope(0).rect]"
 	}
 }
 
 OnBalloonTimeout
 {
-	if OtherAwaitingResponse != ""
+	if FromDragging == 2
 	{
-		OnCommunicate
+		"\![get,property,OnCheckPosition,currentghost.scope(0).rect]"
 	}
 }
 
