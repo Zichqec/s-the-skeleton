@@ -1,0 +1,386 @@
+﻿//---------------------------Envelopes--------------------------
+
+wdn //Font to wingdings
+{
+	"\f[name,Wingdings]"
+}
+
+rg //Font to default
+{
+	"\f[name,default]"
+}
+
+rgc //regular check, check to see if wingdings only mode is on and if it is, leave it be
+{
+	if WDOnly == 1
+	{
+		""
+	}
+	else
+	{
+		"\f[name,default]"
+	}
+}
+
+rgf //force regular font, different from font to default because I don't want it to mess with other balloons too much...
+{
+	"\f[name,Microsoft Sans Serif]"
+}
+
+
+wdc //Wingdings Check - Check to see if the user is in wingdings only mode, and if yes, set to small balloon with wingdings font
+{
+	if WDOnly > 0
+	{
+		"\b[9]"
+	}
+	else
+	{
+		"\b[0]"
+	}
+}
+
+wdcb //same as above but with large balloon
+{
+	if WDOnly > 0
+	{
+		"\b[10]"
+	}
+	else
+	{
+		"\b[2]"
+	}
+}
+
+DustyStats
+{	
+	//"%(statw)%(statgm)%(statw)%(statgm)%(statgm)%(statw)%(statgm)"
+	"%(statmix)%(statmix)%(statmix)%(statmix)%(statmix)"
+	"%(statmix)%(statmix)%(statmix)%(statmix)%(statmix)%(statmix)"
+	"%(statmix)%(statmix)%(statmix)%(statmix)%(statmix)%(statmix)%(statmix)"
+	"%(statmix)%(statmix)%(statmix)%(statmix)%(statmix)%(statmix)%(statmix)%(statmix)"
+	"%(statmix)%(statmix)%(statmix)%(statmix)%(statmix)%(statmix)%(statmix)%(statmix)%(statmix)"
+}
+
+statmix
+{
+	"%(statw)"
+	"%(statgm)"
+	"%(statgm)"
+	" "
+}
+
+statw
+{
+	"ERROR☐"
+	"666"
+	"ACCESS_DENIED"
+	"OUT_OF_MEMORY"
+	"MISSING"
+	"INVALID_DATA"
+	"☐☐"
+	"☐☐☐☐"
+	"☐☐☐"
+	"FATAL"
+	"WDG"
+	"CORE"
+	"0x666666"
+	"NULL"
+	"FUN"
+	"HP"
+	"ATK"
+	"DEF"
+	"LV"
+	"EXP"
+}
+
+statg
+{
+	"//"
+	"--"
+	"="
+	"'"
+	","
+	"."
+	";"
+	":"
+	"["
+	"]"
+	"`"
+	">"
+	">"
+	">"
+	">"
+	"☐☐"
+	"☐☐"
+	"☐☐"
+	"☐☐"
+	"☐"
+	"☐☐"
+	"☐☐☐"
+	"☐☐☐☐"
+	"☐☐☐"
+	"☐☐☐☐"
+	"%(wdn)"
+	"%(rg)"
+	"%(rg)"
+	"%(rg)"
+	"\n"
+	"\n\n"
+	"\n"
+	"\n"
+}
+
+statgm
+{
+	"%(statg)%(statg)%(statg)%(statg)%(statg)%(statg)"
+	"%(statg)%(statg)%(statg)%(statg)%(statg)%(statg)%(statg)%(statg)"
+	"%(statg)%(statg)%(statg)%(statg)%(statg)%(statg)%(statg)%(statg)%(statg)%(statg)"
+	"%(statg)%(statg)%(statg)%(statg)%(statg)%(statg)%(statg)%(statg)%(statg)%(statg)%(statg)%(statg)"
+}
+
+
+
+lessonwd //Use TOUPPER and TOLOWER to get uppercase and lowercase versions
+{
+	"Wingdings"
+	"Dusty"
+	"Echo"
+	"Ukagaka"
+	"Ghost"
+	"Discord"
+	"Skeleton"
+	"Void"
+	"Gaster"
+	"Portal"
+	"Obsidian"
+	"Dragon"
+	"Cat"
+	"Whisker"
+	"Sweater"
+	"Bones"
+	"Screen"
+	"Computer"
+	"Video"
+	"Tablet"
+	"Fluffy"
+	"Script"
+	"Calcium"
+	"Babybones"
+	"Vertebrae"
+	"Femur"
+	"Radius"
+	"Ulna"
+	"Font"
+	"Soul"
+	"Feline"
+	
+	"Book"
+	"Paper"
+	"Text"
+	"Reading"
+	"Novel"
+	"Quiz"
+	"Test"
+	"Dictionary"
+	
+	"Zenith" //Whats that? Starset? I dont know what you're talking about.......
+	"Star"
+	"Galaxy"
+	"Afterglow"
+	"Eclipse"
+	"Solstice"
+	"Equinox"
+	"Telescope"
+	"Telepathic"
+	"Telekinetic"
+	"Gravity"
+	"Antigravity"
+	"Starlight"
+	"Ricochet"
+	"Satellite"
+	"Unknown"
+	"Frequency"
+	"Faultline"
+	"Sunset"
+	"Sunrise"
+	"Nebula"
+	"Comet"
+	"Meteor"
+	"Asteroid"
+	"Antimatter"
+	"Stratosphere"
+	"Aurora"
+	"Binary"
+	"Black hole"
+	"Celestial"
+	"Lunar"
+	"Cosmic"
+	"Crater"
+	"Ellipse"
+	"Escape velocity"
+	"Horizon"
+	"Flare"
+	"Gamma"
+	"Globe"
+	"Kelvin"
+	"Lenticular"
+	"Light year"
+	"Luminosity"
+	"Magnetic"
+	"Magnitude"
+	"Mass"
+	"Molecular"
+	"Neutron"
+	"Nova"
+	"Orbit"
+	"Parallax"
+	"Penumbra"
+	"Phase"
+	"Planet"
+	"Plasma"
+	"Pulsar"
+	"Quasar"
+	"Radio"
+	"Retrograde"
+	"Solar"
+	"Supernova"
+	"Terrestria"
+	"Ultraviolet"
+	"Umbra"
+	"Wavelength"
+	"Zodiac"
+	"Moon"
+	"Emanate"
+	"Sunlight"
+	"Moonlight"
+}
+
+gasternoises
+{
+	"01"
+	"02"
+	"03"
+	"04"
+	"05"
+	"06"
+	"07"
+}
+
+catnoises
+{
+	"\s[10]"
+	"\s[1000]"
+	"\s[1001]"
+	--
+	"Maow"
+	"Mrrp"
+	"Prrp"
+	"Mraa"
+	"Mrr"
+	"Maaow"
+	"Mwwrrrr"
+}
+
+goodnoises //specifically for pets and things
+{
+	"Prrr..."
+	"Mrrrrp."
+	"Prr... Prr..."
+	"* (You feel the soft rumble of her purring.)"
+	"* (She nudges your cursor for more.)"
+	"* (You can feel her teeth as she rubs her cheek on your cursor.)"
+}
+
+annoyednoises
+{
+	"Rrrrrr."
+	"Mrrrrr."
+	"Maow."
+	"Mrrraa."
+}
+
+//------------Menu envelopes and such--------------
+
+
+GetWeekDay
+{
+	if weekday == 0
+	{"Sun"}
+	elseif weekday == 1
+	{"Mon"}
+	elseif weekday == 2
+	{"Tue"}
+	elseif weekday == 3
+	{"Wed"}
+	elseif weekday == 4
+	{"Thu"}
+	elseif weekday == 5
+	{"Fri"}
+	else
+	{"Sat"}
+}
+
+GetAP
+{
+ 	if hour >= 0 && hour <= 11
+	{
+		"AM"
+	}
+ 	else
+	{
+		"PM"
+	}
+}
+
+Getnowmin
+{
+	if minute >= 0 && minute <=9
+	{
+		"0%(minute)"
+	}
+	else
+	{
+		"%(minute)"
+	}
+}
+
+Getnowhour
+{
+	if hour12 >= 0 && hour12 <=9
+	{
+		"0%(hour12)"
+	}
+	else
+	{
+		"%(hour12)"
+	}
+}
+
+WDOn
+{
+	if WDOnly == 1
+	{
+		"off"
+	}
+	else
+	{
+		"on"
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+//---leave this be--- 
+On_\person
+{
+ 	person
+}

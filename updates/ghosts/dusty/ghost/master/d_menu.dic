@@ -1,0 +1,1241 @@
+﻿//---------------------------Menus--------------------------
+
+OpenSakuraMenu
+{
+	"%(wdcb)"
+	--
+	"\0\s[0]"
+	"\0\s[114]"
+	"\0\s[104]"
+	--
+	"Hello, can I help you?"
+	"Did you need something?"
+	"What do you need,\w4 %(username)?"
+	--
+	MenuRun
+}
+
+MenuRun
+ {	
+ 	wd = GetWeekDay
+ 	ap = GetAP
+ 	nowmin = Getnowmin
+ 	nowhour = Getnowhour
+	"%(wdcb)"
+	--
+	"\n\n\_q* (You ask him...)\n\n"
+	--
+	if lastTalk != ""
+	{
+	  "\![*]\q[To repeat himself,OnLastTalk]\n"
+	}
+	-- //These are anchors
+ 	"\![*]To talk MToYou or to MAnotherGhost\n/ 
+	\![*]\q[Some questions,askquestions]\n/
+	\![*]\q[To do something for you,functionmenu]\n\n/
+	* (Or maybe instead you want to...)\n\n[half]/
+	\![*]\q[Do something,dosomething]\n/
+	\![*]\q[Give him an item,inventory]\n/
+	\![*]\q[Change some settings,configmenu]\n\n"
+	--
+	if debug == 1
+	{
+		"* (Or, for the very curious...)\n\n[half]/
+		\![*]\q[Debug,zidebug]\n/
+		\![*]\q[Test Variable,testvariable]\n\n"
+	}
+	--
+ 	"\![*]\q[Nevermind,CANCEL]\n\n%(wd) %(hour12):%(nowmin) %(ap), %(month)/%(day)/%(year)"
+	--
+	if WDOnly == 1
+	{
+		"\n\n%(rgf)\q[(Turn Wingdings mode %(WDOn),togglewdmm])\e" //might replace this with an image or something later...
+	}
+	else
+	{
+		"\e"
+	}
+}
+
+
+//========================Question menu=========================
+Select.askquestions
+{
+	QuestionMenu
+}
+
+QuestionMenu
+{
+	"%(wdcb)\_q* (You ask him about...)\n\n/
+	\![*]\q[Himself,abouthim]\n"
+	--
+	if askedaboutobsidian == 0
+	{
+		"\![*]\q[The cat,aboutthecat]\n"
+	}
+	else
+	{
+		"\![*]\q[Obsidian,aboutobsidian]\n"
+	}
+	--
+	if askedabouthim == 1
+	{
+		"\![*]\q[The void,aboutthevoid]\n/
+		\![*]\q[Timelines,abouttimelines]\n/
+		\![*]\q[Wingdings,wingdingsmenu]\n"
+		--
+		if SeePC == 1
+		{
+			"\![*]\q[Your computer,aboutyourcomputer]\n"
+		}
+	}
+	--
+	"\n\n\![*]\q[Go back,BACKTOMENU]\n\![*]\q[Nevermind,CANCEL]"
+	
+}
+
+Select.abouthim
+{
+	if askedabouthim != 1
+	{
+		"\0\s[106]Ah,\w4 I'm not sure how much there is to say.\w8\w8\s[209] I live in the void,\w4\s[200] though 'live' is perhaps not the best term for it.\w8\w8\s[204] I fell into the CORE a very long time ago,\w4 which is how I ended up in the void,\w4 a place where there is no time.\w8\w8\n\n\s[108]Unfortunately,\w4 in the process,\w4 my HP also dropped to 0.\w8\w8\s[109] So...\w8\w8 I'm dead.\w8\w8\s[200] My soul is perpetually crumbling,\w4 as are parts of my body.\w8\w8 \s[106]I've been able to manipulate my void to cover it somewhat,\w4 though.\w8\w8\n\n\s[204]Anyways,\w4 since I've already gone past the point of no return,\w4 there's no way to heal me.\w8\w8 If I leave my void,\w4 I'll turn to dust.\w8\w8\s[106]\n\nThough,\w4 ah,\w4 there are some places I can survive where time also doesn't flow,\w4 usually other voids.\w8\w8\s[104] It seems your computer is one of these places,\w4 and I'm glad to take refuge where I can get it.%(morequestions)"
+		askedabouthim = 1
+	}
+	elseif askedabouthim == 1
+	{
+		"\0\s[106]Ah,\w4 I'm not sure how much there is to say.\w8\w8\s[209] I live in the void,\w4\s[200] though 'live' is perhaps not the best term for it.\w8\w8\s[204] I fell into the CORE a very long time ago,\w4 which is how I ended up in the void,\w4 a place where there is no time.\w8\w8\n\n\s[108]Unfortunately,\w4 in the process,\w4 my HP also dropped to 0.\w8\w8\s[109] So...\w8\w8 I'm dead.\w8\w8\s[200] My soul is perpetually crumbling,\w4 as are parts of my body.\w8\w8 \s[106]I've been able to manipulate my void to cover it somewhat,\w4 though.\w8\w8\n\n\s[204]Anyways,\w4 since I've already gone past the point of no return,\w4 there's no way to heal me.\w8\w8 If I leave my void,\w4 I'll turn to dust.\w8\w8\s[106]\n\nThough,\w4 ah,\w4 there are some places I can survive where time also doesn't flow,\w4 usually other voids.\w8\w8\s[104] It seems your computer is one of these places,\w4 and I'm glad to take refuge where I can get it.%(morequestions)"
+		"\0\s[0]I may be stuck in the void,\w4 but there are still a few things I can do.\w8\w8\s[111] I can create screens to view timelines through,\w4 for one.\w8\w8\s[209]\n\nBack when I first arrived in the void,\w4 it wasn't all that useful aside from keeping me from getting too bored.\w8\w8\s[201] But now that I know some friends who can timeline hop,\w4 it's a very useful way to get them information and make sure they're safe.\w8\w8\s[102]\n\nKeeping a watchful eye out for them is the least I can do to repay them for all they've given me.%(morequestions)"
+		"\0\s[106]I don't sleep much,\w4\s[107] but it's really not as big a deal for me as my friends insist.\w8\w8\s[201] Really,\w4 in my state I can stay up for several days without ill effects.\w8\w8\s[107]\n\nThough,\w4 there's not much concept of a 'day' in the void.%(morequestions)"
+		"\0\s[200]I spent a lot of time alone in the void,\w4 before I started getting visitors.\w8\w8\s[204] I almost lost myself completely...\w8\w8\s[104] Things are much better now.\w8\w8\s[0] I'm still alone a lot of the time,\w4 but I have visitors regularly now,\w4 and we've managed to contruct the basics for inter-dimensional communication.%(morequestions)"
+		"\0\s[0]I'm very connected with my void,\w4\s[208] I have ah,\w4 sort of a 6th sense now,\w4 I suppose?\w8\w8\s[104] I can sense anything that's within my void,\w4 and where it is in relation to me.\w8\w8\n\n\s[106]It has its drawbacks.\w8\w8 I can only have so many objects within my void,\w4 or I'll start to get overloaded.\w8\w8\s[107] I discovered this when my friends decided to try building me a house.%(morequestions)"
+		"\0\s[104]I've taught myself a lot of questionably useful skills to keep myself occupied.\w8\w8\s[0] Have you heard of speed cubing?\w8\w8\s[102] There are people capable of solving a Rubik's cube within a few seconds.\w8\w8\s[111] It's actually simple once you know how,\w4 it's all math based.\w8\w8\n\n\s[205]I've gotten pretty good at it,\w4 I think,\w4 although I've never tried competing against someone else...%(morequestions)"
+		"\0\s[201]I've read a lot of books.\w8\w8\s[106] A \f[italic,true]lot\f[italic,default] a lot of books.\w8\w8\s[107] I've got a lot of time,\w4 and books are an easy way to keep from getting bored.\w8\w8\s[106] I'm pretty sure the library my friends borrow them from for me is going to run out soon.%(morequestions)"
+	}
+}
+
+Select.aboutthecat
+{
+	"\0\s[114]Ah,\w4 her name is Obsidian.\w8\w8\s[400] She's been my companion in the void for many years now.\w8\w8\n\n\s[106]She was brought to me while very ill,\w4 so that I could care for her,\w4\s[204] but unfortunately she didn't manage to pull through.\w8\w8\s[200]\1%(catnoises)\w8\w8\0\n\nThanks to the nature of my void,\w4 she's still here even if she isn't technically alive.\w8\w8\s[102] She doesn't seem to mind it at all,\w4 she's grown used to the void and very attached to me.\w8\w8\1%(catnoises).\0%(morequestions)"
+	askedaboutobsidian = 1
+}
+
+Select.aboutobsidian
+{
+	"%(wdc)"
+	--
+	"\0\s[106]She can be a little fussy,\w4\s[103] but she's really very sweet.\w8\w8\1%(catnoises).\0\n\n\w8\w8\s[107]She just takes a while to warm up to strangers."
+	"\0\s[113]If I ignore her she pushes over my stacks of books to get my attention."
+	"\0\s[104]She's a very welcome companion in the void.\w8\w8\s[106] I wish I could give her a better home.\w8\w8\1%(catnoises).\w8\w8\0\s[400]\n\nThough,\w4 she seems to be content to stay with me regardless."
+	"\1\s[1000]\0\s[400]She spends a lot of time cleaning her fur,\w4\s[113] even though there's not much in the void to get it dirty in the first place.\w8\w8\1\s[1002]Mrrr."
+	"\0\s[107]Sometimes she walks on top of me while I'm trying to sleep.\w8\w8\1%(catnoises).\w8\w8\0\n\n\s[402]%(wdn)YOU DO, DON'T DENY IT."
+	"\0\s[102]There's nothing as soothing as when a cat puts its paw on you and looks into your eyes,\w4 purring softly.\w8\w8\1%(catnoises)."
+	"\0\s[113]Sometimes I open screens looking at birds or mice to distract her.\w8\w8\1%(catnoises).\w8\w8\0\n\n\s[114]It usually keeps her occupied for a while."
+	if treatsgiven > 10
+	{
+		"\1%(catnoises).\w8\w8\0\s[400]She's very picky about who she likes.\w8\w8\s[102] But,\w4 seems to enjoy your company well enough.\w8\w8\s[113]\n\nMaybe moreso when you're giving her treats."
+	}
+	if recenttreats < 3
+	{
+		"\1%(catnoises).\w8\w8\0\s[400]...I think she's hungry."
+	}
+	if recenttreats > 10
+	{
+		"\1\s[1000]Prrp.\w8\w8\0\s[102]...She's probably had enough treats for now.\w8\w8\1\s[10]\n\nMrrrrrr.\w8\w8\0\s[402]%(wdn)\n\nYOU'RE PROUD OF YOURSELF,\w4 ARENT YOU." //replaceframe obsi laying down
+	}
+	--
+	"\0%(rgc)%(morequestions)"
+}
+
+Select.aboutthevoid
+{
+	"%(wdc)"
+	--
+	"\0\s[209]Ah,\w4 there's not much to it.\w8\w8\s[106] There's nothing but gray as far as the eye can see.\w8\w8\n\n\s[208]There's no time,\w4 nor tempurature.\w8\w8\s[107] There isn't really anything except me,\w4 my cat,\w4 and my few belongings"
+	"\0\s[206]It's very quiet there.\w8\w8\s[0] Your computer is very loud by comparison,\w4\s[104] but I appreciate having some ambience for once.\w8\w8\n\n\s[205]I can use my screens to look into other timelines and hear ambient sounds that way,\w4\s[107] but it's not really the same thing."
+	"\0\s[208]It's become a part of me,\w4 in a way.\w8\w8\s[550] I can use it to form screens like this,\w4 which let me see into various timelines.\w8\w8\s[102]\n\nI can also pull small pieces of it to myself,\w4 to fill in the parts of my body that have turned to dust.\w8\w8\s[106] It has a very numbing effect,\w4 which is also helpful."
+	"\0\s[200]It stretches on and on,\w4 with no discernable end.\w8\w8\s[106] I did try to find if there was a boundary once,\w4 but no matter how far I teleported,\w4 there was no difference in the amound of void I sensed around me."
+	"\0\s[102]If I concentrate,\w4 I can use it to sense the multiverse itself,\w4 and even track the magic signatures of people I know.\w8\w8\s[205] It gives me some small way to pay back my friends for their help,\w4 I can help them if they or anyone they love gets lost among the infinite timelines somewhere."
+	--
+	"\0%(rgc)%(morequestions)"
+}
+
+Select.abouttimelines
+{
+	"%(wdc)"
+	--
+	"\0\s[114]There are many kinds of timelines out there,\w4\s[106] some so strange you wouldn't believe me about them if I told you."
+	"\0\s[205]I can use my screens to look anywhere in any timeline.\w8\w8\s[102]  I often use this to look at sunsets,\w4 or the night sky.\w8\w8\s[106]\n\nIt isn't really the same as being there in person,\w4\s[114] but if I make large enough screens it's pretty good."
+	"\0\s[206]It seems that almost every Gaster in the multiverse is doomed to a similar fate as I have.\w8\w8\s[110] It takes different forms sometimes,\w4\s[200] but we always end up getting...\w8\w8\s[204] erased.\w8\w8\1%(catnoises).\0\w8\w8\s[400]%(wdn)\n\nI'M ALRIGHT,\w4 OBSIDIAN."
+	"\0\s[205]The multiverse contains everything that can ever be.\w8\w8\s[201] At some point I realized that also means the fiction books I've read aren't technically fiction,\w4 if I search hard enough.\w8\w8\n\n\s[102]It's really strange searching for a world you read about in a book,\w4 finding it,\w4\s[107] and then discovering that your world is also fiction to them."
+	--
+	"\0%(rgc)%(morequestions)"
+}
+
+Select.wingdingsmenu
+{
+	WingdingsMenu
+}
+
+//--------------------------Wingdings Menu------------------------------------
+
+WingdingsMenu
+{
+	if askedaboutwingdings == 0
+	{
+		"%(wdc)\s[0]\b2\0\s[114]Oh, you want to learn about wingdings?\w8\w8\s[104] Sure, I'd be glad to teach you.\w8\w8\s[0] What would you like me to do?\n\n"
+		askedaboutwingdings = 1
+	}
+	else
+	{
+		"%(wdc)\s[0]\_q\b2\0Oh, you want to learn about wingdings? Sure, I'd be glad to teach you. What would you like me to do?\n\n"
+	}
+	--
+	"/
+	\![*]\q[Translate something to wingdings,inputToWD]\n/
+	\![*]\q[Translate something from wingdings,translatefromWD]\n/
+	\![*]\q[Show me a wingdings chart,chartWD]\n/
+	\![*]\q[Teach me to read wingdings,teachWD]\n/
+	\![*]\q[Quiz me on wingdings,quizWD]\n/
+	\![*]\q[Change all dialogue to wingdings,toggleWD]\n/
+	\n\![*]\q[Go back,functionmenu]\n\![*]\q[I'm done,cancelnodialogue]\e"
+}
+
+//-----Translate into WD-----
+Select.inputToWD
+{
+	"%(wdc)"
+	--
+	"\0\s[0]Something you want me to translate?\![open,inputbox,OntranslatetoWD,-1]"
+	"\0\s[0]Sure,\w4 what did you want me to translate?\![open,inputbox,OntranslatetoWD,-1]"
+}
+
+OntranslatetoWD
+{
+	_text = reference0
+	_textlower = TOLOWER(_text)
+	_textupper = TOUPPER(_text)
+	
+	"\0\s[0]'%(_text)' as you wrote it would be:\n%(wdn)%(_text)%(rg).\w8\w8\n\nIn lowercase, it would be:\n%(wdn)%(_textlower)%(rg).\w8\w8\n\nIn uppercase, it would be:\n%(wdn)%(_textupper)%(rg).\e"
+}
+
+//-----Translate out of WD-----
+Select.translatefromWD
+{
+	currentlytranslating = ""
+	TranslationProgress
+}
+
+TranslationProgress
+{
+	"\p[2]\s[-1]\b[10]\f[height,20]\_q%(currentlytranslating)\0\b2"
+	--
+	"\f[height,25]trCA trCB trCC trCD trCE trCF trCG trCH trCI trCJ\ntrCK trCL trCM trCN trCO trCP trCQ trCR trCS\ntrCT trCU trCV trCW trCX trCY trCZ\n\n[half]\f[height,20]trLA trLB trLC trLD trLE trLF trLG trLH trLI trLJ\ntrLK trLL trLM trLN trLO trLP trLQ trLR trLS trLT trLU trLV\ntrLW trLX trLY trLZ\n\_l[,190]\f[height,default]\![*]\q[Add a space,translatespace]      \![*]\q[Add a line break,translatelinebreak]\n\![*]\q[Numbers and Punctuation,TranslatePunctuation]\n\n[half]\![*]\q[Finish and Translate,finishtranslate]\n\![*]\q[Cancel,cancelnodialogue]\t\*"
+}
+
+TranslationPunctuation
+{
+	"\p[2]\s[-1]\b[10]\f[height,20]\_q%(currentlytranslating)\0\b2"
+	--
+	"\f[height,25]tr` tr1 tr2 tr3 tr4 tr5 tr6 tr7 tr8\ntr9 tr0 tr- tr= tr~ tr! tr@ tr#\ntr$ tr% tr^ tr& tr* tr( tr)\ntr_ tr+ tr| tr[ tr] tr{ tr} tr; tr'\ntr: trquote tr, tr. tr/ tr< tr> tr? \n\_l[,190]\f[height,default]\![*]\q[Add a space,translatespace2]      \![*]\q[Add a line break,translatelinebreak2]\n\![*]\q[Letters,TranslateLetters]\n\n[half]\![*]\q[Finish and Translate,finishtranslate]\n\![*]\q[Cancel,cancelnodialogue]\t\*"
+}
+
+Select.TranslateLetters
+{
+	TranslationProgress
+}
+
+Select.TranslatePunctuation
+{
+	TranslationPunctuation
+}
+
+Select.translatespace
+{
+	currentlytranslating += " "
+	--
+	TranslationProgress
+}
+
+Select.translatespace2
+{
+	currentlytranslating += " "
+	--
+	TranslationPunctuation
+}
+
+Select.translatelinebreak
+{
+	currentlytranslating += "\n"
+	--
+	TranslationProgress
+}
+
+Select.translatelinebreak2
+{
+	currentlytranslating += "\n"
+	--
+	TranslationPunctuation
+}
+
+Select.finishtranslate
+{
+	"\0\s[111]The translation is:\n\n%(currentlytranslating)\n\n\![*]\q[Back to Wingdings menu,wingdingsmenu]\n\![*]\q[I'm done,cancelnodialogue]"
+}
+
+//-----Quiz-----
+Select.quizWD
+{
+	_case = RAND(2)
+	
+	if _case == 1
+	{
+		totranslate = TOLOWER(lessonwd)
+	}
+	elseif _case == 2
+	{
+		totranslate = TOUPPER(lessonwd)
+	}
+	else
+	{
+		totranslate = lessonwd
+	}
+	--
+	"\0\s[111]\![set,balloontimeout,0]Write the translation for:\n\n%(wdn)%(totranslate)%(rg)\![open,inputbox,OnUserGuess,-1]\t\*"
+}	
+	
+
+OnUserGuess
+{
+	if reference0 == totranslate
+	{
+		"\0\s[104]That's correct!\w8\w8 The word was %(totranslate).\w8\w8"
+	}
+	else
+	{
+		"\0\s[106]I'm sorry,\w4 that's incorrect.\w8\w8 You said %(reference0),\w4 the word was %(totranslate).\w8\w8"
+	}
+	--
+	"\s[0]\n\nTry another word?\n\n\![*]\q[Another,quizWD]\n\![*]\q[Back to Wingdings menu,wingdingsmenu]\n\![*]\q[I'm done,cancelnodialogue]\e"
+}
+
+
+
+
+//---------------------End of Wingdings Menu----------------------------------
+
+morequestions
+{
+	"\n\n\![*]\q[Ask something else,askquestions]\n\![*]\q[Nevermind,cancelnodialogue]\e"
+}
+
+//========================End of Question menu=========================
+
+
+
+
+
+//========================Functions Menu===============================
+
+Select.functionmenu
+{
+ 	"\0\s[0]\_q%(wdcb)Sure, what did you need me to do?\n\n* (You ask him to...)\n\n"
+	--
+ 	"\![*]\q[Open Calendar,CALENDAR]\n/
+	\![*]\q[Check Email,MailCheck]\n/
+	\![*]\q[Open SSP Preferences,sspconfig]\n/
+	\![*]\q[Empty Recycle Bin,ChoiceGarbagecan]\n/
+	\![*]\q[System Information,ChoiceSystemInformation]\n\n/
+ 	\![*]\q[Back to main menu,BACKTOMENU]\e"
+}
+
+Select.CALENDAR
+{
+	"%(wdc)\0\s[0]Sure, here's the calendar.\![open,calendar]\e"
+}
+
+
+Select.MailCheck
+{
+	"\![biff]\e"
+}
+
+Select.sspconfig
+{
+	"%(wdc)\0\s[0]Sure, here's the preferences menu.\![open,configurationdialog]\e"
+}
+
+Select.ChoiceGarbagecan
+{
+	_gomicheck = FUNCTIONEX("gomi.dll", "-n")
+	
+	if _gomicheck == 0 //If the recycle bin is empty.
+	{
+		"\1\s[-1]%(catnoises)!\w8\0%(wdc)\s[110]Ah-\w8 Obsidian,\w4 come ba\s[-1]ck here..!\w8\w8\w8\w8\n\n.\w1.\w1.\w1.\w1.\w1.\w8\w8\w8\w8\w8\w8\1\s[10]\c\0\s[106]\cYour recycle bin was already empty.\w8\w8\1%(catnoises).\e" //replaceframe change the coming back to be Dusty holding Obsi
+	}
+	elseif _gomicheck >= 1 //If the recycle bin is full.
+	{
+		"\1\s[-1]%(catnoises).\w8\0%(wdc)\s[110]Ah-\w4 Obsidian,\w4 come ba\s[-1]ck..!\w8\w8\w8\w8\n\n.\w1.\w1.\w1.\w1.\w1.\w8\w8\w8\w8\w8\![raise,OnGarbagecanEmpty]\w8\1\s[10]\0\s[106]\cYour recycle bin has been emptied.\w8\w8\1%(catnoises).\e" //replaceframe change the coming back to be Dusty holding Obsi
+		//Somewhat similar to the above, but notice the \![raise],OnGarbagecanEmpty] tag in there. That's what actually empties the recycle bin, so make sure you don't delete that tag.
+	}
+}
+
+//This is for the SAORI, don't touch it.
+OnGarbagecanEmpty
+{
+	_gomi = FUNCTIONEX("gomi.dll", "-f")
+}
+
+Select.ChoiceSystemInformation
+{
+	os_name = FUNCTIONEX("saori_cpuid.dll","os.name")
+	os_version = FUNCTIONEX("saori_cpuid.dll","os.version")
+	cpu_name = FUNCTIONEX("saori_cpuid.dll","cpu.name")
+	cpu_clockex = FUNCTIONEX("saori_cpuid.dll","cpu.clockex")
+	"/
+	\0\s[0]\b[2]/
+	\_qOS: %(os_name) %(os_version)\n/
+	Memory Load: %(memoryload)%\n/
+	Physical Memory: %(memoryavailphys) KB\n/
+	CPU: %(cpu_name) %(cpu_clockex)MHz\n/
+	Ukagaka: %property[baseware.version]/
+	\n\n\![*]\q[Go back,functionmenu]\n\![*]\q[I'm done,cancelnodialogue]\e"
+}
+
+//==============================End of Function Menu==========================
+
+//==============================Act menu======================================
+
+Select.dosomething
+{
+	"\_q\![*]\q[Check,DoACheck]\_l[100]\![*]\q[Hug,HugHim]\n/
+	\![*]\q[Confide,ConfideIn]\_l[100]\![*]\q[Gush,GushTo]\n/
+	\![*]\q[Comfort,ComfortHim]/
+	\n\n\![*]\q[Back to menu,BACKTOMENU]\n\![*]\q[I'm done,cancelnodialogue]"
+}
+
+Select.DoACheck
+{
+	"%(DustyStats)%(rg)%(actagain)"
+}
+
+Select.HugHim
+{
+	"\0%(wdc)"
+	--
+	"* (You ask him for a hug.)"
+	"* (You ask him if you can have a hug.)"
+	"* (You ask if you can hug him.)"
+	"* (You ask if he can give you a hug.)"
+	"* (You tell him you need a hug.)"
+	"* (You say you'd like a hug.)"
+	--
+	"\w8\w8\n\n"
+	--
+	"\s[104]"
+	"\s[103]"
+	"\s[102]"
+	--
+	"Of course,\w4 %(username)."
+	"Always,\w4 %(username)."
+	"I'd be glad to,\w4 %(username)."
+	--
+	"\w8\w8\s[112]\n\n"
+	--
+	"* (You feel a slight tingle of numbness as you hug him.)"
+	"* (Feels oddly cold.)"
+	"* (Feels hardly there.)"
+	"* (Feels a little fragile.)"
+	"* (Feels numb.)"
+	"* (Feels boney.)"
+	"* (Feels dusty.)"
+	"* (Cat fur sticks to you as you pull away.)"
+	"* (Feels like static.)"
+	--
+	"%(actagain)"
+}
+
+Select.ConfideIn
+{
+	"\0\b2\s[110]Oh,\w4 is there something you wanted to tell me?"
+	"\0\b2\s[110]Oh,\w4 what was it you wanted to tell me?"
+	--
+	"\n\n\![*]\q[I'm sad,script: \![set,balloontimeout,0\]* (He's listening closely.)\*\![open,inputbox,OnConfideSad,-1\]]\n/
+	\![*]\q[I'm scared,script: \![set,balloontimeout,0\]* (He's listening closely.)\*\![open,inputbox,OnConfideScared,-1\]]\n/
+	\![*]\q[I'm frustrated,script: \![set,balloontimeout,0\]* (He's listening closely.)\*\![open,inputbox,OnConfideFrustrated,-1\]]\n/
+	\![*]\q[I'm empty,script: \![set,balloontimeout,0\]* (He's listening closely.)\*\![open,inputbox,OnConfideEmpty,-1\]]\n/
+	\![*]\q[Other,script: \![set,balloontimeout,0\]* (He's listening closely.)\*\![open,inputbox,OnConfideOther,-1\]]"
+	--
+	"\n\n\![*]\q[Back,dosomething]\n\![*]\q[I'm done,cancelnodialogue]"
+}
+
+OnConfideSad
+{
+	"\0\s[109]* (He listens somberly to every word,\w4 then nods.)\w8\w8\n\n\s[108]That sounds terrible,\w4 %(username).\w8\w8\s[109] I hope things will start to look up for you soon..."
+	"\0\s[108]* (He listens to every word,\w4 nodding along as you speak.)\w8\w8\n\nI'm sorry you're going through this,\w4 %(username).\w8\w8\s[106] It's ok to cry,\w4 if you need to.\w8\w8\s[109] Allowing yourself to feel your emotions is an important step in healing."
+	--
+	"%(actagain)"
+}
+
+OnConfideScared
+{
+	"\0\s[206]* (He listens carefully,\w4 looking thoughtful.)\w8\w8\n\n\s[109]That does sound frightening,\w4  %(username).\w8\w8\s[106] If I can be a comforting presence for you,\w4 I would be glad to help in any way I can."
+	"\0\s[206]* (He looks worried as you finish.)\w8\w8\n\n\s[108]Take care of yourself,\w4 %(username).\w8\w8\s[200] You may not be able to control many of the things that can scare you,\w4\s[108] but taking care of yourself is within your own abilities and influence.\w8\w8\n\n\s[106]Be kind to yourself today,\w4 ok?"
+	--
+	"%(actagain)"
+}
+
+OnConfideFrustrated
+{
+	"\0\s[109]* (He listens carefully,\w4 sighing a little as you finish.)\w8\w8\n\n\s[107]Honestly,\w4 hearing that,\w4 I feel a little frustrated for you.\w8\w8\s[108] I'm sorry you're going through this,\w4 %(username).\w8\w8\n\n\s[208]It might be a good idea to distance yourself from this a little,\w4 if you can?\w8\w8\s[106] Experiencing anger is normal and healthy,\w4 just try not to let it sour your whole day."
+	"\0\s[108](He listens to every word,\w4 nodding along.)\w8\w8\n\n\s[109]That does sound very frustrating.\w8\w8 I'm sorry you have to deal with this,\w4 %(username).\w8\w8\s[106] Just try not to let your frustration completely consume you.\w8\w8\s[107] That wouldn't be good for anyone,\w4 least of all you."
+	--
+	"%(actagain)"
+}
+
+OnConfideEmpty
+{
+	"\0\s[109]* (He listens solemnly.)\w8\w8\n\nI understand more than you may think.\w8\w8\s[108] I hope you'll start to feel better soon,\w4 %(username).\w8\w8\s[109] It's a very difficult thing,\w4 when you have trouble feeling at all..."
+	"\0\s[109]* (He listens,\w4 utterly silent.)\w8\w8\n\nI understand,\w4 %(username).\w8\w8\s[108] I'm here to talk if you need,\w4 as much as I can.\w8\w8\s[106] Though,\w4 if you can find anyone else to talk to,\w4 they could give you better help than I can."
+	--
+	"%(actagain)"
+}
+
+OnConfideOther
+{
+	"\0\s[108]* (He listens very carefully to every word,\w4 then nods sincerely.)"
+	"\0\s[110]* (He listens to every word,\w4\s[114] then nods reassuringly.)"
+	"\0\s[106]* (He listens intently,\w4 nodding along as you talk.)"
+	--
+	"%(actagain)"
+}
+
+Select.GushTo
+{
+	"\0\b2\_q* (You tell him about...)"
+	--
+	"\n\n\![*]\q[A project,script: \![set,balloontimeout,0\]\s[114\]* (He smiles encouragingly.)\*\![open,inputbox,OnGushProject,-1\]]\n/
+	\![*]\q[An accomplishment,script: \![set,balloontimeout,0\]\s[114\]* (He smiles encouragingly.)\*\![open,inputbox,OnGushAccomplish,-1\]]\n/
+	\![*]\q[A good event,script: \![set,balloontimeout,0\]\s[114\]* (He smiles encouragingly.)\*\![open,inputbox,OnGushEvent,-1\]]\n/
+	\![*]\q[An interest,script: \![set,balloontimeout,0\]\s[114\]* (He smiles encouragingly.)\*\![open,inputbox,OnGushInterest,-1\]]\n/
+	\![*]\q[Other,script: \![set,balloontimeout,0\]\s[114\]* (He smiles encouragingly.)\*\![open,inputbox,OnGushOther,-1\]]"
+	--
+	"\n\n\![*]\q[Back,dosomething]\n\![*]\q[I'm done,cancelnodialogue]"
+}
+
+OnGushProject
+{
+	"\0\s[102]* (He listens closely.)\w8\w8\n\n\s[114]That sounds great,\w4 %(username).\w8\w8\s[104] You must be pretty dedicated to work on something like that."
+	"\0\s[114]* (He listens closely,\w4 intrigued.)\w8\w8\n\n\s[104]That sounds like fun,\w4 %(username).\w8\w8\s[0] I'm glad you've found something that you enjoy working on so much."
+	--
+	"%(actagain)"
+}
+
+OnGushAccomplish
+{
+	"\0\s[0]* (He listens to every detail,\w4 waiting until you finish to comment.)\w8\w8\n\n\s[104]That sounds wonderful,\w4 %(username).\w8\w8\s[104] You should be proud of yourself for putting in the work to make this happen.\w8\w8\s[104] \s[114]I'm proud of you.\w8\w8\1%(catnoises)\0"
+	"\0\s[0]* (He listens carefully,\w4 paying close attention to every word.)\w8\w8\n\n\s[104]Well done,\w4 %(username).\w8\w8\s[114] That sounds like a lot of work,\w4 but you've managed to make it happen in the end.\w8\w8\s[104] You should be proud."
+	--
+	"%(actagain)"
+}
+
+OnGushEvent
+{
+	"\0\s[114]* (He nods along as you tell him what happened.)\w8\w8\n\n\s[104]That's wonderful,\w4 %(username).\w8\w8\s[103] I'm glad you had such a nice experience."
+	"\0\s[104]* (He smiles as you describe what happened.)\w8\w8\n\n\s[114]That's great,\w4 %(username).\w8\w8\s[104] I'm glad you could have such a good day."
+	--
+	"%(actagain)"
+}
+
+OnGushInterest
+{
+	"\0\s[114]* (He pays very close attention as you tell him all about it.)\w8\w8\n\n\s[104]That sounds great,\w4 %(username).\w8\w8\s[0] I'm glad you've found something to be so passionate about,\w4 your dedication is impressive."
+	"\0\s[104]* (He nods encouragingly as you tell him all the juicy details.)\w8\w8\n\n\s[103]It sounds like you're having fun,\w4 %(username).\w8\w8\s[104]I'm glad you're enjoying this so much."
+	--
+	"%(actagain)"
+}
+
+OnGushOther
+{
+	"\0\s[114]* (He listens closely as you tell him all about it.)\w8\w8\n\n\s[104]* (When you've finished,\w4 he smiles and nods)\w8\w8\n\n\s[103]That sounds great,\w4 %(username).\w8\w8\s[104] I'm glad you're so excited about it."
+	"\0\s[102]* (He listens to every word,\w4 letting you speak your heart.)\w8\w8\n\n\s[104]That sounds wonderful,\w4 %(username).\w8\w8\s[103] I'm glad you're enjoying it so much."
+	--
+	"%(actagain)"
+}
+
+Select.ComfortHim
+{
+	"\0\s[106]* (You tell Dusty that he isn't alone,\w4 and that you'll keep him company.)\w8\w8\n\n\s[104]Ah,\w4 thank you %(username),\w4\s[103] I do greatly appreciate you bringing me here."
+	"\0\s[106]* (You try to comfort him about his current HP situation.)\w8\w8\n\n\s[107]Ah,\w4 I appreciate the thought,\w4 %(username),\w4\s[106] but I've accepted my fate.\w8\w8\s[104] Even if I'm stuck in the void,\w4 I can still do a few small things to help my friends.\w8\w8\s[205] Things that I'm uniquely equipped to do,\w4 thanks to the void."
+	"\0\s[106]%(username),\w4 I appreciate that you want to help me,\w4 but I promise I'm alright.\w8\w8\s[104] I try not to worry too much about things I can't change."
+	--
+	"%(actagain)"
+}
+
+actagain
+{
+	"\n\n\![*]\q[Do something else?,dosomething]\n\![*]\q[I'm done,cancelnodialogue]"
+}
+//==========================End of Act menu===================================
+
+
+
+
+
+
+
+
+
+
+//==============================Config Menu===================================
+
+Select.configmenu
+{
+	TalkConfig
+}
+
+
+TalkConfig
+{
+	"%(wdc)\0\b[2]\_q\![set,autoscroll,disable]\_l[95]---Config---\n\n"
+	--
+	"Your name:\f[bold,0] %(username) \f[sup,1](\q[Change it?,TEACHNAME])\f[sup,0]\n"
+	--
+	"Your pronouns: %(heshe)/%(himher)/%(hisher) \f[sup,1](\q[Change them?,TEACHPRONOUN])\f[sup,0]\n"
+	--
+	"Your birthday: %(birthdayprint) \f[sup,1](\q[Change it?,TEACHBDAY])\f[sup,0]\n\n"
+	--
+	"Talk Rate: %(talktime) \f[sup,1](\q[Change it,talkinter])\f[sup,0]\n\n"
+	--		
+	"\![*]Enable Uninstall? (Currently: \q[%(deleteshitai),ToggleUninstall])\n\n[half]"
+	--
+	"\![*]\q[Back to the menu,BACKTOMENU]\e"
+}
+
+Select.TEACHNAME
+{
+	"\0\s[110]Oh,\w4 you want to change your name?\w8\w8\s[0] Alright,\w4 what should I call you then?\![open,inputbox,OnNameTeach,-1]\e"
+}
+
+Select.TEACHPRONOUN
+{
+	OnTeachPronouns
+}
+
+
+
+
+//---------Birthday---------
+Select.TEACHBDAY
+{
+	dayslot = GetDaySlot //This is setting up in case today is the user's birthday.	
+	"\0\s[110]Oh,\w4 do I have the wrong day?\w8\w8\s[106] Sorry,\w4 I'll make a new note.\w8\w8\n\nWhat month were you born in?\![open,inputbox,OnUserBornMonth,-1]\e"
+}
+
+Select.talkinter
+{
+	"\0\s[0]\b2How often would you like us to speak?/
+	//note the new envelope here for %(talktime). You'll see it again in a second. You can replace the dialogue above with whatever you like, just make sure it ends with ./ and not \e.
+	\0\n\n[half]/
+	\![*]\q[Every 30 seconds,TALKMAX]\n/
+	\![*]\q[Every minute,TALKHIGH]\n/
+	\![*]\q[Every 3 minutes,TALKNORMAL]\n/
+	\![*]\q[Every 5 minutes,TALKPOOR]\n/
+	\![*]\q[Don't speak,TALKNONE]\n\n[half]/
+	\![*]\q[Don't change,TalksTill]\e"
+}
+
+Select.TalksTill
+{
+	"\0\s[102]Alright,\w4 we'll keep it as is.\w8\w8\1%(catnoises).\0\x"
+	--
+	TalkConfig
+}
+
+//If the user chooses every 30 seconds.
+Select.TALKMAX
+{
+	talktime = "every 30 seconds" //this sets up the envelope properly
+	aitalkinterval = 45 //this changes the actual rate
+	
+	"\0\s[102]Alright,\w4 we'll speak every 30 seconds.\w8\w8\1%(catnoises).\0\x"
+	--
+	TalkConfig
+}
+
+//If the user chooses every minute.
+Select.TALKHIGH
+{
+	talktime = "every minute"
+	aitalkinterval = 90
+	
+	"\0\s[102]Alright,\w4 we'll speak every minute.\w8\w8\1%(catnoises).\0\x"
+	--
+	TalkConfig
+}
+
+//If the user chooses every three minutes.
+Select.TALKNORMAL
+{
+	talktime = "every 3 minutes"
+	aitalkinterval = 270
+	
+	"\0\s[102]Alright,\w4 we'll speak every 3 minutes.\w8\w8\1%(catnoises).\0\x"
+	--
+	TalkConfig
+}
+
+//If the user chooses every five minutes. This is the default rate the ghost will start up in, as seen in bootend.dic.
+Select.TALKPOOR
+{
+	talktime = "every 5 minutes"
+	aitalkinterval = 400
+	
+	"\0\s[102]Alright,\w4 we'll speak every 5 minutes.\w8\w8\1%(catnoises).\0\x"
+	--
+	TalkConfig
+}
+
+//If the user chooses to not have them speak.
+Select.TALKNONE
+{
+	talktime = "Never"
+	aitalkinterval = 0
+	
+	"\0\s[106]Ah,\w4 alright,\w4 we wont speak at all.\w8\w8\1%(catnoises).\w8\w8\0\s[402]\n\n%(wdn)OBSIDIAN,\w4 WHAT DID I JUST SAY?%(rgc)\x"
+	--
+	TalkConfig
+}
+
+Select.ToggleUninstall
+{
+	if deleteshitai != "ON"
+	{
+		deleteshitai = "ON"
+	}
+	else
+	{
+		deleteshitai = "OFF"
+	}
+	--
+	TalkConfig
+}
+
+BacktoConfig //I dont think I'm using this atm... but I'll probably use it later so I'm leaving it in
+{
+	"\n\n\![*]\q[Back to Config,configmenu]\n\![*]\q[I'm done,cancelnodialogue]"
+}
+//====================================End of Config Menu=============================
+
+
+Select.togglewdmm
+{
+	if WDOnly != 1
+	{
+		WDOnly = 1
+		//WDOn = "off" //opposite, for display purposes in the menu
+	}
+	else
+	{
+		WDOnly = 0
+		//WDOn = "on" //see above
+	}
+	--
+	MenuRun
+}
+
+OnChoiceTimeout
+{
+	"%(wdc)\0\s[0]Are you still there,\w4 %(username)?\e" //replaceframe concern smile
+}
+
+Select.BACKTOMENU
+{
+	MenuRun
+}
+
+Select.CANCEL
+{
+	"%(wdc)\0\s[0]Alright, just let me know if you need something.\e"
+}
+
+//=====================================End of Dusty's Menu===============================
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+//=======================================Obsidian's menu=================================
+
+OpenKeroMenu
+{
+	"\1\s[10]\b2%(catnoises).\n\n\_q"
+	--
+	"\![*]\q[Tell her she's pretty,prettykitty]\n/
+	\![*]\q[Give her a treat,cattreat]\n\n"
+	--
+	if catpets > 0
+	{
+		"Total pets: %(catpets)\n"
+	}
+	--
+	if catboops > 0
+	{
+		"Total boops: %(catboops)\n"
+	}
+	--
+	if treatsgiven > 0
+	{
+		"Treats given: %(treatsgiven)\n"
+	}
+	--
+	"\t\*"
+	//This is 100% on purpose. She is a queen and you will treat her as such. If you get her attention you must do something nice for her before you can do anything else with the ghost.
+}
+
+Select.prettykitty
+{
+	
+}
+
+Select.cattreat
+{
+	treatsgiven += 1
+	recenttreats += 1
+	"\1\s[10]* (The treat is gone before you can blink.)"
+	"\1\s[10]* (The treat is gone in an instant.)"
+	"\1\s[10]* (She sniffs the treat,\w4 then scarfs it down quickly.)"
+	--
+	"\w8\w8\n\n"
+	--
+	"Prrr..."
+	"Mrrrrp."
+	"Prr... Prr..."
+	--
+	"\w8\w8\n\n"
+	--
+	"\s[10]* (She's intently staring at you for more.)"
+	"\s[10]* (She nudges your cursor for more.)"
+	--
+	if RAND(100) > 5 //10% chance for Dusty to comment
+	{
+		"\0\s[400]%(wdn)OBSIDIAN,\w4 YOU SHOULDN'T GUILT TRIP OUR HOST."
+		"\0\s[400]%(wdn)OBSIDIAN,\w4 YOU SHOULDN'T BE SO DEMANDING WITH SOMEONE WHO IS BEING VERY HOSPITABLE."
+	}
+	--
+	"\e"
+}
+
+
+
+
+//===========================Debugging functions============================
+
+
+
+Select.testvariable
+{
+	//TestVariable
+	//StartFont
+	"\![enter,passivemode]\1\s[10]\0\s[502]%(wdn)HH-!\w8\w8\s[208] AH,\w4 THIS IS...\w8\w8\1%(catnoises).\w8\w8\0\s[110]\n\n%(rgc)Oh-\w4\s[114] hello there.\w8\w8\s[0] My name is Dusty,\w4\s[104] it's good to meet you.\w8\w8\n\n\s[114]And you are..?\![open,inputbox,OnNameTeach,-1]"
+}
+
+TestVariable
+{
+	//res_reference0 = "RYS-0825"
+	//"\![get,property,OnFacingCoords,currentghost.scope(0).rect]"
+	guessingall = 0
+	wordtoguess = lessonwd 
+	WDlength = STRLEN(wordtoguess)
+	guessedletters = ""
+	incorrectletters = ""
+	displayword = ""
+	lettersleft = 0
+	maxwrongguesses = 6
+	Hangman
+}
+
+Select.playhangman
+{
+	guessingall = 0
+	wordtoguess = lessonwd //gotta add back in the upper and lower here
+	WDlength = STRLEN(wordtoguess)
+	guessedletters = ""
+	incorrectletters = ""
+	displayword = ""
+	lettersleft = 0
+	maxwrongguesses = 6
+	Hangman
+}
+
+Hangman
+{
+	for _i = 0; _i < STRLEN(wordtoguess); _i++
+	{
+		_letter = SUBSTR(wordtoguess,_i,1)
+		_letter = TOLOWER(_letter)
+		if _letter _in_ guessedletters || _letter == " "
+		{
+			displayword += "%(SUBSTR(wordtoguess,_i,1))"
+		}
+		else
+		{
+			displayword += "_ "
+			lettersleft += 1
+		}
+	}
+	--
+	if (STRLEN(incorrectletters) / 2) >= maxwrongguesses
+	{
+		"\0\s[0]Sorry,\w4 you lost.\w8\w8\s[104] The word was %(wordtoguess).\n\n\![*]\q[Play again,playhangman]\n\![*]\q[I'm done,cancelnodialogue]\e"
+	}
+	elseif lettersleft > 0
+	{
+		_mistakesleft = (maxwrongguesses - (STRLEN(incorrectletters) / 2))
+		mistakesmarker = ""
+		"\0\_q\*\![set,balloontimeout,0]\![set,autoscroll,disable]%(displayword)\n\nGuessed letters: %(incorrectletters)\n\nMistakes left:  \![open,inputbox,OnGuessHangman,-1]"
+		--
+		for _i = 0; _i < _mistakesleft; _i++
+		{
+			mistakesmarker += "\![*]"
+		}
+		--
+		"%(mistakesmarker)"
+		--
+		if lettersleft > 1
+		{
+		"\n\n\![*]\q[Guess the whole word,GuessWholeWord]"
+		}
+		--
+		"\n\![*]\q[Open the input box again,HangmanInput]\n\n\![*]\q[Give up,HangmanQuit]\e"
+	}
+	else
+	{
+		"\0\s[104]Well played!\w8\w8\s[0] The word was %(wordtoguess).\n\n\![*]\q[Play again,playhangman]\n\![*]\q[I'm done,cancelnodialogue]\e"
+	}
+}
+
+Select.GuessWholeWord
+{
+	guessingall = 1
+	"\0\*\![set,balloontimeout,0]\![close,inputbox,OnGuessHangman]\![open,inputbox,OnGuessHangman]\s[104]Ah,\w4 confident,\w4 are we?\w8\w8\s[0] The word so far is\n%(displayword).\w8\w8\n\nYou've guessed these letters: %(incorrectletters)\w8\n\nWhat is your answer?"
+	--
+	"\n\n\![*]\q[Open the input box again,GuessWholeWord]\n\n\![*]\q[Give up,HangmanQuit]\e"
+}
+
+OnGuessHangman
+{
+	if guessingall == 0
+	{
+		_guesslength = STRLEN(reference0)
+		reference0 = TOLOWER(reference0)
+		wordtoguessL = TOLOWER(wordtoguess)
+		displayword = ""
+		
+		if _guesslength > 1
+		{
+			lettersleft = 0
+			"\0\s[107]Single letters only,\w4 please.\x"
+			--
+			Hangman
+		}
+		elseif reference0 _in_ guessedletters
+		{
+			lettersleft = 0
+			"\0\s[106]You already guessed that.\w8\w8\s[0] Try again.\x"
+			--
+			Hangman
+		} 
+		elseif reference0 _in_ wordtoguessL
+		{
+			lettersleft = 0
+			guessedletters += reference0
+			--
+			Hangman
+		}
+		else
+		{
+			lettersleft = 0
+			guessedletters += reference0
+			incorrectletters += "%(reference0) "
+			--
+			Hangman
+		}
+	}
+	else
+	{
+		reference0 = TOLOWER(reference0)
+		wordtoguessL = TOLOWER(wordtoguess)
+		if reference0 == wordtoguessL
+		{
+			"\0\s[104]That's correct,\w4 the word was %(wordtoguess).\w8\w8\s[103] Congratulations!\w8\w8\s[102] You guessed it with %(lettersleft) letters still blank.\n\n\![*]\q[Play again,playhangman]\n\![*]\q[I'm done,cancelnodialogue]\e"
+		}
+		else
+		{
+			"\0\s[0]Sorry,\w4 that is incorrect.\w8\w8\s[104] The word was %(wordtoguess).\n\n\![*]\q[Play again,playhangman]\n\![*]\q[I'm done,cancelnodialogue]\e"
+		}
+	}
+}
+
+Select.HangmanInput
+{
+	displayword = ""
+	lettersleft = 0
+	"\![close,inputbox,OnGuessHangman]"
+	--
+	Hangman
+}
+
+Select.HangmanQuit
+{
+	"\0\![close,inputbox,OnGuessHangman]\s[102]Ah,\w4 fair enough.\w8\w8\s[0] The word was %(wordtoguess).\x"
+	--
+	MenuRun
+}
+
+OnWeatherLocation
+{
+	if curlocation != "" && curlocation != "Set a location"
+	{
+		"\b2\_q* (Your location is currently set to: %(curlocation))\n\n"
+	}
+	else
+	{
+		"\b2\_q"
+	}
+	--
+	"* (Do you live inside or outside the USA?)\n\n/
+	\![*]\q[In the USA,OnUSALoc]\n/
+    \![*]\q[Outside the USA,OnOtherLoc]\n\n/
+	\![*]\q[Back to config,toconfig]\n\n(Please note that you may need to try this a few times.)"
+	
+}
+
+
+OnUSALoc
+{
+	templocation = ""
+    "(Please enter your zipcode.)\![open,inputbox,OnLocCode,-1]"
+}
+
+OnOtherLoc
+{
+	templocation = ""
+    "(Please go to weather.com, search your city, and enter the long series of letters and numbers at the end of the URL.)\![open,inputbox,OnLocCode,-1]"
+}
+
+OnLocCode
+{
+	locationcode = reference0
+	if "https://weather.com/weather/today/l/" _in_ locationcode
+	{
+		locationcode = REPLACE(locationcode,"https://weather.com/weather/today/l/","") //if someone puts in the whole URL, this gets rid of the unneeded bit...
+	}
+	--
+	//templocation = ""
+	//OnDownloadCurWeather
+	"\![execute,http-get,https://weather.com/weather/today/l/%(locationcode),--async=OnCheckWeatherLoc,--file=weather.html,--timeout=300]anMoon01\w4\canMoon02\w4\canMoon03\w4\canMoon04\w4\canMoon05\w4\canMoon06\w4\canMoon07\w4\canMoon08\w4\canMoon01\w4\canMoon02\w4\canMoon03\w4\canMoon04\w4\canMoon05\w4\canMoon06\w4\canMoon07\w4\canMoon08\w4\canMoon01\w4\canMoon02\w4\canMoon03\w4\canMoon04\w4\canMoon05\w4\canMoon06\w4\canMoon07\w4\canMoon08\w4\canMoon01\w4\canMoon02\w4\canMoon03\w4\canMoon04\w4\canMoon05\w4\canMoon06\w4\canMoon07\w4\canMoon08\w4\canMoon01\w4\canMoon02\w4\canMoon03\w4\canMoon04\w4\canMoon05\w4\canMoon06\w4\canMoon07\w4\canMoon08\w4\canMoon01\w4\canMoon02\w4\canMoon03\w4\canMoon04\w4\canMoon05\w4\canMoon06\w4\canMoon07\w4\canMoon08\w4"
+	
+	
+}
+
+OnCheckWeatherLoc
+{
+    
+    //initialize variables
+    _file = "var\\weather.html"
+    _buff=""
+    _regtemp = ''
+    _regdegree = ''
+    _regfeels = ''
+    _reghumidity = ''
+    _regwind = ''
+    _regstate = ''
+    _regloc = ''
+    _regpollen = ''
+    FCHARSET(1)
+    //array to hold current weather data
+    //[temp, degrees, feels like temp, humidity, wind, state (cloudy, rainy, etc), pollen alert (yes/no)]
+    currentweatherarray = ("","","","","","","")
+    
+    --
+    
+    if FOPEN(_file,'r') {
+    
+        _buff = FREAD(_file) //get the first line of the HTML to check what type of page we got
+        temp = _buff
+        
+        if RE_SEARCH(_buff, '<html dir="ltr" lang="en-US"><head>') { //reg expressions for chrome formatted page
+            _regloc = 'tConditions--location--1YWj_">(.*) Weather</div><div class="_-_-compo'
+        }
+        else {
+        //reg expressions for firefox formatted page
+            _regloc = 'className="h4 today_nowcard-location">(.*)<span class="icon icon-font iconset-social icon-share-circle" className="icon icon-font iconset-social icon-share-circle"></span>'
+        }
+
+        for _buff = FREAD(_file); _buff != -1; _buff = FREAD(_file) {
+            
+            //set location
+            if RE_SEARCH ( _buff, _regloc ) {
+                
+                templocation = RE_GETSTR[1]
+                
+            }
+            
+        }
+    }
+    --
+    
+    FCLOSE(_file);
+	--
+    if templocation != ""
+	{
+		"(Your current location is %(templocation). Is this correct?)\n\n/
+		\![*]\q[Yes,confirmweather]\n/
+		\![*]\q[Enter a different location,weatherlocation]\n/
+		\![*]\q[Cancel,cancelnodialogue]"
+	}
+	else
+	{
+		"(Couldn't get your location,\w4 try again?)\n\n/
+		\![*]\q[Try again,tryweatherlocagain]\n/
+		\![*]\q[Enter a different location,weatherlocation]\n/
+		\![*]\q[Cancel,cancelnodialogue]"
+	}
+}
+
+
+
+Select.tryweatherlocagain
+{
+	"\![execute,http-get,https://weather.com/weather/today/l/%(locationcode),--async=OnCheckWeatherLoc,--file=weather.html,--timeout=300]"
+}
+
+Select.weatherlocation
+{
+	OnWeatherLocation
+}
+
+Select.confirmweather
+{
+	curlocation = templocation
+	if fromfunctionmenu == 1
+	{
+		fromfunctionmenu = 0
+		OnDownloadCurWeather
+	}
+	else
+	{
+		TalkConfig
+	}
+}
+
+
+
+
+StartFont
+{
+	totalfonts = 0
+	fontlist = ""
+	--
+	RandFont
+}
+
+
+RandFont
+{
+	fontrandnum = RAND(fontrand[1])
+	if fontrandnum == 0
+	{
+		fontrandnum = (fontrand[1] + 1)
+	}
+    --
+    "\![execute,http-get,https://www.dafont.com/alpha.php?lettre=%(fontrand[0])&page=%(fontrandnum),--async=OnFontRand,--file=ranfont.html,--timeout=200]"
+}
+
+fontrand
+{
+	"a,137"
+	"b,166"
+	"c,149"
+	"d,114"
+	"e,53"
+	"f,80"
+	"g,76"
+	"h,93"
+	"i,33"
+	"j,44"
+	"k,70"
+	"l,78"
+	"m,148"
+	"n,47"
+	"o,38"
+	"p,99"
+	"q,17"
+	"r,89"
+	"s,215"
+	"t,100"
+	"u,17"
+	"v,42"
+	"w,50"
+	"x,6"
+	"y,12"
+	"z,16"
+	"#,13"
+}
+
+OnFontRand
+{
+        
+    _file = "var\\ranfont.html"
+    _buff=""
+	_regfontname = '<strong>(.*)</strong>'
+    _found = 0
+    FCHARSET(1)
+    --
+    
+    if FOPEN(_file,'r') {
+		for _buff = FREAD(_file); _buff != -1; _buff = FREAD(_file) {
+
+			if RE_SEARCH ( _buff, _regfontname )
+			{
+				fonts = RE_GETSTR[1]
+			}
+		}
+    }
+    --
+    FCLOSE(_file);
+	--
+	
+	fontlist1 = SPLIT(fonts,"<strong>")
+	fontlist2 = IARRAY
+	foreach fontlist1 ; _font
+	{
+	  fontlist2 ,= SPLIT(_font,"</strong>")
+	}
+	currentfontlist = ("%(fontlist2[0])","%(fontlist2[2])","%(fontlist2[4])","%(fontlist2[6])","%(fontlist2[8])","%(fontlist2[10])","%(fontlist2[12])","%(fontlist2[14])","%(fontlist2[16])","%(fontlist2[18])","%(fontlist2[20])")
+	tempfont = currentfontlist[RAND(9)]
+	if tempfont != ""
+	{
+		fontlist += "%(tempfont),"
+		totalfonts += 1
+	}
+	--
+	if totalfonts < 5
+	{
+		animerand = RAND(1400)
+		--
+		"\_q\0\s[208]Hmm...\![execute,http-get,https://www.dafont.com/alpha.php?lettre=%(fontrand[0])&page=%(fontrandnum),--async=OnFontRand,--file=ranfont.html,--timeout=200]"
+	}
+	else
+	{
+		fontdisplay
+	}
+	
+}
+
+fontdisplay
+{
+	"\0\b2\s[0]Here are 5 random fonts:\n\n%(fontlist[0])\n\n%(fontlist[1])\n\n%(fontlist[2])\n\n%(fontlist[3])\n\n%(fontlist[4])"
+}

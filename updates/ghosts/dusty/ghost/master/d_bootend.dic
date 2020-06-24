@@ -1,0 +1,395 @@
+﻿//---------------------------Booting and Ending--------------------------
+
+//--OnFirstBoot--
+
+
+OnFirstBoot
+{
+	if reference0 == 0 //Don't touch this line.
+ 	{
+		lastTalk = "" //This is part of how chained conversations work (see aitalk.dic).
+		passmin = 0 
+		passsec = 0 // These two keep track of the time.
+		username         = "USER" //This sets a temporary name for the user. It'll be replaced when they tell the ghost their name.
+		stroke           = 0	// Sets their being-pet state to zero.
+		teachusername    = 0	// Related to them learning your name.
+		mikireflag       = 0	// Determines behavior at certain points.
+		aitalkinterval = 400 //Their default talk rate.
+		birthdayprint = "????" //A temporary value for the user's birthday.
+		talktime = "5 minutes" //How the value aitalkinterval will display in the config menu.
+		deleteshitai = "OFF" //Sets whether or not the user can uninstall the ghost to "OFF". The user can change it later in the config menu (see menu.dic). 
+		nowshell = "blue_sweater" //This is for a special if check in aitalk.dic to see what shell the ghost is using. You should use the name of your default shell folder here.
+		
+		
+		"\![enter,passivemode]\1\s[10]\0\s[502]%(wdn)HH-!\w8\w8\s[208] AH,\w4 THIS IS...\w8\w8\1%(catnoises).\w8\w8\0\s[110]\n\n%(rgc)Oh-\w4\s[114] hello there.\w8\w8\s[0] My name is Dusty,\w4\s[104] it's good to meet you.\w8\w8\n\n\s[114]And you are..?\![open,inputbox,OnNameTeach,-1]"
+ 	}
+	else
+ 	{
+		resets += 1
+		"\![enter,passivemode]\1\s[10]\0\s[502]%(wdn)HH-!\w8\w8\s[208] AH,\w4 THIS IS...\w8\w8\s[206] THIS IS...\w8\w8\1%(catnoises).\w8\w8\0\s[110]\n\n%(rgc)Oh-\w4\s[114] hello there.\w8\w8\s[0] My name is Dusty,\w4\s[104] it's good to meet you.\w8\w8\n\n\s[114]And you are..?\![open,inputbox,OnNameTeach,-1]"
+ 	}
+}
+
+//--GetTimeSlot
+
+GetTimeSlot
+{
+	if hour >= 5 && hour <= 8
+	{
+		"earlymorning"
+	}
+	elseif hour >= 9 && hour <= 11
+	{
+		"morning"
+	}
+	elseif hour >= 12 && hour <= 14
+	{
+		"lunch"
+	}
+	elseif hour >= 15 && hour <= 17
+	{
+		"afternoon"
+	}
+	elseif hour >= 18 && hour <= 20
+	{
+		"evening"
+	}
+	elseif hour >= 21 && hour <= 24
+	{
+		"latenight"
+	}
+	else
+	{
+		"midnight"
+	}
+}
+
+
+//--GetDaySlot
+
+GetDaySlot
+{
+	"%(month)month %(day)day"
+}
+
+
+//-----------------------Normal Booting----------------------------
+
+OnBoot
+ {
+	lastTalk = ""
+	passmin = 0
+	passsec = 0
+	
+ 	"\0\s[0]\1\s[10]%(wdc)"
+	--
+	dayslot = GetDaySlot
+	timeslot = GetTimeSlot
+	
+	if dayslot == userbirthday
+	{
+				"\0\s[0]It's %(bornmonthprint) %(borndayprint).\w8\1\s[10]Happy birthday, %(username).\e" 
+	}
+	elseif WDOnly == 1
+	{
+		"\0\s[104]Hello again,\w4 %(username).\w8\w8\1%(catnoises).\w8\w8\0\s[0]\n\nLast time we were here,\w4 you asked me to speak only in Wingdings.\w8\w8 Would you like me to continue speaking only in Wingdings?\n\n/
+		\![*]\q[Keep speaking in Wingdings,bootwd]\n/
+		\![*]\q[Speak normally\, please,bootnonwd]\e"
+	}
+	else
+	{
+		"%(normalboottalk)" //If none of the days above match the current date, the ghost instead will go down to the next function, normalboottalk.
+	}
+}
+
+Select.bootwd
+{
+	"%(wdc)\0\s[104]Ok,\w4 I will continue to speak in Wingdings.\w8\w8\1%(catnoises).\e"
+}
+
+Select.bootnonwd
+{
+	WDOnly = 0
+	"\0\s[104]Ok,\w4 if you change your mind you can toggle the option in the config menu.\w8\w8\1%(catnoises).\e"
+}
+
+//--normalboottalk
+
+//This is another unique bit of coding from cindysuke's ghost. OnBoot above checks for the day when you open them, but normalboottalk will vary their dialogue in a few different ways depending on the time and weekday. If you don't want to use these, you can delete everything under normalboottalk and write your own lines of general boot dialogue, so it'd look something like.
+
+
+normalboottalk //%(wdc) isn't working here, I assume something to do with it booting up... I think I'd rather him ask the user if they want to stay in wingdings only mode anyways.
+{
+	"%(wdc)"
+	--
+	if RAND(100) < 40
+	{
+		"\0\s[104]Hello again,\w4 %(username).\w8\w8\1%(catnoises).\e"
+	}
+ 	else
+ 	{
+		if timeslot == "earlymorning" //5am-8am
+		{
+			"\0\s[104]Hello %(username).\w8\w8\1%(catnoises).\w8\w8\0\s[0]\n\nRising early today?\e"
+		}
+		elseif timeslot == "morning" //9am-11am
+		{
+			"\0\s[0]Good morning,\w4 %(username).\w8\w8\1%(catnoises).\e"
+		}
+		elseif timeslot == "lunch" //12pm-2pm
+		{
+			"\0\s[0]Hello %(username).\w8\w8 Enjoying the sunlight today?\w8\w8\1%(catnoises).\w8\w8\0\s[106]\n\nOr perhaps it's cloudy where you are.\e"
+		}
+		elseif timeslot == "afternoon" //3pm-5pm
+		{
+			"\0\s[0]Good afternoon,\w4 %(username).\w8\w8\1%(catnoises).\e"
+		}
+		elseif timeslot == "evening" //6pm-8pm
+		{
+			"\0\s[0]Good evening,\w4 %(username).\w8\w8\1%(catnoises).\e"
+		}
+		elseif timeslot == "latenight" //9pm-12am
+		{
+			"\0\s[0]Good evening,\w4 %(username).\w8\w8\1%(catnoises).\0\w8\w8\n\nHaving a late night?\e"
+		}
+		else //Midnight, 1am-4am
+		{
+			"\0\s[0]Hello,\w4 %(username).\w8\w8\1%(catnoises).\w8\w8\0\n\n\s[106]It's late where you are,\w4 isn't it?\e"
+		}
+	}
+}
+
+
+//--OnClose
+
+OnClose
+{
+	timeslot = GetTimeSlot
+	"%(wdc)"
+	--
+	if passmin >= 5 || passhour > 0
+	{
+		if RAND(100) < 40
+		{
+			"\0\s[102]Farewell,\w4 %(username)."
+			"\0\s[104]Take care,\w4 %(username)."
+			"\0\s[102]Until we meet again."
+		}
+		else
+		{
+			if timeslot == "earlymorning" //5am-8am
+			{
+				if passhour > 3
+				{
+					"\0\s[106]Ah,\w4 just off to bed?\w8\w8\s[102] Sleep well,\w4 %(username)."
+				}
+				else
+				{
+					"\0\s[104]Have a good day,\w4 %(username)."
+				}
+			}
+			elseif timeslot == "morning" //9am-11am
+			{
+				"\0\s[102]Take care,\w4 %(username).\w8\w8 There's a lot of sunlight left today,\w4 don't waste it."
+			}
+			elseif timeslot == "lunch" //12pm-2pm
+			{
+				"\0\s[0]Off for lunch?\w8\w8\s[104] Alright,\w4 I'll see you later."
+			}
+			elseif timeslot == "afternoon" //3pm-5pm
+			{
+				"\0\s[0]Off to enjoy the last of the sunlight?\w8\w8\s[102] Take care."
+			}
+			elseif timeslot == "evening" //6pm-8pm
+			{
+				"\0\s[0]Off for the night?\w8\w8\s[104] Enjoy your evening,\w4 %(username)."
+			}
+			elseif timeslot == "latenight" //9pm-12am
+			{
+				"\0\s[0]Off to bed?\w8\w8\s[104] Sleep well,\w4 %(username)."
+			}
+			else //Midnight, 1am-4am
+			{
+				"\0\s[102]Good night,\w4 %(username).\w8\w8\s[0] Sleep well."
+			}
+		}
+				
+	}	
+	else //This dialogue is for if they haven't been open for at least five minutes.
+	{
+		"\0\s[0]Ah,\w4 that was quick.\w8\w8 Did you call us by mistake?\w8\w8\s[104] Take care,\w4 %(username)."
+	}
+	--
+	"\w8\w8\1%(catnoises).\w8\w8\-\e" //this bit of code actually closes and ends the ghost. Because \e is here, you don't have to end each line above with it. Again, this will come up very rarely, so OnClose is an unusual case.
+ }
+
+
+ //-------------------------State Changing--------------------
+ //From here on, most of the dialogue will have to do with changing shells, ghosts, or states in some way.
+ 
+
+//--OnWindowStateRestore
+
+//This will run when you minimize them and then bring them back up. Replace with what you like.
+
+OnWindowStateRestore
+ {
+	"\1\s[10]\0%(wdc)\s[110]Ah...\w8\w8\0\s[208] That was...\w8\w8 strange.\w8\w8\s[206]\n\nNot entirely unlike the void...\e" //replaceframe need thinking
+}
+
+
+//--OnGhostChanging
+
+//This runs whenever you change or reload the ghost. You can change ghosts by going into the right click menu and going to Change Ghost, but this dialogue will also be called if you reload them using Utilities->Reload Ghost. Protip: If you are going to make a ghost, you will be reloading it A LOT.
+//Note: If you reload your ghost using the developer console instead of Utilities->Reload Ghost, it won't do this dialogue, so don't freak out if it doesn't show up.
+ 
+OnGhostChanging
+ {
+	"%(wdc)"
+	--
+	if reference0 == "Dusty" //Replace this with the name of your Sakura character as you put in install.txt or descript.txt.
+	{
+		"\0\s[0]Alright,\w4 just a moment.\w8\w8\e"
+	}
+ 	else //If you're switching to another Ghost.
+	{
+		"\0\s[0]Alright,\w4 I'll let %(reference0) know you want them.\e"
+		
+		//In OnGhostChanging, %(reference0) stores the name of the ghost being swapped to.
+	}
+}
+
+
+//--OnGhostChanged
+
+//A sister to the above, this runs after the ghost has either reloaded itself, or when you switch from another ghost to this ghost.
+
+OnGhostChanged
+{
+	"\0\s[0]\1\s[10]\0%(wdc)" //this sets up their default poses
+	--
+	if reference0 == "Dusty" //As above, this should be the name of your ghost as in install.txt or descript.txt.
+	{
+		"\s[0]I'm back.\w8\w8 Is everything alright?\e"
+	}
+	else //If you're switching to them from another ghost...
+	{
+		if WDOnly == 1
+		{
+			"\0\s[104]Hello again,\w4 %(username).\w8\w8\1%(catnoises).\w8\w8\0\s[0]\n\nLast time we were here,\w4 you asked me to speak only in Wingdings.\w8\w8 Would you like me to continue speaking only in Wingdings?\n\n/
+			\![*]\q[Keep speaking in Wingdings,bootwd]\n/
+			\![*]\q[Speak normally\, please,bootnonwd]\e"
+		}
+		else
+		{
+			"\s[0]Hello,\w4 %(username).\w8\w8 Giving %(reference0) a break?\e"
+		}
+		//Again, %(reference0) in this function is the name of the ghost in question. As above, replace these two lines of dialogue what what'd be appropriate for your ghost.
+	}
+}
+
+
+//--OnShellChanging
+
+//This will run when you change your ghost's shell.
+
+OnShellChanging
+{
+	tempshell = TOLOWER(reference0) //changes it to lowercase
+	tempshell = REPLACE(tempshell," ","_") //replace spaces with underscores. This should work as long as my naming schemes never change |D
+	"%(wdc)"
+	--
+	if tempshell == nowshell //[Zi]If you're switching to the same shell... for some reason. I don't know why it lets you do this but I mean hey it means I get to add a silly comment yeah? I wont REALLY know if this code works until I add a second shell.... but I'm hoping that'll be sooner over later :3c
+	{
+		"\0\s[106]Ah...\w8\w8 I'm already wearing that,\w4 but alright.\w8\e"
+	}
+	elseif reference0 == "Blue Sweater" //reference0 in OnShellChanging is the name of the shell you're swapping to.
+	{
+	"\0\s[0]My sweater should be around here somewhere...\e" //replaceframe thinking neutral
+	}
+	else //if you don't have any specific dialogue for a specific shell
+	{
+	"\0\s[0]Ok,\w4 just a moment.\w8\w8\e"
+	}
+	
+	
+}
+ 
+ 
+ //--OnShellChanged
+ 
+ //The sister to the above, this is the dialogue after you've changed the shell.
+ 
+OnShellChanged
+ {
+	tempshell = TOLOWER(reference0) //changes it to lowercase
+	tempshell = REPLACE(tempshell," ","_") //replace spaces with underscores. This should work as long as my naming schemes never change |D
+	"%(wdc)"
+	--
+	if tempshell == nowshell
+	{
+		"\1\s[10]\0\s[106]...Nothing has changed.\w8\w8\1\s[10]Mrrr.\e"
+	}
+ 	elseif reference0 == "Blue Sweater" //Again, this is the name of your shell as you put in the descript.txt file for that shell.
+ 	{
+ 		nowshell = "blue_sweater" //This is the folder name for your shell. Not the same as the above! 
+		
+ 		"\1\s[10]\0\s[0]I've had this sweater a long time.\w8\w8\s[0] It was actually given to me by someone dear to me,\w4 a very long time ago...\e" //replaceframe need wistful and content
+ 	}
+ 	else //For any shell without a specific name, or if you don't want to bother with individual responses to a shell.
+ 	{	
+	nowshell = TOLOWER(reference0) //This shouldnt come up, but I HOPE that if someone used a shell that he doesnt recognize, it'd still set the nowshell correctly so that he can recognize it up in OnShellChanging
+	nowshell = REPLACE(nowshell," ","_")
+	"\0\s[0]Now using %(reference[0]).\w8\w8\1%(catnoises).\e" //replaceframe content
+	}
+ }
+
+
+ //--OnDressupChanged
+
+OnDressupChanged
+{
+	"%(wdc)"
+	--
+if reference0 == 0 //in OnDressupChanged, reference0 refers to the character, therefore this is evaluating which character in question is getting dressed up. 0 is the main character, as you know from the walkthrough by now.
+	{
+	if reference1 == "Clothing for Girl" //This is the name of the clothing item in the descript.txt file, I'm pretty sure.
+		{
+			if reference2 == 1 //This checks if you're putting it on.
+			{
+			"\0\s[0]You put my clothing item on me.\w8\1\s[19]lol like zar would ever bother with clothes for a ghost.\w8\0\s[9]\n\n[half]Shut up dude you're going to get us in trouble.\e"
+			}
+			else // This checks if you're taking it off.
+			{
+			"\0\s[0]You took the clothing item off.\e"
+			}
+		}		
+	}
+else //if reference0 isn't the main character, then it has to be the side character.
+	{
+	if reference1 == "some kind of clothing for triangle??" //The name of the item of clothing in the descript.txt file in your shell folder.
+		{
+			if reference2 == 1 //If you put it on
+			{
+			"\1\s[10]I'm wearing some kind of clothing.\w8\0\s[8]Maybe a hat?\e"
+			}
+			else //When you take it off.
+			{
+			"\1\s[10]You took off some kind of clothing.\e"
+			}
+		}
+	elseif reference1 == "i'm gonna say a propeller beanie" //As you've seen above, you can use elseifs to expand the list if you have more than one item.
+		{
+			if reference2 == 1 //if you're putting it on
+			{
+			"\1\s[10]You put a hat on me.\w8\0\s[209]lol.\w8\1\n\n[half]\s[11]Shaddap.\e"
+			}
+			else //when you take it off
+			{
+			"\1\s[10]You took off the hat.\e"
+			}
+		}
+	}
+}
+
+//If you are super dedicated to doing clothes, I'd recommend checking out some more in-depth FLELE tutorials for stuff about clothing until I muster up the energy to write a walkthrough page for it.

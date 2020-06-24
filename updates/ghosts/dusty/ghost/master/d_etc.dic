@@ -1,0 +1,646 @@
+﻿//---------------------------Miscellaneous Functions--------------------------
+
+
+OnFileDrop2
+{
+	_filepath = SPLITPATH(reference0)
+	_filename = _filepath[2]
+	_fileext = TOLOWER(_filepath[3])
+	case _fileext
+	{
+		when ".jpg", ".jpeg", ".bmp", ".png" //These are the formats your ghost will recognize as image files to set as the background. I tested this with .png files and it does not work, so don't bother adding that as an option. [Zi] Seems to be working fine for me... I'm worried it's gonna break later or something lol
+		{
+			Wallpaperfile = reference0
+			
+			"\0\s[0]Would you like me to set %(_filename)%(_fileext) as your wallpaper?\n\n[half]/
+			\![*]\q[Centered,SetWallpaper_0]\n/
+			\![*]\q[Tiled,SetWallpaper_1]\n/
+			\![*]\q[Stretched,SetWallpaper_2]\n\n[half]/
+			\![*]\q[No thanks,SetWallpaper_Cancel]\e"
+		}
+		when ".mid", ".wav", ".mp3", ".wma", ".au" //Other file formats you might want to give your ghost a specific response to.
+		{
+			"%(wdc)\0\s[106]Sorry,\w4 %(username),\w4 I can't play music.\w8\w8\s[0] Maybe someone else could play it for you?\e"
+		}
+		others //Any other file format.
+		{
+			"%(wdc)\0\s[0]This is %(_filename)%(_fileext).\w8\w8\s[106] I can't do anything with it,\w4 sorry.\w8\1%(catnoises).\e"
+		}
+	}
+}
+
+Select.SetWallpaper_0
+{
+	"%(wdc)\![set,wallpaper,%(Wallpaperfile),center]\0\s[110]Ok,\w4 I've centered it for you.\w8\w8 Does it look ok?.\e"
+}
+Select.SetWallpaper_1
+{
+	"%(wdc)\![set,wallpaper,%(Wallpaperfile),tile]\0\s[110]Ok,\w4 I've tiled it for you.\w8\w8 Does it look ok?.\e"
+}
+Select.SetWallpaper_2
+{
+	"%(wdc)\![set,wallpaper,%(Wallpaperfile),stretch]\0\s[110]Ok,\w4 I've stretched it across for you.\w8\w8 Does it look ok?.\e"
+}
+Select.SetWallpaper_Cancel
+{
+	"%(wdc)\0\s[110]Ok,\w4 let me know if you change your mind.\e"
+}
+
+
+//---- OnInstallBegin -------------------------------------------------------
+ 
+OnInstallBegin
+{
+	"%(wdc)\0\s[0]You need something installed?\w8 One moment, please.\e" //replaceframe thinking maybe
+}
+ 
+OnInstallComplete
+{
+	"\0" //this means your main character will be speaking first, therefore the \s[] at the beginning of each line will be defining your main character's pose.
+ 	--
+	if reference0 == "shell" //This is checking to see if what you installed is classified as a shell in the install.txt. Remember the line in install.txt that said type,ghost or type,shell? This is why that line is important, that's what tells the program what it's installing like so.
+ 	{	
+		if reference1 == "Hypothetical Shell that doesn't actually exist" //This is the name of your shell as you defined in descript.txt in the shell folder.
+		{
+		"%(wdc)\s[0]We have installed Hypothetical Shell.\w8\1\s[10]Truncated for space.\e"
+		}
+		elseif reference1 == "Another totally real shell wow"
+		{
+		"%(wdc)\s[0]We have installed another totally real shell.\e"
+		}
+		else //For any other shell they may install.
+		{
+		"%(wdc)\s[110]Oh,\w4 a new outfit?\w8\w8\s[104] Thank you, %(username), that's kind of you.\e"
+		//%(reference1) here would be the name of the shell they installed. Replace if needed.
+		}
+ 	}
+	elseif reference0 == "ghost" //if the type of the file they're installing is a ghost.
+ 	{
+		"%(wdc)\s[0]I've installed %(reference1).\w8\w8 Would you like to call them here?\e" //replaceframe and also add the options to call a ghost..
+		//Reference1 here would be the name of the ghost. Replace as needed.
+ 	}
+	elseif reference0 == "balloon" //if the type of file is a balloon
+ 	{
+		"%(wdc)\s[0]I've installed a new balloon called %(reference1).\w8\w8\1%(catnoises).\e"
+		//Reference1 here would be the name of the balloon. Replace as needed.
+ 	}
+	elseif reference0 == "plugin" //if the type of file is a plug-in, like a saori of some kind.
+ 	{
+		"%(wdc)\s[0]I've installed a plugin called %(reference1).\w8\w8\1%(catnoises).\e"
+		//Reference1 here would be the name of the plug-in. Replace as needed.
+ 	}
+}
+
+//---- OnInstallFailure -------------------------------------------------------
+
+OnInstallFailure
+ {
+	"%(wdc)\0\s[106]Sorry, something went wrong.\n\n[half]\w8" //this first bit of dialogue begins the explanation of what happened. You can replace this with an appropriate intro statement.
+	--
+	if reference0 == "unsupported"
+	{
+	"This file isn't supported.\w8\w8\1%(catnoises).\e"
+	}	
+	elseif reference0 == "extraction"
+	{
+	"I couldn't extract it properly.\w8\w8\1%(catnoises).\e"
+	}
+ }
+ 
+ //--OnInstallRefuse
+ //If the file you dropped can't be installed with this ghost.
+ 
+OnInstallRefuse
+ {
+	"%(wdc)\0\s[106]Sorry,\w4 I can't install this.\w8\w8 It looks like it's for %(reference0) instead.\w8\w8\1%(catnoises).\e"
+	//reference0 in this function refers to the ghost this file is associated with, probably the name of the ghost listed in its install.txt file.
+ }
+
+
+//**** Uninstallation ******************************************
+
+
+//When you select the uninstall option in the menu.
+OnVanishSelecting
+{
+	"\0\s[0]* (Is it time to say goodbye?)\e"
+}
+
+
+//When you decide to uninstall them. 
+OnVanishSelected
+{
+	"\0\s[0]%(rg)* (You say farewell.)\w8\w8\s[110]\n\nOh,\w8\s[106] alright then.\w8\w8\s[104] Take care of yourself,\w4 %(username).\w8\w8\s[0] I hope you fare well wherever life takes you.\w8\w8\1%(catnoises).\w8\w8\e"
+}
+
+
+//If you select Uninstall from the menu, but decide not to do it.
+OnVanishCancel
+{
+	"\0\s[0]* (Not just yet.)\e"
+}
+
+//--TalkVanishButtonHold
+//I believe this calls if you click and hold the button on either the menu option for uninstalling them, or possibly the option itself. Be careful if you're trying to test this! You'd hate to uninstall all your hard work, right? I'd probably just make sure the dialogue looks right via Script Input and leave it at that.
+//[Zi] I've done a lot of testing and never gotten this to show. Dont know what it does.
+
+TalkVanishButtonHold
+{
+	"\0* (...)\e"
+}
+
+
+ //---- OnVanished -----------------------------------------
+ //OnVanished is a weird little function. Basically, if you uninstall a ghost, it'll automatically go back to the last ghost you were using. They'll then say this line of dialogue about the ghost you just uninstalled. This is very annoying to test as you can imagine! But unlikely to come up super often, I bet. You might as well be thorough and fill this out as well. Make sure to set up both their poses immediately so they both appear when it switches back to them.
+ 
+OnVanished
+ {
+	"%(wdc)\0\s[206]Oh...\w8\w8 %(reference0) is gone..?\w8\w8\1\s[10]Mrr...\w8\w8\0\s[401]\n\n%(wdn)SHH,\w4 IT'S ALRIGHT, SWEET GIRL.\e" //replaceframe for Obsi looking sad
+	
+	//reference0 here is the name of the other ghost.
+}
+
+
+//**** Mail Checking *******************************************************************
+//The next set of functions have to do with checking your email. This function is a slippery little thing - I've had people test it following my directions and have it work, but I've never actually gotten it to report back the right amount of emails myself. Very frustrating. But perhaps you'll have more luck with it, haha.
+
+
+//*********************Advanced User Info*******************************
+//These text boxes are meant for those who have an interest in expanding or using more complicated functions in their ghost. Also for my own reference in the future since I plan on using this template too, haha. If you have no interest in any of this and just want to keep things as simple as possible, feel free to skip these boxes.
+
+//If you want to set up your ghost to check your mail so you can more easily check these messages instead of just writing the dialogue and moving on, it's a little bit tricky, but not super hard.
+//Basically, you're going to need to find your POP settings for your email account. Googling your provider + POP should bring it up pretty quick. Once you have the info, you'll go to the right click menu, options, then preferences. A big menu should pop up, and you should see POP in the left side. Click that, and input all the info from the POP page you looked up for your account. Tell your ghost to check your email, and if it works, then congratulations!
+//***********************************************************************
+
+
+ //---- OnBIFFBegin ---------------------------------------------------------------
+ //When you first tell the ghost to check your email. An intro statement, if you will. Replace with whatever you like.
+ 
+OnBIFFBegin
+ {
+	"%(wdc)\0\s[104]Sure, I can check for emails.\w8\w8\s[208] Give me a moment.\e" //replaceframe him looking at a screen there...
+ }
+
+ 
+ //---- OnBIFFComplete ---------------------------------------------------------------
+ //After they've succeeded in checking your mail, they'll report back with how many new emails you have. Replace the dialogue with whatever would be character appropriate.
+ 
+OnBIFFComplete
+ {
+	"%(wdc)"
+	--
+	if reference0 == 0 //If you have no new mail.
+ 	{
+ 		"\0\s[0]There are no new emails."
+	}
+	elseif reference0 == 1 //If you have one new email.
+ 	{
+ 		"\0\s[0]You have one new email."
+	}
+	elseif reference0 > 1 && reference0 < 11 //If you have more than one email but less than eleven.
+	{
+		"\0\s[0]You have %(reference0) new emails."
+		//reference0 here stores the amount of new email it finds.
+	}
+	elseif reference0 > 100 //If there are over one hundred new emails.
+	{
+		"\0\s[106]You have %(reference0) unread emails."
+	}
+ 	else //For any other number of emails.
+	{
+		"\0\s[0]You have %(reference0) new emails."
+ 	}
+	--
+	"\w8\w8\1%(catnoises).\e"
+}
+
+ //---- OnBIFFFailure ---------------------------------------------------------------
+ //Various error messages that can happen when your ghost tries to connect to an email account. Replace the dialogue as appropriate.
+ 
+OnBIFFFailure
+ {
+	"%(wdc)"
+	--
+	if reference0 == "timeout" //If the connection times out.
+ 	{
+ 		"\0\s[10]Sorry,\w4 the connection timed out."
+	}
+ 	elseif reference0 == "kick" //If the account blocks the ghost from accessing it. I think gmail may do this at first to try and protect your account from unapproved applications using it. It gives you the option to change the setting in the warning email they send you about it.
+	{
+		"\0\s[106]Sorry, I can't access the account."
+ 	}
+	elseif reference0 == "defect" //If the information put into the POP menu is wrong.
+ 	{
+ 		"\0\s[106]Sorry, the settings aren't right.\w8\w8\s[0] You can reset them in the POP menu.\![open,configurationdialog]"
+	}
+ 	else //if there's some other kind of error.
+	{
+		"\0\s[106]Sorry, I can't connect to the account.\w8\w8 The error is '%(reference0)'."
+		
+		//reference0 here stores the error message the email server would have given the ghost, hopefully.
+ 	}
+	--
+	"\w8\w8\1%(catnoises)."
+}
+
+//Replace the dialogue in the next set of functions as appropriate. You can easily test these messages using the Developer panel. Go to Open at the bottom of it and choose one of the four Update Event options to simulate a Ghost's update process. I highly recommend doing this at LEAST once if you're going to use this feature to make sure it flows well.
+
+ 
+OnUpdateBegin
+{
+	"%(wdc)\0\s[0]Ok,\w4\s[500] I'll check for updates.\w8\e"
+}
+
+//If the ghost finds new files to update with.
+OnUpdateReady
+ {
+	_filesavailable = reference0 + 1
+	"%(wdc)\0\s[550]There are %(_filesavailable) new files.\w8\w8\s[500]\e"
+	
+	//reference0 here storing the number of new files. You don't have to use it if you don't want to.
+	//[Zi] Note that it starts counting from 0, to have it be accurate you'll have to add a +1 to it
+ }
+
+
+//When the ghost has finished the update process.
+OnUpdateComplete
+{
+	if reference0 == "none" //if the ghost had nothing to update with
+ 	{
+ 		"%(wdc)\0\s[0]There are no new files.\e"
+	}
+ 	else //if the ghost has updated successfully
+	{
+		"%(wdc)\0\s[104]Update complete.\e"
+ 	}
+}
+
+
+//Error messages if the update process fails in some way.
+OnUpdateFailure
+{
+	if reference0 == "timeout" //if the connection times out
+ 	{
+ 		"\0\s[106]Sorry, the connection timed out."
+	}
+ 	elseif reference0 == "md5 miss" //This is if the files don't match properly to updates.dau, I think. For example, if a file only partially transferred or somehow got corrupted. This may also come up if you didn't set up the directory and updates.dau properly as outlined on the walkthrough page.
+	{
+		"\0\s[106]The MD5 values don't match,\w4 you should let Zichqec know about that."
+ 	}
+	else //for other errors
+ 	{
+ 		"\0\s[106]Sorry,\w4 I got an error: '%(reference0)'."
+	}
+	--
+	"\w8\w8\1%(catnoises)."
+}
+
+//You may want to replace these messages with just '...' to make updates take less time. Trust us on this one.
+ 
+OnUpdate.OnDownloadBegin //replaceframe I want him looking at a screen for this
+{
+	"\_q\0\s[500]* (Downloading %(reference0)...)\n\n"
+	--
+	Update_Process = TOINT(reference1) + 1
+	Update_Total = TOINT(reference2) + 1
+	Update_Remaining = Update_Total - Update_Process
+
+	//defining starting points
+	PointA = 1
+	PointB = 1
+
+	//defining text buffers beforehand, otherwise they don't display right
+	_txt = ""
+
+	//loop calculates how many check boxes to display based on the variables above
+
+	while PointA <= Update_Process
+	{
+		_txt += "%(wdn)\f[height,200%]\f[bold,true]C\f[bold,default]\f[height,default]%(rg)"
+		PointA++
+	}
+	//see above except for blank boxes
+	while PointB <= Update_Remaining
+	{
+		_txt += "%(wdn)\f[height,200%]\f[bold,true]D\f[bold,default]\f[height,default]%(rg)"
+		PointB++
+	}
+	--
+	//using the text buffers to display the correct number of boxes
+	"%(_txt)\n\n%(Update_Process) of %(Update_Total)"
+}
+
+//Again, may want to go with '...'
+OnUpdate.OnMD5CompareBegin
+ {
+	""
+ }
+
+
+ //After they've checked the MD5 value and it matches. See above about the length of this message.
+OnUpdate.OnMD5CompareComplete
+ {
+	""
+}
+
+ //---- OnUpdate.OnMD5CompareFailure ---------------------------------------------------
+ //If the MD5 values don't match. If you follow my Network Update directions carefully, this shouldn't come up very often, but don't be surprised if you run into it every now and then by forgetting a file here or there.
+ 
+OnUpdate.OnMD5CompareFailure
+ {
+	"\0\s[501]The MD5 values don't match.\w8\e"
+ }
+
+ 
+ 
+ //**** Headlines and RSS Feeds *********************************************************
+ //This section has to do with the RSS feeds option on your ghost. If you drag and drop a url on them, they'll add it to a list you can access via the right-click menu, and they'll tell you the last set of updates for the site. This works best with RSS feeds I think, but you can experiment with other sites to see how it works.
+ //The headlines you see under the tab are in the headline folder under your base SSP install. So it'd be SSP\headlines. You should see the folders for each linked headline in there. I've very rarely ever messed with them or used them. Likewise, your RSS feeds you've added will be under SSP\rss and I don't think that option will appear in the headlines/RSS tab until you add an RSS feed to a ghost. If you want to clear your RSS feeds or headlines, just delete either of those two folders.
+ 
+ //This dialogue comes up when you select something in your RSS feed as an intro, like the other On[Thing]Begin things we've seen so far. Replace as you need.
+OnHeadlinesenseBegin
+{
+	"%(wdc)\0\s[550]Alright,\w4 I'll open %(reference0).\w8\1%(catnoises).\e"
+}
+
+//This actually displays the feed. My set-up for it is pretty simple but gets the job done, it just has the name of the feed, a line space, then a list of links. You shouldn't have to edit any of these and I probably wouldn't honestly.
+ 
+OnHeadlinesense.OnFind
+{
+	//----  What page You're on
+ 	if reference2 == "First" || reference2 == "First and Last"
+	{
+ 		//---- First page
+		"\0%(wdcb)\s[500]%(reference0):"
+ 	}
+	elseif reference2 == "Next"
+ 	{
+		//---- Second page
+ 		"\0%(wdcb)\s[500]%(reference0):"
+	}
+ 	elseif reference2 == "Last"
+	{
+ 		//---- Last page
+		"\0%(wdcb)\s[500]%(reference0):"
+ 	}
+	--
+ 	//---- Headlines
+	"\n\n%reference3\n"
+ 	--
+	//---- Pages
+ 	if reference2 == "First" || reference2 == "Next"
+	{
+ 		//---- Bottom buttons
+		"\![*]\q[Next,] - \![*]\q[Stop,Headline_Cancel]\e"
+ 	}
+	else
+ 	{
+		//---- Bottom buttons
+ 		"\![*]\q[Stop,Headline_Cancel]\e"
+ 	}
+	
+}
+
+
+Select.Headline_Cancel
+{
+	"%(wdc)\0\s[102]Alright,\w4 let me know if you want to see it again.\e"
+}
+
+ //---- OnHeadlinesenseComplete -------------------------------------------------------
+ //This is an odd function. As far as I can gather, this is if the headline information gathering was successful, but there's no new information to report. Possibly if none of the feeds have updated? I'm a little fuzzy on this one.
+ 
+OnHeadlinesenseComplete
+ {
+	"%(wdc)\0\s[0]There's no update. %(reference0).\e"
+	//reference0 here supposedly always stores the value no update? Again this isn't hugely clear from what I can see. Anyway, this dialogue has never come up for me while using a ghost, so perhaps someone else who runs into it can offer more clarity. For now, you can leave it as is, or write up something else in here if you like.
+ }
+
+ //---- OnHeadlinesenseFailure ---------------------------------------------------------
+ //This one is more clearly for when the ghost can't get the information it needs about the RSS feed in question.
+ 
+OnHeadlinesenseFailure
+  {
+	"%(wdc)\0\s[108]Sorry,\w4 the feed can't updated.\w8\n\n[half]" //This sets up an exchange between the two characters. The final part of the exchange continues below in the if statements.
+ 	--
+	if reference0 == "can't download" //if they can't download the rss feed for some reason
+ 	{
+		"It can't be downloaded."
+ 	}
+	elseif reference0 == "can't analyze" //if they can't read the file for some reason
+ 	{
+		"It can't be analyzed."
+ 	}
+	else //other errors
+ 	{
+		"I don't know why."
+ 	}
+	--
+ 	"\w8\w8\1%(catnoises).\e" //And here is the final /e, so you don't need to include it in the if statements above. Another one of the very rare cases this occurs.
+}
+
+
+
+//This will begin the creation of the updates2.dau file. Not unlike the other beginning functions you've seen throughout this file. Replace with whatever you like.
+OnUpdatedataCreating
+{
+	"%(wdc)\0\s[104]Creating the updates2.dau file.\e"
+}
+
+//After the updates2.dau file has been successfully created. Replace with whatever.
+OnUpdatedataCreated
+{
+	"%(wdc)\0\s[104]Successfully created updates2.dau.\e"
+}
+
+
+//Along the same lines, this is when they begin creating a .nar file for your ghost. .nars are the format most ghosts will be in, something similar to a .zip file, and this is the format you'll be distributing your ghost in most likely. Replace the dialogue with whatever you like.
+OnNarCreating
+{
+	"%(wdc)\0\s[104]Creating the .nar file.\e"
+}
+
+//After the nar file has been successfully created.
+OnNarCreated
+{
+	"%(wdc)\0\s[104]Successfully created '%(reference0)'.\w8\w8\1%(catnoises).\e"
+	//reference0 here will be the filename of the nar you just created. It should drop the nar in the folder where all your ghosts are listed, ssp\ghost\.
+}
+
+//****　Clock Synchronization　**********************************************************
+//**** 미카 (http://homepage2.nifty.com/ko-ki/)의 사전을 참고했습니다．감사＞こ 나무 성
+//This set of functions was done by the above Korean coder, I think. I'll leave their comment there untouched. 
+//If you right click your ghost and go into the Utilities menu, there's an option called NTP Time Sync. That's what this is for!
+ 
+
+
+//As with the others you've seen above, this is the beginning bit of dialogue for this process.
+OnSNTPBegin
+{
+	"%(wdc)\0\s[0]Sure,\w4 let me check your clock against %(reference0).\w8\w8\1%(catnoises).\e"
+	//%(reference0) here is the site they'll be using to check your clock. I wouldn't worry too much about what the site is or where it's defined, it should be accurate. Replace the dialogue with what you need, you don't have to use reference0 if you don't want to.
+}
+
+
+
+//Now the ghost is going to compare the current time of your computer's system to the time of the site they connected to. Most of this you don't have to touch, just replace the dialogue as indicated.
+OnSNTPCompare
+ {
+ 	"%(wdc)Retrieved Time: %reference1[1]/%reference1[2]/%reference1[0] %reference1[3]:%reference1[4]:%reference1[5]\w2\n/
+	Your Time: %reference2[1]/%reference2[2]/%reference2[0] %reference2[3]:%reference2[4]:%reference2[5]\w2\n/
+ 	\n"
+	--
+ 	if reference3 == 0 //if your clock is already accurate.
+	{
+ 		"\0\s[104]Your clock is accurate.\w8\1%(catnoises).\e\e" //replace this with whatever message you like.
+	}
+ 	else //if your clock doesn't match
+	{
+	//you can redo this top line up to the \n\n[half] part, but leave the \q options alone.
+ 		"\0\s[0]Your clock doesn't match.\w8\nShould I fix it?\n\n[half]/
+		\![*]\q[Fix it,OnSNTPEXECUTE]\n/
+ 		\![*]\q[Leave it alone,OnSNTPCANCEL]\e"
+	}
+ }
+
+////After they've fixed your clock. Note the \6 tag - that's what actually changes the clock. Do not remove that tag. Replace the rest with what you want.
+OnSNTPEXECUTE
+{
+	"%(wdc)\6\0\s[104]Ok,\w4 I've fixed it for you.\w8\1%(catnoises).\e"
+}
+
+
+//If you decide not to change your clock when they tell you it doesn't match. Replace with what you want.
+OnSNTPCANCEL
+{
+	"%(wdc)\0\s[104]Ok, if you change your mind just let me know.\w8\1%(catnoises).\e"
+}
+
+//If they can't change the clock for some reason, possibly because the site timed out but it could be anything. Replace with what you want.
+ 
+OnSNTPFailure
+{
+	"%(wdc)\0\s[106]Sorry,\w4 something went wrong.\w8\1%(catnoises).\e"
+}
+
+
+
+//This is when you change the resolution of your monitor while your ghost is running. Don't mess with any of this, it should be fine as is.
+OnDisplayChange
+{
+	displaybpp    = reference0
+ 	displaywidth  = reference1
+	displayheight = reference2
+}
+
+
+
+
+OnScreenSaverStart
+{
+	"%(wdc)\0\s[110]Ah- what's that?\e"
+}
+
+ //---- OnScreenSaverEnd -------------------------------------------------------
+ //When you wiggle your mouse and stop your screensaver.
+ 
+OnScreenSaverEnd
+{
+	"%(wdc)\0\s[110]...Huh.\w8\1%(catnoises).\e"
+}
+
+
+/*
+//This supposedly is for when a program starts but I have honestly never gotten it to work or seen it happen. I wouldn't sweat these three related functions too much.
+OnApplicationBoot
+{
+	"\0\s[0]%(reference0) just started.\e"
+}
+
+//See above, but for the program closing.
+OnApplicationClose
+{
+	"\0\s[0]%(reference0) has closed.\e"
+}
+
+//I believe this is for when the program detailed above opens a document file of some kind.
+OnApplicationFileOpen
+{
+	"\0\s[0]Opening %(reference1).\e"
+}
+*/
+
+
+
+ //---- OnBatteryLow -----------------------------------------------------------------
+ //This is for when your laptop's battery is low. I don't have a laptop, so I've never really been able to test this. Perhaps someone with a laptop can report back to me with more details about the battery related functions?
+ 
+OnBatteryLow
+ {
+	"%(wdc)\0\s[110]Your battery is getting pretty low.\w8\1%(catnoises).\e"
+	//reference0 here is the amount of battery power. Replace as you like.
+ }
+ 
+ //--OnBatteryCritical-----------------------------------------------------------------
+ //Likewise, this is for if your battery is REALLY low. Replace as you like.
+ 
+OnBatteryCritical
+{
+	"%(wdc)\0\s[110]Your battery is very low,\w4 perhaps you should find a charger?\w8\1%(catnoises).\e"
+}
+ 
+//--OnBatteryNotify--------------------------------------------------------------------
+//This I believe checks to see if your laptop is plugged in or not. Originally this bit of code was commented out, so I suspect it may not work. It may need a plug-in of some sort. Either way, you can delete it or fill it out as you like.
+//Actually investigating this, leaving this in makes it so the ghost updates you about whether or not your computer is plugged-in constantly, which makes no sense for desktops. No doubt why it was commented out. Just leave it be.
+
+/*
+OnBatteryNotify
+{
+	if reference2 == "online" //If your laptop is plugged in
+	{
+		"\0\s[0]The laptop is plugged in.\e"
+	}
+	elseif reference2 == "offline" //If you unplug your laptop
+	{
+		"\1\s[10]The laptop is not plugged in.\w8\0\s[0]Watch your battery.\e"
+	}
+}
+*/
+
+
+
+OnSysResourceLow
+{
+	"%(wdc)\0\s[0]Your system resources are getting low.\w8\1%(catnoises).\e"
+}
+
+
+OnShellScaling //replaceframe on all of these, need him talking to obsidian and being concerned
+{
+	if reference0 > 100 //If getting bigger
+	{
+		"%(wdc)\0\s[106]Ah,\w4 hello %(username).\w8\w8\1%(catnoises).\w8\w8\0\s[0]\n\n%(wdn)OBSIDIAN,\w4 BE MINDFUL OF YOUR NEW SIZE AND DON'T CRUSH ANYTHING.%(dfont)\e"
+	}
+	elseif reference0 < 100 //If getting smaller
+	{
+		"%(wdc)\0\s[106]Ah,\w4 are we in your way?\w8\w8\1%(catnoises).\w8\w8\0\s[0]\n\n%(wdn)OBSIDIAN,\w4 DON'T BE SNEAKING OFF INTO ANY SMALL CREVICES.%(dfont)\e"
+	}
+	else //Normal size
+	{
+		"%(wdc)\0\s[106]Thank you,\w4 %(username).\w8\w8\0\s[0]\1%(catnoises).\e" //replaceframe looking at obsi-concern smile
+	}
+}
+
+
+
+
+OnDialogueVars //Variables set in dialogue
+{
+	case reference0
+	{
+		when "finishboot"
+		{
+			booting = 0
+		}
+	}
+}

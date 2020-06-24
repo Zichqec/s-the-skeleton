@@ -1,0 +1,162 @@
+﻿//---------------------------AI Talk--------------------------
+
+AiTalk
+ {
+	if RAND(100) < communicateratio
+ 	{
+ 		StartCommunicate
+	}
+ 	else
+	{
+ 		if mikireflag == 0
+		{
+			if CHAIN.IDName == "" {
+ 				lastTalk = RandomTalk
+			}
+			else {
+				lastTalk = ChainTalk
+			}
+			lastTalk
+		}
+ 		else
+		{ 
+		MikireTalk
+ 		}
+	}
+ }
+
+
+//--RandomTalk 
+
+RandomTalk : nonoverlap
+{
+	"%(wdc)" //this should apply the proper balloon to _all_ AItalk lines. 
+	--
+	//"\0\s[0]Here are some wingdings.\w8\w8\n\n%(dings)Wingdings.%(dfont)\e"
+	
+	{
+	_wingdings = lessonwd
+	_translationproper = _wingdings
+	_wdproper = "%(wdn)%(_wingdings)%(rgc)"
+	_translationupper = TOUPPER(_wingdings)
+	_wdupper = "%(wdn)%(_translationupper)%(rgc)"
+	_translationlower = TOLOWER(_wingdings)
+	_wdlower = "%(wdn)%(_translationlower)%(rgc)"
+	//------------------------------------------------
+	
+	"\0\s[111]The word %(_translationproper) written in uppercase looks like this:\n%(_wdupper)\w8\w8\n\nWritten in lowercase,\w4 it looks like this:\n%(_wdlower)\w8\w8\1\s[10]%(catnoises).\e"
+	}
+		
+	
+	
+}
+
+
+
+
+OnHourChange
+{
+	if recenttreats > 0
+	{
+		recenttreats = 0
+	}
+}
+
+OnMinuteChange
+ {
+	timeslot = GetTimeSlot //this tells the ghost what time it is so the time related conversations above will work.
+	--
+ 	if minute == 0 //These check what time it is. Here, it's seeing if the minute equals zero...
+	{
+ 		if hour == 12 //And the hour equals 12, ie it's noon. You can change this to some other hour if you want.
+		{
+ 			"%(wdc)\0\s[0]* (It's noon.)\e"
+		}
+ 		elseif hour == 0 //If the hour is zero, aka midnight. Again, you can change this to whatever hour you want to check for.
+		{
+ 			"%(wdc)\0\s[0]* (It's midnight.)\e"
+		}
+		else
+		{
+			"%(wdc)\0\s[0]* (It's %(hour12)'o clock.)\e"
+		}
+	}
+	//Don't touch this part.
+	elseif mikireflag == 1
+ 	{
+ 		MikireTalk
+	}
+ }
+
+//--OnSecondChange
+//Like the above, this handles what happens every time a second goes by. Most of this you will not have to touch.
+
+OnSecondChange
+ {
+	if passsec == 60
+ 	{
+	 	passsec = 0
+ 		passmin = passmin + 1
+	}
+ 	else
+	{
+		passsec = passsec + 1
+	}
+	if mikireflag == 1 && reference1 == 0
+	{
+		EndMikireTalk
+	}
+	mikireflag = reference1
+	if reference2 == 1
+	{
+ 		""
+	}
+	--
+	OnTalkToOther
+ }
+
+//---- MikireTalk ---------------------------------------------------------------------
+ 
+MikireTalk
+{
+	"\0\s[110]%(wdc)Ah,\w4 %(username)?\w8\w8\s[106] I'm off the edge of the screen.\w8\w8\n\n%(rg)* (You can press ctrl shift f12 to bring him back.)\w8\w8\1%(annoyednoises).\e"
+}
+
+//----EndMikireTalk--------------------------------------------------------------------
+
+ 
+EndMikireTalk
+{
+	"\0\s[106]%(wdc)Thank you,\w4 %(username).\1%(catnoises).\e"
+}
+
+
+//---- OnSurfaceRestore-----------------------------------------------------------------
+
+OnSurfaceRestore
+{
+	"\0\s[0]\1\s[10]\e"
+}
+
+ 
+ //--OnKeyPress
+ 
+OnKeyPress
+{
+	if reference0 == "t"
+	{
+	OnAiTalk
+	}
+	elseif reference0 == "r"
+	{
+	OnLastTalk
+	}
+	elseif reference0 == "f1"
+	{
+	"\![open,readme]"
+	}
+	elseif reference0 == "v" && username == "Zi" && debug == 1
+	{
+		TestVariable
+	}
+}
