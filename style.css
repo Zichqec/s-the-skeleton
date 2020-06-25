@@ -23,9 +23,8 @@ ps {
 
 nav {
     background: #ebebeb;
-    padding: 15px;
+    padding-left: 15px;
     border-radius: 15px;
-    text-align: center;
 }
 
 .navlink:hover {
@@ -120,4 +119,9 @@ h3{
 div.cntr{
     text-align: center;
     font-size: 15px;
+}
+
+.topnav
+{
+    line-height: 50px;
 }
