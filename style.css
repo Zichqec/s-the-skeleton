@@ -7,8 +7,8 @@
 
 body {
     background: #381f4d;
-    margin-left: 15%;
-    margin-right: 15%;
+    margin-left: 8%;
+    margin-right: 8%;
 }
 
 /*body is an element that woud be affected*/
@@ -19,7 +19,7 @@ p {
 
 ps { 
     font-size: 15px;
-}
+} /* I don't think this is in use anymore but I'll leave it for the moment*/
 
 nav {
     background: #ebebeb;
@@ -116,9 +116,14 @@ h3{
     height: 17vw;
 }
 
-div.cntr{
+.cntr{
     text-align: center;
     font-size: 15px;
+}
+
+.centerreg
+{
+    text-align: center;
 }
 
 .topnav
