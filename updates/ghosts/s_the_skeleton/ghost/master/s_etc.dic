@@ -1,12 +1,17 @@
 ﻿//---------------------------Miscellaneous Functions--------------------------
 
+//This .dic file is concerned with a number of functions that didn't quite fit in anywhere else. If you're adding new functions, this may be the place to do it! This also has the functions related to updating your ghost, among others. Most of this will just be replacing placeholder dialogue with dialogue more appropriate for your ghost, and this file is fairly long. On the positive side, you'll probably only have to go through it once.
+//Make sure to read the walkthrough page (http://www.ashido.com/ukagaka/walkthrough.html) for more details about how to properly format ghost dialogue!
+//I will reiterate that you should be editing these in Notepad++, and in particular, you should set the Language to C (or Java I guess) to properly highlight all the text. It will make things A LOT EASIER for you, trust me! It will also help you keep track of your brackets in case you forget some. If you click on a line with a bracket in Notepad++, it should highlight where the other bracket ends, or turn purple if there's no finishing bracket (which you should definitely fix!)
+//It will also highlight my commented lines in green, so you'll know where they are. Any line beginning with // is a commented line that the code will not read. It's just for your reference!
+
+
+//--OnFileDrop2
+
+//OnFileDrop2 handles how your ghost will set an image as the desktop background when someone drags and drops an image on them. You don't need to touch any of the coding here, just replace the dialogue as needed and leave the \q options alone. More about \q options in bootend.dic and in the walkthrough.
+
 OnFileDrop2
 {
-	if lastinteracted > 6
-	{
-		CameBack += 1
-	}
-	--
 	lastinteracted = 0
 	if LV == 0
 	{
@@ -25,15 +30,8 @@ OnFileDrop2
 			"\n\n[half]/
 			\![*]\q[Centered,SetWallpaper_0]\n/
 			\![*]\q[Tiled,SetWallpaper_1]\n/
-			\![*]\q[Stretched,SetWallpaper_2]\n"
-			--
-			_osver = TOINT(os_version)
-			if "Windows" _in_ os_name && _osver >= 10
-			{
-				"\![*]\q[Span,SetWallpaper_3]\n"
-			}
-			--
-			"\n\n[half]\![*]\q[No thanks,SetWallpaper_Cancel]\e"
+			\![*]\q[Stretched,SetWallpaper_2]\n\n[half]/
+			\![*]\q[No thanks,SetWallpaper_Cancel]\e"
 			}
 			when ".mid", ".wav", ".mp3", ".wma", ".au", ".flac", ".m4a" //Music files
 			{
@@ -103,7 +101,7 @@ Select.SetWallpaper_1
 	}
 	else
 	{
-		"\![set,wallpaper,%(Wallpaperfile),tile]\0\s[510]...Ok, I've tiled it.\e"
+		"\![set,wallpaper,%(Wallpaperfile),center]\0\s[510]...Ok, I've tiled it.\e"
 	}
 }
 Select.SetWallpaper_2
@@ -114,20 +112,9 @@ Select.SetWallpaper_2
 	}
 	else
 	{
-		"\![set,wallpaper,%(Wallpaperfile),stretch]\0\s[510]...Ok, I've stretched it.\e"
+		"\![set,wallpaper,%(Wallpaperfile),center]\0\s[510]...Ok, I've stretched it.\e"
 	}
 	
-}
-Select.SetWallpaper_3
-{
-	if LV == 0
-	{
-		"\![set,wallpaper,%(Wallpaperfile),span]\0\s[104]Ok, I've fit it onto both monitors.\w8\w8\s[106] Does it look ok?\e"
-	}
-	else
-	{
-		"\![set,wallpaper,%(Wallpaperfile),span]\0\s[510]...Ok, I've spanned it across.\e"
-	}
 }
 Select.SetWallpaper_Cancel
 {
@@ -148,25 +135,20 @@ Select.SetWallpaper_Cancel
  
 OnInstallBegin
  {
-	if lastinteracted > 6
-	{
-		CameBack += 1
-	}
-	--
-	lastinteracted = 0
-	if LV == 0
-	{
-		"\0\s[0]Oh, you need something installed?\w8\w8\s[1070] Uh, let me see...\e"
-	}
-	elseif LVCheck == 1
-	{
+	 lastinteracted = 0
+	 if LV == 0
+	 {
+	"\0\s[0]Oh, you need something installed?\w8\w8\s[1070] Uh, let me see...\e"
+	 }
+	 elseif LVCheck == 1
+	 {
 		"\0\s[510]...Ok, just a moment.\e"
-	}
-	else
-	{
+	 }
+	 else
+	 {
 		"\s[400]Hmph.\w8 I'm not doing anything with it.\e"
 		"\s[400]Keep your files to yourself, I don't want them.\e"
-	}
+	 }
  }
 
  //---- OnInstallComplete -------------------------------------------------------
@@ -210,7 +192,7 @@ OnInstallComplete
  	{
 		if LV == 0
 		{
-		"\s[1070]Oh, it's a...\w8 balloon?\w8\w8\s[205] ...Doesn't look like any balloon I've ever seen, but ok.\e"
+			"\s[1070]Oh, it's a...\w8 balloon?\w8\w8\s[205] ...Doesn't look like any balloon I've ever seen, but ok.\e"
 		}
 		else
 		{
@@ -222,7 +204,7 @@ OnInstallComplete
  	{
 		if LV == 0
 		{
-		"\s[1070]Oh, it's a...\w8 'plugin'?\w8\w8\s[1020] Sorry kiddo, got no idea what that is.\w8\s[0] But it's installed now, so it should work for you.\e"
+			"\s[1070]Oh, it's a...\w8 'plugin'?\w8\w8\s[1020] Sorry kiddo, got no idea what that is.\w8\s[0] But it's installed now, so it should work for you.\e"
 		}
 		else
 		{
@@ -230,6 +212,28 @@ OnInstallComplete
 		}
 		//Reference1 here would be the name of the plug-in. Replace as needed.
  	}
+	elseif reference0 == "calendar skin"
+	{
+		if LV == 0
+		{
+			"\s[110]Oh,\w4 it's a calendar?\w8\w8\s[104] That's pretty neat,\w4 you like to be organized huh?\e"
+		}
+		else
+		{
+			"\0\s[510]...It's a new calendar skin.\e"
+		}
+	}
+	else
+	{
+		if LV == 0
+		{
+			"\0\s[106]I'm uh,\w4 not really sure what that is,\w4 but I've installed it I guess.\e"
+		}
+		else
+		{
+			"\0\s[510]...It's installed.\e"
+		}
+	}
 }
 
 //---- OnInstallFailure -------------------------------------------------------
@@ -239,7 +243,7 @@ OnInstallFailure
  {
 	if LV == 0
 	{
-	"\0\s[200]Ah,\w4 sorry %(username),\w4 something went wrong." //this first bit of dialogue begins the explanation of what happened. You can replace this with an appropriate intro statement.
+	"\0\s[200]Ah,\w4 sorry %(username),\w4 something went wrong.\n\n" //this first bit of dialogue begins the explanation of what happened. You can replace this with an appropriate intro statement.
 		--
 		if reference0 == "unsupported" //These if statements determine how it happened to finish the piece of dialogue. This 	checks if the reason it failed is because it was unsupported.
 		{
@@ -376,7 +380,7 @@ OnVanished
  {
 	if LV == 0
 	{
-	"\0\s[206]Oh,\w4 is %(reference0) gone..?\w8\w8\s[204] ...I hope they're alright...\e"
+	"\0\s[206]Oh,\w4 is %(reference0) gone..?\w8\w8\s[204]\n\n...I hope they're alright...\e"
 	}
 	elseif LVCheck == 1
 	{
@@ -409,11 +413,6 @@ OnVanished
 //[Zi] Note to self, at some point I mixed up the breaking and broken dialogue, I think I fixed all the numbers so that it picks the correct one now, but if it acts weird then maybe double check that... 
 OnBIFFBegin
  {
-	if lastinteracted > 6
-	{
-		CameBack += 1
-	}
-	--
 	lastinteracted = 0
 	if mailfrommenu == 1
 	{
@@ -460,8 +459,7 @@ OnBIFFBegin
  
 OnBIFFComplete
  {
-	"Ref 0: %(reference0)\n\nRef 1: %(reference1)\n\nRef 2: %(reference2)\n\nRef 3: %(reference3)\n\nRef 4: %(reference4)\n\nRef 5: %(reference5)\n\nRef 6: %(reference6)\n\nRef 7: %(reference7)\x"
-	/*if reference0 == 0 //If you have no new mail.
+	if reference0 == 0 //If you have no new mail.
  	{
  		if LV == 0
 	{
@@ -516,7 +514,7 @@ OnBIFFComplete
 		{
 				"\0\s[516]...%(reference0) new emails.\e"
 		} 
- 	}*/
+ 	}
 }
 
  //---- OnBIFFFailure ---------------------------------------------------------------
@@ -600,11 +598,6 @@ OnUpdateCheckComplete
  
 OnUpdateBegin
  {
-	if lastinteracted > 6
-	{
-		CameBack += 1
-	}
-	--
 	updateavailable = 0
 	lastinteracted = 0
 	if LV == 0
@@ -676,32 +669,6 @@ OnUpdateComplete
 	}
  	else //if the ghost has updated successfully
 	{	
-		if CurrentVersion == "" //Update 1.2 variables - Same as below. I stg I'll add a version number in this update...
-		{
-			CurrentVersion = "1.2"
-			totalboops = 0
-			weatherupdateminute = 0
-			weatherquiet = 0
-			todaysingredients = ""
-			totalwaters = 0
-			currentlydrinkingw = 0
-			currentlydrinkingj = 0
-			currentlydrinkingm = 0
-			switchingtoshell = ""
-			CurrentXMonitor = 1
-			CurrentYMonitor = 1
-			CurrentXPos = 0
-			CurrentYPos = 0
-			NewXMonitor = 0
-			NewYMonitor = 0
-			XCoord = 0
-			YCoord = 0
-			SinceTalk = 0
-			FromDragging = 0
-			CameBack = 0 //needs to be in OnBoot too
-			Dragged = 0
-			beenbackwards = 0
-		}
 		if poppable == "" //Update 1.1 variables - These wont be set if they've already been set once
 		{
 			DeviceMemories = ""
@@ -743,7 +710,6 @@ OnUpdateComplete
 			SongMemories = ""
 		}
 		--
-		
 
 		if LV == 0
 		{
@@ -932,7 +898,16 @@ Select.nochangelog
  
 OnChangeLog //[Zi] haha I hope I remember to update this
 {
-	"\![set,autoscroll,disable]\_q\b2\_l[90]-Version 1.1-\n\n/ 
+	"\![set,autoscroll,disable]\_q\b2/
+	\_l[90]-Patch 1.1.2-\n\n/
+	*Fixed a bug where S would stop talking after a few hours if you had a ghost he didn't recognize open\n\n/
+	*Fixed some more typos\n\n/
+	*Changed the actual values of the talk rate to match what it says in the config menu. This won't change until you change your talk rate again.\n\n/
+	*Changed the name of the red_hoodie shell folder to master, to prevent an error message from popping up due to a recent SSP update. If you still have a folder called red_hoodie in your files, you should delete it!\n\n/
+	*Migrated S to Github! I've also made a website for him which you can check out over \_a[https://zichqec.github.io/s-the-skeleton/s_the_skeleton.html]here!\_a\n\n\n/
+	\_l[90]-Hotfix 1.1.1-\n\n/
+	*Fixed a couple typos and formatting issues, if you find any more please do contact me and let me know!\n\n\n/
+	\_l[90]-Version 1.1-\n\n/ 
 	+Added blinking animations!\n\n/
 	+New shell: Pink Apron!\n\n/
 	+Added blip in animations!\n\n/
@@ -946,9 +921,7 @@ OnChangeLog //[Zi] haha I hope I remember to update this
 	*Changed the update system, it should be much faster next update!\n\n/
 	*Added colors when referencing certain characters, to help differentiate them\n\n/
 	*Various QoL tweaks and bugfixes\n\n/
-	-Option to ask about your music will only show if you're using a compatible player now (foobar2000, winamp, VLC)\n\n\n/
-	\_l[90]-Hotfix 1.1.1-\n\n/
-	*Fixed a couple typos and formatting issues, if you find any more please do contact me and let me know!\n\n\n"
+	-Option to ask about your music will only show if you're using a compatible player now (foobar2000, winamp, VLC)\n\n\n"
 	--
 	if reference0 == "frommenu"
 	{
@@ -998,11 +971,6 @@ OnUpdate.OnMD5CompareFailure
  
 OnHeadlinesenseBegin
  {
-	if lastinteracted > 6
-	{
-		CameBack += 1
-	}
-	--
 	lastinteracted = 0
 	if LV == 0
 	{
@@ -1123,11 +1091,6 @@ OnHeadlinesenseFailure
  	"\e" //And here is the final /e, so you don't need to include it in the if statements above. Another one of the very rare cases this occurs.
 }
 
-//Don't know why this was in the menu and not in etc. This is when the user stops viewing headlines.
-Select.HEADLINECANCEL
-{
-	"\0\s[0]Finished with headlines.\e"
-}
 
 //**** Ghost Creation and Updating ******************************************************
 //These next few are related to creating updates2.dau and .nar files for your ghosts. You'll want to at least make a .nar to distribute your ghost, and if you're going to be using Network Update, you'll also want to make updates2.dau as well. It's unlikely that anyone other than you will see these messages, but you should be thorough and replace them anyway.
@@ -1178,11 +1141,6 @@ OnNarCreated
  
 OnSNTPBegin
  {
-	if lastinteracted > 6
-	{
-		CameBack += 1
-	}
-	--
 	lastinteracted = 0
 	if LV == 0
 	{
@@ -1449,7 +1407,7 @@ OnSysResourceLow
  {
 	if LV == 0
 	{
-		"\0\s[0]Hey uh,\w4\s[202] this says something about your system resources being low.\w8\w8\s[107] I have no idea what that means,\w4\s[106] do you?\e"
+	"\0\s[0]Hey uh,\w4\s[202] this says something about your system resources being low.\w8\w8\s[107] I have no idea what that means,\w4\s[106] do you?\e"
 	}
  }
 
@@ -1459,11 +1417,6 @@ OnSysResourceLow
  
 OnShellScaling
 {
-	if lastinteracted > 6
-	{
-		CameBack += 1
-	}
-	--
 	lastinteracted = 0
 	nowscale = reference0 //Keeping track of his size
 	changedscaling += 1 //if you've changed his size at least once -- This'll slowly count down to 1 in HourCheck, but it'll never go below 1
@@ -1476,12 +1429,6 @@ OnShellScaling
 		elseif changedscaling > 10
 		{
 			"\0\s[108]Kiddo,\w4 seriously,\w4 I'm uh-\s[301]\w8\s[302]\w8\w8 ...\s[107]Starting to get really dizzy.\w8\w8\n\n\s[106]Can we stop,\w4 please?\e"
-		}
-		elseif reference0 < 0 //If he's backwards
-		{
-			changedscaling += 5
-			beenbackwards = 1
-			"\0\s[1100]What the-\w8\w8\s[208] what happened??\w8\w8\s[110] Everything's,\w4 um,\w4 backwards??\e"
 		}
 		elseif reference0 > reference1 //=========reference 0 is the new size, reference1 is the old. So this is if he's getting bigger.===========
 		{
@@ -1615,15 +1562,13 @@ OnGhostCalling //Kinda want to add some summoning messages, but I'm not sure wha
 	}
 }
 
+OnBalloonChange //Checking to see if they're using the default balloon. The kero balloon for his default balloon will have specific menu option markers
+{
+	nowballoon = reference0
+}
 
 OnBalloonBreak //This is so dumb XD do I keep this? I don't know -- Update, I'm keeping it but it's going in the config menu lol
 {
-	if lastinteracted > 6
-	{
-		CameBack += 1
-	}
-	lastinteracted = 0
-	--
 	if poppable == "ON"
 	{
 		"\s[110]\_v[img\blop.mp3]"
@@ -1633,538 +1578,7 @@ OnBalloonBreak //This is so dumb XD do I keep this? I don't know -- Update, I'm 
 	{
 		""
 	}
-	--
-	if FromDragging == 2
-	{
-		"\![get,property,OnCheckPosition,currentghost.scope(0).rect]"
-	}
 }
-
-OnBalloonClose
-{
-	if FromDragging == 2
-	{
-		"\![get,property,OnCheckPosition,currentghost.scope(0).rect]"
-	}
-}
-
-OnBalloonTimeout
-{
-	if FromDragging == 2
-	{
-		"\![get,property,OnCheckPosition,currentghost.scope(0).rect]"
-	}
-}
-
-
-
-//Weather Checking -------------------------------------------------------
-//following functions can go in menu dic, or a seperate dic entirely
-//functions for scraping weather.com for weather data.
-//author: vita @yuyudev on twitter
-//referenced zarla's hunter and smoker ghost, and https://forum.rainmeter.net/viewtopic.php?t=34470
-//
-//please add the following variables to your bootend dic in the function OnFirstBoot
-//curlocation = ""
-//locationcode = ""
-//these two I also added to OnBoot
-//intalkconfig = 0
-//weatherquiet = 0
-
-//starting the weather checking
-OnWeatherLocation
-{
-	if curlocation != "" && curlocation != "Set a location"
-	{
-		"\b2\_q* (Your location is currently set to: %(curlocation))\n\n"
-	}
-	else
-	{
-		"\b2\_q"
-	}
-	--
-	"* (Do you live inside or outside the USA?)\n\n/
-	\![*]\q[In the USA,OnUSALoc]\n/
-    \![*]\q[Outside the USA,OnOtherLoc]\n\n/
-	\![*]\q[Back to config,toconfig]\n\n(Please note that you may need to try this a few times.)"
-	
-}
-
-
-OnUSALoc
-{
-	templocation = ""
-    "(Please enter your zipcode.)\![open,inputbox,OnLocCode,-1]"
-}
-
-OnOtherLoc
-{
-	templocation = ""
-    "(Please go to weather.com, search your city, and enter the long series of letters and numbers at the end of the URL.)\![open,inputbox,OnLocCode,-1]"
-}
-
-OnLocCode
-{
-	locationcode = reference0
-	if "https://weather.com/weather/today/l/" _in_ locationcode
-	{
-		locationcode = REPLACE(locationcode,"https://weather.com/weather/today/l/","") //if someone puts in the whole URL, this gets rid of the unneeded bit...
-	}
-	--
-	//templocation = ""
-	//OnDownloadCurWeather
-	"\![execute,http-get,https://weather.com/weather/today/l/%(locationcode),--async=OnCheckWeatherLoc,--file=weather.html,--timeout=300]anMoon01\w4\canMoon02\w4\canMoon03\w4\canMoon04\w4\canMoon05\w4\canMoon06\w4\canMoon07\w4\canMoon08\w4\canMoon01\w4\canMoon02\w4\canMoon03\w4\canMoon04\w4\canMoon05\w4\canMoon06\w4\canMoon07\w4\canMoon08\w4\canMoon01\w4\canMoon02\w4\canMoon03\w4\canMoon04\w4\canMoon05\w4\canMoon06\w4\canMoon07\w4\canMoon08\w4\canMoon01\w4\canMoon02\w4\canMoon03\w4\canMoon04\w4\canMoon05\w4\canMoon06\w4\canMoon07\w4\canMoon08\w4\canMoon01\w4\canMoon02\w4\canMoon03\w4\canMoon04\w4\canMoon05\w4\canMoon06\w4\canMoon07\w4\canMoon08\w4\canMoon01\w4\canMoon02\w4\canMoon03\w4\canMoon04\w4\canMoon05\w4\canMoon06\w4\canMoon07\w4\canMoon08\w4"
-	
-	
-}
-
-OnCheckWeatherLoc
-{
-    //initialize variables
-    _file = "var\\weather.html"
-    _buff=""
-    _regtemp = ''
-    _regdegree = ''
-    _regfeels = ''
-    _reghumidity = ''
-    _regwind = ''
-    _regstate = ''
-    _regloc = ''
-    _regpollen = ''
-    FCHARSET(1)
-    //array to hold current weather data
-    //[temp, degrees, feels like temp, humidity, wind, state (cloudy, rainy, etc), pollen alert (yes/no)]
-    currentweatherarray = ("","","","","","","")
-    
-    --
-    
-    if FOPEN(_file,'r') {
-    
-        _buff = FREAD(_file) //get the first line of the HTML to check what type of page we got
-        temp = _buff
-        
-        if RE_SEARCH(_buff, '<html dir="ltr" lang="en-US"><head>') { //reg expressions for chrome formatted page
-            _regloc = 'Conditions--location--1YWj_">(.*) Weather</h1><div class='
-        }
-        else {
-        //reg expressions for firefox formatted page
-            _regloc = 'className="h4 today_nowcard-location">(.*)<span class="icon icon-font iconset-social icon-share-circle" className="icon icon-font iconset-social icon-share-circle"></span>'
-        }
-
-        for _buff = FREAD(_file); _buff != -1; _buff = FREAD(_file) {
-            
-            //set location
-            if RE_SEARCH ( _buff, _regloc ) {
-                
-                templocation = RE_GETSTR[1]
-                
-            }
-            
-        }
-    }
-    --
-    
-    FCLOSE(_file);
-	--
-    if templocation != ""
-	{
-		"(Your current location is %(templocation). Is this correct?)\n\n/
-		\![*]\q[Yes,confirmweather]\n/
-		\![*]\q[Enter a different location,weatherlocation]\n/
-		\![*]\q[Cancel,cancelnodialogue]"
-	}
-	else
-	{
-		"(Couldn't get your location,\w4 try again?)\n\n/
-		\![*]\q[Try again,tryweatherlocagain]\n/
-		\![*]\q[Enter a different location,weatherlocation]\n/
-		\![*]\q[Cancel,cancelnodialogue]"
-	}
-}
-
-
-
-Select.tryweatherlocagain
-{
-	"\![execute,http-get,https://weather.com/weather/today/l/%(locationcode),--async=OnCheckWeatherLoc,--file=weather.html,--timeout=300]%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)"
-}
-
-Select.weatherlocation
-{
-	OnWeatherLocation
-}
-
-Select.confirmweather
-{
-	curlocation = templocation
-	if fromfunctionmenu == 1
-	{
-		fromfunctionmenu = 0
-		OnDownloadCurWeather
-	}
-	else
-	{
-		TalkConfig
-	}
-}
-
-
-//current weather functions
-OnDownloadCurWeather
-{
-   "\![execute,http-get,https://weather.com/weather/today/l/%(locationcode),--async=OnCurWeatherFound,--file=weather.html,--timeout=200]%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)"
-}
-
-OnCurWeatherFound
-{ 
-    //initialize variables
-    _file = "var\\weather.html"
-    _buff=""
-    _regtemp = ''
-    _regdegree = ''
-    _regfeels = ''
-    _reghumidity = ''
-    _regwind = ''
-    _regstate = ''
-    _regloc = ''
-    _regpollen = ''
-    FCHARSET(1)
-    //array to hold current weather data
-    //[temp, degrees, feels like temp, humidity, wind, state (cloudy, rainy, etc), pollen alert (yes/no)]
-    currentweatherarray = ("","","","","","","")
-    
-    --
-    
-    if FOPEN(_file,'r') {
-    
-        _buff = FREAD(_file) //get the first line of the HTML to check what type of page we got
-        temp = _buff
-        
-        if RE_SEARCH(_buff, '<html dir="ltr" lang="en-US"><head>') { //reg expressions for chrome formatted page
-            _regtemp = 'CurrentConditions--tempValue--MHmYY">(-?\d*)°</span><div'
-            _regdegree = '(°C|°F)'
-            _regfeels = 'feelsLikeTempValue--2icPt">(-?\d*)°</span><span data'
-            _reghumidity = 'estid="PercentageValue">(\d*)%</span></div>'
-            _regwind = '6.44z"></path></svg>([\w|\s|\d]*)</span></div></div>'
-            _regstate = 'phraseValue--mZC_p">([\w|\s]*)</div></div>'
-            _regloc = 'Conditions--location--1YWj_">(.*) Weather</h1><div class='
-            _regpollen = 'iesListItem--description--2eNsW">([\w|\s]*) pollen is very high in your area</p></'
-        }
-        else {
-        //reg expressions for firefox formatted page
-            _regtemp = '<div class="today_nowcard-temp"><span class="">(-?\d*)<sup>'
-            _regdegree = '(°C|°F)'
-            _regfeels = '<span class="btn-text">Feels Like<!----> </span><span class="deg-feels" className="deg-feels">(-?\d*)<sup>'
-            _reghumidity = '</tr><tr><th>Humidity</th><td><span class=""><span>(\d*)<span class="Percentage__percentSymbol__2Q_AR">%'
-            _regwind = '<tr><th>Wind</th><td><span class="">([\w|\s|\d]*)</span></td></tr><tr><th>'
-            _regstate = '<div class="today_nowcard-phrase">([\w|\s]*)'
-            _regloc = 'className="h4 today_nowcard-location">(.*)<span class="icon icon-font iconset-social icon-share-circle" className="icon icon-font iconset-social icon-share-circle"></span>'
-            _regpollen = ' title="Local Pollen Alert"'
-        }
-
-        for _buff = FREAD(_file); _buff != -1; _buff = FREAD(_file) {
-            
-
-            //current temp
-            if RE_SEARCH ( _buff, _regtemp ) {
-                
-                currentweatherarray[0] = RE_GETSTR[1]
-                
-            }
-    
-            //degrees (F or C)
-            if RE_SEARCH ( _buff, _regdegree ) {
-                currentweatherarray[1] = RE_GETSTR[1]
-                
-            }
-            
-            //feels like temp
-            if RE_SEARCH ( _buff, _regfeels ) {
-                currentweatherarray[2] = RE_GETSTR[1]
-                
-            }
-            
-            //humidity
-            if RE_SEARCH ( _buff, _reghumidity ) {
-                currentweatherarray[3] = RE_GETSTR[1]
-                
-            }
-            
-            //wind
-            if RE_SEARCH ( _buff, _regwind) {
-                currentweatherarray[4] = RE_GETSTR[1]
-                
-            }
-            
-            
-            //state (cloudy, sunny, etc)
-            if RE_SEARCH ( _buff, _regstate ) {
-                
-                currentweatherarray[5] = RE_GETSTR[1]
-                
-            }
-            
-            //set location
-            if RE_SEARCH ( _buff, _regloc ) {
-                
-                curlocation = RE_GETSTR[1]
-                
-            }
-            
-            //search for pollen stuff
-            if RE_SEARCH ( _buff, _regpollen ) {
-                
-                currentweatherarray[6] = "Local Pollen Alert"
-                PollenAlert = 1
-            }
-            
-        }
-    }
-    --
-    
-    FCLOSE(_file);
-    if weather _in_ weatherlist
-	{
-		""
-	}
-	else
-	{
-		weatherlist += "%(weather)\n-"
-	}
-	--
-	humiditylist += "%(humidity)%\n"
-    --
-	if currentweatherarray[0] != ""
-	{
-		loadmoonnum += 2
-		"\![raise,OnDownloadMoonPhase]"
-	}
-	else
-	{
-		if weathertries < 5
-		{
-			"\_q(Couldn't get the weather, trying again...)\n(%(weathertries)/5)\w8\w8\_q\![raise,OnDownloadCurWeather]"
-			weathertries += 1
-		}
-		else
-		{
-			if weatherquiet
-			{
-				weatherquiet = 0
-				weathertries = 1
-				tempurature = "Unknown"
-				ForC = "Unknown"
-				feelslike = "Unknown"
-				humidity = "Unknown"
-				wind = "Unknown"
-				weather = "Unknown"
-				pollen = "Unknown"
-				phase = "Unknown"
-				--
-				"\e"
-			}
-			"(Couldn't get the weather, please try again in a few minutes.)\e"
-			weathertries = 1
-		}
-	}
-
-}
-
-
-Select.tryweatheragain
-{
-	OnDownloadCurWeather
-}
-
-
-OnDownloadMoonPhase
-{
-    "\0\![execute,http-get,https://www.moongiant.com/phase/today/,--async=OnMoonFound,--file=moon.html,--timeout=200]"
-}
-
-OnMoonFound
-	{
-    //file to be read
-    _file = "var\\moon.html"
-    //line being read
-    _buff=""
-    //regular expressions to extract data
-    _regphase=',"Phase: <span>([\w|\s]*)<./span>'
-    _found = 0;
-    //using UTF-8 charset
-    FCHARSET(1)
-    
-    //string for holding phase
-    phase = ""
-    
-
-    
-    --
-    
-    if FOPEN(_file,'r') {
-        for _buff = FREAD(_file); _buff != -1 && !_found; _buff = FREAD(_file) {
-            
-
-            if RE_SEARCH ( _buff, _regphase ) {
-                
-                phase = RE_GETSTR[1]
-                _found = 1; //break loop since we dont need to continue parsing
-                
-            }
-        }
-    }
-    --
-    
-    FCLOSE(_file);
-    
-	--
-    if weatherquiet
-	{
-        weatherquiet = 0
-        --
-        "\e"
-    }
-    
-    --
-	tempurature = TOINT(currentweatherarray[0])
-	ForC = currentweatherarray[1]
-	feelslike = currentweatherarray[2]
-	humidity = TOINT(currentweatherarray[3])
-	wind = currentweatherarray[4]
-	weather = currentweatherarray[5]
-	pollen = currentweatherarray[6]
-	//change the dialogue as you wish
-	//[temp, degrees, feels like temp, humidity, wind, state (cloudy, rainy, etc)]
-	
-	//========================Weather Dialogue=============================
-	
-	if ForC == "°F"
-	{
-		if tempurature > 100
-		{
-			"\0\s[110]Wow,\w4 it's %(tempurature) degrees there.\w8\w8\s[106] Are you doing alright,\w4 %(username)?\w8\w8\s[107] Make sure you stay hydrated."
-		}
-		elseif tempurature > 80
-		{
-			"\0\s[106]It's %(tempurature) degrees there.\w8\w8\s[107] Yeesh,\w4 pretty hot out."
-		}
-		elseif tempurature > 60
-		{
-			"\0\s[104]It's %(tempurature) degrees there.\w8\w8\s[103] Pretty nice out."
-		}
-		elseif tempurature > 40
-		{
-			"\0\s[0]It's %(tempurature) degrees there.\w8\w8\s[104] A little chilly,\w4 huh?"
-		}
-		elseif tempurature > 20
-		{
-			"\0\s[0]It's %(tempurature) degrees there.\w8\w8\s[104] Pretty cold out."
-		}
-		elseif tempurature < 0
-		{
-			"\0\s[106]It's %(tempurature) degrees.\w8\w8\s[107] It's freezing out there,\w4 be careful kiddo."
-		}
-	}
-	else //Celcius
-	{
-		if tempurature > 37
-		{
-			"\0\s[110]Wow,\w4 it's %(tempurature) degrees there.\w8\w8\s[106] Are you doing alright,\w4 %(username)?\w8\w8\s[107] Make sure you stay hydrated."
-		}
-		elseif tempurature > 26
-		{
-			"\0\s[106]It's %(tempurature) degrees there.\w8\w8\s[107] Yeesh,\w4 pretty hot out."
-		}
-		elseif tempurature > 15
-		{
-			"\0\s[104]It's %(tempurature) degrees there.\w8\w8\s[103] Pretty nice out."
-		}
-		elseif tempurature > 4
-		{
-			"\0\s[0]It's %(tempurature) degrees there.\w8\w8\s[104] A little chilly,\w4 huh?"
-		}
-		elseif tempurature > -6
-		{
-			"\0\s[0]It's %(tempurature) degrees there.\w8\w8\s[104] Pretty cold out."
-		}
-		elseif tempurature < -17
-		{
-			"\0\s[106]It's %(tempurature) degrees.\w8\w8\s[107] It's freezing out there,\w4 be careful kiddo."
-		}
-	}
-	--
-	"\w8\w8"
-	--
-	if tempurature > 60
-	{
-		if humidity >= 65
-		{
-			" \s[107]Pretty muggy out,\w4 too."
-		}
-		else
-		{
-			" \s[104]At least it's not too humid."
-		}
-	}
-	--
-	"\w8\w8\n\n"
-	--
-	if weather == "Sunny"
-	{
-		"\s[104]The sun is shining,\w4\s[0] are you glad to see it?"
-	}
-	elseif weather == "Partly Cloudy"
-	{
-		"\s[104]There are a few clouds out there,\w4 pretty nice if you ask me."
-	}
-	else
-	{
-		"%(weather) "
-	}
-	--
-	"%(phase) %(pollen)\n\n\![*]\q[Back to functions,Onbacktofunctions]\n\![*]\q[I'm done,cancelnodialogue]\e"
-	
-
-}
-
-//==================Calendar functions==================
-
-OnSchedule5MinutesToGo
-{
-	"\05 minutes to go %(reference0) %(reference1) %(reference2) %(reference3)\e"
-}
-
-OnScheduleRead
-{
-	"Read %(reference0) %(reference1) %(reference2) %(reference3)"
-}
-
-OnSchedulesenseBegin
-{
-	"Sense begin %(reference0)"
-}
-
-OnSchedulesensecomplete
-{
-	"Sense complete %(reference0) %(reference1)"
-}
-
-OnSchedulesenseFailure
-{
-	"Sense failure %(reference0)"
-}
-
-OnSchedulepostBegin
-{
-	"Schedule pose %(reference0)"
-}
-
-OnSchedulepostComplete
-{
-	"Post complete %(reference0)"
-}
-
-
 
 
 

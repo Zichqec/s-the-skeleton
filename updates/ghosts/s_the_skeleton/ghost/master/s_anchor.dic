@@ -98,16 +98,6 @@ OnTranslate
 	_talk = REPLACE(_talk, "MToYou", "\_a[talktome]to you\_a")
 	_talk = REPLACE(_talk, "MAnotherGhost", "\_a[talktoother]another ghost\_a")
 	
-	//Moon phases
-	_talk = REPLACE(_talk, "anMoon01", "\_a[CheckWeather]\_b[img\Moon01,inline,--option=use_self_alpha]\_a")
-	_talk = REPLACE(_talk, "anMoon02", "\_a[CheckWeather]\_b[img\Moon02,inline,--option=use_self_alpha]\_a")
-	_talk = REPLACE(_talk, "anMoon03", "\_a[CheckWeather]\_b[img\Moon03,inline,--option=use_self_alpha]\_a")
-	_talk = REPLACE(_talk, "anMoon04", "\_a[CheckWeather]\_b[img\Moon04,inline,--option=use_self_alpha]\_a")
-	_talk = REPLACE(_talk, "anMoon05", "\_a[CheckWeather]\_b[img\Moon05,inline,--option=use_self_alpha]\_a")
-	_talk = REPLACE(_talk, "anMoon06", "\_a[CheckWeather]\_b[img\Moon06,inline,--option=use_self_alpha]\_a")
-	_talk = REPLACE(_talk, "anMoon07", "\_a[CheckWeather]\_b[img\Moon07,inline,--option=use_self_alpha]\_a")
-	_talk = REPLACE(_talk, "anMoon08", "\_a[CheckWeather]\_b[img\Moon08,inline,--option=use_self_alpha]\_a")
-	
 		if reference1 == "" && reference2 == "" { //send input box : no event (ref2) , no special flag (ref1)
             EVAL('"' + REPLACE(_talk,'"','" + CHR(0x22) + "') + '"')
         }
@@ -125,7 +115,7 @@ OnTranslate
 
 OnAnchorSelect //[Zi] Alright so... I decided to rewrite this. I didn't see a reason to use case/when because you apparently can't do when "thing" || when "other thing"... and I didn't want to double the size of this section for what I needed to do. using _in_ and just being careful with how I write my anchors seems like a cleaner solution.
 {
-	if "http://" _in_ reference0 //checking to see if the link is a web address
+	if "http://" _in_ reference0 || "https://" _in_ reference0 //checking to see if the link is a web address
 	{
 	"\j[%(reference0)]\e" // \j is a tag that will open a specified url in the user's browser of choice. This basically just tells the ghost to open the webpage stored in reference0, which would be the address that the user just clicked. I didn't get too much into \j in the walkthrough page because I have literally never used it except here.
 	}	
@@ -445,7 +435,7 @@ OnAnchorSelect //[Zi] Alright so... I decided to rewrite this. I didn't see a re
 		}
 		elseif reference0 == "echo" //note to self, NOT the same Echo as the pencil doodle I made ages ago... I just decided they were similar enough to carry the name over. Wings is sad ok
 		{
-			"\p3\s[-1]\b[2]\_b[img\TP09Echo.png,centerx,centery,--option=use_self_alpha]\0\s[208]That's honestly got to be one of the happiest timelines I've seen.\w8\w8\s[106] Echo,\w4 as they called him,\w4 fell out of his original timeline before anything bad ever happened to him in the labs.\w8\w8\s[107] He doesn't even remember them.\w8\w8\s[205] Instead,\w4 he grew up with a similar version of my first %(StSfhusband),\w4 raised by my aunt anWings and %(green)another skeleton%(default) she'd married.\w8\w8\n\n\s[206]Though,\w4 as per the usual,\w4 my first %(StSfhusband) is gone now...\w8\w8\s[201] And so is the %(green)skeleton%(default) anWings married,\w4 though I don't think I've seen %(green)him%(default) in any timeline other than this one.%(timelinequestions)"
+			"\p3\s[-1]\b[2]\_b[img\TP09Echo.png,centerx,centery,--option=use_self_alpha]\0\s[208]That's honestly got to be one of the happiest timelines I've seen.\w8\w8\s[106] Echo,\w4 as they called him,\w4 fell out of his original timeline before anything bad ever happened to him in the labs.\w8\w8\s[107]\n\nHe doesn't even remember them.\w8\w8\s[205] Instead,\w4 he grew up with a similar version of my first %(StSfhusband),\w4 raised by my aunt anWings and %(green)another skeleton%(default) she'd married.\w8\w8\n\n\s[206]Though,\w4 as per the usual,\w4 my %(orange)first %(StSfhusband)%(default) is gone now...\w8\w8\s[201] And so is the %(green)skeleton%(default) anWings married,\w4 though I don't think I've seen %(green)him%(default) in any timeline other than this one.%(timelinequestions)"
 			knowaboutecho = 2
 		}
 		elseif reference0 == "ice"
@@ -457,21 +447,6 @@ OnAnchorSelect //[Zi] Alright so... I decided to rewrite this. I didn't see a re
 		{
 			"\p3\s[-1]\b[2]\_b[img\TP11Omega.png,centerx,centery,--option=use_self_alpha]\0\s[106]Ah,\w4 I'm not really sure if it's right to call Omega an elemental or not,\w4\s[206] but he's not really a skeleton,\w4 either.\w8\w8\s[108]\n\nI don't know exactly what happened to him,\w4 just that his body was destroyed at some point,\w4 but his soul was also strengthened enough for him to exist in a form of pure magic.\w8\w8\s[110] Thanks to that,\w4 he's actually able to slip between timelines.\w8\w8\s[205]\n\nHe's decided to use this ability to rescue various versions of myself and my family from bad situations.\w8\w8 He's even built a shelter for them to recover in a quiet timeline.\w8\w8\s[206]\n\nIt's uh...\w8\w8\s[201] kinda concerning and sad that such a place even has to exist,\w4\s[104] but I'm glad he's out there helping them.%(timelinequestions)"
 			knowaboutomega = 2
-		}
-		
-		//-------------------Moon phases---------------------
-		elseif reference0 == "CheckWeather"
-		{
-			if curlocation != "" && curlocation != "Set a location"
-			{
-				weathertries = 1
-				"\0\s[110]Oh,\w4 the weather?\w8\w8\s[104] Sure,\w4\s[1070] give me just a moment...\![raise,OnDownloadCurWeather]"
-			}
-			else
-			{
-				OnWeatherLocation
-				fromfunctionmenu = 1
-			}
 		}
 	}
 }

@@ -56,27 +56,7 @@ RandomTalk : nonoverlap
 			"\0\s[1090]\i[4]Hmm...\e"
 		}
 	}
-	elseif currentlydrinkingw == 1
-	{
-		"\0\s[1040]Water's really good for you.\w8\w8 Do you like water,\w4 %(username)?\e"
-		"\0\s[1040]I love water.\w8\w8 It's easy to take for granted,\w4 but it really is a blessing to be able to get clean water so easily.\e"
-		"\0\s[1040]Mmm...\w8\w8 crisp,\w4 clean...\e"
-	}
-	elseif currentlydrinkingj == 1
-	{
-		"\0\s[1050]Apple juice is probably my favorite kind of juice,\w4 though cider is always better,\w4 if it's in season.\e"
-		"\0\s[1050]We make our own cider at home.\w8\w8 Homemade apple cider is one of the best things in the world.\e"
-	}
-	elseif currentlydrinkingm == 1
-	{
-		"\0\s[1040]Y'know,\w4 I'm pretty sure milk isn't actually as beneficial for you as they say.\w8\w8 Or maybe it works differently for monsters.\e"
-		"\0\s[1040]Milk is alright,\w4 but juice is where it's at.\w8\w8 I love all kinds of fruit juices...\e"
-		if nowshell == "pink_apron"
-		{
-			"\0\s[1040]Hmm...\w8\w8 if this had a lid I'd take it home and use it to cook with...\e"
-		}
-	}
-	elseif LV == 0 //Friendship routes -- For now I've changed this to an elseif, might change back later...
+	if LV == 0 //Friendship routes
 	{
 		//====================================================Full Trust========================================================
 		
@@ -121,6 +101,12 @@ RandomTalk : nonoverlap
 			}
 			if changedscaling > 0 //If you've changed his size at least once
 			{
+				if changedscaling > 10
+				{
+					"\0\s[109]* (He looks kinda dizzy...)\e"
+					"\0\s[109]Mmm...\w8\w8\n\n* (Maybe he should sit down for a minute...)\e"
+				}
+				
 				if nowscale == 100 //Normal size
 				{
 					"\0\s[107]* (He mumbles something about being grateful for his current size.)\e"
@@ -141,21 +127,6 @@ RandomTalk : nonoverlap
 						"\0\s[106]Can you even still see me at this size..?\e"
 					}
 				}
-				elseif nowscale < 0
-				{
-					"\0\s[206]Everything looks so weird...\e"
-					"\0\s[206]Is this some sort of strange curse..?\e"
-				}
-			}
-			if beenbackwards == 1 && nowscale > 0
-			{
-				"\0\s[1070]* (He's muttering something about the world flipping around...)\e"
-				"\0\s[1070]* (He's mumbling something about being inside out...)\w8\w8\n\n* (He's probably thinking about the time you flipped him backwards.)\e"
-			}
-			if changedscaling > 10 || Dragged > 5 //This one is on its own cause I also want it to apply to if you've been dragging him around. For now anyways, I might move this back depending on the dialogue I add. Basically this is if he's dizzy.
-			{
-				"\0\s[109]* (He looks kinda dizzy...)\e"
-				"\0\s[109]Mmm...\w8\w8\n\n* (Maybe he should sit down for a minute...)\e"
 			}
 			if passhour >= 1
 			{
@@ -173,18 +144,6 @@ RandomTalk : nonoverlap
 				"\0\s[206]* (He's mumbling to himself.)\w8\w8\n\n%(passhour) hours...\e"
 				"\0\s[206]%(passhour) hours already...\w8\w8 My andad would usually come and get me by now,\w4\s[106] but uh,\w4 it seems like he can't reach this place.\w8\w8\n\n\s[107]I guess it's a little more complicated than just being another timeline.\e"
 			}
-			if CameBack > 0
-			{
-				if ghostexcount == 0
-				{
-					_listsize = ARRAYSIZE(installedghostlist)
-					_randghost = installedghostlist[RAND(_listsize)]
-					if _listsize > 1 && _randghost != "Dr. W.D. Gaster"
-					{
-						"\0\s[206]It gets pretty lonely here whenever you're away...\w8\w8\s[202] If you're gonna be gone for long stretches of time,\w4 could you at least bring someone else here for me to talk to?\w8\w8\s[208] Like %(_randghost),\w4 for example.\e"
-					}
-				}
-			}
 			if LVCheck == 1 && broken == 0 //runs at any time that you know his secrets but he's not broken
 			{
 				"\0\s[204]* (He's taking deep,\w2 slow breaths.)\e"
@@ -199,23 +158,6 @@ RandomTalk : nonoverlap
 			{
 				OnWhatreYouUpTo
 			}
-			
-			//This one is checking where he is on the screen, and commenting if you've either got him up high, or you've got him on a secondary monitor.
-			//"\![get,property,OnCheckPosition,currentghost.scope(0).rect]" //This isn't an if here, but the function it leads to has some ifs.
-			
-			if FromDragging != 2
-			{
-				if XCoord < 0 || XCoord > displaywidth || YCoord > displayheight || YCoord < 0 //If he's on a secondary monitor of some sort. 
-				{
-					"\0\s[110]You've sure got a lot of monitor space,\w4 huh?\e"
-				}
-				if YCoord < (displayheight / 2)
-				{
-					"\s[106]I can uh,\w4 see pretty far from all the way up here.\e"
-				}
-			}
-			
-			
 			if SongList != "-"
 			{
 				"\0\s[102]* (He's humming one of the songs you played for him.)\e"
@@ -345,7 +287,6 @@ RandomTalk : nonoverlap
 			{
 				"\0\s[101]I don't really understand why some humans call this season autumn and some humans call it fall.\w8\w8\s[104] I think Autumn is the prettier word, very fitting for the colorful season.\e" //[Zi]Yes I'm American, yes I use autumn rather than fall, for the same reason S does. Fight me.
 				"\0\s[0]Autumn is a busy time around our house, there's a lot of work to be done harvesting crops.\w8\w8\s[104] But harvest season is also something that brings cheer,\w4 there's so much good food to be had that we have to share it around.\e"
-				"\0\s[102]I love the sound of the wind rustling through piles of leaves...\e"
 				if askedaboutbluejeans == 1
 				{
 					"\0\s[104]This is anBlue's favorite time of year.\w8\w8\s[105] %(StSfHe) likes to go on long walks through the woods with me,\w4\s[106] though %(StSfHe) usually ends up carrying me back.\e"
@@ -443,11 +384,6 @@ RandomTalk : nonoverlap
 			if month == 8 //August
 			{
 				"\0\s[102]Summer's almost over now.\w8\w8\s[0] Did you make it a good one?\w8\w8\s[104] I enjoyed it, but I'm also looking forward to Autumn.\e"
-				"\0\s[107]I sure hope it starts cooling down soon...\e"
-				if hour > 19
-				{
-					"\0\s[104]Summer nights are really nice;\w4 not too warm,\w4 but not too cold either.\w8\w8\s[205] I love sitting out on the porch and gazing at the moon for a while.\e"
-				}
 			}
 			if month == 9 //September || Beginning of Autumn
 			{
@@ -477,7 +413,7 @@ RandomTalk : nonoverlap
 				"\0\s[106]This used to be one of my favorite times of year, but uh,\w4\s[107] the pushiness of the human traditions have soured it a little.\w8\w8\s[106] I've been trying to do my Gyftmas shopping well in advance so I can steer clear of stores until January.\e"
 				{
 					_daysleft = (31 - day)
-					"\0\s[0]%(year)'s almost over now,\w4 only %(_daysleft) days left.\w8\w8\s[104] I hope this year was good for you.\w8\w8\s[103] And if not,\w4 then let's make next year better, huh?\e"
+					"\0\s[0]%(year)'s almost over now,\w4 only %(daysleft) days left.\w8\w8\s[104] I hope this year was good for you.\w8\w8\s[103] And if not,\w4 then let's make next year better, huh?\e"
 				}
 				if day < 5
 				{
@@ -488,7 +424,7 @@ RandomTalk : nonoverlap
 			//=====Days of the week=====
 			if wd == "Sun"
 			{
-				"\0\s[103]Are you enjoying your Sunday,\w4 %(username)?\e"
+				
 			}
 			if wd == "Mon"
 			{
@@ -594,75 +530,36 @@ RandomTalk : nonoverlap
 				"\0\s[0]It's getting towards the end of the month.\w8\w8\s[103] Now's a good time to try and finish some projects or meet some goals, so you can set new ones for next month.\e"
 			}
 			
-			//=====Weather and moon phase comments -- All of these should also include an AutoWeather check, for the moment I'm not lumping them together because it'd mess with the chances of them getting pulled=====
-			if "Thunderstorm" _in_ weather && AutoWeather == "ON"
-			{
-				"\0\s[205]I like rain,\w4 but I'm not really fond of thunderstorms.\w8\w8\s[106] All that loud crashing freaks me out,\w4 y'know?\w8\w8\s[109] And I hate it when the lights go out all of a sudden.\e"
-			}
-			if humidity >= 65 && AutoWeather == "ON"
-			{
-				"\0\s[106]Sure is humid out,\w4 huh?\w8\w8\s[107] Worst kind of weather,\w4 if you ask me.\e"
-			}
-			
 			//===Dialogue with random elements=== [Zi]I don't want to have too much of this, I find that in order to make random dialogue work, you have to make your dialogue vague so that it works. But when it's so vague, it feels really inconsequential... there's no real info in it. I definitely want a little bit, but I have to be very careful how I use it. One of the advantages it does have is that it means S will slowly trickle out the names of random family members, making it take at least some time to unlock everything he has to say. ...Sorry to anyone who the RNG gods look upon unfavorably. I may possibly make some alternate way to unlock them. Perhaps through an input box? Or some other convoluted series of events if you're determined.
 
 			"\0\s[202]Hey uh... So long as I'm here, you wouldn't mind if I tidied up your %(usersfolder), would you?\e"
 
 			//these are about random herbs and spices and such
 			{
-				_ingredient1 = ingredients
-				_ingredient2 = ingredients
-				_Cingredient1 = _ingredient1 //Puts the result of fruveg into _Cingredient1
-				_buffer = SUBSTR(_Cingredient1,0,1) //Storing the first character
-				_Cingredient1 = ERASE(_Cingredient1,0,1) //Erasing the first character from _Cingredient1
-				_Cingredient1 = INSERT(_Cingredient1,0,TOUPPER(_buffer)) //Making the character in the buffer uppercase and inserting it back into _Cingredient1
-				
-				"\0\s[1070] * (He's muttering to himself.)\w8\n\n..."
+				"\0\s[1070]* (He's muttering to himself.)\w8\n\n..."
 				--
-				"Hmm...\w8 Maybe if I added a little %(_ingredient1)...\e"
-				"The %(_ingredient1) was a little too much last time, but if I tone it down...\e"
-				"%(_Cingredient1) was definitely the wrong choice...\e"
-				"Almost out of %(_ingredient1) now, I have to remember to get some on the way home...\e"
-				"I guess it would be a way to use up some of that extra %(_ingredient1)...\e"
-				"%(_Cingredient1), maybe..?\w8 ...Nah, nah that'd be too much...\e"
-				"Mmm...\w8 I wonder if %(_ingredient1) would do the trick...\e"
-				"I need to be more careful with the %(_ingredient1)...\e"
-				"%(family) really liked it when I added more %(_ingredient1)...\e"
-				"Fresh %(_ingredient1) will be vital...\e"
-				"Maybe a little %(_ingredient1), too...\e"
-				"anDad used up most of the %(_ingredient1),\w4 so I'll have to make it with something else...\e"
-				if _ingredient1 != _ingredient2
-				{
-					"Hmm...\w8\w8 maybe andad was right about the %(_ingredient1),\w4 but definitely not the %(_ingredient2)...\e"
-				}
-				if _ingredient1 _in_ todaysingredients
-				{
-					"Maybe I could do something with the %(_ingredient1) %(username) gave me...\e"
-					"I could make something with the %(_ingredient1) %(username) gave me...\e"
-					"Hmm...\w8\w8 %(_ingredient1)...\e"
-				}
+				"Hmm...\w8 Maybe if I added a little %(ingredients)...\e"
+				"The %(ingredients) was a little too much last time, but if I tone it down...\e"
+				"%(ingredients) was definitely the wrong choice...\e"
+				"Almost out of %(ingredients) now, I have to remember to get some on the way home...\e"
+				"I guess it would be a way to use up some of that extra %(ingredients)...\e"
+				"%(ingredients), maybe..?\w8 ...Nah, nah that'd be too much...\e"
+				"Mmm...\w8 I wonder if %(ingredients) would do the trick...\e"
+				"I need to be more careful with the %(ingredients)...\e"
+				"%(family) really liked it when I added more %(ingredients)...\e"
+				"Fresh %(ingredients) will be vital...\e"
+				"Maybe a little %(ingredients), too...\e"
 			}
 			{
-				_ingredient1 = "%(ingredients)"
-				_ingredient2 = "%(ingredients)"
-				"\0\s[0]* (You ask if he has any %(_ingredient1).)\w8\w8\n\n\s[101]"
+				"\0\s[0]* (You ask if he has any %(ingredients).)\w8\w8\n\n\s[101]On me?"
 				--
-				if _ingredient1 _in_ todaysingredients
+				if nowshell == "pink_apron"
 				{
-					"Uh,\w4 yeah?\w8\w8\s[202] You gave me some earlier.\e"
+					"\w8\w8\s[1070]\n\n...\w8\w8\s[106]Actually,\w4 yeah, I do.\e"
 				}
 				else
 				{
-					"On me?"
-					--
-					if nowshell == "pink_apron"
-					{
-						"\w8\w8\s[1070]\n\n...\w8\w8\s[106]Actually,\w4 yeah, I do.\e"
-					}
-					else
-					{
-						"\w8 No.\w8 I don't just carry random spices around.\e"
-					}
+					"\w8 No.\w8 I don't just carry random spices around.\e"
 				}
 			}
 			
@@ -696,19 +593,6 @@ RandomTalk : nonoverlap
 			
 			if lookingatphone == 0 && passhour > 2
 			{
-				_fruveg = fruveg
-				_Cfruveg = _fruveg //Puts the result of fruveg into _Cfruveg
-				_buffer = SUBSTR(_Cfruveg,0,1) //Storing the first character
-				_Cfruveg = ERASE(_Cfruveg,0,1) //Erasing the first character from _fruveg
-				_Cfruveg = INSERT(_Cfruveg,0,TOUPPER(_buffer)) //Making the character in the buffer uppercase and inserting it back into _fruveg
-				
-				_bakedgood1 = bakedgoods
-				_bakedgood2 = bakedgoods
-				_Cbakedgood1 = _fruveg //Puts the result of fruveg into _Cbakedgood1
-				_buffer = SUBSTR(_Cbakedgood1,0,1) //Storing the first character
-				_Cbakedgood1 = ERASE(_Cbakedgood1,0,1) //Erasing the first character from _Cbakedgood1
-				_Cbakedgood1 = INSERT(_Cbakedgood1,0,TOUPPER(_buffer)) //Making the character in the buffer uppercase and inserting it back into _Cbakedgood1
-				
 				"\0\s[110]* (His phone buzzes.)\w8\w8\n\n"
 				--
 				"\s[1090]\i[4].\w8.\w8.\w8\w8\w8\n\n"
@@ -726,14 +610,8 @@ RandomTalk : nonoverlap
 				"\s[1090]\i[9]Kids,\w4 don't get yourselves in trouble..."
 				"\s[1090]\i[3]You guys..."
 				"\s[1090]\i[4]Oh,\w4 right..."
-				"\s[1090]\i[5]Oh,\w4 %(family) please be careful..."
-				if nowshell == "pink_apron"
-				{
-					"\s[1090]\i[9]Sure,\w4 we can do %(_bakedgood1)..."
-					"\s[1090]\i[9]%(_Cfruveg),\w4 huh?\w8\w8 I can work with that..."
-				}
 				--
-				"\![raise,OnDialogueVariables,getonphone]\e"
+				"\![raise,OnDialogueVariables,getonphone]"
 				
 			}
 			
@@ -766,6 +644,10 @@ RandomTalk : nonoverlap
 					when "Temmie"
 					{
 						"\0\s[104]Heh,\w4 I should've known Temmie would be in a place like this.\e"
+					}
+					others //This has to be here or S will eventually stop calling aitalk... I might replace with a line of dialogue later but this works as a patch for now.
+					{
+						"\![raise,OnAiTalk]"
 					}
 				}
 			}
@@ -918,7 +800,7 @@ RandomTalk : nonoverlap
 			{
 				if season == "Summer"
 				{
-					"\0\s[104]anAbbi really likes this time of year, the warm sun is one of his favorite things.\w8\w8\s[106] Sometimes we have to remind the little ones not to spray him with their squirt guns, though.\w8\w8\n\n\s[104]They'll learn with time.\e"
+					"\0\s[104]anAbbi really likes this time of year,\w4 the warm sun is one of his favorite things.\w8\w8\s[106] Sometimes we have to remind the little ones not to spray him with their squirt guns, though.\w8\w8\n\n\s[104]They'll learn with time.\e"
 				}
 			}
 			if askedaboutrosie == 1
@@ -1057,7 +939,7 @@ RandomTalk : nonoverlap
 			{
 				"\0\s[104]The birds are starting to come back where I live.\w8\w8\s[103] It's really nice to hear the world come alive again after the quiet of winter.\e"
 				"\0\s[104]It's finally starting to really warm up.\w8\w8\s[0] It's nice to be able to open the windows in the house again.\e"
-				"\0\s[0]We didn't really have many flying bugs in the underground,\w4 so it was really strange to get used to them buzzing around.\w8\w8\s[102]\n\nNow it's a comforting sound;\w8\w8 when the bugs come alive again,\w4 it's time for our crops to start growing,\w4 too.\e"
+				"\0\s[0]We didn't really have many bugs in the underground,\w4 so it was really strange to get used to them buzzing around.\w8\w8\s[102]\n\nNow it's a comforting sound;\w8\w8 when the bugs come alive again,\w4 it's time for our crops to start growing,\w4 too.\e"
 				if day > 20
 				{
 					"\0\s[106]Are you ready for the warm season?\w8\w8\s[107] I'm not, but I'll just have to deal with it anyways.\e"
@@ -1237,7 +1119,7 @@ RandomTalk : nonoverlap
 
 			//these are about random herbs and spices and such
 			{
-			"\0\s[1070] * (He's muttering to himself.)\w8\n\n..."
+			"\0\s[1070]* (He's muttering to himself.)\w8\n\n..."
 			--
 			"Hmm...\w8 Maybe if I added a little %(ingredients)...\e"
 			"The %(ingredients) was a little too much last time, but if I tone it down...\e"
@@ -1324,6 +1206,10 @@ RandomTalk : nonoverlap
 					when "Temmie"
 					{
 						"\0\s[104]Heh,\w4 I should've known Temmie would be in a place like this.\e"
+					}
+					others //This has to be here or S will eventually stop calling aitalk... I might replace with a line of dialogue later but this works as a patch for now.
+					{
+						"\![raise,OnAiTalk]"
 					}
 				}
 			}
@@ -1494,7 +1380,7 @@ RandomTalk : nonoverlap
 
 			//these are about random herbs and spices and such
 			{
-			"\0\s[1070] * (He's muttering to himself.)\w8\n\n..."
+			"\0\s[1070]* (He's muttering to himself.)\w8\n\n..."
 			--
 			"Hmm...\w8 Maybe if I added a little %(ingredients)...\e"
 			"The %(ingredients) was a little too much last time, but if I tone it down...\e"
@@ -1569,6 +1455,10 @@ RandomTalk : nonoverlap
 					when "Sanguine" //S wasn't my first attempt to make a ghost...
 					{
 						"\0\s[106]Is uh...\w8\w8\s[202] Is that me..?\e"
+					}
+					others //This has to be here or S will eventually stop calling aitalk... I might replace with a line of dialogue later but this works as a patch for now.
+					{
+						"\![raise,OnAiTalk]"
 					}
 				}
 			}
@@ -1676,52 +1566,7 @@ OnWhatreYouUpTo
 	{
 		"\0\s[1070]I've been here for as long as your computer's been running...\w8\w8\s[101] Do you just bring me here any time you're on your computer?\e"
 	}
-	
-	_gomicheck = FUNCTIONEX("gomi.dll", "-n") //All of these are based on how much is in your recycling bin
-	if _gomicheck == 0
-	{
-		"\0\s[205]Like keeping things tidy,\w4 huh?\w8\w8\s[106] Or at least your recycling bin.\e"
-	}
-	elseif _gomicheck >= 1000
-	{
-		"\0\s[106]Your recycling bin is uh...\w8\w8\s[107] Kinda overflowing,\w4 kiddo.\w8\w8\s[202] If you're not gonna empty it I could do it for you,\w4 keep the place clean and all that..."
-	}
-	elseif _gomicheck >= 500
-	{
-		"\0\s[106]Your recycling bin is getting pretty full,\w4 how much more can you fit in it?\e"
-	}
-	elseif _gomicheck >= 200
-	{
-		"\0\s[110]Your recycling bin is starting to fill up,\w4 are you planning to empty it soon?\e"
-	}
-	elseif CameBack > 0 && _gomicheck > 0 //If you've got at least one thing in your recycling bin and you left S alone for at least 7 hours...
-	{
-		"\0\s[106]Hey uh,\w4 I hope this isn't weird,\w4 but while you were away I counted how many files are in your recycling bin.\w8\w8\n\n\s[107]It's %(_gomicheck),\w4 if you wanted to know.\e"
-	}
-	//Firefox. Not entirely sure why Zar was having trouble with this? I swear it wasn't working when I tried it either... but now it is, other than the window caption. I did change the min from being an == to a >=. Same with a couple of the others.
-	FFOpen = FUNCTIONEX("findwin.dll","find",,"MozillaWindowClass")
-	FFMin = FUNCTIONEX("findwin.dll","count",,"MozillaWindowClass")
-	if FFOpen == 1
-	{
-		if FFMin >= 1
-		{
-			//"\0\s[0]Firefox is open.\e"
-			if FFMin > 4
-			{
-				"\0\s[107]How do you keep track of what's in all these browser windows?\w8\w8 Isn't it a little overwhelming?\e"
-				if FFMin > 6
-				{
-					"\0\s[107]Isn't %(FFMin) browser windows a little excessive,\w4 kiddo?\e"
-				}
-			}
-		}
-		else
-		{
-			//"\0\s[0]Firefox is minimized.\e"
-		}
-	}
-	
-	
+
 	//A joke from the game jam I did with my brother and his friend
 	GWfDOpen = FUNCTIONEX("findwin.dll","find",,"pygame")
 	GWfDMin = FUNCTIONEX ("findwin.dll","count",,"pygame")
@@ -1837,9 +1682,8 @@ OnWhatreYouUpTo
 	//VLC - This is showing me a different window class than what Gaster has... don't know why. Gonna try setting it up this way and hope it's correct.
 	VLCOpen = FUNCTIONEX("findwin.dll","find",,"Qt5QWindowIcon")
 	VLCMin = FUNCTIONEX("findwin.dll","count",,"Qt5QWindowIcon")
-	ActuallyVLC = FUNCTIONEX("findwin.dll","getcaption","Qt5QWindowIcon")
 	
-	if VLCOpen == 1 && "VLC" _in_ ActuallyVLC
+	if VLCOpen == 1
 	{
 		if SeeNowPlaying == "ON"
 		{
@@ -1909,7 +1753,7 @@ OnWhatreYouUpTo
 	{
 		if "Discord" _in_ DiscordorChrome
 		{
-			if DiscordMin >= 1
+			if DiscordMin == 1
 			{
 				if SeeDiscord == "ON"
 				{
@@ -1926,17 +1770,17 @@ OnWhatreYouUpTo
 				}
 			}
 		}
-		elseif "Google Chrome" _in_ DiscordorChrome
+		/*elseif "Google Chrome" _in_ DiscordorChrome
 		{
-			if DiscordMin > 4
+			if DiscordMin == 1
 			{
-				"\0\s[107]How do you keep track of what's in all these browser windows?\w8\w8 Isn't it a little overwhelming?\e"
-				if DiscordMin > 6
-				{
-					"\0\s[107]Isn't %(DiscordMin) browser windows a little excessive,\w4 kiddo?\e"
-				}
+				"Chrome."
 			}
-		}
+			else
+			{
+				"Also chrome."
+			}
+		}*/// Having trouble with this... Maybe I'll add in more later
 	}
 	
 	NotepadPlusOpen = FUNCTIONEX("findwin.dll","find",,"Notepad++")
@@ -1946,7 +1790,7 @@ OnWhatreYouUpTo
 	
 	if NotepadPlusOpen == 1
 	{
-		if NotepadPlusMin >= 1
+		if NotepadPlusMin == 1
 		{
 			if "ghosts_the_skeleton" _in_ NotepadPlusContent
 			{
@@ -1961,13 +1805,6 @@ OnWhatreYouUpTo
 		{
 			"Notepad++ is minimized"
 		}*/
-	}
-	
-	SettingsOpen = FUNCTIONEX("findwin.dll","find","Settings","ApplicationFrameWindow")
-	SettingsMin = FUNCTIONEX ("findwin.dll","count","Settings","Notepad++")
-	if SettingsOpen == 1 && SettingsMin >= 1
-	{
-		"\0\s[106]Wrestling with your settings,\w4 huh?\w8\w8\s[107] I do that a lot,\w4 anCambria ends up having to help me fix whatever it is I've broken...\e"
 	}
 }
 
@@ -2182,6 +2019,7 @@ OnNowPlaying
 
 
 
+
 OnMinuteChange
 {
 	Hourcheck
@@ -2199,7 +2037,6 @@ OnMinuteChange
 		{
 		snagged -= 1
 		}
-		--
 		if flattered > 0
 		{
 			flattered -= 2
@@ -2208,7 +2045,6 @@ OnMinuteChange
 				flattered = 0
 			}
 		}
-		--
 		if comforted > 0
 		{
 			comforted -= 2
@@ -2217,7 +2053,6 @@ OnMinuteChange
 				comforted = 0
 			}
 		}
-		--
 		if talkedaboutpast > 0
 		{
 			talkedaboutpast -= 2
@@ -2226,27 +2061,19 @@ OnMinuteChange
 				talkedaboutpast = 0
 			}
 		}
-		--
 		if recentpets > 0
 		{
 			recentpets = 0 
 		}
-		--
 		if hugged > 0 //hugged =/= totalhugs
 		{
 			hugged -= 1
 		}
-		--
 		if changedscaling > 1 //if it's above 1 you've changed it recently, but it never goes under 1. If it's at least 1, you've changed it at least once.
 		{
-			changedscaling -= 1
+			changedscaling = 1
 		}
-		--
-		if Dragged > 0 //if it's above 1 you've changed it recently, but it never goes under 1. If it's at least 1, you've changed it at least once.
-		{
-			Dragged = 0
-		}
-		--
+
 		if hour == 0
 		{
 			"\0\s[0]* (It's midnight.)\e"
@@ -2268,11 +2095,11 @@ OnMinuteChange
 	}
 	elseif minute == 25 && LV == 0
 	{
-		if hour == 8 //it's the bad time
+	if hour == 8 //it's the bad time
 		{
 			"\0\s[200]* (He's staring very pointedly at the side of your screen.)\w8\w8\n\n* (Is he trying to avoid looking at your clock..?)\e"
 		}
-		elseif hour == 20 //it's the other bad time, unless you're using a 24 hour clock. This doesn't really work if you're using 24 hour. Eh.
+	elseif hour == 20 //it's the other bad time, unless you're using a 24 hour clock. This doesn't really work if you're using 24 hour. Eh.
 		{
 			"\0\s[200]* (He's staring very pointedly at the side of your screen.)\w8\w8\n\n* (Is he trying to avoid looking at your clock..?)\e"
 		}
@@ -2289,16 +2116,6 @@ OnMinuteChange
 
 OnSecondChange
  {
-	//SinceTalk = GETSECCOUNT() - SHIORI3FW.TalkEndTime //This gets the seconds since the last time he spoke. This is useful for a couple of things...
-	if SHIORI3FW.CanTalk == 1 //Scratch that, the above gets the seconds since the last script STARTED. This little counter gets it since it ended.
-	{
-		SinceTalk += 1
-	}
-	else
-	{
-		SinceTalk = 0
-	}
-	--
 	if passsec == 59
  	{
 	 	passsec = 0
@@ -2333,12 +2150,6 @@ Hourcheck
 				love += 0.5
 			}
 		}
-		--
-		if AutoWeather == "ON"
-		{
-			weatherquiet = 1
-			"\![raise,OnDownloadCurWeather]"
-		}
 	}
 	--
 	if passmin <= 9
@@ -2349,10 +2160,31 @@ Hourcheck
 	{
 		displaymin = passmin
 	}
+	--
+	GetSeason
  }
 
 
-
+GetSeason
+{
+	//[Zi]Ok, so first off, apologies to folks in the southern hemisphere. I may add functionality for that in a later update. But to be fair, S probably doesn't know about the concept yet. Second off, I'm going to go by the meteorological seasons instead of astronomical. Why? Well..... one has static dates and the other does not. I can't give him diaogue for things like the solstice and equinox if they change every year. I COULD technically do it, but I'd have to update him every year to change the dates and that sounds terrible. SO. We're just getting a simple system instead.
+	if month > 2 && month < 6
+	{
+		season = "Spring"
+	}
+	elseif month > 5 && month < 9
+	{
+		season = "Summer"
+	}
+	elseif month > 8 && month < 12
+	{
+		season = "Autumn" 
+	}
+	else
+	{
+		season = "Winter"
+	}
+}
 
  
 MikireTalk
@@ -2408,32 +2240,27 @@ EndMikireTalk
 
 OnSurfaceRestore
  {
-	currentlydrinkingw = 0
-	currentlydrinkingm = 0
-	currentlydrinkingj = 0
 	"\1\s[-1]"
 	 --
 	if LV == 0 //Friendship routes
 	{
 		if reference0 == 1040
 		{
-			"\0\s[102]* (Looks like he's done with the drink.)"
-			
+			"\0\s[102]* (Looks like he's done with the drink.)\e"
 		}
 		elseif reference0 == 1050
 		{
-			"\0\s[102]* (Looks like he's done with the drink.)"
-			
+			"\0\s[102]* (Looks like he's done with the drink.)\e"
 		}
 		elseif reference0 == 1060
 		{
 			if RAND(100) < 40 //If less than 40, keep reading his book. Sometimes you get really drawn in, yknow?
 			{
-				"\0\s[1060]"
+				"\0\s[1060]\e"
 			}
 			else
 			{
-				"\0\s[102]* (He stores the book back in his ribcage.)" 
+				"\0\s[102]* (He stores the book back in his ribcage.)\e" 
 			}
 			
 		}
@@ -2443,51 +2270,51 @@ OnSurfaceRestore
 			{
 				if RAND(100) < 40 //If less than 40, keep looking at his phone. They're addictive, you know?
 				{
-					"\0\s[1090]"
+					"\0\s[1090]\e"
 				}
 				else
 				{
 					lookingatphone = 0
-					"\0\s[0]" //normal pose, might do an (idles) thing later
+					"\0\s[0]\e" //normal pose, might do an (idles) thing later
 				}
 			}
 			elseif RAND(100) < 10 //If less than 10, start looking at his phone or at a book
 			{
 				{
 					lookingatphone = 1
-					"\0\s[1090]"
+					"\0\s[1090]\e"
 				}
 				if givenbooks > 0 //if you've given a book he may start reading it
 				{
-				"\0\s[1060]"
+				"\0\s[1060]\e"
 				}
 			}
 			else //Go back to normal
 			{
 				lookingatphone = 0
 				--
-				"\0\s[0]"
-				"\0\s[205]"
-				"\0\s[104]"
-				"\0\s[208]"
-				"\0\s[103]"
+				"\0\s[0]\e"
+				"\0\s[205]\e"
+				"\0\s[104]\e"
+				"\0\s[208]\e"
+				"\0\s[103]\e"
 			}
 		}
 		elseif love >= 20 //getting to know him a little
 		{
-			"\0\s[0]"
-			"\0\s[205]"
-			"\0\s[200]"
-			"\0\s[104]"
-			"\0\s[208]"
+			"\0\s[0]\e"
+			"\0\s[205]\e"
+			"\0\s[200]\e"
+			"\0\s[104]\e"
+			"\0\s[208]\e"
 		}
 		else //He isn't sure what to make of you yet
 		{
-			"\0\s[0]"
-			"\0\s[205]"
-			"\0\s[200]"
-			"\0\s[208]"
-			"\0\s[206]"
+			"\0\s[0]\e"
+			"\0\s[205]\e"
+			"\0\s[200]\e"
+			"\0\s[208]\e"
+			"\0\s[206]\e"
 		}
 	}
 	
@@ -2495,115 +2322,28 @@ OnSurfaceRestore
 	{
 		if LVCheck == 1 //know his secrets
 		{
-			"\s[500]\1\s[-1]"
-			"\s[502]\1\s[-1]"
-			"\s[503]\1\s[-1]"
-			"\s[510]\1\s[-1]"
-			"\s[512]\1\s[-1]"
-			"\s[513]\1\s[-1]"
-			"\s[514]\1\s[-1]"
+			"\s[500]\1\s[-1]\e"
+			"\s[502]\1\s[-1]\e"
+			"\s[503]\1\s[-1]\e"
+			"\s[510]\1\s[-1]\e"
+			"\s[512]\1\s[-1]\e"
+			"\s[513]\1\s[-1]\e"
+			"\s[514]\1\s[-1]\e"
 		}
 		else //Just mean for no reason
 		{
-			"\s[404]\1\s[-1]"
-			"\s[400]\1\s[-1]"
-			"\s[402]\1\s[-1]"
-			"\s[414]\1\s[-1]"
-			"\s[410]\1\s[-1]"
-			"\s[412]\1\s[-1]"
+			"\s[404]\1\s[-1]\e"
+			"\s[400]\1\s[-1]\e"
+			"\s[402]\1\s[-1]\e"
+			"\s[414]\1\s[-1]\e"
+			"\s[410]\1\s[-1]\e"
+			"\s[412]\1\s[-1]\e"
 		
 		}
 	}
-	--
-	if FromDragging == 2 //This SHOULD be taken care of when the balloon closes. If not, it'll happen here.
-	{
-		"\![get,property,OnCheckPosition,currentghost.scope(0).rect]"
-	}
-	else
-	{
-		"\e"
-	}
-}
+ }
 
-OnCheckPosition //Checking his position on the screen. This'll be called somewhere in RandomTalk.
-{
-	XCoord = TOINT(reference0[0])
-	YCoord = TOINT(reference0[1])
-	XCoord = (XCoord + 115) //S's frames are 230 long, so this puts the coord in the middle of hit hitbox
-	YCoord = (YCoord + 135) //Same here but with Y
-	if XCoord < 0
-	{
-		NewXMonitor = 2
-	}
-	elseif XCoord > displaywidth
-	{
-		NewXMonitor = 2
-	}
-	else
-	{
-		NewXMonitor = 1
-	}
-	--
-	if YCoord > displayheight
-	{
-		NewYMonitor = 2
-	}
-	elseif YCoord < 0
-	{
-		NewYMonitor = 2
-	}
-	elseif YCoord < (displayheight / 2)
-	{
-		NewYMonitor = 1
-	}
-	else
-	{
-		NewYMonitor = 1
-	}
-	--
-	if Dragged > 5
-	{
-		"\0\s[106]Kiddo,\w4 could you cut that out please?\w8\w8\s[107] I'm starting to get dizzy."
-		"\0\s[107]Kiddo,\w4 can you stop moving me around so much?\w8\w8\s[106] It's pretty disorienting moving so quickly..."
-	}
-	elseif FromDragging != 2
-	{
-		if NewXMonitor != CurrentXMonitor || NewYMonitor != CurrentYMonitor //If you've dragged him onto a different monitor
-		{
-			if NewXMonitor == 1 && NewYMonitor == 1
-			{
-				"\0\s[0]Back over here,\w4 huh?\w8\w8\s[104] Ok.\w8\w8\s[101] What do you even use a second monitor for,\w4 anyways?"
-			}
-			elseif NewXMonitor == 2 || NewYMonitor == 2
-			{
-				"\0\s[110]You've got a whole other monitor?\w8\w8\s[107] I guess this must not be a laptop."
-			}
-		}
-		else //If you've dragged him around but he's on the same monitor
-		{
-			if CurrentYPos > (displayheight / 2) && YCoord < (displayheight / 2)
-			{
-				"\0\s[110]Whoa.\w8\w8\s[106] Uh,\w4 I guess I'm up here now?\w8\w8\s[208] This is kinda weird..."
-			}
-			elseif CurrentYPos < (displayheight / 2) && YCoord > (displayheight / 2)
-			{
-				"\0\s[107]Whew.\w8\w8\s[106] I guess it's kinda neat that I can float while I'm here,\w4 but I'd much rather stay on the ground."
-			}
-			elseif (XCoord - CurrentXPos) < -(displaywidth / 5) || (XCoord - CurrentXPos) > (displaywidth / 5)
-			{
-				"\0\s[110]Oh,\w4 am I in your way %(username)?\w8\w8\s[106] Sorry about that."
-				"\0\s[106]I hope I'm not getting in your way,\w4 %(username)."
-			}
-		}
-	}
-	--
-	FromDragging = 0
-	CurrentXMonitor = NewXMonitor
-	CurrentYMonitor = NewYMonitor
-	CurrentXPos = XCoord
-	CurrentYPos = YCoord
-	"\e"
-}
+
 
 OnKeyPress
 {
@@ -2625,9 +2365,5 @@ OnKeyPress
 		{
 			OnWhatPlayer
 		}
-	}
-	elseif reference0 == "v" && username == "Zi" && debug == 1
-	{
-		TestVariable
 	}
 }

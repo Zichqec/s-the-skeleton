@@ -1,5 +1,12 @@
 //---------------------------Communication--------------------------
 
+//Alright, after many years, I've finally figured out what the deal is with this file. Basically, it handles inter-ghost communication. Some ghosts have a feature where they will speak to your ghost, usually saying "hello" or "hi" or something like that. This file mostly handles how your ghost will reply when another ghost talks to them like that. While not every ghost has that functionality, you might as well put in one line or two just in case. It won't take you any time at all.
+//If you're interested in having your ghost speak to other ghosts through a menu option or something like that, I think that's a bit outside the scope of this template for now, but I'm sure I'll eventually write up how to do it on the walkthrough page in one of the coding sections.
+//Some of you may be wondering about the parts for talking to the user. I can't track this down anywhere in the files, and I think it refers to a deprecated functionality to have the user teach your ghost things via the teach box. Basically just ignore it, it will probably never come up.
+
+//As usual, refer to the walkthrough page for info on Sakurascript formatting and all that!
+
+
 //--OnCommunicate
 
 //OnCommunicate is called when your ghost is either targeted by another ghost for a conversation, or when your ghost is targeting another ghost for conversation. There's no need to touch any of this.
@@ -90,11 +97,6 @@ ReplyToGhost //I'll..... add a friendship check to this later......... or maybe 
 					res_reference0 = "Temmie"
 					"\0\s[104]Hello Temmie!\w8\w8\e"
 				}
-				when "MiniDev"
-				{
-					res_reference0 = "MiniDev"
-					"\e GetMiniDevStats01"
-				}
 				others //======Any ghost he doesn't know========
 				{
 					AlreadyResponded = 1
@@ -174,10 +176,11 @@ ReplyToGhost //I'll..... add a friendship check to this later......... or maybe 
 				"\e %(passhour),%(thesplit),%(love),%(LV),%(pethighscore),%(totalpets), SGiveStats1"
 				res_reference0 = "Dusty"
 			}
-			elseif "GiveCoords01" _in_ ConvoTag
+			/*elseif "GetSStats2" _in_ ConvoTag
 			{
-				"\![get,property,OnFacingCoords,currentghost.scope(0).rect]"
-			}
+				"\e SGiveStats2"
+				res_reference0 = "Dusty"
+			}*/
 			
 			//---This is nicer than the void isn't it?---
 			elseif "NicerThanVoidD01" _in_ ConvoTag
@@ -284,32 +287,6 @@ ReplyToGhost //I'll..... add a friendship check to this later......... or maybe 
 			res_reference0 = ""
 			"\C\0\n\n\s[106]Sorry,\w4 I don't have any muns or flakes with me.\w8\w8\s[104] Maybe next time, huh?\e"
 		}
-		elseif reference0 == "MiniDev" //=============Conversations with MiniDev=================
-		{
-			if "GetMiniDevStats02" _in_ ConvoTag
-			{
-				if MiniDevSOutf > 1 //If he's already noticed MiniDev wearing his outfit he won't do it again
-				{
-					res_reference0 = ""
-					"\0\s[104]Hello MiniDev.\w8\w8\e"
-				}
-				else
-				{
-					MiniDevSOutf = ConvoTag[1]
-					if MiniDevSOutf == 1 //If MiniDev is dressed like S
-					{
-						res_reference0 = "MiniDev"
-						MiniDevSOutf = 2
-						"\0\s[208]Is he copying me..?\e GetMiniDevStats03 OutfitUnlock"
-					}
-					else //If MiniDev is wearing anything else
-					{
-						res_reference0 = ""
-						"\0\s[104]Hi MiniDev.\w8\w8\e"
-					}
-				}
-			}
-		} //===================End convs with MiniDev
 		else //=========Ghosts he doesn't know==========
 		{
 			if AlreadyResponded == 0
@@ -326,32 +303,4 @@ ReplyToGhost //I'll..... add a friendship check to this later......... or maybe 
 			}
 		}
 	}
-}
-
-
-
-
-
-OnFacingCoords
-{
-	res_reference0 = "Dusty"
-	SsXCoord = reference0[0]
-	SsXCoord = TOINT(SsXCoord)
-
-	DsXCoord = ConvoTag[1]
-	DsXCoord = TOINT(DsXCoord)
-	if DsXCoord > SsXCoord
-	{
-		"\0\s[300]You're to my left."
-	}
-	elseif DsXCoord < SsXCoord
-	{
-		"\0\s[205]You're to my right."
-	}
-	else
-	{
-		"\0\s[106]We're overlapping."
-	}
-	--
-	"\e GiveCoords02,%(reference0)"
 }

@@ -1,4 +1,10 @@
 ﻿//---------------------------Mouse Functions--------------------------
+//As you've probably guessed, this .dic file has to do with mouse functions. This includes the petting feature and what happens when you double click your ghost.
+//As a note, this .dic file isn't strictly necessary - I'm pretty sure you can just clear the file and it won't hurt your ghost any, it'll just make it so you can't pet or double click them. And if you're interested in only petting or double clicking one character, all you have to do is delete the chunks of code for the other character you want to be uninvolved. However, I'm assuming most people making ghosts want to make their ghosts pettable and clickable, so this will cover the messages for both.
+
+//Make sure to read the walkthrough page (http://www.ashido.com/ukagaka/walkthrough.html) for more details about how to properly format ghost dialogue!
+//I will reiterate that you should be editing these in Notepad++, and in particular, you should set the Language to C (or Java I guess) to properly highlight all the text. It will make things A LOT EASIER for you, trust me! It will also help you keep track of your brackets in case you forget some. If you click on a line with a bracket in Notepad++, it should highlight where the other bracket ends, or turn purple if there's no finishing bracket (which you should definitely fix!)
+//It will also highlight my commented lines in green, so you'll know where they are. Any line beginning with // is a commented line that the code will not read. It's just for your reference!
 
 
 //--OnMouseMove
@@ -131,14 +137,16 @@ MouseMoveKero
 OnMouseDoubleClick
 {
 	//---- like with the OnMouseMove function above, this determines who the user is clicking on.
-	
- 	if reference3 == 0 && reference5 == 0 //if the character is 0, aka your main character. reference5 is which mouse button is being clicked, in this case 0 is a left click
+	if reference5 == 0
 	{
-		MouseDoubleClickSakura
- 	}
-	else
- 	{
- 		MouseDoubleClickKero
+		if reference3 == 0 //if the character is 0, aka your main character
+		{
+			MouseDoubleClickSakura
+		}
+		else
+		{
+			MouseDoubleClickKero
+		}
 	}
 }
 
@@ -223,6 +231,7 @@ MouseDoubleClickSakura
 		}
 	}
  }
+
 
 SureAboutThat
 {
@@ -310,8 +319,6 @@ PetHead
 			{
 				"\0\s[106]Kiddo,\w4 you're gonna wear a hole in my skull at this rate."
 				"\0\s[106]You feeling alright,\w4 kiddo?\w8\w8 Do you need a hug?\w8\w8 You can just ask and I'll give you a hug."
-				"\0\s[107]Are you going for a high score or something?"
-				"\0\s[107]Are you going for a high score or something?"
 			}
 			elseif continuousstroke > 100
 			{
@@ -541,66 +548,22 @@ SnagCracks
 	}
 }
 
-OnMouseDown //Boop!
-{
-	if reference5 == 0 //Reference5 is which mouse key is being clicked. 0 is a left click.
-	{
-		if LV == 0
-		{
-			if reference4 == "Face" && reference3 == 0
-			{
-				totalboops += 1
-				"\0\s[110]* (You boop his nose!)\w8\w8\w8\n\n"
-				--
-				"\s[106]"
-				"\s[107]"
-				--
-				"...Ok??\e"
-				"...Um,\w4 thanks?\e"
-				"...What was that for??\e"
-				"...Alright,\w4 I guess?\e"
-			}
-		}
-	}
-}
-
-OnMouseDragEnd
+/*OnMouseDown
 {
 	if LV == 0
 	{
-		//if SHIORI3FW.CanTalk == 1
-		if Dragged > 5
+		if reference4 == "Face" && reference3 == 0
 		{
-			"\![get,property,OnCheckPosition,currentghost.scope(0).rect]"
+			totalboops += 1
+			"\0\s[110]* (You boop his nose!)\w8\w8\w8\n\n"
+			--
+			"\s[106]"
+			"\s[107]"
+			--
+			"...Ok??\e"
+			"...Um,\w4 thanks?\e"
+			"...What was that for??\e"
+			"...Alright,\w4 I guess?\e"
 		}
-		elseif SinceTalk > 2 && mikireflag != 1 && FromDragging != 2 //SinceTalk is set up in aitalk, it's the seconds since he stopped talking. mikireflag is to do with him being off screen. This ensures that that dialogue doesnt get interrupted.
-		{
-			"\![get,property,OnCheckPosition,currentghost.scope(0).rect]" //This checks his current coordinates to see if you've dragged him onto a new screen
-			FromDragging = 1
-		}
-		else
-		{
-			//OnUpdateCoords //Even if he cant say anything, he'll at least update his position so he knows if you're moving him right or left
-			FromDragging = 2
-		}
-		--
-		Dragged += 1
 	}
-}
-
-
-
-OnUpdateMonitors
-{
-	CurrentXMonitor = NewXMonitor
-	CurrentYMonitor = NewYMonitor
-	CurrentXPos = XCoord
-	CurrentYPos = YCoord
-	FromDragging = 0
-}
-
-OnUpdateCoords //Just should move the coord getting and whatnot into here..... tho wait I can't do this lol. Hrm. Ok I'll move this over to the other thing then...
-{
-	CurrentXPos = XCoord
-	CurrentYPos = YCoord
-}
+}*/

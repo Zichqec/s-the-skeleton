@@ -5,17 +5,6 @@
 
 //So where does this file come in? Well, you can define your own envelopes if you want! Which means essentially that you can create a list of items and attach it to almost any word you want. Here's an example.
 
-
-
-
-
-
-
-
-
-
-
-
 ingredients
 {
 	"cilantro"
@@ -113,10 +102,10 @@ family
 usersfolder
 {
 	"start bar"
-	"Documents folder"
-	"Pictures folder"
-	"Music folder"
-	"Games folder"
+	"documents folder"
+	"pictures folder"
+	"music folder"
+	"games folder"
 }
 
 //This envelope in particular I think is fun. You can use this in dialogue to pretend like your ghost is looking through your user's files!
@@ -288,154 +277,6 @@ displayweekday
 		"Saturday"
 	}
 }
-
-displaymonth
-{
-	if month == 1
-	{
-		"January"
-	}
-	elseif month == 2
-	{
-		"February"
-	}
-	elseif month == 3
-	{
-		"March"
-	}
-	elseif month == 4
-	{
-		"April"
-	}
-	elseif month == 5
-	{
-		"May"
-	}
-	elseif month == 6
-	{
-		"June"
-	}
-	elseif month == 7
-	{
-		"July"
-	}
-	elseif month == 8
-	{
-		"August"
-	}
-	elseif month == 9
-	{
-		"September"
-	}
-	elseif month == 10
-	{
-		"October"
-	}
-	elseif month == 11
-	{
-		"November"
-	}
-	else
-	{
-		"December"
-	}
-}
-
-//This is figuring out what day of the week it is. Leave it alone.
-wd
-{
-	if weekday == 0
-	{"Sun"}
-	elseif weekday == 1
-	{"Mon"}
-	elseif weekday == 2
-	{"Tue"}
-	elseif weekday == 3
-	{"Wed"}
-	elseif weekday == 4
-	{"Thu"}
-	elseif weekday == 5
-	{"Fri"}
-	else
-	{"Sat"}
-}
-
-//This is finding out whether it's AM or PM. Leave it alone.
-ap
-{
- 	if hour >= 0 && hour <= 11
-	{
-		"AM"
-	}
- 	else
-	{
-		"PM"
-	}
-}
-
-//This is figuring out the minute. Leave it alone.
-Getnowmin
-{
-	if minute >= 0 && minute <=9
-		{
-			"0%(minute)"
-		}
-	else
-		{
-			"%(minute)"
-		}
-}
-
-//This is figuring out the hour. Leave it alone.
-Getnowhour
-{
-	if hour12 >= 0 && hour12 <=9
-	{
-		"0%(hour12)"
-	}
-	else
-	{
-		"%(hour12)"
-	}
-}
-
-season
-{
-	//[Zi]Ok, so first off, apologies to folks in the southern hemisphere. I may add functionality for that in a later update. But to be fair, S probably doesn't know about the concept yet. Second off, I'm going to go by the meteorological seasons instead of astronomical. Why? Well..... one has static dates and the other does not. I can't give him diaogue for things like the solstice and equinox if they change every year. I COULD technically do it, but I'd have to update him every year to change the dates and that sounds terrible. SO. We're just getting a simple system instead.
-	if month > 2 && month < 6
-	{
-		"Spring"
-	}
-	elseif month > 5 && month < 9
-	{
-		"Summer"
-	}
-	elseif month > 8 && month < 12
-	{
-		"Autumn" 
-	}
-	else
-	{
-		"Winter"
-	}
-}
-
-loadingmoon
-{
-	"\_b[img\Moon0%(loadmoonnum),inline,--option=use_self_alpha]\w4\c"
-	--
-	if loadmoonnum < 8
-	{
-		loadmoonnum += 1
-	}
-	else
-	{
-		loadmoonnum = 1
-	}
-}
-
-
-
  //**** Don't touch this ***************************************************************
  //This is code stuff and nothing for you to worry about, just save the .dic and move on! You're done!
  
@@ -548,114 +389,5 @@ StSfdad
 	else
 	{
 		"dad"
-	}
-}
-
-
-
-
-
-
-
-//Moved this over to word.dic. This isn't an envelope, but this should keep it out of the way but also easy to reach for setting variables...
-
-//Thank you again to Levidre for this, this makes my life so much easier. This function can be called with Raise at the end of any random piece of dialogue. \!raise,OnDialogueVariables,value]. The word value there can be replaced with whatever I want, letting me test to see which variable should be set. This solves SO MUCH. I KNEW there had to be a way to make this work easier.
-OnDialogueVariables
-{
-	if reference0 == "8kids"
-	{
-		thatsanoddnumber = 1
-	}
-	elseif reference0 == "learntimeline"
-	{
-		askedabouttimelines = 1
-	}
-	elseif reference0 == "learnfamily"
-	{
-		knowaboutfamily = 1
-	}
-	elseif reference0 == "complimentdusty"
-	{
-		specialcommu = 1
-		complimentaboutdusty = 1
-		OnCommunicate //This'll put him over into communication without setting the flag for him talking first
-	}
-	elseif reference0 == "gummyfrogs"
-	{
-		love -= 1 //not actually taking a point away, just making it so you get net 0 if you get this option
-	}
-	elseif reference0 == "getonphone"
-	{
-		lookingatphone = 1
-	}
-	elseif reference0 == "getoffphone"
-	{
-		lookingatphone = 0
-	}
-	elseif reference0 == "discoverkit"
-	{
-		knowaboutkit = 1
-	}
-	elseif reference0 == "discoversmol"
-	{
-		knowaboutsmol = 1
-	}
-	elseif reference0 == "discoverbirdy"
-	{
-		knowaboutbirdy = 1
-	}
-	elseif reference0 == "discoversorrel"
-	{
-		knowaboutsorrel = 1
-	}
-	elseif reference0 == "discoverpmd"
-	{
-		knowaboutpmd = 1
-	}
-	elseif reference0 == "discoverbender"
-	{
-		knowaboutbender = 1
-	}
-	elseif reference0 == "discovernine"
-	{
-		knowaboutnine = 1
-	}
-	elseif reference0 == "discoverserif"
-	{
-		knowaboutserif = 1
-	}
-	elseif reference0 == "discoverecho"
-	{
-		knowaboutecho = 1
-	}
-	elseif reference0 == "discoverice"
-	{
-		knowaboutice = 1
-	}
-	elseif reference0 == "discoveromega"
-	{
-		knowaboutomega = 1
-	}
-	elseif reference0 == "dustyspaceandtime"
-	{
-		specialcommu = 1
-		dustyspaceandtime = 1
-		OnCommunicate
-	}
-	elseif reference0 == "abbiisblind"
-	{
-		abbiblind = 1
-	}
-	elseif reference0 == "getadrinkw"
-	{
-		currentlydrinkingw = 1
-	}
-	elseif reference0 == "getadrinkj"
-	{
-		currentlydrinkingj = 1
-	}
-	elseif reference0 == "getadrinkm"
-	{
-		currentlydrinkingm = 1
 	}
 }
