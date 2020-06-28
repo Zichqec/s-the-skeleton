@@ -116,7 +116,7 @@ OnFirstBoot
 	AzuraSongList = "-"
 	speech = ""
 	recentpets = 0
-	autoupdate = "OFF"
+	autoupdate = "ON"
 	//-----update 1.1-----
 	DeviceMemories = ""
 	DeviceList = '-' //start with -
@@ -151,6 +151,8 @@ OnFirstBoot
 	abbiblind = 0
 	nowscale = 100
 	changedscaling = 0
+	//-----Patch 1.1.2-----
+	askedalready = 0
 	
 	updateavailable = 0
 	booting = 1 //This is here so that when you tell him your name the first time, he'll say the appropriate line.

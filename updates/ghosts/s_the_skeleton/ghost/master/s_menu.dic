@@ -185,6 +185,7 @@ Select.updatelater
 		
 	}
 	--
+	askedalready = 1
 	updateavailable = 0 //So that he doesn't keep telling the user.
 }
 

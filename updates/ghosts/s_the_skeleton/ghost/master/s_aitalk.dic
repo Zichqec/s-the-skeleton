@@ -2069,6 +2069,12 @@ OnMinuteChange
 		{
 			hugged -= 1
 		}
+		--
+		if autoupdate == "ON" && askedalready == 0 && updateavailable == 0
+		{
+			"\![updatebymyself,checkonly]"
+		}
+		--
 		if changedscaling > 1 //if it's above 1 you've changed it recently, but it never goes under 1. If it's at least 1, you've changed it at least once.
 		{
 			changedscaling = 1
@@ -2077,11 +2083,7 @@ OnMinuteChange
 		if hour == 0
 		{
 			"\0\s[0]* (It's midnight.)\e"
-			--
-			if autoupdate == "ON"
-			{
-				"\![updatebymyself,checkonly]"
-			}
+			askedalready = 0 //resets him asking about updates
 		}
 		elseif hour == 12
 		{
