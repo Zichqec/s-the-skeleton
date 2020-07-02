@@ -1484,39 +1484,39 @@ OnDeviceArrival //This will activate any time the user puts a USB into their com
 	
 	if SeePC == "ON" && LV == 0
 	{
-		_device = reference[0][0,","] + reference[0][1,","] + reference[0][2,","] + reference[0][4,","]//reference0 is a big output of all the information about what you plugged in, this'll make it lowercase so that I can check it in the ifs easier. || This big thing splits that device name, and removes the 4th section (3rd if you're counting from 0) because the 4th section changes if the device is bluetooth. Nothing of value is lost here, he should still be able to recognize the device from the other sections. Many thanks to GrayArea and Firefright for helping me on this one!
-		_device = TOLOWER(_device) 
+		device = reference[0][0,","] + reference[0][1,","] + reference[0][2,","] + reference[0][4,","]//reference0 is a big output of all the information about what you plugged in, this'll make it lowercase so that I can check it in the ifs easier. || This big thing splits that device name, and removes the 4th section (3rd if you're counting from 0) because the 4th section changes if the device is bluetooth. Nothing of value is lost here, he should still be able to recognize the device from the other sections. Many thanks to GrayArea and Firefright for helping me on this one!
+		device = TOLOWER(device) 
 		
-		if "wacom" _in_ "%(_device)" //Does wacom make things that aren't tablets? I've not heard of such a thing, so he'll assume it's a tablet
+		if "wacom" _in_ "%(device)" //Does wacom make things that aren't tablets? I've not heard of such a thing, so he'll assume it's a tablet
 		{
 			"\s[110]Oh,\w4 you plugged in a tablet?\w8\w8\s[103] Are you an artist, %(username)?\e"
 		}
-		elseif "tablet" _in_ "%(_device)" //If it says it's a tablet
+		elseif "tablet" _in_ "%(device)" //If it says it's a tablet
 		{
 			"\s[110]Oh,\w4 you plugged in a tablet?\w8\w8\s[103] Are you an artist, %(username)?\e"
 		}
-		elseif "mass storage" _in_ "%(_device)" //Every USB I've ever used has had "mass storage device" in the name somewhere... at least that I can remember
+		elseif "mass storage" _in_ "%(device)" //Every USB I've ever used has had "mass storage device" in the name somewhere... at least that I can remember
 		{
 			"\0\s[110]Oh,\w4 is that one of those 'jump drives' my kids were telling me about?\w8\w8\s[104] Are you moving some files around?\w8\w8\n\n\s[1070].\w4.\w4.\w4\s[202]You're not planning to move me around, are you?\e"
 		}
-		elseif "webcam" _in_ "%(_device)"
+		elseif "webcam" _in_ "%(device)"
 		{
 			"\0\s[110]Oh,\w4 a webcam?\w8\w8\s[104] Are you planning on chatting with someone?\e"
 		}
 		else
 		{
-			if "%(_device)" _in_ DeviceList
+			if "%(device)" _in_ DeviceList
 			{
 				"\0\s[104]Oh hey, I've seen this device before,\w4 you were using it before weren't you?\w8\w8\s[0] What's it for, anyways?\e"
 			}
-			elseif "%(_device)" _in_ DeviceMemories
+			elseif "%(device)" _in_ DeviceMemories
 			{
-				DeviceList += "%(_device)\n-"
+				DeviceList += "%(device)\n-"
 				"\0\s[1070]Hmm...\w8\w8 have I seen this one before..?\w8\w8\s[206] I'm not sure...\e"
 			}
 			else
 			{
-				DeviceList += "%(_device)\n-"
+				DeviceList += "%(device)\n-"
 				"\s[110]Oh, you've plugged in something new?\w8\w8\s[107] Computers sure do have a lot of little devices, don't they?\e"
 			}
 		}
@@ -1527,16 +1527,16 @@ OnDeviceRemove
 {
 	if SeePC == "ON" && LV == 0
 	{
-		_device = TOLOWER(reference0)
-		if "wacom" _in_ "%(_device)"
+		device = TOLOWER(reference0)
+		if "wacom" _in_ "%(device)"
 		{
 			"\0\s[0]Done drawing for now?\w8\w8\s[104] Make sure to store your tablet properly so the cord doesn't get damaged.\e"
 		}
-		elseif "tablet" _in_ "%(_device)"
+		elseif "tablet" _in_ "%(device)"
 		{
 			"\0\s[0]Done drawing for now?\w8\w8\s[104] Make sure to store your tablet properly so the cord doesn't get damaged.\e"
 		}
-		elseif "mass storage" _in_ "%(_device)"
+		elseif "mass storage" _in_ "%(device)"
 		{
 			""
 		}
