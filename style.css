@@ -207,3 +207,14 @@ ul
     margin-left: 10%;
     margin-right: 10%;
 }
+
+pre
+{
+    white-space: pre-wrap;
+    width: 99%;
+    overflow: auto;
+    padding: 0;
+    margin: 0;
+}
+
+  /*Found here https://www.dlitz.net/stuff/pre-tag-overflow/ and the word wrap here https://mediatemple.net/blog/design-creative/considerations-for-styling-the-pre-tag/ Thanks so much this is so helpful*/

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zi's Ukagaka Hub</title>
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+</head>
+
+<body>
+    <nav>
+        <div id="navbar" class="topnav">
+            <a href="index.html" class="navlink">Home</a>
+            <a href="s_the_skeleton.html" class="navlink">S the Skeleton</a>
+            <a href="dusty.html" class="navlink">Dusty</a>
+            <a href="iea.html" class="navlink">Iea</a>
+            <a href="guard.html" class="navlink">Skryim Guard</a>
+            <a href="balloons.html" class="navlink">Balloons</a>
+            <a href="other.html" class="navlink">Other</a>
+        </div>
+    </nav>
+    <article>
+        <div style="width:50%;overflow:auto"></div>
+     <pre>
+         
+        //Written by Zichqec, with help from Nimanao
+        OnStartHangman //Sets up variables for the game
+        {
+            wordtoguess = hangmanwords
+            guessedletters = ""
+            incorrectletters = ""
+            displayword = ""
+            lettersleft = 0
+            maxwrongguesses = 6 //If you want to change how many wrong guesses the user can have, do so here
+            guessingall = 0
+            Hangman
+        }
+        
+        Hangman //Main window of the game
+        {
+            //Many thanks to Nimanao for helping me figure this out. This for loop runs until it's displayed every letter in the chosen word.
+            //If the letter has been guessed, it displays the letter. Otherwise, it displays an underscore and a space(without the space it appears as an unbroken line, which isn't great for Hangman).
+            //The STRLEN line gets the length of the word so it knows how long to keep going. Your words can be any length!
+            //The SUBSTR grabs single letters out of the word, so that it knows what to check for and what to display.
+            //If the letter is a space it'll automatically display it so the user doesn't have to guess spaces
+        
+            for _i = 0; _i < STRLEN(wordtoguess); _i++
+            {
+                _letter = SUBSTR(wordtoguess,_i,1)
+                _letter = TOLOWER(_letter)
+                if _letter _in_ guessedletters || _letter == " " 	 
+         {
+                    displayword += "%(SUBSTR(wordtoguess,_i,1))"
+                }
+                else
+                {
+                    displayword += "_ "
+                    lettersleft += 1 //For every blank letter, add 1 to this variable
+                }
+            }
+            --
+            if (STRLEN(incorrectletters) / 2) >= maxwrongguesses //If the user is out of guesses. The STRLEN bit is the length of the incorrect letters the player has guessed so far.
+            //Since that variable contains spaces, we divide it by 2 to get the actual amount of letters that have been guessed.
+            //If you want the user to get more tries, adjust the starting value of maxwrongguesses when the game starts.
+            {
+                "\0\s[0]Sorry,\w4 you lost.\w8\w8\s[0] The word was %(wordtoguess).\n\n\![*]\q[Play again,OnStartHangman]\n\![*]\q[I'm done,cancelnodialogue]\e"
+            }
+            elseif lettersleft > 0 //If the user still has guesses and there are still letters unknown
+            {
+                _mistakesleft = (maxwrongguesses - (STRLEN(incorrectletters) / 2))//Again with dividing the amount of incorrect letters by 2.
+                //The display of how many mistakes are left will automatically be handled for you, just change the values that are set when the game starts.
+                mistakesmarker = ""
+        
+                "\0\_q\*\![set,balloontimeout,0]\![set,autoscroll,disable]%(displayword)\n\nGuessed letters: %(incorrectletters)\n\nMistakes left:  \![open,inputbox,OnGuessHangman,-1]"
+         //the \* here stops anything from interrupting the balloon (unless it's input by the user), and the balloontimeout tag is set to 0 to stop the balloon from timing out.
+                --
+                for _i = 0; _i < _mistakesleft; _i++ //I debated whether to add this or not, but it's too neat to leave out.
+                //If your balloon doesn't have good choice markers for this or something, I'll add in the original code that just displays a number below.
+                //This for loop counts how many mistakes the user can still make, and for each one adds in a choice marker.
+                {
+                    mistakesmarker += "\![*]"
+                }
+                --
+                "%(mistakesmarker)"
+                --
+                if lettersleft > 1
+                {
+                "\n\n\![*]\q[Guess the whole word,GuessWholeWord]"
+                }
+                --
+                "\n\![*]\q[Open the input box again,HangmanInput]\n\n\![*]\q[Give up,HangmanQuit]\e"
+            }
+            else //If lettersleft is still 0 after the for loop is done, all the letters are filled in! You win.
+            {
+                "\0\s[0]Well played!\w8\w8\s[0] The word was %(wordtoguess).\n\n\![*]\q[Play again,OnStartHangman]\n\![*]\q[I'm done,cancelnodialogue]\e"
+            }
+        }
+        
+        OnGuessHangman //When the user has put in a guess
+        {
+            if guessingall == 0 //Normal guesses
+            {
+                reference0 = TOLOWER(reference0) //Makes the user's guess lowercase so we don't have to test for both caps and lower
+                wordtoguessL = TOLOWER(wordtoguess) //Makes the word being guessed lowercase, so we can compare with the above
+                displayword = "" //Resets the display word from the loop so it doesn't keep getting longer
+                
+                if STRLEN(reference0) > 1 //Checks if the user's guess is longer than 1 letter
+                {
+                    lettersleft = 0
+                    "\0\s[0]Single letters only,\w4 please.\x"
+                }
+                elseif reference0 _in_ guessedletters //If they've already guessed that letter
+                {
+                    lettersleft = 0
+                    "\0\s[0]You already guessed that.\w8\s[0] Try again.\x"
+                }
+                elseif reference0 _in_ wordtoguessL //If their guess is in the word
+                {
+                    lettersleft = 0
+                    guessedletters += reference0 //This adds the letter to guessedletters so you can't guess it again
+                }
+                else //If they guess something that isn't in the word
+                {
+                    lettersleft = 0
+                    guessedletters += reference0
+                    incorrectletters += "%(reference0) " //This will be used to display the letters you've guessed incorrectly
+                }
+                --
+                Hangman //No matter if your answer is valid or not, we go back to the Hangman function
+            }
+            else //If the user is attempting to guess the whole word
+            {
+                reference0 = TOLOWER(reference0)
+                wordtoguessL = TOLOWER(wordtoguess)
+                
+                if reference0 == wordtoguessL //If you guess the word correctly
+                {
+                    "\0\s[0]That's correct,\w4 the word was %(wordtoguess).\w8\w8\s[0] Congratulations!\w8\w8\s[0] You guessed it with %(lettersleft) letters still blank."
+                    --
+                    "\n\n\![*]\q[Play again,OnStartHangman]\n\![*]\q[I'm done,cancelnodialogue]\e"
+                }
+                else //If your guess is incorrect. Instant lose. You can comment out that part if you don't like it.
+                {
+                    "\0\s[0]Sorry,\w4 that is incorrect.\w8\w8\s[0] The word was %(wordtoguess).\n\n\![*]\q[Play again,OnStartHangman]\n\![*]\q[I'm done,cancelnodialogue]\e"
+                }
+            }
+        }
+        
+        Select.GuessWholeWord //When the user decides to guess the whole word.
+        //Note that the open input box just plays this dialogue again, so it closes and opens the input box again at the start of the dialogue.
+        {
+            guessingall = 1 //So the input box picks the correct responses
+            "\0\*\![set,balloontimeout,0]\![close,inputbox,OnGuessHangman]\![open,inputbox,OnGuessHangman]"
+            --
+            "\s[0]The word so far is\n%(displayword).\w8\w8\n\nYou've guessed these letters: %(incorrectletters)\w8\n\nWhat is your answer?"
+            --
+            "\n\n\![*]\q[Open the input box again,GuessWholeWord]\n\n\![*]\q[Give up,HangmanQuit]\e"
+        }
+        
+        Select.HangmanInput //If the user accidentally closes the input box, they can choose this.
+        //It'll close the input box if one is open, then open it again by simply running the Hangman function again.
+        {
+            displayword = "" //Have to reset the displayword, otherwise it just gets longer and longer
+            lettersleft = 0
+            "\![close,inputbox,OnGuessHangman]"
+            --
+            Hangman
+        }
+        
+        Select.HangmanQuit //When the user chooses to give up. You can have this direct back to any menu you choose, or simply close the balloon entirely.
+        {
+            "\0\![close,inputbox,OnGuessHangman]\s[0]Too bad.\w8\w8 The word was %(wordtoguess).\x"
+            --
+            MenuRun
+        }
+        
+        hangmanwords //Words it can choose. Expand this as far as you like! It's much more fun if you add a lot of words to this.
+        //If you have other envelopes full of words for your ghost, you could even just stick those in here! You can also use phrases, whatever you want.
+        {
+            "Hangman"
+            "Girl"
+            "Triangle"
+            "Rhythm"
+            "Jazz"
+            "Skeletons"
+            "Nyctophobia"
+            "Neophyte"
+            "Lenticular"
+            "Ukagaka"
+            "Ghost"
+        }
+        
+     </pre>
+    </div>
+    </article>
+
+    <footer>
+        More from Zichqec<br>
+        <a href="https://www.deviantart.com/zichqec"class="footlink">Deviantart</a> | 
+        <a href="https://zichqec.tumblr.com/" class="footlink">Tumblr</a> | 
+        <a href="https://twitter.com/Zichqec" class="footlink">Twitter</a> | 
+        <a href="https://toyhou.se/Zichqec" class="footlink">Toyhouse</a> |
+        <a href="https://www.youtube.com/channel/UC_9BGh45mIL3b3riZ4aTRIA" class="footlink">Youtube</a>
+    </footer>
+</body>
+
+</html>
