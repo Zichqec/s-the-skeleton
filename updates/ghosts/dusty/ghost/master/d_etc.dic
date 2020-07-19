@@ -637,6 +637,10 @@ OnUpdateFailure
 		{
 			"\0\s[606]The MD5 values don't match on file %(Update_Remaining),\w4 you should let Zichqec know about that."
 		}
+		elseif reference0 == "artificial"
+		{
+			"\0\s[606]Oh##\w4 did you change your mind?]"
+		}
 		else //for other errors
 		{
 			"\0\s[606]Sorry,\w4 I got an error: '%(reference0)'."
@@ -653,6 +657,10 @@ OnUpdateFailure
 		elseif reference0 == "md5 miss"
 		{
 			"\0\s[106]The MD5 values don't match on file %(Update_Remaining),\w4 you should let Zichqec know about that."
+		}
+		elseif reference0 == "artificial"
+		{
+			"\0\s[106]Oh##\w4 did you change your mind?]"
 		}
 		else //for other errors
 		{
@@ -879,7 +887,7 @@ OnUpdatedataCreating
 {
 	if holdingObsidian == 1
 	{
-		"\0\s[604]%(wdc)"
+		"\0\s[600]%(wdc)"
 	}
 	else
 	{
@@ -894,7 +902,7 @@ OnUpdatedataCreated
 {
 	if holdingObsidian == 1
 	{
-		"\0\s[604]%(wdc)"
+		"\0\s[600]%(wdc)"
 	}
 	else
 	{
@@ -910,7 +918,7 @@ OnNarCreating
 {
 	if holdingObsidian == 1
 	{
-		"\0\s[604]%(wdc)"
+		"\0\s[600]%(wdc)"
 	}
 	else
 	{
@@ -925,7 +933,7 @@ OnNarCreated
 {
 	if holdingObsidian == 1
 	{
-		"\0\s[604]%(wdc)%(t)"
+		"\0\s[600]%(wdc)%(t)"
 	}
 	else
 	{
