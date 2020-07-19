@@ -18,7 +18,7 @@ On_username
 
 On_homeurl
 {
-	"https://stheskeleton.usite.pro/zi_dusty/"
+	"https://zichqec.github.io/s-the-skeleton/updates/ghosts/dusty"
 }
 
 
@@ -34,6 +34,14 @@ On_recommendrootbutton.caption
 
 On_sakura.recommendsites
 {
+	"Zi's Ukagaka Hub"
+	--
+	"%ASC(1)https://zichqec.github.io/s-the-skeleton/index.html%ASC(2)"
+	--
+	"Dusty on Toyhouse"
+	--
+	"%ASC(1)https://toyhou.se/5587935.dusty%ASC(2)"
+	--
  	"Zichqec's DA"
 	--
 	"%ASC(1)https://www.deviantart.com/zichqec%ASC(2)"
@@ -50,14 +58,9 @@ On_sakura.recommendsites
 	--
 	"%ASC(1)https://twitter.com/Zichqec%ASC(2)"
 	--
-	"Dusty on Toyhouse"
+	"ECHO Gaster Community Project"
 	--
-	"%ASC(1)https://toyhou.se/5587935.dusty%ASC(2)"
-	--
-	"Zi's hub for Ukagakas"
-	--
-	"%ASC(1)https://stheskeleton.usite.pro%ASC(2)"
-	
+	"%ASC(1)https://www.youtube.com/watch?v=ki2Sj-N7BDk%ASC(2)"
 	//You get the idea. You can add more links or take them away as you like following this basic formula.
  }
  
@@ -123,7 +126,7 @@ On_sakura.portalsites
 
 On_kero.recommendbuttoncaption
  {
-	"Top Menu Option Caption"
+	"Important Cat Resources"
  }
 
  //---- Top Menu Websites for the Second Character --------------------------------------
@@ -131,13 +134,21 @@ On_kero.recommendbuttoncaption
  
 On_kero.recommendsites
  {
-	"A Site"
+	"Kitten Livestream"
 	--
-	"%ASC(1)http://www.asite.com/%ASC(2)"
+	"%ASC(1)https://kitten.academy/live-stream/%ASC(2)"
 	--
-	"Another Site"
+	"Random Kitten Picture"
 	--
-	"%ASC(1)http://anothersite.org/%ASC(2)"
+	"%ASC(1)http://www.randomkittengenerator.com/%ASC(2)"
+	--
+	"Cat Purr Noise Machine"
+	--
+	"%ASC(1)https://purrli.com/%ASC(2)"
+	--
+	"Random Cat Facts"
+	--
+	"%ASC(1)https://fungenerators.com/random/facts/cats%ASC(2)"
  }
 
  //---- Update Menu Caption ------------------------------------------------------------

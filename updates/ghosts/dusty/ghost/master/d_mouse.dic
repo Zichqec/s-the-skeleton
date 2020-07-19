@@ -3,95 +3,189 @@
 
 //This is a bunch of code determining who the mouse is over. Don't touch any of it.
 OnMouseMove
- {
-  	if nowmode != "QUIZ"
- 	{
-		//---- reference3 determines the character in question
-		if reference3 == 0 //if the character is 0, aka the main character
-		{
-			//---- it will run the mouse functions for that character
-			MouseMoveSakura
-		}
-		else //if the character isn't 0, then it must be the side character.
-		{
-			//---- this will run the mouse functions for the side character.
-			MouseMoveKero
-		}
+{
+	//---- reference3 determines the character in question
+	if reference3 == 0 //if the character is 0, aka the main character
+	{
+		//---- it will run the mouse functions for that character
+		MouseMoveSakura
 	}
- }
- 
- //*********************Advanced User Info*******************************
-//These text boxes are meant for those who have an interest in expanding or using more complicated functions in their ghost. Also for my own reference in the future since I plan on using this template too, haha. If you have no interest in any of this and just want to keep things as simple as possible, feel free to skip these boxes.
-
-//If you want to have more than two characters at any point, like for example how I added Charger with my Hunter/Smoker ghost, and you want to be able to interact with that character like you can with the others, you will have to add in that character to OnMouseMove above. You'll need to know the p[] you've assigned your third character to, which in Charger's case was 3. You can assign your third character any p you want, just be consistent about using the same p[] everytime. I touch on \p a bit more in the walkthrough.
-//So anyway, as you can see above, OnMouseMove determines who the user is touching, so you'll just have to add in an elseif checking for reference3 == 3, or reference3 == 4, or whatever p number is you're using. More on elseif in the walkthrough and in bootend.dic. After that, you'll just need to copy and paste the other mouse functions below and change the name as you need (for example, MouseMoveCharger, MouseDoubleClickCharger). 
-
-//Note though that the extra character will not be a hard-coded character like 0 and 1! You're basically tricking the program into thinking there's another character, and some functions in things like menu.dic and aitalk.dic won't work quite right if you put in a value other than 0 or 1, and you'll need to be careful about making sure to remove the third character when you're done. But luckily for you, this won't be a problem with any of the mouse functions as far as I'm aware, and you can fill them out for the third character just like you would for the two main ones.
-//***********************************************************************
+	else //if the character isn't 0, then it must be the side character.
+	{
+		//---- this will run the mouse functions for the side character.
+		MouseMoveKero
+	}
+}
 
 
- //--MouseMoveSakura
- //The petting function for your main character. Remember how it was referred to as sakura in some of the descript.txt and install.txt files?
+//--MouseMoveSakura
+//The petting function for your main character. Remember how it was referred to as sakura in some of the descript.txt and install.txt files?
  
 MouseMoveSakura
- {
-	if reference4 != "" //ignore
- 	{
- 		stroke++ //if you move the mouse over the right areas, the stroke count will go up.
- 		if stroke >= 40
-		{
- 			stroke = 0 //resetting the stroke count
-			if reference4 == "Head"
- 			{
-				"\0\s[0]This is some petting dialogue.\e"
-				"\0\s[0]This is some more petting dialogue.\e"
-				"\0\s[0]This is another bit of petting dialogue.\e"
- 			}
- 			elseif reference4 == "Face"
- 			{
- 				"\0\s[0]This is petting dialogue for my face.\e"
- 				"\0\s[0]This is more petting dialogue for my face.\e"
- 				"\0\s[0]This is another bit of petting dialogue for my face. Well, stroking would probably be more accurate.\e"
- 			}
-			
- 		}
-	}
- 	else  	// If the mouse isn't over the ghost, it'll zero out the stroke value.
+{
+	if reference4 == "Head"
 	{
-		stroke = 0
- 	}
+		stroke++ //Stroke value only goes up when over the appropriate areas
+		Dcontinuousstroke++
+		
+		if Dcontinuousstroke >= 160 //this would happen starting at 4 pets
+		{
+			if stroke >= 160 //Stroke count is longer so that you have time to read the dialogue here. Adjust as you like.
+			{
+				stroke = 0
+				totalpets++
+				Dcurrentpetstreak++
+				"\0\s[107]* (His skull warms up as you stroke over and over.)"
+				"\0\s[107]* (You can't help petting him over and over.)"
+				"\0\s[107]* (If you pet him too much you're going to wear out what little skull he has left.)"
+				--
+				"\1%(catnoises)!\w8\w8\0\n\n* (Obsidian looks like she wants some too.)\e"
+				"\1%(catnoises)!\w8\w8\0\n\n* (How much longer can you ignore her pleas?)\e"
+				"\1%(catnoises)!\w8\w8\0\n\n* (The cat desires affection also.)\e"
+				"\e"
+				"\e"
+			}
+		}
+		elseif stroke >= 40
+		{
+			stroke = 0 //Stroke value is reset
+			totalpets++
+			Dcurrentpetstreak++
+			totalpets++
+			if totalpets < 20
+			{
+				"\0\s[107]%(wdc)%(t)...\w4\s[106\]Thank you##]\w4 %(username).\e"
+				"\0\s[107]%(wdc)%(t)...I'm not used to anyone being tall enough to pet me.]\e"
+				"\0\s[106]%(wdc)%(t)...Obsidian is probably softer to pet##\w4 you know.]\e"
+			}
+			else
+			{
+				"\0\s[102]%(wdc)* (He holds very still as you gently stroke his skull.)"
+				"\0\s[102]%(wdc)* (He doesn't complain as you stroke your cursor over his skull.)"
+				"\0\s[102]%(wdc)* (He stands quietly as you pet him.)"
+				"\0\s[102]%(wdc)* (He doesn't say anything,\w4 but you're pretty sure he's enjoying this.)"
+				"\0\s[102]%(wdc)* (He doesn't comment,\w4 but you're pretty sure he appreciates the attention.)"
+				"\0\s[102]%(wdc)* (His skull is very smooth and oddly satisfying to stroke.)\w8\w8\n\n* (At least,\w4 the parts of it that haven't crumbled.)"
+				"\0\s[107]%(wdc)* (You stroke too close to the seams and your cursor starts feeling a little numb.)"
+				--
+				"\1%(catnoises).\w8\w8\0\n\n* (Looks like Obsidian is a little jealous.)\e"
+				"\1%(catnoises).\w8\w8\0\n\n* (Maybe you should pet Obsidian a little,\w4 too.)\e"
+				"\1%(catnoises).\w8\w8\0\n\n* (Obsidian looks like she could use some attention,\w4 too.)\e"
+				"\1%(catnoises).\w8\w8\0\n\n* (How dare you neglect your queen.)\e"
+				"\e"
+				"\e"
+				"\e"
+				"\e"
+				"\e"
+				"\e"
+				"\e"
+				"\e"
+				"\e"
+			}
+		}
+	}
+	elseif reference4 == "Seam"
+	{
+		stroke++
+		
+		if stroke >= 40
+		{
+			stroke = 0
+			"\0\s[107]%(wdc)* (Your cursor slips into the void on his face.)\w8\w8\n\n\s[106]%(t)...My skull isn't exactly whole##\w4 anymore.]\e"
+			"\0\s[110]%(wdc)* (Your cursor slips into the void on his face,\w4 and comes away feeling a little numb.)\w8\w8\n\n\s[106]%(t)Ah## please be careful## %(username).\w8\w8\s[107\] My skull isn't as whole as it looks.]\e"
+		}
+	}
+	elseif reference4 == "Obsidian" //For when he's holding her
+	{
+		"\1%(holdnoise)"
+		--
+		"\0\s[630]%(wdn)WHAT ARE YOU EVEN GOING TO DO WITH ALL THIS ATTENTION?\e"
+		"\w8\w8\w8\n\n* (She seems very content right now.)\e"
+		"\e"
+		"\e"
+		"\e"
+		"\e"
+		"\e"
+	}
 }
 
  //---- MouseMoveKero -----------------------------------------------------------------
  //MouseMoveKero is exactly like the above, except set up for your second character. 
  
 MouseMoveKero
- {
-	if reference4 != ""
- 	{
- 		stroke++
- 		if stroke >= 40
-		{
-			stroke = 0
-			catpets += 1
-			if reference4 == "Head"
- 			{
-				"\1\s[10]* (You scritch behind her ears.)\w8\w8\n\n%(goodnoises)\e"
-				"\1\s[10]* (You pat her head softly.)\w8\w8\n\n%(goodnoises)\e"
-				"\1\s[10]* (You stroke the soft fur on her head.)\w8\w8\n\n%(goodnoises)\e"
-				"\1\s[10]* (You rub the soft fur under her chin.)\w8\w8\n\n%(goodnoises)\e"
- 			}
-			elseif reference4 == "Body"
-			{
-				"\1\s[10]* (You stroke your cursor down her back.)\w8\w8\n\n\s[10]* (She leans into it.)\w8\w8\n\n%(goodnoises)\e"
-				"\1\s[10]* (You scratch between her shoulders.)\w8\w8\n\n%(goodnoises)\e"
-			}	
- 		}
-	}
- 	else  	// If the mouse isn't over the ghost, it'll zero out the stroke value.
+{
+	if reference4 == "Head"
 	{
-		stroke = 0
- 	}
+		stroke++ //Stroke value only goes up when over the appropriate areas
+		Ocontinuousstroke++
+		
+		/*if Ocontinuousstroke >= 160 //this would happen starting at 4 pets
+		{
+			if stroke >= 160 //Stroke count is longer so that you have time to read the dialogue here. Adjust as you like.
+			{
+				stroke = 0
+				catpets++
+				Ocurrentpetstreak++
+				ObsiLove += 3
+				"\1\s[1004]* (She relaxes under your cursor,\w4 purrs emanating from deep within.)\e"
+				"\1\s[1004]* (She purrs continuously as you pet continuously.)\e"
+				"\1\s[1004]* (You can feel the soft rumble of her purring.)\e"
+				"\1\s[1004]* (She seems content.)\e"
+			}
+		}
+		else*/if stroke >= 40
+		{
+			stroke = 0 //Stroke value is reset
+			catpets++
+			Ocurrentpetstreak++
+			ObsiLove++
+			"\1\s[1003]* (You scritch behind her ears.)\w8\w8\n\n%(goodnoises)\e"
+			"\1\s[1003]* (You pat her head softly.)\w8\w8\n\n%(goodnoises)\e"
+			"\1\s[1003]* (You stroke the soft fur on her head.)\w8\w8\n\n%(goodnoises)\e"
+			"\1\s[1003]* (You rub the soft fur under her chin.)\w8\w8\n\n%(goodnoises)\e"
+		}
+	}
+	elseif reference4 == "Body" && SHIORI3FW.CanTalk == 1 //This is here so you dont accidentally pet while her menu is open, hopefully
+	{
+		stroke++
+		if stroke >= 50
+		{
+			ObsiLove++
+			stroke = 0
+			"\1%(catpose)* (You stroke your cursor down her back.)\w8\w8\n\n%(catpose)* (She leans into it.)\w8\w8\n\n%(goodnoises)\e"
+			"\1%(catpose)* (You scratch between her shoulders.)\w8\w8\n\n%(goodnoises)\e"
+			"\1%(catpose)* (You rub down her sides.)\w8\w8\n\n%(goodnoises)\e"
+			"\1%(catpose)* (You smooth out the fur on her back.)\w8\w8\n\n%(goodnoises)\e"
+			"\1%(catpose)* (You scratch the sides of her neck.)\w8\w8\n\n%(goodnoises)\e"
+		}
+	}
+}
+
+OnMouseLeaveAll //When the mouse leaves the ghost. You can change to OnMouseLeave if you want it to happen when you leave that specific hitbox
+{
+	if Dcontinuousstroke > 160 && Dcontinuousstroke > Dpethighscore //Checks if you're in continuous petting, and if you are, if you got a high score. \C will display the previous balloon again.
+	{
+		Dpethighscore = Dcontinuousstroke
+		"\C\n\n* (New high score! %(Dpethighscore)!)\e"
+	}
+	if Ocontinuousstroke > 160 && Ocontinuousstroke > Opethighscore //Checks if you're in continuous petting, and if you are, if you got a high score. \C will display the previous balloon again.
+	{
+		Opethighscore = Ocontinuousstroke
+		"\C\1\n\n* (New high score! %(Opethighscore)!)\e"
+	}
+	if Dcurrentpetstreak > Dtoppetstreak //Same thing here, but it's counting the number of actual pets you got. You can use this instead of the stroke count if you like.
+	{
+		Dtoppetstreak = Dcurrentpetstreak
+	}
+	if Ocurrentpetstreak > Otoppetstreak //Same thing here, but it's counting the number of actual pets you got. You can use this instead of the stroke count if you like.
+	{
+		Otoppetstreak = Ocurrentpetstreak
+	}
+	stroke = 0
+	Dcontinuousstroke = 0
+	Ocontinuousstroke = 0
+	Dcurrentpetstreak = 0
+	Ocurrentpetstreak = 0
 }
 
 //---- OnMouseDoubleClick -------------------------------------------------------
@@ -99,7 +193,7 @@ MouseMoveKero
 //Advanced users adding a third character, the same principles from OnMouseMove apply here as well! Make sure to add an elseif with the right number for your third character.
 
 OnMouseDoubleClick
- {
+{
 	//---- like with the OnMouseMove function above, this determines who the user is clicking on.
 	if reference5 == 0 //Reference5 is which mouse key is being clicked. 0 is a left click.
 	{
@@ -109,19 +203,10 @@ OnMouseDoubleClick
 		}
 		else
 		{
-			MouseDoubleClickKero
+			OnOpenKeroMenu
 		}
 	}
- }
-
- //---- MouseDoubleClickSakura ----------------------------------------------------------
- //Like the petting animation above, this is the reactions they have to being double clicked. These also rely on the collisions you set up in surfaces.txt! This set is specifically for the main character, as indicated by the Sakura in the name again.
- 
- //*********************Advanced User Info*******************************
- //As a note, double clicking on a certain area of your ghost doesn't have to be the user hitting them. You could instead set up a collision for a piece of clothing, and then have the character talk about that bit of clothing when it's double clicked, for example. One of Smoker's double clicks gives her a high-five when she's in a certain pose. Maybe double clicking is patting them, or pointing behind them, or tapping them, or any number of things. You can be creative here with how they respond depending on what areas you've set up as collisions!
- 
- //That's all there is to it. This method also applies to the secondary character, Kero, below this set.
- //***********************************************************************
+}
  
 MouseDoubleClickSakura
 {
@@ -134,9 +219,9 @@ MouseDoubleClickSakura
  
 OnMouseDown
 {
-	if reference3 == 1 && reference5 == 0 && reference4 == "Head" //If it's the side character, you're left clicking, and you're on the hitbox for her head
+	if reference3 == 1 && reference5 == 0 && reference4 == "Head" && SHIORI3FW.CanTalk == 1 //If it's the side character, you're left clicking, if they aren't already talking, and you're on the hitbox for her head
 	{
-		catboops += 1
+		catboops++
 		"\1\s[10]* (You boop her nose.)" //I didnt use the cat noise envelope for this because I want her to use a specific frame
 		"\1\s[10]* (She looks offended at your boop.)"
 		--
@@ -152,12 +237,19 @@ OnMouseDown
 		--
 		".\e"
 	}
+	elseif reference3 == 1 && reference5 == 0 && reference4 == "BEANS"
+	{
+		beansSquished++
+		"\1\s[1008]You poke her toe beans!\w8\w8\w8\s[1002]\n\n%(annoyednoises)"
+		"\1\s[1008]You squish her toes!\w8\w8\w8\s[1002]\n\n%(annoyednoises)"
+		"\1\s[1008]You touch the toe beans!\w8\w8\w8\s[1002]\n\n%(annoyednoises)"
+		--
+		"\w8\w8\0\s[106]...She doesn't much like her feet being touched.\e"
+		"\w8\w8\n\n* (She seems annoyed.)\e"
+		"\e"
+		"\e"
+		"\e"
+		"\e"
+		"\e"
+	}
 }
-MouseDoubleClickKero
-{
-	OpenKeroMenu
-}
-
- //*********************Advanced User Info*******************************
- //There are other mouse related functions you could set up much like the above, such as OnMouseDragStart, OnMouseDragEnd, OnMouseWheel, and others which correspond to various things you can do with your mouse. You can probably guess what those functions do just by their names - OnMouseWheel would be if someone spun their mouse wheel over a certain area, for example. If you're interested in these, I'd recommend doing some reading at the CROW-SSP Encyclopedia to get a better idea of them and settle down for some trial and error learning as you try to put them in.
- //***********************************************************************

@@ -32,7 +32,7 @@ ReplyToUser
 //--ReplyToGhost
 
 
-ReplyToGhost //I'll..... add a friendship check to this later......... or maybe I'll give that its own function, that would be cleaner....
+ReplyToGhost
 {
 	if SpokeFirst == 1 //======================Starting a conversation=======================
 	{
@@ -52,6 +52,7 @@ ReplyToGhost //I'll..... add a friendship check to this later......... or maybe 
 					{
 						res_reference0 = "RYS-0825"
 						talkedtoS = 1
+						metOtherGhosts = 1
 						"\0\s[0]Hello,\w4 S.\w8\w8 Did %(username) bring you here too?\w8\w8\e DFirstHelloD01"
 						notfirstresponse = 1
 					}
@@ -61,7 +62,7 @@ ReplyToGhost //I'll..... add a friendship check to this later......... or maybe 
 						res_reference0 = "RYS-0825"
 						//"\![get,property,OnFacingCoords,currentghost.scope(0).rect]"
 						//"\e GetSStats1"
-						"Test\eObsiSaysHiD01"
+						"\1%(catnoises).\w8\w8\eObsiSaysHiD01"
 					}
 				}
 				when "Gaster" //=========Zarla's Gaster=======
@@ -112,6 +113,7 @@ ReplyToGhost //I'll..... add a friendship check to this later......... or maybe 
 				"\0\s[110]Ah,\w4\s[104] hello S,\w4 good to see you.\w8\w8\s[0] I didn't realize either,\w4\s[106] but I seem to be fine.\w8\w8\e SFirstHelloD01"
 				res_reference0 = "RYS-0825"
 				talkedtoS = 1
+				metOtherGhosts = 1
 			}
 			elseif "SFirstHelloS02" _in_ ConvoTag
 			{
@@ -256,14 +258,6 @@ OnSGiveStats
 	Sshours = reference0
 }
 
-
-OnTalkToOther
-{
-	if readytotalk != 1
-	{
-		
-	}
-}
 
 OnFacingCoords
 {

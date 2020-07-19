@@ -27,6 +27,30 @@ rgf //force regular font, different from font to default because I don't want it
 	"\f[name,Microsoft Sans Serif]"
 }
 
+reg
+{
+	"\f[default]"
+}
+
+bigf
+{
+	"\f[height,25]"
+}
+
+medf
+{
+	"\f[height,18]"
+}
+
+bold
+{
+	"\f[bold,true]"
+}
+
+gray
+{
+	"\f[color,150,150,150]"
+}
 
 wdc //Wingdings Check - Check to see if the user is in wingdings only mode, and if yes, set to small balloon with wingdings font
 {
@@ -92,6 +116,7 @@ statw
 	"DEF"
 	"LV"
 	"EXP"
+	"VOID"
 }
 
 statg
@@ -139,124 +164,561 @@ statgm
 	"%(statg)%(statg)%(statg)%(statg)%(statg)%(statg)%(statg)%(statg)%(statg)%(statg)%(statg)%(statg)"
 }
 
-
-
 lessonwd //Use TOUPPER and TOLOWER to get uppercase and lowercase versions
 {
-	"Wingdings"
-	"Dusty"
-	"Echo"
-	"Ukagaka"
-	"Ghost"
-	"Discord"
-	"Skeleton"
-	"Void"
-	"Gaster"
-	"Portal"
-	"Obsidian"
-	"Dragon"
-	"Cat"
-	"Whisker"
-	"Sweater"
-	"Bones"
-	"Screen"
-	"Computer"
-	"Video"
-	"Tablet"
-	"Fluffy"
-	"Script"
-	"Calcium"
-	"Babybones"
-	"Vertebrae"
-	"Femur"
-	"Radius"
-	"Ulna"
-	"Font"
-	"Soul"
-	"Feline"
+	UserCTGAvail = 0
+	UserCTGList = ""
+	UserCTGAvailFull = ""
+	_totalctg = ARRAYSIZE(UserCategories)
+	if CTGuser == "On"
+	{
+		for _i = 0; _i < _totalctg; _i++ //Iterate through the user categories and see how many are available
+		{
+			_tempctg = UserCategories[_i]
+			if _tempctg[0,"|"] != "" && _tempctg[1,"|"] == "On" && _tempctg[2,"|"] != "" //If the category exists, is on, and has words in it
+			{
+				UserCTGAvail++
+				UserCTGList ,= _tempctg[0,"|"] //Add the name of this category to the list of available categories
+				UserCTGAvailFull ,= _tempctg //Add the whole category to a list
+			}
+		}
+		UserCTGList[0] = IARRAY //Gets rid of the comma at the start of the list
+		UserCTGAvailFull[0] = IARRAY
+	}
+	--
+	DefaultCTGAvail = 0 //MUST ADD ALL NEW CATEGORIES HERE. ABSOLUTELY MUST. DO NOT FORGET YOU DINGBAT.
+	if CTGdusty == "On"; {DefaultCTGAvail++} //Adds up how many categories are on
+	if CTGukagaka == "On"; {DefaultCTGAvail++}
+	if CTGskeleton == "On"; {DefaultCTGAvail++}
+	if CTGundertale == "On"; {DefaultCTGAvail++}
+	if CTGspacefi == "On"; {DefaultCTGAvail++}
+	if CTGgems == "On"; {DefaultCTGAvail++}
+	if CTGshapes == "On"; {DefaultCTGAvail++}
+	if CTGingredients == "On"; {DefaultCTGAvail++}
+	if CTGother == "On"; {DefaultCTGAvail++}
+	--
+	totalCTG = (UserCTGAvail + DefaultCTGAvail) //Add together the amount of categories
+	_rand = RAND(totalCTG) //Pick a random number from the list of categories
 	
-	"Book"
-	"Paper"
-	"Text"
-	"Reading"
-	"Novel"
-	"Quiz"
-	"Test"
-	"Dictionary"
-	
-	"Zenith" //Whats that? Starset? I dont know what you're talking about.......
-	"Star"
-	"Galaxy"
-	"Afterglow"
-	"Eclipse"
-	"Solstice"
-	"Equinox"
-	"Telescope"
-	"Telepathic"
-	"Telekinetic"
-	"Gravity"
-	"Antigravity"
-	"Starlight"
-	"Ricochet"
-	"Satellite"
-	"Unknown"
-	"Frequency"
-	"Faultline"
-	"Sunset"
-	"Sunrise"
-	"Nebula"
-	"Comet"
-	"Meteor"
-	"Asteroid"
-	"Antimatter"
-	"Stratosphere"
-	"Aurora"
-	"Binary"
-	"Black hole"
-	"Celestial"
-	"Lunar"
-	"Cosmic"
-	"Crater"
-	"Ellipse"
-	"Escape velocity"
-	"Horizon"
-	"Flare"
-	"Gamma"
-	"Globe"
-	"Kelvin"
-	"Lenticular"
-	"Light year"
-	"Luminosity"
-	"Magnetic"
-	"Magnitude"
-	"Mass"
-	"Molecular"
-	"Neutron"
-	"Nova"
-	"Orbit"
-	"Parallax"
-	"Penumbra"
-	"Phase"
-	"Planet"
-	"Plasma"
-	"Pulsar"
-	"Quasar"
-	"Radio"
-	"Retrograde"
-	"Solar"
-	"Supernova"
-	"Terrestria"
-	"Ultraviolet"
-	"Umbra"
-	"Wavelength"
-	"Zodiac"
-	"Moon"
-	"Emanate"
-	"Sunlight"
-	"Moonlight"
+	if _rand < UserCTGAvail //If the random number picked is within the number of user categories
+	{
+		_chosenCTG = UserCTGAvailFull[_rand] //Check which category number was pulled
+		_chosenCTG[1,"|"] = IARRAY //Erase the on/off from the list
+		_chosenCTG[0,"|"] = IARRAY //Erase the category name from the list
+		_chosenCTG = REPLACE(_chosenCTG,"|",",") //Make the delimiter commas so we can do an ARRAYSIZE command
+		_CTGlen = ARRAYSIZE(_chosenCTG) //Check how long the category is
+		_CTGrnd = RAND(_CTGlen) //Pick a random word based on how long it is
+		"%(_chosenCTG[_CTGrnd])" //Display the word
+	}
+	else //If the number was higher, go to the DefaultCTG envelope and just pick randomly from the available categories
+	{
+		DefaultCTG
+	}
 }
 
-gasternoises
+DefaultCTG //This should be set up with ifs for every normal category
+{
+	if CTGdusty == "On"
+	{
+		"Cat"
+		"Whisker"
+		"Sweater"
+		"Fluffy"
+		"Feline"
+		"Portal"
+		"Obsidian"
+		"Book"
+		"Paper"
+		"Text"
+		"Reading"
+		"Novel"
+		"Quiz"
+		"Test"
+		"Dictionary"
+		"Void"
+		"Gaster"
+		"Dusty"
+		"Font"
+		"Soul"
+		"Wingdings"
+		"Skeleton"
+		"Echo"
+		"Screen"
+		"Bones"
+	}
+	if CTGukagaka == "On"
+	{
+		"Ukagaka"
+		"Ghost"
+		"Script"
+		"Saori"
+		"Shiori"
+		"Nanika"
+		"Makoto"
+		"Developer"
+		"Pallete"
+		"Reload"
+		"Bug"
+		"Error"
+		"Network"
+		"Update"
+		"Sakura"
+		"Kero"
+		"Materia"
+		"Crow"
+		"Phase"
+		"Version"
+		"Patch"
+		"Balloon"
+		"Shell"
+		"Archive"
+		"Stroke"
+		"Hitbox"
+		//"Suffering"
+		"Yaya"
+		"Seriko"
+		"Surface"
+		"Interval"
+		"Scope"
+		"Collision"
+		"Function"
+		"Kawari"
+		"Satori"
+		"Tama"
+	}
+	if CTGskeleton == "On"
+	{
+		"Calcium"
+		"Nasal"
+		"Lacrimal"
+		"Maxiallary"
+		"Zygomatic"
+		"Temporal"
+		"Palatine"
+		"Parietal"
+		"Malleus"
+		"Incus"
+		"Stapes"
+		"Frontal"
+		"Ethmoid"
+		"Vomer"
+		"Sphenoid"
+		"Mandible"
+		"Occipital"
+		"Rib"
+		"Hyoid"
+		"Sternum"
+		"Vertebrae"
+		"Cervical"
+		"Thoracic"
+		"Lumbar"
+		"Sacrum"
+		"Coccyx"
+		"Scapula"
+		"Clavicle"
+		"Humerus"
+		"Radius"
+		"Ulna"
+		"Scaphoid"
+		"Lunate"
+		"Triquetrum"
+		"Pisiform"
+		"Hamate"
+		"Capitate"
+		"Trapezoid"
+		"Trapezium"
+		"Metacarpal"
+		"Proximal"
+		"Middle"
+		"Distal"
+		"Phalange"
+		"Hip"
+		"Femur"
+		"Patella"
+		"Tibia"
+		"Fibula"
+		"Talus"
+		"Calcaneus"
+		"Navicular"
+		"Medial"
+		"Lateral"
+		"Cuneiform"
+		"Cuboid"
+		"Metatarsal"
+	}
+	if CTGundertale == "On"
+	{
+		"Determination"
+		"Bravery"
+		"Justice"
+		"Kindness"
+		"Patience"
+		"Integrity"
+		"Perseverence"
+		"Magic"
+		"Bullets"
+		"Pattern"
+		"Dodge"
+		"Hope"
+		"Karma"
+		"Love"
+		"Monsters"
+		"Barrier"
+		"Mountain"
+		"Ebott"
+		"Home"
+		"Ruins"
+		"Snowdin"
+		"Waterfall"
+		"Hotland"
+		"Core"
+		"New Home"
+		"Toriel"
+		"Asgore"
+		"Asriel"
+		"Flowey"
+		"Alphys"
+		"Undyne"
+		"Mettaton"
+		"Grillby"
+		"Amalgam"
+		"Amalgamate"
+		"Annoying Dog"
+		"Temmie"
+		"Frisk"
+		"Human"
+		"Fall"
+		"Underground"
+		"Golden"
+		"Echo"
+		"Flower"
+		"Dog Salad"
+		"Pacifist"
+		"Neutral"
+		"Chocolate"
+		"Scientist"
+		"Librarby"
+		"Hotel"
+		"Lab"
+		"Elevator"
+		"Castle"
+		"Hall"
+		"Judgement"
+		"Puzzle"
+		"Trap"
+		"Phone"
+		"Umbrella"
+		"Story"
+	}
+	if CTGspacefi == "On" //Whats that? Starset? I dont know what you're talking about.......
+	{
+		"Zenith"
+		"Star"
+		"Galaxy"
+		"Afterglow"
+		"Eclipse"
+		"Solstice"
+		"Equinox"
+		"Telescope"
+		"Telepathic"
+		"Telekinetic"
+		"Gravity"
+		"Antigravity"
+		"Starlight"
+		"Ricochet"
+		"Satellite"
+		"Unknown"
+		"Frequency"
+		"Faultline"
+		"Sunset"
+		"Sunrise"
+		"Nebula"
+		"Comet"
+		"Meteor"
+		"Asteroid"
+		"Antimatter"
+		"Stratosphere"
+		"Aurora"
+		"Binary"
+		"Black hole"
+		"Celestial"
+		"Lunar"
+		"Cosmic"
+		"Crater"
+		"Ellipse"
+		"Escape velocity"
+		"Horizon"
+		"Flare"
+		"Gamma"
+		"Globe"
+		"Kelvin"
+		"Lenticular"
+		"Light year"
+		"Luminosity"
+		"Magnetic"
+		"Magnitude"
+		"Mass"
+		"Molecular"
+		"Neutron"
+		"Nova"
+		"Orbit"
+		"Parallax"
+		"Penumbra"
+		"Phase"
+		"Planet"
+		"Plasma"
+		"Pulsar"
+		"Quasar"
+		"Radio"
+		"Retrograde"
+		"Solar"
+		"Supernova"
+		"Terrestrial"
+		"Ultraviolet"
+		"Umbra"
+		"Wavelength"
+		"Zodiac"
+		"Moon"
+		"Emanate"
+		"Sunlight"
+		"Moonlight"
+	}
+	if CTGgems == "On"
+	{
+		"Ruby"
+		"Sapphire"
+		"Crystal"
+		"Quartz"
+		"Emerald"
+		"Diamond"
+		"Topaz"
+		"Amethyst"
+		"Almandine"
+		"Sard"
+		"Hessonite"
+		"Carnelian"
+		"Lepidocrocite"
+		"Orthoclase"
+		"Garnet"
+		"Goldstone"
+		"Pyrope"
+		"Coral"
+		"Oligoclase"
+		"Sardonyx"
+		"Andesine"
+		"Jasper"
+		"Zultanite"
+		"Anatase"
+		"Agate"
+		"Cymophane"
+		"Clinohumite"
+		"Sphalerite"
+		"Amber"
+		"Cachemirine"
+		"Enstatite"
+		"Axinite"
+		"Andalusite"
+		"Scapolite"
+		"Sphene"
+		"Idocrase"
+		"Andradite"
+		"Prasiolite"
+		"Hiddenite"
+		"Mawsitsit"
+		"Uvarovite"
+		"Seraphinite"
+		"Beryl"
+		"Ammolite"
+		"Heliodor"
+		"Peridot"
+		"Tashmarine"
+		"Chrysoberyl"
+		"Bowenite"
+		"Moldavite"
+		"Tsavorite"
+		"Forsterite"
+		"Unakite"
+		"Ekanite"
+		"Diaspore"
+		"Diopside"
+		"Crysoprase"
+		"Hydrogrossular"
+		"Variscite"
+		"Bloodstone"
+		"Pectolite"
+		"Apatite"
+		"Tourmaline"
+		"Aventurine"
+		"Demantoid"
+		"Fuchsite"
+		"Nephrite"
+		"Dioptase"
+		"Malachite"
+		"Amazonite"
+		"Chrysocolla"
+		"Indicolite"
+		"Zircon"
+		"Larimar"
+		"Kornerupine"
+		"Aquamarine"
+		"Hemimorphite"
+		"Sodalite"
+		"Hauyne"
+		"Benitoite"
+		"Turquoise"
+		"Labradorite"
+		"Moonstone"
+		"Cyprine"
+		"Kyanite"
+		"Lapis Lazuli"
+		"Azurite"
+		"Ajoite"
+		"Tanzanite"
+		"Iolite"
+		"Ametrine"
+		"Alexandrite"
+		"Charoite"
+		"Fluorite"
+		"Sugilite"
+		"Phosphosiderite"
+		"Alexite"
+		"Covellite"
+		"Lepidolite"
+		"Kunzite"
+		"Bixbite"
+		"Umbalite"
+		"Rhodolite"
+		"Rubellite"
+		"Rhodonite"
+		"Malaya"
+		"Poudretteite"
+		"Morganite"
+		"Padparadscha"
+		"Rhodochrosite"
+		"Thulite"
+		"Leucophoenicite"
+		"Spinel"
+		"Corundum"
+		"Pietersite"
+		"Hardystonite"
+		"Tektite"
+		"Hematite"
+		"Goshenite"
+		"Achroite"
+		"Opal"
+		"Howlite"
+		"Dolomite"
+		"Phenakite"
+		"Jade"
+		"Pearl"
+	}
+	if CTGshapes == "On"
+	{
+		"Circle"
+		"Square"
+		"Oval"
+		"Rectangle"
+		"Cube"
+		"Sphere"
+		"Trapezoid"
+		"Triangle"
+		"Nonagon"
+		"Octagon"
+		"Heptagon"
+		"Hexagon"
+		"Parallelogram"
+		"Rhombus"
+		"Pentagon"
+		"Heart"
+		"Cross"
+		"Arrow"
+		"Cylinder"
+		"Star"
+		"Crescent"
+		"Cone"
+		"Dodecahedron"
+		"Ellipsoid"
+		"Hyperboloid"
+		"Pyramid"
+		"Prism"
+		"Polyhedron"
+	}
+	if CTGingredients == "On"
+	{
+		"Cilantro"
+		"Basil"
+		"Lemon pepper"
+		"Cloves"
+		"Chives"
+		"Butter"
+		"Salt"
+		"Paprika"
+		"Sugar"
+		"Cinnamon"
+		"Pepper"
+		"Lemon"
+		"Orange zest"
+		"Lemon zest"
+		"Cumin"
+		"Mint"
+		"Garlic"
+		"Curry powder"
+		"Chili powder"
+		"Dried peppers"
+		"Nutmeg"
+		"Ginger"
+		"Mustard"
+		"Tumeric"
+		"Thyme"
+		"Rosemary"
+		"Allspice"
+		"Dill weed"
+		"Horseradish"
+		"Oregano"
+		"Sesame seeds"
+		"Peppermint"
+		"Peppers"
+		"Sage"
+		"Vanilla"
+		"Wasabi"
+		"Lime"
+	}
+	if CTGprogramming == "On"
+	{
+		"If"
+		"Else"
+		"Case"
+		"When"
+		"Switch"
+		"For"
+		"While"
+		"Bracket"
+		"Brace"
+		"Parenthesis"
+		"Quote"
+		"Variable"
+		"Array"
+		"Multidimensional"
+		"Envelope"
+		"Debug"
+		"Reload"
+		"Test"
+		"Integer"
+		"String"
+		"Boolean"
+		"Error"
+		"Warning"
+	}
+	if CTGother == "On" //Might move later idk
+	{
+		"Discord"
+		"Computer"
+		"Video"
+		"Tablet"
+	}
+}
+
+gasternoises 
 {
 	"01"
 	"02"
@@ -272,6 +734,11 @@ catnoises
 	"\s[10]"
 	"\s[1000]"
 	"\s[1001]"
+	"\s[1003]"
+	"\s[1004]"
+	"\s[1005]"
+	"\s[1006]"
+	"\s[1007]"
 	--
 	"Maow"
 	"Mrrp"
@@ -280,6 +747,34 @@ catnoises
 	"Mrr"
 	"Maaow"
 	"Mwwrrrr"
+	"Rrrwaaa"
+	"Mrrrm"
+	"Aaaow"
+	"Rraaaow"
+	"Mmmaao"
+}
+
+holdnoise //For when she's being held by Dusty
+{
+	"Maow~"
+	"Mrrp~"
+	"Prrp~"
+	"Mraa~"
+	"Mrr~"
+	"Maaow~"
+	"Mwwrrrr~"
+	"Rrrwaaa~"
+	"Mrrrm~"
+	"Aaaow~"
+	"Rraaaow~"
+	"Mmmaao~"
+	"Myuuuurr~"
+	"Ryymmmm~"
+	"Prrrrmmm~"
+	"Mrrrr~"
+	"Mwwwaaaoo~"
+	"Mrrryahh~"
+	"Prrwww~"
 }
 
 goodnoises //specifically for pets and things
@@ -287,6 +782,7 @@ goodnoises //specifically for pets and things
 	"Prrr..."
 	"Mrrrrp."
 	"Prr... Prr..."
+	"Mrrryahh."
 	"* (You feel the soft rumble of her purring.)"
 	"* (She nudges your cursor for more.)"
 	"* (You can feel her teeth as she rubs her cheek on your cursor.)"
@@ -300,10 +796,27 @@ annoyednoises
 	"Mrrraa."
 }
 
+catpose
+{
+	"\s[10]"
+	"\s[1000]"
+	"\s[1001]"
+	"\s[1003]"
+	"\s[1004]"
+	"\s[1005]"
+	"\s[1006]"
+	"\s[1007]"
+}
+
+t
+{
+	"\![embed,OnRandomTeachWord,"
+}
+
 //------------Menu envelopes and such--------------
 
 
-GetWeekDay
+wd
 {
 	if weekday == 0
 	{"Sun"}
@@ -321,9 +834,9 @@ GetWeekDay
 	{"Sat"}
 }
 
-GetAP
+ap
 {
- 	if hour >= 0 && hour <= 11
+ 	if ampm == 0
 	{
 		"AM"
 	}
@@ -333,9 +846,33 @@ GetAP
 	}
 }
 
-Getnowmin
+displaymin
 {
-	if minute >= 0 && minute <=9
+	if passmin < 10
+	{
+		"0%(passmin)"
+	}
+	else
+	{
+		"%(passmin)"
+	}
+}
+
+nowhour
+{
+	if hour12 == 0
+	{
+		"12"
+	}
+	else
+	{
+		"%(hour12)"
+	}
+}
+
+nowmin
+{
+	if minute < 10
 	{
 		"0%(minute)"
 	}
@@ -345,15 +882,51 @@ Getnowmin
 	}
 }
 
-Getnowhour
+season
 {
-	if hour12 >= 0 && hour12 <=9
+	if month > 2 && month < 6
 	{
-		"0%(hour12)"
+		if hemisphere != "Southern"
+		{
+			"Spring"
+		}
+		else
+		{
+			"Autumn"
+		}
+	}
+	elseif month > 5 && month < 9
+	{
+		if hemisphere != "Southern"
+		{
+			"Summer"
+		}
+		else
+		{
+			"Winter"
+		}
+	}
+	elseif month > 8 && month < 12
+	{
+		if hemisphere != "Southern"
+		{
+			"Autumn"
+		}
+		else
+		{
+			"Spring"
+		}
 	}
 	else
 	{
-		"%(hour12)"
+		if hemisphere != "Southern"
+		{
+			"Winter"
+		}
+		else
+		{
+			"Summer"
+		}
 	}
 }
 
@@ -369,9 +942,31 @@ WDOn
 	}
 }
 
+wdnMDisp
+{
+	if WDOnly == 1
+	{
+		"Turn off Wingdings Only mode"
+	}
+	else
+	{
+		"Change all dialogue to wingdings"
+	}
+}
 
-
-
+loadingmoon
+{
+	"\_b[img\Moon0%(loadmoonnum),inline,--option=use_self_alpha]\w4\c"
+	--
+	if loadmoonnum < 8
+	{
+		loadmoonnum += 1
+	}
+	else
+	{
+		loadmoonnum = 1
+	}
+}
 
 
 

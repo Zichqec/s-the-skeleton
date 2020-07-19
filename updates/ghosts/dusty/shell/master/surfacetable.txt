@@ -48,14 +48,14 @@ group,DL
 	
 }
 
-group,DS
-{
-	scope,1
+//group,DS
+//{
+	//scope,1
 
-	300,SitSmile
-	301,Sleep
+	//300,SitSmile
+	//301,Sleep
 	
-}
+//}
 
 group,DO
 {
@@ -64,6 +64,7 @@ group,DO
 	400,Smile
 	401,Worry
 	402,Done
+	490,JumpDown
 }
 
 group,Sc
@@ -81,7 +82,11 @@ group,Bth
 	scope,1
 
 	600,Smile
-	610,Sleep
+	606,NervousSmile
+	607,-w-;
+	610,Surprise
+	630,SmileDown
+	631,FrownDown
 }
 
 
@@ -94,4 +99,10 @@ group,O
 	1000,Ear
 	1001,Stretch
 	1002,TurnAway
+	1003,Arch
+	1004,Loaf
+	1005,Lick Paw
+	1006,Lay Front
+	1007,Leggy
+	1008,BEANS
 }

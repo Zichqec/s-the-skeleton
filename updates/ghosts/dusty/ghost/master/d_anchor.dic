@@ -76,7 +76,7 @@ OnTranslate
 	_talk = REPLACE(_talk, "tr0", "\_a[zero]%(wdn)0%(rg)")
 	_talk = REPLACE(_talk, "tr-", "\_a[dash]%(wdn)-%(rg)")
 	_talk = REPLACE(_talk, "tr=", "\_a[equals]%(wdn)=%(rg)")
-	//_talk = REPLACE(_talk, "trbslash", "\_a[backslash]%(wdn)\%(rg)") //sigh.
+	_talk = REPLACE(_talk, "trbslash", "\_a[backslash]ॐ")
 	_talk = REPLACE(_talk, "tr~", "\_a[tilde]%(wdn)~%(rg)")
 	_talk = REPLACE(_talk, "tr!", "\_a[exclamation]%(wdn)!%(rg)")
 	_talk = REPLACE(_talk, "tr@", "\_a[at]%(wdn)@%(rg)")
@@ -99,12 +99,40 @@ OnTranslate
 	_talk = REPLACE(_talk, "tr'", "\_a[apostrophe]%(wdn)'%(rg)")
 	_talk = REPLACE(_talk, "tr:", "\_a[colon]%(wdn):%(rg)")
 	_talk = REPLACE(_talk, "trquote", "\_a[quote]%(wdn)%(CHR(0x22))%(rg)")
-	_talk = REPLACE(_talk, "tr,", "\_a[comma]%(wdn),%(rg)")
-	_talk = REPLACE(_talk, "tr.", "\_a[period]%(wdn).%(rg)")
-	_talk = REPLACE(_talk, "tr/", "\_a[forwardslash]%(wdn)<%(rg)")
-	_talk = REPLACE(_talk, "tr<", "\_a[lessthan]%(wdn)j%(rg)")
-	_talk = REPLACE(_talk, "tr>", "\_a[greaterthan]%(wdn)>%(rg)")
-	_talk = REPLACE(_talk, "tr?", "\_a[question]%(wdn)?%(rg)")
+	_talk = REPLACE(_talk, "trco", "\_a[comma]%(wdn)%(CHR(0x2C))%(rg)")
+	_talk = REPLACE(_talk, "trpr", "\_a[period]%(wdn)%(CHR(0x2E))%(rg)")
+	_talk = REPLACE(_talk, "trsl", "\_a[forwardslash]%(wdn)%(CHR(0x2F))%(rg)")
+	_talk = REPLACE(_talk, "trls", "\_a[lessthan]%(wdn)%(CHR(0x3C))%(rg)")
+	_talk = REPLACE(_talk, "trgr", "\_a[greaterthan]%(wdn)%(CHR(0x3E))%(rg)")
+	_talk = REPLACE(_talk, "trqs", "\_a[question]%(wdn)?%(rg)")
+	
+	_talk = REPLACE(_talk, "anMoon01", "\_a[CheckWeather]\_b[img\Moon01,inline,--option=use_self_alpha]\_a")
+	_talk = REPLACE(_talk, "anMoon02", "\_a[CheckWeather]\_b[img\Moon02,inline,--option=use_self_alpha]\_a")
+	_talk = REPLACE(_talk, "anMoon03", "\_a[CheckWeather]\_b[img\Moon03,inline,--option=use_self_alpha]\_a")
+	_talk = REPLACE(_talk, "anMoon04", "\_a[CheckWeather]\_b[img\Moon04,inline,--option=use_self_alpha]\_a")
+	_talk = REPLACE(_talk, "anMoon05", "\_a[CheckWeather]\_b[img\Moon05,inline,--option=use_self_alpha]\_a")
+	_talk = REPLACE(_talk, "anMoon06", "\_a[CheckWeather]\_b[img\Moon06,inline,--option=use_self_alpha]\_a")
+	_talk = REPLACE(_talk, "anMoon07", "\_a[CheckWeather]\_b[img\Moon07,inline,--option=use_self_alpha]\_a")
+	_talk = REPLACE(_talk, "anMoon08", "\_a[CheckWeather]\_b[img\Moon08,inline,--option=use_self_alpha]\_a")
+	
+	/*if randomTeach == 'On'
+	{
+		_talkarray = _talk
+		_talkarray = REPLACE(_talkarray," ","|")
+		SETDELIM(_talkarray,"|")
+		_talkarraysize = ARRAYSIZE(_talkarray)
+		_rand = RAND(_talkarraysize)
+		_wordtoreplace = ("$E-" + "%(_talkarray[_rand])" + "-$")
+		_talkarray[_rand] = _wordtoreplace
+		SETDELIM(_talkarray," ")
+		_talk = REPLACE(_talkarray,"|"," ")
+	}*/
+	
+	//Embeds. Instead of writing in the whole embed and making dialogue super bloated, just write a $, E M or H for the difficulty, and a -. Then after your word, put a -$
+	_talk = REPLACE(_talk, "$E-", "\![embed,OnCheckCaseE,")
+	_talk = REPLACE(_talk, "$M-", "\![embed,OnCheckCaseM,")
+	_talk = REPLACE(_talk, "$H-", "\![embed,OnCheckCaseH,")
+	_talk = REPLACE(_talk, "-$", ",teachword]")
 	
 	
 	
@@ -124,7 +152,7 @@ OnTranslate
 
 OnAnchorSelect
 {
-	if "http://" _in_ reference0 //checking to see if the link is a web address
+	if "http://" _in_ reference0 || "https://" _in_ reference0 //checking to see if the link is a web address
 	{
 	"\j[%(reference0)]\e" // \j is a tag that will open a specified url in the user's browser of choice. This basically just tells the ghost to open the webpage stored in reference0, which would be the address that the user just clicked. I didn't get too much into \j in the walkthrough page because I have literally never used it except here.
 	}
@@ -530,12 +558,12 @@ OnAnchorSelect
 				--
 				TranslationPunctuation
 			}
-			/*when "backslash"
+			when "backslash"
 			{
-				currentlytranslating += "\\"
+				currentlytranslating += "%(rgf)ॐ%(rg)"
 				--
 				TranslationPunctuation
-			}*/
+			}
 			when "tilde"
 			{
 				currentlytranslating += "~"
@@ -703,6 +731,10 @@ OnAnchorSelect
 				currentlytranslating += "?"
 				--
 				TranslationPunctuation
+			}
+			when "CheckWeather"
+			{
+				OnWeatherCheck
 			}
 		}
 	}

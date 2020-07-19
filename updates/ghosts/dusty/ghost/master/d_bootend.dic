@@ -32,7 +32,7 @@ OnFirstBoot
 
 //--GetTimeSlot
 
-GetTimeSlot
+timeslot
 {
 	if hour >= 5 && hour <= 8
 	{
@@ -84,7 +84,6 @@ OnBoot
  	"\0\s[0]\1\s[10]%(wdc)"
 	--
 	dayslot = GetDaySlot
-	timeslot = GetTimeSlot
 	
 	if dayslot == userbirthday
 	{
@@ -120,8 +119,6 @@ Select.bootnonwd
 
 normalboottalk //%(wdc) isn't working here, I assume something to do with it booting up... I think I'd rather him ask the user if they want to stay in wingdings only mode anyways.
 {
-	"%(wdc)"
-	--
 	if RAND(100) < 40
 	{
 		"\0\s[104]Hello again,\w4 %(username).\w8\w8\1%(catnoises).\e"
@@ -164,7 +161,6 @@ normalboottalk //%(wdc) isn't working here, I assume something to do with it boo
 
 OnClose
 {
-	timeslot = GetTimeSlot
 	"%(wdc)"
 	--
 	if passmin >= 5 || passhour > 0
@@ -212,8 +208,7 @@ OnClose
 			{
 				"\0\s[102]Good night,\w4 %(username).\w8\w8\s[0] Sleep well."
 			}
-		}
-				
+		}		
 	}	
 	else //This dialogue is for if they haven't been open for at least five minutes.
 	{
@@ -234,28 +229,42 @@ OnClose
 
 OnWindowStateRestore
  {
-	"\1\s[10]\0%(wdc)\s[110]Ah...\w8\w8\0\s[208] That was...\w8\w8 strange.\w8\w8\s[206]\n\nNot entirely unlike the void...\e" //replaceframe need thinking
+	"\1\s[10]\0%(wdc)\s[110]%(t)Ah...\w8\w8\0\s[208\] That was...\w8\w8 strange.\w8\w8\s[206\]\n\nNot entirely unlike the void...]\e"
 }
 
 
 //--OnGhostChanging
-
-//This runs whenever you change or reload the ghost. You can change ghosts by going into the right click menu and going to Change Ghost, but this dialogue will also be called if you reload them using Utilities->Reload Ghost. Protip: If you are going to make a ghost, you will be reloading it A LOT.
-//Note: If you reload your ghost using the developer console instead of Utilities->Reload Ghost, it won't do this dialogue, so don't freak out if it doesn't show up.
  
 OnGhostChanging
  {
 	"%(wdc)"
 	--
-	if reference0 == "Dusty" //Replace this with the name of your Sakura character as you put in install.txt or descript.txt.
+	if holdingObsidian == 1
 	{
-		"\0\s[0]Alright,\w4 just a moment.\w8\w8\e"
+		if reference0 == "Dusty" //Replace this with the name of your Sakura character as you put in install.txt or descript.txt.
+		{
+			"\0\s[600]%(t)Alright##\w4 just a moment.]\w8\w8\e"
+		}
+		else //If you're switching to another Ghost.
+		{
+			"\0\s[600]%(t)Alright##\w4 I'll let] %(reference0) %(t)know you want them.]\e"
+			
+			//In OnGhostChanging, %(reference0) stores the name of the ghost being swapped to.
+		}
 	}
- 	else //If you're switching to another Ghost.
+	else
 	{
-		"\0\s[0]Alright,\w4 I'll let %(reference0) know you want them.\e"
-		
-		//In OnGhostChanging, %(reference0) stores the name of the ghost being swapped to.
+		if reference0 == "Dusty" //Replace this with the name of your Sakura character as you put in install.txt or descript.txt.
+		{
+			"\0\s[0]%(t)Alright##\w4 just a moment.]\w8\w8\e"
+		}
+		else //If you're switching to another Ghost.
+		{
+			"\0\s[0]%(t)Alright##\w4 I'll let] %(reference0) %(t)know you want them.]\e"
+			
+			//In OnGhostChanging, %(reference0) stores the name of the ghost being swapped to.
+		}
+
 	}
 }
 
@@ -268,23 +277,48 @@ OnGhostChanged
 {
 	"\0\s[0]\1\s[10]\0%(wdc)" //this sets up their default poses
 	--
-	if reference0 == "Dusty" //As above, this should be the name of your ghost as in install.txt or descript.txt.
+	if holdingObsidian == 1
 	{
-		"\s[0]I'm back.\w8\w8 Is everything alright?\e"
+		if reference0 == "Dusty" //As above, this should be the name of your ghost as in install.txt or descript.txt.
+		{
+			"\1\s[-1]\0\s[600]%(t)I'm back.\w8\w8 Is everything alright?]\e"
+		}
+		else //If you're switching to them from another ghost...
+		{
+			holdingObsidian = 0
+			if WDOnly == 1
+			{
+				"\0\s[104]Hello again,\w4 %(username).\w8\w8\1%(catnoises).\w8\w8\0\s[0]\n\nLast time we were here,\w4 you asked me to speak only in Wingdings.\w8\w8 Would you like me to continue speaking only in Wingdings?\n\n/
+				\![*]\q[Keep speaking in Wingdings,bootwd]\n/
+				\![*]\q[Speak normally\, please,bootnonwd]\e"
+			}
+			else
+			{
+				"Hello,\w4 %(username).\w8\w8 Giving %(reference0) a break?\e"
+			}
+			//Again, %(reference0) in this function is the name of the ghost in question. As above, replace these two lines of dialogue what what'd be appropriate for your ghost.
+		}
 	}
-	else //If you're switching to them from another ghost...
+	else
 	{
-		if WDOnly == 1
+		if reference0 == "Dusty" //As above, this should be the name of your ghost as in install.txt or descript.txt.
 		{
-			"\0\s[104]Hello again,\w4 %(username).\w8\w8\1%(catnoises).\w8\w8\0\s[0]\n\nLast time we were here,\w4 you asked me to speak only in Wingdings.\w8\w8 Would you like me to continue speaking only in Wingdings?\n\n/
-			\![*]\q[Keep speaking in Wingdings,bootwd]\n/
-			\![*]\q[Speak normally\, please,bootnonwd]\e"
+			"%(t)I'm back.\w8\w8 Is everything alright?]\e"
 		}
-		else
+		else //If you're switching to them from another ghost...
 		{
-			"\s[0]Hello,\w4 %(username).\w8\w8 Giving %(reference0) a break?\e"
+			if WDOnly == 1
+			{
+				"\0\s[104]Hello again,\w4 %(username).\w8\w8\1%(catnoises).\w8\w8\0\s[0]\n\nLast time we were here,\w4 you asked me to speak only in Wingdings.\w8\w8 Would you like me to continue speaking only in Wingdings?\n\n/
+				\![*]\q[Keep speaking in Wingdings,bootwd]\n/
+				\![*]\q[Speak normally\, please,bootnonwd]\e"
+			}
+			else
+			{
+				"Hello,\w4 %(username).\w8\w8 Giving %(reference0) a break?\e"
+			}
+			//Again, %(reference0) in this function is the name of the ghost in question. As above, replace these two lines of dialogue what what'd be appropriate for your ghost.
 		}
-		//Again, %(reference0) in this function is the name of the ghost in question. As above, replace these two lines of dialogue what what'd be appropriate for your ghost.
 	}
 }
 
@@ -299,20 +333,36 @@ OnShellChanging
 	tempshell = REPLACE(tempshell," ","_") //replace spaces with underscores. This should work as long as my naming schemes never change |D
 	"%(wdc)"
 	--
-	if tempshell == nowshell //[Zi]If you're switching to the same shell... for some reason. I don't know why it lets you do this but I mean hey it means I get to add a silly comment yeah? I wont REALLY know if this code works until I add a second shell.... but I'm hoping that'll be sooner over later :3c
+	if holdingObsidian == 1
 	{
-		"\0\s[106]Ah...\w8\w8 I'm already wearing that,\w4 but alright.\w8\e"
+		if tempshell == nowshell //If you're switching to the same shell
+		{
+			"\0\s[606]%(t)Ah...\w8\w8 I'm already wearing that##\w4 but alright.]\w8\w8\e"
+		}
+		elseif reference0 == "Blue Sweater" //reference0 in OnShellChanging is the name of the shell you're swapping to.
+		{
+			"\0\s[600]%(t)My sweater should be around here somewhere...]\w8\w8\e"
+		}
+		else //if you don't have any specific dialogue for a specific shell
+		{
+			"\0\s[600]%(t)Ok##\w4 just a moment.]\w8\w8\e"
+		}
 	}
-	elseif reference0 == "Blue Sweater" //reference0 in OnShellChanging is the name of the shell you're swapping to.
+	else
 	{
-	"\0\s[0]My sweater should be around here somewhere...\e" //replaceframe thinking neutral
+		if tempshell == nowshell //If you're switching to the same shell
+		{
+			"\0\s[106]%(t)Ah...\w8\w8 I'm already wearing that##\w4 but alright.]\w8\w8\e"
+		}
+		elseif reference0 == "Blue Sweater" //reference0 in OnShellChanging is the name of the shell you're swapping to.
+		{
+			"\0\s[208]%(t)My sweater should be around here somewhere...]\w8\w8\e"
+		}
+		else //if you don't have any specific dialogue for a specific shell
+		{
+			"\0\s[0]%(t)Ok##\w4 just a moment.]\w8\w8\e"
+		}
 	}
-	else //if you don't have any specific dialogue for a specific shell
-	{
-	"\0\s[0]Ok,\w4 just a moment.\w8\w8\e"
-	}
-	
-	
 }
  
  
@@ -326,27 +376,49 @@ OnShellChanged
 	tempshell = REPLACE(tempshell," ","_") //replace spaces with underscores. This should work as long as my naming schemes never change |D
 	"%(wdc)"
 	--
-	if tempshell == nowshell
+	if holdingObsidian == 1
 	{
-		"\1\s[10]\0\s[106]...Nothing has changed.\w8\w8\1\s[10]Mrrr.\e"
+		if tempshell == nowshell
+		{
+			"\1\s[-1]\0\s[606]%(t)...Nothing has changed.]\w8\w8\1Mrrr.\e"
+		}
+		elseif reference0 == "Blue Sweater"
+		{
+			nowshell = "blue_sweater"
+			
+			"\1\s[-1]\0\s[600]%(t)I've had this sweater a long time.\w8\w8\s[606\] It was actually given to me by someone dear to me##\w4 a very long time ago...]\e"
+		}
+		else //For any shell without a specific name, or if you don't want to bother with individual responses to a shell.
+		{	
+			nowshell = TOLOWER(reference0) //This shouldnt come up, but I HOPE that if someone used a shell that he doesnt recognize, it'd still set the nowshell correctly so that he can recognize it up in OnShellChanging
+			nowshell = REPLACE(nowshell," ","_")
+			"\1\s[-1]\0\s[600]%(t)Now using] %(reference[0]).\w8\w8\1%(holdnoise).\e"
+		}
 	}
- 	elseif reference0 == "Blue Sweater" //Again, this is the name of your shell as you put in the descript.txt file for that shell.
- 	{
- 		nowshell = "blue_sweater" //This is the folder name for your shell. Not the same as the above! 
-		
- 		"\1\s[10]\0\s[0]I've had this sweater a long time.\w8\w8\s[0] It was actually given to me by someone dear to me,\w4 a very long time ago...\e" //replaceframe need wistful and content
- 	}
- 	else //For any shell without a specific name, or if you don't want to bother with individual responses to a shell.
- 	{	
-	nowshell = TOLOWER(reference0) //This shouldnt come up, but I HOPE that if someone used a shell that he doesnt recognize, it'd still set the nowshell correctly so that he can recognize it up in OnShellChanging
-	nowshell = REPLACE(nowshell," ","_")
-	"\0\s[0]Now using %(reference[0]).\w8\w8\1%(catnoises).\e" //replaceframe content
+	else
+	{
+		if tempshell == nowshell
+		{
+			"\1\s[10]\0\s[106]%(t)...Nothing has changed.]\w8\w8\1\s[10]Mrrr.\e"
+		}
+		elseif reference0 == "Blue Sweater"
+		{
+			nowshell = "blue_sweater"
+			
+			"\1\s[10]\0\s[102]%(t)I've had this sweater a long time.\w8\w8\s[200\] It was actually given to me by someone dear to me##\w4 a very long time ago...]\e"
+		}
+		else //For any shell without a specific name, or if you don't want to bother with individual responses to a shell.
+		{	
+			nowshell = TOLOWER(reference0) //This shouldnt come up, but I HOPE that if someone used a shell that he doesnt recognize, it'd still set the nowshell correctly so that he can recognize it up in OnShellChanging
+			nowshell = REPLACE(nowshell," ","_")
+			"\1\s[10]\0\s[0]%(t)Now using] %(reference[0]).\w8\w8\1%(catnoises).\e"
+		}
 	}
  }
 
 
  //--OnDressupChanged
-
+/*
 OnDressupChanged
 {
 	"%(wdc)"
@@ -393,3 +465,4 @@ else //if reference0 isn't the main character, then it has to be the side charac
 }
 
 //If you are super dedicated to doing clothes, I'd recommend checking out some more in-depth FLELE tutorials for stuff about clothing until I muster up the energy to write a walkthrough page for it.
+*/

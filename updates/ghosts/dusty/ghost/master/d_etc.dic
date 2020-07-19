@@ -3,47 +3,68 @@
 
 OnFileDrop2
 {
-	_filepath = SPLITPATH(reference0)
-	_filename = _filepath[2]
-	_fileext = TOLOWER(_filepath[3])
-	case _fileext
+	if holdingObsidian == 1
 	{
-		when ".jpg", ".jpeg", ".bmp", ".png" //These are the formats your ghost will recognize as image files to set as the background. I tested this with .png files and it does not work, so don't bother adding that as an option. [Zi] Seems to be working fine for me... I'm worried it's gonna break later or something lol
+		"\1\s[-1]\0\s[606]%(wdc)Sorry %(username),\w4 my hands are a little full.\w8\w8\s[600] Show me again in a few minutes.\1%(holdnoise)\e"
+	}
+	else
+	{
+		_filepath = SPLITPATH(reference0)
+		_filename = _filepath[2]
+		_fileext = TOLOWER(_filepath[3])
+		case _fileext
 		{
-			Wallpaperfile = reference0
-			
-			"\0\s[0]Would you like me to set %(_filename)%(_fileext) as your wallpaper?\n\n[half]/
-			\![*]\q[Centered,SetWallpaper_0]\n/
-			\![*]\q[Tiled,SetWallpaper_1]\n/
-			\![*]\q[Stretched,SetWallpaper_2]\n\n[half]/
-			\![*]\q[No thanks,SetWallpaper_Cancel]\e"
-		}
-		when ".mid", ".wav", ".mp3", ".wma", ".au" //Other file formats you might want to give your ghost a specific response to.
-		{
-			"%(wdc)\0\s[106]Sorry,\w4 %(username),\w4 I can't play music.\w8\w8\s[0] Maybe someone else could play it for you?\e"
-		}
-		others //Any other file format.
-		{
-			"%(wdc)\0\s[0]This is %(_filename)%(_fileext).\w8\w8\s[106] I can't do anything with it,\w4 sorry.\w8\1%(catnoises).\e"
+			when ".jpg", ".jpeg", ".bmp", ".png" //These are the formats your ghost will recognize as image files to set as the background. I tested this with .png files and it does not work, so don't bother adding that as an option. [Zi] Seems to be working fine for me... I'm worried it's gonna break later or something lol
+			{
+				Wallpaperfile = reference0
+				
+				"\0\s[0]%(wdc)%(t)Would you like me to set %(_filename)%(_fileext) as your wallpaper?]\n\n"
+				--
+				"\![*]\q[Centered,SetWallpaper_0]\n/
+				\![*]\q[Tiled,SetWallpaper_1]\n/
+				\![*]\q[Stretched,SetWallpaper_2]\n"
+				--
+				_osver = TOINT(os_version) //Checks to see if the user is using windows 10, and if so offers the span option since it's compatible
+				if "Windows" _in_ os_name && _osver >= 10
+				{
+					"\![*]\q[Span,WallpaperSpan]\n\n"
+				}
+				--
+				"\n\![*]\q[No thanks,SetWallpaper_Cancel]\e"
+			}
+			when ".mid", ".wav", ".mp3", ".wma", ".au" //music
+			{
+				"%(wdc)\0\s[106]%(t)Sorry##\w4 %(username)##\w4 I can't play music.\w8\w8\s[0\] Maybe someone else could play it for you?]\e"
+			}
+			others //Any other file format.
+			{
+				"%(wdc)\0\s[0]%(t)This is %(_filename)%(_fileext).\w8\w8\s[106\] I can't do anything with it##\w4 sorry.]\w8\w8\1%(catnoises).\e"
+			}
 		}
 	}
 }
 
 Select.SetWallpaper_0
 {
-	"%(wdc)\![set,wallpaper,%(Wallpaperfile),center]\0\s[110]Ok,\w4 I've centered it for you.\w8\w8 Does it look ok?.\e"
+	"%(wdc)\![set,wallpaper,%(Wallpaperfile),center]\0\s[114]%(t)Ok##\w4 I've centered it for you.\w8\w8 Does it look ok?]\e"
 }
 Select.SetWallpaper_1
 {
-	"%(wdc)\![set,wallpaper,%(Wallpaperfile),tile]\0\s[110]Ok,\w4 I've tiled it for you.\w8\w8 Does it look ok?.\e"
+	"%(wdc)\![set,wallpaper,%(Wallpaperfile),tile]\0\s[114]%(t)Ok##\w4 I've tiled it for you.\w8\w8 Does it look ok?]\e"
 }
 Select.SetWallpaper_2
 {
-	"%(wdc)\![set,wallpaper,%(Wallpaperfile),stretch]\0\s[110]Ok,\w4 I've stretched it across for you.\w8\w8 Does it look ok?.\e"
+	"%(wdc)\![set,wallpaper,%(Wallpaperfile),stretch]\0\s[114]%(t)Ok##\w4 I've stretched it across for you.\w8\w8 Does it look ok?]\e"
 }
+
+Select.WallpaperSpan
+{
+	"%(wdc)\![set,wallpaper,%(Wallpaperfile),span]\0\s[114]%(t)Ok##\w4 I've spanned it across both monitors for you.\w8\w8 Does it look ok?]\e"
+}
+
 Select.SetWallpaper_Cancel
 {
-	"%(wdc)\0\s[110]Ok,\w4 let me know if you change your mind.\e"
+	"%(wdc)\0\s[0]%(t)Ok##\w4 let me know if you change your mind.]\e"
 }
 
 
@@ -51,70 +72,186 @@ Select.SetWallpaper_Cancel
  
 OnInstallBegin
 {
-	"%(wdc)\0\s[0]You need something installed?\w8 One moment, please.\e" //replaceframe thinking maybe
+	if holdingObsidian == 1
+	{
+		"%(wdc)\0\s[606]%(t)Ah##\w4 alright##\w4 give me just a moment to install this...]\e"
+	}
+	else
+	{
+		"%(wdc)\0\s[114]%(t)You need something installed?\w8\w8\s[111\] One moment## please.]\e"
+	}
 }
  
 OnInstallComplete
 {
-	"\0" //this means your main character will be speaking first, therefore the \s[] at the beginning of each line will be defining your main character's pose.
+	"\0%(wdc)"
  	--
-	if reference0 == "shell" //This is checking to see if what you installed is classified as a shell in the install.txt. Remember the line in install.txt that said type,ghost or type,shell? This is why that line is important, that's what tells the program what it's installing like so.
- 	{	
-		if reference1 == "Hypothetical Shell that doesn't actually exist" //This is the name of your shell as you defined in descript.txt in the shell folder.
-		{
-		"%(wdc)\s[0]We have installed Hypothetical Shell.\w8\1\s[10]Truncated for space.\e"
+	if holdingObsidian == 1
+	{
+		if reference0 == "shell"
+		{	
+			if reference1 == "Hypothetical Shell that doesn't actually exist"
+			{
+				"\s[0]We have installed Hypothetical Shell.\w8\1\s[10]Truncated for space.\e"
+			}
+			else //For any other shell they may install.
+			{
+				"\s[610]%(t)Oh##\w4 a new outfit?\w8\w8\s[604\] Thank you## %(username)## that's kind of you.]\w8\w8\1%(holdnoise)\e"
+				//%(reference1) here would be the name of the shell they installed. Replace if needed.
+			}
 		}
-		elseif reference1 == "Another totally real shell wow"
+		elseif reference0 == "ghost" //if the type of the file they're installing is a ghost.
 		{
-		"%(wdc)\s[0]We have installed another totally real shell.\e"
+			"\s[600]%(t)I've installed] %(reference1).\w8\w8 %(t)Would you like to call them here?]\n\n"
+			--
+			"\![*]\q[Call %(reference1),callghost]\n/
+			\![*]\q[Change to %(reference1),changeghost]\n\n/
+			\![*]\q[No thanks,changenothanks]\n"
 		}
-		else //For any other shell they may install.
+		elseif reference0 == "balloon" //if the type of file is a balloon
 		{
-		"%(wdc)\s[110]Oh,\w4 a new outfit?\w8\w8\s[104] Thank you, %(username), that's kind of you.\e"
-		//%(reference1) here would be the name of the shell they installed. Replace if needed.
+			"\s[600]%(t)I've installed a new balloon called] %(reference1).\w8\w8\1%(holdnoise).\e"
+			//Reference1 here would be the name of the balloon. Replace as needed.
 		}
- 	}
-	elseif reference0 == "ghost" //if the type of the file they're installing is a ghost.
- 	{
-		"%(wdc)\s[0]I've installed %(reference1).\w8\w8 Would you like to call them here?\e" //replaceframe and also add the options to call a ghost..
-		//Reference1 here would be the name of the ghost. Replace as needed.
- 	}
-	elseif reference0 == "balloon" //if the type of file is a balloon
- 	{
-		"%(wdc)\s[0]I've installed a new balloon called %(reference1).\w8\w8\1%(catnoises).\e"
-		//Reference1 here would be the name of the balloon. Replace as needed.
- 	}
-	elseif reference0 == "plugin" //if the type of file is a plug-in, like a saori of some kind.
- 	{
-		"%(wdc)\s[0]I've installed a plugin called %(reference1).\w8\w8\1%(catnoises).\e"
-		//Reference1 here would be the name of the plug-in. Replace as needed.
- 	}
+		elseif reference0 == "plugin" //if the type of file is a plug-in, like a saori of some kind.
+		{
+			"\s[600]%(t)I've installed a plugin called] %(reference1).\w8\w8\1%(holdnoise).\e"
+			//Reference1 here would be the name of the plug-in. Replace as needed.
+		}
+		elseif reference0 == "calendar skin"
+		{
+			"\s[600]%(t)I've installed a calendar skin called] %(reference1).\w8\w8\1%(holdnoise)\e"
+		}
+		else
+		{
+			"\s[600]%(t)Installation complete.]\w8\w8\1%(holdnoise)\e"
+		}
+	}
+	else
+	{
+		if reference0 == "shell"
+		{	
+			if reference1 == "Hypothetical Shell that doesn't actually exist"
+			{
+				"\s[0]We have installed Hypothetical Shell.\w8\1\s[10]Truncated for space.\e"
+			}
+			else //For any other shell they may install.
+			{
+				"\s[110]%(t)Oh##\w4 a new outfit?\w8\w8\s[104\] Thank you## %(username)## that's kind of you.]\e"
+				//%(reference1) here would be the name of the shell they installed. Replace if needed.
+			}
+		}
+		elseif reference0 == "ghost" //if the type of the file they're installing is a ghost.
+		{
+			"\s[0]%(t)I've installed] %(reference1)%(t).\w8\w8 Would you like to call them here?]\n\n"
+			--
+			"\![*]\q[Call %(reference1),callghost]\n/
+			\![*]\q[Change to %(reference1),changeghost]\n\n/
+			\![*]\q[No thanks,changenothanks]\n"
+		}
+		elseif reference0 == "balloon" //if the type of file is a balloon
+		{
+			"\s[0]%(t)I've installed a new balloon called] %(reference1).\w8\w8\1%(catnoises).\e"
+			//Reference1 here would be the name of the balloon. Replace as needed.
+		}
+		elseif reference0 == "plugin" //if the type of file is a plug-in, like a saori of some kind.
+		{
+			"\s[0]%(t)I've installed a plugin called] %(reference1).\w8\w8\1%(catnoises).\e"
+			//Reference1 here would be the name of the plug-in. Replace as needed.
+		}
+		elseif reference0 == "calendar skin"
+		{
+			"\s[0]%(t)I've installed a calendar skin called] %(reference1).\w8\w8\1%(catnoises)\e"
+		}
+		else
+		{
+			"\s[0]%(t)Installation complete.]\w8\w8\1%(catnoises)\e"
+		}
+	}
+	
 }
 
+Select.callghost
+{
+	if holdingObsidian == 1
+	{
+		"\0\s[600]%(t)Certainly##\w4 I'll call them right away.]\![call,ghost,lastinstalled]"
+	}
+	else
+	{
+		"\0\s[0]Certainly##\w4 I'll call them right away.]\![call,ghost,lastinstalled]"
+	}
+}
+
+Select.changeghost
+{
+	if holdingObsidian == 1
+	{
+		"\0\s[600]%(t)Alright##\w4 I'll see you later##\w4 %(username).]\w8\w8\1%(holdnoise)\w8\w8\![change,ghost,lastinstalled]\e"
+	}
+	else
+	{
+		"\0\s[104]%(t)Alright##\w4 I'll see you later##\w4 %(username).]\w8\w8\1%(catnoises).\w8\w8\![change,ghost,lastinstalled]\e"
+	}
+}
+
+Select.changenothanks
+{
+	if holdingObsidian == 1
+	{
+		"\0\s[600]%(t)Alright##\w4 if you change your mind let me know.]\e"
+	}
+	else
+	{
+		"\0\s[0]%(t)Alright##\w4 if you change your mind let me know.]\e"
+	}
+}
 //---- OnInstallFailure -------------------------------------------------------
 
 OnInstallFailure
- {
-	"%(wdc)\0\s[106]Sorry, something went wrong.\n\n[half]\w8" //this first bit of dialogue begins the explanation of what happened. You can replace this with an appropriate intro statement.
-	--
-	if reference0 == "unsupported"
+{
+	if holdingObsidian == 1
 	{
-	"This file isn't supported.\w8\w8\1%(catnoises).\e"
-	}	
-	elseif reference0 == "extraction"
-	{
-	"I couldn't extract it properly.\w8\w8\1%(catnoises).\e"
+		"%(wdc)\0\s[606]%(t)Sorry## something went wrong.\n\n\w8\w8" //this first bit of dialogue begins the explanation of what happened. You can replace this with an appropriate intro statement.
+		--
+		if reference0 == "unsupported"
+		{
+		"This file isn't supported.]\w8\w8\1%(holdnoise)\e"
+		}	
+		elseif reference0 == "extraction"
+		{
+		"I couldn't extract it properly.]\w8\w8\1%(holdnoise)\e"
+		}
 	}
- }
+	else
+	{
+		"%(wdc)\0\s[106]%(t)Sorry## something went wrong.\n\n\w8\w8" //this first bit of dialogue begins the explanation of what happened. You can replace this with an appropriate intro statement.
+		--
+		if reference0 == "unsupported"
+		{
+		"This file isn't supported.]\w8\w8\1%(catnoises).\e"
+		}	
+		elseif reference0 == "extraction"
+		{
+		"I couldn't extract it properly.]\w8\w8\1%(catnoises).\e"
+		}
+	}
+}
  
  //--OnInstallRefuse
  //If the file you dropped can't be installed with this ghost.
  
 OnInstallRefuse
- {
-	"%(wdc)\0\s[106]Sorry,\w4 I can't install this.\w8\w8 It looks like it's for %(reference0) instead.\w8\w8\1%(catnoises).\e"
-	//reference0 in this function refers to the ghost this file is associated with, probably the name of the ghost listed in its install.txt file.
- }
+{
+	if holdingObsidian == 1
+	{
+		"%(wdc)\0\s[606]%(t)Sorry##\w4 I can't install this.\w8\w8 It looks like it's for] %(reference0) instead.\w8\w8\1%(holdnoise)\e"
+	}
+	else
+	{
+		"%(wdc)\0\s[106]%(t)Sorry##\w4 I can't install this.\w8\w8 It looks like it's for] %(reference0) instead.\w8\w8\1%(catnoises).\e"
+	}
+}
 
 
 //**** Uninstallation ******************************************
@@ -123,21 +260,42 @@ OnInstallRefuse
 //When you select the uninstall option in the menu.
 OnVanishSelecting
 {
-	"\0\s[0]* (Is it time to say goodbye?)\e"
+	if holdingObsidian == 1
+	{
+		"\0\s[600]* (Are you really going to uninstall him while he's holding his cat?)\e"
+	}
+	else
+	{
+		"\0\s[0]* (Is it time to say goodbye?)\e"
+	}
 }
 
 
 //When you decide to uninstall them. 
 OnVanishSelected
 {
-	"\0\s[0]%(rg)* (You say farewell.)\w8\w8\s[110]\n\nOh,\w8\s[106] alright then.\w8\w8\s[104] Take care of yourself,\w4 %(username).\w8\w8\s[0] I hope you fare well wherever life takes you.\w8\w8\1%(catnoises).\w8\w8\e"
+	if holdingObsidian == 1
+	{
+		"\0\s[600]* (You say farewell.)\w8\w8\s[610]\n\nOh,\w8\s[606] alright then.\w8\w8\s[604] Take care of yourself,\w4 %(username).\w8\w8\s[600] I hope you fare well wherever life takes you.\w8\w8\1%(holdnoise)\w8\w8\e"
+	}
+	else
+	{
+		"\0\s[0]* (You say farewell.)\w8\w8\s[110]\n\nOh,\w8\s[106] alright then.\w8\w8\s[104] Take care of yourself,\w4 %(username).\w8\w8\s[0] I hope you fare well wherever life takes you.\w8\w8\1%(catnoises).\w8\w8\e"
+	}
 }
 
 
 //If you select Uninstall from the menu, but decide not to do it.
 OnVanishCancel
 {
-	"\0\s[0]* (Not just yet.)\e"
+	if holdingObsidian == 1
+	{
+		"\0\s[600]* (Not just yet,\w4 They're too cute together.)\e"
+	}
+	else
+	{
+		"\0\s[0]* (Not just yet.)\e"
+	}
 }
 
 //--TalkVanishButtonHold
@@ -154,152 +312,369 @@ TalkVanishButtonHold
  //OnVanished is a weird little function. Basically, if you uninstall a ghost, it'll automatically go back to the last ghost you were using. They'll then say this line of dialogue about the ghost you just uninstalled. This is very annoying to test as you can imagine! But unlikely to come up super often, I bet. You might as well be thorough and fill this out as well. Make sure to set up both their poses immediately so they both appear when it switches back to them.
  
 OnVanished
- {
-	"%(wdc)\0\s[206]Oh...\w8\w8 %(reference0) is gone..?\w8\w8\1\s[10]Mrr...\w8\w8\0\s[401]\n\n%(wdn)SHH,\w4 IT'S ALRIGHT, SWEET GIRL.\e" //replaceframe for Obsi looking sad
-	
+{
+	if holdingObsidian == 1
+	{
+		"%(wdc)\0\s[610]Oh...\w8\w8 %(reference0) is gone..?\w8\w8\1Mrr...\w8\w8\0\s[631]\n\n%(wdn)SHH,\w4 IT'S ALRIGHT, SWEET GIRL.\e"
+	}
+	else
+	{
+		"%(wdc)\0\s[206]Oh...\w8\w8 %(reference0) is gone..?\w8\w8\1\s[1002]Mrr...\w8\w8\0\s[401]\n\n%(wdn)SHH,\w4 IT'S ALRIGHT, SWEET GIRL.\e"
+	}
 	//reference0 here is the name of the other ghost.
 }
 
-
-//**** Mail Checking *******************************************************************
-//The next set of functions have to do with checking your email. This function is a slippery little thing - I've had people test it following my directions and have it work, but I've never actually gotten it to report back the right amount of emails myself. Very frustrating. But perhaps you'll have more luck with it, haha.
-
-
-//*********************Advanced User Info*******************************
-//These text boxes are meant for those who have an interest in expanding or using more complicated functions in their ghost. Also for my own reference in the future since I plan on using this template too, haha. If you have no interest in any of this and just want to keep things as simple as possible, feel free to skip these boxes.
-
-//If you want to set up your ghost to check your mail so you can more easily check these messages instead of just writing the dialogue and moving on, it's a little bit tricky, but not super hard.
-//Basically, you're going to need to find your POP settings for your email account. Googling your provider + POP should bring it up pretty quick. Once you have the info, you'll go to the right click menu, options, then preferences. A big menu should pop up, and you should see POP in the left side. Click that, and input all the info from the POP page you looked up for your account. Tell your ghost to check your email, and if it works, then congratulations!
-//***********************************************************************
-
-
- //---- OnBIFFBegin ---------------------------------------------------------------
- //When you first tell the ghost to check your email. An intro statement, if you will. Replace with whatever you like.
+//---- OnBIFFBegin ---------------------------------------------------------------
+//When you first tell the ghost to check your email. An intro statement, if you will. Replace with whatever you like.
  
 OnBIFFBegin
- {
-	"%(wdc)\0\s[104]Sure, I can check for emails.\w8\w8\s[208] Give me a moment.\e" //replaceframe him looking at a screen there...
- }
+{
+	if holdingObsidian == 1
+	{
+		"%(wdc)\0\s[607]%(t)...My hands are a little full at the moment##\w4 but alright.\w8\w8 Give me a moment.]\w8\w8\1%(holdnoise)\e"
+	}
+	else
+	{
+		"%(wdc)\0\s[104]%(t)Sure## I can check for emails.\w8\w8\s[500\] Give me a moment.]\e"
+	}
+}
 
  
  //---- OnBIFFComplete ---------------------------------------------------------------
  //After they've succeeded in checking your mail, they'll report back with how many new emails you have. Replace the dialogue with whatever would be character appropriate.
  
 OnBIFFComplete
- {
-	"%(wdc)"
+{
+	if reference7 != ""
+	{
+		headercount = ARRAYSIZE(headers) //see how long the list is
+		headerlist = ""
+		_i = 0
+		while _i < headercount
+		{
+			headernext = (_i + 1) //Look at the next header
+			if "<" _in_ headers[headernext] && "@" _in_ headers[headernext] && ">" _in_ headers[headernext] //If it's got an email address, it must be a legit one
+			{
+				headerlist += "|br%(headers[_i])" //Add the current header we have to the header list, move on to the next
+			}
+			else
+			{
+				headerlist += "|br%(headers[_i])" //Add the first part to the header list, then do a loop to gather the remaining pieces
+				
+				_ii = 0
+				while _ii < 20 //Uh there's probably a better way to write this loop but who's going to have 20 commas in a header
+				{
+					headernext = (_i + 1) //Look at the next header
+					if "<" !_in_ headers[headernext] && "@" !_in_ headers[headernext] && ">" !_in_ headers[headernext] //If there is no email address, add the particle to the list
+					{
+						headerlist += ",%(headers[headernext])"
+						headers[headernext] = IARRAY //Erase the duplicate header
+					}
+					_ii++
+				}
+			}
+			headercount = ARRAYSIZE(headers) //Recount how many headers we got
+			_i++
+		}
+		headerlist = ERASE(headerlist,0,1) //erases the extra | so it doesn't start on a line break
+		headerlist = REPLACE(headerlist,"|br","\n\n") //Replace the pipes with line breaks
+	}
 	--
-	if reference0 == 0 //If you have no new mail.
- 	{
- 		"\0\s[0]There are no new emails."
-	}
-	elseif reference0 == 1 //If you have one new email.
- 	{
- 		"\0\s[0]You have one new email."
-	}
-	elseif reference0 > 1 && reference0 < 11 //If you have more than one email but less than eleven.
+	
+	if holdingObsidian == 1
 	{
-		"\0\s[0]You have %(reference0) new emails."
-		//reference0 here stores the amount of new email it finds.
+		"\0%(wdc)"
+		--
+		if reference0 == 0 //If you have no new mail.
+		{
+			"\s[600]%(t)There are no new emails.]"
+		}
+		elseif reference0 == 1
+		{
+			"\s[600]%(t)You have] %(reference0) new email."
+		}
+		else
+		{
+			"\s[600]%(t)You have] %(reference0) new emails."
+		}
+		--
+		"\w8\w8%(holdnoise)"
+		--
+		if reference7 != ""
+		{
+			"\0\n\n%(t)Would you like to see the headers?]\n\n\![*]\q[See the headers,headers]\n\![*]\q[No thank you,cancelnodialogue]"
+		}
+		--
+		"\e"
 	}
-	elseif reference0 > 100 //If there are over one hundred new emails.
+	else
 	{
-		"\0\s[106]You have %(reference0) unread emails."
+		"\0%(wdc)"
+		--
+		if reference0 == 0 //If you have no new mail.
+		{
+			"\s[0]%(t)There are no new emails.]"
+		}
+		elseif reference0 == 1 //If you have one new email.
+		{
+			"\s[0]%(t)You have one new email.]"
+		}
+		elseif reference0 > 1 && reference0 < 11 //If you have more than one email but less than eleven.
+		{
+			"\s[0]%(t)You have] %(reference0) new emails."
+			//reference0 here stores the amount of new email it finds.
+		}
+		elseif reference0 > 100 //If there are over one hundred new emails.
+		{
+			"\s[106]%(t)You have] %(reference0) unread emails."
+		}
+		else //For any other number of emails.
+		{
+			"\s[0]%(t)You have] %(reference0) new emails."
+		}
+		--
+		"\w8\w8\1%(catnoises)."
+		--
+		if reference7 != ""
+		{
+			"\0\n\n%(t)Would you like to see the headers?]\n\n\![*]\q[See the headers,headers]\n\![*]\q[No thank you,cancelnodialogue]"
+		}
+		--
+		"\e"
 	}
- 	else //For any other number of emails.
-	{
-		"\0\s[0]You have %(reference0) new emails."
- 	}
-	--
-	"\w8\w8\1%(catnoises).\e"
+}
+
+Select.headers
+{
+	"%(headerlist)\x"
 }
 
  //---- OnBIFFFailure ---------------------------------------------------------------
  //Various error messages that can happen when your ghost tries to connect to an email account. Replace the dialogue as appropriate.
  
 OnBIFFFailure
- {
-	"%(wdc)"
-	--
-	if reference0 == "timeout" //If the connection times out.
- 	{
- 		"\0\s[10]Sorry,\w4 the connection timed out."
-	}
- 	elseif reference0 == "kick" //If the account blocks the ghost from accessing it. I think gmail may do this at first to try and protect your account from unapproved applications using it. It gives you the option to change the setting in the warning email they send you about it.
+{
+	if holdingObsidian == 1
 	{
-		"\0\s[106]Sorry, I can't access the account."
- 	}
-	elseif reference0 == "defect" //If the information put into the POP menu is wrong.
- 	{
- 		"\0\s[106]Sorry, the settings aren't right.\w8\w8\s[0] You can reset them in the POP menu.\![open,configurationdialog]"
+		"\0%(wdc)"
+		--
+		if reference0 == "timeout" //If the connection times out.
+		{
+			"\0\s[606]%(t)Sorry##\w4 the connection timed out.]"
+		}
+		elseif reference0 == "kick" //If the account blocks the ghost from accessing it. I think gmail may do this at first to try and protect your account from unapproved applications using it. It gives you the option to change the setting in the warning email they send you about it.
+		{
+			"\0\s[606]%(t)Sorry## I can't access the account.]"
+		}
+		elseif reference0 == "defect" //If the information put into the POP menu is wrong.
+		{
+			"\0\s[606]%(t)Sorry## the settings aren't right.\w8\w8\s[0\] You can reset them in the POP menu.]\![open,configurationdialog]"
+		}
+		elseif reference0 == "artificial"
+		{
+			"\0\s[610]%(t)Oh##\w4 did you change your mind?]"
+		}
+		else //if there's some other kind of error.
+		{
+			"\0\s[606]%(t)Sorry## I can't connect to the account.]\w8\w8 The error is '%(reference0)'."
+			
+			//reference0 here stores the error message the email server would have given the ghost, hopefully.
+		}
+		--
+		"\w8\w8\1%(holdnoise)"
 	}
- 	else //if there's some other kind of error.
+	else
 	{
-		"\0\s[106]Sorry, I can't connect to the account.\w8\w8 The error is '%(reference0)'."
-		
-		//reference0 here stores the error message the email server would have given the ghost, hopefully.
- 	}
-	--
-	"\w8\w8\1%(catnoises)."
+		"\0%(wdc)"
+		--
+		if reference0 == "timeout" //If the connection times out.
+		{
+			"\0\s[106]%(t)Sorry##\w4 the connection timed out.]"
+		}
+		elseif reference0 == "kick" //If the account blocks the ghost from accessing it. I think gmail may do this at first to try and protect your account from unapproved applications using it. It gives you the option to change the setting in the warning email they send you about it.
+		{
+			"\0\s[106]%(t)Sorry## I can't access the account.]"
+		}
+		elseif reference0 == "defect" //If the information put into the POP menu is wrong.
+		{
+			"\0\s[106]%(t)Sorry## the settings aren't right.\w8\w8\s[0\] You can reset them in the POP menu.]\![open,configurationdialog]"
+		}
+		elseif reference0 == "artificial"
+		{
+			"\0\s[110]%(t)Oh##w4 did you change your mind?]\e"
+		}
+		else //if there's some other kind of error.
+		{
+			"\0\s[106]%(t)Sorry## I can't connect to the account.]\w8\w8 The error is '%(reference0)'."
+			
+			//reference0 here stores the error message the email server would have given the ghost, hopefully.
+		}
+		--
+		"\w8\w8\1%(catnoises)."
+	}
 }
 
 //Replace the dialogue in the next set of functions as appropriate. You can easily test these messages using the Developer panel. Go to Open at the bottom of it and choose one of the four Update Event options to simulate a Ghost's update process. I highly recommend doing this at LEAST once if you're going to use this feature to make sure it flows well.
 
- 
+
+OnUpdateCheckComplete //When the ghost finishes checking for updates
+{
+	if reference0 != "none" //If there are no new files
+	{
+		updateavailable = 0
+		if AutoUpdateCheck == 1 //This if stops the dialogue from displaying if this check was performed automatically. They'll tell the user later.
+		{
+			AutoUpdateCheck = 0
+			"\e"
+		}
+		--
+		if holdingObsidian == 1
+		{
+			"\0\s[600]%(wdc)There are no new files.\e"
+		}
+		else
+		{
+			"\0\s[0]%(wdc)There are no new files.\e"
+		}
+	}
+	else
+	{
+		_files = ARRAYSIZE(reference1)
+		//_files++
+		if AutoUpdateCheck == 1
+		{
+			AutoUpdateCheck = 0
+			updateavailable = 1
+			askedalready = 1
+			"\e"
+		}
+		--
+		"\0\s[550]%(wdc)%(t)There are] %(_files) %(t)new files.\w8\w8 Do you want to update now?]\n\n\![*]\q[Update now,StartUpdate]\n\![*]\q[No thanks,cancelnodialogue]\e"
+	}
+}
+
+Select.StartUpdate
+{
+	fromCheck = 1
+	"\![updatebymyself]"
+}
+
 OnUpdateBegin
 {
-	"%(wdc)\0\s[0]Ok,\w4\s[500] I'll check for updates.\w8\e"
+	if fromCheck == 1
+	{
+		fromCheck = 0
+		"\0\s[500]Alright,\w4 beginning update...\w8\w8\e"
+	}
+	else
+	{
+		if holdingObsidian == 1
+		{
+			"\0%(wdc)\s[607]%(t)...My hands are a bit full##\w4 but alright##\w4 I'll check.]\w8\w8\e"
+		}
+		else
+		{
+			"\0%(wdc)\s[0]%(t)Ok##\w4\s[500] I'll check for updates.]\w8\w8\e"
+		}
+	}
 }
 
 //If the ghost finds new files to update with.
 OnUpdateReady
- {
+{
 	_filesavailable = reference0 + 1
-	"%(wdc)\0\s[550]There are %(_filesavailable) new files.\w8\w8\s[500]\e"
-	
+	if holdingObsidian == 1
+	{
+		"\0%(wdc)\s[600]%(t)There are] %(_filesavailable) new files.\w8\w8\e"
+	}
+	else
+	{
+		"\0%(wdc)\s[550]%(t)There are] %(_filesavailable) new files.\w8\w8\s[500]\e"
+	}
 	//reference0 here storing the number of new files. You don't have to use it if you don't want to.
 	//[Zi] Note that it starts counting from 0, to have it be accurate you'll have to add a +1 to it
- }
+}
 
 
 //When the ghost has finished the update process.
 OnUpdateComplete
 {
-	if reference0 == "none" //if the ghost had nothing to update with
- 	{
- 		"%(wdc)\0\s[0]There are no new files.\e"
-	}
- 	else //if the ghost has updated successfully
+	if holdingObsidian == 1
 	{
-		"%(wdc)\0\s[104]Update complete.\e"
- 	}
+		if reference0 == "none" //if the ghost had nothing to update with
+		{
+			"\0%(wdc)\s[600]%(t)There are no new files.]\e"
+		}
+		else //if the ghost has updated successfully
+		{
+			"\0%(wdc)\s[604]%(t)Update complete.]\e"
+		}
+	}
+	else
+	{
+		if reference0 == "none" //if the ghost had nothing to update with
+		{
+			"\0%(wdc)\s[0]%(t)There are no new files.]\e"
+		}
+		else //if the ghost has updated successfully
+		{
+			"\0%(wdc)\s[104]%(t)Update complete.]\e"
+		}
+	}
 }
 
 
 //Error messages if the update process fails in some way.
 OnUpdateFailure
 {
-	if reference0 == "timeout" //if the connection times out
- 	{
- 		"\0\s[106]Sorry, the connection timed out."
-	}
- 	elseif reference0 == "md5 miss" //This is if the files don't match properly to updates.dau, I think. For example, if a file only partially transferred or somehow got corrupted. This may also come up if you didn't set up the directory and updates.dau properly as outlined on the walkthrough page.
+	if holdingObsidian == 1
 	{
-		"\0\s[106]The MD5 values don't match,\w4 you should let Zichqec know about that."
- 	}
-	else //for other errors
- 	{
- 		"\0\s[106]Sorry,\w4 I got an error: '%(reference0)'."
+		if reference0 == "timeout" //if the connection times out
+		{
+			"\0\s[606]Sorry, the connection timed out."
+		}
+		elseif reference0 == "md5 miss"
+		{
+			"\0\s[606]The MD5 values don't match on file %(Update_Remaining),\w4 you should let Zichqec know about that."
+		}
+		else //for other errors
+		{
+			"\0\s[606]Sorry,\w4 I got an error: '%(reference0)'."
+		}
+		--
+		"\w8\w8\1%(holdnoise)\e"
 	}
-	--
-	"\w8\w8\1%(catnoises)."
+	else
+	{
+		if reference0 == "timeout" //if the connection times out
+		{
+			"\0\s[106]Sorry, the connection timed out."
+		}
+		elseif reference0 == "md5 miss"
+		{
+			"\0\s[106]The MD5 values don't match on file %(Update_Remaining),\w4 you should let Zichqec know about that."
+		}
+		else //for other errors
+		{
+			"\0\s[106]Sorry,\w4 I got an error: '%(reference0)'."
+		}
+		--
+		"\w8\w8\1%(catnoises).\e"
+	}
 }
 
 //You may want to replace these messages with just '...' to make updates take less time. Trust us on this one.
  
 OnUpdate.OnDownloadBegin //replaceframe I want him looking at a screen for this
 {
-	"\_q\0\s[500]* (Downloading %(reference0)...)\n\n"
+	if holdingObsidian == 1
+	{
+		"\_q\0\s[630]* (Downloading %(reference0)...)\n\n"
+	}
+	else
+	{
+		"\_q\0\s[500]* (Downloading %(reference0)...)\n\n"
+	}
 	--
 	Update_Process = TOINT(reference1) + 1
 	Update_Total = TOINT(reference2) + 1
@@ -330,25 +705,19 @@ OnUpdate.OnDownloadBegin //replaceframe I want him looking at a screen for this
 	"%(_txt)\n\n%(Update_Process) of %(Update_Total)"
 }
 
-//Again, may want to go with '...'
-OnUpdate.OnMD5CompareBegin
- {
-	""
- }
-
-
- //After they've checked the MD5 value and it matches. See above about the length of this message.
-OnUpdate.OnMD5CompareComplete
- {
-	""
-}
-
  //---- OnUpdate.OnMD5CompareFailure ---------------------------------------------------
  //If the MD5 values don't match. If you follow my Network Update directions carefully, this shouldn't come up very often, but don't be surprised if you run into it every now and then by forgetting a file here or there.
  
 OnUpdate.OnMD5CompareFailure
  {
-	"\0\s[501]The MD5 values don't match.\w8\e"
+	if holdingObsidian == 1
+	{
+		"\0\s[610]The MD5 values don't match on file %(Update_Remaining).\w8\w8\e"
+	}
+	else
+	{
+		"\0\s[501]The MD5 values don't match on file %(Update_Remaining).\w8\w8\e"
+	}
  }
 
  
@@ -360,7 +729,14 @@ OnUpdate.OnMD5CompareFailure
  //This dialogue comes up when you select something in your RSS feed as an intro, like the other On[Thing]Begin things we've seen so far. Replace as you need.
 OnHeadlinesenseBegin
 {
-	"%(wdc)\0\s[550]Alright,\w4 I'll open %(reference0).\w8\1%(catnoises).\e"
+	if holdingObsidian == 1
+	{
+		"\0%(wdc)\s[606]%(t)...My hands are a bit full## but alright.]\w8\w8\s[630] %(reference0)...\w8\1%(holdnoise)\e"
+	}
+	else
+	{
+		"\0%(wdc)\s[550]%(t)Alright##\w4 I'll open] %(reference0).\w8\1%(catnoises).\e"
+	}
 }
 
 //This actually displays the feed. My set-up for it is pretty simple but gets the job done, it just has the name of the feed, a line space, then a list of links. You shouldn't have to edit any of these and I probably wouldn't honestly.
@@ -371,17 +747,38 @@ OnHeadlinesense.OnFind
  	if reference2 == "First" || reference2 == "First and Last"
 	{
  		//---- First page
-		"\0%(wdcb)\s[500]%(reference0):"
+		if holdingObsidian == 1
+		{
+			"\0%(wdcb)\s[600]%(reference0):"
+		}
+		else
+		{
+			"\0%(wdcb)\s[500]%(reference0):"
+		}
  	}
 	elseif reference2 == "Next"
  	{
 		//---- Second page
- 		"\0%(wdcb)\s[500]%(reference0):"
+ 		if holdingObsidian == 1
+		{
+			"\0%(wdcb)\s[600]%(reference0):"
+		}
+		else
+		{
+			"\0%(wdcb)\s[500]%(reference0):"
+		}
 	}
  	elseif reference2 == "Last"
 	{
  		//---- Last page
-		"\0%(wdcb)\s[500]%(reference0):"
+		if holdingObsidian == 1
+		{
+			"\0%(wdcb)\s[600]%(reference0):"
+		}
+		else
+		{
+			"\0%(wdcb)\s[500]%(reference0):"
+		}
  	}
 	--
  	//---- Headlines
@@ -404,39 +801,75 @@ OnHeadlinesense.OnFind
 
 Select.Headline_Cancel
 {
-	"%(wdc)\0\s[102]Alright,\w4 let me know if you want to see it again.\e"
+	if holdingObsidian == 1
+	{
+		"\0%(wdc)\s[600]%(t)Alright##\w4 let me know if you want to see it again.]\w8\w8\1%(holdnoise)\e"
+	}
+	else
+	{
+		"\0%(wdc)\s[102]%(t)Alright##\w4 let me know if you want to see it again.]\w8\w8\1%(catnoises).\e"
+	}
 }
 
  //---- OnHeadlinesenseComplete -------------------------------------------------------
  //This is an odd function. As far as I can gather, this is if the headline information gathering was successful, but there's no new information to report. Possibly if none of the feeds have updated? I'm a little fuzzy on this one.
  
 OnHeadlinesenseComplete
- {
-	"%(wdc)\0\s[0]There's no update. %(reference0).\e"
+{
+	if holdingObsidian == 1
+	{
+		"\0%(wdc)\s[600]%(t)There's no update.] %(reference0).\e"
+	}
+	else
+	{
+		"\0%(wdc)\s[0]%(t)There's no update.] %(reference0).\e"
+	}
 	//reference0 here supposedly always stores the value no update? Again this isn't hugely clear from what I can see. Anyway, this dialogue has never come up for me while using a ghost, so perhaps someone else who runs into it can offer more clarity. For now, you can leave it as is, or write up something else in here if you like.
- }
+}
 
  //---- OnHeadlinesenseFailure ---------------------------------------------------------
  //This one is more clearly for when the ghost can't get the information it needs about the RSS feed in question.
  
 OnHeadlinesenseFailure
-  {
-	"%(wdc)\0\s[108]Sorry,\w4 the feed can't updated.\w8\n\n[half]" //This sets up an exchange between the two characters. The final part of the exchange continues below in the if statements.
- 	--
-	if reference0 == "can't download" //if they can't download the rss feed for some reason
- 	{
-		"It can't be downloaded."
- 	}
-	elseif reference0 == "can't analyze" //if they can't read the file for some reason
- 	{
-		"It can't be analyzed."
- 	}
-	else //other errors
- 	{
-		"I don't know why."
- 	}
-	--
- 	"\w8\w8\1%(catnoises).\e" //And here is the final /e, so you don't need to include it in the if statements above. Another one of the very rare cases this occurs.
+{
+	if holdingObsidian == 1
+	{
+		"%(wdc)\0\s[606]%(t)Sorry##\w4 the feed can't be updated.\w8\w8 "
+		--
+		if reference0 == "can't download" //if they can't download the rss feed for some reason
+		{
+			"I can't download it."
+		}
+		elseif reference0 == "can't analyze" //if they can't read the file for some reason
+		{
+			"I can't analyze it."
+		}
+		else //other errors
+		{
+			"I'm not certain why."
+		}
+		--
+		"]\w8\w8\1%(holdnoise)\e" //And here is the final /e, so you don't need to include it in the if statements above. Another one of the very rare cases this occurs.
+	}
+	else
+	{
+		"%(wdc)\0\s[108]%(t)Sorry##\w4 the feed can't be updated.\w8\w8 "
+		--
+		if reference0 == "can't download" //if they can't download the rss feed for some reason
+		{
+			"I can't download it."
+		}
+		elseif reference0 == "can't analyze" //if they can't read the file for some reason
+		{
+			"I can't analyze it."
+		}
+		else //other errors
+		{
+			"I'm not certain why."
+		}
+		--
+		"]\w8\w8\1%(catnoises).\e" //And here is the final /e, so you don't need to include it in the if statements above. Another one of the very rare cases this occurs.
+	}
 }
 
 
@@ -444,26 +877,71 @@ OnHeadlinesenseFailure
 //This will begin the creation of the updates2.dau file. Not unlike the other beginning functions you've seen throughout this file. Replace with whatever you like.
 OnUpdatedataCreating
 {
-	"%(wdc)\0\s[104]Creating the updates2.dau file.\e"
+	if holdingObsidian == 1
+	{
+		"\0\s[604]%(wdc)"
+	}
+	else
+	{
+		"\0\s[104]%(wdc)"
+	}
+	--
+	"%(t)Creating the] updates2.dau file.\e"
 }
 
 //After the updates2.dau file has been successfully created. Replace with whatever.
 OnUpdatedataCreated
 {
-	"%(wdc)\0\s[104]Successfully created updates2.dau.\e"
+	if holdingObsidian == 1
+	{
+		"\0\s[604]%(wdc)"
+	}
+	else
+	{
+		"\0\s[104]%(wdc)"
+	}
+	--
+	"%(t)Successfully created] updates2.dau.\e"
 }
 
 
 //Along the same lines, this is when they begin creating a .nar file for your ghost. .nars are the format most ghosts will be in, something similar to a .zip file, and this is the format you'll be distributing your ghost in most likely. Replace the dialogue with whatever you like.
 OnNarCreating
 {
-	"%(wdc)\0\s[104]Creating the .nar file.\e"
+	if holdingObsidian == 1
+	{
+		"\0\s[604]%(wdc)"
+	}
+	else
+	{
+		"\0\s[104]%(wdc)"
+	}
+	--
+	"%(t)Creating the] .nar file.\e"
 }
 
 //After the nar file has been successfully created.
 OnNarCreated
 {
-	"%(wdc)\0\s[104]Successfully created '%(reference0)'.\w8\w8\1%(catnoises).\e"
+	if holdingObsidian == 1
+	{
+		"\0\s[604]%(wdc)%(t)"
+	}
+	else
+	{
+		"\0\s[104]%(wdc)%(t)"
+	}
+	--
+	"Successfully created] '%(reference0)'."
+	--
+	if holdingObsidian == 1
+	{
+		"\w8\w8\1%(holdnoise)\e"
+	}
+	else
+	{ 
+		"\w8\w8\1%(catnoises).\e"
+	}
 	//reference0 here will be the filename of the nar you just created. It should drop the nar in the folder where all your ghosts are listed, ssp\ghost\.
 }
 
@@ -477,7 +955,14 @@ OnNarCreated
 //As with the others you've seen above, this is the beginning bit of dialogue for this process.
 OnSNTPBegin
 {
-	"%(wdc)\0\s[0]Sure,\w4 let me check your clock against %(reference0).\w8\w8\1%(catnoises).\e"
+	if holdingObsidian == 1
+	{
+		"\0%(wdc)\s[606]%(t)Ah##\w4 my hands are a little full##\w4 but alright.\w8\w8\s[600\] I'll check your clock against] %(reference0).\w8\w8\1%(holdnoise).\e"
+	}
+	else
+	{
+		"\0%(wdc)\s[500]%(t)Sure##\w4 let me check your clock against] %(reference0).\w8\w8\1%(catnoises).\e"
+	}
 	//%(reference0) here is the site they'll be using to check your clock. I wouldn't worry too much about what the site is or where it's defined, it should be accurate. Replace the dialogue with what you need, you don't have to use reference0 if you don't want to.
 }
 
@@ -490,37 +975,75 @@ OnSNTPCompare
 	Your Time: %reference2[1]/%reference2[2]/%reference2[0] %reference2[3]:%reference2[4]:%reference2[5]\w2\n/
  	\n"
 	--
- 	if reference3 == 0 //if your clock is already accurate.
+	if holdingObsidian == 1
 	{
- 		"\0\s[104]Your clock is accurate.\w8\1%(catnoises).\e\e" //replace this with whatever message you like.
+		if reference3 == 0 //if your clock is already accurate.
+		{
+			"\0\s[604]%(t)Your clock is accurate.]\w8\w8\1%(holdnoise)\e" //replace this with whatever message you like.
+		}
+		else //if your clock doesn't match
+		{
+		//you can redo this top line up to the \n\n[half] part, but leave the \q options alone.
+			"\0\s[600]%(t)Your clock doesn't match.\w8\w8 Should I fix it?]\n\n[half]/
+			\![*]\q[Fix it,OnSNTPEXECUTE]\n/
+			\![*]\q[Leave it alone,OnSNTPCANCEL]\e"
+		}
 	}
- 	else //if your clock doesn't match
+	else
 	{
-	//you can redo this top line up to the \n\n[half] part, but leave the \q options alone.
- 		"\0\s[0]Your clock doesn't match.\w8\nShould I fix it?\n\n[half]/
-		\![*]\q[Fix it,OnSNTPEXECUTE]\n/
- 		\![*]\q[Leave it alone,OnSNTPCANCEL]\e"
+		if reference3 == 0 //if your clock is already accurate.
+		{
+			"\0\s[104]%(t)Your clock is accurate.]\w8\w8\1%(catnoises).\e" //replace this with whatever message you like.
+		}
+		else //if your clock doesn't match
+		{
+		//you can redo this top line up to the \n\n[half] part, but leave the \q options alone.
+			"\0\s[0]%(t)Your clock doesn't match.\w8\w8 Should I fix it?]\n\n[half]/
+			\![*]\q[Fix it,OnSNTPEXECUTE]\n/
+			\![*]\q[Leave it alone,OnSNTPCANCEL]\e"
+		}
 	}
  }
 
 ////After they've fixed your clock. Note the \6 tag - that's what actually changes the clock. Do not remove that tag. Replace the rest with what you want.
 OnSNTPEXECUTE
 {
-	"%(wdc)\6\0\s[104]Ok,\w4 I've fixed it for you.\w8\1%(catnoises).\e"
+	if holdingObsidian == 1
+	{
+		"\6\0%(wdc)\s[604]%(t)Ok##\w4 I've fixed it for you.]\w8\w8\1%(holdnoise)\e"
+	}
+	else
+	{
+		"\6\0%(wdc)\s[104]%(t)Ok##\w4 I've fixed it for you.]\w8\w8\1%(catnoises).\e"
+	}
 }
 
 
 //If you decide not to change your clock when they tell you it doesn't match. Replace with what you want.
 OnSNTPCANCEL
 {
-	"%(wdc)\0\s[104]Ok, if you change your mind just let me know.\w8\1%(catnoises).\e"
+	if holdingObsidian == 1
+	{
+		"\0%(wdc)\s[604]%(t)Ok## if you change your mind just let me know.]\w8\w8\1%(holdnoise)\e"
+	}
+	else
+	{
+		"\0%(wdc)\s[104]%(t)Ok## if you change your mind just let me know.]\w8\w8\1%(catnoises).\e"
+	}
 }
 
 //If they can't change the clock for some reason, possibly because the site timed out but it could be anything. Replace with what you want.
  
 OnSNTPFailure
 {
-	"%(wdc)\0\s[106]Sorry,\w4 something went wrong.\w8\1%(catnoises).\e"
+	if holdingObsidian == 1
+	{
+		"\0%(wdc)\s[606]%(t)Sorry##\w4 something went wrong.]\w8\w8\1%(holdnoise)\e"
+	}
+	else
+	{
+		"\0%(wdc)\s[106]%(t)Sorry##\w4 something went wrong.]\w8\w8\1%(catnoises).\e"
+	}
 }
 
 
@@ -538,7 +1061,14 @@ OnDisplayChange
 
 OnScreenSaverStart
 {
-	"%(wdc)\0\s[110]Ah- what's that?\e"
+	if holdingObsidian == 1
+	{
+		"\0%(wdc)\s[610]%(t)Ah- what's that?]\e"
+	}
+	else
+	{
+		"\0%(wdc)\s[110]%(t)Ah- what's that?]\e"
+	}
 }
 
  //---- OnScreenSaverEnd -------------------------------------------------------
@@ -546,7 +1076,14 @@ OnScreenSaverStart
  
 OnScreenSaverEnd
 {
-	"%(wdc)\0\s[110]...Huh.\w8\1%(catnoises).\e"
+	if holdingObsidian == 1
+	{
+		"\0%(wdc)\s[610]...Huh.\w8\w8\1%(holdnoise)\e"
+	}
+	else
+	{
+		"\0%(wdc)\s[110]...Huh.\w8\w8\1%(catnoises).\e"
+	}
 }
 
 
@@ -577,7 +1114,14 @@ OnApplicationFileOpen
  
 OnBatteryLow
  {
-	"%(wdc)\0\s[110]Your battery is getting pretty low.\w8\1%(catnoises).\e"
+	if holdingObsidian == 1
+	{
+		"\0%(wdc)\s[610]%(t)Your battery is getting pretty low.]\w8\w8\1%(holdnoise)\e"
+	}
+	else
+	{
+		"\0%(wdc)\s[110]%(t)Your battery is getting pretty low.]\w8\w8\1%(catnoises).\e"
+	}
 	//reference0 here is the amount of battery power. Replace as you like.
  }
  
@@ -586,7 +1130,14 @@ OnBatteryLow
  
 OnBatteryCritical
 {
-	"%(wdc)\0\s[110]Your battery is very low,\w4 perhaps you should find a charger?\w8\1%(catnoises).\e"
+	if holdingObsidian == 1
+	{
+		"\0%(wdc)\s[610]%(t)Your battery is very low##\w4 perhaps you should find a charger?]\w8\w8\1%(holdnoise)\e"
+	}
+	else
+	{
+		"\0%(wdc)\s[110]%(t)Your battery is very low##\w4 perhaps you should find a charger?]\w8\w8\1%(catnoises).\e"
+	}
 }
  
 //--OnBatteryNotify--------------------------------------------------------------------
@@ -611,23 +1162,48 @@ OnBatteryNotify
 
 OnSysResourceLow
 {
-	"%(wdc)\0\s[0]Your system resources are getting low.\w8\1%(catnoises).\e"
+	if holdingObsidian == 1
+	{
+		"\0%(wdc)\s[606]%(t)Your system resources are getting low.]\w8\w8\1%(holdnoise)\e"
+	}
+	else
+	{
+		"\0%(wdc)\s[106]%(t)Your system resources are getting low.]\w8\w8\1%(catnoises).\e"
+	}
 }
 
 
 OnShellScaling //replaceframe on all of these, need him talking to obsidian and being concerned
 {
-	if reference0 > 100 //If getting bigger
+	if holdingObsidian == 1
 	{
-		"%(wdc)\0\s[106]Ah,\w4 hello %(username).\w8\w8\1%(catnoises).\w8\w8\0\s[0]\n\n%(wdn)OBSIDIAN,\w4 BE MINDFUL OF YOUR NEW SIZE AND DON'T CRUSH ANYTHING.%(dfont)\e"
+		if reference0 > 100 //If getting bigger
+		{
+			"%(wdc)\0\s[606]Ah,\w4 hello %(username).\w8\w8\1%(holdnoise)\w8\w8\0\s[630]\n\n%(wdn)HA, YOU'RE STUCK WITH ME THIS TIME.%(reg)\e"
+		}
+		elseif reference0 < 100 //If getting smaller
+		{
+			"%(wdc)\0\s[606]Ah,\w4 are we in your way?\w8\w8\1%(catnoises).\w8\w8\0\s[607]\n\n%(wdn)AT LEAST I'VE GOT HOLD OF YOU,\w4 THIS TIME...%(reg)\e"
+		}
+		else //Normal size
+		{
+			"%(wdc)\0\s[606]Thank you,\w4 %(username).\w8\w8\1%(holdnoise)\e"
+		}
 	}
-	elseif reference0 < 100 //If getting smaller
+	else
 	{
-		"%(wdc)\0\s[106]Ah,\w4 are we in your way?\w8\w8\1%(catnoises).\w8\w8\0\s[0]\n\n%(wdn)OBSIDIAN,\w4 DON'T BE SNEAKING OFF INTO ANY SMALL CREVICES.%(dfont)\e"
-	}
-	else //Normal size
-	{
-		"%(wdc)\0\s[106]Thank you,\w4 %(username).\w8\w8\0\s[0]\1%(catnoises).\e" //replaceframe looking at obsi-concern smile
+		if reference0 > 100 //If getting bigger
+		{
+			"%(wdc)\0\s[106]Ah,\w4 hello %(username).\w8\w8\1%(catnoises).\w8\w8\0\s[400]\n\n%(wdn)OBSIDIAN,\w4 BE MINDFUL OF YOUR NEW SIZE AND DON'T CRUSH ANYTHING.%(reg)\e"
+		}
+		elseif reference0 < 100 //If getting smaller
+		{
+			"%(wdc)\0\s[106]Ah,\w4 are we in your way?\w8\w8\1%(catnoises).\w8\w8\0\s[402]\n\n%(wdn)OBSIDIAN,\w4 DON'T BE SNEAKING OFF INTO ANY SMALL CREVICES.%(reg)\e"
+		}
+		else //Normal size
+		{
+			"%(wdc)\0\s[106]Thank you,\w4 %(username).\w8\w8\1%(catnoises).\w8\w8\0\s[402]\e"
+		}
 	}
 }
 
@@ -642,5 +1218,693 @@ OnDialogueVars //Variables set in dialogue
 		{
 			booting = 0
 		}
+		when "holdObsi"
+		{
+			holdingObsidian = 1
+		}
 	}
+}
+
+OnChoiceSelectEx //This handles any menus I create with loops where the choice selections can't have unique IDs. I have it just direct to other functions so that everything is where it makes sense.
+{
+	if reference1 == "TooltipTranslation"
+	{
+		//"\0\s[106]That means %(reference0),\w4 but you can see the translation by hovering over the word instead of clicking.\e"
+		//Commenting this out because balloons with tooltips can't be closed. At least this way you can click on the words to dismiss the balloon
+	}
+	elseif reference1 == "testquizanswer" //Might have to see if I can add another check on this?
+	{
+		quizinput = reference0
+		OnQuizInput
+	}
+	elseif reference1 == "opencategory"
+	{
+		currentusercategory = reference0 //See what category the user clicked
+		OnUserCategoryDisplay //Display the category based on it, below
+	}
+	elseif reference1 == "editword"
+	{
+		OnChoiceEditWord
+	}
+	elseif reference1 == "deleteword"
+	{
+		OnChoiceDeleteWord
+	}
+	elseif reference1 == "deletecategory"
+	{
+		OnChoiceDeleteCategory
+	}
+}
+
+OnCheckCaseE //Pick a random case to make the teaching word
+{
+	teachword = reference0
+	if teachWD == "Easy" || teachWD == "Med" || teachWD == "Hard"
+	{
+		"%(wdn)"
+		--
+		if tooltips == "On"
+		{
+			"\q["
+		}
+		--
+		if reference2 == "num"
+		{
+			if teachNUM == "On"
+			{
+				"%(teachword)"
+			}
+			else
+			{
+				"%(teachword)"
+			}
+		}
+		elseif reference2 == "punct"
+		{
+			if teachPUNCT == "On"
+			{
+				"%(teachword)"
+			}
+			else
+			{
+				"%(teachword)"
+			}
+		}
+		else
+		{
+			if teachPROPER == "On"
+			{
+				"%(teachword)"
+			}
+			if teachUPPER == "On"
+			{
+				teachword = TOUPPER(teachword)
+				"%(teachword)"
+			}
+			if teachLOWER == "On"
+			{
+				teachword = TOLOWER(teachword)
+				"%(teachword)"
+			}
+			if teachPROPER == "Off" && teachUPPER == "Off" && teachLOWER == "Off"
+			{
+				teachword = TOUPPER(teachword)
+				"%(teachword)"
+			}
+		}
+		--
+		if tooltips == "On"
+		{
+			",TooltipTranslation,teachword]"
+		}
+		--
+		"%(reg)"
+	}
+	else
+	{
+		"%(teachword)"
+	}
+}
+
+OnCheckCaseM //Pick a random case to make the teaching word - Medium difficulty
+{
+	teachword = reference0
+	if teachWD == "Med" || teachWD == "Hard"
+	{
+		"%(wdn)"
+		--
+		if tooltips == "On"
+		{
+			"\q["
+		}
+		--
+		if reference2 == "num"
+		{
+			if teachNUM == "On"
+			{
+				"%(teachword)"
+			}
+			else
+			{
+				"%(teachword)"
+			}
+		}
+		elseif reference2 == "punct"
+		{
+			if teachPUNCT == "On"
+			{
+				"%(teachword)"
+			}
+			else
+			{
+				"%(teachword)"
+			}
+		}
+		else
+		{
+			if teachPROPER == "On"
+			{
+				"%(teachword)"
+			}
+			if teachUPPER == "On"
+			{
+				teachword = TOUPPER(teachword)
+				"%(teachword)"
+			}
+			if teachLOWER == "On"
+			{
+				teachword = TOLOWER(teachword)
+				"%(teachword)"
+			}
+			if teachPROPER == "Off" && teachUPPER == "Off" && teachLOWER == "Off"
+			{
+				teachword = TOUPPER(teachword)
+				"%(teachword)"
+			}
+		}
+		--
+		if tooltips == "On"
+		{
+			",TooltipTranslation,teachword]"
+		}
+		--
+		"%(reg)"
+	}
+	else
+	{
+		"%(teachword)"
+	}
+}
+
+OnCheckCaseH //Pick a random case to make the teaching word - Hard difficulty
+{
+	teachword = reference0
+	if teachWD == "Hard"
+	{
+		"%(wdn)"
+		--
+		if tooltips == "On"
+		{
+			"\q["
+		}
+		--
+		if reference2 == "num"
+		{
+			if teachNUM == "On"
+			{
+				"%(teachword)"
+			}
+			else
+			{
+				"%(teachword)"
+			}
+		}
+		elseif reference2 == "punct"
+		{
+			if teachPUNCT == "On"
+			{
+				"%(teachword)"
+			}
+			else
+			{
+				"%(teachword)"
+			}
+		}
+		else
+		{
+			if teachPROPER == "On"
+			{
+				"%(teachword)"
+			}
+			if teachUPPER == "On"
+			{
+				teachword = TOUPPER(teachword)
+				"%(teachword)"
+			}
+			if teachLOWER == "On"
+			{
+				teachword = TOLOWER(teachword)
+				"%(teachword)"
+			}
+			if teachPROPER == "Off" && teachUPPER == "Off" && teachLOWER == "Off"
+			{
+				teachword = TOUPPER(teachword)
+				"%(teachword)"
+			}
+		}
+		--
+		if tooltips == "On"
+		{
+			",TooltipTranslation,teachword]"
+		}
+		--
+		"%(reg)"
+	}
+	else
+	{
+		"%(teachword)"
+	}
+}
+
+On_balloon_tooltip
+{
+	if reference2 == "teachword"
+	{
+		"%(reference0)"
+	}
+	elseif reference1 == "ToggleTooltips"
+	{
+		"Makes it possible to hover over practice words to see the translation, but will prevent balloons from being closed by double clicking! You can click on words with tooltips if you want to close the balloon."
+	}
+}
+
+
+OnWeatherLocation
+{
+	if curlocation != "" && curlocation != "Set a location"
+	{
+		"%(wdc)\_q* (Your location is currently set to: %(curlocation))\n\n"
+	}
+	else
+	{
+		"%(wdc)\_q"
+	}
+	--
+	"* (Do you live inside or outside the USA?)\n\n/
+	\![*]\q[In the USA,OnUSALoc]\n/
+    \![*]\q[Outside the USA,OnOtherLoc]\n\n"
+	--
+	if fromfunctionmenu == 1
+	{
+		"\![*]\q[Back to functions,OnFunctionMenu]\e"
+	}
+	else
+	{
+		"\![*]\q[Back to config,OnTalkConfig]\e"
+	}
+}
+
+
+OnUSALoc
+{
+	templocation = ""
+    "%(wdc)\![set,balloontimeout,-1]\** (Please enter your zipcode.)\![open,inputbox,OnLocCode,-1]"
+}
+
+OnOtherLoc
+{
+	templocation = ""
+    "%(wdc)\![set,balloontimeout,-1]\** (Please go to weather.com, search your city, and enter the URL.)\![open,inputbox,OnLocCode,-1]"
+}
+
+OnLocCode
+{
+	locationcode = reference0
+	if "https://weather.com/weather/today/l/" _in_ locationcode
+	{
+		locationcode = REPLACE(locationcode,"https://weather.com/weather/today/l/","") //if someone puts in the whole URL, this gets rid of the unneeded bit...
+	}
+	--
+	//templocation = ""
+	//OnDownloadCurWeather
+	"\![execute,http-get,https://weather.com/weather/today/l/%(locationcode),--async=OnCheckWeatherLoc,--file=weather.html,--timeout=300]anMoon01\w4\canMoon02\w4\canMoon03\w4\canMoon04\w4\canMoon05\w4\canMoon06\w4\canMoon07\w4\canMoon08\w4\canMoon01\w4\canMoon02\w4\canMoon03\w4\canMoon04\w4\canMoon05\w4\canMoon06\w4\canMoon07\w4\canMoon08\w4\canMoon01\w4\canMoon02\w4\canMoon03\w4\canMoon04\w4\canMoon05\w4\canMoon06\w4\canMoon07\w4\canMoon08\w4\canMoon01\w4\canMoon02\w4\canMoon03\w4\canMoon04\w4\canMoon05\w4\canMoon06\w4\canMoon07\w4\canMoon08\w4\canMoon01\w4\canMoon02\w4\canMoon03\w4\canMoon04\w4\canMoon05\w4\canMoon06\w4\canMoon07\w4\canMoon08\w4\canMoon01\w4\canMoon02\w4\canMoon03\w4\canMoon04\w4\canMoon05\w4\canMoon06\w4\canMoon07\w4\canMoon08\w4"
+	
+	
+}
+
+OnCheckWeatherLoc
+{
+    //initialize variables
+    _file = "var\\weather.html"
+    _buff=""
+    _regtemp = ''
+    _regdegree = ''
+    _regfeels = ''
+    _reghumidity = ''
+    _regwind = ''
+    _regstate = ''
+    _regloc = ''
+    _regpollen = ''
+    FCHARSET(1)
+    //array to hold current weather data
+    //[temp, degrees, feels like temp, humidity, wind, state (cloudy, rainy, etc), pollen alert (yes/no)]
+    currentweatherarray = ("","","","","","","")
+    
+    --
+    
+    if FOPEN(_file,'r') {
+    
+        _buff = FREAD(_file) //get the first line of the HTML to check what type of page we got
+        temp = _buff
+        
+        if RE_SEARCH(_buff, '<html dir="ltr" lang="en-US"><head>') { //reg expressions for chrome formatted page
+            _regloc = 'Conditions--location--1YWj_">(.*) Weather</h1><div class='
+        }
+        else {
+        //reg expressions for firefox formatted page
+            _regloc = 'className="h4 today_nowcard-location">(.*)<span class="icon icon-font iconset-social icon-share-circle" className="icon icon-font iconset-social icon-share-circle"></span>'
+        }
+
+        for _buff = FREAD(_file); _buff != -1; _buff = FREAD(_file) {
+            
+            //set location
+            if RE_SEARCH ( _buff, _regloc ) {
+                
+                templocation = RE_GETSTR[1]
+                
+            }
+            
+        }
+    }
+    --
+    
+    FCLOSE(_file);
+	--
+    if templocation != ""
+	{
+		"(Your current location is %(templocation). Is this correct?)\n\n/
+		\![*]\q[Yes,confirmweather]\n/
+		\![*]\q[Enter a different location,OnWeatherLocation]\n/
+		\![*]\q[Cancel,cancelnodialogue]"
+	}
+	else
+	{
+		"(Couldn't get your location,\w4 try again?)\n\n/
+		\![*]\q[Try again,tryweatherlocagain]\n/
+		\![*]\q[Enter a different location,OnWeatherLocation]\n/
+		\![*]\q[Cancel,cancelnodialogue]"
+	}
+}
+
+
+
+Select.tryweatherlocagain
+{
+	"\![execute,http-get,https://weather.com/weather/today/l/%(locationcode),--async=OnCheckWeatherLoc,--file=weather.html,--timeout=300]%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)"
+}
+
+Select.confirmweather
+{
+	curlocation = templocation
+	if fromfunctionmenu == 1
+	{
+		fromfunctionmenu = 0
+		OnDownloadCurWeather
+	}
+	else
+	{
+		OnTalkConfig
+	}
+}
+
+
+//current weather functions
+OnDownloadCurWeather
+{
+   "\![execute,http-get,https://weather.com/weather/today/l/%(locationcode),--async=OnCurWeatherFound,--file=weather.html,--timeout=200]%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)"
+}
+
+OnCurWeatherFound
+{ 
+    //initialize variables
+    _file = "var\\weather.html"
+    _buff=""
+    _regtemp = ''
+    _regdegree = ''
+    _regfeels = ''
+    _reghumidity = ''
+    _regwind = ''
+    _regstate = ''
+    _regloc = ''
+    _regpollen = ''
+    FCHARSET(1)
+    //array to hold current weather data
+    //[temp, degrees, feels like temp, humidity, wind, state (cloudy, rainy, etc), pollen alert (yes/no)]
+    currentweatherarray = ("","","","","","","")
+    
+    --
+    
+    if FOPEN(_file,'r') {
+    
+        _buff = FREAD(_file) //get the first line of the HTML to check what type of page we got
+        temp = _buff
+        
+        if RE_SEARCH(_buff, '<html dir="ltr" lang="en-US"><head>') { //reg expressions for chrome formatted page
+            _regtemp = 'CurrentConditions--tempValue--MHmYY">(-?\d*)°</span><div'
+            _regdegree = '(°C|°F)'
+            _regfeels = 'feelsLikeTempValue--2icPt">(-?\d*)°</span><span data'
+            _reghumidity = 'estid="PercentageValue">(\d*)%</span></div>'
+            _regwind = '6.44z"></path></svg>([\w|\s|\d]*)</span></div></div>'
+            _regstate = 'phraseValue--mZC_p">([\w|\s]*)</div></div>'
+            _regloc = 'Conditions--location--1YWj_">(.*) Weather</h1><div class='
+            _regpollen = 'iesListItem--description--2eNsW">([\w|\s]*) pollen is very high in your area</p></'
+			//_regsunriseB = '<p class="_-_-components-src-molecule-SunriseSunset-SunriseSunset--dateValue--3H780">(\d*:\d* [p|a]m)</p>'
+        }
+        else {
+        //reg expressions for firefox formatted page
+            _regtemp = '<div class="today_nowcard-temp"><span class="">(-?\d*)<sup>'
+            _regdegree = '(°C|°F)'
+            _regfeels = '<span class="btn-text">Feels Like<!----> </span><span class="deg-feels" className="deg-feels">(-?\d*)<sup>'
+            _reghumidity = '</tr><tr><th>Humidity</th><td><span class=""><span>(\d*)<span class="Percentage__percentSymbol__2Q_AR">%'
+            _regwind = '<tr><th>Wind</th><td><span class="">([\w|\s|\d]*)</span></td></tr><tr><th>'
+            _regstate = '<div class="today_nowcard-phrase">([\w|\s]*)'
+            _regloc = 'className="h4 today_nowcard-location">(.*)<span class="icon icon-font iconset-social icon-share-circle" className="icon icon-font iconset-social icon-share-circle"></span>'
+            _regpollen = ' title="Local Pollen Alert"'
+        }
+
+        for _buff = FREAD(_file); _buff != -1; _buff = FREAD(_file) {
+            
+
+            //current temp
+            if RE_SEARCH ( _buff, _regtemp ) {
+                
+                currentweatherarray[0] = RE_GETSTR[1]
+                
+            }
+    
+            //degrees (F or C)
+            if RE_SEARCH ( _buff, _regdegree ) {
+                currentweatherarray[1] = RE_GETSTR[1]
+                
+            }
+            
+            //feels like temp
+            if RE_SEARCH ( _buff, _regfeels ) {
+                currentweatherarray[2] = RE_GETSTR[1]
+                
+            }
+            
+            //humidity
+            if RE_SEARCH ( _buff, _reghumidity ) {
+                currentweatherarray[3] = RE_GETSTR[1]
+                
+            }
+            
+            //wind
+            if RE_SEARCH ( _buff, _regwind) {
+                currentweatherarray[4] = RE_GETSTR[1]
+                
+            }
+            
+            
+            //state (cloudy, sunny, etc)
+            if RE_SEARCH ( _buff, _regstate ) {
+                
+                currentweatherarray[5] = RE_GETSTR[1]
+                
+            }
+            
+            //set location
+            if RE_SEARCH ( _buff, _regloc ) {
+                
+                curlocation = RE_GETSTR[1]
+                
+            }
+            
+            //search for pollen stuff
+            if RE_SEARCH ( _buff, _regpollen ) {
+                
+                currentweatherarray[6] = "Local Pollen Alert"
+                PollenAlert = 1
+            }
+			/*
+			//Sunrise
+            if RE_SEARCH ( _buff, _regsunriseB ) {
+                
+                currentweatherarray[7] = RE_GETSTR[1]
+            }
+            */
+        }
+    }
+    --
+    
+    FCLOSE(_file);
+    if weather _in_ weatherlist
+	{
+		""
+	}
+	else
+	{
+		weatherlist += "%(weather)\n-"
+	}
+	--
+	humiditylist += "%(humidity)%\n"
+    --
+	if currentweatherarray[0] != ""
+	{
+		loadmoonnum += 2
+		"\![raise,OnDownloadMoonPhase]"
+	}
+	else
+	{
+		if weathertries < 5
+		{
+			"\_q* (Couldn't get the weather, trying again...)\n(%(weathertries)/5)\w8\w8\_q\![raise,OnDownloadCurWeather]"
+			weathertries += 1
+		}
+		else
+		{
+			if weatherquiet
+			{
+				weatherquiet = 0
+				weathertries = 1
+				tempurature = "Unknown"
+				ForC = "Unknown"
+				feelslike = "Unknown"
+				humidity = "Unknown"
+				wind = "Unknown"
+				weather = "Unknown"
+				pollen = "Unknown"
+				phase = "Unknown"
+				--
+				"\e"
+			}
+			"(Couldn't get the weather, please try again in a few minutes.)\e"
+			weathertries = 1
+		}
+	}
+
+}
+
+
+Select.tryweatheragain
+{
+	OnDownloadCurWeather
+}
+
+
+OnDownloadMoonPhase
+{
+    "\0\![execute,http-get,https://www.moongiant.com/phase/today/,--async=OnMoonFound,--file=moon.html,--timeout=200]"
+}
+
+OnMoonFound
+	{
+    //file to be read
+    _file = "var\\moon.html"
+    //line being read
+    _buff=""
+    //regular expressions to extract data
+    _regphase=',"Phase: <span>([\w|\s]*)<./span>'
+    _found = 0;
+    //using UTF-8 charset
+    FCHARSET(1)
+    
+    //string for holding phase
+    phase = ""
+    
+
+    
+    --
+    
+    if FOPEN(_file,'r') {
+        for _buff = FREAD(_file); _buff != -1 && !_found; _buff = FREAD(_file) {
+            
+
+            if RE_SEARCH ( _buff, _regphase ) {
+                
+                phase = RE_GETSTR[1]
+                _found = 1; //break loop since we dont need to continue parsing
+                
+            }
+        }
+    }
+    --
+    
+    FCLOSE(_file);
+    
+	--
+    if weatherquiet
+	{
+        weatherquiet = 0
+        --
+        "\e"
+    }
+    
+    --
+	tempurature = TOINT(currentweatherarray[0])
+	ForC = currentweatherarray[1]
+	feelslike = currentweatherarray[2]
+	humidity = TOINT(currentweatherarray[3])
+	wind = currentweatherarray[4]
+	weather = currentweatherarray[5]
+	pollen = currentweatherarray[6]
+	//change the dialogue as you wish
+	//[temp, degrees, feels like temp, humidity, wind, state (cloudy, rainy, etc)]
+	
+	"\0%(wdcb)\s[500]\_qThe weather for %(curlocation):\n\nTemperature: %(currentweatherarray[0])%(currentweatherarray[1])\nFeels like: %(currentweatherarray[2])%(currentweatherarray[1])/
+    \nHumidity: %(currentweatherarray[3])%\nWind: %(currentweatherarray[4])\nWeather: %(currentweatherarray[5])\nMoon Phase: %(phase)"
+    --
+    if currentweatherarray[6] == "Local Pollen Alert" {
+    "\nThere's a local pollen alert."
+    }
+
+	
+	--
+	"\n\n\![*]\q[Back to functions,OnFunctionMenu]\n\![*]\q[I'm done,cancelnodialogue]\e"
+	
+
+}
+
+//Ok so I'm kinda proud of this. Any sentences that I want to have teach words in them, I just stick the whole thing into an embed that calls this function. This function divides up the words by spaces, picks a random one, and adds the teach formatting to it!
+OnRandomTeachWord
+{
+	talkarray = reference0
+	talkarray = REPLACE(talkarray," ","|")
+	//talkarray = REPLACE(talkarray,"]","\]")
+	//talkarray = REPLACE(talkarray,"\","\\")
+	
+	SETDELIM(talkarray,"|")
+	talkarraysize = ARRAYSIZE(talkarray)
+	
+	_rand1 = RAND(talkarraysize)
+	_rand2 = RAND(talkarraysize)
+	_rand3 = RAND(talkarraysize)
+	_rand4 = RAND(talkarraysize)
+	
+	if "##" !_in_ talkarray[_rand1] && "\" !_in_ talkarray[_rand1]
+	{
+		_wordtoreplace1 = ("$E-" + "%(talkarray[_rand1])" + "-$")
+		talkarray[_rand1] = _wordtoreplace1
+	}
+	if _rand2 != _rand1 && "##" !_in_ talkarray[_rand2] && "\" !_in_ talkarray[_rand2]
+	{
+		_wordtoreplace2 = ("$M-" + "%(talkarray[_rand2])" + "-$")
+		talkarray[_rand2] = _wordtoreplace2
+	}
+	if _rand3 != _rand1 && _rand3 != _rand2 && "##" !_in_ talkarray[_rand3] && "\" !_in_ talkarray[_rand3]
+	{
+		_wordtoreplace3 = ("$H-" + "%(talkarray[_rand3])" + "-$")
+		talkarray[_rand3] = _wordtoreplace3
+	}
+	if _rand4 != _rand1 && _rand4 != _rand2 && _rand4 != _rand3 && "##" !_in_ talkarray[_rand4] && "\" !_in_ talkarray[_rand4]
+	{
+		_wordtoreplace4 = ("$H-" + "%(talkarray[_rand4])" + "-$")
+		talkarray[_rand4] = _wordtoreplace4
+	}
+	talkarray = REPLACE(talkarray,"##","%(CHR(0x2C))")
+	
+	SETDELIM(talkarray," ")
+	reference0 = REPLACE(talkarray,"|"," ")
+	"%(reference0)"
 }

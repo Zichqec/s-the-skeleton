@@ -12,7 +12,7 @@ OnNameTeach
 	{
 		"\0\s[106]%(wdc)\1%(annoyednoises).\w8\w8\0Ah,\w4 that's the name you gave me before.\w8\w8\s[107] Let me know if you want to change it.\x"
 		--
-		TalkConfig
+		OnTalkConfig
 	}
 	elseif reference0 == "dusty"
 	{
@@ -38,7 +38,7 @@ OnNameTeach
 			"\1\s[10]%(annoyednoises).\w8\w8\0\s[400]%(wdc)...I don't think she'll let me call you that.\w8\w8\s[106] Better try something else.\![open,inputbox,OnNameTeach,-1]\e"
 		}
 	}
-	elseif reference0 == "" || reference0 == " " || reference0 == "   "
+	elseif reference0 == ""
 	{
 		username = "User"
 		"\0\s[106]%(wdc)\1%(catnoises).\w8\w8\0Ah,\w4 I'll just call you User for now,\w4 then.\w8\w8\s[102] Let me know if you want to change it."
@@ -64,7 +64,7 @@ OnNameTeach
 	{
 		"\0\x"
 		--
-		TalkConfig
+		OnTalkConfig
 	}
 }
 
@@ -246,7 +246,7 @@ OnUserBornDay
 		"\0\s[0]%(wdc)\1%(catnoises).\w8\w8\0Alright,\w4 your birthday is %(bornmonthprint) %(borndayprint).\w8\w8\s[104] I'll remember that.\x"
 	}
 	--
-	TalkConfig
+	OnTalkConfig
 }
 
 //Pronouns
@@ -268,7 +268,7 @@ Select.choicemasc
 	--
 	"%(wdc)\0\s[0]%(wdc)Alright,\w4 I'll use he,\w4 him,\w4 and his for you.\x"
 	--
-	TalkConfig
+	OnTalkConfig
 }
 
 Select.choicefem
@@ -280,7 +280,7 @@ Select.choicefem
 	--
 	"%(wdc)\0\s[0]%(wdc)Alright,\w4 I'll use she,\w4 her,\w4 and hers for you.\x"
 	--
-	TalkConfig
+	OnTalkConfig
 }
 
 Select.choiceneither
@@ -292,5 +292,5 @@ Select.choiceneither
 	--
 	"%(wdc)\0\s[0]%(wdc)Alright,\w4 I'll use they,\w4 them,\w4 and their for you.\x"
 	--
-	TalkConfig
+	OnTalkConfig
 }
