@@ -17,6 +17,7 @@ OnFirstBoot
 	talktime = "every 5 minutes" //How the value aitalkinterval will display in the config menu.
 	deleteshitai = "OFF" //Sets whether or not the user can uninstall the ghost to "OFF". The user can change it later in the config menu (see menu.dic). 
 	nowshell = "blue_sweater" //This is for a special if check in aitalk.dic to see what shell the ghost is using. You should use the name of your default shell folder here.
+	booting = 1
 	
 	DefineStartVars //A function at the bottom that sets a whole mess of variables...
 	
