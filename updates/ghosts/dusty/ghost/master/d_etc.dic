@@ -521,6 +521,20 @@ OnUpdateCheckComplete //When the ghost finishes checking for updates
 {
 	if reference0 != "none" //If there are no new files
 	{
+		_files = ARRAYSIZE(reference1)
+		//_files++
+		if AutoUpdateCheck == 1
+		{
+			AutoUpdateCheck = 0
+			updateavailable = 1
+			askedalready = 1
+			"\e"
+		}
+		--
+		"\0\s[550]%(wdc)%(t)There are] %(_files) %(t)new files.\w8\w8 Do you want to update now?]\n\n\![*]\q[Update now,StartUpdate]\n\![*]\q[No thanks,cancelnodialogue]\e"
+	}
+	else
+	{
 		updateavailable = 0
 		if AutoUpdateCheck == 1 //This if stops the dialogue from displaying if this check was performed automatically. They'll tell the user later.
 		{
@@ -536,20 +550,6 @@ OnUpdateCheckComplete //When the ghost finishes checking for updates
 		{
 			"\0\s[0]%(wdc)There are no new files.\e"
 		}
-	}
-	else
-	{
-		_files = ARRAYSIZE(reference1)
-		//_files++
-		if AutoUpdateCheck == 1
-		{
-			AutoUpdateCheck = 0
-			updateavailable = 1
-			askedalready = 1
-			"\e"
-		}
-		--
-		"\0\s[550]%(wdc)%(t)There are] %(_files) %(t)new files.\w8\w8 Do you want to update now?]\n\n\![*]\q[Update now,StartUpdate]\n\![*]\q[No thanks,cancelnodialogue]\e"
 	}
 }
 

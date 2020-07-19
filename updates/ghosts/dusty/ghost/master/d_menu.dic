@@ -80,18 +80,18 @@ MenuRun
 	\![*]\q[Do something,dosomething]\n/
 	\![*]\q[Use some functions,OnFunctionMenu]\n/
 	//\![*]\q[Give him an item,inventory]\n/ //I was gonna do this but then changed my mind...
-	\![*]\q[Change some settings,OnTalkConfig]\n\n[half]"
+	\![*]\q[Change some settings,OnTalkConfig]\n\n"
 	--
 	if debug == 1 //Use at your own risk. Always check the test variable before running it, sometimes I have things in there that'll reset your variables. I haven't given Dusty a debug menu yet, so I just commented it out.
 	{
 		"* (Or, for the very curious...)\n\n[half]/
 		//\![*]\q[Debug,zidebug]\n/
-		\![*]\q[Test Variable,testvariable]\n\n[half]"
+		\![*]\q[Test Variable,testvariable]\n\n"
 	}
 	--
- 	"\![*]\q[Nevermind,CANCEL]\n\n%(wd) %(nowhour):%(nowmin) %(ap), %(month)/%(day)/%(year) - %(season)"
+ 	"\![*]\q[Nevermind,CANCEL]\n\n%(displayweekday) %(nowhour):%(nowmin) %(ap), %(displaymonth) %(displayday), %(year) - %(season)"
 	--
-	if AutoWeather == "ON" && phase != "Unknown" && phase != "" //If the user has weather updates on, this will display the current moon phase. The moon will not appear if the last weather or phase check failed. The text in these are anchors, clicking on the moon will perform a weather check.
+	if AutoWeather == "ON" && phase != "Unknown" && phase != "" && curlocation != "" && curlocation != "Set a location" //If the user has weather updates on, this will display the current moon phase. The moon will not appear if the last weather or phase check failed. The text in these are anchors, clicking on the moon will perform a weather check.
 	{
 		", %(tempurature)%(ForC) "
 		--
@@ -106,12 +106,12 @@ MenuRun
 		else; {""}
 		--
 		{
-			" Runtime: %(passhour):%(displaymin)                        Version 1.0.0\e"
+			" Runtime: %(passhour):%(displaymin)                                           Version 1.0.0\e"
 		}
 	}
 	else //If his weather check fails or you have weather off, he displays the runtime and version slightly different (difference in spacing and linebreak)
 	{
-		"\nRuntime: %(passhour):%(displaymin)          Version 1.0.0\e"
+		"\nRuntime: %(passhour):%(displaymin)                             Version 1.0.0\e"
 	}
 	--
 	if WDOnly == 1
@@ -788,7 +788,7 @@ OnWeatherCheck
 	fromfunctionmenu = 1
 	if curlocation == "" || curlocation == "Set a location"
 	{
-		"\_q%(t)%(wdc)You don't have a location set. Are you in the USA?]\n\n"
+		"\_q%(wdc)%(t)You don't have a location set. Are you in the USA?]\n\n"
 		--
 		"\![*]\q[In the USA,OnUSALoc]\n/
 		\![*]\q[Outside the USA,OnOtherLoc]\n\n/
@@ -862,7 +862,7 @@ Select.bugreport
 
 Select.startupdatecheck
 {
-	"\0%(wdc)\s[0]%(t)Ok##\w4\s[500] I'll check for updates.]\w8\w8\![updatebymyself,checkonly]\e"
+	"\0%(wdc)\s[0]%(t)Ok##\w4\s[500\] I'll check for updates.]\w8\w8\![updatebymyself,checkonly]\e"
 }
 
 OnChangelog

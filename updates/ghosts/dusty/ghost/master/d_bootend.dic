@@ -5,27 +5,29 @@
 
 OnFirstBoot
 {
-	if reference0 == 0 //Don't touch this line.
+	lastTalk = "" //This is part of how chained conversations work (see aitalk.dic).
+	passhour = 0
+	passmin = 0 
+	passsec = 0 // These two keep track of the time.
+	username         = "User" //This sets a temporary name for the user. It'll be replaced when they tell the ghost their name.
+	stroke           = 0	// Sets their being-pet state to zero.
+	mikireflag       = 0	// Determines behavior at certain points.
+	aitalkinterval = 300 //Their default talk rate.
+	birthdayprint = "????" //A temporary value for the user's birthday.
+	talktime = "every 5 minutes" //How the value aitalkinterval will display in the config menu.
+	deleteshitai = "OFF" //Sets whether or not the user can uninstall the ghost to "OFF". The user can change it later in the config menu (see menu.dic). 
+	nowshell = "blue_sweater" //This is for a special if check in aitalk.dic to see what shell the ghost is using. You should use the name of your default shell folder here.
+	
+	DefineStartVars //A function at the bottom that sets a whole mess of variables...
+	
+	if reference0 == 0
  	{
-		lastTalk = "" //This is part of how chained conversations work (see aitalk.dic).
-		passmin = 0 
-		passsec = 0 // These two keep track of the time.
-		username         = "USER" //This sets a temporary name for the user. It'll be replaced when they tell the ghost their name.
-		stroke           = 0	// Sets their being-pet state to zero.
-		teachusername    = 0	// Related to them learning your name.
-		mikireflag       = 0	// Determines behavior at certain points.
-		aitalkinterval = 400 //Their default talk rate.
-		birthdayprint = "????" //A temporary value for the user's birthday.
-		talktime = "5 minutes" //How the value aitalkinterval will display in the config menu.
-		deleteshitai = "OFF" //Sets whether or not the user can uninstall the ghost to "OFF". The user can change it later in the config menu (see menu.dic). 
-		nowshell = "blue_sweater" //This is for a special if check in aitalk.dic to see what shell the ghost is using. You should use the name of your default shell folder here.
-		
-		
+		resets = 0
 		"\![enter,passivemode]\1\s[10]\0\s[502]%(wdn)HH-!\w8\w8\s[208] AH,\w4 THIS IS...\w8\w8\1%(catnoises).\w8\w8\0\s[110]\n\n%(rgc)Oh-\w4\s[114] hello there.\w8\w8\s[0] My name is Dusty,\w4\s[104] it's good to meet you.\w8\w8\n\n\s[114]And you are..?\![open,inputbox,OnNameTeach,-1]"
  	}
 	else
  	{
-		resets += 1
+		resets++
 		"\![enter,passivemode]\1\s[10]\0\s[502]%(wdn)HH-!\w8\w8\s[208] AH,\w4 THIS IS...\w8\w8\s[206] THIS IS...\w8\w8\1%(catnoises).\w8\w8\0\s[110]\n\n%(rgc)Oh-\w4\s[114] hello there.\w8\w8\s[0] My name is Dusty,\w4\s[104] it's good to meet you.\w8\w8\n\n\s[114]And you are..?\![open,inputbox,OnNameTeach,-1]"
  	}
 }
@@ -466,3 +468,75 @@ else //if reference0 isn't the main character, then it has to be the side charac
 
 //If you are super dedicated to doing clothes, I'd recommend checking out some more in-depth FLELE tutorials for stuff about clothing until I muster up the energy to write a walkthrough page for it.
 */
+
+
+DefineStartVars //Variables that need to be set on firstboot
+{
+	tooltips = "Off"
+	holdingObsidian = 0
+	recenttreats = 0
+	autoupdate = "ON"
+	askedalready = 0
+	updateavailable = 0
+	totalminutes = 0
+	totalhours = 0
+	jumpMenu = 0
+	currentlytranslating = ""
+	dayslot = ""
+	userbirthday = ""
+	WDOnly = 0
+	SpokeFirst = 0
+	tempshell = ""
+	checkname = ""
+	talkedtoS = 0
+	metOtherGhosts = 0
+	notfirstresponse = 0
+	AlreadyResponded = 0
+	fromCheck = 0
+	teachWD = "Off"
+	teachPROPER = "On"
+	teachUPPER = "On"
+	teachLOWER = "On"
+	teachPUNCT = "On"
+	teachNUM = "On"
+	curlocation = "Set a location"
+	fromfunctionmenu = 0
+	loadmoonnum = 0
+	G = 0
+	currentStreakTotal = 0
+	answerprint = ""
+	CTGdusty = "On"
+	CTGukagaka = "Off"
+	CTGskeleton = "Off"
+	CTGundertale = "Off"
+	CTGspacefi = "Off"
+	CTGgems = "Off"
+	CTGshapes = "Off"
+	CTGingredients = "Off"
+	CTGother = "Off"
+	CTGuser = "Off"
+	UserCategories = IARRAY
+	AutoWeather = "OFF"
+	askedaboutobsidian = 0
+	askedabouthim = 0
+	treatsgiven = 0
+	askedaboutwingdings = 0
+	hemisphere = "Northern"
+	ObsiLove = 0
+	catpets = 0
+	catboops = 0
+	beansSquished = 0
+	totalmousetoys = 0
+	totalbelltoy = 0
+	totalpingpong = 0
+	totalcatnip = 0
+	Dcontinuousstroke = 0
+	totalpets = 0
+	Dcurrentpetstreak = 0
+	Ocontinuousstroke = 0
+	Ocurrentpetstreak = 0
+	Dpethighscore = 0
+	Opethighscore = 0
+	Dtoppetstreak = 0
+	Otoppetstreak = 0
+}

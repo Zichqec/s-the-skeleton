@@ -968,7 +968,109 @@ loadingmoon
 	}
 }
 
+displayweekday
+{
+	if wd == "Sun"
+	{
+		"Sunday"
+	}
+	elseif wd == "Mon"
+	{
+		"Monday"
+	}
+	elseif wd == "Tue"
+	{
+		"Tuesday"
+	}
+	elseif wd == "Wed"
+	{
+		"Wednesday"
+	}
+	elseif wd == "Thu"
+	{
+		"Thursday"
+	}
+	elseif wd == "Fri"
+	{
+		"Friday"
+	}
+	elseif wd == "Sat"
+	{
+		"Saturday"
+	}
+}
 
+displaymonth
+{
+	if month == 1
+	{
+		"January"
+	}
+	elseif month == 2
+	{
+		"February"
+	}
+	elseif month == 3
+	{
+		"March"
+	}
+	elseif month == 4
+	{
+		"April"
+	}
+	elseif month == 5
+	{
+		"May"
+	}
+	elseif month == 6
+	{
+		"June"
+	}
+	elseif month == 7
+	{
+		"July"
+	}
+	elseif month == 8
+	{
+		"August"
+	}
+	elseif month == 9
+	{
+		"September"
+	}
+	elseif month == 10
+	{
+		"October"
+	}
+	elseif month == 11
+	{
+		"November"
+	}
+	else
+	{
+		"December"
+	}
+}
+
+displayday
+{
+	if day == 1 || day == 21 || day == 31
+	{
+		"%(day)st"
+	}
+	elseif day == 2 || day == 22
+	{
+		"%(day)nd"
+	}
+	elseif day == 3 || day == 23
+	{
+		"%(day)rd"
+	}
+	else
+	{
+		"%(day)th"
+	}
+}
 
 
 
