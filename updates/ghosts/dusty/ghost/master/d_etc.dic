@@ -574,7 +574,7 @@ OnUpdateBegin
 		}
 		else
 		{
-			"\0%(wdc)\s[0]%(t)Ok##\w4\s[500] I'll check for updates.]\w8\w8\e"
+			"\0%(wdc)\s[0]%(t)Ok##\w4\s[500\] I'll check for updates.]\w8\w8\e"
 		}
 	}
 }
