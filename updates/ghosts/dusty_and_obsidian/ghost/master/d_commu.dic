@@ -1,0 +1,284 @@
+//---------------------------Communication--------------------------
+
+//--OnCommunicate
+
+//OnCommunicate is called when your ghost is either targeted by another ghost for a conversation, or when your ghost is targeting another ghost for conversation. There's no need to touch any of this.
+OnCommunicate
+ {
+	if reference0 == "user" || reference0 == "User"
+ 	{
+		//---- answering the user
+ 		ReplyToUser
+	}
+ 	else
+	{
+ 		//---- answering another ghost
+		ReplyToGhost
+ 	}
+}
+
+OnStartTalking
+{
+	SpokeFirst = 1 //setting a flag
+	OnCommunicate
+}
+
+//Just ignore this.
+ReplyToUser
+{
+	TalkToUser
+}
+
+//--ReplyToGhost
+
+
+ReplyToGhost
+{
+	if SpokeFirst == 1 //======================Starting a conversation=======================
+	{
+		SpokeFirst = 0
+		if ghostexcount > 0 //Checking to see if there's another ghost
+		{
+			_number = RAND(ghostexcount) // This checks the number of other ghosts summoned and chooses a random number based on it
+			--
+			checkname = "%(ghostexlist[_number])" // This grabs the reference name of the ghost to check against known names. It should be the sakura name.
+			--
+			// Checking the selected loaded ghost's name vs known names to comment on them
+			case checkname
+			{
+				when "RYS-0825"
+				{
+					if talkedtoS == 0 //if they haven't seen each other before
+					{
+						res_reference0 = "RYS-0825"
+						talkedtoS = 1
+						metOtherGhosts = 1
+						"\0\s[0]Hello,\w4 S.\w8\w8 Did %(username) bring you here too?\w8\w8\e DFirstHelloD01"
+						notfirstresponse = 1
+					}
+					else //they've spoken at least once in the past
+					{
+						
+						res_reference0 = "RYS-0825"
+						//"\![get,property,OnFacingCoords,currentghost.scope(0).rect]"
+						"\e GetSStats1"
+						"\1%(catnoises).\w8\w8\eObsiSaysHiD01"
+					}
+				}
+				when "Gaster" //=========Zarla's Gaster=======
+				{
+					res_reference0 = "Gaster"
+					"\0\s[200].\w4.\w4.Hello,\w4 Gaster.\w8\w8\e"
+				}
+				when "Temmie"
+				{
+					res_reference0 = "Temmie"
+					"\0\s[104]Hello Temmie.\w8\w8\e"
+					notfirstresponse = 1
+				}
+				others //======Any ghost he doesn't know========
+				{
+					AlreadyResponded = 1
+					res_reference0 = checkname
+					"\0\s[0]Hello,\w4 %(res_reference0).\w8\w8\e"
+				}
+			}
+		}
+		else //If there is no other ghost
+		{
+			"\0\s[106]I don't sense anyone else nearby.\e"
+		}
+	}
+	else //===========================Replying to a conversation========================
+	{
+		speech = SPLIT(reference1,"\e")[0] 
+		ConvoTag = SPLIT(reference1,"\e")[1]
+		_LastCommu = SPLIT(ConvoTag,":")[1] //The other ghost sends ":%(speech)" at the end of every communication, so this grabs what THIS ghost last said. See below.
+		
+		_LastCommu = REPLACE(_LastCommu,"\![quicksection,true]","") //Removing the quicksection tags or they overlap and break...
+		_LastCommu = REPLACE(_LastCommu,"\![quicksection,false]","")
+		_LastCommu = REPLACE(_LastCommu,"\w1","")
+		_LastCommu = REPLACE(_LastCommu,"\w4","")
+		_LastCommu = REPLACE(_LastCommu,"\w8","") //I only ever use \w4, \w8, and \w1. May need to add more for other ghosts they talk with.
+		--
+		//These split the dialogue Dusty has been sent. The first two lines split it at the \e, into speech, which is what the user would see, and ConvoTag, which are the tags hidden after the \e that he uses to tell where they're at in conversation. The third line makes speech lowercase, in case I want to test for specific words
+		
+		
+		
+		if reference0 == "RYS-0825" //=======Conversations with S=========
+		{
+			"\![quicksection,true]%(_LastCommu)\![quicksection,false]"
+			--
+			//---Dusty notices S---
+			if "DFirstHelloS01" _in_ ConvoTag
+			{
+				"\0\n\n\s[0]Ah,\w4 I see.\w8\w8\s[104] Well,\w4 perhaps I'll see more of you around from now on.\w8\w8\e DFirstHelloD02"
+				res_reference0 = "RYS-0825"
+			}
+			
+			//---S notices dusty---
+			elseif "SFirstHelloS01" _in_ ConvoTag
+			{
+				"\0\s[110]Ah,\w4\s[104] hello S,\w4 good to see you.\w8\w8\s[0] I didn't realize either,\w4\s[106] but I seem to be fine.\w8\w8\e SFirstHelloD01"
+				res_reference0 = "RYS-0825"
+				talkedtoS = 1
+				metOtherGhosts = 1
+			}
+			elseif "SFirstHelloS02" _in_ ConvoTag
+			{
+				"\0\n\n\s[104]I hope that is the case.\e"
+				res_reference0 = ""
+			}
+			
+			//---Obsi says hi to S---
+			elseif "ObsiSaysHiS01" _in_ ConvoTag
+			{
+				
+				"\0\s[400]Ha,\w4 that she is.\e" //replaceframe would like a nicer smile
+				res_reference0 = ""
+			}
+			elseif "SGiveStats1" _in_ ConvoTag
+			{
+				Sspasshour = ConvoTag[0]
+				Ssthesplit = ConvoTag[1]
+				Sslove = ConvoTag[2]
+				SsLV = ConvoTag[3]
+				Sspethighscore = ConvoTag[4]
+				Sstotalpets = ConvoTag[5]
+				
+				//When Dusty asks S(invisibly) for stats, S gives him a long string of numbers. The numbers are divided by commas, so these lines here grab the numbers between those commas and store them in Dusty's variables.
+				
+				Sspasshour = TOINT(Sspasshour) 
+				Ssthesplit = TOINT(Ssthesplit)
+				Sslove = TOINT(Sslove)
+				SsLV = TOINT(SsLV)
+				Sspethighscore = TOINT(Sspethighscore)
+				Sstotalpets = TOINT(Sstotalpets)
+				//When S gives Dusty the variables, they're stored as strings. These lines make them into integers so that I can do things like >= or <=
+				
+				res_reference = "RYS-0825"
+				//"Got stats\n%(Sspasshour)\n%(Ssthesplit)\n%(Sslove)\n%(SsLV)\n%(Sspethighscore)\n%(Sstotalpets)\n\n"
+				--
+				if Sspasshour >= 10
+				{
+					"\0\s[0]How are you holding up,\w4 S?\w8\w8\e HowsSDoingD01"
+				}
+				
+				"\1%(catnoises).\w8\w8\e ObsiSaysHiD01"
+			}
+			elseif "GiveCoords02" _in_ ConvoTag
+			{
+				res_reference0 = ""
+				SsXCoord = ConvoTag[1]
+				SsXCoord = TOINT(SsXCoord)
+				if SsXCoord > DsXCoord
+				{
+					"\s[102]You're to my left.\e"
+				}
+				elseif SsXCoord < DsXCoord
+				{
+					"\s[205]You're to my right.\e"
+				}
+				else
+				{
+					"\s[106]We're overlapping.\e"
+				}
+			}
+			elseif "HowsSDoingS01" _in_ ConvoTag
+			{
+				"\0\n\n\s[208]Hmm...\w8\w8 I think I have a blanket around here somewhere,\w4 if you'd like.\w8\w8\e HowsSDoingD02"
+				res_reference0 = "RYS-0825"
+			}
+			
+			elseif "NicerThanVoidS01" _in_ ConvoTag
+			{
+				"\0\s[107]Honestly,\w4 it was a little overwhelming at first.\w8\w8\s[206] There are so many colors and sounds...\w8\w8\s[104] But now that I've grown accustomed to it,\w4 it's a nice break from the unchanging quiet of the void,\w4 yes.\w8\w8\e NicerThanVoidD01"
+				res_reference0 = "RYS-0825"
+			}
+			elseif "NicerThanVoidS02a" _in_ ConvoTag
+			{
+				"\0\n\n\s[0]Indeed,\w4\s[400] though I'm not sure Obsidian is as pleased.\w8\w8\1\s[1001]Mrrrw.\w8\w8\e NicerThanVoidD02a" //replaceframe maybe something more sarcastic
+				res_reference0 = "RYS-0825"
+			}
+			elseif "NicerThanVoidS03a" _in_ ConvoTag
+			{
+				"\0\n\n\s[400]Oh that's for sure,\w4\s[107] though I'm not sure I actually have much say in it.\w8\w8\e NicerThanVoidD03a"
+				res_reference0 = ""
+			}
+			elseif "NicerThanVoidS02b" _in_ ConvoTag
+			{
+				"\C\0\n\n\s[208]That is true.\w8\w8\s[104] Your company is greatly appreciated,\w4 S.\w8\w8\e NicerThanVoidD02b"
+				res_reference0 = "RYS-0825"
+			}
+			
+			//User has complimented S and mentioned Dusty
+			elseif "SUserComplimentedS01" _in_ ConvoTag
+			{
+				"\0\s[102]It's the truth.\w8\w8\e SUserComplimentedD01"
+				res_reference0 = "RYS-0825"
+			}
+			elseif "SpaceAndTimeS01" _in_ ConvoTag
+			{
+				"\0\s[107].\w4.\w4.\w8\w8\e SpaceAndTimeD01"
+				res_reference0 = "RYS-0825"
+				notfirstresponse = 1
+			}
+			elseif "SpaceAndTimeS02" _in_ ConvoTag
+			{
+				"\0\n\n\s[104]Ah,\w4 but you \f[italic,true]were\f[italic,false] thinking it.\w8\w8\e SpaceAndTimeD02"
+				res_reference0 = "RYS-0825"
+			}
+			elseif "SpaceAndTimeS03" _in_ ConvoTag
+			{
+				"\n\n\0\s[102]Not to worry,\w4 my friend.\w8\w8 I was thinking it too.\e"
+				res_reference0 = ""
+			}
+			else //I'm sure as I update them that they wont always have the same convos set up...
+			{
+				res_reference0 = ""
+				"\0\s[104]Hello S.\e"
+			}
+			--
+			":%(speech)"
+		} //==========End conv with S===========
+		elseif reference0 == "Temmie"
+		{
+			res_reference0 = ""
+			//"\0\s[106]Sorry,\w4 I don't have any muns or flakes with me.\w8\w8\s[104] Maybe next time, huh?\e"
+		}
+		else //=========Ghosts he doesn't know==========
+		{
+			if AlreadyResponded == 0
+			{
+				AlreadyResponded = 1
+				res_reference0 = reference0
+				"\0\s[0]Hello,\w4 %(reference0).\w8\e"
+			}
+			else
+			{
+				AlreadyResponded = 0
+				res_reference0 = ""
+				"\C\n\n\0\s[0]Hope you're doing well.\e"
+			}
+		}
+	}
+}
+
+
+
+
+
+OnSGiveStats
+{
+	gotstats += 1
+	Sshours = reference0
+}
+
+
+OnFacingCoords
+{
+	DsXCoord = reference0[0]
+	DsXCoord = TOINT(DsXCoord)
+	res_reference0 = "RYS-0825"
+	"\e GiveCoords01,%(reference0)"
+}

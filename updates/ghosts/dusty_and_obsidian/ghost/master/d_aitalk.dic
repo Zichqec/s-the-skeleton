@@ -1,0 +1,793 @@
+﻿//---------------------------AI Talk--------------------------
+
+AiTalk
+ {
+	if RAND(100) < communicateratio
+ 	{
+ 		StartCommunicate
+	}
+ 	else
+	{
+ 		if mikireflag == 0
+		{
+			if CHAIN.IDName == "" {
+ 				lastTalk = RandomTalk
+			}
+			else {
+				lastTalk = ChainTalk
+			}
+			lastTalk
+		}
+ 		else
+		{ 
+		MikireTalk
+ 		}
+	}
+ }
+
+
+//--RandomTalk 
+
+RandomTalk : nonoverlap
+{
+	"%(wdc)" //this should apply the proper balloon to _all_ AItalk lines. 
+	--
+	if holdingObsidian == 1
+	{
+		"\0\s[630]%(wdn)AH,\w4 IF ONLY WE COULD ALL BE AS CONTENT AS YOU RIGHT NOW.%(reg)\w8\w8\1%(holdnoise)\e"
+		"\1%(holdnoise)\w8\w8\0\s[630]%(wdn)YES,\w4 YOU'RE VERY SWEET.\e"
+		"\1%(holdnoise)\w8\w8\0\s[630]%(wdn)WHAT WOULD I DO WITHOUT YOU?\w8\w8 HMM?\e"
+		"\1%(holdnoise)\w8\w8\0\s[607]%(wdn)NO,\w4 I DON'T HAVE ANY TREATS ON ME.\w8\w8 TRY ASKING %(username).\e"
+		"\1%(holdnoise)\w8\w8\0\s[607]%(wdn)YOU SURE ARE DEMANDING FOR SOMEONE WHO'S BEING PAMPERED RIGHT NOW.\e"
+		"\0\s[630]%(wdn)YOU'RE GOING TO GET ME COVERED IN CAT FUR,\w4 YES YOU ARE.%(reg)\w8\w8\1%(holdnoise)\e"
+		"\1%(holdnoise)\w8\w8\0\s[606]%(wdc)%(t)With how she's acting##\w4 you'd think she's desperate for me to hold her.\w8\w8\s[607\] She doesn't usually bother me to hold her when we're home##\w4 though...]\e"
+		"\1%(holdnoise)\w8\w8\0\s[606]%(wdc)%(t)I tell everyone she's really very sweet##\w4 but very few actually see this side of her...\w8\w8\s[607\]\n\nFewer still gain her affection.]\e"
+	}
+	elseif watchingScreen == 1
+	{
+		"\![raise,OnDialogueVars,EndScreen]\0\s[107]* (He sighs and dismisses the screen.)\e"
+		"\![raise,OnDialogueVars,EndScreen]\0\s[204]* (He dismisses the screen quietly.)\e"
+		"\0\s[502]%(t)Oh##\w4 that can't be good...]\e"
+		"\0\s[502]%(t)Ah##\w4 please be careful...]\e"
+		"\0\s[501]%(t)Hmm...]\e"
+		"\0\s[551]%(t)I hope I'm not bothering you##]\w4 %(username).\w8\w8 %(t)I have so many timelines to keep up with##\w4 it's hard to let myself take breaks for too long...]\w8\w8\1%(catnoises).\e"
+		"\0\s[503]%(t)Oh dear...]\e"
+		"\0\s[503]%(t)They would...]\e"
+		
+		if metghosts != ""
+		{
+			_metcount = ARRAYSIZE(metghosts)
+			_rand = RAND(_metcount)
+			if _rand == 0; {_rand = 1}
+			_randghost = metghosts[_rand]
+			_installedlist = "%(installedghostlist)"
+
+			if _randghost !_in_ _installedlist
+			{
+				"\0\s[501]%(t)Still no sign of %(_randghost)...]\e"
+				"\0\s[501]%(_randghost),\w4 %(t)where could you be...]\e"
+			}
+			if _randghost !_in_ ghostexlist && _randghost _in_ _installedlist
+			{
+				"\0\s[502]%(t)Ah##\w4 %(_randghost)...]\e"
+				"\0\s[503]%(t)Well##\w4 I guess at least %(_randghost) is doing alright...]\e"
+			}
+		}
+	}
+	else
+	{
+		if teachWD != "Off" //Wingdings teaching mode
+		{
+			wingdingsles = lessonwd
+			_translationproper = wingdingsles
+			_translationupper = TOUPPER(wingdingsles)
+			_translationlower = TOLOWER(wingdingsles)
+			_wdproper = ""
+			_wdupper = ""
+			_wdlower = ""
+			--
+			if tooltips == "On"; {_wdproper = "%(wdn)\q[%(wingdingsles),TooltipTranslation,teachword]%(rgc)"}
+			else; {_wdproper = "%(wdn)%(wingdingsles)%(rgc)"}
+			--
+			if tooltips == "On"; {_wdupper = "%(wdn)\q[%(_translationupper),TooltipTranslation,teachword]%(rgc)"}
+			else; {_wdupper = "%(wdn)%(_translationupper)%(rgc)"}
+			--
+			if tooltips == "On"; {_wdlower = "%(wdn)\q[%(_translationlower),TooltipTranslation,teachword]%(rgc)"}
+			else; {_wdlower = "%(wdn)%(_translationlower)%(rgc)"}
+			--
+			
+			"\0\s[111]Can you translate %(wdn)%(wingdingsles)%(reg) out of Wingdings?\n\n\![*]\q[Sure,OnPopQuiz,%(wingdingsles)]\n\![*]\q[Dismiss,cancelnodialogue]\e teachword"
+		}
+		{
+			"\0\s[208]%(t)This place is much smaller than the void##\w4 and yet it feels much larger.\w8\w8\s[107\] I guess a little variance in terrain really goes a long way.]\e"
+			"\0\s[102]* (He seems content to stand in silence.)\e"
+			"\0\s[109]* (He heaves a quiet sigh.)\w8\w8\n\n* (He must have a lot on his mind...)\e"
+			"\1%(catnoises).\w8\w8\0\s[107]%(wdn)YES,\w4 YES,\w4 YOU'RE THE GREATEST CAT IN THE WHOLE MULTIVERSE,\w4 I KNOW.\e"
+			"\1\s[10]Maaaaoow.\w8\w8\0\s[400]%(t)Yes##\w4 Obsidian##\w4 I hear you.]\e:chain=ObsiYell1"
+			"\0\s[107]\1\s[1001]MAAAOOOWW.\w8\w8\0\s[106]%(t)Do you have any cats##]\w4 %(username)?\w8\w8\s[402] %(t)I'm curious to know if they yell as loudly as mine.]\e"
+			"\1\s[10]Myyyaaaannn.\w8\w8\0\s[400]Obsidian,\w4 %(username) %(t)looks very busy.\w8\w8 I'm sure] %(heshe)'ll %(t)give you attention later.]\1\n\n\![*]\q[Meow back,meowback]\e teachword"
+			"\1\s[1001]* (Obsidian sniffs around your icons.)\w8\w8\0\s[400]%(t)She really is curious about this place.\w8\w8\s[107\]\n\nI suppose it's not often that she has so many interesting areas to explore.]\e"
+			"\1* (Obsidian dis\s[-1]appears into your files.)\w8\w8\0\s[106]%(t)Ah##\w4 she'll be back eventually.\w8\w8\s[0\] She's very curious about this place##\w4\s[113\] but she craves attention##\w4 so her curiousity won't keep her away long.]\e"
+			"\1\s[1004]* (Obsidian is loafing around.)\e"
+			"\0\s[208]* (He's talking quietly under his breath...)\w8\w8\n\n\s[206]* (Something about timelines splitting and merging?)\e"
+			"\0\s[110]%(t)I never expected I'd see a computer from the inside.\w8\w8\s[205\] It's fascinating...\w8\w8\s[208\] I should spend some time learning more about them##\w4 I wonder what might be possible here.]\e"
+		}
+		
+		//---Shells---
+		if nowshell == "blue_sweater"
+		{
+			"\0\s[102]* (If you look closely,\w4 you can see a layer of cat fur covering his sweater.)\w8\w8\n\n* (He must wear it often.)\e"
+			"\0\s[102]* (His sweater looks a little worn in places,\w4 but he seems very comfortable while wearing it.)\e"
+			"\0\s[206]%(wdn)I WONDER IF HE'S STILL OUT THERE SOMEWHERE...%(reg)\w8\w8\1\s[1003]Meww...\w8\w8\0\s[400]%(wdn)\n\nIT'S ALRIGHT,\w4 OBSIDIAN;\w4 I'M SURE HE'S DOING WELL,\w4 EVEN IF I CAN'T FIND HIM NOW.%(reg)\e"
+			"\0\s[204]%(t)Where could you be...]\e"
+			"\0\s[204]%(wdn)YOU MUST BE SOMEWHERE,\w4 I STILL HAVE THE SWEATER YOU GAVE ME...%(reg)\e"
+			"\0\s[200]* (He sighs,\w4 sounding a little defeated.)\w8\w8\1\s[1003]Mwwwrrr...\w8\w8\0\s[204]%(wdn)\n\nDON'T WORRY ABOUT ME,\w4 OBSIDIAN...\w8\w8 I ONLY WISH I COULD FIND SOME TRACE OF HIM SOMEWHERE,\w4 SOME SIGN HE'S STILL ALIVE AND CAUSING TROUBLE...%(reg)\e"
+		}
+		
+		//---Timeslots---
+		if timeslot == "earlymorning" //5am-8am
+		{
+			if passhour > 3
+			{
+				"\0\s[106]%(username),\w4 %(t)have you been to sleep?\w8\w8\s[107\] I know I'm not really one to talk about getting rest##\w4 but it \f[italic\,true\]is\f[default\] important.]\e"
+			}
+			else
+			{
+				"\0\s[103]%(t)Are you enjoying the morning##]\w4 %(username)?\e"
+			}
+			"\0\s[102]%(t)I miss early mornings in the lab...\w8\w8 Nothing but me##\w4 my work##\w4 and a cup of coffee.]\e"
+		}
+		if timeslot == "morning" //9am - 11am
+		{
+			
+		}
+		if timeslot == "lunch" //12pm - 2pm
+		{
+			
+		}
+		if timeslot == "afternoon" //3pm - 5pm
+		{
+			
+		}
+		if timeslot == "evening" //6pm - 8pm
+		{
+			
+		}
+		if timeslot == "latenight" //9pm - 12am
+		{
+			"\0\s[106]%(t)It's getting late for you##\w4 isn't it?]\e"
+			"\0\s[106]%(t)It is late where you are##\w4 isn't it?]\e"
+		}
+		if timeslot == "midnight" //1am - 4am
+		{
+			"\0\s[107]%(t)I know I shouldn't judge##\w8\s[106\] but perhaps you should think about going to sleep soon?]\e"
+			"\1\s[1001]* (Obsidian yawns loudly.)\w8\w8\0\s[106]%(t)It is getting pretty late##\w4 are you planning to sleep soon?]\e"
+		}
+		
+		//---Days of the week---
+		if wd == "Sun"
+		{
+			"\0\s[107]%(t)The day of the week doesn't mean much to me anymore##\w4\s[0\] but it's the start of the week for you##\w4 isn't it?\w8\w8\s[104\] Make it a good one##]\w4 %(username).\e"
+		}
+		if wd == "Mon"
+		{
+			"\0\s[106]%(t)Monday has always been my favorite day##\w4 I don't like to be away from my work for too long...]\e"
+		}
+		if wd == "Tue"
+		{
+			
+		}
+		if wd == "Wed"
+		{
+			"\0\s[0]%(t)It's halfway through the week for you##\w4 right?\w8\w8\s[107\] It's hard to keep track when it varies between timelines...]\e"
+		}
+		if wd == "Thu"
+		{
+			
+		}
+		if wd == "Fri"
+		{
+			
+		}
+		if wd == "Sat"
+		{
+			"\0\s[114]%(t)It's the weekend for you##\w4 isn't it?\w8\w8\s[102\] I hope it's a relaxing one.]\e"
+		}
+		
+		//---Days in the month---
+		if day < 5 //4th and before, start of the month
+		{
+			"\0\s[114]%(t)It's the start of a new month for you##\w4 right?\w8\w8\s[102\] Hopefully it will be a peaceful one.]\e"
+		}
+		if day > 13 && day < 17 //14th-16th, halfway through
+		{
+			"\0\s[0]%(t)Halfway through the month##\w4 how are things going?]\e"
+		}
+		if day > 26 //27th and after, end of the month
+		{
+			"\0\s[102]%(t)Almost to the end of the month##\w4 time to finish up your projects if you set monthy goals.\w8\w8\n\n\s[106\]I used to##\w4 back when I lived in the Underground.\w8\w8\s[107\] There aren't many goals to set in the void.]\e"
+		}
+		
+		//---Months---
+		if month == 1
+		{
+			
+		}
+		if month == 2
+		{
+			
+		}
+		if month == 3 //Spring start Northern, Autumn start Southern
+		{
+			
+		}
+		if month == 4
+		{
+			
+		}
+		if month == 5
+		{
+			
+		}
+		if month == 6 //Summer start Northern, Winter start Southern
+		{
+			
+		}
+		if month == 7
+		{
+			
+		}
+		if month == 8
+		{
+			
+		}
+		if month == 9 //Autumn start Northern, Spring start Southern
+		{
+			
+		}
+		if month == 10
+		{
+			
+		}
+		if month == 11
+		{
+			
+		}
+		if month == 12 //Winter start Northern, Summer start Southern
+		{
+			
+		}
+		
+		//---Seasons---
+		if season == "Spring"
+		{
+			
+		}
+		if season == "Summer"
+		{
+			"\1\s[1006]* (Obsidian looks sleepy in the summer heat.)\e"
+			"\0\s[208]%(t)Even in the Underground##\w4 things got a lot warmer during the summer.\w8\w8\s[106\] Though##\w4 I can hardly recall what that felt like##\w4 anymore.\w8\w8\n\n\s[107\]It's warm here now##\w4 but I don't know that this is an accurate representation...]\e"
+			"\0\s[205]%(t)The days in the Underground were always the same length##\w4 because the sunlight did not reach us.\w8\w8\s[201\] It's an interesting thing to observe your days changing in length.]\e"
+		}
+		if season == "Autumn"
+		{
+			
+		}
+		if season == "Winter"
+		{
+			
+		}
+		
+		//---Tempurature and weather related---
+		
+		//---Weather types---
+		/*Types I've gathered are as follows(please let me know if you find more that aren't included here!):
+		Clear
+		Mostly Clear
+		Sunny
+		Mostly Sunny
+		Fair
+		
+		Partly Cloudy
+		Mostly Cloudy
+		Cloudy
+		
+		Showers in the Vicinity
+		Few Showers
+		Showers
+		Rain Shower
+		Light Rain
+		Rain
+		Heavy Rain
+		Rain and Snow
+		Snow Shower
+		
+		Isolated Thunderstorms
+		Scattered Thunderstorms
+		Thunderstorm
+		Heavy Thunderstorm
+		
+		Fog
+		Haze
+		*/
+		
+		if weather == "Clear" || weather == "Mostly Clear" || weather == "Sunny" || weather == "Mostly Sunny" || weather == "Fair" //Clear/Sunny
+		{
+			"\0\s[114]%(t)It seems like a nice day outside##\w4 have you been out lately?]\e"
+		}
+		if weather == "Partly Cloudy" || weather == "Mostly Cloudy" || weather == "Cloudy" //Cloudy
+		{
+			"\0\s[205]%(t)Clouds are my favorite kind of weather##\w8\s[104\] they're very pretty if you look at them from above.\w8\w8\s[208\]\n\nI guess that's the silver lining of my situation;\w4 I can see all kinds of beautiful things hidden away in nature.\w8\w8\s[107\] I just can't touch them.]\e"
+		}
+		if weather == "Showers in the Vicinity" || weather == "Few Showers" || weather == "Showers" //Might shower
+		{
+			"\0\s[0]%(t)It's looking like it might rain there.\w8\w8\s[114\] Do you like rain?\w8\w8\s[205\] Sometimes I open a screen to somewhere rainy just for the ambience.]\e"
+		}
+		if weather == "Rain Shower" || weather == "Light Rain" || weather == "Rain" || weather == "Heavy Rain" //Raining
+		{
+			"\0\s[102]* (He looks very relaxed...)\w8\w8\n\n* (Perhaps it's the sound of the rain.)\e"
+			"\0\s[102]* (The sound of the rain seems to have soothed him.)\e"
+		}
+		if weather == "Rain and Snow" || weather == "Snow Shower" //Snowing -- This one is probably missing a lot atm, gotta wait til winter to gather data
+		{
+			"\0\s[205]%(t)I actually felt plenty of snow##\w4 back when I lived in the Underground.\w8\w8\s[102\] Ah##\w4 Snowdin was a very quaint little place...]\e"
+		}
+		if weather == "Isolated Thunderstorms" || weather == "Scattered Thunderstorms" || weather == "Thunderstorm" || weather == "Heavy Thunderstorm"
+		{
+			"\1\s[1005]* (Obsidian seems utterly unphazed by the thunder.)\e"
+			"\1\s[1001]* (Obsidian ignores the thunder,\w4 seems it doesn't bother her.)\e"
+			"\0\s[106]%(t)Make sure you save anything you may be working on##]\w4 %(username).\w8\w8\s[107] %(t)You never know when the power might suddenly cut##\w4 and you lose hours of important work...]\e"
+		}
+		if weather == "Fog" || weather == "Haze" //Limited visibility
+		{
+			"\0\s[108]%(t)Be careful if you go out##]\w4 %(username).\w8\w8\s[109] %(t)Reduced visibility is very serious##\w4 many a monster have lost their way in the Underground because of it...]\e"
+		}
+		
+		//---Tempurature---
+		if temp == "Below 0"
+		{
+			
+		}
+		if temp == "Freezing"
+		{
+			
+		}
+		if temp == "Cold"
+		{
+			
+		}
+		if temp == "Chilly"
+		{
+			
+		}
+		if temp == "Pleasant"
+		{
+			
+		}
+		if temp == "Hot"
+		{
+			
+		}
+		if temp == "Boiling"
+		{
+			
+		}
+		
+		//---Humidity---
+		if humidity <= 30 //Dry
+		{
+			"\0\s[106]%(t)It's pretty dry out there##\w4 make sure you stay hydrated] %(username).\e"
+		}
+		if humidity > 30 && humidity <= 60 //Comfortable
+		{
+			
+		}
+		if humidity >= 61 && humidity <= 80 //Muggy
+		{
+			
+		}
+		if humidity >= 81 //Soup
+		{
+			"\1\s[1007]* (Obsidian licks at her fur,\w4 trying to smooth it down,\w4 but isn't having much luck in this humidity.)\e"
+		}
+		
+		//---Pollen---
+		if pollen == "Local Pollen Alert"
+		{
+			if allergicPollen == "Unknown"
+			{
+				"\0\s[106]%(t)There's a lot of pollen out today##\w4 are you allergic to pollen##\w4] %(username)?\n\n\![*]\q[Yes,allergicYes]\n\![*]\q[No,allergicNo]\e teachword"
+			}
+			if allergicPollen == "Yes"
+			{
+				"\0\s[107]%(t)There's a lot of pollen out there today.\w8\w8\s[106\] Take care of yourself##\w4] %(username).\e"
+				"\0\s[107]%(t)Be careful if you go out today] %(username),\w4 %(t)there's a lot of pollen right now.]\e"
+			}
+		}
+		
+		//---Moon phases---
+		//I've only included basic ones here, if you want more the checks would be for "Waxing Crescent", "Waxing Gibbous", "Waning Gibbous", and "Waning Crescent"
+		if phase == "New Moon"
+		{
+			"\0\s[114]%(t)There's a new moon tonight.\w8\w8\s[104\] It's very pretty##\w4 if you can spot it.]\e"
+			"\0\s[102]%(t)There's a new moon out.\w8\w8\s[0\] You should look at it##\w4 if you can##\w4 it's very lovely.]\e"
+		}
+		if phase == "First Quarter" || phase == "Last Quarter" //Half moon
+		{
+			"\0\s[114]%(t)The moon is half full tonight.\w8\w8\s[102\] It's lovely##\w4 isn't it?]\e"
+			"\0\s[102]%(t)The half moon is beautiful##\w4 isn't it?]\e"
+		}
+		if phase == "Full Moon"
+		{
+			if hour >= 5 && hour <= 18
+			{
+				"\0\s[114]%(t)There's going to be a full moon tonight in your timeline.\w8\w8\s[102\] I was always fascinated by the moon when I lived in the Underground.]\e"
+			}
+			else
+			{
+				"\0\s[114]%(t)There's a full moon out tonight.\w8\w8 "
+				"\0\s[114]%(t)The moon is full tonight.\w8\w8 "
+				--
+				if weather == "Mostly Cloudy" || weather == "Cloudy" || weather == "Few Showers" || weather == "Showers" || weather == "Rain Shower" || weather == "Light Rain" || weather == "Rain" || weather == "Heavy Rain" || weather == "Rain and Snow" || weather == "Snow Shower" || weather == "Isolated Thunderstorms" || weather == "Scattered Thunderstorms" || weather == "Thunderstorm" || weather == "Heavy Thunderstorm"
+				{
+					"\s[106\]Though##\w4 you might not be able to see it tonight ##\w4 I suppose.]\e"
+					"\s[106\]It's a shame it's so cloudy.]\e"
+					"\s[107\]If only it were a little clearer out.]\e"
+				}
+				else
+				{
+					"\s[104\]You should look outside and see if it's visible.]\e"
+					"\s[104\]Can you see it?\w8\w8 You should look outside.]\e"
+				}
+			}
+		}
+		
+		//---Noticing and commenting on other ghosts--- You MUST have an option for 'others' in the case/when, or the ghost will eventually stop talking at all! I've set it up to loop back around to aitalk, but you can put generic dialogue if you like.
+		if ghostexcount > 0 //Based on code from Zarla's Gaster
+		{
+			_number = RAND(ghostexcount) // This checks the number of other ghosts summoned and chooses a random number based on it
+			_randghostname = "%(ghostexlist[_number])" // This grabs the reference name of the ghost to check against known names.
+			--
+			// This will tell you the reference names of your summoned ghosts to use in the "when" cases below, along with the number of ghosts.
+			// Comment it out when you no longer need it for reference.
+			//"\0\s[0]Ghost List: %(ghostexlist)\n\n[half]Noticed %(_randghostname), %(_number) of %(ghostexcount)\x"
+			--
+			// Checking the selected loaded ghost's name vs known names to comment on them
+			case _randghostname
+			{
+				when "RYS-0825"
+				{
+					"\0\s[102]* (He seems more relaxed with S around.)\e"
+				}
+				when "Gaster"
+				{
+					"\0\s[200]* (He hums quietly,\w4 and you wonder if he's a little put off by the other Gaster's presence.)\e"
+				}
+				others
+				{
+					if _randghostname _in_ metghosts
+					{
+						"\0\s[104]\1%(catpose)* (Obsidian meows at %(_randghostname).)\e"
+					}
+					else
+					{
+						"\![raise,OnDialogueVars,addghost,%(_randghostname)]\0\s[104]* (He waves a little at %(_randghostname).)\w8\w8\1%(catnoises).\e"
+					}
+				}
+			}
+		}
+		
+		//---Commenting on the amount of ghosts present---
+		
+		if ghostexcount == 0
+		{
+			
+		}
+		if ghostexcount > 4
+		{
+			"\0\s[106]%(t)It's ah...\w8\w8 pretty crowded here##\w4 isn't it?\w8\w8\s[107\] I'm used to it just being me and Obsidian##\w4 this is a little overwhelming...]\e"
+			"\1* (Obsidian dis\s[-1]appears into your files.)\w8\w8\0\s[106]%(t)Ah##\w4 sorry] %(username).\w8\w8\s[107] %(t)We're really not used to having so many people around...]\e"
+			"\0\s[208]* (He looks a little antsy.)\w8\w8\n\n* (Maybe he's feeling a little crowded...)\e"
+		}
+		
+		//---Commenting on ghosts he's met previously---
+		if metghosts != ""
+		{
+			_metcount = ARRAYSIZE(metghosts)
+			_rand = RAND(_metcount)
+			if _rand == 0; {_rand = 1}
+			_randghost = metghosts[_rand]
+			_installedlist = "%(installedghostlist)"
+
+			if _randghost !_in_ _installedlist
+			{
+				"\0\s[206]%(t)I wonder if %(_randghost) is doing alright...]\e"
+				"\0\s[206]%(t)I hope %(_randghost) is doing well...]\e"
+				"\0\s[206]%(t)It's been so long since I've seen %(_randghost)...]\e"
+				"\1\s[1004]Myyrwww...\w8\w8\0\s[401]%(t)I know##\w4 Obsidian##\w4 I miss %(_randghost) too.]\e"
+				
+			}
+			if _randghost !_in_ ghostexlist && _randghost _in_ _installedlist
+			{
+				"\0\s[208]%(t)I wonder how %(_randghost) is doing...]\e"
+				"\0\s[208]%(t)I wonder if %(_randghost) is doing alright##\w8\s[502\] I should check up...]\e"
+				"\0\s[208]%(t)Hmm##\w4 maybe %(_randghost) would know...]\e"
+			}
+		}
+		
+	}
+}
+
+OnPopQuiz
+{
+	"\0\s[111]\_qCan you translate %(wdn)%(wingdingsles)%(reg) out of Wingdings?\n\n\n\![*]\q[Dismiss,cancelnodialogue]\![open,inputbox,OnPopQuizAnswer]\![set,balloontimeout,-1]\*"
+}
+
+OnPopQuizAnswer
+{
+	if reference0 == wingdingsles
+	{
+		G += 2
+		"\0\s[104]That's correct!\w8\w8\s[111] The answer was %(wingdingsles).\w8\w8\1%(catnoises).\w8\w8\n\n* (Earned 2G!)\e"
+	}
+	else
+	{
+		"\0\s[106]Sorry,\w4 that's incorrect.\w8\w8 You answered %(reference0),\w4 the answer was %(wingdingsles).\w8\w8\1%(catnoises).\e"
+	}
+}
+
+Select.meowback
+{
+	"\1* (You meow back!)\w8\w8\n\n\s[1003]%(holdnoise)!\w8\w8\0\s[107]%(t)...You're the luckiest cat in the whole multiverse##\w4 you know that?]\e"
+}
+
+Select.allergicYes
+{
+	allergicPollen = "Yes"
+	"\0\s[107]%(t)Ah##\w4 that's unfortunate.\w8\w8\s[106\] I'll let you know if there's a pollen alert in your area##\w4 then.]\e"
+}
+
+Select.allergicNo
+{
+	allergicPollen = "No"
+	"\0\s[102]%(t)That's good##\w4 I'm glad that's not something you need to worry about.\e"
+}
+
+//---Chains---
+ObsiYell1
+{{CHAIN
+	"\1\s[1001]MAAAAOOOWWW!\0\s[107]%(t)...Yes##\w4 Obsidian##\w4 we hear you##\w4 we really do.]\e:chain=ObsiYell2"
+}}CHAIN
+
+ObsiYell2
+{{CHAIN
+	"\1\s[1003]%(bigf)M\w4A\w4A\w4A\w4O\w4O\w4W\w4!\0\s[402]......\w8\w8\n\n\s[109]* (He sighs quietly.)\w8\w8\n\n\s[106]%(t)I'm sorry] %(username),\w4 %(t)she does this sometimes.\w8\w8\s[107\] I hope she isn't bothering you.]\e:chain=end"
+}}CHAIN
+
+Hourcheck
+{
+	if recenttreats != 0
+	{
+		recenttreats = 0
+	}
+}
+
+OnMinuteChange
+{
+	if autoupdate == "ON" && askedalready == 0 && updateavailable == 0
+	{
+		AutoUpdateCheck = 1
+		"\![updatebymyself,checkonly]"
+	}
+	--
+ 	if minute == 0 //These check what time it is. Here, it's seeing if the minute equals zero...
+	{
+		Hourcheck
+		--
+		if holdingObsidian == 1
+		{
+			"%(wdc)\0\s[600]"
+		}
+		else
+		{
+			"%(wdc)\0\s[0]"
+		}
+		--
+ 		if hour == 12 //And the hour equals 12, ie it's noon. You can change this to some other hour if you want.
+		{
+ 			"* (It's noon.)\e"
+		}
+ 		elseif hour == 0 //If the hour is zero, aka midnight. Again, you can change this to whatever hour you want to check for.
+		{
+			askedalready = 0 //resets him asking about updates
+ 			"* (It's midnight.)\e"
+		}
+		else
+		{
+			"* (It's %(hour12)'o clock.)\e"
+		}
+	}
+	elseif minute == 1 && AutoWeather == "ON"
+	{
+		weatherquiet = 1
+		"\![raise,OnDownloadCurWeather]"
+	}
+	//Don't touch this part.
+	elseif mikireflag == 1
+ 	{
+ 		MikireTalk
+	}
+}
+
+OnSecondChange
+{
+	if passsec >= 59
+ 	{
+	 	passsec = 0
+ 		passmin++
+		totalminutes++
+		if passmin >= 59
+		{
+			passmin = 0
+			passhour++
+		}
+		if totalminutes >= 59
+		{
+			totalminutes = 0
+			totalhours++
+		}
+	}
+ 	else
+	{
+		passsec++
+	}
+	if mikireflag == 1 && reference1 == 0
+	{
+		EndMikireTalk
+	}
+	mikireflag = reference1
+	if reference2 == 1 //When overlapping
+	{
+		if holdingObsidian == 0
+		{
+			pickedUp++
+			"\![raise,OnDialogueVars,holdObsi]\![reset,sticky-window]\![set,sticky-window,0,1]\1\s[-1]\0%(wdc)"
+			--
+			"\s[630]%(wdn)HELLO,\w4 OBSIDIAN.%(reg)"
+			"\s[630]%(wdn)HELLO,\w4 SWEET GIRL.%(reg)"
+			"\s[630]%(wdn)STAYING WITH ME FOR A WHILE?%(reg)"
+			"\s[600]%(t)Ah##\w4 alright##\w4 I'll hold her for a bit.]"
+			"\s[600]%(t)Ok##\w4 I can hold her for a bit.]"
+			"\s[606]%(t)Ah##\w4 she's not in your way##\w4 is she?]"
+			--
+			"\w8\w8\1%(holdnoise)"
+		}
+	}
+}
+
+OnOffscreen
+{
+	"%(reference0)"
+}
+
+MikireTalk
+{
+	if holdingObsidian == 1
+	{
+		"\0\s[610]%(wdc)%(t)Ah##\w4 %(username)?\w8\w8\s[606\] We're off the edge of the screen.]\w8\w8\n\n%(rg)* (You can press ctrl shift f12 to bring him back.)\w8\w8\1%(holdnoise)\e"
+	}
+	else
+	{
+		"\0\s[110]%(wdc)%(t)Ah##\w4 %(username)?\w8\w8\s[106\] I'm off the edge of the screen.]\w8\w8\n\n%(rg)* (You can press ctrl shift f12 to bring him back.)\w8\w8\1%(annoyednoises).\e"
+	}
+}
+
+EndMikireTalk
+{
+	if holdingObsidian == 1
+	{
+		"\0\s[606]%(wdc)%(t)Thank you##]\w4 %(username).\1%(holdnoise)\e"
+	}
+	else
+	{
+		"\0\s[106]%(wdc)%(t)Thank you##]\w4 %(username).\1%(catnoises).\e"
+	}
+}
+
+OnSurfaceRestore
+{
+	if holdingObsidian == 1
+	{
+		if RAND(99) < 59
+		{
+			"\1\s[-1]\0\s[600]"
+		}
+		else
+		{
+			holdingObsidian = 0
+			jumpMenu = 0
+			"\![get,property,OnObsidianJumpDown,currentghost.scope(0).rect]"
+		}
+	}
+	elseif watchingScreen == 1
+	{
+		"\0\s[599]\1%(catpose)\e"
+		"\0\s[599]\1%(catpose)\e"
+		"\![raise,OnDialogueVars,EndScreen]"
+	}
+	else //Normal
+	{
+		"\0\s[0]"
+		"\0\s[102]"
+		"\0\s[204]"
+		"\0\s[205]"
+		"\0\s[208]"
+		"\0\s[400]"
+		"\0\s[402]"
+		"\0\s[599]\![raise,OnDialogueVars,StartScreen]"
+		--
+		"\1%(catpose)\e"
+	}
+}
+
+OnObsidianJumpDown //Obsidian jumping out of Dusty's arms
+{
+	_XCoord = TOINT(reference0[0])
+	_XCoord -= 20
+	_toX = (_XCoord - 100)
+	_YCoord = TOINT(reference0[3])
+	_YCoord = (_YCoord - 120) //Go up by half Obsi's frame height
+	if nowscale > 100
+	{
+		_YCoord = (_YCoord - nowscale)
+	}
+	if nowscale < 100
+	{
+		_YCoord = (_YCoord + nowscale)
+	}
+	
+	"\![reset,sticky-window]\0\s[490]\w4\1\s[1009]\![move,--X=%(_XCoord),--Y=%(_YCoord),--base=primaryscreen]\![move,--X=%(_toX),--Y=fix,--time=700,--base=primaryscreen]\s[1004]%(holdnoise)\w8\w8\w8\0\s[400]"
+	--
+	"%(wdn)ALRIGHT THEN."
+	"%(wdn)OK."
+	"%(wdn)UP TO YOU."
+	"%(wdn)TOO MUCH FOR NOW?"
+	--
+	if jumpMenu == 0 //If you were trying to open the menu
+	{
+		"\e"
+	}
+	else
+	{
+		jumpMenu = 0
+		holdingObsidian = 0
+		"\w8\w8%(reg)\n\n"
+		--
+		"\s[106]%(t)Alright##\w4 what did you need?]"
+		"\s[106]%(t)Sorry about that##\w4 what did you need?]"
+		--
+		MenuRun
+	}
+	--
+	"Start: %(_XCoord) Fin: %(_toX) YCoord: %(_YCoord)  %(reference0[3])"
+}
+
+OnKeyPress
+{
+	if reference0 == "t"
+	{
+		OnAiTalk
+	}
+	elseif reference0 == "r"
+	{
+		OnLastTalk
+	}
+	elseif reference0 == "f1"
+	{
+		"\![open,readme]"
+	}
+	elseif reference0 == "v" && debug == 1
+	{
+		OnTestVariable
+	}
+}
