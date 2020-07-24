@@ -76,7 +76,7 @@ MenuRun
 	-- //These are anchors
  	"\![*]To talk MToYou or to MAnotherGhost\n/ 
 	\![*]\q[Some questions,OnQuestionMenu]\n/
-	\![*]\q[About Wingdings,OnWingdingsMenu]\n\n/
+	\![*]\q[About %(teachFont),OnWingdingsMenu]\n\n/
 	* (Or maybe instead you want to...)\n\n[half]/
 	\![*]\q[Do something,dosomething]\n/
 	\![*]\q[Use some functions,OnFunctionMenu]\n/
@@ -209,7 +209,7 @@ Select.aboutobsidian
 	"%(t)\0\s[113\]If I ignore her she pushes over my stacks of books to get my attention.]"
 	"%(t)\0\s[104\]She's a very welcome companion in the void.\w8\w8\s[106\] I wish I could give her a better home.]\w8\w8\1%(catnoises).\w8\w8\0\s[400]\n\n%(t)Though##\w4 she seems to be content to stay with me regardless.]"
 	"\1\s[1000]\0%(wdc)\s[400]%(t)She spends a lot of time cleaning her fur##\w4\s[113\] even though there's not much in the void to get it dirty in the first place.]\w8\w8\1\s[1002]Mrrr."
-	"%(t)\0\s[107\]Sometimes she walks on top of me while I'm trying to sleep.]\w8\w8\1%(catnoises).\w8\w8\0\n\n\s[402]%(wdn)YOU DO, DON'T DENY IT."
+	"%(t)\0\s[107\]Sometimes she walks on top of me while I'm trying to sleep.]\w8\w8\1%(catnoises).\w8\w8\0\n\n\s[402]%(wdf)YOU DO, DON'T DENY IT."
 	"%(t)\0\s[102\]There's nothing as soothing as when a cat puts its paw on you and looks into your eyes##\w4 purring softly.]\w8\w8\1%(catpose)%(holdnoise)."
 	"%(t)\0\s[113\]Sometimes I open screens looking at birds or mice to distract her.]\w8\w8\1%(catnoises).\w8\w8\0\n\n\s[114]%(t)It usually keeps her occupied for a while.]"
 	if treatsgiven > 10
@@ -222,7 +222,7 @@ Select.aboutobsidian
 	}
 	if recenttreats > 10
 	{
-		"\1\s[1000]Prrp.\w8\w8\0%(wdc)\s[102]%(t)...She's probably had enough treats for now.]\w8\w8\1\s[1005]\n\nMrrrrrr~\w8\w8\0\s[402]%(wdn)\n\nYOU'RE PROUD OF YOURSELF,\w4 ARENT YOU." //replaceframe obsi laying down
+		"\1\s[1000]Prrp.\w8\w8\0%(wdc)\s[102]%(t)...She's probably had enough treats for now.]\w8\w8\1\s[1005]\n\nMrrrrrr~\w8\w8\0\s[402]%(wdf)\n\nYOU'RE PROUD OF YOURSELF,\w4 ARENT YOU." //replaceframe obsi laying down
 	}
 	--
 	"\0%(rgc)%(morequestions)"
@@ -247,7 +247,7 @@ Select.abouttimelines
 	--
 	"%(t)\0\s[114\]There are many kinds of timelines out there##\w4\s[106\] some so strange you wouldn't believe me about them if I told you.]"
 	"%(t)\0\s[205\]I can use my screens to look anywhere in any timeline.\w8\w8\s[102\]  I often use this to look at sunsets##\w4 or the night sky.\w8\w8\s[106\]\n\nIt isn't really the same as being there in person##\w4\s[114\] but if I make large enough screens it's pretty good.]"
-	"%(t)\0\s[206\]It seems that almost every Gaster in the multiverse is doomed to a similar fate as I have.\w8\w8\s[110\] It takes different forms sometimes##\w4\s[200\] but we always end up getting...\w8\w8\s[204\] erased.]\w8\w8\1%(catnoises).\0\w8\w8\s[400]%(wdn)\n\nI'M ALRIGHT,\w4 OBSIDIAN."
+	"%(t)\0\s[206\]It seems that almost every Gaster in the multiverse is doomed to a similar fate as I have.\w8\w8\s[110\] It takes different forms sometimes##\w4\s[200\] but we always end up getting...\w8\w8\s[204\] erased.]\w8\w8\1%(catnoises).\0\w8\w8\s[400]%(wdf)\n\nI'M ALRIGHT,\w4 OBSIDIAN."
 	"%(t)\0\s[205\]The multiverse contains everything that can ever be.\w8\w8\s[201\] At some point I realized that also means the fiction books I've read aren't technically fiction##\w4 if I search hard enough.\w8\w8\n\n\s[102\]It's really strange searching for a world you read about in a book##\w4 finding it##\w4\s[107\] and then discovering that your world is also fiction to them.]"
 	--
 	"\0%(rgc)%(morequestions)"
@@ -324,16 +324,17 @@ OnWingdingsMenu
 	--
 	//OnWDGames is over in d_games.dic. So is OnCategoryList and OnCaseList
 	"/
-	\![*]\q[Translate something to wingdings,inputToWD]\n/
-	\![*]\q[Translate something from wingdings,translatefromWD]\n/
-	\![*]\q[Show me a wingdings chart,chartWD]\n\n/
+	\![*]\q[Translate something to %(teachFont),inputToWD]\n/
+	\![*]\q[Translate something from %(teachFont),translatefromWD]\n/
+	\![*]\q[Show me a %(teachFont) chart,chartWD]\n\n/
 	\![*]\q[Teach me to read wingdings,OnTeachWD]\n/
-	\![*]\q[Wingdings Practice Mode:,practicemodeinfo] \q[(%(teachWD)),ToggleTeach]\n/
+	\![*]\q[%(teachFont) Practice Mode:,practicemodeinfo] \q[(%(teachWD)),ToggleTeach]\n/
 	\![*]\q[Translation Tooltips (%(tooltips)),ToggleTooltips]\n/
 	%(rgf)\![*]\q[%(wdnMDisp),toggleWD]%(reg)\n\n/
-	\![*]\q[Wingdings Quizzes and Games,OnWDGames]\n/
+	\![*]\q[%(teachFont) Quizzes and Games,OnWDGames]\n/
 	\![*]\q[Toggle word categories,OnCategoryList]\n/
-	\![*]\q[Toggle cases,OnCaseList]\n"
+	\![*]\q[Toggle cases,OnCaseList]\n\n/
+	\![*]\q[Change font,OnFontMenu]\n"
 	/*Current language: "
 	--
 	if WDOnly == 1
@@ -390,16 +391,34 @@ Select.translatefromWD
 
 TranslationProgress
 {
-	"\p[2]\s[-1]\b[10]\f[height,20]\_q%(currentlytranslating)\0\b2"
+	"\p[2]\s[-1]\b[10]\f[height,20]\_q%(wdn)%(currentlytranslating)%(reg)\0\b2"
 	--
-	"\f[height,25]trCA trCB trCC trCD trCE trCF trCG trCH trCI trCJ\ntrCK trCL trCM trCN trCO trCP trCQ trCR trCS\ntrCT trCU trCV trCW trCX trCY trCZ\n\n[half]\f[height,20]trLA trLB trLC trLD trLE trLF trLG trLH trLI trLJ\ntrLK trLL trLM trLN trLO trLP trLQ trLR trLS trLT trLU trLV\ntrLW trLX trLY trLZ\n\_l[,190]\f[height,default]\![*]\q[Add a space,translatespace]      \![*]\q[Add a line break,translatelinebreak]\n\![*]\q[Numbers and Punctuation,TranslatePunctuation]\n\n[half]\![*]\q[Finish and Translate,finishtranslate]\n\![*]\q[Cancel,cancelnodialogue]\t\*"
+	"\f[height,25]trCA trCB trCC trCD trCE trCF trCG trCH trCI trCJ\ntrCK trCL trCM trCN trCO trCP trCQ trCR trCS\ntrCT trCU trCV trCW trCX trCY trCZ\n\n[half]\f[height,20]trLA trLB trLC trLD trLE trLF trLG trLH trLI trLJ\ntrLK trLL trLM trLN trLO trLP trLQ trLR trLS trLT trLU trLV\ntrLW trLX trLY trLZ"
+	--
+	if teachFont == "Wingdings"
+	{
+		"\n\_l[,190]\f[height,default]\![*]\q[Add a space,translatespace]      \![*]\q[Add a line break,translatelinebreak]\n\![*]\q[Numbers and Punctuation,TranslatePunctuation]\n\n[half]\![*]\q[Finish and Translate,finishtranslate]\n\![*]\q[Cancel,cancelnodialogue]\t\*"
+	}
+	else
+	{
+		"\n\n\n\f[height,default]\![*]\q[Add a space,translatespace]      \![*]\q[Add a line break,translatelinebreak]\n\![*]\q[Numbers and Punctuation,TranslatePunctuation]\n\n[half]\![*]\q[Finish and Translate,finishtranslate]\n\![*]\q[Cancel,cancelnodialogue]\t\*"
+	}
 }
 
 TranslationPunctuation
 {
-	"\p[2]\s[-1]\b[10]\f[height,20]\_q%(currentlytranslating)\0\b2"
+	"\p[2]\s[-1]\b[10]\f[height,20]\_q%(wdn)%(currentlytranslating)%(reg)\0\b2"
 	--
-	"\f[height,25]tr` tr1 tr2 tr3 tr4 tr5 tr6 tr7 tr8\ntr9 tr0 tr- tr= trbslash tr~ tr! tr@ tr#\ntr$ tr% tr^ tr& tr* tr( tr)\ntr_ tr+ tr| tr[ tr] tr{ tr} tr; tr'\ntr: trquote trco trpr trsl trls trgr trqs \n\_l[,190]\f[height,default]\![*]\q[Add a space,translatespace2]      \![*]\q[Add a line break,translatelinebreak2]\n\![*]\q[Letters,TranslateLetters]\n\n[half]\![*]\q[Finish and Translate,finishtranslate]\n\![*]\q[Cancel,cancelnodialogue]\t\*"
+	"\f[height,25]tr` tr1 tr2 tr3 tr4 tr5 tr6 tr7 tr8\ntr9 tr0 tr- tr= trbslash tr~ tr! tr@ tr#\ntr$ tr% tr^ tr& tr* tr( tr)\ntr_ tr+ tr| tr[ tr] tr{ tr} tr; tr'\ntr: trquote trco trpr trsl trls trgr trqs "
+	--
+	if teachFont == "Wingdings"
+	{
+		"\n\_l[,190]\f[height,default]\![*]\q[Add a space,translatespace2]      \![*]\q[Add a line break,translatelinebreak2]\n\![*]\q[Letters,TranslateLetters]\n\n[half]\![*]\q[Finish and Translate,finishtranslate]\n\![*]\q[Cancel,cancelnodialogue]\t\*"
+	}
+	else
+	{
+		"\n\n\n\f[height,default]\![*]\q[Add a space,translatespace2]      \![*]\q[Add a line break,translatelinebreak2]\n\![*]\q[Letters,TranslateLetters]\n\n[half]\![*]\q[Finish and Translate,finishtranslate]\n\![*]\q[Cancel,cancelnodialogue]\t\*"
+	}
 }
 
 Select.TranslateLetters
@@ -466,7 +485,14 @@ Select.chartWD
 	--
 	"A%(wdn)A%(rg)  B%(wdn)B%(rg)  C%(wdn)C%(rg)  D%(wdn)D%(rg)  E%(wdn)E%(rg)  F%(wdn)F%(rg)  G%(wdn)G%(rg)\n\n[half]H%(wdn)H%(rg)  I%(wdn)I%(rg)  J%(wdn)J%(rg)  K%(wdn)K%(rg)  L%(wdn)L%(rg)  M%(wdn)M%(rg)  N%(wdn)N%(rg)\n\n[half]O%(wdn)O%(rg)  P%(wdn)P%(rg)  Q%(wdn)Q%(rg)  R%(wdn)R%(rg)  S%(wdn)S%(rg)  T%(wdn)T%(rg)\n\n[half]U%(wdn)U%(rg)  V%(wdn)V%(rg)  W%(wdn)W%(rg)  X%(wdn)X%(rg)  Y%(wdn)Y%(rg)  Z%(wdn)Z%(rg)"
 	--
-	"\f[height,default]%(rg)\_l[0,270]\![*]\q[Lowercase,chartWDlower]\_l[100]\![*]\q[Numbers and Punctuation,chartWDpunct]"
+	if teachFont == "Wingdings"
+	{
+		"\f[height,default]%(rg)\_l[0,270]\![*]\q[Lowercase,chartWDlower]\_l[100]\![*]\q[Numbers and Punctuation,chartWDpunct]"
+	}
+	else
+	{
+		"\f[height,default]%(rg)\n\n\![*]\q[Lowercase,chartWDlower]\_l[100]\![*]\q[Numbers and Punctuation,chartWDpunct]"
+	}
 	--
 	"\n\![*]\q[Back to wingdings menu,OnWingdingsMenu]\e"
 }
@@ -477,7 +503,14 @@ Select.chartWDlower
 	--
 	"a%(wdn)a%(rg)  b%(wdn)b%(rg)  c%(wdn)c%(rg)  d%(wdn)d%(rg)  e%(wdn)e%(rg)  f%(wdn)f%(rg)  g%(wdn)g%(rg)\n\n[half]h%(wdn)h%(rg)  i%(wdn)i%(rg)  j%(wdn)j%(rg)  k%(wdn)k%(rg)  l%(wdn)l%(rg)  m%(wdn)m%(rg)  n%(wdn)n%(rg)\n\n[half]o%(wdn)o%(rg)   p%(wdn)p%(rg)   q%(wdn)q%(rg)   r%(wdn)r%(rg)   s%(wdn)s%(rg)   t%(wdn)t%(rg)\n\n[half]u%(wdn)u%(rg)  v%(wdn)v%(rg)  w%(wdn)w%(rg)  x%(wdn)x%(rg)  y%(wdn)y%(rg)  z%(wdn)z%(rg)"
 	--
-	"\f[height,default]%(rg)\_l[0,270]\![*]\q[Uppercase,chartWD]\_l[100]\![*]\q[Numbers and Punctuation,chartWDpunct]"
+	if teachFont == "Wingdings"
+	{
+		"\f[height,default]%(rg)\_l[0,270]\![*]\q[Uppercase,chartWD]\_l[100]\![*]\q[Numbers and Punctuation,chartWDpunct]"
+	}
+	else
+	{
+		"\f[height,default]%(rg)\n\n\![*]\q[Uppercase,chartWD]\_l[100]\![*]\q[Numbers and Punctuation,chartWDpunct]"
+	}
 	--
 	"\n\![*]\q[Back to wingdings menu,OnWingdingsMenu]\e"
 }
@@ -488,7 +521,14 @@ Select.chartWDpunct
 	--
 	"` %(wdn)`%(rg)  1 %(wdn)1%(rg)  2 %(wdn)2%(rg)  3 %(wdn)3%(rg)  4 %(wdn)4%(rg)  5 %(wdn)5%(rg)\n\n[half]6 %(wdn)6%(rg)  7 %(wdn)7%(rg)  8 %(wdn)8%(rg)  9 %(wdn)9%(rg)  0 %(wdn)0%(rg)  - %(wdn)-%(rg)\n\n[half]= %(wdn)=%(rg)   \\ %(wdn)\\%(rg)   ~ %(wdn)~%(rg)   ! %(wdn)!%(rg)  @ %(wdn)@%(rg)   # %(wdn)#%(rg)\n\n[half]$ %(wdn)$%(rg)   % %(wdn)%%(rg)  ^ %(wdn)^%(rg)  & %(wdn)&%(rg)  * %(wdn)*%(rg)\n\n[half]( %(wdn)(%(rg)  ) %(wdn))%(rg)  _ %(wdn)_%(rg)  + %(wdn)+%(rg)   | %(wdn)|%(rg)  [ %(wdn)[%(rg)\n\n[half]] %(wdn)]%(rg)  { %(wdn){%(rg)  } %(wdn)}%(rg)   ; %(wdn);%(rg)   ' %(wdn)'%(rg)  : %(wdn):%(rg)  %(CHR(0x22)) %(wdn)%(CHR(0x22))%(rg)\n\n[half], %(wdn),%(rg)  . %(wdn).%(rg)   / %(wdn)/%(rg)  < %(wdn)<%(rg)  > %(wdn)>%(rg)  ? %(wdn)?%(rg)"
 	--
-	"\f[height,default]%(rg)\_l[0,270]\![*]\q[Uppercase,chartWD]\_l[100]\![*]\q[Lowercase,chartWDlower]"
+	if teachFont == "Wingdings"
+	{
+		"\f[height,default]%(rg)\_l[0,270]\![*]\q[Uppercase,chartWD]\_l[100]\![*]\q[Lowercase,chartWDlower]"
+	}
+	else
+	{
+		"\f[height,default]%(rg)\n\n\![*]\q[Uppercase,chartWD]\_l[100]\![*]\q[Lowercase,chartWDlower]"
+	}
 	--
 	"\n\![*]\q[Back to wingdings menu,OnWingdingsMenu]\e"
 }
@@ -527,15 +567,15 @@ OnTeachWD
 
 Select.WDLesson1 //A-I
 {
-	"\0\s[111]Many Wingdings come in pairs,\w4 and the first uppercase letters are the biggest example of this.\w8\w8\n\n\s[0]The first symbol is %(wdn)%(bigf)A%(reg),\w4 which is A.\w8\w8\s[102] Sometimes humans call this a pe%(bold)A%(reg)ce sign.\w8\w8\n\n\s[111]The second symbol is %(wdn)%(bigf)B%(reg),\w4 which some humans use to mean 'ok'.\w8\w8\s[0] You can remember this with the mnemonic 'It'll %(bold)B%(reg)e ok'.\x"
+	"\0\s[111]Many Wingdings come in pairs,\w4 and the first uppercase letters are the biggest example of this.\w8\w8\n\n\s[0]The first symbol is %(wdf)%(bigf)A%(reg),\w4 which is A.\w8\w8\s[102] Sometimes humans call this a pe%(bold)A%(reg)ce sign.\w8\w8\n\n\s[111]The second symbol is %(wdf)%(bigf)B%(reg),\w4 which some humans use to mean 'ok'.\w8\w8\s[0] You can remember this with the mnemonic 'It'll %(bold)B%(reg)e ok'.\x"
 	--
-	"\0\s[102]Next come our first pair,\w4 %(wdn)%(bigf)C%(reg) and %(wdn)%(bigf)D%(reg).\w8\w8\s[111]\n\n%(wdn)%(bigf)C%(reg) is a C,\w4 like %(bold)C%(reg)ongratulations.\w8\w8\n\n%(wdn)%(bigf)D%(reg) is a D,\w4 a thumbs %(bold)D%(reg)own.\x"
+	"\0\s[102]Next come our first pair,\w4 %(wdf)%(bigf)C%(reg) and %(wdf)%(bigf)D%(reg).\w8\w8\s[111]\n\n%(wdf)%(bigf)C%(reg) is a C,\w4 like %(bold)C%(reg)ongratulations.\w8\w8\n\n%(wdf)%(bigf)D%(reg) is a D,\w4 a thumbs %(bold)D%(reg)own.\x"
 	--
-	"\0\s[106]The next two aren't so easy.\w8\w8\n\n\s[111] %(wdn)%(bigf)E%(reg) is for E,\w4 like l%(bold)E%(reg)ft,\w4 the way it's pointing.\w8\w8\n\n\s[107]%(wdn)%(bigf)F%(reg) is for F,\w4 which is in the opposite direction from E.\x"
+	"\0\s[106]The next two aren't so easy.\w8\w8\n\n\s[111] %(wdf)%(bigf)E%(reg) is for E,\w4 like l%(bold)E%(reg)ft,\w4 the way it's pointing.\w8\w8\n\n\s[107]%(wdf)%(bigf)F%(reg) is for F,\w4 which is in the opposite direction from E.\x"
 	--
-	"\0\s[0]The last pair is much easier.\w8\w8\n\n%(wdn)%(bigf)G%(reg) points upwards,\w4\8\s[111] to %(bold)G%(reg)od,\w4 if you will.\w8\w8\n\n\s[102]%(wdn)%(bigf)H%(reg) is the opposite,\w4 and points down\w4 to %(bold)H%(reg)ell.\x"
+	"\0\s[0]The last pair is much easier.\w8\w8\n\n%(wdf)%(bigf)G%(reg) points upwards,\w4\8\s[111] to %(bold)G%(reg)od,\w4 if you will.\w8\w8\n\n\s[102]%(wdf)%(bigf)H%(reg) is the opposite,\w4 and points down\w4 to %(bold)H%(reg)ell.\x"
 	--
-	"\0\s[104]The last one is %(wdn)%(bigf)I%(reg),\w4 which you can remember as holding up f%(bold)I%(reg)ve fingers.\w8\w8\s[0] Sound it out,\w4 you'll see why.\x"
+	"\0\s[104]The last one is %(wdf)%(bigf)I%(reg),\w4 which you can remember as holding up f%(bold)I%(reg)ve fingers.\w8\w8\s[0] Sound it out,\w4 you'll see why.\x"
 	--
 	"\0\s[104]And that is all the hands in uppercase.\w8\w8\s[0] That is the largest block out of the way,\w4\s[103] you're well on your way to learning already if you can memorize those 9.\x"
 	--
@@ -544,7 +584,7 @@ Select.WDLesson1 //A-I
 
 Select.WDLesson2 //JKL
 {
-	"\0\s[111]The next three Wingdings are very simple.\w8\w8 %(wdn)%(bigf)J%(reg), %(wdn)%(bigf)K%(reg), and %(wdn)%(bigf)L%(reg).\w8\w8\s[0]\n\n%(wdn)%(bigf)J%(reg) is J,\w4 a smiling face,\w4 showing %(bold)J%(reg)oy.\w8\w8\n\n\s[102]%(wdn)%(bigf)K%(reg) is for K.\w8\w8 A neutral face,\w4 as though saying '%(bold)K%(reg)ay'.\w8\w8\n\n\s[110]%(wdn)%(bigf)L%(reg) is an L,\w4 a %(bold)L%(reg)ament,\w4 if you will.\x"
+	"\0\s[111]The next three Wingdings are very simple.\w8\w8 %(wdf)%(bigf)J%(reg), %(wdf)%(bigf)K%(reg), and %(wdf)%(bigf)L%(reg).\w8\w8\s[0]\n\n%(wdf)%(bigf)J%(reg) is J,\w4 a smiling face,\w4 showing %(bold)J%(reg)oy.\w8\w8\n\n\s[102]%(wdf)%(bigf)K%(reg) is for K.\w8\w8 A neutral face,\w4 as though saying '%(bold)K%(reg)ay'.\w8\w8\n\n\s[110]%(wdf)%(bigf)L%(reg) is an L,\w4 a %(bold)L%(reg)ament,\w4 if you will.\x"
 	--
 	"\0\s[111]The three faces are some of the easiest symbols,\w4 both to write and to remember.\x"
 	--
@@ -553,11 +593,11 @@ Select.WDLesson2 //JKL
 
 Select.WDLesson3 //M-Q
 {
-	"\0\s[107]The next few symbols are a little less related.\w8\w8\n\n\s[106]%(wdn)%(bigf)M%(reg),\w4 an M,\w4 is a bomb;\w8 like the ones used by %(bold)M%(reg)ettaton.\w8\w8\n\n\s[111]%(wdn)%(bigf)N%(reg) is for N;\w8 a skull and crossbo%(bold)N%(reg)es,\w4 or like %(bold)N%(reg)ecromancy if you like.\w8\w8\x"
+	"\0\s[107]The next few symbols are a little less related.\w8\w8\n\n\s[106]%(wdf)%(bigf)M%(reg),\w4 an M,\w4 is a bomb;\w8 like the ones used by %(bold)M%(reg)ettaton.\w8\w8\n\n\s[111]%(wdf)%(bigf)N%(reg) is for N;\w8 a skull and crossbo%(bold)N%(reg)es,\w4 or like %(bold)N%(reg)ecromancy if you like.\w8\w8\x"
 	--
-	"\0\s[0]%(wdn)%(bigf)O%(reg) is on O,\w4 like a flag waving %(bold)O%(reg)verhead.\w8\w8\n\n%(wdn)%(bigf)P%(reg) is a P,\w4 slightly different from %(wdn)%(bigf)O%(reg).\w8\w8 It's slanted a little and has a %(bold)P%(reg)oint on the end,\w4 like a %(bold)P%(reg)ennant.\x"
+	"\0\s[0]%(wdf)%(bigf)O%(reg) is on O,\w4 like a flag waving %(bold)O%(reg)verhead.\w8\w8\n\n%(wdf)%(bigf)P%(reg) is a P,\w4 slightly different from %(wdf)%(bigf)O%(reg).\w8\w8 It's slanted a little and has a %(bold)P%(reg)oint on the end,\w4 like a %(bold)P%(reg)ennant.\x"
 	--
-	"\0\s[102]%(wdn)%(bigf)Q%(reg) is Q,\w4 and it's kind of an oddball.\w8\w8\s[110] It's a plane,\w4 but I don't have a good mnemonic for it.\x"
+	"\0\s[102]%(wdf)%(bigf)Q%(reg) is Q,\w4 and it's kind of an oddball.\w8\w8\s[110] It's a plane,\w4 but I don't have a good mnemonic for it.\x"
 	--
 	"\0\s[114]You're halfway through uppercase now,\w4 you're doing well.\x"
 	--
@@ -566,7 +606,7 @@ Select.WDLesson3 //M-Q
 
 Select.WDLesson4 //RST
 {
-	"\0\s[114]%(wdn)%(bigf)R%(reg),\w4 %(wdn)%(bigf)S%(reg), and %(wdn)%(bigf)T%(reg) are pretty simple.\w8\w8\s[0]\n\n%(wdn)%(bigf)R%(reg) is for R.\w8\w8 A sun,\w4 shining with bright %(bold)R%(reg)ays.\w8\w8\s[102]\n\n%(wdn)%(bigf)S%(reg) is for S.\w8\w8 It looks like a raindrop,\w8\s[109] or a tear because it's %(bold)S%(reg)ad.\w8\w8\s[0]\n\n%(wdn)%(bigf)T%(reg) is for T,\w4 a snowflake.\w8\w8\s[106] It looks like 6 T's put together,\w4 doesn't it?\x"
+	"\0\s[114]%(wdf)%(bigf)R%(reg),\w4 %(wdf)%(bigf)S%(reg), and %(wdf)%(bigf)T%(reg) are pretty simple.\w8\w8\s[0]\n\n%(wdf)%(bigf)R%(reg) is for R.\w8\w8 A sun,\w4 shining with bright %(bold)R%(reg)ays.\w8\w8\s[102]\n\n%(wdf)%(bigf)S%(reg) is for S.\w8\w8 It looks like a raindrop,\w8\s[109] or a tear because it's %(bold)S%(reg)ad.\w8\w8\s[0]\n\n%(wdf)%(bigf)T%(reg) is for T,\w4 a snowflake.\w8\w8\s[106] It looks like 6 T's put together,\w4 doesn't it?\x"
 	--
 	"\0\s[0]That wasn't so bad,\w4 was it?\w8\w8\s[104] Only one more set to go.\x"
 	--
@@ -575,9 +615,9 @@ Select.WDLesson4 //RST
 
 Select.WDLesson5 //U-Z
 {
-	"\0\s[102]%(wdn)%(bigf)U%(reg) is a U,\w4 for cr%(bold)U%(reg)cifix.\w8\w8\s[106] It's not really a crucifix,\w4 but close enough.\w8\w8\n\n\s[0]%(wdn)%(bigf)V%(reg) is a V,\w4 which is just like %(wdn)%(bigf)U%(reg) except with a shadow.\w8\w8\n\n\s[111]%(wdn)%(bigf)W%(reg) is for W.\w8\w8\s[0] It's a cross with a %(bold)W%(reg)heel on it.\x"
+	"\0\s[102]%(wdf)%(bigf)U%(reg) is a U,\w4 for cr%(bold)U%(reg)cifix.\w8\w8\s[106] It's not really a crucifix,\w4 but close enough.\w8\w8\n\n\s[0]%(wdf)%(bigf)V%(reg) is a V,\w4 which is just like %(wdf)%(bigf)U%(reg) except with a shadow.\w8\w8\n\n\s[111]%(wdf)%(bigf)W%(reg) is for W.\w8\w8\s[0] It's a cross with a %(bold)W%(reg)heel on it.\x"
 	--
-	"\0\s[111]%(wdn)%(bigf)X%(reg) is an X,\w4 and it looks just like an X on its side.\w8\w8\n\n%(wdn)%(bigf)Y%(reg) is a six pointed star,\w4\s[114] very point%(bold)Y%(reg) indeed.\w8\w8\n\n\s[111]And finally,\w4 %(wdn)%(bigf)Z%(reg) is a Z.\w8\w8\s[102] The moon and star show that it's night time,\w4 and time for you to get some %(bold)Z%(reg)zzs...\x"
+	"\0\s[111]%(wdf)%(bigf)X%(reg) is an X,\w4 and it looks just like an X on its side.\w8\w8\n\n%(wdf)%(bigf)Y%(reg) is a six pointed star,\w4\s[114] very point%(bold)Y%(reg) indeed.\w8\w8\n\n\s[111]And finally,\w4 %(wdf)%(bigf)Z%(reg) is a Z.\w8\w8\s[102] The moon and star show that it's night time,\w4 and time for you to get some %(bold)Z%(reg)zzs...\x"
 	--
 	"\0\s[104]And that's all of uppercase Wingdings.\w8\w8\s[103] Well done!\w8\w8\s[102] The best way to remember them is to try writing a few words in Wingdings by hand.\w8\w8\s[106]\n\nDon't be afraid to simplify each symbol,\w4 you don't need every tiny detail for it to be legible.\w8\w8\n\n\s[104]Lowercase,\w4 if you're interested,\w4 is much more fun to write in.\x"
 	--
@@ -588,11 +628,11 @@ Select.WDLesson6 //a-i
 {
 	"\0\s[106]I'll be honest with you,\w4 lowercase doesn't have nearly as many good mnemonics as uppercase.\w8\w8\s[102] But,\w4 they are much nicer to write in if you take the time to learn them.\x"
 	--
-	"\0\s[111]First up are the star signs,\w4 starting with %(wdn)%(bigf)a%(reg).\w8\w8\n\n%(wdn)%(bigf)a%(reg) is an a, like in c%(bold)A%(reg)ncer,\w4 the star sign representing it.\w8\w8\n\nNext is %(wdn)%(bigf)b%(reg),\w4 which is b.\w8\w8\s[208] I suppose it looks like a b,\w4 but mirrored and with a very curly tail.\w8\w8\s[106] Sorry I don't have anything better.\x"
+	"\0\s[111]First up are the star signs,\w4 starting with %(wdf)%(bigf)a%(reg).\w8\w8\n\n%(wdf)%(bigf)a%(reg) is an a, like in c%(bold)A%(reg)ncer,\w4 the star sign representing it.\w8\w8\n\nNext is %(wdf)%(bigf)b%(reg),\w4 which is b.\w8\w8\s[208] I suppose it looks like a b,\w4 but mirrored and with a very curly tail.\w8\w8\s[106] Sorry I don't have anything better.\x"
 	--
-	"\0\s[114]Next is %(wdn)%(bigf)c%(reg),\w4 which is a c.\w8\w8\s[111] You can remember it because the tail on the end %(bold)C%(reg)rosses back over the symbol.\w8\w8\n\n\s[0]Then comes %(wdn)%(bigf)d%(reg),\w4 which is for d.\w8\w8\s[205] It looks a little like a d on its side,\w4 I think.\w8\w8\n\n\s[102]%(wdn)%(bigf)e%(reg) is for e,\w4 and it's a lot like %(wdn)%(bigf)c%(reg).\w8\w8\s[0] This time,\w4 however,\w4 the tail points to the right,\w4 or %(bold)E%(reg)ast,\w4 on a map with north at the top.\x"
+	"\0\s[114]Next is %(wdf)%(bigf)c%(reg),\w4 which is a c.\w8\w8\s[111] You can remember it because the tail on the end %(bold)C%(reg)rosses back over the symbol.\w8\w8\n\n\s[0]Then comes %(wdf)%(bigf)d%(reg),\w4 which is for d.\w8\w8\s[205] It looks a little like a d on its side,\w4 I think.\w8\w8\n\n\s[102]%(wdf)%(bigf)e%(reg) is for e,\w4 and it's a lot like %(wdf)%(bigf)c%(reg).\w8\w8\s[0] This time,\w4 however,\w4 the tail points to the right,\w4 or %(bold)E%(reg)ast,\w4 on a map with north at the top.\x"
 	--
-	"\0\s[0]Only 4 to go.\w8\w8\s[111]%(wdn)%(bigf)f%(reg) is f,\w4 which looks a bit like a normal F with some extra lines.\w8\w8\n\nThen we have %(wdn)%(bigf)g%(reg) as g,\w4\s[106] which is honestly the most fun symbol to write.\w8\w8\s[107] I don't have anything more to say about it.\w8\w8\n\n\s[111]Next,\w4 we have %(wdn)%(bigf)h%(reg),\w4 which is h,\w4\s[104] and I think looks like a visual depiction of when people type 'hhhhhhhhhhhh'.\w8\w8\n\n\s[0]Finally,\w4 we have %(wdn)%(bigf)i%(reg),\w4 i,\w4 which looks a lot like a r%(bold)I%(reg)ver with a br%(bold)I%(reg)dge over it.\x"
+	"\0\s[0]Only 4 to go.\w8\w8\s[111]%(wdf)%(bigf)f%(reg) is f,\w4 which looks a bit like a normal F with some extra lines.\w8\w8\n\nThen we have %(wdf)%(bigf)g%(reg) as g,\w4\s[106] which is honestly the most fun symbol to write.\w8\w8\s[107] I don't have anything more to say about it.\w8\w8\n\n\s[111]Next,\w4 we have %(wdf)%(bigf)h%(reg),\w4 which is h,\w4\s[104] and I think looks like a visual depiction of when people type 'hhhhhhhhhhhh'.\w8\w8\n\n\s[0]Finally,\w4 we have %(wdf)%(bigf)i%(reg),\w4 i,\w4 which looks a lot like a r%(bold)I%(reg)ver with a br%(bold)I%(reg)dge over it.\x"
 	--
 	"\0\s[104]You're a good bit of the way through lowercase Wingdings already.\w8\w8\s[0] The star signs are some of the most fun to write,\w4 in my opinion,\w4 so have some fun practicing them on paper.\x"
 	--
@@ -601,7 +641,7 @@ Select.WDLesson6 //a-i
 
 Select.WDLesson7 //j-k
 {
-	"\0\s[111]There are only two ornaments;\w4 %(wdn)%(bigf)j%(reg) and %(wdn)%(bigf)k%(reg).\w8\w8\n\n\s[0]%(wdn)%(bigf)j%(reg) is j,\w4 which you can remember by writing them next to each other like so:\w4 j%(wdn)j%(reg),\w4 to see the word jet.\w8\w8\n\n\s[106]%(wdn)%(bigf)k%(reg) is a fancy ampersand.\w8\w8\s[0] If you remember what j is,\w4 you can just remember that k comes right after it.\x"
+	"\0\s[111]There are only two ornaments;\w4 %(wdf)%(bigf)j%(reg) and %(wdf)%(bigf)k%(reg).\w8\w8\n\n\s[0]%(wdf)%(bigf)j%(reg) is j,\w4 which you can remember by writing them next to each other like so:\w4 j%(wdf)j%(reg),\w4 to see the word jet.\w8\w8\n\n\s[106]%(wdf)%(bigf)k%(reg) is a fancy ampersand.\w8\w8\s[0] If you remember what j is,\w4 you can just remember that k comes right after it.\x"
 	--
 	OnTeachWD
 }
@@ -610,9 +650,9 @@ Select.WDLesson8 //l-r
 {
 	"\0\s[106]The shapes are the absolute hardest part of lowercase Wingdings.\w8\w8\s[107] I'll split them into three parts,\w4 circles,\w4 squares,\w4 and diamonds.\x"
 	--
-	"\0\s[0]First up are the circles,\w4 of which there are only two.\w8\w8\n\n%(wdn)%(bigf)l%(reg) is an l,\w4 a p%(bold)L%(reg)ain,\w4 fi%(bold)LL%(reg)ed-in circle.\w8\w8\n\n\s[111]Next is %(wdn)%(bigf)m%(reg),\w4 my personal favorite of the shapes.\w8\w8\s[0] I think of it as the %(bold)M%(reg)oon eclipsing the sun.\x"
+	"\0\s[0]First up are the circles,\w4 of which there are only two.\w8\w8\n\n%(wdf)%(bigf)l%(reg) is an l,\w4 a p%(bold)L%(reg)ain,\w4 fi%(bold)LL%(reg)ed-in circle.\w8\w8\n\n\s[111]Next is %(wdf)%(bigf)m%(reg),\w4 my personal favorite of the shapes.\w8\w8\s[0] I think of it as the %(bold)M%(reg)oon eclipsing the sun.\x"
 	--
-	"\0\s[106]Now it gets difficult.\w8\w8\n\n\s[111]%(wdn)%(bigf)n%(reg) is an n,\w4 which I think of as being a %(bold)N%(reg)ew canvas,\w4 ready to paint on.\w8\w8\n\n\s[0]%(wdn)%(bigf)o%(reg) is an o,\w4 and it looks a bit like an o,\w4 just square.\w8\w8\n\n\s[102]%(wdn)%(bigf)p%(reg) is very similar to o,\w4 much like in uppercase.\w8\w8\s[0] This time it's an o,\w4 but with thick %(bold)P%(reg)adding.\w8\w8\n\n\s[102]Next we have %(wdn)%(bigf)q%(reg),\w4 or q,\w4 which is two s%(bold)Q%(reg)uares,\w4 one up %(bold)Q%(reg)uite high.\w8\w8\n\n\s[111]And last,\w4 but not least,\w4 is %(wdn)%(bigf)r%(reg),\w4 for r.\w8\w8 It's a lot like q,\w4 but down on the g%(bold)R%(reg)ound instead.\x"
+	"\0\s[106]Now it gets difficult.\w8\w8\n\n\s[111]%(wdf)%(bigf)n%(reg) is an n,\w4 which I think of as being a %(bold)N%(reg)ew canvas,\w4 ready to paint on.\w8\w8\n\n\s[0]%(wdf)%(bigf)o%(reg) is an o,\w4 and it looks a bit like an o,\w4 just square.\w8\w8\n\n\s[102]%(wdf)%(bigf)p%(reg) is very similar to o,\w4 much like in uppercase.\w8\w8\s[0] This time it's an o,\w4 but with thick %(bold)P%(reg)adding.\w8\w8\n\n\s[102]Next we have %(wdf)%(bigf)q%(reg),\w4 or q,\w4 which is two s%(bold)Q%(reg)uares,\w4 one up %(bold)Q%(reg)uite high.\w8\w8\n\n\s[111]And last,\w4 but not least,\w4 is %(wdf)%(bigf)r%(reg),\w4 for r.\w8\w8 It's a lot like q,\w4 but down on the g%(bold)R%(reg)ound instead.\x"
 	--
 	"\0\s[106]I'll continue with diamonds in the next lesson,\w4 there are too many shapes to put them all together.\x"
 	--
@@ -623,7 +663,7 @@ Select.WDLesson9 //s-w
 {
 	"\0\s[104]You're almost through the shapes!\w8\w8\s[0] Just one more group to go; the diamonds.\x"
 	--
-	"\0\s[111]First is %(wdn)%(bigf)s%(reg),\w4 for s,\w4 which is a %(bold)S%(reg)mall,\w4 thin diamond.\w8\w8\s[106] There's another small diamond coming up,\w4 but s is the thin one.\w8\w8\n\n\s[0]Then there's %(wdn)%(bigf)t%(reg) for t.\w8\w8\s[111] This one is %(bold)T%(reg)all and %(bold)T%(reg)hin,\w4 like s but taller.\w8\w8\n\n\s[104] Next is %(wdn)%(bigf)u%(reg),\w4 for u.\w8\w8\s[111] Technically,\w4 it's not a diamond,\w4 it's a rhomb%(bold)U%(reg)s.\w8\w8\n\n\s[0]v is a %(wdn)%(bigf)v%(reg),\w4 a collection of %(bold)V%(reg)ery small diamonds.\w8\w8\n\n\s[104]And finally we have %(wdn)%(bigf)w%(reg) for w,\w4 in this case for a %(bold)W%(reg)inner like you for making it this far.\x"
+	"\0\s[111]First is %(wdf)%(bigf)s%(reg),\w4 for s,\w4 which is a %(bold)S%(reg)mall,\w4 thin diamond.\w8\w8\s[106] There's another small diamond coming up,\w4 but s is the thin one.\w8\w8\n\n\s[0]Then there's %(wdf)%(bigf)t%(reg) for t.\w8\w8\s[111] This one is %(bold)T%(reg)all and %(bold)T%(reg)hin,\w4 like s but taller.\w8\w8\n\n\s[104] Next is %(wdf)%(bigf)u%(reg),\w4 for u.\w8\w8\s[111] Technically,\w4 it's not a diamond,\w4 it's a rhomb%(bold)U%(reg)s.\w8\w8\n\n\s[0]v is a %(wdf)%(bigf)v%(reg),\w4 a collection of %(bold)V%(reg)ery small diamonds.\w8\w8\n\n\s[104]And finally we have %(wdf)%(bigf)w%(reg) for w,\w4 in this case for a %(bold)W%(reg)inner like you for making it this far.\x"
 	--
 	"\0\s[106]That's the worst of it right there,\w4\s[104] just one more set of characters to go,\w4 and they're very easy.\x"
 	--
@@ -633,7 +673,7 @@ Select.WDLesson10 //x-z
 {
 	"\0\s[104]Final stretch for learning lowercase!\w8\w8\s[0] This is much easier than the last sets,\w4 by far.\x"
 	--
-	"\0\s[111]%(wdn)%(bigf)x%(reg) is an x,\w4 you can tell because it's a box with an x in it.\w8\w8\s[103] Couldn't be simpler,\w4 right?\w8\w8\n\n\s[0]%(wdn)%(bigf)y%(reg) is y,\w4 and is very similar.\w8\w8\s[102] This time,\w4 though,\w4 it's got a little arrow pointing to the sk%(bold)Y%(reg).\w8\w8\n\n\s[103]And the very last symbol is %(wdn)%(bigf)z%(reg),\w4 for z,\w4 which I don't know how to describe other than calling it a very %(bold)Z%(reg)any symbol.\x"
+	"\0\s[111]%(wdf)%(bigf)x%(reg) is an x,\w4 you can tell because it's a box with an x in it.\w8\w8\s[103] Couldn't be simpler,\w4 right?\w8\w8\n\n\s[0]%(wdf)%(bigf)y%(reg) is y,\w4 and is very similar.\w8\w8\s[102] This time,\w4 though,\w4 it's got a little arrow pointing to the sk%(bold)Y%(reg).\w8\w8\n\n\s[103]And the very last symbol is %(wdf)%(bigf)z%(reg),\w4 for z,\w4 which I don't know how to describe other than calling it a very %(bold)Z%(reg)any symbol.\x"
 	--
 	"\0\s[104]And that's it,\w4 well done for getting through all that!\w8\w8\s[106] Lowercase takes a lot of practice to remember since a lot of the symbols are so similar,\w4\s[104] but they're much simpler to draw with pen and paper.\w8\w8\s[104] Give it a try sometime.\x"
 	--
@@ -644,9 +684,9 @@ Select.WDLesson11 //0-9
 {
 	"\0\s[106]Unfortunately,\w4 I have even fewer mnemonics for numbers and punctuation than I do for lowercase.\w8\w8\s[107] I'll go through numbers and the most common punctuation,\w4 if you want to know the rest you'll have to memorize them off the Wingdings chart.\x"
 	--
-	"\0\s[111]First up are the files.\w8\w8 %(wdn)%(bigf)0%(reg),\w4 0,\w4 is a cl%(bold)O%(reg)sed folder,\w4 while %(wdn)%(bigf)1%(reg),\w4 1,\w4 is an open %(bold)ONE%(reg).\w8\w8\n\n\s[0]%(wdn)%(bigf)2%(reg),\w4 2,\w4 is a paper with the corner turned down,\w4 while %(wdn)%(bigf)3%(reg),\w4 3,\w4 is a flat page,\w4 and %(wdn)%(bigf)4%(reg),\w4 4,\w4 is a whole stack of of papers piling up.\w8\w8\n\n\s[106]%(wdn)%(bigf)5%(reg),\w4 5,\w4 gets exponentially bigger and is a two drawer filing cabinet.\x"
+	"\0\s[111]First up are the files.\w8\w8 %(wdf)%(bigf)0%(reg),\w4 0,\w4 is a cl%(bold)O%(reg)sed folder,\w4 while %(wdf)%(bigf)1%(reg),\w4 1,\w4 is an open %(bold)ONE%(reg).\w8\w8\n\n\s[0]%(wdf)%(bigf)2%(reg),\w4 2,\w4 is a paper with the corner turned down,\w4 while %(wdf)%(bigf)3%(reg),\w4 3,\w4 is a flat page,\w4 and %(wdf)%(bigf)4%(reg),\w4 4,\w4 is a whole stack of of papers piling up.\w8\w8\n\n\s[106]%(wdf)%(bigf)5%(reg),\w4 5,\w4 gets exponentially bigger and is a two drawer filing cabinet.\x"
 	--
-	"\0\s[107]%(wdn)%(bigf)6%(reg),\w4 6,\w4 is the oddball one here.\w8\w8\s[111] It's an hourglass,\w4\s[106] which I suppose could be like the loading symbol on a Windows computer.\w8\w8\n\n\s[0]%(wdn)%(bigf)7%(reg),\w4 7,\w4 is a keyboard,\w4 and %(wdn)%(bigf)8%(reg) is a mouse.\w8\w8\s[107]%(wdn)%(bigf)9%(reg) is a trackball,\w4 which it's probably unlikely you've even seen before.\x"
+	"\0\s[107]%(wdf)%(bigf)6%(reg),\w4 6,\w4 is the oddball one here.\w8\w8\s[111] It's an hourglass,\w4\s[106] which I suppose could be like the loading symbol on a Windows computer.\w8\w8\n\n\s[0]%(wdf)%(bigf)7%(reg),\w4 7,\w4 is a keyboard,\w4 and %(wdf)%(bigf)8%(reg) is a mouse.\w8\w8\s[107]%(wdf)%(bigf)9%(reg) is a trackball,\w4 which it's probably unlikely you've even seen before.\x"
 	--
 	"\0\s[106]I wish I had a better way to teach you numbers,\w4 but you'll just have to memorize them the hard way.\w8\w8\s[0] I can quiz you on just numbers,\w4 if you'd like,\w4 just pick it in the cases menu.\x"
 	--
@@ -657,9 +697,9 @@ Select.WDLesson12 // ,.!?':;-
 {
 	"\0\s[107]We only have 8 symbols to learn here,\w4 just the most basic ones that you're likely to use and see in use.\w8\w8\s[0] These may be a little tricky,\w4 but many of them can be inferred from context anyways.\x"
 	--
-	"\0\s[111]First are %(wdn)%(bigf),%(reg) and %(wdn)%(bigf).%(reg)\w8\w8\n\n%(wdn)%(bigf),%(reg) is a comma,\w4 with the mailbox closed and the flag down.\w8\w8\n\n%(wdn)%(bigf).%(reg) is a period,\w4 with the mailbox open and full.\w8\w8\n\n\s[0]%(wdn)%(bigf)!%(reg),\w4 an exclamation point,\w4 is a pencil;\w4 it looks a bit like a pencil standing on its end,\w4 doesn't it?\w8\w8\n\n\s[102]%(wdn)%(bigf)?%(reg) is a question mark,\w4 and is one of the only hands to appear outside of uppercase.\w8\w8\s[110] It's very important that the pencil is pointing towards the left,\w4\s[106] pointing to the right is an @ symbol.\x"
+	"\0\s[111]First are %(wdf)%(bigf),%(reg) and %(wdf)%(bigf).%(reg)\w8\w8\n\n%(wdf)%(bigf),%(reg) is a comma,\w4 with the mailbox closed and the flag down.\w8\w8\n\n%(wdf)%(bigf).%(reg) is a period,\w4 with the mailbox open and full.\w8\w8\n\n\s[0]%(wdf)%(bigf)!%(reg),\w4 an exclamation point,\w4 is a pencil;\w4 it looks a bit like a pencil standing on its end,\w4 doesn't it?\w8\w8\n\n\s[102]%(wdf)%(bigf)?%(reg) is a question mark,\w4 and is one of the only hands to appear outside of uppercase.\w8\w8\s[110] It's very important that the pencil is pointing towards the left,\w4\s[106] pointing to the right is an @ symbol.\x"
 	--
-	"\0\s[104]Halfway through.\w8\w8\n\n\s[0]%(wdn)%(bigf)'%(reg) is an apostrophe,\w4 you'll see this candle a lot in contractions and posessive names.\w8\w8\n\n%(wdn)%(bigf)-%(reg) is a dash,\w4 this mailbox is closed with the flag up.\w8\w8\n\n\s[111]Finally,\w4 we have colon and semicolon.\w8\w8\n\n%(wdn)%(bigf):%(reg),\w4 colon,\w4 is an old desktop computer,\w4 and it's friend semicolon,\w4 %(wdn)%(bigf);%(reg)\w4, is a harddrive to go into that computer.\x"
+	"\0\s[104]Halfway through.\w8\w8\n\n\s[0]%(wdf)%(bigf)'%(reg) is an apostrophe,\w4 you'll see this candle a lot in contractions and posessive names.\w8\w8\n\n%(wdf)%(bigf)-%(reg) is a dash,\w4 this mailbox is closed with the flag up.\w8\w8\n\n\s[111]Finally,\w4 we have colon and semicolon.\w8\w8\n\n%(wdf)%(bigf):%(reg),\w4 colon,\w4 is an old desktop computer,\w4 and it's friend semicolon,\w4 %(wdf)%(bigf);%(reg)\w4, is a harddrive to go into that computer.\x"
 	--
 	"\0\s[104]And that's all!\w8\w8\s[103] Congratulations,\w4 you've learned all you need to know to read most Wingdings.\w8\w8\s[0] If you want to learn the rest of the symbols,\w4 I would again encourage you to look at the Wingdings chart,\w4 or to play some quizzes with punctuation turned on.\w8\w8\n\n\s[104]Either way,\w4 well done for making it this far,\w4 it makes me happy to see someone interested enough to try learning this much.\x"
 	--
@@ -695,7 +735,7 @@ Select.WDLesson16 // {}|:"<>?
 //-----Wingdings Practice Mode-----
 Select.practicemodeinfo
 {
-	"\0\s[114]Ah,\w4 if you'd like,\w4 I can mix in some Wingdings during our conversations to help you practice.\w8\w8\s[0] The higher the difficulty,\w4 the more words I'll change.\w8\w8\n\n\s[114]Or,\w4 you can try Wingdings Only mode and I'll use Wingdings exclusively.\w8\w8\s[102] Just let me know what you'd prefer.\w8\w8\1%(catnoises).\0\x"
+	"\0\s[114]Ah,\w4 if you'd like,\w4 I can mix in some %(teachFont) during our conversations to help you practice.\w8\w8\s[0] The higher the difficulty,\w4 the more words I'll change.\w8\w8\n\n\s[114]Or,\w4 you can try Wingdings Only mode and I'll use Wingdings exclusively.\w8\w8\s[102] Just let me know what you'd prefer.\w8\w8\1%(catnoises).\0\x"
 	--
 	OnWingdingsMenu
 }
@@ -763,6 +803,120 @@ Select.toggleWD
 	OnWingdingsMenu
 }
 
+OnFontMenu
+{
+	editfont = "None"
+	_userfonts = ""
+	_userfontcount = ARRAYSIZE(userfont)
+	if SUBSTR(userfont,0,1) == ","; {userfont = ERASE(userfont,0,1)}
+	_i = 0
+	while _i < _userfontcount
+	{
+		_userfonts += "\n\![*]\q[%(userfont[_i]),fontUser,%(userfontsize[_i])]  \q[(Edit),editFont,%(_i)]"
+		_i++
+	}
+	
+	if teachFont == ""; {teachFont = "Wingdings"}
+	"\_q%(wdcb)\0\s[114]%(t)You want to learn something other than Wingdings? Sure## I can help.]\n\n"
+	--
+	"Current font: %(teachFont)\n\n[half]\![*]\q[Back to Wingdings,fontWingdings]\n"
+	--
+	"%(_userfonts)"
+	--
+	"\n\n\![*]\q[Add a new font,OnNewFont]\n\![*]\q[Remove a font,OnRemoveFont]\n\n"
+	--
+	"\![*]\q[Back to Wingdings Menu,OnWingdingsMenu]"
+}
+
+Select.fontWingdings
+{
+	teachFont = "Wingdings"
+	--
+	OnFontMenu
+}
+
+OnNewFont
+{
+	"\0%(wdcb)* (Please enter the name of a valid font.)\*\t\![set,balloontimeout,-1]\![open,inputbox,OnFontStart]\n\n\![*]\q[Nevermind,OnFontCancel]"
+}
+
+OnFontStart
+{
+	fontinput = reference0
+	fontsize = 14
+	--
+	OnFontCheck
+}
+
+OnFontCheck
+{
+	"\_q\b2\f[height,%(fontsize)]\f[name,%(fontinput)]Example - EXAMPLE - example\n\n%(reg)* (Does the above text look correct?)\n\n\![*]\q[Yes,fontadd]\n\![*]\q[No,OnNewFont]\n\![*]\q[Change size,script:\![open,sliderinput,OnFontSizeCustom,-1,14,3,100\]]\n\n\![*]\q[Cancel,OnFontMenu]"
+}
+
+Select.fontadd
+{
+	if editfont == "None"
+	{
+		userfont ,= "%(fontinput)"
+		userfontsize ,= "%(fontsize)"
+	}
+	else
+	{
+		if teachFont == userfont[editfont]
+		{
+			teachFont = "%(fontinput)"
+			teachFontSize = "%(fontsize)"
+		}
+		userfont[editfont] = "%(fontinput)"
+		userfontsize[editfont] = "%(fontsize)"
+	}
+	--
+	OnFontMenu
+}
+
+Select.fontSizeUp
+{
+	fontsize++
+	OnFontCheck
+}
+
+Select.fontSizeDown
+{
+	fontsize--
+	OnFontCheck
+}
+
+OnFontSizeCustom
+{
+	fontsize = TOINT(reference0)
+	OnFontCheck
+}
+
+OnFontCancel
+{
+	"\![close,inputbox,OnFontStart]"
+	--
+	OnFontMenu
+}
+
+OnRemoveFont
+{
+	_userfonts = ""
+	_userfontcount = ARRAYSIZE(userfont)
+	if SUBSTR(userfont,0,1) == ","; {userfont = ERASE(userfont,0,1)}
+	_i = 0
+	while _i < _userfontcount
+	{
+		_userfonts += "\n\![*]\q[%(userfont[_i]),fontRemove,%(_i)]"
+		_i++
+	}
+	
+	"%(medf)\b2* (Click a font to remove it.)%(reg)\n\n"
+	--
+	"%(_userfonts)"
+	--
+	"\n\n\![*]\q[Back to Font Menu,OnFontMenu]"
+}
 
 //=====================================End of Wingdings Menu=====================================
 
@@ -827,11 +981,11 @@ Select.ChoiceGarbagecan
 	
 	if _gomicheck == 0 //If the recycle bin is empty.
 	{
-		"\1\s[-1]%(catnoises)!\w8\0%(wdc)\s[110]Ah-\w8 %(wdn)Obsidian,\w4 come ba\s[-1]ck here..!%(reg)\w8\w8\w8\w8\n\n.\w1.\w1.\w1.\w1.\w1.\w8\w8\w8\w8\w8\w8\1\s[10]\c\0\s[106]\c%(t)Your recycle bin was already empty.]\w8\w8\1%(catnoises).\e" //replaceframe change the coming back to be Dusty holding Obsi
+		"\1\s[-1]%(catnoises)!\w8\0%(wdc)\s[110]Ah-\w8 %(wdf)OBSIDIAN,\w4 COME BA\s[-1]CK HERE..!%(reg)\w8\w8\w8\w8\n\n.\w1.\w1.\w1.\w1.\w1.\w8\w8\w8\w8\w8\w8\1\s[10]\c\0\s[106]\c%(t)Your recycle bin was already empty.]\w8\w8\1%(catnoises).\e" //replaceframe change the coming back to be Dusty holding Obsi
 	}
 	elseif _gomicheck >= 1 //If the recycle bin is full.
 	{
-		"\1\s[-1]%(catnoises).\w8\0%(wdc)\s[110]Ah-\w4 %(wdn)Obsidian,\w4 come ba\s[-1]ck..!%(reg)\w8\w8\w8\w8\n\n.\w1.\w1.\w1.\w1.\w1.\w8\w8\w8\w8\w8\![raise,OnGarbagecanEmpty]\w8\1\s[10]\0\s[106]\c%(t)Your recycle bin has been emptied.]\w8\w8\1%(catnoises).\e" //replaceframe change the coming back to be Dusty holding Obsi
+		"\1\s[-1]%(catnoises).\w8\0%(wdc)\s[110]Ah-\w4 %(wdf)OBSIDIAN,\w4 COME BA\s[-1]CK..!%(reg)\w8\w8\w8\w8\n\n.\w1.\w1.\w1.\w1.\w1.\w8\w8\w8\w8\w8\![raise,OnGarbagecanEmpty]\w8\1\s[10]\0\s[106]\c%(t)Your recycle bin has been emptied.]\w8\w8\1%(catnoises).\e" //replaceframe change the coming back to be Dusty holding Obsi
 		//Somewhat similar to the above, but notice the \![raise],OnGarbagecanEmpty] tag in there. That's what actually empties the recycle bin, so make sure you don't delete that tag.
 	}
 }
@@ -1338,7 +1492,7 @@ Select.TALKNONE
 	
 	"%(wdc)"
 	--
-	"\0\s[106]%(t)Ah##\w4 alright##\w4 we wont speak at all.]\w8\w8\1%(catnoises).\w8\w8\0\s[402]\n\n%(wdn)OBSIDIAN,\w4 WHAT DID I JUST SAY?%(rgc)\x"
+	"\0\s[106]%(t)Ah##\w4 alright##\w4 we wont speak at all.]\w8\w8\1%(catnoises).\w8\w8\0\s[402]\n\n%(wdf)OBSIDIAN,\w4 WHAT DID I JUST SAY?%(rgc)\x"
 	--
 	OnTalkConfig
 }
@@ -1779,17 +1933,17 @@ Select.givetreat
 	{
 		if recenttreats > 5
 		{
-			"\0\s[402]%(wdn)I SHOULD HAVE NAMED YOU BLACK HOLE..."
-			"\0\s[402]%(wdn)YOU'VE HAD MORE THAN ENOUGH FOR NOW."
-			"\0\s[402]%(wdn)YOU REALLY HAVE A WAY WITH GUILT TRIPS."
-			"\0\s[402]%(wdn)YOU'RE LUCKY %(username) IS SO GENEROUS WITH TREATS."
-			"\0\s[402]%(wdn)YOU REALLY HAVE IT ALL,\w4 YOU KNOW."
-			"\0\s[402]%(wdn)YOU'RE RIDICULOUS."
+			"\0\s[402]%(wdf)I SHOULD HAVE NAMED YOU BLACK HOLE..."
+			"\0\s[402]%(wdf)YOU'VE HAD MORE THAN ENOUGH FOR NOW."
+			"\0\s[402]%(wdf)YOU REALLY HAVE A WAY WITH GUILT TRIPS."
+			"\0\s[402]%(wdf)YOU'RE LUCKY %(username) IS SO GENEROUS WITH TREATS."
+			"\0\s[402]%(wdf)YOU REALLY HAVE IT ALL,\w4 YOU KNOW."
+			"\0\s[402]%(wdf)YOU'RE RIDICULOUS."
 		}
 		else
 		{
-			"\0\s[400]%(wdn)OBSIDIAN,\w4 YOU SHOULDN'T GUILT TRIP OUR HOST."
-			"\0\s[400]%(wdn)OBSIDIAN,\w4 YOU SHOULDN'T BE SO DEMANDING WITH SOMEONE WHO IS BEING VERY HOSPITABLE."
+			"\0\s[400]%(wdf)OBSIDIAN,\w4 YOU SHOULDN'T GUILT TRIP OUR HOST."
+			"\0\s[400]%(wdf)OBSIDIAN,\w4 YOU SHOULDN'T BE SO DEMANDING WITH SOMEONE WHO IS BEING VERY HOSPITABLE."
 		}
 	}
 	--
@@ -1919,12 +2073,12 @@ Select.catnip
 	"\1\s[10]\b2* (You hold up the bag and she sits up straight,\w8\s[1005] ready for you to sprinkle some around her.)\w8\w8\n\n%(holdnoise)!"
 	"\1\s[1005]\b2%(holdnoise)\w8\w8\n\n* (You haven't even given her the catnip yet and she's already excited...)"
 	--
-	"\0\s[107]%(wdn)...YEP,\w4 YOU SURE ARE A CAT.%(reg)"
-	"\0\s[107]%(wdn)...YEP,\w4 SEEMS ABOUT RIGHT.%(reg)"
-	"\0\s[107]%(wdn)...HOW DIGNIFIED.%(reg)"
-	"\0\s[107]%(wdn)...SUCH CLASS.%(reg)"
-	"\0\s[107]%(wdn)...SO ELOQUENT.%(reg)"
-	"\0\s[107]%(wdn)...SO GRACEFUL.%(reg)"
+	"\0\s[107]%(wdf)...YEP,\w4 YOU SURE ARE A CAT.%(reg)"
+	"\0\s[107]%(wdf)...YEP,\w4 SEEMS ABOUT RIGHT.%(reg)"
+	"\0\s[107]%(wdf)...HOW DIGNIFIED.%(reg)"
+	"\0\s[107]%(wdf)...SUCH CLASS.%(reg)"
+	"\0\s[107]%(wdf)...SO ELOQUENT.%(reg)"
+	"\0\s[107]%(wdf)...SO GRACEFUL.%(reg)"
 	--
 	"\1\n\n\![*]\q[Give something else,OnInventory]\n\![*]\q[That's enough,cancelnodialogue]\e ObsiNoTimeout"
 }
@@ -2067,7 +2221,7 @@ OnTestVariable
 	//"\![get,property,OnFacingCoords,currentghost.scope(0).rect]"
 	
 	//StartFont
-	//"\![enter,passivemode]\1\s[10]\0\s[502]%(wdn)HH-!\w8\w8\s[208] AH,\w4 THIS IS...\w8\w8\1%(catnoises).\w8\w8\0\s[110]\n\n%(rgc)Oh-\w4\s[114] hello there.\w8\w8\s[0] My name is Dusty,\w4\s[104] it's good to meet you.\w8\w8\n\n\s[114]And you are..?\![open,inputbox,OnNameTeach,-1]"
+	//"\![enter,passivemode]\1\s[10]\0\s[502]%(wdf)HH-!\w8\w8\s[208] AH,\w4 THIS IS...\w8\w8\1%(catnoises).\w8\w8\0\s[110]\n\n%(rgc)Oh-\w4\s[114] hello there.\w8\w8\s[0] My name is Dusty,\w4\s[104] it's good to meet you.\w8\w8\n\n\s[114]And you are..?\![open,inputbox,OnNameTeach,-1]"
 	
 	/*resultof = TRANSLATE('thingathingaoeiurkdsfh','a-i','♋-♓')
 	testthing = FUNCTIONEX(nadecopy.dll,"%(resultof)")

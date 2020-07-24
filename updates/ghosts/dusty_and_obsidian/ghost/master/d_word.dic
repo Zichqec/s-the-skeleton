@@ -1,6 +1,18 @@
 ﻿//---------------------------Envelopes--------------------------
 
-wdn //Font to wingdings
+wdn //Font to wingdings/whatever font he's set to
+{
+	if teachFont != "Wingdings"
+	{
+		"\f[name,%(teachFont)]\f[height,%(teachFontSize)]"
+	}
+	else
+	{
+		"\f[name,Wingdings]"
+	}
+}
+
+wdf //Force Wingdings
 {
 	"\f[name,Wingdings]"
 }

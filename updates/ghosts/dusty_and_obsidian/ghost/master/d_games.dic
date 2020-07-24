@@ -400,14 +400,14 @@ OnQuizInput
 		}
 	}
 	--
-	"\n\n\_qG earned this streak: %(earningG)\nTotal G: %(G)\n\n\![*]\q[Pick difficulty,difficultyslide]   \![*]\q[Pick Cases,OnCaseInGame,MatchWD]\n\![*]\q[Back to Games Menu,OnWDGames]\x"
+	"%(reg)\n\n\_qG earned this streak: %(earningG)\nTotal G: %(G)\n\n\![*]\q[Pick difficulty,difficultyslide]   \![*]\q[Pick Cases,OnCaseInGame,MatchWD]\n\![*]\q[Back to Games Menu,OnWDGames]\x"
 	--
 	OnMatchWD
 }
 
 Select.difficultyslide
 {
-	"\0\*\![set,balloontimeout,0]%(wdc)\_qPick the number of total choices offered. Higher numbers are harder.\![open,sliderinput,OnDifficulty,-1,,3,26]\n\n\![*]\q[Back,BackDifficulty]\e"
+	"\0\*\![set,balloontimeout,0]%(wdc)\_qPick the number of total choices offered. Higher numbers are harder.\![open,sliderinput,OnDifficulty,-1,%(possibleanswers),3,26]\n\n\![*]\q[Back,BackDifficulty]\e"
 }
 
 OnDifficulty

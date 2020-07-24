@@ -34,12 +34,12 @@ RandomTalk : nonoverlap
 	--
 	if holdingObsidian == 1
 	{
-		"\0\s[630]%(wdn)AH,\w4 IF ONLY WE COULD ALL BE AS CONTENT AS YOU RIGHT NOW.%(reg)\w8\w8\1%(holdnoise)\e"
-		"\1%(holdnoise)\w8\w8\0\s[630]%(wdn)YES,\w4 YOU'RE VERY SWEET.\e"
-		"\1%(holdnoise)\w8\w8\0\s[630]%(wdn)WHAT WOULD I DO WITHOUT YOU?\w8\w8 HMM?\e"
-		"\1%(holdnoise)\w8\w8\0\s[607]%(wdn)NO,\w4 I DON'T HAVE ANY TREATS ON ME.\w8\w8 TRY ASKING %(username).\e"
-		"\1%(holdnoise)\w8\w8\0\s[607]%(wdn)YOU SURE ARE DEMANDING FOR SOMEONE WHO'S BEING PAMPERED RIGHT NOW.\e"
-		"\0\s[630]%(wdn)YOU'RE GOING TO GET ME COVERED IN CAT FUR,\w4 YES YOU ARE.%(reg)\w8\w8\1%(holdnoise)\e"
+		"\0\s[630]%(wdf)AH,\w4 IF ONLY WE COULD ALL BE AS CONTENT AS YOU RIGHT NOW.%(reg)\w8\w8\1%(holdnoise)\e"
+		"\1%(holdnoise)\w8\w8\0\s[630]%(wdf)YES,\w4 YOU'RE VERY SWEET.\e"
+		"\1%(holdnoise)\w8\w8\0\s[630]%(wdf)WHAT WOULD I DO WITHOUT YOU?\w8\w8 HMM?\e"
+		"\1%(holdnoise)\w8\w8\0\s[607]%(wdf)NO,\w4 I DON'T HAVE ANY TREATS ON ME.\w8\w8 TRY ASKING %(username).\e"
+		"\1%(holdnoise)\w8\w8\0\s[607]%(wdf)YOU SURE ARE DEMANDING FOR SOMEONE WHO'S BEING PAMPERED RIGHT NOW.\e"
+		"\0\s[630]%(wdf)YOU'RE GOING TO GET ME COVERED IN CAT FUR,\w4 YES YOU ARE.%(reg)\w8\w8\1%(holdnoise)\e"
 		"\1%(holdnoise)\w8\w8\0\s[606]%(wdc)%(t)With how she's acting##\w4 you'd think she's desperate for me to hold her.\w8\w8\s[607\] She doesn't usually bother me to hold her when we're home##\w4 though...]\e"
 		"\1%(holdnoise)\w8\w8\0\s[606]%(wdc)%(t)I tell everyone she's really very sweet##\w4 but very few actually see this side of her...\w8\w8\s[607\]\n\nFewer still gain her affection.]\e"
 	}
@@ -102,7 +102,7 @@ RandomTalk : nonoverlap
 			"\0\s[208]%(t)This place is much smaller than the void##\w4 and yet it feels much larger.\w8\w8\s[107\] I guess a little variance in terrain really goes a long way.]\e"
 			"\0\s[102]* (He seems content to stand in silence.)\e"
 			"\0\s[109]* (He heaves a quiet sigh.)\w8\w8\n\n* (He must have a lot on his mind...)\e"
-			"\1%(catnoises).\w8\w8\0\s[107]%(wdn)YES,\w4 YES,\w4 YOU'RE THE GREATEST CAT IN THE WHOLE MULTIVERSE,\w4 I KNOW.\e"
+			"\1%(catnoises).\w8\w8\0\s[107]%(wdf)YES,\w4 YES,\w4 YOU'RE THE GREATEST CAT IN THE WHOLE MULTIVERSE,\w4 I KNOW.\e"
 			"\1\s[10]Maaaaoow.\w8\w8\0\s[400]%(t)Yes##\w4 Obsidian##\w4 I hear you.]\e:chain=ObsiYell1"
 			"\0\s[107]\1\s[1001]MAAAOOOWW.\w8\w8\0\s[106]%(t)Do you have any cats##]\w4 %(username)?\w8\w8\s[402] %(t)I'm curious to know if they yell as loudly as mine.]\e"
 			"\1\s[10]Myyyaaaannn.\w8\w8\0\s[400]Obsidian,\w4 %(username) %(t)looks very busy.\w8\w8 I'm sure] %(heshe)'ll %(t)give you attention later.]\1\n\n\![*]\q[Meow back,meowback]\e teachword"
@@ -118,10 +118,10 @@ RandomTalk : nonoverlap
 		{
 			"\0\s[102]* (If you look closely,\w4 you can see a layer of cat fur covering his sweater.)\w8\w8\n\n* (He must wear it often.)\e"
 			"\0\s[102]* (His sweater looks a little worn in places,\w4 but he seems very comfortable while wearing it.)\e"
-			"\0\s[206]%(wdn)I WONDER IF HE'S STILL OUT THERE SOMEWHERE...%(reg)\w8\w8\1\s[1003]Meww...\w8\w8\0\s[400]%(wdn)\n\nIT'S ALRIGHT,\w4 OBSIDIAN;\w4 I'M SURE HE'S DOING WELL,\w4 EVEN IF I CAN'T FIND HIM NOW.%(reg)\e"
+			"\0\s[206]%(wdf)I WONDER IF HE'S STILL OUT THERE SOMEWHERE...%(reg)\w8\w8\1\s[1003]Meww...\w8\w8\0\s[400]%(wdf)\n\nIT'S ALRIGHT,\w4 OBSIDIAN;\w4 I'M SURE HE'S DOING WELL,\w4 EVEN IF I CAN'T FIND HIM NOW.%(reg)\e"
 			"\0\s[204]%(t)Where could you be...]\e"
-			"\0\s[204]%(wdn)YOU MUST BE SOMEWHERE,\w4 I STILL HAVE THE SWEATER YOU GAVE ME...%(reg)\e"
-			"\0\s[200]* (He sighs,\w4 sounding a little defeated.)\w8\w8\1\s[1003]Mwwwrrr...\w8\w8\0\s[204]%(wdn)\n\nDON'T WORRY ABOUT ME,\w4 OBSIDIAN...\w8\w8 I ONLY WISH I COULD FIND SOME TRACE OF HIM SOMEWHERE,\w4 SOME SIGN HE'S STILL ALIVE AND CAUSING TROUBLE...%(reg)\e"
+			"\0\s[204]%(wdf)YOU MUST BE SOMEWHERE,\w4 I STILL HAVE THE SWEATER YOU GAVE ME...%(reg)\e"
+			"\0\s[200]* (He sighs,\w4 sounding a little defeated.)\w8\w8\1\s[1003]Mwwwrrr...\w8\w8\0\s[204]%(wdf)\n\nDON'T WORRY ABOUT ME,\w4 OBSIDIAN...\w8\w8 I ONLY WISH I COULD FIND SOME TRACE OF HIM SOMEWHERE,\w4 SOME SIGN HE'S STILL ALIVE AND CAUSING TROUBLE...%(reg)\e"
 		}
 		
 		//---Timeslots---
@@ -542,18 +542,18 @@ OnQuizPick
 	{
 		wingdingsles = lessonwd
 		wingdingsles = TOUPPER(wingdingsles)
-		"\0\s[111]Can you translate %(wdn)%(wingdingsles)%(reg) out of Wingdings?\n\n\![*]\q[Sure,OnPopQuiz,%(wingdingsles)]\n\![*]\q[Dismiss,cancelnodialogue]\e teachword"
+		"\0\s[111]Can you translate %(wdn)%(wingdingsles)%(reg) out of %(teachFont)?\n\n\![*]\q[Sure,OnPopQuiz,%(wingdingsles)]\n\![*]\q[Dismiss,cancelnodialogue]\e teachword"
 	}
 	elseif reference0 == "lower"
 	{
 		wingdingsles = lessonwd
 		wingdingsles = TOLOWER(wingdingsles)
-		"\0\s[111]Can you translate %(wdn)%(wingdingsles)%(reg) out of Wingdings?\n\n\![*]\q[Sure,OnPopQuiz,%(wingdingsles)]\n\![*]\q[Dismiss,cancelnodialogue]\e teachword"
+		"\0\s[111]Can you translate %(wdn)%(wingdingsles)%(reg) out of %(teachFont)?\n\n\![*]\q[Sure,OnPopQuiz,%(wingdingsles)]\n\![*]\q[Dismiss,cancelnodialogue]\e teachword"
 	}
 	else //Propercase
 	{
 		wingdingsles = lessonwd
-		"\0\s[111]Can you translate %(wdn)%(wingdingsles)%(reg) out of Wingdings?\n\n\![*]\q[Sure,OnPopQuiz,%(wingdingsles)]\n\![*]\q[Dismiss,cancelnodialogue]\e teachword"
+		"\0\s[111]Can you translate %(wdn)%(wingdingsles)%(reg) out of %(teachFont)?\n\n\![*]\q[Sure,OnPopQuiz,%(wingdingsles)]\n\![*]\q[Dismiss,cancelnodialogue]\e teachword"
 	}
 	--
 	"%(reference0)"
@@ -676,9 +676,9 @@ OnSecondChange
 			pickedUp++
 			"\![raise,OnDialogueVars,holdObsi]\1\s[-1]\0%(wdc)"
 			--
-			"\s[630]%(wdn)HELLO,\w4 OBSIDIAN.%(reg)"
-			"\s[630]%(wdn)HELLO,\w4 SWEET GIRL.%(reg)"
-			"\s[630]%(wdn)STAYING WITH ME FOR A WHILE?%(reg)"
+			"\s[630]%(wdf)HELLO,\w4 OBSIDIAN.%(reg)"
+			"\s[630]%(wdf)HELLO,\w4 SWEET GIRL.%(reg)"
+			"\s[630]%(wdf)STAYING WITH ME FOR A WHILE?%(reg)"
 			"\s[600]%(t)Ah##\w4 alright##\w4 I'll hold her for a bit.]"
 			"\s[600]%(t)Ok##\w4 I can hold her for a bit.]"
 			"\s[606]%(t)Ah##\w4 she's not in your way##\w4 is she?]"
@@ -771,10 +771,10 @@ OnObsidianJumpDown //Obsidian jumping out of Dusty's arms
 	
 	"\0\s[490]\w4\1\s[1009]\![move,--X=%(_XCoord),--Y=%(_YCoord),--base=primaryscreen]\![move,--X=%(_toX),--Y=fix,--time=700,--base=primaryscreen]\s[1004]%(holdnoise)\w8\w8\w8\0\s[400]"
 	--
-	"%(wdn)ALRIGHT THEN."
-	"%(wdn)OK."
-	"%(wdn)UP TO YOU."
-	"%(wdn)TOO MUCH FOR NOW?"
+	"%(wdf)ALRIGHT THEN."
+	"%(wdf)OK."
+	"%(wdf)UP TO YOU."
+	"%(wdf)TOO MUCH FOR NOW?"
 	--
 	if jumpMenu == 0 //If you were trying to open the menu
 	{

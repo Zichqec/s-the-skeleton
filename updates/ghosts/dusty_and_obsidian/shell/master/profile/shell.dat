@@ -5,7 +5,7 @@ char0.bind.savearray,900=0
 balloon,F:\Stuff\SSP\balloon\void_screen\
 balloon10.offset,8.-226
 Char1.balloon.isleft,0
-inputbox.left,892
+inputbox.left,936
 balloon2.offset,-607.-192
 seriko.scaling.dither.balloon,0
 passwordinput.top,589
@@ -33,6 +33,6 @@ seriko.scaling.percent.x,100
 seriko.scaling.percent.y,100
 sliderinput.top,635
 Char2.balloon.isleft,1
-inputbox.top,676
+inputbox.top,585
 Char10.centery,1040
 __system_written_flag_do_not_remove__,written

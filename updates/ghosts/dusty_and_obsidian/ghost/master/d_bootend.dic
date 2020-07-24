@@ -576,4 +576,6 @@ DefineStartVars //Variables that need to be set on firstboot
 	weather = "Unknown"
 	pollen = "Unknown"
 	phase = "Unknown"
+	userfont = IARRAY
+	userfontsize = IARRAY
 }

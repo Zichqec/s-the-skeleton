@@ -315,11 +315,11 @@ OnVanished
 {
 	if holdingObsidian == 1
 	{
-		"%(wdc)\0\s[610]Oh...\w8\w8 %(reference0) is gone..?\w8\w8\1Mrr...\w8\w8\0\s[631]\n\n%(wdn)SHH,\w4 IT'S ALRIGHT, SWEET GIRL.\e"
+		"%(wdc)\0\s[610]Oh...\w8\w8 %(reference0) is gone..?\w8\w8\1Mrr...\w8\w8\0\s[631]\n\n%(wdf)SHH,\w4 IT'S ALRIGHT, SWEET GIRL.\e"
 	}
 	else
 	{
-		"%(wdc)\0\s[206]Oh...\w8\w8 %(reference0) is gone..?\w8\w8\1\s[1002]Mrr...\w8\w8\0\s[401]\n\n%(wdn)SHH,\w4 IT'S ALRIGHT, SWEET GIRL.\e"
+		"%(wdc)\0\s[206]Oh...\w8\w8 %(reference0) is gone..?\w8\w8\1\s[1002]Mrr...\w8\w8\0\s[401]\n\n%(wdf)SHH,\w4 IT'S ALRIGHT, SWEET GIRL.\e"
 	}
 	//reference0 here is the name of the other ghost.
 }
@@ -1193,11 +1193,11 @@ OnShellScaling //replaceframe on all of these, need him talking to obsidian and 
 	{
 		if reference0 > 100 //If getting bigger
 		{
-			"%(wdc)\0\s[606]Ah,\w4 hello %(username).\w8\w8\1%(holdnoise)\w8\w8\0\s[630]\n\n%(wdn)HA, YOU'RE STUCK WITH ME THIS TIME.%(reg)\e"
+			"%(wdc)\0\s[606]Ah,\w4 hello %(username).\w8\w8\1%(holdnoise)\w8\w8\0\s[630]\n\n%(wdf)HA, YOU'RE STUCK WITH ME THIS TIME.%(reg)\e"
 		}
 		elseif reference0 < 100 //If getting smaller
 		{
-			"%(wdc)\0\s[606]Ah,\w4 are we in your way?\w8\w8\1%(catnoises).\w8\w8\0\s[607]\n\n%(wdn)AT LEAST I'VE GOT HOLD OF YOU,\w4 THIS TIME...%(reg)\e"
+			"%(wdc)\0\s[606]Ah,\w4 are we in your way?\w8\w8\1%(catnoises).\w8\w8\0\s[607]\n\n%(wdf)AT LEAST I'VE GOT HOLD OF YOU,\w4 THIS TIME...%(reg)\e"
 		}
 		else //Normal size
 		{
@@ -1208,11 +1208,11 @@ OnShellScaling //replaceframe on all of these, need him talking to obsidian and 
 	{
 		if reference0 > 100 //If getting bigger
 		{
-			"%(wdc)\0\s[106]Ah,\w4 hello %(username).\w8\w8\1%(catnoises).\w8\w8\0\s[400]\n\n%(wdn)OBSIDIAN,\w4 BE MINDFUL OF YOUR NEW SIZE AND DON'T CRUSH ANYTHING.%(reg)\e"
+			"%(wdc)\0\s[106]Ah,\w4 hello %(username).\w8\w8\1%(catnoises).\w8\w8\0\s[400]\n\n%(wdf)OBSIDIAN,\w4 BE MINDFUL OF YOUR NEW SIZE AND DON'T CRUSH ANYTHING.%(reg)\e"
 		}
 		elseif reference0 < 100 //If getting smaller
 		{
-			"%(wdc)\0\s[106]Ah,\w4 are we in your way?\w8\w8\1%(catnoises).\w8\w8\0\s[402]\n\n%(wdn)OBSIDIAN,\w4 DON'T BE SNEAKING OFF INTO ANY SMALL CREVICES.%(reg)\e"
+			"%(wdc)\0\s[106]Ah,\w4 are we in your way?\w8\w8\1%(catnoises).\w8\w8\0\s[402]\n\n%(wdf)OBSIDIAN,\w4 DON'T BE SNEAKING OFF INTO ANY SMALL CREVICES.%(reg)\e"
 		}
 		else //Normal size
 		{
@@ -1279,6 +1279,32 @@ OnChoiceSelectEx //This handles any menus I create with loops where the choice s
 	elseif reference1 == "deletecategory"
 	{
 		OnChoiceDeleteCategory
+	}
+	elseif reference1 == "fontUser"
+	{
+		teachFont = "%(reference0)"
+		teachFontSize = reference2
+		OnFontMenu
+	}
+	elseif reference1 == "fontRemove"
+	{
+		if teachFont == userfont[reference2]
+		{
+			teachFont = "Wingdings"
+		}
+		userfont[reference2] = IARRAY
+		userfontsize[reference2] = IARRAY
+		"\_q"
+		--
+		OnRemoveFont
+	}
+	elseif reference1 == "editFont"
+	{
+		fontinput = userfont[reference2]
+		fontsize = userfontsize[reference2]
+		editfont = reference2
+		--
+		OnFontCheck
 	}
 }
 

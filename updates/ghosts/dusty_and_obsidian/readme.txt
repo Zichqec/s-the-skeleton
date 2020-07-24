@@ -1,7 +1,7 @@
 Hello and thanks for downloading the Dusty ghost!
 
 Dusty is one of my interpretations of Gaster, from Undertale. He was originally created as a part of the ECHO Gaster Community Project, which you can find a link to at the top of the right click menu. (Be warned that his design and my art style have changed a lot since then)
-Being a Gaster, he has a lot of functionality related to wingdings! He can teach you about wingdings, translate things in and out of wingdings, and has a few different games to help you practice.
+Being a Gaster, he has a lot of functionality related to wingdings! He can teach you about wingdings, translate things in and out of wingdings, and has a few different games to help you practice. (You can also put in any font you have installed, but be warned this might be a little janky!)
 
 He also has some minor backstory he can give you, as well as some more general functions you can find in the 'do something' menu. His focus is mostly on the wingdings functions instead of having lots of dialogue, but I do hope to add more dialogue in future updates!
 
