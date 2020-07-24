@@ -15,26 +15,50 @@ OnWDGames
 //-----Translation Challenge-----
 OnTranslationWD
 {
-	_case = RAND(2)
-	
-	if _case == 1
+	/*lessonword = lessonwd
+	totranslateLOW = TOLOWER(lessonword)
+	totranslateUP = TOUPPER(lessonword)
+	--*/
+	if teachUPPER == "On"
 	{
-		lessonword = lessonwd
-		totranslate = TOLOWER(lessonword)
+		"\![raise,OnTranslationPick,UPPER]"
+		
 	}
-	elseif _case == 2
+	if teachLOWER == "On"
+	{
+		"\![raise,OnTranslationPick,lower]"
+	}
+	if teachPROPER == "On"
+	{
+		"\![raise,OnTranslationPick,Proper]"
+	}
+	if teachUPPER != "On" && teachLOWER != "On" && teachPROPER != "On"
+	{
+		"\![raise,OnTranslationPick,UPPER]"
+	}
+}
+
+OnTranslationPick
+{
+	if reference0 == "UPPER"
 	{
 		lessonword = lessonwd
 		totranslate = TOUPPER(lessonword)
+		"\0%(wdc)\s[111]\![set,balloontimeout,0]Write the translation for:\n\n%(wdn)%(medf)%(totranslate)%(reg)\![open,passwordinput,OnUserGuess,-1]\n\n\n\![*]\q[Give up,EndTranslationWD]\t\*"
 	}
-	else
+	elseif reference0 == "lower"
+	{
+		lessonword = lessonwd
+		totranslate = TOLOWER(lessonword)
+		"\0%(wdc)\s[111]\![set,balloontimeout,0]Write the translation for:\n\n%(wdn)%(medf)%(totranslate)%(reg)\![open,passwordinput,OnUserGuess,-1]\n\n\n\![*]\q[Give up,EndTranslationWD]\t\*"
+	}
+	else //Propercase
 	{
 		lessonword = lessonwd
 		totranslate = lessonword
+		"\0%(wdc)\s[111]\![set,balloontimeout,0]Write the translation for:\n\n%(wdn)%(medf)%(totranslate)%(reg)\![open,passwordinput,OnUserGuess,-1]\n\n\n\![*]\q[Give up,EndTranslationWD]\t\*"
 	}
-	--
-	"\0%(wdc)\s[111]\![set,balloontimeout,0]Write the translation for:\n\n%(wdn)%(medf)%(totranslate)%(reg)\![open,passwordinput,OnUserGuess,-1]\n\n\n\![*]\q[Give up,EndTranslationWD]\t\*"
-}	
+}
 	
 OnUserGuess
 {
@@ -1455,4 +1479,20 @@ OnInGameCases
 	}
 	--
 	"\e"
+}
+
+RandomCase
+{
+	if teachUPPER == "On"
+	{
+		"UPPER"
+	}
+	if teachLOWER == "On"
+	{
+		"lower"
+	}
+	if teachPROPER == "On"
+	{
+		"Proper"
+	}
 }

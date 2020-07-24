@@ -704,18 +704,18 @@ OnUpdate.OnDownloadBegin //replaceframe I want him looking at a screen for this
 
 	while PointA <= Update_Process
 	{
-		_txt += "%(wdn)\f[height,200%]%(bold)C%(reg) "
+		_txt += "C"
 		PointA++
 	}
 	//see above except for blank boxes
 	while PointB <= Update_Remaining
 	{
-		_txt += "%(wdn)\f[height,200%]%(bold)D%(reg) "
+		_txt += "D"
 		PointB++
 	}
 	--
 	//using the text buffers to display the correct number of boxes
-	"%(_txt)\n\n%(Update_Process) of %(Update_Total)"
+	"%(wdn)\f[height,200%]%(bold)%(_txt)%(reg)\n\n%(Update_Process) of %(Update_Total)"
 }
 
  //---- OnUpdate.OnMD5CompareFailure ---------------------------------------------------

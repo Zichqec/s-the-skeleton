@@ -490,7 +490,7 @@ DefineStartVars //Variables that need to be set on firstboot
 	holdingObsidian = 0
 	recenttreats = 0
 	autoupdate = "ON"
-	askedalready = 0
+	askedalready = 1 //So he doesn't immediately tell you after firstboot
 	updateavailable = 0
 	totalminutes = 0
 	totalhours = 0
@@ -565,4 +565,15 @@ DefineStartVars //Variables that need to be set on firstboot
 	confidedObsi = 0
 	opinionObsi = 0
 	allergicPollen = "Unknown"
+	possibleanswers = 3
+	weatherquiet = 0
+	weathertries = 1
+	tempurature = "Unknown"
+	ForC = "Unknown"
+	feelslike = "Unknown"
+	humidity = "Unknown"
+	wind = "Unknown"
+	weather = "Unknown"
+	pollen = "Unknown"
+	phase = "Unknown"
 }

@@ -85,6 +85,7 @@ RandomTalk : nonoverlap
 			_wdproper = ""
 			_wdupper = ""
 			_wdlower = ""
+			_ranCase = RandomCase
 			--
 			if tooltips == "On"; {_wdproper = "%(wdn)\q[%(wingdingsles),TooltipTranslation,teachword]%(rgc)"}
 			else; {_wdproper = "%(wdn)%(wingdingsles)%(rgc)"}
@@ -95,8 +96,7 @@ RandomTalk : nonoverlap
 			if tooltips == "On"; {_wdlower = "%(wdn)\q[%(_translationlower),TooltipTranslation,teachword]%(rgc)"}
 			else; {_wdlower = "%(wdn)%(_translationlower)%(rgc)"}
 			--
-			
-			"\0\s[111]Can you translate %(wdn)%(wingdingsles)%(reg) out of Wingdings?\n\n\![*]\q[Sure,OnPopQuiz,%(wingdingsles)]\n\![*]\q[Dismiss,cancelnodialogue]\e teachword"
+			"\![raise,OnQuizPick,%(_ranCase)]"
 		}
 		{
 			"\0\s[208]%(t)This place is much smaller than the void##\w4 and yet it feels much larger.\w8\w8\s[107\] I guess a little variance in terrain really goes a long way.]\e"
@@ -536,6 +536,29 @@ OnPopQuizAnswer
 	}
 }
 
+OnQuizPick
+{
+	if reference0 == "UPPER"
+	{
+		wingdingsles = lessonwd
+		wingdingsles = TOUPPER(wingdingsles)
+		"\0\s[111]Can you translate %(wdn)%(wingdingsles)%(reg) out of Wingdings?\n\n\![*]\q[Sure,OnPopQuiz,%(wingdingsles)]\n\![*]\q[Dismiss,cancelnodialogue]\e teachword"
+	}
+	elseif reference0 == "lower"
+	{
+		wingdingsles = lessonwd
+		wingdingsles = TOLOWER(wingdingsles)
+		"\0\s[111]Can you translate %(wdn)%(wingdingsles)%(reg) out of Wingdings?\n\n\![*]\q[Sure,OnPopQuiz,%(wingdingsles)]\n\![*]\q[Dismiss,cancelnodialogue]\e teachword"
+	}
+	else //Propercase
+	{
+		wingdingsles = lessonwd
+		"\0\s[111]Can you translate %(wdn)%(wingdingsles)%(reg) out of Wingdings?\n\n\![*]\q[Sure,OnPopQuiz,%(wingdingsles)]\n\![*]\q[Dismiss,cancelnodialogue]\e teachword"
+	}
+	--
+	"%(reference0)"
+}
+
 Select.meowback
 {
 	"\1* (You meow back!)\w8\w8\n\n\s[1003]%(holdnoise)!\w8\w8\0\s[107]%(t)...You're the luckiest cat in the whole multiverse##\w4 you know that?]\e"
@@ -651,7 +674,7 @@ OnSecondChange
 		if holdingObsidian == 0
 		{
 			pickedUp++
-			"\![raise,OnDialogueVars,holdObsi]\![reset,sticky-window]\![set,sticky-window,0,1]\1\s[-1]\0%(wdc)"
+			"\![raise,OnDialogueVars,holdObsi]\1\s[-1]\0%(wdc)"
 			--
 			"\s[630]%(wdn)HELLO,\w4 OBSIDIAN.%(reg)"
 			"\s[630]%(wdn)HELLO,\w4 SWEET GIRL.%(reg)"
@@ -746,7 +769,7 @@ OnObsidianJumpDown //Obsidian jumping out of Dusty's arms
 		_YCoord = (_YCoord + nowscale)
 	}
 	
-	"\![reset,sticky-window]\0\s[490]\w4\1\s[1009]\![move,--X=%(_XCoord),--Y=%(_YCoord),--base=primaryscreen]\![move,--X=%(_toX),--Y=fix,--time=700,--base=primaryscreen]\s[1004]%(holdnoise)\w8\w8\w8\0\s[400]"
+	"\0\s[490]\w4\1\s[1009]\![move,--X=%(_XCoord),--Y=%(_YCoord),--base=primaryscreen]\![move,--X=%(_toX),--Y=fix,--time=700,--base=primaryscreen]\s[1004]%(holdnoise)\w8\w8\w8\0\s[400]"
 	--
 	"%(wdn)ALRIGHT THEN."
 	"%(wdn)OK."

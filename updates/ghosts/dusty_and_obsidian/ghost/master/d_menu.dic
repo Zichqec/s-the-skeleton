@@ -1366,6 +1366,14 @@ Select.ToggleAutoWeather
 	else
 	{
 		AutoWeather = "OFF"
+		tempurature = "Unknown"
+		ForC = "Unknown"
+		feelslike = "Unknown"
+		humidity = "Unknown"
+		wind = "Unknown"
+		weather = "Unknown"
+		pollen = "Unknown"
+		phase = "Unknown"
 	}
 	--
 	OnTalkConfig
