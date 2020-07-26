@@ -9,7 +9,7 @@ OnWDGames
 	\![*]\q[Match the Wingding,OnMatchWD]\n/
 	\![*]\q[Hangman,OnPlayHangman]"
 	--
-	"\n\n\![*]\q[Back to Wingdings Menu,OnWingdingsMenu]\n\![*]\q[I'm done,cancelnodialogue]\e"
+	"\n\n\![*]\q[Back to %(teachFont) Menu,OnWingdingsMenu]\n\![*]\q[I'm done,cancelnodialogue]\e"
 }
 
 //-----Translation Challenge-----
@@ -675,7 +675,7 @@ OnCategoryList
 	--
 	"\![*]\q[Custom Categories (%(CTGuser)),toggleCTGuser] \q[(Edit),OnUserCTG]"
 	--
-	"\n\n\![*]\q[All On,allctgon]\n\![*]\q[All Off,allctgoff]\n\n\![*]\q[Back to wingdings menu,OnWingdingsMenu]\e"
+	"\n\n\![*]\q[All On,allctgon]\n\![*]\q[All Off,allctgoff]\n\n\![*]\q[Back to %(teachFont) Menu,OnWingdingsMenu]\e"
 }
 
 Select.toggleCTGdusty //These are individual category toggles for the normal ones
@@ -1324,7 +1324,7 @@ OnCaseList
 	\![*]\q[Numbers (%(teachNUM)),OnToggleNumber]\n/
 	\![*]\q[Punctuation (%(teachPUNCT)),OnTogglePunct]"
 	--
-	"\n\n\![*]\q[Back to Wingdings Menu,OnWingdingsMenu]\n\![*]\q[I'm done,cancelnodialogue]\e"
+	"\n\n\![*]\q[Back to %(teachFont) Menu,OnWingdingsMenu]\n\![*]\q[I'm done,cancelnodialogue]\e"
 }
 
 OnToggleUpper

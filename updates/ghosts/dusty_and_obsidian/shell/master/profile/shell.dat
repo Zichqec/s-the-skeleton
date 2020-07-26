@@ -9,12 +9,12 @@ inputbox.left,936
 balloon2.offset,-607.-192
 seriko.scaling.dither.balloon,0
 passwordinput.top,589
-balloon0.offset,70.-71
+balloon0.offset,81.-9
 scriptbox.left,1426
 Char0.centery,1040
 Char2.centery,1040
 sliderinput.left,1295
-balloon1.offset,286.75
+balloon1.offset,912.15
 Char10.center,1247
 Char0.balloon.isleft,1
 Char3.center,1337
@@ -27,7 +27,7 @@ Char10.balloon.isleft,1
 passwordinput.left,1127
 Char1.centery,1040
 Char3.centery,1040
-Char1.center,1371
+Char1.center,1363
 char1.bind.savearray,914=0
 seriko.scaling.percent.x,100
 seriko.scaling.percent.y,100

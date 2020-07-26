@@ -179,7 +179,7 @@ Select.callghost
 	}
 	else
 	{
-		"\0\s[0]%(t)Certainly##\w4 I'll call them right away.]\![call,ghost,lastinstalled]"
+		"\0\s[550]%(t)Certainly##\w4\s[500] I'll call them right away.]\![call,ghost,lastinstalled]"
 	}
 }
 
@@ -1306,6 +1306,23 @@ OnChoiceSelectEx //This handles any menus I create with loops where the choice s
 		--
 		OnFontCheck
 	}
+	elseif reference1 == "callGhost"
+	{
+		"\0\s[500]%(t)Alright##\w4 I'll call] %(reference0)."
+		"\0\s[500]%(t)Certainly##\w4 I'll call] %(reference0)."
+		--
+		"\![call,ghost,%(reference0)]\e"
+		callingGhost = 1
+	}
+}
+
+OnGhostCallComplete
+{
+	if callingGhost == 1
+	{
+		callingGhost = 0
+		"\0\s[0]%(t)Hello##]\w4 %(reference2).\e"
+	}
 }
 
 OnCheckCaseE //Pick a random case to make the teaching word
@@ -1921,42 +1938,49 @@ OnMoonFound
 //Ok so I'm kinda proud of this. Any sentences that I want to have teach words in them, I just stick the whole thing into an embed that calls this function. This function divides up the words by spaces, picks a random one, and adds the teach formatting to it!
 OnRandomTeachWord
 {
-	talkarray = reference0
-	talkarray = REPLACE(talkarray," ","|")
-	//talkarray = REPLACE(talkarray,"]","\]")
-	//talkarray = REPLACE(talkarray,"\","\\")
-	
-	SETDELIM(talkarray,"|")
-	talkarraysize = ARRAYSIZE(talkarray)
-	
-	_rand1 = RAND(talkarraysize)
-	_rand2 = RAND(talkarraysize)
-	_rand3 = RAND(talkarraysize)
-	_rand4 = RAND(talkarraysize)
-	
-	if "##" !_in_ talkarray[_rand1] && "\" !_in_ talkarray[_rand1]
+	if WDOnly == 0
 	{
-		_wordtoreplace1 = ("$E-" + "%(talkarray[_rand1])" + "-$")
-		talkarray[_rand1] = _wordtoreplace1
+		talkarray = reference0
+		talkarray = REPLACE(talkarray," ","|")
+		//talkarray = REPLACE(talkarray,"]","\]")
+		//talkarray = REPLACE(talkarray,"\","\\")
+		
+		SETDELIM(talkarray,"|")
+		talkarraysize = ARRAYSIZE(talkarray)
+		
+		_rand1 = RAND(talkarraysize)
+		_rand2 = RAND(talkarraysize)
+		_rand3 = RAND(talkarraysize)
+		_rand4 = RAND(talkarraysize)
+		
+		if "##" !_in_ talkarray[_rand1] && "\" !_in_ talkarray[_rand1]
+		{
+			_wordtoreplace1 = ("$E-" + "%(talkarray[_rand1])" + "-$")
+			talkarray[_rand1] = _wordtoreplace1
+		}
+		if _rand2 != _rand1 && "##" !_in_ talkarray[_rand2] && "\" !_in_ talkarray[_rand2]
+		{
+			_wordtoreplace2 = ("$M-" + "%(talkarray[_rand2])" + "-$")
+			talkarray[_rand2] = _wordtoreplace2
+		}
+		if _rand3 != _rand1 && _rand3 != _rand2 && "##" !_in_ talkarray[_rand3] && "\" !_in_ talkarray[_rand3]
+		{
+			_wordtoreplace3 = ("$H-" + "%(talkarray[_rand3])" + "-$")
+			talkarray[_rand3] = _wordtoreplace3
+		}
+		if _rand4 != _rand1 && _rand4 != _rand2 && _rand4 != _rand3 && "##" !_in_ talkarray[_rand4] && "\" !_in_ talkarray[_rand4]
+		{
+			_wordtoreplace4 = ("$H-" + "%(talkarray[_rand4])" + "-$")
+			talkarray[_rand4] = _wordtoreplace4
+		}
+		talkarray = REPLACE(talkarray,"##","%(CHR(0x2C))")
+		
+		SETDELIM(talkarray," ")
+		reference0 = REPLACE(talkarray,"|"," ")
+		"%(reference0)"
 	}
-	if _rand2 != _rand1 && "##" !_in_ talkarray[_rand2] && "\" !_in_ talkarray[_rand2]
+	else
 	{
-		_wordtoreplace2 = ("$M-" + "%(talkarray[_rand2])" + "-$")
-		talkarray[_rand2] = _wordtoreplace2
+		"%(wdn)%(reference0)%(reg)"
 	}
-	if _rand3 != _rand1 && _rand3 != _rand2 && "##" !_in_ talkarray[_rand3] && "\" !_in_ talkarray[_rand3]
-	{
-		_wordtoreplace3 = ("$H-" + "%(talkarray[_rand3])" + "-$")
-		talkarray[_rand3] = _wordtoreplace3
-	}
-	if _rand4 != _rand1 && _rand4 != _rand2 && _rand4 != _rand3 && "##" !_in_ talkarray[_rand4] && "\" !_in_ talkarray[_rand4]
-	{
-		_wordtoreplace4 = ("$H-" + "%(talkarray[_rand4])" + "-$")
-		talkarray[_rand4] = _wordtoreplace4
-	}
-	talkarray = REPLACE(talkarray,"##","%(CHR(0x2C))")
-	
-	SETDELIM(talkarray," ")
-	reference0 = REPLACE(talkarray,"|"," ")
-	"%(reference0)"
 }

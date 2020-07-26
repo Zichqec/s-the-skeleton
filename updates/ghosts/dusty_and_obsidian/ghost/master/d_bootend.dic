@@ -92,9 +92,7 @@ OnBoot
 	}
 	elseif WDOnly == 1
 	{
-		"\0\s[104]Hello again,\w4 %(username).\w8\w8\1%(catnoises).\w8\w8\0\s[0]\n\nLast time we were here,\w4 you asked me to speak only in Wingdings.\w8\w8 Would you like me to continue speaking only in Wingdings?\n\n/
-		\![*]\q[Keep speaking in Wingdings,bootwd]\n/
-		\![*]\q[Speak normally\, please,bootnonwd]\e"
+		WingdingsBoot
 	}
 	else
 	{
@@ -102,9 +100,25 @@ OnBoot
 	}
 }
 
+WingdingsBoot
+{
+	if teachFont == "Wingdings"
+	{
+		"\0\s[104]Hello again,\w4 %(username).\w8\w8\1%(catnoises).\w8\w8\0\s[0]\n\nLast time we were here,\w4 you asked me to speak only in Wingdings.\w8\w8 Would you like me to continue speaking only in Wingdings?\n\n/
+		\![*]\q[Keep speaking in Wingdings,bootwd]\n/
+		\![*]\q[Speak normally\, please,bootnonwd]\e"
+	}
+	else
+	{
+		"\0\s[104]Hello again,\w4 %(username).\w8\w8\1%(catnoises).\w8\w8\0\s[0]\n\nLast time we were here,\w4 you asked me to speak mostly in %(teachFont).\w8\w8 Would you like me to continue speaking in %(teachFont)?\n\n/
+		\![*]\q[Keep speaking in %(teachFont),bootwd]\n/
+		\![*]\q[Speak normally\, please,bootnonwd]\e"
+	}
+}
+
 Select.bootwd
 {
-	"%(wdc)\0\s[104]Ok,\w4 I will continue to speak in Wingdings.\w8\w8\1%(catnoises).\e"
+	"%(wdc)\0\s[104]%(t)Ok##\w4 I will continue to speak in] %(teachFont).\w8\w8\1%(catnoises).\e"
 }
 
 Select.bootnonwd
@@ -314,9 +328,7 @@ OnGhostChanged
 			--
 			if WDOnly == 1
 			{
-				"\0\s[104]Hello again,\w4 %(username).\w8\w8\1%(catnoises).\w8\w8\0\s[0]\n\nLast time we were here,\w4 you asked me to speak only in Wingdings.\w8\w8 Would you like me to continue speaking only in Wingdings?\n\n/
-				\![*]\q[Keep speaking in Wingdings,bootwd]\n/
-				\![*]\q[Speak normally\, please,bootnonwd]\e"
+				WingdingsBoot
 			}
 			else
 			{
@@ -578,4 +590,6 @@ DefineStartVars //Variables that need to be set on firstboot
 	phase = "Unknown"
 	userfont = IARRAY
 	userfontsize = IARRAY
+	teachFont == "Wingdings"
+	callingGhost = 0
 }

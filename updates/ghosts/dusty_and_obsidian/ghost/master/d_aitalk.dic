@@ -56,9 +56,11 @@ RandomTalk : nonoverlap
 		
 		if metghosts != ""
 		{
+			if SUBSTR(metghosts,0,1) == ","; {metghosts = ERASE(metghosts,0,1)}
+			--
 			_metcount = ARRAYSIZE(metghosts)
 			_rand = RAND(_metcount)
-			if _rand == 0; {_rand = 1}
+			//if _rand == 0; {_rand = 1}
 			_randghost = metghosts[_rand]
 			_installedlist = "%(installedghostlist)"
 
@@ -493,9 +495,10 @@ RandomTalk : nonoverlap
 		//---Commenting on ghosts he's met previously---
 		if metghosts != ""
 		{
+			if SUBSTR(metghosts,0,1) == ","; {metghosts = ERASE(metghosts,0,1)}
 			_metcount = ARRAYSIZE(metghosts)
 			_rand = RAND(_metcount)
-			if _rand == 0; {_rand = 1}
+			//if _rand == 0; {_rand = 1}
 			_randghost = metghosts[_rand]
 			_installedlist = "%(installedghostlist)"
 
@@ -721,7 +724,7 @@ OnSurfaceRestore
 {
 	if holdingObsidian == 1
 	{
-		if RAND(99) < 59
+		if RAND(100) < 59
 		{
 			"\1\s[-1]\0\s[600]"
 		}

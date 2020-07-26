@@ -66,9 +66,16 @@ gray
 
 wdc //Wingdings Check - Check to see if the user is in wingdings only mode, and if yes, set to small balloon with wingdings font
 {
-	if WDOnly > 0
+	if teachFont == "Wingdings"
 	{
-		"\b[9]"
+		if WDOnly > 0
+		{
+			"\b[9]"
+		}
+		else
+		{
+			"\b[0]"
+		}
 	}
 	else
 	{
@@ -78,9 +85,16 @@ wdc //Wingdings Check - Check to see if the user is in wingdings only mode, and 
 
 wdcb //same as above but with large balloon
 {
-	if WDOnly > 0
+	if teachFont == "Wingdings"
 	{
-		"\b[10]"
+		if WDOnly > 0
+		{
+			"\b[10]"
+		}
+		else
+		{
+			"\b[2]"
+		}
 	}
 	else
 	{
@@ -402,11 +416,18 @@ wdnMDisp
 {
 	if WDOnly == 1
 	{
-		"Turn off Wingdings Only mode"
+		"Turn off %(teachFont) mode"
 	}
 	else
 	{
-		"Change all dialogue to wingdings"
+		if teachFont == "Wingdings"
+		{
+			"Change all dialogue to Wingdings"
+		}
+		else
+		{
+			"Change most dialogue to %(teachFont)"
+		}
 	}
 }
 

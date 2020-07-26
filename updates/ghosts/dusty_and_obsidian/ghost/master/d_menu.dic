@@ -117,7 +117,7 @@ MenuRun
 	--
 	if WDOnly == 1
 	{
-		"\n\n%(rgf)\q[(Turn Wingdings mode %(WDOn),togglewdmm])\e" //might replace this with an image or something later...
+		"\n\n%(rgf)\q[(Turn %(teachFont) mode %(WDOn),togglewdmm])\e" //might replace this with an image or something later...
 	}
 	else
 	{
@@ -462,7 +462,7 @@ Select.translatelinebreak2
 Select.finishtranslate
 {
 	currentlytranslating = REPLACE(currentlytranslating,"ॐ","\\")
-	"\0\s[111]\b2The translation is:\n\n%(currentlytranslating)\n\n\![*]\q[Take a screenshot?,screenshot2]\n\![*]\q[Back to Wingdings menu,OnWingdingsMenu]\*\![set,balloontimeout,-1]"
+	"\0\s[111]\b2The translation is:\n\n%(currentlytranslating)\n\n\![*]\q[Take a screenshot?,screenshot2]\n\![*]\q[Back to %(teachFont) Menu,OnWingdingsMenu]\*\![set,balloontimeout,-1]"
 }
 
 Select.screenshot2
@@ -494,7 +494,7 @@ Select.chartWD
 		"\f[height,default]%(rg)\n\n\![*]\q[Lowercase,chartWDlower]\_l[100]\![*]\q[Numbers and Punctuation,chartWDpunct]"
 	}
 	--
-	"\n\![*]\q[Back to wingdings menu,OnWingdingsMenu]\e"
+	"\n\![*]\q[Back to %(teachFont) Menu,OnWingdingsMenu]\e"
 }
 
 Select.chartWDlower
@@ -512,7 +512,7 @@ Select.chartWDlower
 		"\f[height,default]%(rg)\n\n\![*]\q[Uppercase,chartWD]\_l[100]\![*]\q[Numbers and Punctuation,chartWDpunct]"
 	}
 	--
-	"\n\![*]\q[Back to wingdings menu,OnWingdingsMenu]\e"
+	"\n\![*]\q[Back to %(teachFont) Menu,OnWingdingsMenu]\e"
 }
 
 Select.chartWDpunct
@@ -530,7 +530,7 @@ Select.chartWDpunct
 		"\f[height,default]%(rg)\n\n\![*]\q[Uppercase,chartWD]\_l[100]\![*]\q[Lowercase,chartWDlower]"
 	}
 	--
-	"\n\![*]\q[Back to wingdings menu,OnWingdingsMenu]\e"
+	"\n\![*]\q[Back to %(teachFont) Menu,OnWingdingsMenu]\e"
 }
 
 //-----Teaching-----
@@ -562,7 +562,7 @@ OnTeachWD
 	\![*]\q[Lesson #15 - Side Keys pt. 1,WDLesson15]\n/
 	\![*]\q[Lesson #16 - Side Keys pt. 2,WDLesson16]"*/
 	--
-	"\n\n\![*]\q[Back to wingdings menu,OnWingdingsMenu]\n\![*]\q[I'm done,cancelnodialogue]\e"
+	"\n\n\![*]\q[Back to %(teachFont) Menu,OnWingdingsMenu]\n\![*]\q[I'm done,cancelnodialogue]\e"
 }
 
 Select.WDLesson1 //A-I
@@ -735,7 +735,14 @@ Select.WDLesson16 // {}|:"<>?
 //-----Wingdings Practice Mode-----
 Select.practicemodeinfo
 {
-	"\0\s[114]Ah,\w4 if you'd like,\w4 I can mix in some %(teachFont) during our conversations to help you practice.\w8\w8\s[0] The higher the difficulty,\w4 the more words I'll change.\w8\w8\n\n\s[114]Or,\w4 you can try Wingdings Only mode and I'll use Wingdings exclusively.\w8\w8\s[102] Just let me know what you'd prefer.\w8\w8\1%(catnoises).\0\x"
+	if teachFont == "Wingdings"
+	{
+		"\0\s[114]Ah,\w4 if you'd like,\w4 I can mix in some %(teachFont) during our conversations to help you practice.\w8\w8\s[0] The higher the difficulty,\w4 the more words I'll change.\w8\w8\n\n\s[114]Or,\w4 you can try Wingdings Only mode and I'll use Wingdings exclusively.\w8\w8\s[102] Just let me know what you'd prefer.\w8\w8\1%(catnoises).\0\x"
+	}
+	else
+	{
+		"\0\s[114]Ah,\w4 if you'd like,\w4 I can mix in some %(teachFont) during our conversations to help you practice.\w8\w8\s[0] The higher the difficulty,\w4 the more words I'll change.\w8\w8\n\n\s[114]Or,\w4 you can try %(teachFont) mode and I'll use mostly %(teachFont).\w8\w8\s[102] Just let me know what you'd prefer.\w8\w8\1%(catnoises).\0\x"
+	}
 	--
 	OnWingdingsMenu
 }
@@ -825,7 +832,7 @@ OnFontMenu
 	--
 	"\n\n\![*]\q[Add a new font,OnNewFont]\n\![*]\q[Remove a font,OnRemoveFont]\n\n"
 	--
-	"\![*]\q[Back to Wingdings Menu,OnWingdingsMenu]"
+	"\![*]\q[Back to %(teachFont) Menu,OnWingdingsMenu]"
 }
 
 Select.fontWingdings
@@ -928,7 +935,8 @@ OnFunctionMenu
 {
  	"\0\s[0]\_q%(wdcb)%(t)Sure## what did you need me to do?]\n\n* (You ask him to...)\n\n"
 	--
- 	"\![*]\q[Check the weather,OnWeatherCheck]\n/
+ 	"\![*]\q[Call another ghost,OnGhostMenu]\n/
+	\![*]\q[Check the weather,OnWeatherCheck]\n/
 	\![*]\q[Check Email,MailCheck]\n/
 	\![*]\q[Open Calendar,CALENDAR]\n/
 	\![*]\q[Open SSP Preferences,sspconfig]\n/
@@ -939,6 +947,37 @@ OnFunctionMenu
 	\![*]\q[Show the changelog,OnChangelog,frommenu]\n\n/
  	\![*]\q[Back to main menu,BACKTOMENU]\e"
 }
+
+OnGhostMenu
+{
+	_ghostlist = ""
+	installedcount = ARRAYSIZE(installedghostlist)
+	_i = 0
+	while _i < installedcount
+	{
+		_ghostlist += "\n\q[%(installedghostlist[_i]),callGhost]"
+		_i++
+	}
+	
+	/*_ghostlist = ""
+	installedcount = ARRAYSIZE(installedghostlist)
+	_i = 0
+	while _i < installedcount
+	{
+		_current = "%property[rateofuselist.index(%(_i)).name\]"
+		_current2 = "%(_current)"
+		_ghostlist += "\n\n[half]%property[rateofuselist.index(%(_i)).name] \q[(Call),callGhost,%(_current2)] Boots: %property[rateofuselist.index(%(_i)).boottime] Runtime: %property[rateofuselist.index(%(_i)).percent]"
+		_i++
+	}*/
+	
+	--
+	"%(wdcb)\s[550]\![set,autoscroll,disable]\_q%(t)Who would you like me to call here?]\n"
+	--
+	"%(_ghostlist)\*\![set,balloontimeout,-1]"
+	--
+	"\n\n\![*]\q[Back to Functions Menu,OnFunctionMenu]\n\![*]\q[Nevermind,cancelnodialogue]\n\n\e"
+}
+
 
 OnWeatherCheck
 {
@@ -1642,6 +1681,10 @@ Select.CANCEL
 OnOpenKeroMenu
 {
 	"\1\s[10]\b2%(catnoises).\n\n\_q"
+	if ObsiLove > 100
+	{
+		"\1\s[10]\b2%(holdnoise)\n\n\_q"
+	}
 	--
 	"\![*]\q[Say hello,OnObsidianTalk]\n/
 	\![*]\q[Check,checkobsidian]\n/
@@ -2231,23 +2274,6 @@ OnTestVariable
 	//UserCategories = IARRAY
 	//"\![open,inputbox,OnUserWord]"
 	
-	if metghosts != ""
-		{
-			_metcount = ARRAYSIZE(metghosts)
-			_rand = RAND(_metcount)
-			if _rand == 0; {_rand = 1}
-			_randghost = metghosts[_rand]
-			_installedlist = "%(installedghostlist)"
-
-			if _randghost !_in_ _installedlist
-			{
-				"\0\s[206]%(t)I wonder if %(_randghost) is doing alright...]\e"
-			}
-			if _randghost !_in_ ghostexlist && _randghost _in_ _installedlist
-			{
-				"\0\s[208]%(t)I wonder how %(_randghost) is doing...]\e"
-			}
-		}
 }
 
 /*Select.confirmweather
