@@ -3,9 +3,14 @@
 //--OnTranslate
 
 OnTranslate
-	{
+{
 	_talk = reference0
-
+	
+	if WDOnly == 1 && teachFont != "Wingdings"
+	{
+		_talk = REPLACE(_talk, "\0", "\0%(wdn)")
+		_talk = REPLACE(_talk, "\1", "\1%(reg)")
+	}
 	_talk = REPLACE(_talk, "MToYou", "\_a[talktome]to you\_a")
 	_talk = REPLACE(_talk, "MAnotherGhost", "\_a[talktoother]another ghost\_a")
 	
@@ -142,13 +147,13 @@ OnTranslate
 	}*/
 	
 	//_talk = REPLACE(_talk, "", "")
-		if reference1 == "" && reference2 == "" { //send input box : no event (ref2) , no special flag (ref1)
-            EVAL('"' + REPLACE(_talk,'"','" + CHR(0x22) + "') + '"')
-        }
-        else { //event result from ghost
-            TOSTR(_talk)
-        }
+	if reference1 == "" && reference2 == "" { //send input box : no event (ref2) , no special flag (ref1)
+		EVAL('"' + REPLACE(_talk,'"','" + CHR(0x22) + "') + '"')
 	}
+	else { //event result from ghost
+		TOSTR(_talk)
+	}
+}
 	
 
 	

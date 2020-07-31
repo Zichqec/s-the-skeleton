@@ -20,16 +20,16 @@ OnFirstBoot
 	booting = 1
 	
 	DefineStartVars //A function at the bottom that sets a whole mess of variables...
-	
+	--
 	if reference0 == 0
  	{
 		resets = 0
-		"\![enter,passivemode]\1\s[10]\0\s[502]%(wdn)HH-!\w8\w8\s[208] AH,\w4 THIS IS...\w8\w8\1%(catnoises).\w8\w8\0\s[110]\n\n%(rgc)Oh-\w4\s[114] hello there.\w8\w8\s[0] My name is Dusty,\w4\s[104] it's good to meet you.\w8\w8\n\n\s[114]And you are..?\![open,inputbox,OnNameTeach,-1]"
+		"\![enter,passivemode]\0\s[990]\1\s[1610]\w7\s[10]\0\s[502]%(wdn)HH-!\w8\w8\s[208] AH,\w4 THIS IS...\w8\w8\1%(catnoises).\w8\w8\0\s[110]\n\n%(rgc)Oh-\w4\s[114] hello there.\w8\w8\s[0] My name is Dusty,\w4\s[104] it's good to meet you.\w8\w8\n\n\s[114]And you are..?\![open,inputbox,OnNameTeach,-1]"
  	}
 	else
  	{
 		resets++
-		"\![enter,passivemode]\1\s[10]\0\s[502]%(wdn)HH-!\w8\w8\s[208] AH,\w4 THIS IS...\w8\w8\s[206] THIS IS...\w8\w8\1%(catnoises).\w8\w8\0\s[110]\n\n%(rgc)Oh-\w4\s[114] hello there.\w8\w8\s[0] My name is Dusty,\w4\s[104] it's good to meet you.\w8\w8\n\n\s[114]And you are..?\![open,inputbox,OnNameTeach,-1]"
+		"\![enter,passivemode]\0\s[990]\1\s[1610]\w7\s[10]\0\s[502]%(wdn)HH-!\w8\w8\s[208] AH,\w4 THIS IS...\w8\w8\s[206] THIS IS...\w8\w8\1%(catnoises).\w8\w8\0\s[110]\n\n%(rgc)Oh-\w4\s[114] hello there.\w8\w8\s[0] My name is Dusty,\w4\s[104] it's good to meet you.\w8\w8\n\n\s[114]And you are..?\![open,inputbox,OnNameTeach,-1]"
  	}
 }
 
@@ -81,14 +81,17 @@ GetDaySlot
 OnBoot
 {
 	OnBootVars
-	
- 	"\0\s[0]\1\s[10]%(wdc)"
+	_timesince = FUNCTIONEX("time_check.dll","how_many_days",lastclosed[0],lastclosed[1],lastclosed[2],0,0,0)//lastclosed[3],lastclosed[4],lastclosed[5] if you want the hours/minutes/seconds
+	_timesince *= -1 //Multiply it by -1 to get rid of the negative sign, or to add one if the user traveled back in time.
+	//The lastclosed array is set up in OnClose. Basically when you close him, it grabs the current time and saves it so that he can check it when he opens again.
+	--
+ 	"\0\s[990]\1\s[1610]\w7\0%(wdc)" //Plays their animations before anything
 	--
 	dayslot = GetDaySlot
 	
 	if dayslot == userbirthday
 	{
-				"\0\s[0]It's %(bornmonthprint) %(borndayprint).\w8\1\s[10]Happy birthday, %(username).\e" 
+				"\0\s[0]%(t)Hello##]\w4 %(username).\w8\w8\s[114] %(t)It's your birthday##\w4 isn't it?\w8\w8\s[104\] Happy birthday.]\w8\w8\1%(holdnoise)\e"
 	}
 	elseif WDOnly == 1
 	{
@@ -96,7 +99,47 @@ OnBoot
 	}
 	else
 	{
-		"%(normalboottalk)" //If none of the days above match the current date, the ghost instead will go down to the next function, normalboottalk.
+		if _timesince >= 730 //2 years
+		{
+			ObsiLove = 0
+			"\0\s[110]Ah-!\w8\s[114] Hello again,\w4 %(username).\w8\w8\s[104] It's been a very long time,\w4 I'm glad to see you.\w8\w8\s[0] How have you been?\w8\w8 Hopefully well?\w8\w8\1\s[1002]%(annoyednoises)\e"
+		}
+		elseif _timesince >= 365 //A year
+		{
+			ObsiLove -= 80; if ObsiLove < 0; {ObsiLove = 0}
+			"\0\s[110]Ah-!\w8\s[114] Hello %(username),\w4 it is good to see you.\w8\w8\s[0] It's been more than a year in your timeline,\w4 hasn't it?\w8\w8\s[114] How have things been?\w8\w8\1%(annoyednoises)\e"
+		}
+		elseif _timesince >= 180 //Half a year
+		{
+			ObsiLove -= 40; if ObsiLove < 0; {ObsiLove = 0}
+			"\0\s[114]It has been a while,\w4 %(username).\w8\w8\s[208] More than half a year in your timeline,\w4 I believe?\w8\w8\s[0] How have things been there?\w8\w8 Are you doing well?\w8\w8\1\s[1003]%(annoyednoises)\e"
+		}
+		elseif _timesince >= 60 //2 months
+		{
+			ObsiLove -= 20; if ObsiLove < 0; {ObsiLove = 0}
+			"\0\s[114]Ah,\w4 hello again %(username).\w8\w8\1\s[10]%(catnoises).\w8\w8\0\s[0]\n\nIt has been a few months since I was here last,\w4 have you been well?\e"
+		}
+		elseif _timesince >= 30 //A month
+		{
+			"\0\s[0]Hello again,\w4 %(username).\w8\w8\s[114] It's been a while since I saw you last,\w4 how have you been?\1%(catnoises).\e"
+		}
+		elseif _timesince >= 14 //Two weeks
+		{
+			"\0\s[0]Hello again,\w4 %(username).\w8\w8\s[114] It's been a few weeks since I saw you last,\w4 have you been well?\w8\w8\1%(catnoises).\e"
+			"\0\s[0]Hello again,\w4 %(username).\w8\w8\s[114] How have you been these past few weeks?\w8\w8\1%(catnoises).\e"
+			if day < 14
+			{
+				"\0\s[0]Hello again,\w4 %(username).\w8\w8\s[114] It's been a little while,\w4 How is your %(displaymonth) going?\w8\w8\1%(catnoises).\e"
+			}
+		}
+		elseif _timesince < 0 //Negative value, the user has set their clock back
+		{
+			"\0\s[110]Ah...\w8\w8\s[208] It's been...\w8\w8 %(_timesince) days since we were here?\w8\w8\s[106] %(username),\w4 did you invent time travel,\w4 or have you been changing your computer's clock?\w8\w8\1%(catnoises).\e"
+		}
+		else
+		{
+			normalboottalk
+		}
 	}
 }
 
@@ -176,61 +219,121 @@ normalboottalk //%(wdc) isn't working here, I assume something to do with it boo
 
 OnClose
 {
+	lastclosed = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)")
 	"%(wdc)"
 	--
-	if passmin >= 5 || passhour > 0
+	if holdingObsidian == 1
 	{
-		if RAND(100) < 40
+		if passmin >= 5 || passhour > 0
 		{
-			"\0\s[102]Farewell,\w4 %(username)."
-			"\0\s[104]Take care,\w4 %(username)."
-			"\0\s[102]Until we meet again."
+			if RAND(100) < 40
+			{
+				"\0\s[600]Farewell,\w4 %(username)."
+				"\0\s[600]Take care,\w4 %(username)."
+				"\0\s[600]Until we meet again."
+			}
+			else
+			{
+				if timeslot == "earlymorning" //5am-8am
+				{
+					if passhour > 3
+					{
+						"\0\s[606]Ah,\w4 just off to bed?\w8\w8\s[102] Sleep well,\w4 %(username)."
+					}
+					else
+					{
+						"\0\s[600]Have a good day,\w4 %(username)."
+					}
+				}
+				elseif timeslot == "morning" //9am-11am
+				{
+					"\0\s[600]Take care,\w4 %(username).\w8\w8 There's a lot of sunlight left today,\w4 don't waste it."
+				}
+				elseif timeslot == "lunch" //12pm-2pm
+				{
+					"\0\s[600]Off for lunch?\w8\w8\s[104] Alright,\w4 I'll see you later."
+				}
+				elseif timeslot == "afternoon" //3pm-5pm
+				{
+					"\0\s[600]Off to enjoy the last of the sunlight?\w8\w8\s[102] Take care."
+				}
+				elseif timeslot == "evening" //6pm-8pm
+				{
+					"\0\s[600]Off for the night?\w8\w8\s[104] Enjoy your evening,\w4 %(username)."
+				}
+				elseif timeslot == "latenight" //9pm-12am
+				{
+					"\0\s[600]Off to bed?\w8\w8\s[104] Sleep well,\w4 %(username)."
+				}
+				else //Midnight, 1am-4am
+				{
+					"\0\s[600]Good night,\w4 %(username).\w8\w8\s[0] Sleep well."
+				}
+			}		
+		}	
+		else //This dialogue is for if they haven't been open for at least five minutes.
+		{
+			"\0\s[600]Ah,\w4 that was quick.\w8\w8 Did you call us by mistake?\w8\w8\s[104] Take care,\w4 %(username)."
 		}
-		else
-		{
-			if timeslot == "earlymorning" //5am-8am
-			{
-				if passhour > 3
-				{
-					"\0\s[106]Ah,\w4 just off to bed?\w8\w8\s[102] Sleep well,\w4 %(username)."
-				}
-				else
-				{
-					"\0\s[104]Have a good day,\w4 %(username)."
-				}
-			}
-			elseif timeslot == "morning" //9am-11am
-			{
-				"\0\s[102]Take care,\w4 %(username).\w8\w8 There's a lot of sunlight left today,\w4 don't waste it."
-			}
-			elseif timeslot == "lunch" //12pm-2pm
-			{
-				"\0\s[0]Off for lunch?\w8\w8\s[104] Alright,\w4 I'll see you later."
-			}
-			elseif timeslot == "afternoon" //3pm-5pm
-			{
-				"\0\s[0]Off to enjoy the last of the sunlight?\w8\w8\s[102] Take care."
-			}
-			elseif timeslot == "evening" //6pm-8pm
-			{
-				"\0\s[0]Off for the night?\w8\w8\s[104] Enjoy your evening,\w4 %(username)."
-			}
-			elseif timeslot == "latenight" //9pm-12am
-			{
-				"\0\s[0]Off to bed?\w8\w8\s[104] Sleep well,\w4 %(username)."
-			}
-			else //Midnight, 1am-4am
-			{
-				"\0\s[102]Good night,\w4 %(username).\w8\w8\s[0] Sleep well."
-			}
-		}		
-	}	
-	else //This dialogue is for if they haven't been open for at least five minutes.
-	{
-		"\0\s[0]Ah,\w4 that was quick.\w8\w8 Did you call us by mistake?\w8\w8\s[104] Take care,\w4 %(username)."
+		--
+		"\w8\w8\1%(holdnoise)\w8\w8\-\e" //this bit of code actually closes and ends the ghost. Because \e is here, you don't have to end each line above with it. Again, this will come up very rarely, so OnClose is an unusual case.
 	}
-	--
-	"\w8\w8\1%(catnoises).\w8\w8\-\e" //this bit of code actually closes and ends the ghost. Because \e is here, you don't have to end each line above with it. Again, this will come up very rarely, so OnClose is an unusual case.
+	else
+	{
+		if passmin >= 5 || passhour > 0
+		{
+			if RAND(100) < 40
+			{
+				"\0\s[102]Farewell,\w4 %(username)."
+				"\0\s[104]Take care,\w4 %(username)."
+				"\0\s[102]Until we meet again."
+			}
+			else
+			{
+				if timeslot == "earlymorning" //5am-8am
+				{
+					if passhour > 3
+					{
+						"\0\s[106]Ah,\w4 just off to bed?\w8\w8\s[102] Sleep well,\w4 %(username)."
+					}
+					else
+					{
+						"\0\s[104]Have a good day,\w4 %(username)."
+					}
+				}
+				elseif timeslot == "morning" //9am-11am
+				{
+					"\0\s[102]Take care,\w4 %(username).\w8\w8 There's a lot of sunlight left today,\w4 don't waste it."
+				}
+				elseif timeslot == "lunch" //12pm-2pm
+				{
+					"\0\s[0]Off for lunch?\w8\w8\s[104] Alright,\w4 I'll see you later."
+				}
+				elseif timeslot == "afternoon" //3pm-5pm
+				{
+					"\0\s[0]Off to enjoy the last of the sunlight?\w8\w8\s[102] Take care."
+				}
+				elseif timeslot == "evening" //6pm-8pm
+				{
+					"\0\s[0]Off for the night?\w8\w8\s[104] Enjoy your evening,\w4 %(username)."
+				}
+				elseif timeslot == "latenight" //9pm-12am
+				{
+					"\0\s[0]Off to bed?\w8\w8\s[104] Sleep well,\w4 %(username)."
+				}
+				else //Midnight, 1am-4am
+				{
+					"\0\s[102]Good night,\w4 %(username).\w8\w8\s[0] Sleep well."
+				}
+			}		
+		}	
+		else //This dialogue is for if they haven't been open for at least five minutes.
+		{
+			"\0\s[0]Ah,\w4 that was quick.\w8\w8 Did you call us by mistake?\w8\w8\s[104] Take care,\w4 %(username)."
+		}
+		--
+		"\w8\w8\1%(catnoises).\w8\w8\-\e" //this bit of code actually closes and ends the ghost. Because \e is here, you don't have to end each line above with it. Again, this will come up very rarely, so OnClose is an unusual case.
+	}
  }
 
 
@@ -396,7 +499,7 @@ OnShellChanged
 	--
 	if holdingObsidian == 1
 	{
-		if tempshell == nowshell && changing == 1
+		if tempshell == nowshell && booting == 0
 		{
 			"\1\s[-1]\0\s[606]%(t)...Nothing has changed.]\w8\w8\1Mrrr.\e"
 		}
@@ -590,6 +693,7 @@ DefineStartVars //Variables that need to be set on firstboot
 	phase = "Unknown"
 	userfont = IARRAY
 	userfontsize = IARRAY
-	teachFont == "Wingdings"
+	teachFont = "Wingdings"
 	callingGhost = 0
+	SeePC = "Off"
 }

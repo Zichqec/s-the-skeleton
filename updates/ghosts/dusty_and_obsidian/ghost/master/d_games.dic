@@ -205,7 +205,7 @@ WhosThatWingding
 		"s,a thin diamond that is small,a tiny diamond that is not thick"
 		"t,a thin diamond that is tall,a big diamond that is not thick"
 		"u,a large diamond that is thick,a square up on one corner"
-		"v,four diamonds,a diamond split into four?"
+		"v,four diamonds,a diamond split into four"
 		"w,a small diamond that is thick,a tiny square up on one corner"
 		"x,a box with an x in it,a box that marks the spot"
 		"y,a rectangle with a caret in it,a box with an upside down v in it"
@@ -282,11 +282,11 @@ OnMatchWD
 	--
 	if quizanswer[0] == "ॐ"
 	{
-		"\_q%(wdcb)\s[111]\![set,balloontimeout,-1]\*Pick the Wingding that represents %(rgf)\\%(reg)\n\n"
+		"\_q%(wdcb)\s[111]\![set,balloontimeout,-1]\*Pick the %(teachFont) that represents %(rgf)\\%(reg)\n\n"
 	}
 	else
 	{
-		"\_q%(wdcb)\s[111]\![set,balloontimeout,-1]\*Pick the Wingding that represents %(rgf)%(quizanswer[0])%(reg)\n\n"
+		"\_q%(wdcb)\s[111]\![set,balloontimeout,-1]\*Pick the %(teachFont) that represents %(rgf)%(quizanswer[0])%(reg)\n\n"
 	}
 	--
 	finalanswer = quizanswer[0]
@@ -578,6 +578,8 @@ OnGuessHangman
 		wordtoguessL = TOLOWER(wordtoguess)
 		if reference0 == wordtoguessL
 		{
+			earningG += ((15 + lettersleft) * Gmultiplier)
+			G += ((15 + lettersleft) * Gmultiplier)
 			currentcorrect++
 			"\0%(wdc)\s[104]%(t)That's correct##\w4 the word was] %(wordtoguess).\w8\w8\s[103] %(t)Congratulations!\w8\w8\s[102\] You guessed it with] %(lettersleft) %(t)letters still blank.]"
 		}
@@ -650,7 +652,7 @@ OnCategoryList
 		CTGdusty = "On"
 	}
 	--
-	"%(wdcb)\_q\![set,autoscroll,disable]What categories would you like me to use words from?\n\n"
+	"\0%(wdcb)\_q\![set,autoscroll,disable]What categories would you like me to use words from?\n\n"
 	--
 	"\![*]\q[Dusty and Obsidian (%(CTGdusty)),toggleCTGdusty]\n\n[half]"
 	--
@@ -875,9 +877,9 @@ OnUserCTG
 		_displayctg += "\q[%(_categoryname),opencategory,%(_i)] \q[(%(_categoryonoff)),OnToggleUserCategory,%(_i)]\n\n[half]" //Add a menu option for the category in question
 	}
 	--
-	"%(wdcb)\_q\![set,autoscroll,disable]\![set,balloontimeout,-1]\*%(medf)-Custom Categories-%(reg)\n\n"
+	"\0%(wdcb)\_q\![set,autoscroll,disable]\![set,balloontimeout,-1]\*%(medf)-Custom Categories-%(reg)\n\n"
 	--
-	"%(_displayctg)"
+	"\0%(_displayctg)"
 	--
 	"\n\![*]\q[Add a category,newcategory]\n\![*]\q[Delete a category,OnRemoveCategory]\n\n\![*]\q[All On,turnallon]\n\![*]\q[All Off,turnalloff]\n\n\![*]\q[Back to categories,OnCategoryList]\e"
 }
@@ -926,7 +928,7 @@ OnUserCategoryDisplay //Display the category that was clicked on - This is calle
 		}
 	}
 	--
-	"%(wdcb)\![set,autoscroll,disable]\_q%(medf)-%(currentusercategory)-%(reg)\n\n"
+	"\0%(wdcb)\![set,autoscroll,disable]\_q%(medf)-%(currentusercategory)-%(reg)\0\n\n"
 	--
 	"%(worddisplay)"
 	--

@@ -29,12 +29,22 @@ OpenSakuraMenu
 			"\0\s[0]"
 			"\0\s[114]"
 			"\0\s[104]"
+			"\0\s[103]"
+			"\0\s[102]"
 			--
 			"%(t)"
 			--
-			"Hello## can I help you?]"
+			"Yes## can I help you?]"
 			"Did you need something?]"
 			"What do you need##] %(username)?"
+			"What can I do for you##] %(username)?"
+			"Yes## what is it that you need?]"
+			"What can I do to help?]"
+			"What can I do for you?]"
+			"I'm glad to help if I can.]"
+			"Yes##] %(username)?"
+			"May I be of assistance?]"
+			"How may I assist?]"
 			--
 			MenuRun
 		}
@@ -65,7 +75,7 @@ Select.nomoreupdatesplease //If the user decides to turn off auto updates
 
 MenuRun
 {	
-	"%(wdcb)"
+	"%(wdcb)%(wdm)"
 	--
 	"\n\n\_q* (You ask him...)\n\n[half]"
 	--
@@ -94,26 +104,18 @@ MenuRun
 	--
 	if AutoWeather == "ON" && phase != "Unknown" && phase != "" && curlocation != "" && curlocation != "Set a location" //If the user has weather updates on, this will display the current moon phase. The moon will not appear if the last weather or phase check failed. The text in these are anchors, clicking on the moon will perform a weather check.
 	{
-		", %(tempurature)%(ForC) "
-		--
-		if phase == "New Moon"; {"anMoon01"}
-		elseif phase == "Waxing Crescent"; {"anMoon02"}
-		elseif phase == "First Quarter"; {"anMoon03"}
-		elseif phase == "Waxing Gibbous"; {"anMoon04"}
-		elseif phase == "Full Moon"; {"anMoon05"}
-		elseif phase == "Waning Gibbous"; {"anMoon06"}
-		elseif phase == "Last Quarter"; {"anMoon07"}
-		elseif phase == "Waning Crescent"; {"anMoon08"}
-		else; {""}
+		", %(tempurature)%(ForC) %(moonphase)"	
 		--
 		{
-			" Runtime: %(passhour):%(displaymin)\_l[220]Version 1.0.0"
+			" Runtime: %(passhour):%(displaymin)"
 		}
 	}
 	else //If his weather check fails or you have weather off, he displays the runtime and version slightly different (difference in spacing and linebreak)
 	{
-		"\nRuntime: %(passhour):%(displaymin)\_l[220]Version 1.0.0"
+		"\nRuntime: %(passhour):%(displaymin)"
 	}
+	--
+	"\_l[220]Version 1.0.0"
 	--
 	if WDOnly == 1
 	{
@@ -135,7 +137,7 @@ OnLastTalk
 
 OnQuestionMenu
 {
-	"%(wdcb)\_q* (You ask him about...)\n\n/
+	"\0%(wdcb)\_q* (You ask him about...)\n\n/
 	\![*]\q[Himself,abouthim]\n"
 	--
 	if askedaboutobsidian == 0
@@ -151,21 +153,19 @@ OnQuestionMenu
 	{
 		"\![*]\q[The void,aboutthevoid]\n/
 		\![*]\q[Timelines,abouttimelines]\n"
-		//\![*]\q[Wingdings,OnWingdingsMenu]\n"
 		--
 		if metOtherGhosts == 1
 		{
 			"\![*]\q[Another ghost,OnOtherGhosts]\n"
 		}
-		--
-		if SeePC == 1
+		/*--
+		if SeePC == "ON"
 		{
 			"\![*]\q[Your computer,aboutyourcomputer]\n"
-		}
+		}*/
 	}
 	--
 	"\n\![*]\q[Go back,BACKTOMENU]\n\![*]\q[Nevermind,CANCEL]"
-	
 }
 
 Select.abouthim
@@ -266,7 +266,7 @@ Select.aboutyourcomputer
 //-----Asking about other ghosts he's met-----
 OnOtherGhosts
 {
-	"%(wdcb)\_q* (Ask about...)\n\n"
+	"\0%(wdcb)\_q* (Ask about...)\n\n"
 	--
 	if talkedtoS == 1
 	{
@@ -331,7 +331,7 @@ OnWingdingsMenu
 	\![*]\q[%(teachFont) Practice Mode:,practicemodeinfo] \q[(%(teachWD)),ToggleTeach]\n/
 	\![*]\q[Translation Tooltips (%(tooltips)),ToggleTooltips]\n/
 	%(rgf)\![*]\q[%(wdnMDisp),toggleWD]%(reg)\n\n/
-	\![*]\q[%(teachFont) Quizzes and Games,OnWDGames]\n/
+	%(wdm)\![*]\q[%(teachFont) Quizzes and Games,OnWDGames]\n/
 	\![*]\q[Toggle word categories,OnCategoryList]\n/
 	\![*]\q[Toggle cases,OnCaseList]\n\n/
 	\![*]\q[Change font,OnFontMenu]\n"
@@ -824,7 +824,7 @@ OnFontMenu
 	}
 	
 	if teachFont == ""; {teachFont = "Wingdings"}
-	"\_q%(wdcb)\0\s[114]%(t)You want to learn something other than Wingdings? Sure## I can help.]\n\n"
+	"\_q%(wdcb)\![set,autoscroll,disable]\0\s[114]%(t)You want to learn something other than Wingdings? Sure## I can help.]\n\n"
 	--
 	"Current font: %(teachFont)\n\n[half]\![*]\q[Back to Wingdings,fontWingdings]\n"
 	--
@@ -844,7 +844,7 @@ Select.fontWingdings
 
 OnNewFont
 {
-	"\0%(wdcb)* (Please enter the name of a valid font.)\*\t\![set,balloontimeout,-1]\![open,inputbox,OnFontStart]\n\n\![*]\q[Nevermind,OnFontCancel]"
+	"\0\_q%(wdcb)* (Please enter the exact name of an installed font.)\*\t\![set,balloontimeout,-1]\![open,inputbox,OnFontStart]\n\n\![*]\q[Nevermind,OnFontCancel]"
 }
 
 OnFontStart
@@ -950,37 +950,92 @@ OnFunctionMenu
 
 OnGhostMenu
 {
+	GhostsAvailable = IARRAY
 	_ghostlist = ""
 	installedcount = ARRAYSIZE(installedghostlist)
-	_i = 0
-	while _i < installedcount
+	if (installedcount - ghostexcount) > 1
 	{
-		_ghostlist += "\n\q[%(installedghostlist[_i]),callGhost]"
-		_i++
+		//_rand = RAND(installedcount)
+		//_randGhost = installedghostlist[_rand]
+
+		_i = 0
+		while _i < installedcount
+		{
+			if installedghostlist[_i] != "Dusty and Obsidian"
+			{
+				_ghostlist += "\n\![*]\q[%(installedghostlist[_i]),callGhost]" //callGhost leads over to OnChoiceSelectEx in etc.dic
+				GhostsAvailable ,= "%(installedghostlist[_i])"
+			}
+			_i++
+		}
+		//if SUBSTR(GhostsAvailable,0,1) == ","; {GhostsAvailable = ERASE(GhostsAvailable,0,1)} //Erases the first comma if there is one
+		GhostsAvailCount = ARRAYSIZE(GhostsAvailable)
+		/*_ghostlist = ""
+		installedcount = ARRAYSIZE(installedghostlist)
+		_i = 0
+		while _i < installedcount
+		{
+			_current = "%property[rateofuselist.index(%(_i)).name\]"
+			_current2 = "%(_current)"
+			_ghostlist += "\n\n[half]%property[rateofuselist.index(%(_i)).name] \q[(Call),callGhost,%(_current2)] Boots: %property[rateofuselist.index(%(_i)).boottime] Runtime: %property[rateofuselist.index(%(_i)).percent]"
+			_i++
+		}*/
+		
+		--
+		"\0%(wdcb)\s[550]\![set,autoscroll,disable]\*\![set,balloontimeout,-1]\_q%(t)Who would you like me to call here?]\n"
+		--
+		if (installedcount - ghostexcount) > 3
+		{
+			"\n\![*]\q[Surprise me!,callGhostRand,%(_randGhost)]"
+		}
+		--
+		"\n%(_ghostlist)"
+		--
+		"\n\n\![*]\q[Back to Functions Menu,OnFunctionMenu]\n\![*]\q[Nevermind,cancelnodialogue]\e"
 	}
-	
-	/*_ghostlist = ""
-	installedcount = ARRAYSIZE(installedghostlist)
-	_i = 0
-	while _i < installedcount
+	else
 	{
-		_current = "%property[rateofuselist.index(%(_i)).name\]"
-		_current2 = "%(_current)"
-		_ghostlist += "\n\n[half]%property[rateofuselist.index(%(_i)).name] \q[(Call),callGhost,%(_current2)] Boots: %property[rateofuselist.index(%(_i)).boottime] Runtime: %property[rateofuselist.index(%(_i)).percent]"
-		_i++
-	}*/
-	
-	--
-	"%(wdcb)\s[550]\![set,autoscroll,disable]\_q%(t)Who would you like me to call here?]\n"
-	--
-	"%(_ghostlist)\*\![set,balloontimeout,-1]"
-	--
-	"\n\n\![*]\q[Back to Functions Menu,OnFunctionMenu]\n\![*]\q[Nevermind,cancelnodialogue]\n\n\e"
+		"\0\s[106]%(t)Everyone is here already.]\w8\w8\1%(catnoises).\n\n\![*]\q[Back to Functions Menu,OnFunctionMenu]\n\![*]\q[Nevermind,cancelnodialogue]\e"
+	}
 }
 
+Select.callGhostRand
+{
+	GhostRand = RAND(GhostsAvailCount)
+	GhostToCall = GhostsAvailable[GhostRand]
+	
+	"\![get,property,OnRandCallCheck,ghostlist(%(GhostToCall)).sakuraname]"
+}
+
+OnRandCallCheck
+{
+	if reference0 !_in_ ghostexlist
+	{
+		"\0\s[550]%(t)A surprise##\w4 eh?\w8\w8\s[500\] Alright.]"
+		--
+		"\![call,ghost,%(GhostToCall)]\e"
+		callingGhost = 1
+	}
+	else
+	{
+		GhostsAvailable[GhostRand] = IARRAY
+		GhostsAvailCount = ARRAYSIZE(GhostsAvailable)
+		GhostRand = RAND(GhostsAvailCount)
+		GhostToCall = GhostsAvailable[GhostRand]
+		if GhostsAvailable[GhostRand] == ""
+		{
+			"\0\s[106]%(t)Sorry##\w4 something went wrong.]\e"
+		}
+		else
+		{
+			"\![get,property,OnRandCallCheck,ghostlist(%(GhostToCall)).sakuraname]"
+		}
+	}
+}
 
 OnWeatherCheck
 {
+	weatherquiet = 0
 	fromfunctionmenu = 1
 	if curlocation == "" || curlocation == "Set a location"
 	{
@@ -1084,7 +1139,7 @@ OnChangelog
 
 Select.dosomething
 {
-	"\0\_q\s[0]\![*]\q[Check,DoACheck]\_l[100]\![*]\q[Hug,HugHim]\n/
+	"%(wdc)\0\_q\s[0]\![*]\q[Check,DoACheck]\_l[100]\![*]\q[Hug,HugHim]\n/
 	\![*]\q[Confide,ConfideIn]\_l[100]\![*]\q[Gush,GushTo]\n/
 	\![*]\q[Comfort him,ComfortHim]/
 	\n\n\![*]\q[Back to menu,BACKTOMENU]\n\![*]\q[I'm done,cancelnodialogue]"
@@ -1132,6 +1187,7 @@ Select.HugHim
 	"* (Feels dusty.)\w8\w8\n\n* (As the name would imply.)"
 	"* (Feels like he's about to fall apart.)"
 	"* (Feels gray.)"
+	"* (Feels null.)"
 	if nowshell == "blue_sweater"
 	{
 		"* (Feels blue.)"
@@ -1406,6 +1462,8 @@ OnTalkConfig
 	--
 	if autoupdate == ""; {autoupdate = "OFF"}
 	--
+	if SeePC == ""; {SeePC = "OFF"}
+	--
 	if curlocation == ""; {menutemplocation = "Set a location"}
 	else; {menutemplocation = REPLACE(curlocation,",","\,")}
 	--
@@ -1415,17 +1473,19 @@ OnTalkConfig
 	--
 	"Your pronouns: %(heshe)/%(himher)/%(hisher) \f[sup,1](\q[Change them?,OnTeachPronouns])\f[sup,0]\n"
 	--
-	"Your birthday: %(birthdayprint) \f[sup,1](\q[Change it?,TEACHBDAY])\f[sup,0]\n\n[half]"
-	--
-	"Talk Rate: %(talktime) \f[sup,1](\q[Change it,talkinter])\f[sup,0]\n\n[half]"
+	"Your birthday: %(birthdayprint) \f[sup,1](\q[Change it?,TEACHBDAY])\f[sup,0]\n"
 	--
 	"Your hemisphere: \q[%(hemisphere),ToggleHemisphere]\n\n[half]"
+	--
+	"Talk Rate: %(talktime) \f[sup,1](\q[Change it,talkinter])\f[sup,0]\n\n[half]"
 	--
 	"\![*]Do you want him to comment on the weather? (Currently: \q[%(AutoWeather),ToggleAutoWeather])"
 	--
 	"\nCurrent location:                      \q[(Reset location),locationreset]\n\![*]\q[%(menutemplocation),changeweatherlocation]"
 	--
 	"\n\n\![*]Enable auto checking for updates?\n(Currently: \q[%(autoupdate),ToggleUpdate])"
+	--
+	"\n\![*]Allow him to see programs and misc stats on your PC? (Currently: \q[%(SeePC),ToggleSnooping])  \q[(Info),snoopingInfo]"
 	--
 	"\n\n[half]\![*]Enable Uninstall? (Currently: \q[%(deleteshitai),ToggleUninstall])\n\n"
 	--
@@ -1581,6 +1641,8 @@ Select.changeweatherlocation //Found in etc.dic. Maybe I should move this to nam
 Select.locationreset
 {
 	curlocation = "Set a location"
+	templocation = ""
+	locationcode = ""
 	OnTalkConfig
 }
 
@@ -1594,6 +1656,27 @@ Select.ToggleUpdate
 	{
 		autoupdate = "OFF"
 	}
+	--
+	OnTalkConfig
+}
+
+Select.ToggleSnooping
+{
+	if SeePC != "ON"
+	{
+		SeePC = "ON"
+	}
+	else
+	{
+		SeePC = "OFF"
+	}
+	--
+	OnTalkConfig
+}
+
+Select.snoopingInfo
+{
+	"\0(Hello!\w8 Dev Zi here.\w8\w8 Turning on this option will allow Dusty to see various things about your computer,\w4 such as how long it's been running,\w4 and how many items are in your recycle bin.\w8\w8 In the future,\w4 this may also include letting him see the internal names of windows you have open,\w4 so that he can comment on things like Discord or your browser.)\w8\w8\n\n(If any of these make you uncomfortable,\w4 leave this option off and he'll never run that code!)\x"
 	--
 	OnTalkConfig
 }
@@ -1642,7 +1725,7 @@ OnChoiceTimeout
 		"\1%(catpose)* (She's lost interest.)\e"
 		"\1%(catpose)* (She's bored.)\e"
 		"\1\s[1007]* (She starts giving herself a bath.)\e"
-		//"\1\s[1007]* (She stick her leggy in the air.)\e"
+		"\1\s[1007]* (She sticks her leggy in the air.)\e"
 	}
 	elseif "ObsiNoTimeout" _in_ reference0
 	{
@@ -1653,6 +1736,8 @@ OnChoiceTimeout
 		"%(wdc)"
 		--
 		"\0\s[106]%(t)Are you still there##]\w4 %(username)?\e"
+		"\0\s[106]%(username)?\e"
+		"\0\s[106]%(t)Did you change your mind?]\e"
 	}
 }
 
@@ -1665,7 +1750,17 @@ Select.CANCEL
 {
 	"%(wdc)"
 	--
-	"\0\s[0]%(t)Very well##\w4 let me know if you need something.]\e"
+	"\0\s[0]"
+	"\0\s[102]"
+	"\0\s[104]"
+	--
+	"%(t)Very well##\w4 let me know if you need something.]\e"
+	"%(t)Very well##\w4 let me know if you change your mind.]\e"
+	"%(t)Certainly##\w4 let me know if I may be of assistance.]\e"
+	"%(t)If I may be of assistance##\w4 you have but to ask.]\e"
+	"%(t)If there's anything I can do for you##\w4 just let me know.]\e"
+	"%(t)Very well##\w4 let me know if I can assist further.]\e"
+	"%(t)Very well##\w4 if you change your mind just let me know.]\e"
 }
 
 //=====================================End of Dusty's Menu===============================
@@ -1748,9 +1843,35 @@ Select.checkobsidian
 	"* There isn't a bad word to describe her.\w8\w8\n* Except loud, haughty, fickle..."
 	"* Wants all of your attention."
 	"* There are two kinds of people in this world.\w8\w8\n* People who pay attention to her, and people who don't."
+	"* Obsidian,\w4 destroyer of %(filetype)s."
+	"* Clearly she should be the Sakura,\w4 not the Kero."
+	"* Side character?\w8\w8\n* As if."
+	"* Named after a rock,\w4 apparently."
+	"\s[1007]* You're not holding a treat,\w4 so she isn't paying attention to you.\w8\w8\n* Fair's fair,\w4 really."
+	"* A level of cuteness imcomprehensible by man."
+	"* Importance levels off the charts."
+	if ObsiLove > 100
+	{
+		"* She tolerates your presence."
+		"* She likes you...\w8\w8\n* Maybe."
+		"* It is possible she enjoys your presence."
+	}
+	if G > 1000
+	{
+		"* Why have you got so much G?\w8\w8\n* You should be spending it on her."
+	}
+	if ghostexcount == 0
+	{
+		"* Who even needs other ghosts when you've got her?"
+	}
 	if recenttreats == 0
 	{
 		"* Give her treats already, she's \f[italic,true]starving.%(reg)"
+		"* She knows what she wants,\w4 and she'll get it too.\w8\w8\n* It's treats,\w4 give her more treats."
+	}
+	if recenttreats > 20
+	{
+		"* The only thing she's more full of than herself is treats."
 	}
 	--
 	"\n\nYou've had her here for %(totalhours) hours, "
@@ -1771,9 +1892,10 @@ Select.checkobsidian
 		--
 		", "
 	}
-	if totalpingpong > 0
+	if totalcatnip > 0
 	{
 		"given her catnip %(totalcatnip) time"
+		"spoiled her with catnip %(totalcatnip) time"
 		--
 		if totalcatnip != 1; {"s"}
 		--
@@ -1827,6 +1949,7 @@ Select.checkobsidian
 	if pickedUp > 0
 	{
 		"had Dusty hold her %(pickedUp) time"
+		"pur her in Dusty's arms %(pickedUp) time"
 		--
 		if pickedUp != 1; {"s"}
 		--
@@ -1835,6 +1958,9 @@ Select.checkobsidian
 	if confidedObsi > 0
 	{
 		"confided in her %(confidedObsi) time"
+		"told her about your problems %(confidedObsi) time"
+		"ranted to her %(confidedObsi) time"
+		"poured out your heart to her %(confidedObsi) time"
 		--
 		if confidedObsi != 1; {"s"}
 		--
@@ -1843,6 +1969,8 @@ Select.checkobsidian
 	if opinionObsi > 0
 	{
 		"asked her opinion on %(opinionObsi) problem"
+		"recieved her wisdom %(opinionObsi) time"
+		"been given answers to life's most critical questions %(opinionObsi) time"
 		--
 		if opinionObsi != 1; {"s"}
 		--
@@ -1858,6 +1986,7 @@ Select.checkobsidian
 		if Opethighscore > 0
 		{
 			" with a continuous petting high score of %(Opethighscore)."
+			//" with your highest number of pets in a row being %(Otoppetstreak)."
 		}
 		else
 		{
@@ -1949,6 +2078,8 @@ Select.givetreat
 	"\1\s[10]\b2* (The tiny furs around her face tickle your cursor as she snatches the treat.)"
 	"\1\s[10]\b2* (This treat is now the property of the Obsidian Food Administration.)"
 	"\1\s[10]\b2* (It was her treat in the first place,\w4 you're simply returning it.)"
+	"\1\s[10]\b2* (You give to her what is rightfully hers.)"
+	"\1\s[10]\b2* (Hers now.)"
 	--
 	"\w8\w8\n\n%(catpose)"
 	--
@@ -1971,9 +2102,12 @@ Select.givetreat
 	"* (You know what to do,\w4 peon.)"
 	"* (Well,\w4 come on,\w4 where are the rest?)"
 	"* (She's purring,\w4 that's your cue to give her more.)"
+	"* (She likes you!)\w8\w8\n\n* (Or maybe she just likes your treats,\w4 hard to say.)"
 	--
 	if RAND(99) > 89 //10% chance for Dusty to comment
 	{
+		"\w8\w8"
+		--
 		if recenttreats > 5
 		{
 			"\0\s[402]%(wdf)I SHOULD HAVE NAMED YOU BLACK HOLE..."
@@ -2085,6 +2219,7 @@ Select.pingpong
 	"\0\s[107]%(t)...There she goes.\w8\w8\s[106\] She loves those things.]"
 	"\0\s[106]%(t)...You should see her go after those things in the void##\w4\s[107\] where she can just run forever##\w4 and ever##\w4 and ever...]"
 	"\0\s[106]%(t)...She's surprisingly agile##\w4 isn't she?]"
+	"\0\s[106]%(t)...You'll never see that ball again.]"
 	--
 	"\1\n\n\w8\w8%(holdnoise)!\e"
 	"\e"
@@ -2140,6 +2275,9 @@ Select.obsidianconfide
 	"* (Tell the cat what's on your heart.)"
 	"* (The cat will listen.)"
 	"* (The cat is here.)\w8\w8\n\n* (Probably more for treats than anything,\w4 but you know.)"
+	"* (The void stares into you.)"
+	"* (Speak,\w4 and maybe be listened to.)"
+	"* (Does she truly listen to anyone?)\w8\w8\n\n* (You can try...)"
 	--
 	"\n\n\![*]\q[Nevermind,endconfide]\![open,inputbox,OnObsiConfide,-1]"
 }
@@ -2161,6 +2299,8 @@ OnObsiConfide
 	"* (She purrs in your general direction.)\e"
 	"* (She paid attention,\w4 or at least,\w4 you think she did.)\e"
 	"* (You've told her.)\w8\w8\n\n%(catpose)* (Did she actually hear it?\w8 The world may never know.)\e"
+	"* (The cat has heard you.)\e"
+	"* (The cat is now aware.)\e"
 }
 
 Select.endconfide
@@ -2175,8 +2315,9 @@ Select.magic8
 	"* (Ask a yes or no question to recieve advice.)"
 	"* (Ask a yes or no question to gain insight.)"
 	"* (Ask a yes or no question to be blessed with Obsidian's wisdom.)"
+	"* (Ask a yes or no question for the most valuable insight.)"
 	--
-	"\![open,inputbox,OnMagicObsi]"
+	"\![open,inputbox,OnMagicObsi]\e"
 }
 
 
@@ -2222,22 +2363,35 @@ OnMagicObsi
 Select.prettykitty
 {
 	ObsiLove += 1
-	"\1* (You tell her how pretty she is.)\w8\w8\n\n"
-	"\1* (You tell her how lovely her fur looks.)\w8\w8\n\n"
-	"\1* (You tell her she's very cute.)\w8\w8\n\n"
-	"\1* (You tell her how adorable her tiny paws are.)\w8\w8\n\n"
+	"\1* (You tell her how pretty she is.)"
+	"\1* (You tell her how lovely her fur looks.)"
+	"\1* (You tell her she's very cute.)"
+	"\1* (You tell her how adorable her tiny paws are.)"
+	"\1* (You tell her how beautiful her eyes are.)"
+	"\1* (You tell her how precious her little ears are.)"
 	--
-	"%(catpose)* (She already knows.)\e"
-	"%(catpose)* (She's aware.)\e"
-	"%(catpose)* (Darn straight.)\e"
-	"%(catpose)* (Your compliment has been noted.)\e"
-	"%(catpose)* (That's your Obsidian Tax for the day paid.)\e"
-	"%(catpose)* (Obviously.)\e"
-	"%(catpose)* (Thanks,\w4 Captain Obvious.)\e"
-	"%(catpose)* (As though you needed to say it.)\e"
-	"%(catpose)* (Duh.)\e"
-	"%(catpose)* (I mean,\w4 really,\w4 was there ever any doubt?)\e"
-	"%(catpose)* (As well you should.)\e"
+	"\w8\w8\n\n%(catpose)"
+	--
+	"* (She already knows.)\e"
+	"* (She's aware.)\e"
+	"* (Darn straight.)\e"
+	"* (Your compliment has been noted.)\e"
+	"* (That's your Obsidian Tax for the day paid.)\e"
+	"* (Obviously.)\e"
+	"* (Thanks,\w4 Captain Obvious.)\e"
+	"* (As though you needed to say it.)\e"
+	"* (Duh.)\e"
+	"* (I mean,\w4 really,\w4 was there ever any doubt?)\e"
+	"* (As well you should.)\e"
+	"* (The most correct thing you've ever said in your entire life.)\e"
+	"* (As if there were another option.)\e"
+	"* (You didn't really expect anything different,\w4 did you?)\e"
+	"* (You didn't really need to say it,\w4 but you can feel free to say it again.)\e"
+	"* (She soaks up your compliment like a sponge soaking up water.)\w8\w8\n\n* (You should give her another.)\e"
+	"* (Maybe she's born with it,\w4 maybe it's the void.)\e"
+	"* (She'll add your compliment to the list.)\e"
+	"* (It's the truth.)\e"
+	"* (Your insight is rivaled only by her own.)\e"
 }
 
 Select.ObsiCancel
@@ -2250,6 +2404,7 @@ Select.ObsiCancel
 	"* (Maybe you shouldn't get her hopes up...)\e"
 	"* (Maybe you shouldn't bother her for no reason...)\e"
 	"* (She seems disappointed...)\e"
+	""
 }
 
 
@@ -2270,9 +2425,8 @@ OnTestVariable
 	testthing = FUNCTIONEX(nadecopy.dll,"%(resultof)")
 	"%(resultof)"*/
 
-	
-	//UserCategories = IARRAY
-	//"\![open,inputbox,OnUserWord]"
+	//lastclosed = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)")
+	"Testing!\e"
 	
 }
 

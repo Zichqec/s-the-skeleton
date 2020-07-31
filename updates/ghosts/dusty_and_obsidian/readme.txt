@@ -3,7 +3,7 @@ Hello and thanks for downloading the Dusty ghost!
 Dusty is one of my interpretations of Gaster, from Undertale. He was originally created as a part of the ECHO Gaster Community Project, which you can find a link to at the top of the right click menu. (Be warned that his design and my art style have changed a lot since then)
 Being a Gaster, he has a lot of functionality related to wingdings! He can teach you about wingdings, translate things in and out of wingdings, and has a few different games to help you practice. (You can also put in any font you have installed, but be warned this might be a little janky!)
 
-He also has some minor backstory he can give you, as well as some more general functions you can find in the 'do something' menu. His focus is mostly on the wingdings functions instead of having lots of dialogue, but I do hope to add more dialogue in future updates!
+He also has some minor backstory he can give you, as well as some more general functions you can find in the 'do something' menu. His focus is mostly on the wingdings functions instead of having lots of dialogue, but I do hope to add more dialogue in future updates! Be warned that some of his dialogue has themes relating to death and loss.
 
 There's also his cat, Obsidian. She has a much smaller menu with some silly functions in it that will hopefully make you smile! You can also drag and drop her onto Dusty if you want him to hold her for a little while. (If you need her to jump down so you can access his menu, double click him a few times and she'll eventually get down)
 
@@ -29,6 +29,7 @@ If you've not used a ghost before, here's a basic rundown.
 
 He can also do basic ghost functions such as:
 
+-Opening other ghosts
 -Checking the weather
 -Checking your email
 -Emptying your recycle bin

@@ -30,6 +30,7 @@ AiTalk
 
 RandomTalk : nonoverlap
 {
+	_upperUserName = TOUPPER(username)
 	"%(wdc)" //this should apply the proper balloon to _all_ AItalk lines. 
 	--
 	if holdingObsidian == 1
@@ -47,12 +48,14 @@ RandomTalk : nonoverlap
 	{
 		"\![raise,OnDialogueVars,EndScreen]\0\s[107]* (He sighs and dismisses the screen.)\e"
 		"\![raise,OnDialogueVars,EndScreen]\0\s[204]* (He dismisses the screen quietly.)\e"
+		"\![raise,OnDialogueVars,EndScreen]\0\s[107]* (He dismisses the screen with a good natured sigh.)\e"
 		"\0\s[502]%(t)Oh##\w4 that can't be good...]\e"
 		"\0\s[502]%(t)Ah##\w4 please be careful...]\e"
 		"\0\s[501]%(t)Hmm...]\e"
 		"\0\s[551]%(t)I hope I'm not bothering you##]\w4 %(username).\w8\w8 %(t)I have so many timelines to keep up with##\w4 it's hard to let myself take breaks for too long...]\w8\w8\1%(catnoises).\e"
 		"\0\s[503]%(t)Oh dear...]\e"
 		"\0\s[503]%(t)They would...]\e"
+		"\0\s[504]* (He sighs good naturedly.)\e"
 		
 		if metghosts != ""
 		{
@@ -60,20 +63,9 @@ RandomTalk : nonoverlap
 			--
 			_metcount = ARRAYSIZE(metghosts)
 			_rand = RAND(_metcount)
-			//if _rand == 0; {_rand = 1}
-			_randghost = metghosts[_rand]
-			_installedlist = "%(installedghostlist)"
-
-			if _randghost !_in_ _installedlist
-			{
-				"\0\s[501]%(t)Still no sign of %(_randghost)...]\e"
-				"\0\s[501]%(_randghost),\w4 %(t)where could you be...]\e"
-			}
-			if _randghost !_in_ ghostexlist && _randghost _in_ _installedlist
-			{
-				"\0\s[502]%(t)Ah##\w4 %(_randghost)...]\e"
-				"\0\s[503]%(t)Well##\w4 I guess at least %(_randghost) is doing alright...]\e"
-			}
+			GhostToCall = metghosts[_rand]
+			
+			"\![get,property,OnGhostMetCheck,ghostlist(%(GhostToCall)).name]"
 		}
 	}
 	else
@@ -99,6 +91,19 @@ RandomTalk : nonoverlap
 			else; {_wdlower = "%(wdn)%(_translationlower)%(rgc)"}
 			--
 			"\![raise,OnQuizPick,%(_ranCase)]"
+			if teachFont == "Wingdings"
+			{
+				_whos = WhosThatWingding
+				WtWDQuiz = _whos[0]
+				_descript0 = _whos[1]
+				_descript1 = _whos[2]
+				_n = RAND(2); if _n == 0; {_n = 2}
+				"\0\s[111]Do you know which Wingding looks like %(_whos[_n])?"
+				"\0\s[102]I'm thinking of a symbol that looks like %(_whos[_n]).\w8\w8\s[111] Do you know which it is?"
+				"\0\s[111]There is a Wingding that looks like %(_whos[_n]),\w4 do you know which?"
+				--
+				"\n\n\![*]\q[Sure,OnWtWDQuiz,%(wingdingsles)]\n\![*]\q[Dismiss,cancelnodialogue]\e teachword"
+			}
 		}
 		{
 			"\0\s[208]%(t)This place is much smaller than the void##\w4 and yet it feels much larger.\w8\w8\s[107\] I guess a little variance in terrain really goes a long way.]\e"
@@ -113,6 +118,23 @@ RandomTalk : nonoverlap
 			"\1\s[1004]* (Obsidian is loafing around.)\e"
 			"\0\s[208]* (He's talking quietly under his breath...)\w8\w8\n\n\s[206]* (Something about timelines splitting and merging?)\e"
 			"\0\s[110]%(t)I never expected I'd see a computer from the inside.\w8\w8\s[205\] It's fascinating...\w8\w8\s[208\] I should spend some time learning more about them##\w4 I wonder what might be possible here.]\e"
+			"\1\s[1005]* (Obsidian begins cleaning between her toes.)\w8\w8\n\n* (Are those pieces of a %(filetype) between her claws..?)\w8\w8\0\s[106]%(t)I'm sorry] %(username),\w4 %(t)she's not usually this destructive...]\e"
+			"\1\s[1001]* (Obsidian starts chewing on a pixel.)\w8\w8\n\n\0\s[402]%(wdf)CUT THAT OUT.\w8\w8 %(_upperUserName) IS BEING VERY GRACIOUS LETTING US STAY HERE,\w4 THE LEAST YOU COULD DO IS NOT DESTROY THE PLACE.\e"
+			"\1\s[1001]* (Obsidian bats around some lint.)\w8\w8\n\n* (You hope that's lint,\w4 anyways,\w4 and not another %(filetype)...)\e"
+			"\1\s[10]* (Obsidian seems fascinated by your cursor.)\e"
+			
+			{
+				"\1\s[1005]Maaow~\w8\w8\0\s[402]%(wdf)"
+				--
+				"YOU KNOW WHAT YOU DID.\e"
+				"IS THAT YOUR EXCUSE?\e"
+				"AS IF I'M GOING TO FALL FOR THAT.\e"
+				"IS THAT SO.\e"
+				"YOU CAN'T SERIOUSLY EXPECT ME TO LET YOU OFF THAT EASY.\e"
+				"YOU'RE NEVER GOING TO LEARN,\w4 ARE YOU.\e"
+				"MMHMM.\e"
+				"I SHOULDN'T HAVE EXPECTED ANY LESS FROM YOU.\e"
+			}
 		}
 		
 		//---Shells---
@@ -125,6 +147,40 @@ RandomTalk : nonoverlap
 			"\0\s[204]%(wdf)YOU MUST BE SOMEWHERE,\w4 I STILL HAVE THE SWEATER YOU GAVE ME...%(reg)\e"
 			"\0\s[200]* (He sighs,\w4 sounding a little defeated.)\w8\w8\1\s[1003]Mwwwrrr...\w8\w8\0\s[204]%(wdf)\n\nDON'T WORRY ABOUT ME,\w4 OBSIDIAN...\w8\w8 I ONLY WISH I COULD FIND SOME TRACE OF HIM SOMEWHERE,\w4 SOME SIGN HE'S STILL ALIVE AND CAUSING TROUBLE...%(reg)\e"
 		}
+		
+		//---Hours have passed---
+		if passhour >= 20
+		{
+			"\0\s[208]%(t)I should really be getting back soon##\w4 I need to check in with some people...]\e"
+		}
+		
+		//---Not fed Obsidian recently---
+		if recenttreats == 0
+		{
+			"\1\s[10]* (You hear a rumbling coming from Obsidian.)\w8\w8\n\n* (You can't tell if she's purring,\w4 or if she's hungry again...)\e"
+			"\1\s[1003]MAOOWW!\w8\w8\0\s[107]%(wdf)YOU DON'T EVEN NEED TO EAT,\w4 WHY DO YOU DO THIS?\e"
+		}
+		//---High Obsidian Friendship---
+		if ObsiLove > 100
+		{
+			"\1\s[1004]%(holdnoise)\w8\w8\0\s[400]%(wdf)"
+			--
+			"YOU REALLY LIKE IT HERE,\w4 DON'T YOU?"
+			"I'M GLAD YOU ENJOY %(_upperUserName)'S COMPANY SO MUCH."
+			"IT'S GOOD TO SEE YOU SO CONTENT."
+			"HAVING A GOOD TIME?"
+			"IT'S NICE THAT YOU'RE NOT BEGGING %(_upperUserName) FOR TREATS FOR ONCE."
+			"IT'S SO PEACEFUL WHEN YOU'RE HAPPY."
+			--
+			"\w8\w8\1\n\n%(holdnoise)!\e"
+		}
+		//---Gomi, Findwin, etc etc...---
+		if SeePC == "On"
+		{
+			"\![raise,OnSnoop]" //Putting the saoris behind a raise so they don't activate every single time they talk...
+		}
+		
+		
 		
 		//---Timeslots---
 		if timeslot == "earlymorning" //5am-8am
@@ -141,19 +197,26 @@ RandomTalk : nonoverlap
 		}
 		if timeslot == "morning" //9am - 11am
 		{
-			
+			"\0\s[205]%(t)The world in your timeline has really come alive now##\w4 hasn't it?\w8\w8\s[102\] I do enjoy birdsong quite a bit.]\e"
+			"\0\s[205]%(t)Another fine morning...\w8\w8\s[104\] Make it a good day##]\w4 %(username).\e"
 		}
 		if timeslot == "lunch" //12pm - 2pm
 		{
-			
+			"\0\s[114]%(t)The sun is at its highest for you now##\w4 isn't it?\w8\w8\s[208\] Or##\w4 I suppose you could say that your position on your timeline's Earth is facing the sun almost directly...\w8\w8\s[106\] Depending on where you live##\w4 anyways.]\e"
+			"\1\s[1004]* (Looks like the heat of the day has Obsidian sleepy.)\e"
+			if recenttreats == 0
+			{
+				"\1\s[1003]MAAAOOW!\w8\w8\0\s[107]%(t)Obsidian##\w4 how do you even know that it's lunch time in] %(username)'s %(t)timeline right now?]\w8\w8\1\n\n* (Her stomach rumbles for treats.)\e"
+			}
 		}
 		if timeslot == "afternoon" //3pm - 5pm
 		{
-			
+			"\0\s[114]%(t)There's still plenty of daylight left.\w8\w8 What do you plan to use it for?]\e"
 		}
 		if timeslot == "evening" //6pm - 8pm
 		{
-			
+			"\0\s[208]%(t)It's been a while since I watched a sunset.\w8\w8\s[106\] They lose some of their meaning when you can conjure one at will...]\e"
+			"\0\s[102]%(t)I enjoy the sunlight##\w4 but it is soothing when the world quiets down once more...]\e"
 		}
 		if timeslot == "latenight" //9pm - 12am
 		{
@@ -164,6 +227,7 @@ RandomTalk : nonoverlap
 		{
 			"\0\s[107]%(t)I know I shouldn't judge##\w8\s[106\] but perhaps you should think about going to sleep soon?]\e"
 			"\1\s[1001]* (Obsidian yawns loudly.)\w8\w8\0\s[106]%(t)It is getting pretty late##\w4 are you planning to sleep soon?]\e"
+			"\0\s[205]%(t)I love the sounds of nighttime on the surface...\w8\w8\s[102\] It's very peaceful##\w4 with the quiet sounds of wind##\w4 the nighttime bugs##\w4 sometimes a few owls...]\w8\w8\1%(catnoises).\0\w8\w8\n\n\s[113]%(t)Yes##\w4 yes.\w8\w8 Sometimes cats getting into squabbles##\w4 too.]\e"
 		}
 		
 		//---Days of the week---
@@ -185,7 +249,7 @@ RandomTalk : nonoverlap
 		}
 		if wd == "Thu"
 		{
-			
+		
 		}
 		if wd == "Fri"
 		{
@@ -194,16 +258,23 @@ RandomTalk : nonoverlap
 		if wd == "Sat"
 		{
 			"\0\s[114]%(t)It's the weekend for you##\w4 isn't it?\w8\w8\s[102\] I hope it's a relaxing one.]\e"
+			"\0\s[102]%(t)It's the end of the week.\w8\w8\s[0\] And very soon##\w4 the start of a new one.\w8\w8\s[104\] What you do with that week is up to you.]\e"
 		}
 		
 		//---Days in the month---
 		if day < 5 //4th and before, start of the month
 		{
+			_x = ""
+			if month == 1; {_x = "12th"}
+			else; {_x = "12ths"}
+			--
 			"\0\s[114]%(t)It's the start of a new month for you##\w4 right?\w8\w8\s[102\] Hopefully it will be a peaceful one.]\e"
+			"\0\s[102]%(t)Happy %(displaymonth)##]\w4 %(username).\w8\w8\s[0] %(month)/%(_x) %(t)of the way through the year now.]\e"
 		}
 		if day > 13 && day < 17 //14th-16th, halfway through
 		{
 			"\0\s[0]%(t)Halfway through the month##\w4 how are things going?]\e"
+			"\0\s[102]%(t)Midway through %(displaymonth).\w8\w8\s[106\] I feel like it was the start of %(displaymonth) for you only yesterday##\w4 but then again it's very hard for me to keep track of the time across multiple timelines...]\e"
 		}
 		if day > 26 //27th and after, end of the month
 		{
@@ -221,7 +292,10 @@ RandomTalk : nonoverlap
 		}
 		if month == 3 //Spring start Northern, Autumn start Southern
 		{
-			
+			if hemisphere == "Northern"
+			{
+				"\1\s[1000]* (Large clumps of fur litter your desktop as Obsidian grooms herself.)\w8\w8\n\n* (Guess she must be losing her winter coat...)\e"
+			}
 		}
 		if month == 4
 		{
@@ -229,11 +303,27 @@ RandomTalk : nonoverlap
 		}
 		if month == 5
 		{
-			
+			if day == 6
+			{
+				"\0\s[206]%(wdf)I'M SORRY S,\w4 I STILL HAVEN'T FOUND HIM...\e"
+			}
+			if day == 23 //Dusty's birthday
+			{
+				"\0\s[208]%(t)In your timeline##\w4 today would be my birthday.\w8\w8\s[106\] Truth be told##\w4 though##\w4 being in the void has erased any way of really tracking it.\w8\w8\s[205\] In another timeline##\w4 my birthday might be next month##\w4 or last week.\w8\w8\s[107\] Who knows when you live in a timeless dimension.]\e"
+			}
 		}
 		if month == 6 //Summer start Northern, Winter start Southern
 		{
-			
+			if day == 7 //Web's birthday
+			{
+				"\0\s[206]%(wdf)AH,\w4 BUT WHAT WOULD I EVEN SAY TO HIM NOW...\e"
+				"\0\s[204]%(wdf)IT'S BEEN SO LONG,\w4 AND YET...\e"
+				"\0\s[204]%(wdf)I WISH YOU COULD SEE ALL THAT I DID...\w8\w8 BEFORE I ENDED UP IN THE VOID,\w4 ANYWAYS...\e"
+				"\0\s[204]%(wdf)I FINISHED THE CORE,\w4 I JUST WISH YOU COULD'VE BEEN THERE TO SEE IT...\e"
+				"\0\s[200]%(wdf)MONSTERS HAVE A MUCH BETTER LIFE NOW,\w4 THANKS TO YOUR WORK.\w8\w8 IT'S SUCH A SHAME YOU NEVER SAW IT COME TO FRUITION...\e"
+				"\0\s[200]%(wdf)I DON'T KNOW WHAT I'D DO IF HE'D ENDED UP IN THE VOID INSTEAD,\w4 THOUGH...\e"
+				"\0\s[204]%(wdf)I HOPE THERE IS SOMETHING FOR YOU BEYOND,\w4 BROTHER...\e"
+			}
 		}
 		if month == 7
 		{
@@ -245,11 +335,17 @@ RandomTalk : nonoverlap
 		}
 		if month == 9 //Autumn start Northern, Spring start Southern
 		{
-			
+			if hemisphere == "Southern"
+			{
+				"\1\s[1000]* (Large clumps of fur litter your desktop as Obsidian grooms herself.)\w8\w8\n\n* (Guess she must be losing her winter coat...)\e"
+			}
 		}
 		if month == 10
 		{
-			
+			if day == 22 //EGCP release date!
+			{
+				"\0\s[208]%(t)Something is special about this day...\w8\w8\s[107\] I can't quite put my finger on what it is.\w8\w8\s[110\] The word that comes to mind is '\_a[https://www.youtube.com/watch?v=ki2Sj-N7BDk/\]echo\_a'##\w4 though I couldn't tell you why.]\e"
+			}
 		}
 		if month == 11
 		{
@@ -257,13 +353,23 @@ RandomTalk : nonoverlap
 		}
 		if month == 12 //Winter start Northern, Summer start Southern
 		{
-			
+			"\0\s[0]%(t)%(year) is almost over##\w4 isn't it?\w8\w8\s[102\] I hope the new year goes well for you.]\e"
+			if day == 25
+			{
+				"\0\s[114]%(t)Ah##\w4 it's Gyftmas for you##\w4 isn't it?\w8\w8\s[208\] Or Christmas##\w4 I suppose.\w8\w8\s[104\] Whatever holiday you celebrate##\w4 I hope you enjoy it this year.]\e"
+			}
+			if day == 31
+			{
+				"\0\s[114]%(t)You'll be starting a new year soon##\w4 wont you?\w8\w8\s[104\] I hope it brings good things for you.]\e"
+			}
 		}
 		
 		//---Seasons---
 		if season == "Spring"
 		{
-			
+			"\0\s[104]%(t)It's always so cheerful watching new flowers bloom.\w8\w8\s[205\] So small and fragile##\w4 but so eager to reach the sun...]\e"
+			"\0\s[205]%(t)Listening to the difference between a timeline in spring and a timeline in winter is fascinating.\w8\w8\s[102\] Winter is so muted and quiet##\w4 but spring is alive and buzzing...]\e"
+			"\0\s[0]%(t)Are you glad to see warm weather returning?\w8\w8\s[205\] I've never really minded any type of weather##\w4 really.]\e"
 		}
 		if season == "Summer"
 		{
@@ -273,11 +379,16 @@ RandomTalk : nonoverlap
 		}
 		if season == "Autumn"
 		{
-			
+			"\0\s[102]%(t)Autumn is the prettiest season of all.\w8\w8\s[107\] I only wish I had better memories of it##\w4 from back when I was young...]\e"
+			"\0\s[114]%(t)Do you enjoy harvest festivals##]\w4 %(username)?\w8\w8\s[205] %(t)My friends sometimes bring me food and cider##\w4\s[104\] which I appreciate greatly.]\e"
+			"\0\s[205]%(t)Sometimes I like to open screens far above large forests##\w4 and just watch the colorful leaves for a while...]\e"
+			"\1\s[1001]* (Obsidian starts batting a leaf around your desktop.)\w8\w8\n\n* (How did that get in here..?)\e"
 		}
 		if season == "Winter"
 		{
-			
+			"\0\s[205]%(t)The quiet at this time of year is very relaxing.\w8\w8\s[106\] It's far different from the quiet of the void.]\e"
+			"\0\s[114]%(t)You know##\w4 I can actually get extremely close to objects with my screens.\w8\w8\s[111\] I can study snowflakes in great detail##\w4 even.\w8\w8\s[205\] I should really get a camera...]\e"
+			"\0\s[205]%(t)Ah##\w4 this time of year reminds me of my home in Snowdin.\w8\w8\s[102\] Those were peaceful days##\w4 for the most part...]\e"
 		}
 		
 		//---Tempurature and weather related---
@@ -316,10 +427,12 @@ RandomTalk : nonoverlap
 		if weather == "Clear" || weather == "Mostly Clear" || weather == "Sunny" || weather == "Mostly Sunny" || weather == "Fair" //Clear/Sunny
 		{
 			"\0\s[114]%(t)It seems like a nice day outside##\w4 have you been out lately?]\e"
+			"\0\s[0]%(t)It seems rather pleasant out.\w8\w8\s[106\] Or perhaps it would be better if there were a few clouds to keep the heat away.]\e"
 		}
 		if weather == "Partly Cloudy" || weather == "Mostly Cloudy" || weather == "Cloudy" //Cloudy
 		{
 			"\0\s[205]%(t)Clouds are my favorite kind of weather##\w8\s[104\] they're very pretty if you look at them from above.\w8\w8\s[208\]\n\nI guess that's the silver lining of my situation;\w4 I can see all kinds of beautiful things hidden away in nature.\w8\w8\s[107\] I just can't touch them.]\e"
+			"\0\s[102]%(t)In almost every place on Earth##\w4 you'll find clouds.\w8\w8\s[0\] I find that fascinating to think about.]\e"
 		}
 		if weather == "Showers in the Vicinity" || weather == "Few Showers" || weather == "Showers" //Might shower
 		{
@@ -348,7 +461,7 @@ RandomTalk : nonoverlap
 		//---Tempurature---
 		if temp == "Below 0"
 		{
-			
+			"\0\s[208]%(t)It looks very cold out there.\w8\w8\s[106\] Human skin is much more sensitive to tempurature##\w4 isn't it?\w8\w8\s[107\] I can't imagine actually going out in cold weather that way...]\e"
 		}
 		if temp == "Freezing"
 		{
@@ -364,21 +477,24 @@ RandomTalk : nonoverlap
 		}
 		if temp == "Pleasant"
 		{
-			
+			if weather == "Clear" || weather == "Mostly Clear" || weather == "Sunny" || weather == "Mostly Sunny" || weather == "Fair" || weather == "Partly Cloudy" || weather == "Mostly Cloudy" || weather == "Cloudy"
+			{
+				"\0\s[0]%(t)The weather there seems pretty nice;\w4 if you've been wanting to enjoy some time outside##\w4 now might be the time to do it.]\e"
+			}
 		}
 		if temp == "Hot"
 		{
-			
+			"\0\s[106]%(t)I hope there's a breeze where you live##\w4 the heat there seems unpleasant.]\e"
 		}
 		if temp == "Boiling"
 		{
-			
+			"\0\s[106]%(t)Be careful if you go out##]\w4 %(username).\w8\w8\s[107] %(t)It's almost as bad as Hotland out there...]\e"
 		}
 		
 		//---Humidity---
 		if humidity <= 30 //Dry
 		{
-			"\0\s[106]%(t)It's pretty dry out there##\w4 make sure you stay hydrated] %(username).\e"
+			"\0\s[106]%(t)It's pretty dry out there##\w4 make sure you stay hydrated##]\w4 %(username).\e"
 		}
 		if humidity > 30 && humidity <= 60 //Comfortable
 		{
@@ -386,11 +502,11 @@ RandomTalk : nonoverlap
 		}
 		if humidity >= 61 && humidity <= 80 //Muggy
 		{
-			
+			"\0\s[106]%(t)It's getting pretty humid out##\w4 isn't it?\w8\w8\s[107\] I'm glad I don't have to deal with humidity in the void...]\e"
 		}
 		if humidity >= 81 //Soup
 		{
-			"\1\s[1007]* (Obsidian licks at her fur,\w4 trying to smooth it down,\w4 but isn't having much luck in this humidity.)\e"
+			"\0\s[106]\1\s[1007]* (Obsidian licks at her fur,\w4 trying to smooth it down,\w4 but isn't having much luck in this humidity.)\e"
 		}
 		
 		//---Pollen---
@@ -449,6 +565,17 @@ RandomTalk : nonoverlap
 		{
 			_number = RAND(ghostexcount) // This checks the number of other ghosts summoned and chooses a random number based on it
 			_randghostname = "%(ghostexlist[_number])" // This grabs the reference name of the ghost to check against known names.
+			_skeletonlist = ""
+			_i = 0
+			while _i < ghostexcount
+			{
+				if ghostexlist[_i] == "RYS-0825" || ghostexlist[_i] == "X. Template" || ghostexlist[_i] == "S" || ghostexlist[_i] == "Gaster" || ghostexlist[_i] == "Sanguine" || ghostexlist[_i] == "Dreamtale Sans" || ghostexlist[_i] == "MVSans" || ghostexlist[_i] == "sans" || ghostexlist[_i] == "Papyrus"
+				{
+					_skeletonlist += ",%(ghostexlist[_i])"
+				}
+				_i++
+			}
+			if SUBSTR(_skeletonlist,0,1) == ","; {_skeletonlist = ERASE(_skeletonlist,0,1)} //Removes the extra comma at the start if there is one
 			--
 			// This will tell you the reference names of your summoned ghosts to use in the "when" cases below, along with the number of ghosts.
 			// Comment it out when you no longer need it for reference.
@@ -465,6 +592,18 @@ RandomTalk : nonoverlap
 				{
 					"\0\s[200]* (He hums quietly,\w4 and you wonder if he's a little put off by the other Gaster's presence.)\e"
 				}
+				when "S" //Sans and Paps
+				{
+					"\0\s[104]* (He waves at Sans and Papyrus,\w8\s[107] though looks a little sad.)\e"
+				}
+				when "Aurora.EXE"
+				{
+					"\0\s[208]%(t)Hmm..\w8\w8 She's stuck in computers..?\w8\w8\s[206\] It's a bit similar to being stuck in the void##\w4 in a way...]\e"
+				}
+				when "Temmie"
+				{
+					"\0\s[113]%(t)Ah##\w4 she would be here##\w4 up to silly antics as always...]\e"
+				}
 				others
 				{
 					if _randghostname _in_ metghosts
@@ -477,13 +616,23 @@ RandomTalk : nonoverlap
 					}
 				}
 			}
+			if _skeletonlist == ghostexlist
+			{
+				_skeletoncount = ARRAYSIZE(_skeletonlist)
+				"\0\s[0]* (Spooky scary skeletons.)\e"
+				"\0\s[0]* (Oops all skeletons.)\e"
+				"\0\s[0]* (Dem bones,\w4 dem bones,\w4 dem dry bones...)\e"
+				if _skeletoncount > 3
+				{
+					"\0\s[102]* (If you have this many skeletons on your computer,\w4 how many skeletons do you have hiding in your closet?)\e"
+				}
+			}
 		}
 		
 		//---Commenting on the amount of ghosts present---
-		
 		if ghostexcount == 0
 		{
-			
+			"\0\s[102]* (He seems content in the solitude.)\e"
 		}
 		if ghostexcount > 4
 		{
@@ -499,45 +648,60 @@ RandomTalk : nonoverlap
 			_metcount = ARRAYSIZE(metghosts)
 			_rand = RAND(_metcount)
 			//if _rand == 0; {_rand = 1}
-			_randghost = metghosts[_rand]
-			_installedlist = "%(installedghostlist)"
-
-			if _randghost !_in_ _installedlist
-			{
-				"\0\s[206]%(t)I wonder if %(_randghost) is doing alright...]\e"
-				"\0\s[206]%(t)I hope %(_randghost) is doing well...]\e"
-				"\0\s[206]%(t)It's been so long since I've seen %(_randghost)...]\e"
-				"\1\s[1004]Myyrwww...\w8\w8\0\s[401]%(t)I know##\w4 Obsidian##\w4 I miss %(_randghost) too.]\e"
-				
-			}
-			if _randghost !_in_ ghostexlist && _randghost _in_ _installedlist
-			{
-				"\0\s[208]%(t)I wonder how %(_randghost) is doing...]\e"
-				"\0\s[208]%(t)I wonder if %(_randghost) is doing alright##\w8\s[502\] I should check up...]\e"
-				"\0\s[208]%(t)Hmm##\w4 maybe %(_randghost) would know...]\e"
-			}
+			GhostToCall = metghosts[_rand]
+			
+			"\![get,property,OnGhostMetCheck,ghostlist(%(GhostToCall)).name]"
 		}
 		
 	}
 }
 
-OnPopQuiz
+OnGhostMetCheck
 {
-	"\0\s[111]\_qCan you translate %(wdn)%(wingdingsles)%(reg) out of Wingdings?\n\n\n\![*]\q[Dismiss,cancelnodialogue]\![open,inputbox,OnPopQuizAnswer]\![set,balloontimeout,-1]\*"
-}
-
-OnPopQuizAnswer
-{
-	if reference0 == wingdingsles
+	_installedlist = "%(installedghostlist)"
+	
+	if watchingScreen == 0
 	{
-		G += 2
-		"\0\s[104]That's correct!\w8\w8\s[111] The answer was %(wingdingsles).\w8\w8\1%(catnoises).\w8\w8\n\n* (Earned 2G!)\e"
+		if reference0 !_in_ _installedlist
+		{
+			"\0\s[206]%(t)I wonder if %(GhostToCall) is doing alright...]\e"
+			"\0\s[206]%(t)I hope %(GhostToCall) is doing well...]\e"
+			"\0\s[206]%(t)It's been so long since I've seen %(GhostToCall)...]\e"
+			"\1\s[1004]Myyrwww...\w8\w8\0\s[401]%(t)I know##\w4 Obsidian##\w4 I miss %(GhostToCall) too.]\e"
+			
+		}
+		elseif GhostToCall !_in_ ghostexlist && reference0 _in_ _installedlist
+		{
+			"\0\s[208]%(t)I wonder how %(GhostToCall) is doing...]\e"
+			"\0\s[208]%(t)I wonder if %(GhostToCall) is doing alright##\w8\s[502\] I should check up...]\e"
+			"\0\s[208]%(t)Hmm##\w4 maybe %(GhostToCall) would know...]\e"
+		}
+		else
+		{
+			"\0\s[104]\1%(catpose)* (Obsidian meows at %(GhostToCall).)\e"
+		}
 	}
 	else
 	{
-		"\0\s[106]Sorry,\w4 that's incorrect.\w8\w8 You answered %(reference0),\w4 the answer was %(wingdingsles).\w8\w8\1%(catnoises).\e"
+		if reference0 !_in_ _installedlist
+		{
+			"\0\s[501]%(t)Still no sign of %(GhostToCall)...]\e"
+			"\0\s[501]%(GhostToCall),\w4 %(t)where could you be...]\e"
+		}
+		elseif GhostToCall !_in_ ghostexlist && reference0 _in_ _installedlist
+		{
+			"\0\s[502]%(t)Ah##\w4 %(GhostToCall)...]\e"
+			"\0\s[503]%(t)Well##\w4 I guess at least %(GhostToCall) is doing alright...]\e"
+		}
+		else
+		{
+			"\![raise,OnAiTalk]"
+		}
 	}
 }
+
+
+//---------------------Quizzes and choices in random dialogue---------------------
 
 OnQuizPick
 {
@@ -545,21 +709,82 @@ OnQuizPick
 	{
 		wingdingsles = lessonwd
 		wingdingsles = TOUPPER(wingdingsles)
-		"\0\s[111]Can you translate %(wdn)%(wingdingsles)%(reg) out of %(teachFont)?\n\n\![*]\q[Sure,OnPopQuiz,%(wingdingsles)]\n\![*]\q[Dismiss,cancelnodialogue]\e teachword"
 	}
 	elseif reference0 == "lower"
 	{
 		wingdingsles = lessonwd
 		wingdingsles = TOLOWER(wingdingsles)
-		"\0\s[111]Can you translate %(wdn)%(wingdingsles)%(reg) out of %(teachFont)?\n\n\![*]\q[Sure,OnPopQuiz,%(wingdingsles)]\n\![*]\q[Dismiss,cancelnodialogue]\e teachword"
 	}
 	else //Propercase
 	{
 		wingdingsles = lessonwd
-		"\0\s[111]Can you translate %(wdn)%(wingdingsles)%(reg) out of %(teachFont)?\n\n\![*]\q[Sure,OnPopQuiz,%(wingdingsles)]\n\![*]\q[Dismiss,cancelnodialogue]\e teachword"
 	}
 	--
+	"\0\s[111]Can you translate %(wdn)%(wingdingsles)%(reg) out of %(teachFont)?\n\n\![*]\q[Sure,OnPopQuiz,%(wingdingsles)]\n\![*]\q[Dismiss,cancelnodialogue]\e teachword"
+	"\0\s[111]Do you know the translation for %(wdn)%(wingdingsles)%(reg)?\n\n\![*]\q[Sure,OnPopQuiz,%(wingdingsles)]\n\![*]\q[Dismiss,cancelnodialogue]\e teachword"
+	--
 	"%(reference0)"
+}
+
+OnPopQuiz
+{
+	//"\0\s[111]\_qCan you translate %(wdn)%(wingdingsles)%(reg) out of Wingdings?\n\n\n\![*]\q[Dismiss,cancelnodialogue]\![open,inputbox,OnPopQuizAnswer]\![set,balloontimeout,-1]\*"
+	"\C \![open,inputbox,OnPopQuizAnswer]\![set,balloontimeout,-1]\*"
+}
+
+OnPopQuizAnswer
+{
+	if reference0 == wingdingsles
+	{
+		G += 2
+		"\0\s[0]"
+		"\0\s[102]"
+		"\0\s[103]"
+		"\0\s[104]"
+		"\0\s[114]"
+		--
+		"That's correct!\w8\w8\s[111] The answer was %(wingdingsles)."
+		"Indeed!\w8\w8\s[111] The answer was %(wingdingsles)."
+		"You are correct,\w8\s[111] The answer was %(wingdingsles)."
+		"%(wingdingsles) is correct,\w4 well done."
+		"Correct,\w4 %(username).\w8\w8\s[111] The answer was indeed %(wingdingsles)."
+		--
+		"\w8\w8\1%(catnoises).\w8\w8\n\n* (Earned 2G!)\e"
+	}
+	else
+	{
+		"\0\s[106]Sorry,\w4 that's incorrect.\w8\w8 You answered %(reference0),\w4 the answer was %(wingdingsles).\w8\w8\1%(catnoises).\e"
+	}
+}
+
+OnWtWDQuiz
+{
+	"\C \![open,inputbox,OnWtWDQuizAnswer]\![set,balloontimeout,-1]\*"
+}
+
+OnWtWDQuizAnswer
+{
+	if reference0 == WtWDQuiz
+	{
+		G += 2
+		"\0\s[0]"
+		"\0\s[102]"
+		"\0\s[103]"
+		"\0\s[104]"
+		"\0\s[114]"
+		--
+		"That's correct!\w8\w8\s[111] The answer was %(WtWDQuiz)."
+		"Indeed!\w8\w8\s[111] The answer was %(WtWDQuiz)."
+		"You are correct,\w8\s[111] The answer was %(WtWDQuiz)."
+		"%(WtWDQuiz) is correct,\w4 well done."
+		"Correct,\w4 %(username).\w8\w8\s[111] The answer was indeed %(WtWDQuiz)."
+		--
+		"\w8\w8\1%(catnoises).\w8\w8\n\n* (Earned 2G!)\e"
+	}
+	else
+	{
+		"\0\s[106]Sorry,\w4 that's incorrect.\w8\w8 You answered %(reference0),\w4 the answer was %(WtWDQuiz).\w8\w8\1%(catnoises).\e"
+	}
 }
 
 Select.meowback
@@ -590,11 +815,48 @@ ObsiYell2
 	"\1\s[1003]%(bigf)M\w4A\w4A\w4A\w4O\w4O\w4W\w4!\0\s[402]......\w8\w8\n\n\s[109]* (He sighs quietly.)\w8\w8\n\n\s[106]%(t)I'm sorry] %(username),\w4 %(t)she does this sometimes.\w8\w8\s[107\] I hope she isn't bothering you.]\e:chain=end"
 }}CHAIN
 
+//Things that require the user's permission to do, including findwin, gomi, checking the system uptime, etc.
+OnSnoop
+{
+	_PCuptime = (systemuptime / 3600) //PCuptime is given in seconds, this changes it to hours
+	if _PCuptime > 300
+	{
+		"\0\s[208]%(t)Your computer has been running for %(_PCuptime) hours...\w8\w8\s[106\] That's a long time##\w4\s[107\] even for me.]\e"
+	}
+	if _PCuptime > 100
+	{
+		"\0\s[0]%(t)Your computer has been running for %(_PCuptime) hours.\w8\w8\s[102\] You must use it for a lot if you let it run so long.]\e"
+	}
+	
+	_gomicheck = FUNCTIONEX("gomi.dll", "-n") //All of these are based on how much is in your recycling bin
+	if _gomicheck == 0
+	{
+		"\0\s[205]%(t)It feels good to keep your recycling bin clean##\w4 doesn't it?]\e"
+	}
+	elseif _gomicheck >= 1000
+	{
+		"\![raise,OnDialogueVars,holdObsi]\1* (Obsidian wand\s[-1]ers off into your files.)\w8\w8\0\s[205]\1\n\n.\w8.\w8.\w8\w8\n\n\0\s[110]\1* (You hear a thunk,\w4 and the sound of something being torn apart.)\w8\w8\0Obsid\s[-1]ian-!\w8\w8\n\n.\w8.\w8.\w8\w8\n\n\s[606]%(t)I'm sorry] %(username),\w8\s[607] %(t)she got into your recycle bin...\w8\w8\s[610\] I could empty that if you want##\w4\s[606\] so she doesn't make more of a mess...]\1\n\n%(holdnoise)\e"
+	}
+	elseif _gomicheck >= 200
+	{
+		"\0\s[0]%(t)Your recycle bin has more %(_gomicheck) items.\w8\w8\s[208\] If you'd like##\w4 I could empty that for you.]\e"
+	}
+	else
+	{
+		"\![raise,OnAiTalk]"
+	}
+}
+
 Hourcheck
 {
 	if recenttreats != 0
 	{
 		recenttreats = 0
+	}
+	if AutoWeather == "ON"
+	{
+		weatherquiet = 1
+		"\![raise,OnDownloadCurWeather]"
 	}
 }
 
@@ -608,8 +870,6 @@ OnMinuteChange
 	--
  	if minute == 0 //These check what time it is. Here, it's seeing if the minute equals zero...
 	{
-		Hourcheck
-		--
 		if holdingObsidian == 1
 		{
 			"%(wdc)\0\s[600]"
@@ -633,11 +893,6 @@ OnMinuteChange
 			"* (It's %(hour12)'o clock.)\e"
 		}
 	}
-	elseif minute == 1 && AutoWeather == "ON"
-	{
-		weatherquiet = 1
-		"\![raise,OnDownloadCurWeather]"
-	}
 	//Don't touch this part.
 	elseif mikireflag == 1
  	{
@@ -656,6 +911,7 @@ OnSecondChange
 		{
 			passmin = 0
 			passhour++
+			Hourcheck
 		}
 		if totalminutes >= 59
 		{
@@ -740,6 +996,44 @@ OnSurfaceRestore
 		"\0\s[599]\1%(catpose)\e"
 		"\0\s[599]\1%(catpose)\e"
 		"\![raise,OnDialogueVars,EndScreen]"
+	}
+	elseif reference1 == -1 //If Obsidian is hidden and not being held by Dusty (ie, she's off in your files somewhere)
+	{
+		"\0\s[0]"
+		"\0\s[102]"
+		"\0\s[204]"
+		"\0\s[205]"
+		"\0\s[208]"
+		if RAND(100) > 50
+		{
+			"\![raise,OnDialogueVars,holdObsi]\0\s[110]\1* (You hear a strange noise coming from your files.)\w8\w8\0%(t)Obsid\s[-1\]ian-!\w8\w8\n\n.\w8.\w8.\w8\w8\n\n\s[606\]Sorry##]\w4 %(username). \w8\w8\s[607]%(t)She was chewing on a %(musicfile).]\w8\w8\1\n\n%(holdnoise)\e"
+			"\1MAAOOOWWW!!\w8\w8\0\s[106]%(t)Even at this distance##\w4 she can still be so loud...]\e"
+			"\1* (You wonder how much cat fur must be stuck in your files by now...)\e"
+			"\1\s[1007]* (Obsidian reemerges from your files.)\w8\w8\n\n* (Those pixels stuck to her fur...\w8\w8 Are they from a %(filetype)?)\e"
+			if totalpingpong > 0
+			{
+				"\0\s[106]\1* (You hear the sound of a ping pong ball rolling around in your files somewhere...)\e"
+			}
+			{
+				_capfile = TOUPPER(filetype)
+				"\![raise,OnDialogueVars,holdObsi]\1%(catnoise)...\w8\w8\0\s[106]%(t)Did you get stuck..?]\w8\w8\s[-1]\n\n.\w8.\w8.\n\n\w8\w8\w8%(wdf)"
+				--
+				"HOLD STILL..."
+				"STOP SQUIRMING..!"
+				"SHEATHE YOUR CLAWS..!"
+				"HOLD STILL AND LET ME GET YOU OUT OF HERE."
+				"OBSIDIAN,\w4 I CAN'T HELP YOU IF YOU'RE MOVING AROUND."
+				"DON'T YOU POINT THOSE CLAWS AT ME."
+				"AH-!\w8 HEY!"
+				"I'M TRYING TO HELP YOU,\w4 STOP IT!"
+				"TSK,\w4 HOW DO YOU GET YOURSELF INTO THESE THINGS..."
+				"REALLY?\w8\w8 YOU'RE CAUGHT ON A %(_capfile)?"
+				"HOW DID YOU MANAGE TO GET STUCK IN A %(_capfile)?"
+				"YOU THINK YOU'D LEARN EVENTUALLY..."
+				--
+				"\w8\w8\n\n\s[607]%(reg)* (He sighs.)\w8\w8\1\n\n%(holdnoise)\e"
+			}
+		}
 	}
 	else //Normal
 	{

@@ -17,6 +17,14 @@ wdf //Force Wingdings
 	"\f[name,Wingdings]"
 }
 
+wdm //Font check on menus and stuff
+{
+	if WDOnly == 1
+	{
+		"%(wdn)"
+	}
+}
+
 rg //Font to default
 {
 	"\f[name,default]"
@@ -41,7 +49,14 @@ rgf //force regular font, different from font to default because I don't want it
 
 reg
 {
-	"\f[default]"
+	if WDOnly == 0
+	{
+		"\f[default]"
+	}
+	elseif teachFont != "Wingdings"
+	{
+		"\f[name,%(teachFont)]\f[height,%(teachFontSize)]"
+	}
 }
 
 bigf
@@ -190,6 +205,45 @@ statgm
 	"%(statg)%(statg)%(statg)%(statg)%(statg)%(statg)%(statg)%(statg)%(statg)%(statg)%(statg)%(statg)"
 }
 
+filetype
+{
+	".txt"
+	".dic"
+	".png"
+	".jpg"
+	".jpeg"
+	".mp3"
+	".exe"
+	".bat"
+	".cfg"
+	".wav"
+	".pdf"
+	".dat"
+	".gif"
+	".tiff"
+	".dll"
+	".pna"
+	".ico"
+	".dau"
+	".zip"
+	".nar"
+	".html"
+	".psd"
+	".mp4"
+	".ttf"
+}
+
+musicfile
+{
+	".mp3"
+	".wav"
+	".flac"
+	".ogg"
+	".wma"
+	".m4a"
+	".mid"
+}
+
 catnoises
 {
 	"\s[10]"
@@ -218,6 +272,8 @@ catnoise
 	"Aaaow"
 	"Rraaaow"
 	"Mmmaao"
+	"Wwrrrr"
+	"Wwwraa"
 }
 
 holdnoise //For when she's being held by Dusty
@@ -549,6 +605,18 @@ displayday
 	}
 }
 
+moonphase
+{
+	if phase == "New Moon"; {"anMoon01"}
+	elseif phase == "Waxing Crescent"; {"anMoon02"}
+	elseif phase == "First Quarter"; {"anMoon03"}
+	elseif phase == "Waxing Gibbous"; {"anMoon04"}
+	elseif phase == "Full Moon"; {"anMoon05"}
+	elseif phase == "Waning Gibbous"; {"anMoon06"}
+	elseif phase == "Last Quarter"; {"anMoon07"}
+	elseif phase == "Waning Crescent"; {"anMoon08"}
+	else; {""}
+}
 
 temp
 {

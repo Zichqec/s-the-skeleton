@@ -32,6 +32,8 @@ group,DF
 	112,Hug
 	113,Sly
 	114,Interested
+	
+	990,Blip In
 }
 
 group,DL
@@ -73,6 +75,8 @@ group,Sc
 	501,Frown
 	502,Surprise
 	503,ConcernSmile
+	504,-w-;
+	505,HappySmile
 	
 	550,UpSmile
 	551,UpFrown
@@ -109,4 +113,5 @@ group,O
 	1007,Leggy
 	1008,BEANS
 	1009,Walk
+	1610,Blip In
 }

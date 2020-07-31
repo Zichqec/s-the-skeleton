@@ -366,7 +366,7 @@ OnBIFFComplete
 				while _ii < (_headercount - _i - 1) //The amount of headers - how far we are through them (-1) so that if you're at the end of the headers it'll stop instead of just making commas
 				{
 					_next = (_i + 1) //Look at the next header
-					if "<" !_in_ headers[_next] && "@" !_in_ _headers[_next] && ">" !_in_ _headers[_next] //If there is no email address, add the particle to the list
+					if !("<" _in_ headers[_next] && "@" _in_ _headers[_next] && ">" _in_ _headers[_next]) //If there is no email address, add the particle to the list
 					{
 						headerlist += ",%(_headers[_next])"
 						_headers[_next] = IARRAY //Erase the duplicate header
@@ -378,7 +378,7 @@ OnBIFFComplete
 			_i++
 		}
 		headerlist = ERASE(headerlist,0,3) //erases the first |br so it doesn't start on a line break
-		headerlist = REPLACE(headerlist,"|br","\n\n") //Replace the |brs with line breaks
+		headerlist = REPLACE(headerlist,"|br","\n\n") //Replace the |brs with line break
 	}
 	--
 	
@@ -549,11 +549,11 @@ OnUpdateCheckComplete //When the ghost finishes checking for updates
 		--
 		if holdingObsidian == 1
 		{
-			"\0\s[600]%(wdc)There are no new files.\e"
+			"\0\s[600]%(wdc)There are no new files.\![raise,OnDialogueVars,finishboot]\e"
 		}
 		else
 		{
-			"\0\s[0]%(wdc)There are no new files.\e"
+			"\0\s[0]%(wdc)There are no new files.\![raise,OnDialogueVars,finishboot]\e"
 		}
 	}
 }
@@ -587,6 +587,7 @@ OnUpdateBegin
 //If the ghost finds new files to update with.
 OnUpdateReady
 {
+	booting = 2
 	_filesavailable = reference0 + 1
 	if holdingObsidian == 1
 	{
@@ -632,6 +633,8 @@ OnUpdateComplete
 //Error messages if the update process fails in some way.
 OnUpdateFailure
 {
+	"\![raise,OnDialogueVars,finishboot]"
+	--
 	if holdingObsidian == 1
 	{
 		if reference0 == "timeout" //if the connection times out
@@ -682,40 +685,52 @@ OnUpdate.OnDownloadBegin //replaceframe I want him looking at a screen for this
 {
 	if holdingObsidian == 1
 	{
-		"\_q\0\s[630]* (Downloading %(reference0)...)\n\n"
+		"\b2\_q\0\s[630]* (Downloading %(reference0)...)\n\n"
 	}
 	else
 	{
-		"\_q\0\s[500]* (Downloading %(reference0)...)\n\n"
+		"\b2\_q\0\s[500]* (Downloading %(reference0)...)\n\n"
 	}
 	--
-	Update_Process = TOINT(reference1) + 1
-	Update_Total = TOINT(reference2) + 1
-	Update_Remaining = Update_Total - Update_Process
+	_Update_Process = TOINT(reference1) + 1
+	_Update_Total = TOINT(reference2) + 1
+	Update_Remaining = _Update_Total - _Update_Process
 
 	//defining starting points
-	PointA = 1
-	PointB = 1
+	_PointA = 1
+	_PointB = 1
 
 	//defining text buffers beforehand, otherwise they don't display right
 	_txt = ""
 
 	//loop calculates how many check boxes to display based on the variables above
-
-	while PointA <= Update_Process
+	_counter = 0
+	while _PointA <= _Update_Process
 	{
 		_txt += "C"
-		PointA++
+		_PointA++
+		_counter++
+		if _counter >= 15
+		{
+			_txt += "\n"
+			_counter = 0
+		}
 	}
 	//see above except for blank boxes
-	while PointB <= Update_Remaining
+	while _PointB <= Update_Remaining
 	{
 		_txt += "D"
-		PointB++
+		_PointB++
+		_counter++
+		if _counter >= 15
+		{
+			_txt += "\n"
+			_counter = 0
+		}
 	}
 	--
 	//using the text buffers to display the correct number of boxes
-	"%(wdn)\f[height,200%]%(bold)%(_txt)%(reg)\n\n%(Update_Process) of %(Update_Total)"
+	"%(wdf)\f[height,200%]%(bold)%(_txt)%(reg)\n\n%(_Update_Process) of %(_Update_Total)"
 }
 
  //---- OnUpdate.OnMD5CompareFailure ---------------------------------------------------
@@ -723,6 +738,8 @@ OnUpdate.OnDownloadBegin //replaceframe I want him looking at a screen for this
  
 OnUpdate.OnMD5CompareFailure
  {
+	"\![raise,OnDialogueVars,finishboot]"
+	--
 	if holdingObsidian == 1
 	{
 		"\0\s[610]The MD5 values don't match on file %(Update_Remaining).\w8\w8\e"
@@ -1308,11 +1325,53 @@ OnChoiceSelectEx //This handles any menus I create with loops where the choice s
 	}
 	elseif reference1 == "callGhost"
 	{
-		"\0\s[500]%(t)Alright##\w4 I'll call] %(reference0)."
-		"\0\s[500]%(t)Certainly##\w4 I'll call] %(reference0)."
+		GhostToCall = reference0
+		if reference0 == "S the Skeleton"
+		{
+			if "RYS-0825" !_in_ ghostexlist
+			{
+				"\0\s[500]%(t)Certainly##\w4 I'd be glad to call S.]"
+				--
+				"\![call,ghost,%(GhostToCall)]\e"
+			}
+			else
+			{
+				"\0\s[106]%(t)S is already here.]\w8\w8\1%(catnoises).\e"
+			}
+		}
+		elseif reference0 == "Dr. W.D. Gaster"
+		{
+			if "Gaster" !_in_ ghostexlist
+			{
+				"\0\s[501]%(t)...\w8\w8Alright##\w4 I'll call him.]"
+				--
+				"\![call,ghost,%(GhostToCall)]\e"
+			}
+			else
+			{
+				"\0\s[200]%(t)He is already here.]\e"
+			}
+		}
+		else
+		{
+			"\![get,property,OnGhostCallCheck,ghostlist(%(reference0)).sakuraname]" //This gets the Sakura name so we can check if the ghost is already open
+		}
+	}
+}
+
+OnGhostCallCheck
+{
+	if reference0 !_in_ ghostexlist
+	{
+		"\0\s[500]%(t)Alright##\w4 I'll call] %(GhostToCall)."
+		"\0\s[500]%(t)Certainly##\w4 I'll call] %(GhostToCall)."
 		--
-		"\![call,ghost,%(reference0)]\e"
+		"\![call,ghost,%(GhostToCall)]\e"
 		callingGhost = 1
+	}
+	else
+	{
+		"\0\s[106]%(t)%(reference0) is already here.]\w8\w8\1%(catnoises).\e"
 	}
 }
 
@@ -1321,7 +1380,34 @@ OnGhostCallComplete
 	if callingGhost == 1
 	{
 		callingGhost = 0
-		"\0\s[0]%(t)Hello##]\w4 %(reference2).\e"
+		if reference2 == "S the Skeleton"
+		{
+			"\0\s[104]%(t)Hello##\w4 S.]\w8\w8\1%(catnoises)~\e"
+		}
+		elseif reference2 == "Dr. W.D. Gaster"
+		{
+			"\0\s[206]%(t)Hmm...]\e"
+		}
+		elseif reference2 == "X. Template"
+		{
+			"\0\s[102]%(t)Greetings##\w4 X.].\e" //This is not a typo, her first name is 'X.'
+		}
+		elseif reference2 == "stupid cat"
+		{
+			"\0\s[104]%(wdf)HELLO KITTY.%(reg)\w8\w8\1%(catnoises).\e"
+		}
+		elseif reference2 == "Sans and Paps"
+		{
+			"\0\s[208]* (He looks a little wistful...)\w8\w8\n\n\s[104]%(t)Hello##\w4 you two.]\e"
+		}
+		elseif reference2 == "Ghost Jam Temmie"
+		{
+			"\0\s[104]%(t)Hello Temmie.]\e"
+		}
+		else
+		{
+			"\0\s[0]%(t)Hello##]\w4 %(reference2).\e"
+		}
 	}
 }
 
@@ -1596,7 +1682,7 @@ OnLocCode
 	--
 	//templocation = ""
 	//OnDownloadCurWeather
-	"\![execute,http-get,https://weather.com/weather/today/l/%(locationcode),--async=OnCheckWeatherLoc,--file=weather.html,--timeout=300]anMoon01\w4\canMoon02\w4\canMoon03\w4\canMoon04\w4\canMoon05\w4\canMoon06\w4\canMoon07\w4\canMoon08\w4\canMoon01\w4\canMoon02\w4\canMoon03\w4\canMoon04\w4\canMoon05\w4\canMoon06\w4\canMoon07\w4\canMoon08\w4\canMoon01\w4\canMoon02\w4\canMoon03\w4\canMoon04\w4\canMoon05\w4\canMoon06\w4\canMoon07\w4\canMoon08\w4\canMoon01\w4\canMoon02\w4\canMoon03\w4\canMoon04\w4\canMoon05\w4\canMoon06\w4\canMoon07\w4\canMoon08\w4\canMoon01\w4\canMoon02\w4\canMoon03\w4\canMoon04\w4\canMoon05\w4\canMoon06\w4\canMoon07\w4\canMoon08\w4\canMoon01\w4\canMoon02\w4\canMoon03\w4\canMoon04\w4\canMoon05\w4\canMoon06\w4\canMoon07\w4\canMoon08\w4"
+	"\![execute,http-get,https://weather.com/weather/today/l/%(locationcode),--async=OnCheckWeatherLoc,--file=weather.html,--timeout=300]anMoon01\w4\canMoon02\w4\canMoon03\w4\canMoon04\w4\canMoon05\w4\canMoon06\w4\canMoon07\w4\canMoon08\w4\canMoon01\w4\canMoon02\w4\canMoon03\w4\canMoon04\w4\canMoon05\w4\canMoon06\w4\canMoon07\w4\canMoon08\w4\canMoon01\w4\canMoon02\w4\canMoon03\w4\canMoon04\w4\canMoon05\w4\canMoon06\w4\canMoon07\w4\canMoon08\w4\canMoon01\w4\canMoon02\w4\canMoon03\w4\canMoon04\w4\canMoon05\w4\canMoon06\w4\canMoon07\w4\canMoon08\w4\canMoon01\w4\canMoon02\w4\canMoon03\w4\canMoon04\w4\canMoon05\w4\canMoon06\w4\canMoon07\w4\canMoon08\w4\canMoon01\w4\canMoon02\w4\canMoon03\w4\canMoon04\w4\canMoon05\w4\canMoon06\w4\canMoon07\w4\canMoon08\w4\w8\w8\w8\w8\w8\w8\w8\w8\w8\c* (Couldn't find your location. Try again?)\n\n\![*]\q[Yes,OnWeatherLocation]\n\![*]\q[No,cancelnodialogue]"
 	
 	
 }
@@ -1669,7 +1755,7 @@ OnCheckWeatherLoc
 
 Select.tryweatherlocagain
 {
-	"\![execute,http-get,https://weather.com/weather/today/l/%(locationcode),--async=OnCheckWeatherLoc,--file=weather.html,--timeout=300]%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)"
+	"\![execute,http-get,https://weather.com/weather/today/l/%(locationcode),--async=OnCheckWeatherLoc,--file=weather.html,--timeout=300]%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)\c* (Couldn't find your location. Try again?)\n\n\![*]\q[Yes,OnWeatherLocation]\n\![*]\q[No,cancelnodialogue]"
 }
 
 Select.confirmweather
@@ -1691,6 +1777,23 @@ Select.confirmweather
 OnDownloadCurWeather
 {
    "\![execute,http-get,https://weather.com/weather/today/l/%(locationcode),--async=OnCurWeatherFound,--file=weather.html,--timeout=200]%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)"
+   --
+   if weatherquiet == 0
+   {
+	"\c* (Couldn't get the weather. Try again?)\n\n\![*]\q[Yes,OnDownloadCurWeather]\n\![*]\q[No,cancelnodialogue]"
+   }
+   else
+   {
+	   "\b[-1]"
+	    tempurature = "Unknown"
+		ForC = "Unknown"
+		feelslike = "Unknown"
+		humidity = "Unknown"
+		wind = "Unknown"
+		weather = "Unknown"
+		pollen = "Unknown"
+		phase = "Unknown"
+   }
 }
 
 OnCurWeatherFound
@@ -1816,8 +1919,6 @@ OnCurWeatherFound
 	{
 		weatherlist += "%(weather)\n-"
 	}
-	--
-	humiditylist += "%(humidity)%\n"
     --
 	if currentweatherarray[0] != ""
 	{
@@ -1981,6 +2082,7 @@ OnRandomTeachWord
 	}
 	else
 	{
-		"%(wdn)%(reference0)%(reg)"
+		reference0 = REPLACE(reference0,"##","%(CHR(0x2C))")
+		"%(reference0)"
 	}
 }
