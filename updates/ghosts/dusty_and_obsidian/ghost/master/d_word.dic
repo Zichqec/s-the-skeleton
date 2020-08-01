@@ -69,6 +69,11 @@ medf
 	"\f[height,18]"
 }
 
+chrt
+{
+	"\f[height,22]"
+}
+
 bold
 {
 	"\f[bold,true]"

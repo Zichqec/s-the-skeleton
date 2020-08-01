@@ -6,7 +6,7 @@ OnWDGames
 	--
 	"\![*]\q[Translation Challenge,OnTranslationWD]\n/
 	\![*]\q[Who's That Wingding,OnWhosThatWingding]\n/
-	\![*]\q[Match the Wingding,OnMatchWD]\n/
+	\![*]\q[Match the %(teachFont),OnMatchWD]\n/
 	\![*]\q[Hangman,OnPlayHangman]"
 	--
 	"\n\n\![*]\q[Back to %(teachFont) Menu,OnWingdingsMenu]\n\![*]\q[I'm done,cancelnodialogue]\e"
@@ -130,18 +130,18 @@ OnWhoWingdingGuess
 		"\0%(wdc)\s[0]"
 		"\0%(wdc)\s[111]"
 		--
-		"That's correct!\w8 The answer was %(WtWDAnswer) %(wdn)%(medf)%(WtWDAnswer)%(reg)"
-		"Indeed,\w4 The answer was %(WtWDAnswer) %(wdn)%(medf)%(WtWDAnswer)%(reg)"
+		"That's correct!\w8 The answer was %(WtWDAnswer) %(wdf)%(medf)%(WtWDAnswer)%(reg)"
+		"Indeed,\w4 The answer was %(WtWDAnswer) %(wdf)%(medf)%(WtWDAnswer)%(reg)"
 	}
 	else
 	{
 		currentwrong++
-		"\0%(wdc)\s[102]Sorry,\w4 the answer was %(WtWDAnswer) %(wdn)%(bigf)%(WtWDAnswer)%(reg)"
+		"\0%(wdc)\s[102]Sorry,\w4 the answer was %(WtWDAnswer) %(wdf)%(bigf)%(WtWDAnswer)%(reg)"
 	}
 	--
 	"\n\n\_qCorrect answers: %(currentcorrect)\nIncorrect answers: %(currentwrong)\nG earned this streak: %(earningG)\nTotal G: %(G)"
 	--
-	"\n\n\![*]\q[Back to Games menu,OnWDGames]   \![*]\q[Pick Cases,OnCaseInGame,WhosThatWingding]\x"
+	"\n\n\![*]\q[Pick Cases,OnCaseInGame,WhosThatWingding]   \![*]\q[Back to Games menu,OnWDGames]\x"
 	--
 	"\![raise,OnWhosThatWingding]"
 }
@@ -268,6 +268,8 @@ OnMatchWD
 	_wdrand = 0
 	gatheredanswers = 0
 	quizanswer = IARRAY
+	_teach = teachFont
+	if _teach == "Wingdings"; _teach = "Wingding"
 	--
 	while gatheredanswers < possibleanswers
 	{
@@ -282,11 +284,11 @@ OnMatchWD
 	--
 	if quizanswer[0] == "ॐ"
 	{
-		"\_q%(wdcb)\s[111]\![set,balloontimeout,-1]\*Pick the %(teachFont) that represents %(rgf)\\%(reg)\n\n"
+		"\_q%(wdcb)\s[111]\![set,balloontimeout,-1]\*Pick the %(_teach) that represents %(rgf)\\%(reg)\n\n"
 	}
 	else
 	{
-		"\_q%(wdcb)\s[111]\![set,balloontimeout,-1]\*Pick the %(teachFont) that represents %(rgf)%(quizanswer[0])%(reg)\n\n"
+		"\_q%(wdcb)\s[111]\![set,balloontimeout,-1]\*Pick the %(_teach) that represents %(rgf)%(quizanswer[0])%(reg)\n\n"
 	}
 	--
 	finalanswer = quizanswer[0]
@@ -329,7 +331,7 @@ OnMatchWD
 		}
 	}
 	--
-	"%(wdcb)%(wdn)\f[height,25]%(answerprint)%(rg)"
+	"%(wdcb)%(wdn)\f[height,25]\_q%(answerprint)%(rg)"
 	--
 	"\f[height,default]\n\n\n\![*]\q[Give up,MatchEnd]"
 }

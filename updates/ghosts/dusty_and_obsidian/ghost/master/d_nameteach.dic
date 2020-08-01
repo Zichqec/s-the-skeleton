@@ -254,8 +254,8 @@ OnUserBornDay
 OnTeachPronouns
 {
 	"%(wdc)\0\s[0]What pronouns do you want?\w5\n\n[half]\_q/
-	\![*]\q[He/His/Him,choicemasc]\n/
-	\![*]\q[She/Her/Her,choicefem]\n/	
+	\![*]\q[He/Him/His,choicemasc]\n/
+	\![*]\q[She/Her/Hers,choicefem]\n/	
 	\![*]\q[They/Them/Their,choiceneither]%(BacktoConfig)"
 }
 

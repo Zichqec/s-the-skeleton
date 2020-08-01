@@ -1663,13 +1663,13 @@ OnWeatherLocation
 OnUSALoc
 {
 	templocation = ""
-    "%(wdc)\![set,balloontimeout,-1]\** (Please enter your zipcode.)\![open,inputbox,OnLocCode,-1]"
+    "%(wdc)\![set,balloontimeout,-1]\*\_q* (Please enter your zipcode.)\![open,inputbox,OnLocCode,-1]"
 }
 
 OnOtherLoc
 {
 	templocation = ""
-    "%(wdc)\![set,balloontimeout,-1]\** (Please go to weather.com, search your city, and enter the URL.)\![open,inputbox,OnLocCode,-1]"
+    "%(wdc)\![set,balloontimeout,-1]\*\_q* (Please go to weather.com, search your city, and enter the URL.)\![open,inputbox,OnLocCode,-1]"
 }
 
 OnLocCode
@@ -2022,8 +2022,8 @@ OnMoonFound
 	//change the dialogue as you wish
 	//[temp, degrees, feels like temp, humidity, wind, state (cloudy, rainy, etc)]
 	
-	"\0%(wdcb)\s[500]\_qThe weather for %(curlocation):\n\nTemperature: %(currentweatherarray[0])%(currentweatherarray[1])\nFeels like: %(currentweatherarray[2])%(currentweatherarray[1])/
-    \nHumidity: %(currentweatherarray[3])%\nWind: %(currentweatherarray[4])\nWeather: %(currentweatherarray[5])\nMoon Phase: %(phase)"
+	"\0%(wdcb)\s[500]\_qThe weather for %(curlocation):\n\nWeather: %(currentweatherarray[5])\nTemperature: %(currentweatherarray[0])%(currentweatherarray[1])\nFeels like: %(currentweatherarray[2])%(currentweatherarray[1])/
+    \nHumidity: %(currentweatherarray[3])%\nWind: %(currentweatherarray[4])\nMoon Phase: %(phase)"
     --
     if currentweatherarray[6] == "Local Pollen Alert" {
     "\nThere's a local pollen alert."

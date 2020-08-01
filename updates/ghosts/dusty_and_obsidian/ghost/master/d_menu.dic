@@ -197,7 +197,7 @@ Select.aboutthecat
 {
 	"%(wdc)"
 	--
-	"%(t)\0\s[114\]Ah##\w4 her name is Obsidian.\w8\w8\s[400\] She's been my companion in the void for many years now.\w8\w8\n\n\s[106\]She was brought to me while very ill##\w4 so that I could care for her##\w4\s[204\] but unfortunately she didn't manage to pull through.]\w8\w8\s[200]\1%(catnoises)\w8\w8\0\n\n%(t)Thanks to the nature of my void##\w4 she's still here even if she isn't technically alive.\w8\w8\s[102\] She doesn't seem to mind it at all##\w4 she's grown used to the void and very attached to me.]\w8\w8\1%(catnoises).\0%(morequestions)"
+	"%(t)\0\s[114\]Ah##\w4 her name is Obsidian.\w8\w8\s[400\] She's been my companion in the void for many years now.\w8\w8\n\n\s[106\]She was brought to me while very ill##\w4 so that I could care for her##\w4\s[204\] but unfortunately she didn't manage to pull through.]\w8\w8\1%(catnoises)\w8\w8\0\s[200]\n\n%(t)Thanks to the nature of my void##\w4 she's still here even if she isn't technically alive.\w8\w8\s[102\] She doesn't seem to mind it at all##\w4 she's grown used to the void and very attached to me.]\w8\w8\1\n\n%(catnoises).\0%(morequestions)"
 	askedaboutobsidian = 1
 }
 
@@ -314,7 +314,7 @@ OnWingdingsMenu
 {
 	if askedaboutwingdings == 0
 	{
-		"%(wdcb)\s[0]\0\s[114]Oh, you want to learn about wingdings?\w8\w8\s[104] Sure, I'd be glad to teach you.\w8\w8\s[0] What would you like me to do?\n\n"
+		"%(wdcb)\s[0]\0\s[114]Oh, you want to learn about wingdings?\w8\w8\s[104] Sure, I'd be glad to teach you.\w8\w8\s[0] What would you like me to do?\n\n\_q"
 		askedaboutwingdings = 1
 	}
 	else
@@ -364,7 +364,7 @@ OntranslatetoWD
 	//_textlower = TOLOWER(_text)
 	//_textupper = TOUPPER(_text)
 	
-	"\0\b2\s[0]'%(translatedText)' would be:\n\n%(wdn)%(medf)%(translatedText)%(reg)."
+	"\0\b2\s[0]'%(translatedText)' would be:\n\n%(wdn)%(medf)%(translatedText)%(reg)"
 	--
 	"\n\n\*\![set,balloontimeout,-1]\![*]\q[Take a screenshot?,screenshot]\n\![*]\q[Back to menu,OnWingdingsMenu]\e"
 }
@@ -393,11 +393,11 @@ TranslationProgress
 {
 	"\p[2]\s[-1]\b[10]\f[height,20]\_q%(wdn)%(currentlytranslating)%(reg)\0\b2"
 	--
-	"\f[height,25]trCA trCB trCC trCD trCE trCF trCG trCH trCI trCJ\ntrCK trCL trCM trCN trCO trCP trCQ trCR trCS\ntrCT trCU trCV trCW trCX trCY trCZ\n\n[half]\f[height,20]trLA trLB trLC trLD trLE trLF trLG trLH trLI trLJ\ntrLK trLL trLM trLN trLO trLP trLQ trLR trLS trLT trLU trLV\ntrLW trLX trLY trLZ"
+	"\f[height,25]trCA trCB trCC trCD trCE trCF trCG trCH trCI trCJ\ntrCK trCL trCM trCN trCO trCP trCQ trCR trCS\ntrCT trCU trCV trCW trCX trCY trCZ\n\n[half]\f[height,20]trLA trLB trLC trLD trLE trLF trLG trLH trLI trLJ\ntrLK trLL trLM trLN trLO trLP trLQ trLR trLS trLT trLU trLV\ntrLW trLX trLY trLZ\n\n[half]trcco trcpr trc! trcqs trc' trc- trc: trc;"
 	--
 	if teachFont == "Wingdings"
 	{
-		"\n\_l[,190]\f[height,default]\![*]\q[Add a space,translatespace]      \![*]\q[Add a line break,translatelinebreak]\n\![*]\q[Numbers and Punctuation,TranslatePunctuation]\n\n[half]\![*]\q[Finish and Translate,finishtranslate]\n\![*]\q[Cancel,cancelnodialogue]\t\*"
+		"\n\_l[,240]\f[height,default]\![*]\q[Add a space,translatespace]      \![*]\q[Add a line break,translatelinebreak]\n\![*]\q[Numbers and Punctuation,TranslatePunctuation]\n\n[half]\![*]\q[Finish and Translate,finishtranslate]\n\![*]\q[Cancel,cancelnodialogue]\t\*"
 	}
 	else
 	{
@@ -413,7 +413,7 @@ TranslationPunctuation
 	--
 	if teachFont == "Wingdings"
 	{
-		"\n\_l[,190]\f[height,default]\![*]\q[Add a space,translatespace2]      \![*]\q[Add a line break,translatelinebreak2]\n\![*]\q[Letters,TranslateLetters]\n\n[half]\![*]\q[Finish and Translate,finishtranslate]\n\![*]\q[Cancel,cancelnodialogue]\t\*"
+		"\n\_l[,240]\f[height,default]\![*]\q[Add a space,translatespace2]      \![*]\q[Add a line break,translatelinebreak2]\n\![*]\q[Letters,TranslateLetters]\n\n[half]\![*]\q[Finish and Translate,finishtranslate]\n\![*]\q[Cancel,cancelnodialogue]\t\*"
 	}
 	else
 	{
@@ -483,7 +483,7 @@ Select.chartWD
 {
 	"\b2\f[height,22]\_q\![set,balloontimeout,-1]\*"
 	--
-	"A%(wdn)A%(rg)  B%(wdn)B%(rg)  C%(wdn)C%(rg)  D%(wdn)D%(rg)  E%(wdn)E%(rg)  F%(wdn)F%(rg)  G%(wdn)G%(rg)\n\n[half]H%(wdn)H%(rg)  I%(wdn)I%(rg)  J%(wdn)J%(rg)  K%(wdn)K%(rg)  L%(wdn)L%(rg)  M%(wdn)M%(rg)  N%(wdn)N%(rg)\n\n[half]O%(wdn)O%(rg)  P%(wdn)P%(rg)  Q%(wdn)Q%(rg)  R%(wdn)R%(rg)  S%(wdn)S%(rg)  T%(wdn)T%(rg)\n\n[half]U%(wdn)U%(rg)  V%(wdn)V%(rg)  W%(wdn)W%(rg)  X%(wdn)X%(rg)  Y%(wdn)Y%(rg)  Z%(wdn)Z%(rg)"
+	"A%(wdn)%(chrt)A%(rg)  B%(wdn)%(chrt)B%(rg)  C%(wdn)%(chrt)C%(rg)  D%(wdn)%(chrt)D%(rg)  E%(wdn)%(chrt)E%(rg)  F%(wdn)%(chrt)F%(rg)  G%(wdn)%(chrt)G%(rg)\n\n[half]H%(wdn)%(chrt)H%(rg)  I%(wdn)%(chrt)I%(rg)  J%(wdn)%(chrt)J%(rg)  K%(wdn)%(chrt)K%(rg)  L%(wdn)%(chrt)L%(rg)  M%(wdn)%(chrt)M%(rg)  N%(wdn)%(chrt)N%(rg)\n\n[half]O%(wdn)%(chrt)O%(rg)  P%(wdn)%(chrt)P%(rg)  Q%(wdn)%(chrt)Q%(rg)  R%(wdn)%(chrt)R%(rg)  S%(wdn)%(chrt)S%(rg)  T%(wdn)%(chrt)T%(rg)\n\n[half]U%(wdn)%(chrt)U%(rg)  V%(wdn)%(chrt)V%(rg)  W%(wdn)%(chrt)W%(rg)  X%(wdn)%(chrt)X%(rg)  Y%(wdn)%(chrt)Y%(rg)  Z%(wdn)%(chrt)Z%(rg)"
 	--
 	if teachFont == "Wingdings"
 	{
@@ -501,7 +501,7 @@ Select.chartWDlower
 {
 	"\b2\f[height,22]\_q\![set,balloontimeout,-1]\*"
 	--
-	"a%(wdn)a%(rg)  b%(wdn)b%(rg)  c%(wdn)c%(rg)  d%(wdn)d%(rg)  e%(wdn)e%(rg)  f%(wdn)f%(rg)  g%(wdn)g%(rg)\n\n[half]h%(wdn)h%(rg)  i%(wdn)i%(rg)  j%(wdn)j%(rg)  k%(wdn)k%(rg)  l%(wdn)l%(rg)  m%(wdn)m%(rg)  n%(wdn)n%(rg)\n\n[half]o%(wdn)o%(rg)   p%(wdn)p%(rg)   q%(wdn)q%(rg)   r%(wdn)r%(rg)   s%(wdn)s%(rg)   t%(wdn)t%(rg)\n\n[half]u%(wdn)u%(rg)  v%(wdn)v%(rg)  w%(wdn)w%(rg)  x%(wdn)x%(rg)  y%(wdn)y%(rg)  z%(wdn)z%(rg)"
+	"a%(wdn)%(chrt)a%(rg)  b%(wdn)%(chrt)b%(rg)  c%(wdn)%(chrt)c%(rg)  d%(wdn)%(chrt)d%(rg)  e%(wdn)%(chrt)e%(rg)  f%(wdn)%(chrt)f%(rg)  g%(wdn)%(chrt)g%(rg)\n\n[half]h%(wdn)%(chrt)h%(rg)  i%(wdn)%(chrt)i%(rg)  j%(wdn)%(chrt)j%(rg)  k%(wdn)%(chrt)k%(rg)  l%(wdn)%(chrt)l%(rg)  m%(wdn)%(chrt)m%(rg)  n%(wdn)%(chrt)n%(rg)\n\n[half]o%(wdn)%(chrt)o%(rg)   p%(wdn)%(chrt)p%(rg)   q%(wdn)%(chrt)q%(rg)   r%(wdn)%(chrt)r%(rg)   s%(wdn)%(chrt)s%(rg)   t%(wdn)%(chrt)t%(rg)\n\n[half]u%(wdn)%(chrt)u%(rg)  v%(wdn)%(chrt)v%(rg)  w%(wdn)%(chrt)w%(rg)  x%(wdn)%(chrt)x%(rg)  y%(wdn)%(chrt)y%(rg)  z%(wdn)%(chrt)z%(rg)"
 	--
 	if teachFont == "Wingdings"
 	{
@@ -519,7 +519,7 @@ Select.chartWDpunct
 {
 	"\b2\f[height,22]\_q\![set,balloontimeout,-1]\*"
 	--
-	"` %(wdn)`%(rg)  1 %(wdn)1%(rg)  2 %(wdn)2%(rg)  3 %(wdn)3%(rg)  4 %(wdn)4%(rg)  5 %(wdn)5%(rg)\n\n[half]6 %(wdn)6%(rg)  7 %(wdn)7%(rg)  8 %(wdn)8%(rg)  9 %(wdn)9%(rg)  0 %(wdn)0%(rg)  - %(wdn)-%(rg)\n\n[half]= %(wdn)=%(rg)   \\ %(wdn)\\%(rg)   ~ %(wdn)~%(rg)   ! %(wdn)!%(rg)  @ %(wdn)@%(rg)   # %(wdn)#%(rg)\n\n[half]$ %(wdn)$%(rg)   % %(wdn)%%(rg)  ^ %(wdn)^%(rg)  & %(wdn)&%(rg)  * %(wdn)*%(rg)\n\n[half]( %(wdn)(%(rg)  ) %(wdn))%(rg)  _ %(wdn)_%(rg)  + %(wdn)+%(rg)   | %(wdn)|%(rg)  [ %(wdn)[%(rg)\n\n[half]] %(wdn)]%(rg)  { %(wdn){%(rg)  } %(wdn)}%(rg)   ; %(wdn);%(rg)   ' %(wdn)'%(rg)  : %(wdn):%(rg)  %(CHR(0x22)) %(wdn)%(CHR(0x22))%(rg)\n\n[half], %(wdn),%(rg)  . %(wdn).%(rg)   / %(wdn)/%(rg)  < %(wdn)<%(rg)  > %(wdn)>%(rg)  ? %(wdn)?%(rg)"
+	"` %(wdn)%(chrt)`%(rg)  1 %(wdn)%(chrt)1%(rg)  2 %(wdn)%(chrt)2%(rg)  3 %(wdn)%(chrt)3%(rg)  4 %(wdn)%(chrt)4%(rg)  5 %(wdn)%(chrt)5%(rg)\n\n[half]6 %(wdn)%(chrt)6%(rg)  7 %(wdn)%(chrt)7%(rg)  8 %(wdn)%(chrt)8%(rg)  9 %(wdn)%(chrt)9%(rg)  0 %(wdn)%(chrt)0%(rg)  - %(wdn)%(chrt)-%(rg)\n\n[half]= %(wdn)%(chrt)=%(rg)   \\ %(wdn)%(chrt)\\%(rg)   ~ %(wdn)%(chrt)~%(rg)   ! %(wdn)%(chrt)!%(rg)  @ %(wdn)%(chrt)@%(rg)   # %(wdn)%(chrt)#%(rg)\n\n[half]$ %(wdn)%(chrt)$%(rg)   % %(wdn)%(chrt)%%(rg)  ^ %(wdn)%(chrt)^%(rg)  & %(wdn)%(chrt)&%(rg)  * %(wdn)%(chrt)*%(rg)\n\n[half]( %(wdn)%(chrt)(%(rg)  ) %(wdn)%(chrt))%(rg)  _ %(wdn)%(chrt)_%(rg)  + %(wdn)%(chrt)+%(rg)   | %(wdn)%(chrt)|%(rg)  [ %(wdn)%(chrt)[%(rg)\n\n[half]] %(wdn)%(chrt)]%(rg)  { %(wdn)%(chrt){%(rg)  } %(wdn)%(chrt)}%(rg)   ; %(wdn)%(chrt);%(rg)   ' %(wdn)%(chrt)'%(rg)  : %(wdn)%(chrt):%(rg)  %(CHR(0x22)) %(wdn)%(chrt)%(CHR(0x22))%(rg)\n\n[half], %(wdn)%(chrt),%(rg)  . %(wdn)%(chrt).%(rg)   / %(wdn)%(chrt)/%(rg)  < %(wdn)%(chrt)<%(rg)  > %(wdn)%(chrt)>%(rg)  ? %(wdn)%(chrt)?%(rg)"
 	--
 	if teachFont == "Wingdings"
 	{
@@ -1862,7 +1862,7 @@ Select.checkobsidian
 	}
 	if ghostexcount == 0
 	{
-		"* Who even needs other ghosts when you've got her?"
+		"* Who needs other ghosts when you've got her?"
 	}
 	if recenttreats == 0
 	{

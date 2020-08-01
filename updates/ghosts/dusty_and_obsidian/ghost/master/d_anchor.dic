@@ -111,6 +111,15 @@ OnTranslate
 	_talk = REPLACE(_talk, "trgr", "\_a[greaterthan]%(wdn)%(CHR(0x3E))%(rg)")
 	_talk = REPLACE(_talk, "trqs", "\_a[question]%(wdn)?%(rg)")
 	
+	_talk = REPLACE(_talk, "trcco", "\_a[Ccomma]%(wdn)%(CHR(0x2C))%(rg)")
+	_talk = REPLACE(_talk, "trcpr", "\_a[Cperiod]%(wdn)%(CHR(0x2E))%(rg)")
+	_talk = REPLACE(_talk, "trc!", "\_a[Cexclamation]%(wdn)!%(rg)")
+	_talk = REPLACE(_talk, "trcqs", "\_a[Cquestion]%(wdn)?%(rg)")
+	_talk = REPLACE(_talk, "trc'", "\_a[Capostrophe]%(wdn)'%(rg)")
+	_talk = REPLACE(_talk, "trc-", "\_a[Cdash]%(wdn)-%(rg)")
+	_talk = REPLACE(_talk, "trc:", "\_a[Ccolon]%(wdn):%(rg)")
+	_talk = REPLACE(_talk, "trc;", "\_a[Csemicolon]%(wdn);%(rg)")
+	
 	_talk = REPLACE(_talk, "anMoon01", "\_a[CheckWeather]\_b[img\Moon01,inline,--option=use_self_alpha]\_a")
 	_talk = REPLACE(_talk, "anMoon02", "\_a[CheckWeather]\_b[img\Moon02,inline,--option=use_self_alpha]\_a")
 	_talk = REPLACE(_talk, "anMoon03", "\_a[CheckWeather]\_b[img\Moon03,inline,--option=use_self_alpha]\_a")
@@ -741,6 +750,54 @@ OnAnchorSelect
 				currentlytranslating += "?"
 				--
 				TranslationPunctuation
+			}
+			when "Ccomma"
+			{
+				currentlytranslating += ","
+				--
+				TranslationProgress
+			}
+			when "Cperiod"
+			{
+				currentlytranslating += "."
+				--
+				TranslationProgress
+			}
+			when "Cexclamation"
+			{
+				currentlytranslating += "!"
+				--
+				TranslationProgress
+			}
+			when "Cquestion"
+			{
+				currentlytranslating += "?"
+				--
+				TranslationProgress
+			}
+			when "Capostrophe"
+			{
+				currentlytranslating += "'"
+				--
+				TranslationProgress
+			}
+			when "Cdash"
+			{
+				currentlytranslating += "-"
+				--
+				TranslationProgress
+			}
+			when "Ccolon"
+			{
+				currentlytranslating += ":"
+				--
+				TranslationProgress
+			}
+			when "Csemicolon"
+			{
+				currentlytranslating += ";"
+				--
+				TranslationProgress
 			}
 			when "CheckWeather"
 			{
