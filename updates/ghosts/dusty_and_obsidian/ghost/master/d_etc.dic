@@ -527,7 +527,7 @@ OnUpdateCheckComplete //When the ghost finishes checking for updates
 	if reference0 != "none" //If there are no new files
 	{
 		_files = ARRAYSIZE(reference1)
-		//_files++
+		_files++
 		if AutoUpdateCheck == 1
 		{
 			AutoUpdateCheck = 0
