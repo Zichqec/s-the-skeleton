@@ -1,0 +1,1 @@
+Hey there! This is a shell for S the Skeleton, of him in a pink apron. I could've probably made it a dress up item, but.... enh. I wanted to do it this way, so.. shrug XD
