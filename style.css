@@ -114,6 +114,18 @@ h6
     text-align: center;
 }
 
+.flLf
+{
+    float: left;
+}
+
+.sBs
+{
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .center
 {
     display: block;
