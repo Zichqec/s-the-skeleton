@@ -1,4 +1,4 @@
-Hello, and thank you for downloading the S ghost! S is an Undertale based OC of mine who I draw entirely too much. (No, he's not a Sans.) This ghost does contain a lot of dark themes and convoluted writing, you have been warned. I mostly just made this for my own sake, but if he can entertain you for a while then I'm glad! If you haven't used a ghost before, basic ghost instructions are at the bottom of this readme!
+Hello, and thank you for downloading the S ghost! S is an Undertale based OC of mine who I draw entirely too much. (No, he's not Sans.) This ghost does contain a lot of dark themes and convoluted writing, you have been warned. I mostly just made this for my own sake, but if he can entertain you for a while then I'm glad! If you haven't used a ghost before, basic ghost instructions are at the bottom of this readme!
 
 S is still somewhat of a work in progress, I'd like to add a lot more to the menus and add lots more dialogue, but I hope you'll enjoy what I've made so far!
 S features a simple relationship system; if you're kind to him he'll eventually come to trust and appreciate you. You can hit him if you want, but why would you want to do that?
@@ -32,7 +32,7 @@ If you've not used a ghost before, here's a basic rundown.
 -Press Ctrl U to have him update himself, if an update is available.
 -Press Ctrl Shft f12 to bring him back on screen if you can't reach him.
 -If you want him to stay on top of your windows, right click him and go to Options>Preferences, go to the Ghost(2) tab, and tick the box that says 'Always Show Foreground' near the top
--If he gets minimized, you can bring him back again by right clicking on the red hoodie icon in your system tray and clicking 'Iconify'.
+-If he gets minimized, you can bring him back again by right clicking on the red hoodie icon in your system tray and clicking 'Minimize'.
 
 He can also do basic ghost functions such as:
 

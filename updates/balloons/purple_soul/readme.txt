@@ -10,6 +10,6 @@ http://ashido.com/ukagaka/
 
 --------Version History
 
-
+Ver 1.2 - Added a kero marker now that they're available, you'll have to use an up to date version of SSP to see it! Also added some more balloons for an edge case I may have in the future
 Ver 1.1 - Fixed small error with the choice marker not being fully transparent, changed the Kero's balloons to be blue rather than purple
 Ver 1.0 - Balloon Release

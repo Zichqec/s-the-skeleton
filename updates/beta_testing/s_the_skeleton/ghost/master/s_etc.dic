@@ -1350,6 +1350,7 @@ OnUpdateReady
 
 OnUpdateComplete
 {
+	booting = 0
 	updateavailable = 0
 	if reference0 == "none" //if the ghost had nothing to update with
  	{
@@ -1380,131 +1381,49 @@ OnUpdateComplete
 	}
  	else //if the ghost has updated successfully
 	{
-		if reference3 == "balloon"
+		OnSetUpdateVariables //This directs over to Bootend, where new variables will be initialized if they aren't already
+		askedalready = 0
+		--
+		"* (An update is available for the Purple Soul balloon. Would you like to download it now?)\n\n* (If you are not using the Purple Soul balloon, you will have to switch to it in order to update.)\n\n\![*]\q[Yes,OnAskChangelog,updateballoon]\n\![*]\q[No,OnAskChangelog,dont]\*\e"
+ 	}
+}
+
+OnAskChangelog
+{
+	if reference0 == "updateballoon"
+	{
+		"\![update,balloon]"
+	}
+	else
+	{
+		"* (You can update the balloon later from the 'do something for you' menu, or copy the files for purple_soul in S's folder to your SSP/balloon folder.)\x"
+	}
+	--
+	if nowmode == "RYS"
+	{
+		"\RYS\s[2007]...Update complete.\w8\w8\s[2006] Do you want to see the changelog..?"
+	}
+	else
+	{
+		if LV == 0
 		{
-			if nowmode == "RYS"
-			{
-				"\RYS\s[2006]I've finished updating the balloon...\e"
-			}
-			else
-			{
-				if LV == 0
-				{
-					"\0\s[104]Balloon update complete!\e"
-				}
-				else
-				{
-					if LVCheck == 1
-					{
-						"\0\s[510]...Balloon update complete.\e"
-					}
-					else
-					{
-						"\0\s[410]Done.\w8\w8 Whatever.\e"
-					}
-				}
-			}
+			"\0\s[1010]Update complete!\w8\w8\s[0] Do you want to see the changelog?"
 		}
 		else
 		{
-			if Update1p2p0 == "" //Update 1.2 variables - Same as below. I stg I'll add a version number in this update...
+			if LVCheck == 1
 			{
-				Update1p2p0 = "1.2.0"
-				totalboops = 0
-				weatherupdateminute = 0
-				weatherquiet = 0
-				todaysingredients = ""
-				totalwaters = 0
-				currentlydrinkingw = 0
-				currentlydrinkingj = 0
-				currentlydrinkingm = 0
-				switchingtoshell = ""
-				CurrentXMonitor = 1
-				CurrentYMonitor = 1 //FIX THESE
-				CurrentXPos = 0
-				CurrentYPos = 0
-				NewXMonitor = 0
-				NewYMonitor = 0
-				XCoord = 0
-				YCoord = 0
-				SinceTalk = 0
-				FromDragging = 0
-				CameBack = 0 //needs to be in OnBoot too
-				Dragged = 0
-				beenbackwards = 0
-			}
-			if poppable == "" //Update 1.1 variables - These wont be set if they've already been set once
-			{
-				DeviceMemories = ""
-				DeviceList = '-' //start with -
-				knowaboutkit = 0
-				knowaboutsmol = 0
-				continuousstroke = 0
-				totalsnags = 0
-				totalpunches = 0
-				pethighscore = 0
-				scroll = 0
-				talkedtoDusty = 0
-				AzuraSongMemories = ""
-				staysafe = 0
-				mailfrommenu = 0
-				knowaboutbirdy = 0
-				knowaboutsorrel = 0
-				knowaboutpmd = 0
-				knowaboutbender = 0
-				knowaboutnine = 0
-				knowaboutserif = 0
-				knowaboutecho = 0
-				knowaboutice = 0
-				knowaboutomega = 0
-				balloonspopped = 0
-				poppable = "OFF"
-				specialcommu = 0
-				complimentaboutdusty = 0
-				dustyspaceandtime = 0
-				totalhugs = 0
-				hugged = 0
-				abbiblind = 0
-				nowscale = 100
-				changedscaling = 0
-			}
-			askedalready = 0
-			--
-			if SongMemories == "-"
-			{
-				SongMemories = ""
-			}
-			--
-			
-			if nowmode == "RYS"
-			{
-				"\RYS\s[2007]...Update complete.\w8\w8\s[2006] Do you want to see the changelog..?"
+				"\0\s[510]...Update complete.\w8\w8\s[516] Do you want to see the changelog?"
 			}
 			else
 			{
-				if LV == 0
-				{
-					"\0\s[1010]Update complete!\w8\w8\s[0] Do you want to see the changelog?"
-				}
-				else
-				{
-					if LVCheck == 1
-					{
-						"\0\s[510]...Update complete.\w8\w8\s[516] Do you want to see the changelog?"
-					}
-					else
-					{
-						"\0\s[402]Update complete.\e" //No he's not going to offer you the changelog lol
-					}
-				}
+				"\0\s[402]Update complete.\e" //No he's not going to offer you the changelog lol
 			}
-			--
-			"\n\n\![*]\q[Yes,seechangelog]\n\![*]\q[No,nochangelog]\e"
 		}
- 	}
-	booting = 0
+	}
+	--
+	"\n\n\![*]\q[Yes,seechangelog]\n\![*]\q[No,nochangelog]\e"	
 }
-
  //---- OnUpdateFailure -------------------------------------------------------------
  //Error messages if the update process fails in some way.
  
@@ -1741,23 +1660,18 @@ OnChangeLog //[Zi] haha I hope I remember to update this
 		"\RYS"
 	}
 	--
-	"\![set,autoscroll,disable]\_q\b2\_l[90]-Version 1.1-\n\n/ 
-	+Added blinking animations!\n\n/
-	+New shell: Pink Apron!\n\n/
-	+Added blip in animations!\n\n/
-	+New timelines menu that can be unlocked by asking him about timelines\n\n/
-	+Added lots more dialogue to the family menu\n\n/
-	+You can now ask about skeletons in general\n\n/
-	+There may be special dialogue if you pet him for a while without stopping...\n\n/
-	*Head collisions vastly improved\n\n/
-	*Slight improvements to the balloon\n\n/
-	*Rebalanced dialogue, dynamic dialogue should appear more often now\n\n/
-	*Changed the update system, it should be much faster next update!\n\n/
-	*Added colors when referencing certain characters, to help differentiate them\n\n/
-	*Various QoL tweaks and bugfixes\n\n/
-	-Option to ask about your music will only show if you're using a compatible player now (foobar2000, winamp, VLC)\n\n\n/
-	\_l[90]-Hotfix 1.1.1-\n\n/
-	*Fixed a couple typos and formatting issues, if you find any more please do contact me and let me know!\n\n\n"
+	"\![set,autoscroll,disable]\_q\b2\_l[90]-Version 1.2.0-\n\n/ 
+	-Updated the balloon. If the balloon looks strange while using the Timeline menu, you can download it here, or change your balloon to Purple Soul and ask S to update from the 'do something for you' menu!\n\n/
+	-Added a new secret mode! If you don't mind spoilers and want to know how to unlock it, you can check on my website here.\n\n/
+	-S can now check the weather! If you've checked the weather recently, or if you have auto weather updates on, he may comment on the weather randomly!\n\n/
+	-S will now comment if you move him far enough across your screen, or move him onto a secondary monitor.\n\n/
+	-S can now comment on how much trash you're hoarding in your recycle bin!\n\n/
+	-He may also comment if you plug in a tablet, if you allow him to see programs on your PC.\n\n/
+	-S can now display email headers when he checks your email!\n\n/
+	-You can boop his nose if your friendship is high!\n\n/
+	-Lots of new dialogue, patched bugs,a few new expressions, and cleaned up code! Drastically less spaghetti.\n\n/
+	-Balloons and position on screen will now sync across shells.\n\n/
+	-You can opt in to beta updates! This is intended for folks on the Ukagaka Dream Team Discord server. If you'd like to help me test updates, and see new features before they're live, join us! If you're going to opt in, PLEASE BACKUP YOUR SAVE.\n\n"
 	--
 	if reference0 == "frommenu"
 	{

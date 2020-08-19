@@ -26,7 +26,14 @@ On_username
 
 On_homeurl
 {
-	"https://zichqec.github.io/s-the-skeleton/updates/ghosts/s_the_skeleton/"
+	if betaTester == "ON"
+	{
+		"https://zichqec.github.io/s-the-skeleton/beta_testing/ghosts/s_the_skeleton/"
+	}
+	else
+	{
+		"https://zichqec.github.io/s-the-skeleton/updates/ghosts/s_the_skeleton/"
+	}
 }
 
 

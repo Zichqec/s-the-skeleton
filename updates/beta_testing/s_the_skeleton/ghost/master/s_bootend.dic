@@ -1,6 +1,7 @@
 ﻿//---------------------------Booting and Ending--------------------------
 OnFirstBoot
 {
+	FirstVars
 	if reference0 == 0 //Don't touch this line.
  	{
 		"\0\s[-1]\![enter,passivemode]\0\s[1110]\w8Wh- \w8\w8 ...Oh,\w4 another timeline..?\w8\w8\n\n\s[110]Oh,\w4\s[1020] uh,\w4 hi there.\w8\w8\s[106] Sorry,\w4 I hope I'm not bothering you.\w8\w8\s[107] I have a tendency to fall into random timelines,\w4 I'll probably disappear again soon.\w8\w8\s[208]\n\nLooks like...\w8\w8 a computer this time?\w8\w8\s[107] Could be worse,\w4 I guess.\w8\w8\n\n\s[104]So ah,\w4 my name's S.\w8\w8\s[0] What's yours?\![leave,passivemode]\![open,inputbox,OnNameTeach,-1]\e"
@@ -53,7 +54,7 @@ OnBoot
 			{
 				if RYSprogress == 0
 				{
-					nowmode == "RYS"
+					nowmode = "RYS"
 					RYSprogress = 1
 					RYSboots = 1
 					RYSunlockDate = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)")
@@ -229,7 +230,7 @@ OnClose
 	{
 		if nowmode == "RYS"
 		{
-			if RYSProgress == 4
+			if RYSprogress == 4
 			{
 				RYSprogress = 5
 			}
@@ -359,6 +360,11 @@ OnClose
  	{
 		if nowmode == "RYS"
 		{
+			if RYSprogress == 4
+			{
+				RYSprogress = 5
+			}
+			--
 			if RYStrust > 100
 			{
 				"\RYS\s[2006]Oh,\w4 already..?\w8\w8\s[2007] Ok..."
@@ -510,7 +516,7 @@ OnGhostChanging
 	{
 		if nowmode == "RYS"
 		{
-			if RYSProgress == 4
+			if RYSprogress == 4
 			{
 				RYSprogress = 5
 			}
@@ -638,7 +644,25 @@ OnGhostChanged
 		{
 			if LV == 0 //Friendship routes
 			{
-				"\0\s[110]Was that %(reference0) leaving?\e" //Could use the mild surprise frame here
+				if (dayslot == "8month 25day" || ((hour == 8 || hour == 20) && minute == 25)) && LVCheck == 1 && RYSprogress == 0 //If it's August 25th, or if the time is 8:25 AM or PM
+				{
+					if RYSprogress == 0
+					{
+						nowmode = "RYS"
+						RYSprogress = 1
+						RYSboots = 1
+						RYSunlockDate = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)")
+						"\0\s[-1]\RYS\s[2790].\w8.\w8.\w8.\w8\s[2015]!\w8\w8\w8\n\n\s[2004]* (This isn't S...\w8\w8 is it?)\w8\w8\w8\n\n\s[2007]* (He isn't saying anything...)\e"
+					}
+					else
+					{
+						"\0\s[1122]\w6\s[103]Hey there,\w4 %(username).\w8\s[1010] Did you call me here to wish me a happy birthday?\e"
+					}
+				}
+				else
+				{
+					"\0\s[110]Was that %(reference0) leaving?\e" //Could use the mild surprise frame here
+				}
 			}
 			elseif LV > 0 //Negative routes
 			{
@@ -876,7 +900,6 @@ BootVars
 	flattered = 0
 	complimented = 0
 	comforted = 0
-	displaymin = 0
 	lookingatphone = 0
 	talkedaboutpast = 0
 	lastinteracted = 0
@@ -909,6 +932,106 @@ BootVars
 		Sboots++
 	}
 	weatherquiet = 2 //setting this so we can check later and if it's 2, do a weather check earlier than an hour...
+}
+
+//Variables set after updates, because I have no self control
+OnSetUpdateVariables
+{
+	if Update1p2p0 == "" //Update 1.2.0 variables - Same as below. I stg I'll add a version number in this update...
+	{
+		Update1p2p0 = "1.2.0"	
+		totalboops = 0
+		weatherquiet = 0
+		todaysingredients = ""
+		totalwaters = 0
+		currentlydrinking = 0
+		switchingtoshell = ""
+		CurrentXMonitor = 0
+		CurrentYMonitor = 0
+		CurrentXPos = 0
+		CurrentYPos = 0
+		NewXMonitor = 0
+		NewYMonitor = 0
+		XCoord = 0
+		YCoord = 0
+		SinceTalk = 0
+		FromDragging = 0
+		CameBack = 0
+		Dragged = 0
+		beenbackwards = 0
+		askedalready = 0
+		talkedtoAzura = 0
+		nowmode = "Default"
+		RYS = "RYS-0825"
+		RYStrust = 0
+		RYSprogress = 0
+		askedWhoRYS = 0
+		knowaboutABI = 0
+		askedaboutABI = 0
+		RYSwater = 0
+		RYSsnacks = 0
+		RYSblankets = 0
+		RYSbooks = 0
+		RYSrecentBlankets = 0
+		RYSrecentBooks = 0
+		RYShugs = 0
+		RYScomforted = 0
+		RYShours = 0
+		RYSpets = 0
+		DeviceList = ""
+		DeviceMemories = ""
+		VLCSong = ""
+		RYSboots = 0
+		Sboots = 0
+		RYSlearn = (0,0,0,0)
+		talkedtoTemmie = 0
+		MultiMonitor = 0
+		givensocks = 0
+		givenblankets = 0
+		givenmittens = 0
+		scaled = 0
+		betaTester = "OFF"
+		installdate = ("","","","","","")
+	}
+	if poppable == "" //Update 1.1 variables - These wont be set if they've already been set once
+	{
+		DeviceMemories = ""
+		DeviceList = '-' //start with -
+		knowaboutkit = 0
+		knowaboutsmol = 0
+		continuousstroke = 0
+		totalsnags = 0
+		totalpunches = 0
+		pethighscore = 0
+		scroll = 0
+		talkedtoDusty = 0
+		AzuraSongMemories = ""
+		staysafe = 0
+		mailfrommenu = 0
+		knowaboutbirdy = 0
+		knowaboutsorrel = 0
+		knowaboutpmd = 0
+		knowaboutbender = 0
+		knowaboutnine = 0
+		knowaboutserif = 0
+		knowaboutecho = 0
+		knowaboutice = 0
+		knowaboutomega = 0
+		balloonspopped = 0
+		poppable = "OFF"
+		specialcommu = 0
+		complimentaboutdusty = 0
+		dustyspaceandtime = 0
+		totalhugs = 0
+		hugged = 0
+		abbiblind = 0
+		nowscale = 100
+		changedscaling = 0
+	}
+	if SongMemories == "-"
+	{
+		SongMemories = ""
+	}
 }
 
 //Variables for firstboot, and resetting
@@ -965,7 +1088,6 @@ FirstVars
 	knowmorethanyoushould = 0
 	thatsanoddnumber = 0
 	totalhours = 0
-	displaymin = 0
 	lookingatphone = 0
 	lastinteracted = 0
 	totalpets = 0
@@ -1034,8 +1156,60 @@ FirstVars
 	abbiblind = 0
 	nowscale = 100
 	changedscaling = 0
+	//---Update 1.2.0---
 	installdate = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)")
-	
+	Update1p2p0 = "1.2.0"	
+	totalboops = 0
+	weatherquiet = 0
+	todaysingredients = ""
+	totalwaters = 0
+	currentlydrinking = 0
+	switchingtoshell = ""
+	CurrentXMonitor = 0
+	CurrentYMonitor = 0
+	CurrentXPos = 0
+	CurrentYPos = 0
+	NewXMonitor = 0
+	NewYMonitor = 0
+	XCoord = 0
+	YCoord = 0
+	SinceTalk = 0
+	FromDragging = 0
+	CameBack = 0
+	Dragged = 0
+	beenbackwards = 0
+	askedalready = 0
+	talkedtoAzura = 0
+	nowmode = "Default"
+	RYS = "RYS-0825"
+	RYStrust = 0
+	RYSprogress = 0
+	askedWhoRYS = 0
+	knowaboutABI = 0
+	askedaboutABI = 0
+	RYSwater = 0
+	RYSsnacks = 0
+	RYSblankets = 0
+	RYSbooks = 0
+	RYSrecentBlankets = 0
+	RYSrecentBooks = 0
+	RYShugs = 0
+	RYScomforted = 0
+	RYShours = 0
+	RYSpets = 0
+	DeviceList = ""
+	DeviceMemories = ""
+	VLCSong = ""
+	RYSboots = 0
+	Sboots = 0
+	RYSlearn = (0,0,0,0)
+	talkedtoTemmie = 0
+	MultiMonitor = 0
+	givensocks = 0
+	givenblankets = 0
+	givenmittens = 0
+	scaled = 0
+	betaTester = "OFF"
 	
 	updateavailable = 0
 	booting = 1 //This is here so that when you tell him your name the first time, he'll say the appropriate line.

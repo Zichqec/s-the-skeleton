@@ -166,6 +166,7 @@ OnQuestionsRYS
 
 OnAboutRYS : nonoverlap
 {
+	RYStrust++
 	"\RYS\s[2006]Um...\w8\w8 there's not much to say about me,\w4 really...\w8\w8\s[2007] I'm just an assistant..."
 	"\RYS\s[2007]I help the Doctor around the lab...\w8\w8\s[2013] Whatever he needs..."
 	"\RYS\s[2008]...I'm not supposed to talk,\w4 usually..."
@@ -182,6 +183,7 @@ OnAboutRYS : nonoverlap
 
 OnRYSFamily : nonoverlap
 {
+	RYStrust++
 	"\RYS\s[2006]Um...\w8\w8\s[2007] What's a 'family'..?"
 	"\RYS\s[2008]I'm sorry,\w4 I don't know what that is..."
 	"\RYS\s[2007]Um,\w4 is that something people have..?\w8\w8\s[2006] The Doctor made me,\w4 I don't have anything like that..."
@@ -197,6 +199,7 @@ OnRYSFamily : nonoverlap
 
 OnAboutDoctor : nonoverlap
 {
+	RYStrust++
 	"\RYS\s[2007]He's tall,\w4 and always looks stern...\w8\w8\n\n\s[2014]* (He shudders slightly.)"
 	"\RYS\s[2008]Um,\w4 he doesn't have arms...\w8\w8\s[2006] Just floating hands.\w8\w8\s[2007] That makes him more scary,\w4 though...\w8\w8\s[2014] He can grab you from anywhere."
 	"\RYS\s[2008]...He doesn't like me talking unless he asks me a question."
@@ -212,6 +215,7 @@ OnAboutDoctor : nonoverlap
 
 OnRYSTimelines : nonoverlap
 {
+	RYStrust++
 	"\RYS\s[2006]I'm sorry,\w4 I don't know anything about that..."
 	"\RYS\s[2007]Um,\w4 I have no idea what that means..."
 	"\RYS\s[2006].\w8.\w8.\w8What's a 'timeline'..?"
@@ -224,14 +228,24 @@ OnRYSTimelines : nonoverlap
 
 OnAboutABI : nonoverlap
 {
-	"\RYS\s[2006]Um,\w4 he's not an assistant like me...\w8\w8\s[2007] Just a test subject..."
-	"\RYS\s[2014]...He can't see,\w4 anymore..."
-	"\RYS\s[2007]He's very fragile...\w8\w8\s[2006] I think the Doctor said he was sick,\w8\s[2014] before he...\w8\w8\w8\n\n\s[2008]Um,\w4 I think the Doctor's trying to learn how to fix it..."
-	"\RYS\s[2008]...He's very small,\w4 smaller than me..."
-	"\RYS\s[2007]...He cries a lot,\w4 when the Doctor isn't around..."
-	"\RYS\s[2006]He heals very quickly...\w8\w8\s[2007] The Doctor is very interested in that,\w4 though I'm not sure why..."
-	"\RYS\s[2007]...He can't fight,\w4 at all.\w8\w8\s[2006] The Doctor made it so he can't summon attacks,\w4 not even bones...\w8\w8\s[2008] I hope he doesn't do that to me..."
-	"\RYS\s[2008]He never resists,\w4 he's too fragile for that..."
+	RYStrust++
+	if askedaboutABI == 0
+	{
+		askedaboutABI = 1
+		"\RYS\s[2007]Oh,\w4 he's another skeleton...\w8\w8\s[2006] The doctor made him,\w4 like he made me.\w8\w8\s[2013] But,\w4 he's not an assistant like I am..."
+	}
+	else
+	{
+		"\RYS\s[2007]Oh,\w4 he's another skeleton...\w8\w8\s[2006] The doctor made him,\w4 like he made me...\w8\w8\s[2013] But,\w4 he's not an assistant like I am..."
+		"\RYS\s[2006]Um,\w4 he's not an assistant like me...\w8\w8\s[2007] Just a test subject..."
+		"\RYS\s[2014]...He can't see,\w4 anymore..."
+		"\RYS\s[2007]He's very fragile...\w8\w8\s[2006] I think the Doctor said he was sick,\w8\s[2014] before he...\w8\w8\w8\n\n\s[2008]Um,\w4 I think the Doctor's trying to learn how to fix it..."
+		"\RYS\s[2008]...He's very small,\w4 smaller than me..."
+		"\RYS\s[2007]...He cries a lot,\w4 when the Doctor isn't around..."
+		"\RYS\s[2006]He heals very quickly...\w8\w8\s[2007] The Doctor is very interested in that,\w4 though I'm not sure why..."
+		"\RYS\s[2007]...He can't fight,\w4 at all.\w8\w8\s[2006] The Doctor made it so he can't summon attacks,\w4 not even bones...\w8\w8\s[2008] I hope he doesn't do that to me..."
+		"\RYS\s[2008]He never resists,\w4 he's too fragile for that..."
+	}
 	--
 	"%(RYSquestions)"
 }
@@ -315,7 +329,7 @@ Select.CheckRYS
 	--
 	"\n\n\w8* You've run him for a total of %(RYShours) hours"
 	--
-	" ,"
+	", "
 	--
 	if RYShugs > 0
 	{
@@ -487,7 +501,7 @@ Select.RYSwater
 {
 	if givenwater < 8
 	{
-		RYStrust++
+		RYStrust += 3
 		RYSwater++
 		givenwater++
 		
@@ -532,7 +546,7 @@ Select.RYSsnack
 {
 	if givenfood < 5
 	{
-		RYStrust++
+		RYStrust += 5
 		RYSsnacks++
 		givenfood++
 		"\RYS\s[2006]* (You hand"
@@ -609,6 +623,7 @@ Select.RYSblanket
 		--
 		if RYStrust > 100
 		{
+			RYStrust++
 			"\s[2010]* (He runs his hands through the fabric a few times,\w8\s[2007] then tucks it between a couple of folders.)"
 			"\s[2010]* (He admires the warmth for a few moments,\w8\s[2007] then stashes it between a pair of %(filetype)s for later.)"
 			"\s[2010]* (He rubs the blanket between his hands,\w4 reveling in the feeling,\w8\s[2008] then stores it with some %(filetype)s.)"
@@ -725,6 +740,7 @@ OnConfigRYS
 	else; {menutemplocation = REPLACE(curlocation,",","\,")} //This makes it so all commas have a slash before them, meaning they'll display as commas instead of messing up the menu...
 	--
 	if autoupdate == ""; {autoupdate = "OFF"}
+	if betaTester == ""; {betaTester = "OFF"}
 	if poppable == ""; {poppable = "OFF"}
 	if deleteshitai == ""; {deleteshitai = "OFF"}
 	"\0\RYS\b[2]\_q\![set,autoscroll,disable]\_l[95]---Config---\n\n" 
@@ -756,6 +772,8 @@ OnConfigRYS
 	"\nCurrent location:                      \q[(Reset location),locationreset]\n\![*]\q[%(menutemplocation),changeweatherlocation]"
 	--*/
 	"\![*]Enable auto checking for updates?\n(Currently: \q[%(autoupdate),ToggleUpdate])\n\n"
+	--
+	"\n\n\![*]Opt in to beta updates? (Currently: \q[%(betaTester),ToggleBeta])"
 	//--
 	//"\![*]Do you want to hear a silly pop noise when you pop his balloons? (Currently: \q[%(poppable),ToggleBalloonPop])"
 	--

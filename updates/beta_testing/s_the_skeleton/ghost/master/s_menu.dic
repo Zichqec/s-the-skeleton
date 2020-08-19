@@ -291,11 +291,11 @@ askquestions //[Zi] Ok time to make my first menu... pls forgive me if this is m
 		{
 			if RYSprogress == 6
 			{
-				"\![*]\q[About %(RYS),whoisRYS]\n"
+				"\![*]\q[%(RYS) (RYS-0825),whoisRYS]\n"
 			}
 			else
 			{
-				"\![*]\q[About %(RYS),aboutRYS]\n"
+				"\![*]\q[%(RYS) (RYS-0825),aboutRYS]\n"
 			}
 		}
 		--
@@ -3061,21 +3061,10 @@ Select.configmenu
 
 TalkConfig
 {
-	if SeePC == "" //All of these are here because I made the buttons be toggles instead of having an ON and an OFF button. If anything happens to the variables that they get erased, they'll be set to OFF so that the user has something to click.
-	{
-		SeePC = "OFF"
-	}
-	--
-	if SeeNowPlaying == ""
-	{
-		SeeNowPlaying = "OFF"
-	}
-	--
-	if SeeDiscord == ""
-	{
-		SeeDiscord = "OFF"
-	}
-	--
+	//All of these are here because I made the buttons be toggles instead of having an ON and an OFF button. If anything happens to the variables that they get erased, they'll be set to OFF so that the user has something to click.
+	if SeePC == ""; {SeePC = "OFF"}
+	if SeeNowPlaying == ""; {SeeNowPlaying = "OFF"}
+	if SeeDiscord == ""; {SeeDiscord = "OFF"}
 	if AutoWeather == ""
 	{
 		AutoWeather = "OFF"
@@ -3089,29 +3078,13 @@ TalkConfig
 		phase = "Unknown"
 	}
 	--
-	if curlocation == ""
-	{
-		menutemplocation = "Set a location"
-	}
-	else
-	{
-		menutemplocation = REPLACE(curlocation,",","\,") //This makes it so all commas have a slash before them, meaning they'll display as commas instead of messing up the menu...
-	}
+	if curlocation == ""; {menutemplocation = "Set a location"}
+	else;{menutemplocation = REPLACE(curlocation,",","\,")} //This makes it so all commas have a slash before them, meaning they'll display as commas instead of messing up the menu...
 	--
-	if autoupdate == ""
-	{
-		autoupdate = "OFF"
-	}
-	--
-	if poppable == ""
-	{
-		poppable = "OFF"
-	}
-	--
-	if deleteshitai == ""
-	{
-		deleteshitai = "OFF"
-	}
+	if autoupdate == ""; {autoupdate = "OFF"}
+	if betaTester == ""; {betaTester = "OFF"}
+	if poppable == ""; {poppable = "OFF"}
+	if deleteshitai == ""; {deleteshitai = "OFF"}
 	--
 	"\0\b[2]\_q\![set,autoscroll,disable]\![raise,OnDialogueVariables,suppressCoordsOff]\_l[95]---Config---\n\n" 
 	//Autoscroll tag ensures that you stay at the top of the balloon when the menu is opened. Hopefully I'll be able to shrink the menu enough that it wont matter, but... we'll see.
@@ -3139,7 +3112,11 @@ TalkConfig
 	--
 	"\nCurrent location:                      \q[(Reset location),locationreset]\n\![*]\q[%(menutemplocation),changeweatherlocation]"
 	--
-	"\n\n\![*]Enable auto checking for updates?\n(Currently: \q[%(autoupdate),ToggleUpdate])\n\n\![*]Do you want to hear a silly pop noise when you pop his balloons? (Currently: \q[%(poppable),ToggleBalloonPop])"
+	"\n\n\![*]Enable auto checking for updates?\n(Currently: \q[%(autoupdate),ToggleUpdate])"
+	--
+	"\n\n\![*]Opt in to beta updates? (Currently: \q[%(betaTester),ToggleBeta])"
+	--
+	"\n\n\![*]Do you want to hear a silly pop noise when you pop his balloons? (Currently: \q[%(poppable),ToggleBalloonPop])"
 	--
 	"\n\n\![*]Enable Uninstall? (Currently: \q[%(deleteshitai),ToggleUninstall])\n\n[half]"
 	--
@@ -3523,6 +3500,41 @@ Select.ToggleUpdate
 	{
 		autoupdate = "OFF"
 	}
+	--
+	if nowmode == "RYS"
+	{
+		OnConfigRYS
+	}
+	else
+	{
+		TalkConfig
+	}
+}
+
+Select.ToggleBeta
+{
+	if betaTester != "ON"
+	{
+		"\b2* (Beta updates are mostly intended for members of the Ukagaka Dream Team Discord server. If you'd like to join and take part in beta updates, you can find the server \_a[https://ukagakadreamteam.tumblr.com/discord]here\_a! Either way, if you're going to take part in beta testing, I HIGHLY RECOMMEND making a backup of your save. Make a copy of yaya_variable.cfg, which is found in:\nSSP/ghost/s_the_skeleton/ghost/master\nand keep it safe. If a beta update damages your save, please contact me and I'll do my best to help you sort it out!)\n\n\![*]\q[Accept the risk and opt in,OptInBeta]\n\![*]\q[No thanks,toconfig]\e"
+	}
+	else
+	{
+		betaTester = "OFF"
+	}
+	--
+	if nowmode == "RYS"
+	{
+		OnConfigRYS
+	}
+	else
+	{
+		TalkConfig
+	}
+}
+
+Select.OptInBeta
+{
+	betaTester = "ON"
 	--
 	if nowmode == "RYS"
 	{

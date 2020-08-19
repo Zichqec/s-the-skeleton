@@ -392,6 +392,18 @@ displayhour
 	}
 }
 
+displaymin
+{
+	if passmin <= 9
+	{
+		"0%(passmin)"
+	}
+	else
+	{
+		"%(passmin)"
+	}
+}
+
 displayweekday
 {
 	if wd == "Sun"
@@ -556,18 +568,30 @@ season
 	}
 }
 
-loadingmoon
+/*loadingmoon
 {
 	"\_b[img\Moon0%(loadmoonnum),inline,--option=use_self_alpha]\w4\c"
 	--
 	if loadmoonnum < 8
 	{
-		loadmoonnum += 1
+		loadmoonnum++
 	}
 	else
 	{
 		loadmoonnum = 1
 	}
+}*/
+
+loadingmoon : sequential //Changed the loadingmoon thing to just use sequential, it's less prone to bugs and means I don't need a variable!
+{
+	"\_b[img\Moon01,inline,--option=use_self_alpha]\w4\c"
+	"\_b[img\Moon02,inline,--option=use_self_alpha]\w4\c"
+	"\_b[img\Moon03,inline,--option=use_self_alpha]\w4\c"
+	"\_b[img\Moon04,inline,--option=use_self_alpha]\w4\c"
+	"\_b[img\Moon05,inline,--option=use_self_alpha]\w4\c"
+	"\_b[img\Moon06,inline,--option=use_self_alpha]\w4\c"
+	"\_b[img\Moon07,inline,--option=use_self_alpha]\w4\c"
+	"\_b[img\Moon08,inline,--option=use_self_alpha]\w4\c"
 }
 
 

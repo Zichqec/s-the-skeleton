@@ -1836,15 +1836,6 @@ Hourcheck
 			phase = "Unknown"
 		}
 	}
-	--
-	if passmin <= 9
-	{
-		displaymin = "0" + passmin //[Zi]maaaaybe?? -- Yes ok this works, this makes it so the minutes on the runtime have a 0 if they're under 9, so they format correctly. This is the kind of stupid detail that bothers me a lot.
-	}
-	elseif passmin >=10
-	{
-		displaymin = passmin
-	}
 }
 
 /*
