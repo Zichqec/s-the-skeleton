@@ -170,13 +170,13 @@ OnUpdate.OnDownloadBegin //Taken from the GT template because I see no reason to
 
 	while _PointA <= Update_Process
 	{
-		_txt += ">"
+		_txt += "O"
 		_PointA++
 	}
 	//see above except for blank boxes
 	while _PointB <= Update_Remaining
 	{
-		_txt += "<"
+		_txt += "o"
 		_PointB++
 	}
 	--
