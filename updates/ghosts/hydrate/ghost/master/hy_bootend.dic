@@ -1,0 +1,131 @@
+OnFirstBoot //Dialogue when you first open the ghost
+{
+	//Initialize all your variables here!
+	lastTalk = ""
+	passsec = 0
+	passmin = 0
+	passhour = 0
+	nowshell = "Clear"
+	talkrate = "every hour"
+	aitalkinterval = 3600
+	deleteshitai = "OFF"
+	todayswaters = 0
+	
+	booting = 0 //This will be set to 0 after firstboot is complete
+	
+	"\0\s[0](Thank you for choosing to hydrate.)\w8\n\n(Reminders will be issued every hour;\w4 double click the bottle if you'd like to change the rate or switch shells!)"
+}
+
+OnBoot //Normal booting
+{
+	lastTalk = ""
+	passsec = 0
+	passmin = 0
+	passhour = 0
+	todayswaters = 0
+	booting = 0
+	
+	"\1\s[-1]\0\s[0]"
+	--
+	"\0\s[0](Thank you for choosing to hydrate today.)\w8\n\n"
+	--
+	if talkrate != "off"
+	{
+		"(Reminders are set to be issued %(talkrate).)\w8\n\n"
+		"(Reminders are set for %(talkrate).)\w8\n\n"
+		"(Reminders are set to %(talkrate).)\w8\n\n"
+		"(You will be given reminders %(talkrate).)\w8\n\n"
+		"(You will be given a reminder %(talkrate).)\w8\n\n"
+	}
+	else
+	{
+		"(Reminders are currently off.)\w8\n\n"
+	}
+	--
+	"(You've got this!)\e"
+	"(Take care of yourself!)\e"
+	"(Be good to you!)\e"
+	"(It's ok to miss one,\w4 but try not to miss two in a row!)\e"
+}
+
+OnClose
+{
+	if todayswaters > 0
+	{
+		"\0\s[0](You took %(todayswaters) sips of water today,\w4 well done!)"
+	}
+	else
+	{
+		"\0\s[0](Take care!)"
+	}
+	--
+	"\w8\w8\-\e"
+}
+
+OnWindowStateRestore //When you bring the ghost back up after minimizing it
+{
+	"\0\s[0]I'm back!\e"
+}
+
+OnGhostChanging //Changing to another ghost
+{
+	if reference0 == "Hydrate" //If reloading
+	{
+		"\0\s[0](Reloading!)\e"
+	}
+	else
+	{
+		if todayswaters > 0
+		{
+			"\0\s[0](You took %(todayswaters) sips of water today,\w4 well done!)\e"
+		}
+		else
+		{
+			"\0\s[0](Remind %(reference0) to hydrate too!)\e"
+		}
+	}
+}
+
+OnGhostChanged //After switching
+{
+	"\1\s[-1]\0\s[0]"
+	--
+	if reference0 == "Hydrate" //Finished reloading
+	{
+		"(Finished!)\e"
+	}
+	else
+	{
+		OnBoot
+	}
+}
+
+OnShellChanging //Starting to change the shell
+{
+	"\![get,property,OnGetCoords,currentghost.scope(0).rect]\e" //This gets the current ghost coordinates so that they don't jump around the screen when they change shells - Oof, doesn't work with the shell change menu
+}
+
+OnShellChanged //After the shell has changed
+{
+	nowshell = reference0
+	"\1\s[-1]\0\s[0]"
+	--
+	if reference0 == nowshell && booting != 2
+	{
+		"\e"
+	}
+	elseif reference0 == "Clear"
+	{
+		"(Default water.)\e"
+	}
+	else
+	{
+		"(Now using %(reference0).)\e"
+	}
+}
+
+OnGetCoords //This gets the x and y coordinates
+{
+	shellchangexcoord = reference0[0]
+	shellchangeycoord = reference0[1]
+}

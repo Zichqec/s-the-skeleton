@@ -1,0 +1,271 @@
+//Original string.dic written by umeici
+
+On_username
+{
+	username
+}
+
+On_homeurl
+{
+	"https://zichqec.github.io/s-the-skeleton/updates/ghosts/hydrate/" //I recommend using Github Pages to set up a site and store their files! It's free and reliable!
+}
+
+On_recommendrootbutton.caption //Change to your username
+{
+	"More from the devs"
+}
+
+On_sakura.recommendsites
+{
+	"Zi's Ukagaka Hub"
+	--
+	"%ASC(1)https://zichqec.github.io/s-the-skeleton/index.html%ASC(2)"
+}
+ 
+On_portalrootbutton.caption
+{
+	"Reference sites"
+}
+
+On_sakura.portalsites //You can make these anything you like. I've set them to link to my template, Zarla's template, and anything else helpful for making ghosts.
+{
+	"X. Template Site"
+	--
+	"%ASC(1)https://zichqec.github.io/s-the-skeleton/index.html%ASC(2)"
+	--
+	"Zarla's Ghost Template Walkthrough"
+	--
+	"%ASC(1)http://www.ashido.com/ukagaka/walkthrough.html%ASC(2)"
+	--
+	"SSP"
+	--
+	"%ASC(1)http://ssp.shillest.net/%ASC(2)"
+	--
+	"SSP Wiki (Translated)"
+	--
+	"%ASC(1)https://translate.google.com/translate?hl=&sl=ja&tl=en&u=http%3A%2F%2Fssp.shillest.net%2Fukadoc%2Fmanual%2Flist_sakura_script.html%ASC(2)"
+	--
+	"YAYA Wiki (Translated)"
+	--
+	"%ASC(1)https://translate.google.com/translate?hl=&sl=ja&tl=en&u=http%3A%2F%2Femily.shillest.net%2Fayaya%2F%3FFrontPage%ASC(2)"
+	--
+	"Crow + SSP Reference (J)"
+	--
+	"%ASC(1)http://crow.aqrs.jp/reference/all/index.html%ASC(2)"
+	--
+	"Ghost Documentation (J)"
+	--
+	"%ASC(1)http://usada.sakura.vg/contents/specification.html%ASC(2)"
+}
+ 
+On_kero.recommendbuttoncaption
+{
+	"More websites"
+}
+
+On_kero.recommendsites
+{
+	"Github Pages"
+	--
+	"%ASC(1)https://pages.github.com/%ASC(2)"
+	--
+	"w3 schools"
+	--
+	"%ASC(1)https://www.w3schools.com/%ASC(2)"
+}
+
+On_updatebutton.caption
+{
+	"Check for updates"
+}
+
+On_headlinesenserootbutton.caption //Water facts
+{
+	"(Being hydrated helps regulate your tempurature.)"
+	"(What you think is hunger might actually be thirst. Take a drink before you grab a snack!)"
+	"(Water cushions your vital organs. Take a drink and protect your organs.)"
+	"(Water is the main component of your blood.)"
+	"(A lot of water actually comes in through what we eat. Try eating some fruits and vegetables high in water!)"
+	"(Water is essential for your kidneys to function.)"
+	"(You should drink more when it's hot or if you're sick.)"
+}
+
+On_biffbutton.caption //Inspirational quotes
+{
+	'"When you reach the end of your rope, tie a knot in it and hang on."  -Franklin D. Roosevelt'
+	'"Quality is not an act, it is a habit"  -Aristotle'
+	'"It does not matter how slowly you go as long as you do not stop."  -Confucius'
+	'"Positive thinking will let you do everything better than negative thinking will."  -Zig Ziglar'
+	"''People often say that motivation doesn't last. Well, neither does bathing - that's why we recommend it daily.''  -Zig Ziglar"
+	'"Either you run the day or the day runs you." -Jim Rohn'
+	'"Perseverence is failing 19 times and succeeding the 20th." -Julie Andrews'
+	"''You can't wait for inspiration. You have to go after it with a club.'' -Jack London"
+}
+
+On_dressuprootbutton.caption //Encouragement
+{
+	"(You're doing good, keep going!)"
+	"(Be kind to yourself today!)"
+	"(Keep taking small steps, you'll eventually get there!)"
+	"(Get up and stretch, movement helps you feel better!)"
+	"(You should be proud of the things you've gotten done today, no matter how small!)"
+	"(Treat yourself like you would a friend!)"
+}
+
+On_headlinesenserootbutton.visible
+{
+	"0"
+}
+
+On_biffbutton.visible
+{
+	"0"
+}
+
+
+
+On_sntpbutton.visible
+{
+	"0"
+}
+
+On_headlinesensehistorybutton.visible
+{
+	"0"
+}
+
+On_readmebutton.caption
+{
+	"Readme"
+}
+
+On_vanishbutton.caption
+{
+	"Uninstall"
+}
+
+On_shellrootbutton.caption
+{
+	"Change Shell"
+}
+
+On_ghostrootbutton.caption
+{
+	"Change Ghost"
+}
+
+On_callghostrootbutton.caption
+{
+	"Call Ghost"
+}
+
+On_quitbutton.caption
+{
+	"Quit"
+}
+
+On_hidebutton.caption //default is 'Iconify'
+{
+	"Minimize"
+}
+
+
+//-----Don't touch these-----
+
+//---- 소멸 지시 버튼 표시 교체 -------------------------------------------------------
+On_vanishbutton.visible
+ {
+ 	if deleteshitai == "ON"
+ 	{
+		"1"
+	}
+	else
+	{
+		"0"
+	}
+}
+
+//---- 딳벍뭷궻뫜궻긕?긚긣뼹롦벦 -------------------------------------------------------
+On_otherghostname
+{
+	ghostexlist = ""
+	_i = 0
+	while _i >= 0 {
+		_ghostname = NAMETOVALUE("reference%_i")
+		if _ghostname != "" {
+			if _i > 0; ghostexlist += ","
+			ghostexlist += _ghostname[0]
+			_i++
+		}
+		else; _i = -1
+	}
+	ghostexcount = ARRAYSIZE(ghostexlist)
+}
+
+OnCheckInstalledGhosts
+{
+	installedlist = ""
+	_i = 0
+	while _i >= 0 {
+		_ghostname = NAMETOVALUE("reference%_i")
+		if _ghostname != "" {
+			if _i > 0; installedlist += ","
+			installedlist += _ghostname[0]
+			_i++
+		}
+		else; _i = -1
+	}
+	installedcount = ARRAYSIZE(installedlist)
+}
+
+On_installedballoonname
+{
+	balloonlist = ""
+	_i = 0
+	while _i >= 0 {
+		_ghostname = NAMETOVALUE("reference%_i")
+		if _ghostname != "" {
+			if _i > 0; balloonlist += ","
+			balloonlist += _ghostname[0]
+			_i++
+		}
+		else; _i = -1
+	}
+	ballooncount = ARRAYSIZE(balloonlist)
+}
+
+//---- SHIORI 듫쁀륃뺪 ------------------------------------------------------------------
+On_version
+{
+	GETSETTING(AYAINFO_VERSION)
+}
+
+On_craftman
+{
+	"umeici"
+}
+
+On_craftmanw
+{
+	"?럖"
+}
+
+On_name
+{
+	"AYA"
+}
+
+//---- Owned SSTP 뾭 uniqueid 롦벦 ------------------------------------------------------
+On_uniqueid
+{
+	uniqueid = reference0
+}
+
+//---- hwnd 롦벦 ------------------------------------------------------------------------
+On_hwnd
+{
+	sakurahwnd    = reference0[0]
+	kerohwnd      = reference0[1]
+	sakurablnhwnd = reference1[0]
+	keroblnhwnd   = reference1[1]
+}

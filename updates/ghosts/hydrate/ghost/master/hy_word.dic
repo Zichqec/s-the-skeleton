@@ -1,0 +1,280 @@
+
+
+OnDialogueVars //Setting variables in random dialogue
+{
+	case reference0
+	{
+		when "updatecomplete"
+		{
+			booting = 0
+		}
+	}
+}
+
+
+//-----Menu stuff-----
+season //Might add a hemisphere check later
+{
+	if month > 2 && month < 6
+	{
+		"Spring"
+	}
+	elseif month > 5 && month < 9
+	{
+		"Summer"
+	}
+	elseif month > 8 && month < 12
+	{
+		"Autumn" 
+	}
+	else
+	{
+		"Winter"
+	}
+}
+
+ap //AM or PM
+{
+	//ampm is 0 during am, and 1 during pm
+ 	if ampm == 0 //hour >= 0 && hour <= 11
+	{
+		"AM"
+	}
+ 	else
+	{
+		"PM"
+	}
+}
+
+nowmin //Adding a 0 to the minute if it's under 10
+{
+	if minute < 10
+	{
+		"0%(minute)"
+	}
+	else
+	{
+		"%(minute)"
+	}
+}
+
+nowhour
+{
+	if hour12 == 0
+	{
+		"1"
+	}
+	else
+	{
+		"%(hour12)"
+	}
+}
+
+wd //Abbreviated week day
+{
+	if weekday == 0
+	{
+		"Sun"
+	}
+	elseif weekday == 1
+	{
+		"Mon"
+	}
+	elseif weekday == 2
+	{
+		"Tue"
+	}
+	elseif weekday == 3
+	{
+		"Wed"
+	}
+	elseif weekday == 4
+	{
+		"Thu"
+	}
+	elseif weekday == 5
+	{
+		"Fri"
+	}
+	else
+	{
+		"Sat"
+	}
+}
+
+displayday //Full week day
+{
+	if wd == "Sun"
+	{
+		"Sunday"
+	}
+	elseif wd == "Mon"
+	{
+		"Monday"
+	}
+	elseif wd == "Tue"
+	{
+		"Tuesday"
+	}
+	elseif wd == "Wed"
+	{
+		"Wednesday"
+	}
+	elseif wd == "Thu"
+	{
+		"Thursday"
+	}
+	elseif wd == "Fri"
+	{
+		"Friday"
+	}
+	elseif wd == "Sat"
+	{
+		"Saturday"
+	}
+}
+
+displaymin
+{
+	if passmin <= 9
+	{
+		"0%(passmin)"
+	}
+	else
+	{
+		"%(passmin)"
+	}
+}
+
+dayslot //For birthday checking, mostly
+{
+	"%(month)/%(day)"
+}
+
+timeslot //From the GT template. Breaking down the day into a few distinct chunks so you dont have to add checks for every hour
+{
+	if hour >= 5 && hour <= 8 //5-8am
+	{
+		"earlymorning"
+	}
+	elseif hour >= 9 && hour <= 11 //9-11am
+	{
+		"morning"
+	}
+	elseif hour >= 12 && hour <= 14 //12-2pm
+	{
+		"lunch"
+	}
+	elseif hour >= 15 && hour <= 17 //3-5pm
+	{
+		"afternoon"
+	}
+	elseif hour >= 18 && hour <= 20 //6-8pm
+	{
+		"evening"
+	}
+	elseif hour >= 21 && hour <= 24 //9pm-12am
+	{
+		"latenight"
+	}
+	else //1-4am
+	{
+		"midnight"
+	}
+}
+
+temp
+{
+	if ForC == "°F"
+	{
+		if feelslike <= 0 //Below zero, 0 and below
+		{
+			"Below Zero"
+		}
+		elseif feelslike <= 20 //Freezing, 0-20
+		{
+			"Freezing"
+		}
+		elseif feelslike <= 40 //Cold, 21-40
+		{
+			"Cold"
+		}
+		elseif feelslike <= 60 //Chilly, 41-60
+		{
+			"Chilly"
+		}
+		elseif feelslike <= 80 //Pleasant, 61-80
+		{
+			"Pleasant"
+		}
+		elseif feelslike <= 95 //Hot, 81-95
+		{
+			"Hot"
+		}
+		elseif feelslike >= 96  //Everything is terrible, 96+
+		{
+			"Boiling"
+		}
+	}
+	elseif ForC == "°C"
+	{
+		if feelslike <= -17 //Below zero, 0 and below
+		{
+			"Below Zero"
+		}
+		elseif feelslike <= -6 //Freezing, 0-20
+		{
+			"Freezing"
+		}
+		elseif feelslike <= 4 //Cold, 21-40
+		{
+			"Cold"
+		}
+		elseif feelslike <= 15 //Chilly, 41-60
+		{
+			"Chilly"
+		}
+		elseif feelslike <= 26 //Pleasant, 61-80
+		{
+			"Pleasant"
+		}
+		elseif feelslike <= 35 //Hot, 81-95
+		{
+			"Hot"
+		}
+		elseif feelslike >= 36 //Everything is terrible, 96+
+		{
+			"Boiling"
+		}
+	}
+}
+
+//Don't touch this.
+On_\person
+{
+ 	person
+}
+
+OnTranslate
+{
+	_talk = reference0
+	
+	_talk = REPLACE(_talk, "Example Anchor", "\_a[exampleanchor]Example Anchor\_a")
+	
+	if reference1 == "" && reference2 == ""
+	{ //send input box : no event (ref2) , no special flag (ref1)
+		EVAL('"' + REPLACE(_talk,'"','" + CHR(0x22) + "') + '"')
+	}
+    else
+	{ //event result from ghost
+		TOSTR(_talk)
+	}
+}
+
+OnAnchorSelect
+{
+	if "http://" _in_ reference0 || "https://" _in_ reference0 //checking to see if the link is a web address
+	{
+		"\j[%(reference0)]\e"
+	}
+}

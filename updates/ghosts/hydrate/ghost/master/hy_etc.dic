@@ -1,0 +1,236 @@
+//----Drag and Drop----
+
+OnInstallBegin
+{
+	"\0\s[0](Installing...)\e"
+}
+
+OnInstallComplete //Installing something ghost related
+{
+	if reference0 == "ghost"
+	{
+		"\0\s[0](Installed %(reference1).\w8\w8 Do you want to bring them here?)\n\n"
+		--
+		"\q[Change to %(reference1),ChangeToGhost]\n/
+		\q[Call %(reference1),CallGhost]\n/
+		\q[No thanks,cancelnodialogue]\e"
+	}
+	else
+	{
+		"\0\s[0](Installed %(reference1).)\e"
+	}
+}
+
+Select.ChangeToGhost
+{
+	"\![call,ghost,lastinstalled]"
+}
+
+Select.CallGhost
+{
+	"\![change,ghost,lastinstalled]"
+}
+
+OnInstallFailure //If the install fails
+{
+	"\0\s[0](The install failed.\w8\w8\n\n"
+	--
+	if reference0 == "unsupported"
+	{
+		"The file isn't supported."
+	}
+	elseif reference0 == "extraction"
+	{
+		"It couldn't be extracted."
+	}
+	--
+	")\e"
+}
+
+OnInstallRefuse
+{
+	"\0\s[0](Cannot install, this is meant for %(reference0).)\e"
+}
+
+OnUpdatedataCreating //Creating an updates2.dau
+{
+	"\0\s[0](Creating an updates2.dau file.)\e"
+}
+
+OnUpdatedataCreated //Finished creating
+{
+	"\0\s[0](Finished making the updates2.dau.)\e"
+}
+
+OnNarCreating //Creating a .nar
+{
+	"\0\s[0](Creating a .nar file.)\w8\e"
+}
+
+OnNarCreated //Finished creating
+{
+	"\0\s[0](Finished making the .nar file.)\e"
+}
+
+//----Uninstalling----
+
+OnVanishSelecting //Bringing up the uninstall option
+{
+	"\0\s[0](Do you want to uninstall?)\e"
+}
+
+OnVanishSelected //Deciding to uninstall
+{
+	"\0\s[0](Take care of yourself, user!)\w8\w8\e"
+}
+
+OnVanishCancel //Changing your mind
+{
+	
+}
+
+OnVanished //When another ghost has been uninstalled and it switches to this ghost
+{
+	"\0\s[0](%(reference0) wasn't hydrated enough.)\e"
+}
+
+//----Network update---
+
+OnUpdateCheckComplete //When the ghost finishes checking for updates
+{
+	if reference0 != "none" //If there are no new files
+	{
+		updateavailable = 0
+		if AutoUpdateCheck == 1 //This if stops the dialogue from displaying if this check was performed automatically. They'll tell the user later.
+		{
+			"\e"
+		}
+		--
+		"\0\s[0](There are no new files.)\e"
+	}
+	else
+	{
+		if AutoUpdateCheck == 1
+		{
+			updateavailable = 1
+			"\e"
+		}
+		--
+		"\0\s[0](An update is available. Do you want to update now?)\n\n\![*]\q[Update now,StartUpdate]\n\![*]\q[No thanks,cancelnodialogue]\e"
+	}
+}
+
+Select.StartUpdate
+{
+	"\![updatebymyself]"
+}
+
+OnUpdateBegin //Starting to actually update
+{
+	"\0\s[0](Beginning update.)\w8\w8\e"
+}
+
+OnUpdateReady
+{
+	reference[0] += 1 //Number of files starts from 0, so this displays the correct amount
+	booting = 2
+	"\0\s[0](There are %(reference[0]) new files.)\w8\w8\e"
+}
+
+//When the update finishes. Don't forget to initialize any new variables you set, I'd recommend making a variable for each version you release, check if that variable is blank, and if it is then initialize variables for that update. That way no matter what version people update from, they get all the necessary variables.
+OnUpdateComplete
+{
+	updateavailable = 0
+	if reference0 == "none"
+	{
+		"\0\s[0](There are no new files.)\e"
+	}
+	else
+	{
+		"\0\s[0](Update complete.)\![raise,OnDialogueVars,updatecomplete]\e"
+	}
+}
+
+OnUpdate.OnDownloadBegin //Taken from the GT template because I see no reason to redo this and probably break it
+{
+	"\_q(Downloading %(reference0)...)\n\n"
+	--
+	Update_Process = TOINT(reference1) + 1
+	Update_Total = TOINT(reference2) + 1
+	Update_Remaining = Update_Total - Update_Process
+
+	//defining starting points
+	_PointA = 1
+	_PointB = 1
+
+	//defining text buffers beforehand, otherwise they don't display right
+	_txt = ""
+
+	//loop calculates how many check boxes to display based on the variables above
+
+	while _PointA <= Update_Process
+	{
+		_txt += ">"
+		_PointA++
+	}
+	//see above except for blank boxes
+	while _PointB <= Update_Remaining
+	{
+		_txt += "<"
+		_PointB++
+	}
+	--
+	//using the text buffers to display the correct number of boxes
+	"%(_txt)\n\n(%(Update_Process) of %(Update_Total))"
+	--
+	"\e"
+} 
+
+OnUpdate.OnMD5CompareFailure
+{
+	"\0\s[0]\n\n(The MD5 values don't match.)\w8\w8\e"
+}
+
+OnUpdateFailure //If the update fails
+{
+	if reference0 == "timeout" //If it timed out
+	{
+		"\0\s[0](The connection timed out.)\e"
+	}
+	elseif reference0 == "md5 miss" //If the update files have not been uploaded correctly and don't match the updates2.dau
+	{
+		"(The MD5 values don't match.\w8\w8 You should contact Zichqec or Zdzisiu.)\e"
+	}
+	elseif reference0 == "artificial" //If the user cancels the update by double clicking the balloon
+	{
+		"\0\s[0](Cancelled update.)\e"
+	}
+	else
+	{
+		"\0\s[0](Error: '%(reference0)'.)\e"
+	}
+}
+
+OnUpdateCheckFailure //Similar to above, but for if the ghost was just checking and not updating
+{
+	if reference0 == "timeout" //If it timed out
+	{
+		"\0\s[0](The connection timed out.)\e"
+	}
+	else
+	{
+		"\0\s[0](Error:\w4 '%(reference0)'.)\e"
+	}
+}
+
+OnDisplayChange
+{
+	displaybpp = reference0
+ 	displaywidth = reference1
+	displayheight = reference2
+}
+
+OnShellScaling //reference0 is the new size, reference1 is the previous. Sadly, you can't check for the Y scale.
+{
+	"\0\s[0](%(reference0)% hydration.)\e"
+}

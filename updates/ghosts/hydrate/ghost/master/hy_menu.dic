@@ -1,0 +1,261 @@
+OnMouseDoubleClick
+{
+	if reference5 == 0 && booting != 1 //reference5 is which mouse button is being clicked, in this case 0 is a left click
+	{
+		booting = 0
+		OnMenuRun
+	}
+}
+
+OnMenuRun
+{
+	"\_q\![*]\q[Config,OnConfigMenu]\n/
+	\![*]\q[Change Shell,OnShellMenu]\n\n"
+	--
+	"\![*]\q[Nevermind,Cancel]\n\n\n\n[half]"
+	--
+	if todayswaters != 1
+	{
+		"%(todayswaters) drinks taken today!"
+	}
+	else
+	{
+		"%(todayswaters) drink taken today!"
+	}
+	--
+	"\nRuntime: %(passhour):%(displaymin)\nVersion 1.0\e"
+}
+
+OnShellMenu
+{
+	"\_q\_l[53]---Shells---\n\n/
+	\![*]\q[Clear,script:\![get,property,OnGetCoords,currentghost.scope(0).rect\]\![change,shell,Clear\]]\n\n/
+	\![*]\q[Back to the menu,OnMenuRun]\e"
+	
+}
+
+//----------Config Menu----------
+OnConfigMenu //I moved changing name/pronouns/birthday over to Nameteach, because they're info about the user
+{
+	if deleteshitai == "" //This is here in case the variables get erased. The uninstall will automatically be set to OFF so the user has something to click.
+	{
+		deleteshitai = "OFF"
+	}
+	if talkrate == ""; {talkrate = "every hour"; aitalkinterval = 3600}
+	--
+	"\_q\_l[53]---Config---\n/
+	Reminder rate:\n\![*]\q[%(talkrate),ChangeTalk]\n\n/
+	\![*]\q[Check for updates,UpdateCheck]\n/
+	\![*]Enable Uninstall?\n(Currently: \q[%(deleteshitai),ToggleUninstall])\n\n/
+	\![*]\q[Back to the menu,OnMenuRun]\e"
+}
+
+Select.ChangeTalk
+{
+	"\0\s[0](How many minutes would you like between reminders?\w8 Right now it's %(talkrate).)\![open,sliderinput,OnDrinkTime,-1,,0,300]\![set,balloontimeout,-1]\n\n/
+	\![*]\q[Nevermind,OnConfigMenu]\e"
+}
+
+OnDrinkTime
+{
+	aitalkinterval = (reference0 * 60)
+	if reference0 == 0
+	{
+		talkrate = "off"
+	}
+	elseif reference0 == 60
+	{
+		talkrate = "every hour"
+	}
+	elseif reference0 < 60
+	{
+		if reference0 == 1
+		{
+			talkrate = "every %(reference0) minute"
+		}
+		else
+		{
+			talkrate = "every %(reference0) minutes"
+		}
+	}
+	elseif reference0 == 120 || reference0 == 180 || reference0 == 240 || reference0 == 300
+	{
+		talkrate = "every %(reference0 / 60) hours"
+	}
+	elseif (reference0 / 60) == 1
+	{
+		talkrate = "every %(reference0 / 60) hour and %(reference0 % 60) minutes"
+	}
+	else
+	{
+		talkrate = "every %(reference0 / 60) hours and %(reference0 % 60) minutes"
+	}
+	--
+	if reference0 == 0
+	{
+		"\0\s[0](Reminders turned off.)\x"
+	}
+	else
+	{
+		"\0\s[0](You will be reminded %(talkrate).)\e"
+	}
+}
+
+Select.UpdateCheck
+{
+	"\0\s[0](Checking for updates.)\![updatebymyself,checkonly]\e"
+}
+
+Select.ToggleUninstall
+{
+	if deleteshitai != "ON"
+	{
+		deleteshitai = "ON"
+	}
+	else
+	{
+		deleteshitai = "OFF"
+	}
+	--
+	OnConfigMenu
+}
+
+//----------Misc Functions----------
+
+OnChoiceTimeout
+{
+	"\e"
+}
+
+OnTestVar
+{
+	"Testing!\e"
+}
+
+//---Stuff from Aitalk---
+
+AiTalk
+{
+	if RAND(100) < communicateratio
+ 	{
+ 		StartCommunicate
+	}
+ 	else
+	{
+ 		if mikireflag == 0
+		{
+			if CHAIN.IDName == ""
+			{
+ 				lastTalk = RandomTalk
+			}
+			else
+			{
+				lastTalk = ChainTalk
+			}
+			lastTalk
+		}
+ 		else
+		{ 
+			MikireTalk
+ 		}
+	}
+}
+
+//This is all the random dialogue your ghost will say on its own. nonoverlap here means all pieces of available dialogue will be said before it begins repeating dialogue.
+RandomTalk : nonoverlap
+{
+	"\0\s[0]"
+	--
+	"(It's time to drink some water!)"
+	"(You should take a sip of water.)"
+	"(Stay hydrated! Take a sip of water if you haven't lately.)"
+	"(It's time for a sip of water!)"
+	"(You should get a drink!)"
+	"(Get a drink and move around a little!)"
+	--
+	"\*\n\n\![*]\q[Done,drankwater]\n\n[half]\![*]\q[Dismiss,cancelnodialogue]"
+}
+
+Select.drankwater
+{
+	todayswaters++
+	"\0\s[0](Good job!)\e"
+	"\0\s[0](Well done!)\e"
+	"\0\s[0](Keep it up!)\e"
+	"\0\s[0](Excellent!)\e"
+	"\0\s[0](Great!)\e"
+	"\0\s[0](Thank you!)\e"
+	"\0\s[0](Heck yeah,\w4 hydration!)\e"
+	"\0\s[0](Awesome!)\e"
+	"\0\s[0](You're great!)\e"
+	"\0\s[0](You're rad!)\e"
+	"\0\s[0](Fresh!)\e"
+	"\0\s[0](You did it!)\e"
+}
+
+OnHourChange
+{
+	if hour == 0
+	{
+		"\0\s[0](It's midnight.)\e"
+	}
+	elseif hour == 12
+	{
+		"\0\s[0](It's noon. If you haven't eaten yet,\w4 you should sip some water first.)\e"
+	}
+	else
+	{
+		"\0\s[0](It's %(hour12).)\e"
+	}
+}
+
+OnMinuteChange
+{
+	if mikireflag == 1
+ 	{
+ 		MikireTalk
+	}
+}
+
+OnSecondChange
+{
+	if passsec >= 59
+	{
+		passsec = 0
+		passmin++
+		if passmin >= 59
+		{
+			passmin = 0
+			passhour++
+		}
+	}
+	else
+	{
+		passsec++
+	}
+	if mikireflag == 1 && reference1 == 0
+	{
+		EndMikireTalk
+	}
+	mikireflag = reference1
+	if reference2 == 1 //This is for if your Sakura and Kero are overlapping
+	{
+		
+	}
+}
+
+MikireTalk //Off the screen dialogue. Ctrl Shift F12 will bring characters back onto the screen
+{
+	"\0\s[0](To bring the water bottle back, press Ctrl Shift F12.)\e"
+}
+
+OnKeyPress
+{
+	case reference0
+	{
+		when "f1"
+		{
+			"\![open,readme]"
+		}
+	}
+}
