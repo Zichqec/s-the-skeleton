@@ -23,7 +23,7 @@ OnMenuRun
 		"%(todayswaters) drink taken today!"
 	}
 	--
-	"\nRuntime: %(passhour):%(displaymin)\nVersion 1.0\e"
+	"\nRuntime: %(passhour):%(displaymin)\nVersion 1.0.1\e"
 }
 
 OnShellMenu
