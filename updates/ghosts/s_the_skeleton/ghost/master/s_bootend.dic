@@ -553,6 +553,7 @@ OnGhostChanging
 	}
  	else //If you're switching to another Ghost.
 	{
+		lastclosed = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)")
 		if nowmode == "RYS"
 		{
 			if RYSprogress == 4
@@ -700,7 +701,7 @@ OnGhostChanged
 				}
 				else
 				{
-					"\0\s[110]Was that %(reference0) leaving?\e" //Could use the mild surprise frame here
+					"\0\s[110]Was that %(reference0) leaving?\e"
 				}
 			}
 			elseif LV > 0 //Negative routes
@@ -715,7 +716,6 @@ OnGhostChanged
 				}
 			}
 		}
-		//Again, %(reference0) in this function is the name of the ghost in question. As above, replace these two lines of dialogue what what'd be appropriate for your ghost.
 	}
 }
 
@@ -974,9 +974,15 @@ BootVars
 //Variables set after updates, because I have no self control
 OnSetUpdateVariables
 {
+	if Update1p2p1 == ""
+	{
+		Update1p2p1 = "1.2.1"
+		dragdizzy = 0 //This is your fault, GrayArea
+		scaledizzy = 0
+	}
 	if Update1p2p0 == "" //Update 1.2.0 variables - Same as below. I stg I'll add a version number in this update...
 	{
-		Update1p2p0 = "1.2.0"	
+		Update1p2p0 = "1.2.0"
 		totalboops = 0
 		weatherquiet = 0
 		todaysingredients = ""
@@ -1253,6 +1259,10 @@ FirstVars
 	minimized = 0
 	beenoffscreen = 0
 	talkedtoLulo = 0
+	//---1.2.1---
+	dragdizzy = 0
+	scaledizzy = 0
+
 	
 	updateavailable = 0
 	booting = 1 //This is here so that when you tell him your name the first time, he'll say the appropriate line.

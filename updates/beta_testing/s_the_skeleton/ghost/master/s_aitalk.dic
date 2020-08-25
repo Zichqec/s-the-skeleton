@@ -353,7 +353,7 @@ if love >= 75;			"\0\s[208]You'd think I'd be really good at computers by now,\w
 					
 					if CurrentXMonitor == 2 || CurrentYMonitor == 2
 					{
-						"\0\[205]Sure is a lot of space on your computer,\w4 %(username).\e"
+						"\0\s[205]Sure is a lot of space on your computer,\w4 %(username).\e"
 						"\0\s[107]There are a lot of pixels on your computer,\w4 huh?\e"
 						"\0\s[106]How do you even manage all of these things?\w8\w8\s[107] Two monitors sounds like a lot of work...\e"
 					}
@@ -796,20 +796,20 @@ if love >= 75;			"\0\s[0]It's getting towards the end of the month.\w8\w8\s[103]
 					}
 					
 					//---Humidity---
-					if humidity <= 30 && love >= 75 //Dry
+					if humid == "Dry" && love >= 75
 					{
 						"\0\s[106]It's awfully dry out.\w8\w8\s[107] Make sure you take some water with you if you head outside.\e"
 					}
-					if humidity > 30 && humidity <= 60 && love >= 75 //Comfortable
+					if humid == "Comfortable" && love >= 75
 					{
 						
 					}
-					if humidity >= 61 && humidity <= 80 && love >= 75 //Muggy
+					if humid == "Muggy" && love >= 75
 					{
 						"\0\s[106]Sure is humid out,\w4 huh?\w8\w8\s[107] Worst kind of weather if you ask me.\e"
 						"\0\s[107]Gotta hate high humidity,\w4 it just makes everything even more miserable.\e"
 					}
-					if humidity >= 81 && love >= 75 //Soup
+					if humid == "Soup" && love >= 75
 					{
 						"\0\s[109]Ugh,\w4 all this humidity is making me feel sticky...\e"
 						"\0\s[109]On days like this I'm glad I don't have hair...\e"

@@ -674,6 +674,10 @@ temp
 		{
 			"Boiling"
 		}
+		else
+		{
+			"Unknown"
+		}
 	}
 	elseif ForC == "°C"
 	{
@@ -705,6 +709,42 @@ temp
 		{
 			"Boiling"
 		}
+		else
+		{
+			"Unknown"
+		}
+	}
+	else
+	{
+		"Unknown"
+	}
+}
+
+humid
+{
+	if humidity == "Unknown"
+	{
+		"Unknown"
+	}
+	elseif humidity <= 30 //Dry
+	{
+		"Dry"
+	}
+	elseif humidity > 30 && humidity <= 60 //Comfortable
+	{
+		"Comfortable"
+	}
+	elseif humidity >= 61 && humidity <= 80 //Muggy
+	{
+		"Muggy"
+	}
+	elseif humidity >= 81 //Soup
+	{
+		"Soup"
+	}
+	else
+	{
+		"Unknown"
 	}
 }
 

@@ -1683,7 +1683,8 @@ OnChangeLog //Haha I hope I remember to update this
 		"\RYS"
 	}
 	--
-	"\![set,autoscroll,disable]\_q\b2\_l[90]-Version 1.2.0-\n\n/
+	"\![set,autoscroll,disable]\_q\b2/
+	\_l[84]-Version 1.2.0-\n\n/
 	-It's S's birthday today (8/25)! So here's an update to celebrate.\n\n/
 	-Updated the balloon. If the balloon looks strange while using the Timeline menu, you can download the new file \_a[http://www.mediafire.com/file/c25fwju9hsly11k/purple_soul_v1.2.nar/file]here\_a, or change your balloon to Purple Soul and ask S to update from the 'do something for you' menu!\n\n/
 	-Added a new secret mode! If you don't mind spoilers and want to know how to unlock it, you can find the answer on my website \_a[https://zichqec.github.io/s-the-skeleton/index.html]here\_a.\n\n/
@@ -1695,7 +1696,11 @@ OnChangeLog //Haha I hope I remember to update this
 	-You can boop his nose if your friendship is high!\n\n/
 	-Lots of new dialogue, patched bugs, a few new expressions, and cleaned up code! Drastically less spaghetti.\n\n/
 	-Balloons and position on screen will now sync across shells.\n\n/
-	-You can opt in to beta updates! This is intended for folks on the Ukagaka Dream Team Discord server. If you'd like to help me test updates, and see new features before they're live, \_a[https://ukagakadreamteam.tumblr.com/discord]join us\_a! If you're going to opt in, PLEASE BACKUP YOUR SAVE.\n\n"
+	-You can opt in to beta updates! This is intended for folks on the Ukagaka Dream Team Discord server. If you'd like to help me test updates, and see new features before they're live, \_a[https://ukagakadreamteam.tumblr.com/discord]join us\_a! If you're going to opt in, PLEASE BACKUP YOUR SAVE.\n\n\n/
+	\_l[90]-Hotfix 1.2.1-\n\n/
+	-Fixed a couple typos.\n\n/
+	-Fixed a bug where dragging S around sometimes caused an empty balloon to pop up.\n\n/
+	-Fixed a bug where S would think the humidity was super high if he didn't know it.\n\n"
 	--
 	if reference0 == "frommenu"
 	{
@@ -2551,6 +2556,7 @@ OnShellScaling
 			}
 			elseif changedscaling > 10
 			{
+				scaledizzy++
 				"\0\s[108]Kiddo,\w4 seriously,\w4 I'm uh-\s[301]\w8\s[302]\w8\w8 ...\s[107]Starting to get really dizzy.\w8\w8\n\n\s[106]Can we stop,\w4 please?\e"
 			}
 			elseif reference0 < 0 //If he's backwards
@@ -2722,6 +2728,7 @@ OnGhostCalling //Kinda want to add some summoning messages, but I'm not sure wha
 OnBalloonBreak //This is so dumb XD do I keep this? I don't know -- Update, I'm keeping it but it's going in the config menu lol
 {
 	SinceTalk += 10
+	suppressCoords = 0
 	if lastinteracted > 6
 	{
 		CameBack += 1
@@ -2732,7 +2739,7 @@ OnBalloonBreak //This is so dumb XD do I keep this? I don't know -- Update, I'm 
 	{
 		if nowmode == "RYS"
 		{
-			//"\RYS\s[2014]\_v[img\blop.mp3]"
+			"\RYS\s[2009]\_v[img\blop.mp3]"
 		}
 		else
 		{
@@ -2747,8 +2754,6 @@ OnBalloonBreak //This is so dumb XD do I keep this? I don't know -- Update, I'm 
 	{
 		""
 	}
-	--
-	"\![raise,OnDialogueVariables,suppressCoordsOff]"
 	/*--
 	if FromDragging == 2
 	{
@@ -2762,7 +2767,7 @@ OnBalloonClose
 	{
 		"\![get,property,OnCheckPosition,currentghost.scope(0).rect]"
 	}*/
-	"\![raise,OnDialogueVariables,suppressCoordsOff]"
+	suppressCoords = 0
 }
 
 OnBalloonTimeout
@@ -2771,7 +2776,7 @@ OnBalloonTimeout
 	{
 		"\![get,property,OnCheckPosition,currentghost.scope(0).rect]"
 	}*/
-	"\![raise,OnDialogueVariables,suppressCoordsOff]"
+	suppressCoords = 0
 }
 
 

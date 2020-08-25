@@ -780,6 +780,7 @@ OnMouseDragEnd
 			{
 				if Dragged > 5
 				{
+					dragdizzy++
 					"\![get,property,OnCheckPosition,currentghost.scope(0).rect]"
 				}
 				elseif SinceTalk > 2 && mikireflag != 1 && FromDragging != 2 //SinceTalk is set up in aitalk, it's the seconds since he stopped talking. mikireflag is to do with him being off screen. This ensures that that dialogue doesnt get interrupted.
