@@ -13,10 +13,18 @@ OnStartTalking
 
 OnCommunicate
 {
+	speech = SPLIT(reference1,"\e")[0] //This is everything the ghost said that the user can see
+	ConvoTag = SPLIT(reference1,"\e")[1] //This is everything after the \e, which will be the invisible tags that track the conversation
+	
 	if reference0 == "user" || reference0 == "User"
  	{
 		//---- answering the user
  		ReplyToUser
+	}
+	elseif "DustyGetStatsBoot" _in_ ConvoTag
+	{
+		"\e %(nowmode),%(LV), GiveStatsBoot"
+		res_reference0 = "Dusty"
 	}
  	else
 	{
@@ -139,6 +147,10 @@ ReplyToGhost //I'll..... add a friendship check to this later......... or maybe 
 					res_reference0 = "MiniDev"
 					"\e GetMiniDevStats01"
 				}
+				when "Hydrate"
+				{
+					"\0\s[110]* (He's staring at Hydrate...)\w8\w8\n\n* (Maybe you should give him some water.)\e"
+				}
 				others //======Any ghost he doesn't know========
 				{
 					AlreadyResponded = 1
@@ -155,8 +167,6 @@ ReplyToGhost //I'll..... add a friendship check to this later......... or maybe 
 	else //===========================Replying to a conversation========================
 	{
 		//speech = TOLOWER("%(reference1)")
-		speech = SPLIT(reference1,"\e")[0] //This is everything the ghost said that the user can see
-		ConvoTag = SPLIT(reference1,"\e")[1] //This is everything after the \e, which will be the invisible tags that track the conversation
 		_LastCommu = SPLIT(ConvoTag,":")[1] //The other ghost sends ":%(speech)" at the end of every communication, so this grabs what THIS ghost last said. See below.
 		
 		_LastCommu = REPLACE(_LastCommu,"\![quicksection,true]","") //Removing the quicksection tags or they overlap and break...
@@ -274,6 +284,18 @@ ReplyToGhost //I'll..... add a friendship check to this later......... or maybe 
 			{
 				"\0\n\n\s[206]Sorry,\w4 it's just-\w4\e SpaceAndTimeS03"
 				res_reference0 = "Dusty"
+			}
+			
+			//Dusty booting and noticing S
+			elseif "DustyBootS1" _in_ ConvoTag
+			{
+				"\0\s[104]Hey,\w4 Dusty.\w8\w8\s[0] Glad to see you.\e"
+				res_reference0 = ""
+			}
+			else //I'm sure as I update them that they wont always have the same convos set up...
+			{
+				"\0\s[0]Hey,\w4 Dusty.\e"
+				res_reference0 = ""
 			}
 			--
 			":%(speech)"

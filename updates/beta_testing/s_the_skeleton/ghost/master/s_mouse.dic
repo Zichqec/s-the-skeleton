@@ -430,8 +430,18 @@ PetHead
 					"\0\s[106]You feeling alright,\w4 kiddo?\w8\w8 Do you need a hug?\w8\w8 You can just ask and I'll give you a hug."
 					"\0\s[107]Are you going for a high score or something?"
 					"\0\s[107]* (He mutters something about petting \f[italic,true]you\f[italic,default] one of these days.)"
-					"\0\s[106]* (You stroke him repeatedly,\w4 wearing an imperceptible groove into his skull.)"
 					"\0\s[106]You're really determined today,\w4 huh?"
+					"\0\s[106]I'm gonna take a guess and say you're a perseverence soul?\w8\w8\s[107] Or maybe patience."
+					"\0\s[107]* (Eternal pets.)"
+					"\0\s[107]* (Pets unending.)"
+					{
+						"\0\s[106]* (You stroke him repeatedly,\w4 wearing an imperceptible groove into his skull.)"
+						--
+						if continuousstroke >= 1000 && totalpets >= 100
+						{
+							"\w8\w8\n\n* (...Though,\w4 at the rate you're going,\w4 it may not be imperceptible for long.)"
+						}
+					}
 					if totalpets >= 100
 					{
 						"\0\s[107]* (Your cursor moves in a rhythmic pattern,\w4 one you've practiced well by now.)"
@@ -444,7 +454,10 @@ PetHead
 					"\0\s[107]* (You pet him over and over without letting up.)"
 					"\0\s[106]* (You run your cursor back and forth,\w4 over and over,\w4 taking care not to hit the sensitive spots.)"
 					"\0\s[107]* (His head moves back and forth slightly as you pet him over and over.)"
-					"\0\s[107]* (Pet,\w4 pet,\w4 pet...)"
+					"\0\s[107]* (Pet pet pet...)"
+					"\0\s[107]* (Pit pat pot...)"
+					"\0\s[107]* (Rub rub rub...)"
+					"\0\s[106]* (You pet him relentlessly.)"
 				}
 				elseif snagged > 0 //if you've recently snagged his head
 				{
@@ -470,6 +483,7 @@ PetHead
 					"\0\s[104]* (Pet successful.)"
 					"\0\s[102]* (You stroke his skull softly,\w4 and he relaxes into it.)"
 					"\0\s[102]* (You rub tiny circles into his head.)\w8\w8\n\n* (You can feel him relax more and more with each circle.)"
+					"\0\s[102]* (You brush tiny crayon crumbs off his head.)\w8\w8\n\n\s[106]* (How did those get there..?)"
 					if recentpets < 3 && passhour >= 6
 					{
 						"\0\s[102]* (He sighs,\w4 relaxing under your rhythmic stroking motion.)\w8\w8\n\n* (You wonder if he even realized how tense he'd become.)"

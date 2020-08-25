@@ -1,36 +1,1083 @@
 ﻿//---------------------------Booting and Ending--------------------------
-
-//This .dic file is set aside for booting and ending dialogue, as well as a few other functions. Make sure to read the walkthrough (http://www.ashido.com/ukagaka/walkthrough.html), in particular the page about SakuraScript, for more details about how to properly format ghost dialogue! I don't want to have to repeat myself in every .dic file we go through, we'll both get tired of that by the time we're through, haha.
-//I will however reiterate that you should be editing these in Notepad++, and in particular, you should set the Language to C to properly highlight all the text. It will make things A LOT EASIER for you, trust me! It will also help you keep track of your brackets in case you forget some. If you click on a line with a bracket in Notepad++, it should highlight where the other bracket ends, or turn purple if there's no finishing bracket (which you should definitely fix!)
-//It will also highlight my commented lines in green, so you'll know where they are. Any line beginning with // is a commented line that the code will not read. It's just for your reference!
-
-//Much of this file you will only have to set up once, so take heart!
-
-
-//*********************Advanced User Info*******************************
-//These text boxes are meant for those who have an interest in expanding or using more complicated functions in their ghost. Also for my own reference in the future since I plan on using this template too, haha. If you have no interest in any of this and just want to keep things as simple as possible, feel free to skip these boxes.
-
-//--A Note about Functions--
-//A function that begins with On, such as OnFirstBoot here, can be called from anywhere in any .dic file by using \![raise]. A function that does NOT, however, can only be called within that .dic file, I believe. You can create your own On functions all over the place if you want, there's just a difference between OnDoodlebop and Doodlebop, if you get me. See the walkthrough page about coding for more about creating functions.
-//***********************************************************************
-
-
-//--OnFirstBoot--
-
-//OnFirstBoot is, as you can probably guess, what happens when your user first boots up your ghost. This is where you'll want to set up an introduction and ask your user for information your ghost will need, like their name and what pronouns they'll be using. This will only run the first time they are booted!
-
-//*********************Advanced User Info*******************************
-//Because this only runs once and under an odd set of circumstances, it can be hard to test if this function is working properly. Trying to run the entire function using \![raise,OnFirstBoot] will instead bring up your alternate dialogue, so sadly you can't check it that way. Because OnFirstBoot has the / slash I talked about in the walkthrough page on scripting, you can't run it very easily through Script Input either unless you do so in pieces, and you won't be able to check your menu options. You CAN however paste it all into your Test Variable in menu.dic, so you can try that instead to test it properly. Only paste your dialogue/choices, not the values, and make sure to delete it from the test variable when you're through.
-
-//If you're going to be adding new variables and values and such, make sure you define them all in OnFirstBoot! You can make any value you want, but it has to equal SOMEthing to exist at first. Then you can do whatever with it.
-//***********************************************************************
-
-
 OnFirstBoot
 {
-//OnFirstBoot begins with some code at first to define some values your ghost will be using. I'll briefly touch on what they are, but for the most part you should not need to edit any of these and you can safely ignore most of them (except nowshell if you've changed your shell folder's name from default_shell). Definitely don't delete them unless you know what you're doing.
+	FirstVars
+	if reference0 == 0 //Don't touch this line.
+ 	{
+		"\0\s[-1]\![enter,passivemode]\0\s[1110]\w8Wh- \w8\w8 ...Oh,\w4 another timeline..?\w8\w8\n\n\s[110]Oh,\w4\s[1020] uh,\w4 hi there.\w8\w8\s[106] Sorry,\w4 I hope I'm not bothering you.\w8\w8\s[107] I have a tendency to fall into random timelines,\w4 I'll probably disappear again soon.\w8\w8\s[208]\n\nLooks like...\w8\w8 a computer this time?\w8\w8\s[107] Could be worse,\w4 I guess.\w8\w8\n\n\s[104]So ah,\w4 my name's S.\w8\w8\s[0] What's yours?\![leave,passivemode]\![open,inputbox,OnNameTeach,-1]\e"
+ 	}
+	else
+ 	{
+		reset += 1
+ 		"\![enter,passivemode]\0\s[1110]\w8Wh- \w8\w8 ...Oh,\w4 another timeline..?\w8\w8\n\n\s[1070].\w8\w8.\w8\w8.\w8\w8Or...\w8\w8 have I been here before..?\w8\w8\n\n\s[110]Oh,\w4\s[1020] uh,\w4 hi there.\w8\w8\s[106] Sorry,\w4 I hope I'm not bothering you.\w8\w8\s[107] I have a tendency to fall into random timelines,\w4 I'll probably disappear again soon.\w8\w8\s[208]\n\nLooks like...\w8\w8 a computer this time?\w8\w8\s[1070] Hmm...\w8\w8\n\n\s[104]Anyways,\w4 ah,\w4 my name's S.\w8\w8\s[0] What's yours?\![leave,passivemode]\![open,inputbox,OnNameTeach,-1]\e"
+ 	}
+}
 
- 	lastTalk = "" //This is part of how chained conversations work (see aitalk.dic).
+
+//Normal booting
+OnBoot
+{	
+	BootVars
+	_timesince = FUNCTIONEX("time_check.dll","how_many_days",lastclosed[0],lastclosed[1],lastclosed[2],0,0,0)//lastclosed[3],lastclosed[4],lastclosed[5] if you want the hours/minutes/seconds
+	_timesince *= -1 //Multiply it by -1 to get rid of the negative sign, or to add one if the user traveled back in time.
+	//The lastclosed array is set up in OnClose. Basically when you close him, it grabs the current time and saves it so that he can check it when he opens again.
+	
+	if nowmode == "RYS"
+	{
+		if RYSprogress == 5
+		{
+			RYSprogress = 6
+			nowmode = "Default"
+			"\1\s[-1]\0\s[1122]\w6Hi,\w4 %(username).\w8\w8\s[104] How have you been?\w8\w8\n\n* (He's back to normal...)\w8\w8\n\n* (What happened to %(RYS)..?)\e"
+		}
+		else
+		{
+			"\1\s[-1]\0\s[-1]\RYS\s[2790]\w8\w2"
+		}
+	}
+	else
+	{
+		"\0\s[0]\1\s[-1]\0"
+	}
+	--
+	Hourcheck //[Zi]I don't know if this'll work.... but uh, I'm just gonna hope for the best
+	dayslot = GetDaySlot
+	timeslot = GetTimeSlot
+	
+	if nowmode == "RYS"
+	{
+		""
+	}
+	else
+	{
+		if LV == 0
+		{
+			
+			if (dayslot == "8month 25day" || ((hour == 8 || hour == 20) && minute == 25)) && LVCheck == 1 && RYSprogress == 0 //If it's August 25th, or if the time is 8:25 AM or PM
+			{
+				if RYSprogress == 0
+				{
+					nowmode = "RYS"
+					RYSprogress = 1
+					RYSboots = 1
+					RYSunlockDate = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)")
+					"\0\s[-1]\RYS\s[2790].\w8.\w8.\w8.\w8\s[2015]!\w8\w8\w8\n\n\s[2004]* (This isn't S...\w8\w8 is it?)\w8\w8\w8\n\n\s[2007]* (He isn't saying anything...)\e"
+				}
+				else
+				{
+					"\0\s[1122]\w6\s[103]Hey there,\w4 %(username).\w8\s[1010] Did you call me here to wish me a happy birthday?\e"
+				}
+			}
+			elseif _timesince < 0
+			{
+				"\0\s[1122]\w6\s[110]...%(username)?\w8\w8\s[1070] Uh...\w8\w8\s[106] Did you invent a time machine?\w8\w8\s[101] Or have you been messing with your clock?\e"
+			}
+			elseif dayslot == userbirthday
+			{
+				"\0\s[1122]\w6\s[1010]Happy birthday,\w4 %(username)!\w8\w8\n\n* (He hands you a picturesque slice of birthday cake.)\e"
+			}
+			elseif _timesince >= 365 //A year has passed
+			{
+				"\0\s[1122]\w6\s[110]Oh!\w8\w8\s[104] Hey there,\w4 %(username)!\w8\w8\s[111] It's been a long time,\w8\s[103] how've you been?\e"
+				"\0\s[1122]\w6\s[110]Oh!\w8\w8\s[104] Hey,\w4 %(username)!\w8\w8\s[111] I haven't seen you in,\w4 what is it,\w4 at least a year?\w8\w8\s[103] How've you been?\e"
+			}
+			elseif _timesince >= 60 //At least a few months have passed
+			{
+				"\0\s[1122]\w6\s[110]Oh!\w8\w8\s[103] Hi,\w4 %(username).\w8\w8\s[104] It's been a few months,\w4 how are things going?\e"
+				"\0\s[1122]\w6\s[110]Oh!\w8\w8\s[103] Hey,\w4 %(username).\w8\w8\s[104] I haven't seen you in a while,\w4 how have you been?\e"
+			}
+			elseif dayslot == "7month 4day"
+			{
+				"\0\s[200]It's that time of year again...\w8\w8\s[200] All the humans in our area like to set off colorful explosions in the sky.\w8\s[201] I hear it's some sort of celebration of freedom from a long time ago?\w8\w8\n\n\s[1070]Maybe monsters should have a celebration of our own freedom...\w8\w8\s[202] Could do without the explosions though.\w8\s[206] Maybe some sort of colorful magic displays instead..?\e"
+			}
+			elseif lastclosed[0] != year //If the year has rolled over since you last saw him, but it also hasn't been too long since he last saw you. This also restricts him to commenting on the year to january and february, which feels about right.
+			{
+				"\0\s[1122]\w6\s[104]Happy new year,\w4 %(username)!\w8\w8\s[103] Are you excited for %(year)?\w8\w8\s[205] I am,\w4 there's a lot I hope to get done.\e"
+			}
+			elseif day == 1
+			{
+				"\0\s[1122]\w6\s[104]Happy %(displaymonth),\w4 %(username)!\e"
+				"\0\s[1122]\w6\s[103]Hey %(username),\w4\s[104] happy %(displaymonth)!\e"
+			}
+			elseif "Dusty" _in_ ghostexlist && talkedtoDusty == 1
+			{
+				res_reference0 = "Dusty"
+				"\0\s[1122]\w6\s[104]Hey there,\w4 %(username).\w8\w8\s[205] Hey,\w4 Dusty.\e SBootDusty1"
+			}
+			//Note to self for later, I don't feel like adding these now but I probably will later: Triplets Bday 10/12 (Barcode should have a different one... I'll have to pick an arbitrary one), Blue Jeans 8/11, Rosie 4/27, Roman 12/13, Cambria 3/10, Triton 3/23, Lulo 2/26, Azo 3/13, Sigil is technically 9/28... but I may need to bump that around to match with Azo. Or bump Azo around. One of those... Sigil should be 9-10 months later. Elko 2/26. Maaan these are like all clumped up around the same months XD Do I want to spread them out? Mm.... I'll decide later.
+			/*
+			1/28 //Sigil? Maybe. Or this could be Azo and I could leave Sigil where she's at..... That's probably better
+			2/19
+			2/26
+			3/10
+			3/13
+			3/23
+			4/27
+			8/11
+			8/25
+			10/12
+			12/13
+			*/
+		}
+	}
+	--
+	normalboottalk
+	
+}
+
+
+normalboottalk //Ergh, this is a mess. For now, he'll only acknowledge the time if you're being nice to him. Might change later.
+{
+	if nowmode == "RYS"
+	{
+		if RYStrust >= 100 && RYSlearn[1] >= 3
+		{
+			"\RYS\s[2006]* (He doesn't say anything,\w4 but you think you see a slightly hopeful look cross his face.)\e"
+			"\RYS\s[2006]* (He gives you the tiniest of waves.)\e"
+			"\RYS\s[2006]* (He looks glad to see you,\w4 you think.)\e"
+		}
+		else
+		{
+			"\RYS\s[2006]* (He glances at you,\w4 but stays quiet.)\e"
+			"\RYS\s[2006]* (He stands meekly,\w4 waiting.)\e"
+			"\RYS\s[2007]* (He shifts nervously as he appears.)\e"
+		}
+	}
+	else
+	{
+		if LV == 0 && love >= 20
+		{
+			{
+				"\0\s[1122]\w6\s[103]Heya,\w4 %(username).\w8 It's good to see you again.\e"
+				"\0\s[1122]\w6\s[0]Heya.\w8 How's it going?\e"
+				"\0\s[1122]\w6\s[104]Hey there %(username).\w8\w8\s[103] How's your day been?\e"
+				"\0\s[1122]\w6\s[104]Hey %(username),\w4 having a good %(displayweekday)?\e"
+				"\0\s[1122]\w6\s[104]Hey %(username),\w4 how's it going?\e"
+				"\0\s[1122]\w6\s[103]Good to see you,\w4 %(username).\w8\w8\s[104] How's your %(displayweekday) going?\e"
+			}
+			
+			if nowshell == "pink_apron"
+			{
+				"\0\s[1122]\w6\s[102]* (The smell of baked goods heralds his presence.)\w8\w8\n\n\s[110]Oh!\w8\s[104] Hey,\w4 %(username).\w8\w8\s[103] You caught me in the middle of making %(bakedgoods).\e"
+			}
+			
+			//---Timeslots---
+			if timeslot == "earlymorning" //5-8
+			{
+				"\0\s[1122]\w6\s[104]Heya,\w4 %(username).\w8 Are you an early waker too?\w8\w8\s[101] Or did you stay up all night?\e"
+				"\0\s[1122]\w6\s[103]Good morning,\w4 %(username)!\w8\w8\w8\w8\n\n\s[104]* (He starts humming a chipper tune.)\w8\w8\n\n* (Yep,\w4 definitely a morning person.)\e"
+			}
+			if timeslot == "morning" //9-11
+			{
+				"\0\s[1122]\w6\s[103]Hi,\w4 %(username).\w8 How's your morning going?\e"
+				"\0\s[1122]\w6\s[0]Hey %(username).\w8\w8\s[104] Happy %(displayweekday).\e"
+				"\0\s[1122]\w6\s[103]Good morning,\w4 %(username)!\e"
+				if nowshell == "pink_apron"
+				{
+					"\0\s[1122]\w6\s[102]* (You can smell pancakes and syrup.)\w8\w8\n\n\s[110]Oh!\w8\w8\s[104] Hey there %(username),\w4 we were just finishing up breakfast.\w8\w8\s[0] Have you had anything to eat yet?\e"
+				}
+			}
+			if timeslot == "lunch" //12-2
+			{
+				"\0\s[1122]\w6\s[103]Hey there,\w4 %(username).\w8 Have you eaten yet?\e"
+				if hour > 12
+				{
+					"\0\s[104]Good afternoon,\w4 %(username).\e"
+				}
+				if nowshell == "pink_apron"
+				{
+					"\0\s[1122]\w6\s[102]* (The scent of %(ingredients) drifts through your desktop.)\w8\w8\s[110]\n\nOh,\w4\s[104] hey there %(username).\w8\w8\s[0] I was just making lunch,\w4 have you had lunch yet?\e"
+				}
+			}
+			if timeslot == "afternoon" //3-5
+			{
+				"\0\s[1110]\w6\s[207]* (He yawns.)\n\n\w8\w8\s[106]Oh,\w4 hi there %(username).\w8\s[107] Sorry,\w4 I was just about to take a nap.\e"
+				"\0\s[1122]\w6\s[110]Oh,\w4\s[104] afternoon,\w4 %(username).\e"
+			}
+			if timeslot == "evening" //6-8
+			{
+				"\0\s[1110]\w6\s[207]* (He yawns.)\n\n\w8\w8\s[0]Oh,\w4 hey there %(username).\w8 Is it getting late where you're at?\w8\s[107] The sun's already set at home.\e"
+				"\0\s[1122]\w6\s[104]Hey,\w4 %(username).\w8\w8\s[0] Spending a relaxing %(displayweekday) evening at home?\e"
+			}
+			if timeslot == "latenight" //9-12
+			{
+				"\0\s[1122]\w6\s[109]* (He seems confused for a moment.)\n\n\w8\w8\s[1100]Oh..!\w8\s[107] Hey,\w4 %(username).\w8\s[101] Isn't it late there..?\w8\w8\n\n\s[207]* (He yawns slowly.)\w8\w8\w8\n\n\s[107]I was just on my way to bed,\s[0] but I'm here if you need me.\e" //replaceframe could use sleepy with eyes open
+				"\0\s[1122]\w6\s[110]Ah-\w8\w8\s[106] Oh,\w4 hey %(username).\w8\w8\s[104] Planning to stay up a while?\e"
+			}
+			if timeslot == "midnight" //1-4
+			{
+				"\0\s[1122]\w6\s[108]Ah...\w8\w8 Hey there,\w4 %(username).\w8\s[303] You can't sleep either?\e"
+				"\0\s[1122]\w6\s[109]Hm?\w8\w8\s[110] Ah-\w8\s[104] hey %(username).\w8\w8\s[101] You're up late.\e"
+				"\0\s[1122]\w6\s[109]...Hm?\w8\w8\s[108] Oh-\w8\s[109] Hey %(username).\w8\w8\w8\n\n\s[204]Mmm...\w8\w8\s[202] I'm glad you've brought me here,\w4 because I wasn't getting any sleep at home.\e"
+			}
+		}
+		elseif LV > 0 //Negative routes
+		{
+			if LVCheck == 1 //know his secrets
+			{
+		
+				if broken == 1 //broken him down all the way
+				{
+					"\s[1126]\w6"
+					--
+					"\s[510]* (He doesn't look up at you.)\e"
+					"\s[510]* (He nods in acknowledgement,\w4 but says nothing.)\e"
+					"\s[510]* (He shudders.)\e"
+					"\s[510]* (He emerges from within your files.)\w8\w8\n\n* (Seems like he didn't go home last time.)\e"
+				}
+				else //breaking him, but he's still standing
+				{
+					"\0\s[1122]\w6\s[108]...Oh.\w8\w8\s[510] Here again...\e"
+				}
+			}
+			else //Just mean for no reason
+			{
+				if LV <= 30 //you've been a bit mean
+				{
+					"\s[1124]\w6\s[414]Oh,\w4 great.\w8\w8 \s[412]You again?\e"
+					"\s[1123]\w6\s[404]Ugh,\w4 not this again.\e"
+					"\s[1123]\w6\s[403]What do you want this time?\e"
+				}
+				elseif LV >=31 //You've been really mean and he hates you a lot
+				{
+					"\s[1123]\w6\s[403]What,\w4 still not tired of punching me?\e"
+					"\s[1124]\w6\s[411]I'm beginning to think you have nothing better to do with your time.\e"
+					"\s[1124]\w6\s[412]Get a life,\w4 seriously.\e"
+					"\s[1123]\w6\s[404]* (He looks away and doesn't say anything.)\e"
+				}
+			}
+		}
+		else //Neutral has to be down here and not up with the positive ones, unless I change it so he recognizes the time
+		{
+			"\0\s[1122]\w6"
+			--
+			"\0\s[110]Oh,\w4 here again?\w8\w8\s[205] Alright then.\e"
+			"\0\s[101]Oh,\w4 hello again.\w8\w8\s[205] Didn't expect to come back here.\e"		
+		}
+	}
+}
+
+OnClose
+{
+	lastclosed = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)")
+	timeslot = GetTimeSlot //as you saw above, it's checking the time.
+	--
+	if passmin >= 5 || passhour > 0 //This checks to see if you've had them open for at least five minutes.
+	{
+		if nowmode == "RYS"
+		{
+			if RYSprogress == 4
+			{
+				RYSprogress = 5
+			}
+			--
+			if RYStrust > 100
+			{
+				"\RYS\s[2007]Oh,\w4 um...\w8\w8\s[2006] Alright.\w8\w8 See you later..?"
+				"\RYS\s[2008]Oh,\w4 ok...\w8\w8\n\n\s[2006]* (You get the feeling he wants to say something,\w8\s[2007] but then he thinks better of it and \s[-1]leaves quickly.)"
+			}
+			else
+			{
+				"\RYS\s[2007]* (He nods and \s[-1]leaves quietly.)"
+				"\RYS\s[2006]* (He nods and \s[-1]leaves quickly.)"
+				"\RYS\s[2006]* (He nods and \s[-1]is quickly gone.)"
+				"\RYS\s[2006]* (He nods and \s[-1]makes himself scarce.)"
+			}
+		}
+		else
+		{
+			if LV == 0 && love >= 20
+			{
+				if RAND(100) < 40
+				{
+					"\0\s[1010]See you later,\w4 %(username)!"
+					"\0\s[104]Take care,\w4 %(username)!"
+					"\0\s[102]See you around,\w4 %(username)."
+					if hour <= 18
+					{
+						"\0\s[104]Have a good day,\w4 %(username)!"
+						"\0\s[103]Have a good %(displayweekday),\w4 %(username)!"
+					}
+					if hour > 18
+					{
+						"\0\s[104]Have a good night,\w4 %(username)!"
+						"\0\s[103]Have a good evening,\w4 %(username)!"
+					}
+				}
+				elseif wd == "Sat" && RAND(100) < 60
+				{
+					"\0\s[1010]Enjoy the weekend,\w4 %(username)!"
+					"\0\s[107]Heh,\w4 back to the weekend chaos for me.\w8\w8\s[103] Have a good day,\w4 %(username)."
+				}
+				else
+				{
+					if timeslot == "earlymorning"
+					{
+						if passhour < 3 //Earlymorning is from 5-8, so if it's been less than 3 hours then the user's probably a super early riser. Probably.
+						{
+							"\0\s[0]Off to get breakfast?\w8\s[1010] Fair enough.\w8\w8\s[101] Or maybe you're just going to bed.\w8\w8\s[1010] Either way,\w4 I'll see you later."
+						}
+						else //If it's been more than 3 hours they've been awake since at least the midnight timeslot, so probably haven't been to bed.
+						{
+							"\0\s[106]Finally off to bed,\w4 huh?\w8\w8\s[107] As long as you're taking care of yourself,\w4 I guess.\w8\w8\s[104] Sleep well,\w4 %(username)."
+						}
+					}
+					elseif timeslot == "morning"
+					{
+						"\0\s[1010]There's a lot of the day still left.\w8 Make it a good one,\w4 yeah?"
+					}
+					elseif timeslot == "lunch"
+					{
+						"\0\s[106]Good timing,\w4 I'm starting to get hungry.\w8\s[1010] Don't forget to eat something yourself,\w4 ok?"
+						"\0\s[0]Off to eat something?\w8\w8\s[104] Me too,\w4 see you later."
+					}
+					elseif timeslot == "afternoon"
+					{
+						"\0\s[205]I should go pick up the kids.\w8\w8\s[1010] See you later,\w4 %(username)!"
+						"\0\s[205]Good timing,\w4 I should have a chance to swing by the store before they close.\w8\w8\s[104] See you later,\w4 %(username)."
+					}
+					elseif timeslot == "evening"
+					{
+						"\0\s[0]Alright then,\s[1010] I'm off to see what's for dinner.\w8\s[0] Don't forget to eat something yourself,\w4 too."
+					}
+					elseif timeslot == "latenight"
+					{		
+						"\0\s[1010]Goodnight,\w4 %(username).\w8 Sleep well."
+						"\0\s[207]* (He yawns.)\w8\w8\w8\n\n\s[106]Guess it's time for me to head to bed.\w8\w8\s[104] You make sure you get some sleep too,\w4 ok %(username)?"
+					}
+					else //Midnight
+					{
+						"\0\s[200]Guess it's time to try and get some sleep.\w8\s[202] I hope you have better luck than me,\w4 %(username)."
+						"\0\s[207]* (He yawns.)\w8\w8\w8\n\n\s[107]I dunno about you,\w4 but I can't wait to crawl under a warm blanket.\w8\w8\s[104] You get some sleep too,\w4 ok %(username)?"
+					}
+				}
+			}
+			elseif LV > 0 //Negative routes
+			{
+				if LVCheck == 1 //know his secrets
+				{
+			
+					if broken == 1 //broken him down all the way
+					{
+						"\s[514]* (You tell him to crawl back to his family.)\w8\w8\n\n\s[500]* (He nods and\s[-1] slinks away.)"
+						"\s[510]* (You tell him to get lost.)\w8\w8\n\n\s[-1]* (He does so without a word.)"
+						"\s[1550]* (You shove him out,\w8\s[-1] and he puts up no resistance.)"
+					}
+					else //breaking him, but he's still standing
+					{
+						"\0\s[510]* (You tell him to go back to his family.)\w8\w8\n\n\s[516]* (He gives you a wary look,\w4\s[500] then nods.)"
+						"\0\s[516].\w8.\w8.\w8Thanks."
+						"\0\s[516]* (He looks like he's going to say something,\w4\s[510] then changes his mind and\s[-1] leaves quietly.)"
+					}
+					
+				}
+				else //Just mean for no reason
+				{
+					if LV <= 30 //you've been a bit mean
+					{
+						"\s[400]Good riddance."
+						"\s[400]Finally."
+					}
+					elseif LV >=31 //You've been really mean and he hates you a lot
+					{
+						"\s[400]Good riddance."
+						"\s[400]Finally."
+					}
+				}
+			}
+			else //Neutral has to be down here and not up with the positive ones, unless I change it so he recognizes the time
+			{
+				"\0\s[0]Alright.\w8 See you around,\w4 then."
+				"\0\s[0]Ah,\w4 alright.\w8 See you later."
+			}
+		}
+	}
+ 	else //This dialogue is for if they haven't been open for at least five minutes.
+ 	{
+		if nowmode == "RYS"
+		{
+			if RYSprogress == 4
+			{
+				RYSprogress = 5
+			}
+			--
+			if RYStrust > 100
+			{
+				"\RYS\s[2006]Oh,\w4 already..?\w8\w8\s[2007] Ok..."
+			}
+			else
+			{
+				"\RYS* (He's\s[-1] gone before you have the chance to say anything else...)"
+			}
+		}
+		else
+		{
+			if LV == 0 //Friendship routes
+			{
+				if love >=100 //Full friendship
+				{
+					if hugged > 0
+					{
+						"\0\s[110]Oh,\w4 just wanted a hug?\w8\w8\s[104] Alright then,\w4 don't be afraid to call me again if you need me."
+					}
+					else
+					{
+						"\0\s[110]Oh,\w4 did you call me here by accident?\w8\s[1010] Alright,\w4 well,\w4 have a good day anyways!"
+					}
+					
+				}
+				elseif love >= 30 //getting to know him a little
+				{
+					"\0\s[106]Oh,\w4 alright then.\w8\w8\s[104] See you later."
+				}
+				else //He isn't sure what to make of you yet
+				{
+					"\0\s[108]Oh,\w4 uh,\w4 alright.\w8\w8\s[208] I've got some stuff I should do at home anyhow."
+				}
+			}
+			
+			elseif LV > 0 //Negative routes
+			{
+				if LVCheck == 1 //know his secrets
+				{
+
+						if broken == 1 //broken him down all the way
+						{
+							"\s[1550]* (You shove him out,\w8\s[-1] you didn't want him here anyways.)\w8\w8"
+						}
+						else //breaking him, but he's still standing
+						{
+							"\s[516]* (He leaves quickly,\w4\s[-1] seems he wasn't eager to stick around anyways.)"
+						}
+					
+				}
+				else //Just mean for no reason
+				{
+					if LV <= 30 //you've been a bit mean
+					{
+						"\s[401]Fine by me,\w4 I didn't want to be here anyways."
+					}
+					elseif LV >=31 //You've been really mean and he hates you a lot
+					{
+						"\s[412]Are you finally starting to get bored?\w8\w8\s[401] Good."
+					}
+				}
+			}
+		}
+ 	}
+ 	--
+	"\w8\w8\-\e"
+}
+
+
+ //-------------------------State Changing--------------------
+ //From here on, most of the dialogue will have to do with changing shells, ghosts, or states in some way.
+ 
+
+//--OnWindowStateRestore
+
+//This will run when you minimize them and then bring them back up. Replace with what you like.
+
+OnWindowStateRestore
+{
+	minimized++
+	if nowmode == "RYS"
+	{
+		"\RYS\s[2014]* (He squirms and shivers.)\e"
+	}
+	else
+	{
+		if LV == 0 //Friendship routes - Any amount of friendship will trigger this dialogue
+		{
+			"\0\s[301]Ah..!\w8\n\n* (He's hyperventilating a little.)\n\n\w8\w8\w8\w8\s[200]Wh-what was that??\w8\w8\s[201] Uh,\w4 %(username),\w4 I'm uh-\w8\w8\s[300] I'm a bit scared of the dark.\w8 And uh...\w8\w8\s[301] Tight spaces.\w8\w8\n\n\s[303]Can we not do that again?\w8 Please?\e" //replaceframe MAYBE some fear frames
+			"\0\s[301]* (He's shuddering violently.)\w8\w8\n\n* (...Maybe you should try not to minimize him.)\w8\w8\n\n\s[302]* (Deep breaths seem to be calming him,\w4 at least.)\e"
+			"\0\s[301]* (His bones are rattling fearfully.)\w8\w8\n\n\s[206]Wh-what was that..?\w8\w8\s[201] %(username),\w4 can you not do that?\w8\w8\s[303] I don't do so well with cramped spaces...\w8\w8\s[300] Or uh,\w4 dark spaces...\e"
+		}
+		else
+		{
+			if LVCheck == 1 //know his secrets
+			{
+				"\s[511]* (He's hyperventilating.)\w8\w8\n\n\s[515]* (Good.)\e"
+			}
+			else //Just mean for no reason
+			{
+				"\s[400]Tsk.\w8\w8\n\n* (He's acting like that didn't bother him,\w4 but you can see his shoulders trembling a little.\e"
+			}
+		}
+	}
+}
+
+
+//--OnGhostChanging
+
+ 
+OnGhostChanging
+{
+	if reference0 == "RYS-0825"
+	{
+		if nowmode == "RYS"
+		{
+			"\RYS\s[2006]Um,\w4 alright,\w4 I'll reload..."
+		}
+		else
+		{
+			if LV == 0 //Friendship routes
+			{
+				"\0\s[1010]Sure, be back in just a moment."
+				"\0\s[0]Alright, just a moment, then."
+				"\0\s[104]Alright,\w4 I'll reload."
+			}
+			elseif LV > 0 //Negative routes
+			{
+				if LVCheck == 1 //know his secrets
+				{
+
+						if broken == 1 //broken him down all the way
+						{
+							"\s[516]* (You order him to reload.)\w8\w8\s[510]\n\n* (He simply nods and complies.)"
+						}
+						else //breaking him, but he's still standing
+						{
+							"\s[516]...Ok, I'll reload."
+						}
+					
+				}
+				else //Just mean for no reason
+				{
+					"\0\s[400]Only because it gets me away from you briefly."
+				}
+			}
+		}
+		--
+		"\w8\e"
+	}
+ 	else //If you're switching to another Ghost.
+	{
+		if nowmode == "RYS"
+		{
+			if RYSprogress == 4
+			{
+				RYSprogress = 5
+			}
+			"\RYS\s[2006]Alright,\w4 I'll fetch %(reference0)..."
+		}
+		else
+		{
+			if LV == 0 //Friendship routes
+			{
+				if love <= 19 //He isn't sure what to make of you yet
+				{
+					"\0\s[0]Ok. Say hi to %(reference0) for me!"
+				}
+				else
+				{
+					"\0\s[1010]Ok. Say hi to %(reference0) for me!"
+				}
+			}
+			elseif LV > 0 //Negative routes
+			{
+				if LVCheck == 1 //know his secrets
+				{
+
+						if broken == 1 //broken him down all the way
+						{
+							"\s[516]* (You order him to go and fetch %(reference0) for you.)\w8\w8\s[510]\n\n* (He nods and hurries off.)"
+						}
+						else //breaking him, but he's still standing
+						{
+							"\0\s[510]...Ok."
+						}
+					
+				}
+				else //Just mean for no reason
+				{
+					"\0\s[402]Well,\w4 I hope you at least treat %(reference0) better than you've treated me."
+				}
+			}
+		}
+		--
+		"\w8\w8\e"
+	}
+}
+
+
+//--OnGhostChanged
+
+//A sister to the above, this runs after the ghost has either reloaded itself, or when you switch from another ghost to this ghost.
+
+OnGhostChanged
+{
+	if nowmode == "RYS"
+	{
+		if RYSprogress == 5
+		{
+			RYSprogress = 6
+			nowmode = "Default"
+			"\1\s[-1]\0\s[1122]\w6Hi,\w4 %(username).\w8\w8\s[104] How have you been?\w8\w8\n\n* (He's back to normal...)\w8\w8\n\n* (What happened to %(RYS)..?)\e"
+		}
+		else
+		{
+			"\0\s[-1]\1\s[-1]\RYS\s[2006]"
+		}
+	}
+	else
+	{
+		"\0\s[0]\1\s[-1]" //this sets up their default poses
+	}
+	--
+	if reference0 == "RYS-0825" //As above, this should be the name of your ghost as in install.txt or descript.txt.
+	{
+		if nowmode == "RYS"
+		{
+			"\RYS\s[2006]I've finished.\e"
+		}
+		else
+		{
+			if LV == 0 //Friendship routes
+			{
+				"\0\s[1010]I'm back.\e"
+				"\0\s[1010]Back.\w8\w8 Anything new?\e"
+				if love <= 19 //He isn't sure what to make of you yet
+				{
+					"\0\s[0]I'm back.\e"
+					"\0\s[0]Back.\w8\w8 Anything new?\e"
+				}
+			}
+			elseif LV > 0 //Negative routes
+			{
+				if LVCheck == 1 //know his secrets
+				{
+					if broken == 1 //broken him down all the way
+					{
+						"\s[510]* (Reload complete.)\e"
+					}
+					else //breaking him, but he's still standing
+					{
+						"\s[510]* (Reload complete.)\e"
+					}
+				}
+				else //Just mean for no reason
+				{
+					"\0\s[404]A shame that doesn't take longer.\e"
+					"\0\s[-1]\_w[5000]\_w[5000]\_w[5000]\s[404]...You don't have to wait up for me,\w4 you know.\e"
+				}
+			}
+		}
+	}
+	else //If you're switching to them from another ghost...
+	{
+		BootVars
+		
+		if nowmode == "RYS"
+		{
+			if RYStrust >= 100
+			{
+				"\RYS\s[2006]...There was someone leaving...\w8\w8\s[2007] Did you call them here,\w4 too..?\e"
+			}
+			else
+			{
+				"\RYS\s[2007]* (He doesn't comment about %(reference0)...)\w8\w8\s[2006]\n\n* (Perhaps he avoided them?)\e"
+			}
+		}
+		else
+		{
+			if LV == 0 //Friendship routes
+			{
+				if (dayslot == "8month 25day" || ((hour == 8 || hour == 20) && minute == 25)) && LVCheck == 1 && RYSprogress == 0 //If it's August 25th, or if the time is 8:25 AM or PM
+				{
+					if RYSprogress == 0
+					{
+						nowmode = "RYS"
+						RYSprogress = 1
+						RYSboots = 1
+						RYSunlockDate = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)")
+						"\0\s[-1]\RYS\s[2790].\w8.\w8.\w8.\w8\s[2015]!\w8\w8\w8\n\n\s[2004]* (This isn't S...\w8\w8 is it?)\w8\w8\w8\n\n\s[2007]* (He isn't saying anything...)\e"
+					}
+					else
+					{
+						"\0\s[1122]\w6\s[103]Hey there,\w4 %(username).\w8\s[1010] Did you call me here to wish me a happy birthday?\e"
+					}
+				}
+				else
+				{
+					"\0\s[110]Was that %(reference0) leaving?\e" //Could use the mild surprise frame here
+				}
+			}
+			elseif LV > 0 //Negative routes
+			{
+				if LVCheck == 1 //know his secrets
+				{
+					"\s[516]* (You ask if he saw how you treated %(reference0).)\w8\w8\n\n\s[510]* (He just shivers.)\e"
+				}
+				else //Just mean for no reason
+				{
+					"\0\s[402]%(reference0),\w4 huh?\w8\w8\s[400] Did you punch them too?\e"
+				}
+			}
+		}
+		//Again, %(reference0) in this function is the name of the ghost in question. As above, replace these two lines of dialogue what what'd be appropriate for your ghost.
+	}
+}
+
+
+//--OnShellChanging
+
+//This will run when you change your ghost's shell. If you don't have any other shells for your ghost, you can safely ignore this but don't delete it, you might as well keep it just in case. I probably won't add a different shell to this template because shells are a lot of work ugh, but for the sake of argument, let's pretend I did.
+
+OnShellChanging
+{
+	"\![get,property,OnGetCoords,currentghost.scope(0).rect]" //This will get his coordinates on the screen and put them into the function below, so that when he changes shells he can move to the same spot... Thanks again to Levidre for helping me with this
+	--
+	if nowmode == "RYS"
+	{
+		"\RYS\s[2006]* (He shuffles away\s[-1] obediently to change clothing.)\e"
+	}
+	else
+	{
+		if LV == 0
+		{
+			_tempshell = reference0 //storing the shell name in _tempshell
+			_tempshell = TOLOWER(_tempshell) //changes it to lowercase
+			_tempshell = REPLACE(_tempshell," ","_") //replace spaces with underscores. This should work as long as my naming schemes never change |D
+			if _tempshell == nowshell //[Zi]If you're switching to the same shell... for some reason. I don't know why it lets you do this but I mean hey it means I get to add a silly comment yeah? I wont REALLY know if this code works until I add a second shell.... but I'm hoping that'll be sooner over later :3c
+			{
+				"\0\s[106]Uh...\w8\w8 I'm already wearing that,\w4 but ok I guess?\w8\e"
+			}
+	/*		elseif reference0 == "red_hoodie"
+			{
+			""
+			}*/ //[Zi]I can't think of anything to have him say about his hoodie at the moment..... so I'm just going to comment this out. If I think of something later I'll add it back in.
+			elseif reference0 == "Pink Apron"
+			{
+				"\0\s[208]Do you smell cookies?\w8\e"
+			}
+			else
+			{
+				"\0\s[103]Alright,\w4 I'll be right back.\w8\e"
+			}  
+		}
+		else
+		{
+			if LVCheck == 1
+			{
+				"\0\s[510]* (He nods and goes to switch clothing.)\w8\e"
+			}
+			else
+			{
+				"\0\s[400]Hmph.\w8\w8 Fine.\w8\e"
+			}
+		}
+	}
+}
+ 
+ 
+ //--OnShellChanged
+ 
+ //The sister to the above, this is the dialogue after you've changed the shell.
+ 
+OnShellChanged
+{
+	tempshell = reference0 //storing the shell name in tempshell
+	tempshell = TOLOWER(tempshell) //changes it to lowercase
+	tempshell = REPLACE(tempshell," ","_") //replace spaces with underscores. This should work as long as my naming schemes never change |D
+	if nowmode == "RYS"
+	{
+		switchingtoshell = reference0
+		shellswitching = 1
+		"\![move,%(shellchangexcoord),%(shellchangeycoord)]"
+		--
+		"\![change,balloon,%(nowballoon)]"
+	}
+	else
+	{
+		if LV == 0
+		{
+			if tempshell == nowshell && booting != 2
+			{
+				"\0\s[106]Was that really necessary,\w4 kiddo?\e"
+			}
+			--
+			switchingtoshell = reference0
+			shellswitching = 1
+			"\![move,%(shellchangexcoord),%(shellchangeycoord)]" //Here's the move command, this puts him to the spot he was before you switched shells
+			--
+			"\![change,balloon,%(nowballoon)]" //The balloon needs to switch when the shell does, because of the kero balloon choice markers. This bit of code makes the balloons be the same even if youre switching around shells, but it means the dialogue has to be put below in OnBalloonChange...
+		}
+		else
+		{
+			switchingtoshell = reference0
+			shellswitching = 1
+			"\![move,%(shellchangexcoord),%(shellchangeycoord)]"
+			--
+			"\![change,balloon,%(nowballoon)]"
+		}
+	}
+}
+
+OnGetCoords
+{
+	shellchangexcoord = reference0[0]
+	shellchangeycoord = reference0[1]
+}
+
+OnBalloonChange
+{
+	nowballoon = reference0
+	if switchingtoshell == "Red Hoodie" //Again, this is the name of your shell as you put in the descript.txt file for that shell.
+	{
+		nowshell = "red_hoodie"
+	}
+	elseif switchingtoshell == "Pink Apron"
+	{
+		nowshell = "pink_apron"
+	}
+	else
+	{
+		nowshell = "Other"
+	}
+	--
+	if shellswitching == 1 //Here's the dialogue for when you've switched shells, so that it doesnt get interrupted.
+	{
+		shellswitching = 0
+		if nowmode == "RYS"
+		{
+			"\RYS\s[2006]I've finished...\e"
+		}
+		else
+		{
+			if LV == 0
+			{
+				if switchingtoshell == "Red Hoodie" //Again, this is the name of your shell as you put in the descript.txt file for that shell.
+				{
+					"\0\s[104]Ahh,\w4 this is always nice to change back to.\w8\w8\s[0] It's simple,\w4\s[103] but it's comfy.\e"
+				}
+				elseif switchingtoshell == "Pink Apron"
+				{
+					"\0\s[104]Heh,\w4 suddenly I feel like baking.\e"
+				}
+				else //For any shell without a specific name, or if you don't want to bother with individual responses to a shell.
+				{
+					"\0\s[1010]Done.\e"
+				}
+			}
+			else
+			{
+				if LVCheck == 1
+				{
+					nowshell = tempshell
+					"\0\s[510]* (Done.)\w8\e"
+				}
+				else
+				{
+					if tempshell == nowshell //[Zi] if this shell is the same as the last...
+					{
+						"\0\s[402]Somehow I think you're just trying to get under my skin.\e"
+					}
+					else
+					{
+						nowshell = tempshell //[Zi] and if it's not the same as the last, then change nowshell to reflect the current shell
+						"\0\s[402]Happy now?\w8\e"
+					}
+				}
+			}
+		}
+	}
+	booting = 0
+}
+
+
+//These handle switching between modes
+OnSwitchS2RYS
+{
+	lastSclosed = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)")
+	_switchdialogue = "%(OnClose)"
+	_switchdialogue = REPLACE(_switchdialogue,"\-","")
+	_switchdialogue = REPLACE(_switchdialogue,"\e","")
+	"%(_switchdialogue)\w4\0\s[-1]\b[-1]\1\s[-1]\_w[600]\![raise,OnDialogueVariables,switchRYS]\0\![raise,OnBoot]"
+}
+
+OnSwitchRYS2S
+{
+	lastRYSclosed = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)")
+	_switchdialogue = "%(OnClose)"
+	_switchdialogue = REPLACE(_switchdialogue,"\RYS","\0")
+	_switchdialogue = REPLACE(_switchdialogue,"\-","")
+	_switchdialogue = REPLACE(_switchdialogue,"\e","")
+	"%(_switchdialogue)\w4\0\s[-1]\b[-1]\_w[600]\![raise,OnDialogueVariables,switchS]\0\![raise,OnBoot]"
+}
+
+//For my own reference, when I had RYS on the third char, I had it use this command: \![get,property,OnGetModeSCoords,currentghost.scope(2).rect] Then go to these functions. Don't think I'll need them, but
+/*OnGetModeSCoords
+{
+	shellchangexcoord = reference0[0]
+	shellchangeycoord = reference0[1]
+	"\0\![move,%(shellchangexcoord),%(shellchangeycoord)]\![raise,OnBoot]"
+}
+
+OnGetModeOtherCoords
+{
+	shellchangexcoord = reference0[0]
+	shellchangeycoord = reference0[1]
+	"\RYS\![move,%(shellchangexcoord),%(shellchangeycoord)]\![raise,OnBoot]"
+}*/
+
+//Variables to set on normal boots
+BootVars
+{
+	lastTalk = ""
+	passhour = 0
+	passmin = 0
+	passsec = 0
+	givenfood = 0
+	giveningredients = 0
+	givenwarmthings = 0
+	givenbooks = 0
+	givencutethings = 0
+	givenwater = 0
+	flattered = 0
+	complimented = 0
+	comforted = 0
+	lookingatphone = 0
+	talkedaboutpast = 0
+	lastinteracted = 0
+	hugged = 0
+	PollenAlert = 0
+	todaysingredients = ""
+	CameBack = 0
+	askedalready = 1
+	currentlydrinking = 0
+	RYSrecentBlankets = 0
+	RYSrecentBooks = 0
+	Dragged = 0
+	if changedscaling > 0; {changedscaling = 1}
+	tempurature = "Unknown"
+	ForC = "Unknown"
+	feelslike = "Unknown"
+	humidity = "Unknown"
+	wind = "Unknown"
+	weather = "Unknown"
+	pollen = "Unknown"
+	phase = "Unknown"
+	booting = 0
+	AutoUpdateCheck = 0
+	if nowmode == "RYS"
+	{
+		RYSboots++
+	}
+	else
+	{
+		Sboots++
+	}
+	weatherquiet = 2 //setting this so we can check later and if it's 2, do a weather check earlier than an hour...
+}
+
+//Variables set after updates, because I have no self control
+OnSetUpdateVariables
+{
+	if Update1p2p0 == "" //Update 1.2.0 variables - Same as below. I stg I'll add a version number in this update...
+	{
+		Update1p2p0 = "1.2.0"	
+		totalboops = 0
+		weatherquiet = 0
+		todaysingredients = ""
+		totalwaters = 0
+		currentlydrinking = 0
+		switchingtoshell = ""
+		CurrentXMonitor = 0
+		CurrentYMonitor = 0
+		CurrentXPos = 0
+		CurrentYPos = 0
+		NewXMonitor = 0
+		NewYMonitor = 0
+		XCoord = 0
+		YCoord = 0
+		SinceTalk = 0
+		FromDragging = 0
+		CameBack = 0
+		Dragged = 0
+		beenbackwards = 0
+		askedalready = 0
+		talkedtoAzura = 0
+		nowmode = "Default"
+		RYS = "RYS-0825"
+		RYStrust = 0
+		RYSprogress = 0
+		askedWhoRYS = 0
+		knowaboutABI = 0
+		askedaboutABI = 0
+		RYSwater = 0
+		RYSsnacks = 0
+		RYSblankets = 0
+		RYSbooks = 0
+		RYSrecentBlankets = 0
+		RYSrecentBooks = 0
+		RYShugs = 0
+		RYScomforted = 0
+		RYShours = 0
+		RYSpets = 0
+		DeviceList = ""
+		DeviceMemories = ""
+		VLCSong = ""
+		RYSboots = 0
+		Sboots = 0
+		RYSlearn = (0,0,0,0)
+		talkedtoTemmie = 0
+		MultiMonitor = 0
+		givensocks = 0
+		givenblankets = 0
+		givenmittens = 0
+		scaled = 0
+		betaTester = "OFF"
+		minimized = 0
+		beenoffscreen = 0
+		talkedtoLulo = 0
+		installdate = ("","","","","","")
+	}
+	if poppable == "" //Update 1.1 variables - These wont be set if they've already been set once
+	{
+		DeviceMemories = ""
+		DeviceList = '-' //start with -
+		knowaboutkit = 0
+		knowaboutsmol = 0
+		continuousstroke = 0
+		totalsnags = 0
+		totalpunches = 0
+		pethighscore = 0
+		scroll = 0
+		talkedtoDusty = 0
+		AzuraSongMemories = ""
+		staysafe = 0
+		mailfrommenu = 0
+		knowaboutbirdy = 0
+		knowaboutsorrel = 0
+		knowaboutpmd = 0
+		knowaboutbender = 0
+		knowaboutnine = 0
+		knowaboutserif = 0
+		knowaboutecho = 0
+		knowaboutice = 0
+		knowaboutomega = 0
+		balloonspopped = 0
+		poppable = "OFF"
+		specialcommu = 0
+		complimentaboutdusty = 0
+		dustyspaceandtime = 0
+		totalhugs = 0
+		hugged = 0
+		abbiblind = 0
+		nowscale = 100
+		changedscaling = 0
+	}
+	if SongMemories == "-"
+	{
+		SongMemories = ""
+	}
+}
+
+//Variables for firstboot, and resetting
+FirstVars
+{
+	lastTalk = "" //This is part of how chained conversations work (see aitalk.dic).
 	passhour = 0
 	passmin = 0 
 	passsec = 0 // These two keep track of the time.
@@ -81,9 +1128,7 @@ OnFirstBoot
 	knowmorethanyoushould = 0
 	thatsanoddnumber = 0
 	totalhours = 0
-	displaymin = 0
 	lookingatphone = 0
-	season = "????"
 	lastinteracted = 0
 	totalpets = 0
 	SeePC = "OFF"
@@ -151,855 +1196,64 @@ OnFirstBoot
 	abbiblind = 0
 	nowscale = 100
 	changedscaling = 0
-	//-----Patch 1.1.2-----
+	//---Update 1.2.0---
+	installdate = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)")
+	Update1p2p0 = "1.2.0"	
+	totalboops = 0
+	weatherquiet = 0
+	todaysingredients = ""
+	totalwaters = 0
+	currentlydrinking = 0
+	switchingtoshell = ""
+	CurrentXMonitor = 0
+	CurrentYMonitor = 0
+	CurrentXPos = 0
+	CurrentYPos = 0
+	NewXMonitor = 0
+	NewYMonitor = 0
+	XCoord = 0
+	YCoord = 0
+	SinceTalk = 0
+	FromDragging = 0
+	CameBack = 0
+	Dragged = 0
+	beenbackwards = 0
 	askedalready = 0
+	talkedtoAzura = 0
+	nowmode = "Default"
+	RYS = "RYS-0825"
+	RYStrust = 0
+	RYSprogress = 0
+	askedWhoRYS = 0
+	knowaboutABI = 0
+	askedaboutABI = 0
+	RYSwater = 0
+	RYSsnacks = 0
+	RYSblankets = 0
+	RYSbooks = 0
+	RYSrecentBlankets = 0
+	RYSrecentBooks = 0
+	RYShugs = 0
+	RYScomforted = 0
+	RYShours = 0
+	RYSpets = 0
+	DeviceList = ""
+	DeviceMemories = ""
+	VLCSong = ""
+	RYSboots = 0
+	Sboots = 0
+	RYSlearn = (0,0,0,0)
+	talkedtoTemmie = 0
+	MultiMonitor = 0
+	givensocks = 0
+	givenblankets = 0
+	givenmittens = 0
+	scaled = 0
+	betaTester = "OFF"
+	minimized = 0
+	beenoffscreen = 0
+	talkedtoLulo = 0
 	
 	updateavailable = 0
 	booting = 1 //This is here so that when you tell him your name the first time, he'll say the appropriate line.
-	
-	OnInitArrays
-	
-	if reference0 == 0 //Don't touch this line.
- 	{
-		//---- Alright, here is where the dialogue for your ghost begins! Again, I hope you've studied up on the walkthrough's guide to dialogue coding! However, there are a few unique things about this first conversation that you should keep in mind.
-		//Unlike most dialogue, it should start with "\![enter,passivemode]". Passivemode basically ensures that the balloons won't disappear, the choices won't time out, the ghosts won't talk randomly, you can't bring up menus, and makes sure that this dialogue plays through to the end correctly. This is one of the very few instances you'll ever use it, so make sure to get out of it at the end! I'll tell you when, so don't worry.
-		//You'll also notice that this dialogue is black instead of grey. This is because of the use of the backwards slash as mentioned in the advanced section of the SakuraScripting page. Do you see near the bottom where it has \n\n[half]/ with the other slash at the end before the choices are listed? You will want to replace dialogue up that \n\n[half], but do not mess with the choices beyond that unless you know what you're doing.
-		//Always make sure to keep your dialogue in the quotation marks! And remember, you can't use quotation marks IN dialogue either. You can use two single apostrophes instead if you must. And REMEMBER what I said about \![enter,passivemode]! Do NOT delete that tag!
-		
-		"\0\![enter,passivemode]\0\s[1110]\w8Wh- \w8\w8 ...Oh,\w4 another timeline..?\w8\w8\n\n\s[110]Oh,\w4\s[1020] uh,\w4 hi there.\w8\w8\s[106] Sorry,\w4 I hope I'm not bothering you.\w8\w8\s[107] I have a tendency to fall into random timelines,\w4 I'll probably disappear again soon.\w8\w8\s[208]\n\nLooks like...\w8\w8 a computer this time?\w8\w8\s[107] Could be worse,\w4 I guess.\w8\w8\n\n\s[104]So ah,\w4 my name's S.\w8\w8\s[0] What's yours?\![leave,passivemode]\![open,inputbox,OnNameTeach,-1]\e" //I hope I can change this one day, but for now this makes certain that he starts in the correct shell. If for some reason it can't find Red Hoodie, it should still carry on with the dialogue... but otherwise it'll bump him down to OnShellChanged, where the booting variable ensures that the proper text is read. 
-		
-		//There's a lot going on here, but what you mostly need to remember is to enter Passivemode at the beginning, and make sure not to touch the bottom part that starts with \w5\_q where the options are set up. Do whatever you like with the rest of the dialogue though! Make sure to set up poses for both characters right when you start, otherwise one will be invisible until they speak.
-		//Note also the use of the \x and \c tags. Read more about them in the intermediate SakuraScript section of the walkthrough if you're curious.
-		
-		//*********************Advanced User Info*******************************
-		//You can rename the choices at the bottom anything you like. The basic structure of a choice goes like \q[Displayed Name,Linkedfunction]. So for example, \q[Do a Dance,danceitup] would display "Do a Dance" in the balloon and it would link to the function titled "danceitup".
-		//Note - Do not include quotation marks in the displayed name, or any other symbols like brackets or dialogue coding like \_a, since that'll break the option in the balloon. If you do this you'll notice pretty quickly. Also option names do not word wrap, so don't make them too long if your balloon is small.
-		
-		//If you remember my note from above about the difference between On functions, this is one place it comes up. If your linked function in this menu doesn't start with On, like danceitup up there, you'll have to preface it in the following code with Select.danceitup. You can see this at work below here. However, if it does have On, such as OnDanceitup, then you can simply name the function in the code as OnDanceitup. Take a look whenever functions are defined and how they're called in the files,and it should come together for you.
-		
-		//If you link to a function that doesn't exist, the ghost will do nothing. This can be handy for "Cancel" type functions, just point it at something that doesn't exist if you don't want to have a specific bit of cancel dialogue.
-		
-		//If you want your ghost to just refer to your user as "they" and want to skip the pronoun business altogether, then you can just delete the choices and end the dialogue with \e. You'll want to go into menu.dic and delete the pronoun choice option from the config menu as well.
-		//***********************************************************************
- 	}
-	else
- 	{
-		//---- This is dialogue for when the user uninstalls the ghost for whatever reason, then reinstalls them again. They will run this dialogue instead of their normal dialogue above. You can change this to reflect the fact the user's uninstalled your ghost once, or you can make it the same as the above, it's up to you. You'll see this if you try to run OnFirstBoot using ![raise].
- 		{
-		reset = 1
- 		"\![enter,passivemode]\0\s[1110]\w8Wh- \w8\w8 ...Oh,\w4 another timeline..?\w8\w8\n\n\s[1070].\w8\w8.\w8\w8.\w8\w8Or...\w8\w8 have I been here before..?\w8\w8\n\n\s[110]Oh,\w4\s[1020] uh,\w4 hi there.\w8\w8\s[106] Sorry,\w4 I hope I'm not bothering you.\w8\w8\s[107] I have a tendency to fall into random timelines,\w4 I'll probably disappear again soon.\w8\w8\s[208]\n\nLooks like...\w8\w8 a computer this time?\w8\w8\s[1070] Hmm...\w8\w8\n\n\s[104]Anyways,\w4 ah,\w4 my name's S.\w8\w8\s[0] What's yours?\![leave,passivemode]\![open,inputbox,OnNameTeach,-1]\e"
-		}
- 	}
 }
-
-//Below are the choices that were defined at the end of the OnFirstBoot dialogue up there. These define the values your ghost will be using for pronouns according to what the user selected. On the whole, you should not need to touch these.
-
-//*********************Advanced User Info*******************************
-//Notice that after the values are set, there's a -- and then it loads up the next function in the sequence. You can use this basic method to set many values at once, then go to the same function afterwords.
-
-//To define a value, you use a single = mark. If it's a word, you need to put it in quotation marks, but if it's a number, you do not. See the walkthrough page on coding for details.
-
-//Notice how each choice is formatted as Select.choice. This is what I was talking about above with the difference between OnFunction and Function. These choices do not start with On, so they must begin with Select. instead. If you're setting up some quick choices for a menu you're only going to do once, then don't be afraid to use select. instead of having everything start with On.
-//***********************************************************************
-
-Select.choicefirsthehim
-{
-	presuffix = "masculine"
-	himher = "him"
-	heshe = "he"
-	hisher = "his"
-	--
-	NameInput
-}
-
-Select.choicefirstsheher
-{
-	presuffix = "feminine"
-	himher = "her"
-	heshe = "she"
-	hisher = "her"
-	--
-	NameInput
-}
-
-Select.choicefirsttheythem
-{
-	himher = "them"
-	heshe = "they"
-	hisher = "their"
-	--
-	NameInput
-}
-
-
-//--NameInput
-
-//NameInput is the next step in our introduction sequence. Now that the ghost has the pronouns set properly, they can ask the user for their name. It's done in this order so they'll know what prefixes will be appropriate for their name, like Mr. to he/him for example.
-
-//*********************Advanced User Info*******************************
-//Note this functions' name. This isn't a natural function included in the ghost, it's a piece of dialogue created by the original base coder to finish this sequence (cindysuke). I point this out to show you that you can do this too! You can create any number of functions just like this called whatever you want to do and say whatever you want! There are many things you can do with your Ghost if you're creative. Don't feel limited by what's in these files or the listed Shiori functions!
-//Just make sure you test them and they work, alright? I wrote more about coding and functions in the coding page for the walkthrough.
-//***********************************************************************
-
-NameInput
-{
-	//Note that there's a \![leave,passivemode] tag in this dialogue! Don't forget about this! If you leave them in passivemode they won't talk at all and it'd sort of defeat the purpose, right? I actually forgot this for a while with Hunter and Smoker and didn't notice because OnFirstBoot only runs once, so it took me some testing to find out what was wrong. Always make sure to leave passivemode when you're done with it!
-	
-	"\![leave,passivemode]\![open,inputbox,OnNameTeach,-1]\e"
-	
-	//At the end of this dialogue there's a tag saying "\![open,inputbox,OnNameTeach,-1]". It basically leads to the naming function defined in nameteach.dic, so don't touch it. Make sure it's there though! Otherwise your user won't have a way to put in their name. :o
-	
-	//*********************Advanced User Info*******************************
-	//What this tag basically means is that you're calling a function at the end of the dialogue with the \! tag, you are telling it to open, you're telling it to open an inputbox, and you're telling that inputbox to link to a function called OnNameTeach, which is in the nameteach.dic file. Remember what I said about On functions? I talked a bit about this in the SakuraScripting walkthrough page and the coding page.
-	//The -1 at the end determines how long the box will be open until it times out. -1 means it shouldn't time out at all, I think.
-	//***********************************************************************
-}
-
-//--GetTimeSlot
-
-//This is another unique function to tell what time of day it is. This is used for specialized dialogue related to the day. If you're uninterested, just ignore it. Either way, don't touch it. If you are going to use it though, make a note of the names used for each chunk of time, like earlymorning or lunch. Those are the names you'll be using later.
-
-GetTimeSlot
-{
-	if hour >= 5 && hour <= 8
-	{
-		"earlymorning"
-	}
-	elseif hour >= 9 && hour <= 11
-	{
-		"morning"
-	}
-	elseif hour >= 12 && hour <= 14
-	{
-		"lunch"
-	}
-	elseif hour >= 15 && hour <= 17
-	{
-		"afternoon"
-	}
-	elseif hour >= 18 && hour <= 20
-	{
-		"evening"
-	}
-	elseif hour >= 21 && hour <= 24
-	{
-		"latenight"
-	}
-	else
-	{
-		"midnight"
-	}
-}
-//*********************Advanced User Info*******************************
-//Do you see how this function is determining what time of day it is? It's using larger than/smaller than operators to isolate a range of time to define. For example, "hour >= 21 && hour <= 24" defines an hour that's greater than/equal to 21 AND less than/equal to 24. You can use this basic method to define other things too, such as the seasons. Keep this in mind! You never know when it might come in handy. I talk about operators more in the coding walkthrough page.
-//***********************************************************************
-
-
-//--GetDaySlot
-
-//Like the above, but to find out what day it is. You can primarily use this for specialized dialogue on certain days, like the user's birthday. Either way, don't touch it.
-
-GetDaySlot
-{
-	"%(month)month %(day)day"
-}
-
-
-//-----------------------Normal Booting----------------------------
-
-//From this point on, the dialogue will be for any normal boot of your ghost. You can specialize this for certain days or times if you like, or if you're uninterested, leave it very simple.
-
-
-//--OnBoot
-
-//As you can probably guess, OnBoot runs when you boot your ghost. It will run every time you boot your ghost, as a matter of fact.
-
-//*********************Advanced User Info*******************************
-//If you're defining new values that depend on what you were doing with your ghost (like say, if you've hit them, if they're in a certain mode of some kind) and are generally temporary, remember to put them in OnBoot and set them back to zero or off. For example, I have a counter in the Hunter Smoker ghost that keeps track of if you've hit one of them so that when you go into their menus, it will know to give you the option to apologize or not. So I made sure to add a hunterpunchcount = 0 tag at the beginning of OnBoot, that way when you boot them up, they start fresh and don't display the option if you haven't done anything wrong yet. It's unlikely this'll come up very much if you're not interested in expanding your ghost, but I'm making a note of it here anyway for enterprising developers, huge success.
-//***********************************************************************
-
-OnBoot
- {
-	lastTalk = "" //These values you may recognize from OnFirstBoot up there. Just pay them no mind.
-	passhour = 0
-	passmin = 0
-	passsec = 0
-	givenfood = 0
-	giveningredients = 0
-	givenwarmthings = 0
-	givenbooks = 0
-	givencutethings = 0
-	givenwater = 0
-	flattered = 0
-	complimented = 0
-	comforted = 0
-	displaymin = 0
-	lookingatphone = 0
-	talkedaboutpast = 0
-	lastinteracted = 0
-	hugged = 0
-	
-	OnInitArrays
-	
- 	"\1\s[-1]\0\s[0]"
-	--
-	Hourcheck //[Zi]I don't know if this'll work.... but uh, I'm just gonna hope for the best
-	dayslot = GetDaySlot
-	timeslot = GetTimeSlot
-	
-	if LV == 0
-	{
-		if dayslot == userbirthday
-		{
-			"\0\s[1010]Happy birthday, %(username)!\w8\n\n* (He hands you a picturesque slice of birthday cake.)\e"
-		}
-		
-		elseif dayslot == "8month 25day"
-		{
-			"\0\s[103]Hey there, %(username).\w8\s[1010] Did you call me here to wish me a happy birthday?\e"
-		}
-		
-		elseif dayslot == "7month 4day"
-		{
-			"\0\s[200]It's that time of year again...\w8\w8\s[200] All the humans in our area like to set off colorful explosions in the sky.\w8\s[201] I hear it's some sort of celebration of freedom from a long time ago?\w8\w8\n\n\s[1070]Maybe monsters should have a celebration of our own freedom...\w8\w8\s[202] Could do without the explosions though.\w8\s[206] Maybe some sort of colorful magic displays instead..?\e"
-		}
-		//Note to self for later, I don't feel like adding these now but I probably will later: Triplets Bday 10/12 (Barcode should have a different one... I'll have to pick an arbitrary one), Blue Jeans 8/11, Rosie 4/27, Roman 12/13, Cambria 3/10, Triton 3/23, Lulo 2/26, Azo 3/13, Sigil is technically 9/28... but I may need to bump that around to match with Azo. Or bump Azo around. One of those... Sigil should be 9-10 months later. Elko 2/26. Maaan these are like all clumped up around the same months XD Do I want to spread them out? Mm.... I'll decide later.
-	}
-	--
-		"%(normalboottalk)"
-	
-}
-
-
-normalboottalk //Ergh, this is a mess. For now, he'll only acknowledge the time if you're being nice to him. Might change later.
-{
-	
-	if LV == 0 && love >= 20
-	{
-		if RAND(100) < 50
-		{
-			{
-				"\0\s[1122]\w6\s[103]Heya, %(username).\w8 It's good to see you again.\e"
-				"\0\s[1122]\w6\s[0]Heya.\w8 Hows it going?\e"
-				"\0\s[1122]\w6\s[104]Hey there %(username).\w8\w8\s[103] How's your day been?\e"
-				"\0\s[1122]\w6\s[104]Hey %(username),\w4 having a good %(displayweekday)?\e"
-			}
-			if nowshell == "pink_apron"
-			{
-				"\0\s[1122]\w6\s[102]* (The smell of baked goods heralds his presence.)\w8\w8\n\n\s[110]Oh!\w8\s[104] hey,\w4 %(username).\w8\w8\s[103] You caught me in the middle of making %(bakedgoods).\e"
-			}
-		}
-		else
-		{
-			if timeslot == "earlymorning"
-			{
-				"\0\s[1122]\w6\s[104]Heya, %(username).\w8 Are you an early waker too?\w8\w8\s[101] Or did you stay up all night?\e"
-			}
-			elseif timeslot == "morning"
-			{
-				"\0\s[1122]\w6\s[103]Hi, %(username).\w8 How's your morning going?\e"
-				"\0\s[1122]\w6\s[0]Hey %(username).\w8\w8\s[104] Happy %(displayweekday).\e"
-				if nowshell == "pink_apron"
-				{
-					"\0\s[1122]\w6\s[102]* (You can smell pancakes and syrup.)\w8\w8\n\n\s[110]Oh!\w8\w8\s[104] Hey there %(username),\w4 we were just finishing up breakfast.\w8\w8\s[0] Have you had anything to eat yet?\e"
-				}
-			}
-			elseif timeslot == "lunch"
-			{
-				"\0\s[1122]\w6\s[103]Hey there, %(username).\w8 Have you eaten yet?\e"
-				if nowshell == "pink_apron"
-				{
-					"\0\s[1122]\w6\s[102]* (The scent of %(ingredients) drifts through your desktop.)\w8\w8\s[110]\n\nOh,\w4\s[104] hey there %(username).\w8\w8\s[0] I was just making lunch,\w4 have you had lunch yet?\e"
-				}
-			}
-			elseif timeslot == "afternoon"
-			{
-				"\0\s[1110]\w6\s[207]* (He yawns.)\n\n\w8\w8\s[106]Oh,\w4 hi there %(username).\w8\s[107] Sorry, I was just about to take a nap.\e"
-				"\0\s[1122]\w6\s[110]Oh,\w4\s[104] afternoon, %(username).\e"
-			}
-			elseif timeslot == "evening"
-			{
-				"\0\s[1110]\w6\s[207]* (He yawns.)\n\n\w8\w8\s[0]Oh, hey there %(username).\w8 Is it getting late where you're at?\w8\s[107] The sun's already set at home.\e"
-				"\0\s[1122]\w6\s[104]Hey,\w4 %(username).\w8\w8\s[0] Spending a relaxing %(displayweekday) evening at home?\e"
-			}
-			elseif timeslot == "latenight"
-			{
-				"\0\s[1122]\w6\s[109]* (He seems confused for a moment.)\n\n\w8\w8\s[1100]Oh..!\w8\s[107] Hey, %(username).\w8\s[101] Isn't it late there..?\w8\w8\n\n\s[207]* (He yawns slowly.)\w8\w8\w8\n\n\s[107]I was just on my way to bed,\s[0] but I'm here if you need me.\e" //replaceframe could use sleepy with eyes open
-				"\0\s[1122]\w6\s[110]Ah-\w8\w8\s[106] Oh,\w4 hey %(username).\w8\w8\s[104] Planning to stay up a while?\e"
-			}
-			else //midnight
-			{
-				"\0\s[1122]\w6\s[108]Ah...\w8\w8 Hey there, %(username).\w8\s[303] You can't sleep either?\e"
-				"\0\s[1122]\w6\s[109]Hm?\w8\w8\s[110] Ah-\w8\s[104] hey %(username).\w8\w8\s[101] You're up late.\e"
-			}
-		}
-	}
-	elseif LV > 0 //Negative routes
-	{
-		if LVCheck == 1 //know his secrets
-		{
-	
-			if broken == 1 //broken him down all the way
-				{
-					"\s[1126]\w6"
-					--
-					"\s[510]* (He doesn't look up at you.)\e"
-					"\s[510]* (He nods in acknowledgement, but says nothing.)\e"
-					"\s[510]* (He shudders.)\e"
-					"\s[510]* (He emerges from within your files.)\w8\w8\n\n* (Seems like he didn't go home last time.)\e"
-				}
-				else //breaking him, but he's still standing
-				{
-					"\0\s[1122]\w6\s[108]...Oh.\w8\w8\s[510] Here again...\e"
-				}
-			
-		}
-		else //Just mean for no reason
-		{
-			if LV <= 30 //you've been a bit mean
-			{
-				"\s[1124]\w6\s[414]Oh,\w4 great.\w8\w8 \s[412]You again?\e"
-				"\s[1123]\w6\s[404]Ugh, not this again.\e"
-				"\s[1123]\w6\s[403]What do you want this time?\e"
-
-			}
-			elseif LV >=31 //You've been really mean and he hates you a lot
-			{
-				"\s[1123]\w6\s[403]What,\w4 still not tired of punching me?\e"
-				"\s[1124]\w6\s[411]I'm beginning to think you have nothing better to do with your time.\e"
-				"\s[1124]\w6\s[412]Get a life,\w4 seriously.\e"
-				"\s[1123]\w6\s[404]* (He looks away and doesn't say anything.)\e"
-
-			}
-		}
-	}
-	else //Neutral has to be down here and not up with the positive ones, unless I change it so he recognizes the time
-	{
-		"\0\s[1122]\w6"
-		--
-		"\0\s[110]Oh,\w4 here again?\w8\w8\s[205] Alright then.\e"
-		"\0\s[101]Oh,\w4 hello again.\w8\w8\s[205] Didn't expect to come back here.\e"		
-	}
-}
-
-
-//--OnClose
-
-//OnClose runs when you close your ghost. Like OnBoot, this can be customized for times and days if you like, as you saw above. It can also be easily simplified down to
-//OnClose
-//{
-//[insert your dialogue here]
-//}
-//if you don't want to deal with the time slots. Although do note, close dialogue must end with a \- instead of \e. \- will close the program.
-//Like above with OnBoot, just replace all the following pieces of dialogue with your own. It feels a bit redundant for me to point out every single piece and say "replace this", you know? If you've read the SakuraScript walkthrough page, you should know what a piece of dialogue looks like by now within code. Just go through OnClose and replace each bit with dialogue more suited for your ghost.
-//Note though that each bit here ends with \w8 instead of \e. That's because the actual end statement to close the ghost is at the very end, one of the very very rare times you won't have to end a line with \e. Instead, end it with \w8 so there's a little bit of a pause for the user before your ghost closes so they can read the last message.
-
-OnClose
- {
-	timeslot = GetTimeSlot //as you saw above, it's checking the time.
-	--
-	if passmin >= 5 || passhour > 0 //This checks to see if you've had them open for at least five minutes.
-	{
-		if LV == 0 && love >= 20
-		{
-			if RAND(100) < 40
-			{
-				"\0\s[1010]See you later, %(username)!"
-				"\0\s[104]Take care, %(username)!"
-				"\0\s[104]Have a good day, %(username)!"
-				"\0\s[103]Have a good %(displayweekday),\w4 %(username)!"
-			}
-			elseif wd == "Sat" && RAND(100) < 60
-			{
-				"\0\s[1010]Enjoy the weekend,\w4 %(username)!"
-				"\0\s[107]Heh,\w4 back to the weekend chaos for me.\w8\w8\s[103] Have a good day,\w4 %(username)."
-			}
-			else
-			{
-				if timeslot == "earlymorning"
-					{
-						"\0\s[0]Off to get breakfast?\w8\s[1010] Fair enough.\w8\w8\s[101] Or maybe you're just going to bed.\w8\w8\s[1010] Either way, I'll see you later."
-					}
-				elseif timeslot == "morning"
-					{
-						"\0\s[1010]There's a lot of the day still left.\w8 Make it a good one, yeah?"
-					}
-				elseif timeslot == "lunch"
-					{
-						"\0\s[106]Good timing, I'm starting to get hungry.\w8\s[1010] Don't forget to eat something yourself, ok?"
-						"\0\s[0]Off to eat something?\w8\w8\s[104] Me too,\w4 see you later."
-					}
-				elseif timeslot == "afternoon"
-					{
-						"\0\s[205]I should go pick up the kids.\w8\w8\s[1010] See you later, %(username)!"
-						"\0\s[205]Good timing,\w4 I should have a chance to swing by the store before they close.\w8\w8\s[104] See you later,\w4 %(username)."
-					}
-				elseif timeslot == "evening"
-					{
-						"\0\s[0]Alright then,\s[1010] I'm off to see what's for dinner.\w8\s[0] Don't forget to eat something yourself, too."
-					}
-				elseif timeslot == "latenight"
-					{		
-						"\0\s[1010]Goodnight, %(username).\w8 Sleep well."
-						"\0\s[207]* (He yawns.)\w8\w8\w8\n\n\s[106]Guess it's time for me to head to bed.\w8\w8\s[104] You make sure you get some sleep too,\w4 ok %(username)?"
-					}
-				else //Midnight
-					{
-						"\0\s[200]Guess it's time to try and get some sleep.\w8\s[202] I hope you have better luck than me, %(username)."
-						"\0\s[207]* (He yawns.)\w8\w8\w8\n\n\s[107]I dunno about you,\w4 but I can't wait to crawl under a warm blanket.\w8\w8\s[104] You get some sleep too,\w4 ok %(username)?"
-					}
-			}
-		}
-		elseif LV > 0 //Negative routes
-		{
-			if LVCheck == 1 //know his secrets
-			{
-		
-				if broken == 1 //broken him down all the way
-					{
-						"\s[514]* (You tell him to crawl back to his family.)\w8\w8\n\n\s[500]* (He nods and\s[-1] slinks away.)"
-						"\s[510]* (You tell him to get lost.)\w8\w8\n\n\s[-1]* (He does so without a word.)"
-						"\s[1550]* (You shove him out,\w8\s[-1] and he puts up no resistance.)"
-					}
-					else //breaking him, but he's still standing
-					{
-						"\0\s[510]* (You tell him to go back to his family.)\w8\w8\n\n\s[516]* (He gives you a wary look,\w4\s[500] then nods.)"
-						"\0\s[516].\w8.\w8.\w8Thanks."
-						"\0\s[516]* (He looks like he's going to say something,\w4\s[510] then changes his mind and\s[-1] leaves quietly.)"
-					}
-				
-			}
-			else //Just mean for no reason
-			{
-				if LV <= 30 //you've been a bit mean
-				{
-					"\s[400]Good riddance."
-					"\s[400]Finally."
-				}
-				elseif LV >=31 //You've been really mean and he hates you a lot
-				{
-					"\s[400]Good riddance."
-					"\s[400]Finally."
-				}
-			}
-		}
-		else //Neutral has to be down here and not up with the positive ones, unless I change it so he recognizes the time
-		{
-			"\0\s[0]Alright.\w8 See you around, then."
-			"\0\s[0]Ah, alright.\w8 See you later."
-		}		
-	
-		
-	}
- 	else //This dialogue is for if they haven't been open for at least five minutes.
- 	{
-		
-		if LV == 0 //Friendship routes
-		{
-			if love >=100 //Full friendship
-			{
-				if hugged > 0
-				{
-					"\0\s[110]Oh,\w4 just wanted a hug?\w8\w8\s[104] Alright then,\w4 don't be afraid to call me again if you need me."
-				}
-				else
-				{
-					"\0\s[110]Oh, did you call me here by accident?\w8\s[1010] Alright, well, have a good day anyways!"
-				}
-				
-			}
-			elseif love >= 30 //getting to know him a little
-			{
-				"\0\s[106]Oh,\w4 alright then.\w8\w8\s[104] See you later."
-			}
-			else //He isn't sure what to make of you yet
-			{
-				"\0\s[108]Oh,\w4 uh,\w4 alright.\w8\w8\s[208] I've got some stuff I should do at home anyhow."
-			}
-		}
-		
-		elseif LV > 0 //Negative routes
-		{
-			if LVCheck == 1 //know his secrets
-			{
-
-					if broken == 1 //broken him down all the way
-					{
-						"\s[1550]* (You shove him out,\w8\s[-1] you didn't want him here anyways.)\w8\w8"
-					}
-					else //breaking him, but he's still standing
-					{
-						"\s[516]* (He leaves quickly,\w4\s[-1] seems he wasn't eager to stick around anyways.)"
-					}
-				
-			}
-			else //Just mean for no reason
-			{
-				if LV <= 30 //you've been a bit mean
-				{
-					"\s[401]Fine by me, I didn't want to be here anyways."
-				}
-				elseif LV >=31 //You've been really mean and he hates you a lot
-				{
-					"\s[412]Are you finally starting to get bored?\w8\w8\s[401] Good."
-				}
-			}
-		}
-
- 	}
- 	--
-	"\w8\w8\-\e" //this bit of code actually closes and ends the ghost. Because \e is here, you don't have to end each line above with it. Again, this will come up very rarely, so OnClose is an unusual case.
- }
-
-
- //-------------------------State Changing--------------------
- //From here on, most of the dialogue will have to do with changing shells, ghosts, or states in some way.
- 
-
-//--OnWindowStateRestore
-
-//This will run when you minimize them and then bring them back up. Replace with what you like.
-
-OnWindowStateRestore
- {
-	 if LV == 0 //Friendship routes - Any amount of friendship will trigger this dialogue
-	{
-			"\0\s[301]Ah..!\w8\n\n* (He's hyperventilating a little.)\n\n\w8\w8\w8\w8\s[200]Wh-what was that??\w8\w8\s[201] Uh, %(username), I'm uh-\w8\w8\s[300] I'm a bit scared of the dark.\w8 And uh...\w8\w8\s[301] Tight spaces.\w8\w8\n\n\s[303]Can we not do that again?\w8 Please?\e" //replaceframe MAYBE some fear frames
-	}
-	
-	elseif LV > 0 //Negative routes
-	{
-		if LVCheck == 1 //know his secrets
-		{
-			"\s[511]* (He's hyperventilating.)\w8\w8\n\n\s[515]* (Good.)\e"
-		}
-		else //Just mean for no reason
-		{
-			"\s[400]Tsk.\w8\w8\n\n* (He's acting like that didn't bother him, but you can see his shoulders trembling a little.\e"
-		}
-	}
-	
-}
-
-
-//--OnGhostChanging
-
-//This runs whenever you change or reload the ghost. You can change ghosts by going into the right click menu and going to Change Ghost, but this dialogue will also be called if you reload them using Utilities->Reload Ghost. Protip: If you are going to make a ghost, you will be reloading it A LOT.
-//Note: If you reload your ghost using the developer console instead of Utilities->Reload Ghost, it won't do this dialogue, so don't freak out if it doesn't show up.
- 
-OnGhostChanging
- {
-	if reference0 == "RYS-0825" //Replace this with the name of your Sakura character as you put in install.txt or descript.txt. I set this up to use the full ghost's name with Hunter and Smoker but I forget exactly how I did it and I'm having trouble getting it to work again. I think I just didn't define the Sakura or Kero names in either descript.txt or install.txt. You can experiment with it yourself. Otherwise, leave it as your Sakura character's name.
-	{
-	if LV == 0 //Friendship routes
-	{
-			"\0\s[1010]Sure, be back in just a moment.\w8\w8\e"
-			"\0\s[0]Alright, just a moment, then.\w8\w8\e"
-			"\0\s[104]Alright,\w4 I'll reload.\w8\w8\e"
-	}
-	
-	elseif LV > 0 //Negative routes
-	{
-		if LVCheck == 1 //know his secrets
-		{
-
-				if broken == 1 //broken him down all the way
-				{
-					"\s[516]* (You order him to reload.)\w8\w8\s[510]\n\n* (He simply nods and complies.)\w8\e"
-				}
-				else //breaking him, but he's still standing
-				{
-					"\s[516]...Ok, I'll reload.\e"
-				}
-			
-		}
-		else //Just mean for no reason
-		{
-			"\0\s[400]Only because it gets me away from you briefly.\e"
-		}
-	}
-		
-		
-		
-		
-		
-		//Replace this dialogue with whatever you like.
-	}
- 	else //If you're switching to another Ghost.
-	{
-		
-		
-		if LV == 0 //Friendship routes
-		{
-			if love <= 19 //He isn't sure what to make of you yet
-			{
-				"\0\s[0]Ok. Say hi to %(reference0) for me!\w8\w8\e"
-			}
-			else
-			{
-				"\0\s[1010]Ok. Say hi to %(reference0) for me!\w8\w8\e"
-			}
-		}
-		elseif LV > 0 //Negative routes
-		{
-			if LVCheck == 1 //know his secrets
-			{
-
-					if broken == 1 //broken him down all the way
-					{
-						"\s[516]* (You order him to go and fetch %(reference0) for you.)\w8\w8\s[510]\n\n* (He nods and hurries off.)\w8\w8\e"
-					}
-					else //breaking him, but he's still standing
-					{
-						"\0\s[510]...Ok."
-					}
-				
-			}
-			else //Just mean for no reason
-			{
-				"\0\s[402]Well, I hope you at least treat %(reference0) better than you've treated me.\e"
-			}
-		}
-	}
-}
-
-
-//--OnGhostChanged
-
-//A sister to the above, this runs after the ghost has either reloaded itself, or when you switch from another ghost to this ghost.
-
-OnGhostChanged
-{
-	"\0\s[0]\1\s[-1]" //this sets up their default poses
-	--
-	if reference0 == "RYS-0825" //As above, this should be the name of your ghost as in install.txt or descript.txt.
-		{
-		if LV == 0 //Friendship routes
-		{
-
-				"\0\s[1010]I'm back.\e"
-				"\0\s[1010]Back.\w8 Anything new?\e"
-
-			if love <= 19 //He isn't sure what to make of you yet
-			{
-				"\0\s[0]I'm back.\e"
-				"\0\s[0]Back.\w8 Anything new?\e"
-			}
-		}
-		
-		elseif LV > 0 //Negative routes
-		{
-			if LVCheck == 1 //know his secrets
-			{
-
-					if broken == 1 //broken him down all the way
-					{
-						"\s[510]* (Reload complete.)\e"
-					}
-					else //breaking him, but he's still standing
-					{
-						"\s[510]* (Reload complete.)\e"
-					}
-				
-			}
-			else //Just mean for no reason
-			{
-				"\0\s[404]A shame that doesn't take longer.\e"
-			}
-		}
-	
-	}
-	else //If you're switching to them from another ghost...
-	{
-		lastTalk = "" //These values you may recognize from OnFirstBoot up there. Just pay them no mind.
-		passhour = 0
-		passmin = 0
-		passsec = 0
-		givenfood = 0
-		giveningredients = 0
-		givenwarmthings = 0
-		givenbooks = 0
-		givencutethings = 0
-		givenwater = 0
-		flattered = 0
-		complimented = 0
-		comforted = 0
-		displaymin = 0
-		lookingatphone = 0
-		talkedaboutpast = 0
-		lastinteracted = 0
-		hugged = 0
-		
-		
-		if LV == 0 //Friendship routes
-		{
-			"\0\s[110]Was that %(reference0) leaving?\e" //Could use the mild surprise frame here
-		}
-		elseif LV > 0 //Negative routes
-		{
-			if LVCheck == 1 //know his secrets
-			{
-				"\s[516]* (You ask if he saw how you treated %(reference0).)\w8\w8\n\n\s[510]* (He just shivers.)\e"
-			}
-			else //Just mean for no reason
-			{
-				"\0\s[402]%(reference0), huh?\w8\w8\s[400] Did you punch them too?\e"
-			}
-		}
-		//Again, %(reference0) in this function is the name of the ghost in question. As above, replace these two lines of dialogue what what'd be appropriate for your ghost.
-	}
-	--
-	OnInitArrays
-}
-
-
-//--OnShellChanging
-
-//This will run when you change your ghost's shell. If you don't have any other shells for your ghost, you can safely ignore this but don't delete it, you might as well keep it just in case. I probably won't add a different shell to this template because shells are a lot of work ugh, but for the sake of argument, let's pretend I did.
-
-OnShellChanging
- {
-	if LV == 0
-	{
-		tempshell = reference0 //storing the shell name in tempshell
-		tempshell = TOLOWER(tempshell) //changes it to lowercase
-		tempshell = REPLACE(tempshell," ","_") //replace spaces with underscores. This should work as long as my naming schemes never change |D
-		if tempshell == nowshell //[Zi]If you're switching to the same shell... for some reason. I don't know why it lets you do this but I mean hey it means I get to add a silly comment yeah? I wont REALLY know if this code works until I add a second shell.... but I'm hoping that'll be sooner over later :3c
-		{
-			"\0\s[106]Uh...\w8\w8 I'm already wearing that,\w4 but ok I guess?\w8\e"
-		}
-/*		elseif reference0 == "red_hoodie"
-		{
-		""
-		}*/ //[Zi]I can't think of anything to have him say about his hoodie at the moment..... so I'm just going to comment this out. If I think of something later I'll add it back in.
-		elseif reference0 == "Pink Apron"
-		{
-			"\0\s[208]Do you smell cookies?\w8\e"
-		}
-		else
-		{
-		"\0\s[103]Alright,\w4 I'll be right back.\w8\e"
-		}  
-	}
-	else
-	{
-		if LVCheck == 1
-		{
-			"\0\s[510]* (He nods and goes to switch clothing.)\w8\e"
-		}
-		else
-		{
-			"\0\s[400]Hmph.\w8\w8 Fine.\w8\e"
-		}
-	}
- }
- 
- 
- //--OnShellChanged
- 
- //The sister to the above, this is the dialogue after you've changed the shell.
- 
-OnShellChanged
- {
-	tempshell = reference0 //storing the shell name in tempshell
-	tempshell = TOLOWER(tempshell) //changes it to lowercase
-	tempshell = REPLACE(tempshell," ","_") //replace spaces with underscores. This should work as long as my naming schemes never change |D
-	if LV == 0
-	{
-		if tempshell == nowshell && booting != 2
-		{
-			"\0\s[106]Was that really necessary,\w4 kiddo?\e"
-		}
-		elseif reference0 == "Red Hoodie" //Again, this is the name of your shell as you put in the descript.txt file for that shell.
-		{
-			nowshell = "red_hoodie" //This is the folder name for your shell. Not the same as the above!
-			
-			"\0\s[104]Ahh,\w4 this is always nice to change back to.\w8\w8\s[0] It's simple,\w4\s[103] but it's comfy.\e"
-		}
-		elseif reference0 == "Pink Apron"
-		{
-			nowshell = "pink_apron"
-			
-			"\0\s[104]Heh,\w4 suddenly I feel like baking.\e"
-		}
-		else //For any shell without a specific name, or if you don't want to bother with individual responses to a shell.
-	{
-			nowshell = "Other"
-			"\0\s[1010]Done.\e"
-	
-		//Note the %(reference[0]) here! This time that should store the name of whatever shell you're switching to. To be honest, I have not experimented with this too much because making shells is a pain in the tuckus, but I'm going to take cindysuke's coding on faith and assume reference[0] is correct instead of reference0. Replace this bit of dialogue as you need.
-		}
-	}
-	else
-	{
-		
-		if LVCheck == 1
-		{
-			nowshell = tempshell
-			"\0\s[510]* (Done.)\w8\e"
-		}
-		else
-		{
-			if tempshell == nowshell //[Zi] if this shell is the same as the last...
-			{
-				"\0\s[402]Somehow I think you're just trying to get under my skin.\e"
-			}
-			else
-			{
-				nowshell = tempshell //[Zi] and if it's not the same as the last, then change nowshell to reflect the current shell
-				"\0\s[402]Happy now?\w8\e"
-			}
-		}
-	}
- }
-
-
- //--OnDressupChanged
- 
- //This runs whenever you fiddle with their clothing via the dress-up option, if you've set any for your ghost. Honestly setting up clothing is a nightmare and I hate doing it, and if your ghost is going to be moving around substantially or at all, clothing won't stay in the right place anyway. So unless you're like a real expert on surfaces.txt coding and rigging up clothing for different poses or you're intense or dedicated enough to set up clothing in the right place for every pose you do, I would not bother with clothing for your ghost.
- //HOWEVER I can't begrudge people who actually would put in that effort! And in that case, this function is for you. For now, I'll fill this in with some hypothetical items. Replace the dialogue below with whatever you need.
-
-OnDressupChanged
-{
-if reference0 == 0 //in OnDressupChanged, reference0 refers to the character, therefore this is evaluating which character in question is getting dressed up. 0 is the main character, as you know from the walkthrough by now.
-	{
-	if reference1 == "Clothing for Girl" //This is the name of the clothing item in the descript.txt file, I'm pretty sure.
-		{
-			if reference2 == 1 //This checks if you're putting it on.
-			{
-			"\0\s[0]You put my clothing item on me.\w8\1\s[19]lol like zar would ever bother with clothes for a ghost.\w8\0\s[301]\n\n[half]Shut up dude you're going to get us in trouble.\e"
-			}
-			else // This checks if you're taking it off.
-			{
-			"\0\s[0]You took the clothing item off.\e"
-			}
-		}		
-	}
-else //if reference0 isn't the main character, then it has to be the side character.
-	{
-	if reference1 == "some kind of clothing for triangle??" //The name of the item of clothing in the descript.txt file in your shell folder.
-		{
-			if reference2 == 1 //If you put it on
-			{
-			"\1\s[10]I'm wearing some kind of clothing.\w8\0\s[300]Maybe a hat?\e"
-			}
-			else //When you take it off.
-			{
-			"\1\s[10]You took off some kind of clothing.\e"
-			}
-		}
-	elseif reference1 == "i'm gonna say a propeller beanie" //As you've seen above, you can use elseifs to expand the list if you have more than one item.
-		{
-			if reference2 == 1 //if you're putting it on
-			{
-			"\1\s[10]You put a hat on me.\w8\0\s[203]lol.\w8\1\n\n[half]\s[11]Shaddap.\e"
-			}
-			else //when you take it off
-			{
-			"\1\s[10]You took off the hat.\e"
-			}
-		}
-	}
-}
-
-//If you are super dedicated to doing clothes, I'd recommend checking out some more in-depth FLELE tutorials for stuff about clothing until I muster up the energy to write a walkthrough page for it.

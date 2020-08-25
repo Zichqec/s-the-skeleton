@@ -11,46 +11,17 @@ OnFileDrop2
 	_filepath = SPLITPATH(reference0)
 	_filename = _filepath[2]
 	_fileext = TOLOWER(_filepath[3])
-	if nowmode == "RYS"
+	_fileslash = REPLACE(reference0,"\","\\")
+	if _fileext != ""
 	{
-		case _fileext
-		{
-			when ".jpg", ".jpeg", ".bmp", ".png"
-			{		
-				Wallpaperfile = reference0
-				"\RYS\s[2007]...Do you want this as your wallpaper..?"
-				--
-				"\n\n/
-				\![*]\q[Centered,SetWallpaper_0]\n/
-				\![*]\q[Tiled,SetWallpaper_1]\n/
-				\![*]\q[Stretched,SetWallpaper_2]\n"
-				--
-				_osver = TOINT(os_version)
-				if "Windows" _in_ os_name && _osver >= 10
-				{
-					"\![*]\q[Span,SetWallpaper_3]\n"
-				}
-				--
-				"\n\n\![*]\q[No thanks,SetWallpaper_Cancel]\e"
-			}
-			others
-			{
-				"\RYS\s[2006]..?\e"
-			}
-		}
-	}
-	else
-	{
-		if LV == 0
+		if nowmode == "RYS"
 		{
 			case _fileext
 			{
-				when ".jpg", ".jpeg", ".bmp", ".png" //These are the formats your ghost will recognize as image files to set as the background. I tested this with .png files and it does not work, so don't bother adding that as an option. [Zi] Seems to be working fine for me... I'm worried it's gonna break later or something lol
-				{
+				when ".jpg", ".jpeg", ".bmp", ".png"
+				{		
 					Wallpaperfile = reference0
-					
-					"\0\s[110]Oh,\w4\s[104] this is neat.\w8\w8\s[0] Do you want me to set it as your wallpaper?"
-					"\0\s[110]Oh,\w4 a picture?\w8\w8\s[1020] Uh,\w4 sure,\w4 I think I could set that as your wallpaper.\w8\w8\s[208] How do you want it?"
+					"\RYS\s[2007]...Do you want this as your wallpaper..?"
 					--
 					"\n\n/
 					\![*]\q[Centered,SetWallpaper_0]\n/
@@ -65,74 +36,132 @@ OnFileDrop2
 					--
 					"\n\n\![*]\q[No thanks,SetWallpaper_Cancel]\e"
 				}
-				when ".mid", ".wav", ".mp3", ".wma", ".au", ".flac", ".m4a" //Music files
-				{
-					"\s[103]Oh hey,\w4 is this music?\w8\w8\s[106] Unfortunately,\w4 I don't uh...\w8\w8\s[107] know how to read a file like this.\w8\w8\s[0] "
-					"\0\s[1070]A %(_fileext),\w4 huh?\w8\w8\s[106] Sorry,\w4 I can't play this for you.\w8\w8\s[0] "
-					"\0\s[1071]'%(_filename)',\w4 huh?\w8\w8\s[106] Sorry,\w4 I can't play this.\w8\w8\s[0] "
-					--
-					if "Azura" _in_ ghostexlist
-					{
-						"Maybe Azura could?\e"
-						"You could try asking Azura?\e"
-					}
-					elseif "Azura" _in_ installedlist && talkedtoAzura == 1
-					{
-						"Maybe you could call Azura here?\e"
-						"I think Azura can play music on her laptop,\w4 if you want to call her here.\e"
-					}
-					else
-					{
-						"Maybe someone else could?\e"
-						"Maybe someone else can play music for you?\e"
-					}
-				}
-				when ".psd", ".sai", ".sai2", ".clip", ".mdp", ".kra", ".xcf" //art files
-				{
-					"\0\s[110]Oh,\w4 is this a drawing?\w8\w8\s[104] That's really cool,\w4 %(username)!\e"
-					"\0\s[111]Oh,\w4 are you an artist,\w4 %(username)?\w8\w8\s[104] This is really neat.\e"
-					"\0\s[111]Oh,\w4 did you draw this %(username)?\w8\w8 It looks really good!\e"
-				}
-				others //Any other file format. As a note here, if you drop something ghost-related on them that does not have an install.txt, then they won't install it and will just say this response. If you are testing your balloon or nar files and you get this response instead of a proper installation, you should check and make sure you have an install.txt in the file!
-				{
-					"\0\s[106]Sorry,\w4 I don't recognize that file type.\w8\w8\s[107] I'm not very good with computers,\w4 to be honest with you.\e"
-					"\0\s[106]Sorry,\w4 I'm not sure what to do with a %(_fileext).\e"
-					"\0\s[107]...Yep,\w4 that's a %(_fileext).\e"
-					"\0\s[106]Sorry kiddo,\w4 I'm not sure what to do with that.\e"
-				}		
-			}
-		}
-		elseif LVCheck == 1
-		{
-			case _fileext
-			{
-				when ".jpg", ".jpeg", ".bmp", ".png"
-				{
-					Wallpaperfile = reference0
-					
-					"\0\s[510]...How do you want your wallpaper set?\n\n/
-					\![*]\q[Centered,SetWallpaper_0]\n/
-					\![*]\q[Tiled,SetWallpaper_1]\n/
-					\![*]\q[Stretched,SetWallpaper_2]\n"
-					--
-					_osver = TOINT(os_version)
-					if "Windows" _in_ os_name && _osver >= 10
-					{
-						"\![*]\q[Span,SetWallpaper_3]\n"
-					}
-					--
-					"\n\n\![*]\q[No thanks,SetWallpaper_Cancel]\e"
-				}
 				others
 				{
-					"\0\s[510]...Sorry,\w4 I can't do anything with that file.\e"
+					"\RYS\s[2006]..?\e"
 				}
-			}			
+			}
 		}
 		else
 		{
-				"\s[400]Hmph.\w8 I'm not doing anything with it.\e"
-				"\s[400]Keep your files to yourself,\w4 I don't want them.\e"
+			if LV == 0
+			{
+				case _fileext
+				{
+					when ".jpg", ".jpeg", ".bmp", ".png" //These are the formats your ghost will recognize as image files to set as the background. I tested this with .png files and it does not work, so don't bother adding that as an option. [Zi] Seems to be working fine for me... I'm worried it's gonna break later or something lol
+					{
+						Wallpaperfile = reference0
+						
+						"\0\s[110]Oh,\w4\s[104] this is neat.\w8\w8\s[0] Do you want me to set it as your wallpaper?"
+						"\0\s[110]Oh,\w4 a picture?\w8\w8\s[1020] Uh,\w4 sure,\w4 I think I could set that as your wallpaper.\w8\w8\s[208] How do you want it?"
+						--
+						"\n\n/
+						\![*]\q[Centered,SetWallpaper_0]\n/
+						\![*]\q[Tiled,SetWallpaper_1]\n/
+						\![*]\q[Stretched,SetWallpaper_2]\n"
+						--
+						_osver = TOINT(os_version)
+						if "Windows" _in_ os_name && _osver >= 10
+						{
+							"\![*]\q[Span,SetWallpaper_3]\n"
+						}
+						--
+						"\n\n\![*]\q[No thanks,SetWallpaper_Cancel]\e"
+					}
+					when ".mid", ".wav", ".mp3", ".wma", ".au", ".flac", ".m4a" //Music files
+					{
+						"\s[103]Oh hey,\w4 is this music?\w8\w8\s[106] Unfortunately,\w4 I don't uh...\w8\w8\s[107] know how to read a file like this.\w8\w8\s[0] "
+						"\0\s[1070]A %(_fileext),\w4 huh?\w8\w8\s[106] Sorry,\w4 I can't play this for you.\w8\w8\s[0] "
+						"\0\s[1071]'%(_filename)',\w4 huh?\w8\w8\s[106] Sorry,\w4 I can't play this.\w8\w8\s[0] "
+						--
+						if "Azura" _in_ ghostexlist
+						{
+							"Maybe Azura could?\e"
+							"You could try asking Azura?\e"
+						}
+						elseif "Azura" _in_ installedlist && talkedtoAzura == 1
+						{
+							"Maybe you could call Azura here?\e"
+							"I think Azura can play music on her laptop,\w4 if you want to call her here.\e"
+						}
+						else
+						{
+							"Maybe someone else could?\e"
+							"Maybe someone else can play music for you?\e"
+						}
+					}
+					when ".psd", ".sai", ".sai2", ".clip", ".mdp", ".kra", ".xcf" //art files
+					{
+						"\0\s[110]Oh,\w4 is this a drawing?\w8\w8\s[104] That's really cool,\w4 %(username)!\e"
+						"\0\s[111]Oh,\w4 are you an artist,\w4 %(username)?\w8\w8\s[104] This is really neat.\e"
+						"\0\s[111]Oh,\w4 did you draw this %(username)?\w8\w8 It looks really good!\e"
+					}
+					others //Any other file format. As a note here, if you drop something ghost-related on them that does not have an install.txt, then they won't install it and will just say this response. If you are testing your balloon or nar files and you get this response instead of a proper installation, you should check and make sure you have an install.txt in the file!
+					{
+						"\0\s[106]Sorry,\w4 I don't recognize that file type.\w8\w8\s[107] I'm not very good with computers,\w4 to be honest with you.\e"
+						"\0\s[106]Sorry,\w4 I'm not sure what to do with a %(_fileext).\e"
+						"\0\s[107]...Yep,\w4 that's a %(_fileext).\e"
+						"\0\s[106]Sorry kiddo,\w4 I'm not sure what to do with that.\e"
+					}		
+				}
+			}
+			elseif LVCheck == 1
+			{
+				case _fileext
+				{
+					when ".jpg", ".jpeg", ".bmp", ".png"
+					{
+						Wallpaperfile = reference0
+						
+						"\0\s[510]...How do you want your wallpaper set?\n\n/
+						\![*]\q[Centered,SetWallpaper_0]\n/
+						\![*]\q[Tiled,SetWallpaper_1]\n/
+						\![*]\q[Stretched,SetWallpaper_2]\n"
+						--
+						_osver = TOINT(os_version)
+						if "Windows" _in_ os_name && _osver >= 10
+						{
+							"\![*]\q[Span,SetWallpaper_3]\n"
+						}
+						--
+						"\n\n\![*]\q[No thanks,SetWallpaper_Cancel]\e"
+					}
+					others
+					{
+						"\0\s[510]...Sorry,\w4 I can't do anything with that file.\e"
+					}
+				}			
+			}
+			else
+			{
+					"\s[400]Hmph.\w8 I'm not doing anything with it.\e"
+					"\s[400]Keep your files to yourself,\w4 I don't want them.\e"
+			}
+		}
+	}
+	else
+	{
+		if nowmode == "RYS"
+		{
+			"\RYS\s[2006]Um,\w4 this is %(_fileslash)...\w8\w8\s[2007] I'm not sure what to do with it.\e"
+		}
+		else
+		{
+			if LV == 0
+			{
+				"\0\s[0]This is %(_fileslash).\w8\w8\s[106] Sorry kiddo,\w8\s[106] I'm not sure what to do with that.\e"
+			}
+			else
+			{
+				if LVCheck == 1
+				{
+					"\0\s[510]...This is %(_fileslash).\e"
+				}
+				else
+				{
+					"\0\s[410]I don't want your folders.\e"
+				}
+			}
 		}
 	}
 }
@@ -1422,7 +1451,7 @@ OnAskChangelog
 		}
 	}
 	--
-	"\n\n\![*]\q[Yes,seechangelog]\n\![*]\q[No,nochangelog]\e"	
+	"\n\n\![*]\q[Yes,OnChangeLog]\n\![*]\q[No,nochangelog]\e"	
 }
  //---- OnUpdateFailure -------------------------------------------------------------
  //Error messages if the update process fails in some way.
@@ -1526,7 +1555,7 @@ OnUpdateFailure
 			if LV == 0
 			{
 				"\0\s[106]Sorry kiddo,\w4 something went wrong.\w8\w8\s[1070] All it says is '%(reference0)'.\w8\w8\s[106] Maybe you should let Zichqec know about that?\e"
-				"\0\s[110]Ah,\w4 sorry,\w4 something went wrong.\w8\w8\s[106] It says '%(reference0)'?\w8\w8 You should let Zichqec know about that.\e"
+				"\0\s[110]Ah,\w4 sorry,\w4 something went wrong.\w8\w8\s[106] Something about '%(reference0)'?\w8\w8 You should let Zichqec know about that.\e"
 				"\0\s[106]Looks like something went wrong,\w4 sorry.\w8\w8\s[110] It says '%(reference0)'.\w8\w8\s[106] Maybe you should ask Zichqec about that?\e"
 			}
 			else
@@ -1625,12 +1654,6 @@ OnUpdate.OnDownloadBegin
 	}*/
 	--
 	"\e"
-} 
-
- 
-Select.seechangelog
-{
-	OnChangeLog
 }
 
 
@@ -1653,25 +1676,26 @@ Select.nochangelog
 	}
 }
  
-OnChangeLog //[Zi] haha I hope I remember to update this
+OnChangeLog //Haha I hope I remember to update this
 {
 	if nowmode == "RYS"
 	{
 		"\RYS"
 	}
 	--
-	"\![set,autoscroll,disable]\_q\b2\_l[90]-Version 1.2.0-\n\n/ 
-	-Updated the balloon. If the balloon looks strange while using the Timeline menu, you can download it here, or change your balloon to Purple Soul and ask S to update from the 'do something for you' menu!\n\n/
-	-Added a new secret mode! If you don't mind spoilers and want to know how to unlock it, you can check on my website here.\n\n/
+	"\![set,autoscroll,disable]\_q\b2\_l[90]-Version 1.2.0-\n\n/
+	-It's S's birthday today (8/25)! So here's an update to celebrate.\n\n/
+	-Updated the balloon. If the balloon looks strange while using the Timeline menu, you can download the new file \_a[http://www.mediafire.com/file/c25fwju9hsly11k/purple_soul_v1.2.nar/file]here\_a, or change your balloon to Purple Soul and ask S to update from the 'do something for you' menu!\n\n/
+	-Added a new secret mode! If you don't mind spoilers and want to know how to unlock it, you can find the answer on my website \_a[https://zichqec.github.io/s-the-skeleton/index.html]here\_a.\n\n/
 	-S can now check the weather! If you've checked the weather recently, or if you have auto weather updates on, he may comment on the weather randomly!\n\n/
 	-S will now comment if you move him far enough across your screen, or move him onto a secondary monitor.\n\n/
 	-S can now comment on how much trash you're hoarding in your recycle bin!\n\n/
 	-He may also comment if you plug in a tablet, if you allow him to see programs on your PC.\n\n/
 	-S can now display email headers when he checks your email!\n\n/
 	-You can boop his nose if your friendship is high!\n\n/
-	-Lots of new dialogue, patched bugs,a few new expressions, and cleaned up code! Drastically less spaghetti.\n\n/
+	-Lots of new dialogue, patched bugs, a few new expressions, and cleaned up code! Drastically less spaghetti.\n\n/
 	-Balloons and position on screen will now sync across shells.\n\n/
-	-You can opt in to beta updates! This is intended for folks on the Ukagaka Dream Team Discord server. If you'd like to help me test updates, and see new features before they're live, join us! If you're going to opt in, PLEASE BACKUP YOUR SAVE.\n\n"
+	-You can opt in to beta updates! This is intended for folks on the Ukagaka Dream Team Discord server. If you'd like to help me test updates, and see new features before they're live, \_a[https://ukagakadreamteam.tumblr.com/discord]join us\_a! If you're going to opt in, PLEASE BACKUP YOUR SAVE.\n\n"
 	--
 	if reference0 == "frommenu"
 	{
@@ -2697,6 +2721,7 @@ OnGhostCalling //Kinda want to add some summoning messages, but I'm not sure wha
 
 OnBalloonBreak //This is so dumb XD do I keep this? I don't know -- Update, I'm keeping it but it's going in the config menu lol
 {
+	SinceTalk += 10
 	if lastinteracted > 6
 	{
 		CameBack += 1
@@ -2722,6 +2747,8 @@ OnBalloonBreak //This is so dumb XD do I keep this? I don't know -- Update, I'm 
 	{
 		""
 	}
+	--
+	"\![raise,OnDialogueVariables,suppressCoordsOff]"
 	/*--
 	if FromDragging == 2
 	{
@@ -3278,15 +3305,15 @@ OnMoonFound
 		--
 		if phase == "New Moon"
 		{
-			"\w8\w8\s[104] There's a new moon tonight,\w4 maybe you'll have a chance to see it."
+			"\w8\w8\s[104] There's also a new moon tonight,\w4 maybe you'll have a chance to see it."
 		}
 		if phase == "First Quarter" || phase == "Last Quarter" //Half moon
 		{
-			"\w8\w8\s[104] There's a half moon tonight,\w4 maybe you'll have a chance to see it."
+			"\w8\w8\s[104] There's also a half moon tonight,\w4 maybe you'll have a chance to see it."
 		}
 		if phase == "Full Moon"
 		{
-			"\w8\w8\s[104] There's a full moon tonight,\w4 maybe you'll have a chance to see it."
+			"\w8\w8\s[104] There's also a full moon tonight,\w4 maybe you'll have a chance to see it."
 		}
 	}
 	elseif weather == "Partly Cloudy" || weather == "Mostly Cloudy" || weather == "Cloudy" //Cloudy

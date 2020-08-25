@@ -482,7 +482,6 @@ OnFamilyMenu
 		"-- "
 	}
 	--
-	--
 	if askedaboutdings == 1
 	{
 		"anIDings\q[Dings,infodings]  "  
@@ -492,7 +491,6 @@ OnFamilyMenu
 		"----- "
 	}
 	--
-	--
 	if askedaboutwings == 1
 	{
 		"anIWings\q[Wings,infowings]  "  
@@ -501,7 +499,6 @@ OnFamilyMenu
 	{
 		"----- "
 	}
-	--
 	--
 	if askedaboutbarcode == 1
 	{
@@ -523,7 +520,6 @@ OnFamilyMenu
 		"---- ----- "
 	}
 	--
-	--
 	if askedaboutabbi == 1
 	{
 		"anIAbbi\q[Abbi,infoabbi]  "  
@@ -533,7 +529,6 @@ OnFamilyMenu
 		"---- "
 	}
 	--
-	--
 	if askedaboutrosie == 1
 	{
 		"anIRosie\q[Rosie,inforosie]  "  
@@ -542,7 +537,6 @@ OnFamilyMenu
 	{
 		"----- "
 	}
-	--
 	--
 	if askedaboutroman == 1
 	{
@@ -564,7 +558,6 @@ OnFamilyMenu
 		"------- "
 	}
 	--
-	--
 	if askedabouttriton == 1
 	{
 		"anITriton\q[Triton,infotriton]  "  
@@ -573,7 +566,6 @@ OnFamilyMenu
 	{
 		"------ "
 	}
-	--
 	--
 	if askedaboutlulo == 1
 	{
@@ -584,7 +576,6 @@ OnFamilyMenu
 		"---- "
 	}
 	--
-	--
 	if askedaboutazo == 1
 	{
 		"anIAzo\q[Azo,infoazo]  "  
@@ -593,7 +584,6 @@ OnFamilyMenu
 	{
 		"--- "
 	}
-	--
 	--
 	if askedaboutsigil == 1
 	{
@@ -1578,7 +1568,7 @@ timelinequestions
 Select.whoisRYS
 {
 	RYSprogress = 7
-	"\0* (You tell him you met RYS-0825.)\w8\w8\n\n\s[1100]* (His face pales...\w8 Somehow.)\w8\w8\w8\n\n\s[200].\w8.\w8.\w8.\w8.\w8\s[201]I never told you that designation.\w8\w8\w8\n\n\s[109]* (He sighs.)\w8\w8\n\n\s[108]You \f[italic,1]met\f[italic,0] him?\w8\w8\n\n* (You explain that you brought RYS-0825 here by mistake while trying to summon him.)\w8\w8\n\n\s[204]I see...\w8\w8\w8\n\n\s[200].\w8.\w8.\w8.\w8.\w8\s[201]I suppose there's nothing I can do to stop you from bringing him here again.\w8\w8\s[108] Just be good to him,\w4 alright?\w8\w8\s[109] He doesn't truly know what he's doing,\w4 he's being manipulated."
+	"\0* (You tell him you met RYS-0825.)\w8\w8\n\n\s[1100]* (His face pales...\w8 Somehow.)\w8\w8\w8\n\n\s[200].\w8.\w8.\w8.\w8.\w8\s[201]I never told you that designation.\w8\w8\w8\n\n\s[109]* (He sighs.)\w8\w8\n\n\s[108]You \f[italic,1]met \f[italic,0] him?\w8\w8\n\n* (You explain that you brought RYS-0825 here by mistake while trying to summon him.)\w8\w8\n\n\s[204]I see...\w8\w8\w8\n\n\s[200].\w8.\w8.\w8.\w8.\w8\s[201]I suppose there's nothing I can do to stop you from bringing him here again.\w8\w8\s[108] Just be good to him,\w4 alright?\w8\w8\s[109] He doesn't truly know what he's doing,\w4 he's being manipulated."
 	--
 	"%(morequestions)"
 }
@@ -1637,13 +1627,13 @@ Select.functionmenu
 		}
 		elseif love >= 30 //getting to know him a little
 		{
-			"\0\s[201]\b2Uh, sure.\w8\s[202] What did you need?"
+			"\0\s[202]\b2Uh, sure.\w8\s[202] What did you need?"
 			"\0\s[202]\b2What do you need?"
 		}
 		else //He isn't sure what to make of you yet
 		{
-			"\0\s[201]\b2Uh, alright?\w8 What did you want?"
-			"\0\s[201]\b2Uh, alright I guess.\w8 What did you want?"
+			"\0\s[202]\b2Uh, alright? What did you want?"
+			"\0\s[202]\b2Uh, alright I guess. What did you want?"
 		}
 		--
 		"\n\n"
@@ -1652,16 +1642,7 @@ Select.functionmenu
 	{
 		if LVCheck == 1 //know his secrets
 		{
-
-				if broken == 1 //broken him down all the way
-				{
-					"\0\s[510]"
-				}
-				else //breaking him, but he's still standing
-				{
-					"\0\s[510]"
-				}
-			
+			"\0\s[510]"
 		}
 		else //Just mean for no reason
 		{
@@ -1756,7 +1737,11 @@ Select.weathercheck //Check the current weather. If the user doesn't have a loca
 		weathertries = 1
 		weatherquiet = 0
 		fromfunctionmenu = 1
-		"\0\s[110]Oh,\w4 the weather?\w8\w8\s[104] Sure,\w4\s[1070] give me just a moment...\![raise,OnDownloadCurWeather]"
+		"\0\s[110]Oh,\w4 the weather?\w8\w8\s[104] Sure,\w4\s[1070] give me just a moment..."
+		"\0\s[110]Oh,\w4 the weather?\w8\w8\s[104] Ok,\w4\s[1070] hold on a moment..."
+		"\0\s[104]Sure,\w4 I can check,\w4\s[1070] let's see...\w8\w8 %(curlocation),\w4 huh?"
+		--
+		"\![raise,OnDownloadCurWeather]"
 	}
 	else
 	{
@@ -1777,7 +1762,11 @@ Select.CALENDAR
 	{
 		if LV == 0 //Friendship routes
 		{
-			"\0\s[0]Sure,\w4 just a moment.\![open,calendar]\e"
+			"\0\s[0]Sure,\w4 just a moment."
+			"\0\s[104]Sure,\w4 here you go."
+			"\0\s[0]Keeping organized,\w4 huh?"
+			--
+			"\![open,calendar]\e"
 		}
 		else //Negative routes -- Bad routes not included here because you can't reach this menu anyways
 		{
@@ -1797,7 +1786,6 @@ Select.CALENDAR
 Select.MailCheck
 {
 	mailfrommenu = 1
-	--
 	"\![biff]\e"
 }
 
@@ -1806,28 +1794,30 @@ Select.sspconfig
 {
 	if nowmode == "RYS"
 	{
-		"\RYS\s[2007]Preferences...\w8\w8\s[2006] here they are.\![open,configurationdialog]\e"
+		"\RYS\s[2007]Preferences...\w8\w8\s[2006] here they are."
 	}
 	else
 	{
 		if LV == 0 //Friendship routes
 		{
-			"\0\s[101]Preferences?\w8 Uh,\w4 is that this thing here..?\![open,configurationdialog]\e"
+			"\0\s[101]Preferences?\w8 Uh,\w4 is that this thing here..?"
+			"\0\s[1070]Preferences...\w8\w8\s[106] Is this it?"
+			"\0\s[1070]Sure,\w4 lets see...\w8\w8\s[0] Here it is."
 		}
 		else //Negative routes -- again, if he's mad at you, you wont even have this option
 		{
 			if broken == 1 //broken him down all the way
 			{
-				"\s[510]* (He opens the configuration menu silently.)\![open,configurationdialog]\e"
+				"\s[510]* (He opens the configuration menu silently.)"
 			}
 			else //breaking him, but he's still standing
 			{
-				"\s[514]...Sure.\![open,configurationdialog]\e"
+				"\s[514]...Sure."
 			}
 		}
-		--
-		FunctionMenu
 	}
+	--
+	"\![open,configurationdialog]\e"
 }
 
 //If the user chooses to empty the recycle bin.
@@ -1957,19 +1947,23 @@ Select.balloonupdate
 {
 	if nowmode == "RYS"
 	{
-		"\RYS\s[2007]Oh,\w4 um...\w8\w8 let me see...\![update,balloon]"
+		"\RYS\s[2007]Oh,\w4 um...\w8\w8 let me see..."
 	}
 	else
 	{
 		if LV == 0
 		{
-			"\0\s[1070]Ok,\w4 let me see here...\![update,balloon]\e"
+			"\0\s[1070]Ok,\w4 let me see here..."
+			"\0\s[1070]Hm,\w4 balloon updates..?"
+			"\0\s[1070]I can try,\w4 just a second..."
 		}
 		else
 		{
-			"\0\s[510]Alright,\w4 I'll check...\![update,balloon]"
+			"\0\s[510]Alright,\w4 I'll check..."
 		}
 	}
+	--
+	"\![update,balloon]\e"
 }
 
 //View the changelog
@@ -2135,6 +2129,7 @@ Select.numbersdontlie
 					"* Smells vaguely of %(ingredients)."
 					"* Smells vaguely of %(bakedgoods)."
 				}
+				//Want to make todaysingredients into an array and have it pick random ingredients to tell you he has
 				--
 				"\n\n\w8* You've run him for a total of %(totalhours) hours"
 				--
@@ -2166,7 +2161,7 @@ Select.numbersdontlie
 					--
 					if totalwaters != 1; "es"
 					--
-					" of water,"	
+					" of water"	
 				}
 				if _songtotal > 0
 				{
@@ -3086,7 +3081,7 @@ TalkConfig
 	if poppable == ""; {poppable = "OFF"}
 	if deleteshitai == ""; {deleteshitai = "OFF"}
 	--
-	"\0\b[2]\_q\![set,autoscroll,disable]\![raise,OnDialogueVariables,suppressCoordsOff]\_l[95]---Config---\n\n" 
+	"\0\b[2]\_q\![set,autoscroll,disable]\![raise,OnDialogueVariables,suppressCoordsOn]\_l[95]---Config---\n\n" 
 	//Autoscroll tag ensures that you stay at the top of the balloon when the menu is opened. Hopefully I'll be able to shrink the menu enough that it wont matter, but... we'll see.
 	--
 	"\![*]Your name: %(username) \f[sup,1]\q[(Change it?),TEACHNAME]\f[sup,0]\n"
@@ -3673,7 +3668,6 @@ Select.CANCEL
 			}
 		}
 	}
-
 }
 
 //When choices time out
@@ -3753,7 +3747,11 @@ OnChoiceTimeout
 	}
 }
 
- 
+//I wasn't planning to give this a Select.option, it's just meant to be an empty function for choices that should do nothing. However, since I added dialogue for dragging him around the screen and I made it use \C, it would pop up windows after you closed them if you just nudged him around a bit. This here prevents that by making it clear that the balloon is _definitely_ closed, because you clicked a choice to close it. Might change how this works later, but I think this'll be the quickest and cleanest solution because I used cancelnodialogue everywhere.
+Select.cancelnodialogue
+{
+	SinceTalk += 10
+}
 
 
 

@@ -972,4 +972,12 @@ OnDialogueVariables
 	{
 		givenmittens++
 	}
+	elseif reference0 == "switchS"
+	{
+		nowmode = "Default"
+	}
+	elseif reference0 == "switchRYS"
+	{
+		nowmode = "RYS"
+	}
 }

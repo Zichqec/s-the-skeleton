@@ -28,6 +28,7 @@ OnTeachName
 
 OnNameTeach
 {
+	reference0 = TOSTR(reference0)
 	tempname = reference0 //this stores the name value temporarily in reference0
 	reference0 = TOLOWER(reference0) //changes it to lowercase
 	reference0 = REPLACE(reference0," ","") //removes spaces
@@ -44,9 +45,13 @@ OnNameTeach
 		{
 			"\RYS\s[2013]* (He shivers.)\w8\w8\n\n...Ok.\x"
 		}
-		elseif reference0 == "rys0825" || reference0 == "0825" || reference0 == "rys"
+		elseif reference0 == "rys0825" || reference0 == "825" || reference0 == "rys"
 		{
 			"\RYS\s[2012]...Um.\w8\w8\s[2013] Alright...\x"
+		}
+		elseif tempname == RYS
+		{
+			"\RYS\s[2006]Um...\w8\w8\s[2007] Isn't that what you call me..?\x"
 		}
 		else
 		{
@@ -81,10 +86,17 @@ OnNameTeach
 				--
 				NameDone
 			}
-			elseif reference0 == "rys0825" || reference0 == "0825" || reference0 == "abi0219" || reference0 == "0219" || reference0 == "dw"
+			elseif reference0 == "rys0825" || reference0 == "825" || reference0 == "abi0219" || reference0 == "219" || reference0 == "dw" || reference0 == "rys" || reference0 == "abi"
 			{
-				knowmorethanyoushould = 1 //dont know if I'll use this or not but it's here
-				"\0\s[204]...No.\w8\w8 Give me something else.\![open,inputbox,OnNameTeach,-1]"
+				if RYSprogress == 7
+				{
+					"\0\s[201]C'mon,\w4 kiddo,\w4 I'm not calling you that.\![open,inputbox,OnNameTeach,-1]"
+				}
+				else
+				{
+					knowmorethanyoushould = 1 //dont know if I'll use this or not but it's here
+					"\0\s[204]...No.\w8\w8 Give me something else.\![open,inputbox,OnNameTeach,-1]"
+				}
 			}
 			elseif reference0 == "zichqec"
 			{
@@ -97,6 +109,10 @@ OnNameTeach
 				"\0\s[1070]Huh...\w8\w8 That's familiar somehow.\w8\w8 Anyways...\w8\w8\n\n"
 				--
 				NameDone
+			}
+			elseif tempname == RYS
+			{
+				"\0* (You should probably pick something else,\w4 that might get confusing...)\![open,inputbox,OnNameTeach,-1]"
 			}
 			else
 			{
@@ -116,10 +132,14 @@ NameDone
 		if LV == 0
 		{
 			"\0\s[104]Ok,\w4 I'll call you %(username) then."
+			"\0\s[111]Alright,\w4 I'll call you %(username)."
+			"\0\s[102]Got it,\w4 %(username) it is."
 			--
 			if booting == 0
 			{
-				"\e"
+				"\x"
+				--
+				TalkConfig
 			}
 			else
 			{
@@ -155,11 +175,19 @@ OnBdayTeach
 	{
 		if LV == 0
 		{
-			"\0\s[101]Something wrong with your birthday?\w8\s[0] Ok,\w4 I'll make a new note.\w8 What month were you born in?"
+			if birthdayprint == "????"
+			{
+				"\0\s[111]Oh,\w4 what month were you born in?"
+			}
+			else
+			{
+				"\0\s[101]Oh,\w4 do I have the wrong date?\w8\w8\s[0] Ok,\w4 I'll make a new note.\w8\w8 What month were you born in?"
+				"\0\s[101]Oh,\w4 it's not %(bornmonthprint) %(borndayprint)?\w8\w8\s[0] I'll make a new note,\w4 then.\w8\w8 What month were you born in?"
+			}
 		}
 		else
 		{
-			"\0\s[510]\s[102]...Ok,\w8 I'll make a new note.\w8 What month?"
+			"\0\s[510]\s[102]...Ok,\w8 I'll make a new note.\w8\w8 What month?"
 		}
 	}
 	--
@@ -169,71 +197,23 @@ OnBdayTeach
 OnUserBornMonth
 {
 	_tempmonth = reference0 //this stores what the user input in as a variable called _tempmonth
-	_tempmonth = TOLOWER(_tempmonth) //changes it to lowercase  [Zi] ohhh boy I'm gonna see if I can get rid of the 'numbers only' thing!
+	_tempmonth = TOLOWER(_tempmonth) //changes it to lowercase
 	_tempmonth = REPLACE(_tempmonth," ","") //removes spaces
 	_tempmonth = REPLACE(_tempmonth,".","") //removes periods
 	_tempmonth = REPLACE(_tempmonth,"-","") //removes dashes 
 	
-	if _tempmonth == "january" || _tempmonth == "1" 
-	{
-		bornmonth = 1
-		bornmonthprint = "January"
-	}
-	elseif _tempmonth == "february" || _tempmonth == "2" 
-	{
-		bornmonth = 2
-		bornmonthprint = "February"
-	}
-	elseif _tempmonth == "march" || _tempmonth == "3" 
-	{
-		bornmonth = 3
-		bornmonthprint = "March"
-	}
-	elseif _tempmonth == "april" || _tempmonth == "4" 
-	{
-		bornmonth = 4
-		bornmonthprint = "April"
-	}
-	elseif _tempmonth == "may" || _tempmonth == "5" 
-	{
-		bornmonth = 5
-		bornmonthprint = "May"
-	}
-	elseif _tempmonth == "june" || _tempmonth == "6" 
-	{
-		bornmonth = 6
-		bornmonthprint = "June"
-	}
-	elseif _tempmonth == "july" || _tempmonth == "7" 
-	{
-		bornmonth = 7
-		bornmonthprint = "July"
-	}
-	elseif _tempmonth == "august" || _tempmonth == "8" 
-	{
-		bornmonth = 8
-		bornmonthprint = "August"
-	}
-	elseif _tempmonth == "september" || _tempmonth == "9" 
-	{
-		bornmonth = 9
-		bornmonthprint = "September"
-	}
-	elseif _tempmonth == "october" || _tempmonth == "10" 
-	{
-		bornmonth = 10
-		bornmonthprint = "October"
-	}
-	elseif _tempmonth == "november" || _tempmonth == "11"
-	{
-		bornmonth = 11
-		bornmonthprint = "November"
-	}
-	elseif _tempmonth == "december" || _tempmonth == "12" 
-	{
-		bornmonth = 12
-		bornmonthprint = "December"
-	}
+	if _tempmonth == "january" || _tempmonth == "1" {bornmonth = 1; bornmonthprint = "January"}
+	elseif _tempmonth == "february" || _tempmonth == "2" {bornmonth = 2; bornmonthprint = "February"}
+	elseif _tempmonth == "march" || _tempmonth == "3" {bornmonth = 3; bornmonthprint = "March"}
+	elseif _tempmonth == "april" || _tempmonth == "4" {bornmonth = 4; bornmonthprint = "April"}
+	elseif _tempmonth == "may" || _tempmonth == "5" {bornmonth = 5; bornmonthprint = "May"}
+	elseif _tempmonth == "june" || _tempmonth == "6" {bornmonth = 6; bornmonthprint = "June"}
+	elseif _tempmonth == "july" || _tempmonth == "7" {bornmonth = 7; bornmonthprint = "July"}
+	elseif _tempmonth == "august" || _tempmonth == "8" {bornmonth = 8; bornmonthprint = "August"}
+	elseif _tempmonth == "september" || _tempmonth == "9" {bornmonth = 9; bornmonthprint = "September"}
+	elseif _tempmonth == "october" || _tempmonth == "10" {bornmonth = 10; bornmonthprint = "October"}
+	elseif _tempmonth == "november" || _tempmonth == "11" {bornmonth = 11; bornmonthprint = "November"}
+	elseif _tempmonth == "december" || _tempmonth == "12" {bornmonth = 12; bornmonthprint = "December"}
 	else //if the month isn't a valid month, like 32 or something.
 	{
 		if nowmode == "RYS"

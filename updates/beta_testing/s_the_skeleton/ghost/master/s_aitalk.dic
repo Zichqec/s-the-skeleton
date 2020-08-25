@@ -269,6 +269,7 @@ if love >= 75;			"\0\s[208]You'd think I'd be really good at computers by now,\w
 					if talkedtoDusty == 1 && "Dusty" !_in_ ghostexlist && love >= 75 
 					{
 						"\0\s[208]I wonder how Dusty is doing...\e"
+						"\0\s[206]I should visit Dusty soon...\e"
 					}
 					
 					//=====About family members=====
@@ -317,8 +318,18 @@ if love >= 75;			"\0\s[208]You'd think I'd be really good at computers by now,\w
 					}
 					if askedaboutlulo == 1 && love >= 75 
 					{
-						if (day == 13 || day == 27) && love >= 75  //There's no rhyme or reason to these days, I just want him to only comment on this once in a while, and not tell you about this every single day... I might change this later idk. Would love to implement a system of variables that randomly shift and track the goings on in his life...
-						"\0\s[200]anLulo's been sleeping longer the past few days...\w8\s[300] It's probably nothing,\w4 but...\w8\w8\n\n\s[302]* (He tries to hide a shiver,\s[200] but you catch it anyways.)\e"
+						if day == 13 || day == 27  //There's no rhyme or reason to these days, I just want him to only comment on this once in a while, and not tell you about this every single day... I might change this later idk. Would love to implement a system of variables that randomly shift and track the goings on in his life...
+						{
+							"\0\s[200]anLulo's been sleeping longer the past few days...\w8\s[300] It's probably nothing,\w4 but...\w8\w8\n\n\s[302]* (He tries to hide a shiver,\s[200] but you catch it anyways.)\e"
+						}
+						if talkedtoLulo == 0 && "Lulo" !_in_ installedlist //:3c
+						{
+							"\0\s[208]anLulo has been asking me about this place,\w4 lately.\w8\w8\s[104] I think the idea of exploring the inside of a computer has captured her imagination a bit.\w8\w8\s[107] Though,\w4 I'm not sure it's as interesting in person as she thinks it'll be...\e"
+						}
+						if talkedtoLulo == 1 && "Lulo" _in_ installedlist && "Lulo" !_in_ ghostexlist
+						{
+							
+						}
 					}
 					if askedaboutazo == 1 && love >= 75 
 					{
@@ -493,7 +504,7 @@ if love >= 75;			"\0\s[208]You'd think I'd be really good at computers by now,\w
 					{
 						if day < 7
 						{
-						"\0\s[102]It's the beginning of autumn...\w8\w8\s[104] It's really nice to feel a cool breeze again,\w4 isn't it?\e"
+							"\0\s[102]It's the beginning of autumn...\w8\w8\s[104] It's really nice to feel a cool breeze again,\w4 isn't it?\e"
 						}
 						"\0\s[103]Autumn has a nice smell,\w4 doesn't it?\w8\w8\s[205] It does in my area,\w4 at least.\e"
 						"\0\s[103]Have the leaves started turning color in your area yet?\w8\w8\s[104] I've seen a few starting on our trees.\e"
@@ -505,7 +516,6 @@ if love >= 75;			"\0\s[208]You'd think I'd be really good at computers by now,\w
 					{
 						"\0\s[0]Are there a lot of trees where you live?\w8\w8\s[104] We've got a good few near us,\w4 and they look spectacular this time of year.\e"
 						"\0\s[104]Tis the month for pumpkin spice.\w8\w8\s[103] Do you like pumpkin spice,\w4 %(username)?\e"
-						
 						"\0\s[106]Every year around this time I hear young humans playing this song,\w4 'spooky scary skeletons'...\w8\w8\s[107] They seem like they're just having fun,\w4 so I'm not gonna stop them,\w4\s[106] but I hope they don't actually find us scary.\e"
 						if askedaboutbluejeans == 1
 						{
@@ -527,6 +537,7 @@ if love >= 75;			"\0\s[208]You'd think I'd be really good at computers by now,\w
 						"\0\s[106]Holiday season is upon us.\w8\w8\s[107] Honestly I find the human traditions a bit too pushy for my tastes,\w4\s[104] but I do really love the lights and sharing a simple Gyftmas with my family.\e"
 						"\0\s[205]I remember Gyftmas time back in Snowdin town...\w8\w8\s[104] It was really a sight to see.\w8\w8\s[102] All the lights strung up,\w4 illuminating the dark,\w4 light reflecting off the snow...\e"
 						"\0\s[106]This used to be one of my favorite times of year,\w4 but uh,\w4\s[107] the pushiness of the human traditions have soured it a little.\w8\w8\s[106] I've been trying to do my Gyftmas shopping well in advance so I can steer clear of stores until January.\e"
+						"\0\s[201]Gyftmas on the surface is a far cry from what it was back in Snowdin town.\w8\w8\s[102] But we're far enough out of town I can ignore that and have a cozy Gyftmas with my family.\e"
 						{
 							_daysleft = (31 - day)
 							if _daysleft != 1 && _daysleft != 0
@@ -540,7 +551,7 @@ if love >= 75;			"\0\s[208]You'd think I'd be really good at computers by now,\w
 						}
 						if day < 5
 						{
-						"\0\s[104]Winter's finally here!\w8\w8\s[0] I dunno about you,\w4\s[103] but I'm pretty excited.\e"
+							"\0\s[104]Winter's finally here!\w8\w8\s[0] I dunno about you,\w4\s[103] but I'm pretty excited.\e"
 						}
 					}
 					
@@ -548,6 +559,7 @@ if love >= 75;			"\0\s[208]You'd think I'd be really good at computers by now,\w
 					if wd == "Sun" && love >= 75 
 					{
 						"\0\s[103]Are you enjoying your Sunday,\w4 %(username)?\e"
+						"\0\s[101]Why do they call it Sunday if it isn't always sunny?\w8\w8\s[106] Seems like poor planning to me.\e"
 					}
 					if wd == "Mon" && love >= 75 
 					{
@@ -556,6 +568,7 @@ if love >= 75;			"\0\s[208]You'd think I'd be really good at computers by now,\w
 					if wd == "Tue" && love >= 75 
 					{
 						"\0\s[103]How's Tuesday finding you?\w8\w8\s[0] Hopefully well?\e"
+						"\0\s[107]I'm kinda sad Tuesday isn't the second day of the week,\w4 it would make sense...\w8\w8\s[208] I guess if you consider Monday to be the first day of the week,\w4 it could work.\e"
 					}
 					if wd == "Wed" && love >= 75 
 					{
@@ -568,10 +581,12 @@ if love >= 75;			"\0\s[208]You'd think I'd be really good at computers by now,\w
 					if wd == "Fri" && love >= 75 
 					{
 						"\0\s[205]anCambria's got this thing she likes to do with her friends sometimes,\w4 it's called outfit friday.\w8\w8\s[0] They pick each other new combinations of clothes to wear for the day,\w4 sometimes sharing pieces to create something new.\n\n\w8\w8\s[107]I don't really get it,\w4\s[205] but it seems to make them happy,\w4 and I'm glad to see them having fun.\e"
+						"\0\s[208]This is usually my day to shop for groceries.\w8\w8\s[102] anWD or anBlue will take care of it if I'm not home,\w4 though;\w8 I keep a detailed list just in case.\e"
 					}
 					if wd == "Sat" && love >= 75 
 					{
 						"\0\s[103]Got any plans for the weekend?\w8\w8\s[205] I'm hoping to spend some time with anMySister,\w4 personally.\e"
+						"\0\s[104]It's the weekend.\w8\w8\s[106] Unfortunately that doesn't mean a lot to me,\w4 since I don't work a 9-5 job and I dont' go to school...\w8\w8\s[104] But it does mean the kids will be around more.\e"
 					}
 					
 					//Time of day
@@ -844,7 +859,7 @@ if love >= 75;			"\0\s[0]It's getting towards the end of the month.\w8\w8\s[103]
 						"The %(_ingredient1) was a little too much last time,\w4 but if I tone it down...\e"
 						"%(_Cingredient1) was definitely the wrong choice...\e"
 						"Almost out of %(_ingredient1) now,\w4 I have to remember to get some on the way home...\e"
-						"I guess it would be a way to use up some of that extra %(_ingredient1)...\e"
+						"I guess it would be a way to use up some of the extra %(_ingredient1)...\e"
 						"%(_Cingredient1),\w4 maybe..?\w8 ...Nah,\w4 nah that'd be too much...\e"
 						"Mmm...\w8 I wonder if %(_ingredient1) would do the trick...\e"
 						"I need to be more careful with the %(_ingredient1)...\e"
@@ -852,6 +867,8 @@ if love >= 75;			"\0\s[0]It's getting towards the end of the month.\w8\w8\s[103]
 						"Fresh %(_ingredient1) will be vital...\e"
 						"Maybe a little %(_ingredient1),\w4 too...\e"
 						"anDad used up most of the %(_ingredient1),\w4 so I'll have to make it with something else...\e"
+						"Maybe I can get %(family) to try it if I add %(_ingredient1)...\e"
+						"I still have a little extra %(_ingredient1),\w4 I should use that up...\e"
 						if _ingredient1 != _ingredient2
 						{
 							"Hmm...\w8\w8 maybe andad was right about the %(_ingredient1),\w4 but definitely not the %(_ingredient2)...\e"
@@ -881,11 +898,13 @@ if love >= 75;			"\0\s[0]It's getting towards the end of the month.\w8\w8\s[103]
 							{
 								"\w8\w8\s[1070]\n\n...\w8\w8\s[106]Actually,\w4 yeah,\w4 I do.\e"
 								"\w8\w8\s[1070]\n\n...\w8\w8\s[106]You know,\w4 I actually do.\e"
+								"\w8\w8\s[1070]\n\n...\w8\w8\s[106]Funny you should mention that,\w4 I do.\e"
 							}
 							else
 							{
 								"\w8\w8 No.\w8\w8 I don't just carry random spices around.\e"
 								"\w8\w8 No.\w8\w8 Why would I be carrying %(_ingredient1) with me?\e"
+								"\w8\w8 No.\w8\w8 Do I smell like %(_ingredient1) to you?\e"
 							}
 						}
 					}
@@ -919,6 +938,8 @@ if love >= 75;			"\0\s[0]It's getting towards the end of the month.\w8\w8\s[103]
 						"I could ask %(family),\w4 but it'll probably be %(fruveg) again...\e"
 						"That'd probably go well with the %(bakedgoods)...\e"
 						"We could probably use a break from the %(bakedgoods)...\w8\w8 Maybe I could make something with the %(fruveg),\w4 %(family) would probably like that...\e"
+						"%(family) asked me to make the %(bakedgoods) again...\e"
+						"I know %(family) wanted to try %(bakedgoods)...\e"
 					}
 					//These are about random family members	
 					{
@@ -939,6 +960,7 @@ if love >= 75;			"\0\s[0]It's getting towards the end of the month.\w8\w8\s[103]
 						"%(family) was asking me about that...\e"
 						"I should let %(family) know...\e"
 						"I can help out %(family) with that before dinner...\e"
+						"%(family) was coming along tomorrow,\w4 that should help...\e"
 					}
 					
 					//Random phone convos start
@@ -968,6 +990,7 @@ if love >= 75;			"\0\s[0]It's getting towards the end of the month.\w8\w8\s[103]
 						"\s[107]...Nope,\w4 not right now.\e"
 						"\s[107]* (He gives an exaggerated sigh.)\e"
 						"\s[107]* (He rolls his eyelights and puts his phone away.)\e"
+						"\s[107]...Right.\e"
 						
 						//These ones make him get on his phone
 						"\s[1090]\i[0]Aw,\w4 %(family)..."
@@ -986,7 +1009,7 @@ if love >= 75;			"\0\s[0]It's getting towards the end of the month.\w8\w8\s[103]
 					}
 					
 					//===================Noticing and commenting on other ghosts======================
-					if ghostexcount > 0 //I wanted to just make this call the communicate function but then I remembered you can't do that without him calling it EVERY time.... sigh
+					if ghostexcount > 0 //I wanted to just make this call the communicate function but then I remembered you can't do that without him calling it EVERY time.... sigh //Idk what I'm talking about here, pretty sure I can do this with raise. Might've written that before I figured out how to use raise.
 					{
 						_number = RAND(ghostexcount) // This checks the number of other ghosts summoned and chooses a random number based on it
 						--
@@ -1017,6 +1040,10 @@ if love >= 75;			"\0\s[0]It's getting towards the end of the month.\w8\w8\s[103]
 							{
 								"\0\s[104]Heh,\w4 I should've known Temmie would be in a place like this.\e"
 							}
+							when "Hydration"
+							{
+								"\0\s[110]Is...\w8\w8 is that a giant water bottle?\e"
+							}
 							others
 							{
 								"\![raise,OnStartTalking]"
@@ -1040,7 +1067,10 @@ if love >= 75;			"\0\s[0]It's getting towards the end of the month.\w8\w8\s[103]
 				{
 					//"\0\s[206]It's so quiet here...\e" //oops I forgot about music players and youtube. Hrm. It's a shame these things cant detect whether the desktop is silent or not...
 					"\0\s[206]* (He glances around your desktop,\w4 taking note of the various features.)\e"
-					"\0\s[106]So uh...\w8\w8 What's the weather like out there?\w8\w8\s[206]\n\nIt doesn't seem like there's weather at all in here...\e"
+					if AutoWeater != "ON"
+					{
+						"\0\s[106]So uh...\w8\w8 What's the weather like out there?\w8\w8\s[206]\n\nIt doesn't seem like there's weather at all in here...\e"
+					}
 					"\0\s[206]* (He doesn't say anything...)\w8\w8\n\n* (Maybe you should try interacting with him?)\e"
 					"\0\s[200]* (He seems a little tense.)\e"
 					if snagged > 0 //any time that you've snagged his head and you're not on a negative route
@@ -1132,6 +1162,10 @@ OnWhatreYouUpTo
 	{
 		"\0\s[205]Like keeping things tidy,\w4 huh?\w8\w8\s[106] Or at least your recycling bin.\e"
 	}
+	elseif CameBack > 0 && _gomicheck > 0 //If you've got at least one thing in your recycling bin and you left S alone for at least 7 hours...
+	{
+		"\0\s[106]Hey uh,\w4 I hope this isn't weird,\w4 but while you were away I counted how many files are in your recycling bin.\w8\w8\n\n\s[107]It's %(_gomicheck),\w4 if you wanted to know.\e"
+	}
 	elseif _gomicheck >= 1000
 	{
 		"\0\s[106]Your recycling bin is uh...\w8\w8\s[107] Kinda overflowing,\w4 kiddo.\w8\w8\s[202] If you're not gonna empty it I could do it for you,\w4 keep the place clean and all that..."
@@ -1144,10 +1178,7 @@ OnWhatreYouUpTo
 	{
 		"\0\s[110]Your recycling bin is starting to fill up,\w4 are you planning to empty it soon?\e"
 	}
-	elseif CameBack > 0 && _gomicheck > 0 //If you've got at least one thing in your recycling bin and you left S alone for at least 7 hours...
-	{
-		"\0\s[106]Hey uh,\w4 I hope this isn't weird,\w4 but while you were away I counted how many files are in your recycling bin.\w8\w8\n\n\s[107]It's %(_gomicheck),\w4 if you wanted to know.\e"
-	}
+	
 	//Firefox. Not entirely sure why Zar was having trouble with this? I swear it wasn't working when I tried it either... but now it is, other than the window caption. I did change the min from being an == to a >=. Same with a couple of the others.
 	FFOpen = FUNCTIONEX("findwin.dll","find",,"MozillaWindowClass")
 	FFMin = FUNCTIONEX("findwin.dll","count",,"MozillaWindowClass")
@@ -1594,7 +1625,7 @@ OnNowPlaying
 		}
 		elseif "schmorgle" _in_ WhatSong && "bet it all" _in_ WhatSong
 		{
-			"\0\s[104]Wow, what a voice.\e"
+			"\0\s[104]Wow,\w4 what a voice.\e"
 		}
 		elseif "five finger death punch" _in_ WhatSong && "wrong side of heaven" _in_ WhatSong
 		{
@@ -1607,7 +1638,7 @@ OnNowPlaying
 		{
 			if LVCheck == 1
 			{
-			"\0\s[204]...I'm not a perfect person...\e"
+				"\0\s[204]...I'm not a perfect person...\e"
 			}
 		}
 		elseif "thefatrat" _in_ WhatSong
@@ -1636,6 +1667,7 @@ OnNowPlaying
 		{
 			"\0\s[202]I don't think I know this song.\e"
 			"\0\s[0]I've not heard this song before,\w4\s[102] but it's pretty good.\e"
+			"\0\s[104]This is nice.\w8\w8\s[106] Not sure what it is,\w4 but it's nice.\e"
 			--
 			SongList += "%(WhatSong)\n-" //I might add a thing later to remove the music player from this... but I can't be bothered atm until I can do that for all of them
 		}
@@ -1684,7 +1716,7 @@ OnMinuteChange
 		if RYSrecentBlankets > 0; {RYSrecentBlankets -= 2; if RYSrecentBlankets < 0; {RYSrecentBlankets = 0}}
 		if RYSrecentBooks > 0; {RYSrecentBooks -= 2; if RYSrecentBooks < 0; {RYSrecentBooks = 0}}
 		--
-		if autoupdate == "ON" && askedalready == 0 && updateavailable == 0 && UpdateCheck == 0
+		if autoupdate == "ON" && askedalready == 0 && updateavailable == 0 && AutoUpdateCheck == 0
 		{
 			AutoUpdateCheck = 1
 			"\![updatebymyself,checkonly]"
@@ -1741,13 +1773,10 @@ OnMinuteChange
 		}
 		else
 		{
-			if hour == 8 //it's the bad time
+			if hour == 8 || hour == 20 //it's the bad time. Doesn't work so well if you've got a 24 hour clock but w/e
 			{
 				"\0\s[200]* (He's staring very pointedly at the side of your screen.)\w8\w8\n\n* (Is he trying to avoid looking at your clock..?)\e"
-			}
-			elseif hour == 20 //it's the other bad time, unless you're using a 24 hour clock. This doesn't really work if you're using 24 hour. Eh.
-			{
-				"\0\s[200]* (He's staring very pointedly at the side of your screen.)\w8\w8\n\n* (Is he trying to avoid looking at your clock..?)\e"
+				"\0\s[204]* (He's muttering something under his breath...)\w8\w8\n\n* (Something about digital clocks?)\e"
 			}
 		}
 	}
@@ -1895,6 +1924,7 @@ MikireTalk
  
 EndMikireTalk
 {
+	beenoffscreen++
 	if nowmode == "RYS"
 	{
 		"\RYS\s[2013]* (He shudders,\w4 but doesn't say anything.)\e"
@@ -1904,6 +1934,8 @@ EndMikireTalk
 		if LV == 0 //Friendship routes
 		{
 			"\0\s[301]* (He's shivering.)\w8\w8\n\n\s[201]C-can uh,\s[300] can we not ever do that again?\w8\w8\s[301] Tight spaces and I don't uh,\w8 \s[200]don't really get along.\e"
+			"\0\s[301]* (He shudders.)\w8\w8\n\n\s[201]Um,\w4 can we not do that again?\w8\w8 Please?\w8\w8\s[303] I'm not very fond of tight spaces.\e"
+			"\0\s[301]* (He's shaking.)\w8\w8\n\n\s[206]Uh,\w4 %(username) can you please not do that?\w8\w8\s[201] I'm uh,\w4 not very good in tight spaces and all.\e"
 		}
 		elseif LV > 0 //Negative routes
 		{
@@ -2068,36 +2100,14 @@ OnCheckPosition //Checking his position on the screen. This'll be called somewhe
 	YCoord = TOINT(reference0[1])
 	XCoord = (XCoord + 115) //S's frames are 230 long, so this puts the coord in the middle of hit hitbox
 	YCoord = (YCoord + 135) //Same here but with Y
-	if XCoord < 0
-	{
-		NewXMonitor = 2
-	}
-	elseif XCoord > displaywidth
-	{
-		NewXMonitor = 2
-	}
-	else
-	{
-		NewXMonitor = 1
-	}
+	if XCoord < 0 {NewXMonitor = 2}
+	elseif XCoord > displaywidth {NewXMonitor = 2}
+	else {NewXMonitor = 1}
 	--
-	if YCoord > displayheight
-	{
-		NewYMonitor = 2
-	}
-	elseif YCoord < 0
-	{
-		NewYMonitor = 2
-		
-	}
-	elseif YCoord < (displayheight / 2)
-	{
-		NewYMonitor = 1
-	}
-	else
-	{
-		NewYMonitor = 1
-	}
+	if YCoord > displayheight {NewYMonitor = 2}
+	elseif YCoord < 0 {NewYMonitor = 2}
+	elseif YCoord < (displayheight / 2) {NewYMonitor = 1}
+	else {NewYMonitor = 1}
 	--
 	if Dragged > 6 //This has to be one higher than the value in mouse or wherever the dragging stuff is, otherwise this pops up after the balloon breaks
 	{
@@ -2133,19 +2143,19 @@ OnCheckPosition //Checking his position on the screen. This'll be called somewhe
 		}
 		else //If you've dragged him around but he's on the same monitor
 		{
-			if CurrentYPos > (displayheight / 2) && YCoord < (displayheight / 2)
+			if CurrentYPos > (displayheight / 2) && YCoord < (displayheight / 2) //Up high
 			{
 				"\0\s[110]Whoa.\w8\w8\s[106] Uh,\w4 I guess I'm up here now?\w8\w8\s[208] This is kinda weird..."
 				"\0\s[110]Whoa,\w4 uh,\w8\s[106] is there a reason I'm up here?"
 				"\0\s[110]Uh,\w8\s[106] am I in your way?\w8\w8\s[107] I'm not afraid of heights or anything,\w4 but I'd rather be on the ground..."
 			}
-			elseif CurrentYPos < (displayheight / 2) && YCoord > (displayheight / 2)
+			elseif CurrentYPos < (displayheight / 2) && YCoord > (displayheight / 2) //Back down low
 			{
 				"\0\s[107]Whew.\w8\w8\s[106] I guess it's kinda neat that I can float while I'm here,\w4 but I'd much rather stay on the ground."
 				"\0\s[107]Whew,\w8\s[106] I'm glad to be on the ground again."
 				"\0\s[106]Whew.\w8\w8\s[107] Thanks,\w4 %(username)."
 			}
-			elseif (XCoord - CurrentXPos) < -(displaywidth / 5) || (XCoord - CurrentXPos) > (displaywidth / 5)
+			elseif (XCoord - CurrentXPos) < -(displaywidth / 5) || (XCoord - CurrentXPos) > (displaywidth / 5) //Side to side
 			{
 				"\0\s[110]Oh,\w4 am I in your way %(username)?\w8\w8\s[106] Sorry about that."
 				"\0\s[106]I hope I'm not getting in your way,\w4 %(username)."

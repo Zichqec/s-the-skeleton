@@ -28,7 +28,7 @@ On_homeurl
 {
 	if betaTester == "ON"
 	{
-		"https://zichqec.github.io/s-the-skeleton/beta_testing/ghosts/s_the_skeleton/"
+		"https://zichqec.github.io/s-the-skeleton/updates/beta_testing/s_the_skeleton/"
 	}
 	else
 	{

@@ -5,6 +5,17 @@
 
 //So where does this file come in? Well, you can define your own envelopes if you want! Which means essentially that you can create a list of items and attach it to almost any word you want. Here's an example.
 
+
+
+
+
+
+
+
+
+
+
+
 ingredients
 {
 	"cilantro"
@@ -61,6 +72,15 @@ fruveg
 	"cherries"
 	"brocolli"
 	"lettuce"
+	"celery"
+	"pineapple"
+	"mango"
+	"honeydew"
+	"cantaloupe"
+	"raspberries"
+	"blueberries"
+	"blackberries"
+	"watermelon"
 }
 
 bakedgoods
@@ -79,6 +99,17 @@ bakedgoods
 	"strudel"
 	"cinnamon rolls"
 	"turnovers"
+	"pumpkin bread"
+	"banana bread"
+	"monkey bread"
+	"pumpkin roll"
+	"buckeyes"
+	"oreo balls"
+	"sugar cookies"
+	"peanut butter pancakes"
+	//"mousse"
+	"pumpkin cheesecake"
+	"oreo cheesecake"
 }
 
 family
@@ -102,23 +133,107 @@ family
 usersfolder
 {
 	"start bar"
-	"documents folder"
-	"pictures folder"
-	"music folder"
-	"games folder"
+	"Documents folder"
+	"Pictures folder"
+	"Music folder"
+	"Games folder"
 }
 
-//This envelope in particular I think is fun. You can use this in dialogue to pretend like your ghost is looking through your user's files!
+filetype
+{
+	".txt"
+	".dic"
+	".png"
+	".jpg"
+	".jpeg"
+	".mp3"
+	".exe"
+	".bat"
+	".cfg"
+	".wav"
+	".pdf"
+	".dat"
+	".gif"
+	".tiff"
+	".dll"
+	".pna"
+	".ico"
+	".dau"
+	".zip"
+	".nar"
+	".html"
+	".psd"
+	".mp4"
+	".ttf"
+}
+
+musicfile
+{
+	".mp3"
+	".wav"
+	".flac"
+	".ogg"
+	".wma"
+	".m4a"
+	".mid"
+}
 
 colormod
 {
-	"light "
-	"dark "
-	"bright "
-	"soft "
-	""
-	""
-	""
+	{
+		"light "
+		"dark "
+		"bright "
+		"soft "
+		"desaturated "
+		"saturated "
+		"intense "
+		"shimmery "
+		"glittery "
+		"brilliant "
+		"bold "
+		"dusty "
+		"mellow "
+		"rich "
+		"vibrant "
+		"vivid "
+		"faded "
+		"pale "
+		"rustic "
+	}
+	{
+		""
+	}
+}
+
+colormodC
+{
+	{
+		", "
+		--
+		"light "
+		"dark "
+		"bright "
+		"soft "
+		"desaturated "
+		"saturated "
+		"intense "
+		"shimmery "
+		"glittery "
+		"brilliant "
+		"bold "
+		"dusty "
+		"mellow "
+		"rich "
+		"vibrant "
+		"vivid "
+		"faded "
+		"pale "
+		"rustic "
+	}
+	{
+		" "
+	}
 }
 
 color
@@ -178,9 +293,28 @@ animal //plushes -- I've excluded some so that I could write specific dialogue a
 	"dragon"
 }
 
+RYSIdle
+{
+	//"\s[2000]"
+	"\s[2001]"
+	"\s[2002]"
+	//"\s[2003]"
+	"\s[2004]"
+	"\s[2005]"
+	//"\s[2006]"
+	"\s[2007]"
+	"\s[2008]"
+	"\s[2013]"
+	if RYStrust > 100
+	{
+		"\s[2020]"
+		"\s[2022]"
+	}
+}
+
 km //Kero choice marker. If the balloon being used is the default one, use the special marker, and if not then use the default marker
 {
-	if nowballoon == "Perseverence - Integrity" 
+	if nowballoon == "Purple Soul" 
 	{
 		"\_b[img/km.png,inline,--option=use_self_alpha] "
 	}
@@ -246,6 +380,30 @@ brown
 	"\f[color,181,153,094]"
 }
 
+displayhour
+{
+	if hour12 == 0
+	{
+		"12"
+	}
+	else
+	{
+		"%(hour12)"
+	}
+}
+
+displaymin
+{
+	if passmin <= 9
+	{
+		"0%(passmin)"
+	}
+	else
+	{
+		"%(passmin)"
+	}
+}
+
 displayweekday
 {
 	if wd == "Sun"
@@ -277,6 +435,292 @@ displayweekday
 		"Saturday"
 	}
 }
+
+displaymonth
+{
+	if month == 1
+	{
+		"January"
+	}
+	elseif month == 2
+	{
+		"February"
+	}
+	elseif month == 3
+	{
+		"March"
+	}
+	elseif month == 4
+	{
+		"April"
+	}
+	elseif month == 5
+	{
+		"May"
+	}
+	elseif month == 6
+	{
+		"June"
+	}
+	elseif month == 7
+	{
+		"July"
+	}
+	elseif month == 8
+	{
+		"August"
+	}
+	elseif month == 9
+	{
+		"September"
+	}
+	elseif month == 10
+	{
+		"October"
+	}
+	elseif month == 11
+	{
+		"November"
+	}
+	else
+	{
+		"December"
+	}
+}
+
+//This is figuring out what day of the week it is. Leave it alone.
+wd
+{
+	if weekday == 0
+	{"Sun"}
+	elseif weekday == 1
+	{"Mon"}
+	elseif weekday == 2
+	{"Tue"}
+	elseif weekday == 3
+	{"Wed"}
+	elseif weekday == 4
+	{"Thu"}
+	elseif weekday == 5
+	{"Fri"}
+	else
+	{"Sat"}
+}
+
+//This is finding out whether it's AM or PM. Leave it alone.
+ap
+{
+	//Turns out yaya tracks the am and pm for you... ampm is 0 during am, and 1 during pm
+ 	if ampm == 0 //hour >= 0 && hour <= 11
+	{
+		"AM"
+	}
+ 	else
+	{
+		"PM"
+	}
+}
+
+//This is figuring out the minute. Leave it alone.
+nowmin
+{
+	if minute >= 0 && minute <=9
+	{
+		"0%(minute)"
+	}
+	else
+	{
+		"%(minute)"
+	}
+}
+
+//This is figuring out the hour. Leave it alone.
+nowhour
+{
+	if hour12 == 0
+	{
+		"1"
+	}
+	else
+	{
+		"%(hour12)"
+	}
+}
+
+season
+{
+	//[Zi]Ok, so first off, apologies to folks in the southern hemisphere. I may add functionality for that in a later update. But to be fair, S probably doesn't know about the concept yet. Second off, I'm going to go by the meteorological seasons instead of astronomical. Why? Well..... one has static dates and the other does not. I can't give him diaogue for things like the solstice and equinox if they change every year. I COULD technically do it, but I'd have to update him every year to change the dates and that sounds terrible. SO. We're just getting a simple system instead.
+	if month > 2 && month < 6
+	{
+		"Spring"
+	}
+	elseif month > 5 && month < 9
+	{
+		"Summer"
+	}
+	elseif month > 8 && month < 12
+	{
+		"Autumn" 
+	}
+	else
+	{
+		"Winter"
+	}
+}
+
+/*loadingmoon
+{
+	"\_b[img\Moon0%(loadmoonnum),inline,--option=use_self_alpha]\w4\c"
+	--
+	if loadmoonnum < 8
+	{
+		loadmoonnum++
+	}
+	else
+	{
+		loadmoonnum = 1
+	}
+}*/
+
+loadingmoon : sequential //Changed the loadingmoon thing to just use sequential, it's less prone to bugs and means I don't need a variable!
+{
+	"\_b[img\Moon01,inline,--option=use_self_alpha]\w4\c"
+	"\_b[img\Moon02,inline,--option=use_self_alpha]\w4\c"
+	"\_b[img\Moon03,inline,--option=use_self_alpha]\w4\c"
+	"\_b[img\Moon04,inline,--option=use_self_alpha]\w4\c"
+	"\_b[img\Moon05,inline,--option=use_self_alpha]\w4\c"
+	"\_b[img\Moon06,inline,--option=use_self_alpha]\w4\c"
+	"\_b[img\Moon07,inline,--option=use_self_alpha]\w4\c"
+	"\_b[img\Moon08,inline,--option=use_self_alpha]\w4\c"
+}
+
+
+OnLoadA
+{
+	"%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)\![raise,OnLoadB]"
+}
+//These make an infinite loop... but I'm pretty sure they'll interrupt whatever is actually loading XD Idk I'll play around with this at some point
+OnLoadB
+{
+	"%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)\![raise,OnLoadA]"
+}
+
+GetTimeSlot
+{
+	if hour >= 5 && hour <= 8
+	{
+		"earlymorning"
+	}
+	elseif hour >= 9 && hour <= 11
+	{
+		"morning"
+	}
+	elseif hour >= 12 && hour <= 14
+	{
+		"lunch"
+	}
+	elseif hour >= 15 && hour <= 17
+	{
+		"afternoon"
+	}
+	elseif hour >= 18 && hour <= 20
+	{
+		"evening"
+	}
+	elseif hour >= 21 && hour <= 24
+	{
+		"latenight"
+	}
+	else
+	{
+		"midnight"
+	}
+}
+
+GetDaySlot
+{
+	"%(month)month %(day)day"
+}
+
+temp
+{
+	if ForC == "°F"
+	{
+		if feelslike <= 0 //Below zero, 0 and below
+		{
+			"Below Zero"
+		}
+		elseif feelslike <= 20 //Freezing, 0-20
+		{
+			"Freezing"
+		}
+		elseif feelslike <= 40 //Cold, 21-40
+		{
+			"Cold"
+		}
+		elseif feelslike <= 60 //Chilly, 41-60
+		{
+			"Chilly"
+		}
+		elseif feelslike <= 80 //Pleasant, 61-80
+		{
+			"Pleasant"
+		}
+		elseif feelslike <= 95 //Hot, 81-95
+		{
+			"Hot"
+		}
+		elseif feelslike >= 96  //Everything is terrible, 96+
+		{
+			"Boiling"
+		}
+	}
+	elseif ForC == "°C"
+	{
+		if feelslike <= -17 //Below zero, 0 and below
+		{
+			"Below Zero"
+		}
+		elseif feelslike <= -6 //Freezing, 0-20
+		{
+			"Freezing"
+		}
+		elseif feelslike <= 4 //Cold, 21-40
+		{
+			"Cold"
+		}
+		elseif feelslike <= 15 //Chilly, 41-60
+		{
+			"Chilly"
+		}
+		elseif feelslike <= 26 //Pleasant, 61-80
+		{
+			"Pleasant"
+		}
+		elseif feelslike <= 35 //Hot, 81-95
+		{
+			"Hot"
+		}
+		elseif feelslike >= 36 //Everything is terrible, 96+
+		{
+			"Boiling"
+		}
+	}
+}
+
+moonphase
+{
+	if phase == "New Moon"; {"anMoon01"}
+	elseif phase == "Waxing Crescent"; {"anMoon02"}
+	elseif phase == "First Quarter"; {"anMoon03"}
+	elseif phase == "Waxing Gibbous"; {"anMoon04"}
+	elseif phase == "Full Moon"; {"anMoon05"}
+	elseif phase == "Waning Gibbous"; {"anMoon06"}
+	elseif phase == "Last Quarter"; {"anMoon07"}
+	elseif phase == "Waning Crescent"; {"anMoon08"}
+	else; {"anMoon09"}
+}
+
  //**** Don't touch this ***************************************************************
  //This is code stuff and nothing for you to worry about, just save the .dic and move on! You're done!
  
@@ -389,5 +833,151 @@ StSfdad
 	else
 	{
 		"dad"
+	}
+}
+
+
+
+
+
+
+
+//Moved this over to word.dic. This isn't an envelope, but this should keep it out of the way but also easy to reach for setting variables...
+
+//Thank you again to Levidre for this, this makes my life so much easier. This function can be called with Raise at the end of any random piece of dialogue. \!raise,OnDialogueVariables,value]. The word value there can be replaced with whatever I want, letting me test to see which variable should be set. This solves SO MUCH. I KNEW there had to be a way to make this work easier.
+OnDialogueVariables
+{
+	if reference0 == "8kids"
+	{
+		thatsanoddnumber = 1
+	}
+	elseif reference0 == "learntimeline"
+	{
+		askedabouttimelines = 1
+	}
+	elseif reference0 == "learnfamily"
+	{
+		knowaboutfamily = 1
+	}
+	elseif reference0 == "complimentdusty"
+	{
+		specialcommu = 1
+		complimentaboutdusty = 1
+		OnCommunicate //This'll put him over into communication without setting the flag for him talking first
+	}
+	elseif reference0 == "gummyfrogs"
+	{
+		love -= 1 //not actually taking a point away, just making it so you get net 0 if you get this option
+	}
+	elseif reference0 == "getonphone"
+	{
+		lookingatphone = 1
+	}
+	elseif reference0 == "getoffphone"
+	{
+		lookingatphone = 0
+	}
+	elseif reference0 == "discoverkit"
+	{
+		knowaboutkit = 1
+	}
+	elseif reference0 == "discoversmol"
+	{
+		knowaboutsmol = 1
+	}
+	elseif reference0 == "discoverbirdy"
+	{
+		knowaboutbirdy = 1
+	}
+	elseif reference0 == "discoversorrel"
+	{
+		knowaboutsorrel = 1
+	}
+	elseif reference0 == "discoverpmd"
+	{
+		knowaboutpmd = 1
+	}
+	elseif reference0 == "discoverbender"
+	{
+		knowaboutbender = 1
+	}
+	elseif reference0 == "discovernine"
+	{
+		knowaboutnine = 1
+	}
+	elseif reference0 == "discoverserif"
+	{
+		knowaboutserif = 1
+	}
+	elseif reference0 == "discoverecho"
+	{
+		knowaboutecho = 1
+	}
+	elseif reference0 == "discoverice"
+	{
+		knowaboutice = 1
+	}
+	elseif reference0 == "discoveromega"
+	{
+		knowaboutomega = 1
+	}
+	elseif reference0 == "dustyspaceandtime"
+	{
+		specialcommu = 1
+		dustyspaceandtime = 1
+		OnCommunicate
+	}
+	elseif reference0 == "abbiisblind"
+	{
+		abbiblind = 1
+	}
+	elseif reference0 == "getadrinkw"
+	{
+		currentlydrinking = 1
+	}
+	elseif reference0 == "getadrinkj"
+	{
+		currentlydrinking = 2
+	}
+	elseif reference0 == "getadrinkm"
+	{
+		currentlydrinking = 3
+	}
+	elseif reference0 == "knowRYS"
+	{
+		askedWhoRYS = 1
+		RYSprogress++
+	}
+	elseif reference0 == "learnABI"
+	{
+		knowaboutABI = 1
+	}
+	elseif reference0 == "suppressCoordsOn"
+	{
+		suppressCoords = 1
+	}
+	elseif reference0 == "suppressCoordsOff"
+	{
+		suppressCoords = 0
+	}
+	elseif reference0 == "givesocks"
+	{
+		givensocks++
+	}
+	elseif reference0 == "giveblanket"
+	{
+		givenblankets++
+	}
+	elseif reference0 == "givemittens"
+	{
+		givenmittens++
+	}
+	elseif reference0 == "switchS"
+	{
+		nowmode = "Default"
+	}
+	elseif reference0 == "switchRYS"
+	{
+		nowmode = "RYS"
 	}
 }

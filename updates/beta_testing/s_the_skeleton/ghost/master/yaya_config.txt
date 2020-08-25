@@ -66,6 +66,7 @@
 //	0にするとそれらの処理を行いません。
 //------------------------------------------------------------------------------
 #globaldefine	SHIORI3FW.AUTO_DATA_CONVERT		1
+//Note to self: this here is why you can't put a 0 at the start of a name that has only ints
 
 
 //------------------------------------------------------------------------------

@@ -27,7 +27,7 @@ craftmanurl,http://www.deviantart.com/zichqec
 //You may remember these three from the descript.txt file for a Ghost! They are essentially the same as before. Craftman is your name. Craftmanw is where you would put your name if it was written in non-alphanumeric characters, like Korean or Japanese or Russian or something. You can delete craftmanw if you want or aren't going to use it, but you should always have craftman.
 //craftmanurl is where you put your homepage or blog url or whatever, wherever you want people to contact you.
 
-homeurl,https://stheskeleton.usite.pro/purple_soul/
+homeurl,https://zichqec.github.io/s-the-skeleton/updates/balloons/purple_soul
 
 //If you're setting up a network update for your ghost, you can also set one up for your balloon! I think, I haven't tested this. But basically, you'd want to set up a folder on your webspace for all your balloon files, then put the url for that folder here. You can read the network update page or balloon page for more details. I'm commenting it out just in case, but if you are going to use it, remove the two slashes in front.
 

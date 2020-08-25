@@ -1,131 +1,504 @@
 ﻿//---------------------------The User's Name--------------------------
-//This .dic file has to do with setting the user's name and suffix/prefix. You may recall some of the functions mentioned here from bootend.dic. As you can see, you can spread functions across multiple .dic files if you like! Just remember my note in bootend.dic about the different between OnFunction and Function.
-
-//This file is fairly short, so don't worry! It shouldn't take you too long to finish.
-
-//Make sure to read the walkthrough (http://www.ashido.com/ukagaka/walkthrough.html) for more details about how to properly format ghost dialogue!
-//I will reiterate that you should be editing these in Notepad++, and in particular, you should set the Language to C (or Java I guess) to properly highlight all the text. It will make things A LOT EASIER for you, trust me! It will also help you keep track of your brackets in case you forget some. If you click on a line with a bracket in Notepad++, it should highlight where the other bracket ends, or turn purple if there's no finishing bracket (which you should definitely fix!)
-//It will also highlight my commented lines in green, so you'll know where they are. Any line beginning with // is a commented line that the code will not read. It's just for your reference!
-
+//So I've updated this file. S's menu was getting super messy and I wanted to clean it up, and MAN the birthday teaching was long (I have since cleaned it up a bit so it's not as bad now). So I've moved everything to do with the user as a person here: name, birthday, pronouns. Maybe I'll eventually add other stuff but idk.
 
 //--OnTeachName
 //This is called from the config menu in the main character's double click menu when the user says they want to change their name. If you look in menu.dic you'll see the code leading to here.
 
 OnTeachName	
 {
-	if reference0 == "TEACHNAME" //ignore this
-		{
-			if LV == 0
-			{
-				"\0\s[110]\![set,balloontimeout,-1]Oh,\w4 you want to change your name?\w8\w8\s[1010] Ok,\w4 what should I call you then?\![open,inputbox,OnNameTeach,-1]\e"
-			}
-			else
-			{
-				"\0\s[510]\![set,balloontimeout,-1]...What should I call you?\![open,inputbox,OnNameTeach,-1]"
-			}
-		//This is the bit of dialogue you can rewrite if you want. Note that this line ends with \![open,inputbox,OnNameTeach,-1]. You may recognize this from bootend.dic. Essentially, this will lead to the next function. Make sure you don't delete that tag! The rest you can do whatever with though.
-		}
+	"\![raise,OnDialogueVariables,suppressCoordsOn]"
+	--
+	if nowmode == "RYS"
+	{
+		"\RYS\s[2006]Oh...\w8\w8 Um,\w4 what's your name,\w4 then..?\![open,inputbox,OnNameTeach,-1]\![set,balloontimeout,-1]\e"
+	}
 	else
+	{
+		if LV == 0
 		{
-		//This else statement is empty, and I'm mostly pointing this out to mention that you can do this too with your if/elses if you want! An empty else will simply cause your ghost not to do anything. I wouldn't get too crazy with this though.
+			"\0\s[110]Oh,\w4 you want to change your name?\w8\w8\s[1010] Ok,\w4 what should I call you then?\![open,inputbox,OnNameTeach,-1]\![set,balloontimeout,-1]\e"
 		}
+		else
+		{
+			"\0\s[510]...What should I call you?\![open,inputbox,OnNameTeach,-1]\![set,balloontimeout,-1]\e"
+		}
+	}
 }
 
 
 OnNameTeach
 {
+	reference0 = TOSTR(reference0)
 	tempname = reference0 //this stores the name value temporarily in reference0
 	reference0 = TOLOWER(reference0) //changes it to lowercase
 	reference0 = REPLACE(reference0," ","") //removes spaces
 	reference0 = REPLACE(reference0,".","") //removes periods
 	reference0 = REPLACE(reference0,"-","") //removes dashes [Zi] I thought I was going to be clever and grab the lowercase thing from Gaster's input box, but then I went to check his nameteach and lo and behold, Zarla beat me to it and also added more... welp, might as well use it I guess
-	if LV == 0
+	
+	if nowmode == "RYS"
 	{
 		if tempname == username
 		{
-			"\0\s[106]That's uh...\w8\w8 the name you gave me before, kiddo.\w8\w8\s[202] You change your mind, or something?\e"
+			"\RYS\s[2007].\w8.\w8.\w8\w8\n\n* (He looks confused.)\x\![raise,OnConfigRYS]\e"
 		}
-		elseif reference0 == "s"
+		elseif "gaster" _in_ reference0 || "wingding" _in_ reference0 || reference0 == "dw"
 		{
-			"\0\s[107]C'mon,\w4 kid,\w4 you can't just tell me my own name.\w8\w8\s[106] Try again.\![open,inputbox,OnNameTeach,-1]"
+			"\RYS\s[2013]* (He shivers.)\w8\w8\n\n...Ok.\x"
 		}
-		elseif reference0 == ""
+		elseif reference0 == "rys0825" || reference0 == "825" || reference0 == "rys"
 		{
-			username = "kid"
-		
-			"\0\s[106]Oh, uh...\w8\w8\s[107] I guess I'll just call you kid, then, if that's alright.\w8\w8\s[202] Let me know if you want to change it.\e"
-		//You can change this snip to whatever.
+			"\RYS\s[2012]...Um.\w8\w8\s[2013] Alright...\x"
 		}
-		elseif reference0 == "wd" || reference0 == "dings" || reference0 == "wings" || reference0 == "barcode" || reference0 == "blue jeans" || reference0 == "abbi" || reference0 == "rosie" || reference0 == "rosella" || reference0 == "roman" || reference0 == "cambria" || reference0 == "triton" || reference0 == "lulo" || reference0 == "azo" ||reference0 == "sigil" || reference0 == "elko"
+		elseif tempname == RYS
 		{
-			"\0\s[110]Oh,\w4 uh...\w8\w8\s[104] Huh.\w8\w8 How about that.\w8\w8\n\n"
-			--
-			NameDone
-		}
-		elseif reference0 == "rys0825" || reference0 == "0825" || reference0 == "abi0219" || reference0 == "0219" || reference0 == "dw"
-		{
-			knowmorethanyoushould = 1 //dont know if I'll use this or not but it's here
-			"\0\s[204]...No.\w8\w8 Give me something else.\![open,inputbox,OnNameTeach,-1]"
-		}
-		elseif reference0 == "zichqec"
-		{
-			"\0\s[1070]Huh...\w8\w8 Strange.\w8\w8\s[106] How exactly do you pronounce that?\w8\w8 Anyways...\w8\w8\n\n"
-			--
-			NameDone
-		}
-		elseif reference0 == "zi"
-		{
-			"\0\s[1070]Huh...\w8\w8 That's familiar somehow.\w8\w8 Anyways...\w8\w8\n\n"
-			--
-			NameDone
+			"\RYS\s[2006]Um...\w8\w8\s[2007] Isn't that what you call me..?\x"
 		}
 		else
 		{
+			"\RYS\s[2007]...Ok.\x"
+		}
+		--
+		username = tempname
+		OnConfigRYS
+	}
+	else
+	{
+		if LV == 0
+		{
+			if tempname == username
+			{
+				"\0\s[106]That's uh...\w8\w8 the name you gave me before,\w4 kiddo.\w8\w8\s[202] You change your mind,\w4 or something?\e"
+			}
+			elseif reference0 == "s"
+			{
+				"\0\s[107]C'mon,\w4 kid,\w4 you can't just tell me my own name.\w8\w8\s[106] Try again.\![open,inputbox,OnNameTeach,-1]"
+			}
+			elseif reference0 == ""
+			{
+				username = "kid"
+			
+				"\0\s[106]Oh,\w4 uh...\w8\w8\s[107] I guess I'll just call you kid,\w4 then,\w4 if that's alright.\w8\w8\s[202] Let me know if you want to change it.\e"
+			//You can change this snip to whatever.
+			}
+			elseif reference0 == "wd" || reference0 == "dings" || reference0 == "wings" || reference0 == "barcode" || reference0 == "blue jeans" || reference0 == "abbi" || reference0 == "rosie" || reference0 == "rosella" || reference0 == "roman" || reference0 == "cambria" || reference0 == "triton" || reference0 == "lulo" || reference0 == "azo" ||reference0 == "sigil" || reference0 == "elko"
+			{
+				"\0\s[110]Oh,\w4 uh...\w8\w8\s[104] Huh.\w8\w8 How about that.\w8\w8\n\n"
+				--
+				NameDone
+			}
+			elseif reference0 == "rys0825" || reference0 == "825" || reference0 == "abi0219" || reference0 == "219" || reference0 == "dw" || reference0 == "rys" || reference0 == "abi"
+			{
+				if RYSprogress == 7
+				{
+					"\0\s[201]C'mon,\w4 kiddo,\w4 I'm not calling you that.\![open,inputbox,OnNameTeach,-1]"
+				}
+				else
+				{
+					knowmorethanyoushould = 1 //dont know if I'll use this or not but it's here
+					"\0\s[204]...No.\w8\w8 Give me something else.\![open,inputbox,OnNameTeach,-1]"
+				}
+			}
+			elseif reference0 == "zichqec"
+			{
+				"\0\s[1070]Huh...\w8\w8 Strange.\w8\w8\s[106] How exactly do you pronounce that?\w8\w8 Anyways...\w8\w8\n\n"
+				--
+				NameDone
+			}
+			elseif reference0 == "zi"
+			{
+				"\0\s[1070]Huh...\w8\w8 That's familiar somehow.\w8\w8 Anyways...\w8\w8\n\n"
+				--
+				NameDone
+			}
+			elseif tempname == RYS
+			{
+				"\0* (You should probably pick something else,\w4 that might get confusing...)\![open,inputbox,OnNameTeach,-1]"
+			}
+			else
+			{
+				NameDone
+			}
+		}
+		else //[Zi] I'm going to be honest with you, I don't really see much point in the title system. If the user wants a title, they can just.... type in what they want. So I've erased that entirely. ALSO, this should be set so that if you've broken him, he'll call you anything, even his own name. Not that he'll actually ever call you by name at that point... but he'll just accept anything you put in.
+		{
 			NameDone
 		}
 	}
-	else //[Zi] I'm going to be honest with you, I don't really see much point in the title system. If the user wants a title, they can just.... type in what they want. So I've erased that entirely. ALSO, this should be set so that if you've broken him, he'll call you anything, even his own name. Not that he'll actually ever call you by name at that point... but he'll just accept anything you put in.
-	{
-		NameDone
-	}
 }
-	//*********************Advanced User Info*******************************
-	//Adding new titles for your users to use is simply a matter of copy and pasting creatively. You can see how the ghost puts together the title and your name in the Select. sections below. Above, you simply need to add a new option and link it to a new Select. For example, you could add "\![*]\q[Mistress,titlemistress]\n/" between Ms. and Lady up there, then write up a Select.titlemistress below that fits the pattern of the others.
-	
-	//If you are removing the pronoun system entirely, what you'd want to do is erase everything in that else statement above regarding titles and replace it with something like this.
-	//else
-	//{
-	//username = tempname
-	//"\0\s[0]The user is now called %(username).\e"
-	//}
-	//***********************************************************************
-	
-	//The following Select.title[word] functions add the title to the user's name, then go to the final step, NameDone. You don't have to touch any of these. Advanced users, notice how these match the linked functions in the choices above.
-	
-
-//--NameDone
-//This is the final bit of dialogue your ghosts will have when the user changes their name.
 
 NameDone
 {
 		username = tempname
 		if LV == 0
 		{
-			"\0\s[104]Ok, I'll call you %(username) then."
+			"\0\s[104]Ok,\w4 I'll call you %(username) then."
+			"\0\s[111]Alright,\w4 I'll call you %(username)."
+			"\0\s[102]Got it,\w4 %(username) it is."
 			--
 			if booting == 0
 			{
-				"\e"
+				"\x"
+				--
+				TalkConfig
 			}
 			else
 			{
 				booting = 0
-				"\w8\w8\s[0] Good to meet you.\w8\w8\s[205]\n\nI guess I'll just hang out here for the time being, if you don't mind.\e"
+				"\w8\w8\s[0] Good to meet you.\w8\w8\s[205]\n\nI guess I'll just hang out here for the time being,\w4 if you don't mind.\e"
 			}
 		}
 		else
 		{
-			"\0\s[510]Ok, I'll call you %(username) from now on.\e"
+			"\0\s[510]Ok,\w4 I'll call you %(username) from now on.\e"
 		}
 		//Rewrite this as you like. Note the %(username) tag here, as you should be well familiar with by now from the walkthrough and the other .dic files. That will display the name the user just created.
+}
+
+
+
+
+
+//=================Birthday teaching==================
+
+
+
+OnBdayTeach
+{
+	"\![raise,OnDialogueVariables,suppressCoordsOn]"
+	--
+	dayslot = GetDaySlot //This is setting up in case today is the user's birthday.
+	if nowmode == "RYS"
+	{
+		"\RYS\s[2006]Your birthday..?\w8\w8\s[2007] Um,\w4 alright,\w4 what month were you born in..?"
+	}
+	else
+	{
+		if LV == 0
+		{
+			if birthdayprint == "????"
+			{
+				"\0\s[111]Oh,\w4 what month were you born in?"
+			}
+			else
+			{
+				"\0\s[101]Oh,\w4 do I have the wrong date?\w8\w8\s[0] Ok,\w4 I'll make a new note.\w8\w8 What month were you born in?"
+				"\0\s[101]Oh,\w4 it's not %(bornmonthprint) %(borndayprint)?\w8\w8\s[0] I'll make a new note,\w4 then.\w8\w8 What month were you born in?"
+			}
+		}
+		else
+		{
+			"\0\s[510]\s[102]...Ok,\w8 I'll make a new note.\w8\w8 What month?"
+		}
+	}
+	--
+	"\![open,inputbox,OnUserBornMonth,-1]\![set,balloontimeout,-1]"
+}
+
+OnUserBornMonth
+{
+	_tempmonth = reference0 //this stores what the user input in as a variable called _tempmonth
+	_tempmonth = TOLOWER(_tempmonth) //changes it to lowercase
+	_tempmonth = REPLACE(_tempmonth," ","") //removes spaces
+	_tempmonth = REPLACE(_tempmonth,".","") //removes periods
+	_tempmonth = REPLACE(_tempmonth,"-","") //removes dashes 
+	
+	if _tempmonth == "january" || _tempmonth == "1" {bornmonth = 1; bornmonthprint = "January"}
+	elseif _tempmonth == "february" || _tempmonth == "2" {bornmonth = 2; bornmonthprint = "February"}
+	elseif _tempmonth == "march" || _tempmonth == "3" {bornmonth = 3; bornmonthprint = "March"}
+	elseif _tempmonth == "april" || _tempmonth == "4" {bornmonth = 4; bornmonthprint = "April"}
+	elseif _tempmonth == "may" || _tempmonth == "5" {bornmonth = 5; bornmonthprint = "May"}
+	elseif _tempmonth == "june" || _tempmonth == "6" {bornmonth = 6; bornmonthprint = "June"}
+	elseif _tempmonth == "july" || _tempmonth == "7" {bornmonth = 7; bornmonthprint = "July"}
+	elseif _tempmonth == "august" || _tempmonth == "8" {bornmonth = 8; bornmonthprint = "August"}
+	elseif _tempmonth == "september" || _tempmonth == "9" {bornmonth = 9; bornmonthprint = "September"}
+	elseif _tempmonth == "october" || _tempmonth == "10" {bornmonth = 10; bornmonthprint = "October"}
+	elseif _tempmonth == "november" || _tempmonth == "11" {bornmonth = 11; bornmonthprint = "November"}
+	elseif _tempmonth == "december" || _tempmonth == "12" {bornmonth = 12; bornmonthprint = "December"}
+	else //if the month isn't a valid month, like 32 or something.
+	{
+		if nowmode == "RYS"
+		{
+			"\RYS\s[2008]...Um,\w4 %(reference0) isn't a real month,\w4 though...\w8\w8\s[2006] is it?"
+		}
+		else
+		{
+			if LV == 0
+			{
+				"\0\s[106]Kiddo,\w4 you gotta give me a real month.\w8\w8\s[107] %(_tempmonth) aint a real month."
+			}
+			else
+			{
+				"\0\s[510]...That isn't a valid month."
+			}
+		}
+		--
+		"\![open,inputbox,OnUserBornMonth,-1]\![set,balloontimeout,-1]\e"
+	}
+	-- //If the month is valid
+	if nowmode == "RYS"
+	{
+		"\RYS\s[2006]...Ok,\w4 %(bornmonthprint).\w8\w8 What day?"
+	}
+	else
+	{
+		if LV == 0
+		{
+			"\0\s[0]%(bornmonthprint),\w4 eh?\w8\w8 What day?"
+			"\0\s[0]Alright,\w4 %(bornmonthprint).\w8\w8 What day?"
+		}
+		else
+		{
+			"\0\s[400]\i[6]...Ok,\w4 %(bornmonthprint).\w8\w8 What day?"
+		}
+	}
+	--
+	"\![open,inputbox,OnUserBornDay,-1]\![set,balloontimeout,-1]"
+}
+	
+//This adds an appropriate suffix to the number for the day. No need to mess with this either.
+
+Printday
+{
+	if bornday == 1 || bornday == 21 || bornday == 31
+	{
+	"%(bornday)st"
+	}
+	elseif bornday == 2 || bornday == 22
+	{
+	"%(bornday)nd"
+	}
+	elseif bornday == 3 || bornday == 23
+	{
+	"%(bornday)rd"
+	}
+	else
+	{
+	"%(bornday)th"
+	}
+}	
+
+//--OnUserBornDay
+//This is much like the above function OnUserBornMonth. It'll take the value the user put in for the day and analyze it.
+
+OnUserBornDay
+{
+	tempday = reference0 //storing the input in tempday
+	tempday = TOLOWER(tempday) //changes it to lowercase
+	tempday = REPLACE(tempday,"st","") //if the user types something like 2nd, 3rd, etc, this will make it just the number. It'll just add the suffix back later on the one that actually shows.
+	tempday = REPLACE(tempday,"nd","")
+	tempday = REPLACE(tempday,"rd","")
+	tempday = REPLACE(tempday,"th","")
+	tempday = TOINT(tempday) //[Zi]This converts the number to an integer rather than a string so that the following checks can read it without being a huge mess of ifs/ors. Many thanks to my friend Nimanao for helping me figure this one out!
+
+	if ((bornmonth == 1 || bornmonth == 3 || bornmonth == 5 || bornmonth == 7 || bornmonth == 8 || bornmonth == 10 || bornmonth == 12) && tempday >= 1 && tempday <= 31) || (bornmonth == 2 && tempday >= 1 && tempday <= 29) || ((bornmonth == 4 || bornmonth == 6 || bornmonth == 9 || bornmonth == 11) && tempday >= 1 && tempday <= 30)
+	{
+		bornday = tempday
+		borndayprint = Printday
+		userbirthday = "%(bornmonth)month %(bornday)day"
+		birthdayprint = "%(bornmonthprint) %(borndayprint)"
+	}
+	else
+	{
+		if nowmode == "RYS"
+		{
+			"\RYS\s[2008]...Um,\w4 %(reference0) isn't a valid day...\w8\w8\s[2006] is it?"
+		}
+		else
+		{
+			if LV == 0
+			{
+				"\0\s[101]Kiddo,\w4 you gotta give me a valid day.\w8 Try again."
+			}
+			else
+			{
+				"\0\s[510]...That isn't a valid day."
+			}
+		}
+		--
+		"\![open,inputbox,OnUserBornDay,-1]\![set,balloontimeout,-1]\e"
+	}
+	-- //Replaced the birthchecked envelope, everything down here is checking to see if the user's birthday falls on specific days, and either way gives the finishing comment about learning your birthday
+	if nowmode == "RYS"
+	{
+		if userbirthday == dayslot
+		{
+			"\RYS\s[2006]Today..?\w8\w8\s[2008] ...Ok.\x"
+		}
+		elseif userbirthday == "8month 25day"
+		{
+			"\RYS\s[2007]...That's the same as...\w8\w8\s[2008] O-ok.\x"
+		}
+		else
+		{
+			"\RYS\s[2006]Ok,\w4 %(bornmonthprint) %(borndayprint).\x"
+		}
+		--
+		OnConfigRYS
+	}
+	else
+	{
+		if LV == 0
+		{
+			if userbirthday == dayslot //if today is the user's birthday
+			{
+				"\0\s[101]Oh,\w4 it's today?\w8\s[1010] Well then,\w4 happy birthday,\w4 %(username)!\w8\w8\s[106] Sorry,\w4 I'd have made some cake for you if I'd known it was coming up.\w8\s[1010] Maybe next time,\w4 eh?\x"
+				//replace this dialogue with whatever you like
+			}
+			elseif userbirthday == "12month 25day"
+			{
+				"\0\s[1010]A gyftmas birthday,\w4 eh?\w8 I'll have to keep that in mind.\x"
+			}
+			elseif userbirthday == "8month 25day"	
+			{
+				"\0\s[110]Oh!\w8\w8\s[1010] ...Heh,\w4 that's my birthday,\w4 too.\w8 That's pretty neat.\x"
+			}	
+			else //if the birthday is not listed above.
+			{
+				"\0\s[0]Ok,\w4 your birthday is %(bornmonthprint) %(borndayprint).\w8\w8\s[1010] I'll remember.\x"
+			}
+		}
+		else
+		{
+			if userbirthday == dayslot //if today is the user's birthday
+			{
+				"\0\s[510]...%(bornmonthprint) %(bornmonthday).\w8\w8 I'll remember.\x"
+			}
+			elseif userbirthday == "8month 25day"	
+			{
+				"\0\s[515]* (He shivers.)\w8\w8\s[510]\n\n...I'll remember.\x"
+			}
+		}
+		--
+		TalkConfig
+	}
+}
+
+
+
+
+
+//================Pronoun teaching================
+
+
+OnTeachPronouns
+{
+	if nowmode == "RYS"
+	{
+		"\RYS\s[2007]..?\_q"
+	}
+	else
+	{
+		if LV == 0
+		{
+			"\0\s[0]What pronouns do you want?\_q"
+		}
+		else
+		{
+			if LVCheck == 1
+			{
+				"\0\s[510]...What pronouns do you want?\_q"
+				
+			}
+			else
+			{
+				"\s[400]I don't care.\e"
+			}
+		}
+	}
+	--
+	"\n\n\![*]\q[He-His-Him,choicemasc]\n/
+	\![*]\q[She-Her-Her,choicefem]\n/	
+	\![*]\q[They-Their-Them,choiceneither]\e"
+}
+
+Select.choicemasc
+{
+	presuffix = "masculine"
+	himher = "him"
+	heshe = "he"
+	hisher = "his"
+	--
+	"\![raise,OnDialogueVariables,suppressCoordsOn]"
+	--
+	if nowmode == "RYS"
+	{
+		"\RYS\s[2006]...Um,\w4 ok.\x"
+		--
+		OnConfigRYS
+	}
+	else
+	{
+		"\![raise,OnDialogueVariables,suppressCoordsOn]"
+		--
+		if LV == 0
+		{
+			"\0\s[0]Ok,\w4 got it.\x"
+		}
+		else
+		{
+			"\0\s[510]...Ok.\x"
+		}
+		--
+		TalkConfig
+	}
+}
+
+Select.choicefem
+{
+	presuffix = "feminine"
+	himher = "her"
+	heshe = "she"
+	hisher = "her"
+	--
+	"\![raise,OnDialogueVariables,suppressCoordsOn]"
+	--
+	if nowmode == "RYS"
+	{
+		"\RYS\s[2006]...Um,\w4 ok.\x"
+		--
+		OnConfigRYS
+	}
+	else
+	{
+		if LV == 0
+		{
+			"\0\s[0]Ok,\w4 got it.\x"
+		}
+		else
+		{
+			"\0\s[510]...Ok.\x"
+		}
+		--
+		TalkConfig
+	}
+}
+
+Select.choiceneither
+{
+	"\![raise,OnDialogueVariables,suppressCoordsOn]"
+	--
+	presuffix = "undefine"
+	himher = "them"
+	heshe = "they"
+	hisher = "their"
+	--
+	if nowmode == "RYS"
+	{
+		"\RYS\s[2006]...Um,\w4 ok.\x"
+		--
+		OnConfigRYS
+	}
+	else
+	{
+		if LV == 0
+		{
+			"\0\s[0]Ok,\w4 got it.\x"
+		}
+		else
+		{
+			"\0\s[510]...Ok.\x"
+		}
+		--
+		TalkConfig
+	}
 }

@@ -28,6 +28,7 @@ group,SF
 	108,Concern
 	109,TiredSigh
 	110,MildSurprise
+	111,Eyebrows Up
 }
 
 group,SL
@@ -115,4 +116,31 @@ group,SSp
 	1126,BloopSdLf
 	1550,Punch
 	
+}
+
+group,RYS
+{
+	scope,1
+
+	2000,Neutral Fw
+	2001,Neutral Lf
+	2002,Neutral Ri
+	2003,Chest Fw
+	2004,Chest Lf
+	2005,Chest Ri
+	2006,Forward Fw
+	2007,Forward Lf
+	2008,Forward Ri
+	2009,Surprise
+	2010,Pet
+	2012,Left Up
+	2013,Left Dw
+	2014,Flinch
+	2015,Shock
+	2016,Shock Ri
+	2020,Look Left
+	2021,Look Back
+	2022,Regret
+	2100,Water
+	2790,Blip In
 }

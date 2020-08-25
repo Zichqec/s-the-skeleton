@@ -245,6 +245,8 @@ input:checked ~ label {
 }
 input:checked ~ .HMtut-content {
     max-height: 100%;
+    background-color: #d1d1d1;
+    border-radius: 25px;
 }
 
 .collapsible-HMtut label {
@@ -283,6 +285,8 @@ input:checked ~ label {
 }
 input:checked ~ .HMmin-content {
     max-height: 100%;
+    background-color: #d1d1d1;
+    border-radius: 25px;
 }
 
 .collapsible-HMmin label {
@@ -322,6 +326,8 @@ input:checked ~ label {
 }
 input:checked ~ .Cntn-content {
     max-height: 100%;
+    background-color: #d1d1d1;
+    border-radius: 25px;
 }
 
 .collapsible-Cntn label {
@@ -346,5 +352,47 @@ input:checked ~ .Cntn-content {
 input#Cntn {
     display: none;
 }
+
+
+/*S Spoilers*/
+.sSpoilers-content {
+    max-height: 0;
+    overflow: hidden;
+    padding-bottom: 20px;
+}
+/* Toggle Effect */
+input:checked ~ label {
+    background-image: url(close.png);
+}
+input:checked ~ .sSpoilers-content {
+    max-height: 100%;
+    background-color: #d1d1d1;
+    border-radius: 25px;
+    padding: 20px 20px 20px 20px
+}
+
+.collapsible-sSpoilers label {
+    font-size: 20px;
+    display: block;
+    cursor: pointer;
+    background: url(menu.png) no-repeat left center;
+    padding: 10px 50px 10px 50px;
+    text-align: center;
+    background: #d1d1d1;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 25%;
+    border-radius: 25px;    
+}
+
+.collapsible-sSpoilers label:hover
+{
+    background: #b6b5b6;
+}
+
+input#sSpoilers {
+    display: none;
+}
+
 
 /*Collapsible menu found here https://codeburst.io/how-to-make-a-collapsible-menu-using-only-css-a1cd805b1390 because I don't know how to use javascript*/

@@ -226,7 +226,6 @@ OnAnchorSelect //[Zi] Alright so... I decided to rewrite this. I didn't see a re
 		if "wd" _in_ reference0
 		{
 			if askedaboutwd == 0
-			
 			{
 				askedaboutwd = 1
 				love += 4
