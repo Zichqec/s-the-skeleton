@@ -128,7 +128,7 @@ OnRYSMenu
 	--
  	"\n\![*]\q[Nevermind,RYScancel]\n\n[half]%(wd) %(displayhour):%(nowmin) %(ap), %(month)/%(day)/%(year)"
 	--
-	"\nRuntime: %(passhour):%(displaymin)            Version 1.2.1"
+	"\nRuntime: %(passhour):%(displaymin)            Version 1.2.2"
 	--
 	if debug == 1 //You can access the debug menu by opening script input (ctrl S) and putting in "%(debug = 1)", but do so at your own risk. I'd recommend double checking the test variable before clicking on it, because sometimes I leave things in there that will alter your variables.
 	{

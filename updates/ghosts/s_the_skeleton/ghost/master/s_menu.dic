@@ -213,11 +213,11 @@ MenuRun
 			", %(tempurature)%(ForC)"
 		}
 		--
-		" %(moonphase) Runtime: %(passhour):%(displaymin)                          Version 1.2.1"
+		" %(moonphase) Runtime: %(passhour):%(displaymin)                          Version 1.2.2"
 	}
 	else //If you have weather off, he displays the runtime and version slightly different (difference in spacing and linebreak)
 	{
-		"\nRuntime: %(passhour):%(displaymin)            Version 1.2.1"
+		"\nRuntime: %(passhour):%(displaymin)            Version 1.2.2"
 	}
 	--
 	if debug == 1 //You can access the debug menu by opening script input (ctrl S) and putting in "%(debug = 1)", but do so at your own risk. I'd recommend double checking the test variable before clicking on it, because sometimes I leave things in there that will alter your variables.
@@ -1734,7 +1734,6 @@ Select.weathercheck //Check the current weather. If the user doesn't have a loca
 {
 	if curlocation != "" && curlocation != "Set a location"
 	{
-		weathertries = 1
 		weatherquiet = 0
 		fromfunctionmenu = 1
 		"\0\s[110]Oh,\w4 the weather?\w8\w8\s[104] Sure,\w4\s[1070] give me just a moment..."

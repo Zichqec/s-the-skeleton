@@ -1410,10 +1410,19 @@ OnUpdateComplete
 	}
  	else //if the ghost has updated successfully
 	{
-		OnSetUpdateVariables //This directs over to Bootend, where new variables will be initialized if they aren't already
+		//OnSetUpdateVariables //This directs over to Bootend, where new variables will be initialized if they aren't already
 		askedalready = 0
 		--
-		"* (An update is available for the Purple Soul balloon. Would you like to download it now?)\n\n* (If you are not using the Purple Soul balloon, you will have to switch to it in order to update.)\n\n\![*]\q[Yes,OnAskChangelog,updateballoon]\n\![*]\q[No,OnAskChangelog,dont]\*\e"
+		if Update1p2p0 != "1.2.0"
+		{
+			OnSetUpdateVariables
+			"* (An update is available for the Purple Soul balloon. Would you like to download it now?)\n\n* (If you are not using the Purple Soul balloon, you will have to switch to it in order to update.)\n\n\![*]\q[Yes,OnAskChangelog,updateballoon]\n\![*]\q[No,OnAskChangelog,dont]\*\e"
+		}
+		else
+		{
+			OnSetUpdateVariables
+			"\![raise,OnAskChangelog]"
+		}
  	}
 }
 
@@ -1423,7 +1432,7 @@ OnAskChangelog
 	{
 		"\![update,balloon]"
 	}
-	else
+	elseif reference0 == "dont"
 	{
 		"* (You can update the balloon later from the 'do something for you' menu, or copy the files for purple_soul in S's folder to your SSP/balloon folder.)\x"
 	}
@@ -1700,7 +1709,9 @@ OnChangeLog //Haha I hope I remember to update this
 	\_l[90]-Hotfix 1.2.1-\n\n/
 	-Fixed a couple typos.\n\n/
 	-Fixed a bug where dragging S around sometimes caused an empty balloon to pop up.\n\n/
-	-Fixed a bug where S would think the humidity was super high if he didn't know it.\n\n"
+	-Fixed a bug where S would think the humidity was super high if he didn't know it.\n\n\n/
+	\_l[90]-Hotfix 1.2.2-\n\n/
+	-Fixed weather checking. It should no longer break, even if weather.com changes their tags again.\n\n"
 	--
 	if reference0 == "frommenu"
 	{
@@ -2950,6 +2961,10 @@ OnDownloadCurWeather
    {
 	"\c* (Couldn't get the weather. Try again?)\n\n\![*]\q[Yes,OnDownloadCurWeather]\n\![*]\q[No,cancelnodialogue]"
    }
+   else
+   {
+	   "\b[-1]\e"
+   }
 }
 
 OnCurWeatherFound
@@ -2978,14 +2993,14 @@ OnCurWeatherFound
         //temp = _buff
         
         if RE_SEARCH(_buff, '<html dir="ltr" lang="en-US"><head>') { //reg expressions for chrome formatted page
-            _regtemp = 'CurrentConditions--tempValue--MHmYY">(-?\d*)°</span><div'
+            _regtemp = 'CurrentConditions--tempValue--(.....)">(-?\d*)°</span><div'
             _regdegree = '(°C|°F)'
-            _regfeels = 'feelsLikeTempValue--2icPt">(-?\d*)°</span><span data'
+            _regfeels = 'feelsLikeTempValue--(.....)">(-?\d*)°</span><span data'
             _reghumidity = 'estid="PercentageValue">(\d*)%</span></div>'
             _regwind = '6.44z"></path></svg>([\w|\s|\d]*)</span></div></div>'
-            _regstate = 'phraseValue--mZC_p">([\w|\s]*)</div></div>'
-            _regloc = 'Conditions--location--1YWj_">(.*) Weather</h1><div class='
-            _regpollen = 'iesListItem--description--2eNsW">([\w|\s]*) pollen is very high in your area</p></'
+            _regstate = 'phraseValue--(.....)">([\w|\s]*)</div></div>'
+            _regloc = 'Conditions--location--(.....)">(.*) Weather</h1><div class='
+            _regpollen = 'iesListItem--description--(.....)">([\w|\s]*) pollen is very high in your area</p></'
 			//_regsunriseB = '<p class="_-_-components-src-molecule-SunriseSunset-SunriseSunset--dateValue--3H780">(\d*:\d* [p|a]m)</p>'
         }
         else {
@@ -3006,7 +3021,7 @@ OnCurWeatherFound
             //current temp
             if RE_SEARCH ( _buff, _regtemp ) {
                 
-                currentweatherarray[0] = RE_GETSTR[1]
+                currentweatherarray[0] = RE_GETSTR[2]
                 
             }
     
@@ -3018,7 +3033,7 @@ OnCurWeatherFound
             
             //feels like temp
             if RE_SEARCH ( _buff, _regfeels ) {
-                currentweatherarray[2] = RE_GETSTR[1]
+                currentweatherarray[2] = RE_GETSTR[2]
                 
             }
             
@@ -3038,14 +3053,14 @@ OnCurWeatherFound
             //state (cloudy, sunny, etc)
             if RE_SEARCH ( _buff, _regstate ) {
                 
-                currentweatherarray[5] = RE_GETSTR[1]
+                currentweatherarray[5] = RE_GETSTR[2]
                 
             }
             
             //set location
             if RE_SEARCH ( _buff, _regloc ) {
                 
-                curlocation = RE_GETSTR[1]
+                curlocation = RE_GETSTR[2]
                 
             }
             
@@ -3085,39 +3100,24 @@ OnCurWeatherFound
 	}
 	else
 	{
-		if weathertries < 5
+		tempurature = "Unknown"
+		ForC = "Unknown"
+		feelslike = "Unknown"
+		humidity = "Unknown"
+		wind = "Unknown"
+		weather = "Unknown"
+		pollen = "Unknown"
+		phase = "Unknown"
+		if weatherquiet == 1
 		{
-			"\_q(Couldn't get the weather, trying again...)\n(%(weathertries)/5)\w8\w8\_q\![raise,OnDownloadCurWeather]"
-			weathertries += 1
+			"\e"
 		}
 		else
 		{
-			if weatherquiet
-			{
-				weatherquiet = 0
-				weathertries = 1
-				tempurature = "Unknown"
-				ForC = "Unknown"
-				feelslike = "Unknown"
-				humidity = "Unknown"
-				wind = "Unknown"
-				weather = "Unknown"
-				pollen = "Unknown"
-				phase = "Unknown"
-				--
-				"\e"
-			}
-			"(Couldn't get the weather, please try again in a few minutes.)\e"
-			weathertries = 1
+			"\0\s[106]Sorry,\w4 looks like something went wrong.\w8\w8\s[107] You should talk to Zichqec about that.\e"
 		}
 	}
 
-}
-
-
-Select.tryweatheragain
-{
-	OnDownloadCurWeather
 }
 
 
