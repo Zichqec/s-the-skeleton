@@ -556,7 +556,6 @@ OnAnchorSelect //[Zi] Alright so... I decided to rewrite this. I didn't see a re
 			weatherquiet = 0
 			if curlocation != "" && curlocation != "Set a location"
 			{
-				weathertries = 1
 				fromfunctionmenu = 0
 				"\0\s[110]Oh,\w4 the weather?\w8\w8\s[104] Sure,\w4\s[1070] give me just a moment...\![raise,OnDownloadCurWeather]"
 			}

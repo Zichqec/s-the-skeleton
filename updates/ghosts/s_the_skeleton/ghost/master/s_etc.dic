@@ -1711,7 +1711,9 @@ OnChangeLog //Haha I hope I remember to update this
 	-Fixed a bug where dragging S around sometimes caused an empty balloon to pop up.\n\n/
 	-Fixed a bug where S would think the humidity was super high if he didn't know it.\n\n\n/
 	\_l[90]-Hotfix 1.2.2-\n\n/
-	-Fixed weather checking. It should no longer break, even if weather.com changes their tags again.\n\n"
+	-Fixed weather checking. It should no longer break, even if weather.com changes their tags again.\n\n/
+	\_l[90]-Hotfix 1.2.3-\n\n/
+	-Fixed location checking, whoops.\n\n"
 	--
 	if reference0 == "frommenu"
 	{
@@ -2878,7 +2880,7 @@ OnCheckWeatherLoc
         //temp = _buff
         
         if RE_SEARCH(_buff, '<html dir="ltr" lang="en-US"><head>') { //reg expressions for chrome formatted page
-            _regloc = 'Conditions--location--1YWj_">(.*) Weather</h1><div class='
+            _regloc = 'Conditions--location--(.....)">(.*) Weather</h1><div class='
         }
         else {
         //reg expressions for firefox formatted page
@@ -2890,7 +2892,7 @@ OnCheckWeatherLoc
             //set location
             if RE_SEARCH ( _buff, _regloc ) {
                 
-                templocation = RE_GETSTR[1]
+                templocation = RE_GETSTR[2]
                 
             }
             
