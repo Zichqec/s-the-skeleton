@@ -102,18 +102,17 @@ MenuRun
 	--
  	"\![*]\q[Nevermind,CANCEL]\n\n%(displayweekday) %(nowhour):%(nowmin) %(ap), %(month)/%(day)/%(year) - %(season)"
 	--
-	if AutoWeather == "ON" && phase != "Unknown" && phase != "" && curlocation != "" && curlocation != "Set a location" //If the user has weather updates on, this will display the current moon phase. The moon will not appear if the last weather or phase check failed. The text in these are anchors, clicking on the moon will perform a weather check.
+	if tempurature != "Unknown"
 	{
-		", %(tempurature)%(ForC) %(moonphase)"	
-		--
-		{
-			" Runtime: %(passhour):%(displaymin)"
-		}
+		", %(tempurature)%(ForC)"
 	}
-	else //If his weather check fails or you have weather off, he displays the runtime and version slightly different (difference in spacing and linebreak)
+	--
+	if AutoWeather == "ON" || phase != "Unknown"
 	{
-		"\nRuntime: %(passhour):%(displaymin)"
+		" %(moonphase)"
 	}
+	--
+	"\nRuntime: %(passhour):%(displaymin)"
 	--
 	"\_l[220]Version 1.0.0"
 	--
@@ -812,6 +811,7 @@ Select.toggleWD
 
 OnFontMenu
 {
+	fontarray[0] = 1
 	editfont = "None"
 	_userfonts = ""
 	_userfontcount = ARRAYSIZE(userfont)
@@ -830,7 +830,7 @@ OnFontMenu
 	--
 	"%(_userfonts)"
 	--
-	"\n\n\![*]\q[Add a new font,OnNewFont]\n\![*]\q[Remove a font,OnRemoveFont]\n\n"
+	"\n\n\![*]\q[Add a new font,OnInstalledFonts]\n\![*]\q[Remove a font,OnRemoveFont]\n\n"
 	--
 	"\![*]\q[Back to %(teachFont) Menu,OnWingdingsMenu]"
 }
@@ -842,8 +842,122 @@ Select.fontWingdings
 	OnFontMenu
 }
 
+//Pretty sure all I gotta do is set a variable to say it's from this list rather than from manual input, and then the rest of the functions should work fine. Just gotta set up the menu, that's easy. I need it to have the list and at the top offer the choice to type one manually
+OnInstalledFonts
+{
+	fromFont = "List"
+	//fontarray = IARRAY
+	//_ii = 2
+	_fonts = ""
+	if fontsort == "Descending"
+	{
+		_i = (fontcount - 1)
+		while _i > -1
+		{
+			_fonts += "\n\n[half]\f[name,%(fontlist[_i])]\![*]\q[%(fontlist[_i]),OnFontStart,%(fontlist[_i])]\f[default] (%(fontlist[_i]))"
+			_i--
+		}
+	}
+	else
+	{
+		//This is a system for having it split onto multiple pages. It works great (needs some polish but definitely works) but idk if it's actually better than the list. Gonna leave it here for future reference.
+		/*_i = 0
+		_iii = 0
+		while _i < fontcount
+		{
+			fontarray[_ii] += "\n\n[half]\f[name,%(fontlist[_i])]\![*]\q[%(fontlist[_i]),OnFontStart,%(fontlist[_i])]\f[default] (%(fontlist[_i]))"
+			_i++
+			_iii++
+			if _iii >= 10
+			{
+				_iii = 0
+				_ii++
+			}
+		}
+		fontarray[1] = ARRAYSIZE(fontarray)
+		fontarray[1] -= 2 //Getting the amount of pages we have*/
+		_i = 0
+		while _i < fontcount
+		{
+			_fonts += "\n\n[half]\f[name,%(fontlist[_i])]\![*]\q[%(fontlist[_i]),OnFontStart,%(fontlist[_i])]\f[default] (%(fontlist[_i]))"
+			_i++
+		}
+	}
+	--
+	//FontArrayDisplay
+	"\0%(wdcb)\_q\![set,autoscroll,disable]\![*]\q[Enter a name manually,OnNewFont]\n"
+	--
+	if fontsort == "Descending"
+	{
+		"\![*]\q[Change to ascending order,reverseFontList]"
+	}
+	else
+	{
+		"\![*]\q[Change to descending order,reverseFontList]"
+	}
+	--
+	"\n\![*]\q[Back to %(teachFont) Menu,OnWingdingsMenu]\n%(_fonts)"
+	--
+	"\n\n\![*]\q[Enter a name manually,OnNewFont]\n"
+	--
+	if fontsort == "Descending"
+	{
+		"\![*]\q[Change to ascending order,reverseFontList]"
+	}
+	else
+	{
+		"\![*]\q[Change to descending order,reverseFontList]"
+	}
+	--
+	"\n\![*]\q[Back to %(teachFont) Menu,OnWingdingsMenu]"
+}
+
+Select.reverseFontList
+{
+	if fontsort != "Descending"
+	{
+		fontsort = "Descending"
+	}
+	else
+	{
+		fontsort = "Ascending"
+	}
+	--
+	OnInstalledFonts
+}
+
+FontArrayDisplay
+{
+	"\0%(wdcb)\_q\![set,autoscroll,disable]"
+	--
+	if fontarray[0] > 2
+	{
+		"\![*]\q[Previous,OnPrevFontPage]"
+	}
+	--
+	if fontarray[0] < fontarray[1]
+	{
+		"\_l[100]\![*]\q[Next,OnNextFontPage]"
+	}
+	--
+	"\n%(fontarray[fontarray[0]])\x"
+}
+
+OnNextFontPage
+{
+	fontarray[0]++
+	FontArrayDisplay
+}
+
+OnPrevFontPage
+{
+	fontarray[0]--
+	FontArrayDisplay
+}
+
 OnNewFont
 {
+	fromFont = "Typed"
 	"\0\_q%(wdcb)* (Please enter the exact name of an installed font.)\*\t\![set,balloontimeout,-1]\![open,inputbox,OnFontStart]\n\n\![*]\q[Nevermind,OnFontCancel]"
 }
 
@@ -857,7 +971,18 @@ OnFontStart
 
 OnFontCheck
 {
-	"\_q\b2\f[height,%(fontsize)]\f[name,%(fontinput)]Example - EXAMPLE - example\n\n%(reg)* (Does the above text look correct?)\n\n\![*]\q[Yes,fontadd]\n\![*]\q[No,OnNewFont]\n\![*]\q[Change size,script:\![open,sliderinput,OnFontSizeCustom,-1,14,3,100\]]\n\n\![*]\q[Cancel,OnFontMenu]"
+	"\_q\b2\f[height,%(fontsize)]\f[name,%(fontinput)]Example - EXAMPLE - example\n\n%(reg)* (Does the above text look correct?)\n\n\![*]\q[Yes,fontadd]\n"
+	--
+	if fromFont == "Typed"
+	{
+		"\![*]\q[No,OnNewFont]"
+	}
+	else
+	{
+		"\![*]\q[No,OnInstalledFonts]"
+	}
+	--
+	"\n\![*]\q[Change size,script:\![open,sliderinput,OnFontSizeCustom,-1,14,3,100\]]\n\n\![*]\q[Cancel,OnFontMenu]"
 }
 
 Select.fontadd
@@ -936,7 +1061,7 @@ OnFunctionMenu
  	"\0\s[0]\_q%(wdcb)%(t)Sure## what did you need me to do?]\n\n* (You ask him to...)\n\n"
 	--
  	"\![*]\q[Call another ghost,OnGhostMenu]\n/
-	\![*]\q[Check the weather,OnWeatherCheck]\n/
+	\![*]\q[Check the weather,OnWeatherCheck,menu]\n/
 	\![*]\q[Check Email,MailCheck]\n/
 	\![*]\q[Open Calendar,CALENDAR]\n/
 	\![*]\q[Open SSP Preferences,sspconfig]\n/
@@ -1036,7 +1161,11 @@ OnRandCallCheck
 OnWeatherCheck
 {
 	weatherquiet = 0
-	fromfunctionmenu = 1
+	if reference0 == "menu"
+	{
+		fromfunctionmenu = 1
+	}
+	--
 	if curlocation == "" || curlocation == "Set a location"
 	{
 		"\_q%(wdc)%(t)You don't have a location set. Are you in the USA?]\n\n"
@@ -1047,9 +1176,9 @@ OnWeatherCheck
 	}
 	else
 	{
-		//"\0\s[500]Alright,\w4 give me just a moment.\w8\w8\![raise,OnDownloadCurWeather]"
-		"\0\s[500]%(t)Alright##\w4 let's see##]\w4 %(curlocation)...\w8\w8\![raise,OnDownloadCurWeather]"
-		"\0\s[500]%(t)Ok##\w4 let me check.\w8\w8 Hmm##\w4] %(curlocation)...\w8\w8\![raise,OnDownloadCurWeather]"
+		//"\0\s[500]%(wdc)Alright,\w4 give me just a moment.\w8\w8\![raise,OnDownloadCurWeather]"
+		"\0\s[500]%(wdc)%(t)Alright##\w4 let's see##]\w4 %(curlocation)...\w8\w8\![raise,OnDownloadCurWeather]"
+		"\0\s[500]%(wdc)%(t)Ok##\w4 let me check.\w8\w8 Hmm##\w4] %(curlocation)...\w8\w8\![raise,OnDownloadCurWeather]"
 	}
 }
 
@@ -1123,7 +1252,18 @@ OnChangelog
 	"\![set,autoscroll,disable]\_q\b2"
 	--
 	"\_l[112]-Version 1.0.0-\n\n/
-	+Added everything!\n\n"
+	+Added everything!\n\n\n/
+	\_l[112]-Version 1.0.1-\n\n/
+	-Fixed the weather glitch.\n\n/
+	-If you have auto weather checks on, Dusty will now check the weather within a few minutes of booting.\n\n/
+	-Improved the weather display on the main menu slightly.\n\n/
+	-Fixed Dusty randomly saying 0 or 1 in his balloon.\n\n/
+	-Fixed a stray pixel (with righteous indignation).\n\n/
+	-Added a new menu to the font menu that displays all fonts installed on your computer in a list!\n\n/
+	-Made Obsidian's window stick to Dusty if he's holding her.\n\n/
+	-Random dialogue will no longer happen while you're in the middle of confiding/gushing.\n\n/
+	-Fixed a bug where dialogue about your computer just wouldn't show up.\n\n/
+	"
 	--
 	if reference0 == "frommenu"
 	{
@@ -1203,11 +1343,11 @@ Select.ConfideIn
 	"\0\b2\s[110]%(t)Oh##\w4 is there something you wanted to tell me?]"
 	"\0\b2\s[110]%(t)Oh##\w4 what was it you wanted to tell me?]"
 	--
-	"\n\n\![*]\q[I'm sad,script: \![set,balloontimeout,0\]* (He's listening closely.)\*\![open,inputbox,OnConfideSad,-1\]]\n/
-	\![*]\q[I'm scared,script: \![set,balloontimeout,0\]* (He's listening closely.)\*\![open,inputbox,OnConfideScared,-1\]]\n/
-	\![*]\q[I'm frustrated,script: \![set,balloontimeout,0\]* (He's listening closely.)\*\![open,inputbox,OnConfideFrustrated,-1\]]\n/
-	\![*]\q[I'm empty,script: \![set,balloontimeout,0\]* (He's listening closely.)\*\![open,inputbox,OnConfideEmpty,-1\]]\n/
-	\![*]\q[Other,script: \![set,balloontimeout,0\]* (He's listening closely.)\*\![open,inputbox,OnConfideOther,-1\]]"
+	"\n\n\![*]\q[I'm sad,script: \![set,balloontimeout,0\]* (He's listening closely.)\*\![open,inputbox,OnConfideSad,-1\]\t\_l[10000\]\q[ ,youShouldNeverSeeThis\]]\n/
+	\![*]\q[I'm scared,script: \![set,balloontimeout,0\]* (He's listening closely.)\*\![open,inputbox,OnConfideScared,-1\]\t\_l[10000\]\q[ ,youShouldNeverSeeThis\]]\n/
+	\![*]\q[I'm frustrated,script: \![set,balloontimeout,0\]* (He's listening closely.)\*\![open,inputbox,OnConfideFrustrated,-1\]\t\_l[10000\]\q[ ,youShouldNeverSeeThis\]]\n/
+	\![*]\q[I'm empty,script: \![set,balloontimeout,0\]* (He's listening closely.)\*\![open,inputbox,OnConfideEmpty,-1\]\t\_l[10000\]\q[ ,youShouldNeverSeeThis\]]\n/
+	\![*]\q[Other,script: \![set,balloontimeout,0\]* (He's listening closely.)\*\![open,inputbox,OnConfideOther,-1\]\t\_l[10000\]\q[ ,youShouldNeverSeeThis\]]"
 	--
 	"\n\n\![*]\q[Back,dosomething]\n\![*]\q[I'm done,cancelnodialogue]"
 }
@@ -1275,11 +1415,11 @@ Select.GushTo
 	--
 	"\0\b2\_q* (You tell him about...)"
 	--
-	"\n\n\![*]\q[A project,script: \![set,balloontimeout,0\]\s[114\]* (He smiles encouragingly.)\*\![open,inputbox,OnGushProject,-1\]]\n/
-	\![*]\q[An accomplishment,script: \![set,balloontimeout,0\]\s[114\]* (He smiles encouragingly.)\*\![open,inputbox,OnGushAccomplish,-1\]]\n/
-	\![*]\q[A good event,script: \![set,balloontimeout,0\]\s[114\]* (He smiles encouragingly.)\*\![open,inputbox,OnGushEvent,-1\]]\n/
-	\![*]\q[An interest,script: \![set,balloontimeout,0\]\s[114\]* (He smiles encouragingly.)\*\![open,inputbox,OnGushInterest,-1\]]\n/
-	\![*]\q[Other,script: \![set,balloontimeout,0\]\s[114\]* (He smiles encouragingly.)\*\![open,inputbox,OnGushOther,-1\]]"
+	"\n\n\![*]\q[A project,script: \![set,balloontimeout,0\]\s[114\]* (He smiles encouragingly.)\*\![open,inputbox,OnGushProject,-1\]\t\_l[10000\]\q[ ,youShouldNeverSeeThis\]]\n/
+	\![*]\q[An accomplishment,script: \![set,balloontimeout,0\]\s[114\]* (He smiles encouragingly.)\*\![open,inputbox,OnGushAccomplish,-1\]\t\_l[10000\]\q[ ,youShouldNeverSeeThis\]]\n/
+	\![*]\q[A good event,script: \![set,balloontimeout,0\]\s[114\]* (He smiles encouragingly.)\*\![open,inputbox,OnGushEvent,-1\]\t\_l[10000\]\q[ ,youShouldNeverSeeThis\]]\n/
+	\![*]\q[An interest,script: \![set,balloontimeout,0\]\s[114\]* (He smiles encouragingly.)\*\![open,inputbox,OnGushInterest,-1\]\t\_l[10000\]\q[ ,youShouldNeverSeeThis\]]\n/
+	\![*]\q[Other,script: \![set,balloontimeout,0\]\s[114\]* (He smiles encouragingly.)\*\![open,inputbox,OnGushOther,-1\]\t\_l[10000\]\q[ ,youShouldNeverSeeThis\]]"
 	--
 	"\n\n\![*]\q[Back,dosomething]\n\![*]\q[I'm done,cancelnodialogue]"
 }
@@ -1615,6 +1755,7 @@ Select.ToggleAutoWeather
 	if AutoWeather != "ON"
 	{
 		AutoWeather = "ON"
+		weatherquiet = 2
 	}
 	else
 	{
@@ -2215,7 +2356,7 @@ Select.pingpong
 	"\1\s[10]\b2* (You blink and she's\s[-1] gone,\w4 tearing after the enticing tapping sound of the ping pong ball on the floor.)\w8\w8\w8"
 	--
 	"\0\s[107]%(t)...She'll come back eventually.]"
-	"\0\s[107]%(t)...And she's off.\w8\w8\s[106\] She'll lose it in a file somewhere##\w4 I'm sure.]"
+	"\0\s[107]%(t)...And she's off.\w8\w8\s[106\] She'll lose it in a file back there somewhere##\w4 I'm sure.]"
 	"\0\s[107]%(t)...There she goes.\w8\w8\s[106\] She loves those things.]"
 	"\0\s[106]%(t)...You should see her go after those things in the void##\w4\s[107\] where she can just run forever##\w4 and ever##\w4 and ever...]"
 	"\0\s[106]%(t)...She's surprisingly agile##\w4 isn't she?]"

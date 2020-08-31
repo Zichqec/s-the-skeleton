@@ -233,6 +233,29 @@ ReplyToGhost
 				"\n\n\0\s[102]Not to worry,\w4 my friend.\w8\w8 I was thinking it too.\e"
 				res_reference0 = ""
 			}
+			elseif "SBootDusty1" _in_ ConvoTag
+			{
+				res_reference0 = ""
+				"\0\s[104]Hello S,\w4 it's good to see you."
+				"\0\s[104]Hello S,\w4 I'm glad to see you."
+				--
+				"\w8\w8\1%(catnoises).\e"
+			}
+			elseif "GiveStatsBoot" _in_ ConvoTag
+			{
+				_Ssnowmode = ConvoTag[0]
+				_SsLV = ConvoTag[1]
+				if _Ssnowmode == " RYS" || _SsLV > 0
+				{
+					res_reference0 = ""
+					"%(normalboottalk)"
+				}
+				else
+				{
+					res_reference0 = "RYS-0825"
+					"\0\s[0]Hello,\w4 %(username).\w8\w8\1%(catnoises).\w8\w8\0\n\n\s[104]Hello S.\e DustyBootS1"
+				}
+			}
 			else //I'm sure as I update them that they wont always have the same convos set up...
 			{
 				res_reference0 = ""

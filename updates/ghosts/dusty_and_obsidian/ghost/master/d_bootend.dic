@@ -136,6 +136,11 @@ OnBoot
 		{
 			"\0\s[110]Ah...\w8\w8\s[208] It's been...\w8\w8 %(_timesince) days since we were here?\w8\w8\s[106] %(username),\w4 did you invent time travel,\w4 or have you been changing your computer's clock?\w8\w8\1%(catnoises).\e"
 		}
+		elseif "RYS-0825" _in_ ghostexlist && talkedtoS == 1
+		{
+			res_reference0 = "RYS-0825"
+			"\e DustyGetStatsBoot"
+		}
 		else
 		{
 			normalboottalk
@@ -365,8 +370,8 @@ OnGhostChanging
 		}
 		else //If you're switching to another Ghost.
 		{
+			lastclosed = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)")
 			"\0\s[600]%(t)Alright##\w4 I'll let] %(reference0) %(t)know you want them.]\e"
-			
 			//In OnGhostChanging, %(reference0) stores the name of the ghost being swapped to.
 		}
 	}
@@ -378,8 +383,8 @@ OnGhostChanging
 		}
 		else //If you're switching to another Ghost.
 		{
+			lastclosed = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)")
 			"\0\s[0]%(t)Alright##\w4 I'll let] %(reference0) %(t)know you want them.]\e"
-			
 			//In OnGhostChanging, %(reference0) stores the name of the ghost being swapped to.
 		}
 
@@ -594,9 +599,26 @@ OnBootVars //These run every time he starts, whether you've just changed ghosts 
 	passmin = 0
 	passhour = 0
 	recenttreats = 0
+	tempurature = "Unknown"
+	ForC = "Unknown"
+	feelslike = "Unknown"
+	humidity = "Unknown"
+	wind = "Unknown"
+	weather = "Unknown"
+	pollen = "Unknown"
 	phase = "Unknown"
 	holdingObsidian = 0
 	lastTalk = ""
+	weatherquiet = 2 //So he does a weather check if you have it on
+}
+
+UpdateVars
+{
+	if Update1p0p1 != "1.0.1"
+	{
+		Update1p0p1 = "1.0.1"
+		installdate = "Unknown"
+	}
 }
 
 DefineStartVars //Variables that need to be set on firstboot
@@ -682,7 +704,6 @@ DefineStartVars //Variables that need to be set on firstboot
 	allergicPollen = "Unknown"
 	possibleanswers = 3
 	weatherquiet = 0
-	weathertries = 1
 	tempurature = "Unknown"
 	ForC = "Unknown"
 	feelslike = "Unknown"
@@ -696,4 +717,5 @@ DefineStartVars //Variables that need to be set on firstboot
 	teachFont = "Wingdings"
 	callingGhost = 0
 	SeePC = "Off"
+	installdate = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)")
 }

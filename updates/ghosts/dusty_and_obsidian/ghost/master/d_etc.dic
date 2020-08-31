@@ -38,7 +38,14 @@ OnFileDrop2
 			}
 			others //Any other file format.
 			{
-				"%(wdc)\0\s[0]%(t)This is %(_filename)%(_fileext).\w8\w8\s[106\] I can't do anything with it##\w4 sorry.]\w8\w8\1%(catnoises).\e"
+				if _filename == ""
+				{
+					"%(wdc)\0\s[0]%(t)This is %(reference0).\w8\w8\s[106\] I can't do anything with it##\w4 sorry.]\w8\w8\1%(catnoises).\e"
+				}
+				else
+				{
+					"%(wdc)\0\s[0]%(t)This is %(_filename)%(_fileext).\w8\w8\s[106\] I can't do anything with it##\w4 sorry.]\w8\w8\1%(catnoises).\e"
+				}
 			}
 		}
 	}
@@ -605,6 +612,8 @@ OnUpdateReady
 //When the ghost has finished the update process.
 OnUpdateComplete
 {
+	UpdateVars //Directs to a function in Bootend that checks if the proper variables have been set
+	--
 	if holdingObsidian == 1
 	{
 		if reference0 == "none" //if the ghost had nothing to update with
@@ -1633,6 +1642,13 @@ On_balloon_tooltip
 	}
 }
 
+OnUserInputCancel
+{
+	if "OnConfide" _in_ reference0 || "OnGush" _in_ reference0
+	{
+		"\0\s[110]Oh,\w4 did you change your mind?\w8\w8\s[102] Alright then,\w4 just let me know if you want to talk.\e"
+	}
+}
 
 OnWeatherLocation
 {
@@ -1713,7 +1729,7 @@ OnCheckWeatherLoc
         tempP = _buff
         
         if RE_SEARCH(_buff, '<html dir="ltr" lang="en-US"><head>') { //reg expressions for chrome formatted page
-            _regloc = 'Conditions--location--1YWj_">(.*) Weather</h1><div class='
+            _regloc = 'Conditions--location--(.....)">(.*) Weather</h1><div class='
         }
         else {
         //reg expressions for firefox formatted page
@@ -1725,7 +1741,7 @@ OnCheckWeatherLoc
             //set location
             if RE_SEARCH ( _buff, _regloc ) {
                 
-                templocation = RE_GETSTR[1]
+                templocation = RE_GETSTR[2]
                 
             }
             
@@ -1822,14 +1838,14 @@ OnCurWeatherFound
         tempP = _buff
         
         if RE_SEARCH(_buff, '<html dir="ltr" lang="en-US"><head>') { //reg expressions for chrome formatted page
-            _regtemp = 'CurrentConditions--tempValue--MHmYY">(-?\d*)°</span><div'
+            _regtemp = 'CurrentConditions--tempValue--(.....)">(-?\d*)°</span><div'
             _regdegree = '(°C|°F)'
-            _regfeels = 'feelsLikeTempValue--2icPt">(-?\d*)°</span><span data'
+            _regfeels = 'feelsLikeTempValue--(.....)">(-?\d*)°</span><span data'
             _reghumidity = 'estid="PercentageValue">(\d*)%</span></div>'
             _regwind = '6.44z"></path></svg>([\w|\s|\d]*)</span></div></div>'
-            _regstate = 'phraseValue--mZC_p">([\w|\s]*)</div></div>'
-            _regloc = 'Conditions--location--1YWj_">(.*) Weather</h1><div class='
-            _regpollen = 'iesListItem--description--2eNsW">([\w|\s]*) pollen is very high in your area</p></'
+            _regstate = 'phraseValue--(.....)">([\w|\s]*)</div></div>'
+            _regloc = 'Conditions--location--(.....)">(.*) Weather</h1><div class='
+            _regpollen = 'iesListItem--description--(.....)">([\w|\s]*) pollen is very high in your area</p></'
 			//_regsunriseB = '<p class="_-_-components-src-molecule-SunriseSunset-SunriseSunset--dateValue--3H780">(\d*:\d* [p|a]m)</p>'
         }
         else {
@@ -1850,7 +1866,7 @@ OnCurWeatherFound
             //current temp
             if RE_SEARCH ( _buff, _regtemp ) {
                 
-                currentweatherarray[0] = RE_GETSTR[1]
+                currentweatherarray[0] = RE_GETSTR[2]
                 
             }
     
@@ -1862,7 +1878,7 @@ OnCurWeatherFound
             
             //feels like temp
             if RE_SEARCH ( _buff, _regfeels ) {
-                currentweatherarray[2] = RE_GETSTR[1]
+                currentweatherarray[2] = RE_GETSTR[2]
                 
             }
             
@@ -1882,14 +1898,14 @@ OnCurWeatherFound
             //state (cloudy, sunny, etc)
             if RE_SEARCH ( _buff, _regstate ) {
                 
-                currentweatherarray[5] = RE_GETSTR[1]
+                currentweatherarray[5] = RE_GETSTR[2]
                 
             }
             
             //set location
             if RE_SEARCH ( _buff, _regloc ) {
                 
-                curlocation = RE_GETSTR[1]
+                curlocation = RE_GETSTR[2]
                 
             }
             
@@ -2031,7 +2047,16 @@ OnMoonFound
 
 	
 	--
-	"\n\n\![*]\q[Back to functions,OnFunctionMenu]\n\![*]\q[I'm done,cancelnodialogue]\e"
+	if fromfunctionmenu == 1
+	{
+		"\n\n\![*]\q[Back to functions,OnFunctionMenu]"
+	}
+	else
+	{
+		"\n"
+	}
+	--
+	"\n\![*]\q[I'm done,cancelnodialogue]\e"
 	
 
 }

@@ -50,12 +50,13 @@ On_sakura.recommendsites
 	--
 	"%ASC(1)https://www.zichqec.tumblr.com%ASC(2)"
 	--
-	
-	//If you want to keep things simple, you can just give each website one name like so.
-	
 	"Zichqec's Twitter"
 	--
 	"%ASC(1)https://twitter.com/Zichqec%ASC(2)"
+	--
+	"Dusty's Playlist"
+	--
+	"%ASC(1)https://www.youtube.com/playlist?list=PLJqT8BCkqnYRwkjNXFDF85309f0Mr-Xm2%ASC(2)"
 	--
 	"ECHO Gaster Community Project"
 	--
@@ -217,6 +218,11 @@ On_callghostrootbutton.caption
 	"Call Ghost"
 }
 
+On_hidebutton.caption //default is 'Iconify'
+{
+	"Minimize"
+}
+
 //---- Quit Caption -----------------------------------------------------
  //This is the caption for the option to quit.
  
@@ -262,6 +268,22 @@ On_otherghostname
 		else; _i = -1
 	}
 	ghostexcount = ARRAYSIZE(ghostexlist)
+}
+
+OnNotifyFontInfo
+{
+	fontlist = ""
+	_i = 0
+	while _i >= 0 {
+		_fontname = NAMETOVALUE("reference%_i")
+		if _fontname != "" {
+			if _i > 0; fontlist += ","
+			fontlist += _fontname[0]
+			_i++
+		}
+		else; _i = -1
+	}
+	fontcount = ARRAYSIZE(fontlist)
 }
 
 //---- SHIORI 듫쁀륃뺪 ------------------------------------------------------------------

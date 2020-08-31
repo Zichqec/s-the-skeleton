@@ -110,7 +110,7 @@ RandomTalk : nonoverlap
 			"\0\s[102]* (He seems content to stand in silence.)\e"
 			"\0\s[109]* (He heaves a quiet sigh.)\w8\w8\n\n* (He must have a lot on his mind...)\e"
 			"\1%(catnoises).\w8\w8\0\s[107]%(wdf)YES,\w4 YES,\w4 YOU'RE THE GREATEST CAT IN THE WHOLE MULTIVERSE,\w4 I KNOW.\e"
-			"\1\s[10]Maaaaoow.\w8\w8\0\s[400]%(t)Yes##\w4 Obsidian##\w4 I hear you.]\e:chain=ObsiYell1"
+			"\1\s[10]Maaaaoow.\w8\w8\0\s[400]%(t)Yes##\w4 Obsidian##\w4 I hear you.]\e:chain=ObsiYell"
 			"\0\s[107]\1\s[1001]MAAAOOOWW.\w8\w8\0\s[106]%(t)Do you have any cats##]\w4 %(username)?\w8\w8\s[402] %(t)I'm curious to know if they yell as loudly as mine.]\e"
 			"\1\s[10]Myyyaaaannn.\w8\w8\0\s[400]Obsidian,\w4 %(username) %(t)looks very busy.\w8\w8 I'm sure] %(heshe)'ll %(t)give you attention later.]\1\n\n\![*]\q[Meow back,meowback]\e teachword"
 			"\1\s[1001]* (Obsidian sniffs around your icons.)\w8\w8\0\s[400]%(t)She really is curious about this place.\w8\w8\s[107\]\n\nI suppose it's not often that she has so many interesting areas to explore.]\e"
@@ -146,6 +146,7 @@ RandomTalk : nonoverlap
 			"\0\s[204]%(t)Where could you be...]\e"
 			"\0\s[204]%(wdf)YOU MUST BE SOMEWHERE,\w4 I STILL HAVE THE SWEATER YOU GAVE ME...%(reg)\e"
 			"\0\s[200]* (He sighs,\w4 sounding a little defeated.)\w8\w8\1\s[1003]Mwwwrrr...\w8\w8\0\s[204]%(wdf)\n\nDON'T WORRY ABOUT ME,\w4 OBSIDIAN...\w8\w8 I ONLY WISH I COULD FIND SOME TRACE OF HIM SOMEWHERE,\w4 SOME SIGN HE'S STILL ALIVE AND CAUSING TROUBLE...%(reg)\e"
+			"\0\s[204]%(wdf)IT'S SO EMPTY WITHOUT HIM HERE...%(reg)\e"
 		}
 		
 		//---Hours have passed---
@@ -175,7 +176,7 @@ RandomTalk : nonoverlap
 			"\w8\w8\1\n\n%(holdnoise)!\e"
 		}
 		//---Gomi, Findwin, etc etc...---
-		if SeePC == "On"
+		if SeePC == "ON"
 		{
 			"\![raise,OnSnoop]" //Putting the saoris behind a raise so they don't activate every single time they talk...
 		}
@@ -278,13 +279,13 @@ RandomTalk : nonoverlap
 		}
 		if day > 26 //27th and after, end of the month
 		{
-			"\0\s[102]%(t)Almost to the end of the month##\w4 time to finish up your projects if you set monthy goals.\w8\w8\n\n\s[106\]I used to##\w4 back when I lived in the Underground.\w8\w8\s[107\] There aren't many goals to set in the void.]\e"
+			"\0\s[102]%(t)Almost to the end of the month##\w4 time to finish up your projects if you set monthly goals.\w8\w8\n\n\s[106\]I used to##\w4 back when I lived in the Underground.\w8\w8\s[107\] There aren't many goals to set in the void.]\e"
 		}
 		
 		//---Months---
 		if month == 1
 		{
-			
+			"\0\s[111]%(t)How is %(year) going for you so far?]\e"
 		}
 		if month == 2
 		{
@@ -292,10 +293,7 @@ RandomTalk : nonoverlap
 		}
 		if month == 3 //Spring start Northern, Autumn start Southern
 		{
-			if hemisphere == "Northern"
-			{
-				"\1\s[1000]* (Large clumps of fur litter your desktop as Obsidian grooms herself.)\w8\w8\n\n* (Guess she must be losing her winter coat...)\e"
-			}
+			
 		}
 		if month == 4
 		{
@@ -335,16 +333,14 @@ RandomTalk : nonoverlap
 		}
 		if month == 9 //Autumn start Northern, Spring start Southern
 		{
-			if hemisphere == "Southern"
-			{
-				"\1\s[1000]* (Large clumps of fur litter your desktop as Obsidian grooms herself.)\w8\w8\n\n* (Guess she must be losing her winter coat...)\e"
-			}
+			
 		}
 		if month == 10
 		{
 			if day == 22 //EGCP release date!
 			{
 				"\0\s[208]%(t)Something is special about this day...\w8\w8\s[107\] I can't quite put my finger on what it is.\w8\w8\s[110\] The word that comes to mind is '\_a[https://www.youtube.com/watch?v=ki2Sj-N7BDk/\]echo\_a'##\w4 though I couldn't tell you why.]\e"
+				"\0\s[208]%(wdf)I'M BLACK,\w4 THEN I'M WHITE...\w8\w8\n\n\s[206]NO,\w4 SOMETHING ISN'T RIGHT...%(reg)\e"
 			}
 		}
 		if month == 11
@@ -367,6 +363,10 @@ RandomTalk : nonoverlap
 		//---Seasons---
 		if season == "Spring"
 		{
+			if month == 3 || month == 9 //First month of spring for each hemisphere
+			{
+				"\1\s[1000]* (Large clumps of fur litter your desktop as Obsidian grooms herself.)\w8\w8\n\n* (Guess she must be losing her winter coat...)\e"
+			}
 			"\0\s[104]%(t)It's always so cheerful watching new flowers bloom.\w8\w8\s[205\] So small and fragile##\w4 but so eager to reach the sun...]\e"
 			"\0\s[205]%(t)Listening to the difference between a timeline in spring and a timeline in winter is fascinating.\w8\w8\s[102\] Winter is so muted and quiet##\w4 but spring is alive and buzzing...]\e"
 			"\0\s[0]%(t)Are you glad to see warm weather returning?\w8\w8\s[205\] I've never really minded any type of weather##\w4 really.]\e"
@@ -569,7 +569,7 @@ RandomTalk : nonoverlap
 			_i = 0
 			while _i < ghostexcount
 			{
-				if ghostexlist[_i] == "RYS-0825" || ghostexlist[_i] == "X. Template" || ghostexlist[_i] == "S" || ghostexlist[_i] == "Gaster" || ghostexlist[_i] == "Sanguine" || ghostexlist[_i] == "Dreamtale Sans" || ghostexlist[_i] == "MVSans" || ghostexlist[_i] == "sans" || ghostexlist[_i] == "Papyrus"
+				if ghostexlist[_i] == "RYS-0825" || ghostexlist[_i] == "X. Template" || ghostexlist[_i] == "S" || ghostexlist[_i] == "Gaster" || ghostexlist[_i] == "Sanguine" || ghostexlist[_i] == "Dreamtale Sans" || ghostexlist[_i] == "MVSans" || ghostexlist[_i] == "sans" || ghostexlist[_i] == "Papyrus" || ghostexlist[_i] == "Jazz"
 				{
 					_skeletonlist += ",%(ghostexlist[_i])"
 				}
@@ -801,17 +801,13 @@ Select.allergicYes
 Select.allergicNo
 {
 	allergicPollen = "No"
-	"\0\s[102]%(t)That's good##\w4 I'm glad that's not something you need to worry about.\e"
+	"\0\s[102]%(t)That's good##\w4 I'm glad that's not something you need to worry about.]\e"
 }
 
 //---Chains---
-ObsiYell1
+ObsiYell
 {{CHAIN
-	"\1\s[1001]MAAAAOOOWWW!\0\s[107]%(t)...Yes##\w4 Obsidian##\w4 we hear you##\w4 we really do.]\e:chain=ObsiYell2"
-}}CHAIN
-
-ObsiYell2
-{{CHAIN
+	"\1\s[1001]MAAAAOOOWWW!\0\s[107]%(t)...Yes##\w4 Obsidian##\w4 we hear you##\w4 we really do.]\e"
 	"\1\s[1003]%(bigf)M\w4A\w4A\w4A\w4O\w4O\w4W\w4!\0\s[402]......\w8\w8\n\n\s[109]* (He sighs quietly.)\w8\w8\n\n\s[106]%(t)I'm sorry] %(username),\w4 %(t)she does this sometimes.\w8\w8\s[107\] I hope she isn't bothering you.]\e:chain=end"
 }}CHAIN
 
@@ -835,11 +831,11 @@ OnSnoop
 	}
 	elseif _gomicheck >= 1000
 	{
-		"\![raise,OnDialogueVars,holdObsi]\1* (Obsidian wand\s[-1]ers off into your files.)\w8\w8\0\s[205]\1\n\n.\w8.\w8.\w8\w8\n\n\0\s[110]\1* (You hear a thunk,\w4 and the sound of something being torn apart.)\w8\w8\0Obsid\s[-1]ian-!\w8\w8\n\n.\w8.\w8.\w8\w8\n\n\s[606]%(t)I'm sorry] %(username),\w8\s[607] %(t)she got into your recycle bin...\w8\w8\s[610\] I could empty that if you want##\w4\s[606\] so she doesn't make more of a mess...]\1\n\n%(holdnoise)\e"
+		"\![raise,OnDialogueVars,holdObsi]\1* (Obsidian wand\s[-1]ers off into your files.)\w8\w8\0\s[205]\1\n\n.\w8.\w8.\w8\w8\n\n\0\s[110]\1* (You hear a thunk,\w4 and the sound of something being torn apart.)\w8\w8\0Obsid\s[-1]ian-!\![set,sticky-window,0,1]\w8\w8\n\n.\w8.\w8.\w8\w8\n\n\s[606]%(t)I'm sorry] %(username),\w8\s[607] %(t)she got into your recycle bin...\w8\w8\s[610\] I could empty that if you want##\w4\s[606\] so she doesn't make more of a mess...]\1\n\n%(holdnoise)\e"
 	}
 	elseif _gomicheck >= 200
 	{
-		"\0\s[0]%(t)Your recycle bin has more %(_gomicheck) items.\w8\w8\s[208\] If you'd like##\w4 I could empty that for you.]\e"
+		"\0\s[0]%(t)Your recycle bin has %(_gomicheck) items in it.\w8\w8\s[208\] If you'd like##\w4 I could empty that for you.]\e"
 	}
 	else
 	{
@@ -853,10 +849,17 @@ Hourcheck
 	{
 		recenttreats = 0
 	}
-	if AutoWeather == "ON"
+	--
+	if AutoWeather == "OFF"
 	{
-		weatherquiet = 1
-		"\![raise,OnDownloadCurWeather]"
+		tempurature = "Unknown"
+		ForC = "Unknown"
+		feelslike = "Unknown"
+		humidity = "Unknown"
+		wind = "Unknown"
+		weather = "Unknown"
+		pollen = "Unknown"
+		phase = "Unknown"
 	}
 }
 
@@ -893,11 +896,17 @@ OnMinuteChange
 			"* (It's %(hour12)'o clock.)\e"
 		}
 	}
-	//Don't touch this part.
 	elseif mikireflag == 1
  	{
  		MikireTalk
 	}
+	--
+	if (SinceTalk >= 30 && AutoWeather == "ON" && weatherquiet == 2) || passmin == 0 && AutoWeather == "On"
+	{
+		weatherquiet = 1
+		"\![raise,OnDownloadCurWeather]"
+	}
+	--
 }
 
 OnSecondChange
@@ -923,6 +932,16 @@ OnSecondChange
 	{
 		passsec++
 	}
+	--
+	if SHIORI3FW.CanTalk == 1 //This gets the seconds since the last dialogue ended
+	{
+		SinceTalk++
+	}
+	else
+	{
+		SinceTalk = 0
+	}
+	--
 	if mikireflag == 1 && reference1 == 0
 	{
 		EndMikireTalk
@@ -933,7 +952,7 @@ OnSecondChange
 		if holdingObsidian == 0
 		{
 			pickedUp++
-			"\![raise,OnDialogueVars,holdObsi]\1\s[-1]\0%(wdc)"
+			"\![raise,OnDialogueVars,holdObsi]\![set,sticky-window,0,1]\1\s[-1]\0%(wdc)"
 			--
 			"\s[630]%(wdf)HELLO,\w4 OBSIDIAN.%(reg)"
 			"\s[630]%(wdf)HELLO,\w4 SWEET GIRL.%(reg)"
@@ -946,12 +965,12 @@ OnSecondChange
 		}
 	}
 }
-
+/* //Oopsie I forgot to finish this. I'll mess with it in a future update.
 OnOffscreen
 {
 	"%(reference0)"
 }
-
+*/
 MikireTalk
 {
 	if holdingObsidian == 1
@@ -1016,7 +1035,7 @@ OnSurfaceRestore
 			}
 			{
 				_capfile = TOUPPER(filetype)
-				"\![raise,OnDialogueVars,holdObsi]\1%(catnoise)...\w8\w8\0\s[106]%(t)Did you get stuck..?]\w8\w8\s[-1]\n\n.\w8.\w8.\n\n\w8\w8\w8%(wdf)"
+				"\![raise,OnDialogueVars,holdObsi]\1%(catnoise)...\w8\w8\0\s[106]%(t)Did you get stuck..?]\w8\w8\s[-1]\![set,sticky-window,0,1]\n\n.\w8.\w8.\n\n\w8\w8\w8%(wdf)"
 				--
 				"HOLD STILL..."
 				"STOP SQUIRMING..!"
@@ -1066,7 +1085,7 @@ OnObsidianJumpDown //Obsidian jumping out of Dusty's arms
 		_YCoord = (_YCoord + nowscale)
 	}
 	
-	"\0\s[490]\w4\1\s[1009]\![move,--X=%(_XCoord),--Y=%(_YCoord),--base=primaryscreen]\![move,--X=%(_toX),--Y=fix,--time=700,--base=primaryscreen]\s[1004]%(holdnoise)\w8\w8\w8\0\s[400]"
+	"\![reset,sticky-window]\0\s[490]\w4\1\s[1009]\![move,--X=%(_XCoord),--Y=%(_YCoord),--base=primaryscreen]\![move,--X=%(_toX),--Y=fix,--time=700,--base=primaryscreen]\s[1004]%(holdnoise)\w8\w8\w8\0\s[400]"
 	--
 	"%(wdf)ALRIGHT THEN."
 	"%(wdf)OK."
