@@ -619,7 +619,7 @@ OnUpdateComplete
 	{
 		if reference0 == "none" //if the ghost had nothing to update with
 		{
-			"\0%(wdc)\s[600]%(t)There are no new files.]\![raise,OnDialogueVars,finishboot]\e"
+			"\0%(wdc)\s[600]%(t)There are no new files.]\![raise,OnDialogueVars,finishboot]"
 		}
 		else //if the ghost has updated successfully
 		{
@@ -634,11 +634,24 @@ OnUpdateComplete
 		}
 		else //if the ghost has updated successfully
 		{
-			"\0%(wdc)\s[104]%(t)Update complete.]\![raise,OnDialogueVars,finishboot]\e"
+			"\0%(wdc)\s[104]%(t)Update complete.]\![raise,OnDialogueVars,finishboot]"
 		}
 	}
+	--
+	" %(t)Do you want to see the changelog?]\n\n\![*]\q[Yes,OnChangelog]\n\![*]\q[No,nochangelog]\e"
 }
 
+Select.nochangelog
+{
+	if holdingObsidian == 1
+	{
+		"\0\s[600]%(t)Alright##\w4 if you change your mind just let me know.]\e"
+	}
+	else
+	{
+		"\0\s[0]%(t)Alright##\w4 if you change your mind just let me know.]\e"
+	}
+}
 
 //Error messages if the update process fails in some way.
 OnUpdateFailure
