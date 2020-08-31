@@ -573,6 +573,7 @@ Select.StartUpdate
 
 OnUpdateBegin
 {
+	booting = 2
 	if fromCheck == 1
 	{
 		fromCheck = 0
@@ -692,6 +693,7 @@ OnUpdateFailure
  
 OnUpdate.OnDownloadBegin //replaceframe I want him looking at a screen for this
 {
+	booting = 2
 	if holdingObsidian == 1
 	{
 		"\b2\_q\0\s[630]* (Downloading %(reference0)...)\n\n"

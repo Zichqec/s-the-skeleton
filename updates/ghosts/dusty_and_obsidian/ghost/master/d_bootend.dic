@@ -497,50 +497,57 @@ OnShellChanging
  //The sister to the above, this is the dialogue after you've changed the shell.
  
 OnShellChanged
- {
-	tempshell = TOLOWER(reference0) //changes it to lowercase
-	tempshell = REPLACE(tempshell," ","_") //replace spaces with underscores. This should work as long as my naming schemes never change |D
-	"%(wdc)"
-	--
-	if holdingObsidian == 1
+{
+	if booting != 2
 	{
-		if tempshell == nowshell && booting == 0 && Update1p0p1 == "1.0.1" //Trying really hard to make the stupid update bug go away...
+		tempshell = TOLOWER(reference0) //changes it to lowercase
+		tempshell = REPLACE(tempshell," ","_") //replace spaces with underscores. This should work as long as my naming schemes never change |D
+		"%(wdc)"
+		--
+		if holdingObsidian == 1
 		{
-			"\1\s[-1]\0\s[606]%(t)...Nothing has changed.]\w8\w8\1Mrrr.\e"
+			if tempshell == nowshell
+			{
+				"\1\s[-1]\0\s[606]%(t)...Nothing has changed.]\w8\w8\1Mrrr.\e"
+			}
+			elseif reference0 == "Blue Sweater"
+			{
+				nowshell = "blue_sweater"
+				
+				"\1\s[-1]\0\s[600]%(t)I've had this sweater a long time.\w8\w8\s[606\] It was actually given to me by someone dear to me##\w4 a very long time ago...]\e"
+			}
+			else //For any shell without a specific name, or if you don't want to bother with individual responses to a shell.
+			{	
+				nowshell = TOLOWER(reference0) //This shouldnt come up, but I HOPE that if someone used a shell that he doesnt recognize, it'd still set the nowshell correctly so that he can recognize it up in OnShellChanging
+				nowshell = REPLACE(nowshell," ","_")
+				"\1\s[-1]\0\s[600]%(t)Now using] %(reference[0]).\w8\w8\1%(holdnoise).\e"
+			}
 		}
-		elseif reference0 == "Blue Sweater"
+		else
 		{
-			nowshell = "blue_sweater"
-			
-			"\1\s[-1]\0\s[600]%(t)I've had this sweater a long time.\w8\w8\s[606\] It was actually given to me by someone dear to me##\w4 a very long time ago...]\e"
-		}
-		else //For any shell without a specific name, or if you don't want to bother with individual responses to a shell.
-		{	
-			nowshell = TOLOWER(reference0) //This shouldnt come up, but I HOPE that if someone used a shell that he doesnt recognize, it'd still set the nowshell correctly so that he can recognize it up in OnShellChanging
-			nowshell = REPLACE(nowshell," ","_")
-			"\1\s[-1]\0\s[600]%(t)Now using] %(reference[0]).\w8\w8\1%(holdnoise).\e"
+			if tempshell == nowshell
+			{
+				"\1\s[10]\0\s[106]%(t)...Nothing has changed.]\w8\w8\1\s[10]Mrrr.\e"
+			}
+			elseif reference0 == "Blue Sweater"
+			{
+				nowshell = "blue_sweater"
+				
+				"\1\s[10]\0\s[102]%(t)I've had this sweater a long time.\w8\w8\s[200\] It was actually given to me by someone dear to me##\w4 a very long time ago...]\e"
+			}
+			else //For any shell without a specific name, or if you don't want to bother with individual responses to a shell.
+			{	
+				nowshell = TOLOWER(reference0) //This shouldnt come up, but I HOPE that if someone used a shell that he doesnt recognize, it'd still set the nowshell correctly so that he can recognize it up in OnShellChanging
+				nowshell = REPLACE(nowshell," ","_")
+				"\1\s[10]\0\s[0]%(t)Now using] %(reference[0]).\w8\w8\1%(catnoises).\e"
+			}
 		}
 	}
 	else
 	{
-		if tempshell == nowshell
-		{
-			"\1\s[10]\0\s[106]%(t)...Nothing has changed.]\w8\w8\1\s[10]Mrrr.\e"
-		}
-		elseif reference0 == "Blue Sweater"
-		{
-			nowshell = "blue_sweater"
-			
-			"\1\s[10]\0\s[102]%(t)I've had this sweater a long time.\w8\w8\s[200\] It was actually given to me by someone dear to me##\w4 a very long time ago...]\e"
-		}
-		else //For any shell without a specific name, or if you don't want to bother with individual responses to a shell.
-		{	
-			nowshell = TOLOWER(reference0) //This shouldnt come up, but I HOPE that if someone used a shell that he doesnt recognize, it'd still set the nowshell correctly so that he can recognize it up in OnShellChanging
-			nowshell = REPLACE(nowshell," ","_")
-			"\1\s[10]\0\s[0]%(t)Now using] %(reference[0]).\w8\w8\1%(catnoises).\e"
-		}
+		"\![raise,OnUpdateComplete]"
 	}
- }
+}
 
 
  //--OnDressupChanged
@@ -619,7 +626,6 @@ UpdateVars
 	{
 		Update1p0p1 = "1.0.1"
 		installdate = "Unknown"
-		booting = 2
 	}
 }
 
