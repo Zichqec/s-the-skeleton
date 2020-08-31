@@ -252,8 +252,9 @@ OnMouseLeaveAll //When the mouse leaves the ghost. You can change to OnMouseLeav
 OnMouseDoubleClick
 {
 	//---- like with the OnMouseMove function above, this determines who the user is clicking on.
-	if reference5 == 0 //Reference5 is which mouse key is being clicked. 0 is a left click.
+	if reference5 == 0 && booting != 1 //Reference5 is which mouse key is being clicked. 0 is a left click.
 	{
+		booting = 0
 		if reference3 == 0 //if the character is 0, aka your main character
 		{
 			MouseDoubleClickSakura

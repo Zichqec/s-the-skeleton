@@ -504,7 +504,7 @@ OnShellChanged
 	--
 	if holdingObsidian == 1
 	{
-		if tempshell == nowshell && booting == 0
+		if tempshell == nowshell && booting == 0 && Update1p0p1 == "1.0.1" //Trying really hard to make the stupid update bug go away...
 		{
 			"\1\s[-1]\0\s[606]%(t)...Nothing has changed.]\w8\w8\1Mrrr.\e"
 		}
@@ -609,6 +609,7 @@ OnBootVars //These run every time he starts, whether you've just changed ghosts 
 	phase = "Unknown"
 	holdingObsidian = 0
 	lastTalk = ""
+	booting = 0
 	weatherquiet = 2 //So he does a weather check if you have it on
 }
 
@@ -618,6 +619,7 @@ UpdateVars
 	{
 		Update1p0p1 = "1.0.1"
 		installdate = "Unknown"
+		booting = 2
 	}
 }
 

@@ -618,22 +618,22 @@ OnUpdateComplete
 	{
 		if reference0 == "none" //if the ghost had nothing to update with
 		{
-			"\0%(wdc)\s[600]%(t)There are no new files.]\e"
+			"\0%(wdc)\s[600]%(t)There are no new files.]\![raise,OnDialogueVars,finishboot]\e"
 		}
 		else //if the ghost has updated successfully
 		{
-			"\0%(wdc)\s[604]%(t)Update complete.]\e"
+			"\0%(wdc)\s[604]%(t)Update complete.]\![raise,OnDialogueVars,finishboot]\e"
 		}
 	}
 	else
 	{
 		if reference0 == "none" //if the ghost had nothing to update with
 		{
-			"\0%(wdc)\s[0]%(t)There are no new files.]\e"
+			"\0%(wdc)\s[0]%(t)There are no new files.]\![raise,OnDialogueVars,finishboot]\e"
 		}
 		else //if the ghost has updated successfully
 		{
-			"\0%(wdc)\s[104]%(t)Update complete.]\e"
+			"\0%(wdc)\s[104]%(t)Update complete.]\![raise,OnDialogueVars,finishboot]\e"
 		}
 	}
 }
