@@ -18,16 +18,16 @@
 
 <body>
     <article>
-    <pre><code>
+    <pre>
     CREG--<html dir="ltr" lang="en-US"><head>--CREG
-    CREGTEMP--<span data-testid="TemperatureValue" class="[\d|\w|_|-]*">(-?\d*)°</span>--CREGTEMP
+    CREGTEMP--<span data-testid="TemperatureValue" class="[\d|\w|_|-]*">(-?\d*)°</span><div--CREGTEMP
     CREGDEGREE--(°C|°F)--CREGDEGREE
-    CREGFEELS--<div data-testid="FeelsLikeSection" class="[\d|\w|_|-]*"><span data-testid="TemperatureValue" class="[\d|\w|_|-]*">(-?\d*)°</span>--CREGFEELS
-    CREGHUMIDITY--<span data-testid="PercentageValue">(\d*)%</span></div>--CREGHUMIDITY
-    CREGWIND--<path stroke="currentColor" fill="none" (.*)44z"></path></svg>([\w|\s|\d]*)</span></div></div>--CREGWIND
+    CREGFEELS--<div data-testid="FeelsLikeSection" class="[\d|\w|_|-]*"><span data-testid="TemperatureValue" class="[\d|\w|_|-]*">(-?\d*)°</span><span data--CREGFEELS
+    CREGHUMIDITY--estid="PercentageValue">(\d*)%</span></div>--CREGHUMIDITY
+    CREGWIND--44z"></path></svg>([\w|\s|\d]*)</span></div></div>--CREGWIND
     CREGSTATE--<div data-testid="wxPhrase" class="[\d|\w|_|-]*">([\w|\s]*)</div></div>--CREGSTATE
-    CREGLOC--<h1 class="[\d|\w|_|-]*">(.*) Weather</h1>--CREGLOC
-    CREGPOLLEN--[\d|\w|_|-]*">([\w|\s]*) pollen is very high in your area</p>--CREGPOLLEN
+    CREGLOC--<h1 class="[\d|\w|_|-]*">(.*) Weather</h1><div class=--CREGLOC
+    CREGPOLLEN--iesListItem--description--[\d|\w|_|-]*">([\w|\s]*) pollen is very high in your area</p></--CREGPOLLEN
 
     FREGTEMP--<div class="today_nowcard-temp"><span class="">(-?\d*)<sup>--FREGTEMP
     FREGDEGREE--(°C|°F)--FREGDEGREE
@@ -37,7 +37,6 @@
     FREGSTATE--<div class="today_nowcard-phrase">([\w|\s]*)--FREGSTATE
     FREGLOC--className="h4 today_nowcard-location">(.*)<span class="icon icon-font iconset-social icon-share-circle" className="icon icon-font iconset-social icon-share-circle"></span>--FREGLOC
     FREGPOLLEN-- title="Local Pollen Alert"--FREGPOLLEN
-    </code></pre>
-</article>
+    </pre>
 </body>
 </html>
