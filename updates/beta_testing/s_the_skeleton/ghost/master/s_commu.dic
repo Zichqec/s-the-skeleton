@@ -292,6 +292,38 @@ ReplyToGhost //I'll..... add a friendship check to this later......... or maybe 
 				"\0\s[104]Hey,\w4 Dusty.\w8\w8\s[0] Glad to see you.\e"
 				res_reference0 = ""
 			}
+			elseif "DustyDragCoords01" _in_ ConvoTag
+			{
+				"\![get,property,OnDustyDragCoords,currentghost.scope(0).rect]"
+			}
+			elseif "SPickupObsi02" _in_ ConvoTag
+			{
+				res_reference0 = "Dusty"
+				"\0\s[1201]Aw,\w4 hi Obsidian.\w8\w8\e SPickupObsi03"
+			}
+			elseif "SObsiJumpDown01" _in_ ConvoTag
+			{
+				"\0\s[1201]\![get,property,OnObsidianJumpDown,currentghost.scope(0).rect]"
+			}
+			elseif "SObsiJumpDown03" _in_ ConvoTag
+			{
+				res_reference0 = ""
+				holdingObsidian = 0
+				"\0\s[104]Aw,\w4 alright then.\e"
+			}
+			elseif "SObsidianLikes02" _in_ ConvoTag
+			{
+				res_reference0 = ""
+				"\0\s[1207]\n\n...You have a point.\e"
+			}
+			elseif "DGoodObsiTime" _in_ ConvoTag
+			{
+				"\0\s[1204]Heh,\w4 yeah.\w8\w8\s[1201] So am I,\w4 honestly.\e"
+			}
+			elseif "DGetAlongObsi" _in_ ConvoTag
+			{
+				"\0\s[1204]Aw,\w4 I always get along with cats if they don't mind me.\e"
+			}
 			else //I'm sure as I update them that they wont always have the same convos set up...
 			{
 				"\0\s[0]Hey,\w4 Dusty.\e"
@@ -533,4 +565,21 @@ OnFacingCoords
 	}
 	--
 	"\e GiveCoords02,%(reference0)"
+}
+
+OnDustyDragCoords
+{
+	res_reference0 = "Dusty"
+	_SsXCoord = reference0[0]
+	_SsXCoord = TOINT(_SsXCoord)
+	"\e DustyDragCoords02,%(_SsXCoord)"
+}
+
+OnObsidianJumpDown
+{
+	res_reference0 = "Dusty"
+	_SsXCoord = reference0[0]
+	_SsYCoord = reference0[3]
+	_SsXCoord = TOINT(_SsXCoord)
+	"\0\s[1298]\e SObsiJumpDown02,%(_SsXCoord),%(_SsYCoord)\e SObsiJumpDown02" //replaceframe Obsi jump down
 }

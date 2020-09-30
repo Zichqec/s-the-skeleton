@@ -1,20 +1,4 @@
 ﻿//---------------------------Envelopes--------------------------
-//This .dic file is probably one of the simplest you will have to edit, and in fact, if the way it works doesn't appeal to you, you can completely ignore it if you like!
-//Basically, what this file does is set up certain things that I believe are called envelopes or SakuraScriptEnv on the CROW-SSP Dictionary site (which I link to a few times throughout the walkthrough), but I've always kind of thought of them as variables. Envelopes is probably a less confusing name though.
-//Essentially, what this file is for is for creating lists populated with items, and storing them in a word that can later be called during dialogue. If you've read the walkthrough or gone through any of the other .dic files, you've probably seen these before. They are always preceded with a % sign and have a word in parentheses (well, almost always) afterwards. %(username) is one, which displays the user's name, and %(heshe) is another, which displays the right pronoun depending on what the user selected in bootend.dic or menu.dic. Other ones you might not have seen include %(passmin), which shows how many minutes have passed since the ghost was started, %(screenheight) which shows the height of the display they're currently on, and %(keroname) for the name of the second character, among many, many others. Many of these are predefined by the AYA scripting and will be listed on the CROW-SSP site mentioned above, and many of them you will never have to use. By far the ones you will be using the most will be %(username) and the pronoun ones, and those are the only ones you'll have to worry about normally.
-
-//So where does this file come in? Well, you can define your own envelopes if you want! Which means essentially that you can create a list of items and attach it to almost any word you want. Here's an example.
-
-
-
-
-
-
-
-
-
-
-
 
 ingredients
 {
@@ -37,7 +21,7 @@ ingredients
 	"garlic"
 	"curry powder"
 	"chili powder"
-	"dried peppers"
+	//"dried peppers"
 	"nutmeg"
 	"ginger"
 	"mustard"
@@ -50,7 +34,7 @@ ingredients
 	"oregano"
 	"sesame seeds"
 	"peppermint"
-	"peppers"
+	//"peppers"
 	"sage"
 	"vanilla"
 	"wasabi"
@@ -60,16 +44,16 @@ ingredients
 fruveg
 {
 	"grapefruit"
-	"apples"
-	"pears"
-	"grapes"
-	"oranges"
-	"bananas"
-	"tomatoes"
-	"cucumbers"
+	"apple"
+	"pear"
+	"grape"
+	"orange"
+	"banana"
+	"tomato"
+	"cucumber"
 	"avocado"
-	"pickles"
-	"cherries"
+	"pickle"
+	"cherry"
 	"brocolli"
 	"lettuce"
 	"celery"
@@ -77,10 +61,36 @@ fruveg
 	"mango"
 	"honeydew"
 	"cantaloupe"
+	"raspberry"
+	"blueberry"
+	"blackberry"
+	"watermelon"
+}
+
+fruvegs
+{
+	"grapefruits"
+	"apples"
+	"pears"
+	"grapes"
+	"oranges"
+	"bananas"
+	"tomatoes"
+	"cucumbers"
+	"avocados"
+	"pickles"
+	"cherries"
+	"brocolli"
+	"lettuce"
+	"celery stalks"
+	"pineapples"
+	"mangoes"
+	"honeydews"
+	"cantaloupes"
 	"raspberries"
 	"blueberries"
 	"blackberries"
-	"watermelon"
+	"watermelons"
 }
 
 bakedgoods
@@ -291,6 +301,21 @@ animal //plushes -- I've excluded some so that I could write specific dialogue a
 	"fish"
 	"bird"
 	"dragon"
+	"panda"
+	"bear"
+	"bee"
+	"butterfly"
+	"tiger"
+	"lion"
+	"kangaroo"
+	"giraffe"
+	"antelope"
+	"mouse"
+	"duck"
+	"bunny"
+	"penguin"
+	"alligator"
+	"crocodile"
 }
 
 RYSIdle
@@ -312,260 +337,350 @@ RYSIdle
 	}
 }
 
-km //Kero choice marker. If the balloon being used is the default one, use the special marker, and if not then use the default marker
+default {"\f[color,default]"}
+purple {"\f[color,183,129,227]"}
+teal {"\f[color,132,184,180]"}
+red {"\f[color,227,142,142]"}
+orange {"\f[color,227,147,093]"}
+green {"\f[color,064,180,103]"}
+yellow {"\f[color,212,206,071]"}
+blue {"\f[color,141,136,247]"}
+cyan {"\f[color,122,218,232]"}
+pink {"\f[color,246,171,247]"}
+brown {"\f[color,181,153,094]"}
+
+
+sleepchance
 {
-	if nowballoon == "Purple Soul" 
+	_temp = 1
+	--
+	if timeslot == "afternoon"  //Afternoon nap
 	{
-		"\_b[img/km.png,inline,--option=use_self_alpha] "
+		_temp += 2
 	}
-	else
+	elseif timeslot == "latenight" || timeslot == "midnight" //Sleepy at night
 	{
-		"\![*]"
+		_temp += 4
 	}
+	elseif timeslot == "earlymorning" || timeslot == "morning" //More awake in the mornings
+	{
+		_temp -= 1
+	}
+	--
+	if recentpets > 5 //If you've pet him a bunch recently
+	{
+		_temp += 2
+	}
+	--
+	_temp -= sleephour
+	if _temp < 0; _temp = 0
+	--
+	"%(_temp)"
 }
 
-
-purple
+wakechance
 {
-	"\f[color,183,129,227]"
+	_temp = 1
+	--
+	if timeslot == "earlymorning" || timeslot == "morning"
+	{
+		_temp += 2
+	}
+	elseif timeslot == "latenight" || timeslot == "midnight"
+	{
+		_temp -= 4
+	}
+	elseif timeslot == "afternoon"
+	{
+		_temp -= 2
+	}
+	--
+	_temp -= recentpets
+	_temp += sleephour
+	if _temp < 0
+	{
+		_temp = 0
+	}
+	--
+	"%(_temp)"
 }
 
-default
+etcwake
 {
-	"\f[color,default]"
+	"\0* (You nudge him gently.)\w8\w8\n\n"
+	"\0* (You wake him gently.)\w8\w8\n\n"
+	"\0* (You wake him softly.)\w8\w8\n\n"
+	"\0* (You nudge him softly.)\w8\w8\n\n"
+	--
+	"\s[109]...%(mumb)...?\w8\w8 Hm..?\w8\w8 "
+	"\s[109]...%(mumb)...?\w8\w8 What..?\w8\w8 "
+	"\s[109]...%(mumb)...?\w8\w8 Oh,\w4 %(username)..?\w8\w8 "
 }
 
-teal
+//Copied from Lulo
+sleepmumble
 {
-	"\f[color,132,184,180]"
+	"...zzz... mm..."
+	"...zzhh..."
+	"...mmmn..."
+	"...hhnmmf..."
+	"...zzhnhm..."
+	"...zzz..."
+	"...zzrmnh..."
+	"...mmnnh..."
 }
 
-red
+mumble
 {
-	"\f[color,227,142,142]"
+	"%(mumble2)%(mumble2)"
+	"%(mumble2)%(mumble2)%(mumble2)"
 }
 
-orange
+mumble2
 {
-	"\f[color,227,147,093]"
+	"zz"
+	"mmf"
+	"zgh"
+	"fmm"
+	"mkffn"
+	"nnm"
+	"rhm"
+	"rmh"
+	"mrf"
+	"ghhnz"
+	"fzz"
+	"mzz"
+	"zmm"
+	"zll"
+	"nzz"
+	"zzr"
+	"zzz"
+	"zzk"
+	"mmk"
+	"zfk"
+	"drf"
+	"dzznm"
+	"znnmf"
+	"dzm"
+	"dzk"
+	"frm"
+	"zz... %(mumb)"
+	"mm... %(mumb)"
+	"krf..? %(mumb)"
+	"mnn... %(mumb)"
 }
 
-green
+mumb
 {
-	"\f[color,064,180,103]"
+	"zkm"
+	"frm"
+	"lrnm"
+	"zzm"
+	"fhngk"
+	
+	"zz"
+	"mmf"
+	"zgh"
+	"fmm"
+	"mkffn"
+	"nnm"
+	"rhm"
+	"rmh"
+	"mrf"
+	"ghhnz"
+	"fzz"
+	"mzz"
+	"zmm"
+	"zll"
+	"nzz"
+	"zzr"
+	"zzz"
+	"zzk"
+	"mmk"
+	"zfk"
+	"drf"
+	"dzznm"
+	"znnmf"
+	"dzm"
+	"dzk"
+	"frm"
 }
 
-yellow
+dreammumb
 {
-	"\f[color,212,206,071]"
+	""
+	"...%(mumb)...\w8\w8 "
 }
 
-blue
+dreammumb2
 {
-	"\f[color,141,136,247]"
+	"\w8\w8 %(mumb)...\e"
+	"\e"
 }
 
-cyan
-{
-	"\f[color,122,218,232]"
-}
-
-pink
-{
-	"\f[color,246,171,247]"
-}
-
-brown
-{
-	"\f[color,181,153,094]"
-}
+//---Menu Envelopes---
 
 displayhour
 {
-	if hour12 == 0
-	{
-		"12"
-	}
-	else
-	{
-		"%(hour12)"
-	}
+	if hour12 == 0; "12"
+	else; "%(hour12)"
 }
 
 displaymin
 {
-	if passmin <= 9
-	{
-		"0%(passmin)"
-	}
-	else
-	{
-		"%(passmin)"
-	}
+	if passmin <= 9; "0%(passmin)"
+	else; "%(passmin)"
+}
+
+wd
+{
+	if weekday == 0; "Sun"
+	elseif weekday == 1; "Mon"
+	elseif weekday == 2; "Tue"
+	elseif weekday == 3; "Wed"
+	elseif weekday == 4; "Thu"
+	elseif weekday == 5; "Fri"
+	else; "Sat"
 }
 
 displayweekday
 {
-	if wd == "Sun"
-	{
-		"Sunday"
-	}
-	elseif wd == "Mon"
-	{
-		"Monday"
-	}
-	elseif wd == "Tue"
-	{
-		"Tuesday"
-	}
-	elseif wd == "Wed"
-	{
-		"Wednesday"
-	}
-	elseif wd == "Thu"
-	{
-		"Thursday"
-	}
-	elseif wd == "Fri"
-	{
-		"Friday"
-	}
-	elseif wd == "Sat"
-	{
-		"Saturday"
-	}
+	if weekday == 0; "Sunday"
+	elseif weekday == 1; "Monday"
+	elseif weekday == 2; "Tuesday"
+	elseif weekday == 3; "Wednesday"
+	elseif weekday == 4; "Thursday"
+	elseif weekday == 5; "Friday"
+	else; "Saturday"
 }
 
 displaymonth
 {
-	if month == 1
-	{
-		"January"
-	}
-	elseif month == 2
-	{
-		"February"
-	}
-	elseif month == 3
-	{
-		"March"
-	}
-	elseif month == 4
-	{
-		"April"
-	}
-	elseif month == 5
-	{
-		"May"
-	}
-	elseif month == 6
-	{
-		"June"
-	}
-	elseif month == 7
-	{
-		"July"
-	}
-	elseif month == 8
-	{
-		"August"
-	}
-	elseif month == 9
-	{
-		"September"
-	}
-	elseif month == 10
-	{
-		"October"
-	}
-	elseif month == 11
-	{
-		"November"
-	}
-	else
-	{
-		"December"
-	}
+	if month == 1; "January"
+	elseif month == 2; "February"
+	elseif month == 3; "March"
+	elseif month == 4; "April"
+	elseif month == 5; "May"
+	elseif month == 6; "June"
+	elseif month == 7; "July"
+	elseif month == 8; "August"
+	elseif month == 9; "September"
+	elseif month == 10; "October"
+	elseif month == 11; "November"
+	else; "December"
 }
 
-//This is figuring out what day of the week it is. Leave it alone.
-wd
-{
-	if weekday == 0
-	{"Sun"}
-	elseif weekday == 1
-	{"Mon"}
-	elseif weekday == 2
-	{"Tue"}
-	elseif weekday == 3
-	{"Wed"}
-	elseif weekday == 4
-	{"Thu"}
-	elseif weekday == 5
-	{"Fri"}
-	else
-	{"Sat"}
-}
-
-//This is finding out whether it's AM or PM. Leave it alone.
+//Turns out yaya tracks the am and pm for you... ampm is 0 during am, and 1 during pm
 ap
 {
-	//Turns out yaya tracks the am and pm for you... ampm is 0 during am, and 1 during pm
- 	if ampm == 0 //hour >= 0 && hour <= 11
-	{
-		"AM"
-	}
- 	else
-	{
-		"PM"
-	}
+ 	if ampm == 0; "AM"
+ 	else; "PM"
 }
 
-//This is figuring out the minute. Leave it alone.
+//This is figuring out the minute
 nowmin
 {
-	if minute >= 0 && minute <=9
-	{
-		"0%(minute)"
-	}
-	else
-	{
-		"%(minute)"
-	}
+	if minute >= 0 && minute <=9; "0%(minute)"
+	else; "%(minute)"
 }
 
-//This is figuring out the hour. Leave it alone.
+//This is figuring out the hour
 nowhour
 {
-	if hour12 == 0
-	{
-		"1"
-	}
-	else
-	{
-		"%(hour12)"
-	}
+	if hour12 == 0; "1"
+	else; "%(hour12)"
 }
 
 season
 {
 	//[Zi]Ok, so first off, apologies to folks in the southern hemisphere. I may add functionality for that in a later update. But to be fair, S probably doesn't know about the concept yet. Second off, I'm going to go by the meteorological seasons instead of astronomical. Why? Well..... one has static dates and the other does not. I can't give him diaogue for things like the solstice and equinox if they change every year. I COULD technically do it, but I'd have to update him every year to change the dates and that sounds terrible. SO. We're just getting a simple system instead.
-	if month > 2 && month < 6
+	if month > 2 && month < 6; "Spring"
+	elseif month > 5 && month < 9; "Summer"
+	elseif month > 8 && month < 12; "Autumn"
+	else; "Winter"
+}
+
+GetTimeSlot
+{
+	if hour >= 5 && hour <= 8; "earlymorning"
+	elseif hour >= 9 && hour <= 11; "morning"
+	elseif hour >= 12 && hour <= 14; "lunch"
+	elseif hour >= 15 && hour <= 17; "afternoon"
+	elseif hour >= 18 && hour <= 20; "evening"
+	elseif hour >= 21 && hour <= 24; "latenight"
+	else; "midnight"
+}
+
+//dayslot
+GetDaySlot
+{
+	//"%(month)/%(day)" I want to change to this but I'll have to deal with people's birthdays being formatted wrong
+	"%(month)month %(day)day"
+}
+
+temp
+{
+	if ForC == "°F"
 	{
-		"Spring"
+		if feelslike <= 0; "Below Zero" //Below zero, 0 and below
+		elseif feelslike <= 20; "Freezing" //Freezing, 0-20
+		elseif feelslike <= 40; "Cold" //Cold, 21-40
+		elseif feelslike <= 60; "Chilly" //Chilly, 41-60
+		elseif feelslike <= 80; "Pleasant" //Pleasant, 61-80
+		elseif feelslike <= 95; "Hot" //Hot, 81-95
+		elseif feelslike >= 96; "Boiling"  //Everything is terrible, 96+
+		else; "Unknown"
 	}
-	elseif month > 5 && month < 9
+	elseif ForC == "°C"
 	{
-		"Summer"
-	}
-	elseif month > 8 && month < 12
-	{
-		"Autumn" 
+		if feelslike <= -17; "Below Zero" //Below zero, 0 and below
+		elseif feelslike <= -6; "Freezing" //Freezing, 0-20
+		elseif feelslike <= 4; "Cold" //Cold, 21-40
+		elseif feelslike <= 15; "Chilly" //Chilly, 41-60
+		elseif feelslike <= 26; "Pleasant" //Pleasant, 61-80
+		elseif feelslike <= 35; "Hot" //Hot, 81-95
+		elseif feelslike >= 36; "Boiling" //Everything is terrible, 96+
+		else; "Unknown"
 	}
 	else
 	{
-		"Winter"
+		"Unknown"
 	}
+}
+
+humid
+{
+	if humidity == "Unknown"; "Unknown"
+	elseif humidity <= 30; "Dry" //Dry
+	elseif humidity > 30 && humidity <= 60; "Comfortable" //Comfortable
+	elseif humidity >= 61 && humidity <= 80; "Muggy" //Muggy
+	elseif humidity >= 81; "Soup" //Soup
+	else; "Unknown"
+}
+
+moonphase
+{
+	if phase == "New Moon"; "anMoon01"
+	elseif phase == "Waxing Crescent"; "anMoon02"
+	elseif phase == "First Quarter"; "anMoon03"
+	elseif phase == "Waxing Gibbous"; "anMoon04"
+	elseif phase == "Full Moon"; "anMoon05"
+	elseif phase == "Waning Gibbous"; "anMoon06"
+	elseif phase == "Last Quarter"; "anMoon07"
+	elseif phase == "Waning Crescent"; "anMoon08"
+	else; "anMoon09"
+}
+
+loadingmoon : sequential //Changed the loadingmoon thing to just use sequential, it's less prone to bugs and means I don't need a variable!
+{
+	"\_b[img\Moon01,inline,--option=use_self_alpha]\w4\c"
+	"\_b[img\Moon02,inline,--option=use_self_alpha]\w4\c"
+	"\_b[img\Moon03,inline,--option=use_self_alpha]\w4\c"
+	"\_b[img\Moon04,inline,--option=use_self_alpha]\w4\c"
+	"\_b[img\Moon05,inline,--option=use_self_alpha]\w4\c"
+	"\_b[img\Moon06,inline,--option=use_self_alpha]\w4\c"
+	"\_b[img\Moon07,inline,--option=use_self_alpha]\w4\c"
+	"\_b[img\Moon08,inline,--option=use_self_alpha]\w4\c"
 }
 
 /*loadingmoon
@@ -582,20 +697,8 @@ season
 	}
 }*/
 
-loadingmoon : sequential //Changed the loadingmoon thing to just use sequential, it's less prone to bugs and means I don't need a variable!
-{
-	"\_b[img\Moon01,inline,--option=use_self_alpha]\w4\c"
-	"\_b[img\Moon02,inline,--option=use_self_alpha]\w4\c"
-	"\_b[img\Moon03,inline,--option=use_self_alpha]\w4\c"
-	"\_b[img\Moon04,inline,--option=use_self_alpha]\w4\c"
-	"\_b[img\Moon05,inline,--option=use_self_alpha]\w4\c"
-	"\_b[img\Moon06,inline,--option=use_self_alpha]\w4\c"
-	"\_b[img\Moon07,inline,--option=use_self_alpha]\w4\c"
-	"\_b[img\Moon08,inline,--option=use_self_alpha]\w4\c"
-}
 
-
-OnLoadA
+/*OnLoadA
 {
 	"%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)\![raise,OnLoadB]"
 }
@@ -603,277 +706,77 @@ OnLoadA
 OnLoadB
 {
 	"%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)\![raise,OnLoadA]"
-}
+}*/
 
-GetTimeSlot
+
+km //Kero choice marker. If the balloon being used is the default one, use the special marker, and if not then use the default marker - Don't need this anymore thanks to an SSP update, but I'll leave the code here for posterity
 {
-	if hour >= 5 && hour <= 8
+	if nowballoon == "Purple Soul" 
 	{
-		"earlymorning"
-	}
-	elseif hour >= 9 && hour <= 11
-	{
-		"morning"
-	}
-	elseif hour >= 12 && hour <= 14
-	{
-		"lunch"
-	}
-	elseif hour >= 15 && hour <= 17
-	{
-		"afternoon"
-	}
-	elseif hour >= 18 && hour <= 20
-	{
-		"evening"
-	}
-	elseif hour >= 21 && hour <= 24
-	{
-		"latenight"
+		"\_b[img/km.png,inline,--option=use_self_alpha] "
 	}
 	else
 	{
-		"midnight"
+		"\![*]"
 	}
 }
 
-GetDaySlot
-{
-	"%(month)month %(day)day"
-}
 
-temp
-{
-	if ForC == "°F"
-	{
-		if feelslike <= 0 //Below zero, 0 and below
-		{
-			"Below Zero"
-		}
-		elseif feelslike <= 20 //Freezing, 0-20
-		{
-			"Freezing"
-		}
-		elseif feelslike <= 40 //Cold, 21-40
-		{
-			"Cold"
-		}
-		elseif feelslike <= 60 //Chilly, 41-60
-		{
-			"Chilly"
-		}
-		elseif feelslike <= 80 //Pleasant, 61-80
-		{
-			"Pleasant"
-		}
-		elseif feelslike <= 95 //Hot, 81-95
-		{
-			"Hot"
-		}
-		elseif feelslike >= 96  //Everything is terrible, 96+
-		{
-			"Boiling"
-		}
-		else
-		{
-			"Unknown"
-		}
-	}
-	elseif ForC == "°C"
-	{
-		if feelslike <= -17 //Below zero, 0 and below
-		{
-			"Below Zero"
-		}
-		elseif feelslike <= -6 //Freezing, 0-20
-		{
-			"Freezing"
-		}
-		elseif feelslike <= 4 //Cold, 21-40
-		{
-			"Cold"
-		}
-		elseif feelslike <= 15 //Chilly, 41-60
-		{
-			"Chilly"
-		}
-		elseif feelslike <= 26 //Pleasant, 61-80
-		{
-			"Pleasant"
-		}
-		elseif feelslike <= 35 //Hot, 81-95
-		{
-			"Hot"
-		}
-		elseif feelslike >= 36 //Everything is terrible, 96+
-		{
-			"Boiling"
-		}
-		else
-		{
-			"Unknown"
-		}
-	}
-	else
-	{
-		"Unknown"
-	}
-}
-
-humid
-{
-	if humidity == "Unknown"
-	{
-		"Unknown"
-	}
-	elseif humidity <= 30 //Dry
-	{
-		"Dry"
-	}
-	elseif humidity > 30 && humidity <= 60 //Comfortable
-	{
-		"Comfortable"
-	}
-	elseif humidity >= 61 && humidity <= 80 //Muggy
-	{
-		"Muggy"
-	}
-	elseif humidity >= 81 //Soup
-	{
-		"Soup"
-	}
-	else
-	{
-		"Unknown"
-	}
-}
-
-moonphase
-{
-	if phase == "New Moon"; {"anMoon01"}
-	elseif phase == "Waxing Crescent"; {"anMoon02"}
-	elseif phase == "First Quarter"; {"anMoon03"}
-	elseif phase == "Waxing Gibbous"; {"anMoon04"}
-	elseif phase == "Full Moon"; {"anMoon05"}
-	elseif phase == "Waning Gibbous"; {"anMoon06"}
-	elseif phase == "Last Quarter"; {"anMoon07"}
-	elseif phase == "Waning Crescent"; {"anMoon08"}
-	else; {"anMoon09"}
-}
-
- //**** Don't touch this ***************************************************************
- //This is code stuff and nothing for you to worry about, just save the .dic and move on! You're done!
+//**** Don't touch this ***************************************************************
+//This is code stuff and nothing for you to worry about, just save the .dic and move on! You're done!
  
- On_\person
+On_\person
 {
  	person
 }
 
-
-
-//Arrays.....or something. This is called whenever he boots or reloads, and sets up the arrays to be called later. I think. Idk man. -- Update, I removed the arrays I had here... maybe I'll make more arrays in the future I dunno
-
-OnInitArrays
-{
-	
-}
-
-
 //I've put this in mostly for myself because I currently live with people who would not approve of S being married to a guy. I'm probably not gonna put a toggle in his menu for this, but if you want to use it just open script input and put in %(staysafe = 1)
 StSfhim //him
 {
-	if staysafe == 1
-	{
-		"her"
-	}
-	else
-	{
-		"him"
-	}
+	if staysafe == 1; "her"
+	else; "him"
 }
 
 StSfHe //He
 {
-	if staysafe == 1
-	{
-		"she"
-	}
-	else
-	{
-		"he"
-	}
+	if staysafe == 1; "she"
+	else; "he"
 }
 
 StSfCHe //Capital He
 {
-	if staysafe == 1
-	{
-		"She"
-	}
-	else
-	{
-		"He"
-	}
+	if staysafe == 1; "She"
+	else; "He"
 }
 
 StSfhis //his
 {
-	if staysafe == 1
-	{
-		"her"
-	}
-	else
-	{
-		"his"
-	}
+	if staysafe == 1; "her"
+	else; "his"
 }
 
 StSfhusband //husband
 {
-	if staysafe == 1
-	{
-		"wife"
-	}
-	else
-	{
-		"husband"
-	}
+	if staysafe == 1; "wife"
+	else; "husband"
 }
 
 StSfanhusband //husband but with anchor text...
 {
-	if staysafe == 1
-	{
-		"anwife"
-	}
-	else
-	{
-		"anhusband"
-	}
+	if staysafe == 1; "anwife"
+	else; "anhusband"
 }
 
 StSffather
 {
-	if staysafe == 1
-	{
-		"mother"
-	}
-	else
-	{
-		"father"
-	}
+	if staysafe == 1; "mother"
+	else; "father"
 }
 
 StSfdad
 {
-	if staysafe == 1
-	{
-		"mom"
-	}
-	else
-	{
-		"dad"
-	}
+	if staysafe == 1; "mom"
+	else; "dad"
 }
 
 
@@ -1019,5 +922,14 @@ OnDialogueVariables
 	elseif reference0 == "switchRYS"
 	{
 		nowmode = "RYS"
+	}
+	elseif reference0 == "talkDusty"
+	{
+		res_reference0 = "Dusty"
+	}
+	elseif reference0 == "wakeup"
+	{
+		nowmode = "Default"
+		recentnightmare = 1
 	}
 }

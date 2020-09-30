@@ -2,12 +2,18 @@
 
 OpenSakuraMenu
 {
-	if autoupdate == "ON" && updateavailable == 1
+	if nowmode == "Asleep"
+	{
+		"* (Do you want to wake him up?)\n\n/
+		\![*]\q[Wake him,OnWakeMenu,%(CHAIN.IDName)]\n/
+		\![*]\q[Let him sleep,cancelnodialogue]\e"
+	}
+	elseif autoupdate == "ON" && updateavailable == 1
 	{
 		lastinteracted = 0
 		if LV == 0
 		{
-			"\0\s[0]Hey kiddo,\w4 looks like there's an update available.\w8\w8 Do you want to download it now?\n\n"
+			"\0\s[0]Hey kiddo,\w4 looks like there's an update available.\w8\w8 Should I download it now?\n\n"
 		}
 		else
 		{
@@ -23,15 +29,21 @@ OpenSakuraMenu
 		--
 		"\![*]\q[Download it now,updatecheck]\n/
 		\![*]\q[Maybe later,updatelater]\n\n/
-		\![*]\q[Turn off auto updates,nomoreupdatesplease]\e"
+		\![*]\q[Turn off auto updates,nomoreupdatesplease]\e:chain=end"
 	}
 	elseif lastinteracted > 6
 	{
 		if LV == 0
 		{
-			"\0\b2\s[110]Oh!\w8\w8\s[106] There you are %(username),\w4\s[107] I was starting to get worried..."
-			"\0\b2\s[110]Oh!\w8\w8\s[106] You're back!\w8\w8\s[206] It was getting kinda lonely around here..."
 			CameBack = 1
+			
+			"\0\b2\s[110]Oh!\w8\w8 "
+			"\0\b2\s[110]Ah!\w8\w8 "
+			--
+			"\s[106]There you are %(username),\w4\s[107] I was starting to get worried..."
+			"\s[106]You're back!\w8\w8\s[206] It was getting kinda lonely around here..."
+			"\s[106]Hey %(username),\w4 good to see you back."
+			"\s[106]Hey,\w4 %(username).\w8\w8 It's been like %(lastinteracted) hours,\w4 is everything alright?"
 		}
 		else
 		{
@@ -59,31 +71,44 @@ OpenSakuraMenu
 				"\0\s[102]\b2"
 				"\0\s[111]\b2"
 				--
-				"What's up, %(username)?"
-				"Something you need, %(username)?"
-				"What did you need?"
 				"Hey."
-				"What is it?"
-				"Something you need?"
-				"How's it going?"
-				"Do you need something?"
-				"What's up?"
-				"Yeah?"
 				"Heya."
-				"%(username)?"
 				"Hey kiddo."
-				"What's up, kiddo?"
-				"You need something,\w4 kiddo?"
-				"Yeah,\w4 kiddo?"
+				"Hey %(username)."
+				"%(username)?"
+				"Kiddo?"
+				"Hey there."
 				"Hey there,\w4 %(username)."
-				"What do you need,\w4 kiddo?"
+				"Hey there,\w4 kiddo."
+				"What's up?"
+				"What's up, %(username)?"
+				"What's up, kiddo?"
+				"Something up?"
+				"Something you need?"
+				"Something you need, %(username)?"
+				"Something you need, kiddo?"
+				"You need something,\w4 kiddo?"
+				"Do you need something?"
+				"Something the matter?"
 				"What do you need?"
+				"What do you need,\w4 kiddo?"
+				"What do you need,\w4 %(username)?"
+				"What did you need?"
+				"What is it?"
+				"What is it,\w4 kiddo?"
+				"What is it,\w4 %(username)?"
+				"How's it going?"
+				"Hm?"
+				"Yeah?"
+				"Yeah,\w4 kiddo?"
+				"Yeah,\w4 %(username)?"
+				"Yeah,\w4 what's up?"
 			}
 			elseif love >= 20 //getting to know him a little
 			{
-				"\s[103]\b2What's up?"
-				"\s[0]\b2Did you need something?"
-				"\s[0]\b2Yeah?"
+				"\0\s[103]\b2What's up?"
+				"\0\s[0]\b2Did you need something?"
+				"\0\s[0]\b2Yeah?"
 			}
 			else //He's not sure what to make of you yet
 			{
@@ -101,6 +126,8 @@ OpenSakuraMenu
 					{
 						"\0\s[515]\b2..."
 						"\0\s[510]\b2* (He opens his menu without a word.)"
+						"\0\s[510]\b2* (He opens his menu silently.)"
+						"\0\s[510]\b2* (He opens his menu without looking at you.)"
 					}
 					else //breaking him, but he's still standing
 					{
@@ -119,12 +146,36 @@ OpenSakuraMenu
 				}
 				elseif LV >=31 //You've been really mean and he hates you a lot
 				{
-					"\s[402]Absolutely not.\w8\w8\s[400] Leave me alone.\e"
+					"\s[402]Absolutely not.\w8\w8\s[400] Leave me alone.\e:chain=end"
 					"\s[400]\b2* (He turns away.)"
 					"\s[400]\b2* (He ignores you.)"
+					"\s[400]\b2* (He isn't paying attention.)\e:chain=end"
 				}
 			}
 		}
+	}
+	--
+	MenuRun
+}
+
+OnWakeMenu
+{
+	nowmode = "Default"
+	lastTalk = ""
+
+	"\0* (You nudge him gently.)\w8\w8\n\n"
+	"\0* (You wake him gently.)\w8\w8\n\n"
+	"\0* (You wake him softly.)\w8\w8\n\n"
+	"\0* (You nudge him softly.)\w8\w8\n\n"
+	--
+	if reference0 == "dreamb3" || reference0 == "dreamb4" || reference0 == "dreamb5" || reference0 == "dreamb6" || reference0 == "dreamb10"
+	{
+		"\s[1100]Hh-!\w8\w8\w8\s[302] Hhh...\w8\w8\n\n* (He takes a deep breath.)\w8\w8\n\n\s[302]Uh,\w4 thanks.\w8\w8\s[300] That was about to get bad...\w8\w8\n\n\s[109]* (He sighs.)\w8\w8\n\n\s[106]Anyways,\w4 ah,\w4 did you need something?"
+	}
+	else
+	{
+		"%(mumb)...\w8\w8\s[109] huh?\w8\w8\s[110] Oh,\w8\s[107] hey %(username).\w8\w8\s[106] How long was I asleep?"
+		"%(mumb)%(mumb)...\w8\w8\s[109] hmm?\w8\w8\s[110] Oh,\w8\s[107] hey there,\w4 %(username).\w8\w8\s[106] Sorry,\w4 did you need something..?"
 	}
 	--
 	MenuRun
@@ -134,7 +185,7 @@ Select.updatelater //If the user decides they want to put off the update
 {
 	if LV == 0
 	{
-		"\0\s[104]Alright then.\w8\w8\s[0] If you want to update later, you can find the option in the 'Do something for you' menu,\w4 or press Ctrl + U.\e"
+		"\0\s[104]Alright then.\w8\w8\s[0] If you want to update later,\w4 just let me know,\w4 or press Ctrl + U.\e"
 	}
 	else
 	{
@@ -149,7 +200,7 @@ Select.nomoreupdatesplease //If the user decides to turn off auto updates
 {
 	if LV == 0
 	{
-		"\0\s[104]Ok,\w4 I won't bother you about updates anymore.\w8\w8\s[0] If you change your mind, you can turn it back on in the settings menu.\e"
+		"\0\s[104]Ok,\w4 I won't bother you about updates anymore.\w8\w8\s[0] If you change your mind, you can turn it back on in the config menu.\e"
 	}
 	else
 	{
@@ -202,8 +253,6 @@ MenuRun
 		"\n"
 	}
 	--
-	
-	--
  	"\n\![*]\q[Nevermind,CANCEL]\n\n[half]%(wd) %(displayhour):%(nowmin) %(ap), %(month)/%(day)/%(year)  -  %(season)"
 	--
 	if AutoWeather == "ON" //If the user has weather updates on, this will display the current moon phase. Clicking on the moon will perform a weather check.
@@ -213,11 +262,11 @@ MenuRun
 			", %(tempurature)%(ForC)"
 		}
 		--
-		" %(moonphase) Runtime: %(passhour):%(displaymin)                          Version 1.2.3"
+		" %(moonphase) Runtime: %(passhour):%(displaymin)                          Version %(ghostver)"
 	}
 	else //If you have weather off, he displays the runtime and version slightly different (difference in spacing and linebreak)
 	{
-		"\nRuntime: %(passhour):%(displaymin)            Version 1.2.3"
+		"\nRuntime: %(passhour):%(displaymin)            Version %(ghostver)"
 	}
 	--
 	if debug == 1 //You can access the debug menu by opening script input (ctrl S) and putting in "%(debug = 1)", but do so at your own risk. I'd recommend double checking the test variable before clicking on it, because sometimes I leave things in there that will alter your variables.
@@ -229,18 +278,13 @@ MenuRun
 		"\![*]\q[Debug,zidebug]  \![*]\q[Test Variable,OnTestVariable]"
 	}
 	--
-	"\e"
- }
-
-
-
-
-
+	"\e:chain=end"
+}
 
 //Repeating himself
 OnLastTalk 
 {
-"%(lastTalk)\e"
+	"%(lastTalk)\e"
 }
 
 //============================================================Questions menu=======================================================================
@@ -617,7 +661,7 @@ OnFamilyMenu
 
 
 
-Select.infowd
+Select.infowd : nonoverlap
 {
 	love += 0.1
 	"\0\s[0]He doesn't have the same passion for cooking that I do,\w4 but of the older four he's the best at it.\w8\s[104] Sometimes he helps me out around the kitchen.\w8\s[1010] That's one of my favorite things to do with him;\w4 baking is very relaxing,\w4 especially when you're doing it with someone you love."
@@ -670,7 +714,8 @@ Select.infowd
 	--
 	"%(familyreturn)"
 }
-Select.infodings
+
+Select.infodings : nonoverlap
 {
 	love += 0.1
 	"\0\s[200]It's...\w8 been tricky, trying to find ways to connect with him.\w8\w8\s[204] I'm pretty sure he doesn't really want to interact with me; he wants to ignore his problems and hide from them.\w8\w8\s[200] But we can't just let him keep doing that.\w8\w8\s[204] That's what caused the problem in the first place."
@@ -688,7 +733,8 @@ Select.infodings
 	--
 	"%(familyreturn)"
 }
-Select.infowings
+
+Select.infowings : nonoverlap
 {
 	love += 0.1
 	"\0\s[200]She's...\w8 actually a very strong person,\w4 emotionally.\w8\w8\s[201] She acts like nothing fazes her,\s[200] but I know that's not true.\w8\w8\s[204] She just puts on a brave face for those that rely on her."
@@ -709,7 +755,8 @@ Select.infowings
 	--
 	"%(familyreturn)"
 }
-Select.infobarcode
+
+Select.infobarcode : nonoverlap
 {
 	love += 0.1
 	"\0\s[1010]She really loves my cooking.\w8\w8\s[104] I think she's so vocal about it just to try and encourage me,\w4 but I appreciate it either way."
@@ -727,7 +774,8 @@ Select.infobarcode
 	--
 	"%(familyreturn)"
 }
-Select.infobluejeans
+
+Select.infobluejeans : nonoverlap
 {
 	love += 0.1
 	"\0\s[105]%(StSfCHe)'s such a sweetheart.\w8 %(StSfCHe) made me a wildflower crown out of the blue once.\w8\w8\s[106] It's wilted since then,\w4 of course,\s[104] but I have pictures of it saved."
@@ -745,7 +793,8 @@ Select.infobluejeans
 	--
 	"%(familyreturn)"
 }
-Select.infoabbi
+
+Select.infoabbi : nonoverlap
 {
 	love += 0.1
 	"\0\s[109]I'm glad to have him back.\w8\w8\s[200] It's...\w8\w8\s[204] complicated.\w8\w8 But he was gone for a long time,\s[201] and now that he's back I feel like a piece of my soul that had been missing \s[205]has been filled again."
@@ -765,7 +814,8 @@ Select.infoabbi
 	--
 	"%(familyreturn)"
 }
-Select.inforosie
+
+Select.inforosie : nonoverlap
 {
 	love += 0.1
 	"\0\s[202]The little scamp is constantly getting into any treats I bake.\w8\s[107] She's a troublemaker,\w4 that's for sure."
@@ -786,7 +836,8 @@ Select.inforosie
 	--
 	"%(familyreturn)"
 }
-Select.inforoman
+
+Select.inforoman : nonoverlap
 {
 	love += 0.1
 	if love >= 150 && LVCheck == 1
@@ -815,7 +866,8 @@ Select.inforoman
 	--
 	"%(familyreturn)"
 }
-Select.infocambria
+
+Select.infocambria : nonoverlap
 {
 	love += 0.1
 	"\0\s[103]She's pretty good at sewing.\w8\s[202] When you have an odd number of arms you've got to either know how to sew,\w4 or know someone who does.\w8\s[104] She seems to be enjoying it,\w4 at least."
@@ -835,7 +887,8 @@ Select.infocambria
 	--
 	"%(familyreturn)"
 }
-Select.infotriton
+
+Select.infotriton : nonoverlap
 {
 	love += 0.1
 	"\0\s[104]I think he likes plants more than people.\w8\w8\s[205] But that's fine with me,\w4 I just want him to be happy here."
@@ -853,7 +906,8 @@ Select.infotriton
 	--
 	"%(familyreturn)"
 }
-Select.infolulo
+
+Select.infolulo : nonoverlap
 {
 	love += 0.1
 	"\0\s[200]I just wish there was something I could do to heal her soul.\w8 \s[301]She shouldn't-\w8 \s[302]\w8...Doesn't deserve to be stuck like me."
@@ -873,7 +927,8 @@ Select.infolulo
 	--
 	"%(familyreturn)"
 }
-Select.infoazo
+
+Select.infoazo : nonoverlap
 {
 	love += 0.1
 	"\0\s[206]He's...\w8 Oddly quiet around strangers,\w4 sometimes.\w8\s[201] I'm hoping he'll grow out of it,\s[202] he's such a kind,\w4 playful kid aside from that."
@@ -890,7 +945,8 @@ Select.infoazo
 	--
 	"%(familyreturn)"
 }
-Select.infosigil
+
+Select.infosigil : nonoverlap
 {
 	love += 0.1
 	"\0\s[104]She's very excitable,\w4 and loves to laugh.\w8\s[106] I'm exhausted from trying to keep up with her,\s[205] but it does help that she's so cheerful most of the time."
@@ -900,16 +956,25 @@ Select.infosigil
 	if askedaboutbluejeans == 1
 	{
 		"\0\s[104]She's very energetic and playful.\w8\s[107] I'm glad that anMBluJeans is around to help tire her out,\w4 I have trouble keeping up with her sometimes."
-		"\0\s[200]She's the only one of the kids who is both mine and anMBlue's.\w8\s[204] She's still too little to understand the concept of half siblings.\w8\s[201] I just hope that when the time comes,\w4 she doesn't take it harshly and feel different from the others."
+		if thesplit == 1
+		{
+			"\0\s[200]She's the only one of the kids who is both mine and anMBlue's.\w8\s[204] She's still too little to understand the concept of half siblings.\w8\s[201] I just hope that when the time comes,\w4 she doesn't take it harshly and feel different from the others."
+		}
 	}
 	--
 	"%(familyreturn)"
 }
-Select.infoelko
+
+Select.infoelko : nonoverlap
 {
 	love += 0.1
 	"\0\s[200]She used to be teased a lot at school for her white fur,\s[103] but honestly it makes her fit in a little easier with us.\w8\s[104] She seems to have taken some comfort in that."
 	"\0\s[103]You should see her vampire costume,\w4\s[104] she's really convincing.\w8\w8\s[202] It probably helps that she usually carries around an umbrella anyways."
+	"\0\s[205]She's very confident.\w8\w8\s[107] And honest,\w4 often brutally so.\w8\w8\s[0] But she doesn't put others down,\w8\s[200] she can't stand bullies and refuses to become one herself."
+	if month == 10
+	{
+		"\0\s[102]Heh,\w4 it's her favorite time of year right now.\w8\w8\s[106] You would not believe how much she and her mom decorate their house for halloween.\w8\w8\n\n\s[205]She really gets into character when trick-or-treating starts,\w4 too.\w8\w8\s[104] They have a lot of dedicated human fans who come by every year just get their souls scared out of them.\w8\w8\n\n\s[101]...Halloween is a very strange celebration."
+	}
 	if askedaboutcambria == 1
 	{
 		"\0\s[0]I'm really glad that anMCambria has found such a close friend that she can depend on.\w8\s[204] Especially after...\w8\w8\n\n\s[302]* (He stops himself.)"
@@ -921,7 +986,8 @@ Select.infoelko
 	--
 	"%(familyreturn)"
 }
-Select.thewholefam
+
+Select.thewholefam : nonoverlap
 {
 	love += 0.4
 	if love >= 75
@@ -946,6 +1012,22 @@ Select.thewholefam
 		if askedaboutwd == 1 && askedaboutdings == 1 && askedaboutwings == 1
 		{
 			"\0\s[0]anMWD,\w4 anMDings,\w4 and anMWings are all siblings.\w8\w8\s[104] Triplets,\w4 in fact.\w8\w8\s[205] Their real names,\w4 and fonts,\w4 are Wingdings 1,\w4 Wingdings 2,\w4 and Wingdings 3,\w4 respectively.\w8\w8\n\n\s[106]You uh,\w4 can probably see why they use the nicknames.\w8\w8\s[107] Easier to tell em apart,\w4 and less likely to inspire jealousy."
+		}
+		if season == "Spring"
+		{
+			
+		}
+		if season == "Summer"
+		{
+			
+		}
+		if season == "Autumn"
+		{
+			
+		}
+		if season == "Winter"
+		{
+			
 		}
 	}
 	elseif love >= 20
@@ -990,7 +1072,7 @@ Select.somethingsoff
 
 familyreturn
 {
-	"\w5\n\n\![*]\q[Ask about someone else,aboutfamily]\n\![*]\q[I'm done,cancelnodialogue]\e" //cancel leads to an empty function because it bothers me when he says his cancel dialogue every time you're done asking questions
+	"\n\n\![*]\q[Ask about someone else,aboutfamily]\n\![*]\q[I'm done,cancelnodialogue]\e" //cancel leads to an empty function because it bothers me when he says his cancel dialogue every time you're done asking questions
 }
 
 //------------------------End of family menu----------------------
@@ -1755,7 +1837,7 @@ Select.CALENDAR
 {
 	if nowmode == "RYS"
 	{
-		"\RYS\s[2006]Oh,\w4 um...\w8\w8\s[2007] Sure,\w4 here it is.\![open,calendar]\e"
+		"\RYS\s[2006]Oh,\w4 um...\w8\w8\s[2007] Sure,\w4 here it is."
 	}
 	else
 	{
@@ -1764,21 +1846,21 @@ Select.CALENDAR
 			"\0\s[0]Sure,\w4 just a moment."
 			"\0\s[104]Sure,\w4 here you go."
 			"\0\s[0]Keeping organized,\w4 huh?"
-			--
-			"\![open,calendar]\e"
 		}
 		else //Negative routes -- Bad routes not included here because you can't reach this menu anyways
 		{
 			if broken == 1 //broken him down all the way
 			{
-				"\0\s[510]* (He opens the calendar silently.)\![open,calendar]\e"
+				"\0\s[510]* (He opens the calendar silently.)"
 			}
 			else //breaking him, but he's still standing
 			{
-				"\0\s[510]...Ok.\![open,calendar]\e"
+				"\0\s[510]...Ok."
 			}
 		}
 	}
+	--
+	"\![open,calendar]\e"
 }
 
 //Check email
@@ -1903,6 +1985,7 @@ Select.ChoiceSystemInformation
 	os_version = FUNCTIONEX("saori_cpuid.dll","os.version")
 	cpu_name = FUNCTIONEX("saori_cpuid.dll","cpu.name")
 	cpu_clockex = FUNCTIONEX("saori_cpuid.dll","cpu.clockex")
+	_free_mem = FUNCTIONEX("saori_cpuid.dll","mem.phya")
 	if nowmode == "RYS"
 	{
 		"\RYS\b[2]\_q"
@@ -1918,6 +2001,7 @@ Select.ChoiceSystemInformation
 	CPU: %(cpu_name) %(cpu_clockex)MHz\n/
 	Uptime: %(systemuphour):%(systemupminute):%(systemupsecond)\n\n/
 	Ukagaka: %property[baseware.version]\n\n/
+	//Free Memory: %(_free_mem)\n\n/
 	\![*]\q[Back to functions,Onbacktofunctions]\n/
 	\![*]\q[I'm done,cancelnodialogue]\e"
 }
@@ -2232,6 +2316,24 @@ Select.numbersdontlie
 					--
 					" of mittens"
 				}
+				if heldObsidian > 0
+				{
+					", made him hold Obsidian %(heldObsidian) time"
+					--
+					if heldObsidian != 1; "s"
+				}
+				if slept > 0
+				{
+					", seen him fall asleep %(slept) time"
+					--
+					if slept != 1; "s"
+				}
+				if totalsleep > 0
+				{
+					", watched him sleep for %(totalsleep) hour"
+					--
+					if totalsleep != 1; "s"
+				}
 				--
 					", and pet him %(totalpets) time"
 					--
@@ -2344,6 +2446,8 @@ Select.agoodsoftboy
 		"\0* (You tell him you need a hug.)"
 		"\0* (You say you'd like a hug.)"
 		"\0* (You say you need a hug.)"
+		"\0* (You ask for a hug.)"
+		//"\0* (You say you want to hug him.)"
 		if love >= 300
 		{
 			"\0\s[1080]* (He senses your intent and reaches out before you can even ask.)%(HugEnd)"
@@ -2451,6 +2555,13 @@ HugEnd
 			"* (Smells like %(ingredients).)"
 			"* (Smells like %(bakedgoods).)"
 			"* (Smells pink.)"
+		}
+		if nowshell == "autumn_flannel"
+		{
+			"* (Smells like fallen leaves.)"
+			"* (Smells like leaf piles.)"
+			"* (Smells like autumn.)"
+			"* (Smells like plaid.)"
 		}
 		if comforted > 0 || talkedaboutpast > 0
 		{
@@ -2743,7 +2854,7 @@ Select.nothingleft //Finishes sad route
 
 actreturn
 {
-	"\w5\n\n\![*]\q[Do something else?,heyyouyourecute]\n\![*]\q[I'm done,cancelnodialogue]\e" //cancel leads to an empty function because it bothers me when they say their menu cancel dialogue after you give them something :|
+	"\n\n\![*]\q[Do something else?,heyyouyourecute]\n\![*]\q[I'm done,cancelnodialogue]\e" //cancel leads to an empty function because it bothers me when they say their menu cancel dialogue after you give them something :|
 }
 
 //=============================================================End of actions menu=============================================================
@@ -3028,7 +3139,7 @@ Select.forthekiddos
 
 itemreturn
 {
-	"\w5\n\n\![*]\q[Give something else,bottomlessinventory]\n\![*]\q[I'm done,cancelnodialogue]\e" //cancel leads to an empty function because it bothers me when they say their menu cancel dialogue after you give them something :|
+	"\n\n\![*]\q[Give something else,bottomlessinventory]\n\![*]\q[I'm done,cancelnodialogue]\e" //cancel leads to an empty function because it bothers me when they say their menu cancel dialogue after you give them something :|
 }
 
 //==============================================================End of item menu===============================================================
@@ -3624,9 +3735,17 @@ Select.CANCEL
 			"Ok,\w4 just let me know if you need something,\w4 %(username)."
 			"Ok,\w4 just let me know if you wanted something."
 			"Ok,\w4 let me know if you change your mind."
+			"Alright."
 			"Alright then."
 			"Alright,\w4 let me know if you change your mind."
+			"Oh,\w4 alright then."
 			"\s[101]Changed your mind,\w4 huh?"
+			"Ok."
+			"Later,\w4 then."
+			if CameBack > 0
+			{
+				"\s[106]Oh,\w4 alright.\w8\w8\s[107] Don't be away too long."
+			}
 			--
 			"\e"
 		}
@@ -3714,6 +3833,11 @@ OnChoiceTimeout
 			"%(username)?\w8\w8 Where did you go?\e"
 			"Hey,\w4 where'd you go?\e"
 			"Hello?\w8\w8 %(username)?\e"
+			"Where did you go %(username)?\e"
+			if CameBack > 0
+			{
+				"\s[206]%(username)?\w8\w8 Did %(heshe) disappear again..?\e"
+			}
 		}
 		
 		elseif LV > 0 //Negative routes
@@ -3881,10 +4005,345 @@ OnTestVariable  //For my own testing purposes. Be careful here.
 	//"%(findialogue)"
 	//"\![get,property,OnSilentPosition,currentghost.scope(0).rect]  %(reference3)"
 	
-	_testarray = SongList
+	/*_testarray = SongList
 	SETDELIM(_testarray,"\n-")
 	_test = ARRAYSIZE(_testarray)
-	"%(_test)"
+	"%(_test)"*/
+	
+	/*_check = RAND(100)
+	if _check <= TOINT(sleepchance)
+	{
+		"\_qFall asleep"
+	}
+	else
+	{
+		"\_qAwake"
+	}
+	--
+	" %(_check) %(sleepchance)"*/
+	/*
+	_switchvar = RAND(3)
+	"%(_switchvar)\n"
+	--
+	switch _switchvar
+	{
+		{
+			"0 output 1"
+			"0 output 2"
+			"0 output 3"
+			"0 output 4"
+		}
+		{
+			"1 output 1"
+			"1 output 2"
+			"1 output 3"
+			"1 output 4"
+		}
+		{
+			"2 output 1"
+			"2 output 2"
+			"2 output 3"
+			"2 output 4"
+		}
+	}
+	*/
+	//"\![get,property,OnWander,currentghost.scope(0).rect]"
+	/*"%(season)\n%(nowshell)\n"
+	--
+	if (nowshell == "autumn_flannel" && season != "Autumn") || (nowshell == "winter_coat" && season != "Winter") || (nowshell == "spring_overalls" && season != "Spring") || (nowshell == "summer_swimsuit" && season != "Summer")
+	{
+		_season = TOLOWER(season)
+		"\0\s[107]* (He mutters something about being out of season.)\e"
+		"\0\s[106]It feels kinda wrong to be wearing this during %(_season),\w4 don't you think?\e"
+	}*/
+	 //initialize variables
+	//"\![execute,http-get,%(locationcode),--file=weather.html,--timeout=300]\![execute,http-get,https://zichqec.github.io/s-the-skeleton/weatherregex.html,--async=OnTestREG,--file=weatherregex.html,--timeout=300]"
+	
+	/* //Issues with this: the minutes are wrong, and the top if is also wrong somewhere
+	sunrisearray[2] = SPLIT(sunrise," ")[1] //AM/PM
+	_risetemp = SPLIT(sunrise," ")[0]
+	sunrisearray[0] = TOINT(SPLIT(_risetemp,":")[0]) //Hour
+	sunrisearray[1] = TOINT(SPLIT(_risetemp,":")[1]) //Minute
+	if sunrisearray[2] == "PM"; sunrisearray[0] += 12 //Changing to 24 hour time
+	
+	sunsetarray[2] = SPLIT(sunset," ")[1]
+	_settemp = SPLIT(sunset," ")[0]
+	sunsetarray[0] = TOINT(SPLIT(_settemp,":")[0])
+	sunsetarray[1] = TOINT(SPLIT(_settemp,":")[1])
+	if sunsetarray[2] == "PM"; sunsetarray[0] += 12
+	
+	if (hour < sunrisearray[0] && hour - sunrisearray[0] <= 2) || (hour == sunrisearray[0] && minute < sunrisearray[1])
+	{
+		_temphour = sunrisearray[0] - hour
+		_tempminute = sunrisearray[1] - minute 
+		"The sun will be rising in %(_temphour) hours and %(_tempminute) minutes"
+	}
+	elseif hour < sunrisearray
+	{
+		_temphour = sunrisearray[0] - hour
+		_tempminute = sunrisearray[1] - minute 
+		"The sun won't be rising for %(_temphour) hours and %(_tempminute) minutes"
+	}
+	else
+	{
+		_temphour = hour - sunrisearray[0]
+		_tempminute = minute - sunrisearray[1]
+		"The sun rose %(_temphour) hours and %(_tempminute) minutes ago"
+	}*/
+	//"%(_timesince)"
+}
+
+OnSunsetTest
+{
+	templocation = ""
+    _file = "var\\weather.html"
+    _file2 = "var\\weatherregex.html"
+    _buff=""
+    _buff2=""
+	_sunset = ""
+	_sunrise = ""
+	_riseap = ""
+	_setap = ""
+	
+	FCHARSET(1)
+	_read = ""
+	--
+	if FOPEN(_file,'r')
+	{
+		for _buff2 = FREAD(_file); _buff2 != -1; _buff2 = FREAD(_file)
+		{
+			if RE_SEARCH (_buff2,'"sunrise-line"(.*)19.128a.75.75 0 0 0 0-1.5H3.167a.75.75 0 1 0 0 1.5H21z"></path></svg><p class="(......)">(\d?\d:\d\d) (a|p)m</p>'); {_sunrise = RE_GETSTR[3]; _riseap = RE_GETSTR[4]}
+			if RE_SEARCH (_buff2,'"sunset-line"(.*)0v5.853zM21 19.075a.75.75 0 1 0 0-1.5H3.167a.75.75 0 1 0 0 1.5H21z"></path></svg><p class="(......)">(\d?\d:\d\d) (a|p)m</p>'); {_sunset = RE_GETSTR[3]; _setap = RE_GETSTR[4]}
+		}
+	}
+	--
+	FCLOSE(_file);
+	--
+	"\_qSunrise: %(_sunrise)%(_riseap)m\nSunset: %(_sunset)%(_setap)m\x"
+}
+
+OnTestREG
+{
+	templocation = ""
+    _file = "var\\weather.html"
+    _file2 = "var\\weatherregex.html"
+    _buff=""
+    _buff2=""
+	
+	_reg = '';         _regsunrise = '';   _regsunset = ''
+    _regtemp = '';     _Cregtemp = '';     _Fregtemp = ''
+    _regdegree = '';   _Cregdegree = '';   _Fregdegree = ''
+    _regfeels = '';    _Cregfeels = '';    _Fregfeels = ''
+    _reghumidity = ''; _Creghumidity = ''; _Freghumidity = ''
+    _regwind = '';     _Cregwind = '';     _Fregwind = ''
+    _regstate = '';    _Cregstate = '';    _Fregstate = ''
+    _regloc = '';      _Cregloc = '';      _Fregloc = ''
+    _regpollen = '';   _Cregpollen = '';   _Fregpollen = ''
+	
+    FCHARSET(1)
+	tempurature = "Unknown"
+	ForC = "Unknown"
+	feelslike = "Unknown"
+	humidity = "Unknown"
+	wind = "Unknown"
+	weather = "Unknown"
+	pollen = ""
+	sunrise = "Unknown"
+	sunset = "Unknown"
+
+	--
+	if FOPEN(_file2,'r')
+	{
+		for _buff2 = FREAD(_file2); _buff2 != -1; _buff2 = FREAD(_file2)
+		{
+			if RE_SEARCH (_buff2,'CREG--(.*)--CREG'); {_reg = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'CREGTEMP--(.*)--CREGTEMP'); {_Cregtemp = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'CREGDEGREE--(.*)--CREGDEGREE'); {_Cregdegree = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'CREGFEELS--(.*)--CREGFEELS'); {_Cregfeels = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'CREGHUMIDITY--(.*)--CREGHUMIDITY'); {_Creghumidity = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'CREGWIND--(.*)--CREGWIND'); {_Cregwind = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'CREGSTATE--(.*)--CREGSTATE'); {_Cregstate = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'CREGLOC--(.*)--CREGLOC'); {_Cregloc = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'CREGPOLLEN--(.*)--CREGPOLLEN'); {_Cregpollen = RE_GETSTR[1]}
+			//---
+			if RE_SEARCH (_buff2,'FREGTEMP--(.*)--FREGTEMP'); {_Fregtemp = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'FREGDEGREE--(.*)--FREGDEGREE'); {_Fregdegree = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'FREGFEELS--(.*)--FREGFEELS'); {_Fregfeels = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'FREGHUMIDITY--(.*)--FREGHUMIDITY'); {_Freghumidity = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'FREGWIND--(.*)--FREGWIND'); {_Fregwind = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'FREGSTATE--(.*)--FREGSTATE'); {_Fregstate = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'FREGLOC--(.*)--FREGLOC'); {_Fregloc = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'FREGPOLLEN--(.*)--FREGPOLLEN'); {_Fregpollen = RE_GETSTR[1]}
+			//---
+			if RE_SEARCH (_buff2,'REGSUNRISE--(.*)--REGSUNRISE'); {_regsunrise = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'REGSUNSET--(.*)--REGSUNSET'); {_regsunset = RE_GETSTR[1]}
+		}
+	}
+	--
+	FCLOSE(_file2);
+	--
+    if FOPEN(_file,'r') {
+    
+        _buff = FREAD(_file) //get the first line of the HTML to check what type of page we got
+
+        if RE_SEARCH(_buff, _reg) //reg expressions for chrome formatted page
+		{
+			_regtemp = _Cregtemp
+			_regdegree = _Cregdegree
+			_regfeels = _Cregfeels
+			_reghumidity = _Creghumidity
+			_regwind = _Cregwind
+			_regstate = _Cregstate
+			_regloc = _Cregloc
+			_regpollen = _Cregpollen
+        }
+        else //reg expressions for firefox formatted page
+		{
+			_regtemp = _Fregtemp
+			_regdegree = _Fregdegree
+			_regfeels = _Fregfeels
+			_reghumidity = _Freghumidity
+			_regwind = _Fregwind
+			_regstate = _Fregstate
+			_regloc = _Fregloc
+			_regpollen = _Fregpollen
+        }
+
+        for _buff = FREAD(_file); _buff != -1; _buff = FREAD(_file)
+		{
+			if RE_SEARCH (_buff,_regtemp); {tempurature = TOINT(RE_GETSTR[1])} //current temp
+			if RE_SEARCH (_buff,_regdegree); {ForC = RE_GETSTR[1]} //degrees (F or C)
+			if RE_SEARCH (_buff,_regfeels); {feelslike = TOINT(RE_GETSTR[1])} //feels like temp
+			if RE_SEARCH (_buff,_reghumidity); {humidity = TOINT(RE_GETSTR[1])} //humidity
+			if RE_SEARCH (_buff,_regwind); {wind = RE_GETSTR[1]} //wind
+			if RE_SEARCH (_buff,_regstate); {weather = RE_GETSTR[1]} //state (cloudy, sunny, etc)
+			if RE_SEARCH (_buff,_regloc); {curlocation = RE_GETSTR[1]} //set location
+			if RE_SEARCH (_buff,_regpollen); {pollen = "Local Pollen Alert"} //search for pollen stuff
+			if RE_SEARCH (_buff,_regsunrise); {sunrise = "%(RE_GETSTR[3]) %(RE_GETSTR[4])m"} //Sunrise time
+			if RE_SEARCH (_buff,_regsunset); {sunset = "%(RE_GETSTR[3]) %(RE_GETSTR[4])m"} //Sunset time
+        }
+    }
+    --
+	FCLOSE(_file);
+	--
+	"\_q\b2temp: %(tempurature)\nF or C: %(ForC)\nfeels: %(feelslike)\nhumidity: %(humidity)\nwind: %(wind)\nweather: %(weather)\npollen: %(pollen)\nsunrise: %(sunrise)\nsunset: %(sunset)\nlocation: %(curlocation)"
+	--
+	"\x"
+}
+
+OnWander
+{
+	//Walk speed. The higher you make walkRate, the slower the ghost will walk.
+	walkRate = 200
+	
+	//Ghost width. You need to adjust this so the ghost does not walk off the side of the screen. Set it to the width of your ghost's images.
+	walkWidth = 230
+	
+	//Minimum amount of pixels to move, so that the ghost doesn't move tiny, jarring amounts. Adjust as you like.
+	walkMinimum = 200
+	
+	
+	//---Don't touch the rest of this, aside from the surfaces near the bottom!---
+	//{ If you're using notepad++, you can collapse this bracket so you don't have to see all that messy code
+	XCoord = TOINT(reference0[0])
+	_debug = "Started from %(XCoord), left edge is %(wanderLeft), right edge is %(wanderRight)\n"
+	
+	_Left = TOINT(wanderLeft)
+	_Right = TOINT(wanderRight)
+	_Left -= wanderLeft
+	_Right -= wanderLeft
+	if _Right < 0
+	{
+		_Right *= -1
+		_debug += "_Right less than 0, inverted\n"
+	}
+	_RightRand = _Right
+	_RightRand -= walkWidth
+	RandX = RAND(_RightRand)
+	RandX += TOINT(wanderLeft)
+	_debug += "Moving to %(RandX)\n"
+	
+	_adjust = "None"
+	_side = ""
+	if RandX > XCoord //If moving Right
+	{
+		_debug += "Moving right\n"
+		if RandX - XCoord < walkMinimum //If it isn't moving at least the minimum distance to the right
+		{
+			RandX = XCoord + walkMinimum
+			_adjust = "Right"
+			_debug += "Adjusted to the right\n"
+			
+			if RandX > (wanderRight - walkWidth) //If it's past the right edge
+			{
+				_debug += "Stopped on the right edge\n"
+				RandX = wanderRight - walkWidth
+			}
+		}
+	}
+	elseif RandX < XCoord //If moving left
+	{
+		_debug += "Moving left\n"
+		_RandXN = RandX
+		_XCoordN = XCoord
+		if wanderLeft < 0
+		{
+			_RandXN = (RandX * -1) //Inverting the negative numbers so we can math properly
+			_XCoordN = (XCoord * -1)
+			_debug += "Inverted XCoord and RandX\n"
+		}
+		
+		if _RandXN - _XCoordN < walkMinimum //If it isn't moving at least the minimum distance to the left
+		{
+			RandX = XCoord - walkMinimum
+			_adjust = "Left"
+			_debug += "Adjusted to the left, new destination %(RandX)\n"
+			
+			if RandX <= TOINT(wanderLeft) //If it's past the left edge
+			{
+				_debug += "Stopped on the left edge\n"
+				RandX = wanderLeft
+			}
+		}
+	}
+	
+	if RandX == XCoord //If it fails to move at all
+	{
+		if RandX == wanderLeft //If it's on the left edge
+		{
+			_debug += "Didn't move, stepped right\n"
+			RandX += walkMinimum
+		}
+		else //If it's on the right edge, or I guess if it happened to draw the exact same random coordinate as where it's standing
+		{
+			RandX -= walkMinimum
+			_debug += "Didn't move, stepped left\n"
+		}
+	}
+	_debug += "Stopped at %(RandX)\n"
+	
+	_walkTime = (XCoord - RandX) //Subtract the X we're moving to from the X we're starting at.
+	if _walkTime < 0; {_walkTime *= -1} //If this ends up being a negative number, make it into a positive one.
+	_walkTime /= 100 //Divide it by 100 so we're dealing with a small number.
+	_walkTime *= walkRate //Multiply it by whatever the dev wants the walk rate to be.
+	if _walkTime == 0; {_walkTime = walkRate} //If the walk time ends up being 0, make it at least the base walkRate.
+	//}
+	
+	if RandX > XCoord //Moving right
+	{
+		"\s[300]" //Surface for walking to the right, adjust as needed.
+	}
+	else //Moving left
+	{
+		"\s[205]" //Surface for walking to the left, adjust as needed.
+	}
+	
+	--
+	"\![move,--X=%(RandX),--time=%(_walkTime),--base=primaryscreen]" //This is the actual move command.
+	--
+	"\0\s[0]\e" //This is whatever surface you want them to return to after they stop walking.
+	--
+	"\_q RandX: %(RandX),  XCoord: %(XCoord), Adjust: %(_adjust)\n%(_debug)" //Debugging stuff that'll show up in the script log. You can comment it out, but the user will never see it anyways.
 }
 
 //{ Debug menu

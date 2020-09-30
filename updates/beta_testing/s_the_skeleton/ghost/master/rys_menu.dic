@@ -44,6 +44,7 @@ OpenRYSMenu
 			--
 if RYStrust > 100;"\RYS\s[2006]Y-yes..?"
 if RYStrust > 100;"\RYS\s[2006]Um,\w4 what do you need..?"
+if RYStrust > 100;"\RYS\s[2006]Um,\w4 do you need something..?"
 			"* (%(RYS) stands stiffly.)"
 			"* (%(RYS) shifts uncomfortably.)"
 			"* (%(RYS) doesn't meet your eyes.)"
@@ -128,7 +129,7 @@ OnRYSMenu
 	--
  	"\n\![*]\q[Nevermind,RYScancel]\n\n[half]%(wd) %(displayhour):%(nowmin) %(ap), %(month)/%(day)/%(year)"
 	--
-	"\nRuntime: %(passhour):%(displaymin)            Version 1.2.3"
+	"\nRuntime: %(passhour):%(displaymin)            Version %(ghostver)"
 	--
 	if debug == 1 //You can access the debug menu by opening script input (ctrl S) and putting in "%(debug = 1)", but do so at your own risk. I'd recommend double checking the test variable before clicking on it, because sometimes I leave things in there that will alter your variables.
 	{
@@ -831,6 +832,7 @@ Select.RYScancel
 	"Oh,\w4 um...\w8\w8 Alright.\e"
 	"...Alright.\e"
 	"* (He nods.)\e"
+if RYStrust < 100;"* (He's watching you warily.)\e"
 }
 
 

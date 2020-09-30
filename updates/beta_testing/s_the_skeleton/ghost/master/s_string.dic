@@ -59,15 +59,10 @@ On_sakura.recommendsites
 	--
 	"%ASC(1)https://www.deviantart.com/zichqec%ASC(2)"
 	--
-	//Here, you'll notice that there are two names, a --, then a website bracketed by %ASC(1) and %ASC(2). What this will do is randomly chose between those two site names for the link. So if you open the menu, maybe it will say Site Name 1, or maybe it will say Site Name 1 Alternate. Honestly I find links changing names without warning kind of confusing, but maybe some find it amusing, idk. Put the address of the site you want to link to between the two ASC tags.
-	
 	"Zichqec's Tumblr"
 	--
 	"%ASC(1)https://www.zichqec.tumblr.com%ASC(2)"
 	--
-	
-	//If you want to keep things simple, you can just give each website one name like so.
-	
 	"Zichqec's Twitter"
 	--
 	"%ASC(1)https://twitter.com/Zichqec%ASC(2)"
@@ -96,23 +91,6 @@ On_sakura.portalsites
 	//This first line is the name that will display in the menu for your site. In this case, it would display "Ghost Template Walkthrough".
 	"%ASC(1)http://www.ashido.com/ukagaka/walkthrough.html%ASC(2)"
 	--
-	//And this is the site that it would link to. Note that a website address begins with %ASC(1) and ends with %ASC(2). Don't forget these!
-	
-	"Zarla's LJ"
-	--
-	"%ASC(1)http://zarla.livejournal.com/%ASC(2)"
-	--
-	
-	"Zarla's Tumblr"
-	--
-	"%ASC(1)http://zarla-s.tumblr.com/%ASC(2)"
-	--
-	
-	"Zarla's Dreamwidth"
-	--
-	"%ASC(1)http://zarla.dreamwidth.org/%ASC(2)"
-	--
-	
 	"SSP"
 	--
 	"%ASC(1)http://ssp.shillest.net/%ASC(2)"
@@ -224,6 +202,11 @@ On_readmebutton.caption
 	"Read me"
 }
 
+On_calendarbutton.caption
+{
+	"Calendar"
+}
+
  //---- Uninstall Caption -----------------------------------------------------
  //This is the caption for the option to uninstall them.
  
@@ -242,7 +225,7 @@ On_shellrootbutton.caption
 
 //---- Change Ghost Caption -----------------------------------------------------
  //This is the caption for the option to change ghosts.
- 
+
 On_ghostrootbutton.caption
 {
 	"Change Ghost"
@@ -295,13 +278,13 @@ On_alwaysstayontopbutton.caption
  //---- 소멸 지시 버튼 표시 교체 -------------------------------------------------------
 On_vanishbutton.visible
 {
- 	if deleteshitai == "ON"
+ 	if deleteshitai == "ON" && holdingObsidian != 1
  	{
-	"1"
+		"1"
 	}
 	else
 	{
-	"0"
+		"0"
 	}
 }
 
