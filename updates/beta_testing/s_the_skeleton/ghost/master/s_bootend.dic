@@ -906,10 +906,26 @@ OnShellChanged
 		}
 		switchingtoshell = reference0
 		shellswitching = 1
+		if switchingtoshell == "Red Hoodie" //Again, this is the name of your shell as you put in the descript.txt file for that shell.
+		{
+			nowshell = "red_hoodie"
+		}
+		elseif switchingtoshell == "Pink Apron"
+		{
+			nowshell = "pink_apron"
+		}
+		elseif switchingtoshell == "Autumn Flannel"
+		{
+			nowshell = "autumn_flannel"
+		}
+		else
+		{
+			nowshell = "Other"
+		}
 		--
 		"\![move,--X=%(shellchangexcoord),--Y=%(shellchangeycoord),--base=primaryscreen]" //Here's the move command, this puts him to the spot he was before you switched shells
 		--
-		"\![change,balloon,%(nowballoon)]"  //The balloon needs to switch when the shell does, because of the kero balloon choice markers. This bit of code makes the balloons be the same even if youre switching around shells, but it means the dialogue has to be put below in OnBalloonChange...
+		"\![change,balloon,%(nowballoon)]\![raise,OnShellChangeDialogue]"  //The balloon needs to switch when the shell does, because of the kero balloon choice markers. This bit of code makes the balloons be the same even if youre switching around shells, but it means the dialogue has to be put below in OnBalloonChange...
 	}
 	else
 	{
@@ -926,26 +942,18 @@ OnGetCoords
 OnBalloonChange
 {
 	nowballoon = reference0
-	if switchingtoshell == "Red Hoodie" //Again, this is the name of your shell as you put in the descript.txt file for that shell.
-	{
-		nowshell = "red_hoodie"
-	}
-	elseif switchingtoshell == "Pink Apron"
-	{
-		nowshell = "pink_apron"
-	}
-	elseif switchingtoshell == "Autumn Flannel"
-	{
-		nowshell = "autumn_flannel"
-	}
-	else
-	{
-		nowshell = "Other"
-	}
+	
 	--
 	if shellswitching == 1 //Here's the dialogue for when you've switched shells, so that it doesnt get interrupted.
 	{
-		shellswitching = 0
+		"\![raise,OnShellChangeDialogue]"
+	}
+	
+}
+
+OnShellChangeDialogue
+{
+	shellswitching = 0
 		if nowmode == "RYS"
 		{
 			"\RYS\s[2006]I've finished...\e"
@@ -990,10 +998,6 @@ OnBalloonChange
 					"\0\s[104]Done.\e"
 				}
 			}
-			elseif holdingObsidian == 1
-			{
-				"\0\s[1201]Done.\e"
-			}
 			else
 			{
 				if LVCheck == 1
@@ -1015,8 +1019,7 @@ OnBalloonChange
 				}
 			}
 		}
-	}
-	booting = 0
+		booting = 0
 }
 
 OnDressupChanged
