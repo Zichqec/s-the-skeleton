@@ -40,7 +40,7 @@ OnBoot
 		"\0\s[0]\1\s[-1]\0"
 	}
 	--
-	Hourcheck //[Zi]I don't know if this'll work.... but uh, I'm just gonna hope for the best
+	//Hourcheck //[Zi]I don't know if this'll work.... but uh, I'm just gonna hope for the best //Later edit why did I do this? This does nothing
 	dayslot = GetDaySlot
 	timeslot = GetTimeSlot
 	
@@ -88,7 +88,11 @@ OnBoot
 			}
 			elseif dayslot == "7month 4day"
 			{
-				"\0\s[200]It's that time of year again...\w8\w8\s[200] All the humans in our area like to set off colorful explosions in the sky.\w8\s[201] I hear it's some sort of celebration of freedom from a long time ago?\w8\w8\n\n\s[1070]Maybe monsters should have a celebration of our own freedom...\w8\w8\s[202] Could do without the explosions though.\w8\s[206] Maybe some sort of colorful magic displays instead..?\e"
+				"\0\s[1122]\w6\s[106]It's that time of year again...\w8\w8\s[200] All the humans in our area like to set off colorful explosions in the sky.\w8\s[201] I hear it's some sort of celebration of freedom from a long time ago?\w8\w8\n\n\s[1070]Maybe monsters should have a celebration of our own freedom...\w8\w8\s[202] Could do without the explosions though.\w8\s[206] Maybe some sort of colorful magic displays instead..?\e"
+			}
+			elseif dayslot == "4month 1day"
+			{
+				"\0\s[1122]\w6\s[110]Oh-!\w8\w8\s[107] Hey there,\w4 %(username).\w8\w8\s[106] You're not going to play any pranks on me,\w4 are you?\e"
 			}
 			elseif lastclosed[0] != year //If the year has rolled over since you last saw him, but it also hasn't been too long since he last saw you. This also restricts him to commenting on the year to january and february, which feels about right.
 			{
@@ -193,6 +197,7 @@ normalboottalk //Ergh, this is a mess. For now, he'll only acknowledge the time 
 			{
 				"\0\s[1110]\w6\s[207]* (He yawns.)\n\n\w8\w8\s[106]Oh,\w4 hi there %(username).\w8\s[107] Sorry,\w4 I was just about to take a nap.\e"
 				"\0\s[1122]\w6\s[110]Oh,\w4\s[104] afternoon,\w4 %(username).\e"
+				"\0\s[1127]\w6\s[1300].\w2.\w2.\w2%(mumble)...\w8\w8\n\n* (Looks like he's taking a nap...)\w8\w8\n\n* (Do you want to send him home?)\n\n\![*]\q[Keep him here,bootkeep]\n\![*]\q[Send him home,boothome]\*\t\e:eval=nowmode='Asleep'"
 			}
 			if timeslot == "evening" //6-8
 			{
@@ -203,12 +208,15 @@ normalboottalk //Ergh, this is a mess. For now, he'll only acknowledge the time 
 			{
 				"\0\s[1122]\w6\s[109]* (He seems confused for a moment.)\n\n\w8\w8\s[1100]Oh..!\w8\s[107] Hey,\w4 %(username).\w8\s[101] Isn't it late there..?\w8\w8\n\n\s[207]* (He yawns slowly.)\w8\w8\w8\n\n\s[107]I was just on my way to bed,\s[0] but I'm here if you need me.\e" //replaceframe could use sleepy with eyes open
 				"\0\s[1122]\w6\s[110]Ah-\w8\w8\s[106] Oh,\w4 hey %(username).\w8\w8\s[104] Planning to stay up a while?\e"
+				"\0\s[1127]\w6\s[1300].\w2.\w2.\w2%(mumble)...\w8\w8\n\n* (Looks like he's already asleep...)\w8\w8\n\n* (Do you want to send him home?)\n\n\![*]\q[Keep him here,bootkeep]\n\![*]\q[Send him home,boothome]\*\t\e:eval=nowmode='Asleep'"
 			}
 			if timeslot == "midnight" //1-4
 			{
 				"\0\s[1122]\w6\s[108]Ah...\w8\w8 Hey there,\w4 %(username).\w8\s[303] You can't sleep either?\e"
 				"\0\s[1122]\w6\s[109]Hm?\w8\w8\s[110] Ah-\w8\s[104] hey %(username).\w8\w8\s[101] You're up late.\e"
 				"\0\s[1122]\w6\s[109]...Hm?\w8\w8\s[108] Oh-\w8\s[109] Hey %(username).\w8\w8\w8\n\n\s[204]Mmm...\w8\w8\s[202] I'm glad you've brought me here,\w4 because I wasn't getting any sleep at home.\e"
+				"\0\s[1127]\w6\s[1300].\w2.\w2.\w2%(mumble)...\w8\w8\n\n* (Looks like he's asleep...)\w8\w8\n\n* (Do you want to send him home?)\n\n\![*]\q[Keep him here,bootkeep]\n\![*]\q[Send him home,boothome]\*\t\e:eval=nowmode='Asleep'"
+				"\0\s[1127]\w6\s[1300].\w2.\w2.\w2%(mumble)...\w8\w8\n\n* (Looks like he's asleep...)\w8\w8\n\n\s[109]Bh-\w8\s[108] Hm?\w8\w8\s[110] Oh...\w8\w8\s[106] Hey,\w4 %(username).\w8\w8\s[206] Uh,\w4 when did I end up here..?\w8\w8\s[107] Well,\w4 alright,\w4 I'm up anyways.\e"
 			}
 		}
 		elseif LV > 0 //Negative routes
@@ -257,6 +265,16 @@ normalboottalk //Ergh, this is a mess. For now, he'll only acknowledge the time 
 	}
 }
 
+Select.bootkeep
+{
+	"\0\s[1300]* (He can sleep here for a while.)\e"
+}
+
+Select.boothome
+{
+	"\0\s[1300]* (He'll probably sleep better at home.)\w8\w8\n\n* (Maybe he'll be awake later...)\-\e"
+}
+
 OnClose
 {
 	lastclosed = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)")
@@ -283,6 +301,16 @@ OnClose
 				"\RYS\s[2006]* (He nods and \s[-1]is quickly gone.)"
 				"\RYS\s[2006]* (He nods and \s[-1]makes himself scarce.)"
 			}
+		}
+		elseif holdingObsidian == 1
+		{
+			"\0\s[1206]Oh,\w4 alright then.\w8\w8\s[1201] Guess I gotta give you back to Dusty,\w4 huh?\w8\w8\s[1204] See you guys around."
+		}
+		elseif nowmode == "Asleep"
+		{
+			"\0* (He'll probably sleep better at home...)\w8\w8\n\n...%(mumble)..."
+			"\0* (He must be exhausted...)\w8\w8\n\n* (He should rest easier at home.)\w8\w8\n\n...%(mumble)..."
+			"\0* (He must be tired if he's fallen asleep here...)\w8\w8\n\n* (Better to send him home so his family can take care of him.)\w8\w8\n\n...%(mumble)..."
 		}
 		else
 		{
@@ -410,6 +438,14 @@ OnClose
 				"\RYS* (He's\s[-1] gone before you have the chance to say anything else...)"
 			}
 		}
+		elseif holdingObsidian == 1
+		{
+			"\0\s[1206]Oh,\w4 ok then.\w8\w8\s[1201] Well,\w4 at least I got to hold you while I was here.\w8\w8\s[1204] See you around,\w4 Dusty."
+		}
+		elseif nowmode == "Asleep"
+		{
+			"\0\s[1300]* (Actually,\w4 maybe he'll sleep better at home...)"
+		}
 		else
 		{
 			if LV == 0 //Friendship routes
@@ -470,8 +506,8 @@ OnClose
 }
 
 
- //-------------------------State Changing--------------------
- //From here on, most of the dialogue will have to do with changing shells, ghosts, or states in some way.
+//-------------------------State Changing--------------------
+//From here on, most of the dialogue will have to do with changing shells, ghosts, or states in some way.
  
 
 //--OnWindowStateRestore
@@ -480,10 +516,15 @@ OnClose
 
 OnWindowStateRestore
 {
+	lastinteracted = 0
 	minimized++
 	if nowmode == "RYS"
 	{
 		"\RYS\s[2014]* (He squirms and shivers.)\e"
+	}
+	elseif nowmode == "Asleep"
+	{
+		"\0\s[1302]...%(mumble)...\e"
 	}
 	else
 	{
@@ -518,6 +559,14 @@ OnGhostChanging
 		if nowmode == "RYS"
 		{
 			"\RYS\s[2006]Um,\w4 alright,\w4 I'll reload..."
+		}
+		elseif holdingObsidian == 1
+		{
+			"\0\s[1201]Ok,\w4 I'll reload."
+		}
+		elseif nowmode == "Asleep"
+		{
+			"\0* (Reloading...)"
 		}
 		else
 		{
@@ -561,6 +610,14 @@ OnGhostChanging
 				RYSprogress = 5
 			}
 			"\RYS\s[2006]Alright,\w4 I'll fetch %(reference0)..."
+		}
+		elseif holdingObsidian == 1
+		{
+			"\0\s[1210]Oh,\w4 ok then.\w8\w8\s[1201] Guess I've got to put you down.\w8\w8\s[1204] See you around,\w4 Dusty."
+		}
+		elseif nowmode == "Asleep"
+		{
+			"\0* (Maybe %(reference0) will be awake...)\w8\w8\n\n* (S looks like he could use a rest at home.)"
 		}
 		else
 		{
@@ -621,6 +678,14 @@ OnGhostChanged
 			"\0\s[-1]\1\s[-1]\RYS\s[2006]"
 		}
 	}
+	elseif holdingObsidian == 1
+	{
+		"\0\s[1201]"
+	}
+	elseif nowmode == "Asleep"
+	{
+		"\0\s[1300]"
+	}
 	else
 	{
 		"\0\s[0]\1\s[-1]" //this sets up their default poses
@@ -631,6 +696,14 @@ OnGhostChanged
 		if nowmode == "RYS"
 		{
 			"\RYS\s[2006]I've finished.\e"
+		}
+		elseif holdingObsidian == 1
+		{
+			"\0\s[1201]Back.\e"
+		}
+		elseif nowmode == "Asleep"
+		{
+			"* (Done.)\e"
 		}
 		else
 		{
@@ -701,7 +774,7 @@ OnGhostChanged
 				}
 				else
 				{
-					"\0\s[110]Was that %(reference0) leaving?\e"
+					"\0\s[1122]\w6\s[110]Was that %(reference0) leaving?\e"
 				}
 			}
 			elseif LV > 0 //Negative routes
@@ -730,7 +803,15 @@ OnShellChanging
 	--
 	if nowmode == "RYS"
 	{
-		"\RYS\s[2006]* (He shuffles away\s[-1] obediently to change clothing.)\e"
+		"\RYS\s[2006]* (He shuffles away\s[-1] obediently to change clothing.)\w8\e"
+	}
+	elseif holdingObsidian == 1
+	{
+		"\0\s[1201]Ok,\w4 I'll be right back.\w8\e"
+	}
+	elseif nowmode == "Asleep"
+	{
+		"%(etcwake)Uh,\w4 yeah sure,\w4 hold on...\w8\e"
 	}
 	else
 	{
@@ -750,6 +831,17 @@ OnShellChanging
 			elseif reference0 == "Pink Apron"
 			{
 				"\0\s[208]Do you smell cookies?\w8\e"
+			}
+			elseif reference0 == "Autumn Flannel"
+			{
+				if season == "Autumn"
+				{
+					"\0\s[205]Hmm,\w4 it's getting cooler out...\w8\e"
+				}
+				else
+				{
+					"\0\s[106]Uh,\w4 alright,\w4 just a moment.\w8\e"
+				}
 			}
 			else
 			{
@@ -771,46 +863,73 @@ OnShellChanging
 }
  
  
- //--OnShellChanged
- 
- //The sister to the above, this is the dialogue after you've changed the shell.
+//--OnShellChanged
+
+//The sister to the above, this is the dialogue after you've changed the shell.
  
 OnShellChanged
 {
-	tempshell = reference0 //storing the shell name in tempshell
-	tempshell = TOLOWER(tempshell) //changes it to lowercase
-	tempshell = REPLACE(tempshell," ","_") //replace spaces with underscores. This should work as long as my naming schemes never change |D
-	if nowmode == "RYS"
+	if booting != 2
 	{
-		switchingtoshell = reference0
-		shellswitching = 1
-		"\![move,%(shellchangexcoord),%(shellchangeycoord)]"
-		--
-		"\![change,balloon,%(nowballoon)]"
-	}
-	else
-	{
-		if LV == 0
+		tempshell = reference0 //storing the shell name in tempshell
+		tempshell = TOLOWER(tempshell) //changes it to lowercase
+		tempshell = REPLACE(tempshell," ","_") //replace spaces with underscores. This should work as long as my naming schemes never change |D
+		if nowmode == "RYS"
 		{
-			if tempshell == nowshell && booting != 2
+
+		}
+		elseif holdingObsidian == 1
+		{
+			if tempshell == nowshell
 			{
-				"\0\s[106]Was that really necessary,\w4 kiddo?\e"
+				"\0\s[1206]Was that really necessary,\w4 kiddo?\e"
 			}
+		}
+		elseif nowmode == "Asleep"
+		{
+			"\0\s[1300]"
 			--
-			switchingtoshell = reference0
-			shellswitching = 1
-			"\![move,%(shellchangexcoord),%(shellchangeycoord)]" //Here's the move command, this puts him to the spot he was before you switched shells
-			--
-			"\![change,balloon,%(nowballoon)]" //The balloon needs to switch when the shell does, because of the kero balloon choice markers. This bit of code makes the balloons be the same even if youre switching around shells, but it means the dialogue has to be put below in OnBalloonChange...
+			if tempshell == nowshell
+			{
+				"\0\s[1300]%(mumb)%(mumb)%(mumb)zz...\e"
+			}
 		}
 		else
 		{
-			switchingtoshell = reference0
-			shellswitching = 1
-			"\![move,%(shellchangexcoord),%(shellchangeycoord)]"
-			--
-			"\![change,balloon,%(nowballoon)]"
+			if LV == 0
+			{
+				if tempshell == nowshell
+				{
+					"\0\s[106]Was that really necessary,\w4 kiddo?\e"
+				}
+			}
 		}
+		switchingtoshell = reference0
+		shellswitching = 1
+		if switchingtoshell == "Red Hoodie" //Again, this is the name of your shell as you put in the descript.txt file for that shell.
+		{
+			nowshell = "red_hoodie"
+		}
+		elseif switchingtoshell == "Pink Apron"
+		{
+			nowshell = "pink_apron"
+		}
+		elseif switchingtoshell == "Autumn Flannel"
+		{
+			nowshell = "autumn_flannel"
+		}
+		else
+		{
+			nowshell = "Other"
+		}
+		--
+		"\![move,--X=%(shellchangexcoord),--Y=%(shellchangeycoord),--base=primaryscreen]" //Here's the move command, this puts him to the spot he was before you switched shells
+		--
+		"\![change,balloon,%(nowballoon)]\![raise,OnShellChangeDialogue]"  //The balloon needs to switch when the shell does, because of the kero balloon choice markers. This bit of code makes the balloons be the same even if youre switching around shells, but it means the dialogue has to be put below in OnBalloonChange...
+	}
+	else
+	{
+		"\![raise,OnUpdateComplete]"
 	}
 }
 
@@ -823,25 +942,29 @@ OnGetCoords
 OnBalloonChange
 {
 	nowballoon = reference0
-	if switchingtoshell == "Red Hoodie" //Again, this is the name of your shell as you put in the descript.txt file for that shell.
-	{
-		nowshell = "red_hoodie"
-	}
-	elseif switchingtoshell == "Pink Apron"
-	{
-		nowshell = "pink_apron"
-	}
-	else
-	{
-		nowshell = "Other"
-	}
+	
 	--
 	if shellswitching == 1 //Here's the dialogue for when you've switched shells, so that it doesnt get interrupted.
 	{
-		shellswitching = 0
+		"\![raise,OnShellChangeDialogue]"
+	}
+	
+}
+
+OnShellChangeDialogue
+{
+	shellswitching = 0
 		if nowmode == "RYS"
 		{
 			"\RYS\s[2006]I've finished...\e"
+		}
+		elseif holdingObsidian == 1
+		{
+			"\0\s[1200]Done.\e"
+		}
+		elseif nowmode == "Asleep"
+		{
+			"\0\s[1300]%(mumb)%(mumb)%(mumb)zz...\e"
 		}
 		else
 		{
@@ -855,9 +978,24 @@ OnBalloonChange
 				{
 					"\0\s[104]Heh,\w4 suddenly I feel like baking.\e"
 				}
+				elseif switchingtoshell == "Autumn Flannel"
+				{
+					if season == "Autumn"
+					{
+						"\0\s[104]Heh,\w4 anBlue's the one who introduced me to plaid.\w8\w8\s[205] I'd seen it before,\w4 of course,\w4 but I didn't realize how much I liked it until I tried it on.\e"
+					}
+					elseif season == "Winter"
+					{
+						"\0\s[106] It's a little late to be wearing this,\w4 isn't it?\e"
+					}
+					else
+					{
+						"\0\s[106]It's a little warm out for this,\w4 isn't it?\e"
+					}
+				}
 				else //For any shell without a specific name, or if you don't want to bother with individual responses to a shell.
 				{
-					"\0\s[1010]Done.\e"
+					"\0\s[104]Done.\e"
 				}
 			}
 			else
@@ -881,10 +1019,17 @@ OnBalloonChange
 				}
 			}
 		}
-	}
-	booting = 0
+		booting = 0
 }
 
+OnDressupChanged
+{
+	dressups = ""
+	if reference1 == "Green Beanie" && reference2 == 1
+	{
+		dressups += "Green Beanie, "
+	}
+}
 
 //These handle switching between modes
 OnSwitchS2RYS
@@ -960,6 +1105,15 @@ BootVars
 	phase = "Unknown"
 	booting = 0
 	AutoUpdateCheck = 0
+	holdingObsidian = 0
+	if nowmode == "Asleep"; nowmode = "Default"
+	holdingObsidian = 0
+	sleephour = 0
+	sleepmin = 0
+	sleepsec = 0
+	dreams = RAND(4)
+	recentnightmare = 0
+	
 	if nowmode == "RYS"
 	{
 		RYSboots++
@@ -974,6 +1128,21 @@ BootVars
 //Variables set after updates, because I have no self control
 OnSetUpdateVariables
 {
+	if Update1p3p0 == ""
+	{
+		Update1p3p0 = "1.3.0"
+		holdingObsidian = 0
+		heldObsidian = 0
+		sleephour = 0
+		sleepmin = 0
+		sleepsec = 0
+		slept = 0
+		totalsleep = 0
+		dreams = RAND(4)
+		recentnightmare = 0
+		if "https://weather.com/weather/today/l/" !_in_ locationcode; locationcode = "https://weather.com/weather/today/l/" + locationcode
+		
+	}
 	if Update1p2p1 == ""
 	{
 		Update1p2p1 = "1.2.1"
@@ -1262,6 +1431,17 @@ FirstVars
 	//---1.2.1---
 	dragdizzy = 0
 	scaledizzy = 0
+	//---1.3.0---
+	Update1p3p0 = "1.3.0"
+	holdingObsidian = 0
+	heldObsidian = 0
+	sleephour = 0
+	sleepmin = 0
+	sleepsec = 0
+	slept = 0
+	totalsleep = 0
+	dreams = RAND(4)
+	recentnightmare = 0
 
 	
 	updateavailable = 0

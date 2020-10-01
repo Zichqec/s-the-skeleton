@@ -8,7 +8,7 @@ option,DisableNoDefineSurfaces
 //---Parts---
 group,__disabled
 {
-	9999,__parts
+	1299,__parts
 }
 
 
@@ -49,7 +49,7 @@ group,SL
 
 group,SR
 {
-	scope,1
+	scope,0
 
 	300,EyesAway
 	301,Flinch
@@ -60,7 +60,7 @@ group,SR
 
 group,SM
 {
-	scope,1
+	scope,0
 
 	400,Closed/Fr
 	401,Closed/Sn
@@ -78,7 +78,7 @@ group,SM
 
 group,SSd
 {
-	scope,1
+	scope,0
 
 	500,Closed
 	501,Fear
@@ -95,7 +95,7 @@ group,SSd
 
 group,SSp
 {
-	scope,1
+	scope,0
 
 	1010,Smile
 	1020,ScratchHead
@@ -114,8 +114,34 @@ group,SSp
 	1124,BloopMdLf
 	1125,BloopSdFw
 	1126,BloopSdLf
+	1127,BloopSleep
 	1550,Punch
+}
+
+group,Obsi
+{
+	scope,0
 	
+	1200,Neutral
+	1201,At Obsi
+	1204,Closed eyes smile
+	1206,Sweat smile
+	1207,Good sigh
+	1210,Surprise
+	1220,Sad left
+	1225,Daydream
+	1298,Jump down
+}
+
+group,Sleep
+{
+	scope,0
+	
+	1300,Neutral
+	1301,Sad
+	1302,Fear
+	1303,Smile
+	1304,WorrySmile
 }
 
 group,RYS

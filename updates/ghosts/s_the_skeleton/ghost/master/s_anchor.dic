@@ -207,9 +207,6 @@ OnTranslate
 			findialogue = REPLACE(findialogue,"|"," ")
 		}*/
 }
-	
-	//Some brief explanation about what's going on in those REPLACE lines! Basically, the function looks through the script and looks for a defined word or set of words. In this case, it's "Anchor 1". It then replaces "Anchor 1" with the second set of text, "\_a[anchor1]Anchor 1\_a". \_a if you recall is the dialogue code for linking something, so this is linking the words Anchor 1 to something called anchor1 set up in the next function, OnAnchorSelect.
-	//This is being used to change a word into a link, but you could conceivably use this to replace any text with any other kind of text if you wanted. I tried to replace . with .\w8  as I mentioned above which did not turn out well, haha, but there are probably other ways this could be used successfully.
 
 	
 //--OnAnchorSelect
@@ -557,7 +554,12 @@ OnAnchorSelect //[Zi] Alright so... I decided to rewrite this. I didn't see a re
 			if curlocation != "" && curlocation != "Set a location"
 			{
 				fromfunctionmenu = 0
-				"\0\s[110]Oh,\w4 the weather?\w8\w8\s[104] Sure,\w4\s[1070] give me just a moment...\![raise,OnDownloadCurWeather]"
+				"\0\s[110]Oh,\w4 the weather?\w8\w8\s[104] Sure,\w4\s[1070] give me just a moment..."
+				"\0\s[110]Oh,\w8\s[104] sure,\w4 I can get the weather.\w8\w8\s[1070] Give me a moment..."
+				"\0\s[110]Oh,\w8\s[103] alright,\w4 I'll check the weather.\w8\w8\s[1070] Just a second..."
+				"\0\s[110]Oh,\w8\s[102] sure,\w4 I'll check the weather for you.\w8\w8\s[1070] Let's see,\w4 you said you live in %(curlocation)..?"
+				--
+				"\w8\w8\![raise,OnDownloadCurWeather]"
 			}
 			else
 			{

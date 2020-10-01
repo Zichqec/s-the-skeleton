@@ -1470,7 +1470,7 @@ Select.TimelinesInGeneral
 	GeneralTimelines
 }
 
-Select.TellMeAboutKit
+Select.TellMeAboutKit : nonoverlap
 {
 	love += 0.1
 	"\0\s[104]He can make a sort of purring noise and it's really adorable.\w8\w8\s[208] The staff said something about him being a catfish..?\w8\w8\s[101] Do catfishes purr?"
@@ -1494,7 +1494,7 @@ Select.TellMeAboutKit
 	"%(timelinequestions)"
 }
 
-Select.TellMeAboutSmol
+Select.TellMeAboutSmol : nonoverlap
 {
 	love += 0.1
 	"\0\s[200]It's...\w8\w8 weird,\w4 thinking about his connection with my %(red)first son%(default).\w8\w8\s[206] When I look at him,\w4 I almost feel like I can see my %(red)first son%(default) in him,\w4 in some ways...\w8\w8\s[302]\n\nBut it's not him,\w4 not exactly.\w8\w8\s[303] I guess it's more like looking in a mirror and seeing a blurry image,\w4\s[300] but when I look away he isn't really there."
@@ -1508,7 +1508,7 @@ Select.TellMeAboutSmol
 	"%(timelinequestions)"
 }
 
-Select.TellMeAboutBirdy
+Select.TellMeAboutBirdy : nonoverlap
 {
 	love += 0.1
 	"\0\s[103]Once we got him to a better timeline,\w4 he started to look much better very quickly.\w8\w8\s[206] You could definitely tell he was still deeply upset from his losses,\w4\s[208] but he wasn't deathly afraid for his eggs anymore.\w8\w8\s[104] I think he'll be alright with some time to recover."
@@ -1523,7 +1523,7 @@ Select.TellMeAboutBirdy
 	"%(timelinequestions)"
 }
 
-Select.TellMeAboutSorrel
+Select.TellMeAboutSorrel : nonoverlap
 {
 	love += 0.1
 	"\0\s[208]Honestly,\w4 that was one of the more peaceful timelines I've been to.\w8\w8\s[205] No signs of civilization nearby,\w4 just a quiet beach on what seemed to be an island.\w8\w8\s[106]\n\nI wouldn't want to be stuck there any great length of time;\w4 I can't swim,\w4 so I'd be stranded.\w8\w8\s[104] But it was kind of a nice break from the bustle of my daily life."
@@ -1539,7 +1539,7 @@ Select.TellMeAboutSorrel
 	"%(timelinequestions)"
 }
 
-Select.TellMeAboutPMD
+Select.TellMeAboutPMD : nonoverlap
 {
 	love += 0.1
 	"\0\s[104]He lives just outside a little place called Treasure Town.\w8\w8\s[205] Apparently the town is known for training exploration teams,\w4 who travel in groups to discover new places and rescue monsters in danger.\w8\w8\s[104] The version of myself who lives there is on a team with his version of anBluJeans."
@@ -1553,7 +1553,7 @@ Select.TellMeAboutPMD
 	"%(timelinequestions)"
 }
 
-Select.TellMeAboutBender
+Select.TellMeAboutBender : nonoverlap
 {
 	love += 0.1
 	"\0\s[200]I'm sure his anAbbi could tell as well as I could how exhausted he was.\w8\w8\s[204] But he still tried his hardest to put on a brave face and keep pushing forward.\w8\w8\s[0]\n\nI think they'll be alright in the end,\w4 there are other good people in the world who will support them.\w8\w8\s[104] Who knows,\w4 maybe one day he'll meet his own version of anBlue."
@@ -1566,7 +1566,7 @@ Select.TellMeAboutBender
 	"%(timelinequestions)"
 }
 
-Select.TellMeAboutNine
+Select.TellMeAboutNine : nonoverlap
 {
 	love += 0.1
 	"\0\s[108]He's missing members of his family,\w4 too.\w8\w8\s[109] Apparently it's affected him quite badly,\w4 and I'm not surprised.\w8\w8\s[200] I explained to Toriel what little I know of why that is,\w4 but I'm not sure she'll really be able to communicate it to him in any meaningful way..."
@@ -1580,7 +1580,7 @@ Select.TellMeAboutNine
 	"%(timelinequestions)"
 }
 
-Select.TellMeAboutSerif
+Select.TellMeAboutSerif : nonoverlap
 {
 	love += 0.1
 	"\0\s[106]He isn't much for talking,\w4 usually.\w8\w8\s[206] And without being pushed into cooking by necessity,\w4 he hasn't discovered his passion for it.\w8\w8\s[104] But maybe that means he'll eventually explore other things."
@@ -1593,7 +1593,7 @@ Select.TellMeAboutSerif
 	"%(timelinequestions)"
 }
 
-Select.TellMeAboutEcho
+Select.TellMeAboutEcho : nonoverlap
 {
 	love += 0.1
 	"\0\s[108]He was very sad and lethargic while I was there.\w8\w8\s[200] According to his anWings,\w4 he used to be a cheerful kid...\w8\w8\s[204] but he misses his %(green)dad%(default) and %(orange)brother%(default) very much.\w8\w8\s[201] He'll eventually start to improve,\w4 but it'll take a long while."
@@ -1605,7 +1605,7 @@ Select.TellMeAboutEcho
 	"%(timelinequestions)"
 }
 
-Select.TellMeAboutIce
+Select.TellMeAboutIce : nonoverlap
 {
 	love += 0.1
 	"\0\s[208]He had ice magic mixed in with his normal magic...\w8\w8\s[206] He has a staff he can use to cast ice magic,\w4 and apparently some of it flowed back into his system.\w8\w8\s[108] They wouldn't do that normally,\w4 but his magic didn't match that of the timeline,\w4 so...\w8\w8\s[109] Strange things can happen.\w8\w8\s[200]\n\nThe magic is completely intermixed with his own now,\w4 it would be impossible to remove it.\w8\w8\s[204] It makes him very cold to the touch...\w8\w8 sometimes I wonder if that's part of what chilled his heart."
@@ -1618,7 +1618,7 @@ Select.TellMeAboutIce
 	"%(timelinequestions)"
 }
 
-Select.TellMeAboutOmega
+Select.TellMeAboutOmega : nonoverlap
 {
 	love += 0.1
 	"\0\s[200]He's under a lot of pressure.\w8\w8\s[204] The multiverse is so vast,\w4 it's impossible to save everyone...\w8\w8\s[108] So who do you save?"

@@ -1,6 +1,4 @@
 ﻿//---------------------------AI Talk--------------------------
-
-
 AiTalk
 {
 	if RAND(100) < communicateratio
@@ -27,10 +25,6 @@ AiTalk
  		}
 	}
 }
-
-
-
-
 
 RandomTalk : nonoverlap
 {
@@ -452,7 +446,6 @@ if love >= 75;			"\0\s[208]You'd think I'd be really good at computers by now,\w
 						"\0\s[102]There's warm air on the breeze...\e"
 						"\0\s[104]It's nice to hear leaves rustling in the breeze again.\w8\w8\s[106] That's one thing I do really miss in winter.\e"
 						"\0\s[0]Do you like flowers,\w4 %(username)?\w8\w8\s[104] My favorite kind are chrysanthemums.\w8\w8\s[103] My garden is mostly for herbs,\w4 but it's nice to grow a few flowers for the table,\w4 too.\e" //rewords this 4 different times so that username length shouldn't make it cut off weird unless your username is ridiculous...
-						
 					}
 					if season == "Summer" && love >= 75 
 					{
@@ -1282,19 +1275,19 @@ OnWhatreYouUpTo
 	}
 	
 	//Firefox. Not entirely sure why Zar was having trouble with this? I swear it wasn't working when I tried it either... but now it is, other than the window caption. I did change the min from being an == to a >=. Same with a couple of the others.
-	FFOpen = FUNCTIONEX("findwin.dll","find",,"MozillaWindowClass")
-	FFMin = FUNCTIONEX("findwin.dll","count",,"MozillaWindowClass")
-	if FFOpen == 1
+	_FFOpen = FUNCTIONEX("findwin.dll","find",,"MozillaWindowClass")
+	_FFMin = FUNCTIONEX("findwin.dll","count",,"MozillaWindowClass")
+	if _FFOpen == 1
 	{
-		if FFMin >= 1
+		if _FFMin >= 1
 		{
 			//"\0\s[0]Firefox is open.\e"
-			if FFMin > 4
+			if _FFMin > 4
 			{
 				"\0\s[107]How do you keep track of what's in all these browser windows?\w8\w8 Isn't it a little overwhelming?\e"
-				if FFMin > 6
+				if _FFMin > 6
 				{
-					"\0\s[107]Isn't %(FFMin) browser windows a little excessive,\w4 kiddo?\e"
+					"\0\s[107]Isn't %(_FFMin) browser windows a little excessive,\w4 kiddo?\e"
 				}
 			}
 		}
@@ -1306,25 +1299,25 @@ OnWhatreYouUpTo
 	
 	
 	//A joke from the game jam I did with my brother and his friend
-	GWfDOpen = FUNCTIONEX("findwin.dll","find",,"pygame")
-	GWfDMin = FUNCTIONEX ("findwin.dll","count",,"pygame")
-	ReallyGWfD = FUNCTIONEX("findwin.dll","getcaption","pygame")
-	if GWfDOpen == 1 && "Greek Word for Dodge" _in_ ReallyGWfd
+	_GWfDOpen = FUNCTIONEX("findwin.dll","find",,"pygame")
+	_GWfDMin = FUNCTIONEX ("findwin.dll","count",,"pygame")
+	_ReallyGWfD = FUNCTIONEX("findwin.dll","getcaption","pygame")
+	if _GWfDOpen == 1 && "Greek Word for Dodge" _in_ _ReallyGWfd
 	{
-		if GWfDMin == 1
+		if _GWfDMin == 1
 		{
 			"\0\s[208]...Huh.\w8\w8\s[1070] I don't know why,\w4 but something about that game feels familiar...\e"
 		}
 	}
 	
 	//EVNova - This is an ancient game that very few people play anymore, so this is 100% just for me and anyone from the EVN server who downloads this |D Hi guys!
-	EVNovaOpen = FUNCTIONEX("findwin.dll","find",,"WinGameClass")
-	EVNovaMin = FUNCTIONEX ("findwin.dll","count",,"WinGameClass")
-	ActuallyNova = FUNCTIONEX("findwin.dll","getcaption","WinGameClass")
+	_EVNovaOpen = FUNCTIONEX("findwin.dll","find",,"WinGameClass")
+	_EVNovaMin = FUNCTIONEX ("findwin.dll","count",,"WinGameClass")
+	_ActuallyNova = FUNCTIONEX("findwin.dll","getcaption","WinGameClass")
 	
-	if "Nova" _in_ ActuallyNova && EVNovaOpen == 1
+	if "Nova" _in_ _ActuallyNova && _EVNovaOpen == 1
 	{
-		if EVNovaMin == 1
+		if _EVNovaMin == 1
 		{
 			"\0\s[110]Whoa,\w4 what is that game?\w8\w8\s[104] It looks \f[italic,true]ancient.\f[italic,false]\e"
 		}
@@ -1335,17 +1328,17 @@ OnWhatreYouUpTo
 	}
 	
 	//Winamp - Hey check it out winamp also displays the song name in the window class :D
-	WinampOpen = FUNCTIONEX("findwin.dll","find",,"Winamp v1.x")
-	WinampMin = FUNCTIONEX("findwin.dll","count",,"Winamp v1.x")
+	_WinampOpen = FUNCTIONEX("findwin.dll","find",,"Winamp v1.x")
+	_WinampMin = FUNCTIONEX("findwin.dll","count",,"Winamp v1.x")
 	
-	if WinampOpen == 1
+	if _WinampOpen == 1
 	{
 		if SeeNowPlaying == "ON"
 		{
 			WhatSong = FUNCTIONEX("findwin.dll","getcaption","Winamp v1.x")
 			NowPlaying
 		}
-		if WinampMin == 1
+		if _WinampMin == 1
 		{
 			"\0\s[102]He bobs his head to your music.\e"
 		}
@@ -1356,17 +1349,17 @@ OnWhatreYouUpTo
 	}
 	
 	//Foobar2000 - Does anyone else use this or is it just me? It's just me XD
-	FoobarOpen = FUNCTIONEX("findwin.dll","find",,"{97E27FAA-C0B3-4b8e-A693-ED7881E99FC1}")
-	FoobarMin = FUNCTIONEX("findwin.dll","count",,"{97E27FAA-C0B3-4b8e-A693-ED7881E99FC1}")
+	_FoobarOpen = FUNCTIONEX("findwin.dll","find",,"{97E27FAA-C0B3-4b8e-A693-ED7881E99FC1}")
+	_FoobarMin = FUNCTIONEX("findwin.dll","count",,"{97E27FAA-C0B3-4b8e-A693-ED7881E99FC1}")
 	
-	if FoobarOpen == 1
+	if _FoobarOpen == 1
 	{
 		if SeeNowPlaying == "ON"
 		{
 			WhatSong = FUNCTIONEX("findwin.dll","getcaption","{97E27FAA-C0B3-4b8e-A693-ED7881E99FC1}")
 			NowPlaying
 		}
-		if FoobarMin == 1
+		if _FoobarMin == 1
 		{
 			"\0\s[102]He bobs his head to your music.\e"
 		}
@@ -1379,12 +1372,12 @@ OnWhatreYouUpTo
 	
 	
 	//Itunes - I'm gonna go on faith from what was in Gaster's aitalk because uh... hell no I'm not downloading itunes. If it has the song name in its window class then that'd be rad. -- Update: It does not have the song in its window class! Yay :D So that means ALL the big players can't do the cool thing... I do recommend foobar2000 lol, I've never had any trouble with it.
-	ItunesOpen = FUNCTIONEX("findwin.dll","find",,"iTunes")
-	ItunesMin = FUNCTIONEX("findwin.dll","count",,"iTunes")
+	_ItunesOpen = FUNCTIONEX("findwin.dll","find",,"iTunes")
+	_ItunesMin = FUNCTIONEX("findwin.dll","count",,"iTunes")
 	
-	if ItunesOpen == 1
+	if _ItunesOpen == 1
 	{
-		if ItunesMin == 1
+		if _ItunesMin == 1
 		{
 			"\0\s[102]He bobs his head to your music.\e"
 		}
@@ -1395,19 +1388,19 @@ OnWhatreYouUpTo
 	}
 	
 	//Spotify - Google TELLS me this is what Spotify is...... I'm sure as heck not downloading it to find out |D If someone who uses spotify wants to test and let me know, that'd be super helpful -- Update: got someone to test for me and spotify has the worst window class I stg. Just nixing it for the time being, there's no way to make him actually tell it's spotify unless it's not playing...
-	/*SpotifyOpen = FUNCTIONEX("findwin.dll","find",,"Chrome_WidgetWin_0")
-	SpotifyMin = FUNCTIONEX("findwin.dll","count",,"Chrome_WidgetWin_0")
-	ActuallySpotify = FUNCTIONEX("findwin.dll","getcaption","Chrome_WidgetWin_0")
-	if "Spotify" _in_ ActuallySpotify
+	/*_SpotifyOpen = FUNCTIONEX("findwin.dll","find",,"Chrome_WidgetWin_0")
+	_SpotifyMin = FUNCTIONEX("findwin.dll","count",,"Chrome_WidgetWin_0")
+	_ActuallySpotify = FUNCTIONEX("findwin.dll","getcaption","Chrome_WidgetWin_0")
+	if "Spotify" _in_ _ActuallySpotify
 	{
-		if SpotifyOpen == 1
+		if _SpotifyOpen == 1
 		{
 			if SeeNowPlaying == "ON"
 			{
 				WhatSong = FUNCTIONEX("findwin.dll","getcaption","Chrome_WidgetWin_0")
 				NowPlaying
 			}
-			if SpotifyMin == 1
+			if _SpotifyMin == 1
 			{
 				"\0\s[102]He bobs his head to your music.\e"
 			}
@@ -1418,19 +1411,19 @@ OnWhatreYouUpTo
 		}
 	}*/
 	//VLC - This is showing me a different window class than what Gaster has... don't know why. Gonna try setting it up this way and hope it's correct.
-	VLCOpen = FUNCTIONEX("findwin.dll","find",,"Qt5QWindowIcon")
-	VLCMin = FUNCTIONEX("findwin.dll","count",,"Qt5QWindowIcon")
-	ActuallyVLC = FUNCTIONEX("findwin.dll","getcaption","Qt5QWindowIcon")
-	if "VLC" _in_ ActuallyVLC
+	_VLCOpen = FUNCTIONEX("findwin.dll","find",,"Qt5QWindowIcon")
+	_VLCMin = FUNCTIONEX("findwin.dll","count",,"Qt5QWindowIcon")
+	_ActuallyVLC = FUNCTIONEX("findwin.dll","getcaption","Qt5QWindowIcon")
+	if "VLC" _in_ _ActuallyVLC
 	{
-		VLCSong = ActuallyVLC
+		VLCSong = _ActuallyVLC
 	}
 	else
 	{
 		VLCSong = ""
 	}
 	
-	if VLCOpen == 1 && "VLC" _in_ VLCSong
+	if _VLCOpen == 1 && "VLC" _in_ _VLCSong
 	{
 		if SeeNowPlaying == "ON"
 		{
@@ -1438,7 +1431,7 @@ OnWhatreYouUpTo
 			NowPlaying
 		}
 		
-/*		if VLCMin == 1
+/*		if _VLCMin == 1
 		{
 			"\0\s[102]VLC is open.\e"
 		}
@@ -1449,12 +1442,12 @@ OnWhatreYouUpTo
 	}
 	
 	//Windows Media Player. If you're using this, sorry, S wont be able to recognize songs from it! In my testing, windows media player does not show the song name in the window class
-	WMPOpen = FUNCTIONEX("findwin.dll","find",,"WMPlayerApp")
-	WMPMin = FUNCTIONEX("findwin.dll","count",,"WMPlayerApp")
+	_WMPOpen = FUNCTIONEX("findwin.dll","find",,"WMPlayerApp")
+	_WMPMin = FUNCTIONEX("findwin.dll","count",,"WMPlayerApp")
 	
-	if WMPOpen == 1
+	if _WMPOpen == 1
 	{
-		if WMPMin == 1
+		if _WMPMin == 1
 		{
 			"\0\s[102]He bobs his head to your music.\e"
 		}
@@ -1465,12 +1458,12 @@ OnWhatreYouUpTo
 	}
 	
 	//Dev Pallete - note that the window class here seems to also apply to some non SSP things..... bleh. Just gotta put more checks I guess
-	DevPalleteOpen = FUNCTIONEX("findwin.dll","find",,"#32770")
-	WhichDev = FUNCTIONEX("findwin.dll","getcaption","#32770")
+	_DevPalleteOpen = FUNCTIONEX("findwin.dll","find",,"#32770")
+	_WhichDev = FUNCTIONEX("findwin.dll","getcaption","#32770")
 	
-	if DevPalleteOpen == 1
+	if _DevPalleteOpen == 1
 	{
-		if "S the Skeleton" _in_ WhichDev
+		if "S the Skeleton" _in_ _WhichDev
 		{
 			if username == "Zichqec" || username == "Zi"
 			{
@@ -1481,7 +1474,7 @@ OnWhatreYouUpTo
 				"\0\s[106]Hey uh...\w8\w8 what're you up to with that dev pallete there?\e"
 			}
 		}
-		elseif "Palette" _in_ WhichDev
+		elseif "Palette" _in_ _WhichDev
 		{
 			"\0\s[202]It's uh,\w4 kinda worrying,\w4 watching you dig around in someone else's code.\e"
 		}
@@ -1492,39 +1485,40 @@ OnWhatreYouUpTo
 	}
 	
 	//Discord, and chrome I guess. Also Brave!
-	DiscordOpen = FUNCTIONEX("findwin.dll","find",,"Chrome_WidgetWin_1")
-	DiscordMin = FUNCTIONEX("findwin.dll","count",,"Chrome_WidgetWin_1")
-	DiscordCap = FUNCTIONEX("findwin.dll","getcaption","Chrome_WidgetWin_1")
-	DiscordPid = FUNCTIONEX("findwin.dll","getpid",,"Chrome_WidgetWin_1")
-	DiscordName = FUNCTIONEX("process.dll","getname","%(DiscordPid)")
+	_DiscordOpen = FUNCTIONEX("findwin.dll","find",,"Chrome_WidgetWin_1")
+	_DiscordMin = FUNCTIONEX("findwin.dll","count",,"Chrome_WidgetWin_1")
+	_DiscordCap = FUNCTIONEX("findwin.dll","getcaption","Chrome_WidgetWin_1")
+	_DiscordPid = FUNCTIONEX("findwin.dll","getpid",,"Chrome_WidgetWin_1")
+	_DiscordName = FUNCTIONEX("process.dll","getname","%(DiscordPid)")
 	
-	if DiscordOpen == 1
+	if _DiscordOpen == 1
 	{
-		if "Discord" _in_ DiscordCap
+		if "Discord" _in_ _DiscordCap
 		{
-			if DiscordMin >= 1
+			if _DiscordMin >= 1
 			{
 				if SeeDiscord == "ON"
 				{
-					DiscordCap = REPLACE(DiscordCap," - Discord","") //removes the discord bit.. hopefully
-					if "@" _in_ DiscordCap
+					_DiscordCap = REPLACE(_DiscordCap," - Discord","") //removes the discord bit.. hopefully
+					if "@" _in_ _DiscordCap
 					{
-						DiscordCap = REPLACE(DiscordCap,"@","") //removes the @
-						"\0\s[104]Say hello to %(DiscordCap) for me!\e"
+						_DiscordCap = REPLACE(_DiscordCap,"@","") //removes the @
+						"\0\s[104]Say hello to %(_DiscordCap) for me!\e"
 					}
-					elseif "#" _in_ DiscordCap
+					elseif "#" _in_ _DiscordCap
 					{
-						"\0\s[208]A group of people?\n\n\w8\w8\s[104]Hello everyone in %(DiscordCap)!\e"
+						"\0\s[208]A group of people?\n\n\w8\w8\s[104]Hello everyone in %(_DiscordCap)!\e"
+						"\0\s[208]%(_DiscordCap)?\w8\w8 Are those friends of yours?\e"
 					}
 				}
 			}
 		}
-		elseif "Google Chrome" _in_ DiscordCap || "chrome.exe" _in_ DiscordName || "Brave" _in_ DiscordCap || "brave.exe" _in_ DiscordName
+		elseif "Google Chrome" _in_ _DiscordCap || "chrome.exe" _in_ _DiscordName || "Brave" _in_ _DiscordCap || "brave.exe" _in_ _DiscordName
 		{
-			if DiscordMin > 4
+			if _DiscordMin > 4
 			{
 				"\0\s[107]How do you keep track of what's in all these browser windows?\w8\w8 Isn't it a little overwhelming?\e"
-				if DiscordMin > 6
+				if _DiscordMin > 6
 				{
 					"\0\s[107]Isn't %(DiscordMin) browser windows a little excessive,\w4 kiddo?\e"
 				}
@@ -1532,16 +1526,16 @@ OnWhatreYouUpTo
 		}
 	}
 	
-	NotepadPlusOpen = FUNCTIONEX("findwin.dll","find",,"Notepad++")
-	NotepadPlusMin = FUNCTIONEX ("findwin.dll","count",,"Notepad++")
-	NotepadPlusContent = FUNCTIONEX("findwin.dll","getcaption","Notepad++")
-	NotepadPlusContent = REPLACE(NotepadPlusContent,"\","")
+	_NotepadPlusOpen = FUNCTIONEX("findwin.dll","find",,"Notepad++")
+	_NotepadPlusMin = FUNCTIONEX ("findwin.dll","count",,"Notepad++")
+	_NotepadPlusContent = FUNCTIONEX("findwin.dll","getcaption","Notepad++")
+	_NotepadPlusContent = REPLACE(_NotepadPlusContent,"\","")
 	
-	if NotepadPlusOpen == 1
+	if _NotepadPlusOpen == 1
 	{
-		if NotepadPlusMin >= 1
+		if _NotepadPlusMin >= 1
 		{
-			if "ghosts_the_skeleton" _in_ NotepadPlusContent
+			if "ghosts_the_skeleton" _in_ _NotepadPlusContent
 			{
 				"\0\s[110]Is that file...\w8\w8 named after me?\w8\w8\s[200] That's everything I say...\w8\w8 Everything I \f[italic,true]can\f[italic,default] say...\w8\w8\s[206] But that means........\e"
 			}
@@ -1556,22 +1550,22 @@ OnWhatreYouUpTo
 		}*/
 	}
 	
-	SettingsOpen = FUNCTIONEX("findwin.dll","find","Settings","ApplicationFrameWindow")
-	SettingsMin = FUNCTIONEX ("findwin.dll","count","Settings","Notepad++")
-	if SettingsOpen == 1 && SettingsMin >= 1
+	_SettingsOpen = FUNCTIONEX("findwin.dll","find","Settings","ApplicationFrameWindow")
+	_SettingsMin = FUNCTIONEX ("findwin.dll","count","Settings","Notepad++")
+	if _SettingsOpen == 1 && _SettingsMin >= 1
 	{
-		"\0\s[106]Wrestling with your settings,\w4 huh?\w8\w8\s[107] I do that a lot,\w4 anCambria ends up having to help me fix whatever it is I've broken...\e"
+		"\0\s[106]Wrestling with your settings,\w4 huh?\w8\w8\s[107] I do that a lot;\w4 anCambria ends up having to help me fix whatever it is I've broken...\e"
 	}
 }
 
 OnWhatPlayer //Aka, here's a bunch of music Zi likes...
 {
-	FoobarOpen = FUNCTIONEX("findwin.dll","find",,"{97E27FAA-C0B3-4b8e-A693-ED7881E99FC1}")
-	WinampOpen = FUNCTIONEX("findwin.dll","find",,"Winamp v1.x")
-	VLCOpen = FUNCTIONEX("findwin.dll","find",,"Qt5QWindowIcon")
+	_FoobarOpen = FUNCTIONEX("findwin.dll","find",,"{97E27FAA-C0B3-4b8e-A693-ED7881E99FC1}")
+	_WinampOpen = FUNCTIONEX("findwin.dll","find",,"Winamp v1.x")
+	_VLCOpen = FUNCTIONEX("findwin.dll","find",,"Qt5QWindowIcon")
 	
 	
-	if FoobarOpen == 1 //Yes, this will prefer whatever is at the top of the list... not sure what I can do about that? If I think of a better solution I'll implement it later, but for now just have one music player open ya weirdo.
+	if _FoobarOpen == 1 //Yes, this will prefer whatever is at the top of the list... not sure what I can do about that? If I think of a better solution I'll implement it later, but for now just have one music player open ya weirdo.
 	{
 		WhatSong = FUNCTIONEX("findwin.dll","getcaption","{97E27FAA-C0B3-4b8e-A693-ED7881E99FC1}")
 		if "[foobar2000]" _in_ WhatSong
@@ -1585,7 +1579,7 @@ OnWhatPlayer //Aka, here's a bunch of music Zi likes...
 		//WhatSong = REPLACE(WhatSong," [foobar2000]","")
 		//WhatSong = REPLACE(WhatSong,"foobar v1.5.1","")
 	}
-	elseif WinampOpen == 1
+	elseif _WinampOpen == 1
 	{
 		WhatSong = FUNCTIONEX("findwin.dll","getcaption","Winamp v1.x")
 		if "[Stopped]" _in_ WhatSong
@@ -1609,7 +1603,7 @@ OnWhatPlayer //Aka, here's a bunch of music Zi likes...
 	{
 		WhatSong = FUNCTIONEX("findwin.dll","getcaption","Chrome_WidgetWin_0")
 	}*/
-	elseif VLCOpen == 1
+	elseif _VLCOpen == 1
 	{
 		WhatSong = FUNCTIONEX("findwin.dll","getcaption","Qt5QWindowIcon")
 		if "VLC" _in_ WhatSong
@@ -1939,7 +1933,7 @@ if _food1 != _food2;"\0\s[1300]%(dreammumb)...%(_family) wants %(_food1),\w4 I g
 				"\0\s[1301]%(dreammumb)...Stop,\w4 don't...%(dreammumb2)"
 				"\0\s[1301]%(dreammumb)...I'm sorry,\w4 don't...%(dreammumb2)"
 				"\0\s[1301]%(dreammumb)...No...%(dreammumb2)"
-				"\0\s[1302]%(dreammumb)...No,\w4 I'll...\w8\w8 I'll do it...\w8\w8 Just don't hurt them...%(dreammumb2)"
+				//"\0\s[1302]%(dreammumb)...No,\w4 I'll...\w8\w8 I'll do it...\w8\w8 Just don't hurt them...%(dreammumb2)"
 				"\0\s[1302]%(dreammumb)...Please...%(dreammumb2)"
 				"\0\s[1302]%(dreammumb)...I'll do anything,\w4 just...%(dreammumb2)"
 				"\0\s[1302]%(dreammumb)...Grhhk-...%(dreammumb2)"

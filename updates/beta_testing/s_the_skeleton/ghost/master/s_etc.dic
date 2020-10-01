@@ -1948,7 +1948,7 @@ OnUpdate.OnDownloadBegin
 		"\RYS"
 	}
 	--
-	"\_q* (Downloading %(reference0)...)\n\n"
+	"\b2\_q* (Downloading %(reference0)...)\n\n"
 	--
 	_Update_Process = TOINT(reference1) + 1
 	_Update_Total = TOINT(reference2) + 1
@@ -2071,6 +2071,7 @@ OnChangeLog //Haha I hope I remember to update this
 	-Fixed weather checking, again. From now on I should be able to update it on my end without patching S, hopefully. You might need to enter your weather location again.\n\n/
 	-If you are outside the US, you should now be able to get the tempuratures in celcius if you use a page in celcius on Weather.com!\n\n/
 	-S can now hold \_a[https://zichqec.github.io/s-the-skeleton/dusty.html]Obsidian\_a if you drag her onto him! Don't do it until I put up a patch for Dusty, though, or it will behave strangely.\n\n/
+	-Auto weather checks will no longer open the balloon, and should happen completely silently.\n\n/
 	-More dialogue and bugfixes all around!\n\n/
 	"
 	--
@@ -2097,31 +2098,31 @@ OnUpdate.OnMD5CompareFailure
 {
 	if nowmode == "RYS"
 	{
-		"\RYS\s[2007]The MD5 values don't match...\w8\w8\e"
+		"\RYS\b2\s[2007]The MD5 values don't match...\w8\w8\e"
 	}
 	elseif holdingObsidian == 1
 	{
-		"\0\s[1207]The MD5 values don't match.\w8\w8\e"
+		"\0\b2\s[1207]The MD5 values don't match.\w8\w8\e"
 	}
 	elseif nowmode == "Asleep"
 	{
-		"\0\s[109]...The MD5 values don't match...\w8\w8 %(mumb)...\w8\w8\e"
+		"\0\b2\s[109]...The MD5 values don't match...\w8\w8 %(mumb)...\w8\w8\e"
 	}
 	else
 	{
 		if LV == 0
 		{
-			"\0\s[1070]The MD5 values don't match.\w8\w8\e"
+			"\0\b2\s[1070]The MD5 values don't match.\w8\w8\e"
 		}
 		else
 		{
 			if LVCheck == 1
 			{
-				"\0\s[510]The MD5 values don't match...\w8\w8\e"
+				"\0\b2\s[510]The MD5 values don't match...\w8\w8\e"
 			}
 			else
 			{
-				"\0\s[410]The MD5 values don't match.\w8\w8\e"
+				"\0\b2\s[410]The MD5 values don't match.\w8\w8\e"
 			}
 		}
 	}
@@ -3865,11 +3866,10 @@ OnMoonFound
 	--
     if weatherquiet == 1
 	{
-        weatherquiet = 0
-        --
         "\e"
+		weatherquiet = 0
     }
-	
+	--
 	//Grab the sunrise and sunset in ways we can do math on
 	sunrisearray[2] = SPLIT(sunrise," ")[1] //AM/PM
 	_risetemp = SPLIT(sunrise," ")[0]
