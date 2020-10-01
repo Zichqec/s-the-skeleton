@@ -472,7 +472,7 @@ if love >= 75;			"\0\s[208]You'd think I'd be really good at computers by now,\w
 						if askedaboutbluejeans == 1
 						{
 							"\0\s[104]This is anBlue's favorite time of year.\w8\w8\s[105] %(StSfHe) likes to go on long walks through the woods with me,\w4\s[106] though %(StSfHe) usually ends up carrying me back.\e"
-							"\0\s[0]Do you like seeing the leaves change color?\w8\w8\s[104] anBlue loves it,\w4and I have to agree.\w8\w8\n\n\s[102]It's nice to really feel the rhythm of the world.\e"	
+							"\0\s[0]Do you like seeing the leaves change color?\w8\w8\s[104] anBlue loves it,\w4 and I have to agree.\w8\w8\n\n\s[102]It's nice to really feel the rhythm of the world.\e"	
 						}
 					}
 					if season == "Winter" && love >= 75 
@@ -593,13 +593,13 @@ if love >= 75;			"\0\s[208]You'd think I'd be really good at computers by now,\w
 						"\0\s[103]Autumn has a nice smell,\w4 doesn't it?\w8\w8\s[205] It does in my area,\w4 at least.\e"
 						"\0\s[103]Have the leaves started turning color in your area yet?\w8\w8\s[104] I've seen a few starting on our trees.\e"
 						"\0\s[102]There's a lot to love about Autumn.\w8\w8\s[103] Better make the most of it while it's here.\e"
-						"\0\s[205]Cooler winds have been coming in lately.\w8\w8\s[107] I'm glad,\w4 after how hot things got in Summer...\e"
+						"\0\s[205]Cooler winds have been coming in lately.\w8\w8\s[107] After how hot things got in Summer,\w4 I'm glad...\e"
 						"\0\s[104]It's starting to be cool enough to wear hoodies everywhere.\w8\w8\s[202] Not that I ever stopped,\w4 but y'know.\e"
 						"\0\s[205]Leaves are starting to drift down from the trees.\w8\w8\s[104] It's very soothing to sit on the porch and watch them fall.\e"
 					}
 					if month == 10 && love >= 75  //October
 					{
-						"\0\s[0]Are there a lot of trees where you live?\w8\w8\s[104] We've got a good few near us,\w4 and they look spectacular this time of year.\e"
+						"\0\s[0]Are there a lot of trees where you live?\w8\w8\s[104] There are plenty where we live,\w4 and they look spectacular this time of year.\e"
 						"\0\s[104]Tis the month for pumpkin spice.\w8\w8\s[103] Do you like pumpkin spice,\w4 %(username)?\e"
 						"\0\s[106]Every year around this time I hear young humans playing this song,\w4 'spooky scary skeletons'...\w8\w8\s[107] They seem like they're just having fun,\w4 so I'm not gonna stop them,\w4\s[106] but I hope they don't actually find us scary.\e"
 						"\0\s[104]Heh,\w4 it's cider season where I live.\w8\w8\s[205] Apple juice is good,\w4 but nothing can match the taste of fresh cider.\w8\w8\s[104] It's even better if you've got some cheese,\w4 too.\e"
