@@ -1346,6 +1346,10 @@ OnDialogueVars //Variables set in dialogue
 		{
 			metghosts += ",%(reference1)"
 		}
+		when "endchain"
+		{
+			CHAIN.IDName = ""
+		}
 	}
 }
 

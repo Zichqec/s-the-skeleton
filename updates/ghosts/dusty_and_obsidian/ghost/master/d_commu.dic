@@ -100,6 +100,7 @@ ReplyToGhost
 		_LastCommu = REPLACE(_LastCommu,"\w1","")
 		_LastCommu = REPLACE(_LastCommu,"\w4","")
 		_LastCommu = REPLACE(_LastCommu,"\w8","") //I only ever use \w4, \w8, and \w1. May need to add more for other ghosts they talk with.
+		_LastCommu = REPLACE(_LastCommu,":chain=end","")
 		--
 		//These split the dialogue Dusty has been sent. The first two lines split it at the \e, into speech, which is what the user would see, and ConvoTag, which are the tags hidden after the \e that he uses to tell where they're at in conversation. The third line makes speech lowercase, in case I want to test for specific words
 		
@@ -265,7 +266,7 @@ ReplyToGhost
 			elseif "SPickupObsi03" _in_ ConvoTag
 			{
 				res_reference0 = ""
-				"%(holdnoise)\w8\w8\0\s[102]Heh,\w4 mooching affection from S now,\w4 are we?\e:chain=end"
+				"%(holdnoise)\w8\w8\0\s[102]Heh,\w4 mooching affection from S now,\w4 are we?\![raise,OnDialogueVars,endchain]\e"
 			}
 			elseif "SObsiJumpDown02" _in_ ConvoTag
 			{
