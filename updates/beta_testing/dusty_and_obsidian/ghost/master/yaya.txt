@@ -1,0 +1,29 @@
+﻿//These define what character set your ghost will be using. Don't touch any of them.
+
+charset, UTF-8
+charset.dic, UTF-8
+charset.output, UTF-8
+charset.file, UTF-8
+charset.save, UTF-8
+charset.extension, UTF-8
+
+
+//---- Dictionary Files ---------------------------------------------------------------------
+
+include, system_config.txt
+dic, d_aitalk.dic
+dic, d_anchor.dic
+dic, d_bootend.dic
+dic, d_commu.dic	
+dic, d_etc.dic
+dic, d_games.dic
+dic, d_menu.dic
+dic, d_mouse.dic
+dic, d_nameteach.dic
+dic, d_string.dic
+dic, d_word.dic
+
+//---- Log Location -------------------------------------------------------------------------
+
+//log, ayame.log	
+msglang,english //changes error messages in the debugging tool to be in english

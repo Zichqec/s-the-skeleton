@@ -1,0 +1,810 @@
+//---------------------------Anchors and OnTranslate--------------------------
+
+//--OnTranslate
+
+OnTranslate
+{
+	_talk = reference0
+	
+	if WDOnly == 1 && teachFont != "Wingdings"
+	{
+		_talk = REPLACE(_talk, "\0", "\0%(wdn)")
+		_talk = REPLACE(_talk, "\1", "\1%(reg)")
+	}
+	_talk = REPLACE(_talk, "MToYou", "\_a[talktome]to you\_a")
+	_talk = REPLACE(_talk, "MAnotherGhost", "\_a[talktoother]another ghost\_a")
+	
+	_talk = REPLACE(_talk, "trCA", "\_a[CAPA]%(wdn)A%(rg)")
+	_talk = REPLACE(_talk, "trCB", "\_a[CAPB]%(wdn)B%(rg)")
+	_talk = REPLACE(_talk, "trCC", "\_a[CAPC]%(wdn)C%(rg)")
+	_talk = REPLACE(_talk, "trCD", "\_a[CAPD]%(wdn)D%(rg)")
+	_talk = REPLACE(_talk, "trCE", "\_a[CAPE]%(wdn)E%(rg)")
+	_talk = REPLACE(_talk, "trCF", "\_a[CAPF]%(wdn)F%(rg)")
+	_talk = REPLACE(_talk, "trCG", "\_a[CAPG]%(wdn)G%(rg)")
+	_talk = REPLACE(_talk, "trCH", "\_a[CAPH]%(wdn)H%(rg)")
+	_talk = REPLACE(_talk, "trCI", "\_a[CAPI]%(wdn)I%(rg)")
+	_talk = REPLACE(_talk, "trCJ", "\_a[CAPJ]%(wdn)J%(rg)")
+	_talk = REPLACE(_talk, "trCK", "\_a[CAPK]%(wdn)K%(rg)")
+	_talk = REPLACE(_talk, "trCL", "\_a[CAPL]%(wdn)L%(rg)")
+	_talk = REPLACE(_talk, "trCM", "\_a[CAPM]%(wdn)M%(rg)")
+	_talk = REPLACE(_talk, "trCN", "\_a[CAPN]%(wdn)N%(rg)")
+	_talk = REPLACE(_talk, "trCO", "\_a[CAPO]%(wdn)O%(rg)")
+	_talk = REPLACE(_talk, "trCP", "\_a[CAPP]%(wdn)P%(rg)")
+	_talk = REPLACE(_talk, "trCQ", "\_a[CAPQ]%(wdn)Q%(rg)")
+	_talk = REPLACE(_talk, "trCR", "\_a[CAPR]%(wdn)R%(rg)")
+	_talk = REPLACE(_talk, "trCS", "\_a[CAPS]%(wdn)S%(rg)")
+	_talk = REPLACE(_talk, "trCT", "\_a[CAPT]%(wdn)T%(rg)")
+	_talk = REPLACE(_talk, "trCU", "\_a[CAPU]%(wdn)U%(rg)")
+	_talk = REPLACE(_talk, "trCV", "\_a[CAPV]%(wdn)V%(rg)")
+	_talk = REPLACE(_talk, "trCW", "\_a[CAPW]%(wdn)W%(rg)")
+	_talk = REPLACE(_talk, "trCX", "\_a[CAPX]%(wdn)X%(rg)")
+	_talk = REPLACE(_talk, "trCY", "\_a[CAPY]%(wdn)Y%(rg)")
+	_talk = REPLACE(_talk, "trCZ", "\_a[CAPZ]%(wdn)Z%(rg)")
+	
+	_talk = REPLACE(_talk, "trLA", "\_a[lowa]%(wdn)a%(rg)")
+	_talk = REPLACE(_talk, "trLB", "\_a[lowb]%(wdn)b%(rg)")
+	_talk = REPLACE(_talk, "trLC", "\_a[lowc]%(wdn)c%(rg)")
+	_talk = REPLACE(_talk, "trLD", "\_a[lowd]%(wdn)d%(rg)")
+	_talk = REPLACE(_talk, "trLE", "\_a[lowe]%(wdn)e%(rg)")
+	_talk = REPLACE(_talk, "trLF", "\_a[lowf]%(wdn)f%(rg)")
+	_talk = REPLACE(_talk, "trLG", "\_a[lowg]%(wdn)g%(rg)")
+	_talk = REPLACE(_talk, "trLH", "\_a[lowh]%(wdn)h%(rg)")
+	_talk = REPLACE(_talk, "trLI", "\_a[lowi]%(wdn)i%(rg)")
+	_talk = REPLACE(_talk, "trLJ", "\_a[lowj]%(wdn)j%(rg)")
+	_talk = REPLACE(_talk, "trLK", "\_a[lowk]%(wdn)k%(rg)")
+	_talk = REPLACE(_talk, "trLL", "\_a[lowl]%(wdn)l%(rg)")
+	_talk = REPLACE(_talk, "trLM", "\_a[lowm]%(wdn)m%(rg)")
+	_talk = REPLACE(_talk, "trLN", "\_a[lown]%(wdn)n%(rg)")
+	_talk = REPLACE(_talk, "trLO", "\_a[lowo]%(wdn)o%(rg)")
+	_talk = REPLACE(_talk, "trLP", "\_a[lowp]%(wdn)p%(rg)")
+	_talk = REPLACE(_talk, "trLQ", "\_a[lowq]%(wdn)q%(rg)")
+	_talk = REPLACE(_talk, "trLR", "\_a[lowr]%(wdn)r%(rg)")
+	_talk = REPLACE(_talk, "trLS", "\_a[lows]%(wdn)s%(rg)")
+	_talk = REPLACE(_talk, "trLT", "\_a[lowt]%(wdn)t%(rg)")
+	_talk = REPLACE(_talk, "trLU", "\_a[lowu]%(wdn)u%(rg)")
+	_talk = REPLACE(_talk, "trLV", "\_a[lowv]%(wdn)v%(rg)")
+	_talk = REPLACE(_talk, "trLW", "\_a[loww]%(wdn)w%(rg)")
+	_talk = REPLACE(_talk, "trLX", "\_a[lowx]%(wdn)x%(rg)")
+	_talk = REPLACE(_talk, "trLY", "\_a[lowy]%(wdn)y%(rg)")
+	_talk = REPLACE(_talk, "trLZ", "\_a[lowz]%(wdn)z%(rg)")
+	
+	_talk = REPLACE(_talk, "tr`", "\_a[grave]%(wdn)`%(rg)")
+	_talk = REPLACE(_talk, "tr1", "\_a[one]%(wdn)1%(rg)")
+	_talk = REPLACE(_talk, "tr2", "\_a[two]%(wdn)2%(rg)")
+	_talk = REPLACE(_talk, "tr3", "\_a[three]%(wdn)3%(rg)")
+	_talk = REPLACE(_talk, "tr4", "\_a[four]%(wdn)4%(rg)")
+	_talk = REPLACE(_talk, "tr5", "\_a[five]%(wdn)5%(rg)")
+	_talk = REPLACE(_talk, "tr6", "\_a[six]%(wdn)6%(rg)")
+	_talk = REPLACE(_talk, "tr7", "\_a[seven]%(wdn)7%(rg)")
+	_talk = REPLACE(_talk, "tr8", "\_a[eight]%(wdn)8%(rg)")
+	_talk = REPLACE(_talk, "tr9", "\_a[nine]%(wdn)9%(rg)")
+	_talk = REPLACE(_talk, "tr0", "\_a[zero]%(wdn)0%(rg)")
+	_talk = REPLACE(_talk, "tr-", "\_a[dash]%(wdn)-%(rg)")
+	_talk = REPLACE(_talk, "tr=", "\_a[equals]%(wdn)=%(rg)")
+	_talk = REPLACE(_talk, "trbslash", "\_a[backslash]ॐ")
+	_talk = REPLACE(_talk, "tr~", "\_a[tilde]%(wdn)~%(rg)")
+	_talk = REPLACE(_talk, "tr!", "\_a[exclamation]%(wdn)!%(rg)")
+	_talk = REPLACE(_talk, "tr@", "\_a[at]%(wdn)@%(rg)")
+	_talk = REPLACE(_talk, "tr#", "\_a[pound]%(wdn)#%(rg)")
+	_talk = REPLACE(_talk, "tr$", "\_a[dollar]%(wdn)$%(rg)")
+	_talk = REPLACE(_talk, "tr%", "\_a[percent]%(wdn)%%(rg)")
+	_talk = REPLACE(_talk, "tr^", "\_a[caret]%(wdn)^%(rg)")
+	_talk = REPLACE(_talk, "tr&", "\_a[ampersand]%(wdn)&%(rg)")
+	_talk = REPLACE(_talk, "tr*", "\_a[asterisk]%(wdn)*%(rg)")
+	_talk = REPLACE(_talk, "tr(", "\_a[openparenthesis]%(wdn)(%(rg)")
+	_talk = REPLACE(_talk, "tr)", "\_a[closeparenthesis]%(wdn))%(rg)")
+	_talk = REPLACE(_talk, "tr_", "\_a[underscore]%(wdn)_%(rg)")
+	_talk = REPLACE(_talk, "tr+", "\_a[plus]%(wdn)+%(rg)")
+	_talk = REPLACE(_talk, "tr|", "\_a[bar]%(wdn)|%(rg)")
+	_talk = REPLACE(_talk, "tr[", "\_a[opensqbracket]%(wdn)[%(rg)")
+	_talk = REPLACE(_talk, "tr]", "\_a[closesqbracket]%(wdn)]%(rg)")
+	_talk = REPLACE(_talk, "tr{", "\_a[opencrbracket]%(wdn){%(rg)")
+	_talk = REPLACE(_talk, "tr}", "\_a[closecrbracket]%(wdn)}%(rg)")	
+	_talk = REPLACE(_talk, "tr;", "\_a[semicolon]%(wdn);%(rg)")
+	_talk = REPLACE(_talk, "tr'", "\_a[apostrophe]%(wdn)'%(rg)")
+	_talk = REPLACE(_talk, "tr:", "\_a[colon]%(wdn):%(rg)")
+	_talk = REPLACE(_talk, "trquote", "\_a[quote]%(wdn)%(CHR(0x22))%(rg)")
+	_talk = REPLACE(_talk, "trco", "\_a[comma]%(wdn)%(CHR(0x2C))%(rg)")
+	_talk = REPLACE(_talk, "trpr", "\_a[period]%(wdn)%(CHR(0x2E))%(rg)")
+	_talk = REPLACE(_talk, "trsl", "\_a[forwardslash]%(wdn)%(CHR(0x2F))%(rg)")
+	_talk = REPLACE(_talk, "trls", "\_a[lessthan]%(wdn)%(CHR(0x3C))%(rg)")
+	_talk = REPLACE(_talk, "trgr", "\_a[greaterthan]%(wdn)%(CHR(0x3E))%(rg)")
+	_talk = REPLACE(_talk, "trqs", "\_a[question]%(wdn)?%(rg)")
+	
+	_talk = REPLACE(_talk, "trcco", "\_a[Ccomma]%(wdn)%(CHR(0x2C))%(rg)")
+	_talk = REPLACE(_talk, "trcpr", "\_a[Cperiod]%(wdn)%(CHR(0x2E))%(rg)")
+	_talk = REPLACE(_talk, "trc!", "\_a[Cexclamation]%(wdn)!%(rg)")
+	_talk = REPLACE(_talk, "trcqs", "\_a[Cquestion]%(wdn)?%(rg)")
+	_talk = REPLACE(_talk, "trc'", "\_a[Capostrophe]%(wdn)'%(rg)")
+	_talk = REPLACE(_talk, "trc-", "\_a[Cdash]%(wdn)-%(rg)")
+	_talk = REPLACE(_talk, "trc:", "\_a[Ccolon]%(wdn):%(rg)")
+	_talk = REPLACE(_talk, "trc;", "\_a[Csemicolon]%(wdn);%(rg)")
+	
+	_talk = REPLACE(_talk, "anMoon01", "\_a[CheckWeather]\_b[img\Moon01,inline,--option=use_self_alpha]\_a")
+	_talk = REPLACE(_talk, "anMoon02", "\_a[CheckWeather]\_b[img\Moon02,inline,--option=use_self_alpha]\_a")
+	_talk = REPLACE(_talk, "anMoon03", "\_a[CheckWeather]\_b[img\Moon03,inline,--option=use_self_alpha]\_a")
+	_talk = REPLACE(_talk, "anMoon04", "\_a[CheckWeather]\_b[img\Moon04,inline,--option=use_self_alpha]\_a")
+	_talk = REPLACE(_talk, "anMoon05", "\_a[CheckWeather]\_b[img\Moon05,inline,--option=use_self_alpha]\_a")
+	_talk = REPLACE(_talk, "anMoon06", "\_a[CheckWeather]\_b[img\Moon06,inline,--option=use_self_alpha]\_a")
+	_talk = REPLACE(_talk, "anMoon07", "\_a[CheckWeather]\_b[img\Moon07,inline,--option=use_self_alpha]\_a")
+	_talk = REPLACE(_talk, "anMoon08", "\_a[CheckWeather]\_b[img\Moon08,inline,--option=use_self_alpha]\_a")
+	_talk = REPLACE(_talk, "anMoon09", "\_a[CheckWeather]\_b[img\Moon09,inline,--option=use_self_alpha]\_a")
+	
+	/*if randomTeach == 'On'
+	{
+		_talkarray = _talk
+		_talkarray = REPLACE(_talkarray," ","|")
+		SETDELIM(_talkarray,"|")
+		_talkarraysize = ARRAYSIZE(_talkarray)
+		_rand = RAND(_talkarraysize)
+		_wordtoreplace = ("$E-" + "%(_talkarray[_rand])" + "-$")
+		_talkarray[_rand] = _wordtoreplace
+		SETDELIM(_talkarray," ")
+		_talk = REPLACE(_talkarray,"|"," ")
+	}*/
+	
+	//Embeds. Instead of writing in the whole embed and making dialogue super bloated, just write a $, E M or H for the difficulty, and a -. Then after your word, put a -$
+	_talk = REPLACE(_talk, "$E-", "\![embed,OnCheckCaseE,")
+	_talk = REPLACE(_talk, "$M-", "\![embed,OnCheckCaseM,")
+	_talk = REPLACE(_talk, "$H-", "\![embed,OnCheckCaseH,")
+	_talk = REPLACE(_talk, "-$", ",teachword]")
+	--
+	/*if "CALLGHOST" _in_ _talk
+	{
+		_First = SPLIT(_talk,"call] ")[1]
+		_call = SPLIT(_First,".\e")[0]
+		_talk = REPLACE(_talk,"\e","\![call,ghost,%(_call)]\e")
+	}*/
+	
+	//_talk = REPLACE(_talk, "", "")
+	if reference1 == "" && reference2 == "" { //send input box : no event (ref2) , no special flag (ref1)
+		EVAL('"' + REPLACE(_talk,'"','" + CHR(0x22) + "') + '"')
+	}
+	else { //event result from ghost
+		TOSTR(_talk)
+	}
+}
+	
+
+	
+//--OnAnchorSelect
+//OnAnchorSelect runs whenever someone clicks one of the links as specified above, or a link that begins with http://.
+
+OnAnchorSelect
+{
+	if "http://" _in_ reference0 || "https://" _in_ reference0 //checking to see if the link is a web address
+	{
+	"\j[%(reference0)]\e" // \j is a tag that will open a specified url in the user's browser of choice. This basically just tells the ghost to open the webpage stored in reference0, which would be the address that the user just clicked. I didn't get too much into \j in the walkthrough page because I have literally never used it except here.
+	}
+	else //if it's NOT a web address
+	{
+		case reference0
+		{
+			when "talktome"
+			{
+				AiTalk
+			}
+			when "talktoother"
+			{
+				OnStartTalking
+			}
+			when "CAPA"
+			{
+				currentlytranslating += "A"
+				--
+				TranslationProgress
+			}
+			when "CAPB"
+			{
+				currentlytranslating += "B"
+				--
+				TranslationProgress
+			}
+			when "CAPC"
+			{
+				currentlytranslating += "C"
+				--
+				TranslationProgress
+			}
+			when "CAPD"
+			{
+				currentlytranslating += "D"
+				--
+				TranslationProgress
+			}
+			when "CAPE"
+			{
+				currentlytranslating += "E"
+				--
+				TranslationProgress
+			}
+			when "CAPF"
+			{
+				currentlytranslating += "F"
+				--
+				TranslationProgress
+			}
+			when "CAPG"
+			{
+				currentlytranslating += "G"
+				--
+				TranslationProgress
+			}
+			when "CAPH"
+			{
+				currentlytranslating += "H"
+				--
+				TranslationProgress
+			}
+			when "CAPI"
+			{
+				currentlytranslating += "I"
+				--
+				TranslationProgress
+			}
+			when "CAPJ"
+			{
+				currentlytranslating += "J"
+				--
+				TranslationProgress
+			}
+			when "CAPK"
+			{
+				currentlytranslating += "K"
+				--
+				TranslationProgress
+			}
+			when "CAPL"
+			{
+				currentlytranslating += "L"
+				--
+				TranslationProgress
+			}
+			when "CAPM"
+			{
+				currentlytranslating += "M"
+				--
+				TranslationProgress
+			}
+			when "CAPN"
+			{
+				currentlytranslating += "N"
+				--
+				TranslationProgress
+			}
+			when "CAPO"
+			{
+				currentlytranslating += "O"
+				--
+				TranslationProgress
+			}
+			when "CAPP"
+			{
+				currentlytranslating += "P"
+				--
+				TranslationProgress
+			}
+			when "CAPQ"
+			{
+				currentlytranslating += "Q"
+				--
+				TranslationProgress
+			}
+			when "CAPR"
+			{
+				currentlytranslating += "R"
+				--
+				TranslationProgress
+			}
+			when "CAPS"
+			{
+				currentlytranslating += "S"
+				--
+				TranslationProgress
+			}
+			when "CAPT"
+			{
+				currentlytranslating += "T"
+				--
+				TranslationProgress
+			}
+			when "CAPU"
+			{
+				currentlytranslating += "U"
+				--
+				TranslationProgress
+			}
+			when "CAPV"
+			{
+				currentlytranslating += "V"
+				--
+				TranslationProgress
+			}
+			when "CAPW"
+			{
+				currentlytranslating += "W"
+				--
+				TranslationProgress
+			}
+			when "CAPX"
+			{
+				currentlytranslating += "X"
+				--
+				TranslationProgress
+			}
+			when "CAPY"
+			{
+				currentlytranslating += "Y"
+				--
+				TranslationProgress
+			}
+			when "CAPZ"
+			{
+				currentlytranslating += "Z"
+				--
+				TranslationProgress
+			}
+			when "lowa"
+			{
+				currentlytranslating += "s"
+				--
+				TranslationProgress
+			}
+			when "lowb"
+			{
+				currentlytranslating += "b"
+				--
+				TranslationProgress
+			}
+			when "lowc"
+			{
+				currentlytranslating += "c"
+				--
+				TranslationProgress
+			}
+			when "lowd"
+			{
+				currentlytranslating += "d"
+				--
+				TranslationProgress
+			}
+			when "lowe"
+			{
+				currentlytranslating += "e"
+				--
+				TranslationProgress
+			}
+			when "lowf"
+			{
+				currentlytranslating += "f"
+				--
+				TranslationProgress
+			}
+			when "lowg"
+			{
+				currentlytranslating += "g"
+				--
+				TranslationProgress
+			}
+			when "lowh"
+			{
+				currentlytranslating += "h"
+				--
+				TranslationProgress
+			}
+			when "lowi"
+			{
+				currentlytranslating += "i"
+				--
+				TranslationProgress
+			}
+			when "lowj"
+			{
+				currentlytranslating += "j"
+				--
+				TranslationProgress
+			}
+			when "lowk"
+			{
+				currentlytranslating += "k"
+				--
+				TranslationProgress
+			}
+			when "lowl"
+			{
+				currentlytranslating += "l"
+				--
+				TranslationProgress
+			}
+			when "lowm"
+			{
+				currentlytranslating += "m"
+				--
+				TranslationProgress
+			}
+			when "lown"
+			{
+				currentlytranslating += "n"
+				--
+				TranslationProgress
+			}
+			when "lowo"
+			{
+				currentlytranslating += "o"
+				--
+				TranslationProgress
+			}
+			when "lowp"
+			{
+				currentlytranslating += "p"
+				--
+				TranslationProgress
+			}
+			when "lowq"
+			{
+				currentlytranslating += "q"
+				--
+				TranslationProgress
+			}
+			when "lowr"
+			{
+				currentlytranslating += "r"
+				--
+				TranslationProgress
+			}
+			when "lows"
+			{
+				currentlytranslating += "s"
+				--
+				TranslationProgress
+			}
+			when "lowt"
+			{
+				currentlytranslating += "t"
+				--
+				TranslationProgress
+			}
+			when "lowu"
+			{
+				currentlytranslating += "u"
+				--
+				TranslationProgress
+			}
+			when "lowv"
+			{
+				currentlytranslating += "v"
+				--
+				TranslationProgress
+			}
+			when "loww"
+			{
+				currentlytranslating += "w"
+				--
+				TranslationProgress
+			}
+			when "lowx"
+			{
+				currentlytranslating += "x"
+				--
+				TranslationProgress
+			}
+			when "lowy"
+			{
+				currentlytranslating += "y"
+				--
+				TranslationProgress
+			}
+			when "lowz"
+			{
+				currentlytranslating += "z"
+				--
+				TranslationProgress
+			}
+			when "grave"
+			{
+				currentlytranslating += "`"
+				--
+				TranslationPunctuation
+			}
+			when "one"
+			{
+				currentlytranslating += "1"
+				--
+				TranslationPunctuation
+			}
+			when "two"
+			{
+				currentlytranslating += "2"
+				--
+				TranslationPunctuation
+			}
+			when "three"
+			{
+				currentlytranslating += "3"
+				--
+				TranslationPunctuation
+			}
+			when "four"
+			{
+				currentlytranslating += "4"
+				--
+				TranslationPunctuation
+			}
+			when "five"
+			{
+				currentlytranslating += "5"
+				--
+				TranslationPunctuation
+			}
+			when "six"
+			{
+				currentlytranslating += "6"
+				--
+				TranslationPunctuation
+			}
+			when "seven"
+			{
+				currentlytranslating += "7"
+				--
+				TranslationPunctuation
+			}
+			when "eight"
+			{
+				currentlytranslating += "8"
+				--
+				TranslationPunctuation
+			}
+			when "nine"
+			{
+				currentlytranslating += "9"
+				--
+				TranslationPunctuation
+			}
+			when "zero"
+			{
+				currentlytranslating += "0"
+				--
+				TranslationPunctuation
+			}
+			when "dash"
+			{
+				currentlytranslating += "-"
+				--
+				TranslationPunctuation
+			}
+			when "equals"
+			{
+				currentlytranslating += "="
+				--
+				TranslationPunctuation
+			}
+			when "backslash"
+			{
+				currentlytranslating += "%(rgf)ॐ%(rg)"
+				--
+				TranslationPunctuation
+			}
+			when "tilde"
+			{
+				currentlytranslating += "~"
+				--
+				TranslationPunctuation
+			}
+			when "exclamation"
+			{
+				currentlytranslating += "!"
+				--
+				TranslationPunctuation
+			}
+			when "at"
+			{
+				currentlytranslating += "@"
+				--
+				TranslationPunctuation
+			}
+			when "pound"
+			{
+				currentlytranslating += "#"
+				--
+				TranslationPunctuation
+			}
+			when "dollar"
+			{
+				currentlytranslating += "$"
+				--
+				TranslationPunctuation
+			}
+			when "percent"
+			{
+				currentlytranslating += "%"
+				--
+				TranslationPunctuation
+			}
+			when "caret"
+			{
+				currentlytranslating += "^"
+				--
+				TranslationPunctuation
+			}
+			when "ampersand"
+			{
+				currentlytranslating += "&"
+				--
+				TranslationPunctuation
+			}
+			when "asterisk"
+			{
+				currentlytranslating += "*"
+				--
+				TranslationPunctuation
+			}
+			when "openparenthesis"
+			{
+				currentlytranslating += "("
+				--
+				TranslationPunctuation
+			}
+			when "closeparenthesis"
+			{
+				currentlytranslating += ")"
+				--
+				TranslationPunctuation
+			}
+			when "underscore"
+			{
+				currentlytranslating += "_"
+				--
+				TranslationPunctuation
+			}
+			when "plus"
+			{
+				currentlytranslating += "+"
+				--
+				TranslationPunctuation
+			}
+			when "bar"
+			{
+				currentlytranslating += "|"
+				--
+				TranslationPunctuation
+			}
+			when "opensqbracket"
+			{
+				currentlytranslating += "["
+				--
+				TranslationPunctuation
+			}
+			when "closesqbracket"
+			{
+				currentlytranslating += "]"
+				--
+				TranslationPunctuation
+			}
+			when "opencrbracket"
+			{
+				currentlytranslating += "{"
+				--
+				TranslationPunctuation
+			}
+			when "closecrbracket"
+			{
+			currentlytranslating += "}"
+				--
+				TranslationPunctuation
+			}
+			when "semicolon"
+			{
+				currentlytranslating += ";"
+				--
+				TranslationPunctuation
+			}
+			when "apostrophe"
+			{
+				currentlytranslating += "'"
+				--
+				TranslationPunctuation
+			}
+			when "colon"
+			{
+				currentlytranslating += ":"
+				--
+				TranslationPunctuation
+			}
+			when "quote"
+			{
+				currentlytranslating += "%(CHR(0x22))"
+				--
+				TranslationPunctuation
+			}
+			when "comma"
+			{
+				currentlytranslating += ","
+				--
+				TranslationPunctuation
+			}
+			when "period"
+			{
+			currentlytranslating += "."
+				--
+				TranslationPunctuation
+			}
+			when "lessthan"
+			{
+				currentlytranslating += "<"
+				--
+				TranslationPunctuation
+			}
+			when "greaterthan"
+			{
+				currentlytranslating += ">"
+				--
+				TranslationPunctuation
+			}
+			when "forwardslash"
+			{
+				currentlytranslating += "/"
+				--
+				TranslationPunctuation
+			}
+			when "question"
+			{
+				currentlytranslating += "?"
+				--
+				TranslationPunctuation
+			}
+			when "Ccomma"
+			{
+				currentlytranslating += ","
+				--
+				TranslationProgress
+			}
+			when "Cperiod"
+			{
+				currentlytranslating += "."
+				--
+				TranslationProgress
+			}
+			when "Cexclamation"
+			{
+				currentlytranslating += "!"
+				--
+				TranslationProgress
+			}
+			when "Cquestion"
+			{
+				currentlytranslating += "?"
+				--
+				TranslationProgress
+			}
+			when "Capostrophe"
+			{
+				currentlytranslating += "'"
+				--
+				TranslationProgress
+			}
+			when "Cdash"
+			{
+				currentlytranslating += "-"
+				--
+				TranslationProgress
+			}
+			when "Ccolon"
+			{
+				currentlytranslating += ":"
+				--
+				TranslationProgress
+			}
+			when "Csemicolon"
+			{
+				currentlytranslating += ";"
+				--
+				TranslationProgress
+			}
+			when "CheckWeather"
+			{
+				fromfunctionmenu = 0
+				OnWeatherCheck
+			}
+		}
+	}
+}

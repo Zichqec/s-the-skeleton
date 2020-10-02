@@ -1,0 +1,296 @@
+﻿//---------------------------The User's Name--------------------------
+
+OnNameTeach
+{
+	tempname = reference0 //this stores the original name in tempname
+	reference0 = TOLOWER(reference0) //changes it to lowercase
+	reference0 = REPLACE(reference0," ","") //removes spaces
+	reference0 = REPLACE(reference0,".","") //removes periods
+	reference0 = REPLACE(reference0,"-","") //removes dashes
+	
+	if tempname == username
+	{
+		"\0\s[106]%(wdc)\1%(annoyednoises).\w8\w8\0Ah,\w4 that's the name you gave me before.\w8\w8\s[107] Let me know if you want to change it.\x"
+		--
+		OnTalkConfig
+	}
+	elseif reference0 == "dusty"
+	{
+		"\0\s[110]%(wdc)Oh!\w8\w8\s[208] ...I suppose it's possible we share a name.\w8\w8\s[106] You're not just trying to pull my leg,\w4 are you?\w8\w8\1%(catnoises)."
+		--
+		if booting == 1
+		{
+			FinishBoot
+		}
+		else
+		{
+			"\e"
+		}
+	}
+	elseif reference0 == "obsidian"
+	{
+		if booting == 1
+		{
+			"\1\s[10]%(annoyednoises).\w8\w8\0\s[400]...That's my cat's name,\w4 I don't think she'll let me call you that.\w8\w8\s[106] Better try something else.\![open,inputbox,OnNameTeach,-1]\e"
+		}
+		else
+		{
+			"\1\s[10]%(annoyednoises).\w8\w8\0\s[400]%(wdc)...I don't think she'll let me call you that.\w8\w8\s[106] Better try something else.\![open,inputbox,OnNameTeach,-1]\e"
+		}
+	}
+	elseif reference0 == ""
+	{
+		username = "User"
+		"\0\s[106]%(wdc)\1%(catnoises).\w8\w8\0Ah,\w4 I'll just call you User for now,\w4 then.\w8\w8\s[102] Let me know if you want to change it."
+		--
+		if booting == 1
+		{
+			FinishBoot
+		}
+		else
+		{
+			"\e"
+		}
+	}
+	--
+	username = tempname
+	"\0\s[102]%(wdc)Ok,\w4 I'll call you %(username).\w8\w8\1%(catnoises)."
+	--
+	if booting == 1
+	{
+		FinishBoot
+	}
+	else
+	{
+		"\0\x"
+		--
+		OnTalkConfig
+	}
+}
+
+FinishBoot
+{
+	"\w8\w8\0\n\n\s[208]I haven't been outside the void in a very long time...\w8\w8\s[110] Did you bring me here?\w8\w8\1\n\n%(catnoises).\w8\w8\0\n\n\s[102]Well,\w4 if I can exist here with no issue,\w4 then I appreciate the break.\w8\w8\s[0]\n\nLet me know if there's anything I can do for you,\w4 %(username).\![leave,passivemode]\![raise,OnDialogueVars,finishboot]\e"
+}
+
+
+
+
+//----------------Birthday---------------
+OnUserBornMonth
+	{
+		_tempmonth = reference0 //this stores what the user input in as a variable called _tempmonth
+		_tempmonth = TOLOWER(_tempmonth) //changes it to lowercase
+		_tempmonth = REPLACE(_tempmonth," ","") //removes spaces
+		_tempmonth = REPLACE(_tempmonth,".","") //removes periods
+		_tempmonth = REPLACE(_tempmonth,"-","") //removes dashes 
+		
+		if _tempmonth == "january" || _tempmonth == "1" 
+		{
+			bornmonth = 1
+			bornmonthprint = "January"
+		}
+		elseif _tempmonth == "february" || _tempmonth == "2" 
+		{
+			bornmonth = 2
+			bornmonthprint = "February"
+		}
+		elseif _tempmonth == "march" || _tempmonth == "3" 
+		{
+			bornmonth = 3
+			bornmonthprint = "March"
+		}
+		elseif _tempmonth == "april" || _tempmonth == "4" 
+		{
+			bornmonth = 4
+			bornmonthprint = "April"
+		}
+		elseif _tempmonth == "may" || _tempmonth == "5" 
+		{
+			bornmonth = 5
+			bornmonthprint = "May"
+		}
+		elseif _tempmonth == "june" || _tempmonth == "6" 
+		{
+			bornmonth = 6
+			bornmonthprint = "June"
+		}
+		elseif _tempmonth == "july" || _tempmonth == "7" 
+		{
+			bornmonth = 7
+			bornmonthprint = "July"
+		}
+		elseif _tempmonth == "august" || _tempmonth == "8" 
+		{
+			bornmonth = 8
+			bornmonthprint = "August"
+		}
+		elseif _tempmonth == "september" || _tempmonth == "9" 
+		{
+			bornmonth = 9
+			bornmonthprint = "September"
+		}
+		elseif _tempmonth == "october" || _tempmonth == "10" 
+		{
+			bornmonth = 10
+			bornmonthprint = "October"
+		}
+		elseif _tempmonth == "november" || _tempmonth == "11"
+		{
+			bornmonth = 11
+			bornmonthprint = "November"
+		}
+		elseif _tempmonth == "december" || _tempmonth == "12" 
+		{
+			bornmonth = 12
+			bornmonthprint = "December"
+		}
+		else //if the month isn't a valid month, like 32 or something.
+		{
+			"\0\s[106]%(wdc)\1%(annoyednoises)\w8\w8\0%(username),\w4 you have to give me a real month.\w8\w8\s[0] Try again.\![open,inputbox,OnUserBornMonth,-1]\e"
+		}
+		-- //If the month is valid
+
+		"\0\s[0]%(wdc)Ok,\w4 %(bornmonthprint).\w8\w8 What day?\![open,inputbox,OnUserBornDay,-1]"
+	}
+	
+//This adds an appropriate suffix to the number for the day. No need to mess with this either.
+
+Printday
+{
+	if bornday == 1 || bornday == 21 || bornday == 31
+	{
+		"%(bornday)st"
+	}
+	elseif bornday == 2 || bornday == 22
+	{
+		"%(bornday)nd"
+	}
+	elseif bornday == 3 || bornday == 23
+	{
+		"%(bornday)rd"
+	}
+	else
+	{
+		"%(bornday)th"
+	}
+}	
+
+//--OnUserBornDay
+//This is much like the above function OnUserBornMonth. It'll take the value the user put in for the day and analyze it.
+
+OnUserBornDay
+{
+	tempday = reference0 //storing the input in tempday
+	tempday = TOLOWER(tempday) //changes it to lowercase
+	tempday = REPLACE(tempday,"st","") //if the user types something like 2nd, 3rd, etc, this will make it just the number. It'll just add the suffix back later on the one that actually shows.
+	tempday = REPLACE(tempday,"nd","")
+	tempday = REPLACE(tempday,"rd","")
+	tempday = REPLACE(tempday,"th","")
+	tempday = TOINT(tempday) //[Zi]This converts the number to an integer rather than a string so that the following checks can read it without being a huge mess of ifs/ors. Many thanks to my friend Nimanao for helping me figure this one out!
+	if bornmonth == 1 || bornmonth == 3 || bornmonth == 5 || bornmonth == 7 || bornmonth == 8 || bornmonth == 10 || bornmonth == 12 //This is checking to see if it's one of the months with 31 days.
+	{
+		if tempday >= 1 && tempday <= 31 //if it falls in the right range
+		{
+			bornday = tempday
+			borndayprint = Printday
+			userbirthday = "%(bornmonth)month %(bornday)day"
+			birthdayprint = "%(bornmonthprint) %(borndayprint)"
+		}
+		else //if the day isn't valid, like the 10046th or something.
+		{
+			"\0\s[106]%(wdc)\1%(annoyednoises)\w8\w8\0%(username),\w4 you have to give me a real day.\w8\w8\s[0] Try again.\![open,inputbox,OnUserBornDay,-1]\e"
+		}
+	}
+	elseif bornmonth == 2 //if the month is february
+	{
+		if tempday >= 1 && tempday <= 29 //and the day falls in the right range
+		{
+			bornday = tempday
+			borndayprint = Printday
+			userbirthday = "%(bornmonth)month %(bornday)day"
+			birthdayprint = "%(bornmonthprint) %(borndayprint)"
+		}
+		else
+		{
+			"\0\s[106]%(wdc)\1%(annoyednoises)\w8\w8\0%(username),\w4 you have to give me a real day.\w8\w8\s[0] Try again.\![open,inputbox,OnUserBornDay,-1]\e"
+		}
+	}
+	else //if it's any other month than those
+	{
+		if tempday >= 1 && tempday <= 30 //if the day falls between these values
+		{
+			bornday = tempday
+			borndayprint = Printday
+			userbirthday = "%(bornmonth)month %(bornday)day"
+			birthdayprint = "%(bornmonthprint) %(borndayprint)"
+		}
+		else
+		{
+			"\0\s[106]%(wdc)\1%(annoyednoises)\w8\w8\0%(username),\w4 you have to give me a real day.\w8\w8\s[0] Try again.\![open,inputbox,OnUserBornDay,-1]\e"
+		}
+	}
+	-- //Replaced the birthchecked envelope, everything down here is checking to see if the user's birthday falls on specific days, and either way gives the finishing comment about learning your birthday
+
+	if userbirthday == dayslot //if today is the user's birthday
+	{
+		"\0\s[104]%(wdc)Well then,\w4 happy birthday,\w4 %(username).\w8\w8\1%(catnoises).\0\w8\w8\s[0]\n\nI'll remember your birthday for next year.\x"
+		//replace this dialogue with whatever you like
+	}
+	elseif userbirthday == "5month 23day"	
+	{
+		"\0\s[0]%(wdc)\1%(catnoises).\w8\w8\0\s[104]Apparently we share a birthday,\w4 %(username).\w8\w8\s[0] I'll remember that.\x"
+	}	
+	else //if the birthday is not listed above.
+	{
+		"\0\s[0]%(wdc)\1%(catnoises).\w8\w8\0Alright,\w4 your birthday is %(bornmonthprint) %(borndayprint).\w8\w8\s[104] I'll remember that.\x"
+	}
+	--
+	OnTalkConfig
+}
+
+//Pronouns
+
+OnTeachPronouns
+{
+	"%(wdc)\0\s[0]What pronouns do you want?\w5\n\n[half]\_q/
+	\![*]\q[He/Him/His,choicemasc]\n/
+	\![*]\q[She/Her/Hers,choicefem]\n/	
+	\![*]\q[They/Them/Their,choiceneither]%(BacktoConfig)"
+}
+
+Select.choicemasc
+{
+	presuffix = "masculine"
+	himher = "him"
+	heshe = "he"
+	hisher = "his"
+	--
+	"%(wdc)\0\s[0]%(wdc)Alright,\w4 I'll use he,\w4 him,\w4 and his for you.\x"
+	--
+	OnTalkConfig
+}
+
+Select.choicefem
+{
+	presuffix = "feminine"
+	himher = "her"
+	heshe = "she"
+	hisher = "her"
+	--
+	"%(wdc)\0\s[0]%(wdc)Alright,\w4 I'll use she,\w4 her,\w4 and hers for you.\x"
+	--
+	OnTalkConfig
+}
+
+Select.choiceneither
+{
+	presuffix = "undefine"
+	himher = "them"
+	heshe = "they"
+	hisher = "their"
+	--
+	"%(wdc)\0\s[0]%(wdc)Alright,\w4 I'll use they,\w4 them,\w4 and their for you.\x"
+	--
+	OnTalkConfig
+}
