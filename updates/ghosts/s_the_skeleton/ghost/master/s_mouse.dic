@@ -1,0 +1,1119 @@
+﻿//---------------------------Mouse Functions--------------------------
+
+
+//--OnMouseMove
+//This is a bunch of code determining who the mouse is over. Don't touch any of it.
+
+OnMouseMove
+{
+	//---- reference3 determines the character in question
+	if reference3 == 0 //if the character is 0, aka the main character
+	{
+		//---- it will run the mouse functions for that character
+		MouseMoveSakura
+		
+	}
+	else //if the character isn't 0, then it must be the side character.
+	{
+		//---- this will run the mouse functions for the side character.
+		MouseMoveKero
+	}
+}
+ 
+OnMouseLeave //Thanks to Levidre for reminding me that this exists because I'm an idiot XD this properly resets the variables when the mouse leaves the character, so that continuous stroking doesn't break
+{
+	if continuousstroke > 160 && continuousstroke > pethighscore //This bit checks to see if you've gotten a high score. The \C in the text displays the previous balloon and then adds onto it. This might not always be perfect, if you let his balloon time out or you make him say something else it might be a little strange, but I think it's good enough to keep this way.
+	{
+		pethighscore = continuousstroke
+		"\C\n\n* (New high score! %(pethighscore)!)\e"
+	}
+	--
+	if currentpetstreak > toppetstreak
+	{
+		toppetstreak = currentpetstreak
+	}
+	--
+	stroke = 0
+	continuousstroke = 0
+	currentpetstreak = 0 //right now this doesnt do anything, but just in case I later want to change him to count your high score by how many consecutive pets you have instead of the stroke count...
+}
+
+
+ //--MouseMoveSakura
+ //The petting function for your main character. Remember how it was referred to as sakura in some of the descript.txt and install.txt files?
+ 
+MouseMoveSakura
+{
+	if reference4 != "" //ignore
+ 	{
+ 		stroke++ //if you move the mouse over the right areas, the stroke count will go up.
+		continuousstroke++
+		if continuousstroke > 160
+		{
+			if stroke > 160
+			{
+				stroke = 0 //resetting the stroke count
+				lastinteracted = 0
+				
+				if reference4 == "Head"
+				{
+					PetHead
+				}
+				elseif reference4 == "Obsidian"
+				{
+					ObsiPets++
+					PetObsi
+				}
+				elseif reference4 == "Dent"
+				{
+					if "Green Beanie" _in_ dressups && nowshell == "autumn_flannel"
+					{
+						PetHead
+					}
+					else
+					{
+						SnagDent
+					}
+				}
+				elseif reference4 == "Cracks"
+				{
+					if "Green Beanie" _in_ dressups && nowshell == "autumn_flannel"
+					{
+						PetHead
+					}
+					else
+					{
+						SnagCracks
+					}
+				}
+				elseif reference4 == "Cracks2" //Had to split this cause of the hat
+				{
+					SnagCracks
+				}
+			}
+		}
+		elseif stroke >= 40
+		{
+ 			stroke = 0 //resetting the stroke count
+			lastinteracted = 0
+		
+			if reference4 == "Head"
+			{
+				PetHead
+			}
+			elseif reference4 == "Obsidian"
+			{
+				ObsiPets++
+				PetObsi
+			}
+ 			elseif reference4 == "Dent"
+			{
+				if "Green Beanie" _in_ dressups && nowshell == "autumn_flannel"
+				{
+					PetHead
+				}
+				else
+				{
+					SnagDent
+				}
+			}
+			elseif reference4 == "Cracks"
+			{
+				if "Green Beanie" _in_ dressups && nowshell == "autumn_flannel"
+				{
+					PetHead
+				}
+				else
+				{
+					SnagCracks
+				}
+			}
+			elseif reference4 == "Cracks2" //Had to split this cause of the hat
+			{
+				SnagCracks
+			}	
+		}	
+ 	}
+ 	else
+	{
+ 		// If the mouse isn't over the ghost, it'll zero out the stroke value.
+		stroke = 0
+		continuousstroke = 0
+ 	}
+}
+
+//---- MouseMoveKero -----------------------------------------------------------------
+//MouseMoveKero is exactly like the above, except set up for your second character. 
+ 
+MouseMoveKero
+{
+	stroke = 0	
+}
+
+//---- OnMouseDoubleClick -------------------------------------------------------
+//This is set up much like OnMouseMove above, except this is checking to see if the user is double clicking on the ghost. You also don't need to touch any of this. 
+//Advanced users adding a third character, the same principles from OnMouseMove apply here as well! Make sure to add an elseif with the right number for your third character.
+
+OnMouseDoubleClick
+{
+	if reference5 == 0 //reference5 is which mouse button is being clicked, in this case 0 is a left click
+	{
+		//---- like with the OnMouseMove function above, this determines who the user is clicking on.
+		if reference3 == 0 //if the character is 0, aka your main character. 
+		{
+			if nowmode == "RYS"
+			{
+				MouseDoubleClickRYS
+			}
+			elseif holdingObsidian == 1
+			{
+				if reference4 == "Head" || reference4 == "Face" || reference4 == "Cracks" || reference4 == "Dent"
+				{
+					"\0\s[1201]* (You can't punch him in the face while he's holding the cat...)\e"
+				}
+				else
+				{
+					"\0\s[1206]Sorry %(username),\w4 my hands are kinda full...\e"
+					"\0\s[1201]\![get,property,OnObsidianJumpDown,currentghost.scope(0).rect]"
+				}
+			}
+			else
+			{
+				MouseDoubleClickSakura
+			}
+		}
+		elseif reference3 == 2
+		{
+			//MouseDoubleClickRYS
+		}
+		else
+		{
+			MouseDoubleClickKero
+		}
+	}
+}
+
+ //---- MouseDoubleClickSakura ----------------------------------------------------------
+ //Like the petting animation above, this is the reactions they have to being double clicked. These also rely on the collisions you set up in surfaces.txt! This set is specifically for the main character, as indicated by the Sakura in the name again.
+ 
+ //*********************Advanced User Info*******************************
+ //As a note, double clicking on a certain area of your ghost doesn't have to be the user hitting them. You could instead set up a collision for a piece of clothing, and then have the character talk about that bit of clothing when it's double clicked, for example. One of Smoker's double clicks gives her a high-five when she's in a certain pose. Maybe double clicking is patting them, or pointing behind them, or tapping them, or any number of things. You can be creative here with how they respond depending on what areas you've set up as collisions!
+ 
+ //If you don't want your character to be hittable at all, you can just delete everything in MouseDoubleClickSakura except OpenSakuraMenu. So it'd look like
+ 
+ //MouseDoubleClickSakura
+ //{
+ //OpenSakuraMenu
+ //}
+ 
+ //That's all there is to it. This method also applies to the secondary character, Kero, below this set.
+ //***********************************************************************
+ 
+MouseDoubleClickSakura
+{
+ 	if reference4 == "Head" || reference4 == "Face" || reference4 == "Cracks" || reference4 == "Dent" //here, this is checking to see if the user is double clicking on either the character's head OR their face, which for our purposes means they're hitting the ghost. More about operators at the walkthrough.
+	{
+		lastinteracted = 0
+		if LV > 0 //Negative routes
+		{
+			LV += 3
+			totalpunches += 1
+			if LVCheck == 1 //know his secrets
+			{
+
+				if broken == 1 //broken him down all the way
+				{
+					"\0\s[1550]* (You strike him with your cursor.)\w8\w8\w8\n\n\s[510]* (He stays silent.)\e"
+					"\0\s[1550]* (You punch him in the face.)\w8\w8\w8\n\n\s[510]* (He says nothing.)\e"
+				}
+				else //breaking him, but he's still standing
+				{
+					"\0\s[1550]Ah-!\w8\w8\w8\n\n\s[516]* (You tell him he deserved that,\w4 with all the suffering he's caused.)\w8\w8\s[510]\n\n* (He nods slowly.)\e"
+					"\0\s[1550]Gh-!\w8\w8\w8\n\n\s[516]* (You tell him that's only a fraction of his EXP being paid back to him.)\w8\w8\s[510]\n\n* (He nods slowly.)\e"
+					if love >= 30
+					{
+						"\0\s[1550]Ah-!\w8\w8\w8\n\n\s[516]* (You tell him that he shouldn't pretend to be a good person.)\w8\w8\s[510]\n\n* (He nods slowly.)\e"
+					}
+				}
+			
+			}
+			elseif love <= 30 //Just mean for no reason
+			{
+				if LV <= 30 //you've been a bit mean
+				{
+					"\0\s[1550]Ah-!\w8\w8\w8\s[403]\n\n...You've got some nerve,\w4 dragging a guy here and then punching him for no reason.\e"
+					"\0\s[1550]Ahk-!\w8\w8\w8\s[403]\n\n...You got a problem with me,\w4 pal?\w8\w8\s[405] Or do you just like punching people for no reason.\e"
+					"\0\s[1550]Gh-!\w8\w8\w8\s[413]\n\n...Is this personal,\w4 or something?\e"
+					if love >= 30
+					{
+						"\0\s[1550]Ah-!\w8\w8\w8\s[412]\n\n...You know,\w4 I thought you were a good person at first.\w8\w8\s[400] I guess I was mistaken.\e"
+					}
+				}
+				elseif LV >=31 //You've been really mean and he hates you a lot
+				{
+					"\0\s[1550]Ah-!\w8\w8\w8\s[403]\n\n...Do you never get tired of being needlessly cruel?\e"
+					"\0\s[1550]Gh-!\w8\w8\w8\s[402]\n\n...Yeah,\w4 I get it by now,\w4 you hate me.\w8\w8\s[403] Care to actually give me a reason why?\e"
+					"\0\s[1550]Kh-!\w8\w8\w8\s[401]\n\n* (He doesn't say anything.)\e"
+				}
+			}
+	
+		}
+		else //if you've not punched him yet
+		{
+			SureAboutThat
+		}
+	}
+	else
+ 	{
+		if booting != 1 //because passivemode doesn't block this.... should test this later and make sure it works
+		{
+			//Otherwise, if the user doubleclicks somewhere else on the character, they will open their menu as detailed in menu.dic.
+			OpenSakuraMenu
+			lookingatphone = 0
+			lastinteracted = 0
+			booting = 0
+		}
+	}
+}
+
+SureAboutThat
+{
+	"\0\_q* (Are you sure you want to punch S in the face..?)\n\n\![*]\q[Yes,ohsoitslikethat] \![*]\q[No!,oopsdidntmeanto]"
+}
+
+
+Select.ohsoitslikethat
+{
+	LV += 1
+	if LVCheck == 1 //Start sad route
+	{
+		if love >= 150 //Full friendship
+		{
+			"\0\s[1550]Ah-!\w8\n\n* (You hear a definite crack as you strike his skull.)\w8\w8\s[501]\n\n* (You tell him that he deserved that,\w4 for all the suffering he's caused.)\w8\w8\s[512]\n\n* (He looks like he wants to respond,\w4\s[510] but simply nods instead.)\e"
+		}
+		elseif love >= 20 //getting to know him a little
+		{
+			"\0\s[1550]Ah-!\w8\w8\n\n\s[501]\n\n* (You tell him that he deserved that,\w4 for all the suffering he's caused.)\w8\w8\s[512]\n\n* (He looks like he wants to respond,\w4\s[510] but simply nods instead.)\e"
+		}
+		else //He isn't sure what to make of you yet
+		{
+			"\0\s[1550]Ah-!\w8\w8\n\n\s[501]\n\n* (You tell him that he deserved that,\w4 for all the suffering he's caused.)\w8\w8\s[512]\n\n* (He looks like he wants to respond,\w4\s[510] but simply nods instead.)\e"
+		}
+	}
+	else //Start mad route
+	{
+		if love >= 150 //Full friendship
+		{
+			"\0\s[1550]Ah-!\w8\n\n* (You hear a definite crack as you strike his skull.)\n\n\w8\w8\s[403]What the hell was that for!?\w8\w8\n\n\s[401]* (He cuts you off before you can say anything.)\w8\w8\n\n\s[405]No.\w8\w8 I don't want to hear it.\w8\w8\s[403] Friends don't punch each other like that.\w8\w8\s[401] I'm leaving.\s[-1]\w8\w8\w8\n\n\w8\w8.\w8\w8.\w8\w8.\w8\w8.\w8\w8.\w8\w8\n\n* (He can't get out on his own,\w4 he'll have to come back eventually...)\e" //replaceframe could use indignant frame here
+		}
+		elseif love >= 20 //getting to know him a little
+		{
+			"\0\s[1550]Ah-!\w8\n\n\w8\w8\s[403]What the hell was that for!?\w8\w8\n\n\s[401]* (He cuts you off before you can say anything.)\w8\w8\n\n\s[405]No.\w8\w8 I don't want to hear it.\w8\w8\s[403] Friends don't punch each other like that.\w8\w8\s[401] I'm leaving.\s[-1]\w8\w8\w8\n\n\w8\w8.\w8\w8.\w8\w8.\w8\w8.\w8\w8.\w8\w8\n\n* (He can't get out on his own,\w4 he'll have to come back eventually...)\e"
+		}
+		else //He isn't sure what to make of you yet
+		{
+			"\0\s[1550]Ah-!\w8\n\n\w8\w8\s[403]What the hell was that for!?\w8\w8 I don't even know you!\w8\w8\n\n\s[401]I'm not sticking around if that's what you're here to do.\s[-1]\w8\w8\w8\n\n\w8\w8.\w8\w8.\w8\w8.\w8\w8.\w8\w8.\w8\w8\n\n* (He can't get out on his own,\w4 he'll have to come back eventually...)\e"
+		}
+	}
+}
+
+/*OnMouseWheel
+{
+	scroll++
+	if scroll > 20 && LV == 0
+	{
+		scroll = 0
+		"\0\s[110]Uh...\w8\w8\s[106] That feels kinda weird,\w4 kiddo.\e"
+	}
+}*/ //I have an idea for this...... later :3c
+
+
+ //---- MouseDoubleClickKero -----------------------------------------------------------
+ //This is just the same as MouseDoubleClickSakura above, except for your secondary character. The same principles apply, including how to make your character unhittable.
+ 
+ 
+MouseDoubleClickKero
+{
+	//OpenKeroMenu //This will open his menu set up in menu.dic.
+}
+
+ //*********************Advanced User Info*******************************
+ //There are other mouse related functions you could set up much like the above, such as OnMouseDragStart, OnMouseDragEnd, OnMouseWheel, and others which correspond to various things you can do with your mouse. You can probably guess what those functions do just by their names - OnMouseWheel would be if someone spun their mouse wheel over a certain area, for example. If you're interested in these, I'd recommend doing some reading at the CROW-SSP Encyclopedia to get a better idea of them and settle down for some trial and error learning as you try to put them in.
+ //***********************************************************************
+ 
+ 
+ 
+
+ 
+
+
+PetHead
+{
+	currentpetstreak += 1
+	if nowmode == "RYS"
+	{
+		RYSpets++
+		
+		if RYSpetstage == 5 
+		{
+			if snagged > 0
+			{
+				"\RYS\s[2007]* (He fidgets a little,\w4 and you wonder if his head still stings from earlier...)\e"
+				"\RYS\s[2007]* (He squirms a bit,\w4 maybe his head is still stinging...)\e"
+			}
+			else
+			{
+				RYStrust += 5
+				"\RYS\s[2010]* (You gently rub his skull.)\w8\w8\n\n* (He seems at peace with it.)"
+				"\RYS\s[2010]* (He leans into your pet.)\e"
+				"\RYS\s[2010]* (He has accepted his soft and gentle fate.)\e"
+				"\RYS\s[2009]* (He still looks curious about why you do this,\w8\s[2010] but he seems to have made up his mind about how much he enjoys it.)\e"
+				"\RYS\s[2010]* (He makes a little sound as you stroke his skull softly.)\e"
+				"\RYS\s[2010]* (He breathes out slowly.)\w8\w8\n\n* (This might be the most relaxed you've ever seen him.)\e"
+				"\RYS\s[2010]* (He sighs,\w4 long and slow.)\w8\w8\n\n* (He looks much less tense than he used to be.)\e"
+				"\RYS\s[2010]* (You rub his head soothingly,\w4 and he leans into it.)\e"
+				"\RYS\s[2010]* (You stroke his skull softly.)\w8\w8\n\n* (He looks like he might nod off to sleep...)\e"
+				"\RYS\s[2010]* (He's glad to have been introduced to the concept of petting.)\w8\w8\n\n* (You're pretty sure that's what he'd say,\w4 anyways...)\e"
+				"\RYS\s[2010]* (Is that a trace of a tiny smile..?)\w8\w8\n\n* (It's hard to tell.)\e"
+				"\RYS\s[2010]* (%(RYS) petting complete.)\e"
+				"\RYS\s[2010]* (%(RYS) successfully pet.)\e"
+			}
+		}
+		elseif RYSpetstage == 4
+		{
+			if snagged > 0
+			{
+				"\RYS\s[2007]* (He fidgets a little,\w4 and you wonder if his head still stings from earlier...)\e"
+				"\RYS\s[2007]* (He squirms a bit,\w4 maybe his head is still stinging...)\e"
+			}
+			else
+			{
+				RYStrust += 3
+				"\RYS\s[2010]* (He's grown used to your petting,\w4 and lets you pet him without complaint.)\e"
+				"\RYS\s[2010]* (He makes a tiny noise...)\w8\w8\n\n* (Perhaps he's enjoying this after all?)\e"
+				"\RYS\s[2010]* (He leans slightly into your cursor,\w4 but it's so faint that you could've imagined it.)\e"
+				"\RYS\s[2009]* (He seems curious about your petting.)\e"
+				"\RYS\s[2010]* (He looks a little less stressed than he did earlier...)\e"
+				"\RYS\s[2007]* (He looks slightly guilty...)\w8\w8\n\n\s[2010]* (But he lets you soothe him.)\e"
+				"\RYS\s[2010]* (You stroke him soothingly,\w4 and he makes no protest.)\e"
+				"\RYS\s[2010]* (You stroke your cursor over his skull softly.)\w8\w8\n\n* (You're pretty sure he appreciates it,\w4 even if he does not say so.)\e"
+				"\RYS\s[2010]* (You gently rub his skull.)\w8\w8\n\n* (He stands very still.)\e"
+				"\RYS\s[2010]* (You pet him reassuringly.)\w8\w8\n\n* (He doesn't say anything,\w4 but he feels less tense than before.)\e"
+			}
+		}
+		elseif RYSpetstage == 3
+		{
+			if snagged > 0
+			{
+				"\RYS\s[2007]* (He fidgets a little,\w4 and you wonder if his head still stings from earlier...)\e"
+				"\RYS\s[2007]* (He squirms a bit,\w4 maybe his head is still stinging...)\e"
+			}
+			else
+			{
+				RYStrust += 2
+				"\RYS\s[2010]* (He stands quietly as you stroke your cursor over his skull...)\w8\w8\n\n* (Seems he's getting used to this.)\e"
+				"\RYS\s[2010]* (He stands still and lets you pet him...)\w8\w8\n\n* (Does he like this?\w8 It's hard to tell.)\e"
+				"\RYS\s[2010]* (If he's enjoying this,\w4 he isn't giving very clear signs of it...)\w8\w8\n\n\s[2007]* (But then,\w4 he's definitely not used to affection.)\e"
+				"\RYS\s[2006]* (He watches your cursor as you stroke his head,\w4 eyelights filled with unspoken questions.)\e"
+				"\RYS\s[2006]* (He doesn't say anything,\w4 but you can see the questions on the tip of his tongue.)\w8\w8\n\n* (Metaphorically,\w4 of course.)\e"
+			}
+		}
+		elseif RYSpetstage == 2
+		{
+			if snagged > 0
+			{
+				"\RYS\s[2014]* (He flinches away from your cursor.)\w8\w8\n\n\s[2013]* (Maybe his head still stings from earlier...)\e"
+				"\RYS\s[2014]* (He flinches as you get near.)\w8\w8\n\n\s[2013]* (Maybe his head still stings from earlier...)\e"
+			}
+			else
+			{
+				RYStrust++
+				"\RYS\s[2009]* (You stroke your cursor gently across his skull.)\w8\w8\n\n"
+				"\RYS\s[2009]* (You pet his skull gently.)\w8\w8\n\n"
+				"\RYS\s[2009]* (You very carefully pet his head.)\w8\w8\n\n"
+				"\RYS\s[2009]* (You gently brush your cursor over his skull.)\w8\w8\n\n"
+				--
+				"\s[2008]* (He looks confused,\w4 but doesn't protest.)\e"
+				"\s[2008]* (He looks confused,\w4 but he doesn't move away...)\e"
+				"\s[2007]* (He doesn't squirm away from you like he used to.)\e"
+				"\s[2007]* (He's not sure what to make of this.)\e"
+				"\s[2007]* (He's utterly confused.)\e"
+				"\s[2006]* (He looks like he wants to ask you why,\w8\s[2007] but he changes his mind.)\e"
+			}
+		}
+		elseif RYSpetstage == 1
+		{
+			if snagged > 0
+			{
+				"\RYS\s[2014]* (He flinches away from your cursor.)\w8\w8\n\n\s[2013]* (Maybe his head still stings from earlier...)\e"
+				"\RYS\s[2014]* (He flinches as you get near.)\w8\w8\n\n\s[2013]* (Maybe his head still stings from earlier...)\e"
+			}
+			else
+			{
+				"\RYS\s[2015]* (He jumps,\w4 startled,\w4 as you touch his head.)\w8\w8\n\n"
+				"\RYS\s[2015]* (He jumps in shock as you stroke his skull.)\w8\w8\n\n"
+				"\RYS\s[2008]* (He squirms under your cursor.)\w8\w8\n\n"
+				--
+				"\s[2007]* (He looks uncomfortable,\w4 but doesn't say anything...)\e"
+				"\s[2007]* (He shivers,\w4 but stays silent...)\e"
+				"\s[2008]* (He isn't sure how to respond...)\e"
+			}
+		}
+		else //first pet
+		{
+			"\RYS\s[2015]* (He jumps in shock as you rub your cursor over his skull.)\w8\w8\n\n\s[2016]* (He looks as though he wants to ask you why you touched his head,\w8\s[2014] but thinks better of it and shudders silently instead.)\e"
+		}
+	}
+	else
+	{
+		if holdingObsidian == 1
+		{
+			if love >= 150
+			{
+				love += 1
+				totalpets += 1
+				recentpets += 1
+				if continuousstroke >= 100
+				{
+					"\0\s[1207]...You're really goin for it,\w4 huh?"
+					"\0\s[1207]* (Obsidian is starting to look a little jealous.)\e"
+					"\0\s[1206]You're really in the mood for pets today,\w4 huh?"
+				}
+				else
+				{
+					"\0\s[1204]* (He hums appreciatively.)"
+					"\0\s[1204]Heh,\w4 ok then."
+					"\0\s[1204]Gee,\w4 now I know how Obsidian feels."
+					"\0\s[1204]* (He holds still as you rub circles on his head,\w4 subconsciously mimicking your movements onto Obsidian.)"
+					"\0\s[1204]* (He hums blissfully.)"
+				}
+				--
+				"\w8\w8\n\n* (Obsidian looks like she could use some petting,\w4 too.)\e"
+				"\e"
+				"\e"
+				"\e"
+			}
+			else
+			{
+				totalpets += 1
+				recentpets += 1
+				"\0\s[1220]Not right now,\w4 please."
+				"\0\s[1220]Please don't."
+				"\0\s[1206]Can't you pet the cat instead?"
+				"\0\s[1206]C'mon,\w4 %(username),\w4 cut it out."
+				--
+				"\w8\w8\n\n* (Obsidian looks more open to pets,\w4 though...)\e"
+			}
+		}
+		elseif nowmode == "Asleep"
+		{
+			love += 1
+			totalpets += 1
+			recentpets += 1
+			if dreams == 0 || (dreams == 1 && recentpets > 2)
+			{
+				dreams = 2
+				"\0\s[1301]* (He relaxes into your touch,\w4 letting out a quiet sigh.)\w8\w8\n\n* (Perhaps he'll sleep a little easier now...)\e:chain=end"
+			}
+			elseif (dreams == 2 || dreams == 3) && recentpets > 6
+			{
+				dreams = 5
+				"\0\s[1304]* (He murmurs quietly,\w4 then lets out a deep sigh.)\w8\w8\n\n* (Seems he's pretty relaxed,\w4 now...)\e:chain=end"
+			}
+			else
+			{
+				if "Green Beanie" _in_ dressups && nowshell == "autumn_flannel"
+				{
+					"\0\s[1300]* (You pet his hat.)\w8\w8\n\n* (He makes no comment.)\e"
+					"\0\s[1300]* (You stroke his head through his hat.)\w8\w8\n\n* (He's too far asleep to notice.)\e"
+					"\0\s[1300]* (You pat his beanie.)\w8\w8\n\n* (His head bobs slightly with each pat.)\e"
+				}
+				else
+				{
+					"\0\s[1300]* (You stroke his skull gently.)\w8\w8\n\n* (His breathing slows.)\e"
+					"\0\s[1300]* (You gently stroke his head.)\w8\w8\n\n* (He makes a quiet noise,\w4 but doesn't wake.)\e"
+					"\0\s[1300]* (You pet him gingerly.)\w8\w8\n\n* (He makes a soft crooning sound,\w4 then falls silent,\w4 save for his breathing.)\e"
+					"\0\s[1300]* (You pat his head softly.)\w8\w8\n\n...%(mumb)...\w8\w8 %(username)..?\w8\w8 %(mumb)%(mumb)...\e"
+					"\0\s[1300]* (You give him the gentlest of pets.)\w8\w8\n\n...%(mumb)%(mumb)...\e"
+					{
+						"\0\s[1300]* (You pet him gently.)\w8\w8\n\n...%(mumb)...\w8\w8 "
+						--
+						"Blue..?\e"
+						"Mom..?\e"
+						"Dad..?\e"
+					}
+				}
+			}
+		}
+		elseif LV == 0 //Friendship routes
+		{
+			if love >= 150 //Full friendship
+			{					
+				love += 1
+				totalpets += 1
+				recentpets += 1
+				
+
+				if continuousstroke >= 500
+				{
+					if "Green Beanie" _in_ dressups && nowshell == "autumn_flannel"
+					{
+						"\0\s[106]Kiddo,\w4 you're gonna wear a hole in my hat at this rate."
+						"\0\s[106]You feeling alright,\w4 kiddo?\w8\w8 Do you need a hug?\w8\w8 You can just ask and I'll give you a hug."
+						"\0\s[107]Are you going for a high score or something?"
+						"\0\s[107]* (He mutters something about petting \f[italic,true]you\f[italic,default] one of these days.)"
+						"\0\s[106]You're really determined today,\w4 huh?"
+						"\0\s[106]I'm gonna take a guess and say you're a perseverence soul?\w8\w8\s[107] Or maybe patience."
+						"\0\s[107]* (Eternal pets.)"
+						"\0\s[107]* (Pets unending.)"
+						"\0\s[107]* (Can't stop won't stop.)"
+					}
+					else
+					{
+						"\0\s[106]Kiddo,\w4 you're gonna wear a hole in my skull at this rate."
+						"\0\s[106]You feeling alright,\w4 kiddo?\w8\w8 Do you need a hug?\w8\w8 You can just ask and I'll give you a hug."
+						"\0\s[107]Are you going for a high score or something?"
+						"\0\s[107]* (He mutters something about petting \f[italic,true]you\f[italic,default] one of these days.)"
+						"\0\s[106]You're really determined today,\w4 huh?"
+						"\0\s[106]I'm gonna take a guess and say you're a perseverence soul?\w8\w8\s[107] Or maybe patience."
+						"\0\s[107]* (Eternal pets.)"
+						"\0\s[107]* (Pets unending.)"
+						"\0\s[107]* (Can't stop won't stop.)"
+						{
+							"\0\s[106]* (You stroke him repeatedly,\w4 wearing an imperceptible groove into his skull.)"
+							--
+							if continuousstroke >= 1000 && totalpets >= 100
+							{
+								"\w8\w8\n\n* (...Though,\w4 at the rate you're going,\w4 it may not be imperceptible for long.)"
+							}
+						}
+						if totalpets >= 100
+						{
+							"\0\s[107]* (Your cursor moves in a rhythmic pattern,\w4 one you've practiced well by now.)"
+						}
+					}
+				}
+				elseif continuousstroke >= 100
+				{
+					if "Green Beanie" _in_ dressups && nowshell == "autumn_flannel"
+					{
+						"\0\s[107]* (His head moves back and forth slightly as you pet him over and over.)"
+						"\0\s[107]* (Pet pet pet...)"
+						"\0\s[107]* (Pit pat pot...)"
+						"\0\s[107]* (Rub rub rub...)"
+						"\0\s[106]* (You pet him relentlessly.)"
+						"\0\s[106]* (His hat slides back and forth with your cursor as you continue to pet him.)"
+					}
+					else
+					{
+						"\0\s[107]Geez,\w4 kiddo,\w4\s[106] isn't that enough for one pet?"
+						"\0\s[107]* (You pet him continuously until his skull starts to warm up from the friction.)"
+						"\0\s[107]* (You pet him over and over without letting up.)"
+						"\0\s[106]* (You run your cursor back and forth,\w4 over and over,\w4 taking care not to hit the sensitive spots.)"
+						"\0\s[107]* (His head moves back and forth slightly as you pet him over and over.)"
+						"\0\s[107]* (Pet pet pet...)"
+						"\0\s[107]* (Pit pat pot...)"
+						"\0\s[107]* (Rub rub rub...)"
+						"\0\s[106]* (You pet him relentlessly.)"
+					}
+				}
+				elseif "Green Beanie" _in_ dressups && nowshell == "autumn_flannel"
+				{
+					"\0\s[102]* (You pet his beanie.)\w8\w8\n\n\s[107]* (It's not really the same as petting his skull.)"
+					"\0\s[106]* (You dislodge the beanie slightly as you run your cursor over it.)\w8\w8\n\n\s[107]* (He puts it back in place,\w4 sighing quietly.)"
+					"\0\s[102]* (You pat him through the beanie.)\w8\w8\n\n* (He looks very relaxed.)"
+					"\0\s[104]* (You gently stroke his hat.)"
+					"\0\s[102]* (You pet him through the hat.)\w8\w8\n\n* (He doesn't seem to mind.)"
+					"\0\s[102]* (He's a lot softer to pet with the hat on.)"
+					"\0\s[104]* (He feels very snug in his hat.)"
+					"\0\s[102]* (He lets out a long sigh.)"
+				}
+				elseif snagged > 0 //if you've recently snagged his head
+				{
+					"\0\s[108]* (He seems a little nervous at your touch,\w4\s[107] but holds still as you pet him carefully.)"
+					"\0\s[107]* (You take special care as you stroke his skull.)\w8\w8\n\n\s[106]...Thanks,\w4 %(username)."
+					"\0\s[108]* (He squirms slightly,\w4\s[107] but relaxes a little as you stroke him gently.)"
+				}
+				else
+				{
+					"\0\s[102]* (He hums appreciatively.)"
+					"\0\s[102]* (He relaxes against your cursor.)"
+					"\0\s[102]* (You stroke his head very gently.)"
+					"\0\s[102]* (You pat his head gently.)\w8\w8\n\n\s[104]* (He gives you an appreciative smile.)"
+					"\0\s[104]* (You give him a soft pat.)\w8\w8\n\n* (He makes a quiet noise of appreciation.)"
+					"\0\s[102]* (You move your cursor in a rhythmic pattern.)\w8\w8\n\n* (He's very relaxed.)"
+					"\0\s[102]* (He sighs contently.)"
+					"\0\s[104]* (He smiles appreciatively.)"
+					"\0\s[102]* (You stroke delicately around the sensitive areas.)\w8\w8\n\n\s[104]* (He seems to appreciate how careful you're being.)"
+					"\0\s[102]* (You rub his head soothingly.)\w8\w8\n\n* (He looks soothed.)"
+					"\0\s[110]* (You draw small circles on his skull with your cursor.)\w8\w8\w8\n\n\s[106]* (You get the feeling that certain other little skeletons do the same thing often.)\w8\w8\w8\n\n\s[107]* (Possibly with markers.)"
+					"\0\s[102]* (He sighs,\w4 long and slow.)"
+					"\0\s[102]* (He hums contently.)"
+					"\0\s[104]* (Pet successful.)"
+					"\0\s[102]* (You stroke his skull softly,\w4 and he relaxes into it.)"
+					"\0\s[102]* (You rub tiny circles into his head.)\w8\w8\n\n* (You can feel him relax more and more with each circle.)"
+					"\0\s[102]* (You brush tiny crayon crumbs off his head.)\w8\w8\n\n\s[106]* (How did those get there..?)"
+					if recentpets < 3 && passhour >= 6
+					{
+						"\0\s[102]* (He sighs,\w4 relaxing under your rhythmic stroking motion.)\w8\w8\n\n* (You wonder if he even realized how tense he'd become.)"
+					}
+					if totalpets > 100 && snagged == 0 && (totalpets / 20) > totalsnags
+					{
+						"\0\s[102]* (You know his head well enough by now to pet gently in just the right spot.)\w8\w8\n\n\s[104]* (He seems pleased.)"
+						"\0\s[102]* (You very carefully stroke the part of his skull that is whole.)\w8\w8\n\n\s[104]* (He seems to appreciate the care you're taking.)"
+					}
+				}
+				--
+				"\e"
+			}
+			elseif love >= 75 //Good friend
+			{
+				if "Green Beanie" _in_ dressups && nowshell == "autumn_flannel"
+				{
+					"\0\s[106]* (You pet his hat.)\w8\w8\n\n\s[107]...Thanks,\w4 I guess?\e"
+					"\0\s[106]* (You pet his hat.)\w8\w8\n\n\s[107]...Ok,\w4 then?\e"
+					"\0\s[106]* (You pet his hat.)\w8\w8\n\n\s[107]...Why are you doing this again?\e"
+				}
+				elseif snagged > 0
+				{
+					"\0\s[201]* (He shifts away from your cursor.)\w8\w8\n\n\s[200]Uh...\w8\w8 Please don't touch my head right now,\w4 thanks.\w8\w8\n\n* (You wonder if his head is still hurting...)\e"
+					"\0\s[201]* (He shifts away from your cursor.)\w8\w8\n\n\s[200]Please don't.\w8\w8\n\n* (You wonder if his head is still hurting...)\e"
+				}
+				elseif recentpets > 5
+				{
+					"\0\s[106]* (He shifts away.)\w8\w8\n\n\s[107]C'mon,\w4 %(username),\w4\s[202] isn't that enough for now?\e"
+					"\0\s[202]* (He shuffles out of the way of your cursor.)\w8\w8\n\n\s[106]C'mon,\w4 kiddo,\w4 that's enough.\e"
+					"\0\s[107]* (He steps out of the way.)\w8\w8\n\n\s[106]Kiddo,\w4 you're gonna wear a hole in my skull if you keep this up.\e"
+				}
+				else
+				{
+					totalpets += 1
+					recentpets += 1
+					love += 1
+					"\0\s[102]* (He holds very still as you stroke his skull.)\w8\w8\n\n\s[202]Uh,\w4 thanks.\e"
+					"\0\s[0]* (You stroke his skull gently.)\w8\w8\n\n\s[1030]Uh,\w4 thanks.\e"
+					if totalpets > 5
+					{
+						"\0\s[102]* (He doesn't feel as tense under your cursor as he used to.)\e"
+						"\0\s[102]* (He doesn't seem as opposed to this as he used to be.)\e"
+						"\0\s[106]I'm not really sure why you like doing this,\w4\s[107] but ok.\e"
+					}
+				}
+			}
+			elseif love >= 20 //getting to know him a little
+			{
+				if "Green Beanie" _in_ dressups && nowshell == "autumn_flannel"
+				{
+					"\0\s[107]* (You pet his hat.)\w8\w8\n\n\s[106]Is uh,\w4 there a reason you're doing that?\e"
+					"\0\s[107]* (You give his hat a soft pat.)\w8\w8\n\n\s[106]Uh,\w4 what are you doing that for?\e"
+					"\0\s[106]* (You pet his hat.)\w8\w8\n\n\s[107]* (He looks very confused.)\e"
+				}
+				elseif snagged > 0
+				{
+					"\0\s[201]* (He shifts away from your cursor.)\w8\w8\n\n\s[200]Uh...\w8\w8 Please don't touch my head right now,\w4 thanks.\w8\w8\n\n* (You wonder if his head is still hurting...)\e"
+					"\0\s[201]* (He shifts away from your cursor.)\w8\w8\n\n\s[200]Please don't.\w8\w8\n\n* (You wonder if his head is still hurting...)\e"
+				}
+				else
+				{
+					totalpets += 1
+					recentpets += 1
+					"\0\s[101]Is there a reason you're stroking my skull?\w8\w8\s[202] It's uh,\w4 a little weird.\e"
+					"\0\s[107]* (He's very quiet...\w8 you're not sure if he's liking this or not.)\e"
+					"\0\s[200]* (He looks mildly uncomfortable,\w4 but he doesn't stop you.)\e"
+				}
+			}
+			else //He isn't sure what to make of you yet
+			{
+				"\s[200]* (He dodges your cursor.)\w8\w8\n\n\s[108]Please don't touch my head.\e"
+				"\s[200]* (He steps out of the way of your cursor.)\w8\w8\n\n\s[108]Please don't touch me.\e"
+				"\s[200]* (He dodges your pet.)\w8\w8\n\n\s[201]I'm married,\w4 please don't.\e"
+			}
+		}
+		elseif LV > 0 //Negative routes
+		{
+			LV += 1
+			if LVCheck == 1 //know his secrets
+			{
+				if broken == 1 //broken him down all the way
+				{
+					"\s[515]* (You stroke your cursor over his skull.)\w8\w8\n\n\s[510]* (He doesn't move.)\e"
+					"\s[515]* (You stroke your cursor over his skull.)\w8\w8\n\n\s[510]* (He shivers slightly.)\e"
+				}
+				else //breaking him, but he's still standing
+				{
+					"\s[510]* (You run your cursor over his head.)\w8\w8\n\n\s[515]* (He shudders.)\e"
+					"\s[514]* (You run your cursor over his head.)\w8\w8\n\n\s[510]* (He looks uncomfortable,\w4 but says nothing.)\e"
+					"\s[516]* (You run your cursor over his head.)\w8\w8\n\n\s[514]* (He looks down.)\e"
+				}
+		
+			}
+			else //Just mean for no reason
+			{
+				if LV <= 30 //you've been a bit mean
+				{
+					"\s[402]* (He dodges your cursor.)\w8\w8\n\n\s[412]What,\w4 trying to make up to me now?\w8\w8\s[401] Not a chance.\e"
+					"\s[402]* (He dodges your cursor.)\w8\w8\n\n\s[412]Don't be a creep.\e"
+					"\s[402]* (He dodges your cursor and scowls at you.)\e"
+				}
+				elseif LV >= 31 //You've been really mean and he hates you a lot
+				{
+					"\s[402]* (He dodges your cursor.)\w8\w8\n\n\s[412]Do not touch me.\w8\w8\s[413] Ever.\e"
+					"\s[402]* (He steps away.)\w8\w8\n\n\s[412]No.\w8 No touching.\e"
+					"\s[402]* (He shifts just out of range and gives you a sour look.)\e"
+				}
+			}
+		}
+	}
+}
+
+
+
+
+
+SnagDent
+{
+	if nowmode == "RYS"
+	{
+		if RYSpetstage >= 3
+		{
+			"\RYS\s[2014]Ah-!\w8\w8\n\n* (He flinches as you stroke the damaged part of his skull by mistake.)\w8\w8\n\n\s[2007]* (You try to reassure him that it was a mistake,\w4 and he nods quietly.)\e"
+			"\RYS\s[2014]* (He squirms in discomfort as you stroke the sensitive spot on his skull by mistake.)\w8\w8\n\n\s[2008]* (You try to apologize,\w4 and he nods slowly,\w4 shivering.)\e"
+			"\RYS\s[2014]* (He flinches as your cursor touches the sensitive part of his skull.)\w8\w8\n\n* (You should probably be more careful while petting him...)\e"
+		}
+		else
+		{
+			RYStrust -= 2
+			"\RYS\s[2014]* (He flinches and squirms as you stroke your cursor over the sensitive spot on his head.)\e"
+			"\RYS\s[2014]* (He shudders as you stroke your cursor over the damaged part of his head.)\e"
+			"\RYS\s[2014]Ah-!\w8\w8\n\n* (He's shaking...\w8 You're not sure if it's in pain or fear.)\e"
+		}
+	}
+	elseif holdingObsidian == 1
+	{
+		
+	}
+	elseif nowmode == "Asleep"
+	{
+		totalsnags++
+		"\0\s[1301]...%(mumb)...\w8\w8 Don't...\w8\w8 Don't touch...\e"
+		"\0\s[1301]...%(mumb)...\w8\w8 Don't...\w8\w8 Leave that alone...\e"
+		"\0\s[1301]...%(mumb)...\w8\w8 Don't...\w8\w8 Stop that...\e"
+		"\0\s[1301]...%(mumb)...\w8\w8 Don't...\w8\w8 Not there...\e"
+		"\0\s[1301]...%(mumb)...\w8\w8 Stop...\w8\w8 Don't touch my head...\e"
+	}
+	else
+	{
+		snagged += 1
+		totalsnags += 1
+		if LV == 0 //Friendship routes
+		{
+			if love >= 75 //Full friendship
+			{
+				"\0\s[301]Ah..!\w8\w8\s[201]\n\nPlease don't do that,\w4 kid.\w8 That's a sensitive spot.\e"
+				"\0\s[301]Ah..!\w8\w8\s[201]\n\nI'll assume that was an accident.\w8 Please be careful,\w4 my head is uh,\s[200] a little sensitive.\e"
+			}
+			elseif love >= 20 //getting to know him a little
+			{
+				"\0\s[301]Ghk-!\w8\w8\w8\s[201]\n\n\s[515]* (He shudders)\w8\w8\n\n\s[516]Be careful,\w4 please,\w4 that's a really sensitive spot.\e"
+				"\0\s[301]Ghk-!\w8\w8\w8\s[201]\n\nAh,\w4 don't touch that.\w8\w8\s[515] Please.\w8\w8\n\n* (He shivers.)\e"
+			}
+			else //He isn't sure what to make of you yet
+			{
+				love -= 1
+				--
+				"\s[203]* (He dodges your cursor.)\w8\w8\n\nPlease don't touch my head.\w8\s[400] Especially not there,\w4 it's very rude.\e"
+				"\s[203]* (He dodges your cursor.)\w8\w8\n\nHey!\w8\w8\s[400] Don't touch my head,\w4 especially not there,\w4 please.\e"
+			}
+		}
+		elseif LV > 0 //Negative routes
+		{
+			LV += 2
+			if LVCheck == 1 //know his secrets
+			{
+
+					if broken == 1 //broken him down all the way
+					{
+						"\s[515]* (You stroke the damaged part of his skull.)\w8\w8\n\n\s[500]* (He shudders,\w4 but doesn't move away.)\e"
+						"\s[515]* (You stroke the damaged part of his skull.)\w8\w8\n\n\s[500]* (He chokes back a noise of protest.)\e"
+					}
+					else //breaking him, but he's still standing
+					{
+						"\s[515]* (You stroke the damaged part of his skull.)\w8\w8\n\n\s[500]* (He shudders,\w4 but doesn't move away.)\e"
+						"\s[515]* (You stroke the damaged part of his skull.)\w8\w8\n\n\s[500]* (He chokes back a noise of protest.)\e"
+					}
+			}
+			else //Just mean for no reason
+			{
+				if LV <= 30 //you've been a bit mean
+				{
+					"\s[402]* (He dodges your cursor.)\w8\w8\n\n\s[412]No.\w8 Stay away from that.\e"
+					"\s[402]* (He dodges your cursor.)\w8\w8\n\n\s[412]Knock it off.\e"
+				}
+				elseif LV >=31 //You've been really mean and he hates you a lot
+				{
+					"\s[402]* (He dodges your cursor.)\w8\w8\n\n\s[412]No.\w8 Stay away from that.\e"
+					"\s[402]* (He dodges your cursor.)\w8\w8\n\n\s[412]Knock it off.\e"
+				}
+			}
+		}
+	}
+}
+
+
+
+
+SnagCracks
+{
+	if holdingObsidian == 1
+	{
+		
+	}
+	elseif nowmode == "Asleep"
+	{
+		totalsnags += 1
+		if dreams > 0; dreams--
+		"\0\s[1302]Grhf-!\w8\w8\n\n* (He winces as your cursor catches on the cracks in his skull.)\w8\w8\n\n* (You should be more careful petting him...)\e"
+		"\0\s[1302]Hhk-!\w8\w8\n\n* (He flinches as your cursor snags the cracks in his skull.)\w8\w8\n\n* (You should take greater care...)\e"
+	}
+	elseif LV == 0 //Friendship routes
+	{
+		snagged += 2
+		totalsnags += 1
+		if love >= 75 //Full friendship
+		{
+			"\0\s[301]Ah..!\w8 \n\n* (Your mouse slips and snags on one of the cracks as you attempt to pet him.)\w8\n\n* (You begin to apologize profusely for the mistake.) \w8\w8\n\n\s[200] Ah-\w8 I'm ok.\w8\s[201] Just be more careful,\w4 alright?\e"
+		}
+		elseif love >= 20 //getting to know him a little
+		{
+			"\0\s[301]Ah..!\w8 \n\n* (Your mouse slips and snags on one of the cracks.)\w8\w8\n\n\s[516]%(username),\w4 please be more careful where you're pointing that thing.\e"
+			"\0\s[301]Ah..!\w8 \n\n* (Your mouse slips and snags on one of the cracks.)\w8\w8\n\n\s[512]Ah,\w4 please stop touching my head if you can't control that thing.\e"
+		}
+		else //He isn't sure what to make of you yet
+		{
+			love -= 1
+			--
+			"\s[1550]Ah-!\n\n* (You make a hasty attempt to pet him,\w4 and jam your cursor into one of the cracks on his head instead.)\w8\w8\n\n\s[402] Hey..!\w8\w8\s[400] Don't touch my head,\w4 this is why.\e"
+		}
+	}
+	elseif LV > 0 //Negative routes
+	{
+		snagged += 2
+		totalsnags += 1
+		LV += 2
+		if LVCheck == 1 //know his secrets
+		{
+			if broken == 1 //broken him down all the way
+			{
+				"\s[500]* (You shove your cursor into the cracks on his head.)\w8\w8\n\n* (He makes a small noise,\w4 but doesn't move.)\e"
+				"\s[500]* (You grab the cracks on his head.)\w8\w8\n\n* (He makes a small,\w4 pained noise,\w4 but doesn't move away.)\e"
+			}
+			else //breaking him, but he's still standing
+			{
+				"\0\s[1550]Ah-!\n\n* (You dig your cursor into one of the cracks on his head.)\w8\w8\w8\s[512]\n\n* (He looks away...)\e"
+				"\0\s[1550]Ah-!\n\n* (You dig your cursor into one of the cracks on his head.)\w8\w8\w8\s[511]\n\n* (Fear flickers across his face,\w4\s[515] but he doesn't dare to pull away.)\e"
+			}
+		}
+	}
+	else //Just mean for no reason -- Extra dialogue is added once you pass a certain threshold, but the old stuff stays
+	{
+		snagged += 2
+		totalsnags += 1
+		"\0\s[1550]Ah-!\n\n* (You dig your cursor into one of the cracks on his head.)\w8\w8\s[413]\n\nKnock it off already!\e"
+		"\0\s[1550]Ah-!\n\n* (You run your cursor over his head roughly,\w4 catching on one of the cracks in the process.)\w8\w8\s[413]\n\nCut it out!\e"
+		"\0\s[403]* (He dodges your cursor.)\w8\w8\n\nNo.\w8 Stay away.\e"
+		if LV >=31 //You've been really mean and he hates you a lot
+		{
+			"\0\s[1550]Ah-!\n\n* (There's a sickening crack as you jam your cursor into his eye socket.)\n\n\w8\w8\w8\s[401].\w8.\w8.\w8Are there no depths to which you won't stoop?\e" //replaceframe could use hugging himself here
+			"\0\s[1550]Ah-!\n\n* (You shove your cursor into one of the cracks on his head.)\n\n\w8\w8\w8\s[403].\w8.\w8.\w8You're lucky I can't reach you from here.\e"
+		}
+	}
+}
+
+OnMouseDown //Boop!
+{
+	if reference5 == 0 //Reference5 is which mouse key is being clicked. 0 is a left click.
+	{
+		if nowmode == "RYS"
+		{
+			
+		}
+		elseif holdingObsidian == 1 && reference4 == "Face" && reference3 == 0
+		{
+			totalboops += 1
+			"\0\s[1210]* (You boop his nose!)\w8\w8\w8\n\n"
+			"\0\s[1210]* (Boop!)\w8\w8\w8\n\n"
+			"\0\s[1210]* (Got your nose!)\w8\w8\w8\n\n"
+			"\0\s[1210]* (You give him a boop!)\w8\w8\w8\n\n"
+			--
+			"\s[1206]"
+			"\s[1207]"
+			--
+			"...Ok??\e"
+			"...Um,\w4 thanks?\e"
+			"...What was that for?\e"
+			"...Alright,\w4 I guess?\e"
+			"...Why?\e"
+			"...Kiddo,\w4 what are you up to?\e"
+			"...%(username),\w4 is there a reason you're doing this?\e"
+			"* (He looks utterly confused.)\e"
+		}
+		else
+		{
+			if LV == 0 && love >= 150
+			{
+				if reference4 == "Face" && reference3 == 0
+				{
+					totalboops += 1
+					"\0\s[110]* (You boop his nose!)\w8\w8\w8\n\n"
+					"\0\s[110]* (Boop!)\w8\w8\w8\n\n"
+					"\0\s[110]* (Got your nose!)\w8\w8\w8\n\n"
+					"\0\s[110]* (You give him a boop!)\w8\w8\w8\n\n"
+					--
+					"\s[106]"
+					"\s[107]"
+					"\s[202]"
+					--
+					"...Ok??\e"
+					"...Um,\w4 thanks?\e"
+					"...What was that for?\e"
+					"...Alright,\w4 I guess?\e"
+					"...Why?\e"
+					"...Kiddo,\w4 what are you up to?\e"
+					"...%(username),\w4 is there a reason you're doing this?\e"
+					"* (He looks utterly confused.)\e"
+				}
+			}
+		}
+	}
+}
+
+PetObsi
+{
+	res_reference0 = "Dusty"
+	"\e SObsiPets"
+}
+
+/* //Can't do a dragging position while also talking, but maybe I can at least make the coordinates update more seamlessly? SinceTalk may help here. Oh, but I'll have to put this on mousedragend
+OnMouseDragStart
+{
+	"\C\![get,property,OnUpdateCoords,currentghost.scope(0).rect] "
+}*/
+
+OnMouseDragEnd
+{
+	lastinteracted = 0
+	if nowmode == "RYS"
+	{
+		
+	}
+	elseif holdingObsidian == 1
+	{
+		
+	}
+	elseif nowmode == "Asleep"
+	{
+		
+	}
+	else
+	{
+		if LV == 0
+		{
+			//if SHIORI3FW.CanTalk == 1
+			if suppressCoords == 1
+			{
+				
+			}
+			else
+			{
+				if Dragged > 5
+				{
+					dragdizzy++
+					"\![get,property,OnCheckPosition,currentghost.scope(0).rect]"
+				}
+				elseif SinceTalk > 2 && mikireflag != 1 && FromDragging != 2 //SinceTalk is set up in aitalk, it's the seconds since he stopped talking. mikireflag is to do with him being off screen. This ensures that that dialogue doesnt get interrupted.
+				{
+					"\![get,property,OnCheckPosition,currentghost.scope(0).rect]" //This checks his current coordinates to see if you've dragged him onto a new screen
+					FromDragging = 1
+				}
+				else
+				{
+					//OnUpdateCoords //Even if he cant say anything, he'll at least update his position so he knows if you're moving him right or left
+					//FromDragging = 2
+					"\C\![get,property,OnSilentPosition,currentghost.scope(0).rect]\_l[0,0] " //X:%(XCoord) Y:%(YCoord)
+				}
+				--
+				Dragged += 1
+			}
+		}
+	}
+}
+
+
+
+OnUpdateMonitors
+{
+	CurrentXMonitor = NewXMonitor
+	CurrentYMonitor = NewYMonitor
+	CurrentXPos = XCoord
+	CurrentYPos = YCoord
+	FromDragging = 0
+}
+
+OnUpdateCoords //Just should move the coord getting and whatnot into here..... tho wait I can't do this lol. Hrm. Ok I'll move this over to the other thing then...
+{
+	CurrentXPos = XCoord
+	CurrentYPos = YCoord
+}
+
+
+
+MouseDoubleClickRYS
+{
+	OpenRYSMenu
+}
+
+OnSilentPosition
+{
+	XCoord = TOINT(reference0[0])
+	YCoord = TOINT(reference0[1])
+	XCoord = (XCoord + 115) //S's frames are 230 long, so this puts the coord in the middle of hit hitbox
+	YCoord = (YCoord + 135) //Same here but with Y
+	if XCoord < 0
+	{
+		NewXMonitor = 2
+	}
+	elseif XCoord > displaywidth
+	{
+		NewXMonitor = 2
+	}
+	else
+	{
+		NewXMonitor = 1
+	}
+	--
+	if YCoord > displayheight
+	{
+		NewYMonitor = 2
+	}
+	elseif YCoord < 0
+	{
+		NewYMonitor = 2
+	}
+	elseif YCoord < (displayheight / 2)
+	{
+		NewYMonitor = 1
+	}
+	else
+	{
+		NewYMonitor = 1
+	}
+	--
+	if Dragged > 6 //This has to be one higher than the value in mouse or wherever the dragging stuff is, otherwise this pops up after the balloon breaks
+	{
+		"\![get,property,OnCheckPosition,currentghost.scope(0).rect]"
+	}
+	else
+	{
+		OnUpdateMonitors
+	}
+}

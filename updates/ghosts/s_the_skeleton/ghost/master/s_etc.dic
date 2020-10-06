@@ -1,0 +1,4158 @@
+﻿//---------------------------Miscellaneous Functions--------------------------
+
+OnFileDrop2
+{
+	if lastinteracted > 6
+	{
+		CameBack += 1
+	}
+	--
+	lastinteracted = 0
+	_filepath = SPLITPATH(reference0)
+	_filename = _filepath[2]
+	_fileext = TOLOWER(_filepath[3])
+	_fileslash = REPLACE(reference0,"\","\\")
+	if _fileext != ""
+	{
+		if nowmode == "RYS"
+		{
+			case _fileext
+			{
+				when ".jpg", ".jpeg", ".bmp", ".png"
+				{		
+					Wallpaperfile = reference0
+					"\RYS\s[2007]...Do you want this as your wallpaper..?"
+					--
+					"\n\n/
+					\![*]\q[Centered,SetWallpaper_0]\n/
+					\![*]\q[Tiled,SetWallpaper_1]\n/
+					\![*]\q[Stretched,SetWallpaper_2]\n"
+					--
+					_osver = TOINT(os_version)
+					if "Windows" _in_ os_name && _osver >= 10
+					{
+						"\![*]\q[Span,SetWallpaper_3]\n"
+					}
+					--
+					"\n\n\![*]\q[No thanks,SetWallpaper_Cancel]\e"
+				}
+				others
+				{
+					"\RYS\s[2006]..?\e"
+				}
+			}
+		}
+		elseif holdingObsidian == 1
+		{
+			res_reference0 = "Dusty"
+			"\0\s[1206]Ah,\w4 sorry kiddo,\w8\s[1207] my hands are a bit full.\e SCatNoises"
+		}
+		elseif nowmode == "Asleep"
+		{
+			"\0* (He's sound asleep,\w4 maybe you should ask him later.)\e"
+		}
+		else
+		{
+			if LV == 0
+			{
+				case _fileext
+				{
+					when ".jpg", ".jpeg", ".bmp", ".png" //These are the formats your ghost will recognize as image files to set as the background. I tested this with .png files and it does not work, so don't bother adding that as an option. [Zi] Seems to be working fine for me... I'm worried it's gonna break later or something lol
+					{
+						Wallpaperfile = reference0
+						
+						"\0\s[110]Oh,\w4\s[104] this is neat.\w8\w8\s[0] Do you want me to set it as your wallpaper?"
+						"\0\s[110]Oh,\w4 a picture?\w8\w8\s[1020] Uh,\w4 sure,\w4 I think I could set that as your wallpaper.\w8\w8\s[208] How do you want it?"
+						--
+						"\n\n/
+						\![*]\q[Centered,SetWallpaper_0]\n/
+						\![*]\q[Tiled,SetWallpaper_1]\n/
+						\![*]\q[Stretched,SetWallpaper_2]\n"
+						--
+						_osver = TOINT(os_version)
+						if "Windows" _in_ os_name && _osver >= 10
+						{
+							"\![*]\q[Span,SetWallpaper_3]\n"
+						}
+						--
+						"\n\n\![*]\q[No thanks,SetWallpaper_Cancel]\e"
+					}
+					when ".mid", ".wav", ".mp3", ".wma", ".au", ".flac", ".m4a" //Music files
+					{
+						"\s[103]Oh hey,\w4 is this music?\w8\w8\s[106] Unfortunately,\w4 I don't uh...\w8\w8\s[107] know how to read a file like this.\w8\w8\s[0] "
+						"\0\s[1070]A %(_fileext),\w4 huh?\w8\w8\s[106] Sorry,\w4 I can't play this for you.\w8\w8\s[0] "
+						"\0\s[1071]'%(_filename)',\w4 huh?\w8\w8\s[106] Sorry,\w4 I can't play this.\w8\w8\s[0] "
+						--
+						if "Azura" _in_ ghostexlist
+						{
+							"Maybe Azura could?\e"
+							"You could try asking Azura?\e"
+							"Azura probably could.\e"
+						}
+						elseif "Azura" _in_ installedlist && talkedtoAzura == 1
+						{
+							"Maybe you could call Azura here?\e"
+							"I think Azura can play music on her laptop,\w4 if you want to call her here.\e"
+						}
+						else
+						{
+							"Maybe someone else could?\e"
+							"Maybe someone else can play music for you?\e"
+						}
+					}
+					when ".psd", ".sai", ".sai2", ".clip", ".mdp", ".kra", ".xcf" //art files
+					{
+						"\0\s[110]Oh,\w4 is this a drawing?\w8\w8\s[104] That's really cool,\w4 %(username)!\e"
+						"\0\s[111]Oh,\w4 are you an artist,\w4 %(username)?\w8\w8\s[104] This is really neat.\e"
+						"\0\s[111]Oh,\w4 did you draw this %(username)?\w8\w8 It looks really good!\e"
+					}
+					others //Any other file format. As a note here, if you drop something ghost-related on them that does not have an install.txt, then they won't install it and will just say this response. If you are testing your balloon or nar files and you get this response instead of a proper installation, you should check and make sure you have an install.txt in the file!
+					{
+						"\0\s[106]Sorry,\w4 I don't recognize that file type.\w8\w8\s[107] I'm not very good with computers,\w4 to be honest with you.\e"
+						"\0\s[106]Sorry,\w4 I'm not sure what to do with a %(_fileext).\e"
+						"\0\s[107]...Yep,\w4 that's a %(_fileext).\e"
+						"\0\s[106]Sorry kiddo,\w4 I'm not sure what to do with that.\e"
+					}		
+				}
+			}
+			elseif LVCheck == 1
+			{
+				case _fileext
+				{
+					when ".jpg", ".jpeg", ".bmp", ".png"
+					{
+						Wallpaperfile = reference0
+						
+						"\0\s[510]...How do you want your wallpaper set?\n\n/
+						\![*]\q[Centered,SetWallpaper_0]\n/
+						\![*]\q[Tiled,SetWallpaper_1]\n/
+						\![*]\q[Stretched,SetWallpaper_2]\n"
+						--
+						_osver = TOINT(os_version)
+						if "Windows" _in_ os_name && _osver >= 10
+						{
+							"\![*]\q[Span,SetWallpaper_3]\n"
+						}
+						--
+						"\n\n\![*]\q[No thanks,SetWallpaper_Cancel]\e"
+					}
+					others
+					{
+						"\0\s[510]...Sorry,\w4 I can't do anything with that file.\e"
+					}
+				}			
+			}
+			else
+			{
+					"\s[400]Hmph.\w8 I'm not doing anything with it.\e"
+					"\s[400]Keep your files to yourself,\w4 I don't want them.\e"
+			}
+		}
+	}
+	else
+	{
+		if nowmode == "RYS"
+		{
+			"\RYS\s[2006]Um,\w4 this is %(_fileslash)...\w8\w8\s[2007] I'm not sure what to do with it.\e"
+		}
+		elseif holdingObsidian == 1
+		{
+			"\0\s[1207]Sorry %(username),\w4 my hands are kinda full.\e"
+		}
+		else
+		{
+			if LV == 0
+			{
+				"\0\s[0]This is %(_fileslash).\w8\w8\s[106] Sorry kiddo,\w8\s[106] I'm not sure what to do with that.\e"
+				"\0\s[110]A whole folder?\w8\w8\s[106] Uh,\w4 I'm not sure what to do with that,\w4 sorry kiddo.\e"
+				"\0\s[107]That sure is a folder.\w8\w8\s[106] I can't do anything with it,\w4 though.\e"
+			}
+			else
+			{
+				if LVCheck == 1
+				{
+					"\0\s[510]...This is %(_fileslash).\e"
+				}
+				else
+				{
+					"\0\s[410]I don't want your folders.\e"
+				}
+			}
+		}
+	}
+}
+
+//This set of options sets the wallpaper up. You can replace the dialogue, but make sure to leave the \![set,wallpaper, etc.] tag at the beginning.
+
+Select.SetWallpaper_0
+{
+	if nowmode == "RYS"
+	{
+		"\![set,wallpaper,%(Wallpaperfile),center]\RYS%(RYSIdle)"
+		--
+		"...It's centered.\e"
+	}
+	else
+	{
+		if LV == 0
+		{
+			"\![set,wallpaper,%(Wallpaperfile),center]\0"
+			--
+			"\s[104]"
+			"\s[111]"
+			"\s[103]"
+			"\s[102]"
+			"\s[205]"
+			"\s[0]"
+			--
+			"Ok,\w4 I've centered it for you.\w8\w8"
+			"There you go.\w8\w8"
+			"Done.\w8\w8"
+			"It's set.\w8\w8"
+			"There.\w8\w8"
+			--
+			"\s[106] Is it straight?\w8\w8 It's hard to tell from here.\e"
+			"\s[103] How does it look?\e"
+			" Is that alright?\e"
+		}
+		else
+		{
+			"\![set,wallpaper,%(Wallpaperfile),center]\0\s[510]...Ok,\w4 I've centered it.\e"
+		}
+	}
+}
+Select.SetWallpaper_1
+{
+	if nowmode == "RYS"
+	{
+		"\![set,wallpaper,%(Wallpaperfile),tile]\RYS%(RYSIdle)"
+		--
+		"...It's tiled.\e"
+	}
+	else
+	{
+		if LV == 0
+		{
+			"\![set,wallpaper,%(Wallpaperfile),tile]\0"
+			--
+			"\s[104]"
+			"\s[111]"
+			"\s[103]"
+			"\s[102]"
+			"\s[205]"
+			"\s[0]"
+			--
+			"Ok,\w4 I've tiled it for you.\w8\w8"
+			"There you go.\w8\w8"
+			"Done.\w8\w8"
+			"It's set.\w8\w8"
+			"There.\w8\w8"
+			--
+			"\s[101] Funky.\e"
+			"\s[101] Kinda weird that way,\w4 isn't it?\e"
+			"\s[101] Whatever floats your boat,\w4 I guess.\e"
+			"\s[106] It looks a bit crowded,\w4 doesn't it?\e"
+		}
+		else
+		{
+			"\![set,wallpaper,%(Wallpaperfile),tile]\0\s[510]...Ok,\w4 I've tiled it.\e"
+		}
+	}
+}
+Select.SetWallpaper_2
+{
+	if nowmode == "RYS"
+	{
+		"\![set,wallpaper,%(Wallpaperfile),stretch]\RYS%(RYSIdle)"
+		--
+		"...It's stretched.\e"
+	}
+	else
+	{
+		if LV == 0
+		{
+			"\![set,wallpaper,%(Wallpaperfile),stretch]\0"
+			--
+			"\s[104]"
+			"\s[111]"
+			"\s[103]"
+			"\s[102]"
+			"\s[205]"
+			"\s[0]"
+			--
+			"Ok,\w4 I've stretched it across.\w8\w8"
+			"There you go.\w8\w8"
+			"Done.\w8\w8"
+			"It's set.\w8\w8"
+			"There.\w8\w8"
+			--
+			"\s[106] Does it look ok?\e"
+			"\s[106] Is that alright?\e"
+			"\s[110] Isn't it a bit skewed this way?\e"
+		}
+		else
+		{
+			"\![set,wallpaper,%(Wallpaperfile),stretch]\0\s[510]...Ok,\w4 I've stretched it.\e"
+		}
+	}
+}
+Select.SetWallpaper_3
+{
+	if nowmode == "RYS"
+	{
+		"\![set,wallpaper,%(Wallpaperfile),span]\RYS%(RYSIdle)"
+		--
+		"...It's spanned across.\e"
+	}
+	else
+	{
+		if LV == 0
+		{
+			"\![set,wallpaper,%(Wallpaperfile),span]\0"
+			--
+			"\s[104]"
+			"\s[111]"
+			"\s[103]"
+			"\s[102]"
+			"\s[205]"
+			"\s[0]"
+			--
+			"Ok,\w4 I've fit it onto both monitors.\w8\w8"
+			"There you go.\w8\w8"
+			"Done.\w8\w8"
+			"It's set.\w8\w8"
+			"There.\w8\w8"
+			--
+			" How does that look?\e"
+			"\s[110] Got a lot of space,\w4 huh?\e"
+			" Did that work alright?\e"
+		}
+		else
+		{
+			"\![set,wallpaper,%(Wallpaperfile),span]\0\s[510]...Ok,\w4 I've spanned it across.\e"
+		}
+	}
+}
+Select.SetWallpaper_Cancel
+{
+	if nowmode == "RYS"
+	{
+		"\RYS\s[2007]...Ok.\e"
+	}
+	else
+	{
+		if LV == 0
+		{
+			"\0\s[0]Alrighty then,\w4 just let me know if you change your mind.\e"
+			"\0\s[104]Ok,\w4 let me know if you change your mind.\e"
+			"\0\s[111]Ok,\w4 if you change your mind let me know.\e"
+		}
+		else
+		{
+			"\0\s[510]...Ok.\e"
+		}
+	}
+}
+
+
+ //---- OnInstallBegin -------------------------------------------------------
+ //OnInstallBegin is called when a file with an included install.txt is dropped on your ghost. This primarily means things like .nar files for other ghosts or .zip files containing balloons or shells for your ghosts. Primarily ghost-related things. Replace as you want.
+ 
+OnInstallBegin
+{
+	if lastinteracted > 6
+	{
+		CameBack += 1
+	}
+	--
+	lastinteracted = 0
+	if nowmode == "RYS"
+	{
+		"\RYS\s[2006]Oh,\w4 um...\w8\w8 you need this installed..?\w8\w8\s[2007] Uh,\w4 let me see...\e"
+	}
+	elseif holdingObsidian == 1
+	{
+		"\0\s[1206]Uh,\w4 alright,\w8\s[1207] hold on a minute...\w8\w8\s[1206] This is kinda hard to do with my hands full,\w4 you know.\e"
+	}
+	elseif nowmode == "Asleep"
+	{
+		"%(etcwake)"
+		--
+		"Oh,\w4 %(mumb)...\w8\w8 Sure...\e"
+	}
+	else
+	{
+		if LV == 0
+		{
+			"\0\s[0]Oh,\w4 you need something installed?\w8\w8\s[1070] Uh,\w4 let me see...\e"
+			"\0\s[110]Oh sure,\w4\s[1070] let me see here...\e"
+		}
+		elseif LVCheck == 1
+		{
+			"\0\s[510]...Ok,\w4 just a moment.\e"
+		}
+		else
+		{
+			"\0\s[400]Hmph.\e"
+			"\0\s[400]Only because I have to.\e"
+			//"\s[400]Keep your files to yourself,\w4 I don't want them.\e"
+		}
+	}
+}
+
+ //---- OnInstallComplete -------------------------------------------------------
+ //OnInstallComplete runs once the file above has finished installing.
+ 
+OnInstallComplete
+{
+	if reference0 == "shell" //This is checking to see if what you installed is classified as a shell in the install.txt. Remember the line in install.txt that said type,ghost or type,shell? This is why that line is important, that's what tells the program what it's installing like so.
+	{	
+		if nowmode == "RYS"
+		{
+			"\RYS\s[2008]Um,\w4 it's a 'shell'..?\w8\w8\s[2006] ...I've finished installing it.\e"
+		}
+		elseif holdingObsidian == 1
+		{
+			"\0\s[1201]It's a new shell.\e"
+		}
+		elseif nowmode == "Asleep"
+		{
+			"\0\s[109]Mm...\w8\w8 New shell...\w8\w8 \s[1300]%(mumb)...\e"
+		}
+		else
+		{
+			if LV == 0
+			{
+				"\0\s[110]A new outfit?\w8\w8\s[104] Aw,\w4 thanks %(username).\e"
+			}
+			else
+			{
+				if LVCheck == 1
+				{
+					"\0\s[510]...I've installed a new shell called %(reference1).\e"
+				}
+				else
+				{
+					"\0\s[411]A new shell,\w4 hooray.\e"
+				}
+			}
+		}
+	}
+	elseif reference0 == "ghost" //if the type of the file they're installing is a ghost.
+	{
+		if nowmode == "RYS"
+		{
+			"\RYS\s[2006]Um,\w4 it's...\w8\w8 someone else..?\w8\w8\s[2007] Should I call them here..?"
+		}
+		elseif holdingObsidian == 1
+		{
+			"\0\s[1210]It's someone else?\w8\w8 Should I call them here?"
+		}
+		elseif nowmode == "Asleep"
+		{
+			"\0\s[109]Mm...\w8\w8 Someone else..?\w8\w8 ...Do you want me to call them here?"
+		}
+		else
+		{
+			if LV == 0
+			{
+				"\0\s[1070]Oh,\w4 someone else..?\w8\w8\s[101] Is this how I ended up here?"
+			}
+			else
+			{
+				if LVCheck == 1
+				{
+					"\0\s[513]...Looks like someone else for you to-\s[515]\w8\w8\w8\s[510] ...talk to."
+				}
+				else
+				{
+					"\0\s[411]Oh great,\w8\s[412] going to attack %(reference1) like you've attacked me?\w8\w8\s[404] Hmph.\e"
+				}
+			}
+		}
+		--
+		"\n\n\![*]\q[Call %(reference1),callghost]\n/
+		\![*]\q[Change to %(reference1),changeghost]\n\n/
+		\![*]\q[No thanks,changenothanks]\e"
+	}
+	elseif reference0 == "balloon" //if the type of file is a balloon
+	{
+		if nowmode == "RYS"
+		{
+			"\RYS\s[2006]Um,\w4 it's a balloon?\w8\w8\s[2007] ...I'm not sure what that is,\w4 sorry...\e"
+		}
+		elseif holdingObsidian == 1
+		{
+			"\0\s[1207]It's a balloon,\w4 I guess?\e"
+		}
+		elseif nowmode == "Asleep"
+		{
+			"\0\s[109]Mm...\w8\w8 New balloon...\w8\w8 \s[1300]%(mumb)...\e"
+		}
+		else
+		{
+			if LV == 0
+			{
+				"\0\s[1070]Oh,\w4 it's a...\w8 balloon?\w8\w8\s[205] ...Doesn't look like any balloon I've ever seen,\w4 but ok.\e"
+			}
+			else
+			{
+				if LVCheck == 1
+				{
+					"\0\s[510]...It's a new balloon.\e"
+				}
+				else
+				{
+					"\0\s[404]I've installed %(reference1).\w8\w8 Hooray.\e"
+				}
+			}
+		}
+	}
+	elseif reference0 == "plugin" //if the type of file is a plug-in, like a saori of some kind.
+	{
+		if nowmode == "RYS"
+		{
+			"\RYS\s[2008]Um,\w4 it's a plugin..?\w8\w8\s[2006] ...I've finished installing it.\e"
+		}
+		elseif holdingObsidian == 1
+		{
+			"\0\s[1207]I've installed a plugin,\w4 whatever that is.\e"
+		}
+		elseif nowmode == "Asleep"
+		{
+			"\0\s[109]Mm...\w8\w8 Plugin...\w8\w8 \s[1300]%(mumb)...\e"
+		}
+		else
+		{
+			if LV == 0
+			{
+				"\0\s[1070]Oh,\w4 it's a...\w8 'plugin'?\w8\w8\s[1020] Sorry kiddo,\w4 got no idea what that is.\w8\s[0] But it's installed now,\w4 so it should work for you.\e"
+			}
+			else
+			{
+				if LVCheck == 1
+				{
+					"\0\s[510]...It's a new plugin.\e"
+				}
+				else
+				{
+					"\0\s[410]It's a plugin,\w4 whatever that is.\e"
+				}
+			}
+		}
+	}
+	elseif reference0 == "calendar skin"
+	{
+		if nowmode == "RYS"
+		{
+			"\RYS\s[2007]...I've installed it,\w4 it's a um...\w8\w8 'calendar skin'?\e"
+		}
+		elseif holdingObsidian == 1
+		{
+			"\0\s[1204]A new calendar,\w4 huh?\e"
+		}
+		elseif nowmode == "Asleep"
+		{
+			"\0\s[109]Mm...\w8\w8 New calendar...\w8\w8 \s[1300]%(mumb)...\e"
+		}
+		else
+		{
+			if LV == 0
+			{
+				"\0\s[110]Oh,\w4 it's a calendar?\w8\w8\s[104] That's pretty neat,\w4 you like to be organized huh?\e"
+			}
+			else
+			{
+				if LVCheck == 1
+				{
+					"\0\s[510]...It's a new calendar skin.\e"
+				}
+				else
+				{
+					"\0\s[410]A calendar skin?\w8\w8\s[412] Did you skin a calendar or something?\e"
+				}
+			}
+		}
+	}
+	else
+	{
+		if nowmode == "RYS"
+		{
+			"\RYS\s[2007]Um,\w4 I'm not sure what it is,\w4\s[2006] but it should be installed now...\e"
+		}
+		elseif holdingObsidian == 1
+		{
+			"\0\s[1204]Finished.\e"
+		}
+		elseif nowmode == "Asleep"
+		{
+			"\0\s[109]Done...\w8\w8 \s[1300]%(mumb)...\e"
+		}
+		else
+		{
+			if LV == 0
+			{
+				"\0\s[106]I'm uh,\w4 not really sure what that is,\w4 but I've installed it I guess.\e"
+			}
+			else
+			{
+				if LVCheck == 1
+				{
+					"\0\s[510]...It's installed.\e"
+				}
+				else
+				{
+					"\0\s[404]It's installed.\e"
+				}
+			}
+		}
+	}
+}
+
+Select.callghost
+{
+	if nowmode == "RYS"
+	{
+		"\RYS\s[2007]Um,\w4 ok..."
+	}
+	elseif holdingObsidian == 1
+	{
+		"\0\s[1204]Ok,\w4 just a moment."
+	}
+	elseif nowmode == "Asleep"
+	{
+		"\0\s[1300]...%(mumb)..."
+	}
+	else
+	{
+		if LV == 0
+		{
+			"\0\s[0]Alright,\w4\s[1070] just a moment..."
+		}
+		else
+		{
+			""
+		}
+	}
+	--
+	"\![call,ghost,lastinstalled]"
+}
+
+Select.changeghost
+{
+	if nowmode == "RYS"
+	{
+		"\RYS\s[2007]Oh,\w4 um...\w8\w8\s[2006] Alright then."
+	}
+	elseif holdingObsidian == 1
+	{
+		"\0\s[1206]Oh,\w4 alright then.\w8\w8\s[1207] Guess cat time's over."
+	}
+	elseif nowmode == "Asleep"
+	{
+		"\0\s[1300]%(mumb)...\w8\w8\n\n* (Seems like he could use the rest.)"
+	}
+	else
+	{
+		if LV == 0
+		{
+			"\0\s[0]Alright,\w4\s[104] I'll see you later then,\w4 %(username)."
+		}
+		else
+		{
+			"\0\s[510]...Alright."
+		}
+	}
+	--
+	"\w8\w8\![change,ghost,lastinstalled]"
+}
+
+Select.changenothanks
+{
+	if nowmode == "RYS"
+	{
+		"\RYS\s[2007]...Ok.\e"
+	}
+	elseif holdingObsidian == 1
+	{
+		"\0\s[1201]Ok,\w4 let me know if you change your mind.\e"
+	}
+	elseif nowmode == "Asleep"
+	{
+		"\0\s[1300]%(mumb)...\e"
+	}
+	else
+	{
+		if LV == 0
+		{
+			"\0\s[0]Alright,\w4 let me know if you change your mind.\e"
+		}
+		else
+		{
+			"\0\s[510]...Alright.\e"
+		}
+	}
+}
+
+
+//---- OnInstallFailure -------------------------------------------------------
+//If the file you dropped fails to install for one reason or another.
+
+OnInstallFailure
+{
+	if nowmode == "RYS"
+	{
+		"\RYS\s[2007]Um,\w4 I couldn't install it...\w8\w8 "
+		--
+		if reference0 == "unsupported" //If the file is unsupported
+		{
+			"\s[2006]It isn't supported.\e"
+		}	
+		elseif reference0 == "extraction" //This checks if the file didn't extract properly.
+		{
+			"\s[2006]I couldn't extract it.\e"
+		}
+		else
+		{
+			"\s[2006]I'm not sure why.\e"
+		}
+	}
+	elseif holdingObsidian == 1
+	{
+		"\0\s[1207]Sorry,\w4 I couldn't install it.\w8\w8 "
+		--
+		if reference0 == "unsupported" //If the file is unsupported
+		{
+			"I don't think that file is supported.\e"
+		}	
+		elseif reference0 == "extraction" //This checks if the file didn't extract properly.
+		{
+			"I couldn't get it to extract.\e"
+		}
+		else
+		{
+			"I'm not sure why.\e"
+		}
+	}
+	elseif nowmode == "Asleep"
+	{
+		"\0\s[109]...Can't do that.\w8\w8 \s[1300]...%(reference0)...\w8\w8 %(mumb)...\e"
+	}
+	else
+	{
+		if LV == 0
+		{
+			"\0\s[200]Ah,\w4 sorry %(username),\w4 something went wrong.\w8\w8 "
+			--
+			if reference0 == "unsupported" //If the file is unsupported
+			{
+				"\s[201]I don't think that file is supported.\e"
+			}	
+			elseif reference0 == "extraction" //This checks if the file didn't extract properly.
+			{
+				"\s[300]I couldn't get it to extract.\e"
+			}
+			else
+			{
+				"\s[106]I'm not sure why.\e"
+			}
+		}
+		else
+		{
+			if LVCheck == 1
+			{
+				"\0\s[516]Something went wrong.\w8\w8 "
+				--
+				if reference0 == "unsupported" //If the file is unsupported
+				{
+					"\s[510]The file isn't supported.\e"
+				}	
+				elseif reference0 == "extraction" //This checks if the file didn't extract properly.
+				{
+					"\s[510]I couldn't extract it.\e"
+				}
+				else
+				{
+					"\s[510]I'm not sure why.\e"
+				}
+			}
+			else
+			{
+				"\0\s[400]I can't install this.\w8\w8 "
+				--
+				if reference0 == "unsupported" //If the file is unsupported
+				{
+					"\s[410]This is an unsupported file type,\w4 don't waste my time.\e"
+				}	
+				elseif reference0 == "extraction" //This checks if the file didn't extract properly.
+				{
+					"\s[410]I can't extract it.\e"
+				}
+				else
+				{
+					"\s[410]I don't know why and I don't care.\e"
+				}
+			}
+		}
+	}
+}
+ 
+//If the file you dropped can't be installed with this ghost.
+OnInstallRefuse
+{
+	if nowmode == "RYS"
+	{
+		"\RYS\s[2007]Um,\w4 I can't install this...\w8\w8\s[2006] I think it's meant for %(reference0)..?\e"
+	}
+	elseif holdingObsidian == 1
+	{
+		res_reference0 = "Dusty"
+		"\0\s[1207]Sorry,\w4 that file is meant for %(reference0).\e SCatNoises"
+	}
+	elseif nowmode == "Asleep"
+	{
+		"\0\s[109]Mm,\w4 that's for %(reference0)...\w8\w8 \s[1300]%(mumb)...\e"
+	}
+	else
+	{
+		if LV == 0
+		{
+			"\0\s[106]Sorry kiddo,\w4 I can't install this.\w8\w8\s[1070] Looks like it's meant for someone else,\w4 it says %(reference0)?\e"
+		}
+		else
+		{
+			if LVCheck == 1
+			{
+				"\0\s[516]...I can't install this.\w8\w8\s[510] It's for %(reference0).\e"
+			}
+			else
+			{
+				"\0\s[410]This is for %(reference0),\w4 stop wasting my time.\e"
+			}
+		}
+	}
+}
+
+
+//When you select the uninstall option in the menu.
+OnVanishSelecting
+{
+	if nowmode == "RYS"
+	{
+		"\RYS\s[2013]* (Is it time to say goodbye..?)\n\n\w8\w8* (This will uninstall the whole ghost,\w4 not just RYS.)\e"
+	}
+	elseif holdingObsidian == 1
+	{
+		"\0\s[1201]* (Are you seriously going to uninstall him while he's holding a cat?)\e"
+	}
+	elseif nowmode == "Asleep"
+	{
+		"\0\s[1300]* (Are you seriously going to uninstall him while he's asleep?)\e"
+	}
+	else
+	{
+		if LV == 0
+		{
+			"\0\s[205]* (Is it time to say goodbye..?)\e"
+		}
+		else
+		{
+			if LVCheck == 1
+			{
+				"\0\s[510]* (Are you done with him..?)\e"
+			}
+			else
+			{
+				"\0\s[404]* (Are you done with him..?)\e"
+			}
+		}
+	}
+}
+
+//When you decide to uninstall him. 
+OnVanishSelected
+{
+	if nowmode == "RYS"
+	{
+		"\RYS* (You say farewell.)\w8\w8\n\n\s[2006]Oh,\w4 um...\w8\w8\s[2007] alright.\w8\w8\n\n* (He leaves qui\s[-1]etly.)\w8\w8\e"
+	}
+	elseif holdingObsidian == 1
+	{
+		"\0\s[1201]* (You say farewell.)\w8\w8\n\n\s[1210]Oh,\w4 really?\w8\w8\s[1225] Alright,\w4 then.\w8\w8\s[1200] It was nice meeting you,\w4 %(username).\w8\w8\n\n\s[1204]See you around,\w4 Dusty.\w8\w8\w8\e"
+	}
+	elseif nowmode == "Asleep"
+	{
+		"\0\s[109]Mhh,\w4 huh?\w8\w8\s[108] Oh,\w4 %(username)?\w8\w8\s[110] Oh,\w4 this is goodbye?\w8\w8\s[106] Alright then,\w4 I guess.\w8\w8\s[104] Take care of yourself.\w8\w8\w8\e"
+	}
+	else
+	{
+		if LV == 0
+		{
+			"\0\s[0]* (You say farewell.)\w8\w8\n\n\s[110]Oh,\w4 really..?\w8\w8\s[106] Well,\w4 alright then.\w8\w8\n\n\s[1010]It was nice hanging out with you,\w4 %(username).\w8\w8 Take care of yourself!\w8\w8\w8\e"
+		}
+		else
+		{
+			if LVCheck == 1
+			{
+				"\0\s[510]* (He leaves \s[-1]quietly.)\w8\w8\e"
+			}
+			else
+			{
+				"\0\s[402]Took you long enough.\w8\w8\e"
+			}
+		}
+	}
+}
+
+//If you select Uninstall from the menu, but decide not to do it.
+OnVanishCancel
+{
+	if nowmode == "RYS"
+	{
+		"\RYS%(RYSIdle)* (You decide to keep him around a while longer.)\e"
+	}
+	elseif holdingObsidian == 1
+	{
+		"\0* (Damn straight.)\e"
+	}
+	elseif nowmode == "Asleep"
+	{
+		"\0* (That's better.)\e"
+	}
+	else
+	{
+		if LV == 0
+		{
+			"\0\s[0]* (You decide to keep him a while longer.)\e"
+		}
+		else
+		{
+			if LVCheck == 1
+			{
+				"\0\s[510]* (Not just yet.)\e"
+			}
+			else
+			{
+				"\0\s[400]* (He tries to hide his disappointed look.)\e"
+			}
+		}
+	}
+}
+
+//--TalkVanishButtonHold
+//I believe this calls if you click and hold the button on either the menu option for uninstalling them, or possibly the option itself. Be careful if you're trying to test this! You'd hate to uninstall all your hard work, right? I'd probably just make sure the dialogue looks right via Script Input and leave it at that.
+//[Zi] I've tested this and can't seem to get this dialogue to appear. Ah well.
+//[Zi] I've figured it out!! It's not TalkVanishButtonHold, it's OnVanishButtonHold! And, it doesn't activate when the user clicks and holds on buttons, it activates if they cancel the uninstall before the dialogue is finished. Woo!
+
+OnVanishButtonHold
+{
+	if nowmode == "RYS"
+	{
+		"\RYS\s[2007]Oh...\w8\w8\s[2006] Y-you changed your mind..?\e"
+	}
+	elseif holdingObsidian == 1
+	{
+		res_reference0 = "Dusty"
+		"\0\s[1210]Oh,\w4 changed your mind?\w8\w8\s[1207] Alright then.\w8\w8\s[1201] Guess I can keep holding you then,\w4 huh?\e SCatNoises"
+	}
+	elseif nowmode == "Asleep"
+	{
+		nowmode = "Default"
+		"\0\s[110]Oh,\w4 you've changed your mind?\w8\w8\s[107] I'm glad,\w4 honestly.\e"
+	}
+	else
+	{
+		if LV == 0
+		{
+			"\0\s[106]Oh,\w4 changed your mind?\w8\w8\s[107] Don't scare me like that,\w4 kiddo.\e"
+		}
+		else
+		{
+			if LVCheck == 1
+			{
+				"\0\s[510]* (He stays silent.)\e"
+			}
+			else
+			{
+				"\0\s[410]Seriously?\w8\w8 Is this your new way of toying with me?\e"
+			}
+		}
+	}
+}
+
+
+ //---- OnVanished -----------------------------------------
+ //OnVanished is a weird little function. Basically, if you uninstall a ghost, it'll automatically go back to the last ghost you were using. They'll then say this line of dialogue about the ghost you just uninstalled. This is very annoying to test as you can imagine! But unlikely to come up super often, I bet. You might as well be thorough and fill this out as well. Make sure to set up both their poses immediately so they both appear when it switches back to them.
+ 
+OnVanished
+{
+	if nowmode == "RYS"
+	{
+		"\RYS\s[2007].\w8.\w8.\w8.\w8.\w8\w8\n\n\s[2004]* (He doesn't look at you.)\w8\w8\w8\s[2013]\n\n* (He tries to hide a shudder...)\e"
+	}
+	elseif holdingObsidian == 1
+	{
+		if reference0 == "Dusty" //You monster
+		{
+			holdingObsidian = 0
+			"\0\s[1220]Oh,\w4 wait u\s[-1]p-!\w8\w8\w8\n\n.\w8.\w8.\w8\s[109]\n\nPhew,\w4 can't just leave Obsidian here.....\w8\w8\n\n* (He isn't looking at you...)\e"
+		}
+		else
+		{
+			"\0\s[1220]Oh,\w4 %(reference0)...\e"
+		}
+	}
+	elseif nowmode == "Asleep"
+	{
+		"\0\s[1301]...Ngh...\w8\w8 %(reference0)...\e"
+	}
+	else
+	{
+		if LV == 0
+		{
+			"\0\s[206]Oh,\w4 is %(reference0) gone..?\w8\w8\s[204]\n\n...I hope they're alright...\e"
+		}
+		else
+		{
+			if LVCheck == 1
+			{
+				"\0\s[516].\w8.\w8.\w8.\w8.\w8\s[510]\e"
+			}
+			else
+			{
+				"\0\s[404].\w8.\w8.\w8\s[400]Just like that,\w4 huh?\w8\w8\s[403] You're a cruel person,\w4 %(username).\e"
+			}
+		}
+	}
+}
+ 
+//[Zi] Note to self, at some point I mixed up the breaking and broken dialogue, I think I fixed all the numbers so that it picks the correct one now, but if it acts weird then maybe double check that... 
+OnBIFFBegin
+{
+	if lastinteracted > 6
+	{
+		CameBack += 1
+	}
+	--
+	lastinteracted = 0
+	if mailfrommenu == 1
+	{
+		mailfrommenu = 0 //Adding this check because of auto email checks... this chunk is for if you've asked him to check for emails through the menu
+		if nowmode == "RYS"
+		{
+			"\RYS\s[2007]Oh,\w4 um...\w8\w8\s[2006] Alright,\w4 I'll look for emails...\e"
+		}
+		elseif holdingObsidian == 1
+		{
+			"\0\s[1206]Uh,\w4 alright,\w4 just a second.\e"
+		}
+		else
+		{
+			if LV == 0
+			{
+				"\0\s[101]Uh,\w4 alright,\w4 sure.\w8\w8\s[1070] Give me just a moment...\e"
+			}
+			else
+			{
+				if broken == 1
+				{
+					"\s[510]* (He nods,\w4 and begins checking for new emails.)\e"
+				}
+				else
+				{
+					"\s[510]...Ok.\e"
+				}
+			}
+		}
+	}
+	else //user is doing this through the right click menu or auto check
+	{
+		if nowmode == "RYS"
+		{
+			"\RYS\s[2007]* (He begins checking for new emails.)\e"
+		}
+		elseif holdingObsidian == 1
+		{
+			"\0\s[1207]Emails,\w4 huh?\w8\w8 Alright...\e"
+		}
+		elseif nowmode == "Asleep"
+		{
+			"%(etcwake)"
+			--
+			"Emails...\w8\w8 Mm...\e"
+		}
+		else
+		{
+			if LV == 0
+			{
+				"\0\s[1070]Looking for new emails,\w4 huh..?\w8\w8 Give me just a moment...\e"
+			}
+			else
+			{
+				if LVCheck == 1
+				{
+					"\0\s[510]* (He begins checking for new emails.)\e"
+				}
+				else
+				{
+					"\0\s[410]* (He starts grumpily checking for new emails.)\e"
+				}
+			}
+		}
+	}
+}
+
+ 
+ //---- OnBIFFComplete ---------------------------------------------------------------
+ //After they've succeeded in checking your mail, they'll report back with how many new emails you have. Replace the dialogue with whatever would be character appropriate.
+ 
+OnBIFFComplete
+{
+	//"Ref 0: %(reference0)\n\nRef 1: %(reference1)\n\nRef 2: %(reference2)\n\nRef 3: %(reference3)\n\nRef 7: %(headers)\x"
+	if reference7 != ""
+	{
+		_headers = reference7
+		_headercount = ARRAYSIZE(_headers) //see how long the list is
+		headerlist = ""
+		_i = 0
+		while _i < _headercount
+		{
+			_next = (_i + 1) //Look at the next header
+			if "<" _in_ _headers[_next] && "@" _in_ _headers[_next] && ">" _in_ _headers[_next] //If it's got an email address, it must be a legit one
+			{
+				headerlist += "|br%(_headers[_i])" //Add the current header we have to the header list, move on to the next
+			}
+			else
+			{
+				headerlist += "|br%(_headers[_i])" //Add the first part to the header list, then do a loop to gather the remaining pieces
+				
+				_ii = 0
+				while _ii < (_headercount - _i - 1) //The amount of headers - how far we are through them (-1) so that if you're at the end of the headers it'll stop instead of just making commas
+				{
+					_next = (_i + 1) //Look at the next header
+					if !("<" _in_ headers[_next] && "@" _in_ _headers[_next] && ">" _in_ _headers[_next]) //If there is no email address, add the particle to the list
+					{
+						headerlist += ",%(_headers[_next])"
+						_headers[_next] = IARRAY //Erase the duplicate header
+					}
+					_ii++
+				}
+			}
+			_headercount = ARRAYSIZE(_headers) //Recount how many headers we got
+			_i++
+		}
+		headerlist = ERASE(headerlist,0,3) //erases the first |br so it doesn't start on a line break
+		headerlist = REPLACE(headerlist,"|br","\n\n") //Replace the |brs with line break
+	}
+	--
+	
+	if reference0 == 0 //If you have no new mail.
+ 	{
+		if nowmode == "RYS"
+		{
+			"\RYS\s[2007]...There's nothing new.\e"
+		}
+		elseif holdingObsidian == 1
+		{
+			"\0\s[1206]Nothing new.\e"
+		}
+		elseif nowmode == "Asleep"
+		{
+			"Nothing new...\w8\w8\s[1300] %(mumb)...\e"
+		}
+		else
+		{
+			if LV == 0
+			{
+				"\0\s[106]Nope,\w4 looks like there's nothing new.\e"
+			}
+			else
+			{
+				if LVCheck == 1
+				{
+					"\0\s[516]...No new emails.\e"
+				}
+				else
+				{
+					"\0\s[410]Nothing new.\e"
+				}
+			}
+		}
+	}
+	elseif reference0 == 1 //If you have one new email.
+ 	{
+		if nowmode == "RYS"
+		{
+			"\RYS\s[2008]There's 1 new email..."
+		}
+		elseif holdingObsidian == 1
+		{
+			"\0\s[1200]1 new email."
+		}
+		elseif nowmode == "Asleep"
+		{
+			"\0\s[109]One new..."
+		}
+		else
+		{
+			if LV == 0
+			{
+				"\0\s[0]You've got 1 new email."
+			}
+			else
+			{
+				if LVCheck == 1
+				{
+					"\0\s[516]...1 new email."
+				}
+				else
+				{
+					"\0\s[410]1 new email,\w4 amazing.\e"
+				}
+			}
+		}
+	}
+	elseif reference0 > 1 && reference0 < 11 //If you have more than one email but less than eleven.
+	{
+		if nowmode == "RYS"
+		{
+			"\RYS\s[2007]There are %(reference0) emails."
+		}
+		elseif holdingObsidian == 1
+		{
+			"\0\s[1200]%(reference0) new emails."
+		}
+		elseif nowmode == "Asleep"
+		{
+			"\0\s[109]%(reference0) new..."
+		}
+		else
+		{
+			if LV == 0
+			{
+				"\0\s[0]You've got %(reference0) new emails.\w8\s[103] Probably shouldn't let those pile up too much,\w4 huh?"
+			}
+			else
+			{
+				if LVCheck == 1
+				{
+					"\0\s[516]...%(reference0) new emails."
+				}
+				else
+				{
+					"\0\s[410]%(reference0) new emails.\e"
+				}
+			}
+		}
+	}
+	elseif reference0 >= 100 //If there are over one hundred new emails.
+	{
+		if nowmode == "RYS"
+		{
+			"\RYS\s[2008]U-um,\w4 there are over 100 emails...\e"
+		}
+		elseif holdingObsidian == 1
+		{
+			"\0\s[1207]Geez,\w4 over 100 new emails.\e"
+		}
+		elseif nowmode == "Asleep"
+		{
+			"\0\s[109]Over 100 new..."
+		}
+		else
+		{
+			if LV == 0
+			{
+				"\0\s[106]You've uh...\w8\s[107] got a lot of new emails,\w4 kiddo.\w8\w8\s[208] I'd say more than 100,\w4 at least.\e"
+			}
+			else
+			{
+				if LVCheck == 1
+				{
+					"\0\s[516]...Over 100 new emails.\e"
+				}
+				else
+				{
+					"\0\s[400]Gee,\w4 you're lazy aren't you?\w8\w8\s[402] There are over 100 emails just sitting around unread.\e"
+				}
+			}
+		}
+	}
+ 	else //For any other number of emails.
+	{
+		if nowmode == "RYS"
+		{
+			"\RYS\s[2007]There are %(reference0) new emails."
+		}
+		elseif holdingObsidian == 1
+		{
+			"\0\s[1200]You've got %(reference0) new emails."
+		}
+		elseif nowmode == "Asleep"
+		{
+			"\0\s[109]%(reference0) new..."
+		}
+		else
+		{
+			if LV == 0
+			{
+				"\0\s[0]You've got %(reference0) new emails."
+			}
+			else
+			{
+				if LVCheck == 1
+				{
+					"\0\s[516]...%(reference0) new emails."
+				}
+				else
+				{
+					"\0\s[400]%(reference0) new emails.\w8\w8 Happy?\e"
+				}
+			}
+		}
+ 	}
+	--
+	if reference7 != ""
+	{
+		if nowmode == "RYS"
+		{
+			"\w8\w8 ...Um,\w4 do you want to see the header"
+			--
+			if reference0 > 1; {"s"}
+			--
+			"?"
+		}
+		elseif holdingObsidian == 1
+		{
+			"\w8\w8 Do you want to see the header"
+			--
+			if reference0 > 1; {"s"}
+			--
+			"?"
+		}
+		elseif nowmode == "Asleep"
+		{
+			"\w8\w8 Do you want to see the header"
+			--
+			if reference0 > 1; {"s"}
+			--
+			"..?"
+		}
+		else
+		{
+			if LV == 0
+			{
+				"\w8\w8 Do you want to see the header"
+				"\w8\w8 Would you like to see the header"
+				--
+				if reference0 > 1; {"s"}
+				--
+				"?"
+			}
+			else //Mad route will never ask you about headers.
+			{
+				"\w8\w8... Do you want to see the header"
+				--
+				if reference0 > 1; {"s"}
+				--
+				"?"
+			}
+		}
+		--
+		"\n\n\![*]\q[Yes,seeheaders]\n\![*]\q[No,cancelnodialogue]\e"
+	}
+	else
+	{
+		"\e"
+	}
+}
+
+Select.seeheaders
+{
+	if nowmode == "RYS"
+	{
+		"\RYS\s[2006]"
+	}
+	elseif holdingObsidian == 1
+	{
+		"\0\s[1201]"
+	}
+	elseif nowmode == "Asleep"
+	{
+		"\0\s[1300]"
+	}
+	else
+	{
+		if LV == 0
+		{
+			"\0\s[1070]"
+		}
+		else
+		{
+			"\0\s[512]"
+		}
+	}
+	--
+	"\b2\_q%(headerlistbreak)\*\n\n\![*]\q[I'm done,cancelnodialogue]"
+}
+
+
+ //---- OnBIFFFailure ---------------------------------------------------------------
+ //Various error messages that can happen when your ghost tries to connect to an email account. Replace the dialogue as appropriate.
+ 
+OnBIFFFailure
+ {
+	if reference0 == "timeout" //If the connection times out.
+ 	{
+		if nowmode == "RYS"
+		{
+			"\RYS\s[2006]Um,\w4 sorry,\w4 it looks like it timed out...\e"
+		}
+		elseif holdingObsidian == 1
+		{
+			"\0\s[1206]Sorry,\w4 the connection timed out.\e"
+		}
+		elseif nowmode == "Asleep"
+		{
+			"\0\s[109]Connection timed out...\w8\w8 \s[1300]%(mumb)...\e"
+		}
+		else
+		{
+			if LV == 0
+			{
+				"\0\s[106]Sorry,\w4 looks like the connection timed out.\w8\w8\s[0] Maybe try again later?\e"
+				"\0\s[106]Sorry,\w4 the connection timed out.\w8\w8\s[0] I can try again if you ask me later.\e"
+				"\0\s[106]The connection timed out,\w4 sorry.\w8\w8\s[0] Maybe you should try again later?\e"
+			}
+			else
+			{
+				if LVCheck == 1
+				{
+					"\0\s[510]...Sorry,\w4 the connection timed out.\e"
+				}
+				else
+				{
+					"\0\s[410]Hmph,\w4 the connection timed out.\e"
+				}
+			}
+		}
+	}
+ 	elseif reference0 == "kick" //If the account blocks the ghost from accessing it. I think gmail may do this at first to try and protect your account from unapproved applications using it. It gives you the option to change the setting in the warning email they send you about it.
+	{
+		if nowmode == "RYS"
+		{
+			"\RYS\s[2006]Um,\w4 sorry,\w4 your email wont let me in...\e"
+		}
+		elseif holdingObsidian == 1
+		{
+			"\0\s[1206]Sorry,\w4 I can't get into the account.\e"
+		}
+		elseif nowmode == "Asleep"
+		{
+			"\0\s[109]Can't get into the account,\w4 sorry...\w8\w8 \s[1300]%(mumb)...\e"
+		}
+		else
+		{
+			if LV == 0
+			{
+				"\0\s[106]Sorry,\w4 it won't let me in.\w8\w8 Maybe double check your email settings?\e"
+				"\0\s[106]It's not letting me in.\w8\w8 You should double check the settings of your email.\e"
+				"\0\s[110]It's not letting me in.\w8\w8\s[106] Sorry kiddo,\w4 you'll have to check your email's settings.\e"
+			}
+			else
+			{
+				if LVCheck == 1
+				{
+					"\0\s[510]...Sorry,\w4 I can't access your inbox.\e"
+				}
+				else
+				{
+					"\0\s[410]Hmph,\w4 I can't get into your email anyways.\w8\w8\s[400] Figures someone like you wouldn't be able to set something like that up properly.\e"
+				}
+			}
+		}
+	}
+	elseif reference0 == "defect" //If the information put into the POP menu is wrong.
+ 	{
+		if nowmode == "RYS"
+		{
+			"\RYS\s[2006]Sorry,\w4 it looks um...\w8\w8\s[2007] Like your POP settings are wrong...\![open,configurationdialog]\e"
+		}
+		elseif holdingObsidian == 1
+		{
+			"\0\s[1206]Sorry,\w4 the POP settings are wrong.\![open,configurationdialog]\e"
+		}
+		elseif nowmode == "Asleep"
+		{
+			"\0\s[109]Mm,\w4 POP settings are wrong...\w8\w8\s[1300] %(mumb)...\![open,configurationdialog]\e"
+		}
+		else
+		{
+			if LV == 0
+			{
+				"\0\s[106]Sorry,\w4 looks like something isn't set up quite right.\w8\w8\s[206] Maybe double check your POP settings?\![open,configurationdialog]\e"
+				"\0\s[106]Sorry,\w4 your settings aren't right.\w8\w8\s[0] You should double check them.\![open,configurationdialog]\e"
+				"\0\s[110]Your POP settings aren't right.\w8\w8\s[0] Double check those,\w4 then ask me again.\![open,configurationdialog]\e"
+			}
+			else
+			{
+				if LVCheck == 1
+				{
+					"\0\s[510]...Sorry,\w4 the POP settings aren't right.\![open,configurationdialog]\e"
+				}
+				else //Doesn't give the pop settings on purpose
+				{
+					"\0\s[400]Hmph,\w4 your POP settings aren't right.\w8\w8\s[410] Figures.\e"
+				}
+			}
+		}
+	}
+	elseif reference0 == "artificial" //The user has interrupted/cancelled the check
+	{
+		if nowmode == "RYS"
+		{
+			"\RYS\s[2007].\w8.\w8.\w8.\w8.\w8\w8\n\n\s[2008]Alright.\e"
+		}
+		elseif holdingObsidian == 1
+		{
+			"\0\s[1206]Oh,\w4 changed your mind?\e"
+		}
+		elseif nowmode == "Asleep"
+		{
+			"\0\s[109]Oh...\w8\w8 \s[1300]%(mumb)...\e"
+		}
+		else
+		{
+			if LV == 0
+			{
+				"\0\s[110]Oh,\w4\s[0] changed your mind?\e"
+				"\0\s[110]Ah,\w4 ok then.\w8\w8 Let me know if you change your mind.\e"
+				"\0\s[110]Oh,\w4 you changed your mind?\w8\w8\s[106] Ok,\w4 I'll uh...\w8\w8 Just put these emails back,\w4 I guess.\e"
+			}
+			else
+			{
+				if LVCheck == 1
+				{
+					"\0\s[510]...Ok.\e"
+				}
+				else
+				{
+					"\0\s[410]Stop wasting my time.\e"
+				}
+			}
+		}
+	}
+ 	else //if there's some other kind of error.
+	{
+		if nowmode == "RYS"
+		{
+			"\RYS\s[2006]Um,\w4 I got an error...\w8\w8\s[2007] It says '%(reference0)'.\e"
+		}
+		elseif holdingObsidian == 1
+		{
+			"\0\s[1206]Sorry,\w4 I got an error:\w4 '%(reference0)'.\e"
+		}
+		elseif nowmode == "Asleep"
+		{
+			"\0\s[109]Mm...\w8\w8 Got an error...\w8\w8 '%(reference0)'...\w8\w8\s[1300] %(mumb)...\e"
+		}
+		else
+		{
+			if LV == 0
+			{
+				"\0\s[106]Sorry,\w4 all I've got is some kind of error message.\w8\w8 '%(reference0)'.\e"
+				"\0\s[106]Sorry,\w4 all it says is '%(reference0)'.\e"
+				"\0\s[110]Ah,\w4 I got an error.\w8\w8 It says '%(reference0)'.\e"
+			}
+			else
+			{
+				if LVCheck == 1
+				{
+					"\0\s[510]...Sorry,\w4 I got an error.\w8\w8 '%(reference0)'.\e"
+				}
+				else
+				{
+					"\0\s[400]'%(reference0)'.\w8\w8\s[402] Whatever it is,\w4 fix it yourself.\e"
+				}
+			}
+		}
+		//reference0 here stores the error message the email server would have given the ghost, hopefully.
+ 	}
+}
+
+OnUpdateCheckComplete
+{
+	if reference0 != "none" //reference0 here will say 'none' if there are no new files, and will be a number if there are new files. So if reference0 is anything other than 'none', tell the user there's an update
+	{
+		updateavailable = 1
+	}
+	else //just in case this variable ends up not being reset...
+	{
+		updateavailable = 0
+	}
+	
+}
+ 
+//---- OnUpdateBegin -------------------------------------------------------------
+ 
+OnUpdateBegin
+{
+	if lastinteracted > 6
+	{
+		CameBack += 1
+	}
+	--
+	updateavailable = 0
+	lastinteracted = 0
+	if nowmode == "RYS"
+	{
+		"\RYS\s[2007]Um,\w4 sure,\w4 I'll check...\w8\e"
+	}
+	elseif holdingObsidian == 1
+	{
+		"\0\s[1206]Uh,\w4 my hands are a bit full,\w4 but ok...\w8\e"
+	}
+	elseif nowmode == "Asleep"
+	{
+		"%(etcwake)"
+		--
+		"Updates...\w8\w8 Mm...\w8\e"
+	}
+	else
+	{
+		if LV == 0
+		{
+			"\0\s[110]Updates?\w8\w8\s[1010] Sure,\w4 I can check.\w8\w8\s[1070] Let me see...\w8\e"
+			"\0\s[104]Sure,\w4 I can check for updates.\w8\w8\s[1070] Just a moment...\w8\e"
+			"\0\s[0]Yeah,\w4 I can check for updates.\w8\w8\s[1070] Hold on a moment...\w8\e"
+		}
+		else
+		{
+			if LVCheck == 1
+			{
+				"\0\s[510]* (He nods and begins checking for updates.)\w8\e"
+			}
+			else
+			{
+				"\0\s[400]Hmph.\w8\w8 Maybe I'll get lucky and there'll be an update that lets me punch you instead.\w8\e"
+			}
+		}
+	}
+}
+
+ //---- OnUpdateReady ---------------------------------------------------------
+ //If the ghost finds new files to update with.
+ 
+OnUpdateReady
+{
+	reference0++ //So I'm guessing that this counts starting from 0, so it always shows as 1 less file than it is... this fixes that.
+	if nowmode == "RYS"
+	{
+		"\RYS\s[2006]There are %(reference0) new files.\w8\e1`	1`	1`	1`	1`	" //My cat, Comet, contributed to this line, as you can see
+	}
+	elseif holdingObsidian == 1
+	{
+		"\0\s[1204]There are %(reference0) new files.\w8\e"
+	}
+	elseif nowmode == "Asleep"
+	{
+		"\0\s[109]Mm...\w8\w8 %(reference0) new files...\w8\e"
+	}
+	else
+	{
+		if LV == 0
+		{
+			"\0\s[1010]Looks like there are %(reference0) new files."
+			"\0\s[104]There are %(reference0) new files."
+			"\0\s[110]Oh,\w4 look at that.\w8\w8\s[103] There are %(reference0) new files."
+			"\0\s[103]Hey,\w4 what do you know.\w8\w8\s[104] There are %(reference0) new files."
+			--
+			"\w8\w8\s[1070]\e"
+		}
+		else
+		{
+			if LVCheck == 1
+			{
+				"\0\s[516]There are %(reference0) new files.\w8\e"
+			}
+			else
+			{
+				"\0\s[404]There's something new after all.\w8\e"
+			}
+		}
+	}
+	booting = 2 //setting this so HOPEFULLY he stops making the shell changing comments when he updates his shell...
+}
+
+
+//---- OnUpdateComplete -------------------------------------------------------------
+//When the ghost has finished the update process.
+
+OnUpdateComplete
+{
+	booting = 0
+	updateavailable = 0
+	if reference0 == "none" //if the ghost had nothing to update with
+ 	{
+		if nowmode == "RYS"
+		{
+			"\RYS\s[2007]There are no new files,\w4 sorry...\e"
+		}
+		elseif holdingObsidian == 1
+		{
+			"\0\s[1206]There's nothing new.\e"
+		}
+		elseif nowmode == "Asleep"
+		{
+			"\0\s[109]Mm...\w8\w8 Nothing new...\w8\w8 \s[1300]%(mumb)...\e"
+		}
+		else
+		{
+			if LV == 0
+			{
+				"\0\s[106]Sorry kiddo,\w4 looks like there are no new files.\e"
+				"\0\s[107]Nope,\w4 nothing new after all.\e"
+				"\0\s[107]Nothing new,\w4\s[106] sorry kiddo.\e"
+			}
+			else
+			{
+				if LVCheck == 1
+				{
+					"\0\s[516]There are no new files.\e"
+				}
+				else
+				{
+					"\0\s[412]There's nothing new.\w8\w8\s[400] Stop wasting my time.\e"
+				}
+			}
+		}
+	}
+ 	else //if the ghost has updated successfully
+	{
+		//OnSetUpdateVariables //This directs over to Bootend, where new variables will be initialized if they aren't already
+		askedalready = 0
+		--
+		if Update1p2p0 != "1.2.0"
+		{
+			OnSetUpdateVariables
+			"* (An update is available for the Purple Soul balloon. Would you like to download it now?)\n\n* (If you are not using the Purple Soul balloon, you will have to switch to it in order to update.)\n\n\![*]\q[Yes,OnAskChangelog,updateballoon]\n\![*]\q[No,OnAskChangelog,dont]\*\e"
+		}
+		else
+		{
+			OnSetUpdateVariables
+			"\![raise,OnAskChangelog]"
+		}
+ 	}
+}
+
+OnAskChangelog
+{
+	if reference0 == "updateballoon"
+	{
+		"\![update,balloon]"
+	}
+	elseif reference0 == "dont"
+	{
+		"* (You can update the balloon later from the 'do something for you' menu, or copy the files for purple_soul in S's folder to your SSP/balloon folder.)\x"
+	}
+	--
+	if nowmode == "RYS"
+	{
+		"\RYS\s[2007]...Update complete.\w8\w8\s[2006] Do you want to see the changelog..?"
+	}
+	elseif holdingObsidian == 1
+	{
+		"\0\s[1204]Update complete.\w8\w8\s[1200] Do you want to see the changelog?"
+	}
+	elseif nowmode == "Asleep"
+	{
+		"\0\s[109]Mm...\w8\w8 Done.\w8\w8 Do you want the changelog..?"
+	}
+	else
+	{
+		if LV == 0
+		{
+			"\0\s[1010]Update complete!\w8\w8\s[0] Do you want to see the changelog?"
+		}
+		else
+		{
+			if LVCheck == 1
+			{
+				"\0\s[510]...Update complete.\w8\w8\s[516] Do you want to see the changelog?"
+			}
+			else
+			{
+				"\0\s[402]Update complete.\e" //No he's not going to offer you the changelog lol
+			}
+		}
+	}
+	--
+	"\n\n\![*]\q[Yes,OnChangeLog]\n\![*]\q[No,nochangelog]\e"	
+}
+ //---- OnUpdateFailure -------------------------------------------------------------
+ //Error messages if the update process fails in some way.
+ 
+OnUpdateFailure
+{
+	booting = 0
+	if reference0 == "timeout" //if the connection times out
+ 	{
+		if nowmode == "RYS"
+		{
+			"\RYS\s[2006]Sorry,\w4 looks like it timed out...\e"
+		}
+		elseif holdingObsidian == 1
+		{
+			"\0\s[1206]Sorry,\w4 the connection timed out.\e"
+		}
+		elseif nowmode == "Asleep"
+		{
+			"\0\s[109]Mm...\w8\w8 Sorry,\w4 timed out... \s[1300]%(mumb)...\e"
+		}
+		else
+		{
+			if LV == 0
+			{
+				"\0\s[106]Sorry kiddo,\w4\s[107] looks like the connection timed out.\w8\w8\s[0] Maybe try again later?\e"
+			}
+			else
+			{
+				if LVCheck == 1
+				{
+					"\0\s[510]...Sorry,\w4 the connection timed out.\e"
+				}
+				else
+				{
+					"\0\s[400]The connection timed out.\e"
+				}
+			}
+		}
+	}
+ 	elseif reference0 == "md5 miss"
+	{
+		if nowmode == "RYS"
+		{
+			"\RYS\s[2006]Sorry,\w4 the MD5 values don't match...\w8\w8\s[2007] You should let Zichqec know...\e"
+		}
+		elseif holdingObsidian == 1
+		{
+			"\0\s[1206]The MD5 values don't match,\w4 you should let Zichqec know.\e"
+		}
+		elseif nowmode == "Asleep"
+		{
+			"\0\s[109]The MD5 values don't match...\w8\w8 You should tell Zichqec...\w8\w8 \s[1300]%(mumb)...\e"
+		}
+		else
+		{
+			if LV == 0
+			{
+				"\0\s[107]Sorry kiddo,\w4 something went wrong.\w8\w8\s[106] The MD5 values don't match.\w8\w8\s[0] You should let Zichqec know so she can fix it.\e"
+			}
+			else
+			{
+				if LVCheck == 1
+				{
+					"\0\s[515]...I'm sorry,\w4 the files don't match.\w8\w8\s[516] You should let Zichqec know so she can fix it.\e"
+				}
+				else
+				{
+					"\0\s[400]The files don't match.\w8\w8\s[402] You'll have to talk to Zichqec about that,\w4 I can't do anything for you."
+				}
+			}
+		}
+ 	}
+	elseif reference0 == "artificial" //The user has interrupted/cancelled the check
+	{
+		if nowmode == "RYS"
+		{
+			"\RYS\s[2006]...Oh,\w8\s[2007] um,\w4 ok then...\w8\w8\s[2006] Sorry...\e"
+		}
+		elseif holdingObsidian == 1
+		{
+			"\0\s[1206]Oh,\w4 changed your mind?\e"
+		}
+		elseif nowmode == "Asleep"
+		{
+			"\0\s[109]Oh...\w8\w8 \s[1300]%(mumb)..."
+		}
+		else
+		{
+			if LV == 0
+			{
+				if username == "Zi" || username == "Zichqec"
+				{
+					"\0\s[101]Careful there,\w4 dev.\e"
+					"\0\s[101]Oop,\w4 that could've been bad,\w4 huh?\e"
+				}
+				else
+				{
+					"\0\s[110]Oh,\w4 you've changed your mind?\e"
+					"\0\s[110]Oh,\w4 uh,\w4\s[106] alright then.\w8\w8\s[0] Let me know if you change your mind.\e"
+					"\0\s[110]Oh,\w4 did you change your mind?\e"
+				}
+			}
+			else
+			{
+				if LVCheck == 1
+				{
+					"\0\s[512]...Ok.\e"
+				}
+				else
+				{
+					"\0\s[400]Stop wasting my time.\e"
+				}
+			}
+		}
+	}
+	else //for other errors
+ 	{
+		if nowmode == "RYS"
+		{
+			"\RYS\s[2006]Sorry,\w4 I got an error...\w8\w8 It says '%(reference0)'...\e"
+		}
+		elseif holdingObsidian == 1
+		{
+			"\0\s[1206]Sorry,\w4 I got an error.\w8\w8 It says '%(reference0)'.\e"
+		}
+		elseif nowmode == "Asleep"
+		{
+			"\0\s[109]Mm,\w4 got an error...\w8\w8 '%(reference0)'...\w8\w8 \s[1300]%(mumb)...\e"
+		}
+		else
+		{
+			if LV == 0
+			{
+				"\0\s[106]Sorry kiddo,\w4 something went wrong.\w8\w8\s[1070] All it says is '%(reference0)'.\w8\w8\s[106] Maybe you should let Zichqec know about that?\e"
+				"\0\s[110]Ah,\w4 sorry,\w4 something went wrong.\w8\w8\s[106] Something about '%(reference0)'?\w8\w8 You should let Zichqec know about that.\e"
+				"\0\s[106]Looks like something went wrong,\w4 sorry.\w8\w8\s[110] It says '%(reference0)'.\w8\w8\s[106] Maybe you should ask Zichqec about that?\e"
+			}
+			else
+			{
+				if LVCheck == 1
+				{
+					"\0\s[512]...I'm sorry,\w4 something went wrong.\w8\w8 All it says is '%(reference0)'.\w8\w8\s[510] You might try talking to Zichqec about that.\e"
+				}
+				else
+				{
+					"\0\s[410]Something went wrong.\w8\w8 All it says is '%(reference0)'.\w8\w8\s[402] Maybe you should try asking Zichqec about that.\e"
+				}
+			}
+		}
+	}
+}
+ 
+OnUpdate.OnDownloadBegin
+{
+	if nowmode == "RYS"
+	{
+		"\RYS"
+	}
+	--
+	"\b2\_q* (Downloading %(reference0)...)\n\n"
+	--
+	_Update_Process = TOINT(reference1) + 1
+	_Update_Total = TOINT(reference2) + 1
+	Update_Remaining = _Update_Total - _Update_Process
+
+	//defining starting points
+	_PointA = 1
+	_PointB = 1
+
+	//defining text buffers beforehand, otherwise they don't display right
+	_txt = ""
+
+	//loop calculates how many check boxes to display based on the variables above
+
+	while _PointA <= _Update_Process
+	{
+		_txt += "\_b[img\update.png,inline,--option=use_self_alpha]"
+		_PointA++
+	}
+	//see above except for blank boxes
+	while _PointB <= Update_Remaining
+	{
+		_txt += "\_b[img\updatee.png,inline,--option=use_self_alpha]"
+		_PointB++
+	}
+	--
+	//using the text buffers to display the correct number of boxes
+	"%(_txt)\n\n%(_Update_Process) of %(_Update_Total)"
+	--
+	//flavortext
+
+	/*if "aitalk" _in_ reference0 //this is checking to see what kind of files are being downloaded. In this case, it's looking for files called aitalk in the download queue.
+	{
+ 		if LV == 0
+		{
+			"\0\s[1010]Looks like something new to say randomly.\e"
+		}
+		else
+		{
+			if LVCheck == 1
+			{
+				"\0\s[512]...New random dialogue...\e"
+			}
+			else
+			{
+				"\0\s[412]Hey,\w4 it's some new dialogue.\w8\w8\s[402] Maybe you could see some of it if you didn't hit me.\e"
+			}
+		}
+ 	}
+	elseif "mouse" _in_ reference0
+	{
+		if LV == 0
+		{
+			"\s[106]Looks like there might be new petting dialogue.\w8\w8\s[107] If uh,\w4 that's what you want to do.\e"
+		}
+		else
+		{
+			if LVCheck == 1
+			{
+				"\s[516]* (Looks like there might be new dialogue for petting or hitting him...\w8\w8 he seems unhappy about it.)\e"
+			}
+			else
+			{
+				"\s[400]Great,\w4 look at that.\w8\w8 Something new might happen if you hit me,\w4 hooray.\e"
+			}
+		}
+	}
+	else //for files not specified above
+	{
+		""
+	}*/
+	--
+	"\e"
+}
+
+
+Select.nochangelog
+{
+	if nowmode == "RYS"
+	{
+		"\RYS\s[2007]...Ok.\e"
+	}
+	elseif holdingObsidian == 1
+	{
+		"\0\s[1201]Ok,\w4 if you change your mind,\w4 let me know.\e"
+	}
+	elseif nowmode == "Asleep"
+	{
+		"\0\s[109]...%(mumb)...\e"
+	}
+	else
+	{
+		if LV == 0
+		{
+			"\s[1010]Ok,\w4 if you change your mind just let me know.\e"
+		}
+		else
+		{
+			"\s[510]...Ok.\w8\w8 Just tell me if you want to see it later.\e"
+		}
+	}
+}
+
+ghostver //S's current version, so I don't have to remember to update it on every menu
+{
+	"1.3.0"
+}
+
+OnChangeLog //Haha I hope I remember to update this
+{
+	if nowmode == "RYS"
+	{
+		"\RYS"
+	}
+	--
+	"\![set,autoscroll,disable]\_q\b2/
+	\_l[84]-Version 1.3.0-\n\n/
+	-Added an Autumn themed shell! It comes with an accessory you can put on him using the right click menu.\n\n/
+	-S will now fall asleep randomly! If he's having bad dreams, you can pet him a few times to give him nicer dreams for a little while.\n\n/
+	-Fixed weather checking, again. From now on I should be able to update it on my end without patching S, hopefully. You might need to enter your weather location again.\n\n/
+	-If you are outside the US, you should now be able to get the tempuratures in celcius if you use a page in celcius on Weather.com!\n\n/
+	-S can now hold \_a[https://zichqec.github.io/s-the-skeleton/dusty.html]Obsidian\_a if you drag her onto him! Don't do it until I put up a patch for Dusty, though, or it will behave strangely.\n\n/
+	-Auto weather checks will no longer open the balloon, and should happen completely silently.\n\n/
+	-More dialogue and bugfixes all around!\n\n/
+	"
+	--
+	if reference0 == "frommenu"
+	{
+		if nowmode == "RYS"
+		{
+			"\![*]\q[Back to functions,OnFunctionRYS]\n"
+		}
+		else
+		{
+			"\![*]\q[Back to functions,Onbacktofunctions]\n"
+		}
+	}
+	--
+	"\![*]\q[I'm done,cancelnodialogue]\e"
+} //the autoscroll tag at the top there means that it'll display starting from the top. As far as I can tell, that tag is disabled once the balloon changes? Doesn't seem to be causing any problems anyways.
+
+
+ //---- OnUpdate.OnMD5CompareFailure ---------------------------------------------------
+ //If the MD5 values don't match. If you follow my Network Update directions carefully, this shouldn't come up very often, but don't be surprised if you run into it every now and then by forgetting a file here or there.
+ 
+OnUpdate.OnMD5CompareFailure
+{
+	if nowmode == "RYS"
+	{
+		"\RYS\b2\s[2007]The MD5 values don't match...\w8\w8\e"
+	}
+	elseif holdingObsidian == 1
+	{
+		"\0\b2\s[1207]The MD5 values don't match.\w8\w8\e"
+	}
+	elseif nowmode == "Asleep"
+	{
+		"\0\b2\s[109]...The MD5 values don't match...\w8\w8 %(mumb)...\w8\w8\e"
+	}
+	else
+	{
+		if LV == 0
+		{
+			"\0\b2\s[1070]The MD5 values don't match.\w8\w8\e"
+		}
+		else
+		{
+			if LVCheck == 1
+			{
+				"\0\b2\s[510]The MD5 values don't match...\w8\w8\e"
+			}
+			else
+			{
+				"\0\b2\s[410]The MD5 values don't match.\w8\w8\e"
+			}
+		}
+	}
+}
+
+
+
+//---- OnHeadlinesenseBegin -----------------------------------------------------------
+//This dialogue comes up when you select something in your RSS feed as an intro, like the other On[Thing]Begin things we've seen so far. Replace as you need.
+ 
+OnHeadlinesenseBegin
+{
+	if lastinteracted > 6
+	{
+		CameBack += 1
+	}
+	--
+	lastinteracted = 0
+	if nowmode == "RYS"
+	{
+		"\RYS\s[2006]Oh,\w4 %(reference0)..?\w8\w8\s[2007] Ok...\e"
+	}
+	elseif holdingObsidian == 1
+	{
+		"\0\s[1207]My hands are a bit full,\w4 but I'll check...\e"
+	}
+	elseif nowmode == "Asleep"
+	{
+		"%(etcwake)"
+		--
+		"%(reference0)...\e"
+	}
+	else
+	{
+		if LV == 0
+		{
+			"\0\s[1070]%(reference0)?\w8 Uh,\w4 let me see here...\e"
+			"\0\s[0]Sure,\w4 I'll pull up %(reference0) for you.\e"
+			"\0\s[1070]%(reference0),\w4 huh..?\e"
+		}
+		else
+		{
+			if LVCheck == 1
+			{
+				"\0\s[510]%(reference0)...\e"
+			}
+			else
+			{
+				"\s[400]Hmph.\e"
+			}
+		}
+	}
+}
+
+ //---- OnHeadlinesense.OnFind --------------------------------------------------------
+ //This actually displays the feed. My set-up for it is pretty simple but gets the job done, it just has the name of the feed, a line space, then a list of links. You shouldn't have to edit any of these and I probably wouldn't honestly.
+ 
+OnHeadlinesense.OnFind
+{
+	if nowmode == "RYS"
+	{
+		"\RYS"
+	}
+	else
+	{
+		"\0"
+	}
+	--
+	//----  What page You're on
+ 	if reference2 == "First" || reference2 == "First and Last"
+	{
+ 		//---- First page
+		"\b2%(reference0):"
+ 	}
+	elseif reference2 == "Next"
+ 	{
+		//---- Second page
+ 		"\b2%(reference0):"
+	}
+ 	elseif reference2 == "Last"
+	{
+ 		//---- Last page
+		"\b2%(reference0):"
+ 	}
+	--
+ 	//---- Headlines
+	"\n\n%reference3\n"
+ 	--
+	//---- Pages
+ 	if reference2 == "First" || reference2 == "Next"
+	{
+ 		//---- Bottom buttons
+		"\![*]\q[Next,] - \![*]\q[Stop,Headline_Cancel]\e"
+ 	}
+	else
+ 	{
+		//---- Bottom buttons
+ 		"\![*]\q[Stop,Headline_Cancel]\e"
+ 	}
+	
+}
+
+Select.Headline_Cancel
+{
+	if nowmode == "RYS"
+	{
+		"\RYS\s[2006]...Ok.\e"
+	}
+	elseif holdingObsidian == 1
+	{
+		"\0\s[1201]Ok,\w4 let me know if you want to see that again.\e"
+	}
+	elseif nowmode == "Asleep"
+	{
+		"\0\s[1300]...%(mumb)...\e"
+	}
+	else
+	{
+		if LV == 0
+		{
+			"\0\s[0]Ok,\w4 let me know if you want to see that again.\e"
+			"\0\s[104]Alright,\w4 let me know when you want to see that again.\e"
+			"\0\s[0]Done for now?\w8\w8\s[104] Ok.\e"
+		}
+		else
+		{
+			if LVCheck == 1
+			{
+				"\0\s[510]Headline viewing complete.\e"
+			}
+			else
+			{
+				"\0\s[400]Headline viewing complete.\e"
+			}
+		}
+	}
+	//Actually I take that back, you can change this line of dialogue here for when you're done looking at a headline to something else if you want.
+}
+
+ //---- OnHeadlinesenseComplete -------------------------------------------------------
+ //This is an odd function. As far as I can gather, this is if the headline information gathering was successful, but there's no new information to report. Possibly if none of the feeds have updated? I'm a little fuzzy on this one.
+ 
+OnHeadlinesenseComplete
+{
+	if nowmode == "RYS"
+	{
+		"\RYS\s[2006]There's no update...\e"
+	}
+	elseif holdingObsidian == 1
+	{
+		"\0\s[1200]There's no update.\e"
+	}
+	elseif nowmode == "Asleep"
+	{
+		"\0\s[109]...No update...\w8\w8\s[1300] %(mumb)...\e"
+	}
+	else
+	{
+		if LV == 0
+		{
+			"\0\s[0]There's no update.\e"
+		}
+		else
+		{
+			if LVCheck == 1
+			{
+				"\0\s[510]...No update.\e"
+			}
+			else
+			{
+				"\0\s[410]No update.\e"
+			}
+		}
+	}
+	//reference0 here supposedly always stores the value no update? Again this isn't hugely clear from what I can see. Anyway, this dialogue has never come up for me while using a ghost, so perhaps someone else who runs into it can offer more clarity. For now, you can leave it as is, or write up something else in here if you like.
+}
+
+ //---- OnHeadlinesenseFailure ---------------------------------------------------------
+ //This one is more clearly for when the ghost can't get the information it needs about the RSS feed in question.
+ 
+OnHeadlinesenseFailure
+{
+	if nowmode == "RYS"
+	{
+		"\RYS\s[2006]Sorry,\w4 I can't update the feed...\w8\w8 "
+		--
+		if reference0 == "can't download" //if they can't download the rss feed for some reason
+		{
+			"I can't download it."
+		}
+		elseif reference0 == "can't analyze" //if they can't read the file for some reason
+		{
+			"I can't analyze it."
+		}
+		else //other errors
+		{
+			"I'm not sure why..."
+		}
+	}
+	elseif holdingObsidian == 1
+	{
+		"\0\s[1207]Sorry,\w4 I can't update the feed.\w8\w8 "
+		--
+		if reference0 == "can't download" //if they can't download the rss feed for some reason
+		{
+			"I can't download it."
+		}
+		elseif reference0 == "can't analyze" //if they can't read the file for some reason
+		{
+			"I can't analyze it."
+		}
+		else //other errors
+		{
+			"I'm not sure what happened."
+		}
+	}
+	elseif nowmode == "Asleep"
+	{
+		"\0\s[109]Mm,\w4 %(reference0)...\w8\w8\s[1300] %(mumb)...\e"
+	}
+	else
+	{
+		if LV == 0
+		{
+			"\0\s[106]"
+			--
+			"Sorry,\w4 I can't update the feed.\w8\w8 "
+			"Sorry,\w4 something went wrong with the feed.\w8\w8 "
+			"Sorry,\w4 I can't seem to get the feed.\w8\w8 "
+			--
+			if reference0 == "can't download" //if they can't download the rss feed for some reason
+			{
+				"I can't download it."
+			}
+			elseif reference0 == "can't analyze" //if they can't read the file for some reason
+			{
+				"I can't analyze it."
+			}
+			else //other errors
+			{
+				"I'm not sure what happened."
+			}
+		}
+		else
+		{
+			if LVCheck == 1
+			{
+				"\0\s[516]"
+				--
+				"I can't update the feed.\w8\w8 "
+				--
+				if reference0 == "can't download" //if they can't download the rss feed for some reason
+				{
+					"I can't download it."
+				}
+				elseif reference0 == "can't analyze" //if they can't read the file for some reason
+				{
+					"I can't analyze it."
+				}
+				else //other errors
+				{
+					"I don't know why."
+				}
+			}
+			else
+			{
+				"\0\s[412]"
+				--
+				"I can't update the feed.\w8\w8 "
+				--
+				if reference0 == "can't download" //if they can't download the rss feed for some reason
+				{
+					"I can't download it."
+				}
+				elseif reference0 == "can't analyze" //if they can't read the file for some reason
+				{
+					"I can't analyze it."
+				}
+				else //other errors
+				{
+					"Something went wrong and I don't care what."
+				}
+			}
+		}
+	}
+	--
+ 	"\e" //And here is the final /e, so you don't need to include it in the if statements above. Another one of the very rare cases this occurs.
+}
+ 
+OnUpdatedataCreating
+{
+	if nowmode == "RYS"
+	{
+		"\RYS\s[2006]Creating updates2.dau...\e"
+	}
+	elseif holdingObsidian == 1
+	{
+		"\0\s[1206]Creating updates2.dau.\e"
+	}
+	elseif nowmode == "Asleep"
+	{
+		"\0* (Creating updates2.dau.)\e"
+	}
+	else
+	{
+		if LV == 0
+		{
+			"\0\s[1010]"
+			"\0\s[103]"
+			"\0\s[104]"
+			"\0\s[111]"
+			"\0\s[0]"
+			--
+			"Creating the updates2.dau file.\e"
+			"Creating the updates file.\e"
+			"Creating an update file.\e"
+			"Alright,\w4 creating an update file.\e"
+			"Sure,\w4 creating an update file.\e"
+		}
+		else
+		{
+			if LVCheck == 1
+			{
+				"\0\s[510]Creating updates2.dau.\e"
+			}
+			else
+			{
+				"\0\s[410]Hmph,\w4 only because I have to.\e"
+			}
+		}
+	}
+}
+
+ //---- OnUpdatedataCreated -------------------------------------------------------------
+ //After the updates2.dau file has been successfully created. Replace with whatever.
+ 
+OnUpdatedataCreated
+{
+	if nowmode == "RYS"
+	{
+		"\RYS\s[2006]Successfully created updates2.dau.\e"
+	}
+	elseif holdingObsidian == 1
+	{
+		"\0\s[1200]Done creating updates2.dau.\e"
+	}
+	elseif nowmode == "Asleep"
+	{
+		"\0* (Successfully created updates2.dau.)\e"
+	}
+	else
+	{
+		if LV == 0
+		{
+			"\0\s[1010]"
+			"\0\s[103]"
+			"\0\s[104]"
+			"\0\s[111]"
+			"\0\s[0]"
+			--
+			"Successfully created updates2.dau.\e"
+			"Done creating the updates file.\e"
+		}
+		else
+		{
+			if LVCheck == 1
+			{
+				"\0\s[510]Finished creating updates2.dau.\e"
+			}
+			else
+			{
+				"\0\s[410]Done.\e"
+			}
+		}
+	}
+}
+
+ //---- OnNarCreating ------------------------------------------------------------------
+ //Along the same lines, this is when they begin creating a .nar file for your ghost. .nars are the format most ghosts will be in, something similar to a .zip file, and this is the format you'll be distributing your ghost in most likely. Replace the dialogue with whatever you like.
+ 
+OnNarCreating
+{
+	if nowmode == "RYS"
+	{
+		"\RYS\s[2006]Creating the .nar file...\e"
+	}
+	elseif holdingObsidian == 1
+	{
+		"\0\s[1207]Ok,\w4 creating a .nar file.\e"
+	}
+	elseif nowmode == "Asleep"
+	{
+		"\0* (Creating the .nar file.)\e"
+	}
+	else
+	{
+		if LV == 0
+		{
+			"\0\s[1010]"
+			"\0\s[103]"
+			"\0\s[104]"
+			"\0\s[111]"
+			"\0\s[0]"
+			--
+			"Creating the .nar file.\e"
+			"Making a .nar file.\e"
+			"Packing a .nar file.\e"
+			"Ok,\w4 creating a .nar file.\e"
+			"Sure,\w4 putting together a .nar file.\e"
+		}
+		else
+		{
+			if LVCheck == 1
+			{
+				"\0\s[510]Creating the .nar file...\e"
+			}
+			else
+			{
+				"\0\s[410]Hmph,\w4 only because I have to.\e"
+			}
+		}
+	}
+}
+
+ //---- OnNarCreated -------------------------------------------------------------------
+ //After the nar file has been successfully created.
+ 
+OnNarCreated
+{
+	if nowmode == "RYS"
+	{
+		"\RYS\s[2006]Successfully created %(reference0).\e"
+	}
+	elseif holdingObsidian == 1
+	{
+		"\0\s[1200]Successfully created %(reference0).\e"
+	}
+	elseif nowmode == "Asleep"
+	{
+		"\0* (Successfully created %(reference0).)\e"
+	}
+	else
+	{
+		if LV == 0
+		{
+			"\0\s[1010]"
+			"\0\s[103]"
+			"\0\s[104]"
+			"\0\s[111]"
+			"\0\s[0]"
+			--
+			"Successfully created '%(reference0)'.\e"
+			"Done creating the .nar for '%(reference0)'.\e"
+			"'%(reference0)' is ready to go.\e"
+			"Finished making '%(reference0)'.\e"
+		}
+		else
+		{
+			if LVCheck == 1
+			{
+				"\0\s[510]Successfully created %(reference0).\e"
+			}
+			else
+			{
+				"\0\s[410]Hmph,\w4 done.\e"
+			}
+		}
+	}
+}
+
+ //****　Clock Synchronization　**********************************************************
+//**** 미카 (http://homepage2.nifty.com/ko-ki/)의 사전을 참고했습니다．감사＞こ 나무 성
+//This set of functions was done by the above Korean coder, I think. I'll leave their comment there untouched. 
+//If you right click your ghost and go into the Utilities menu, there's an option called NTP Time Sync. That's what this is for!
+ 
+
+ //----OnSNTPBegin ------------------------------------------------------------------
+ //As with the others you've seen above, this is the beginning bit of dialogue for this process.
+ 
+OnSNTPBegin
+{
+	if lastinteracted > 6
+	{
+		CameBack += 1
+	}
+	--
+	lastinteracted = 0
+	if nowmode == "RYS"
+	{
+		"\RYS\s[2006]The time..?\w8\w8\s[2007] Um,\w4 alright,\w4 should I check that with %(reference0) here..?\w8\e"
+	}
+	elseif holdingObsidian == 1
+	{
+		"\0\s[1206]Alright,\w4 let me see if I can get the time...\w8\e"
+	}
+	elseif nowmode == "Asleep"
+	{
+		"%(etcwake)"
+		--
+		"Time...\w8\e"
+	}
+	else
+	{
+		if LV == 0
+		{
+			"\0\s[110]The time..?\w8\w8\s[1070] Uh,\w4 let me see...\w8\e"
+			"\0\s[110]Your clock?\w8\w8\s[1070] Uh,\w4 sure,\w4 let me check...\w8\e"
+			"\0\s[110]Oh,\w4 sure,\w4 I can check if your clock is synced.\w8\w8\s[1070] Hold on a moment...\w8\e"
+		}
+		else
+		{
+			if LVCheck == 1
+			{
+				if broken == 1
+				{
+					"\s[510]* (He nods and begins checking the time online.)\w8\e"
+				}
+				else
+				{
+					"\s[510]...Ok.\e"
+				}
+			}
+			else
+			{
+				"\0\s[412]What,\w4 can't keep your own clock in sync?\w8\e"
+			}
+		}
+	}
+	
+	//"\0\s[0]We're going to check the time.\w9\1\s[10]We are connecting to %(reference0).\e"
+	//%(reference0) here is the site they'll be using to check your clock. I wouldn't worry too much about what the site is or where it's defined, it should be accurate. Replace the dialogue with what you need, you don't have to use reference0 if you don't want to.
+}
+
+
+//----　OnSNTPCompare----------------------------------------------------------
+ 
+OnSNTPCompare
+{
+	if nowmode == "RYS"
+	{
+		"\RYS"
+	}
+	else
+	{
+		"\0"
+	}
+	--
+ 	"Retrieved Time: %reference1[1]/%reference1[2]/%reference1[0] %reference1[3]:%reference1[4]:%reference1[5]\w2\n/
+	Your Time: %reference2[1]/%reference2[2]/%reference2[0] %reference2[3]:%reference2[4]:%reference2[5]\w2\n/
+ 	\n"
+	--
+ 	if reference3 == 0 //if your clock is already accurate.
+	{
+		if nowmode == "RYS"
+		{
+			"\s[2006]Your clock is accurate.\e"
+		}
+		elseif holdingObsidian == 1
+		{
+			"\s[1207]Your clock is accurate.\e"
+		}
+		elseif nowmode == "Asleep"
+		{
+			"\s[109]...Your clock is accurate...\w8\w8\s[1300] %(mumb)...\e"
+		}
+		else
+		{
+			if LV == 0
+			{
+				"\s[0]"
+				"\s[1010]"
+				"\s[104]"
+				"\s[103]"
+				"\s[102]"
+				"\s[111]"
+				--
+				"Your clock is accurate.\e"
+			}
+			else
+			{
+				if LVCheck == 1
+				{
+					"\s[510]...Your clock is accurate.\e"
+				}
+				else
+				{
+					"\s[410]Your clock is accurate anyways,\w4 stop wasting my time.\e"
+				}
+			}
+		}
+			
+ 		//"\0\s[0]Your clock is accurate.\e" //replace this with whatever message you like.
+	}
+ 	else //if your clock doesn't match
+	{
+		if nowmode == "RYS"
+		{
+			"\s[2007]It doesn't match...\w8\w8\s[2006] Should I fix it?"
+		}
+		elseif holdingObsidian == 1
+		{
+			"\s[1201]Your clock doesn't match.\w8\w8 Should I fix it?"
+		}
+		elseif nowmode == "Asleep"
+		{
+			"\s[109]Doesn't match...\w8\w8 Should I fix it..?"
+		}
+		else
+		{
+			if LV == 0
+			{
+				"\s[106]Your clock doesn't match.\w8\w8\s[0] Should I fix it?"
+			}
+			else
+			{
+				if LVCheck == 1
+				{
+					"\s[516]Your clock doesn't match.\w8\w8 Should I fix it?"
+				}
+				else
+				{
+					"\s[404]It doesn't match.\w8\w8\s[400] I'm not fixing it.\e"
+				}
+			}
+		}
+		--
+		"\n\n\![*]\q[Fix it,OnSNTPEXECUTE]\n/
+		\![*]\q[Leave it alone,OnSNTPCANCEL]\e"
+	}
+}
+
+ //----　OnSNTPEXECUTE ------------------------------------------------------------------
+ ////After they've fixed your clock. Note the \6 tag - that's what actually changes the clock. Do not remove that tag. Replace the rest with what you want.
+ 
+OnSNTPEXECUTE
+{
+	if nowmode == "RYS"
+	{
+		"\RYS\s[2007]\6There,\w8\s[2006] it should be correct now...\e"
+	}
+	elseif holdingObsidian == 1
+	{
+		"\0\6\s[1201]Done,\w4 should be fixed now.\e"
+	}
+	elseif nowmode == "Asleep"
+	{
+		"\0\6\s[109]Done...\w8\w8\s[1300] %(mumb)...\e"
+	}
+	else
+	{
+		if LV == 0
+		{
+			"\0\6"
+			--
+			"\s[0]"
+			"\s[1010]"
+			"\s[104]"
+			"\s[103]"
+			"\s[102]"
+			"\s[111]"
+			--
+			"Alright,\w4 should be all good now.\e"
+			"Done.\w8\w8 How's that?\e"
+			"Alright,\w4 all fixed.\e"
+			"There you go,\w4 all good.\w8\w8\s[106] Aren't computers supposed to be good at keeping time?\e"
+		}
+		else
+		{
+			if broken == 1
+			{
+				"\0\s[510]\6* (He silently fixes the clock.)\e"
+			}
+			else
+			{
+				"\0\s[510]\6There,\w4 it should be correct now.\e"
+			}
+		}
+	}
+}
+
+ //----　OnSNTPCANCEL ------------------------------------------------------------------
+ //If you decide not to change your clock when they tell you it doesn't match. Replace with what you want.
+ 
+OnSNTPCANCEL
+{
+	if nowmode == "RYS"
+	{
+		"\RYS\s[2007]Oh,\w4 um...\w8\w8\s[2013] Alright.\e"
+	}
+	elseif holdingObsidian == 1
+	{
+		"\0\s[1207]...Alright,\w4 then.\e"
+	}
+	elseif nowmode == "Asleep"
+	{
+		"\0\s[109]Oh...\w8\w8\s[1300] %(mumb)...\e"
+	}
+	else
+	{
+		if LV == 0
+		{
+			"\0\s[107]Ok,\w4 let me know if you change your mind.\e"
+			"\0\s[106]Uh...\w8\w8\s[107] Well,\w4 I'm sure you've got your reasons.\e"
+			"\0\s[106]Alright then,\w4\s[107] if you change your mind just let me know.\e"
+		}
+		else
+		{
+			if broken == 1
+			{
+				"\0\s[510]...\e"
+			}
+			else
+			{
+				"\0\s[510]...Ok.\e"
+			}
+		}
+	}
+}
+
+ //----　OnSNTPFailure ------------------------------------------------------------------
+ //If they can't change the clock for some reason, possibly because the site timed out but it could be anything. Replace with what you want.
+ 
+OnSNTPFailure
+{
+	if nowmode == "RYS"
+	{
+		"\RYS\s[2006]Sorry,\w4 something went wrong...\e"
+	}
+	elseif holdingObsidian == 1
+	{
+		"\0\s[1207]Something went wrong,\w4 sorry kiddo.\e"
+	}
+	elseif nowmode == "Asleep"
+	{
+		"\0\s[109]Something went wrong...\w8\w8 %(mumb)...\e"
+	}
+	else
+	{
+		if LV == 0
+		{
+			"\0\s[206]Ah,\w4 sorry,\w4 it looks like something went wrong.\w8\w8\s[106] Maybe try again later?\e"
+			"\0\s[107]Something went wrong,\w4 sorry.\w8\w8\s[208] Maybe you can try again later?\e"
+			"\0\s[110]Ah,\w4 looks like something went wrong.\w8\w8\s[107] Maybe it'll work if you try again later?\e"
+		}
+		else
+		{
+			"\0\s[510]...Sorry,\w4\s[515] something went wrong.\e"
+		}
+	}
+}
+
+
+ //--OnDisplayChange----------------------------------------------------------------
+ //This is when you change the resolution of your monitor while your ghost is running. Don't mess with any of this, it should be fine as is.
+ 
+OnDisplayChange
+{
+	displaybpp    = reference0
+	displaywidth  = reference1
+	displayheight = reference2
+}
+
+OnDisplayHandover
+{
+	wanderLeft = reference3[0]
+	wanderRight = reference3[2]	
+}
+
+
+
+ //---- OnScreenSaverStart -------------------------------------------------------
+ //This happens if your ghost is running when your screensaver starts up. This and OnScreenSaverEnd are optional, you can delete them both if you like. In fact, you can just delete the rest of the functions from this point on if you're tired and lazy, but we're close to the end, so don't give up yet!
+//Note: This is a NOTIFY event, so dialogue here is useless and I wont add anymore. Also I can never get it to activate anyways.
+OnScreenSaverStart
+{
+	screensaverstarttest = "yes"
+	if nowmode == "RYS"
+	{
+		"\s[2015]* (He gasps.)\e"
+	}
+	elseif holdingObsidian == 1
+	{
+		"\0\s[1210]Uh,\w4 what's that?\e"
+	}
+	else
+	{
+		if LV == 0 //Friendship routes
+		{
+			"\0\s[1100]Uh,\w4 what's that?\e"
+			"\0\s[1100]What the-\e"
+			"\0\s[1100]Is that-\e"
+		}
+		else
+		{
+			""
+		}
+	}
+	//Replace with what you want.
+}
+
+//---- OnScreenSaverEnd -------------------------------------------------------
+//When you wiggle your mouse and stop your screensaver.
+//I've also never seen this one, but it doesn't say it's a NOTIFY event, so... I'll keep adding
+OnScreenSaverEnd
+{
+	testscreensavervar = "yes"
+	if nowmode == "RYS"
+	{
+		"\RYS\s[2013]* (He's shivering all over...)\e"
+	}
+	elseif holdingObsidian == 1
+	{
+		"\0\s[1220]...Well,\w4 that was unpleasant.\w8\w8\n\n* (He's shaking,\w4 but trying not to drop the cat.)\e"
+	}
+	elseif nowmode == "Asleep"
+	{
+		"\0\s[1301]%(mumble)...\e"
+	}
+	else
+	{
+		if LV == 0 //Friendship routes
+		{
+			"\0\s[1100]...Um.\w8 That was uh.\w8\s[515] Quite the experience.\e"
+			"\0\s[301].\w8.\w8.\w8\s[300]Oh,\w8\s[200] is it over..?\e"
+			"\0\s[301]Hhh...\w8\w8\s[300] Oh,\w8\s[206] it's gone...\e"
+		}
+		else
+		{
+			if LVCheck == 1 //know his secrets
+			{
+				"\0\s[515]* (He shudders.)\e"
+			}
+			else //Just mean for no reason
+			{
+				"\0\s[401]* (He tries to hide his trembling.)"
+			}
+		}
+	}
+}
+
+
+
+ //---- OnBatteryLow -----------------------------------------------------------------
+ //This is for when your laptop's battery is low. I don't have a laptop, so I've never really been able to test this. Perhaps someone with a laptop can report back to me with more details about the battery related functions?
+ 
+OnBatteryLow
+{
+	if nowmode == "RYS"
+	{
+		"\RYS\s[2006]Um...\w8\w8 Your battery is getting low...\e"
+	}
+	elseif holdingObsidian == 1
+	{
+		res_reference0 = "Dusty"
+		"\0\s[1207]Your battery is getting low,\w4 kiddo.\w8\w8 Maybe you should plug your computer in?\e SCatNoises"
+	}
+	elseif nowmode == "Asleep"
+	{
+		"\0\s[109]...Mgh...\w8\w8 battery's...\w8\w8 low...\w8\w8 %(mumb)...\e"
+	}
+	else
+	{
+		if LV == 0
+		{
+			"\0\s[202]Hey,\w4 looks like your battery is getting low, there.\w8\w8\s[200] I don't want to find out what happens if I'm still here and your computer shuts down.\e"
+			"\0\s[202]Uh,\w4 your battery is down to %(reference0)%,\w4 kiddo.\w8\w8 Maybe you should find a charger?\e"
+			"\0\s[206]Your battery is getting pretty low.\w8\w8\s[107] You should probably plug your computer in.\e"
+		}
+	}
+	//reference0 here is the amount of battery power. Replace as you like.
+}
+ 
+ //--OnBatteryCritical-----------------------------------------------------------------
+ //Likewise, this is for if your battery is REALLY low. Replace as you like.
+ 
+OnBatteryCritical
+{
+	if nowmode == "RYS"
+	{
+		"\RYS\s[2007]Um,\w4 your battery is... really,\w4 really low...\e"
+	}
+	elseif holdingObsidian == 1
+	{
+		res_reference0 = "Dusty"
+		"\0\s[1220]Your battery is REALLY low,\w4 kiddo.\w8\w8\s[1206] Maybe you could at least close us before it shuts down?\e SCatNoises"
+	}
+	elseif nowmode == "Asleep"
+	{
+		"\0\s[109]...Mgh...\w8\w8 battery's...\w8\w8 almost out...\w8\w8 %(mumb)...\e"
+	}
+	else
+	{
+		if LV == 0
+		{
+			"\0\s[201]Uh,\w4 hey,\w4 your battery is REALLY low.\w8\w8\s[300] If you can't get to a charger,\w4\s[200] could you at least send me home?\w8\w8\s[302] I'm uh...\w8\w8\s[515] not fond of the dark.\e"
+			"\0\s[108]Hey uh,\w4 your battery is REALLY low.\w8\w8 If you don't have a charger handy,\w4 could you send me home at least?\w8\w8\s[200] I don't want to find out what happens if I'm still here when this thing shuts down...\e"
+			"\0\s[109]Your battery is almost dead,\w4 kiddo.\w8\w8\s[108] Could you send me home if you don't have a charger,\w4 at least?\w8\w8\s[301] I don't want to be here when the power dies.\e"
+		}
+	}
+}
+ 
+//--OnBatteryNotify--------------------------------------------------------------------
+//This I believe checks to see if your laptop is plugged in or not. Originally this bit of code was commented out, so I suspect it may not work. It may need a plug-in of some sort. Either way, you can delete it or fill it out as you like.
+//Actually investigating this, leaving this in makes it so the ghost updates you about whether or not your computer is plugged-in constantly, which makes no sense for desktops. No doubt why it was commented out. Just leave it be.
+
+/*
+OnBatteryNotify
+{
+	if reference2 == "online" //If your laptop is plugged in
+	{
+		"\0\s[0]The laptop is plugged in.\e"
+	}
+	elseif reference2 == "offline" //If you unplug your laptop
+	{
+		"\1\s[10]The laptop is not plugged in.\w8\0\s[0]Watch your battery.\e"
+	}
+}
+*/
+
+
+//---- OnSysResourceLow -----------------------------------------------------------
+//A notification for if your system resources are low. I've never seen this happen and my system resources can run pretty low sometimes (woo windows xp woooo), so I suspect this one also may not work without the right plug-in, but I could be wrong. You might as well fill it out.
+/* //This function is a lie! Or perhaps it does require a plugin. I can find no evidence of this event existing on the wiki.
+OnSysResourceLow
+{
+	if nowmode == "RYS"
+	{
+		"\RYS\s[2007]Um,\w4 your system resources are low...\e"
+	}
+	else
+	{
+		if LV == 0
+		{
+			"\0\s[0]Hey uh,\w4\s[202] this says something about your system resources being low.\w8\w8\s[107] I have no idea what that means,\w4\s[106] do you?\e"
+			"\0\s[106]Your system resources are getting pretty low.\w8\w8\s[107] Not sure what that means,\w4 but uh...\w8\w8 Guess they're pretty low.\e"
+			"\0\s[208]Your system resources are getting low,\w8\s[206] whatever that means.\e"
+		}
+	}
+}
+*/
+
+OnShellScaling
+{
+	if lastinteracted > 6
+	{
+		CameBack += 1
+	}
+	--
+	lastinteracted = 0
+	nowscale = reference0 //Keeping track of his size
+	changedscaling += 1 //if you've changed his size at least once -- This'll slowly count down to 1 in HourCheck, but it'll never go below 1
+	if nowmode == "RYS"
+	{
+		if reference0 == 100
+		{
+			"\RYS\s[2007]* (He seems relieved to be back at normal size.)\e"
+		}
+		elseif changedscaling > 10
+		{
+			"\RYS\s[2014]* (He looks dizzy.)\e"
+		}
+		elseif reference0 > reference1
+		{
+			if reference0 > 200
+			{
+				"\RYS\s[2014]* (He starts shivering and shaking.)\e"
+			}
+			else
+			{
+				"\RYS\s[2008]* (He fidgets as you make him larger.)\e"
+			}
+		}
+		else
+		{
+			"\RYS\s[2007]* (He squirms as you make him smaller.)\e"
+		}
+	}
+	elseif nowmode == "Asleep"
+	{
+		scaled++
+		if reference0 == 100
+		{
+			"\0\s[1300]...%(mumble)...\e"
+		}
+		elseif reference0 > 100 //Bigger
+		{
+			"\0\s[1301]...So tall...\w8\w8 I can smooch the top of \f[italic,1]your\f[italic,0] skull now...\w8\w8 %(mumb)...\e"
+		}
+		else //Smaller
+		{
+			"\0\s[1301]...Mm,\w4 not in the way...\w8\w8 %(mumb)...\e"
+		}
+	}
+	elseif holdingObsidian == 1
+	{
+		scaled++
+		if reference0 == 100 //=============Returning him to normal size==============
+		{
+			"\0\s[1207]Whew.\w8\w8\s[1206] Thanks,\w4 %(username).\e"
+		}
+		elseif changedscaling > 10
+		{
+			scaledizzy++
+			"\0\s[1207]Kiddo,\w4 seriously,\w4 I'm starting to get really dizzy.\w8\w8\s[1206] Can we stop,\w4 please?\e"
+		}
+		elseif reference0 < 0 //If he's backwards
+		{
+			changedscaling += 5
+			beenbackwards++
+			"\0\s[1210]What the-\w8\w8\s[1220] what happened??\w8\w8\s[1210] Everything's,\w4 um,\w4 backwards??\e"
+		}
+		else
+		{
+			if reference0 > reference1 //bigger
+			{
+				"\0\s[1207]...Uh,\w4 ok,\w4 guess we're big now...\e"
+			}
+			else //smaller
+			{
+				"\0\s[1207]...Aren't I small enough already?\e"
+			}
+		}
+	}
+	else
+	{
+		scaled++
+		if LV == 0
+		{
+			if reference0 == 100 //=============Returning him to normal size==============
+			{
+				"\0\s[107]Whew.\w8\w8\s[106] Thanks,\w4 %(username).\e"
+			}
+			elseif changedscaling > 10
+			{
+				scaledizzy++
+				"\0\s[108]Kiddo,\w4 seriously,\w4 I'm uh-\s[301]\w8\s[302]\w8\w8 ...\s[107]Starting to get really dizzy.\w8\w8\n\n\s[106]Can we stop,\w4 please?\e"
+			}
+			elseif reference0 < 0 //If he's backwards
+			{
+				changedscaling += 5
+				beenbackwards++
+				"\0\s[1100]What the-\w8\w8\s[208] what happened??\w8\w8\s[110] Everything's,\w4 um,\w4 backwards??\e"
+			}
+			elseif reference0 > reference1 //=========reference 0 is the new size, reference1 is the old. So this is if he's getting bigger.===========
+			{
+				if reference1 > 100 //If it's larger than 100, you already had him big and then you made him bigger again
+				{
+					"\0\s[1100]Whoa.\w8\w8\s[106] Uh,\w4 I'm starting to feel a little fuzzy,\w4 kiddo.\e" //cause his art gets fuzzy... unless you're like me and you turn that off so that he looks crisp at 200% and 300%. RIP my clever dialogue. Ah well, I still think it's funny
+				}
+				elseif reference1 < 100 //You had him under 100%, and now you've made him very large
+				{
+					if reference0 > 100 //He's now above normal height
+					{
+						"\0\s[1100]Ah-\w8\w8\s[107] That's kinda disorienting,\w4 kiddo.\e"
+						changedscaling += 3
+					}
+					else //Otherwise, he's still under normal height
+					{
+						"\0\s[106]That's uh,\w4 a little better?\e"
+					}
+				}
+				elseif reference1 == 100 //He was originally normal size
+				{
+					"\0\s[1100]Whoa.\w8\w8\s[106] Uh,\w4 hey there.\w8\w8\s[104] I'm not used to being so tall.\e"
+				}
+			}
+			elseif reference0 < reference1 //==========So this must be getting smaller============
+			{
+				if reference1 < 100 //If it's smaller than 100, you already had him small and then you made him smaller again
+				{
+					"\0\s[106]Uh...\w8\w8\s[107] Alright,\w4 I guess.\w8\w8\s[202] Careful with that cursor,\w4 yeah..?\e"
+				}
+				elseif reference1 > 100 //You had him over 100%, and now you've made him very small
+				{
+					if reference0 < 100 //He's under normal height
+					{
+						"\0\s[1100]Whoa-\w8\w8\s[106] Kiddo,\w4 can you at least give me a little warning?\w8\w8\s[107] That's really dizzying.\e"
+						changedscaling += 3
+					}
+					else //He's still over normal height
+					{
+						"\0\s[106]Uh,\w4 that's a bit better I guess.\e"
+					}
+				}
+				elseif reference1 == 100 //He was originally normal size
+				{
+					"\0\s[106]...Uh,\w4 hey,\w4 aren't I small enough already?\e"
+				}
+			}
+		}
+	}
+}
+
+OnDeviceArrival //This will activate any time the user puts a USB into their computer or connects something via bluetooth. I currently have this set to only activate when you've let him see your computer in the privacy settings
+{
+	if SeePC == "ON"
+	{
+		if nowmode == "RYS"
+		{
+			"\RYS\s[2007]...Something new?"
+		}
+		elseif holdingObsidian == 1
+		{
+			_device = reference[0][0,","] + reference[0][1,","] + reference[0][2,","] + reference[0][4,","]//reference0 is a big output of all the information about what you plugged in, this'll make it lowercase so that I can check it in the ifs easier. || This big thing splits that device name, and removes the 4th section (3rd if you're counting from 0) because the 4th section changes if the device is bluetooth. Nothing of value is lost here, he should still be able to recognize the device from the other sections. Many thanks to GrayArea and Firefright for helping me on this one!
+			_device = TOLOWER(_device) 
+			
+			if "wacom" _in_ "%(_device)" || "tablet" _in_ "%(_device)" //Does wacom make things that aren't tablets? I've not heard of such a thing, so he'll assume it's a tablet
+			{
+				"\s[1210]Oh,\w4 you plugged in a tablet?\w8\w8\s[1204] Are you an artist,\w4 %(username)?\e"
+			}
+			elseif "mass storage" _in_ "%(_device)" //Every USB I've ever used has had "mass storage device" in the name somewhere... at least that I can remember
+			{
+				"\0\s[1210]Oh,\w4 is that one of those 'jump drives' my kids were telling me about?\w8\w8\s[1204] Are you moving some files around?\w8\w8\n\n\s[1225].\w4.\w4.\w4\s[1206]You're not planning to move me around,\w4 are you?\e"
+			}
+			elseif "webcam" _in_ "%(_device)"
+			{
+				"\0\s[1210]Oh,\w4 a webcam?\w8\w8\s[1204] Are you planning on chatting with someone?\e"
+			}
+			else
+			{
+				if "%(_device)" _in_ DeviceList
+				{
+					"\0\s[1204]Oh hey,\w4 I've seen this device before,\w4 you were using it before weren't you?\w8\w8\s[1200] What's it for,\w4 anyways?\e"
+					"\0\s[1210]Oh,\w4 it's this device again.\w8\w8\s[1204] Hello device.\e"
+				}
+				elseif "%(_device)" _in_ DeviceMemories
+				{
+					DeviceList ,= "%(_device)"
+					"\0\s[1220]Hmm...\w8\w8 have I seen this one before..?\w8\w8\s[1206] I'm not sure...\e"
+				}
+				else
+				{
+					DeviceList ,= "%(_device)"
+					"\0\s[1210]Oh,\w4 you've plugged in something new?\w8\w8\s[1207] Computers sure do have a lot of little devices,\w4 don't they?\e"
+					"\0\s[1210]Oh,\w4 what's this?\e"
+				}
+			}
+		}
+		elseif nowmode == "Asleep"
+		{
+			"\0\s[1300]...%(mumb)...\w8\w8 New friend..?\e"
+		}
+		else
+		{
+			if LV == 0
+			{
+				_device = reference[0][0,","] + reference[0][1,","] + reference[0][2,","] + reference[0][4,","]//reference0 is a big output of all the information about what you plugged in, this'll make it lowercase so that I can check it in the ifs easier. || This big thing splits that device name, and removes the 4th section (3rd if you're counting from 0) because the 4th section changes if the device is bluetooth. Nothing of value is lost here, he should still be able to recognize the device from the other sections. Many thanks to GrayArea and Firefright for helping me on this one!
+				_device = TOLOWER(_device) 
+				
+				if "wacom" _in_ "%(_device)" || "tablet" _in_ "%(_device)" //Does wacom make things that aren't tablets? I've not heard of such a thing, so he'll assume it's a tablet
+				{
+					"\s[110]Oh,\w4 you plugged in a tablet?\w8\w8\s[103] Are you an artist,\w4 %(username)?\e"
+				}
+				elseif "mass storage" _in_ "%(_device)" //Every USB I've ever used has had "mass storage device" in the name somewhere... at least that I can remember
+				{
+					"\0\s[110]Oh,\w4 is that one of those 'jump drives' my kids were telling me about?\w8\w8\s[104] Are you moving some files around?\w8\w8\n\n\s[1070].\w4.\w4.\w4\s[202]You're not planning to move me around,\w4 are you?\e"
+				}
+				elseif "webcam" _in_ "%(_device)"
+				{
+					"\0\s[110]Oh,\w4 a webcam?\w8\w8\s[104] Are you planning on chatting with someone?\e"
+				}
+				else
+				{
+					if "%(_device)" _in_ DeviceList
+					{
+						"\0\s[104]Oh hey,\w4 I've seen this device before,\w4 you were using it before weren't you?\w8\w8\s[0] What's it for,\w4 anyways?\e"
+						"\0\s[110]Oh,\w4 it's this device again.\w8\w8\s[104] Hello device.\e"
+					}
+					elseif "%(_device)" _in_ DeviceMemories
+					{
+						DeviceList ,= "%(_device)"
+						"\0\s[1070]Hmm...\w8\w8 have I seen this one before..?\w8\w8\s[206] I'm not sure...\e"
+					}
+					else
+					{
+						DeviceList ,= "%(_device)"
+						"\0\s[110]Oh,\w4 you've plugged in something new?\w8\w8\s[107] Computers sure do have a lot of little devices,\w4 don't they?\e"
+						"\0\s[110]Oh,\w4 what's this?\e"
+					}
+				}
+			}
+		}
+	}
+}
+
+OnDeviceRemove
+{
+	if SeePC == "ON"
+	{
+		if nowmode == "RYS"
+		{
+			"\RYS\s[2008]Oh,\w4 it's gone...\e"
+		}
+		elseif holdingObsidian == 1
+		{
+			
+		}
+		elseif nowmode == "Asleep"
+		{
+			"\0\s[1301]...See you...\w8\w8 %(mumb)...\e"
+		}
+		else
+		{
+			if LV == 0
+			{
+				_device = TOLOWER(reference0)
+				if "wacom" _in_ "%(_device)" || "tablet" _in_ "%(_device)"
+				{
+					"\0\s[0]Done drawing for now?\w8\w8\s[104] Make sure to store your tablet properly so the cord doesn't get damaged.\e"
+				}
+				elseif "mass storage" _in_ "%(_device)"
+				{
+					
+				}
+				else
+				{
+					
+				}
+			}
+		}
+	}
+}
+
+OnGhostCalling //Kinda want to add some summoning messages, but I'm not sure what to really give him.... hmmm
+{
+	if SinceTalk >= 3
+	{
+		if nowmode == "RYS"
+		{
+			if reference0 == "Gaster"
+			{
+				"\RYS\s[2013]...\e"
+			}
+		}
+		elseif holdingObsidian == 1
+		{
+			if reference0 == "Gaster"
+			{
+				"\0\s[1220]...\e"
+			}
+			elseif reference0 == "Dusty"
+			{
+				"\0\s[1206]...Wait,\w4 if he's not here then how am I holding his cat..?\e"
+			}
+		}
+		elseif nowmode == "Asleep"
+		{
+			if reference0 == "Gaster"
+			{
+				"\0\s[1301]...Drills,\w4 don't like...\e"
+			}
+			elseif reference0 == "Dusty"
+			{
+				"\0\s[1300]...Mm...\w8\w8 Dusty..?\e"
+			}
+		}
+		else
+		{
+			if LV == 0
+			{
+				if reference0 == "Gaster"
+				{
+					"\0\s[200]...\e"
+				}
+				elseif reference0 == "Dusty"
+				{
+					"\0\s[104]\e"
+				}
+			}
+		}
+	}
+}
+
+OnOtherGhostChanged
+{
+	if holdingObsidian == 1
+	{
+		if reference0 == "Dusty"
+		{
+			holdingObsidian = 0
+			"\0\s[1210]Oh,\w4 wait a momen\s[-1]t-!\w8\w8\w8\n\n.\w8.\w8.\w8\n\n\s[107]Can't leave Obsidian here...\e"
+		}
+	}
+}
+
+OnOtherGhostClosed
+{
+	if holdingObsidian == 1
+	{
+		if reference0 == "Dusty"
+		{
+			holdingObsidian = 0
+			"\0\s[1210]Oh,\w4 wait a momen\s[-1]t-!\w8\w8\w8\n\n.\w8.\w8.\w8\n\n\s[107]Can't leave Obsidian here...\e"
+		}
+	}
+}
+
+OnBalloonBreak //This is so dumb XD do I keep this? I don't know -- Update, I'm keeping it but it's going in the config menu lol
+{
+	SinceTalk += 10
+	suppressCoords = 0
+	if lastinteracted > 6
+	{
+		CameBack += 1
+	}
+	--
+	if poppable == "ON"
+	{
+		lastinteracted = 0
+		if nowmode == "RYS"
+		{
+			"\RYS\s[2009]\_v[img\blop.mp3]\e"
+		}
+		elseif holdingObsidian == 1
+		{
+			"\0\s[1210]\_v[img\blop.mp3]\e"
+		}
+		elseif nowmode == "Asleep"
+		{
+			"\0\s[109]\_v[img\blop.mp3]\w8\w8\w8\s[1300]\e"
+		}
+		else
+		{
+			if LV == 0
+			{
+				"\s[110]\_v[img\blop.mp3]\e"
+			}
+		}
+		balloonspopped += 1
+	}
+	else
+	{
+		""
+	}
+	/*--
+	if FromDragging == 2
+	{
+		"\![get,property,OnCheckPosition,currentghost.scope(0).rect]"
+	}*/
+}
+//This is the old way I had him update coordinates if he was talking. Hopefully I won't need this anymore! But I do need to put a thing for the suppression variable
+OnBalloonClose
+{
+	/*if FromDragging == 2
+	{
+		"\![get,property,OnCheckPosition,currentghost.scope(0).rect]"
+	}*/
+	suppressCoords = 0
+}
+
+OnBalloonTimeout
+{
+	/*if FromDragging == 2
+	{
+		"\![get,property,OnCheckPosition,currentghost.scope(0).rect]"
+	}*/
+	suppressCoords = 0
+}
+
+OnOtherOverlap
+{
+	if nowmode == "RYS"
+	{
+		
+	}
+	else
+	{
+		if LV == 0
+		{
+			if reference0 == "Dusty/1-RYS-0825/0"
+			{
+				heldObsidian++
+				holdingObsidian = 1
+				lookingatphone = 0
+				currentlydrinking = 0
+				res_reference0 = "Dusty"
+				"\e SPickupObsi01"
+			}
+			/*elseif reference1 == "Dusty/1-RYS-0825/0"
+			{
+				"\0\s[0]"
+			}*/
+		}
+	}
+}
+
+OnWindowStateMinimize
+{
+	if holdingObsidian == 1
+	{
+		res_reference0 = "Dusty"
+		holdingObsidian = 0
+		"\e SObsiMinimize"
+	}
+}
+
+
+//Weather Checking -------------------------------------------------------
+//following functions can go in menu dic, or a seperate dic entirely
+//functions for scraping weather.com for weather data.
+//author: vita @yuyudev on twitter
+//referenced zarla's hunter and smoker ghost, and https://forum.rainmeter.net/viewtopic.php?t=34470
+//
+//please add the following variables to your bootend dic in the function OnFirstBoot
+//curlocation = ""
+//locationcode = ""
+//these two I also added to OnBoot
+//intalkconfig = 0
+//weatherquiet = 0
+
+//starting the weather checking
+OnWeatherLocation
+{
+	if curlocation != "" && curlocation != "Set a location"
+	{
+		"\b2\_q* (Your location is currently set to: %(curlocation))\n\n"
+	}
+	else
+	{
+		"\b2\_q"
+	}
+	--
+	"* (Do you live inside or outside the USA?)\n\n/
+	\![*]\q[In the USA,OnUSALoc]\n/
+    \![*]\q[Outside the USA,OnOtherLoc]\n\n/
+	\![*]\q[Back to config,toconfig]\e"
+	
+}
+
+
+OnUSALoc
+{
+	templocation = "USA"
+    "* (Please enter your zipcode.)\![open,inputbox,OnLocCode,-1]\![set,balloontimeout,-1]\e"
+}
+
+OnOtherLoc
+{
+	templocation = ""
+    "* (Please go to \_a[https://weather.com/]weather.com\_a, search your city, and enter the URL.)\![open,inputbox,OnLocCode,-1]\![set,balloontimeout,-1]\e"
+}
+
+OnLocCode
+{
+	if "today/l" _in_ locationcode || templocation == "USA"
+	{
+		if templocation == "USA"
+		{
+			locationcode = "https://weather.com/weather/today/l/" + "%(reference0)"
+		}
+		else
+		{
+			locationcode = reference0
+		}
+	}
+	else
+	{
+		"* (That isn't a valid URL, try again.)\![open,inputbox,OnLocCode,-1]\![set,balloontimeout,-1]\e"
+	}
+	/*if "https://weather.com/weather/today/l/" _in_ locationcode
+	{
+		locationcode = REPLACE(locationcode,"https://weather.com/weather/today/l/","") //if someone puts in the whole URL, this gets rid of the unneeded bit...
+	}*/
+	--
+	//templocation = ""
+	//OnDownloadCurWeather
+	"\![execute,http-get,%(locationcode),--file=weather.html,--timeout=300]\![execute,http-get,https://zichqec.github.io/s-the-skeleton/weatherregex.html,--async=OnCheckWeatherLoc,--file=weatherregex.html,--timeout=300]%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)\w4\w4\_w[40]\_w[40]\_w[40]\_w[40]\c* (Couldn't find your location. Try again?)\n\n\![*]\q[Yes,OnWeatherLocation]\n\![*]\q[No,cancelnodialogue]"
+}
+
+OnCheckWeatherLoc
+{
+    templocation = ""
+    _file = "var\\weather.html"
+    _file2 = "var\\weatherregex.html"
+    _buff=""
+    _buff2=""
+	
+	_reg = ''
+    _regloc = '';      _Cregloc = '';      _Fregloc = ''
+	
+    FCHARSET(1)
+	
+	tempurature = "Unknown"
+	ForC = "Unknown"
+	feelslike = "Unknown"
+	humidity = "Unknown"
+	wind = "Unknown"
+	weather = "Unknown"
+	pollen = ""
+	sunrise = "Unknown"
+	sunset = "Unknown"
+	phase = "Unknown"
+
+	--
+	if FOPEN(_file2,'r')
+	{
+		for _buff2 = FREAD(_file2); _buff2 != -1; _buff2 = FREAD(_file2)
+		{
+			if RE_SEARCH (_buff2,'CREG--(.*)--CREG'); {_reg = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'CREGLOC--(.*)--CREGLOC'); {_Cregloc = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'FREGLOC--(.*)--FREGLOC'); {_Fregloc = RE_GETSTR[1]}
+		}
+	}
+	--
+	FCLOSE(_file2);
+	--
+    if FOPEN(_file,'r') {
+    
+        _buff = FREAD(_file) //get the first line of the HTML to check what type of page we got
+
+        if RE_SEARCH(_buff, _reg) //reg expressions for chrome formatted page
+		{
+			_regloc = _Cregloc
+        }
+        else //reg expressions for firefox formatted page
+		{
+			_regloc = _Fregloc
+        }
+
+        for _buff = FREAD(_file); _buff != -1; _buff = FREAD(_file)
+		{
+			if RE_SEARCH (_buff,_regloc); {templocation = RE_GETSTR[1]} //set location
+        }
+    }
+    --
+	FCLOSE(_file);
+	--
+	"* (Your current location is %(templocation). Is this correct?)\n\n/
+	\![*]\q[Yes,confirmweather]\n/
+	\![*]\q[Enter a different location,OnWeatherLocation]\n/
+	\![*]\q[Cancel,cancelnodialogue]"
+}
+
+Select.confirmweather
+{
+	curlocation = templocation
+	tempurature = "Unknown"
+	ForC = "Unknown"
+	feelslike = "Unknown"
+	humidity = "Unknown"
+	wind = "Unknown"
+	weather = "Unknown"
+	pollen = "Unknown"
+	phase = "Unknown"
+	sunset = "Unknown"
+	sunrise = "Unknown"
+	if fromfunctionmenu == 1
+	{
+		fromfunctionmenu = 0
+		weatherquiet = 0
+		OnDownloadCurWeather
+	}
+	else
+	{
+		TalkConfig
+	}
+}
+
+
+//current weather functions
+OnDownloadCurWeather
+{
+   if weatherquiet == 0
+   {
+	"\0\![execute,http-get,%(locationcode),--file=weather.html,--timeout=300]\![execute,http-get,https://zichqec.github.io/s-the-skeleton/weatherregex.html,--async=OnCurWeatherFound,--file=weatherregex.html,--timeout=300]%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)\c"
+	--
+	"* (Couldn't get the weather. Try again?)"
+	--
+	"\n\n\![*]\q[Yes,OnDownloadCurWeather]\n\![*]\q[No,cancelnodialogue]\e"
+   }
+   else
+   {
+	   "\0\![execute,http-get,%(locationcode),--file=weather.html,--timeout=300,--nodescript]\![execute,http-get,https://zichqec.github.io/s-the-skeleton/weatherregex.html,--async=OnCurWeatherFound,--file=weatherregex.html,--timeout=300,--nodescript]\b[-1]\e"
+   }
+}
+
+OnCurWeatherFound
+{ 
+	templocation = ""
+    _file = "var\\weather.html"
+    _file2 = "var\\weatherregex.html"
+    _buff=""
+    _buff2=""
+	
+	_reg = '';         _regsunrise = '';   _regsunset = ''
+    _regtemp = '';     _Cregtemp = '';     _Fregtemp = ''
+    _regdegree = '';   _Cregdegree = '';   _Fregdegree = ''
+    _regfeels = '';    _Cregfeels = '';    _Fregfeels = ''
+    _reghumidity = ''; _Creghumidity = ''; _Freghumidity = ''
+    _regwind = '';     _Cregwind = '';     _Fregwind = ''
+    _regstate = '';    _Cregstate = '';    _Fregstate = ''
+    _regloc = '';      _Cregloc = '';      _Fregloc = ''
+    _regpollen = '';   _Cregpollen = '';   _Fregpollen = ''
+	
+    FCHARSET(1)
+	
+	tempurature = "Unknown"
+	ForC = "Unknown"
+	feelslike = "Unknown"
+	humidity = "Unknown"
+	wind = "Unknown"
+	weather = "Unknown"
+	pollen = ""
+	sunrise = "Unknown"
+	sunset = "Unknown"
+	phase = "Unknown"
+
+	--
+	if FOPEN(_file2,'r')
+	{
+		for _buff2 = FREAD(_file2); _buff2 != -1; _buff2 = FREAD(_file2) //This loop scrapes the current regex from my website, to apply to the weather.com page
+		{
+			if RE_SEARCH (_buff2,'CREG--(.*)--CREG'); {_reg = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'CREGTEMP--(.*)--CREGTEMP'); {_Cregtemp = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'CREGDEGREE--(.*)--CREGDEGREE'); {_Cregdegree = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'CREGFEELS--(.*)--CREGFEELS'); {_Cregfeels = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'CREGHUMIDITY--(.*)--CREGHUMIDITY'); {_Creghumidity = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'CREGWIND--(.*)--CREGWIND'); {_Cregwind = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'CREGSTATE--(.*)--CREGSTATE'); {_Cregstate = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'CREGLOC--(.*)--CREGLOC'); {_Cregloc = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'CREGPOLLEN--(.*)--CREGPOLLEN'); {_Cregpollen = RE_GETSTR[1]}
+			//---
+			if RE_SEARCH (_buff2,'FREGTEMP--(.*)--FREGTEMP'); {_Fregtemp = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'FREGDEGREE--(.*)--FREGDEGREE'); {_Fregdegree = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'FREGFEELS--(.*)--FREGFEELS'); {_Fregfeels = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'FREGHUMIDITY--(.*)--FREGHUMIDITY'); {_Freghumidity = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'FREGWIND--(.*)--FREGWIND'); {_Fregwind = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'FREGSTATE--(.*)--FREGSTATE'); {_Fregstate = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'FREGLOC--(.*)--FREGLOC'); {_Fregloc = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'FREGPOLLEN--(.*)--FREGPOLLEN'); {_Fregpollen = RE_GETSTR[1]}
+			//---
+			if RE_SEARCH (_buff2,'REGSUNRISE--(.*)--REGSUNRISE'); {_regsunrise = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'REGSUNSET--(.*)--REGSUNSET'); {_regsunset = RE_GETSTR[1]}
+		}
+	}
+	--
+	FCLOSE(_file2);
+	--
+    if FOPEN(_file,'r') {
+    
+        _buff = FREAD(_file) //get the first line of the HTML to check what type of page we got
+
+        if RE_SEARCH(_buff, _reg) //reg expressions for chrome formatted page
+		{
+			_regtemp = _Cregtemp
+			_regdegree = _Cregdegree
+			_regfeels = _Cregfeels
+			_reghumidity = _Creghumidity
+			_regwind = _Cregwind
+			_regstate = _Cregstate
+			_regloc = _Cregloc
+			_regpollen = _Cregpollen
+        }
+        else //reg expressions for firefox formatted page
+		{
+			_regtemp = _Fregtemp
+			_regdegree = _Fregdegree
+			_regfeels = _Fregfeels
+			_reghumidity = _Freghumidity
+			_regwind = _Fregwind
+			_regstate = _Fregstate
+			_regloc = _Fregloc
+			_regpollen = _Fregpollen
+        }
+
+        for _buff = FREAD(_file); _buff != -1; _buff = FREAD(_file)
+		{
+			if RE_SEARCH (_buff,_regtemp); {tempurature = TOINT(RE_GETSTR[1])} //current temp
+			if RE_SEARCH (_buff,_regdegree); {ForC = RE_GETSTR[1]} //degrees (F or C)
+			if RE_SEARCH (_buff,_regfeels); {feelslike = TOINT(RE_GETSTR[1])} //feels like temp
+			if RE_SEARCH (_buff,_reghumidity); {humidity = TOINT(RE_GETSTR[1])} //humidity
+			if RE_SEARCH (_buff,_regwind); {wind = RE_GETSTR[1]} //wind
+			if RE_SEARCH (_buff,_regstate); {weather = RE_GETSTR[1]} //state (cloudy, sunny, etc)
+			if RE_SEARCH (_buff,_regloc); {curlocation = RE_GETSTR[1]} //set location
+			if RE_SEARCH (_buff,_regpollen); {pollen = "Local Pollen Alert"} //search for pollen stuff
+			if RE_SEARCH (_buff,_regsunrise); {sunrise = "%(RE_GETSTR[3]) %(RE_GETSTR[4])m"} //Sunrise time
+			if RE_SEARCH (_buff,_regsunset); {sunset = "%(RE_GETSTR[3]) %(RE_GETSTR[4])m"} //Sunset time
+        }
+    }
+    --
+	FCLOSE(_file);
+	--
+    if weather _in_ weatherlist; ""
+	else; weatherlist += "%(weather)\n-"
+    --
+	if tempurature != ""
+	{
+		"\![raise,OnDownloadMoonPhase]"
+	}
+	else
+	{
+		if weatherquiet == 1
+		{
+			"\e"
+		}
+		else
+		{
+			"\0\s[106]Sorry,\w4 looks like something went wrong.\w8\w8\s[107] You should talk to Zichqec about that.\e"
+		}
+	}
+
+}
+
+OnDownloadMoonPhase
+{
+    "\0\![execute,http-get,https://www.moongiant.com/phase/today/,--async=OnMoonFound,--file=moon.html,--timeout=200]"
+}
+
+OnMoonFound
+{
+    //file to be read
+    _file = "var\\moon.html"
+    //line being read
+    _buff=""
+    //regular expressions to extract data
+    _regphase=',"Phase: <span>([\w|\s]*)<./span>'
+    _found = 0;
+    //using UTF-8 charset
+    FCHARSET(1)
+    
+    //string for holding phase
+    phase = ""
+    
+
+    
+    --
+    
+	if FOPEN(_file,'r')
+	{
+		for _buff = FREAD(_file); _buff != -1 && !_found; _buff = FREAD(_file)
+		{
+            if RE_SEARCH ( _buff, _regphase )
+			{
+				phase = RE_GETSTR[1]
+				_found = 1 //break loop since we dont need to continue parsing
+			}
+		}
+	}
+    --
+    FCLOSE(_file);
+	--
+    if weatherquiet == 1
+	{
+        "\e"
+		weatherquiet = 0
+    }
+	--
+	//Grab the sunrise and sunset in ways we can do math on
+	sunrisearray[2] = SPLIT(sunrise," ")[1] //AM/PM
+	_risetemp = SPLIT(sunrise," ")[0]
+	sunrisearray[0] = TOINT(SPLIT(_risetemp,":")[0]) //Hour
+	sunrisearray[1] = TOINT(SPLIT(_risetemp,":")[1]) //Minute
+	if sunrisearray[2] == "PM"; sunrisearray[0] += 12 //Changing to 24 hour time
+	
+	sunsetarray[2] = SPLIT(sunset," ")[1]
+	_settemp = SPLIT(sunset," ")[0]
+	sunsetarray[0] = TOINT(SPLIT(_settemp,":")[0])
+	sunsetarray[1] = TOINT(SPLIT(_settemp,":")[1])
+	if sunsetarray[2] == "PM"; sunsetarray[0] += 12
+	
+	//change the dialogue as you wish
+	//[temp, degrees, feels like temp, humidity, wind, state (cloudy, rainy, etc)]
+	
+	//========================Weather Dialogue=============================
+	
+	/*if temp == "Below 0" //0F and below, 
+	{
+		"\0\s[106]"
+	}
+	elseif temp == "Freezing" //0-20F, -16 to -6C
+	{
+		"\0\s[0]"
+	}
+	elseif temp == "Cold" //21-40F, -5 to 4C 
+	{
+		"\0\s[103]"
+	}
+	elseif temp == "Chilly" //41-60F, 5-15C
+	{
+		"\0\s[104]"
+	}
+	elseif temp == "Pleasant" //61-80, 16-26C
+	{
+		"\0\s[0]"
+	}
+	elseif temp == "Hot" //81-95F, 27-35C
+	{
+		"\0\s[106]"
+	}
+	else*/
+	if temp == "Boiling" //96+F, 36+C
+	{
+		"\0\s[110]Wow,\w4 "
+		"\0\s[109]Ugh,\w4 "
+		"\0\s[109]Oof,\w4 "
+	}
+	else
+	{
+		"\0\s[0]"
+	}
+	--
+	"It's %(tempurature) degrees there.\w8\w8 "
+	"It's %(tempurature) degrees.\w8\w8 "
+	--
+	if temp == "Below 0" //0F and below, 
+	{
+		"\s[107]It's freezing out there,\w4 be careful kiddo."
+		"\s[107]It's freezing,\w4 take care if you head out,\w4 and dress warmly."
+		"\s[107]Make sure to dress warm if you head out,\w4 it's freezing."
+	}
+	elseif temp == "Freezing" //0-20F, -16 to -6C
+	{
+		"\s[106]It's getting cold,\w4 take care if you go out."
+		"\s[106]It's pretty cold out,\w4 make sure to dress warm if you leave the house."
+		"\s[106]It's cold,\w4 if you're heading out you should dress warm."
+	}
+	elseif temp == "Cold" //21-40F, -5 to 4C 
+	{
+		"\s[104]Pretty cold out."
+		"\s[104]It's cold out,\w4 but not too cold."
+		"\s[0]It's cold out there,\w4 don't forget a hat if you head out."
+	}
+	elseif temp == "Chilly" //41-60F, 5-15C
+	{
+		"\s[103]A little chilly,\w4 huh?"
+		"\s[104]It's pretty chilly out,\w4 don't forget a jacket if you're heading out."
+		"\s[0]It's chilly out there,\w4 stay warm if you head out."
+	}
+	elseif temp == "Pleasant" //61-80, 16-26C
+	{
+		"\s[103]That's pretty good."
+		"\s[104]You probably won't need a jacket as long as it's not too breezy."
+		"\s[104]Warm enough for short sleeves,\w4 if you want."
+	}
+	elseif temp == "Hot" //81-95F, 27-35C
+	{
+		"\s[107]Yeesh,\w4 pretty hot out."
+		"\s[107]Ugh,\w4 starting to get hot out."
+		"\s[107]Bad day for long sleeves."
+	}
+	elseif temp == "Boiling" //96+F, 36+C
+	{
+		"\s[106]Are you doing alright,\w4 %(username)?\w8\w8\s[107] Make sure you stay hydrated."
+		"\s[107]Take some water with you if you head out,\w4 it's way too hot out there."
+		"\s[107]This would be a good day to go swimming,\w4 if you like that."
+	}
+	--
+	"\w8\w8 "
+	--
+	if tempurature > 60
+	{
+		if humidity >= 65
+		{
+			"\s[107]It's also very humid,\w4 unfortunately."
+			"\s[107]A shame it's so muggy out."
+			"\s[107]Sure is muggy out though."
+		}
+		else
+		{
+			"\s[104]At least it's not too humid."
+			"\s[0]It's not too humid out,\w4 so that's nice."
+		}
+	}
+	--
+	"\w8\w8\n\n"
+	--
+	if weather == "Clear" || weather == "Mostly Clear" || weather == "Sunny" || weather == "Mostly Sunny" || weather == "Fair" //Clear/Sunny
+	{
+		if hour >= 8 && hour <= 18
+		{
+			"\s[104]The sun is shining,\w8\s[0] are you glad to see it?"
+			"\s[104]It's good to see the sun,\w4 isn't it?"
+			--
+			if temp == "Boiling" || "temp" == "Hot"
+			{
+				"\w8\w8\s[107] Though,\w4 it'd be nice if there were some clouds to keep away the heat..."
+				"\w8\w8\s[106] Though,\w4 maybe it's not so nice on such a hot day..."
+			}
+			elseif temp == "Below 0" || temp == "Freezing" || temp == "Cold"
+			{
+				"\w8\w8\s[103] It feels good on such a cold day,\w4 huh?"
+				"\w8\w8\s[103] Maybe it'll help to keep the cold away."
+			}
+		}
+		else
+		{
+			"\s[104]It's pretty clear out there,\w4 you might be able to see the stars."
+			"\s[103]There aren't many clouds out there,\w4 you might be able to see some stars."
+			"\s[104]There aren't a lot of clouds,\w4 it might be a good night to see the stars."
+		}
+		--
+		if phase == "New Moon"
+		{
+			"\w8\w8\s[104] There's also a new moon tonight,\w4 maybe you'll have a chance to see it."
+		}
+		if phase == "First Quarter" || phase == "Last Quarter" //Half moon
+		{
+			"\w8\w8\s[104] There's also a half moon tonight,\w4 maybe you'll have a chance to see it."
+		}
+		if phase == "Full Moon"
+		{
+			"\w8\w8\s[104] There's also a full moon tonight,\w4 maybe you'll have a chance to see it."
+		}
+	}
+	elseif weather == "Partly Cloudy" || weather == "Mostly Cloudy" || weather == "Cloudy" //Cloudy
+	{
+		"\s[104]There are a few clouds out there,\w4 that's nice."
+		"\s[104]It's cloudy out,\w4 what kind of clouds are out there?"
+		--
+		if temp == "Hot" || temp == "Boiling"
+		{
+			"\w8\w8\s[106] Maybe they'll help to keep the heat away."
+			"\w8\w8\s[106] Hopefully they'll help keep the heat away."
+			"\w8\w8\s[107] That helps with the heat,\w4 at least."
+		}
+	}
+	elseif weather == "Showers in the Vicinity" || weather == "Few Showers" || weather == "Showers" //Might shower
+	{
+		"\s[102]Looks like it might rain soon,\w4 if it's not already."
+		"\s[102]Looks like it might rain,\w4 if it isn't already."
+		"\s[0]It might rain there soon,\w4 if it's not already."
+	}
+	elseif weather == "Rain Shower" || weather == "Light Rain" || weather == "Rain" || weather == "Heavy Rain" //Raining
+	{
+		"\s[102]It's raining out,\w4 or it will be soon."
+		"\s[205]It's raining,\w4 too."
+		"\s[104]It's also raining."
+		--
+		if humidity >= 65
+		{
+			"\w8\w8\s[107] Probably why it's so humid."
+			"\w8\w8\s[107] That explains the humidity."
+		}
+	}
+	elseif weather == "Rain and Snow" || weather == "Snow Shower" //Snowing -- This one is probably missing a lot atm, gotta wait til winter to gather data
+	{
+		"\s[104]It's snowing out!\w8\w8\s[104] I'm always glad to see that."
+		"\s[104]It's snowing!"
+		"\s[103]It's snowing out,\w4 that's nice."
+		--
+		if ForC == "°F" && tempurature > 34 || ForC == "°C" && tempurature > 1
+		{
+			"\w8\w8\s[106] Probably too warm for it to stick,\w4 though."
+			"\w8\w8\s[106] Probably won't stick around unless it gets colder,\w4 though."
+		}
+		elseif ForC == "°F" && tempurature > 20 || ForC == "°C" && tempurature > -6
+		{
+			"\w8\w8\s[205] It'll probably be powder with how cold it is,\w4\s[104] but I'm sure it'll be very pretty anyways."
+			"\w8\w8\s[205] It's probably too cold to pack,\w4 but it's still pretty."
+		}
+		else
+		{
+			"\w8\w8\s[104] Might be good snow for packing,\w4 at this tempurature."
+			"\w8\w8\s[104] It's about the right tempurature for packing,\w4 too."
+		}
+	}
+	elseif weather == "Isolated Thunderstorms" || weather == "Scattered Thunderstorms" || weather == "Thunderstorm" || weather == "Heavy Thunderstorm"
+	{
+		"\s[110]Take care if you head out,\w4\s[106] I don't like the sound of that thunder."
+		"\s[110]Be careful,\w4 with all that thunder out there."
+		"\s[200]I wouldn't head out if you don't have to;\w8 I don't like the sound of that thunder."
+	}
+	elseif weather == "Fog" || weather == "Haze" //Limited visibility
+	{
+		_lower = TOLOWER(weather)
+		"\s[206]It's a bit hard to see out there,\w4 take care if you're heading out,\w4\s[108] ok?"
+		"\s[108]It might be hard to see out there,\w4 take care if you go out."
+		"\s[206]It's too quiet with this %(_lower) out..."
+	}
+	--
+	if pollen == "Local Pollen Alert"
+	{
+		"\n\n\s[110]There's also a pollen alert out,\w4\s[106] take care if that's something you're sensitive to."
+		"\n\n\s[110]If you're sensitive to pollen,\w4 there's a lot of that out today,\w4 so take care."
+		"\n\n\s[110]There's a lot of pollen today.\w8\w8\s[106] If you're allergic,\w4 take care."
+	}
+	--
+	"\n"
+	--
+	if fromfunctionmenu == 1
+	{
+		"\n\![*]\q[Back to functions,Onbacktofunctions]"
+	}
+	--
+	"\n\![*]\q[I'm done,cancelnodialogue]\e"
+}
+
+//==================Calendar functions==================
+/*
+OnSchedule5MinutesToGo
+{
+	"\05 minutes to go %(reference0) %(reference1) %(reference2) %(reference3)\e"
+}
+
+OnScheduleRead
+{
+	"Read %(reference0) %(reference1) %(reference2) %(reference3)"
+}
+
+OnSchedulesenseBegin
+{
+	"Sense begin %(reference0)"
+}
+
+OnSchedulesensecomplete
+{
+	"Sense complete %(reference0) %(reference1)"
+}
+
+OnSchedulesenseFailure
+{
+	"Sense failure %(reference0)"
+}
+
+OnSchedulepostBegin
+{
+	"Schedule pose %(reference0)"
+}
+
+OnSchedulepostComplete
+{
+	"Post complete %(reference0)"
+}
+*/
+
+
+
+/*
+On_getaistate //I dont have anything super useful to track with this right now XD but perhaps later when I implement sleeping and maybe moods......
+{
+	"%(totalsnags),%(LV),%(love),%(totalhours),%(totalpets),%(pethighscore)%(CHR(1))total snags, LV,love,total hours,total pets,pet high score%(CHR(1))0,0,%(passhour),0,0,0%(CHR(1))1500,1500,1500,1500,1500,1500"
+}
+*/
