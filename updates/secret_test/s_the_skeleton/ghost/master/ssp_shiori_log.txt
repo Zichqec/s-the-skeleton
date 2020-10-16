@@ -1,0 +1,1637 @@
+=========================================================
+2020/06/02 02:09:10.505
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: OnSecondChange
+Reference0: 34
+Reference1: 0
+Reference2: 0
+Reference3: 1
+Reference4: 2
+
+
+-----response--------------------
+***CallTime:1msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:11.506
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: OnSecondChange
+Reference0: 34
+Reference1: 0
+Reference2: 0
+Reference3: 1
+Reference4: 0
+
+
+-----response--------------------
+***CallTime:1msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:12.507
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: OnSecondChange
+Reference0: 34
+Reference1: 0
+Reference2: 0
+Reference3: 1
+Reference4: 0
+
+
+-----response--------------------
+***CallTime:1msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:13.371
+
+-----send------------------------
+NOTIFY SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: OnDestroy
+Reference0: reload
+
+
+-----response--------------------
+***CallTime:3msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:13.397
+
+-----send------------------------
+(unload call)
+=========================================================
+2020/06/02 02:09:13.510
+
+-----send------------------------
+(free library)
+=========================================================
+2020/06/02 02:09:13.557
+
+-----send------------------------
+(load library)
+=========================================================
+2020/06/02 02:09:13.562
+
+-----send------------------------
+(function : load found)
+=========================================================
+2020/06/02 02:09:13.566
+
+-----send------------------------
+(function : request found)
+=========================================================
+2020/06/02 02:09:13.571
+
+-----send------------------------
+(function : unload found)
+=========================================================
+2020/06/02 02:09:13.577
+
+-----send------------------------
+(getversion/loadex call)
+=========================================================
+2020/06/02 02:09:13.774
+
+-----send------------------------
+(load call)
+=========================================================
+2020/06/02 02:09:13.779
+
+-----send------------------------
+GET Version SHIORI/2.6
+Charset: UTF-8
+Sender: SSP
+
+
+-----response--------------------
+SHIORI/3.0 400 Bad Request
+
+
+=========================================================
+2020/06/02 02:09:13.785
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+ID: version
+SecurityLevel: local
+Sender: SSP
+
+
+-----response--------------------
+***CallTime:1msec.
+SHIORI/3.0 200 OK
+Sender: AYA
+Charset: UTF-8
+Value: Tc548-1
+
+
+=========================================================
+2020/06/02 02:09:13.792
+
+-----send------------------------
+NOTIFY SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: enable_log
+Reference0: 1
+
+
+-----response--------------------
+***CallTime:2msec.
+SHIORI/3.0 200 OK
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:13.800
+
+-----send------------------------
+NOTIFY SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: enable_debug
+Reference0: 1
+
+
+-----response--------------------
+***CallTime:3msec.
+SHIORI/3.0 200 OK
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:13.808
+
+-----send------------------------
+NOTIFY SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: OnInitialize
+Reference0: 
+
+
+-----response--------------------
+***CallTime:3msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:13.816
+
+-----send------------------------
+NOTIFY SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: ownerghostname
+Reference0: RYS-0825
+
+
+-----response--------------------
+***CallTime:3msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:13.824
+
+-----send------------------------
+NOTIFY SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: basewareversion
+Reference0: 2.4.72
+Reference1: SSP
+Reference2: 2.4.72.3000
+
+
+-----response--------------------
+***CallTime:3msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:13.832
+
+-----send------------------------
+NOTIFY SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: capability
+Reference0: request.status
+Reference1: request.securitylevel
+Reference2: request.baseid
+Reference3: response.marker
+Reference4: response.errorlevel
+Reference5: response.errordescription
+Reference6: response.securitylevel
+Reference7: response.requestcharset
+
+
+-----response--------------------
+***CallTime:3msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:13.840
+
+-----send------------------------
+NOTIFY SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: OnNotifyOSInfo
+Reference0: WindowsNT,10.0,Windows 10 19H2/CB.836 (Ver.1909) Wow64@x64
+Reference1: AMD,3200,0.23.8.2,178bfbff
+Reference2: 16727188,4194176
+Reference3: 2055
+
+
+-----response--------------------
+***CallTime:3msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:13.849
+
+-----send------------------------
+NOTIFY SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: OnNotifyFontInfo
+Reference0: System
+Reference1: Terminal
+Reference2: Fixedsys
+Reference3: Modern
+Reference4: Roman
+Reference5: Script
+Reference6: Courier
+Reference7: MS Serif
+Reference8: MS Sans Serif
+Reference9: Small Fonts
+Reference10: Determination Mono
+Reference11: Determination Sans
+Reference12: Zi-BlueJeans
+Reference13: Marlett
+Reference14: Arial
+Reference15: Arial Black
+Reference16: Bahnschrift Light
+Reference17: Bahnschrift SemiLight
+Reference18: Bahnschrift
+Reference19: Bahnschrift SemiBold
+Reference20: Bahnschrift Light SemiCondensed
+Reference21: Bahnschrift SemiLight SemiConde
+Reference22: Bahnschrift SemiCondensed
+Reference23: Bahnschrift SemiBold SemiConden
+Reference24: Bahnschrift Light Condensed
+Reference25: Bahnschrift SemiLight Condensed
+Reference26: Bahnschrift Condensed
+Reference27: Bahnschrift SemiBold Condensed
+Reference28: Calibri
+Reference29: Calibri Light
+Reference30: Cambria
+Reference31: Cambria Math
+Reference32: Candara
+Reference33: Candara Light
+Reference34: Comic Sans MS
+Reference35: Consolas
+Reference36: Constantia
+Reference37: Corbel
+Reference38: Corbel Light
+Reference39: Courier New
+Reference40: Ebrima
+Reference41: Franklin Gothic Medium
+Reference42: Gabriola
+Reference43: Gadugi
+Reference44: Georgia
+Reference45: Impact
+Reference46: Ink Free
+Reference47: Javanese Text
+Reference48: Leelawadee UI
+Reference49: Leelawadee UI Semilight
+Reference50: Lucida Console
+Reference51: Lucida Sans Unicode
+Reference52: Malgun Gothic
+Reference53: Malgun Gothic Semilight
+Reference54: Microsoft Himalaya
+Reference55: Microsoft JhengHei
+Reference56: Microsoft JhengHei UI
+Reference57: Microsoft JhengHei Light
+Reference58: Microsoft JhengHei UI Light
+Reference59: Microsoft New Tai Lue
+Reference60: Microsoft PhagsPa
+Reference61: Microsoft Sans Serif
+Reference62: Microsoft Tai Le
+Reference63: Microsoft YaHei
+Reference64: Microsoft YaHei UI
+Reference65: Microsoft YaHei Light
+Reference66: Microsoft YaHei UI Light
+Reference67: Microsoft Yi Baiti
+Reference68: MingLiU-ExtB
+Reference69: PMingLiU-ExtB
+Reference70: MingLiU_HKSCS-ExtB
+Reference71: Mongolian Baiti
+Reference72: MS Gothic
+Reference73: MS UI Gothic
+Reference74: MS PGothic
+Reference75: MV Boli
+Reference76: Myanmar Text
+Reference77: Nirmala UI
+Reference78: Nirmala UI Semilight
+Reference79: Palatino Linotype
+Reference80: Segoe MDL2 Assets
+Reference81: Segoe Print
+Reference82: Segoe Script
+Reference83: Segoe UI
+Reference84: Segoe UI Black
+Reference85: Segoe UI Emoji
+Reference86: Segoe UI Historic
+Reference87: Segoe UI Light
+Reference88: Segoe UI Semibold
+Reference89: Segoe UI Semilight
+Reference90: Segoe UI Symbol
+Reference91: SimSun
+Reference92: NSimSun
+Reference93: SimSun-ExtB
+Reference94: Sitka Small
+Reference95: Sitka Text
+Reference96: Sitka Subheading
+Reference97: Sitka Heading
+Reference98: Sitka Display
+Reference99: Sitka Banner
+Reference100: Sylfaen
+Reference101: Symbol
+Reference102: Tahoma
+Reference103: Times New Roman
+Reference104: Trebuchet MS
+Reference105: Verdana
+Reference106: Webdings
+Reference107: Wingdings
+Reference108: Yu Gothic
+Reference109: Yu Gothic UI
+Reference110: Yu Gothic UI Semibold
+Reference111: Yu Gothic Light
+Reference112: Yu Gothic UI Light
+Reference113: Yu Gothic Medium
+Reference114: Yu Gothic UI Semilight
+Reference115: HoloLens MDL2 Assets
+Reference116: Varela Round
+Reference117: Hi Melody
+Reference118: Free 3 of 9 Extended
+Reference119: Comic Sans UT
+Reference120: Papyrus UT
+Reference121: Sanguine_V3.1
+Reference122: Pokemon DPPt
+Reference123: Pokemon GB
+Reference124: Power Clear
+
+
+-----response--------------------
+***CallTime:3msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:13.858
+
+-----send------------------------
+NOTIFY SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: OnNotifySelfInfo
+Reference0: S the Skeleton
+Reference1: RYS-0825
+Reference2: None
+Reference3: Pink Apron
+Reference4: F:/Stuff/SSP/ghost/s_the_skeleton/shell/pink_apron/
+Reference5: Purple Soul
+Reference6: F:/Stuff/SSP/balloon/purple_soul/
+
+
+-----response--------------------
+***CallTime:4msec.
+SHIORI/3.0 200 OK
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:13.866
+
+-----send------------------------
+NOTIFY SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: OnNotifyBalloonInfo
+Reference0: Purple Soul
+Reference1: F:/Stuff/SSP/balloon/purple_soul/
+Reference2: 0:0,1,2,3 1:0,1,2,3
+
+
+-----response--------------------
+***CallTime:3msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:13.874
+
+-----send------------------------
+NOTIFY SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: OnNotifyShellInfo
+Reference0: Pink Apron
+Reference1: F:/Stuff/SSP/ghost/s_the_skeleton/shell/pink_apron/
+Reference2: 0,10,101,102,103,104,105,106,107,108,109,110,200,201,202,203,204,205,206,207,208,300,301,302,303,400,401,402,403,404,405,410,411,412,413,414,415,500,501,502,503,510,511,512,513,514,515,516,1010,1020,1030,1040,1041,1050,1051,1060,1061,1062,1063,1070,1071,1080,1090,1091,1092,1093,1094,1095,1096,1097,1100,1110,1111,1112,1113,1114,1115,1116,1117,1122,1123,1124,1125,1126,1550,1551,3001,3002,3003,3004,3005,3006,3007,3008,3009,3011,3012,3013,3014,3015,3016,3017,3018,3019,3020,3021,3022,3023,3024,3025,3026,3027,3028,3029,3030,3031,3032,3033,3034,3035,3036,3037,3038,3039,3040,3041,3042,3043,3044,3045,3046,3047,3048,3049,3050,3051
+
+
+-----response--------------------
+***CallTime:3msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:13.882
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: useorigin1
+
+
+-----response--------------------
+***CallTime:3msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:13.890
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: version
+
+
+-----response--------------------
+***CallTime:3msec.
+SHIORI/3.0 200 OK
+Sender: AYA
+Charset: UTF-8
+Value: Tc548-1
+
+
+=========================================================
+2020/06/02 02:09:13.899
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: name
+
+
+-----response--------------------
+***CallTime:3msec.
+SHIORI/3.0 200 OK
+Sender: AYA
+Charset: UTF-8
+Value: AYA
+
+
+=========================================================
+2020/06/02 02:09:13.909
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: craftman
+
+
+-----response--------------------
+***CallTime:4msec.
+SHIORI/3.0 200 OK
+Sender: AYA
+Charset: UTF-8
+Value: umeici
+
+
+=========================================================
+2020/06/02 02:09:13.918
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: craftmanw
+
+
+-----response--------------------
+***CallTime:4msec.
+SHIORI/3.0 200 OK
+Sender: AYA
+Charset: UTF-8
+Value: ?럖
+
+
+=========================================================
+2020/06/02 02:09:13.926
+
+-----send------------------------
+NOTIFY SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: OnNotifyUserInfo
+Reference0: Zichqec
+Reference1: Zichqec
+Reference2: 1999,01,07
+Reference3: undef
+
+
+-----response--------------------
+***CallTime:3msec.
+SHIORI/3.0 200 OK
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:13.935
+
+-----send------------------------
+NOTIFY SHIORI/3.0
+ID: otherghostname
+SecurityLevel: local
+Charset: UTF-8
+Sender: SSP
+Reference0: Gaster310
+Reference1: Guard1-1
+
+
+-----response--------------------
+***CallTime:3msec.
+SHIORI/3.0 200 OK
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:13.943
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: OnNetworkStatusChange
+Reference0: online
+Reference1: 192.168.1.1452601:543:4001:9fa0:cdfd:7771:7fc7:23452601:543:4001:9fa0:e000:29f0:3619:4618
+Reference2: ethernet
+Reference3: 1000
+
+
+-----response--------------------
+***CallTime:3msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:13.951
+
+-----send------------------------
+NOTIFY SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: ghostpathlist
+Reference0: F:\Stuff\SSP\ghost\
+
+
+-----response--------------------
+***CallTime:3msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:13.959
+
+-----send------------------------
+NOTIFY SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: balloonpathlist
+Reference0: F:\Stuff\SSP\balloon\
+
+
+-----response--------------------
+***CallTime:3msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:13.967
+
+-----send------------------------
+NOTIFY SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: headlinepathlist
+Reference0: F:\Stuff\SSP\headline\
+Reference1: F:\Stuff\SSP\rss\
+
+
+-----response--------------------
+***CallTime:3msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:13.975
+
+-----send------------------------
+NOTIFY SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: pluginpathlist
+Reference0: F:\Stuff\SSP\plugin\
+
+
+-----response--------------------
+***CallTime:3msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:13.984
+
+-----send------------------------
+NOTIFY SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: calendarskinpathlist
+Reference0: F:\Stuff\SSP\calendar\skin\
+
+
+-----response--------------------
+***CallTime:3msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:13.992
+
+-----send------------------------
+NOTIFY SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: calendarpluginpathlist
+Reference0: F:\Stuff\SSP\calendar\plugin\
+
+
+-----response--------------------
+***CallTime:3msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:14.000
+
+-----send------------------------
+NOTIFY SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: OnSpeechSynthesisStatus
+Reference0: 0
+
+
+-----response--------------------
+***CallTime:3msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:14.008
+
+-----send------------------------
+NOTIFY SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: OnVoiceRecognitionStatus
+Reference0: 0
+
+
+-----response--------------------
+***CallTime:3msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:14.018
+
+-----send------------------------
+NOTIFY SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: installedghostname
+Reference0: A14R2.5
+Reference1: Azura
+Reference2: Dr. W.D. Gaster
+Reference3: Dreamtale Sans
+Reference4: Dusty
+Reference5: EFK
+Reference6: Fairune Duo
+Reference7: FLELE
+Reference8: GelAssist
+Reference9: Ghost Jam Temmie
+Reference10: GT Ghost Template - Stripped Down
+Reference11: GT Ghost Template - YAYA
+Reference12: Hunter and Smoker Beta
+Reference13: Iea
+Reference14: MiniDev
+Reference15: Princess Aine
+Reference16: Radic and Farnsworth
+Reference17: RYS
+Reference18: Sanguine
+Reference19: Sans and Paps
+Reference20: Skyrim Guard
+Reference21: S the Skeleton
+
+
+-----response--------------------
+***CallTime:4msec.
+SHIORI/3.0 200 OK
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:14.027
+
+-----send------------------------
+NOTIFY SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: installedballoonname
+Reference0: Aine Balloon
+Reference1: Balloon for Emily/P4
+Reference2: Dusty - Obsidian
+Reference3: Fairune Style
+Reference4: Galaxy (Crab Nebula)
+Reference5: Galaxy (Crab Nebula 2)
+Reference6: Galaxy (Milky Way)
+Reference7: Galaxy (NGC 4414)
+Reference8: Galaxy (NGC 6503)
+Reference9: Galaxy (Swan Nebula)
+Reference10: Galaxy (Tarantula Nebula)
+Reference11: Heart 0 - Hope
+Reference12: Heart 1 - Determination
+Reference13: Heart 2 - Bravery
+Reference14: Heart 3 - Justice
+Reference15: Heart 4 - Kindness
+Reference16: Heart 5 - Patience
+Reference17: Heart 6 - Integrity
+Reference18: Heart 7 - Perseverence
+Reference19: hunter and smoker
+Reference20: Pixel
+Reference21: Pokemon Blue-Pearl
+Reference22: Purple Soul
+Reference23: Simple Neon Balloon
+Reference24: snail_balloon
+Reference25: Soul 0 - Hope
+Reference26: Soul 1 - Determination
+Reference27: Soul 2 - Bravery
+Reference28: Soul 3 - Justice
+Reference29: Soul 4 - Kindness
+Reference30: Soul 5 - Patience
+Reference31: Soul 6 - Integrity
+Reference32: Soul 7 - Perseverence
+Reference33: SSPデフォルト+
+Reference34: Tamriel
+Reference35: Transmission
+Reference36: Z - Simple
+Reference37: Z - Undertale
+Reference38: Z - Undertale [Brighter]
+
+
+-----response--------------------
+***CallTime:3msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:14.035
+
+-----send------------------------
+NOTIFY SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: installedshellname
+Reference0: Pink Apron
+Reference1: Red Hoodie
+
+
+-----response--------------------
+***CallTime:3msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:14.043
+
+-----send------------------------
+NOTIFY SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: installedheadlinename
+Reference0: Awkward Zombie
+Reference1: GAME Watch
+Reference2: Google ニュース 日本語版
+Reference3: ITmedia +D Games
+Reference4: ITMedia News
+Reference5: Loading Artist
+Reference6: PC Watch
+Reference7: Slashdot
+Reference8: Techdiff
+Reference9: スラド
+Reference10: 回収・無償修理等のお知らせ
+
+
+-----response--------------------
+***CallTime:3msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:14.051
+
+-----send------------------------
+NOTIFY SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: installedplugin
+Reference0: Discord Rich PresenceB327256A-8C69-470d-A1B3-963345A33D2F
+Reference1: SwissArmyKnife8F8BCFB8-B27A-456f-9BA0-551484856DDC
+Reference2: 共有変数プラグインABED14AF-F34B-4ff2-95B7-30ED37D5802D
+
+
+-----response--------------------
+***CallTime:3msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:14.060
+
+-----send------------------------
+NOTIFY SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: OnNotifyDressupInfo
+
+
+-----response--------------------
+***CallTime:3msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:14.068
+
+-----send------------------------
+NOTIFY SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: uniqueid
+Reference0: ssp_fmo_header_000010ac_00390220
+
+
+-----response--------------------
+***CallTime:3msec.
+SHIORI/3.0 200 OK
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:14.076
+
+-----send------------------------
+NOTIFY SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: hwnd
+Reference0: 373609685317801511120
+Reference1: 3738836223174401969518
+
+
+-----response--------------------
+***CallTime:3msec.
+SHIORI/3.0 200 OK
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:14.084
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: OnDisplayChangeEx
+Reference0: init
+Reference1: -1920,0,0,1080,32,0
+Reference2: 0,0,1920,1080,32,1
+
+
+-----response--------------------
+***CallTime:3msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:14.093
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: OnDisplayChange
+Reference0: 32
+Reference1: 1920
+Reference2: 1080
+
+
+-----response--------------------
+***CallTime:4msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:14.101
+
+-----send------------------------
+NOTIFY SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: rateofusegraph
+Reference0: Dr. W.D. GasterGasterBrothers2037489135.887275boot
+Reference1: S the SkeletonRYS-0825None2094340720.800349boot
+Reference2: S the SkeletonSNone2282485911.912269install
+Reference3: DustyDustyObsidian67201779.668686install
+Reference4: Hunter and Smoker BetaHunter and Smoker Beta1885154.080332install
+Reference5: Skyrim GuardGuardNone2483734.012287boot
+Reference6: GT Ghost Template - YAYASNone33963643.049587install
+Reference7: Skyrim GuardGirlTriangle2345682.188956install
+Reference8: AzuraAzuraMusic_Player1535581.704970install
+Reference9: Ghost Jam TemmieTemmieNO ONE!!!1431751.521439install
+Reference10: GT Ghost Template - YAYAGirlTriangle7725781.235361install
+Reference11: Dreamtale SansDreamtale Sans1824601.178816install
+Reference12: Princess AineAineNULL719530.935865install
+Reference13: DustyDustyVoid1211680.559698install
+Reference14: IeaIeaNone609300.445650install
+Reference15: Fairune DuoFairune Duo88050.385751install
+Reference16: Radic and FarnsworthRadicFarnsworth53700.177302install
+Reference17: GT Ghost Template - Stripped DownGirlTriangle142740.131299install
+Reference18: Sans and PapsSP4470.022522install
+Reference19: MiniDevMiniDev-7420.020126install
+Reference20: ZaigaZaigaNA2410.019647vanish
+Reference21: SanguineSanguine5340.016293install
+Reference22: Aurora.EXEAurora.EXETriangle1260.012459install
+Reference23: GT Ghost TemplateGirlTriangle9180.008625install
+Reference24: SnailSnail2120.005750vanish
+Reference25: Wilson P. HiggsburyWilsonTriangle180.003834install
+Reference26: sanssans270.003354vanish
+Reference27: JockeyJockey150.002396vanish
+Reference28: RYSRYSNull230.001438install
+Reference29: GelAssistGelorb230.001438install
+Reference30: A14R2.5Allienull130.001438install
+Reference31: Rocky and NoteworthyNoteworthyRocky130.001438vanish
+Reference32: Font BrothersSans and PapyrusPapyrus130.001438vanish
+Reference33: P.A.I.G.E.P.A.I.G.E.P.R.I.M.E.120.000958vanish
+Reference34: FLELEflelenone210.000479install
+Reference35: Emily/Phase4.5EmilyTeddy110.000479vanish
+Reference36: PapyrusPapyrus100.000000vanish
+
+
+-----response--------------------
+***CallTime:3msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:14.110
+
+-----send------------------------
+NOTIFY SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: OnSurfaceChange
+Reference0: 0
+Reference1: -1
+Reference2: 0,0,230,270
+
+
+-----response--------------------
+***CallTime:3msec.
+SHIORI/3.0 200 OK
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:14.119
+
+-----send------------------------
+NOTIFY SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: OnSurfaceChange
+Reference0: 0
+Reference1: -1
+Reference2: 1,-1,0,0
+
+
+-----response--------------------
+***CallTime:3msec.
+SHIORI/3.0 200 OK
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:14.128
+
+-----send------------------------
+NOTIFY SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: OnSurfaceChange
+Reference0: 0
+Reference1: -1
+Reference2: 2,-1,0,0
+
+
+-----response--------------------
+***CallTime:4msec.
+SHIORI/3.0 200 OK
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:14.136
+
+-----send------------------------
+NOTIFY SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: OnSurfaceChange
+Reference0: 0
+Reference1: -1
+Reference2: 3,-1,0,0
+
+
+-----response--------------------
+***CallTime:3msec.
+SHIORI/3.0 200 OK
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:14.147
+
+-----send------------------------
+NOTIFY SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: installedghostname
+Reference0: A14R2.5
+Reference1: Azura
+Reference2: Dr. W.D. Gaster
+Reference3: Dreamtale Sans
+Reference4: Dusty
+Reference5: EFK
+Reference6: Fairune Duo
+Reference7: FLELE
+Reference8: GelAssist
+Reference9: Ghost Jam Temmie
+Reference10: GT Ghost Template - Stripped Down
+Reference11: GT Ghost Template - YAYA
+Reference12: Hunter and Smoker Beta
+Reference13: Iea
+Reference14: MiniDev
+Reference15: Princess Aine
+Reference16: Radic and Farnsworth
+Reference17: RYS
+Reference18: Sanguine
+Reference19: Sans and Paps
+Reference20: Skyrim Guard
+Reference21: S the Skeleton
+
+
+-----response--------------------
+***CallTime:4msec.
+SHIORI/3.0 200 OK
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:14.155
+
+-----send------------------------
+NOTIFY SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: installedballoonname
+Reference0: Aine Balloon
+Reference1: Balloon for Emily/P4
+Reference2: Dusty - Obsidian
+Reference3: Fairune Style
+Reference4: Galaxy (Crab Nebula)
+Reference5: Galaxy (Crab Nebula 2)
+Reference6: Galaxy (Milky Way)
+Reference7: Galaxy (NGC 4414)
+Reference8: Galaxy (NGC 6503)
+Reference9: Galaxy (Swan Nebula)
+Reference10: Galaxy (Tarantula Nebula)
+Reference11: Heart 0 - Hope
+Reference12: Heart 1 - Determination
+Reference13: Heart 2 - Bravery
+Reference14: Heart 3 - Justice
+Reference15: Heart 4 - Kindness
+Reference16: Heart 5 - Patience
+Reference17: Heart 6 - Integrity
+Reference18: Heart 7 - Perseverence
+Reference19: hunter and smoker
+Reference20: Pixel
+Reference21: Pokemon Blue-Pearl
+Reference22: Purple Soul
+Reference23: Simple Neon Balloon
+Reference24: snail_balloon
+Reference25: Soul 0 - Hope
+Reference26: Soul 1 - Determination
+Reference27: Soul 2 - Bravery
+Reference28: Soul 3 - Justice
+Reference29: Soul 4 - Kindness
+Reference30: Soul 5 - Patience
+Reference31: Soul 6 - Integrity
+Reference32: Soul 7 - Perseverence
+Reference33: SSPデフォルト+
+Reference34: Tamriel
+Reference35: Transmission
+Reference36: Z - Simple
+Reference37: Z - Undertale
+Reference38: Z - Undertale [Brighter]
+
+
+-----response--------------------
+***CallTime:3msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:14.164
+
+-----send------------------------
+NOTIFY SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: installedheadlinename
+Reference0: Awkward Zombie
+Reference1: GAME Watch
+Reference2: Google ニュース 日本語版
+Reference3: ITmedia +D Games
+Reference4: ITMedia News
+Reference5: Loading Artist
+Reference6: PC Watch
+Reference7: Slashdot
+Reference8: Techdiff
+Reference9: スラド
+Reference10: 回収・無償修理等のお知らせ
+
+
+-----response--------------------
+***CallTime:3msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:14.173
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: sakura.recommendsites
+
+
+-----response--------------------
+***CallTime:3msec.
+SHIORI/3.0 200 OK
+Sender: AYA
+Charset: UTF-8
+Value: Zichqec's DAhttps://www.deviantart.com/zichqecZichqec's Tumblrhttps://www.zichqec.tumblr.comZichqec's Twitterhttps://twitter.com/ZichqecS on Toyhousehttps://toyhou.se/5587195.sS's websitehttps://stheskeleton.usite.pro
+
+
+=========================================================
+2020/06/02 02:09:14.183
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: sakura.portalsites
+
+
+-----response--------------------
+***CallTime:4msec.
+SHIORI/3.0 200 OK
+Sender: AYA
+Charset: UTF-8
+Value: Ghost Template Walkthroughhttp://www.ashido.com/ukagaka/walkthrough.htmlZarla's LJhttp://zarla.livejournal.com/Zarla's Tumblrhttp://zarla-s.tumblr.com/Zarla's Dreamwidthhttp://zarla.dreamwidth.org/SSPhttp://ssp.shillest.net/Crow + SSP Reference (J)http://crow.aqrs.jp/reference/all/index.htmlGhost Documentation (J)http://usada.sakura.vg/contents/specification.htmlDisc-2 (J)http://disc2.s56.xrea.com/
+
+
+=========================================================
+2020/06/02 02:09:14.192
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: kero.recommendsites
+
+
+-----response--------------------
+***CallTime:3msec.
+SHIORI/3.0 200 OK
+Sender: AYA
+Charset: UTF-8
+Value: A Sitehttp://www.asite.com/Another Sitehttp://anothersite.org/
+
+
+=========================================================
+2020/06/02 02:09:14.200
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: char3.recommendsites
+
+
+-----response--------------------
+***CallTime:3msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:14.208
+
+-----send------------------------
+NOTIFY SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: installedshellname
+Reference0: Pink Apron
+Reference1: Red Hoodie
+
+
+-----response--------------------
+***CallTime:3msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:14.217
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: OnSecondChange
+Reference0: 34
+Reference1: 0
+Reference2: 0
+Reference3: 1
+Reference4: 0
+
+
+-----response--------------------
+***CallTime:1msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:14.505
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: OnSecondChange
+Reference0: 34
+Reference1: 0
+Reference2: 0
+Reference3: 1
+Reference4: 0
+
+
+-----response--------------------
+***CallTime:2msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:15.504
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: OnSecondChange
+Reference0: 34
+Reference1: 0
+Reference2: 0
+Reference3: 1
+Reference4: 0
+
+
+-----response--------------------
+***CallTime:1msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:16.506
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: OnSecondChange
+Reference0: 34
+Reference1: 0
+Reference2: 0
+Reference3: 1
+Reference4: 0
+
+
+-----response--------------------
+***CallTime:2msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:17.506
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: OnSecondChange
+Reference0: 34
+Reference1: 0
+Reference2: 0
+Reference3: 1
+Reference4: 0
+
+
+-----response--------------------
+***CallTime:1msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:18.507
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: OnSecondChange
+Reference0: 34
+Reference1: 0
+Reference2: 0
+Reference3: 1
+Reference4: 1
+
+
+-----response--------------------
+***CallTime:1msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:19.242
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+Status: balloon(0=0)
+ID: OnBalloonTimeout
+Reference0: 1\n4\n
+
+
+-----response--------------------
+***CallTime:5msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2020/06/02 02:09:19.506
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+Sender: SSP
+SecurityLevel: local
+ID: OnSecondChange
+Reference0: 34
+Reference1: 0
+Reference2: 0
+Reference3: 1
+Reference4: 2
+
+
+-----response--------------------
+***CallTime:1msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
