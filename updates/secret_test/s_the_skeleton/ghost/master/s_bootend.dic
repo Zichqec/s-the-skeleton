@@ -1151,7 +1151,8 @@ OnSetUpdateVariables
 {
 	if Update1p3p1 == ""
 	{
-		if "/i/" _in_ locationcode; locationcode = SPLIT(locationcode,"/l/")[1]
+		Update1p3p1 = "1.3.1"
+		if "/l/" _in_ locationcode; locationcode = SPLIT(locationcode,"/l/")[1]
 	}
 	if Update1p3p0 == ""
 	{
