@@ -113,7 +113,10 @@ RandomTalk : nonoverlap
 				slept++
 				sleepsec = 0
 				sleepmin = 0
+				
 				"\0\s[1300]* (He nods off to sleep.)\e"
+				"\0\s[109].\w8.\w8.\w8\w8\s[1300]Zzz...\w8\w8\n\n* (He's fallen asleep...)\e"
+				"\0\s[109].\w8.\w8.\w8Mmm...\w8\w8\w8\w8\n\n.\w8.\w8.\w8\w8\w8\s[1300]Zzz...\w8\w8\w8\w8\n\n* (He's snoring softly...)\e"
 			}
 			elseif lastinteracted >= 20
 			{
@@ -131,6 +134,7 @@ RandomTalk : nonoverlap
 				"\0\s[300]Where could %(heshe) have gone..?\e"
 				"\0\s[204]* (He hums anxiously to himself.)\e"
 				"\0\s[106]Kiddo?\w8\w8\s[107] I've got other work I should catch up on,\w4 if you're not around...\e"
+				"\0\s[206]Hmm,\w4 there's not much to do around here,\w4 is there...\e"
 				if ghostexcount == 0
 				{
 					"\0\s[510]* (He shudders,\w4 mumbling something about it being too quiet.)\e"
@@ -163,6 +167,7 @@ if knowaboutfamily == 1;"\0\s[106]One of my kids told me that some computers hav
 if love >= 75;			"\0\s[102]* (You wonder if he ever takes that hoodie off...)\e"
 if love >= 75;			"\0\s[102]* (He seems very comfy in his red hoodie.)\e"
 						"\0\s[1070]* (He fusses a little with the fraying edges of his sleeves.)\e"
+						"\0\s[1070]* (He readjusts the drawstrings on his hoodie so they hang down evenly.)\e"
 					}
 					if nowshell == "pink_apron"
 					{
@@ -196,6 +201,7 @@ if love >= 150 && askedaboutbluejeans == 1;"\0\s[104]Heh,\w4 anBlue and I end up
 					if "Green Beanie" _in_ dressups && nowshell == "autumn_flannel"
 					{
 						"\0\s[106]I can't wear many hats,\w4\s[0] but this one fits pretty snug.\w8\w8\s[205] It helps keep the chilly air out of my skull.\w8\w8\s[104] And it just feels nice to hold.\e"
+						"\0\s[102]* (He readjusts his hat on his head.)\e"
 					}
 					if (nowshell == "autumn_flannel" && season != "Autumn") || (nowshell == "winter_coat" && season != "Winter") || (nowshell == "spring_overalls" && season != "Spring") || (nowshell == "summer_swimsuit" && season != "Summer")
 					{
@@ -223,6 +229,8 @@ if love >= 150 && askedaboutbluejeans == 1;"\0\s[104]Heh,\w4 anBlue and I end up
 						elseif nowscale < 100 //Smaller than normal
 						{
 							"\0\s[106]I hope I'm not in your way,\w4 %(username).\e"
+							"\0\s[202]Everything looks so much bigger this way...\w8\w8\s[106] I hope a %(filetype) doesn't fall on me.\e"
+							
 							if nowscale < 50
 							{
 								"\0\s[106]Can you even still see me at this size..?\e"
@@ -238,6 +246,7 @@ if love >= 150 && askedaboutbluejeans == 1;"\0\s[104]Heh,\w4 anBlue and I end up
 					{
 						"\0\s[1070]* (He's muttering something about the world flipping around...)\e"
 						"\0\s[1070]* (He's mumbling something about being inside out...)\w8\w8\n\n* (He's probably thinking about the time you flipped him backwards.)\e"
+						"\0\s[1070]* (He's mumbling about everything being in reverse...)\w8\w8\n\n* (Maybe he's thinking about when you turned him backwards.)\e"
 					}
 					if changedscaling > 10 || Dragged > 5 //This one is on its own cause I also want it to apply to if you've been dragging him around. For now anyways, I might move this back depending on the dialogue I add. Basically this is if he's dizzy.
 					{
@@ -290,21 +299,7 @@ if love >= 75;					"\0\s[206]It gets pretty lonely here whenever you're away...\
 						"\![raise,OnSaoriRand]"
 					}
 					
-					//This one is checking where he is on the screen, and commenting if you've either got him up high, or you've got him on a secondary monitor.
-					//"\![get,property,OnCheckPosition,currentghost.scope(0).rect]" //This isn't an if here, but the function it leads to has some ifs.
 					
-					if FromDragging != 2
-					{
-						if XCoord < 0 || XCoord > displaywidth || YCoord > displayheight || YCoord < 0 //If he's on a secondary monitor of some sort. 
-						{
-							"\0\s[110]You've sure got a lot of monitor space,\w4 huh?\e"
-						}
-						if YCoord < (displayheight / 2)
-						{
-							"\0\s[106]I can uh,\w4 see pretty far from all the way up here.\e"
-							"\0\s[107]It's a good thing heights don't bother me that much...\e"
-						}
-					}
 					
 					
 					if SongList != "-" && love >= 75
@@ -322,6 +317,7 @@ if love >= 75;					"\0\s[206]It gets pretty lonely here whenever you're away...\
 					{
 						"\0\s[106]Hey uh...\w8\w8\s[107] I'm not really sure why you like to pet me so much,\w4\s[104] but you've been very careful while doing so and I really do appreciate that.\w8\w8\s[0] Thank you.\e"
 						"\0\s[104]You're a very gentle person,\w4 %(username).\w8\w8\s[0] I just want you to know I do appreciate that very much.\e"
+						//"\0\s[102]* (He seems very at ease here.)\e"
 					}
 					if totalhours > 100
 					{
@@ -337,7 +333,7 @@ if love >= 75;			"\0\s[208]You'd think I'd be really good at computers by now,\w
 					{
 						"\0\s[208]I wonder how Dusty is doing...\e"
 						"\0\s[206]I should visit Dusty soon...\e"
-						"\0\s[102]I'm glad you bring Dusty here.\w8\w8\s[107] He uh,\w4 doesn't exactly get out much.\w8\w8\n\n\s[104]It's good to see him outside his void though,\w4 he seems to really enjoy it.\e"
+if "Dusty and Obsidian" _in_ installedlist;"\0\s[102]I'm glad you bring Dusty here.\w8\w8\s[107] He uh,\w4 doesn't exactly get out much.\w8\w8\n\n\s[104]It's good to see him outside his void though,\w4 he seems to really enjoy it.\e"
 					}
 					
 					//=====About family members=====
@@ -419,6 +415,7 @@ if love >= 75;			"\0\s[208]You'd think I'd be really good at computers by now,\w
 						}
 					}
 					
+					//Don't know how I ended up with different dialogue pools here? I'll look another time and make sure I'm not messing up stuff by merging these
 					if CurrentXMonitor == 2 || CurrentYMonitor == 2
 					{
 						"\0\s[205]Sure is a lot of space on your computer,\w4 %(username).\e"
@@ -429,6 +426,23 @@ if love >= 75;			"\0\s[208]You'd think I'd be really good at computers by now,\w
 					{
 						
 					}
+					//This one is checking where he is on the screen, and commenting if you've either got him up high, or you've got him on a secondary monitor.
+					//"\![get,property,OnCheckPosition,currentghost.scope(0).rect]" //This isn't an if here, but the function it leads to has some ifs.
+					
+					if FromDragging != 2
+					{
+						if XCoord < 0 || XCoord > displaywidth || YCoord > displayheight || YCoord < 0 //If he's on a secondary monitor of some sort. 
+						{
+							"\0\s[110]You've sure got a lot of monitor space,\w4 huh?\e"
+						}
+						if YCoord < (displayheight / 2)
+						{
+							"\0\s[106]I can uh,\w4 see pretty far from all the way up here.\e"
+							"\0\s[107]It's a good thing heights don't bother me that much...\e"
+						}
+					}
+					
+					
 					if recentnightmare == 1
 					{
 						"\0\s[204]* (He shudders quietly.)\w8\w8\n\n* (Maybe he's still shaken up from his nightmare...)\e"
@@ -478,8 +492,9 @@ if love >= 75;			"\0\s[208]You'd think I'd be really good at computers by now,\w
 					if season == "Winter" && love >= 75 
 					{
 						"\0\s[0]Do you like to watch the snow fall?\w8\w8\s[104] Sometimes I wonder if snowflakes are little pieces of magic falling from the sky.\e"
-						"\0\s[102]Warm weather is nice,\w4 but I really prefer cool weather.\w8\w8\s[106] I guess it might not be as pleasant if you have flesh,\w4 though...\e"
-						"\0\s[104]Heh,\w4 when I look at all the trees that have lost their leaves for the winter,\w4 sometimes I think they look like skeleton trees.\e"
+						"\0\s[102]Warm weather is nice,\w4 but I really prefer cool weather.\w8\w8\s[106] I guess it might not be as pleasant if you have skin,\w4 though...\e"
+						"\0\s[104]Heh,\w4 when I look at all the trees that have lost their leaves for the winter,\w4 sometimes I think they look like tree skeletons.\e"
+						"\0\s[205]It feels so good to breathe deeply and take in the cold air.\w8\w8\s[104] Or maybe that's just me.\e"
 						
 						if knowaboutfamily == 1
 						{
@@ -1678,7 +1693,7 @@ OnNowPlaying
 			}
 			else
 			{
-			"\0\s[200].\w4.\w4.\w8\w8\s[204]\e"
+				"\0\s[200].\w4.\w4.\w8\w8\s[204]\e"
 			}
 		}
 		elseif "jacoo" _in_ WhatSong && "eternity" _in_ WhatSong
@@ -1808,7 +1823,58 @@ RandomSleep : nonoverlap
 	if _wakecheck <= TOINT(wakechance)
 	{
 		nowmode = "Default"
-		"\0\s[1300]...Zzghh...\w8\w8\s[109] Hmm..?\w8\w8\s[108] Oh-\w8\s[106] hey %(username),\w4 how long was I asleep..?\e:eval=nowmode='Default'"
+		
+		{
+			"\0\s[1300]...Zzghh...\w8\w8\w8\s[109] Hmm..?\w8\w8\s[108] Oh-\w8\s[106] hey %(username),\w4 how long was I asleep..?\e"
+		}
+		if dreams >= 3 //If he was having good dreams
+		{
+			"\0\s[1300]...Mmm...\w8\w8\w8\s[109] Mm..?\w8\w8\s[110] Oh,\w4\s[104] hey %(username).\w8\w8\s[106] Sorry,\w4 guess I must've fallen asleep.\w8\w8\s[208] Slept pretty good for once,\w4 though...\e"
+		}
+		if dreams <= 1 //If he was having bad dreams
+		{
+			"\0\s[1302]...Mghh...\w8\w8\w8\s[109] Huh..?\w8\w8\s[108] Oh-\w8\s[109] hey %(username).\w8\w8\s[200] Sorry,\w4 guess I fell asleep...\e"
+		}
+		if lastinteracted >= 6
+		{
+			"\0\s[1301]...Mmmm...\w8\w8\w8\s[109] Mhh..?\w8\w8\s[108] Oh...\w8\w8\s[206] Fell asleep I guess,\w4 wonder when %(heshe)'ll come back...\e"
+		}
+		if sleephour >= 6
+		{
+			"\0\s[1300].\w8.\w8.\w8\w8\w8\s[109]Mm.\w8\w8\w8\w8\s[110] Ah,\w8\s[104] hey %(username).\w8\w8\w8\n\n\s[207]* (He yawns,\w4\s[110] then looks at your clock.)\w8\w8\n\nWow,\w4\s[106] I didn't think I'd sleep so long here.\w8\w8\s[202]\n\n...You're not obligated to keep me around when I'm sleeping,\w4 y'know.\w8\w8\s[107] I can't be very good company if I'm asleep,\w4 right..?\e"
+		}
+		if timeslot == "earlymorning"
+		{
+			"\0\s[109]Mm.\w8\w8\w8\s[110] Ah-\w8\s[104] morning already,\w4 huh?\w8\w8\s[103] Good to see you,\w4 %(username).\e"
+		}
+		if timeslot == "morning"
+		{
+			"\0\s[109]Mh.\w8\w8\w8\s[110] Oh,\w8\s[104] hey %(username).\w8\w8\s[106] Sorry,\w4 did I fall asleep on you?\w8\w8\s[107] I'm not usually asleep this late...\e"
+		}
+		if timeslot == "lunch"
+		{
+			"\0\s[1300]...Mmm...\w8\w8\w8\s[109] Mm?\w8\w8\s[110] Oh,\w8\s[104] hey %(username).\w8\w8\s[207]\n\n* (He yawns.)\w8\w8\n\n\s[107]I was dreaming about having a nice lunch...\w8\w8\n\n* (Maybe he's hungry...)\e"
+		}
+		if timeslot == "afternoon"
+		{
+			"\0\s[1300]...Mmm...\w8\w8\w8\s[109] Hh.\w8\w8\w8\n\n\s[207]* (He yawns.)\w8\w8\w8\s[109]\n\n* (Looks like he's not quite ready to wake up.)\e"
+		}
+		if timeslot == "evening"
+		{
+			"\0\s[1300]...%(mumb)...\w8\w8\w8\s[109] %(mumb).\w8\w8\s[110] Oh,\w4 still here?\w8\w8\s[104] Hey,\w4 %(username).\e"
+		}
+		if timeslot == "latenight"
+		{
+			"\0\s[1301]...%(mumb)...\w8\w8\w8\s[109] Mm?\w8\w8\s[108] Oh,\w8\s[106] hey %(username).\w8\w8\s[202] You're still awake..?\w8\w8\n\n\s[206] I guess I am now,\w4 too...\e"
+		}
+		if timeslot == "midnight"
+		{
+			"\0\s[1302].\w8.\w8.\w8\w8\w8\s[109]Mh.\w8\w8\w8\n\n\s[207]* (He yawns slowly.)\w8\w8\w8\n\n\s[108]...Are you still up at this hour,\w4 %(username)..?\e"
+		}
+		if nowscale < 0 //TODO when I eventually add a menu option to flip him backwards, I'll need to edit this
+		{
+			"\0\s[1300]...Mm...\w8\w8\s[109] Mh.\w8\w8\s[110] Ah-\w8\w8 .\w8.\w8.\w8\w8\w8\s[107]The world's still backwards,\w4 huh..?\e"
+		}
 	}
 	else
 	{
@@ -1910,7 +1976,7 @@ RandomSleep : nonoverlap
 				"\0\s[1300]%(dreammumb)...%(_ingredients) works well with %(bakedgoods)...%(dreammumb2)"
 				"\0\s[1300]%(dreammumb)...I made %(_food1) with %(ingredients),\w4 just for you...%(dreammumb2)"
 				"\0\s[1300]%(dreammumb)...%(_ingredients) cheesecake...\w8\w8 My best recipe...%(dreammumb2)"
-				"\0\s[1300]%(dreammumb)...I always put a little %(ingredients) in my frosting,\w4 for flavor...%(dreammumb2)"
+				"\0\s[1300]%(dreammumb)...I always put a little %(ingredients) in the frosting,\w4 for flavor...%(dreammumb2)"
 				"\0\s[1300]%(dreammumb)...Add a little %(ingredients) to the sauce,\w4 it'll make it pop...%(dreammumb2)"
 				"\0\s[1300]%(dreammumb)...You should add %(fruveg) to the soup...%(dreammumb2)"
 				"\0\s[1300]%(dreammumb)...%(_fruveg) makes a great topping for pizza...%(dreammumb2)"
@@ -2049,7 +2115,7 @@ dreamg6
 	"\0\s[1300]...It's always like this..?\w8\w8\s[1304] ...It's beautiful...\e"
 	"\0\s[1301]...It's getting darker...\w8\w8 How dark does it get..?\e"
 	"\0\s[1300]...Those specks of light...\w8\w8 Are those stars..?\e"
-	"\0\s[1304]...I never knew...\w8\w8 I could watch them forever...\e:chain=end"
+	"\0\s[1304]...%(mumb)...\w8\w8 I never knew...\w8\w8 I could watch them forever...\e:chain=end"
 }}CHAIN
 
 
@@ -2133,7 +2199,7 @@ dreamb8
 
 dreamb9
 {{CHAIN
-	"\0\s[1301]...%(mumb)...\w8\w8 Are...\w8\w8 Are you sure..?\w8\w8 %(mumb)...\w8\w8 But you're so weak right now,\w4 you might...\w8\w8 %(mumb)...\e"
+	"\0\s[1301]...%(mumb)...\w8\w8 Are...\w8\w8 Are you sure..?\w8\w8 %(mumb)%(mumb)...\w8\w8 But you're so weak right now,\w4 you might...\w8\w8 %(mumb)...\e"
 	"\0\s[1300]...I understand...\w8\w8 I promise,\w4 I'll bring help as fast as I can...\e"
 	"\0\s[1302]...Hhh,\w4 %(mumb)...\w8\w8 No...\w8\w8 I-I...\w8\w8 I'll be back,\w4 just hold on...\w8\w8 %(mumb)...\w8\w8 Hhhh...\e"
 	"\0\s[1302]...Please,\w4 you have to come quickly,\w4 he needs a healer...\w8\w8 Please...\w8\w8 %(mumb)...\e"
@@ -2152,7 +2218,8 @@ OnMinuteChange
 {
 	Hourcheck
 	timeslot = GetTimeSlot //this tells the ghost what time it is so the time related conversations above will work.
-	if SinceTalk >= 30 && AutoWeather == "ON" && weatherquiet == 2
+	_b = BalloonCheck
+	if _b == 0 && AutoWeather == "ON" && weatherquiet == 2
 	{
 		if nowmode != "RYS"
 		{
@@ -2167,7 +2234,7 @@ OnMinuteChange
 		giveningredients = 0 //same but with ingredients -- He doesn't get one for warm things because you need to send him home to clear that one.
 		givenwater = 0
 		complimented = 0
-		lastinteracted += 1
+		if nowmode != "Asleep"; lastinteracted += 1
 		RYSrecentBlankets = 0
 		RYSrecentBooks = 0
 		dreams = RAND(4)
@@ -2241,6 +2308,14 @@ OnMinuteChange
 		{
 			
 		}
+		elseif holdingObsidian == 1
+		{
+			
+		}
+		elseif nowmode == "Asleep"
+		{
+			
+		}
 		else
 		{
 			if hour == 8 || hour == 20 //it's the bad time. Doesn't work so well if you've got a 24 hour clock but w/e
@@ -2276,14 +2351,14 @@ OnOffscreen
 OnSecondChange
 {
 	//SinceTalk = GETSECCOUNT() - SHIORI3FW.TalkEndTime //This gets the seconds since the last time he spoke. This is useful for a couple of things...
-	if SHIORI3FW.CanTalk == 1 //Scratch that, the above gets the seconds since the last script STARTED. This little counter gets it since it ended.
-	{
-		SinceTalk++
-	}
-	else
-	{
-		SinceTalk = 0
-	}
+	//if SHIORI3FW.CanTalk == 1 //Scratch that, the above gets the seconds since the last script STARTED. This little counter gets it since it ended.
+	//{
+	//	SinceTalk++
+	//}
+	//else
+	//{
+	//	SinceTalk = 0
+	//}
 	--
 	if passsec == 59
  	{

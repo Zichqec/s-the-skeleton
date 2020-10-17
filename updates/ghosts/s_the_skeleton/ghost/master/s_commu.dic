@@ -174,6 +174,7 @@ ReplyToGhost //I'll..... add a friendship check to this later......... or maybe 
 		_LastCommu = REPLACE(_LastCommu,"\w1","")
 		_LastCommu = REPLACE(_LastCommu,"\w4","")
 		_LastCommu = REPLACE(_LastCommu,"\w8","") //I only ever use \w4, \w8, and \w1. May need to add more for other ghosts they talk with.
+		_LastCommu = REPLACE(_LastCommu,":chain=end","")
 		
 		--
 		
@@ -322,7 +323,7 @@ ReplyToGhost //I'll..... add a friendship check to this later......... or maybe 
 			}
 			elseif "DGetAlongObsi" _in_ ConvoTag
 			{
-				"\0\s[1204]Aw,\w4 I always get along with cats if they don't mind me.\e"
+				"\0\s[1204]Aw,\w4 I always get along with cats if they're fine with me.\e"
 			}
 			else //I'm sure as I update them that they wont always have the same convos set up...
 			{

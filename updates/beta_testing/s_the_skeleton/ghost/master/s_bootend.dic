@@ -2,6 +2,7 @@
 OnFirstBoot
 {
 	FirstVars
+	installdate = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)")
 	if reference0 == 0 //Don't touch this line.
  	{
 		"\0\s[-1]\![enter,passivemode]\0\s[1110]\w8Wh- \w8\w8 ...Oh,\w4 another timeline..?\w8\w8\n\n\s[110]Oh,\w4\s[1020] uh,\w4 hi there.\w8\w8\s[106] Sorry,\w4 I hope I'm not bothering you.\w8\w8\s[107] I have a tendency to fall into random timelines,\w4 I'll probably disappear again soon.\w8\w8\s[208]\n\nLooks like...\w8\w8 a computer this time?\w8\w8\s[107] Could be worse,\w4 I guess.\w8\w8\n\n\s[104]So ah,\w4 my name's S.\w8\w8\s[0] What's yours?\![leave,passivemode]\![open,inputbox,OnNameTeach,-1]\e"
@@ -158,6 +159,27 @@ normalboottalk //Ergh, this is a mess. For now, he'll only acknowledge the time 
 				"\0\s[1122]\w6\s[104]Hey %(username),\w4 having a good %(displayweekday)?\e"
 				"\0\s[1122]\w6\s[104]Hey %(username),\w4 how's it going?\e"
 				"\0\s[1122]\w6\s[103]Good to see you,\w4 %(username).\w8\w8\s[104] How's your %(displayweekday) going?\e"
+				
+				{
+					"\s[1110]\w6"
+					--
+					"And so-"
+					"That's because-"
+					"Well if we-"
+					"I can't-"
+					"Have you-"
+					"I know-"
+					"Maybe I-"
+					"How about-"
+					--
+					"\n\n\w8\w8\s[110]Oh,\w8\s[104] hey there %(username).\w8\w8\s[0] "
+					"\n\n\w8\w8\s[110]Oh,\w8\s[104] hi %(username).\w8\w8\s[0] "
+					"\n\n\w8\w8\s[110]Oh,\w8\s[104] good to see you %(username).\w8\w8\s[0] "
+					--
+					"What's up?\e"
+					"How's it going?\e"
+					"How's your day been?\e"
+				}
 			}
 			
 			if nowshell == "pink_apron"
@@ -183,7 +205,7 @@ normalboottalk //Ergh, this is a mess. For now, he'll only acknowledge the time 
 			}
 			if timeslot == "lunch" //12-2
 			{
-				"\0\s[1122]\w6\s[103]Hey there,\w4 %(username).\w8 Have you eaten yet?\e"
+				"\0\s[1122]\w6\s[103]Hey there,\w4 %(username).\w8\w8 Have you eaten yet?\e"
 				if hour > 12
 				{
 					"\0\s[104]Good afternoon,\w4 %(username).\e"
@@ -1128,6 +1150,17 @@ BootVars
 //Variables set after updates, because I have no self control
 OnSetUpdateVariables
 {
+	if Update1p3p1 == ""
+	{
+		Update1p3p1 = "1.3.1"
+		if "/l/" _in_ locationcode; locationcode = SPLIT(locationcode,"/l/")[1]
+		Degrees[0] = "Fahrenheit"
+		Degrees[1] = "°F"
+		_temp = tempurature
+		tempurature[0] = _temp
+		tempurature[1] = _temp
+		tempurature[2] = _temp
+	}
 	if Update1p3p0 == ""
 	{
 		Update1p3p0 = "1.3.0"
@@ -1140,7 +1173,7 @@ OnSetUpdateVariables
 		totalsleep = 0
 		dreams = RAND(4)
 		recentnightmare = 0
-		if "https://weather.com/weather/today/l/" !_in_ locationcode; locationcode = "https://weather.com/weather/today/l/" + locationcode
+		//if "https://weather.com/weather/today/l/" !_in_ locationcode; locationcode = "https://weather.com/weather/today/l/" + locationcode
 		
 	}
 	if Update1p2p1 == ""
@@ -1166,7 +1199,7 @@ OnSetUpdateVariables
 		NewYMonitor = 0
 		XCoord = 0
 		YCoord = 0
-		SinceTalk = 0
+		//SinceTalk = 0
 		FromDragging = 0
 		CameBack = 0
 		Dragged = 0
@@ -1311,24 +1344,24 @@ FirstVars
 	SeeDiscord = "OFF"
 	SongMemories = ""
 	SongList = "-"
-	FoobarOpen = 0
-	FoobarMin = 0
-	WinampOpen = 0
-	WinampMin = 0
-	ItunesOpen = 0
-	ItunesMin = 0
-	SpotifyOpen = 0
-	SpotifyMin = 0
-	ActuallySpotify = 0
-	VLCOpen = 0
-	VLCMin = 0
-	DiscordOpen = 0
-	DiscordMin = 0
-	DiscordorChrome = 0
-	DevPalleteOpen = 0
-	WhichDev = 0
-	EVNovaOpen = 0
-	EVNovaMin = 0
+	//FoobarOpen = 0
+	//FoobarMin = 0
+	//WinampOpen = 0
+	//WinampMin = 0
+	//ItunesOpen = 0
+	//ItunesMin = 0
+	//SpotifyOpen = 0
+	//SpotifyMin = 0
+	//ActuallySpotify = 0
+	//VLCOpen = 0
+	//VLCMin = 0
+	//DiscordOpen = 0
+	//DiscordMin = 0
+	//DiscordorChrome = 0
+	//DevPalleteOpen = 0
+	//WhichDev = 0
+	//EVNovaOpen = 0
+	//EVNovaMin = 0
 	askedabouttimelines = 0
 	AlreadyResponded = 0
 	SpokeFirst = 0
@@ -1348,7 +1381,7 @@ FirstVars
 	pethighscore = 0
 	scroll = 0
 	talkedtoDusty = 0
-	nowballoon = "Perseverence - Integrity"
+	nowballoon = "Purple Soul"
 	AzuraSongMemories = ""
 	staysafe = 0
 	mailfrommenu = 0
@@ -1372,7 +1405,6 @@ FirstVars
 	nowscale = 100
 	changedscaling = 0
 	//---Update 1.2.0---
-	installdate = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)")
 	Update1p2p0 = "1.2.0"	
 	totalboops = 0
 	weatherquiet = 0
@@ -1388,7 +1420,7 @@ FirstVars
 	NewYMonitor = 0
 	XCoord = 0
 	YCoord = 0
-	SinceTalk = 0
+	//SinceTalk = 0
 	FromDragging = 0
 	CameBack = 0
 	Dragged = 0
@@ -1442,7 +1474,13 @@ FirstVars
 	totalsleep = 0
 	dreams = RAND(4)
 	recentnightmare = 0
-
+	//---1.3.1---
+	Update1p3p1 = "1.3.1"
+	Degrees[0] = "Fahrenheit"
+	Degrees[1] = "°F"
+	tempurature[0] = 0
+	tempurature[1] = 0
+	tempurature[2] = 0
 	
 	updateavailable = 0
 	booting = 1 //This is here so that when you tell him your name the first time, he'll say the appropriate line.

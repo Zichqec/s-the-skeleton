@@ -1,9 +1,5 @@
 ﻿//---------------------------Mouse Functions--------------------------
 
-
-//--OnMouseMove
-//This is a bunch of code determining who the mouse is over. Don't touch any of it.
-
 OnMouseMove
 {
 	//---- reference3 determines the character in question
@@ -25,7 +21,11 @@ OnMouseLeave //Thanks to Levidre for reminding me that this exists because I'm a
 	if continuousstroke > 160 && continuousstroke > pethighscore //This bit checks to see if you've gotten a high score. The \C in the text displays the previous balloon and then adds onto it. This might not always be perfect, if you let his balloon time out or you make him say something else it might be a little strange, but I think it's good enough to keep this way.
 	{
 		pethighscore = continuousstroke
-		"\C\n\n* (New high score! %(pethighscore)!)\e"
+		_b = BalloonCheck
+		if _b == 1
+		{
+			"\C\n\n* (New high score! %(pethighscore)!)\e"
+		}
 	}
 	--
 	if currentpetstreak > toppetstreak
@@ -1025,12 +1025,13 @@ OnMouseDragEnd
 			}
 			else
 			{
+				_b = BalloonCheck
 				if Dragged > 5
 				{
 					dragdizzy++
 					"\![get,property,OnCheckPosition,currentghost.scope(0).rect]"
 				}
-				elseif SinceTalk > 2 && mikireflag != 1 && FromDragging != 2 //SinceTalk is set up in aitalk, it's the seconds since he stopped talking. mikireflag is to do with him being off screen. This ensures that that dialogue doesnt get interrupted.
+				elseif _b == 0 && mikireflag != 1 && FromDragging != 2 //If the balloon was not open //elseif SinceTalk > 2 && mikireflag != 1 && FromDragging != 2 //SinceTalk is set up in aitalk, it's the seconds since he stopped talking. mikireflag is to do with him being off screen. This ensures that that dialogue doesnt get interrupted.
 				{
 					"\![get,property,OnCheckPosition,currentghost.scope(0).rect]" //This checks his current coordinates to see if you've dragged him onto a new screen
 					FromDragging = 1

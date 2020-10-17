@@ -39,6 +39,7 @@ ingredients
 	"vanilla"
 	"wasabi"
 	"lime"
+	"parsley"
 }
 
 fruveg
@@ -397,9 +398,9 @@ wakechance
 	--
 	_temp -= recentpets
 	_temp += sleephour
-	if _temp < 0
+	if _temp <= 0
 	{
-		_temp = 0
+		_temp = 1
 	}
 	--
 	"%(_temp)"
@@ -620,26 +621,26 @@ GetDaySlot
 
 temp
 {
-	if ForC == "°F"
+	if Degrees[1] == "°F"
 	{
-		if feelslike <= 0; "Below Zero" //Below zero, 0 and below
-		elseif feelslike <= 20; "Freezing" //Freezing, 0-20
-		elseif feelslike <= 40; "Cold" //Cold, 21-40
-		elseif feelslike <= 60; "Chilly" //Chilly, 41-60
-		elseif feelslike <= 80; "Pleasant" //Pleasant, 61-80
-		elseif feelslike <= 95; "Hot" //Hot, 81-95
-		elseif feelslike >= 96; "Boiling"  //Everything is terrible, 96+
+		if feelslike[0] <= 0; "Below Zero" //Below zero, 0 and below
+		elseif feelslike[0] <= 20; "Freezing" //Freezing, 0-20
+		elseif feelslike[0] <= 40; "Cold" //Cold, 21-40
+		elseif feelslike[0] <= 60; "Chilly" //Chilly, 41-60
+		elseif feelslike[0] <= 80; "Pleasant" //Pleasant, 61-80
+		elseif feelslike[0] <= 95; "Hot" //Hot, 81-95
+		elseif feelslike[0] >= 96; "Boiling"  //Everything is terrible, 96+
 		else; "Unknown"
 	}
-	elseif ForC == "°C"
+	elseif Degrees[1] == "°C"
 	{
-		if feelslike <= -17; "Below Zero" //Below zero, 0 and below
-		elseif feelslike <= -6; "Freezing" //Freezing, 0-20
-		elseif feelslike <= 4; "Cold" //Cold, 21-40
-		elseif feelslike <= 15; "Chilly" //Chilly, 41-60
-		elseif feelslike <= 26; "Pleasant" //Pleasant, 61-80
-		elseif feelslike <= 35; "Hot" //Hot, 81-95
-		elseif feelslike >= 36; "Boiling" //Everything is terrible, 96+
+		if feelslike[0] <= -17; "Below Zero" //Below zero, 0 and below
+		elseif feelslike[0] <= -6; "Freezing" //Freezing, 0-20
+		elseif feelslike[0] <= 4; "Cold" //Cold, 21-40
+		elseif feelslike[0] <= 15; "Chilly" //Chilly, 41-60
+		elseif feelslike[0] <= 26; "Pleasant" //Pleasant, 61-80
+		elseif feelslike[0] <= 35; "Hot" //Hot, 81-95
+		elseif feelslike[0] >= 36; "Boiling" //Everything is terrible, 96+
 		else; "Unknown"
 	}
 	else
@@ -671,7 +672,20 @@ moonphase
 	else; "anMoon09"
 }
 
-loadingmoon : sequential //Changed the loadingmoon thing to just use sequential, it's less prone to bugs and means I don't need a variable!
+loadingmoon
+{
+	"%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)"
+	--
+	"%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)"
+	--
+	"%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)"
+	--
+	"%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)"
+	--
+	"\_w[160]"
+}
+
+lm : sequential //Changed the loadingmoon thing to just use sequential, it's less prone to bugs and means I don't need a variable!
 {
 	"\_b[img\Moon01,inline,--option=use_self_alpha]\w4\c"
 	"\_b[img\Moon02,inline,--option=use_self_alpha]\w4\c"

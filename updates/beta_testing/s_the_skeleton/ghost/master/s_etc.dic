@@ -1147,7 +1147,7 @@ OnBIFFComplete
 	--
 	
 	if reference0 == 0 //If you have no new mail.
- 	{
+	{
 		if nowmode == "RYS"
 		{
 			"\RYS\s[2007]...There's nothing new.\e"
@@ -1180,7 +1180,7 @@ OnBIFFComplete
 		}
 	}
 	elseif reference0 == 1 //If you have one new email.
- 	{
+	{
 		if nowmode == "RYS"
 		{
 			"\RYS\s[2008]There's 1 new email..."
@@ -1278,7 +1278,7 @@ OnBIFFComplete
 			}
 		}
 	}
- 	else //For any other number of emails.
+	else //For any other number of emails.
 	{
 		if nowmode == "RYS"
 		{
@@ -1310,7 +1310,7 @@ OnBIFFComplete
 				}
 			}
 		}
- 	}
+	}
 	--
 	if reference7 != ""
 	{
@@ -1403,7 +1403,7 @@ Select.seeheaders
 OnBIFFFailure
  {
 	if reference0 == "timeout" //If the connection times out.
- 	{
+	{
 		if nowmode == "RYS"
 		{
 			"\RYS\s[2006]Um,\w4 sorry,\w4 it looks like it timed out...\e"
@@ -1437,7 +1437,7 @@ OnBIFFFailure
 			}
 		}
 	}
- 	elseif reference0 == "kick" //If the account blocks the ghost from accessing it. I think gmail may do this at first to try and protect your account from unapproved applications using it. It gives you the option to change the setting in the warning email they send you about it.
+	elseif reference0 == "kick" //If the account blocks the ghost from accessing it. I think gmail may do this at first to try and protect your account from unapproved applications using it. It gives you the option to change the setting in the warning email they send you about it.
 	{
 		if nowmode == "RYS"
 		{
@@ -1473,7 +1473,7 @@ OnBIFFFailure
 		}
 	}
 	elseif reference0 == "defect" //If the information put into the POP menu is wrong.
- 	{
+	{
 		if nowmode == "RYS"
 		{
 			"\RYS\s[2006]Sorry,\w4 it looks um...\w8\w8\s[2007] Like your POP settings are wrong...\![open,configurationdialog]\e"
@@ -1542,7 +1542,7 @@ OnBIFFFailure
 			}
 		}
 	}
- 	else //if there's some other kind of error.
+	else //if there's some other kind of error.
 	{
 		if nowmode == "RYS"
 		{
@@ -1577,7 +1577,7 @@ OnBIFFFailure
 			}
 		}
 		//reference0 here stores the error message the email server would have given the ghost, hopefully.
- 	}
+	}
 }
 
 OnUpdateCheckComplete
@@ -1693,7 +1693,7 @@ OnUpdateComplete
 	booting = 0
 	updateavailable = 0
 	if reference0 == "none" //if the ghost had nothing to update with
- 	{
+	{
 		if nowmode == "RYS"
 		{
 			"\RYS\s[2007]There are no new files,\w4 sorry...\e"
@@ -1727,7 +1727,7 @@ OnUpdateComplete
 			}
 		}
 	}
- 	else //if the ghost has updated successfully
+	else //if the ghost has updated successfully
 	{
 		//OnSetUpdateVariables //This directs over to Bootend, where new variables will be initialized if they aren't already
 		askedalready = 0
@@ -1742,7 +1742,7 @@ OnUpdateComplete
 			OnSetUpdateVariables
 			"\![raise,OnAskChangelog]"
 		}
- 	}
+	}
 }
 
 OnAskChangelog
@@ -1796,7 +1796,7 @@ OnUpdateFailure
 {
 	booting = 0
 	if reference0 == "timeout" //if the connection times out
- 	{
+	{
 		if nowmode == "RYS"
 		{
 			"\RYS\s[2006]Sorry,\w4 looks like it timed out...\e"
@@ -1828,7 +1828,7 @@ OnUpdateFailure
 			}
 		}
 	}
- 	elseif reference0 == "md5 miss"
+	elseif reference0 == "md5 miss"
 	{
 		if nowmode == "RYS"
 		{
@@ -1860,7 +1860,7 @@ OnUpdateFailure
 				}
 			}
 		}
- 	}
+	}
 	elseif reference0 == "artificial" //The user has interrupted/cancelled the check
 	{
 		if nowmode == "RYS"
@@ -1905,7 +1905,7 @@ OnUpdateFailure
 		}
 	}
 	else //for other errors
- 	{
+	{
 		if nowmode == "RYS"
 		{
 			"\RYS\s[2006]Sorry,\w4 I got an error...\w8\w8 It says '%(reference0)'...\e"
@@ -1982,7 +1982,7 @@ OnUpdate.OnDownloadBegin
 
 	/*if "aitalk" _in_ reference0 //this is checking to see what kind of files are being downloaded. In this case, it's looking for files called aitalk in the download queue.
 	{
- 		if LV == 0
+		if LV == 0
 		{
 			"\0\s[1010]Looks like something new to say randomly.\e"
 		}
@@ -1997,7 +1997,7 @@ OnUpdate.OnDownloadBegin
 				"\0\s[412]Hey,\w4 it's some new dialogue.\w8\w8\s[402] Maybe you could see some of it if you didn't hit me.\e"
 			}
 		}
- 	}
+	}
 	elseif "mouse" _in_ reference0
 	{
 		if LV == 0
@@ -2054,7 +2054,7 @@ Select.nochangelog
 
 ghostver //S's current version, so I don't have to remember to update it on every menu
 {
-	"1.3.0"
+	"1.3.1"
 }
 
 OnChangeLog //Haha I hope I remember to update this
@@ -2065,6 +2065,14 @@ OnChangeLog //Haha I hope I remember to update this
 	}
 	--
 	"\![set,autoscroll,disable]\_q\b2/
+	\_l[84]-Version 1.3.1-\n\n/
+	-Fixed weather checking (I swear this is the last time... probably). Non-US urls SHOULDN'T give any more trouble, and if they do, S will direct you to another way of inputting it. \f[bold,1]Please let me know if this gives you any issues!\f[default] As a result of this change...\n\n/
+	-There is now a toggle in the menu for Celsius vs Fahrenheit! You should be able to switch between them seamlessly.\n\n/
+	-Changed the date/time/etc on the bottom of S's menu to have a slightly smaller font, to give it more room.\n\n/
+	-Added a bunch more dialogue for falling asleep and waking up!\n\n/
+	-Added a few extra lines of dialogue in various places.\n\n/
+	-Balloon files will now be hosted separately from S's update files, so fresh installs will no longer want to redownload the balloon files.\n\n/
+	-Fixed some typos, fixed a few small bugs, tightened up some code and made the formatting nicer.\n\n\n/
 	\_l[84]-Version 1.3.0-\n\n/
 	-Added an Autumn themed shell! It comes with an accessory you can put on him using the right click menu.\n\n/
 	-S will now fall asleep randomly! If he's having bad dreams, you can pet him a few times to give him nicer dreams for a little while.\n\n/
@@ -2192,36 +2200,36 @@ OnHeadlinesense.OnFind
 	}
 	--
 	//----  What page You're on
- 	if reference2 == "First" || reference2 == "First and Last"
+	if reference2 == "First" || reference2 == "First and Last"
 	{
- 		//---- First page
+		//---- First page
 		"\b2%(reference0):"
- 	}
-	elseif reference2 == "Next"
- 	{
-		//---- Second page
- 		"\b2%(reference0):"
 	}
- 	elseif reference2 == "Last"
+	elseif reference2 == "Next"
 	{
- 		//---- Last page
+		//---- Second page
 		"\b2%(reference0):"
- 	}
-	--
- 	//---- Headlines
-	"\n\n%reference3\n"
- 	--
-	//---- Pages
- 	if reference2 == "First" || reference2 == "Next"
+	}
+	elseif reference2 == "Last"
 	{
- 		//---- Bottom buttons
-		"\![*]\q[Next,] - \![*]\q[Stop,Headline_Cancel]\e"
- 	}
-	else
- 	{
+		//---- Last page
+		"\b2%(reference0):"
+	}
+	--
+	//---- Headlines
+	"\n\n%reference3\n"
+	--
+	//---- Pages
+	if reference2 == "First" || reference2 == "Next"
+	{
 		//---- Bottom buttons
- 		"\![*]\q[Stop,Headline_Cancel]\e"
- 	}
+		"\![*]\q[Next,] - \![*]\q[Stop,Headline_Cancel]\e"
+	}
+	else
+	{
+		//---- Bottom buttons
+		"\![*]\q[Stop,Headline_Cancel]\e"
+	}
 	
 }
 
@@ -2409,7 +2417,7 @@ OnHeadlinesenseFailure
 		}
 	}
 	--
- 	"\e" //And here is the final /e, so you don't need to include it in the if statements above. Another one of the very rare cases this occurs.
+	"\e" //And here is the final /e, so you don't need to include it in the if statements above. Another one of the very rare cases this occurs.
 }
  
 OnUpdatedataCreating
@@ -2670,11 +2678,11 @@ OnSNTPCompare
 		"\0"
 	}
 	--
- 	"Retrieved Time: %reference1[1]/%reference1[2]/%reference1[0] %reference1[3]:%reference1[4]:%reference1[5]\w2\n/
+	"Retrieved Time: %reference1[1]/%reference1[2]/%reference1[0] %reference1[3]:%reference1[4]:%reference1[5]\w2\n/
 	Your Time: %reference2[1]/%reference2[2]/%reference2[0] %reference2[3]:%reference2[4]:%reference2[5]\w2\n/
- 	\n"
+	\n"
 	--
- 	if reference3 == 0 //if your clock is already accurate.
+	if reference3 == 0 //if your clock is already accurate.
 	{
 		if nowmode == "RYS"
 		{
@@ -2714,9 +2722,9 @@ OnSNTPCompare
 			}
 		}
 			
- 		//"\0\s[0]Your clock is accurate.\e" //replace this with whatever message you like.
+		//"\0\s[0]Your clock is accurate.\e" //replace this with whatever message you like.
 	}
- 	else //if your clock doesn't match
+	else //if your clock doesn't match
 	{
 		if nowmode == "RYS"
 		{
@@ -3323,6 +3331,8 @@ OnDeviceRemove
 		elseif nowmode == "Asleep"
 		{
 			"\0\s[1301]...See you...\w8\w8 %(mumb)...\e"
+			"\0\s[1301]...Goodbye...\w8\w8 %(mumb)...\e"
+			"\0\s[1301]...Take care...\w8\w8 %(mumb)...\e"
 		}
 		else
 		{
@@ -3348,7 +3358,8 @@ OnDeviceRemove
 
 OnGhostCalling //Kinda want to add some summoning messages, but I'm not sure what to really give him.... hmmm
 {
-	if SinceTalk >= 3
+	_b = BalloonCheck
+	if _b == 0
 	{
 		if nowmode == "RYS"
 		{
@@ -3519,6 +3530,22 @@ OnWindowStateMinimize
 	}
 }
 
+BalloonCheck
+{
+	if ASEARCH("Status",var.req.key) != -1
+	{
+		//If there is the word balloon is Azura's status, that means one is opened so that she is speaking with the user
+		_currentstatus = var.req.value[ASEARCH("Status",var.req.key)]
+		if "balloon" _in_ _currentstatus
+		{
+			1
+		}
+		else
+		{
+			0
+		}
+	}
+}
 
 //Weather Checking -------------------------------------------------------
 //following functions can go in menu dic, or a seperate dic entirely
@@ -3536,18 +3563,24 @@ OnWindowStateMinimize
 //starting the weather checking
 OnWeatherLocation
 {
+	weatherquiet = 0
+	if Degrees == ""; {Degrees[0] = "Fahrenheit"; Degrees[1] = "°F"}
+	
 	if curlocation != "" && curlocation != "Set a location"
 	{
-		"\b2\_q* (Your location is currently set to: %(curlocation))\n\n"
+		"\b2The last location you gave me was %(curlocation).\n\n"
 	}
 	else
 	{
-		"\b2\_q"
+		"\b2"
 	}
 	--
-	"* (Do you live inside or outside the USA?)\n\n/
+	"\_q\0\s[0]Do you live inside or outside the USA?"
+	--
+	"\n\n/
 	\![*]\q[In the USA,OnUSALoc]\n/
-    \![*]\q[Outside the USA,OnOtherLoc]\n\n/
+	\![*]\q[Outside the USA,OnOtherLoc]\n\n/
+	\![*](Current format: \q[%(Degrees),ToggleDegreesLocation])\n\n/
 	\![*]\q[Back to config,toconfig]\e"
 	
 }
@@ -3556,54 +3589,109 @@ OnWeatherLocation
 OnUSALoc
 {
 	templocation = "USA"
-    "* (Please enter your zipcode.)\![open,inputbox,OnLocCode,-1]\![set,balloontimeout,-1]\e"
+	
+	"\0\s[0]Alright then,\w4 what's your zipcode?"
+	"\0\s[0]Ok,\w4 what's your zipcode,\w4 then?"
+	"\0\s[0]Alright,\w4 what's your zipcode?"
+	--
+	"\![open,inputbox,OnLocCode,-1]\![set,balloontimeout,-1]\e"
 }
 
 OnOtherLoc
 {
 	templocation = ""
-    "* (Please go to \_a[https://weather.com/]weather.com\_a, search your city, and enter the URL.)\![open,inputbox,OnLocCode,-1]\![set,balloontimeout,-1]\e"
+	
+	"\0\s[0]Ok,\w4 no problem.\w8\w8 Please go to \_a[https://weather.com/]weather.com\_a,\w4 search for your city,\w4 and enter the URL."
+	--
+	"\![open,inputbox,OnLocCode,-1]\![set,balloontimeout,-1]\e"
+}
+
+Select.ToggleDegreesLocation
+{
+	if Degrees != "Fahrenheit,°F"
+	{
+		Degrees = "Fahrenheit,°F"
+		tempurature[0] = tempurature[1]
+	}
+	else
+	{
+		Degrees = "Celsius,°C"
+		tempurature[0] = tempurature[2]
+	}
+	OnWeatherLocation
 }
 
 OnLocCode
 {
-	if "today/l" _in_ locationcode || templocation == "USA"
+	if templocation == "USA"
 	{
-		if templocation == "USA"
+		locationcode = reference0
+	}
+	else
+	{
+		if "/l/" _in_ reference0
 		{
-			locationcode = "https://weather.com/weather/today/l/" + "%(reference0)"
+			locationcode = SPLIT(reference0,"/l/")[1]
 		}
 		else
 		{
 			locationcode = reference0
 		}
 	}
+	--
+	"\![execute,http-get,https://zichqec.github.io/s-the-skeleton/weatherregex.html,--async=OnNonFunction,--file=weatherregex.html,--timeout=300]"
+	--
+	"\![execute,http-get,https://weather.com/weather/today/l/%(locationcode),--async=OnCheckWeatherLoc,--file=weather.html,--timeout=300]%(loadingmoon)"
+}
+
+OnExecuteHTTPFailure
+{
+	if weatherquiet == 1
+	{
+		weatherquiet = 0
+		"\e"
+	}
+	--
+	if reference4 == "404"
+	{
+		if templocation == "USA"
+		{
+			"\0\s[106]Sorry,\w4 something went wrong.\w8\w8 "
+			--
+			if STRLEN(locationcode) != 5
+			{
+				"That's not a valid zipcode.\w8\w8\n\n"
+			}
+		}
+		else
+		{
+			"\0\s[106]Sorry,\w4 something went wrong.\w8\w8 You can enter the whole URL,\w4 or if that doesn't work,\w4 you can enter the long string of letters and numbers at the end of the URL,\w4 after the last /.\w8\w8\n\n"
+		}
+	}
+	elseif reference4 == "timeout"
+	{
+		"\0\s[106]Sorry,\w4 the connection timed out.\w8\w8 Maybe try again later?\e"
+	}
 	else
 	{
-		"* (That isn't a valid URL, try again.)\![open,inputbox,OnLocCode,-1]\![set,balloontimeout,-1]\e"
+		"\0\s[106]Sorry,\w4 looks like something went wrong.\w8\w8 The error I got was '%(reference4)'.\w8\w8 You should tell Zichqec about that.\e"
 	}
-	/*if "https://weather.com/weather/today/l/" _in_ locationcode
-	{
-		locationcode = REPLACE(locationcode,"https://weather.com/weather/today/l/","") //if someone puts in the whole URL, this gets rid of the unneeded bit...
-	}*/
 	--
-	//templocation = ""
-	//OnDownloadCurWeather
-	"\![execute,http-get,%(locationcode),--file=weather.html,--timeout=300]\![execute,http-get,https://zichqec.github.io/s-the-skeleton/weatherregex.html,--async=OnCheckWeatherLoc,--file=weatherregex.html,--timeout=300]%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)\w4\w4\_w[40]\_w[40]\_w[40]\_w[40]\c* (Couldn't find your location. Try again?)\n\n\![*]\q[Yes,OnWeatherLocation]\n\![*]\q[No,cancelnodialogue]"
+	"Do you want to try again?\n\n\![*]\q[Yes,OnWeatherLocation]\n\![*]\q[No,cancelnodialogue]"
 }
 
 OnCheckWeatherLoc
 {
-    templocation = ""
-    _file = "var\\weather.html"
-    _file2 = "var\\weatherregex.html"
-    _buff=""
-    _buff2=""
+	templocation = ""
+	_file = "var\\weather.html"
+	_file2 = "var\\weatherregex.html"
+	_buff=""
+	_buff2=""
 	
 	_reg = ''
-    _regloc = '';      _Cregloc = '';      _Fregloc = ''
+	_regloc = '';      _Cregloc = '';      _Fregloc = ''
 	
-    FCHARSET(1)
+	FCHARSET(1)
 	
 	tempurature = "Unknown"
 	ForC = "Unknown"
@@ -3629,28 +3717,32 @@ OnCheckWeatherLoc
 	--
 	FCLOSE(_file2);
 	--
-    if FOPEN(_file,'r') {
-    
-        _buff = FREAD(_file) //get the first line of the HTML to check what type of page we got
+	if FOPEN(_file,'r') {
+	
+		_buff = FREAD(_file) //get the first line of the HTML to check what type of page we got
 
-        if RE_SEARCH(_buff, _reg) //reg expressions for chrome formatted page
+		if RE_SEARCH(_buff, _reg) //reg expressions for chrome formatted page
 		{
 			_regloc = _Cregloc
-        }
-        else //reg expressions for firefox formatted page
+		}
+		else //reg expressions for firefox formatted page
 		{
 			_regloc = _Fregloc
-        }
+		}
 
-        for _buff = FREAD(_file); _buff != -1; _buff = FREAD(_file)
+		for _buff = FREAD(_file); _buff != -1; _buff = FREAD(_file)
 		{
 			if RE_SEARCH (_buff,_regloc); {templocation = RE_GETSTR[1]} //set location
-        }
-    }
-    --
+		}
+	}
+	--
 	FCLOSE(_file);
 	--
-	"* (Your current location is %(templocation). Is this correct?)\n\n/
+	"\0\s[111]So it's %(templocation)?"
+	"\0\s[111]%(templocation),\w4 then?"
+	"\0\s[111]Is it %(templocation)?"
+	--
+	"\n\n/
 	\![*]\q[Yes,confirmweather]\n/
 	\![*]\q[Enter a different location,OnWeatherLocation]\n/
 	\![*]\q[Cancel,cancelnodialogue]"
@@ -3669,11 +3761,12 @@ Select.confirmweather
 	phase = "Unknown"
 	sunset = "Unknown"
 	sunrise = "Unknown"
+	--
 	if fromfunctionmenu == 1
 	{
 		fromfunctionmenu = 0
 		weatherquiet = 0
-		OnDownloadCurWeather
+		"\![raise,OnDownloadCurWeather]"
 	}
 	else
 	{
@@ -3685,43 +3778,43 @@ Select.confirmweather
 //current weather functions
 OnDownloadCurWeather
 {
-   if weatherquiet == 0
-   {
-	"\0\![execute,http-get,%(locationcode),--file=weather.html,--timeout=300]\![execute,http-get,https://zichqec.github.io/s-the-skeleton/weatherregex.html,--async=OnCurWeatherFound,--file=weatherregex.html,--timeout=300]%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)\c"
-	--
-	"* (Couldn't get the weather. Try again?)"
-	--
-	"\n\n\![*]\q[Yes,OnDownloadCurWeather]\n\![*]\q[No,cancelnodialogue]\e"
-   }
-   else
-   {
-	   "\0\![execute,http-get,%(locationcode),--file=weather.html,--timeout=300,--nodescript]\![execute,http-get,https://zichqec.github.io/s-the-skeleton/weatherregex.html,--async=OnCurWeatherFound,--file=weatherregex.html,--timeout=300,--nodescript]\b[-1]\e"
-   }
+	if weatherquiet == 0
+	{
+		"\0\![execute,http-get,https://zichqec.github.io/s-the-skeleton/weatherregex.html,--async=OnNonFunction,--file=weatherregex.html,--timeout=300]"
+		--
+		"\![execute,http-get,https://weather.com/weather/today/l/%(locationcode),--async=OnCurWeatherFound,--file=weather.html,--timeout=300]%(loadingmoon)"
+	}
+	else
+	{
+		"\0\![execute,http-get,https://zichqec.github.io/s-the-skeleton/weatherregex.html,--async=OnNonFunction,--file=weatherregex.html,--timeout=300--nodescript]"
+		--
+		"\![execute,http-get,https://weather.com/weather/today/l/%(locationcode),--async=OnCurWeatherFound,--file=weather.html,--timeout=300,--nodescript]\b[-1]\e"
+	}
 }
 
 OnCurWeatherFound
 { 
 	templocation = ""
-    _file = "var\\weather.html"
-    _file2 = "var\\weatherregex.html"
-    _buff=""
-    _buff2=""
+	_file = "var\\weather.html"
+	_file2 = "var\\weatherregex.html"
+	_buff=""
+	_buff2=""
 	
 	_reg = '';         _regsunrise = '';   _regsunset = ''
-    _regtemp = '';     _Cregtemp = '';     _Fregtemp = ''
-    _regdegree = '';   _Cregdegree = '';   _Fregdegree = ''
-    _regfeels = '';    _Cregfeels = '';    _Fregfeels = ''
-    _reghumidity = ''; _Creghumidity = ''; _Freghumidity = ''
-    _regwind = '';     _Cregwind = '';     _Fregwind = ''
-    _regstate = '';    _Cregstate = '';    _Fregstate = ''
-    _regloc = '';      _Cregloc = '';      _Fregloc = ''
-    _regpollen = '';   _Cregpollen = '';   _Fregpollen = ''
+	_regtemp = '';     _Cregtemp = '';     _Fregtemp = ''
+	_regdegree = '';   _Cregdegree = '';   _Fregdegree = ''
+	_regfeels = '';    _Cregfeels = '';    _Fregfeels = ''
+	_reghumidity = ''; _Creghumidity = ''; _Freghumidity = ''
+	_regwind = '';     _Cregwind = '';     _Fregwind = ''
+	_regstate = '';    _Cregstate = '';    _Fregstate = ''
+	_regloc = '';      _Cregloc = '';      _Fregloc = ''
+	_regpollen = '';   _Cregpollen = '';   _Fregpollen = ''
 	
-    FCHARSET(1)
+	FCHARSET(1)
 	
-	tempurature = "Unknown"
+	tempurature = ("Unknown","0","0")
 	ForC = "Unknown"
-	feelslike = "Unknown"
+	feelslike = ("Unknown","0","0")
 	humidity = "Unknown"
 	wind = "Unknown"
 	weather = "Unknown"
@@ -3761,11 +3854,11 @@ OnCurWeatherFound
 	--
 	FCLOSE(_file2);
 	--
-    if FOPEN(_file,'r') {
-    
-        _buff = FREAD(_file) //get the first line of the HTML to check what type of page we got
+	if FOPEN(_file,'r') {
+	
+		_buff = FREAD(_file) //get the first line of the HTML to check what type of page we got
 
-        if RE_SEARCH(_buff, _reg) //reg expressions for chrome formatted page
+		if RE_SEARCH(_buff, _reg) //reg expressions for chrome formatted page
 		{
 			_regtemp = _Cregtemp
 			_regdegree = _Cregdegree
@@ -3775,8 +3868,8 @@ OnCurWeatherFound
 			_regstate = _Cregstate
 			_regloc = _Cregloc
 			_regpollen = _Cregpollen
-        }
-        else //reg expressions for firefox formatted page
+		}
+		else //reg expressions for firefox formatted page
 		{
 			_regtemp = _Fregtemp
 			_regdegree = _Fregdegree
@@ -3786,13 +3879,13 @@ OnCurWeatherFound
 			_regstate = _Fregstate
 			_regloc = _Fregloc
 			_regpollen = _Fregpollen
-        }
+		}
 
-        for _buff = FREAD(_file); _buff != -1; _buff = FREAD(_file)
+		for _buff = FREAD(_file); _buff != -1; _buff = FREAD(_file)
 		{
-			if RE_SEARCH (_buff,_regtemp); {tempurature = TOINT(RE_GETSTR[1])} //current temp
+			if RE_SEARCH (_buff,_regtemp); {tempurature[1] = TOINT(RE_GETSTR[1])} //current temp
 			if RE_SEARCH (_buff,_regdegree); {ForC = RE_GETSTR[1]} //degrees (F or C)
-			if RE_SEARCH (_buff,_regfeels); {feelslike = TOINT(RE_GETSTR[1])} //feels like temp
+			if RE_SEARCH (_buff,_regfeels); {feelslike[1] = TOINT(RE_GETSTR[1])} //feels like temp
 			if RE_SEARCH (_buff,_reghumidity); {humidity = TOINT(RE_GETSTR[1])} //humidity
 			if RE_SEARCH (_buff,_regwind); {wind = RE_GETSTR[1]} //wind
 			if RE_SEARCH (_buff,_regstate); {weather = RE_GETSTR[1]} //state (cloudy, sunny, etc)
@@ -3800,17 +3893,17 @@ OnCurWeatherFound
 			if RE_SEARCH (_buff,_regpollen); {pollen = "Local Pollen Alert"} //search for pollen stuff
 			if RE_SEARCH (_buff,_regsunrise); {sunrise = "%(RE_GETSTR[3]) %(RE_GETSTR[4])m"} //Sunrise time
 			if RE_SEARCH (_buff,_regsunset); {sunset = "%(RE_GETSTR[3]) %(RE_GETSTR[4])m"} //Sunset time
-        }
-    }
-    --
+		}
+	}
+	--
 	FCLOSE(_file);
 	--
-    if weather _in_ weatherlist; ""
+	if weather _in_ weatherlist; ""
 	else; weatherlist += "%(weather)\n-"
-    --
+	--
 	if tempurature != ""
 	{
-		"\![raise,OnDownloadMoonPhase]"
+		"\![raise,OnCelsius]\![raise,OnDownloadMoonPhase]"
 	}
 	else
 	{
@@ -3826,49 +3919,107 @@ OnCurWeatherFound
 
 }
 
+OnCelsius //Written by Zdzisiu, thank you ;w;
+{
+	_runpnum = 0
+	_celc = (tempurature[1] - 32)
+	_celc = _celc*(5.0/9.0)
+	_firstnumcelc = TOINT(_celc)
+	_toroundup = ERASE(_celc,0,2)
+	--
+	if (_firstnumcelc[0] < 10 && _firstnumcelc[0] > 0) || (_firstnumcelc[0] > -10 && _firstnumcelc[0] < 0)
+	{
+		_celc = ERASE(_celc,6,10)
+		_runpnum = 3
+	}
+	else
+	{
+		_celc = ERASE(_celc,7,10)
+		_runpnum = 4
+	}
+	--
+	if _toroundup < 50 
+	{
+		_celc = ERASE(_celc,_runpnum,10)
+	}
+	else
+	{
+		_celc = TOINT(ERASE(_celc,_runpnum,10)) + 1
+	}
+	tempurature[2] = TOINT(_celc)
+	--
+	_runpnum = 0
+	_celc = (feelslike[1] - 32)
+	_celc = _celc*(5.0/9.0)
+	_firstnumcelc = TOINT(_celc)
+	_toroundup = ERASE(_celc,0,2)
+	--
+	if (_firstnumcelc[0] < 10 && _firstnumcelc[0] > 0) || (_firstnumcelc[0] > -10 && _firstnumcelc[0] < 0)
+	{
+		_celc = ERASE(_celc,4,10)
+		_runpnum = 1
+	}
+	else
+	{
+		_celc = ERASE(_celc,5,10)
+		_runpnum = 2
+	}
+	--
+	if _toroundup < 50 
+	{
+		_celc = ERASE(_celc,_runpnum,10)
+	}
+	else
+	{
+		_celc = TOINT(ERASE(_celc,_runpnum,10)) + 1
+	}
+	feelslike[2] = TOINT(_celc)
+	ForC = "°C"
+}
+
 OnDownloadMoonPhase
 {
-    "\0\![execute,http-get,https://www.moongiant.com/phase/today/,--async=OnMoonFound,--file=moon.html,--timeout=200]"
+	"\0\![execute,http-get,https://www.moongiant.com/phase/today/,--async=OnMoonFound,--file=moon.html,--timeout=200]"
 }
 
 OnMoonFound
 {
-    //file to be read
-    _file = "var\\moon.html"
-    //line being read
-    _buff=""
-    //regular expressions to extract data
-    _regphase=',"Phase: <span>([\w|\s]*)<./span>'
-    _found = 0;
-    //using UTF-8 charset
-    FCHARSET(1)
-    
-    //string for holding phase
-    phase = ""
-    
+	//file to be read
+	_file = "var\\moon.html"
+	//line being read
+	_buff=""
+	//regular expressions to extract data
+	_regphase=',"Phase: <span>([\w|\s]*)<./span>'
+	_found = 0;
+	//using UTF-8 charset
+	FCHARSET(1)
+	
+	//string for holding phase
+	phase = ""
+	
 
-    
-    --
-    
+	
+	--
+	
 	if FOPEN(_file,'r')
 	{
 		for _buff = FREAD(_file); _buff != -1 && !_found; _buff = FREAD(_file)
 		{
-            if RE_SEARCH ( _buff, _regphase )
+			if RE_SEARCH ( _buff, _regphase )
 			{
 				phase = RE_GETSTR[1]
 				_found = 1 //break loop since we dont need to continue parsing
 			}
 		}
 	}
-    --
-    FCLOSE(_file);
 	--
-    if weatherquiet == 1
+	FCLOSE(_file);
+	--
+	if weatherquiet == 1
 	{
-        "\e"
+		"\e"
 		weatherquiet = 0
-    }
+	}
 	--
 	//Grab the sunrise and sunset in ways we can do math on
 	sunrisearray[2] = SPLIT(sunrise," ")[1] //AM/PM
@@ -3882,6 +4033,17 @@ OnMoonFound
 	sunsetarray[0] = TOINT(SPLIT(_settemp,":")[0])
 	sunsetarray[1] = TOINT(SPLIT(_settemp,":")[1])
 	if sunsetarray[2] == "PM"; sunsetarray[0] += 12
+	
+	if Degrees[0] == "Fahrenheit"
+	{
+		tempurature[0] = TOINT(tempurature[1])
+		feelslike[0] = TOINT(feelslike[1])
+	}
+	else
+	{
+		tempurature[0] = TOINT(tempurature[2])
+		feelslike[0] = TOINT(feelslike[2])
+	}
 	
 	//change the dialogue as you wish
 	//[temp, degrees, feels like temp, humidity, wind, state (cloudy, rainy, etc)]
@@ -3924,8 +4086,20 @@ OnMoonFound
 		"\0\s[0]"
 	}
 	--
-	"It's %(tempurature) degrees there.\w8\w8 "
-	"It's %(tempurature) degrees.\w8\w8 "
+	{
+		"It's %(tempurature[0]) degree"
+		--
+		if tempurature[0] != 1; "s"
+		--
+		" there.\w8\w8 "
+	}
+	{
+		"It's %(tempurature[0]) degree"
+		--
+		if tempurature[0] != 1; "s"
+		--
+		".\w8\w8 "
+	}
 	--
 	if temp == "Below 0" //0F and below, 
 	{
@@ -3972,7 +4146,7 @@ OnMoonFound
 	--
 	"\w8\w8 "
 	--
-	if tempurature > 60
+	if (Degrees[0] == "Fahrenheit" && tempurature[0] > 60) || (Degrees[0] == "Celsius" && tempurature[0] > 15)
 	{
 		if humidity >= 65
 		{
@@ -4063,20 +4237,20 @@ OnMoonFound
 		"\s[104]It's snowing!"
 		"\s[103]It's snowing out,\w4 that's nice."
 		--
-		if ForC == "°F" && tempurature > 34 || ForC == "°C" && tempurature > 1
+		if (Degrees[0] == "Fahrenheit" && tempurature[0] > 34) || (Degrees[0] == "Celsius" && tempurature[0] > 1)
 		{
 			"\w8\w8\s[106] Probably too warm for it to stick,\w4 though."
 			"\w8\w8\s[106] Probably won't stick around unless it gets colder,\w4 though."
 		}
-		elseif ForC == "°F" && tempurature > 20 || ForC == "°C" && tempurature > -6
+		elseif (Degrees[0] == "Fahrenheit" && tempurature[0] > 20) || (Degrees[0] == "Celsius" && tempurature[0] > -6)
 		{
 			"\w8\w8\s[205] It'll probably be powder with how cold it is,\w4\s[104] but I'm sure it'll be very pretty anyways."
 			"\w8\w8\s[205] It's probably too cold to pack,\w4 but it's still pretty."
 		}
 		else
 		{
-			"\w8\w8\s[104] Might be good snow for packing,\w4 at this tempurature."
-			"\w8\w8\s[104] It's about the right tempurature for packing,\w4 too."
+			"\w8\w8\s[104] Might be good snow for packing,\w4 at this temperature."
+			"\w8\w8\s[104] It's about the right temperature for packing,\w4 too."
 		}
 	}
 	elseif weather == "Isolated Thunderstorms" || weather == "Scattered Thunderstorms" || weather == "Thunderstorm" || weather == "Heavy Thunderstorm"
