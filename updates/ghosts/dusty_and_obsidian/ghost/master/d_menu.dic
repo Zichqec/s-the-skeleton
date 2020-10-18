@@ -1286,7 +1286,7 @@ Select.startupdatecheck
 
 dustyver
 {
-	"1.0.4"
+	"1.0.5"
 }
 
 OnChangelog
@@ -1294,6 +1294,8 @@ OnChangelog
 	"\![set,autoscroll,disable]\_q\b2"
 	--
 	"/
+	\_l[112]-Version 1.0.5-\n\n/
+	-Fixed a typo in the weather location dialogue.\n\n/
 	\_l[112]-Version 1.0.4-\n\n/
 	-Dusty's weather checking is fixed again, and there is now a toggle for Fahrenheit or Celsius in his menu. Please tell me if anything goes wrong with this!\n\n/
 	-Made it so that if another ghost talks to Dusty while he's holding Obsidian, he'll ignore them. This is a placeholder dialogue to prevent weird visual bugs until I get a better fix in.\n\n/

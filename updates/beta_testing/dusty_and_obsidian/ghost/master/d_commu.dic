@@ -13,7 +13,14 @@ OnCommunicate
  	else
 	{
  		//---- answering another ghost
-		ReplyToGhost
+		if holdingObsidian == 1 //I'LL DO THIS PROPERLY LATER I SWEAR
+		{
+			"\0\s[630]* (He's too busy holding Obsidian to notice...)\e"
+		}
+		else
+		{
+			ReplyToGhost
+		}
  	}
 }
 

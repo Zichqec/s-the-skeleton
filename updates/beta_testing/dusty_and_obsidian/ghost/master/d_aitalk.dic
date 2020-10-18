@@ -130,6 +130,9 @@ RandomTalk : nonoverlap
 			"\1\s[1001]* (Obsidian starts chewing on a pixel.)\w8\w8\n\n\0\s[402]%(wdf)CUT THAT OUT.\w8\w8 %(_upperUserName) IS BEING VERY GRACIOUS LETTING US STAY HERE,\w4 THE LEAST YOU COULD DO IS NOT DESTROY THE PLACE.\e"
 			"\1\s[1001]* (Obsidian bats around some lint.)\w8\w8\n\n* (You hope that's lint,\w4 anyways,\w4 and not another %(filetype)...)\e"
 			"\1\s[10]* (Obsidian seems fascinated by your cursor.)\e"
+			"\1\s[1003]%(catnoise).\w8\w8\0\s[400]%(t)What's the matter##\w4 Obsidian?]\w8\w8\1\s[1004]\n\n%(catnoise)~\w8\w8\0\n\n%(t)Heh##\w4 just saying hello?]\e"
+			"\1\s[1003]%(catnoise).\w8\w8\0\s[400]%(t)Yes##\w4 Obsidian?]\w8\w8\1\s[1001]\n\n%(catnoise)!\w8\w8\0\n\n%(t)Is that so?]\w8\w8\1\s[1004]\n\n%(catnoise)~\w8\w8\0\n\n%(t)Mmhm.]\e"
+			"\1\s[1003]%(catnoise)!\w8\w8\0\s[400]%(t)You really like hearing the sound of your own voice##\w4 don't you?\w8\w8\s[107\] I suppose that's not unreasonable##\w4 being stuck in a place with no other sounds...]\e"
 			
 			{
 				"\1\s[1005]Maaow~\w8\w8\0\s[402]%(wdf)"
@@ -987,7 +990,7 @@ OnOffscreen
 	"%(reference0)"
 }
 */
-MikireTalk : sequential
+MikireTalk
 {
 	if holdingObsidian == 1
 	{

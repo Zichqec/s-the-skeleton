@@ -1771,9 +1771,9 @@ OnUSALoc
 OnOtherLoc
 {
 	templocation = ""
-    "%(wdc)\![set,balloontimeout,-1]\*\_q%(t)Please go to \_a[https://weather.com/]weather.com\_a##\w4 search your city## and enter the URL."
+    "%(wdc)\*%(t)Please go to \_a[https://weather.com/\]weather.com\_a##\w4 search your city## and enter the URL.]"
 	--
-	"\![open,inputbox,OnLocCode,-1]![set,balloontimeout,-1]\e"
+	"\![open,inputbox,OnLocCode,-1]\![set,balloontimeout,-1]\e"
 }
 
 Select.ToggleDegreesLocation

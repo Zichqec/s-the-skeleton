@@ -378,7 +378,15 @@ OnGhostChanging
 		else //If you're switching to another Ghost.
 		{
 			lastclosed = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)")
-			"\0\s[600]%(t)Alright##\w4 I'll let] %(reference0) %(t)know you want them.]\e"
+			
+			if reference0 == "RYS-0825"
+			{
+				"\0\s[600]%(t)Alright##\w4 I'll fetch S for you.]\w8\w8\e"
+			}
+			else
+			{
+				"\0\s[600]%(t)Alright##\w4 I'll let] %(reference0) %(t)know you want them.]\w8\w8\e"
+			}
 			//In OnGhostChanging, %(reference0) stores the name of the ghost being swapped to.
 		}
 	}
@@ -391,7 +399,15 @@ OnGhostChanging
 		else //If you're switching to another Ghost.
 		{
 			lastclosed = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)")
-			"\0\s[0]%(t)Alright##\w4 I'll let] %(reference0) %(t)know you want them.]\e"
+			
+			if reference0 == "RYS-0825"
+			{
+				"\0\s[0]%(t)Alright##\w4 I'll fetch S for you.]\w8\w8\e"
+			}
+			else
+			{
+				"\0\s[0]%(t)Alright##\w4 I'll let] %(reference0) %(t)know you want them.]\w8\w8\e"
+			}
 			//In OnGhostChanging, %(reference0) stores the name of the ghost being swapped to.
 		}
 
@@ -621,6 +637,8 @@ OnBootVars //These run every time he starts, whether you've just changed ghosts 
 	weather = "Unknown"
 	pollen = "Unknown"
 	phase = "Unknown"
+	sunrise = "Unknown"
+	sunset = "Unknown"
 	holdingObsidian = 0
 	lastTalk = ""
 	booting = 0
@@ -630,6 +648,17 @@ OnBootVars //These run every time he starts, whether you've just changed ghosts 
 
 UpdateVars
 {
+	if Update1p0p4 != "1.0.4"
+	{
+		Update1p0p4 = "1.0.4"
+		if "/l/" _in_ locationcode; locationcode = SPLIT(locationcode,"/l/")[1]
+		Degrees[0] = "Fahrenheit"
+		Degrees[1] = "°F"
+		_temp = tempurature
+		tempurature[0] = _temp
+		tempurature[1] = _temp
+		tempurature[2] = _temp
+	}
 	if Update1p0p2 != "1.0.2"
 	{
 		Update1p0p2 = "1.0.2"
@@ -739,4 +768,11 @@ DefineStartVars //Variables that need to be set on firstboot
 	callingGhost = 0
 	SeePC = "Off"
 	installdate = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)")
+	//---1.0.4---
+	Update1p0p4 = "1.0.4"
+	Degrees[0] = "Fahrenheit"
+	Degrees[1] = "°F"
+	tempurature[0] = 0
+	tempurature[1] = 0
+	
 }

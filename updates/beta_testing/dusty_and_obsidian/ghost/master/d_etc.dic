@@ -1726,20 +1726,26 @@ OnUserInputCancel
 	}
 }
 
+//---------------Weather
+
 OnWeatherLocation
 {
+	weatherquiet = 0
+	if Degrees == ""; {Degrees[0] = "Fahrenheit"; Degrees[1] = "°F"}
+	
 	if curlocation != "" && curlocation != "Set a location"
 	{
-		"%(wdc)\_q* (Your location is currently set to: %(curlocation))\n\n"
+		"%(wdcb)\_q%(t)The last location you gave me was] %(curlocation).\n\n"
 	}
 	else
 	{
-		"%(wdc)\_q"
+		"%(wdcb)\_q"
 	}
 	--
-	"* (Do you live inside or outside the USA?)\n\n/
+	"%(t)Do you live inside or outside the USA?]\n\n/
 	\![*]\q[In the USA,OnUSALoc]\n/
-    \![*]\q[Outside the USA,OnOtherLoc]\n\n"
+    \![*]\q[Outside the USA,OnOtherLoc]\n\n/
+	\![*](Current format: \q[%(Degrees[0]),ToggleDegreesLocation])\n\n"
 	--
 	if fromfunctionmenu == 1
 	{
@@ -1755,36 +1761,60 @@ OnWeatherLocation
 OnUSALoc
 {
 	templocation = "USA"
-    "%(wdc)\![set,balloontimeout,-1]\*\_q* (Please enter your zipcode.)\![open,inputbox,OnLocCode,-1]"
+	
+    "%(wdc)\_q%(t)Please tell me your zipcode.]"
+    "%(wdc)\_q%(t)What is your zipcode?]"
+	--
+	"\![set,balloontimeout,-1]\*\![open,inputbox,OnLocCode,-1]"
 }
 
 OnOtherLoc
 {
 	templocation = ""
-    "%(wdc)\![set,balloontimeout,-1]\*\_q* (Please go to weather.com, search your city, and enter the URL.)\![open,inputbox,OnLocCode,-1]"
+    "%(wdc)\*%(t)Please go to \_a[https://weather.com/\]weather.com\_a##\w4 search your city## and enter the URL.]"
+	--
+	"\![open,inputbox,OnLocCode,-1]\![set,balloontimeout,-1]\e"
+}
+
+Select.ToggleDegreesLocation
+{
+	if Degrees != "Fahrenheit,°F"
+	{
+		Degrees = "Fahrenheit,°F"
+		tempurature[0] = tempurature[1]
+	}
+	else
+	{
+		Degrees = "Celsius,°C"
+		tempurature[0] = tempurature[2]
+	}
+	--
+	OnWeatherLocation
 }
 
 OnLocCode
 {
-	if "today/l" _in_ locationcode || templocation == "USA"
+	if templocation == "USA"
 	{
-		if templocation == "USA"
+		locationcode = reference0
+	}
+	else
+	{
+		if "/l/" _in_ reference0
 		{
-			locationcode = "https://weather.com/weather/today/l/" + "%(reference0)"
+			locationcode = SPLIT(reference0,"/l/")[1]
 		}
 		else
 		{
 			locationcode = reference0
 		}
 	}
-	else
-	{
-		"* (That isn't a valid URL, try again.)\![open,inputbox,OnLocCode,-1]\![set,balloontimeout,-1]\e"
-	}
 	--
 	//templocation = ""
 	//OnDownloadCurWeather
-	"\0\![execute,http-get,%(locationcode),--file=weather.html,--timeout=300]\![execute,http-get,https://zichqec.github.io/s-the-skeleton/weatherregex.html,--async=OnCheckWeatherLoc,--file=weatherregex.html,--timeout=300]%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)\w4\w4\_w[40]\_w[40]\_w[40]\_w[40]\c\0\s[106]I couldn't find your location.\w8\w8 Should I try again?\n\n\![*]\q[Yes,OnWeatherLocation]\n\![*]\q[No,cancelnodialogue]"
+	"\![execute,http-get,https://zichqec.github.io/s-the-skeleton/weatherregex.html,--async=OnNonFunction,--file=weatherregex.html,--timeout=300]"
+	--
+	"\![execute,http-get,https://weather.com/weather/today/l/%(locationcode),--async=OnCheckWeatherLoc,--file=weather.html,--timeout=300]%(loadingmoon)"
 	
 	
 }
@@ -1847,35 +1877,78 @@ OnCheckWeatherLoc
     --
 	FCLOSE(_file);
 	--
-    if templocation != ""
+	"\0\s[0]%(t)Your current location is] %(templocation).\w8\w8 %(t)Is this correct?]\n\n/
+	\![*]\q[Yes,confirmweather]\n/
+	\![*]\q[Enter a different location,OnWeatherLocation]\n/
+	\![*]\q[Cancel,cancelnodialogue]"
+}
+
+OnCheckWeatherLocFailure //If the http-get fails
+{
+	tempurature = "Unknown"
+	ForC = "Unknown"
+	feelslike = "Unknown"
+	humidity = "Unknown"
+	wind = "Unknown"
+	weather = "Unknown"
+	pollen = "Unknown"
+	phase = "Unknown"
+	sunset = "Unknown"
+	sunrise = "Unknown"
+	if weatherquiet == 1
 	{
-		"\0\s[0]Your current location is %(templocation).\w8\w8 Is this correct?\n\n/
-		\![*]\q[Yes,confirmweather]\n/
-		\![*]\q[Enter a different location,OnWeatherLocation]\n/
-		\![*]\q[Cancel,cancelnodialogue]"
+		weatherquiet = 0
+		"\e"
+	}
+	--
+	if reference4 == "404"
+	{
+		if templocation == "USA"
+		{
+			"\0\s[106]%(t)Something went wrong.]\w8\w8 "
+			--
+			if STRLEN(locationcode) != 5
+			{
+				"%(t)A zipcode must be 5 digits long.]\w8\w8\n\n"
+			}
+		}
+		else
+		{
+			"\0\s[106]%(t)Something went wrong.\w8\w8 You can enter the whole URL##\w4 or the long string of letters and numbers at the end of the URL##\w4 after the last] /.\w8\w8\n\n"
+		}
+	}
+	elseif reference4 == "timeout"
+	{
+		"\0\s[106]%(t)Sorry##\w4 the connection timed out.\w8\w8 Maybe try again later?]\e"
 	}
 	else
 	{
-		"\0\s[106]Couldn't get your location,\w4 do you want to try again?\n\n/
-		\![*]\q[Try again,OnWeatherLocation]\n/
-		\![*]\q[Cancel,cancelnodialogue]"
+		"\0\s[106]%(t)Sorry##\w4 I got an error; '%(reference4)'.\w8\w8 You should let Zichqec know.]\e"
 	}
+	--
+	"%(t)Do you want to try again?]\n\n\![*]\q[Yes,OnWeatherLocation]\n\![*]\q[No,cancelnodialogue]"
 }
 
-
-
-Select.tryweatherlocagain
-{
-	"\0\![execute,http-get,%(locationcode),--file=weather.html,--timeout=300]\![execute,http-get,https://zichqec.github.io/s-the-skeleton/weatherregex.html,--async=OnCheckWeatherLoc,--file=weatherregex.html,--timeout=300]%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)\c\0\s[106]I couldn't find your location.\w8\w8 Do you want to try again?\n\n\![*]\q[Yes,OnWeatherLocation]\n\![*]\q[No,cancelnodialogue]"
-}
 
 Select.confirmweather
 {
 	curlocation = templocation
+	tempurature = "Unknown"
+	ForC = "Unknown"
+	feelslike = "Unknown"
+	humidity = "Unknown"
+	wind = "Unknown"
+	weather = "Unknown"
+	pollen = "Unknown"
+	phase = "Unknown"
+	sunset = "Unknown"
+	sunrise = "Unknown"
+	--
 	if fromfunctionmenu == 1
 	{
 		fromfunctionmenu = 0
-		OnDownloadCurWeather
+		weatherquiet = 0
+		"\![raise,OnDownloadCurWeather]"
 	}
 	else
 	{
@@ -1888,34 +1961,17 @@ Select.confirmweather
 OnDownloadCurWeather
 {
 	if weatherquiet == 0
-   {
-	"\0\![execute,http-get,%(locationcode),--file=weather.html,--timeout=300]\![execute,http-get,https://zichqec.github.io/s-the-skeleton/weatherregex.html,--async=OnCurWeatherFound,--file=weatherregex.html,--timeout=300]%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)\c"
-	--
-	"\s[106]I couldn't get the weather.\w8\w8 Should I try again?"
-	--
-	"\n\n\![*]\q[Yes,OnDownloadCurWeather]\n\![*]\q[No,cancelnodialogue]\e"
-   }
-   else
-   {
-	   "\0\![execute,http-get,%(locationcode),--file=weather.html,--timeout=300,--nodescript]\![execute,http-get,https://zichqec.github.io/s-the-skeleton/weatherregex.html,--async=OnCurWeatherFound,--file=weatherregex.html,--timeout=300,--nodescript]\b[-1]\e"
-   }
-   --
-   if weatherquiet == 0
-   {
-	"\c\0\s[106] I couldn't get the weather.\w8\w8 Should I try again?\n\n\![*]\q[Yes,OnDownloadCurWeather]\n\![*]\q[No,cancelnodialogue]"
-   }
-   else
-   {
-	   "\b[-1]"
-	    tempurature = "Unknown"
-		ForC = "Unknown"
-		feelslike = "Unknown"
-		humidity = "Unknown"
-		wind = "Unknown"
-		weather = "Unknown"
-		pollen = "Unknown"
-		phase = "Unknown"
-   }
+	{
+		"\0\![execute,http-get,https://zichqec.github.io/s-the-skeleton/weatherregex.html,--async=OnNonFunction,--file=weatherregex.html,--timeout=300]"
+		--
+		"\![execute,http-get,https://weather.com/weather/today/l/%(locationcode),--async=OnCurWeatherFound,--file=weather.html,--timeout=300]%(loadingmoon)"
+	}
+	else
+	{
+		"\0\![execute,http-get,https://zichqec.github.io/s-the-skeleton/weatherregex.html,--async=OnNonFunction,--file=weatherregex.html,--timeout=300--nodescript]"
+		--
+		"\![execute,http-get,https://weather.com/weather/today/l/%(locationcode),--async=OnCurWeatherFound,--file=weather.html,--timeout=300,--nodescript]\b[-1]\e"
+	}
 }
 
 OnCurWeatherFound
@@ -2009,9 +2065,9 @@ OnCurWeatherFound
 
         for _buff = FREAD(_file); _buff != -1; _buff = FREAD(_file)
 		{
-			if RE_SEARCH (_buff,_regtemp); {tempurature = TOINT(RE_GETSTR[1])} //current temp
+			if RE_SEARCH (_buff,_regtemp); {tempurature[1] = TOINT(RE_GETSTR[1])} //current temp
 			if RE_SEARCH (_buff,_regdegree); {ForC = RE_GETSTR[1]} //degrees (F or C)
-			if RE_SEARCH (_buff,_regfeels); {feelslike = TOINT(RE_GETSTR[1])} //feels like temp
+			if RE_SEARCH (_buff,_regfeels); {feelslike[1] = TOINT(RE_GETSTR[1])} //feels like temp
 			if RE_SEARCH (_buff,_reghumidity); {humidity = TOINT(RE_GETSTR[1])} //humidity
 			if RE_SEARCH (_buff,_regwind); {wind = RE_GETSTR[1]} //wind
 			if RE_SEARCH (_buff,_regstate); {weather = RE_GETSTR[1]} //state (cloudy, sunny, etc)
@@ -2035,8 +2091,7 @@ OnCurWeatherFound
     --
 	if weather != ""
 	{
-		loadmoonnum += 2
-		"\![raise,OnDownloadMoonPhase]"
+		"\![raise,OnCelsius]\![raise,OnDownloadMoonPhase]"
 	}
 	else
 	{
@@ -2047,12 +2102,100 @@ OnCurWeatherFound
 		}
 		else
 		{
-			"\0\s[106]Sorry,\w4 something went wrong.\w8\w8\s[0] You should let Zichqec know.\e"
+			"\0\s[106]%(t)Sorry##\w4 something went wrong.]\w8\w8\s[0] %(t)You should let Zichqec know.]\e"
 		}
 	}
 
 }
 
+OnCurWeatherFoundFailure //If the http-get fails
+{
+	tempurature = "Unknown"
+	ForC = "Unknown"
+	feelslike = "Unknown"
+	humidity = "Unknown"
+	wind = "Unknown"
+	weather = "Unknown"
+	pollen = "Unknown"
+	phase = "Unknown"
+	sunset = "Unknown"
+	sunrise = "Unknown"
+	
+	if weatherquiet == 1
+	{
+		weatherquiet = 0
+		"\e"
+	}
+	--
+	if reference4 == "timeout"
+	{
+		"\0\s[106]%(t)Sorry##\w4 the connection timed out.\w8\w8 Maybe try again later?]\e"
+	}
+	else
+	{
+		"\0\s[106]%(t)Sorry##\w4 I got an error; '%(reference4)'.\w8\w8 You should let Zichqec know.]\e"
+	}
+	--
+	"%(t)Do you want to try again?]\n\n\![*]\q[Yes,OnWeatherLocation]\n\![*]\q[No,cancelnodialogue]"
+}
+
+OnCelsius //Written by Zdzisiu, thank you ;w;
+{
+	_runpnum = 0
+	_celc = (tempurature[1] - 32)
+	_celc = _celc*(5.0/9.0)
+	_firstnumcelc = TOINT(_celc)
+	_toroundup = ERASE(_celc,0,2)
+	--
+	if (_firstnumcelc[0] < 10 && _firstnumcelc[0] > 0) || (_firstnumcelc[0] > -10 && _firstnumcelc[0] < 0)
+	{
+		_celc = ERASE(_celc,6,10)
+		_runpnum = 3
+	}
+	else
+	{
+		_celc = ERASE(_celc,7,10)
+		_runpnum = 4
+	}
+	--
+	if _toroundup < 50 
+	{
+		_celc = ERASE(_celc,_runpnum,10)
+	}
+	else
+	{
+		_celc = TOINT(ERASE(_celc,_runpnum,10)) + 1
+	}
+	tempurature[2] = TOINT(_celc)
+	--
+	_runpnum = 0
+	_celc = (feelslike[1] - 32)
+	_celc = _celc*(5.0/9.0)
+	_firstnumcelc = TOINT(_celc)
+	_toroundup = ERASE(_celc,0,2)
+	--
+	if (_firstnumcelc[0] < 10 && _firstnumcelc[0] > 0) || (_firstnumcelc[0] > -10 && _firstnumcelc[0] < 0)
+	{
+		_celc = ERASE(_celc,4,10)
+		_runpnum = 1
+	}
+	else
+	{
+		_celc = ERASE(_celc,5,10)
+		_runpnum = 2
+	}
+	--
+	if _toroundup < 50 
+	{
+		_celc = ERASE(_celc,_runpnum,10)
+	}
+	else
+	{
+		_celc = TOINT(ERASE(_celc,_runpnum,10)) + 1
+	}
+	feelslike[2] = TOINT(_celc)
+	//ForC = "°C"
+}
 
 OnDownloadMoonPhase
 {
@@ -2103,10 +2246,21 @@ OnMoonFound
     }
     
     --
+	if Degrees[0] == "Fahrenheit"
+	{
+		tempurature[0] = TOINT(tempurature[1])
+		feelslike[0] = TOINT(feelslike[1])
+	}
+	else
+	{
+		tempurature[0] = TOINT(tempurature[2])
+		feelslike[0] = TOINT(feelslike[2])
+	}
+	
 	//change the dialogue as you wish
 	//[temp, degrees, feels like temp, humidity, wind, state (cloudy, rainy, etc)]
 	
-	"\0%(wdcb)\s[500]\_qThe weather for %(curlocation):\n\nWeather: %(weather)\nTemperature: %(tempurature)%(ForC)\nFeels like: %(feelslike)%(ForC)/
+	"\0%(wdcb)\s[500]\_qThe weather for %(curlocation):\n\nWeather: %(weather)\nTemperature: %(tempurature[0])%(Degrees[1])\nFeels like: %(feelslike[0])%(Degrees[1])/
     \nHumidity: %(humidity)%\nWind: %(wind)"
 	--
 	if pollen == "There's a local pollen alert."
