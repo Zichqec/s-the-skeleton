@@ -102,7 +102,7 @@ MenuRun
 	--
  	"\![*]\q[Nevermind,CANCEL]\n\n%(displayweekday) %(nowhour):%(nowmin) %(ap), %(month)/%(day)/%(year) - %(season)"
 	--
-	if tempurature != "Unknown"
+	if tempurature[0] != "Unknown"
 	{
 		", %(tempurature[0])%(Degrees[1])"
 	}
