@@ -1,0 +1,262 @@
+//Original string.dic written by umeici
+
+//I recommend using Github Pages to set up a site and store their files! It's free and reliable. I've written up a guide on how to do this here https://zichqec.github.io/s-the-skeleton/github.html
+On_homeurl
+{
+	if betaTester == "On" //You don't need to include beta testing if you don't want to
+	{
+		"https://YourBetaDirectoryHere.com/YourGhost"
+	}
+	else
+	{
+		"https://YourGhostDirectoryHere.com/YourGhost"
+	}
+}
+
+On_recommendrootbutton.caption //Change this to your username, or change the whole caption to whatever you want. This is the top list of websites
+{
+	"More from Your Username"
+}
+
+On_sakura.recommendsites //Websites under the top dropdown menu, make em whatever you want
+{
+	"Your Ghost Website"
+	--
+	"%ASC(1)https://yourwebsite.githubb.io/yoursite/index.html%ASC(2)"
+	--
+ 	"Your Social"
+	--
+	"%ASC(1)https://www.socialmediaexample.com/you%ASC(2)"
+	--
+	"Your Character's Toyhouse"
+	--
+	"%ASC(1)https://toyhou.se/yourcharacter%ASC(2)"
+	--
+}
+ 
+On_portalrootbutton.caption //Caption for the second list of websites
+{
+	"Reference Sites"
+}
+
+On_sakura.portalsites //You can make these anything you like. I've set them to link to my template, Zarla's template, and anything else helpful for making ghosts.
+{
+	"Built on X. Template YAYA - v.1.0.0" //I'd appreciate it if you left this link in your ghost so that other people can find the source <3
+	--
+	"%ASC(1)https://zichqec.github.io/s-the-skeleton/index.html%ASC(2)"
+	--
+	"How to set up updates with Github"
+	--
+	"%ASC(1)https://zichqec.github.io/s-the-skeleton/github.html%ASC(2)"
+	--
+	"Zarla's Ghost Template Walkthrough"
+	--
+	"%ASC(1)http://www.ashido.com/ukagaka/walkthrough.html%ASC(2)"
+	--
+	"SSP"
+	--
+	"%ASC(1)http://ssp.shillest.net/%ASC(2)"
+	--
+	"Ukadoc (Translated)"
+	--
+	"%ASC(1)https://translate.google.com/translate?hl=&sl=ja&tl=en&u=http%3A%2F%2Fssp.shillest.net%2Fukadoc%2Fmanual%2Flist_sakura_script.html%ASC(2)"
+	--
+	"YAYA Wiki (Translated)"
+	--
+	"%ASC(1)https://translate.google.com/translate?hl=&sl=ja&tl=en&u=http%3A%2F%2Femily.shillest.net%2Fayaya%2F%3FFrontPage%ASC(2)"
+	--
+	"Crow + SSP Reference (J)"
+	--
+	"%ASC(1)http://crow.aqrs.jp/reference/all/index.html%ASC(2)"
+	--
+	"Ghost Documentation (J)"
+	--
+	"%ASC(1)http://usada.sakura.vg/contents/specification.html%ASC(2)"
+}
+ 
+On_kero.recommendbuttoncaption //Caption for the Kero's website list
+{
+	"More websites"
+}
+
+On_kero.recommendsites //Put anything you like here
+{
+	"Github Pages"
+	--
+	"%ASC(1)https://pages.github.com/%ASC(2)"
+	--
+	"w3 schools"
+	--
+	"%ASC(1)https://www.w3schools.com/%ASC(2)"
+}
+
+On_updatebutton.caption //Caption for the update button
+{
+	"Check for updates"
+}
+
+On_dressuprootbutton.caption //Caption for the dressup button
+{
+	"Accessories"
+}
+
+On_headlinesenserootbutton.caption //Caption for the RSS/Headlines button
+{
+	"Headlines and RSS"
+}
+
+On_readmebutton.caption //Caption for the Readme button
+{
+	"Readme"
+}
+
+On_vanishbutton.caption //Caption for the uninstall button
+{
+	"Uninstall"
+}
+
+On_shellrootbutton.caption //Caption for the change shell button
+{
+	"Change Shell"
+}
+
+On_ghostrootbutton.caption //Caption for the change ghost button
+{
+	"Change Ghost"
+}
+
+On_callghostrootbutton.caption //Caption for the call ghost button
+{
+	"Call Ghost"
+}
+
+On_hidebutton.caption //Caption for the minimize/iconify button
+{
+	"Minimize"
+}
+
+On_quitbutton.caption //Caption for the quit button
+{
+	"Quit"
+}
+
+On_calendarbutton.caption //The default right click menu has this typoed as 'Calender'
+{
+	"Calendar"
+}
+
+
+
+
+//-----Don't touch these-----
+//All of this stuff is, I believe, written by Umeici. Either way, it's not by me, and you probably shouldn't touch it.
+//Actually I did add a few things down here, but don't worry about them.
+
+//---- 소멸 지시 버튼 표시 교체 -------------------------------------------------------
+On_vanishbutton.visible
+ {
+ 	if deleteshitai == "On"
+ 	{
+		"1"
+	}
+	else
+	{
+		"0"
+	}
+}
+
+//---- 딳벍뭷궻뫜궻긕?긚긣뼹롦벦 -------------------------------------------------------
+On_otherghostname
+{
+	ghostexlist = ""
+	_i = 0
+	while _i >= 0
+	{
+		_ghostname = NAMETOVALUE("reference%_i")
+		if _ghostname != ""
+		{
+			if _i > 0; ghostexlist += ","
+			ghostexlist += _ghostname[0]
+			_i++
+		}
+		else; _i = -1
+	}
+	ghostexcount = ARRAYSIZE(ghostexlist)
+}
+
+OnCheckInstalledGhosts //This means you can see what ghosts the user has installed with installedlist
+{
+	installedlist = ""
+	_i = 0
+	while _i >= 0
+	{
+		_ghostname = NAMETOVALUE("reference%_i")
+		if _ghostname != ""
+		{
+			if _i > 0; installedlist += ","
+			installedlist += _ghostname[0]
+			_i++
+		}
+		else; _i = -1
+	}
+	installedcount = ARRAYSIZE(installedlist)
+}
+
+On_installedballoonname
+{
+	balloonlist = ""
+	_i = 0
+	while _i >= 0
+	{
+		_ghostname = NAMETOVALUE("reference%_i")
+		if _ghostname != ""
+		{
+			if _i > 0; balloonlist += ","
+			balloonlist += _ghostname[0]
+			_i++
+		}
+		else; _i = -1
+	}
+	ballooncount = ARRAYSIZE(balloonlist)
+}
+
+//---- SHIORI 関連情報 ------------------------------------------------------------------
+On_version
+{
+	GETSETTING(AYAINFO_VERSION)
+}
+
+On_craftman
+{
+	"umeici"
+}
+
+On_craftmanw
+{
+	"梅市"
+}
+
+On_name
+{
+	"AYA"
+}
+
+//---- Owned SSTP 用 uniqueid 取得 ------------------------------------------------------
+On_uniqueid
+{
+	uniqueid = reference0
+}
+
+//---- hwnd 取得 ------------------------------------------------------------------------
+On_hwnd
+{
+	sakurahwnd    = reference0[0]
+	kerohwnd      = reference0[1]
+	sakurablnhwnd = reference1[0]
+	keroblnhwnd   = reference1[1]
+}
+
+On_username
+{
+	username
+}

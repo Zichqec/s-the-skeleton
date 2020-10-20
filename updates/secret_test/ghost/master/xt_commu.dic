@@ -1,0 +1,103 @@
+OnCommunicate
+{
+	if reference0 == "user" || reference0 == "User"
+ 	{
+		//Answering the user - I've removed the function that goes along with this because it doesn't link to anything.
+	}
+ 	else
+	{
+ 		//Answering another ghost
+		ReplyToGhost
+ 	}
+}
+
+//This is your ghost starting a conversation with another ghost. It will choose a random one from the currently open ghosts.
+OnStartTalking
+{
+	AlreadyResponded = 1
+	if ghostexcount > 0
+	{
+		_number = RAND(ghostexcount)
+		randghostname = "%(ghostexlist[_number])"
+		--
+		//Checks for the Sakura name
+		case randghostname
+		{
+			when "Girl" //Known ghosts, add as many whens as needed.
+			{
+				res_reference0 = "Girl"
+				"\0\s[0]Hello Girl!\w8\w8 Hello Triangle!\w8\w8\e GirlTriangleHello01"
+				"\0\s[0]Hi Girl!\w8\w8 How are you,\w4 Triangle?\w8\w8\e GirlTriangleHello03"
+			}
+			others //Ghosts there is no specific response to.
+			{
+				"\0\s[0]Hello %(randghostname)!\w8\w8\e"
+				res_reference0 = randghostname
+			}
+		}
+	}
+	else //If no ghosts are open.
+	{
+		"\0\s[0]Nobody else is here.\e"
+	}
+}
+
+ReplyToGhost //This is your ghost receiving a communication.
+{
+	Speech = SPLIT(reference1,"\e")[0] //This is everything the ghost said that the user can see
+	ConvoTag = SPLIT(reference1,"\e")[1] //This is everything after the \e, which will be the invisible tags that track the conversation
+	_LastCommu = SPLIT(reference1,":")[1] //The other ghost sends ":%(Speech)" at the end of every communication, so this code grabs what THIS ghost last said. See below.
+	
+	_LastCommu = REPLACE(_LastCommu,"\![quicksection,true]","") //Removing the quicksection tags or they overlap and break...
+	_LastCommu = REPLACE(_LastCommu,"\![quicksection,false]","")
+	_LastCommu = REPLACE(_LastCommu,"\w1","")
+	_LastCommu = REPLACE(_LastCommu,"\w4","")
+	_LastCommu = REPLACE(_LastCommu,"\w8","")//I only ever use \w4, \w8, and \w1. You'll need to add any wait tags you use in dialogue.
+	
+	case reference0
+	{
+		when "Girl"
+		{
+			"\![quicksection,true]%(_LastCommu)\![quicksection,false]" //Same as below, only put this here if it's a known ghost that uses the same system
+			--
+			"%(TalkToGirl)"
+			--
+			":%(Speech)" //Reflects back what the other ghost said, but only put it here if it's a known ghost that uses the same system
+		}
+		others //Responses to unknown ghosts. AlreadyResponded keeps them from getting stuck in a loop.
+		{
+			if AlreadyResponded == 0
+			{
+				AlreadyResponded = 1
+				res_reference0 = reference0
+				"\0\s[0]Hey there %(reference0)!\w8\w8\e"
+			}
+			else
+			{
+				AlreadyResponded = 0
+				res_reference0 = ""
+				"Hope you're doing well.\e"
+			}
+		}
+	}
+	
+}
+
+TalkToGirl //All responses to Girl would be here. Make one of these for each ghost they talk to so you can keep them separate easily! Or you can put it all in the function above, whatever works for you.
+{
+	if "GirlTriangleHello02" _in_ ConvoTag
+	{
+		"\0\s[0]We'll never see this dialogue.\w8\w8 Oh well,\w4 it's here for example!\w8\w8\e"
+		res_reference0 = "Girl"
+	}
+	elseif "GirlTriangleHello04" _in_ ConvoTag
+	{
+		"\0\s[0]Another example response!\e"
+		res_reference0 = ""
+	}
+	else //You should have an else just in case the other ghost isn't updated with responses
+	{
+		"\0\s[0]Hi Girl!\e"
+		res_reference0 = ""
+	}
+}
