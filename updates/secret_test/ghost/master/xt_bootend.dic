@@ -206,8 +206,6 @@ OnShellChanging //Starting to change the shell
 
 OnShellChanged //After the shell has changed
 {
-	if booting != 2 //If the ghost updates the shell while updating, they always go to the OnShellChanged dialogue. This check ensures that wont happen.
-	{
 		"\1\s[-1]\0\![move,--X=%(shellchange[0]),--Y=%(shellchange[1]),--base=primaryscreen]" //Moves the ghost to where they were on the previous shell. You might want to get rid of this if your shells are drastically different. This also has the tags to hide the kero.
 		--
 		if reference0 == nowshell //If the user switches to the shell they're already using
@@ -226,11 +224,6 @@ OnShellChanged //After the shell has changed
 			
 			"\0\s[0]Some other shell!\e"
 		}
-	}
-	else
-	{
-		"\![raise,OnUpdateComplete]"
-	}
 }
 
 OnGetCoords //This gets the x and y coordinates when changing shells
