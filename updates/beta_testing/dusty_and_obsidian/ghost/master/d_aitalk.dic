@@ -31,7 +31,7 @@ AiTalk
 RandomTalk : nonoverlap
 {
 	_upperUserName = TOUPPER(username)
-	"%(wdc)" //this should apply the proper balloon to _all_ AItalk lines. 
+	"%(wdc)" //this should apply the proper balloon to _all_ AiTalk lines. 
 	--
 	if holdingObsidian == 1
 	{
@@ -51,6 +51,13 @@ RandomTalk : nonoverlap
 			"\0\s[102]I'm glad Obsidian is getting some affection from someone other than me today.\e"
 		}
 		"\![raise,OnSHoldObsiConvos]"
+	}
+	elseif SomeoneHoldingObsidian != "" //If a ghost he doesn't know is holding Obsidian
+	{
+		"\0\s[102]%(t)She's really enjoying herself over there...]\e"
+		"\0\s[104]%(t)Thank you for being gentle with her],\w4 %(SomeoneHoldingObsidian).\e"
+		"\1* (She vibrates gently with a purr.)\e"
+		"\1%(holdnoise)\e"
 	}
 	elseif watchingScreen == 1
 	{
@@ -186,7 +193,7 @@ RandomTalk : nonoverlap
 			--
 			"\w8\w8\1\n\n%(holdnoise)!\e"
 		}
-		//---Gomi, Findwin, etc etc...---
+		//---Gomi, Findwin, etc...---
 		if SeePC == "ON"
 		{
 			"\![raise,OnSnoop]" //Putting the saoris behind a raise so they don't activate every single time they talk...
@@ -332,6 +339,7 @@ RandomTalk : nonoverlap
 				"\0\s[200]%(wdf)MONSTERS HAVE A MUCH BETTER LIFE NOW,\w4 THANKS TO YOUR WORK.\w8\w8 IT'S SUCH A SHAME YOU NEVER SAW IT COME TO FRUITION...\e"
 				"\0\s[200]%(wdf)I DON'T KNOW WHAT I'D DO IF HE'D ENDED UP IN THE VOID INSTEAD,\w4 THOUGH...\e"
 				"\0\s[204]%(wdf)I HOPE THERE IS SOMETHING FOR YOU BEYOND,\w4 BROTHER...\e"
+				"\0\s[206]%(wdf)ARE YOU WAITING IN THE INBETWEEN..?\w8\w8\s[204\] I KNOW YOU CANNOT SEE ME IN THE VOID...\e"
 			}
 		}
 		if month == 7
@@ -376,7 +384,7 @@ RandomTalk : nonoverlap
 		{
 			if month == 3 || month == 9 //First month of spring for each hemisphere
 			{
-				"\1\s[1000]* (Large clumps of fur litter your desktop as Obsidian grooms herself.)\w8\w8\n\n* (Guess she must be losing her winter coat...)\e"
+				"\1\s[1000]* (Large clumps of fur litter your desktop as Obsidian grooms herself.)\w8\w8\n\n* (She must be losing her winter coat...)\e"
 			}
 			"\0\s[104]%(t)It's always so cheerful watching new flowers bloom.\w8\w8\s[205\] So small and fragile##\w4 but so eager to reach the sun...]\e"
 			"\0\s[205]%(t)Listening to the difference between a timeline in spring and a timeline in winter is fascinating.\w8\w8\s[102\] Winter is so muted and quiet##\w4 but spring is alive and buzzing...]\e"
@@ -814,12 +822,14 @@ Select.meowback
 Select.allergicYes
 {
 	allergicPollen = "Yes"
+	
 	"\0\s[107]%(t)Ah##\w4 that's unfortunate.\w8\w8\s[106\] I'll let you know if there's a pollen alert in your area##\w4 then.]\e"
 }
 
 Select.allergicNo
 {
 	allergicPollen = "No"
+	
 	"\0\s[102]%(t)That's good##\w4 I'm glad that's not something you need to worry about.]\e"
 }
 
@@ -833,7 +843,7 @@ ObsiYell
 //Things that require the user's permission to do, including findwin, gomi, checking the system uptime, etc.
 OnSnoop
 {
-	_PCuptime = (systemuptime / 3600) //PCuptime is given in seconds, this changes it to hours
+	_PCuptime = (systemuptime / 3600) //systemuptime is given in seconds, this changes it to hours
 	if _PCuptime > 300
 	{
 		"\0\s[208]%(t)Your computer has been running for %(_PCuptime) hours...\w8\w8\s[106\] That's a long time##\w4\s[107\] even for me.]\e"
@@ -951,6 +961,8 @@ OnSecondChange
 	{
 		passsec++
 	}
+	if commuTimer >= 1; commuTimer--; else; commuTimer = 0
+	if commuTimer == 0; AlreadyResponded = 0
 	--
 	if SHIORI3FW.CanTalk == 1 //This gets the seconds since the last dialogue ended
 	{
@@ -961,11 +973,16 @@ OnSecondChange
 		SinceTalk = 0
 	}
 	--
-	if mikireflag == 1 && reference1 == 0
+	if mikireflag == 0 && reference1 == 1 //Dialogue for putting them off the screen. You could make this a unique line if you wanted, and have MikireTalk be for if they continue to be offscreen
+	{
+		MikireTalk
+	}
+	if mikireflag == 1 && reference1 == 0 //Dialogue for coming back on the screen
 	{
 		EndMikireTalk
 	}
-	mikireflag = reference1
+	mikireflag = reference1 //reference1 is if the ghost is offscreen or not
+	--
 	if reference2 == 1 //When overlapping
 	{
 		if holdingObsidian == 0
@@ -1040,13 +1057,24 @@ OnSurfaceRestore
 			"\0\s[208]\e"
 		}
 	}
+	elseif SomeoneHoldingObsidian != ""
+	{
+		{
+			"\0\s[0]\e"
+			"\0\s[102]\e"
+			"\0\s[204]\e"
+			"\0\s[205]\e"
+			"\0\s[208]\e"
+		}
+		"\![raise,OnObsiReturnUnknown]"
+	}
 	elseif watchingScreen == 1
 	{
 		"\0\s[599]\1%(catpose)\e"
 		"\0\s[599]\1%(catpose)\e"
 		"\![raise,OnDialogueVars,EndScreen]"
 	}
-	elseif reference1 == -1 && sHoldingObsidian != 1 //If Obsidian is hidden and not being held by Dusty (ie, she's off in your files somewhere)
+	elseif reference1 == -1 && sHoldingObsidian != 1 && SomeoneHoldingObsidian == "" //If Obsidian is hidden and not being held by Dusty (ie, she's off in your files somewhere)
 	{
 		"\0\s[0]"
 		"\0\s[102]"
@@ -1122,7 +1150,7 @@ OnObsidianJumpDown //Obsidian jumping out of Dusty's arms
 	"%(wdf)UP TO YOU."
 	"%(wdf)TOO MUCH FOR NOW?"
 	--
-	if jumpMenu == 0 //If you were trying to open the menu
+	if jumpMenu == 0 //If you weren't trying to open the menu
 	{
 		"\e"
 	}
@@ -1143,11 +1171,18 @@ OnObsidianJumpDown //Obsidian jumping out of Dusty's arms
 
 OnObsiReturnS
 {
-	sHoldingObsidian = 0
 	//"\![get,property,OnObsidianJumpDownS,currentghost.scope(0).rect]"
 	res_reference0 = "RYS-0825"
 	
 	"\e SObsiJumpDown01"
+}
+
+OnObsiReturnUnknown
+{
+	_ghost = SomeoneHoldingObsidian
+	res_reference0 = SomeoneHoldingObsidian[0]
+	
+	"\e %(_ghost)ObsiJumpDown01"
 }
 
 OnKeyPress

@@ -319,7 +319,7 @@ MenuRun
 	--
 	if AutoWeather == "ON" //If the user has weather updates on, this will display the current moon phase. Clicking on the moon will perform a weather check.
 	{
-		if tempurature != "Unknown"
+		if tempurature[0] != "Unknown"
 		{
 			", %(tempurature[0])%(Degrees[1])"
 		}
@@ -2739,15 +2739,13 @@ Select.youredoingagoodjob //I wasn't really intending this, but it's ended up th
 		}
 		if talkedtoDusty == 1
 		{
-			"\0* (You tell S that he's a good friend and Dusty is lucky to have him.)\w8\w8\n\n "
-			--
 			if "Dusty" _in_ ghostexlist
 			{
 				"\![raise,OnDialogueVariables,complimentdusty]"
 			}
 			else
 			{
-				"\0\s[202]Ah,\w4 I try my best.\w8\w8\s[200] He really deserves better,\w4 y'know?\w8\w8\s[109] If I can help brighten his day a little,\w4 then I want to.%(actreturn)"
+				"\0* (You tell S that he's a good friend and Dusty is lucky to have him.)\w8\w8\n\n\s[202]Ah,\w4 I try my best.\w8\w8\s[200] He really deserves better,\w4 y'know?\w8\w8\s[109] If I can help brighten his day a little,\w4 then I want to.%(actreturn)"
 			}
 		}
 		//"\0* (You tell S that his beaming smile is very encouraging.)\w8\w8\n\n\s[1030]Aw,\w4 thanks %(username).\w8\w8\s[104] I'm glad you think so.%(actreturn)"
@@ -2821,8 +2819,7 @@ Select.mostlyforme
 	}
 	--
 	"\n\n[half]\![*]\q[Go back,heyyouyourecute]\n/
-	\![*]\q[Nevermind,CANCEL]\e"
-	
+	\![*]\q[Nevermind,CANCEL]\e"	
 }
 
 Select.howtogetthingsdone
@@ -3976,7 +3973,33 @@ OnChoiceTimeout
 
 OnTestVariable  //For my own testing purposes. Be careful here.
 {
-	"\![open,inputbox,OnUrlTest,-1]URL input\e"
+	//"\![open,inputbox,OnUrlTest,-1]URL input\e"
+	/*_randx = RAND(100)
+	_randy = RAND(100)
+	_w = RAND(5)
+	"\_l[%(_randx),%(_randy)]H\w%(_w)"
+	--
+	_randx = RAND(100)
+	_randy = RAND(100)
+	"\_l[%(_randx),%(_randy)]E\w%(_w)"
+	--
+	_randx = RAND(100)
+	_randy = RAND(100)
+	"\_l[%(_randx),%(_randy)]L\w%(_w)"
+	--
+	_randx = RAND(100)
+	_randy = RAND(100)
+	"\_l[%(_randx),%(_randy)]P\w%(_w)"
+	--
+	_randx = RAND(100)
+	_randy = RAND(100)
+	"\_l[%(_randx),%(_randy)]M\w%(_w)"
+	--
+	_randx = RAND(100)
+	_randy = RAND(100)
+	"\_l[%(_randx),%(_randy)]E\w%(_w)"
+	--*/
+	
 }
 
 OnUrlTest

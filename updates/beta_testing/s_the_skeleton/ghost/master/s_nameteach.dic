@@ -1,9 +1,6 @@
 ﻿//---------------------------The User's Name--------------------------
 //So I've updated this file. S's menu was getting super messy and I wanted to clean it up, and MAN the birthday teaching was long (I have since cleaned it up a bit so it's not as bad now). So I've moved everything to do with the user as a person here: name, birthday, pronouns. Maybe I'll eventually add other stuff but idk.
 
-//--OnTeachName
-//This is called from the config menu in the main character's double click menu when the user says they want to change their name. If you look in menu.dic you'll see the code leading to here.
-
 OnTeachName	
 {
 	"\![raise,OnDialogueVariables,suppressCoordsOn]"
@@ -114,6 +111,12 @@ OnNameTeach
 			{
 				"\0* (You should probably pick something else,\w4 that might get confusing...)\![open,inputbox,OnNameTeach,-1]"
 			}
+			elseif STRLEN(tempname) == 1
+			{
+				"\0\s[110]Oh,\w4 huh.\w8\w8\s[104] Your name's like mine.\w8\w8\n\n"
+				--
+				NameDone
+			}
 			else
 			{
 				NameDone
@@ -128,30 +131,29 @@ OnNameTeach
 
 NameDone
 {
-		username = tempname
-		if LV == 0
+	username = tempname
+	if LV == 0
+	{
+		"\0\s[104]Ok,\w4 I'll call you %(username) then."
+		"\0\s[111]Alright,\w4 I'll call you %(username)."
+		"\0\s[102]Got it,\w4 %(username) it is."
+		--
+		if booting == 0
 		{
-			"\0\s[104]Ok,\w4 I'll call you %(username) then."
-			"\0\s[111]Alright,\w4 I'll call you %(username)."
-			"\0\s[102]Got it,\w4 %(username) it is."
+			"\x"
 			--
-			if booting == 0
-			{
-				"\x"
-				--
-				TalkConfig
-			}
-			else
-			{
-				booting = 0
-				"\w8\w8\s[0] Good to meet you.\w8\w8\s[205]\n\nI guess I'll just hang out here for the time being,\w4 if you don't mind.\e"
-			}
+			TalkConfig
 		}
 		else
 		{
-			"\0\s[510]Ok,\w4 I'll call you %(username) from now on.\e"
+			booting = 0
+			"\w8\w8\s[0] Good to meet you.\w8\w8\s[205]\n\nI guess I'll just hang out here for the time being,\w4 if you don't mind.\e"
 		}
-		//Rewrite this as you like. Note the %(username) tag here, as you should be well familiar with by now from the walkthrough and the other .dic files. That will display the name the user just created.
+	}
+	else
+	{
+		"\0\s[510]Ok,\w4 I'll call you %(username) from now on.\e"
+	}
 }
 
 

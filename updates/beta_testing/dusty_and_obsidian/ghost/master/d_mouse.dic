@@ -38,7 +38,7 @@ MouseMoveSakura
 				"\0\s[107]* (His skull warms up as you stroke over and over.)"
 				"\0\s[107]* (You can't help petting him over and over.)"
 				"\0\s[107]* (If you pet him too much you're going to wear out what little skull he has left.)"
-				if sHoldingObsidian != 1
+				if sHoldingObsidian == 0 && SomeoneHoldingObsidian == ""
 				{
 					--
 					"\1%(catnoises)!\w8\w8\0\n\n* (Obsidian looks like she wants some too.)\e"
@@ -104,6 +104,10 @@ MouseMoveSakura
 					"\e"
 				}
 				elseif sHoldingObsidian == 1
+				{
+					"\e"
+				}
+				elseif SomeoneHoldingObsidian != ""
 				{
 					"\e"
 				}
@@ -229,15 +233,22 @@ MouseMoveKero
 
 OnMouseLeaveAll //When the mouse leaves the ghost. You can change to OnMouseLeave if you want it to happen when you leave that specific hitbox
 {
+	_b = BalloonCheck
 	if Dcontinuousstroke > 160 && Dcontinuousstroke > Dpethighscore //Checks if you're in continuous petting, and if you are, if you got a high score. \C will display the previous balloon again.
 	{
 		Dpethighscore = Dcontinuousstroke
-		"\C\n\n* (New high score! %(Dpethighscore)!)\e"
+		if _b == 1
+		{
+			"\C\n\n* (New high score! %(Dpethighscore)!)\e"
+		}
 	}
 	if Ocontinuousstroke > 160 && Ocontinuousstroke > Opethighscore //Checks if you're in continuous petting, and if you are, if you got a high score. \C will display the previous balloon again.
 	{
 		Opethighscore = Ocontinuousstroke
-		"\C\1\n\n* (New high score! %(Opethighscore)!)\e"
+		if _b == 1
+		{
+			"\C\1\n\n* (New high score! %(Opethighscore)!)\e"
+		}
 	}
 	if Dcurrentpetstreak > Dtoppetstreak //Same thing here, but it's counting the number of actual pets you got. You can use this instead of the stroke count if you like.
 	{
@@ -270,7 +281,28 @@ OnMouseDoubleClick
 		}
 		else
 		{
-			OnOpenKeroMenu
+			if reference3 == 1 && reference5 == 0 && reference4 == "Head" //If it's the side character, you're left clicking, if they aren't already talking, and you're on the hitbox for her head
+			{
+				catboops++
+				"\1\s[10]* (You boop her nose.)" //I didnt use the cat noise envelope for this because I want her to use a specific frame
+				"\1\s[10]* (She looks offended at your boop.)"
+				--
+				"\w8\w8\n\n"
+				--
+				"Maow"
+				"Mrrp"
+				"Prrp"
+				"Mraa"
+				"Mrr"
+				"Maaow"
+				"Mwwrrrr"
+				--
+				".\e"
+			}
+			else
+			{
+				OnOpenKeroMenu
+			}
 		}
 	}
 }
@@ -286,25 +318,7 @@ MouseDoubleClickSakura
  
 OnMouseDown
 {
-	if reference3 == 1 && reference5 == 0 && reference4 == "Head" && SHIORI3FW.CanTalk == 1 //If it's the side character, you're left clicking, if they aren't already talking, and you're on the hitbox for her head
-	{
-		catboops++
-		"\1\s[10]* (You boop her nose.)" //I didnt use the cat noise envelope for this because I want her to use a specific frame
-		"\1\s[10]* (She looks offended at your boop.)"
-		--
-		"\w8\w8\n\n"
-		--
-		"Maow"
-		"Mrrp"
-		"Prrp"
-		"Mraa"
-		"Mrr"
-		"Maaow"
-		"Mwwrrrr"
-		--
-		".\e"
-	}
-	elseif reference3 == 1 && reference5 == 0 && reference4 == "BEANS"
+	if reference3 == 1 && reference5 == 0 && reference4 == "BEANS"
 	{
 		beansSquished++
 		"\1\s[1008]* (You poke her toe beans!)\w8\w8\w8\s[1002]\n\n%(annoyednoises)"

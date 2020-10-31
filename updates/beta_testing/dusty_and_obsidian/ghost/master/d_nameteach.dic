@@ -8,7 +8,7 @@ OnNameTeach
 	reference0 = REPLACE(reference0,".","") //removes periods
 	reference0 = REPLACE(reference0,"-","") //removes dashes
 	
-	if tempname == username
+	if tempname == username && booting != 1
 	{
 		"\0\s[106]%(wdc)\1%(annoyednoises).\w8\w8\0Ah,\w4 that's the name you gave me before.\w8\w8\s[107] Let me know if you want to change it.\x"
 		--

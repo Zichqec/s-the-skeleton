@@ -14,6 +14,18 @@ collisionex4,Face,polygon,114,48,103,50,95,56,90,68,92,76,91,82,92,89,100,94,118
 0pattern2,3002,10,overlayfast,0,0
 0pattern3,-1,3,overlay,0,0
 
+10interval,never
+10pattern0,0,10,overlay,10,10
+10pattern1,0,20,overlay,20,20
+10pattern2,0,20,overlay,30,30
+10pattern3,0,20,overlay,40,40
+
+11interval,never
+11pattern0,510,10,overlay,-10,-10
+11pattern1,510,20,overlay,-20,-20
+11pattern2,510,20,overlay,-30,-30
+11pattern3,510,20,overlay,-40,-40
+
 9000interval,bind
 9000pattern0,9000,0,overlay,0,0
 }
@@ -914,11 +926,11 @@ collisionex4,Face,polygon,114,48,103,50,95,56,90,68,92,76,91,82,92,89,100,94,118
 
 0interval,random
 0pattern0,1041,250,replace,0,0
-0pattern1,1040,75,replace,0,0
+0pattern1,-1,75,replace,0,0
 
 1interval,random
 1pattern0,1041,250,replace,0,0
-1pattern1,1040,245,replace,0,0
+1pattern1,-1,245,replace,0,0
 
 9000interval,bind
 9000pattern0,9000,0,overlay,0,0
@@ -934,13 +946,13 @@ collisionex2,Cracks,Polygon,103,51,95,56,99,65,99,78,101,78,102,68,102,65,104,63
 collisionex3,Cracks2,Polygon,119,78,119,86,123,92,126,89,127,83
 collisionex4,Face,polygon,114,48,103,50,95,56,90,68,92,76,91,82,92,89,100,94,118,94,126,89,127,83,133,76,133,68,130,66,130,62,127,61,127,53,119,48
 
-0interval,random
+0interval,random,6
 0pattern0,1051,250,replace,0,0
-0pattern1,1050,75,replace,0,0
+0pattern1,-1,75,replace,0,0
 
-1interval,random
+1interval,random,8
 1pattern0,1051,250,replace,0,0
-1pattern1,1050,245,replace,0,0
+1pattern1,-1,245,replace,0,0
 
 9000interval,bind
 9000pattern0,9000,0,overlay,0,0
@@ -1395,12 +1407,23 @@ collisionex3,Face,polygon,111,50,98,53,93,68,94,72,90,76,93,80,93,89,98,93,114,9
 9000pattern0,9001,0,overlay,0,0
 }
 
+surface1297 //102 stand-in so the hat doesn't cause a visual glitch
+{
+element0,overlay,surface102.png,0,0
+
+collisionex0,Head,polygon,114,48,103,50,105,52,105,61,104,63,102,65,102,68,124,68,124,53,119,48
+collisionex1,Dent,polygon,125,51,124,53,124,68,127,72,129,72,131,71,133,68,130,66,130,62,127,61,127,53
+collisionex2,Cracks,Polygon,103,51,95,56,99,65,99,78,101,78,102,68,102,65,104,63,105,61,105,52
+collisionex3,Cracks2,Polygon,119,78,119,86,123,92,126,89,127,83
+collisionex4,Face,polygon,114,48,103,50,95,56,90,68,92,76,91,82,92,89,100,94,118,94,126,89,127,83,133,76,133,68,130,66,130,62,127,61,127,53,119,48
+}
+
 surface1298 //Jump down
 {
 element0,overlay,surface1298.png,0,0
 0interval,runonce
 0pattern0,1299,10,replace,0,0
-0pattern1,102,10,replace,0,0
+0pattern1,1297,10,replace,0,0
 
 9000interval,bind
 9000pattern0,9000,0,overlay,0,0

@@ -352,13 +352,26 @@ OnClose
 
 OnWindowStateRestore
 {
-	if sHoldingObsidian == 1
+	if sHoldingObsidian == 1 || SomeoneHoldingObsidian != ""
 	{
 		"\0%(wdc)\s[110]%(t)Ah...\w8\w8\0\s[208\] That was...\w8\w8 strange.\w8\w8\s[206\]\n\nNot entirely unlike the void...]\w8\w8\1%(sCatNoise)\e"
 	}
 	else
 	{
 		"\1\s[10]\0%(wdc)\s[110]%(t)Ah...\w8\w8\0\s[208\] That was...\w8\w8 strange.\w8\w8\s[206\]\n\nNot entirely unlike the void...]\w8\w8\1%(sCatNoise)\e"
+	}
+}
+
+OnWindowStateMinimize
+{
+	if SomeoneHoldingObsidian != ""
+	{
+		res_reference0 = SomeoneHoldingObsidian[0]
+		_ghost = SomeoneHoldingObsidian[0]
+		_num = SomeoneHoldingObsidian[1]
+		SomeoneHoldingObsidian = ""
+		
+		"\e DustyMinimized%(_ghost) %(_num)"
 	}
 }
 
@@ -421,12 +434,19 @@ OnGhostChanging
 
 OnGhostChanged
 {
-	"\0\s[0]\1\s[10]\0%(wdc)" //this sets up their default poses
+	if sHoldingObsidian == 0 && SomeoneHoldingObsidian == ""
+	{
+		"\1\s[10]"
+	}
+	--
+	"\0\s[0]%(wdc)" //this sets up their default poses
 	--
 	if holdingObsidian == 1
 	{
 		if reference0 == "Dusty" //As above, this should be the name of your ghost as in install.txt or descript.txt.
 		{
+			obsiJumping = 0
+			
 			"\1\s[-1]\0\s[600]%(t)I'm back.\w8\w8 Is everything alright?]\e"
 		}
 		else //If you're switching to them from another ghost...
@@ -644,10 +664,23 @@ OnBootVars //These run every time he starts, whether you've just changed ghosts 
 	booting = 0
 	weatherquiet = 2 //So he does a weather check if you have it on
 	sHoldingObsidian = 0
+	SomeoneHoldingObsidian = ""
+	obsiJumping = 0
+	if talkedtoElsen == 1; talkedtoElsen = 2
+	if talkedtoMiniDev == 1; talkedtoMiniDev = 2
 }
 
 UpdateVars
 {
+	if InstalledUpdates[5] != "1.0.6"
+	{
+		InstalledUpdates[5] = "1.0.6"
+		SomeoneHoldingObsidian = ""
+		obsiJumping = 0
+		talkedtoElsen = 0
+		talkedtoMiniDev = 0
+		SomeoneHeldObsidian = (0,"")
+	}
 	if Update1p0p4 != "1.0.4"
 	{
 		Update1p0p4 = "1.0.4"
@@ -658,6 +691,7 @@ UpdateVars
 		tempurature[0] = _temp
 		tempurature[1] = _temp
 		tempurature[2] = _temp
+		sHoldingObsidian = 0
 	}
 	if Update1p0p2 != "1.0.2"
 	{
@@ -767,12 +801,18 @@ DefineStartVars //Variables that need to be set on firstboot
 	teachFont = "Wingdings"
 	callingGhost = 0
 	SeePC = "Off"
-	installdate = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)")
+	installdate = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)","%(dustyver)") //dustyver added in 1.0.5
 	//---1.0.4---
 	Update1p0p4 = "1.0.4"
 	Degrees[0] = "Fahrenheit"
 	Degrees[1] = "°F"
 	tempurature[0] = 0
 	tempurature[1] = 0
-	
+	//---1.0.6---
+	InstalledUpdates[5] = "1.0.6"
+	SomeoneHoldingObsidian = ""
+	obsiJumping = 0
+	talkedtoElsen = 0
+	talkedtoMiniDev = 0
+	SomeoneHeldObsidian = (0,"")
 }

@@ -2,7 +2,7 @@
 OnFirstBoot
 {
 	FirstVars
-	installdate = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)")
+	installdate = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)","%(ghostver)")
 	if reference0 == 0 //Don't touch this line.
  	{
 		"\0\s[-1]\![enter,passivemode]\0\s[1110]\w8Wh- \w8\w8 ...Oh,\w4 another timeline..?\w8\w8\n\n\s[110]Oh,\w4\s[1020] uh,\w4 hi there.\w8\w8\s[106] Sorry,\w4 I hope I'm not bothering you.\w8\w8\s[107] I have a tendency to fall into random timelines,\w4 I'll probably disappear again soon.\w8\w8\s[208]\n\nLooks like...\w8\w8 a computer this time?\w8\w8\s[107] Could be worse,\w4 I guess.\w8\w8\n\n\s[104]So ah,\w4 my name's S.\w8\w8\s[0] What's yours?\![leave,passivemode]\![open,inputbox,OnNameTeach,-1]\e"
@@ -107,6 +107,7 @@ OnBoot
 			elseif "Dusty" _in_ ghostexlist && talkedtoDusty == 1
 			{
 				res_reference0 = "Dusty"
+				
 				"\0\s[1122]\w6\s[104]Hey there,\w4 %(username).\w8\w8\s[205] Hey,\w4 Dusty.\e SBootDusty1"
 			}
 			//Note to self for later, I don't feel like adding these now but I probably will later: Triplets Bday 10/12 (Barcode should have a different one... I'll have to pick an arbitrary one), Blue Jeans 8/11, Rosie 4/27, Roman 12/13, Cambria 3/10, Triton 3/23, Lulo 2/26, Azo 3/13, Sigil is technically 9/28... but I may need to bump that around to match with Azo. Or bump Azo around. One of those... Sigil should be 9-10 months later. Elko 2/26. Maaan these are like all clumped up around the same months XD Do I want to spread them out? Mm.... I'll decide later.
@@ -527,6 +528,10 @@ OnClose
 	"\w8\w8\-\e"
 }
 
+/*OnGhostCalled
+{
+	"%(reference0) called me"
+}*/
 
 //-------------------------State Changing--------------------
 //From here on, most of the dialogue will have to do with changing shells, ghosts, or states in some way.
@@ -1135,6 +1140,7 @@ BootVars
 	sleepsec = 0
 	dreams = RAND(4)
 	recentnightmare = 0
+	commuTimer = 0
 	
 	if nowmode == "RYS"
 	{
@@ -1150,6 +1156,12 @@ BootVars
 //Variables set after updates, because I have no self control
 OnSetUpdateVariables
 {
+	if UpdatesInstalled[0] != "1.3.2"
+	{
+		UpdatesInstalled[0] = "1.3.2"
+		miscflags = ("0") //[0] is if he's seen Gaster with googly eyes
+		commuTimer = 0
+	}
 	if Update1p3p1 == ""
 	{
 		Update1p3p1 = "1.3.1"
@@ -1481,6 +1493,8 @@ FirstVars
 	tempurature[0] = 0
 	tempurature[1] = 0
 	tempurature[2] = 0
+	//---1.3.2---
+	commuTimer = 0
 	
 	updateavailable = 0
 	booting = 1 //This is here so that when you tell him your name the first time, he'll say the appropriate line.
