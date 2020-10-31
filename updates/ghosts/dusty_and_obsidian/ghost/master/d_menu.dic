@@ -153,7 +153,7 @@ OnQuestionMenu
 		"\![*]\q[The void,aboutthevoid]\n/
 		\![*]\q[Timelines,abouttimelines]\n"
 		--
-		if metOtherGhosts == 1
+		if (talkedtoS + talkedtoElsen + talkedtoMiniDev) > 0
 		{
 			"\![*]\q[Another ghost,OnOtherGhosts]\n"
 		}
@@ -167,7 +167,7 @@ OnQuestionMenu
 	"\n\![*]\q[Go back,BACKTOMENU]\n\![*]\q[Nevermind,CANCEL]"
 }
 
-Select.abouthim
+Select.abouthim : nonoverlap
 {
 	if askedabouthim != 1
 	{
@@ -192,7 +192,7 @@ Select.abouthim
 	}
 }
 
-Select.aboutthecat
+Select.aboutthecat : nonoverlap
 {
 	"%(wdc)"
 	--
@@ -207,7 +207,7 @@ Select.aboutthecat
 	askedaboutobsidian = 1
 }
 
-Select.aboutobsidian
+Select.aboutobsidian : nonoverlap
 {
 	"%(wdc)"
 	--
@@ -243,7 +243,7 @@ Select.aboutobsidian
 	"\0%(rgc)%(morequestions)"
 }
 
-Select.aboutthevoid
+Select.aboutthevoid : nonoverlap
 {
 	"%(wdc)"
 	--
@@ -256,7 +256,7 @@ Select.aboutthevoid
 	"\0%(rgc)%(morequestions)"
 }
 
-Select.abouttimelines
+Select.abouttimelines : nonoverlap
 {
 	"%(wdc)"
 	--
@@ -295,10 +295,20 @@ OnOtherGhosts
 		"\![*]\q[S,aboutS]\n"
 	}
 	--
+	if talkedtoElsen > 0
+	{
+		"\![*]\q[Elsen,aboutElsen]\n"
+	}
+	--
+	if talkedtoMiniDev > 0
+	{
+		"\![*]\q[MiniDev,aboutMiniDev]\n"
+	}
+	--
 	"\n\![*]\q[Go back,OnQuestionMenu]\n\![*]\q[Nevermind,CANCEL]"
 }
 
-Select.aboutS
+Select.aboutS : nonoverlap
 {
 	"%(wdc)"
 	--
@@ -313,9 +323,66 @@ Select.aboutS
 	{
 		//res_reference0 = "RYS-0825"
 		"%(t)\0\s[104\]We've been friends for a very long time##\w4 it's nice that I can meet him here.]"
+		"\![raise,OnMenuCommu,rudetotalk]"
 		--
 		"%(ghostquestions)"
 	}
+}
+
+Select.aboutElsen : nonoverlap
+{
+	if "Elsen" !_in_ ghostexlist //If Elsen is not present
+	{
+		if talkedtoElsen == 2 //After he's learned about OFF
+		{
+			"\0\s[206]%(t)Ah...\w8\w8 his world is a very strange one##\w4 indeed.\w8\w8\s[110\] I'm not entirely sure what to make of it##\w4 honestly.\w8\w8\s[208\] It's all just a little off...]"
+			"\0\s[206]%(t)You should take good care of him##\w4 his own timeline probably isn't doing him any favors.]"
+			"\0\s[108]%(t)Be good to him.\w8\w8 It seems that his kind can become corrupted and lose themselves if they become stressed out##\w4 and they do that very easily.]"
+			"\0\s[206]%(t)That sugar...\w8\w8\s[109\] Be mindful how much of that you give him.]"
+			"\0\s[106]%(t)Holding Obsidian seems to make him feel a little better##\w4 which I'm glad to see.\w8\w8\s[104\] She seems to like him too##\w4 so it's beneficial for both.]"
+			"\0\s[206]%(t)There are dark things happening in those timelines...\w8\w8 Oddly##\w4 some of it reminds me of my world.]"
+			"\0\s[200]%(t)This 'Dedan' fellow he sometimes speaks of##\w4 I don't like him.\w8\w8\s[206\] Though##\w4 strangely##\w4 he almost feels familiar...]"
+			"\0\s[206]%(t)I'll keep an eye on him when he's not here##\w4 though I don't think there's really anything I can do for him...\w8\w8\s[109\] That world seems destined to be bleak.]"
+			"\0\s[107]%(t)I've seen a lot of things during my time in the void##\w4 but I've never seen metal being grown via cows before...\w8\w8\s[106\] I guess you learn something new every day.]"
+			"\0\s[206]%(t)All of his kind seem perpetually tired...\w8\w8\s[109\] I'm sure I'd feel the same way were I in their shoes.]"
+			"\0\s[108]%(t)It seems the specters they're dealing with in his timeline may be able to reach your computer],\w4 %(username).\w8\w8 %(t)Keep an eye out for them;\w8 nothing good will come of them being here.]"
+		}
+		else //Before he's learned about OFF
+		{
+			"\0\s[208]%(t)Honestly##\w4 I don't know anything about him##\w4\s[104\] other than he seems to like cats.\w8\w8\s[0\] I'm going to see if I can find his timeline later##\w4 I'm curious how much different it is from my own.]"
+		}
+	}
+	else //If Elsen is present
+	{
+		"\0\s[106]%(t)You should ask him yourself##\w4 he's right here after all.]"
+	}
+	--
+	"%(ghostquestions)"
+}
+
+Select.aboutMiniDev : nonoverlap
+{
+	if "MiniDev" !_in_ ghostexlist
+	{
+		if talkedtoMiniDev == 2
+		{
+			"\0\s[106]%(t)I'm afraid I still don't have much information.\w8\w8\s[208\] His world has been difficult to find information on...\w8\w8\s[110\] He is definitely more than he seems##\w4 though.]"
+			"\0\s[208]%(t)There is something strange about him##\w4 though I'm not quite sure what.\w8\w8\s[108\] I don't believe he's a simple AI##\w4 though.\w8\w8\s[200\] Something is in there##\w4 I'm sure of it...]"
+			"\0\s[106]%(t)I suppose I shouldn't have been surprised that he can translate Wingdings##\w4 given that he's a computer...]"
+			"\0\s[107]%(t)Obsidian seems to like him a lot.\w8\w8\s[106\] I think it's just because his monitor generates heat##\w4 honestly.]"
+if talkedtoS == 1;"\0\s[110]%(t)I found a stash of clothes in your files that looked like they might belong to him.\w8\w8\s[106\] I saw some that looked like S's mixed in##\w4 though perhaps it's just a coincidence...]"
+		}
+		else
+		{
+			"\0\s[208]%(t)I don't know much about him yet##\w4 though I do sense an odd presence coming from him...\w8\w8\s[106\] I'll see what I can find out later.]"
+		}
+	}
+	else
+	{
+		"\0\s[106]%(t)You should ask him your questions##\w4 he's right here.\w8\w8\s[107\] He could certainly tell you more than me...]"
+	}
+	--
+	"%(ghostquestions)"
 }
 
 ghostquestions
@@ -1286,7 +1353,7 @@ Select.startupdatecheck
 
 dustyver
 {
-	"1.0.5"
+	"1.0.6"
 }
 
 OnChangelog
@@ -1294,6 +1361,15 @@ OnChangelog
 	"\![set,autoscroll,disable]\_q\b2"
 	--
 	"/
+	\_l[112]-Version 1.0.6-\n\n/
+	-Other ghosts will now be able to hold Obsidian, should the dev choose to make their ghost compatible! It's a lot of work, so I don't expect many devs to do it, however...\n\n/
+	-\_a[https://zdzisiu.github.io/Ukagaka/md.html]MiniDev\_a can now hold Obsidian if both ghosts are up to date!\n\n/
+	-Dusty also has some basic commu conversations set up with MiniDev, to hopefully be expanded at a later date.\n\n/
+	-MiniDev has also been added to Dusty's submenu for talking about other ghosts!\n\n/
+	-Changed the way S picking up Obsidian works. Please make sure you have both ghosts up to date before you try this! Also, if you ever have trouble with S/another ghost not picking up Obsidian anymore, reloading them seems to help.\n\n/
+	-Offscreen dialogue should now happen immediately upon Dusty being moved out of bounds.\n\n/
+	-Fixed a bug where timeout dialogue was happening when it shouldn't.\n\n/
+	-Fixed some misc bugs and typos. Also, some code optimization. Expect a lot of optimization in 1.1.0, whenever I get to that...\n\n\n/
 	\_l[112]-Version 1.0.5-\n\n/
 	-Fixed a typo in the weather location dialogue.\n\n/
 	\_l[112]-Version 1.0.4-\n\n/
@@ -1969,13 +2045,22 @@ OnChoiceTimeout
 		""
 	}
 	//elseif "teachword" !_in_ reference0 || "doTimeout" _in_ reference0 //Checks if there's a wingdings word with a tranlation tooltip. And, if there is, check if there's an override after the \e
-	elseif tooltips == "Off" || "doTimeout" _in_ reference0
+	elseif (tooltips == "Off" || "doTimeout" _in_ reference0) && "teachword" !_in_ reference0
 	{
 		"%(wdc)"
 		--
-		"\0\s[106]%(t)Are you still there##]\w4 %(username)?\e"
-		"\0\s[106]%(username)?\e"
-		"\0\s[106]%(t)Did you change your mind?]\e"
+		if holdingObsidian == 1
+		{
+			"\0\s[606]%(t)Are you still there##]\w4 %(username)?\e"
+			"\0\s[606]%(username)?\e"
+			"\0\s[606]%(t)Did you change your mind?]\e"
+		}
+		else
+		{
+			"\0\s[106]%(t)Are you still there##]\w4 %(username)?\e"
+			"\0\s[106]%(username)?\e"
+			"\0\s[106]%(t)Did you change your mind?]\e"
+		}
 	}
 }
 
@@ -2207,7 +2292,7 @@ Select.checkobsidian
 	if opinionObsi > 0
 	{
 		"asked her opinion on %(opinionObsi) problem"
-		"recieved her wisdom %(opinionObsi) time"
+		"received her wisdom %(opinionObsi) time"
 		"been given answers to life's most critical questions %(opinionObsi) time"
 		--
 		if opinionObsi != 1; {"s"}

@@ -18,9 +18,9 @@ On_username
 
 On_homeurl
 {
-	if betaTester == "On"
+	if betaTester == "ON"
 	{
-		"https://zichqec.github.io/s-the-skeleton/beta_testing/ghosts/dusty_and_obsidian/"
+		"https://zichqec.github.io/s-the-skeleton/beta_testing/dusty_and_obsidian/"
 	}
 	else
 	{

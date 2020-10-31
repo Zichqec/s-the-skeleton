@@ -186,7 +186,7 @@ Select.callghost
 	}
 	else
 	{
-		"\0\s[550]%(t)Certainly##\w4\s[500] I'll call them right away.]\![call,ghost,lastinstalled]"
+		"\0\s[550]%(t)Certainly##\w4\s[500\] I'll call them right away.]\![call,ghost,lastinstalled]"
 	}
 }
 
@@ -517,7 +517,7 @@ OnBIFFFailure
 		}
 		elseif reference0 == "artificial"
 		{
-			"\0\s[110]%(t)Oh##w4 did you change your mind?]\e"
+			"\0\s[110]%(t)Oh##\w4 did you change your mind?]\e"
 		}
 		else //if there's some other kind of error.
 		{
@@ -623,11 +623,11 @@ OnUpdateComplete
 	{
 		if reference0 == "none" //if the ghost had nothing to update with
 		{
-			"\0%(wdc)\s[600]%(t)There are no new files.]\![raise,OnDialogueVars,finishboot]"
+			"\0%(wdc)\s[600]%(t)There are no new files.]\![raise,OnDialogueVars,finishboot]\e"
 		}
 		else //if the ghost has updated successfully
 		{
-			"\0%(wdc)\s[604]%(t)Update complete.]\![raise,OnDialogueVars,finishboot]\e"
+			"\0%(wdc)\s[600]%(t)Update complete.]\w8\w8\![raise,OnDialogueVars,finishboot]"
 		}
 	}
 	else
@@ -638,7 +638,7 @@ OnUpdateComplete
 		}
 		else //if the ghost has updated successfully
 		{
-			"\0%(wdc)\s[104]%(t)Update complete.]\![raise,OnDialogueVars,finishboot]"
+			"\0%(wdc)\s[104]%(t)Update complete.]\w8\w8\![raise,OnDialogueVars,finishboot]"
 		}
 	}
 	--
@@ -674,7 +674,7 @@ OnUpdateFailure
 		}
 		elseif reference0 == "artificial"
 		{
-			"\0\s[606]Oh##\w4 did you change your mind?]"
+			"\0\s[606]%(t)Oh##\w4 did you change your mind?]"
 		}
 		else //for other errors
 		{
@@ -695,7 +695,7 @@ OnUpdateFailure
 		}
 		elseif reference0 == "artificial"
 		{
-			"\0\s[106]Oh##\w4 did you change your mind?]"
+			"\0\s[106]%(t)Oh##\w4 did you change your mind?]"
 		}
 		else //for other errors
 		{
@@ -1249,7 +1249,7 @@ OnShellScaling //replaceframe on all of these, need him talking to obsidian and 
 			"%(wdc)\0\s[606]%(t)Thank you],\w4 %(username).\w8\w8\1%(holdnoise)\e"
 		}
 	}
-	elseif sHoldingObsidian == 1
+	elseif sHoldingObsidian == 1 || SomeoneHoldingObsidian != ""
 	{
 		if reference0 > 100 //If getting bigger
 		{
@@ -1290,6 +1290,13 @@ OnOtherGhostChanged
 			"\![get,property,OnObsiReappear,currentghost.scope(0).rect]"
 		}
 	}
+	elseif SomeoneHoldingObsidian != ""
+	{
+		if reference0 == SomeoneHoldingObsidian[0]
+		{
+			"\![get,property,OnObsiReappear,currentghost.scope(0).rect]"
+		}
+	}
 }
 
 OnOtherGhostClosed
@@ -1301,11 +1308,19 @@ OnOtherGhostClosed
 			"\![get,property,OnObsiReappear,currentghost.scope(0).rect]"
 		}
 	}
+	elseif SomeoneHoldingObsidian != ""
+	{
+		if reference0 == SomeoneHoldingObsidian[0]
+		{
+			"\![get,property,OnObsiReappear,currentghost.scope(0).rect]"
+		}
+	}
 }
 
 OnObsiReappear
 {
 	sHoldingObsidian = 0
+	SomeoneHoldingObsidian = ""
 	_XCoord = TOINT(reference0[0])
 	_XCoord -= 120
 	_YCoord = TOINT(reference0[3])
@@ -1349,6 +1364,10 @@ OnDialogueVars //Variables set in dialogue
 		when "endchain"
 		{
 			CHAIN.IDName = ""
+		}
+		when "ObsiDoneJump"
+		{
+			obsiJumping = 0
 		}
 	}
 }
@@ -1722,7 +1741,7 @@ OnUserInputCancel
 {
 	if "OnConfide" _in_ reference0 || "OnGush" _in_ reference0
 	{
-		"\0\s[110]Oh,\w4 did you change your mind?\w8\w8\s[102] Alright then,\w4 just let me know if you want to talk.\e"
+		"\0\s[110]%(t)Oh##\w4 did you change your mind?\w8\w8\s[102\] Alright then##\w4 just let me know if you want to talk.]\e"
 	}
 }
 
@@ -1796,17 +1815,17 @@ OnLocCode
 {
 	if templocation == "USA"
 	{
-		locationcode = reference0
+		tempcode = reference0
 	}
 	else
 	{
 		if "/l/" _in_ reference0
 		{
-			locationcode = SPLIT(reference0,"/l/")[1]
+			tempcode = SPLIT(reference0,"/l/")[1]
 		}
 		else
 		{
-			locationcode = reference0
+			tempcode = reference0
 		}
 	}
 	--
@@ -1814,7 +1833,7 @@ OnLocCode
 	//OnDownloadCurWeather
 	"\![execute,http-get,https://zichqec.github.io/s-the-skeleton/weatherregex.html,--async=OnNonFunction,--file=weatherregex.html,--timeout=300]"
 	--
-	"\![execute,http-get,https://weather.com/weather/today/l/%(locationcode),--async=OnCheckWeatherLoc,--file=weather.html,--timeout=300]%(loadingmoon)"
+	"\![execute,http-get,https://weather.com/weather/today/l/%(tempcode),--async=OnCheckWeatherLoc,--file=weather.html,--timeout=300]%(loadingmoon)"
 	
 	
 }
@@ -1885,16 +1904,16 @@ OnCheckWeatherLoc
 
 OnCheckWeatherLocFailure //If the http-get fails
 {
-	tempurature = "Unknown"
-	ForC = "Unknown"
-	feelslike = "Unknown"
-	humidity = "Unknown"
-	wind = "Unknown"
-	weather = "Unknown"
-	pollen = "Unknown"
-	phase = "Unknown"
-	sunset = "Unknown"
-	sunrise = "Unknown"
+	// tempurature = "Unknown"
+	// ForC = "Unknown"
+	// feelslike = "Unknown"
+	// humidity = "Unknown"
+	// wind = "Unknown"
+	// weather = "Unknown"
+	// pollen = "Unknown"
+	// phase = "Unknown"
+	// sunset = "Unknown"
+	// sunrise = "Unknown"
 	if weatherquiet == 1
 	{
 		weatherquiet = 0
@@ -1932,6 +1951,7 @@ OnCheckWeatherLocFailure //If the http-get fails
 
 Select.confirmweather
 {
+	locationcode = tempcode
 	curlocation = templocation
 	tempurature = "Unknown"
 	ForC = "Unknown"
@@ -2333,5 +2353,22 @@ OnRandomTeachWord
 	{
 		reference0 = REPLACE(reference0,"##","%(CHR(0x2C))")
 		"%(reference0)"
+	}
+}
+
+BalloonCheck
+{
+	if ASEARCH("Status",var.req.key) != -1
+	{
+		//If there is the word balloon is Azura's status, that means one is opened so that she is speaking with the user
+		_currentstatus = var.req.value[ASEARCH("Status",var.req.key)]
+		if "balloon" _in_ _currentstatus
+		{
+			1
+		}
+		else
+		{
+			0
+		}
 	}
 }

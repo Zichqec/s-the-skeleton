@@ -1,10 +1,5 @@
-//---------------------------Communication--------------------------
-
-//--OnCommunicate
-
-//OnCommunicate is called when your ghost is either targeted by another ghost for a conversation, or when your ghost is targeting another ghost for conversation. There's no need to touch any of this.
 OnCommunicate
- {
+{
 	if reference0 == "user" || reference0 == "User"
  	{
 		//---- answering the user
@@ -17,6 +12,21 @@ OnCommunicate
 		{
 			"\0\s[630]* (He's too busy holding Obsidian to notice...)\e"
 		}
+		elseif SomeoneHoldingObsidian != "" || sHoldingObsidian == 1
+		{
+			if SomeoneHoldingObsidian[0] == reference0
+			{
+				ReplyToGhost
+			}
+			elseif reference0 == "RYS-0825" && sHoldingObsidian == 1
+			{
+				ReplyToGhost
+			}
+			else //Same fix as above, might change later
+			{
+				"\0\s[205]* (He's keeping a close eye on Obsidian,\w4 he hasn't noticed...)\e"
+			}
+		}
 		else
 		{
 			ReplyToGhost
@@ -24,57 +34,47 @@ OnCommunicate
  	}
 }
 
-OnStartTalking
+OnStartTalking //Starting a conversation
 {
-	SpokeFirst = 1 //setting a flag
-	OnCommunicate
-}
-
-//Just ignore this.
-ReplyToUser
-{
-	TalkToUser
-}
-
-//--ReplyToGhost
-
-
-ReplyToGhost
-{
-	if SpokeFirst == 1 //======================Starting a conversation=======================
-	{
-		SpokeFirst = 0
-		if ghostexcount > 0 //Checking to see if there's another ghost
+	if ghostexcount > 0 //Checking to see if there's another ghost
 		{
 			_number = RAND(ghostexcount) // This checks the number of other ghosts summoned and chooses a random number based on it
 			--
-			checkname = "%(ghostexlist[_number])" // This grabs the reference name of the ghost to check against known names. It should be the sakura name.
+			_ghost = "%(ghostexlist[_number])" // This grabs the reference name of the ghost to check against known names. It should be the sakura name.
 			--
 			// Checking the selected loaded ghost's name vs known names to comment on them
-			case checkname
+			case _ghost
 			{
 				when "RYS-0825"
 				{
-					if talkedtoS == 0 //if they haven't seen each other before
+					if sHoldingObsidian == 1
 					{
-						res_reference0 = "RYS-0825"
-						talkedtoS = 1
-						metOtherGhosts = 1
-						"\0\s[0]Hello,\w4 S.\w8\w8 Did %(username) bring you here too?\w8\w8\e DFirstHelloD01"
-						notfirstresponse = 1
+						"\1%(holdnoise)!\e"
 					}
-					else //they've spoken at least once in the past
+					else
 					{
-						
-						res_reference0 = "RYS-0825"
-						//"\![get,property,OnFacingCoords,currentghost.scope(0).rect]"
-						"\e GetSStats1"
-						"\1%(catnoises).\w8\w8\eObsiSaysHiD01"
+						if talkedtoS == 0 //if they haven't seen each other before
+						{
+							res_reference0 = "RYS-0825"
+							talkedtoS = 1
+							metOtherGhosts = 1
+							"\0\s[0]Hello,\w4 S.\w8\w8 Did %(username) bring you here too?\w8\w8\e DFirstHelloD01"
+							notfirstresponse = 1
+						}
+						else //they've spoken at least once in the past
+						{
+							
+							res_reference0 = "RYS-0825"
+							//"\![get,property,OnFacingCoords,currentghost.scope(0).rect]"
+							"\e GetSStats1"
+							"\1%(catnoises).\w8\w8\eObsiSaysHiD01"
+						}
 					}
 				}
 				when "Gaster" //=========Zarla's Gaster=======
 				{
 					res_reference0 = "Gaster"
+					
 					"\0\s[200].\w4.\w4.Hello,\w4 Gaster.\w8\w8\e"
 				}
 				when "Temmie"
@@ -83,10 +83,40 @@ ReplyToGhost
 					"\0\s[104]Hello Temmie.\w8\w8\e"
 					notfirstresponse = 1
 				}
+				when "Elsen"
+				{
+					if talkedtoElsen < 1
+					{
+						talkedtoElsen = 1
+						res_reference0 = "Elsen"
+						
+						"\0\s[0]\1\s[1003]%(catnoise)~\e DustyMeetElsen01"
+					}
+					elseif SomeoneHoldingObsidian[0] == "Elsen"
+					{
+						res_reference0 = "Elsen"
+						
+						"\0\s[114]Are there any cats where you live,\w4 Elsen?\w8\w8\e DustyElsenCat02-01"
+					}
+					else
+					{
+						res_reference0 = "Elsen"
+						
+						"\0\s[0]Do you like coming here,\w4 Elsen?\w8\w8\s[102] For me it's a nice break,\w8\s[106] but it's also very strange here so I would not blame you if you felt otherwise.\w8\w8\e DustyElsen02-01"
+					}
+				}
+				when "MiniDev"
+				{
+					res_reference0 = "MiniDev"
+					
+					"\e DustyRequestMDStats"
+				}
 				others //======Any ghost he doesn't know========
 				{
 					AlreadyResponded = 1
-					res_reference0 = checkname
+					commuTimer = 5
+					res_reference0 = _ghost
+					
 					"\0\s[0]Hello,\w4 %(res_reference0).\w8\w8\e"
 				}
 			}
@@ -95,276 +125,741 @@ ReplyToGhost
 		{
 			"\0\s[106]I don't sense anyone else nearby.\e"
 		}
-	}
-	else //===========================Replying to a conversation========================
+}
+
+ReplyToGhost
+{
+	speech = SPLIT(reference1,"\e")[0] 
+	ConvoTag = SPLIT(reference1,"\e")[1]
+	_LastCommu = SPLIT(ConvoTag,"::")[1] //The other ghost sends "::%(speech)" at the end of every communication, so this grabs what THIS ghost last said. See below.
+	
+	_LastCommu = REPLACE(_LastCommu,"\![quicksection,true]","") //Removing the quicksection tags or they overlap and break...
+	_LastCommu = REPLACE(_LastCommu,"\![quicksection,false]","")
+	_LastCommu = REPLACE(_LastCommu,"\w1","")
+	_LastCommu = REPLACE(_LastCommu,"\w4","")
+	_LastCommu = REPLACE(_LastCommu,"\w8","") //I only ever use \w4, \w8, and \w1. May need to add more for other ghosts they talk with.
+	--
+	//These split the dialogue Dusty has been sent. The first two lines split it at the \e, into speech, which is what the user would see, and ConvoTag, which are the tags hidden after the \e that he uses to tell where they're at in conversation. The third line makes speech lowercase, in case I want to test for specific words
+	
+	if reference0 == "RYS-0825" //=======Conversations with S=========
 	{
-		speech = SPLIT(reference1,"\e")[0] 
-		ConvoTag = SPLIT(reference1,"\e")[1]
-		_LastCommu = SPLIT(ConvoTag,":")[1] //The other ghost sends ":%(speech)" at the end of every communication, so this grabs what THIS ghost last said. See below.
-		
-		_LastCommu = REPLACE(_LastCommu,"\![quicksection,true]","") //Removing the quicksection tags or they overlap and break...
-		_LastCommu = REPLACE(_LastCommu,"\![quicksection,false]","")
-		_LastCommu = REPLACE(_LastCommu,"\w1","")
-		_LastCommu = REPLACE(_LastCommu,"\w4","")
-		_LastCommu = REPLACE(_LastCommu,"\w8","") //I only ever use \w4, \w8, and \w1. May need to add more for other ghosts they talk with.
-		_LastCommu = REPLACE(_LastCommu,":chain=end","")
+		"\![quicksection,true]%(_LastCommu)\![quicksection,false]"
 		--
-		//These split the dialogue Dusty has been sent. The first two lines split it at the \e, into speech, which is what the user would see, and ConvoTag, which are the tags hidden after the \e that he uses to tell where they're at in conversation. The third line makes speech lowercase, in case I want to test for specific words
-		
-		
-		
-		if reference0 == "RYS-0825" //=======Conversations with S=========
+		"%(TalkToS)"
+		--
+		"::%(speech)"
+	}
+	elseif reference0 == "Temmie"
+	{
+		res_reference0 = ""
+		"\0\s[104]%(t)Hello##\w4 Temmie.]\w8\w8\1%(sCatNoise)\e"
+	}
+	elseif reference0 == "Elsen"
+	{
+		"\![quicksection,true]%(_LastCommu)\![quicksection,false]"
+		--
+		"%(TalkToElsen)"
+		--
+		"::%(speech)"
+	}
+	elseif reference0 == "MiniDev"
+	{
+		"\![quicksection,true]%(_LastCommu)\![quicksection,false]"
+		--
+		"%(TalkToMiniDev)"
+		--
+		"::%(speech)"
+	}
+	elseif reference0 == "Gaster"
+	{
+		if "\i[108]" _in_ reference1 || "\i[109]" _in_ reference1 || "\i[110]" _in_ reference1 || "\i[111]" _in_ reference1
 		{
-			"\![quicksection,true]%(_LastCommu)\![quicksection,false]"
+			"\0\s[102]* (He's trying very hard to keep a straight face,\w4 but you can hear a quiet wheezing noise.)\1\w8\w8\s[1003]%(holdnoise)\e"
+			"\0\s[102]* (He's trying very hard not to laugh out loud.)\w8\w8\1\s[1003]%(holdnoise)\e"
+			"\0\s[102]* (He's trying so hard to remain dignified.)\w8\w8\1\s[1003]%(holdnoise)\e"
+		}
+		else
+		{
+			"\0\s[109]...Hello.\w8\w8\1%(annoyednoises)\e"
+			"\0\s[109]%(wdf)...HELLO.\w8\w8%(reg)\1%(annoyednoises)\e"
+			"\0\s[109]* (He sighs,\w4 quietly.)\e"
+		}
+	}
+	else //=========Ghosts he doesn't know==========
+	{
+		if "ICanHoldObsidian" _in_ ConvoTag  //"ICanHoldObsidian,(0/1/char number)"
+		{
+			SomeoneHoldingObsidian = "%(reference0),%(ConvoTag[1])"
+			if reference0 !_in_ heldObsidian; heldObsidian ,= reference0
+			res_reference0 = reference0
+			ObsiHoldCheck
 			--
-			//---Dusty notices S---
-			if "DFirstHelloS01" _in_ ConvoTag
+			"\1\s[-1]\e %(SomeoneHoldingObsidian[0])PickupObsidian02"
+		}
+		elseif SomeoneHoldingObsidian[0] _in_ ConvoTag && SomeoneHoldingObsidian != ""
+		{
+			if "%(SomeoneHoldingObsidian[0])PickupObsidian03" _in_ ConvoTag
 			{
-				"\0\n\n\s[0]Ah,\w4 I see.\w8\w8\s[104] Well,\w4 perhaps I'll see more of you around from now on.\w8\w8\e DFirstHelloD02"
-				res_reference0 = "RYS-0825"
+				res_reference0 = reference0
+				"\0\s[0]Oh,\w4 hello there.\w8\w8\s[104] Seems Obsidian has taken a liking to you.\w8\w8\1%(holdnoise)\e %(SomeoneHoldingObsidian[0])PickupObsidian04"
 			}
-			
-			//---S notices dusty---
-			elseif "SFirstHelloS01" _in_ ConvoTag
+			elseif "%(SomeoneHoldingObsidian[0])ObsiJumpDown02" _in_ ConvoTag
 			{
-				"\0\s[110]Ah,\w4\s[104] hello S,\w4 good to see you.\w8\w8\s[0] I didn't realize either,\w4\s[106] but I seem to be fine.\w8\w8\e SFirstHelloD01"
-				res_reference0 = "RYS-0825"
-				talkedtoS = 1
-				metOtherGhosts = 1
-			}
-			elseif "SFirstHelloS02" _in_ ConvoTag
-			{
-				"\0\n\n\s[104]I hope that is the case.\e"
-				res_reference0 = ""
-			}
-			
-			//---Obsi says hi to S---
-			elseif "ObsiSaysHiS01" _in_ ConvoTag
-			{
+				JumpXCoord = TOINT(ConvoTag[1])
+				JumpYCoord = TOINT(ConvoTag[2])
+				obsiJumping = 1
 				
-				"\0\s[400]Ha,\w4 that she is.\e" //replaceframe would like a nicer smile
-				res_reference0 = ""
-			}
-			elseif "SGiveStats1" _in_ ConvoTag
-			{
-				Sspasshour = ConvoTag[0]
-				Ssthesplit = ConvoTag[1]
-				Sslove = ConvoTag[2]
-				SsLV = ConvoTag[3]
-				Sspethighscore = ConvoTag[4]
-				Sstotalpets = ConvoTag[5]
-				
-				//When Dusty asks S(invisibly) for stats, S gives him a long string of numbers. The numbers are divided by commas, so these lines here grab the numbers between those commas and store them in Dusty's variables.
-				
-				Sspasshour = TOINT(Sspasshour) 
-				Ssthesplit = TOINT(Ssthesplit)
-				Sslove = TOINT(Sslove)
-				SsLV = TOINT(SsLV)
-				Sspethighscore = TOINT(Sspethighscore)
-				Sstotalpets = TOINT(Sstotalpets)
-				//When S gives Dusty the variables, they're stored as strings. These lines make them into integers so that I can do things like >= or <=
-				
-				res_reference = "RYS-0825"
-				//"Got stats\n%(Sspasshour)\n%(Ssthesplit)\n%(Sslove)\n%(SsLV)\n%(Sspethighscore)\n%(Sstotalpets)\n\n"
-				--
-				if Sspasshour >= 10
-				{
-					"\0\s[0]How are you holding up,\w4 S?\w8\w8\e HowsSDoingD01"
-				}
-				
-				"\1%(catnoises).\w8\w8\e ObsiSaysHiD01"
-			}
-			elseif "GiveCoords02" _in_ ConvoTag
-			{
-				res_reference0 = ""
-				SsXCoord = ConvoTag[1]
-				SsXCoord = TOINT(SsXCoord)
-				if SsXCoord > DsXCoord
-				{
-					"\s[102]You're to my left.\e"
-				}
-				elseif SsXCoord < DsXCoord
-				{
-					"\s[205]You're to my right.\e"
-				}
-				else
-				{
-					"\s[106]We're overlapping.\e"
-				}
-			}
-			elseif "HowsSDoingS01" _in_ ConvoTag
-			{
-				"\0\n\n\s[208]Hmm...\w8\w8 I think I have a blanket around here somewhere,\w4 if you'd like.\w8\w8\e HowsSDoingD02"
-				res_reference0 = "RYS-0825"
-			}
-			
-			elseif "NicerThanVoidS01" _in_ ConvoTag
-			{
-				"\0\s[107]Honestly,\w4 it was a little overwhelming at first.\w8\w8\s[206] There are so many colors and sounds...\w8\w8\s[104] But now that I've grown accustomed to it,\w4 it's a nice break from the unchanging quiet of the void,\w4 yes.\w8\w8\e NicerThanVoidD01"
-				res_reference0 = "RYS-0825"
-			}
-			elseif "NicerThanVoidS02a" _in_ ConvoTag
-			{
-				"\0\n\n\s[0]Indeed,\w4\s[400] though I'm not sure Obsidian is as pleased.\w8\w8\1\s[1001]Mrrrw.\w8\w8\e NicerThanVoidD02a" //replaceframe maybe something more sarcastic
-				res_reference0 = "RYS-0825"
-			}
-			elseif "NicerThanVoidS03a" _in_ ConvoTag
-			{
-				"\0\n\n\s[400]Oh that's for sure,\w4\s[107] though I'm not sure I actually have much say in it.\w8\w8\e NicerThanVoidD03a"
-				res_reference0 = ""
-			}
-			elseif "NicerThanVoidS02b" _in_ ConvoTag
-			{
-				"\C\0\n\n\s[208]That is true.\w8\w8\s[104] Your company is greatly appreciated,\w4 S.\w8\w8\e NicerThanVoidD02b"
-				res_reference0 = "RYS-0825"
-			}
-			
-			//User has complimented S and mentioned Dusty
-			elseif "SUserComplimentedS01" _in_ ConvoTag
-			{
-				"\0\s[102]It's the truth.\w8\w8\e SUserComplimentedD01"
-				res_reference0 = "RYS-0825"
-			}
-			elseif "SpaceAndTimeS01" _in_ ConvoTag
-			{
-				"\0\s[107].\w4.\w4.\w8\w8\e SpaceAndTimeD01"
-				res_reference0 = "RYS-0825"
-				notfirstresponse = 1
-			}
-			elseif "SpaceAndTimeS02" _in_ ConvoTag
-			{
-				"\0\n\n\s[104]Ah,\w4 but you \f[italic,true]were\f[italic,false] thinking it.\w8\w8\e SpaceAndTimeD02"
-				res_reference0 = "RYS-0825"
-			}
-			elseif "SpaceAndTimeS03" _in_ ConvoTag
-			{
-				"\n\n\0\s[102]Not to worry,\w4 my friend.\w8\w8 I was thinking it too.\e"
-				res_reference0 = ""
-			}
-			elseif "SBootDusty1" _in_ ConvoTag
-			{
-				res_reference0 = ""
-				"\0\s[104]Hello S,\w4 it's good to see you."
-				"\0\s[104]Hello S,\w4 I'm glad to see you."
-				--
-				"\w8\w8\1%(catnoises).\e"
-			}
-			elseif "GiveStatsBoot" _in_ ConvoTag
-			{
-				_Ssnowmode = ConvoTag[0]
-				_SsLV = ConvoTag[1]
-				if _Ssnowmode == " RYS" || _SsLV > 0
-				{
-					res_reference0 = ""
-					"%(normalboottalk)"
-				}
-				else
-				{
-					res_reference0 = "RYS-0825"
-					"\0\s[0]Hello,\w4 %(username).\w8\w8\1%(catnoises).\w8\w8\0\n\n\s[104]Hello S.\e DustyBootS1"
-				}
-			}
-			elseif "SPickupObsi01" _in_ ConvoTag
-			{
-				res_reference0 = "RYS-0825"
-				sHoldingObsidian = 1
-				"\1\s[-1]\e SPickupObsi02"
-			}
-			elseif "SPickupObsi03" _in_ ConvoTag
-			{
-				res_reference0 = ""
-				"%(holdnoise)\w8\w8\0\s[102]Heh,\w4 mooching affection from S now,\w4 are we?\![raise,OnDialogueVars,endchain]\e"
-			}
-			elseif "SObsiJumpDown02" _in_ ConvoTag
-			{
-				SsXCoord = ConvoTag[1]
-				SsYCoord = ConvoTag[2]
-				SsXCoord = TOINT(SsXCoord)
-				SsYCoord = TOINT(SsYCoord)
 				"\![get,property,OnObsiJumpCoords,currentghost.scope(1).rect]"
 			}
-			elseif "SObsiMinimize" _in_ ConvoTag
+			elseif "%(SomeoneHoldingObsidian[0])ObsiMinimize" _in_ ConvoTag
 			{
 				res_reference0 = ""
 				"\w8\w8\![get,property,OnObsiReappear,currentghost.scope(0).rect]"
 			}
-			elseif "SCatNoises" _in_ ConvoTag
+			elseif "%(SomeoneHoldingObsidian[0])ObsiPets" _in_ ConvoTag
 			{
 				res_reference0 = ""
-				"\1%(holdnoise)\e"
-			}
-			elseif "SObsiPets" _in_ ConvoTag
-			{
 				catpets++
 				ObsiLove++
 				"\1%(holdnoise)"
 				--
-				"\0\s[104]Heh,\w4 having a good time over there?\e"
+				"\w8\w8\0\s[104]Heh,\w4 having a good time over there?\e"
 				"\e"
 				"\e"
 				"\e"
 			}
-			elseif "SReallySomething" _in_ ConvoTag
-			{
-				res_reference0 = ""
-				"\0\s[102]I know,\w4 she's one of the best things that ever happened to me.\e"
-			}
-			elseif "SCatsAmazing" _in_ ConvoTag
-			{
-				res_reference0 = ""
-				"\0\s[104]Indeed they are.\e"
-			}
-			elseif "SObsidianLikes01" _in_ ConvoTag
-			{
-				res_reference0 = "RYS-0825"
-				"\0\s[107]Well,\w4 you bring her food after all...\w8\w8\e SObsidianLikes02"
-			}
-			elseif "SLintRoller01" _in_ ConvoTag
-			{
-				res_reference0 = ""
-				"\0\s[106]That might be helpful,\w4 yes.\w8\w8\s[208] I would think she wouldn't grow any new fur,\w8\w[107] but considering the amount that's covering everything...\e"
-			}
-			else //I'm sure as I update them that they wont always have the same convos set up...
-			{
-				res_reference0 = ""
-				"\0\s[104]Hello S.\e"
-			}
-			--
-			":%(speech)"
-		} //==========End conv with S===========
-		elseif reference0 == "Temmie"
-		{
-			res_reference0 = ""
-			//"\0\s[106]Sorry,\w4 I don't have any muns or flakes with me.\w8\w8\s[104] Maybe next time, huh?\e"
 		}
-		else //=========Ghosts he doesn't know==========
+		elseif AlreadyResponded == 0
 		{
-			if AlreadyResponded == 0
-			{
-				AlreadyResponded = 1
-				res_reference0 = reference0
-				"\0\s[0]Hello,\w4 %(reference0).\w8\e"
-			}
-			else
-			{
-				AlreadyResponded = 0
-				res_reference0 = ""
-				"\0\s[0]Hope you're doing well.\e"
-			}
+			AlreadyResponded = 1
+			commuTimer = 5
+			res_reference0 = reference0
+			
+			"\0\s[0]Hello,\w4 %(reference0).\w8\e"
+		}
+		else
+		{
+			AlreadyResponded = 0
+			res_reference0 = ""
+			
+			"\0\s[0]Hope you're doing well.\e"
 		}
 	}
 }
 
-
-
-
-
-OnSGiveStats
+ObsiHoldCheck
 {
-	gotstats += 1
-	Sshours = reference0
+	_num = TOINT(SomeoneHeldObsidian) //handles the number for how many times EVERY ghost has held her
+	_num++
+	SomeoneHeldObsidian[0] = _num
+	
+	_len = ARRAYSIZE(SomeoneHeldObsidian)
+	_found = ""
+	_i = 1
+	while _i < _len //Check the list to see if the current ghost is in it
+	{
+		_ghost = SomeoneHeldObsidian[_i]
+		SETDELIM(_ghost,"|-|")
+		if _ghost[0] == SomeoneHoldingObsidian[0]
+		{
+			_found = SomeoneHeldObsidian[_i]
+			break
+		}
+		
+		_i++
+	}
+	//"Found: %(_found)\n"
+	if _found == "" //If the ghost was not in the list, add them
+	{
+		SomeoneHeldObsidian ,= "%(SomeoneHoldingObsidian[0])|-|1"
+	}
+	else //If the ghost was in the list, grab the number, make it an integer, raise by 1, and put it back in the array. Probably don't need TOSTR but I was having issues
+	{
+		SETDELIM(_found,"|-|")
+		_int = _found[1]
+		_int = TOINT(_int)
+		_int++
+		_found[1] = TOSTR(_int)
+		SomeoneHeldObsidian[_i] = _found
+	}
 }
 
+TalkToS
+{
+	//---Dusty notices S---
+	if "DFirstHelloS01" _in_ ConvoTag
+	{
+		"\0\n\n\s[0]Ah,\w4 I see.\w8\w8\s[104] Well,\w4 perhaps I'll see more of you around from now on.\w8\w8\e DFirstHelloD02"
+		res_reference0 = "RYS-0825"
+	}
+	
+	//---S notices dusty---
+	elseif "SFirstHelloS01" _in_ ConvoTag
+	{
+		"\0\s[110]Ah,\w4\s[104] hello S,\w4 good to see you.\w8\w8\s[0] I didn't realize either,\w4\s[106] but I seem to be fine.\w8\w8\e SFirstHelloD01"
+		res_reference0 = "RYS-0825"
+		talkedtoS = 1
+		metOtherGhosts = 1
+	}
+	elseif "SFirstHelloS02" _in_ ConvoTag
+	{
+		"\0\n\n\s[104]I hope that is the case.\e"
+		res_reference0 = ""
+	}
+	
+	//---Obsi says hi to S---
+	elseif "ObsiSaysHiS01" _in_ ConvoTag
+	{
+		
+		"\0\s[400]Ha,\w4 that she is.\e" //replaceframe would like a nicer smile
+		res_reference0 = ""
+	}
+	elseif "SGiveStats1" _in_ ConvoTag
+	{
+		Sspasshour = ConvoTag[0]
+		Ssthesplit = ConvoTag[1]
+		Sslove = ConvoTag[2]
+		SsLV = ConvoTag[3]
+		Sspethighscore = ConvoTag[4]
+		Sstotalpets = ConvoTag[5]
+		
+		//When Dusty asks S(invisibly) for stats, S gives him a long string of numbers. The numbers are divided by commas, so these lines here grab the numbers between those commas and store them in Dusty's variables.
+		
+		Sspasshour = TOINT(Sspasshour) 
+		Ssthesplit = TOINT(Ssthesplit)
+		Sslove = TOINT(Sslove)
+		SsLV = TOINT(SsLV)
+		Sspethighscore = TOINT(Sspethighscore)
+		Sstotalpets = TOINT(Sstotalpets)
+		//When S gives Dusty the variables, they're stored as strings. These lines make them into integers so that I can do things like >= or <=
+		
+		res_reference = "RYS-0825"
+		//"Got stats\n%(Sspasshour)\n%(Ssthesplit)\n%(Sslove)\n%(SsLV)\n%(Sspethighscore)\n%(Sstotalpets)\n\n"
+		--
+		if Sspasshour >= 10
+		{
+			"\0\s[0]How are you holding up,\w4 S?\w8\w8\e HowsSDoingD01"
+		}
+		
+		"\1%(catnoises).\w8\w8\e ObsiSaysHiD01"
+	}
+	elseif "GiveCoords02" _in_ ConvoTag
+	{
+		res_reference0 = ""
+		SsXCoord = ConvoTag[1]
+		SsXCoord = TOINT(SsXCoord)
+		if SsXCoord > DsXCoord
+		{
+			"\s[102]You're to my left.\e"
+		}
+		elseif SsXCoord < DsXCoord
+		{
+			"\s[205]You're to my right.\e"
+		}
+		else
+		{
+			"\s[106]We're overlapping.\e"
+		}
+	}
+	elseif "HowsSDoingS01" _in_ ConvoTag
+	{
+		"\0\n\n\s[208]Hmm...\w8\w8 I think I have a blanket around here somewhere,\w4 if you'd like.\w8\w8\e HowsSDoingD02"
+		res_reference0 = "RYS-0825"
+	}
+	
+	elseif "NicerThanVoidS01" _in_ ConvoTag
+	{
+		"\0\s[107]Honestly,\w4 it was a little overwhelming at first.\w8\w8\s[206] There are so many colors and sounds...\w8\w8\s[104] But now that I've grown accustomed to it,\w4 it's a nice break from the unchanging quiet of the void,\w4 yes.\w8\w8\e NicerThanVoidD01"
+		res_reference0 = "RYS-0825"
+	}
+	elseif "NicerThanVoidS02a" _in_ ConvoTag
+	{
+		"\0\n\n\s[0]Indeed,\w4\s[400] though I'm not sure Obsidian is as pleased.\w8\w8\1\s[1001]Mrrrw.\w8\w8\e NicerThanVoidD02a" //replaceframe maybe something more sarcastic
+		res_reference0 = "RYS-0825"
+	}
+	elseif "NicerThanVoidS03a" _in_ ConvoTag
+	{
+		"\0\n\n\s[400]Oh that's for sure,\w4\s[107] though I'm not sure I actually have much say in it.\w8\w8\e NicerThanVoidD03a"
+		res_reference0 = ""
+	}
+	elseif "NicerThanVoidS02b" _in_ ConvoTag
+	{
+		"\C\0\n\n\s[208]That is true.\w8\w8\s[104] Your company is greatly appreciated,\w4 S.\w8\w8\e NicerThanVoidD02b"
+		res_reference0 = "RYS-0825"
+	}
+	
+	//User has complimented S and mentioned Dusty
+	elseif "SUserComplimentedS01" _in_ ConvoTag
+	{
+		"\0\s[102]It's the truth.\w8\w8\e SUserComplimentedD01"
+		res_reference0 = "RYS-0825"
+	}
+	elseif "SpaceAndTimeS01" _in_ ConvoTag
+	{
+		"\0\s[107].\w4.\w4.\w8\w8\e SpaceAndTimeD01"
+		res_reference0 = "RYS-0825"
+		notfirstresponse = 1
+	}
+	elseif "SpaceAndTimeS02" _in_ ConvoTag
+	{
+		"\0\n\n\s[104]Ah,\w4 but you \f[italic,true]were\f[italic,false] thinking it.\w8\w8\e SpaceAndTimeD02"
+		res_reference0 = "RYS-0825"
+	}
+	elseif "SpaceAndTimeS03" _in_ ConvoTag
+	{
+		"\n\n\0\s[102]Not to worry,\w4 my friend.\w8\w8 I was thinking it too.\e"
+		res_reference0 = ""
+	}
+	elseif "SBootDusty1" _in_ ConvoTag
+	{
+		res_reference0 = ""
+		"\0\s[104]Hello S,\w4 it's good to see you."
+		"\0\s[104]Hello S,\w4 I'm glad to see you."
+		--
+		"\w8\w8\1%(catnoises).\e"
+	}
+	elseif "GiveStatsBoot" _in_ ConvoTag
+	{
+		_Ssnowmode = ConvoTag[0]
+		_SsLV = ConvoTag[1]
+		if _Ssnowmode == " RYS" || _SsLV > 0
+		{
+			res_reference0 = ""
+			"%(normalboottalk)"
+		}
+		else
+		{
+			res_reference0 = "RYS-0825"
+			"\0\s[0]Hello,\w4 %(username).\w8\w8\1%(catnoises).\w8\w8\0\n\n\s[104]Hello S.\e DustyBootS1"
+		}
+	}
+	elseif "SPickupObsi01" _in_ ConvoTag
+	{
+		res_reference0 = "RYS-0825"
+		sHoldingObsidian = 1
+		SomeoneHoldingObsidian = "RYS-0825,0"
+		"\1\s[-1]\e SPickupObsi02"
+	}
+	elseif "SPickupObsi03" _in_ ConvoTag
+	{
+		res_reference0 = ""
+		ObsiHoldCheck
+		--
+		"%(holdnoise)\w8\w8\0\s[102]Heh,\w4 mooching affection from S now,\w4 are we?\![raise,OnDialogueVars,endchain]\e"
+	}
+	elseif "SObsiJumpDown02" _in_ ConvoTag
+	{
+		SsXCoord = ConvoTag[1]
+		SsYCoord = ConvoTag[2]
+		SsXCoord = TOINT(SsXCoord)
+		SsYCoord = TOINT(SsYCoord)
+		obsiJumping = 1
+		SomeoneHoldingObsidian = ""
+		"\![get,property,OnObsiJumpCoords,currentghost.scope(1).rect]"
+	}
+	elseif "SObsiMinimize" _in_ ConvoTag
+	{
+		res_reference0 = ""
+		"\w8\w8\![get,property,OnObsiReappear,currentghost.scope(0).rect]"
+	}
+	elseif "SCatNoises" _in_ ConvoTag
+	{
+		res_reference0 = ""
+		"\1%(holdnoise)\e"
+	}
+	elseif "SObsiPets" _in_ ConvoTag
+	{
+		catpets++
+		ObsiLove++
+		"\1%(holdnoise)"
+		--
+		"\0\s[104]Heh,\w4 having a good time over there?\e"
+		"\e"
+		"\e"
+		"\e"
+	}
+	elseif "SReallySomething" _in_ ConvoTag
+	{
+		res_reference0 = ""
+		
+		"\0\s[102]I know,\w4 she's one of the best things that ever happened to me.\e"
+	}
+	elseif "SCatsAmazing" _in_ ConvoTag
+	{
+		res_reference0 = ""
+		
+		"\0\s[104]Indeed they are.\e"
+	}
+	elseif "SObsidianLikes01" _in_ ConvoTag
+	{
+		res_reference0 = "RYS-0825"
+		"\0\s[107]Well,\w4 you bring her food after all...\w8\w8\e SObsidianLikes02"
+	}
+	elseif "SLintRoller01" _in_ ConvoTag
+	{
+		res_reference0 = ""
+		"\0\s[106]That might be helpful,\w4 yes.\w8\w8\s[208] I would think she wouldn't grow any new fur,\w8\w[107] but considering the amount that's covering everything...\e"
+	}
+	elseif "S-Dusty-RudeToTalk-S01" _in_ ConvoTag
+	{
+		res_reference0 = "RYS-0825"
+		
+		"\0\n\n\s[102]No.\w8\w8\e S-Dusty-RudeToTalk-D02"
+	}
+	elseif "S-Dusty-RudeToTalk-S02" _in_ ConvoTag
+	{
+		res_reference0 = "RYS-0825"
+		
+		"\0\n\n\s[102]Well,\w4 yes,\w8\s[113] but that's beside the point.\w8\w8\e S-Dusty-RudeToTalk-D03"
+	}
+	elseif "S-Dusty-RudeToTalk-S03" _in_ ConvoTag
+	{
+		res_reference0 = ""
+		
+		"\1%(catnoises)~\0"
+		--
+		"%(ghostquestions)"
+	}
+	else //I'm sure as I update them that they wont always have the same convos set up...
+	{
+		res_reference0 = ""
+		
+		"\0\s[104]Hello S.\e"
+	}
+}
+
+TalkToElsen
+{
+	if "ElsenPickupObsidian01" _in_ ConvoTag
+	{
+		res_reference0 = "Elsen"
+		SomeoneHoldingObsidian = "Elsen,0"
+		ObsiHoldCheck
+		--
+		"\1\s[-1]\e ElsenPickupObsidian02"
+	}
+	elseif "ElsenPickupObsidian03" _in_ ConvoTag
+	{
+		res_reference0 = ""
+		
+		"\0\s[102]\w8\w8Heh,\w4 she's a mooch for affection,\w4 as always...\e"
+	}
+	elseif "ElsenObsiJumpDown02" _in_ ConvoTag
+	{
+		JumpXCoord = TOINT(ConvoTag[1])
+		JumpYCoord = TOINT(ConvoTag[2])
+		obsiJumping = 1
+		
+		"\![get,property,OnObsiJumpCoords,currentghost.scope(1).rect]"
+	}
+	elseif "ElsenObsiMinimize" _in_ ConvoTag
+	{
+		res_reference0 = ""
+		"\w8\w8\![get,property,OnObsiReappear,currentghost.scope(0).rect]"
+	}
+	elseif "ElsenObsiPets" _in_ ConvoTag
+	{
+		res_reference0 = ""
+		catpets++
+		ObsiLove++
+		"\1%(holdnoise)"
+		--
+		"\0\s[104]Heh,\w4 having a good time over there?\e"
+		"\e"
+		"\e"
+		"\e"
+	}
+	elseif "DustyMeetElsen02" _in_ ConvoTag
+	{
+		res_reference0 = "Elsen"
+		
+		"\1\n\n\s[1006]%(catnoise)!\w8\w8\0\s[114]Ah,\w4 hello.\w8\w8\s[106] She's not bothering you,\w4 is she?\w8\w8\n\n\s[400]%(wdf)OBSIDIAN,\w4 BEHAVE YOURSELF.%(reg)\w8\w8\e DustyMeetElsen03"
+	}
+	elseif "DustyMeetElsen04" _in_ ConvoTag
+	{
+		res_reference0 = ""
+		
+		"\0\n\n\s[0]Her name is Obsidian,\w4 she's here with me.\w8\w8\s[104] I don't believe we've met yet;\w8 my name is Dusty.\w8\w8\s[114] And you are?\w8\w8\e DustyMeetElsen05"
+	}
+	elseif "DustyMeetElsen06" _in_ ConvoTag
+	{
+		res_reference0 = ""
+		
+		"\0\n\n\s[208]Ah,\w4 I see.\w8\w8\s[0] I'm not familiar with Zone 1,\w8\s[104] but it's nice to meet you.\w8\w8\1\n\n\s[1003]%(holdnoise)~\e"
+	}
+	elseif "DustyMeetElsenB" _in_ ConvoTag //If Elsen picks up Obsidian before they meet
+	{
+		res_reference0 = "Elsen"
+		
+		"\1%(holdnoise)!\w8\w8\0\s[110]Oh-\w8 hello.\w8\w8\s[106] I'm sorry,\w4 she's not bothering you,\w4 is she?\w8\w8\e DustyMeetElsen03"
+	}
+	elseif "DustyElsen01-01" _in_ ConvoTag
+	{
+		res_reference0 = "Elsen"
+		
+		"\0\s[106]Ah,\w4 no,\w4 I'm not from here.\w8\w8\s[205] I used to live in a completely different world from yours,\w4 deep underground.\w8\w8\s[102] Now I exist in the void,\w8\s[0] except when %(username) brings me here.\w8\w8\e DustyElsen01-02"
+	}
+	elseif "DustyElsen01-03" _in_ ConvoTag
+	{
+		res_reference0 = "Elsen"
+		
+		"\0\n\n\s[102]It is the space between timelines,\w4 where nothing exists at all,\w4 usually.\w8\w8\s[208] Sometimes it takes different forms;\w8 for my timeline it's an endless expanse of gray where time doesn't pass.\w8\w8\e DustyElsen01-04"
+	}
+	elseif "DustyElsen01-05" _in_ ConvoTag
+	{
+		res_reference0 = ""
+		
+		"\0\n\n\s[106]I've been there a long time,\w8 so I'm used to it by now.\w8\w8\s[102] But I can observe other timelines with my screens,\w4 and I have Obsidian with me,\w4 so it's not all bad.\w8\w8\1%(catnoises)\e"
+	}
+	elseif "DustyElsen02-02" _in_ ConvoTag
+	{
+		res_reference0 = ""
+		
+		"\0\n\n\s[104]That's good to hear,\w8\s[106] though I hope things will become less stressful for you back home.\e"
+	}
+	elseif "DustyElsenCat01-01" _in_ ConvoTag
+	{
+		res_reference0 = "Elsen"
+		
+		"\0\s[114]Oh,\w4 yes,\w4\s[104] she has been my companion for several years now.\w8\w8\1%(holdnoise)!\w8\w8\0\n\n\s[102]She's really taken to you,\w4 I'm glad to see it.\e DustyElsenCat01-02"
+	}
+	elseif "DustyElsenCat01-03" _in_ ConvoTag
+	{
+		res_reference0 = "Elsen"
+		
+		"\0\s[106]She was brought to me by one of my friends,\w4 actually.\w8\w8\s[107] She was sick and not doing well,\w4 so he gave her to me to care for.\w8\w8\s[104] Ever since then she's stuck close to me.\w8\w8\e DustyElsenCat01-04"
+	}
+	elseif "DustyElsenCat01-05" _in_ ConvoTag
+	{
+		res_reference0 = ""
+		
+		"\0\n\n\s[102]Heh,\w4 I'm lucky to have her,\w4 honestly.\e"
+	}
+	elseif "DustyElsenCat02-02" _in_ ConvoTag
+	{
+		res_reference0 = "Elsen"
+		
+		"\0\n\n\s[102]Ah,\w4 I see.\w8\w8\s[0] Well,\w4 you're welcome to hold Obsidian any time you're here,\w4 so long as she's comfortable with it.\w8\w8\e DustyElsenCat02-03"
+	}
+	elseif "DustyElsenCat02-04" _in_ ConvoTag
+	{
+		res_reference0 = "Elsen"
+		
+		"\0\n\n\s[208]No,\w4 she doesn't.\w8\w8\s[107] She just meows a lot,\w4 really.\w8\w8\1%(holdnoise)!\e"
+	}
+	else
+	{
+		res_reference0 = ""
+		
+		"\0\s[0]Hello,\w4 Elsen.\e"
+	}
+}
+
+TalkToMiniDev
+{
+	if "DustyRequestMDStats1" _in_ ConvoTag
+	{
+		_tentruth = TOINT(ConvoTag[1])
+		_meeting = ConvoTag[2]
+		_devname = ConvoTag[3]
+		_repairglitch = ConvoTag[4]
+		
+		if _tentruth != 1
+		{
+			if talkedtoMiniDev < 1
+			{
+				res_reference0 = "MiniDev"
+				
+				"\1\s[10]* (Obsidian is eyeing MiniDev's monitor.)\w8\w8\0\s[0]Hello there.\w8\w8 You are MiniDev,\w4 yes?\e HiMD01"
+			}
+			else
+			{
+				res_reference0 = "MiniDev"
+
+				"\1%(catnoises).\w8\w8\e MiniDev-Dusty-01-02"
+			}
+		}
+		else
+		{
+			res_reference0 = ""
+			
+			"\0\s[102]* (He hasn't noticed M-201z...)\e" //placeholder because oh god the scope balloons so much when ghosts have multiple modes
+		}
+	}
+	elseif "MDRequestDustyStats" _in_ ConvoTag
+	{
+		"\e MDRequestDustyStats1,%(recenttreats),%(treatsgiven),%(totalpingpong),%(totalcatnip),%(totalmousetoys),%(totalbelltoy),%(totalblanket),%(spentG)"
+	}
+	elseif "MiniDevPickupObsidian01" _in_ ConvoTag //Passing info back and forth and making Obsi disappear
+	{
+		res_reference0 = "MiniDev"
+		SomeoneHoldingObsidian = "MiniDev,0"
+		ObsiHoldCheck
+		--
+		"\1\s[-1]\e MiniDevPickupObsidian02"
+	}
+	elseif "MiniDevPickupObsidian03" _in_ ConvoTag
+	{
+		res_reference0 = "MiniDev"
+		
+		
+		if talkedtoMiniDev < 1
+		{
+			talkedtoMiniDev = 1
+			
+			"\1* (A purr rumbles in Obsidian's throat as she settles down on MiniDev's monitor)\w8\w8\0\s[106]Ah,\w4 sorry about that,\w8\s[107] she loves anything warm...\w8\w8\n\n\s[0]You're MiniDev,\w4 right?\w8\w8\s[106] I can get her down,\w4 if you want.\w8\w8\e MiniDevPickupObsidian04"
+		}
+		else
+		{
+			"\1* (Obsidian settles down happily.)\w8\w8\e MiniDevPickupObsidianB"
+		}
+	}
+	elseif "MiniDevPickupObsidian05" _in_ ConvoTag
+	{
+		res_reference0 = "MiniDev"
+		
+		"\0\n\n\s[107]Ah,\w4 alright then.\w8\w8\s[104] It's good to meet you;\w8\s[0] I'm Dusty,\w4 and her name is Obsidian.\w8\w8\n\n\s[113]%(wdf)AND SHE THINKS SHE'S IN CHARGE OF EVERYTHING...%(reg)\w8\w8\e MiniDevPickupObsidian06"
+	}
+	elseif "MiniDevPickupObsidian07" _in_ ConvoTag
+	{
+		res_reference0 = ""
+		
+		"\0\n\n\s[110].\w8.\w8.\w8\w8\w8\s[106]My apologies,\w4 I didn't realize you could understand Wingdings.\e"
+	}
+	elseif "MiniDevPickupObsidian10" _in_ ConvoTag
+	{
+		res_reference0 = ""
+		
+		"\1* (Obsidian settles down happily.)\w8\w8\e MiniDevPickupObsidianB"
+	}
+	elseif "MiniDevObsiJumpDown02" _in_ ConvoTag
+	{
+		JumpXCoord = TOINT(ConvoTag[1])
+		JumpYCoord = TOINT(ConvoTag[2])
+		obsiJumping = 1
+		
+		"\![get,property,OnObsiJumpCoords,currentghost.scope(1).rect]"
+	}
+	elseif "MiniDev-Dusty-01-01" _in_ ConvoTag
+	{
+		res_reference0 = "MiniDev"
+		
+		"\1%(catnoises).\w8\w8\e MiniDev-Dusty-01-02"
+	}
+	elseif "MiniDev-Dusty-01-03" _in_ ConvoTag
+	{
+		res_reference0 = "MiniDev"
+		
+		"\0\s[106]\1\s[1003]\n\n%(holdnoise)!\w8\w8\n\n* (Her stomach rumbles...)\w8\w8\e MiniDev-Dusty-01-04"
+	}
+	elseif "MiniDev-Dusty-01-05" _in_ ConvoTag
+	{
+		res_reference0 = ""
+		
+		"\1\n\n\s[10]* (Obsidian stares into your soul.)\w8\w8\e"
+	}
+	else
+	{
+		res_reference0 = ""
+		"\0\s[104]Hello,\w4 MiniDev.\e"
+	}
+	--
+	"::%(speech)"
+}
+
+OnMenuCommu //These are commus that start in Dusty's menu, called with \![raise]
+{
+	if reference0 == "rudetotalk"
+	{
+		res_reference0 = "RYS-0825"
+		
+		"\0\s[107]It would be rude to talk about him while he is standing here.\w8\w8\e S-Dusty-RudeToTalk-D01"
+	}
+}
+
+OnOtherOverlap
+{
+	if holdingObsidian == 0 && SomeoneHoldingObsidian == "" && obsiJumping == 0
+	{
+		if "Dusty/1" _in_ reference0
+		{
+			_len = ARRAYSIZE(reference0)
+			_i = 0
+			_ghost = ""
+			_num = ""
+			while _i < _len
+			{
+				if "Dusty" _in_ reference0[_i]
+				{
+					_ghost = reference0[_i]
+					break
+				}
+				_i++
+			}
+			
+			if "Dusty/1-" _in_ _ghost //If Dusty is listed first
+			{
+				_ghost = REPLACE(_ghost,"Dusty/1-","")
+				if RE_SEARCH (_ghost,'/(\d)'); {_num = RE_GETSTR[1]}
+				_ghost = REPLACE(_ghost,"/%(_num)","")
+			}
+			else //If Dusty is listed second
+			{
+				_ghost = REPLACE(_ghost,"Dusty/1","")
+				if RE_SEARCH (_ghost,'/(\d)-'); {_num = RE_GETSTR[1]}
+				_ghost = REPLACE(_ghost,"%(_num)","")
+				_ghost = REPLACE(_ghost,"/-","")
+			}
+			
+			//"%(reference0)\nSaw %(_ghost) num: %(_num)\n%(res_reference0)\x"
+			--
+			res_reference0 = _ghost
+			
+			"\e CanYouHoldObsidian? %(_num) %(_ghost)"
+		}
+	}
+}
+
+OnObsiJumpCoords
+{
+	if sHoldingObsidian == 1
+	{
+		sHoldingObsidian = 0
+		SsXCoord -= 10
+		_toX = (SsXCoord - 100)
+		SsYCoord -= 120 //Go up by half Obsi's frame height
+		if nowscale > 100
+		{
+			SsYCoord = (SsYCoord - nowscale)
+		}
+		if nowscale < 100
+		{
+			SsYCoord = (SsYCoord + nowscale)
+		}
+		sHoldingObsidian = 0
+		res_reference0 = "RYS-0825"
+		"\w4\1\s[1009]\![move,--X=%(SsXCoord),--Y=%(SsYCoord),--base=primaryscreen]\![move,--X=%(_toX),--Y=fix,--time=700,--base=primaryscreen]\s[1004]%(holdnoise)\w8\w8\![raise,OnDialogueVars,ObsiDoneJump]\e SObsiJumpDown03"
+	}
+	else
+	{
+		JumpXCoord -= 10
+		_toX = (JumpXCoord - 100)
+		JumpYCoord -= 120 //Go up by half Obsi's frame height
+		if nowscale > 100 {JumpYCoord = (JumpYCoord - nowscale)}
+		if nowscale < 100 {JumpYCoord = (JumpYCoord + nowscale)}
+		
+		_ghost = SomeoneHoldingObsidian[0]
+		res_reference0 = SomeoneHoldingObsidian[0]
+		SomeoneHoldingObsidian = ""
+		
+		if res_reference0 == "Elsen"; {res_reference0 = ""}
+		if res_reference0 == "MiniDev"; {res_reference0 = ""}
+		
+		"\w4\1\s[1009]\![move,--X=%(JumpXCoord),--Y=%(JumpYCoord),--base=primaryscreen]\![move,--X=%(_toX),--Y=fix,--time=700,--base=primaryscreen]\s[1004]%(holdnoise)\w8\w8\![raise,OnDialogueVars,ObsiDoneJump]\e"
+		--
+		" %(_ghost)ObsiJumpDown03"
+	}
+}
 
 OnFacingCoords
 {
@@ -372,34 +867,4 @@ OnFacingCoords
 	DsXCoord = TOINT(DsXCoord)
 	res_reference0 = "RYS-0825"
 	"\e GiveCoords01,%(reference0)"
-}
-
-OnDustyDragCoords
-{
-	_OsXCoord = reference0[0]
-	_OsXCoord = TOINT(_OsXCoord)
-	_OsRightCoord = (_OsXCoord + 120)
-	_SRightCoord = (SsXCoord + 270)
-	
-	
-	
-}
-
-
-OnObsiJumpCoords
-{
-	SsXCoord -= 10
-	_toX = (SsXCoord - 100)
-	SsYCoord -= 120 //Go up by half Obsi's frame height
-	if nowscale > 100
-	{
-		SsYCoord = (SsYCoord - nowscale)
-	}
-	if nowscale < 100
-	{
-		SsYCoord = (SsYCoord + nowscale)
-	}
-	sHoldingObsidian = 0
-	res_reference0 = "RYS-0825"
-	"\w4\1\s[1009]\![move,--X=%(SsXCoord),--Y=%(SsYCoord),--base=primaryscreen]\![move,--X=%(_toX),--Y=fix,--time=700,--base=primaryscreen]\s[1004]%(holdnoise)\w8\w8\e SObsiJumpDown03"
 }

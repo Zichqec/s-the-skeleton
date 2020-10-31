@@ -2387,12 +2387,18 @@ OnSecondChange
 			sleepsec++
 		}
 	}
+	if commuTimer >= 1; commuTimer--; else; commuTimer = 0
+	if commuTimer == 0; AlreadyResponded = 0
 	--
-	if mikireflag == 1 && reference1 == 0
+	if mikireflag == 0 && reference1 == 1 //Dialogue for putting them off the screen. You could make this a unique line if you wanted, and have MikireTalk be for if they continue to be offscreen
+	{
+		MikireTalk
+	}
+	if mikireflag == 1 && reference1 == 0 //Dialogue for coming back on the screen
 	{
 		EndMikireTalk
 	}
-	mikireflag = reference1
+	mikireflag = reference1 //reference1 is if the ghost is offscreen or not
 	if reference2 == 1
 	{
 

@@ -818,9 +818,11 @@ OnDialogueVariables
 	}
 	elseif reference0 == "complimentdusty"
 	{
-		specialcommu = 1
-		complimentaboutdusty = 1
-		OnCommunicate //This'll put him over into communication without setting the flag for him talking first
+		complimentaboutdusty = 0 //resetting the variable
+		complimented += 2 //extra points on the compliments because he's flustered now
+		res_reference0 = "Dusty"
+		"\0* (You tell S that he's a good friend and Dusty is lucky to have him.)\w8\w8\n\n\s[110]Ah-\w4 uh-\w8\w8\e SUserComplimentedS01" //Note the \C here. That brings back the last balloon. Powerful tag, but easy to mess up. Use wisely.
+		
 	}
 	elseif reference0 == "gummyfrogs"
 	{
@@ -880,9 +882,8 @@ OnDialogueVariables
 	}
 	elseif reference0 == "dustyspaceandtime"
 	{
-		specialcommu = 1
-		dustyspaceandtime = 1
-		OnCommunicate
+		res_reference0 = "Dusty"
+		"\0\s[208].\w4.\w4.\w8\w8\e SpaceAndTimeS01"
 	}
 	elseif reference0 == "abbiisblind"
 	{

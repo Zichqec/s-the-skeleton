@@ -1,546 +1,613 @@
-//---------------------------Communication--------------------------
-
-//--OnCommunicate
-
-//OnCommunicate is called when your ghost is either targeted by another ghost for a conversation, or when your ghost is targeting another ghost for conversation. There's no need to touch any of this.
-OnStartTalking
-{
-	SpokeFirst = 1 //setting a flag
-	OnCommunicate
-	_number = RAND(ghostexcount) // This checks the number of other ghosts summoned and chooses a random number based on it
-	checkname = "%(ghostexlist[_number])" // This grabs the reference name of the ghost to check against known names. It should be the sakura name.
-}
-
 OnCommunicate
 {
-	speech = SPLIT(reference1,"\e")[0] //This is everything the ghost said that the user can see
-	ConvoTag = SPLIT(reference1,"\e")[1] //This is everything after the \e, which will be the invisible tags that track the conversation
-	
 	if reference0 == "user" || reference0 == "User"
  	{
-		//---- answering the user
- 		ReplyToUser
+		//Deprecated function I think? Either way, I'm not using ReplyToUser so I got rid of it
 	}
-	elseif "DustyGetStatsBoot" _in_ ConvoTag
+	elseif nowmode == "RYS"
 	{
-		"\e %(nowmode),%(LV), GiveStatsBoot"
-		res_reference0 = "Dusty"
+		res_reference0 = ""
+		if ghostexcount > 0 //Checking to see if there's another ghost
+		{
+			"\RYS\s[2007]* (He seems afraid of %(checkname).)\e"
+		}
+		else
+		{
+			"\RYS\s[2007]* (He fidgets.)\w8\w8\n\n\s[2006]Um,\w4 nobody else is here...\e"
+		}
+	}
+	elseif nowmode == "Asleep"
+	{
+		res_reference0 = ""
+		"\0\s[1300]* (He continues sleeping,\w4 unaware...)\e"
+	}
+	elseif holdingObsidian == 1 && reference0 != "Dusty"
+	{
+		"\0\s[1201]* (He's paying close attention to the cat,\w4 he didn't notice %(reference0)...)\e"
 	}
  	else
 	{
  		//---- answering another ghost
-		if nowmode == "RYS"
+		if LV == 0
 		{
-			res_reference0 = ""
-			if ghostexcount > 0 //Checking to see if there's another ghost
-			{
-				"\RYS\s[2007]* (He seems afraid of %(checkname).)\e"
-			}
-			else
-			{
-				"\RYS\s[2007]* (He fidgets.)\w8\w8\n\n\s[2006]Um,\w4 nobody else is here...\e"
-			}
+			ReplyToGhost
 		}
 		else
 		{
-			if LV == 0
+			if LVCheck == 1
 			{
-				ReplyToGhost
-			}
-			else
-			{
-				if LVCheck == 1
+				res_reference0 = ""
+				if ghostexcount > 0 //Checking to see if there's another ghost
 				{
-					res_reference0 = ""
-					if ghostexcount > 0 //Checking to see if there's another ghost
-					{
-						"\0\s[510]* (He tries to stay out of %(checkname)'s sight.)\e"
-					}
-					else
-					{
-						"\0\s[510]...Nobody else is here.\e"
-					}
+					"\0\s[510]* (He tries to stay out of %(checkname)'s sight.)\e"
 				}
 				else
 				{
-					res_reference0 = ""
-					if ghostexcount > 0 //Checking to see if there's another ghost
-					{
-						"\0\s[410]* (He doesn't seem to have noticed %(checkname).)\e"
-					}
-					else
-					{
-						"\0\s[410]Hmph,\w4 nobody else is even here.\e"
-					}
+					"\0\s[510]...Nobody else is here.\e"
+				}
+			}
+			else
+			{
+				res_reference0 = ""
+				if ghostexcount > 0 //Checking to see if there's another ghost
+				{
+					"\0\s[410]* (He doesn't seem to have noticed %(checkname).)\e"
+				}
+				else
+				{
+					"\0\s[410]Hmph,\w4 nobody else is even here.\e"
 				}
 			}
 		}
+		
  	}
 }
 
-//Just ignore this.
-ReplyToUser
+OnStartTalking //Starting conversations
 {
-	TalkToUser
-}
-
-ReplyToGhost //I'll..... add a friendship check to this later......... or maybe I'll give that its own function, that would be cleaner....
-{
-	if specialcommu == 1 //Using this for if you've said something to S in his menu that another ghost might pick up on
+	if ghostexcount > 0 //Checking to see if there's another ghost
 	{
-		specialcommu = 0 //resetting the variable
-		
-		if complimentaboutdusty == 1 //which convo specifically
+		_number = RAND(ghostexcount) // This checks the number of other ghosts summoned and chooses a random number based on it
+		--
+		_ghost = "%(ghostexlist[_number])" // This grabs the reference name of the ghost to check against known names. It should be the sakura name.
+		--
+		case _ghost
 		{
-			complimentaboutdusty = 0 //resetting the variable
-			complimented += 2 //extra points on the compliments because he's flustered now
-			"\C\0\s[110]Ah-\w4 uh-\w8\w8\e SUserComplimentedS01" //Note the \C here. That brings back the last balloon. Powerful tag, but easy to mess up. Use wisely.
-			res_reference0 = "Dusty"
-		}
-		elseif dustyspaceandtime == 1
-		{
-			dustyspaceandtime = 0
-			"\0\s[208].\w4.\w4.\w8\w8\e SpaceAndTimeS01"
-			res_reference0 = "Dusty"
-		}
-	}
-	elseif SpokeFirst == 1 //======================Starting a conversation=======================
-	{
-		SpokeFirst = 0
-		if ghostexcount > 0 //Checking to see if there's another ghost
-		{
-			// Checking the selected loaded ghost's name vs known names to comment on them
-			case checkname
+			when "Dusty"
 			{
-				when "Dusty"
+				if talkedtoDusty == 0 //if they haven't seen each other before
 				{
-					if talkedtoDusty == 0 //if they haven't seen each other before
-					{
-						res_reference0 = "Dusty"
-						talkedtoDusty = 1
-						"\0\s[110]Oh!\w8\w8 Dusty,\w4 is that you?\w8\w8\s[101] I didn't realize you could survive in a place like this.\w8\w8\e SFirstHelloS01"
-					}
-					else //After they've seen each other
-					{
-						"\0\s[104]It's pretty nice that you can exist here,\w4 huh?\w8\w8\s[101] It's got to be better than the void,\w4 anyways.\w8\w8\e NicerThanVoidS01"
-						res_reference0 = "Dusty"
-					}
+					res_reference0 = "Dusty"
+					talkedtoDusty = 1
+					"\0\s[110]Oh!\w8\w8 Dusty,\w4 is that you?\w8\w8\s[101] I didn't realize you could survive in a place like this.\w8\w8\e SFirstHelloS01"
 				}
-				when "Azura" //=======Azura========
+				else //After they've seen each other
 				{
-					res_reference0 = "Azura"
-					talkedtoAzura = 1
-					"\s[103]Hey %(res_reference0),\w4\s[0] what are you doing?\e"
+					"\0\s[104]It's pretty nice that you can exist here,\w4 huh?\w8\w8\s[101] It's got to be better than the void,\w4 anyways.\w8\w8\e NicerThanVoidS01"
+					res_reference0 = "Dusty"
 				}
-				when "Gaster" //=========Zarla's Gaster=======
-				{
-					res_reference0 = ""
-					"\0\s[200].\w4.\w4.\w8\w8\n\n* (Doesn't seem like he wants to talk to %(checkname).)\e"
-				}
-				when "Temmie"
-				{
-					res_reference0 = "Temmie"
-					"\0\s[104]Hello Temmie!\w8\w8\e"
-				}
-				when "MiniDev"
+			}
+			when "Azura" //=======Azura========
+			{
+				res_reference0 = "Azura"
+				talkedtoAzura = 1
+				
+				"\s[103]Hey %(res_reference0),\w4\s[0] what are you doing?\e"
+			}
+			when "Gaster" //=========Zarla's Gaster=======
+			{
+				res_reference0 = ""
+				"\0\s[200].\w4.\w4.\w8\w8\n\n* (Doesn't seem like he wants to talk to %(checkname).)\e"
+			}
+			when "Temmie"
+			{
+				res_reference0 = "Temmie"
+				"\0\s[104]Hello Temmie!\w8\w8\e"
+			}
+			when "MiniDev"
+			{
+				//S will check MiniDev's outfit, if S is in the correct shell and hasn't already done this
+				if MiniDevSOutf != 1 && (nowshell == "red_hoodie" || nowshell == "pink_apron")
 				{
 					res_reference0 = "MiniDev"
 					"\e GetMiniDevStats01"
 				}
-				when "Hydrate"
+				else
 				{
-					"\0\s[110]* (He's staring at Hydrate...)\w8\w8\n\n* (Maybe you should give him some water.)\e"
-				}
-				others //======Any ghost he doesn't know========
-				{
-					AlreadyResponded = 1
-					res_reference0 = checkname
-					"\0\s[104]Hey,\w4 %(res_reference0).\w8\w8\e"
+					res_reference0 = "MiniDev"
+					"\0\s[104]Hey,\w4 MiniDev.\e"
 				}
 			}
-		}
-		else //If there is no other ghost
-		{
-			"\0\s[106]Ah,\w4 I don't think anyone else is here,\w4 kiddo.\e"
+			when "Hydrate"
+			{
+				"\0\s[110]* (He's staring at Hydrate...)\w8\w8\n\n* (Maybe you should give him some water.)\e"
+			}
+			others //======Any ghost he doesn't know========
+			{
+				//SHIORI3FW.SetDelayEvent('LoopPrevention',5)
+				commuTimer = 5
+				AlreadyResponded = 1
+				res_reference0 = checkname
+				
+				"\0\s[104]Hey,\w4 %(res_reference0).\w8\w8\e"
+			}
 		}
 	}
-	else //===========================Replying to a conversation========================
+	else //If there is no other ghost
 	{
-		//speech = TOLOWER("%(reference1)")
-		_LastCommu = SPLIT(ConvoTag,":")[1] //The other ghost sends ":%(speech)" at the end of every communication, so this grabs what THIS ghost last said. See below.
-		
-		_LastCommu = REPLACE(_LastCommu,"\![quicksection,true]","") //Removing the quicksection tags or they overlap and break...
-		_LastCommu = REPLACE(_LastCommu,"\![quicksection,false]","")
-		_LastCommu = REPLACE(_LastCommu,"\w1","")
-		_LastCommu = REPLACE(_LastCommu,"\w4","")
-		_LastCommu = REPLACE(_LastCommu,"\w8","") //I only ever use \w4, \w8, and \w1. May need to add more for other ghosts they talk with.
-		_LastCommu = REPLACE(_LastCommu,":chain=end","")
-		
-		--
-		
-		//These split the dialogue S has been sent. The first two lines split it at the \e, into speech, which is what the user would see, and ConvoTag, which are the tags hidden after the \e that he uses to tell where they're at in conversation. The third line makes speech lowercase, in case I want to test for specific words
-		//Actually I'm going to try something, so for now I've commented out the TOLOWER...
-		
-		if reference0 == "Dusty" //=======Conversations with Dusty=========
-		{
-			"\![quicksection,true]%(_LastCommu)\![quicksection,false]"
-			--
-			//---Dusty notices S---
-			if "DFirstHelloD01" _in_ ConvoTag
-			{
-				talkedtoDusty = 1
-				"\0\s[110]Oh!\w8\w8\s[104] I didn't realize you could come here,\w4 Dusty.\w8\w8 "
-				--
-				if totalhours > 20
-				{
-					"\s[0]Yeah,\w4 I spend a lot of time here."
-				}
-				else
-				{
-					"\s[106]I'm not really too sure how I got here,\w4 but uh,\w4 yeah I guess."
-				}
-				--
-				"\w8\w8\e DFirstHelloS01"
-				res_reference0 = "Dusty"
-			}
-			elseif "DFirstHelloD02" _in_ ConvoTag
-			{
-				res_reference0 = ""
-				"\0\n\n\s[104]Sounds good to me.\e"
-			}
-			
-			//---S notices Dusty---
-			elseif "SFirstHelloD01" _in_ ConvoTag
-			{
-				"\C\0\n\n\s[104]Well that's good to see,\w4 maybe if we're lucky I'll bump into you here more often,\w4 huh?\w8\w8\e SFirstHelloS02"
-				res_reference0 = "Dusty"
-			}
-			
-			//---Obsidian meows at S---
-			elseif "ObsiSaysHiD01" _in_ ConvoTag
-			{
-				"\0\s[104]Hello to you too,\w4 Obsidian.\w8\w8 Keeping Dusty company?\w8\w8\e ObsiSaysHiS01"
-				res_reference0 = "Dusty"
-			}
-			
-			//Dusty asks how S is doing
-			elseif "HowsSDoingD01" _in_ ConvoTag
-			{
-				"\0\s[109]I'm getting pretty tired,\w4 honestly.\w8\w8\e HowsSDoingS01"
-				res_reference0 = "Dusty"
-			}
-			elseif "HowsSDoingD02" _in_ ConvoTag
-			{
-				"\0\n\n\s[106]Ah,\w4 I'll pass for the moment,\w4\s[104] but thank you.\e"
-				res_reference0 = ""
-			}
-			elseif "GetSStats1" _in_ ConvoTag
-			{
-				"\e %(passhour),%(thesplit),%(love),%(LV),%(pethighscore),%(totalpets), SGiveStats1"
-				res_reference0 = "Dusty"
-			}
-			elseif "GiveCoords01" _in_ ConvoTag
-			{
-				"\![get,property,OnFacingCoords,currentghost.scope(0).rect]"
-			}
-			
-			//---This is nicer than the void isn't it?---
-			elseif "NicerThanVoidD01" _in_ ConvoTag
-			{
-				if ghostexcount > 1 //If there's more than just the two of them
-				{
-					"\0\n\n\s[103]It's great that you get to meet more people here,\w4 too.\w8\w8\e NicerThanVoidS02a"
-				}
-				else
-				{
-					"\0\n\n\s[205]I'm just glad we're not alone here,\w4 it's still kinda lonely here when you're by yourself.\w8\w8\e NicerThanVoidS02b"
-				}
-				--
-				res_reference0 = "Dusty"
-			}
-			elseif "NicerThanVoidD02a" _in_ ConvoTag
-			{
-				"\0\n\n\s[202]Heh,\w4 she'll have to get over it.\w8\w8\s[102] Besides,\w4 I'm sure she'll get plenty of extra attention when you go back,\w4 right?\w8\w8\e NicerThanVoidS03a"
-				res_reference0 = "Dusty"
-			}
-			elseif "NicerThanVoidD02b" _in_ ConvoTag
-			{
-				"\0\n\n\s[1020]Aw geez,\w4 I'm just glad I can help...\e"
-				res_reference0 = ""
-			}
-			
-			
-			//user complimented S and mentioned Dusty
-			elseif "SUserComplimentedD01" _in_ ConvoTag
-			{
-				"\0\n\n\s[1030]C-c'mon,\w4 knock it off you guys...\w8\w8\e"
-				res_reference0 = ""
-			}
-			elseif "SpaceAndTimeD01" _in_ ConvoTag
-			{
-				"\0\n\n\s[1100]I didn't \f[italic,true]say\f[italic,false] anything..!\w8\w8\e SpaceAndTimeS02"
-				res_reference0 = "Dusty"
-			}
-			elseif "SpaceAndTimeD02" _in_ ConvoTag
-			{
-				"\0\n\n\s[206]Sorry,\w4 it's just-\w4\e SpaceAndTimeS03"
-				res_reference0 = "Dusty"
-			}
-			
-			//Dusty booting and noticing S
-			elseif "DustyBootS1" _in_ ConvoTag
-			{
-				"\0\s[104]Hey,\w4 Dusty.\w8\w8\s[0] Glad to see you.\e"
-				res_reference0 = ""
-			}
-			elseif "DustyDragCoords01" _in_ ConvoTag
-			{
-				"\![get,property,OnDustyDragCoords,currentghost.scope(0).rect]"
-			}
-			elseif "SPickupObsi02" _in_ ConvoTag
-			{
-				res_reference0 = "Dusty"
-				"\0\s[1201]Aw,\w4 hi Obsidian.\w8\w8\e SPickupObsi03"
-			}
-			elseif "SObsiJumpDown01" _in_ ConvoTag
-			{
-				"\0\s[1201]\![get,property,OnObsidianJumpDown,currentghost.scope(0).rect]"
-			}
-			elseif "SObsiJumpDown03" _in_ ConvoTag
-			{
-				res_reference0 = ""
-				holdingObsidian = 0
-				"\0\s[104]Aw,\w4 alright then.\e"
-			}
-			elseif "SObsidianLikes02" _in_ ConvoTag
-			{
-				res_reference0 = ""
-				"\0\s[1207]\n\n...You have a point.\e"
-			}
-			elseif "DGoodObsiTime" _in_ ConvoTag
-			{
-				"\0\s[1204]Heh,\w4 yeah.\w8\w8\s[1201] So am I,\w4 honestly.\e"
-			}
-			elseif "DGetAlongObsi" _in_ ConvoTag
-			{
-				"\0\s[1204]Aw,\w4 I always get along with cats if they're fine with me.\e"
-			}
-			else //I'm sure as I update them that they wont always have the same convos set up...
-			{
-				"\0\s[0]Hey,\w4 Dusty.\e"
-				res_reference0 = ""
-			}
-			--
-			":%(speech)"
-		}
-		elseif reference0 == "Azura" //=======Conversations with Azura=========
-		{
-			_azuraspeech = TOLOWER(speech)
-			if "currently playing" _in_ _azuraspeech //If she's playing music, check to see if he recognizes the song
-			{
-				if "friends" _in_ _azuraspeech
-				{
-					"\C\0\n\n\s[104]Oh neat,\w4 I like that one.\e"
-					res_reference0 = ""
-				}
-				elseif "let down" _in_ _azuraspeech
-				{
-					"\C\0\n\n\s[106]Ah,\w4 that's kind of a sad one isn't it?\e"
-					res_reference0 = ""
-				}
+		"\0\s[106]Ah,\w4 I don't think anyone else is here,\w4 kiddo.\e"
+	}
+}
 
-				else //If he doesn't recognize the song
-				{
-					res_reference0 = ""
-					AzuraSong = SPLIT(speech,"playing ")[1] //Removes Azura's dialogue
-					//firstpart = SPLIT(speech,"\e")[0]
-					//secondpart = SPLIT(speech,"\e")[1]
-					
-					if AzuraSong _in_ AzuraSongList //Check to see if Azura has played this song for him before
-					{
-						"\C\0\n\n\s[104]Oh yeah,\w4 you were playing this one before,\w4 weren't you?\e"
-					}
-					elseif AzuraSong _in_ AzuraSongMemories
-					{
-						"\C\0\n\n\s[1070]Hmm...\w8\w8 Did you play that one before..?\w8\w8 No...\e"
-						AzuraSongList += "%(AzuraSong)\n-"
-					}
-					elseif AzuraSong _in_ SongList //Check to see if the user has played this song for him before
-					{
-						"\C\0\n\n\s[104]Oh yeah,\w4 I think %(username) has played this one for me before.\e"
-					}
-					else //Song isn't in memory
-					{
-						AzuraSongList += "%(AzuraSong)\n-"
-						"\C\0\n\n\s[0]Oh,\w4\s[104] I haven't heard this one before.\e"
-					}
-				}
-			}
-			else
-			{
-				if "nothing in particular" _in_ _azuraspeech //Azura tells him that she isn't doing anything/playing music
-				{
-					"\C\0\n\n\s[0]Oh,\w4 \s[104]alright then.\e"
-					res_reference0 = ""
-				}
-				else //If she's saying hello/something he doesn't recognize
-				{
-					res_reference0 = ""
-					"Hey there,\w4 Azura.\e"
-				}
-			}
-		} //==========End conv with Azura===========
-		elseif reference0 == "Liah"
-		{
-			"\![quicksection,true]%(_LastCommu)\![quicksection,false]" //Displays his last text instantly so you don't notice that he's repeated it
-			--
-			if "Liah_SFirstMeet01" _in_ ConvoTag
-			{
-				res_reference0 = "Liah"
-				"\0\s[110]Oh!\w8\s[104] Hello,\w4 I didn't see you there.\w8\w8"
-				--
-				if totalhours > 20
-				{
-					"  \s[0]I spend a lot of time here,\w4\s[106] I guess %(username) likes having me around.\w8\w8\s[0] Do you come here often too?\w8\w8\e Liah_SFirstMeet01_R_LongTime"
-				}
-				else
-				{
-					"  \s[106]I haven't been around here very long,\w4\s[104] I guess I haven't met everyone yet.\w8\w8\s[0] My name's S,\w4 by the way.\w8\w8 What's yours?\w8\w8\e Liah_SFirstMeet01_R"
-				}
-			}
-			elseif "Liah_SFirstMeet02" _in_ ConvoTag
-			{
-				res_reference0 = "Liah"
-				if "LongTimeBoth" _in_ ConvoTag //they're both veterans of your desktop
-				{
-					"\0\n\n\s[0]I'm S,\w4\s[104] it's good to meet you.\w8\w8\s[208] Maybe %(heshe) doesn't like to crowd up %(hisher) monitor..?\w8\w8"
-					--
-					if displaywidth >= 1366
-					{
-						"  \s[201]Though,\w4 it is %(displaywidth)x%(displayheight)...\w8\w8\e Liah_SFirstMeet02_R_LongTimeBoth"
-					}
-					else
-					{
-						"  \s[206]%(displaywidth)x%(displayheight) isn't a lot if you're busy...\w8\w8\e Liah_SFirstMeet02_R_LongTimeBoth"
-					}
-				}
-				elseif "LongTimeS" _in_ ConvoTag //S has been around a while, but Liah hasn't
-				{
-					"\0\n\n\s[104]I'm S,\w4 it's good to meet you.\w8\w8\s[0] It's pretty chill here,\w4 %(username) is a nice person to hang out with.\w8\w8\e Liah_SFirstMeet02_R_LongTimeS"
-				}
-				elseif "LongTimeLiah" _in_ ConvoTag //Liah has been around a while, but S hasn't
-				{
-					"\0\n\n\s[104]Likewise.\w8\w8\s[110] Have you met many other people here?\w8\w8\e Liah_SFirstMeet02_R_LongTimeLiah"
-				}
-				else
-				{
-					"\0\n\n\s[104]Likewise.\w8\w8 Hopefully I'll run into you again if %(username) keeps bringing me here,\w4\s[103] it's nice to not be alone.\w8\w8\e Liah_SFirstMeet02_R"
-				}
-			}
-			elseif "Liah_SFirstMeet03" _in_ ConvoTag
-			{
-				res_reference0 = ""
-				if "LongTimeLiah" _in_ ConvoTag
-				{
-					if "MetGaster" _in_ ConvoTag
-					{
-						"\0\n\n\s[1100]* (He turns as pale as a skeleton can.)\w8\w8\n\n\s[204]...........\w8\w8\n\n\s[200]Ah,\w4 I don't think I've met him.\w8\w8\e"
-					}
-					else
-					{
-						if "MetTemmie" _in_ ConvoTag
-						{
-							//TODO: there needs to be a value for S having met Temmie! | OTL my to do list grows...
-							if talkedtoTemmie == 1
-							{
-								"\0\n\n\s[107]Ah,\w4 that's just how Temmie is.\w8\w8\s[208] Sometimes I wonder if she sees something we don't...\w8\w8"
-							}
-							else
-							{
-								"\0\n\n\s[107]Ah,\w4 I should've expected Temmie would show up in a place like this...\w8\w8"
-							}
-							--
-							"\n\n\s[0]Anyways,\w4 it's cool to meet other people here,\w4\s[104] I hope I'll see you around again.\e"
-						}
-						else
-						{
-							if "MetUnknownGhosts" _in_ ConvoTag
-							{
-								"\0\n\n\s[106]Ah,\w4 thats fair.\w8\w8\s[104] Well,\w4 they can't be all bad if %(username) has them around,\w4 right?\e"
-							}
-							elseif ARRAYSIZE(installedghostlist) > 3
-							{
-								"\0\n\n\s[106]Ah,\w4 %(heshe) must not usually bring more than one of us here at a time,\w4 then.\w8\w8\s[104] Well,\w4 maybe this'll start a trend.\e"
-							}
-							else
-							{
-								"\0\n\n\s[208]I wonder if %(heshe)'ll ever bring others here besides us.\w8\w8\s[104] It's nice not to be alone.\e"
-							}
-						}
-					}
-				}
-				else
-				{
-					"\0\s[102]* He nods.\e"
-				}
-			}
-			else
-			{
-				res_reference0 = ""
-				"\0\s[103]* He waves back.\e"
-			}
-		} //==========End conv with Liah===========
-		elseif reference0 == "Temmie"
+ReplyToGhost //Replying to conversations
+{
+	speech = SPLIT(reference1,"\e")[0] //This is everything the ghost said that the user can see
+	ConvoTag = SPLIT(reference1,"\e")[1] //This is everything after the \e, which will be the invisible tags that track the conversation
+	_Last = SPLIT(ConvoTag,"::")[1] //The other ghost sends ":%(speech)" at the end of every communication, so this grabs what THIS ghost last said. See below.
+		
+	_Last = REPLACE(_Last,"\![quicksection,true]","") //Removing the quicksection tags or they overlap and break...
+	_Last = REPLACE(_Last,"\![quicksection,false]","")
+	_Last = REPLACE(_Last,"\w1","")
+	_Last = REPLACE(_Last,"\w4","")
+	_Last = REPLACE(_Last,"\w8","") //I only ever use \w4, \w8, and \w1. May need to add more for other ghosts they talk with.
+	_Last = REPLACE(_Last,":chain=end","")
+	--
+	
+	if reference0 == "Dusty" //=======Conversations with Dusty=========
+	{
+		"\![quicksection,true]%(_Last)\![quicksection,false]"
+		--
+		"%(TalkToDusty)"
+		--
+		"::%(speech)"
+	}
+	elseif reference0 == "Azura" //=======Conversations with Azura=========
+	{
+		_azuraspeech = TOLOWER(speech)
+		"%(TalkToAzura)"
+	}
+	elseif reference0 == "Liah"
+	{
+		_Last = SPLIT(ConvoTag,":")[1] //hopefully can change this later rip
+		"\![quicksection,true]%(_Last)\![quicksection,false]" //Displays his last text instantly so you don't notice that he's repeated it
+		--
+		"%(TalkToLiah)"
+		--
+		":%(speech)"
+	}
+	elseif reference0 == "Temmie"
+	{
+		res_reference0 = ""
+		talkedtoTemmie = 1
+		"\0\s[106]Sorry,\w4 I don't have any muns or flakes with me.\w8\w8\s[104] Maybe next time,\w4 huh?\e"
+	}
+	elseif reference0 == "MiniDev" //=============Conversations with MiniDev=================
+	{
+		"%(TalkToMiniDev)"
+	}
+	elseif reference0 == "Gaster"
+	{
+		if "\i[108]" _in_ reference1 || "\i[109]" _in_ reference1 || "\i[110]" _in_ reference1 || "\i[111]" _in_ reference1
 		{
 			res_reference0 = ""
-			talkedtoTemmie = 1
-			"\C\0\n\n\s[106]Sorry,\w4 I don't have any muns or flakes with me.\w8\w8\s[104] Maybe next time,\w4 huh?\e"
-		}
-		elseif reference0 == "MiniDev" //=============Conversations with MiniDev=================
-		{
-			if "GetMiniDevStats02" _in_ ConvoTag
+			if miscflags[0] == 0
 			{
-				if MiniDevSOutf > 1 //If he's already noticed MiniDev wearing his outfit he won't do it again
-				{
-					res_reference0 = ""
-					"\0\s[104]Hello MiniDev.\w8\w8\e"
-				}
-				else
-				{
-					MiniDevSOutf = ConvoTag[1]
-					if MiniDevSOutf == 1 //If MiniDev is dressed like S
-					{
-						res_reference0 = "MiniDev"
-						MiniDevSOutf = 2
-						"\0\s[208]Is he copying me..?\e GetMiniDevStats03 OutfitUnlock"
-					}
-					else //If MiniDev is wearing anything else
-					{
-						res_reference0 = ""
-						"\0\s[104]Hi MiniDev.\w8\w8\e"
-					}
-				}
-			}
-		} //===================End convs with MiniDev
-		else //=========Ghosts he doesn't know==========
-		{
-			if AlreadyResponded == 0
-			{
-				AlreadyResponded = 1
-				res_reference0 = reference0
-				"\0\s[104]Hey there.\w8\e"
+				miscflags[0] = 1
+				
+				"\0\s[110].\w8.\w8.\w8\s[111]Oh my god,\w4 %(username) did you do that?\w8\w8\s[104] That's amazing.\e"
 			}
 			else
 			{
-				AlreadyResponded = 0
-				res_reference0 = ""
-				"Hope you're doing well.\e"
+				"\0\s[104]* (He tries to hide it,\w4 but he's cracking up about the googly eyes.)\e"
+				"\0\s[104]Heheh,\w4 that's amazing.\e"
+				"\0\s[103]...I could watch this guy all day.\e"
+				"\0\s[103]So many things in this world are made way better by googly eyes.\e"
 			}
+		}
+		else
+		{
+			res_reference0 = ""
+			
+			if miscflags[0] == 1
+			{
+				"\0\s[106]He's much easier to deal with when he's got the googly eyes on, y'know.\e"
+				"\0\s[106]Aw,\w4 bring the googly eyes back.\e"
+				"\0\s[104]* (Looks like he's still cracking up,\w4 thinking about the googly eyes.)\e"
+			}
+			else
+			{
+				"\0\s[410]Tsk.\e"
+				"\0\s[410]Shut up.\e"
+				"\0\s[410]Don't call me that.\e"
+				"\0\s[410]I don't want to talk to you.\e"
+				"\0\s[410]You're not worth my time.\e"
+			}
+		}
+	}
+	else //=========Ghosts he doesn't know==========
+	{
+		if AlreadyResponded == 0
+		{
+			//SHIORI3FW.SetDelayEvent('LoopPrevention',5)
+			commuTimer = 5
+			AlreadyResponded = 1
+			res_reference0 = reference0
+			"\0\s[104]Hey there.\w8\e"
+		}
+		else
+		{
+			AlreadyResponded = 0
+			res_reference0 = ""
+			"Hope you're doing well.\e"
 		}
 	}
 }
 
+TalkToDusty
+{
+	//---Dusty notices S---
+	if "DFirstHelloD01" _in_ ConvoTag
+	{
+		talkedtoDusty = 1
+		"\0\s[110]Oh!\w8\w8\s[104] I didn't realize you could come here,\w4 Dusty.\w8\w8 "
+		--
+		if totalhours > 20
+		{
+			"\s[0]Yeah,\w4 I spend a lot of time here."
+		}
+		else
+		{
+			"\s[106]I'm not really too sure how I got here,\w4 but uh,\w4 yeah I guess."
+		}
+		--
+		"\w8\w8\e DFirstHelloS01"
+		res_reference0 = "Dusty"
+	}
+	elseif "DFirstHelloD02" _in_ ConvoTag
+	{
+		res_reference0 = ""
+		"\0\n\n\s[104]Sounds good to me.\e"
+	}
+	
+	//---S notices Dusty---
+	elseif "SFirstHelloD01" _in_ ConvoTag
+	{
+		"\0\n\n\s[104]Well that's good to see,\w4 maybe if we're lucky I'll bump into you here more often,\w4 huh?\w8\w8\e SFirstHelloS02"
+		res_reference0 = "Dusty"
+	}
+	
+	//---Obsidian meows at S---
+	elseif "ObsiSaysHiD01" _in_ ConvoTag
+	{
+		"\0\s[104]Hello to you too,\w4 Obsidian.\w8\w8 Keeping Dusty company?\w8\w8\e ObsiSaysHiS01"
+		res_reference0 = "Dusty"
+	}
+	
+	//Dusty asks how S is doing
+	elseif "HowsSDoingD01" _in_ ConvoTag
+	{
+		"\0\s[109]I'm getting pretty tired,\w4 honestly.\w8\w8\e HowsSDoingS01"
+		res_reference0 = "Dusty"
+	}
+	elseif "HowsSDoingD02" _in_ ConvoTag
+	{
+		"\0\n\n\s[106]Ah,\w4 I'll pass for the moment,\w4\s[104] but thank you.\e"
+		res_reference0 = ""
+	}
+	elseif "GetSStats1" _in_ ConvoTag
+	{
+		"\e %(passhour),%(thesplit),%(love),%(LV),%(pethighscore),%(totalpets), SGiveStats1"
+		res_reference0 = "Dusty"
+	}
+	elseif "GiveCoords01" _in_ ConvoTag
+	{
+		"\![get,property,OnFacingCoords,currentghost.scope(0).rect]"
+	}
+	
+	//---This is nicer than the void isn't it?---
+	elseif "NicerThanVoidD01" _in_ ConvoTag
+	{
+		if ghostexcount > 1 //If there's more than just the two of them
+		{
+			"\0\n\n\s[103]It's great that you get to meet more people here,\w4 too.\w8\w8\e NicerThanVoidS02a"
+		}
+		else
+		{
+			"\0\n\n\s[205]I'm just glad we're not alone here,\w4 it's still kinda lonely here when you're by yourself.\w8\w8\e NicerThanVoidS02b"
+		}
+		--
+		res_reference0 = "Dusty"
+	}
+	elseif "NicerThanVoidD02a" _in_ ConvoTag
+	{
+		"\0\n\n\s[202]Heh,\w4 she'll have to get over it.\w8\w8\s[102] Besides,\w4 I'm sure she'll get plenty of extra attention when you go back,\w4 right?\w8\w8\e NicerThanVoidS03a"
+		res_reference0 = "Dusty"
+	}
+	elseif "NicerThanVoidD02b" _in_ ConvoTag
+	{
+		"\0\n\n\s[1020]Aw geez,\w4 I'm just glad I can help...\e"
+		res_reference0 = ""
+	}
+	
+	
+	//user complimented S and mentioned Dusty
+	elseif "SUserComplimentedD01" _in_ ConvoTag
+	{
+		"\0\n\n\s[1030]C-c'mon,\w4 knock it off you guys...\w8\w8\e"
+		res_reference0 = ""
+	}
+	elseif "SpaceAndTimeD01" _in_ ConvoTag
+	{
+		"\0\n\n\s[1100]I didn't \f[italic,true]say\f[italic,false] anything..!\w8\w8\e SpaceAndTimeS02"
+		res_reference0 = "Dusty"
+	}
+	elseif "SpaceAndTimeD02" _in_ ConvoTag
+	{
+		"\0\n\n\s[206]Sorry,\w4 it's just-\w4\e SpaceAndTimeS03"
+		res_reference0 = "Dusty"
+	}
+	
+	//Dusty booting and noticing S
+	elseif "DustyBootS1" _in_ ConvoTag
+	{
+		"\0\s[104]Hey,\w4 Dusty.\w8\w8\s[0] Glad to see you.\e"
+		res_reference0 = ""
+	}
+	elseif "DustyDragCoords01" _in_ ConvoTag
+	{
+		"\![get,property,OnDustyDragCoords,currentghost.scope(0).rect]"
+	}
+	elseif "CanYouHoldObsidian? 0" _in_ ConvoTag
+	{
+		heldObsidian++
+		holdingObsidian = 1
+		lookingatphone = 0
+		currentlydrinking = 0
+		res_reference0 = "Dusty"
+		"\e SPickupObsi01"
+	}
+	elseif "SPickupObsi02" _in_ ConvoTag
+	{
+		res_reference0 = "Dusty"
+		"\0\s[1201]Aw,\w4 hi Obsidian.\w8\w8\e SPickupObsi03"
+	}
+	elseif "SObsiJumpDown01" _in_ ConvoTag
+	{
+		"\0\s[1201]\![get,property,OnObsidianJumpDown,currentghost.scope(0).rect]"
+	}
+	elseif "SObsiJumpDown03" _in_ ConvoTag
+	{
+		res_reference0 = ""
+		holdingObsidian = 0
+		"\0\s[104]Aw,\w4 alright then.\e"
+	}
+	elseif "SObsidianLikes02" _in_ ConvoTag
+	{
+		res_reference0 = ""
+		"\0\s[1207]\n\n...You have a point.\e"
+	}
+	elseif "DGoodObsiTime" _in_ ConvoTag
+	{
+		res_reference0 = ""
+		
+		"\0\s[1204]Heh,\w4 yeah.\w8\w8\s[1201] So am I,\w4 honestly.\e"
+	}
+	elseif "DGetAlongObsi" _in_ ConvoTag
+	{
+		res_reference0 = ""
+		
+		"\0\s[1204]Aw,\w4 I always get along with cats if they're fine with me.\e"
+	}
+	elseif "DustyGetStatsBoot" _in_ ConvoTag
+	{
+		res_reference0 = "Dusty"
+		
+		"\e %(nowmode),%(LV), GiveStatsBoot"
+	}
+	elseif "S-Dusty-RudeToTalk-D01" _in_ ConvoTag
+	{
+		res_reference0 = "Dusty"
+		
+		"\0\s[101]Aw,\w4 c'mon,\w4 Dusty.\w8\w8 I want to hear it.\w8\w8\e S-Dusty-RudeToTalk-S01"
+	}
+	elseif "S-Dusty-RudeToTalk-D02" _in_ ConvoTag
+	{
+		res_reference0 = "Dusty"
+		
+		"\0\n\n\s[101]What are you planning to tell %(username) when I'm not here,\w4 huh?\w8\w8 Have you got some dirt on me that I don't know about?\w8\w8\e S-Dusty-RudeToTalk-S02"
+	}
+	elseif "S-Dusty-RudeToTalk-D03" _in_ ConvoTag
+	{
+		res_reference0 = "Dusty"
+		
+		"\0\n\n\s[110]Wait-\w8 what?\w8\w8\s[208] Hey!\w8\w8 You can't just leave me hanging like that!\w8\w8\e S-Dusty-RudeToTalk-S03"
+	}
+	else //I'm sure as I update them that they wont always have the same convos set up...
+	{
+		res_reference0 = ""
+		
+		"\0\s[0]Hey,\w4 Dusty.\e"
+	}
+}
 
+TalkToAzura
+{
+	_azuraspeech = TOLOWER(speech)
+	
+	if "currently playing" _in_ _azuraspeech //If she's playing music, check to see if he recognizes the song
+	{
+		if "friends" _in_ _azuraspeech
+		{
+			"\C\0\n\n\s[104]Oh neat,\w4 I like that one.\e"
+			res_reference0 = ""
+		}
+		elseif "let down" _in_ _azuraspeech
+		{
+			"\C\0\n\n\s[106]Ah,\w4 that's kind of a sad one isn't it?\e"
+			res_reference0 = ""
+		}
+
+		else //If he doesn't recognize the song
+		{
+			res_reference0 = ""
+			AzuraSong = SPLIT(speech,"playing ")[1] //Removes Azura's dialogue
+			//firstpart = SPLIT(speech,"\e")[0]
+			//secondpart = SPLIT(speech,"\e")[1]
+			
+			if AzuraSong _in_ AzuraSongList //Check to see if Azura has played this song for him before
+			{
+				"\C\0\n\n\s[104]Oh yeah,\w4 you were playing this one before,\w4 weren't you?\e"
+			}
+			elseif AzuraSong _in_ AzuraSongMemories
+			{
+				"\C\0\n\n\s[1070]Hmm...\w8\w8 Did you play that one before..?\w8\w8 No...\e"
+				AzuraSongList += "%(AzuraSong)\n-"
+			}
+			elseif AzuraSong _in_ SongList //Check to see if the user has played this song for him before
+			{
+				"\C\0\n\n\s[104]Oh yeah,\w4 I think %(username) has played this one for me before.\e"
+			}
+			else //Song isn't in memory
+			{
+				AzuraSongList += "%(AzuraSong)\n-"
+				"\C\0\n\n\s[0]Oh,\w4\s[104] I haven't heard this one before.\e"
+			}
+		}
+	}
+	else
+	{
+		if "nothing in particular" _in_ _azuraspeech //Azura tells him that she isn't doing anything/playing music
+		{
+			"\C\0\n\n\s[0]Oh,\w4 \s[104]alright then.\e"
+			res_reference0 = ""
+		}
+		else //If she's saying hello/something he doesn't recognize
+		{
+			res_reference0 = ""
+			"Hey there,\w4 Azura.\e"
+		}
+	}
+}
+
+TalkToLiah
+{
+	if "Liah_SFirstMeet01" _in_ ConvoTag
+	{
+		res_reference0 = "Liah"
+		"\0\s[110]Oh!\w8\s[104] Hello,\w4 I didn't see you there.\w8\w8"
+		--
+		if totalhours > 20
+		{
+			"  \s[0]I spend a lot of time here,\w4\s[106] I guess %(username) likes having me around.\w8\w8\s[0] Do you come here often too?\w8\w8\e Liah_SFirstMeet01_R_LongTime"
+		}
+		else
+		{
+			"  \s[106]I haven't been around here very long,\w4\s[104] I guess I haven't met everyone yet.\w8\w8\s[0] My name's S,\w4 by the way.\w8\w8 What's yours?\w8\w8\e Liah_SFirstMeet01_R"
+		}
+	}
+	elseif "Liah_SFirstMeet02" _in_ ConvoTag
+	{
+		res_reference0 = "Liah"
+		if "LongTimeBoth" _in_ ConvoTag //they're both veterans of your desktop
+		{
+			"\0\n\n\s[0]I'm S,\w4\s[104] it's good to meet you.\w8\w8\s[208] Maybe %(heshe) doesn't like to crowd up %(hisher) monitor..?\w8\w8"
+			--
+			if displaywidth >= 1366
+			{
+				"  \s[201]Though,\w4 it is %(displaywidth)x%(displayheight)...\w8\w8\e Liah_SFirstMeet02_R_LongTimeBoth"
+			}
+			else
+			{
+				"  \s[206]%(displaywidth)x%(displayheight) isn't a lot if you're busy...\w8\w8\e Liah_SFirstMeet02_R_LongTimeBoth"
+			}
+		}
+		elseif "LongTimeS" _in_ ConvoTag //S has been around a while, but Liah hasn't
+		{
+			"\0\n\n\s[104]I'm S,\w4 it's good to meet you.\w8\w8\s[0] It's pretty chill here,\w4 %(username) is a nice person to hang out with.\w8\w8\e Liah_SFirstMeet02_R_LongTimeS"
+		}
+		elseif "LongTimeLiah" _in_ ConvoTag //Liah has been around a while, but S hasn't
+		{
+			"\0\n\n\s[104]Likewise.\w8\w8\s[110] Have you met many other people here?\w8\w8\e Liah_SFirstMeet02_R_LongTimeLiah"
+		}
+		else
+		{
+			"\0\n\n\s[104]Likewise.\w8\w8 Hopefully I'll run into you again if %(username) keeps bringing me here,\w4\s[103] it's nice to not be alone.\w8\w8\e Liah_SFirstMeet02_R"
+		}
+	}
+	elseif "Liah_SFirstMeet03" _in_ ConvoTag
+	{
+		res_reference0 = ""
+		if "LongTimeLiah" _in_ ConvoTag
+		{
+			if "MetGaster" _in_ ConvoTag
+			{
+				"\0\n\n\s[1100]* (He turns as pale as a skeleton can.)\w8\w8\n\n\s[204]...........\w8\w8\n\n\s[200]Ah,\w4 I don't think I've met him.\w8\w8\e"
+			}
+			else
+			{
+				if "MetTemmie" _in_ ConvoTag
+				{
+					//TODO: there needs to be a value for S having met Temmie! | OTL my to do list grows...
+					if talkedtoTemmie == 1
+					{
+						"\0\n\n\s[107]Ah,\w4 that's just how Temmie is.\w8\w8\s[208] Sometimes I wonder if she sees something we don't...\w8\w8"
+					}
+					else
+					{
+						"\0\n\n\s[107]Ah,\w4 I should've expected Temmie would show up in a place like this...\w8\w8"
+					}
+					--
+					"\n\n\s[0]Anyways,\w4 it's cool to meet other people here,\w4\s[104] I hope I'll see you around again.\e"
+				}
+				else
+				{
+					if "MetUnknownGhosts" _in_ ConvoTag
+					{
+						"\0\n\n\s[106]Ah,\w4 thats fair.\w8\w8\s[104] Well,\w4 they can't be all bad if %(username) has them around,\w4 right?\e"
+					}
+					elseif ARRAYSIZE(installedghostlist) > 3
+					{
+						"\0\n\n\s[106]Ah,\w4 %(heshe) must not usually bring more than one of us here at a time,\w4 then.\w8\w8\s[104] Well,\w4 maybe this'll start a trend.\e"
+					}
+					else
+					{
+						"\0\n\n\s[208]I wonder if %(heshe)'ll ever bring others here besides us.\w8\w8\s[104] It's nice not to be alone.\e"
+					}
+				}
+			}
+		}
+		else
+		{
+			"\0\s[102]* He nods.\e"
+		}
+	}
+	else
+	{
+		res_reference0 = ""
+		"\0\s[103]* He waves back.\e"
+	}
+}
+
+TalkToMiniDev
+{
+	if "GetMiniDevStats02" _in_ ConvoTag
+	{
+		_outfit = ConvoTag[1]
+		
+		if _outfit == " 1"
+		{
+			//res_reference0 = "MiniDev"
+			MiniDevSOutf = 1
+			
+			"\0\s[208]Is he copying me..?\e GetMiniDevStats03 MDOutfitUnlock"
+		}
+		else
+		{
+			res_reference0 = ""
+			"\0\s[104]Hello MiniDev.\w8\w8\e"
+		}
+	}
+}
 
 
 

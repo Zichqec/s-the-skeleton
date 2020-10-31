@@ -265,7 +265,7 @@ catnoises
 
 sCatNoise //if S is holding Obsidian
 {
-	if sHoldingObsidian != 1
+	if sHoldingObsidian == 0 && SomeoneHoldingObsidian == ""
 	{
 		"%(catnoise)."
 	}
@@ -558,7 +558,8 @@ temp
 {
 	if Degrees[1] == "°F"
 	{
-		if feelslike[0] <= 0; "Below Zero" //Below zero, 0 and below
+		if feelslike[0] == "Unknown"; "Unknown"
+		elseif feelslike[0] <= 0; "Below Zero" //Below zero, 0 and below
 		elseif feelslike[0] <= 20; "Freezing" //Freezing, 0-20
 		elseif feelslike[0] <= 40; "Cold" //Cold, 21-40
 		elseif feelslike[0] <= 60; "Chilly" //Chilly, 41-60
@@ -569,7 +570,8 @@ temp
 	}
 	elseif Degrees[1] == "°C"
 	{
-		if feelslike[0] <= -17; "Below Zero" //Below zero, 0 and below
+		if feelslike[0] == "Unknown"; "Unknown"
+		elseif feelslike[0] <= -17; "Below Zero" //Below zero, 0 and below
 		elseif feelslike[0] <= -6; "Freezing" //Freezing, 0-20
 		elseif feelslike[0] <= 4; "Cold" //Cold, 21-40
 		elseif feelslike[0] <= 15; "Chilly" //Chilly, 41-60

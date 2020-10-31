@@ -13,10 +13,6 @@ collisionex4,Face,polygon,114,48,103,50,95,56,90,68,92,76,91,82,92,89,100,94,118
 0pattern1,3001,5,overlayfast,0,0
 0pattern2,3002,10,overlayfast,0,0
 0pattern3,-1,3,overlay,0,0
-
-6interval,never
-6pattern0,0,0,alternativestop,[0]
-6pattern1,3001,0,overlayfast,0,0
 }
 
 //Questioning/doubtful smile

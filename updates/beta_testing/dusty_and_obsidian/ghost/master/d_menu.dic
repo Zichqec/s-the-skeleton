@@ -1366,7 +1366,7 @@ OnChangelog
 	-\_a[https://zdzisiu.github.io/Ukagaka/md.html]MiniDev\_a can now hold Obsidian if both ghosts are up to date!\n\n/
 	-Dusty also has some basic commu conversations set up with MiniDev, to hopefully be expanded at a later date.\n\n/
 	-MiniDev has also been added to Dusty's submenu for talking about other ghosts!\n\n/
-	-Changed the way S picking up Obsidian works. Please make sure you have both ghosts up to date before you try this!\n\n/
+	-Changed the way S picking up Obsidian works. Please make sure you have both ghosts up to date before you try this! Also, if you ever have trouble with S/another ghost not picking up Obsidian anymore, reloading them seems to help.\n\n/
 	-Offscreen dialogue should now happen immediately upon Dusty being moved out of bounds.\n\n/
 	-Fixed a bug where timeout dialogue was happening when it shouldn't.\n\n/
 	-Fixed some misc bugs and typos. Also, some code optimization. Expect a lot of optimization in 1.1.0, whenever I get to that...\n\n\n/
