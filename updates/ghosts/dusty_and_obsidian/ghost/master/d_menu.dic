@@ -1353,7 +1353,7 @@ Select.startupdatecheck
 
 dustyver
 {
-	"1.0.6"
+	"1.0.7"
 }
 
 OnChangelog
@@ -1361,6 +1361,10 @@ OnChangelog
 	"\![set,autoscroll,disable]\_q\b2"
 	--
 	"/
+	\_l[112]-Version 1.0.7-\n\n/
+	-Fixed an issue with Dusty not recognizing he'd met MiniDev if he talked to him normally.\n\n/
+	-Hopefully fixed a bug where a duplicate Obsidian would appear if you updated them while she was being held by Dusty.\n\n/
+	-Hopefully fixed a bug where Dusty's commu loop prevention was actually causing him to get stuck in loops...\n\n\n/
 	\_l[112]-Version 1.0.6-\n\n/
 	-Other ghosts will now be able to hold Obsidian, should the dev choose to make their ghost compatible! It's a lot of work, so I don't expect many devs to do it, however...\n\n/
 	-\_a[https://zdzisiu.github.io/Ukagaka/md.html]MiniDev\_a can now hold Obsidian if both ghosts are up to date!\n\n/

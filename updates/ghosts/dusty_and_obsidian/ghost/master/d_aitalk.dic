@@ -1,5 +1,30 @@
 ﻿//---------------------------AI Talk--------------------------
 
+//-----------------------------------------------------------------
+//Alright, so here's the deal. Dusty's got some special formatting for his dialogue, which I will document here for future reference.
+
+//First of all, the simple one. Dusty sometimes speaks in Wingdings, regardless of the user's settings. This dialogue will always be in ALL CAPITALS, and comes after a %(wdf) (WingDings Force) tag. A %(reg) tag will often be used afterwards, to bring him back to his current font.
+
+//Next, the Wingdings only mode. That's accomplished with the %(wdc) and %(wdcb) tags, which will switch his balloon to one set for Wingdings.
+
+//Then, the other fonts only mode. If you have it on and you are not set to wingdings, OnTranslate will add a %(wdn) before all of Dusty's dialogue, which will switch him to the appropriate font. Unlike %(wdf), this will switch him to whatever font you have him set for, Wingdings or not.
+
+//And now, what I really need to document: the special formatting! So, not only does Dusty have a mode for being COMPLETELY in Wingdings/your font of choosing, he also has a mode where he can change SOME of his words to those fonts. This is accomplished by a bunch of embed tags.
+
+//The way it works, simply put, is this. I put Dusty's dialogue into a big embed tag, which he then sifts through and picks up to 4 words to change into Wingdings. These words are given a special formatting which is picked up in OnTranslate, and changed into an embed tag which changes their font. Thanks to this, you CANNOT write commas in his dialogue, UNLESS you are not using his special formatting in that dialogue!
+
+//First of all, the tag %(t) turns into the start of an embed tag. Specifically, "\![embed,OnRandomTeachWord,". This has to go at the beginning of any dialogue that you want to send through the embed command.
+
+//As a result of this, you must also end all dialogues that start with a %(t) with a ], to close the embed command. This should come before any of Obsidian's dialogue, so that it does not affect her at all.
+
+//Because we cannot use commas, I have set it up to change ## into a comma once it is safe to do so. All commas must be written as ##.
+
+//Any sakurascript tags also pose an issue. For anything other than surface changes, I usually just end the embed and start it again later if I need to. But that's just not practical with surface changes without making his teach mode too aggresive. So, all closing brackets in surface tags must be escaped. So, surface 0 would be written as \s[0\]. Sometimes I end the embed before I reach the surface change, if it makes sense to do so there.
+
+//So! An example dialogue would look like this:
+//"\0\s[0]%(t)This is an example dialogue##\w4\s[100\] with a comma and a surface change in it.]\w8\w8\1\s[10]%(catnoises)\e"
+//-----------------------------------------------------------------
+
 AiTalk
  {
 	if RAND(100) < communicateratio

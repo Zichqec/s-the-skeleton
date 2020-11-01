@@ -627,7 +627,7 @@ OnUpdateComplete
 		}
 		else //if the ghost has updated successfully
 		{
-			"\0%(wdc)\s[600]%(t)Update complete.]\w8\w8\![raise,OnDialogueVars,finishboot]"
+			"\1\s[-1]\0%(wdc)\s[600]%(t)Update complete.]\w8\w8\![raise,OnDialogueVars,finishboot]"
 		}
 	}
 	else
@@ -638,6 +638,8 @@ OnUpdateComplete
 		}
 		else //if the ghost has updated successfully
 		{
+			if SomeoneHoldingObsidian != ""; "\1\s[-1]"
+			--
 			"\0%(wdc)\s[104]%(t)Update complete.]\w8\w8\![raise,OnDialogueVars,finishboot]"
 		}
 	}
@@ -2310,46 +2312,46 @@ OnRandomTeachWord
 {
 	if WDOnly == 0
 	{
-		talkarray = reference0
-		talkarray = REPLACE(talkarray," ","|")
+		talkarray = reference0 //Take the given text in the embed, and put it into talkarray
+		talkarray = REPLACE(talkarray," ","|") //replace spaces with | so we can mess with the array without issue
 		//talkarray = REPLACE(talkarray,"]","\]")
 		//talkarray = REPLACE(talkarray,"\","\\")
 		
-		SETDELIM(talkarray,"|")
-		talkarraysize = ARRAYSIZE(talkarray)
+		SETDELIM(talkarray,"|") //change the delimiter to the |s
+		talkarraysize = ARRAYSIZE(talkarray) //get the length
 		
-		_rand1 = RAND(talkarraysize)
+		_rand1 = RAND(talkarraysize) //Pick random words
 		_rand2 = RAND(talkarraysize)
 		_rand3 = RAND(talkarraysize)
 		_rand4 = RAND(talkarraysize)
 		
-		if "##" !_in_ talkarray[_rand1] && "\" !_in_ talkarray[_rand1]
+		if "##" !_in_ talkarray[_rand1] && "\" !_in_ talkarray[_rand1] //If it doesn't have a space or a sakurascript tag
 		{
-			_wordtoreplace1 = ("$E-" + "%(talkarray[_rand1])" + "-$")
+			_wordtoreplace1 = ("$E-" + "%(talkarray[_rand1])" + "-$") //Add the formatting for Easy mode
 			talkarray[_rand1] = _wordtoreplace1
 		}
-		if _rand2 != _rand1 && "##" !_in_ talkarray[_rand2] && "\" !_in_ talkarray[_rand2]
+		if _rand2 != _rand1 && "##" !_in_ talkarray[_rand2] && "\" !_in_ talkarray[_rand2] //If it doesn't have a space or a sakurascript tag, and does not match the first word picked
 		{
-			_wordtoreplace2 = ("$M-" + "%(talkarray[_rand2])" + "-$")
+			_wordtoreplace2 = ("$M-" + "%(talkarray[_rand2])" + "-$") //Add the formatting for Medium mode
 			talkarray[_rand2] = _wordtoreplace2
 		}
-		if _rand3 != _rand1 && _rand3 != _rand2 && "##" !_in_ talkarray[_rand3] && "\" !_in_ talkarray[_rand3]
+		if _rand3 != _rand1 && _rand3 != _rand2 && "##" !_in_ talkarray[_rand3] && "\" !_in_ talkarray[_rand3] //If it doesn't have a space or a sakurascript tag, and does not match the first or second words picked
 		{
-			_wordtoreplace3 = ("$H-" + "%(talkarray[_rand3])" + "-$")
+			_wordtoreplace3 = ("$H-" + "%(talkarray[_rand3])" + "-$") //Add the formatting for Hard mode
 			talkarray[_rand3] = _wordtoreplace3
 		}
-		if _rand4 != _rand1 && _rand4 != _rand2 && _rand4 != _rand3 && "##" !_in_ talkarray[_rand4] && "\" !_in_ talkarray[_rand4]
+		if _rand4 != _rand1 && _rand4 != _rand2 && _rand4 != _rand3 && "##" !_in_ talkarray[_rand4] && "\" !_in_ talkarray[_rand4] //If it doesn't have a space or a sakurascript tag, and does not match the first, second, or third words picked
 		{
-			_wordtoreplace4 = ("$H-" + "%(talkarray[_rand4])" + "-$")
+			_wordtoreplace4 = ("$H-" + "%(talkarray[_rand4])" + "-$") //Add the formatting for Hard mode, this one is a second word
 			talkarray[_rand4] = _wordtoreplace4
 		}
-		talkarray = REPLACE(talkarray,"##","%(CHR(0x2C))")
+		talkarray = REPLACE(talkarray,"##","%(CHR(0x2C))") //replace ## with commas
 		
-		SETDELIM(talkarray," ")
-		reference0 = REPLACE(talkarray,"|"," ")
-		"%(reference0)"
+		SETDELIM(talkarray," ") //change the delimiter back to spaces
+		reference0 = REPLACE(talkarray,"|"," ") //change the | back to spaces
+		"%(reference0)" //return the value
 	}
-	else
+	else //if Wingdings only mode is on, skip all that stuff and just change the ##s to commas and return the value
 	{
 		reference0 = REPLACE(reference0,"##","%(CHR(0x2C))")
 		"%(reference0)"

@@ -114,7 +114,7 @@ OnStartTalking //Starting a conversation
 				others //======Any ghost he doesn't know========
 				{
 					AlreadyResponded = 1
-					commuTimer = 5
+					commuTimer = 15
 					res_reference0 = _ghost
 					
 					"\0\s[0]Hello,\w4 %(res_reference0).\w8\w8\e"
@@ -232,7 +232,7 @@ ReplyToGhost
 		elseif AlreadyResponded == 0
 		{
 			AlreadyResponded = 1
-			commuTimer = 5
+			commuTimer = 15
 			res_reference0 = reference0
 			
 			"\0\s[0]Hello,\w4 %(reference0).\w8\e"
@@ -247,7 +247,7 @@ ReplyToGhost
 	}
 }
 
-ObsiHoldCheck
+ObsiHoldCheck //Keeps track of which ghosts have held obsidian and how many times
 {
 	_num = TOINT(SomeoneHeldObsidian) //handles the number for how many times EVERY ghost has held her
 	_num++
@@ -669,6 +669,7 @@ TalkToMiniDev
 			if talkedtoMiniDev < 1
 			{
 				res_reference0 = "MiniDev"
+				talkedtoMiniDev = 1
 				
 				"\1\s[10]* (Obsidian is eyeing MiniDev's monitor.)\w8\w8\0\s[0]Hello there.\w8\w8 You are MiniDev,\w4 yes?\e HiMD01"
 			}
