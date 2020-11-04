@@ -69,10 +69,74 @@
 		</div>
     </nav>
 	
-    <article>
+	<article>
         <h1>Functions</h1>
         <p>Here are some misc functions I've made that you can add to your own ghosts, if you like!</p>
     </article>
+	
+    <article>
+		<h1>Holding Obsidian</h1>
+		<p class="centerreg">Do you want YOUR GHOST to be able to pick up <a href="dusty.html">Dusty's cat, Obsidian?</a> Great! Me too! Here's a video showing what it looks like, and a .zip download with instructions and examples. If you want to set up special commu dialogue between your ghost and Dusty, please let me know and I'd be glad to collaborate!</p>
+		<p class="centerreg">Demo video includes <a href="https://zdzisiu.github.io/Ukagaka/md.html">MiniDev</a> by Zdzisiu.</p>
+		<div class="resp-container">
+            <iframe class="resp-iframe" src="https://www.youtube.com/embed/KR7Jqr2Fok4" gesture="media"  allow="encrypted-media" allow="accelerometer" allowfullscreen></iframe>
+        </div>
+		<br>
+		<div class="cntr"><a href="http://www.mediafire.com/file/j37ywjctw6fvtwf/How_To_Make_Your_Ghost_Hold_Obsidian_v1.0.0.zip/file">Download the latest .zip file here!</a></div>
+    </article>
+
+    
+
+	<article>
+        <h1>IntervalStacker</h1>
+        <p class="centerreg">Do you use lots of intervals to create poses in your shell, and need an easier way to set up poses? Here's a .dic file that you can add to your ghost! Demonstrated with <a href="http://www.drdowasure.com/gaster/">Zarla's Gaster</a> because I haven't made any ghosts with lots of intervals.</p>
+        <div class="resp-container">
+            <iframe class="resp-iframe" src="https://www.youtube.com/embed/xTYvM9v-1G8" gesture="media"  allow="encrypted-media" allow="accelerometer" allowfullscreen></iframe>
+        </div>
+		<br>
+		<div class="cntr"><a href="http://www.mediafire.com/file/nq5c0a559644rhi/IntervalStacker_v1.0.0.zip/file">Download the latest .dic file here!</a></div>
+	</article>
+	
+	<article>
+        <h1>OnCreepyText</h1>
+        <p class="centerreg">Want to be able to write text in a really creepy and nonsensical way? Here's a simple function:</p>
+        <div class="resp-container">
+            <iframe class="resp-iframe" src="https://www.youtube.com/embed/qbtoNwIkwdI" gesture="media"  allow="encrypted-media" allow="accelerometer" allowfullscreen></iframe>
+        </div>
+        <div class="collapsible-OnCreepyText">
+            <input type="checkbox" id="OnCreepyText">
+            <br>
+                <label for="OnCreepyText">See the code here</label>
+                <div class="OnCreepyText-content">
+                    <pre>
+
+//Written by Zichqec https://zichqec.github.io/s-the-skeleton/index.html
+
+//To call the function, you can either call the function in your code like this:
+//OnCreepyText("Your dialogue here!")
+//Or in dialogue like this:
+//"%(OnCreepyText('Your dialogue here!'))"
+
+OnCreepyText
+{
+    _display = ""
+    for _i = 0; _i < STRLEN(_argv); _i++
+    {
+        _x = RAND(250) //Set this to the maximum X coordinate you want
+        _y = RAND(100) //Set this to the maximum Y coordinate you want
+        _w = RAND(10)  //Set this to the maximum pause time you want, or comment it out if you don't want random pauses (Don't put it higher than 10 or you'll call invalid \w commands)
+        
+        _display += ("\_l[%(_x),%(_y)]" + SUBSTR(_argv,_i,1) + "\w%(_w)")
+    }
+    
+    "%(_display)\e"
+}    
+                    </pre>
+                </div>
+        </div>
+
+    </article>
+	
     <article>
         <h1>OnWander</h1>
         <p class="centerreg">I've set up a simple function that allows your ghost to move randomly around the monitor, while staying within the boundaries. See it here:</p>
@@ -277,58 +341,9 @@ nowscale = reference0
         </div>
 
     </article>
-
-    <article>
-        <h1>OnCreepyText</h1>
-        <p class="centerreg">Want to be able to write text in a really creepy and nonsensical way? Here's a simple function:</p>
-        <div class="resp-container">
-            <iframe class="resp-iframe" src="https://www.youtube.com/embed/qbtoNwIkwdI" gesture="media"  allow="encrypted-media" allow="accelerometer" allowfullscreen></iframe>
-        </div>
-        <div class="collapsible-OnCreepyText">
-            <input type="checkbox" id="OnCreepyText">
-            <br>
-                <label for="OnCreepyText">See the code here</label>
-                <div class="OnCreepyText-content">
-                    <pre>
-
-//Written by Zichqec https://zichqec.github.io/s-the-skeleton/index.html
-
-//To call the function, you can either call the function in your code like this:
-//OnCreepyText("Your dialogue here!")
-//Or in dialogue like this:
-//"%(OnCreepyText('Your dialogue here!'))"
-
-OnCreepyText
-{
-    _display = ""
-    for _i = 0; _i < STRLEN(_argv); _i++
-    {
-        _x = RAND(250) //Set this to the maximum X coordinate you want
-        _y = RAND(100) //Set this to the maximum Y coordinate you want
-        _w = RAND(10)  //Set this to the maximum pause time you want, or comment it out if you don't want random pauses (Don't put it higher than 10 or you'll call invalid \w commands)
-        
-        _display += ("\_l[%(_x),%(_y)]" + SUBSTR(_argv,_i,1) + "\w%(_w)")
-    }
-    
-    "%(_display)\e"
-}    
-                    </pre>
-                </div>
-        </div>
-
-    </article>
-
-	<article>
-        <h1>IntervalStacker</h1>
-        <p class="centerreg">Do you use lots of intervals to create poses in your shell, and need an easier way to set up poses? Here's a .dic file that you can add to your ghost! Demonstrated with <a href="http://www.drdowasure.com/gaster/">Zarla's Gaster</a> because I haven't made any ghosts with lots of intervals.</p>
-        <div class="resp-container">
-            <iframe class="resp-iframe" src="https://www.youtube.com/embed/xTYvM9v-1G8" gesture="media"  allow="encrypted-media" allow="accelerometer" allowfullscreen></iframe>
-        </div>
-		<br>
-		<div class="cntr"><a href="http://www.mediafire.com/file/nq5c0a559644rhi/IntervalStacker_v1.0.0.zip/file">Download the latest .dic file here!</a></div>
-	</article>
 	
-    <footer>
+	
+	<footer>
         More from Zichqec<br>
         <a href="https://www.deviantart.com/zichqec"class="footlink">Deviantart</a> | 
         <a href="https://zichqec.tumblr.com/" class="footlink">Tumblr</a> | 
