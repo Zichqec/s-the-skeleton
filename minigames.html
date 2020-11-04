@@ -18,24 +18,63 @@
 
 <body>
     <nav>
-        <div id="navbar" class="topnav">
+        <div class="navbar">
             <a href="index.html" class="navlink">Home</a>
-            <a href="s_the_skeleton.html" class="navlink">S the Skeleton</a>
-            <a href="dusty.html" class="navlink">Dusty</a>
-            <a href="iea.html" class="navlink">Iea</a>
-            <a href="guard.html" class="navlink">Skryim Guard</a>
-            <a href="hydrate.html" class="navlink">Hydrate</a>
-            <a href="cibus.html" class="navlink">Cibus</a>
-            <a href="xtemplate.html" class="navlink">X. Template</a>
-            <a href="balloons.html" class="navlink">Balloons</a>
-            <a href="other.html" class="navlinkac">Other</a>
-        </div>
+			<!---->
+			<div class="dropdown">
+				<button class="dropbtn">Ghosts
+				  <i class="fa fa-caret-down"></i>
+				</button>
+				<div class="dropdown-content">
+					<p class="navdivider">--Main ghosts--</p>
+					<a href="s_the_skeleton.html">S the Skeleton</a>
+					<a href="dusty.html">Dusty and Obsidian</a>
+					<p class="navdivider">--Side ghosts--</p>
+					<a href="guard.html">Skyrim Guard</a>
+					<p class="navdivider">--Collab ghosts--</p>
+					<a href="iea.html">Iea</a>
+					<a href="hydrate.html">Hydrate</a>
+				</div>
+			</div>
+			<!---->
+			<a href="flele_shells.html" class="navlink">FLELE Shells</a>
+			<!---->
+			<a href="xtemplate.html" class="navlink">X. Template</a>
+			<!---->
+			<a href="balloons.html" class="navlink">Balloons</a>
+			<!---->
+			<div class="dropdown">
+				<button class="dropbtn">Tutorials
+				  <i class="fa fa-caret-down"></i>
+				</button>
+				<div class="dropdown-content">
+				  <a href="github.html">Network updates with Github</a>
+				  <!--<a href="warrior_generator.html">Warrior Generator</a>-->
+				</div>
+			</div>
+			<!---->
+			<div class="dropdown">
+				<button class="dropbtn">Other
+				  <i class="fa fa-caret-down"></i>
+				</button>
+				<div class="dropdown-content">
+				  <a href="functions.html">Functions</a>
+				  <a href="minigames.html">Minigames</a>
+				  <a href="calendarskins.html">Calendar Skins</a>
+				  <a href="resources.html">Resources</a>
+				  <!--<a href="warrior_generator.html">Warrior Generator</a>-->
+				</div>
+			</div>
+			<!---->
+		</div>
     </nav>
+	
     <article>
-        <h1>Other stuff</h1>
-        <p>This is a place for any miscellaneous resources I create for ghosts, including calendar skins and things I've programmed that you can add to your own ghosts!</p>
+        <h1>Minigames</h1>
+        <p>I've written some minigames, feel free to add these to your own ghost if you'd like!</p>
     </article>
-    <article>
+
+        <article>
         <h1>Hangman</h1>
         <p class="centerreg">I programmed a simple hangman game! Here it is in action:</p>
         <!--<iframe width="560" height="315" class="centervd" src="https://www.youtube.com/embed/oLq3xPsQ9D8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>-->
@@ -49,7 +88,7 @@
                         <div class="HMtut-content">
                             <pre>
 
-//Written by Zichqec, with help from Nimanao
+//Written by Zichqec https://zichqec.github.io/s-the-skeleton/index.html with help from Nimanao
 OnStartHangman //Sets up variables for the game
 {
     wordtoguess = hangmanwords
@@ -227,7 +266,7 @@ hangmanwords //Words it can choose. Expand this as far as you like! It's much mo
                         <div class="HMmin-content">
                             <pre>
 
-//Written by Zichqec, with help from Nimanao
+//Written by Zichqec https://zichqec.github.io/s-the-skeleton/index.html with help from Nimanao
 OnStartHangman //Sets up variables for the game
 {
     wordtoguess = hangmanwords
@@ -386,8 +425,8 @@ hangmanwords //Words it can choose.
             
         <!--<p class="centerreg"><a href="https://docs.google.com/document/d/1XMFFnLugQHKCs-_VutkhdHAdGwmcGYgkjwuzwLf9jPs/edit#heading=h.sb1xggva0ifj">Get the code here!</a></p>-->
     </article>
-    
-    <article>
+
+   <article>
         <h1>Continuous Petting</h1>
         <p class="centerreg">I've set up a system for continuous petting and tracking high scores! See it here:</p>
         <div class="resp-container">
@@ -399,7 +438,7 @@ hangmanwords //Words it can choose.
                 <label for="Cntn">See the code here</label>
                 <div class="Cntn-content">
                     <pre>
-                        
+
 //I've redone the petting code from the GT template, since some of it didn't actually do what it claimed to, at least in my testing. With this system, we track two stroke values, one for normal petting which resets every time you trigger dialogue, and one for continuous petting that counts up until the mouse leaves the character. For this to work, it's vital that you use either OnMouseLeave or OnMouseLeaveAll to reset the stroke values when the mouse leaves the character. The way the template had this set up doesn't actually work, so it's important you add the new event.
 
 MouseMoveSakura
@@ -462,23 +501,10 @@ OnMouseLeaveAll //Activates when the mouse leaves all hitboxes. You can change t
 
         <!--<p class="centerreg"><a href="https://docs.google.com/document/d/1XMFFnLugQHKCs-_VutkhdHAdGwmcGYgkjwuzwLf9jPs/edit#heading=h.2zy65cebvd8c">Get the code here!</a></p>-->
     </article>
-    <article>   
-        <h1>Calendar skins</h1>
-        <p>Please note that ghosts may not say anything upon completing installation of calendar skins! Check under the 'skin' menu on your calendar after you install it and you should see it there.</p>
-        <br>
-        <h1>Undertale</h1>
-        <img src="img/UndertaleCal.png" alt="Undertale Themed Calendar" width="382" height="280" class="centersq">
-        <div class="cntr"><a href="http://www.mediafire.com/file/533nbl3by7y0erw/undertale_calendar_skin_v1.nar/file">Download here</a>.</div>
-        <p class="centerreg">An Undertale themed calendar skin based on <a href="http://www.ashido.com/">Zarla's</a> Undertale balloon!</p>
-        
-        <br>
-        <h1>Galaxy</h1>
-        <img src="img/GalaxyCal.png" alt="Galaxy Themed Balloons" width="348" height="598" class="centersq">
-        <div class="cntr"><a href="http://www.mediafire.com/file/osfvmhlm2p9sh7r/galaxy_calendar_skin_v1.nar/file">Download here</a>.</div>
-        <p class="centerreg">Individual download of the galaxy themed calendar. Has different space pictures for each month!</p>
-        
-    </article>
 
+
+   
+	
     <footer>
         More from Zichqec<br>
         <a href="https://www.deviantart.com/zichqec"class="footlink">Deviantart</a> | 
