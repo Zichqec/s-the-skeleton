@@ -205,11 +205,38 @@ ReplyToGhost
 			}
 			elseif "%(SomeoneHoldingObsidian[0])ObsiJumpDown02" _in_ ConvoTag
 			{
-				JumpXCoord = TOINT(ConvoTag[1])
-				JumpYCoord = TOINT(ConvoTag[2])
+				_JumpXCoord = TOINT(ConvoTag[1])
+				_JumpYCoord = TOINT(ConvoTag[2])
 				obsiJumping = 1
 				
-				"\![get,property,OnObsiJumpCoords,currentghost.scope(1).rect]"
+				_JumpYCoord -= 120 //Go up by half Obsi's frame height
+				if nowscale > 100 {_JumpYCoord = (_JumpYCoord - nowscale)}
+				if nowscale < 100 {_JumpYCoord = (_JumpYCoord + nowscale)}
+				
+				_ghost = SomeoneHoldingObsidian[0]
+				res_reference0 = SomeoneHoldingObsidian[0]
+				SomeoneHoldingObsidian = ""
+				
+				if res_reference0 == "Elsen"; {res_reference0 = ""}
+				if res_reference0 == "MiniDev"; {res_reference0 = ""}
+				
+				_direction = "Left"
+				
+				if "Right" _in_ ConvoTag
+				{
+					_direction = "Right"
+					_JumpXCoord += 10
+					_toX = (_JumpXCoord + 200)
+					"\w4\1\s[1003]\![move,--X=%(_JumpXCoord),--Y=%(_JumpYCoord),--base=primaryscreen]\![move,--X=%(_toX),--Y=fix,--time=700,--base=primaryscreen]\s[1004]%(holdnoise)\w8\w8\![raise,OnDialogueVars,ObsiDoneJump]\e"
+				}
+				else
+				{
+					_toX = (_JumpXCoord - 100)
+					_JumpXCoord -= 10
+					"\w4\1\s[1009]\![move,--X=%(_JumpXCoord),--Y=%(_JumpYCoord),--base=primaryscreen]\![move,--X=%(_toX),--Y=fix,--time=700,--base=primaryscreen]\s[1004]%(holdnoise)\w8\w8\![raise,OnDialogueVars,ObsiDoneJump]\e"
+				}
+				--
+				" %(_ghost)ObsiJumpDown03 %(_direction)"
 			}
 			elseif "%(SomeoneHoldingObsidian[0])ObsiMinimize" _in_ ConvoTag
 			{
@@ -283,6 +310,8 @@ ObsiHoldCheck //Keeps track of which ghosts have held obsidian and how many time
 		SomeoneHeldObsidian[_i] = _found
 	}
 }
+
+
 
 TalkToS
 {
@@ -520,6 +549,21 @@ TalkToS
 		--
 		"%(ghostquestions)"
 	}
+	elseif "S-Dusty-OverlapA-S01" _in_ ConvoTag
+	{
+		res_reference0 = "RYS-0825"
+		
+		"\0\s[102]Not to worry.\w8\w8\s[107] I live with a cat,\w8\s[113] I'm used to my personal space being invaded.\w8\w8\e S-Dusty-OverlapA-D02"
+	}
+	elseif "S-Dusty-OverlapB-S01" _in_ ConvoTag
+	{
+		res_reference0 = "RYS-0825"
+		"\0\s[110].\w4.\w4.\w8\w8\1\s[10]Maaaow!\w8\w8\0\n\n\s[107]Heh,\w4 sorry %(username),\w4 kisses are reserved for Obsidian only.\w8\w8\e S-Dusty-OverlapB-D02"
+	}
+	/*elseif "" _in_ ConvoTag
+	{
+		
+	}*/
 	else //I'm sure as I update them that they wont always have the same convos set up...
 	{
 		res_reference0 = ""
@@ -780,7 +824,24 @@ OnMenuCommu //These are commus that start in Dusty's menu, called with \![raise]
 
 OnOtherOverlap
 {
-	if holdingObsidian == 0 && SomeoneHoldingObsidian == "" && obsiJumping == 0
+	//"%(reference0)\n"
+	//--
+	if "Dusty/0-RYS-0825/0" _in_ reference0 || "RYS-0825/0-Dusty/0" _in_ reference0 //If Dusty is overlapping S
+	{
+		if username == "Radic"
+		{
+			res_reference0 = "RYS-0825"
+			
+			"\e S-Dusty-OverlapB-D01"
+		}
+		else //Anyone else
+		{
+			res_reference0 = "RYS-0825"
+			
+			"\e S-Dusty-OverlapA-D01"
+		}
+	}
+	elseif holdingObsidian == 0 && SomeoneHoldingObsidian == "" && obsiJumping == 0
 	{
 		if "Dusty/1" _in_ reference0
 		{
@@ -790,14 +851,13 @@ OnOtherOverlap
 			_num = ""
 			while _i < _len
 			{
-				if "Dusty" _in_ reference0[_i]
+				if "Dusty/1" _in_ reference0[_i]
 				{
 					_ghost = reference0[_i]
 					break
 				}
 				_i++
 			}
-			
 			if "Dusty/1-" _in_ _ghost //If Dusty is listed first
 			{
 				_ghost = REPLACE(_ghost,"Dusty/1-","")
@@ -816,7 +876,7 @@ OnOtherOverlap
 			--
 			res_reference0 = _ghost
 			
-			"\e CanYouHoldObsidian? %(_num) %(_ghost)"
+			"\e CanYouHoldObsidian? %(_num) %(_ghost),%property[currentghost.scope(1).x],%property[currentghost.scope(1).y]"
 		}
 	}
 }

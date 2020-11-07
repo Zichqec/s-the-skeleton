@@ -80,8 +80,9 @@ RandomTalk : nonoverlap
 	elseif SomeoneHoldingObsidian != "" //If a ghost he doesn't know is holding Obsidian
 	{
 		"\0\s[102]%(t)She's really enjoying herself over there...]\e"
-		"\0\s[104]%(t)Thank you for being gentle with her],\w4 %(SomeoneHoldingObsidian).\e"
-		"\1* (She vibrates gently with a purr.)\e"
+		"\0\s[104]%(t)Thank you for being gentle with her],\w4 %(SomeoneHoldingObsidian[0]).\e"
+		"\1* (She vibrates gently as she purrs.)\e"
+		"\1* (She seems to be enjoying %(SomeoneHoldingObsidian[0])'s attention.)\e"
 		"\1%(holdnoise)\e"
 	}
 	elseif watchingScreen == 1
