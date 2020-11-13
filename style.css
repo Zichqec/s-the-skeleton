@@ -228,6 +228,11 @@ h6
     margin-right: auto;
 }
 
+.floatctr
+{
+	float: center;
+}
+
 .center
 {
     display: block;
