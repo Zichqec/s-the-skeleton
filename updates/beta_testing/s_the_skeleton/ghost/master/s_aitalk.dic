@@ -917,10 +917,10 @@ if love >= 75;			"\0\s[0]It's getting towards the end of the month.\w8\w8\s[103]
 					}
 					if humid == "Soup" && love >= 75
 					{
-						"\0\s[109]Ugh,\w4 all this humidity is making me feel sticky...\e"
-						"\0\s[109]On days like this I'm glad I don't have hair...\e"
 						if temp == "Boiling"
 						{
+							"\0\s[109]Ugh,\w4 all this humidity is making me feel sticky...\e"
+							"\0\s[109]On days like this I'm glad I don't have hair...\e"
 							"\0\s[108]What a miserable day to be outside...\e"
 						}
 					}
@@ -1982,6 +1982,7 @@ RandomSleep : nonoverlap
 				"\0\s[1300]%(dreammumb)...%(_fruveg) makes a great topping for pizza...%(dreammumb2)"
 				"\0\s[1300]%(dreammumb)...Pasta with %(fruvegs)...%(dreammumb2)"
 				"\0\s[1300]%(dreammumb)...Spicy %(fruvegs) with %(ingredients)...%(dreammumb2)"
+				"\0\s[1300]%(dreammumb)...%(season)'s the perfect time for %(bakedgoods)...%(dreammumb2)"
 if _food1 != _food2;"\0\s[1300]%(dreammumb)...%(_Food1) and %(_food2) with %(fruveg)..?\w8\w8 Ok...%(dreammumb2)"
 if _food1 != _food2;"\0\s[1300]%(dreammumb)...Sure,\w4 I can make %(_food1) and %(_food2)...%(dreammumb2)"
 if _food1 != _food2;"\0\s[1300]%(dreammumb)...%(_Food1) with %(ingredients),\w4 and maybe %(_food2) on the side...%(dreammumb2)"

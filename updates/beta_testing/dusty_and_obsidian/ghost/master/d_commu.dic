@@ -450,8 +450,9 @@ TalkToS
 	elseif "GiveStatsBoot" _in_ ConvoTag
 	{
 		_Ssnowmode = ConvoTag[0]
-		_SsLV = ConvoTag[1]
-		if _Ssnowmode == " RYS" || _SsLV > 0
+		_SsLV = TOINT(ConvoTag[1])
+		
+		if _Ssnowmode == " RYS" || _SsLV > 0 || _Ssnowmode == " Asleep"
 		{
 			res_reference0 = ""
 			"%(normalboottalk)"

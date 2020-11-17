@@ -1281,7 +1281,7 @@ Select.placestobe
 	}
 }
 
-GeneralTimelines //Asking about other timelines. You'll get this if you haven't unlocked any, and once you've unlocked one you can then ask in general to unlock more.
+GeneralTimelines : nonoverlap //Asking about other timelines. You'll get this if you haven't unlocked any, and once you've unlocked one you can then ask in general to unlock more.
 {
 	love += 0.2
 	if love >= 75
@@ -1384,148 +1384,28 @@ TimelineMenu
 	//For some reason, the sticky window only works the second time you click one of the anchors. I dont know why and any attempts I've made to fix it have not worked.
 	
 	//OK UPDATE. I'm leaving the stickywindow command for posterity, or if I change my mind. It was causing a frustrating little bug, so instead I made a 3rd balloon! Works just as well, if not a little better. Yay XD
-	if knowaboutkit == 1
-	{ 
-		"\n\![*]anMKit"
-	}
-	elseif knowaboutkit == 2
-	{
-		"\nanIKit\q[The mermaid,TellMeAboutKit]"
-	}
-	else
-	{
-		"\n--- -------"
-	}
+	
+	if knowaboutkit == 1; "\n\![*]anMKit"; elseif knowaboutkit == 2; "\nanIKit\q[The mermaid,TellMeAboutKit]"; else; "\n--- -------"
 	--
-	if knowaboutsmol == 1
-	{
-		"\n\![*]anMSmol"
-	}
-	elseif knowaboutsmol == 2
-	{
-		"\nanISmol\q[The kid,TellMeAboutSmol]"
-	}
-	else
-	{
-		"\n--- ---"
-	}
+	if knowaboutnine == 1; "\_l[130]\![*]anMNine"; elseif knowaboutnine == 2; "\_l[130]anINine\q[The broken one,TellMeAboutNine]"; else; "\_l[130]--- ------ ---"
 	--
-	if knowaboutbirdy == 1
-	{
-		"\n\![*]anMBirdy"
-	}
-	elseif knowaboutbirdy == 2
-	{
-		"\nanIBirdy\q[The bird,TellMeAboutBirdy]"
-	}
-	else
-	{
-		"\n--- ----"
-	}
+	if knowaboutsmol == 1; "\n\![*]anMSmol"; elseif knowaboutsmol == 2; "\nanISmol\q[The kid,TellMeAboutSmol]"; else; "\n--- ---"
 	--
-	if knowaboutsorrel == 1
-	{
-		"\n\![*]anMSorrel"
-	}
-	elseif knowaboutsorrel == 2
-	{
-		"\nanISorrel\q[The cat,TellMeAboutSorrel]"
-	}
-	else
-	{
-		"\n--- ---"
-	}
+	if knowaboutserif == 1; "\_l[130]\![*]anMSerif"; elseif knowaboutserif == 2; "\_l[130]anISerif\q[The timid one,TellMeAboutSerif]"; else; "\_l[130]--- ----- ---"
 	--
-	if knowaboutpmd == 1
-	{
-		"\n\![*]anMPMD"
-	}
-	elseif knowaboutpmd == 2
-	{
-		"\nanIPMD\q[The riolu,TellMeAboutPMD]"
-	}
-	else
-	{
-		"\n--- -----"
-	}
+	if knowaboutbirdy == 1; "\n\![*]anMBirdy"; elseif knowaboutbirdy == 2; "\nanIBirdy\q[The bird,TellMeAboutBirdy]"; else; "\n--- ----"
 	--
-	if knowaboutbender == 1
-	{
-		"\n\![*]anMBender"
-	}
-	elseif knowaboutbender == 2
-	{
-		"\nanIBender\q[The bender,TellMeAboutBender]"
-	}
-	else
-	{
-		"\n--- ------"
-	}
+	if knowaboutecho == 1; "\_l[130]\![*]anMEcho"; elseif knowaboutecho == 2; "\_l[130]anIEcho\q[The innocent one,TellMeAboutEcho]"; else; "\_l[130]--- -------- ---"
 	--
-	if knowaboutnine == 1
-	{
-		"\n\_l[130,74]\![*]anMNine"
-	}
-	elseif knowaboutnine == 2
-	{
-		"\n\_l[130,74]anINine\q[The broken one,TellMeAboutNine]"
-	}
-	else
-	{
-		"\n\_l[130,74]--- ------ ---"
-	}
+	if knowaboutsorrel == 1; "\n\![*]anMSorrel"; elseif knowaboutsorrel == 2; "\nanISorrel\q[The cat,TellMeAboutSorrel]"; else; "\n--- ---"
 	--
-	if knowaboutserif == 1
-	{
-		"\n\_l[130]\![*]anMSerif"
-	}
-	elseif knowaboutserif == 2
-	{
-		"\n\_l[130]anISerif\q[The timid one,TellMeAboutSerif]"
-	}
-	else
-	{
-		"\n\_l[130]--- ----- ---"
-	}
+	if knowaboutice == 1; "\_l[130]\![*]anMIce"; elseif knowaboutice == 2; "\_l[130]anIIce\q[The bitter one,TellMeAboutIce]"; else; "\_l[130]--- ------ ---"
 	--
-	if knowaboutecho == 1
-	{
-		"\n\_l[130]\![*]anMEcho"
-	}
-	elseif knowaboutecho == 2
-	{
-		"\n\_l[130]anIEcho\q[The innocent one,TellMeAboutEcho]"
-	}
-	else
-	{
-		"\n\_l[130]--- -------- ---"
-	}
+	if knowaboutpmd == 1; "\n\![*]anMPMD"; elseif knowaboutpmd == 2; "\nanIPMD\q[The riolu,TellMeAboutPMD]"; else; "\n--- -----"
 	--
-	if knowaboutice == 1
-	{
-		"\n\_l[130]\![*]anMIce"
-	}
-	elseif knowaboutice == 2
-	{
-		"\n\_l[130]anIIce\q[The bitter one,TellMeAboutIce]"
-	}
-	else
-	{
-		"\n\_l[130]--- ------ ---"
-	}
+	if knowaboutomega == 1; "\_l[130]\![*]anMOmega"; elseif knowaboutomega == 2; "\_l[130]anIOmega\q[The elemental,TellMeAboutOmega]"; else; "\_l[130]--- ---------"
 	--
-	if knowaboutomega == 1
-	{
-		"\n\_l[130]\![*]anMOmega"
-	}
-	elseif knowaboutomega == 2
-	{
-		"\n\_l[130]anIOmega\q[The elemental,TellMeAboutOmega]"
-	}
-	else
-	{
-		"\n\_l[130]--- ---------"
-	}
+	if knowaboutbender == 1; "\n\![*]anMBender"; elseif knowaboutbender == 2; "\nanIBender\q[The bender,TellMeAboutBender]"; else; "\n--- ------"
 	--
 	"\n\n\n\![*]\q[Go back,ihavequestions]/
 	\n\![*]\q[I'm done,CANCEL]\e"
@@ -2261,6 +2141,7 @@ Select.numbersdontlie
 				"* Shaped like a friend."
 				"* Surprisingly soft,\w4 for a skeleton."
 				"* Loves water.\w8\n* A lot."
+				"* Has a lot of birthdays."
 				if (givenbooks + givenwarmthings) > 3
 				{
 					"* Comes with extra storage space in his ribcage."
@@ -2278,27 +2159,29 @@ Select.numbersdontlie
 					"* Smells vaguely of %(ingredients)."
 					"* Smells vaguely of %(bakedgoods)."
 				}
+				if "Green Beanie" _in_ dressups && nowshell == "autumn_flannel"
+				{
+					"\s[104]* Looks cute in his hat."
+				}
 				//Want to make todaysingredients into an array and have it pick random ingredients to tell you he has
 				--
-				"\n\n\w8* You've run him for a total of %(totalhours) hours"
+				_ss = ""; if totalhours != 1; _ss = "s"
+				"\n\n\w8* You've run him for a total of %(totalhours) hour%(_ss)"
 				--
 				if balloonspopped > 0 && poppable == "ON"
 				{
-					", popped his balloons %(balloonspopped) time"
-					--
-					if balloonspopped != 1; "s"
+					_s = ""; if balloonspopped != 1; _s = "s"
+					", popped his balloons %(balloonspopped) time%(_s)"
 				}
 				if totalhugs > 0
 				{
-					", hugged him %(totalhugs) time"
-					--
-					if totalhugs != 1; "s"
+					_s = ""; if totalhugs != 1; _s = "s"
+					", hugged him %(totalhugs) time%(_s)"
 				}
 				if totalboops > 0
 				{
-					", booped his nose %(totalboops) time"
-					--
-					if totalboops != 1; "s"
+					_s = ""; if totalboops != 1; _s = "s"
+					", booped his nose %(totalboops) time%(_s)"
 				}
 				/*if totaltickles > 0
 				{
@@ -2306,104 +2189,82 @@ Select.numbersdontlie
 				}*/
 				if totalwaters > 0
 				{
-					", given him %(totalwaters) glass"
-					--
-					if totalwaters != 1; "es"
-					--
-					" of water"	
+					_es = ""; if totalwaters != 1; _es = "es"
+					", given him %(totalwaters) glass%(_es) of water"
 				}
 				if _songtotal > 0
 				{
-					", played him %(_songtotal) new song"
-					--
-					if _songtotal != 1; "s"
+					_s = ""; if _songtotal != 1; _s = "s"
+					", played him %(_songtotal) new song%(_s)"
 				}
 				if scaled > 0
 				{
-					", changed his size %(scaled) time"
-					--
-					if scaled != 1; "s"
+					_s = ""; if scaled != 1; _s = "s"
+					", changed his size %(scaled) time%(_s)"
 				}
 				if beenbackwards > 0
 				{
-					", turned him backwards %(beenbackwards) time"
-					--
-					if beenbackwards != 1; "s"
+					_s = ""; if beenbackwards != 1; _s = "s"
+					", turned him backwards %(beenbackwards) time%(_s)"
 				}
 				if complimented > 0
 				{
-					", complimented him %(complimented) time"
-					--
-					if complimented != 1; "s"
+					_s = ""; if complimented != 1; _s = "s"
+					", complimented him %(complimented) time%(_s)"
 				}
 				if reset > 0
 				{
-					", reset him %(reset) time"
-					--
-					if reset != 1; "s"
+					_s = ""; if reset != 1; _s = "s"
+					", reset him %(reset) time%(_s)"
 				}
 				if givenbooks > 0
 				{
-					", given him %(givenbooks) book"
-					--
-					if givenbooks != 1; "s"
+					_s = ""; if givenbooks != 1; _s = "s"
+					", given him %(givenbooks) book%(_s)"
 				}
 				if giveningredients > 0
 				{
-					", given him %(giveningredients) ingredient"
-					--
-					if giveningredients != 1; "s"
+					_s = ""; if giveningredients != 1; _s = "s"
+					", given him %(giveningredients) ingredient%(_s)"
 				}
 				if givenfood > 0
 				{
-					", given him %(givenfood) snack"
-					--
-					if givenfood != 1; "s"
+					_s = ""; if givenfood != 1; _s = "s"
+					", given him %(givenfood) snack%(_s)"
 				}
 				if givensocks > 0
 				{
-					", given him %(givensocks) pair"
-					--
-					if givensocks != 1; "s"
-					--
-					" of socks"
+					_s = ""; if givensocks != 1; _s = "s"
+					", given him %(givensocks) pair%(_s) of socks"
 				}
 				if givenblankets > 0
 				{
-					", given him %(givenblankets) blanket"
-					--
-					if givenblankets != 1; "s"
+					_s = ""; if givenblankets != 1; _s = "s"
+					", given him %(givenblankets) blanket%(_s)"
 				}
 				if givenmittens > 0
 				{
-					", given him %(givenmittens) pair"
-					--
-					if givenmittens != 1; "s"
-					--
-					" of mittens"
+					_s = ""; if givenmittens != 1; _s = "s"
+					", given him %(givenmittens) pair%(_s) of mittens"
 				}
 				if heldObsidian > 0
 				{
-					", made him hold Obsidian %(heldObsidian) time"
-					--
-					if heldObsidian != 1; "s"
+					_s = ""; if heldObsidian != 1; _s = "s"
+					", made him hold Obsidian %(heldObsidian) time%(_s)"
 				}
 				if slept > 0
 				{
-					", seen him fall asleep %(slept) time"
-					--
-					if slept != 1; "s"
+					_s = ""; if slept != 1; _s = "s"
+					", seen him fall asleep %(slept) time%(_s)"
 				}
 				if totalsleep > 0
 				{
-					", watched him sleep for %(totalsleep) hour"
-					--
-					if totalsleep != 1; "s"
+					_s = ""; if totalsleep != 1; _s = "s"
+					", watched him sleep for %(totalsleep) hour%(_s)"
 				}
 				--
-					", and pet him %(totalpets) time"
-					--
-					if totalpets != 1; "s"
+				_s = ""; if totalpets != 1; _s = "s"
+				", and pet him %(totalpets) time%(_s)"
 				--
 				if pethighscore > 0
 				{
@@ -3999,8 +3860,13 @@ OnTestVariable  //For my own testing purposes. Be careful here.
 	_randy = RAND(100)
 	"\_l[%(_randx),%(_randy)]E\w%(_w)"
 	--*/
+	//OnWander("0")
+	"%(CHR(1))"
 	
 }
+
+
+
 
 OnUrlTest
 {
@@ -4151,118 +4017,206 @@ OnTestREG
 
 OnWander
 {
-	//Walk speed. The higher you make walkRate, the slower the ghost will walk.
-	walkRate = 200
+	wanderChar = TOINT(_argv)
+	if wanderLeft[wanderChar] == NULL; wanderLeft[wanderChar] = 0 //If somehow these are undefined, define them so the ghost doesn't go to the moon
+	if wanderRight[wanderChar] == NULL; wanderRight[wanderChar] = 500
+	"\![get,property,OnWanderCalc,currentghost.scope(%(_argv)).rect]"
+}
+
+OnWanderCalc
+{
+	//Walk speed. The higher you make _walkRate, the slower the ghost will walk.
+	_walkRate = 200
 	
-	//Ghost width. You need to adjust this so the ghost does not walk off the side of the screen. Set it to the width of your ghost's images.
-	walkWidth = 230
+	//Ghost width. You need to adjust this so the ghost does not walk off the side of the screen. Set it to the width of your ghost's images. If your images are not the same width, this might behave strangely
+	_walkWidth = 230
 	
 	//Minimum amount of pixels to move, so that the ghost doesn't move tiny, jarring amounts. Adjust as you like.
-	walkMinimum = 200
+	_walkMinimum = 200
 	
 	
 	//---Don't touch the rest of this, aside from the surfaces near the bottom!---
 	//{ If you're using notepad++, you can collapse this bracket so you don't have to see all that messy code
-	XCoord = TOINT(reference0[0])
-	_debug = "Started from %(XCoord), left edge is %(wanderLeft), right edge is %(wanderRight)\n"
 	
-	_Left = TOINT(wanderLeft)
-	_Right = TOINT(wanderRight)
-	_Left -= wanderLeft
-	_Right -= wanderLeft
+	
+	_XCoord = TOINT(reference0[0])
+	_char = wanderChar
+	_debug = "Started from %(_XCoord), left edge is %(wanderLeft[_char]), right edge is %(wanderRight[_char])\n"
+	
+	_debug += "Char is %(_char)\n"
+	_adjustedWidth = 0
+	if nowscale != ""
+	{
+		_adjustedWidth = _walkWidth * (nowscale * 0.01)
+		_debug += "adjusted width from %(_walkWidth) to %(_adjustedWidth)\n"
+	}
+	else
+	{
+		_adjustedWidth = _walkWidth
+	}
+	
+	_Left = TOINT(wanderLeft[_char])
+	_Right = TOINT(wanderRight[_char])
+	_Left -= wanderLeft[_char]
+	_Right -= wanderLeft[_char]
+	_debug += "wanderLeft[_char]: %(wanderLeft[_char])\n"
 	if _Right < 0
 	{
 		_Right *= -1
 		_debug += "_Right less than 0, inverted\n"
 	}
 	_RightRand = _Right
-	_RightRand -= walkWidth
-	RandX = RAND(_RightRand)
-	RandX += TOINT(wanderLeft)
-	_debug += "Moving to %(RandX)\n"
+	_RightRand -= _adjustedWidth
+	_RandX = RAND(_RightRand)
+	_RandX += TOINT(wanderLeft[_char])
+	_debug += "Moving to %(_RandX)\n"
 	
 	_adjust = "None"
 	_side = ""
-	if RandX > XCoord //If moving Right
+	if _RandX > _XCoord //If moving Right
 	{
 		_debug += "Moving right\n"
-		if RandX - XCoord < walkMinimum //If it isn't moving at least the minimum distance to the right
+		if _RandX - _XCoord < _walkMinimum //If it isn't moving at least the minimum distance to the right
 		{
-			RandX = XCoord + walkMinimum
+			_RandX = _XCoord + _walkMinimum
 			_adjust = "Right"
 			_debug += "Adjusted to the right\n"
 			
-			if RandX > (wanderRight - walkWidth) //If it's past the right edge
+			if _RandX > (wanderRight[_char] - _adjustedWidth) //If it's past the right edge
 			{
 				_debug += "Stopped on the right edge\n"
-				RandX = wanderRight - walkWidth
+				_RandX = wanderRight[_char] - _adjustedWidth
 			}
 		}
 	}
-	elseif RandX < XCoord //If moving left
+	elseif _RandX < _XCoord //If moving left
 	{
 		_debug += "Moving left\n"
-		_RandXN = RandX
-		_XCoordN = XCoord
-		if wanderLeft < 0
+		_RandXN = _RandX
+		_XCoordN = _XCoord
+		if wanderLeft[_char] < 0
 		{
-			_RandXN = (RandX * -1) //Inverting the negative numbers so we can math properly
-			_XCoordN = (XCoord * -1)
-			_debug += "Inverted XCoord and RandX\n"
+			_RandXN = (_RandX * -1) //Inverting the negative numbers so we can math properly
+			_XCoordN = (_XCoord * -1)
+			_debug += "Inverted _XCoord and _RandX\n"
 		}
 		
-		if _RandXN - _XCoordN < walkMinimum //If it isn't moving at least the minimum distance to the left
+		if _RandXN - _XCoordN < _walkMinimum //If it isn't moving at least the minimum distance to the left
 		{
-			RandX = XCoord - walkMinimum
+			_RandX = _XCoord - _walkMinimum
 			_adjust = "Left"
-			_debug += "Adjusted to the left, new destination %(RandX)\n"
+			_debug += "Adjusted to the left, new destination %(_RandX)\n"
 			
-			if RandX <= TOINT(wanderLeft) //If it's past the left edge
+			if _RandX <= TOINT(wanderLeft[_char]) //If it's past the left edge
 			{
 				_debug += "Stopped on the left edge\n"
-				RandX = wanderLeft
+				_RandX = wanderLeft[_char]
 			}
 		}
 	}
 	
-	if RandX == XCoord //If it fails to move at all
+	if _RandX == _XCoord //If it fails to move at all
 	{
-		if RandX == wanderLeft //If it's on the left edge
+		if _RandX == wanderLeft[_char] //If it's on the left edge
 		{
 			_debug += "Didn't move, stepped right\n"
-			RandX += walkMinimum
+			_RandX += _walkMinimum
 		}
 		else //If it's on the right edge, or I guess if it happened to draw the exact same random coordinate as where it's standing
 		{
-			RandX -= walkMinimum
+			_RandX -= _walkMinimum
 			_debug += "Didn't move, stepped left\n"
 		}
 	}
-	_debug += "Stopped at %(RandX)\n"
+	_debug += "Stopped at %(_RandX)\n"
 	
-	_walkTime = (XCoord - RandX) //Subtract the X we're moving to from the X we're starting at.
+	_walkTime = (_XCoord - _RandX) //Subtract the X we're moving to from the X we're starting at.
 	if _walkTime < 0; {_walkTime *= -1} //If this ends up being a negative number, make it into a positive one.
 	_walkTime /= 100 //Divide it by 100 so we're dealing with a small number.
-	_walkTime *= walkRate //Multiply it by whatever the dev wants the walk rate to be.
-	if _walkTime == 0; {_walkTime = walkRate} //If the walk time ends up being 0, make it at least the base walkRate.
+	_walkTime *= _walkRate //Multiply it by whatever the dev wants the walk rate to be.
+	if _walkTime == 0; {_walkTime = _walkRate} //If the walk time ends up being 0, make it at least the base _walkRate.
+	
+	--
 	//}
 	
-	if RandX > XCoord //Moving right
+	//These ifs handle which direction the character is moving, and which char is moving. You can rearrange them if you like! 
+	if _char == 0 //Moving the Sakura
 	{
-		"\s[300]" //Surface for walking to the right, adjust as needed.
+		if _RandX > _XCoord //Moving right
+		{
+			"\0\s[300]" //Surface for walking to the right, adjust as needed.
+		}
+		else //Moving left
+		{
+			"\0\s[200]" //Surface for walking to the left, adjust as needed.
+		}
 	}
-	else //Moving left
+	elseif _char == 1 //Moving the Kero
 	{
-		"\s[205]" //Surface for walking to the left, adjust as needed.
+		if _RandX > _XCoord //Moving right
+		{
+			"\1\s[300]" //Surface for walking to the right, adjust as needed.
+		}
+		else //Moving left
+		{
+			"\1\s[200]" //Surface for walking to the left, adjust as needed.
+		}
+	}
+	else
+	{
+		"\p[%(_char)]\s[0]" //Catch all for moving extra chars. If you want to move an extra char, you'll want to copy the if checks from the sakura/kero into here
 	}
 	
 	--
-	"\![move,--X=%(RandX),--time=%(_walkTime),--base=primaryscreen]" //This is the actual move command.
+	"\![move,--X=%(_RandX),--time=%(_walkTime),--base=primaryscreen]" //This is the actual move command.
 	--
-	"\0\s[0]\e" //This is whatever surface you want them to return to after they stop walking.
+	//This is whatever surface you want them to return to after they stop walking. If you want dialogue after they stop moving, it'll have to go here.
+	if _char == 0
+	{
+		"\0\s[0]\e" 
+	}
+	elseif _char == 1
+	{
+		"\1\s[0]\e" 
+	}
+	else
+	{
+		"\p[%(_char)]\s[0]\e" 
+	}
 	--
-	"\_q RandX: %(RandX),  XCoord: %(XCoord), Adjust: %(_adjust)\n%(_debug)" //Debugging stuff that'll show up in the script log. You can comment it out, but the user will never see it anyways.
+	"\_q _RandX: %(_RandX),  _XCoord: %(_XCoord), Adjust: %(_adjust)  \n%(_debug)" //Debugging stuff that'll show up in the script log. You can comment it out or remove it, but the user will never see it anyways.
 }
+
+OnDisplayHandover //This sets the variables for if your ghost is moved between monitors. Gotta account for cases where people have different size monitors. I'd put this in etc.dic next to OnDisplayChange
+{
+	wanderLeft[reference1] = reference3[0] //Tracks the left boundary of the current monitor for each char
+	wanderRight[reference1] = reference3[2] //Tracks the right boundary of the current monitor for each char
+}
+
+
+
+//Written by Zichqec https://zichqec.github.io/s-the-skeleton/index.html
+
+//To call the function, you can either call the function in your code like this:
+//OnCreepyText("Your dialogue here!")
+//Or in dialogue like this:
+//"%OnCreepyText('Your dialogue here!')"                    
+
+OnCreepyText
+{
+    _display = ""
+    for _i = 0; _i < STRLEN(_argv); _i++
+    {
+        _x = RAND(250) //Set this to the maximum X coordinate you want
+        _y = RAND(100) //Set this to the maximum Y coordinate you want
+        _w = RAND(10)  //Set this to the maximum pause time you want, or comment it out if you don't want random pauses (Don't put it higher than 10 or you'll call invalid \w commands)
+        
+        _display += ("\_l[%(_x),%(_y)]" + SUBSTR(_argv,_i,1) + "\w%(_w)")
+    }
+    
+    "%(_display)\e"
+}  
+
 
 //{ Debug menu
 // Hey look at this I can put whole menus and things into commented brackets so that I dont have to scroll past a million things :D This is brilliant. ...Hm, but it doesn't seem to work with the config menu... not sure why. That's a shame because I don't want to touch that one but it's so long to scroll past. May investigate this further

@@ -644,7 +644,7 @@ lessonwd //Use TOUPPER and TOLOWER to get uppercase and lowercase versions
 	if CTGgems == "On"; {DefaultCTGAvail++}
 	if CTGshapes == "On"; {DefaultCTGAvail++}
 	if CTGingredients == "On"; {DefaultCTGAvail++}
-	if CTGother == "On"; {DefaultCTGAvail++}
+	//if CTGother == "On"; {DefaultCTGAvail++}
 	--
 	totalCTG = (UserCTGAvail + DefaultCTGAvail) //Add together the amount of categories
 	_rand = RAND(totalCTG) //Pick a random number from the list of categories
@@ -1149,6 +1149,8 @@ DefaultCTG //This should be set up with ifs for every normal category
 		"Array"
 		"Multidimensional"
 		"Envelope"
+		"Function"
+		"Behavior"
 		"Debug"
 		"Reload"
 		"Test"
@@ -1157,6 +1159,10 @@ DefaultCTG //This should be set up with ifs for every normal category
 		"Boolean"
 		"Error"
 		"Warning"
+		"Structure"
+		"Union"
+		"Object"
+		"Class"
 	}
 	if CTGother == "On" //Might move later idk
 	{

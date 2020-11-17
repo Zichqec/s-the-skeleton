@@ -53,7 +53,7 @@ OnBoot
 	{
 		if LV == 0
 		{
-			
+			nowmode = "Default"
 			if (dayslot == "8month 25day" || ((hour == 8 || hour == 20) && minute == 25)) && LVCheck == 1 && RYSprogress == 0 //If it's August 25th, or if the time is 8:25 AM or PM
 			{
 				if RYSprogress == 0
@@ -220,7 +220,7 @@ normalboottalk //Ergh, this is a mess. For now, he'll only acknowledge the time 
 			{
 				"\0\s[1110]\w6\s[207]* (He yawns.)\n\n\w8\w8\s[106]Oh,\w4 hi there %(username).\w8\s[107] Sorry,\w4 I was just about to take a nap.\e"
 				"\0\s[1122]\w6\s[110]Oh,\w4\s[104] afternoon,\w4 %(username).\e"
-				"\0\s[1127]\w6\s[1300].\w2.\w2.\w2%(mumble)...\w8\w8\n\n* (Looks like he's taking a nap...)\w8\w8\n\n* (Do you want to send him home?)\n\n\![*]\q[Keep him here,bootkeep]\n\![*]\q[Send him home,boothome]\*\t\e:eval=nowmode='Asleep'"
+				"\0\s[1127]\w6\s[1300].\w2.\w2.\w2%(mumble)...\w8\w8\n\n* (Looks like he's taking a nap...)\w8\w8\n\n* (Do you want to send him home?)%(BootSleepMenu)\*\t\e:eval=nowmode='Asleep'"
 			}
 			if timeslot == "evening" //6-8
 			{
@@ -231,14 +231,14 @@ normalboottalk //Ergh, this is a mess. For now, he'll only acknowledge the time 
 			{
 				"\0\s[1122]\w6\s[109]* (He seems confused for a moment.)\n\n\w8\w8\s[1100]Oh..!\w8\s[107] Hey,\w4 %(username).\w8\s[101] Isn't it late there..?\w8\w8\n\n\s[207]* (He yawns slowly.)\w8\w8\w8\n\n\s[107]I was just on my way to bed,\s[0] but I'm here if you need me.\e" //replaceframe could use sleepy with eyes open
 				"\0\s[1122]\w6\s[110]Ah-\w8\w8\s[106] Oh,\w4 hey %(username).\w8\w8\s[104] Planning to stay up a while?\e"
-				"\0\s[1127]\w6\s[1300].\w2.\w2.\w2%(mumble)...\w8\w8\n\n* (Looks like he's already asleep...)\w8\w8\n\n* (Do you want to send him home?)\n\n\![*]\q[Keep him here,bootkeep]\n\![*]\q[Send him home,boothome]\*\t\e:eval=nowmode='Asleep'"
+				"\0\s[1127]\w6\s[1300].\w2.\w2.\w2%(mumble)...\w8\w8\n\n* (Looks like he's already asleep...)\w8\w8\n\n* (Do you want to send him home?)%(BootSleepMenu)\*\t\e:eval=nowmode='Asleep'"
 			}
 			if timeslot == "midnight" //1-4
 			{
 				"\0\s[1122]\w6\s[108]Ah...\w8\w8 Hey there,\w4 %(username).\w8\s[303] You can't sleep either?\e"
 				"\0\s[1122]\w6\s[109]Hm?\w8\w8\s[110] Ah-\w8\s[104] hey %(username).\w8\w8\s[101] You're up late.\e"
 				"\0\s[1122]\w6\s[109]...Hm?\w8\w8\s[108] Oh-\w8\s[109] Hey %(username).\w8\w8\w8\n\n\s[204]Mmm...\w8\w8\s[202] I'm glad you've brought me here,\w4 because I wasn't getting any sleep at home.\e"
-				"\0\s[1127]\w6\s[1300].\w2.\w2.\w2%(mumble)...\w8\w8\n\n* (Looks like he's asleep...)\w8\w8\n\n* (Do you want to send him home?)\n\n\![*]\q[Keep him here,bootkeep]\n\![*]\q[Send him home,boothome]\*\t\e:eval=nowmode='Asleep'"
+				"\0\s[1127]\w6\s[1300].\w2.\w2.\w2%(mumble)...\w8\w8\n\n* (Looks like he's asleep...)\w8\w8\n\n* (Do you want to send him home?)%(BootSleepMenu)\*\t\e:eval=nowmode='Asleep'"
 				"\0\s[1127]\w6\s[1300].\w2.\w2.\w2%(mumble)...\w8\w8\n\n* (Looks like he's asleep...)\w8\w8\n\n\s[109]Bh-\w8\s[108] Hm?\w8\w8\s[110] Oh...\w8\w8\s[106] Hey,\w4 %(username).\w8\w8\s[206] Uh,\w4 when did I end up here..?\w8\w8\s[107] Well,\w4 alright,\w4 I'm up anyways.\e"
 			}
 		}
@@ -288,6 +288,16 @@ normalboottalk //Ergh, this is a mess. For now, he'll only acknowledge the time 
 	}
 }
 
+BootSleepMenu
+{
+	"\n\n\![*]\q[Keep him here,bootkeep]\n\![*]\q[Send him home,boothome]"
+	--
+	if ghostexlist > 0
+	{
+		"\n\![*]\q[Switch to someone else,bootswitch]"
+	}
+}
+
 Select.bootkeep
 {
 	"\0\s[1300]* (He can sleep here for a while.)\e"
@@ -296,6 +306,11 @@ Select.bootkeep
 Select.boothome
 {
 	"\0\s[1300]* (He'll probably sleep better at home.)\w8\w8\n\n* (Maybe he'll be awake later...)\-\e"
+}
+
+Select.bootswitch
+{
+	"\0\s[1300]* (Let's try someone else...)\w8\w8\![change,ghost,random]\e"
 }
 
 OnClose
@@ -981,72 +996,72 @@ OnBalloonChange
 OnShellChangeDialogue
 {
 	shellswitching = 0
-		if nowmode == "RYS"
+	if nowmode == "RYS"
+	{
+		"\RYS\s[2006]I've finished...\e"
+	}
+	elseif holdingObsidian == 1
+	{
+		"\0\s[1200]Done.\e"
+	}
+	elseif nowmode == "Asleep"
+	{
+		"\0\s[1300]%(mumb)%(mumb)%(mumb)zz...\e"
+	}
+	else
+	{
+		if LV == 0
 		{
-			"\RYS\s[2006]I've finished...\e"
-		}
-		elseif holdingObsidian == 1
-		{
-			"\0\s[1200]Done.\e"
-		}
-		elseif nowmode == "Asleep"
-		{
-			"\0\s[1300]%(mumb)%(mumb)%(mumb)zz...\e"
-		}
-		else
-		{
-			if LV == 0
+			if switchingtoshell == "Red Hoodie" //Again, this is the name of your shell as you put in the descript.txt file for that shell.
 			{
-				if switchingtoshell == "Red Hoodie" //Again, this is the name of your shell as you put in the descript.txt file for that shell.
-				{
-					"\0\s[104]Ahh,\w4 this is always nice to change back to.\w8\w8\s[0] It's simple,\w4\s[103] but it's comfy.\e"
-				}
-				elseif switchingtoshell == "Pink Apron"
-				{
-					"\0\s[104]Heh,\w4 suddenly I feel like baking.\e"
-				}
-				elseif switchingtoshell == "Autumn Flannel"
-				{
-					if season == "Autumn"
-					{
-						"\0\s[104]Heh,\w4 anBlue's the one who introduced me to plaid.\w8\w8\s[205] I'd seen it before,\w4 of course,\w4 but I didn't realize how much I liked it until I tried it on.\e"
-					}
-					elseif season == "Winter"
-					{
-						"\0\s[106] It's a little late to be wearing this,\w4 isn't it?\e"
-					}
-					else
-					{
-						"\0\s[106]It's a little warm out for this,\w4 isn't it?\e"
-					}
-				}
-				else //For any shell without a specific name, or if you don't want to bother with individual responses to a shell.
-				{
-					"\0\s[104]Done.\e"
-				}
+				"\0\s[104]Ahh,\w4 this is always nice to change back to.\w8\w8\s[0] It's simple,\w4\s[103] but it's comfy.\e"
 			}
-			else
+			elseif switchingtoshell == "Pink Apron"
 			{
-				if LVCheck == 1
+				"\0\s[104]Heh,\w4 suddenly I feel like baking.\e"
+			}
+			elseif switchingtoshell == "Autumn Flannel"
+			{
+				if season == "Autumn"
 				{
-					nowshell = tempshell
-					"\0\s[510]* (Done.)\w8\e"
+					"\0\s[104]Heh,\w4 anBlue's the one who introduced me to plaid.\w8\w8\s[205] I'd seen it before,\w4 of course,\w4 but I didn't realize how much I liked it until I tried it on.\e"
+				}
+				elseif season == "Winter"
+				{
+					"\0\s[106] It's a little late to be wearing this,\w4 isn't it?\e"
 				}
 				else
 				{
-					if tempshell == nowshell //[Zi] if this shell is the same as the last...
-					{
-						"\0\s[402]Somehow I think you're just trying to get under my skin.\e"
-					}
-					else
-					{
-						nowshell = tempshell //[Zi] and if it's not the same as the last, then change nowshell to reflect the current shell
-						"\0\s[402]Happy now?\w8\e"
-					}
+					"\0\s[106]It's a little warm out for this,\w4 isn't it?\e"
+				}
+			}
+			else //For any shell without a specific name, or if you don't want to bother with individual responses to a shell.
+			{
+				"\0\s[104]Done.\e"
+			}
+		}
+		else
+		{
+			if LVCheck == 1
+			{
+				nowshell = tempshell
+				"\0\s[510]* (Done.)\w8\e"
+			}
+			else
+			{
+				if tempshell == nowshell //[Zi] if this shell is the same as the last...
+				{
+					"\0\s[402]Somehow I think you're just trying to get under my skin.\e"
+				}
+				else
+				{
+					nowshell = tempshell //[Zi] and if it's not the same as the last, then change nowshell to reflect the current shell
+					"\0\s[402]Happy now?\w8\e"
 				}
 			}
 		}
-		booting = 0
+	}
+	booting = 0
 }
 
 OnDressupChanged

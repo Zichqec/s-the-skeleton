@@ -4,12 +4,18 @@ OnCommunicate
  	{
 		//Deprecated function I think? Either way, I'm not using ReplyToUser so I got rid of it
 	}
+	elseif "DustyGetStatsBoot" _in_ reference1
+	{
+		res_reference0 = "Dusty"
+		
+		"\e %(nowmode),%(LV), GiveStatsBoot"
+	}
 	elseif nowmode == "RYS"
 	{
 		res_reference0 = ""
 		if ghostexcount > 0 //Checking to see if there's another ghost
 		{
-			"\RYS\s[2007]* (He seems afraid of %(checkname).)\e"
+			"\RYS\s[2007]* (He seems afraid of %(reference0).)\e"
 		}
 		else
 		{
@@ -39,7 +45,7 @@ OnCommunicate
 				res_reference0 = ""
 				if ghostexcount > 0 //Checking to see if there's another ghost
 				{
-					"\0\s[510]* (He tries to stay out of %(checkname)'s sight.)\e"
+					"\0\s[510]* (He tries to stay out of %(reference0)'s sight.)\e"
 				}
 				else
 				{
@@ -51,7 +57,7 @@ OnCommunicate
 				res_reference0 = ""
 				if ghostexcount > 0 //Checking to see if there's another ghost
 				{
-					"\0\s[410]* (He doesn't seem to have noticed %(checkname).)\e"
+					"\0\s[410]* (He doesn't seem to have noticed %(reference0).)\e"
 				}
 				else
 				{
@@ -59,7 +65,6 @@ OnCommunicate
 				}
 			}
 		}
-		
  	}
 }
 
@@ -97,7 +102,7 @@ OnStartTalking //Starting conversations
 			when "Gaster" //=========Zarla's Gaster=======
 			{
 				res_reference0 = ""
-				"\0\s[200].\w4.\w4.\w8\w8\n\n* (Doesn't seem like he wants to talk to %(checkname).)\e"
+				"\0\s[200].\w4.\w4.\w8\w8\n\n* (Doesn't seem like he wants to talk to %(_ghost).)\e"
 			}
 			when "Temmie"
 			{
@@ -125,7 +130,7 @@ OnStartTalking //Starting conversations
 			others //======Any ghost he doesn't know========
 			{
 				//SHIORI3FW.SetDelayEvent('LoopPrevention',5)
-				commuTimer = 5
+				commuTimer = 10
 				AlreadyResponded = 1
 				res_reference0 = checkname
 				
@@ -168,12 +173,11 @@ ReplyToGhost //Replying to conversations
 	}
 	elseif reference0 == "Liah"
 	{
-		_Last = SPLIT(ConvoTag,":")[1] //hopefully can change this later rip
 		"\![quicksection,true]%(_Last)\![quicksection,false]" //Displays his last text instantly so you don't notice that he's repeated it
 		--
 		"%(TalkToLiah)"
 		--
-		":%(speech)"
+		"::%(speech)"
 	}
 	elseif reference0 == "Temmie"
 	{
@@ -229,16 +233,22 @@ ReplyToGhost //Replying to conversations
 		if AlreadyResponded == 0
 		{
 			//SHIORI3FW.SetDelayEvent('LoopPrevention',5)
-			commuTimer = 5
+			commuTimer = 10
 			AlreadyResponded = 1
 			res_reference0 = reference0
-			"\0\s[104]Hey there.\w8\e"
+			
+			"\0\s[104]Hey there.\w8\w8\e"
+			"\0\s[104]Hello.\w8\w8\e"
 		}
 		else
 		{
 			AlreadyResponded = 0
 			res_reference0 = ""
-			"Hope you're doing well.\e"
+			
+			"\0\s[0]Hope you're doing well.\e"
+			"\0\s[205]What's up?\e"
+			"\0\s[205]How're you doing,\w4 %(reference0)?\e"
+			"\0\s[104]Good to meet you.\e"
 		}
 	}
 }
@@ -421,6 +431,30 @@ TalkToDusty
 		res_reference0 = "Dusty"
 		
 		"\0\n\n\s[110]Wait-\w8 what?\w8\w8\s[208] Hey!\w8\w8 You can't just leave me hanging like that!\w8\w8\e S-Dusty-RudeToTalk-S03"
+	}
+	elseif "S-Dusty-OverlapA-D01" _in_ ConvoTag
+	{
+		res_reference0 = "Dusty"
+		
+		"\0\s[110]Uff-!\w8\w8\s[1020] Ah,\w4 sorry Dusty.\w8\w8\s[106] Think you could be a little more careful not to push us into each other,\w4 %(username)?\w8\w8\e S-Dusty-OverlapA-S01"
+	}
+	elseif "S-Dusty-OverlapA-D02" _in_ ConvoTag
+	{
+		res_reference0 = ""
+		
+		"\0\n\n\s[107]\![moveasync,--X=100,--time=500,--base=me]Heh,\w4 yeah I know how you feel.\e"
+	}
+	elseif "S-Dusty-OverlapB-D01" _in_ ConvoTag
+	{
+		res_reference0 = "Dusty"
+		
+		"\0\s[110]Uff-!\w8\w8\s[106] Uh,\w4 what's with that look you're giving us,\w4 %(username)?\w8\w8\e S-Dusty-OverlapB-S01"
+	}
+	elseif "S-Dusty-OverlapB-D02" _in_ ConvoTag
+	{
+		res_reference0 = ""
+		
+		"\0\s[110]\n\n\![moveasync,--X=100,--time=500,--base=me]Kisses???\e"
 	}
 	else //I'm sure as I update them that they wont always have the same convos set up...
 	{
@@ -608,8 +642,6 @@ TalkToMiniDev
 		}
 	}
 }
-
-
 
 OnFacingCoords
 {

@@ -1353,7 +1353,7 @@ Select.startupdatecheck
 
 dustyver
 {
-	"1.0.8"
+	"1.0.9"
 }
 
 OnChangelog
@@ -1361,6 +1361,12 @@ OnChangelog
 	"\![set,autoscroll,disable]\_q\b2"
 	--
 	"/
+	\_l[112]-Version 1.0.9-\n\n/
+	-Fixed an issue where lowercase a was being translated as lowercase s in the Translate From Wingdings function.\n\n/
+	-Fixed an issue where the links in the Translate From Wingdings function were overlapping improperly.\n\n/
+	-Fixed an issue where Obsidian sometimes spoke in the custom font, if you had asked Dusty to change most of his dialogue to it.\n\n/
+	-Fixed an issue where their blip in animations would play twice if S was present while booting.\n\n/
+	-Fixed an issue where email headers were completely broken.\n\n\n/
 	\_l[112]-Version 1.0.8-\n\n/
 	-Made a tiny change to the code for other ghosts holding Obsidian. She should be able to jump down on either the right or left now.\n\n/
 	\_l[112]-Version 1.0.7-\n\n/

@@ -356,42 +356,28 @@ OnBIFFBegin
  
 OnBIFFComplete
 {
-	if reference7 != ""
+	if reference7 != "" && reference0 <= 100
 	{
-		_headers = reference7
-		_headercount = ARRAYSIZE(_headers) //see how long the list is
-		headerlist = ""
+		_buff = reference7
+		_len = ARRAYSIZE(_buff)
+		headers = ""
 		_i = 0
-		while _i < _headercount
+		while _i < _len //Runs through all the elements of the array
 		{
-			_next = (_i + 1) //Look at the next header
-			if "<" _in_ _headers[_next] && "@" _in_ _headers[_next] && ">" _in_ _headers[_next] //If it's got an email address, it must be a legit one
+			if "<" _in_ _buff[_i] && "@" _in_ _buff[_i] && "." _in_ _buff[_i] && ">" _in_ _buff[_i] //If it has an email address
 			{
-				headerlist += "|br%(_headers[_i])" //Add the current header we have to the header list, move on to the next
+				if _i != 0; headers += "\n\n[half]" //Add line breaks
+				headers += "\![*]%(_buff[_i])" //Add a menu option and the header text
 			}
-			else
+			else //If it does not have an email address, it must be a particle
 			{
-				headerlist += "|br%(_headers[_i])" //Add the first part to the header list, then do a loop to gather the remaining pieces
-				
-				_ii = 0
-				while _ii < (_headercount - _i - 1) //The amount of headers - how far we are through them (-1) so that if you're at the end of the headers it'll stop instead of just making commas
-				{
-					_next = (_i + 1) //Look at the next header
-					if !("<" _in_ headers[_next] && "@" _in_ _headers[_next] && ">" _in_ _headers[_next]) //If there is no email address, add the particle to the list
-					{
-						headerlist += ",%(_headers[_next])"
-						_headers[_next] = IARRAY //Erase the duplicate header
-					}
-					_ii++
-				}
-			}
-			_headercount = ARRAYSIZE(_headers) //Recount how many headers we got
+				headers += ",%(_buff[_i])" //Add the text
+			}	
 			_i++
 		}
-		headerlist = ERASE(headerlist,0,3) //erases the first |br so it doesn't start on a line break
-		headerlist = REPLACE(headerlist,"|br","\n\n") //Replace the |brs with line break
 	}
 	--
+	_s = ""; if reference0 != 1; _s = "s"
 	
 	if holdingObsidian == 1
 	{
@@ -401,20 +387,18 @@ OnBIFFComplete
 		{
 			"\s[600]%(t)There are no new emails.]"
 		}
-		elseif reference0 == 1
-		{
-			"\s[600]%(t)You have] %(reference0) new email."
-		}
 		else
 		{
-			"\s[600]%(t)You have] %(reference0) new emails."
+			"\s[600]%(t)You have] %(reference0) new email%(_s)."
 		}
 		--
 		"\w8\w8\1%(holdnoise)"
 		--
-		if reference7 != ""
+		if reference7 != "" && reference0 <= 100
 		{
-			"\0\n\n%(t)Would you like to see the headers?]\n\n\![*]\q[See the headers,headers]\n\![*]\q[No thank you,cancelnodialogue]"
+			"\0\n\n%(t)Would you like to see the header%(_s)?]"
+			--
+			"\n\n\![*]\q[See the headers,headers]\n\![*]\q[No thank you,cancelnodialogue]"
 		}
 		--
 		"\e"
@@ -434,7 +418,6 @@ OnBIFFComplete
 		elseif reference0 > 1 && reference0 < 11 //If you have more than one email but less than eleven.
 		{
 			"\s[0]%(t)You have] %(reference0) new emails."
-			//reference0 here stores the amount of new email it finds.
 		}
 		elseif reference0 > 100 //If there are over one hundred new emails.
 		{
@@ -449,11 +432,7 @@ OnBIFFComplete
 		--
 		if reference7 != ""
 		{
-			"\0\n\n%(t)Would you like to see the] header"
-			--
-			if reference0 != 1; {"s"}
-			--
-			"?\n\n\![*]\q[See the headers,headers]\n\![*]\q[No thank you,cancelnodialogue]"
+			"\0\n\n%(t)Would you like to see the] header%(_s)?\n\n\![*]\q[See the headers,headers]\n\![*]\q[No thank you,cancelnodialogue]"
 		}
 		--
 		"\e"
@@ -462,7 +441,9 @@ OnBIFFComplete
 
 Select.headers
 {
-	"\_q%(headerlist)\x"
+	"\_q\b2%(headers)\n\n\![*]\q[I'm done,cancelnodialogue]\e"
+	--
+	headers = NULL
 }
 
  //---- OnBIFFFailure ---------------------------------------------------------------

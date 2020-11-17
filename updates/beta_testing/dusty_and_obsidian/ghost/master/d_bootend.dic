@@ -337,7 +337,7 @@ OnClose
 			"\0\s[0]Ah,\w4 that was quick.\w8\w8 Did you call us by mistake?\w8\w8\s[104] Take care,\w4 %(username)."
 		}
 		--
-		"\w8\w8\1%(sCatNoise)\w8\w8\-\e" //this bit of code actually closes and ends the ghost. Because \e is here, you don't have to end each line above with it. Again, this will come up very rarely, so OnClose is an unusual case.
+		"\w8\w8\1%(sCatNoise)\w8\w8\-\e"
 	}
  }
 
