@@ -139,6 +139,57 @@ OnCreepyText
 
     </article>
 	
+	<article>
+        <h1>OnSimulTalk</h1>
+        <p class="centerreg">Want a version of SakuraScript's \_s tag that handles more characters? Here's a small function:</p>
+        <div class="cntr"><img src="img/OnSimulTalk.gif" alt="OnSimulTalk Demonstrated" width="1049" height="625" class="center"></div>
+        <div class="collapsible-OnSimulTalk">
+            <input type="checkbox" id="OnSimulTalk">
+            <br>
+                <label for="OnSimulTalk">See the code here</label>
+                <div class="OnSimulTalk-content">
+                    <pre>
+
+//Written by Zichqec https://zichqec.github.io/s-the-skeleton/index.html
+
+//Usage: Within dialogue, write "%(OnSimulTalk('Dialogue to be said at the same time','#','#'))". Make the # signs the numbers of the characters you want to talk. 0 is Sakura, 1 is Kero, 2 is the first extra char, etc. You can write as many characters as you like, in any order.
+//You CANNOT write sakurascript tags within these dialogues! Writing any sort of \ WILL break it. Instead, use the function multiple times, writing your tags between the function calls. You also CANNOT write apostrophes! Instead, write ##, and it will be converted to an apostrophe for you.
+//For example:
+//"%(OnSimulTalk('Here##s the start of some simultanous dialogue, ','2','6'))\w8\p[2]\s[106]\p[6]\s[302]%(OnSimulTalk('we##ve now switched poses.','2','6'))\e"
+
+//You may also call this function through YAYA! Add it in a function somewhere like this:
+//ExampleFunction
+//{
+//	"Some other dialogue or code\n\n"
+//	--
+//	OnSimulTalk("Dialogue to be said at the same time","#","#")
+//}
+//Note that this uses quotation marks rather than apostrophes! By writing it this way, you may include apostrophes within your dialogue.
+
+OnSimulTalk
+{
+	_dialogue = REPLACE(_argv[0],"##","'") //If you want to change the ## to something else, you can do it here
+	_output = ""
+	for _i = 0; _i < STRLEN(_dialogue); _i++ //For every letter
+	{
+		_output += "\![quicksection,1]" //Start a quick section
+		_let = SUBSTR(_dialogue,_i,1)
+		for _ii = 1; _ii < _argc; _ii++ //For each character specified
+		{
+			_char = _argv[_ii]
+			_output += "\p[%(_char)]%(_let)" //Add character tag and the letter
+		}
+		_output += "\![quicksection,0]\w1" //End the quick section and add a short pause so the messages look like they're typing normally
+	}
+	_output
+}
+
+                    </pre>
+                </div>
+        </div>
+
+    </article>
+	
     <article>
         <h1>OnWander</h1>
         <p class="centerreg">I've set up a simple function that allows your ghost to move randomly around the monitor, while staying within the boundaries. See it here:</p>
