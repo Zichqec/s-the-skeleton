@@ -266,11 +266,13 @@ OnAnchorSelect
 				{
 					if nowmode == "Awake"
 					{
-						"\s[1113]Um,\w4 he's right here,\w4 you can just talk to him."
+						//"\s[1113]Um,\w4 he's right here,\w4 you can just talk to him."
+						"\s[1112]He's right over there.\w8\w8 Hi dad!"
 					}
 					else //Sleepy
 					{
-						"\s[112]...he's right here,\w4 you can just talk to him..."
+						//"\s[112]...he's right here,\w4 you can just talk to him..."
+						"\s[112]...that's him over there..."
 					}
 				}
 				else
