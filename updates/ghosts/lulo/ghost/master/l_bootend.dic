@@ -6,7 +6,7 @@ OnFirstBoot //Dialogue when you first open the ghost
 	--
 	if reference0 == 0 //Very first boot
 	{
-		"\s[2000]...zz%(mumb)%(mumb)...\w8\w8\n\n* (Here she is,\w4 looks like she's still asleep though...)\w8\w8\n\n\s[106]...%(mumb)zz..?\w8\w8\s[0]\n\n...oh...\w8\w8\s[113] where is this..?\w8\w8 i'm not still dreaming,\w4 am i..?\w8\w8 no,\w4 definitely not...\w8\w8\n\n\s[108]...oh,\w4 um,\w4 hi there...\w8\w8 who are you..?\w8\w8\s[109] ...i should probably start with my name first,\w4 shouldn't i...\w8\w8\s[0]\n\n...mine's lulo,\w8 what's yours..?\![open,inputbox,OnNameTeach]"
+		"\s[2000]...zz%(mumb)%(mumb)...\w8\w8\n\n* (Here she is,\w4 looks like she's still asleep though...)\w8\w8\n\n\s[106]...%(mumb)zz..?\w8\w8\s[0]\n\n...oh...\w8\w8\s[113] where is this..?\w8\w8 i'm not still dreaming,\w4 am i..?\w8\w8 no,\w4 i'm not...\w8\w8\n\n\s[108]...oh,\w4 um,\w4 hi there...\w8\w8 who are you..?\w8\w8\s[109] ...i should probably start with my name first,\w4 shouldn't i...\w8\w8\s[0]\n\n...mine's lulo,\w8 what's yours..?\![open,inputbox,OnNameTeach]"
 	}
 	else //If you've reinstalled the ghost
 	{
