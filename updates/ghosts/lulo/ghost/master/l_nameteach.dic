@@ -88,6 +88,7 @@ OnNameTeach
 		if SInstalled //this might be an issue if you've been cruel to S but OH WELL
 		{
 			"\s[111]\w8\w8\n\n...i've heard of you...\w8\w8\s[112] '%(username)'...\w8\w8\w8\s[111] you bring my dad here,\w4 don't you..?\w8\w8"
+			--
 			if SPresent
 			{
 				" \s[112] .\w2.\w2.\w2oh,\w4 hey dad..."

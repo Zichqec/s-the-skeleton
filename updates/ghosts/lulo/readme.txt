@@ -22,8 +22,3 @@ THERE'S SO MUCH MORE WORK TO DO, please forgive the rough edges XD And let me kn
 
 
 Weather checking code by Vita, @yuyudev on twitter. Modified by Zichqec, you can find the original code with all the original functions here: https://docs.google.com/document/d/1qMyEEsunVIFGBBA97hC9i9IRRsx5ahDQ66QWPWVTMh4
-
----Version History---
-
--b0.0.1-
-Initial beta release

@@ -1065,12 +1065,16 @@ OnUpdateComplete
 
 ghostver
 {
-	"0.0.1"
+	"0.0.2"
 }
 
 OnChangeLog //the autoscroll tag here means the user will see the changelog starting from the top
 {
-	"\![set,autoscroll,disable]\_q\b2\_l[75]-Version b0.0.1-\n\n/
+	"\![set,autoscroll,disable]\_q%(bb)/
+	\_l[75]-Version b0.0.2-\n\n/
+	-Fixed an issue with OnFirstBoot\n\n/
+	-Fixed an issue where the changelog balloon wasn't mode-dependant\n\n\n/
+	\_l[75]-Version b0.0.1-\n\n/
 	-Initial beta release\n\n\n"
 	--
 	if reference0 == "FromMenu" //Checks to see if the user came here from the functions menu
