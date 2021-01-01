@@ -1,0 +1,5429 @@
+version,1
+
+
+surface10000 //Default pants
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/default_purple.png,0,0
+	element2,overlay,clothes/sleepy/pants_lines.png,0,0
+}
+
+surface11000 //Default sweater
+{
+	element0,overlay,clothes/sleepy/sweater_blocking.png,0,0
+	element1,overlayfast,colors/default_blue.png,0,0
+	element2,overlay,clothes/sleepy/sweater_lines.png,0,0
+}
+
+
+
+surface10001 //Pants red dark
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/red_dark.png,0,0
+	element2,overlay,clothes/sleepy/pants_lines.png,0,0
+}
+
+surface10002 //Pants red normal
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/red_normal.png,0,0
+	element2,overlay,clothes/sleepy/pants_lines.png,0,0
+}
+
+surface10003 //Pants red light
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/red_light.png,0,0
+	element2,overlay,clothes/sleepy/pants_lines.png,0,0
+}
+
+surface10004 //Pants orange dark
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/orange_dark.png,0,0
+	element2,overlay,clothes/sleepy/pants_lines.png,0,0
+}
+
+surface10005 //Pants orange normal
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/orange_normal.png,0,0
+	element2,overlay,clothes/sleepy/pants_lines.png,0,0
+}
+
+surface10006 //Pants orange light
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/orange_light.png,0,0
+	element2,overlay,clothes/sleepy/pants_lines.png,0,0
+}
+
+surface10007 //Pants yellow dark
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/yellow_dark.png,0,0
+	element2,overlay,clothes/sleepy/pants_lines.png,0,0
+}
+
+surface10008 //Pants yellow normal
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/yellow_normal.png,0,0
+	element2,overlay,clothes/sleepy/pants_lines.png,0,0
+}
+
+surface10009 //Pants yellow light
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/yellow_light.png,0,0
+	element2,overlay,clothes/sleepy/pants_lines.png,0,0
+}
+
+surface10010 //Pants green dark
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/green_dark.png,0,0
+	element2,overlay,clothes/sleepy/pants_lines.png,0,0
+}
+
+surface10011 //Pants green normal
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/green_normal.png,0,0
+	element2,overlay,clothes/sleepy/pants_lines.png,0,0
+}
+
+surface10012 //Pants green light
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/green_light.png,0,0
+	element2,overlay,clothes/sleepy/pants_lines.png,0,0
+}
+
+surface10013 //Pants cyan dark
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/cyan_dark.png,0,0
+	element2,overlay,clothes/sleepy/pants_lines.png,0,0
+}
+
+surface10014 //Pants cyan normal
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/cyan_normal.png,0,0
+	element2,overlay,clothes/sleepy/pants_lines.png,0,0
+}
+
+surface10015 //Pants cyan light
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/cyan_light.png,0,0
+	element2,overlay,clothes/sleepy/pants_lines.png,0,0
+}
+
+surface10016 //Pants blue dark
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/blue_dark.png,0,0
+	element2,overlay,clothes/sleepy/pants_lines.png,0,0
+}
+
+surface10017 //Pants blue normal
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/blue_normal.png,0,0
+	element2,overlay,clothes/sleepy/pants_lines.png,0,0
+}
+
+surface10018 //Pants blue light
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/blue_light.png,0,0
+	element2,overlay,clothes/sleepy/pants_lines.png,0,0
+}
+
+surface10019 //Pants purple dark
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/purple_dark.png,0,0
+	element2,overlay,clothes/sleepy/pants_lines.png,0,0
+}
+
+surface10020 //Pants purple normal
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/purple_normal.png,0,0
+	element2,overlay,clothes/sleepy/pants_lines.png,0,0
+}
+
+surface10021 //Pants purple light
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/purple_light.png,0,0
+	element2,overlay,clothes/sleepy/pants_lines.png,0,0
+}
+
+surface10022 //Pants magenta dark
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/magenta_dark.png,0,0
+	element2,overlay,clothes/sleepy/pants_lines.png,0,0
+}
+
+surface10023 //Pants magenta normal
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/magenta_normal.png,0,0
+	element2,overlay,clothes/sleepy/pants_lines.png,0,0
+}
+
+surface10024 //Pants magenta light
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/magenta_light.png,0,0
+	element2,overlay,clothes/sleepy/pants_lines.png,0,0
+}
+
+surface10025 //Pants gray dark
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/gray_dark.png,0,0
+	element2,overlay,clothes/sleepy/pants_lines.png,0,0
+}
+
+surface10026 //Pants gray normal
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/gray_normal.png,0,0
+	element2,overlay,clothes/sleepy/pants_lines.png,0,0
+}
+
+surface10027 //Pants gray light
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/gray_light.png,0,0
+	element2,overlay,clothes/sleepy/pants_lines.png,0,0
+}
+
+
+
+surface10051 //Jeans red dark
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/red_dark.png,0,0
+	element2,overlay,clothes/sleepy/jeans_lines.png,0,0
+}
+
+surface10052 //Jeans red normal
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/red_normal.png,0,0
+	element2,overlay,clothes/sleepy/jeans_lines.png,0,0
+}
+
+surface10053 //Jeans red light
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/red_light.png,0,0
+	element2,overlay,clothes/sleepy/jeans_lines.png,0,0
+}
+
+surface10054 //Jeans orange dark
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/orange_dark.png,0,0
+	element2,overlay,clothes/sleepy/jeans_lines.png,0,0
+}
+
+surface10055 //Jeans orange normal
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/orange_normal.png,0,0
+	element2,overlay,clothes/sleepy/jeans_lines.png,0,0
+}
+
+surface10056 //Jeans orange light
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/orange_light.png,0,0
+	element2,overlay,clothes/sleepy/jeans_lines.png,0,0
+}
+
+surface10057 //Jeans yellow dark
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/yellow_dark.png,0,0
+	element2,overlay,clothes/sleepy/jeans_lines.png,0,0
+}
+
+surface10058 //Jeans yellow normal
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/yellow_normal.png,0,0
+	element2,overlay,clothes/sleepy/jeans_lines.png,0,0
+}
+
+surface10059 //Jeans yellow light
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/yellow_light.png,0,0
+	element2,overlay,clothes/sleepy/jeans_lines.png,0,0
+}
+
+surface10060 //Jeans green dark
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/green_dark.png,0,0
+	element2,overlay,clothes/sleepy/jeans_lines.png,0,0
+}
+
+surface10061 //Jeans green normal
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/green_normal.png,0,0
+	element2,overlay,clothes/sleepy/jeans_lines.png,0,0
+}
+
+surface10062 //Jeans green light
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/green_light.png,0,0
+	element2,overlay,clothes/sleepy/jeans_lines.png,0,0
+}
+
+surface10063 //Jeans cyan dark
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/cyan_dark.png,0,0
+	element2,overlay,clothes/sleepy/jeans_lines.png,0,0
+}
+
+surface10064 //Jeans cyan normal
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/cyan_normal.png,0,0
+	element2,overlay,clothes/sleepy/jeans_lines.png,0,0
+}
+
+surface10065 //Jeans cyan light
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/cyan_light.png,0,0
+	element2,overlay,clothes/sleepy/jeans_lines.png,0,0
+}
+
+surface10066 //Jeans blue dark
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/blue_dark.png,0,0
+	element2,overlay,clothes/sleepy/jeans_lines.png,0,0
+}
+
+surface10067 //Jeans blue normal
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/blue_normal.png,0,0
+	element2,overlay,clothes/sleepy/jeans_lines.png,0,0
+}
+
+surface10068 //Jeans blue light
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/blue_light.png,0,0
+	element2,overlay,clothes/sleepy/jeans_lines.png,0,0
+}
+
+surface10069 //Jeans purple dark
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/purple_dark.png,0,0
+	element2,overlay,clothes/sleepy/jeans_lines.png,0,0
+}
+
+surface10070 //Jeans purple normal
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/purple_normal.png,0,0
+	element2,overlay,clothes/sleepy/jeans_lines.png,0,0
+}
+
+surface10071 //Jeans purple light
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/purple_light.png,0,0
+	element2,overlay,clothes/sleepy/jeans_lines.png,0,0
+}
+
+surface10072 //Jeans magenta dark
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/magenta_dark.png,0,0
+	element2,overlay,clothes/sleepy/jeans_lines.png,0,0
+}
+
+surface10073 //Jeans magenta normal
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/magenta_normal.png,0,0
+	element2,overlay,clothes/sleepy/jeans_lines.png,0,0
+}
+
+surface10074 //Jeans magenta light
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/magenta_light.png,0,0
+	element2,overlay,clothes/sleepy/jeans_lines.png,0,0
+}
+
+surface10075 //Jeans gray dark
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/gray_dark.png,0,0
+	element2,overlay,clothes/sleepy/jeans_lines.png,0,0
+}
+
+surface10076 //Jeans gray normal
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/gray_normal.png,0,0
+	element2,overlay,clothes/sleepy/jeans_lines.png,0,0
+}
+
+surface10077 //Jeans gray light
+{
+	element0,overlay,clothes/sleepy/pants_blocking.png,0,0
+	element1,overlayfast,colors/gray_light.png,0,0
+	element2,overlay,clothes/sleepy/jeans_lines.png,0,0
+}
+
+
+
+
+
+
+
+surface11001 //dark red sweater
+{
+	element0,overlay,clothes/sleepy/sweater_blocking.png,0,0
+	element1,overlayfast,colors/red_dark.png,0,0
+	element2,overlay,clothes/sleepy/sweater_lines.png,0,0
+}
+
+surface11002 //normal red sweater
+{
+	element0,overlay,clothes/sleepy/sweater_blocking.png,0,0
+	element1,overlayfast,colors/red_normal.png,0,0
+	element2,overlay,clothes/sleepy/sweater_lines.png,0,0
+}
+
+surface11003 //light red sweater
+{
+	element0,overlay,clothes/sleepy/sweater_blocking.png,0,0
+	element1,overlayfast,colors/red_light.png,0,0
+	element2,overlay,clothes/sleepy/sweater_lines.png,0,0
+}
+
+surface11004 //dark orange sweater
+{
+	element0,overlay,clothes/sleepy/sweater_blocking.png,0,0
+	element1,overlayfast,colors/orange_dark.png,0,0
+	element2,overlay,clothes/sleepy/sweater_lines.png,0,0
+}
+
+surface11005 //normal orange sweater
+{
+	element0,overlay,clothes/sleepy/sweater_blocking.png,0,0
+	element1,overlayfast,colors/orange_normal.png,0,0
+	element2,overlay,clothes/sleepy/sweater_lines.png,0,0
+}
+
+surface11006 //light orange sweater
+{
+	element0,overlay,clothes/sleepy/sweater_blocking.png,0,0
+	element1,overlayfast,colors/orange_light.png,0,0
+	element2,overlay,clothes/sleepy/sweater_lines.png,0,0
+}
+
+surface11007 //dark yellow sweater
+{
+	element0,overlay,clothes/sleepy/sweater_blocking.png,0,0
+	element1,overlayfast,colors/yellow_dark.png,0,0
+	element2,overlay,clothes/sleepy/sweater_lines.png,0,0
+}
+
+surface11008 //normal yellow sweater
+{
+	element0,overlay,clothes/sleepy/sweater_blocking.png,0,0
+	element1,overlayfast,colors/yellow_normal.png,0,0
+	element2,overlay,clothes/sleepy/sweater_lines.png,0,0
+}
+
+surface11009 //light yellow sweater
+{
+	element0,overlay,clothes/sleepy/sweater_blocking.png,0,0
+	element1,overlayfast,colors/yellow_light.png,0,0
+	element2,overlay,clothes/sleepy/sweater_lines.png,0,0
+}
+
+surface11010 //dark green sweater
+{
+	element0,overlay,clothes/sleepy/sweater_blocking.png,0,0
+	element1,overlayfast,colors/green_dark.png,0,0
+	element2,overlay,clothes/sleepy/sweater_lines.png,0,0
+}
+
+surface11011 //normal green sweater
+{
+	element0,overlay,clothes/sleepy/sweater_blocking.png,0,0
+	element1,overlayfast,colors/green_normal.png,0,0
+	element2,overlay,clothes/sleepy/sweater_lines.png,0,0
+}
+
+surface11012 //light green sweater
+{
+	element0,overlay,clothes/sleepy/sweater_blocking.png,0,0
+	element1,overlayfast,colors/green_light.png,0,0
+	element2,overlay,clothes/sleepy/sweater_lines.png,0,0
+}
+
+surface11013 //dark cyan sweater
+{
+	element0,overlay,clothes/sleepy/sweater_blocking.png,0,0
+	element1,overlayfast,colors/cyan_dark.png,0,0
+	element2,overlay,clothes/sleepy/sweater_lines.png,0,0
+}
+
+surface11014 //normal cyan sweater
+{
+	element0,overlay,clothes/sleepy/sweater_blocking.png,0,0
+	element1,overlayfast,colors/cyan_normal.png,0,0
+	element2,overlay,clothes/sleepy/sweater_lines.png,0,0
+}
+
+surface11015 //light cyan sweater
+{
+	element0,overlay,clothes/sleepy/sweater_blocking.png,0,0
+	element1,overlayfast,colors/cyan_light.png,0,0
+	element2,overlay,clothes/sleepy/sweater_lines.png,0,0
+}
+
+surface11016 //dark blue sweater
+{
+	element0,overlay,clothes/sleepy/sweater_blocking.png,0,0
+	element1,overlayfast,colors/blue_dark.png,0,0
+	element2,overlay,clothes/sleepy/sweater_lines.png,0,0
+}
+
+surface11017 //normal blue sweater
+{
+	element0,overlay,clothes/sleepy/sweater_blocking.png,0,0
+	element1,overlayfast,colors/blue_normal.png,0,0
+	element2,overlay,clothes/sleepy/sweater_lines.png,0,0
+}
+
+surface11018 //light blue sweater
+{
+	element0,overlay,clothes/sleepy/sweater_blocking.png,0,0
+	element1,overlayfast,colors/blue_light.png,0,0
+	element2,overlay,clothes/sleepy/sweater_lines.png,0,0
+}
+
+surface11019 //dark purple sweater
+{
+	element0,overlay,clothes/sleepy/sweater_blocking.png,0,0
+	element1,overlayfast,colors/purple_dark.png,0,0
+	element2,overlay,clothes/sleepy/sweater_lines.png,0,0
+}
+
+surface11020 //normal purple sweater
+{
+	element0,overlay,clothes/sleepy/sweater_blocking.png,0,0
+	element1,overlayfast,colors/purple_normal.png,0,0
+	element2,overlay,clothes/sleepy/sweater_lines.png,0,0
+}
+
+surface11021 //light purple sweater
+{
+	element0,overlay,clothes/sleepy/sweater_blocking.png,0,0
+	element1,overlayfast,colors/purple_light.png,0,0
+	element2,overlay,clothes/sleepy/sweater_lines.png,0,0
+}
+
+surface11022 //dark magenta sweater
+{
+	element0,overlay,clothes/sleepy/sweater_blocking.png,0,0
+	element1,overlayfast,colors/magenta_dark.png,0,0
+	element2,overlay,clothes/sleepy/sweater_lines.png,0,0
+}
+
+surface11023 //normal magenta sweater
+{
+	element0,overlay,clothes/sleepy/sweater_blocking.png,0,0
+	element1,overlayfast,colors/magenta_normal.png,0,0
+	element2,overlay,clothes/sleepy/sweater_lines.png,0,0
+}
+
+surface11024 //light magenta sweater
+{
+	element0,overlay,clothes/sleepy/sweater_blocking.png,0,0
+	element1,overlayfast,colors/magenta_light.png,0,0
+	element2,overlay,clothes/sleepy/sweater_lines.png,0,0
+}
+
+surface11025 //dark gray sweater
+{
+	element0,overlay,clothes/sleepy/sweater_blocking.png,0,0
+	element1,overlayfast,colors/gray_dark.png,0,0
+	element2,overlay,clothes/sleepy/sweater_lines.png,0,0
+}
+
+surface11026 //normal gray sweater
+{
+	element0,overlay,clothes/sleepy/sweater_blocking.png,0,0
+	element1,overlayfast,colors/gray_normal.png,0,0
+	element2,overlay,clothes/sleepy/sweater_lines.png,0,0
+}
+
+surface11027 //light gray sweater
+{
+	element0,overlay,clothes/sleepy/sweater_blocking.png,0,0
+	element1,overlayfast,colors/gray_light.png,0,0
+	element2,overlay,clothes/sleepy/sweater_lines.png,0,0
+}
+
+
+
+surface11050 //dark red hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/red_dark.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_lines.png,0,0
+}
+
+surface11051 //normal red hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/red_normal.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_lines.png,0,0
+}
+
+surface11052 //light red hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/red_light.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_lines.png,0,0
+}
+
+surface11053 //dark orange hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/orange_dark.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_lines.png,0,0
+}
+
+surface11054 //normal orange hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/orange_normal.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_lines.png,0,0
+}
+
+surface11055 //light orange hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/orange_light.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_lines.png,0,0
+}
+
+surface11056 //dark yellow hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/yellow_dark.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_lines.png,0,0
+}
+
+surface11057 //normal yellow hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/yellow_normal.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_lines.png,0,0
+}
+
+surface11058 //light yellow hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/yellow_light.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_lines.png,0,0
+}
+
+surface11059 //dark green hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/green_dark.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_lines.png,0,0
+}
+
+surface11060 //normal green hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/green_normal.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_lines.png,0,0
+}
+
+surface11061 //light green hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/green_light.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_lines.png,0,0
+}
+
+surface11062 //dark cyan hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/cyan_dark.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_lines.png,0,0
+}
+
+surface11063 //normal cyan hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/cyan_normal.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_lines.png,0,0
+}
+
+surface11064 //light cyan hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/cyan_light.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_lines.png,0,0
+}
+
+surface11065 //dark blue hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/blue_dark.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_lines.png,0,0
+}
+
+surface11066 //normal blue hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/blue_normal.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_lines.png,0,0
+}
+
+surface11067 //light blue hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/blue_light.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_lines.png,0,0
+}
+
+surface11068 //dark purple hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/purple_dark.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_lines.png,0,0
+}
+
+surface11069 //normal purple hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/purple_normal.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_lines.png,0,0
+}
+
+surface11070 //light purple hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/purple_light.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_lines.png,0,0
+}
+
+surface11071 //dark magenta hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/magenta_dark.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_lines.png,0,0
+}
+
+surface11072 //normal magenta hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/magenta_normal.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_lines.png,0,0
+}
+
+surface11073 //light magenta hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/magenta_light.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_lines.png,0,0
+}
+
+surface11074 //dark gray hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/gray_dark.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_lines.png,0,0
+}
+
+surface11075 //normal gray hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/gray_normal.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_lines.png,0,0
+}
+
+surface11076 //light gray hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/gray_light.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_lines.png,0,0
+}
+
+
+surface11101 //dark red tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/red_dark.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_lines.png,0,0
+}
+
+surface11102 //normal red tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/red_normal.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_lines.png,0,0
+}
+
+surface11103 //light red tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/red_light.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_lines.png,0,0
+}
+
+surface11104 //dark orange tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/orange_dark.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_lines.png,0,0
+}
+
+surface11105 //normal orange tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/orange_normal.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_lines.png,0,0
+}
+
+surface11106 //light orange tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/orange_light.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_lines.png,0,0
+}
+
+surface11107 //dark yellow tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/yellow_dark.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_lines.png,0,0
+}
+
+surface11108 //normal yellow tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/yellow_normal.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_lines.png,0,0
+}
+
+surface11109 //light yellow tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/yellow_light.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_lines.png,0,0
+}
+
+surface11110 //dark green tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/green_dark.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_lines.png,0,0
+}
+
+surface11111 //normal green tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/green_normal.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_lines.png,0,0
+}
+
+surface11112 //light green tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/green_light.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_lines.png,0,0
+}
+
+surface11113 //dark cyan tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/cyan_dark.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_lines.png,0,0
+}
+
+surface11114 //normal cyan tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/cyan_normal.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_lines.png,0,0
+}
+
+surface11115 //light cyan tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/cyan_light.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_lines.png,0,0
+}
+
+surface11116 //dark blue tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/blue_dark.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_lines.png,0,0
+}
+
+surface11117 //normal blue tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/blue_normal.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_lines.png,0,0
+}
+
+surface11118 //light blue tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/blue_light.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_lines.png,0,0
+}
+
+surface11119 //dark purple tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/purple_dark.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_lines.png,0,0
+}
+
+surface11120 //normal purple tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/purple_normal.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_lines.png,0,0
+}
+
+surface11121 //light purple tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/purple_light.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_lines.png,0,0
+}
+
+surface11122 //dark magenta tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/magenta_dark.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_lines.png,0,0
+}
+
+surface11123 //normal magenta tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/magenta_normal.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_lines.png,0,0
+}
+
+surface11124 //light magenta tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/magenta_light.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_lines.png,0,0
+}
+
+surface11125 //dark gray tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/gray_dark.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_lines.png,0,0
+}
+
+surface11126 //normal gray tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/gray_normal.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_lines.png,0,0
+}
+
+surface11127 //light gray tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/gray_light.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_lines.png,0,0
+}
+
+
+
+surface11150 //dark red sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/red_dark.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_lines.png,0,0
+}
+
+surface11151 //normal red sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/red_normal.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_lines.png,0,0
+}
+
+surface11152 //light red sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/red_light.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_lines.png,0,0
+}
+
+surface11153 //dark orange sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/orange_dark.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_lines.png,0,0
+}
+
+surface11154 //normal orange sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/orange_normal.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_lines.png,0,0
+}
+
+surface11155 //light orange sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/orange_light.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_lines.png,0,0
+}
+
+surface11156 //dark yellow sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/yellow_dark.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_lines.png,0,0
+}
+
+surface11157 //normal yellow sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/yellow_normal.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_lines.png,0,0
+}
+
+surface11158 //light yellow sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/yellow_light.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_lines.png,0,0
+}
+
+surface11159 //dark green sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/green_dark.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_lines.png,0,0
+}
+
+surface11160 //normal green sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/green_normal.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_lines.png,0,0
+}
+
+surface11161 //light green sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/green_light.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_lines.png,0,0
+}
+
+surface11162 //dark cyan sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/cyan_dark.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_lines.png,0,0
+}
+
+surface11163 //normal cyan sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/cyan_normal.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_lines.png,0,0
+}
+
+surface11164 //light cyan sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/cyan_light.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_lines.png,0,0
+}
+
+surface11165 //dark blue sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/blue_dark.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_lines.png,0,0
+}
+
+surface11166 //normal blue sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/blue_normal.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_lines.png,0,0
+}
+
+surface11167 //light blue sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/blue_light.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_lines.png,0,0
+}
+
+surface11168 //dark purple sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/purple_dark.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_lines.png,0,0
+}
+
+surface11169 //normal purple sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/purple_normal.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_lines.png,0,0
+}
+
+surface11170 //light purple sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/purple_light.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_lines.png,0,0
+}
+
+surface11171 //dark magenta sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/magenta_dark.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_lines.png,0,0
+}
+
+surface11172 //normal magenta sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/magenta_normal.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_lines.png,0,0
+}
+
+surface11173 //light magenta sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/magenta_light.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_lines.png,0,0
+}
+
+surface11174 //dark gray sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/gray_dark.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_lines.png,0,0
+}
+
+surface11175 //normal gray sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/gray_normal.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_lines.png,0,0
+}
+
+surface11176 //light gray sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/gray_light.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_lines.png,0,0
+}
+
+
+
+
+
+
+
+//-------------------------Think-------------------------
+
+surface12000 //Default sweater
+{
+	element0,overlay,clothes/sleepy/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/default_blue.png,0,0
+	element2,overlay,clothes/sleepy/sweater_think_lines.png,0,0
+}
+
+surface12001 //dark red sweater
+{
+	element0,overlay,clothes/sleepy/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/red_dark.png,0,0
+	element2,overlay,clothes/sleepy/sweater_think_lines.png,0,0
+}
+
+surface12002 //normal red sweater
+{
+	element0,overlay,clothes/sleepy/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/red_normal.png,0,0
+	element2,overlay,clothes/sleepy/sweater_think_lines.png,0,0
+}
+
+surface12003 //light red sweater
+{
+	element0,overlay,clothes/sleepy/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/red_light.png,0,0
+	element2,overlay,clothes/sleepy/sweater_think_lines.png,0,0
+}
+
+surface12004 //dark orange sweater
+{
+	element0,overlay,clothes/sleepy/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/orange_dark.png,0,0
+	element2,overlay,clothes/sleepy/sweater_think_lines.png,0,0
+}
+
+surface12005 //normal orange sweater
+{
+	element0,overlay,clothes/sleepy/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/orange_normal.png,0,0
+	element2,overlay,clothes/sleepy/sweater_think_lines.png,0,0
+}
+
+surface12006 //light orange sweater
+{
+	element0,overlay,clothes/sleepy/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/orange_light.png,0,0
+	element2,overlay,clothes/sleepy/sweater_think_lines.png,0,0
+}
+
+surface12007 //dark yellow sweater
+{
+	element0,overlay,clothes/sleepy/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/yellow_dark.png,0,0
+	element2,overlay,clothes/sleepy/sweater_think_lines.png,0,0
+}
+
+surface12008 //normal yellow sweater
+{
+	element0,overlay,clothes/sleepy/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/yellow_normal.png,0,0
+	element2,overlay,clothes/sleepy/sweater_think_lines.png,0,0
+}
+
+surface12009 //light yellow sweater
+{
+	element0,overlay,clothes/sleepy/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/yellow_light.png,0,0
+	element2,overlay,clothes/sleepy/sweater_think_lines.png,0,0
+}
+
+surface12010 //dark green sweater
+{
+	element0,overlay,clothes/sleepy/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/green_dark.png,0,0
+	element2,overlay,clothes/sleepy/sweater_think_lines.png,0,0
+}
+
+surface12011 //normal green sweater
+{
+	element0,overlay,clothes/sleepy/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/green_normal.png,0,0
+	element2,overlay,clothes/sleepy/sweater_think_lines.png,0,0
+}
+
+surface12012 //light green sweater
+{
+	element0,overlay,clothes/sleepy/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/green_light.png,0,0
+	element2,overlay,clothes/sleepy/sweater_think_lines.png,0,0
+}
+
+surface12013 //dark cyan sweater
+{
+	element0,overlay,clothes/sleepy/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/cyan_dark.png,0,0
+	element2,overlay,clothes/sleepy/sweater_think_lines.png,0,0
+}
+
+surface12014 //normal cyan sweater
+{
+	element0,overlay,clothes/sleepy/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/cyan_normal.png,0,0
+	element2,overlay,clothes/sleepy/sweater_think_lines.png,0,0
+}
+
+surface12015 //light cyan sweater
+{
+	element0,overlay,clothes/sleepy/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/cyan_light.png,0,0
+	element2,overlay,clothes/sleepy/sweater_think_lines.png,0,0
+}
+
+surface12016 //dark blue sweater
+{
+	element0,overlay,clothes/sleepy/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/blue_dark.png,0,0
+	element2,overlay,clothes/sleepy/sweater_think_lines.png,0,0
+}
+
+surface12017 //normal blue sweater
+{
+	element0,overlay,clothes/sleepy/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/blue_normal.png,0,0
+	element2,overlay,clothes/sleepy/sweater_think_lines.png,0,0
+}
+
+surface12018 //light blue sweater
+{
+	element0,overlay,clothes/sleepy/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/blue_light.png,0,0
+	element2,overlay,clothes/sleepy/sweater_think_lines.png,0,0
+}
+
+surface12019 //dark purple sweater
+{
+	element0,overlay,clothes/sleepy/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/purple_dark.png,0,0
+	element2,overlay,clothes/sleepy/sweater_think_lines.png,0,0
+}
+
+surface12020 //normal purple sweater
+{
+	element0,overlay,clothes/sleepy/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/purple_normal.png,0,0
+	element2,overlay,clothes/sleepy/sweater_think_lines.png,0,0
+}
+
+surface12021 //light purple sweater
+{
+	element0,overlay,clothes/sleepy/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/purple_light.png,0,0
+	element2,overlay,clothes/sleepy/sweater_think_lines.png,0,0
+}
+
+surface12022 //dark magenta sweater
+{
+	element0,overlay,clothes/sleepy/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/magenta_dark.png,0,0
+	element2,overlay,clothes/sleepy/sweater_think_lines.png,0,0
+}
+
+surface12023 //normal magenta sweater
+{
+	element0,overlay,clothes/sleepy/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/magenta_normal.png,0,0
+	element2,overlay,clothes/sleepy/sweater_think_lines.png,0,0
+}
+
+surface12024 //light magenta sweater
+{
+	element0,overlay,clothes/sleepy/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/magenta_light.png,0,0
+	element2,overlay,clothes/sleepy/sweater_think_lines.png,0,0
+}
+
+surface12025 //dark gray sweater
+{
+	element0,overlay,clothes/sleepy/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/gray_dark.png,0,0
+	element2,overlay,clothes/sleepy/sweater_think_lines.png,0,0
+}
+
+surface12026 //normal gray sweater
+{
+	element0,overlay,clothes/sleepy/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/gray_normal.png,0,0
+	element2,overlay,clothes/sleepy/sweater_think_lines.png,0,0
+}
+
+surface12027 //light gray sweater
+{
+	element0,overlay,clothes/sleepy/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/gray_light.png,0,0
+	element2,overlay,clothes/sleepy/sweater_think_lines.png,0,0
+}
+
+
+
+surface12050 //dark red hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/red_dark.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_think_lines.png,0,0
+}
+
+surface12051 //normal red hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/red_normal.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_think_lines.png,0,0
+}
+
+surface12052 //light red hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/red_light.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_think_lines.png,0,0
+}
+
+surface12053 //dark orange hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/orange_dark.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_think_lines.png,0,0
+}
+
+surface12054 //normal orange hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/orange_normal.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_think_lines.png,0,0
+}
+
+surface12055 //light orange hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/orange_light.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_think_lines.png,0,0
+}
+
+surface12056 //dark yellow hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/yellow_dark.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_think_lines.png,0,0
+}
+
+surface12057 //normal yellow hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/yellow_normal.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_think_lines.png,0,0
+}
+
+surface12058 //light yellow hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/yellow_light.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_think_lines.png,0,0
+}
+
+surface12059 //dark green hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/green_dark.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_think_lines.png,0,0
+}
+
+surface12060 //normal green hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/green_normal.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_think_lines.png,0,0
+}
+
+surface12061 //light green hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/green_light.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_think_lines.png,0,0
+}
+
+surface12062 //dark cyan hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/cyan_dark.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_think_lines.png,0,0
+}
+
+surface12063 //normal cyan hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/cyan_normal.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_think_lines.png,0,0
+}
+
+surface12064 //light cyan hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/cyan_light.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_think_lines.png,0,0
+}
+
+surface12065 //dark blue hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/blue_dark.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_think_lines.png,0,0
+}
+
+surface12066 //normal blue hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/blue_normal.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_think_lines.png,0,0
+}
+
+surface12067 //light blue hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/blue_light.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_think_lines.png,0,0
+}
+
+surface12068 //dark purple hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/purple_dark.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_think_lines.png,0,0
+}
+
+surface12069 //normal purple hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/purple_normal.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_think_lines.png,0,0
+}
+
+surface12070 //light purple hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/purple_light.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_think_lines.png,0,0
+}
+
+surface12071 //dark magenta hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/magenta_dark.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_think_lines.png,0,0
+}
+
+surface12072 //normal magenta hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/magenta_normal.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_think_lines.png,0,0
+}
+
+surface12073 //light magenta hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/magenta_light.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_think_lines.png,0,0
+}
+
+surface12074 //dark gray hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/gray_dark.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_think_lines.png,0,0
+}
+
+surface12075 //normal gray hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/gray_normal.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_think_lines.png,0,0
+}
+
+surface12076 //light gray hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/gray_light.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_think_lines.png,0,0
+}
+
+
+surface12101 //dark red tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/red_dark.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_think_lines.png,0,0
+}
+
+surface12102 //normal red tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/red_normal.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_think_lines.png,0,0
+}
+
+surface12103 //light red tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/red_light.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_think_lines.png,0,0
+}
+
+surface12104 //dark orange tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/orange_dark.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_think_lines.png,0,0
+}
+
+surface12105 //normal orange tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/orange_normal.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_think_lines.png,0,0
+}
+
+surface12106 //light orange tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/orange_light.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_think_lines.png,0,0
+}
+
+surface12107 //dark yellow tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/yellow_dark.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_think_lines.png,0,0
+}
+
+surface12108 //normal yellow tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/yellow_normal.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_think_lines.png,0,0
+}
+
+surface12109 //light yellow tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/yellow_light.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_think_lines.png,0,0
+}
+
+surface12110 //dark green tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/green_dark.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_think_lines.png,0,0
+}
+
+surface12111 //normal green tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/green_normal.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_think_lines.png,0,0
+}
+
+surface12112 //light green tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/green_light.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_think_lines.png,0,0
+}
+
+surface12113 //dark cyan tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/cyan_dark.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_think_lines.png,0,0
+}
+
+surface12114 //normal cyan tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/cyan_normal.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_think_lines.png,0,0
+}
+
+surface12115 //light cyan tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/cyan_light.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_think_lines.png,0,0
+}
+
+surface12116 //dark blue tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/blue_dark.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_think_lines.png,0,0
+}
+
+surface12117 //normal blue tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/blue_normal.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_think_lines.png,0,0
+}
+
+surface12118 //light blue tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/blue_light.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_think_lines.png,0,0
+}
+
+surface12119 //dark purple tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/purple_dark.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_think_lines.png,0,0
+}
+
+surface12120 //normal purple tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/purple_normal.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_think_lines.png,0,0
+}
+
+surface12121 //light purple tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/purple_light.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_think_lines.png,0,0
+}
+
+surface12122 //dark magenta tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/magenta_dark.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_think_lines.png,0,0
+}
+
+surface12123 //normal magenta tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/magenta_normal.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_think_lines.png,0,0
+}
+
+surface12124 //light magenta tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/magenta_light.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_think_lines.png,0,0
+}
+
+surface12125 //dark gray tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/gray_dark.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_think_lines.png,0,0
+}
+
+surface12126 //normal gray tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/gray_normal.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_think_lines.png,0,0
+}
+
+surface12127 //light gray tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/gray_light.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_think_lines.png,0,0
+}
+
+
+
+surface12150 //dark red sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/red_dark.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_think_lines.png,0,0
+}
+
+surface12151 //normal red sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/red_normal.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_think_lines.png,0,0
+}
+
+surface12152 //light red sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/red_light.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_think_lines.png,0,0
+}
+
+surface12153 //dark orange sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/orange_dark.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_think_lines.png,0,0
+}
+
+surface12154 //normal orange sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/orange_normal.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_think_lines.png,0,0
+}
+
+surface12155 //light orange sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/orange_light.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_think_lines.png,0,0
+}
+
+surface12156 //dark yellow sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/yellow_dark.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_think_lines.png,0,0
+}
+
+surface12157 //normal yellow sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/yellow_normal.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_think_lines.png,0,0
+}
+
+surface12158 //light yellow sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/yellow_light.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_think_lines.png,0,0
+}
+
+surface12159 //dark green sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/green_dark.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_think_lines.png,0,0
+}
+
+surface12160 //normal green sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/green_normal.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_think_lines.png,0,0
+}
+
+surface12161 //light green sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/green_light.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_think_lines.png,0,0
+}
+
+surface12162 //dark cyan sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/cyan_dark.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_think_lines.png,0,0
+}
+
+surface12163 //normal cyan sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/cyan_normal.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_think_lines.png,0,0
+}
+
+surface12164 //light cyan sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/cyan_light.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_think_lines.png,0,0
+}
+
+surface12165 //dark blue sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/blue_dark.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_think_lines.png,0,0
+}
+
+surface12166 //normal blue sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/blue_normal.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_think_lines.png,0,0
+}
+
+surface12167 //light blue sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/blue_light.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_think_lines.png,0,0
+}
+
+surface12168 //dark purple sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/purple_dark.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_think_lines.png,0,0
+}
+
+surface12169 //normal purple sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/purple_normal.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_think_lines.png,0,0
+}
+
+surface12170 //light purple sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/purple_light.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_think_lines.png,0,0
+}
+
+surface12171 //dark magenta sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/magenta_dark.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_think_lines.png,0,0
+}
+
+surface12172 //normal magenta sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/magenta_normal.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_think_lines.png,0,0
+}
+
+surface12173 //light magenta sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/magenta_light.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_think_lines.png,0,0
+}
+
+surface12174 //dark gray sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/gray_dark.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_think_lines.png,0,0
+}
+
+surface12175 //normal gray sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/gray_normal.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_think_lines.png,0,0
+}
+
+surface12176 //light gray sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/gray_light.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_think_lines.png,0,0
+}
+
+
+
+//-------------------------MP3-------------------------
+
+surface13000 //Default sweater
+{
+	element0,overlay,clothes/sleepy/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/default_blue.png,0,0
+	element2,overlay,clothes/sleepy/sweater_mp3_lines.png,0,0
+}
+
+surface13001 //dark red sweater
+{
+	element0,overlay,clothes/sleepy/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/red_dark.png,0,0
+	element2,overlay,clothes/sleepy/sweater_mp3_lines.png,0,0
+}
+
+surface13002 //normal red sweater
+{
+	element0,overlay,clothes/sleepy/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/red_normal.png,0,0
+	element2,overlay,clothes/sleepy/sweater_mp3_lines.png,0,0
+}
+
+surface13003 //light red sweater
+{
+	element0,overlay,clothes/sleepy/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/red_light.png,0,0
+	element2,overlay,clothes/sleepy/sweater_mp3_lines.png,0,0
+}
+
+surface13004 //dark orange sweater
+{
+	element0,overlay,clothes/sleepy/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/orange_dark.png,0,0
+	element2,overlay,clothes/sleepy/sweater_mp3_lines.png,0,0
+}
+
+surface13005 //normal orange sweater
+{
+	element0,overlay,clothes/sleepy/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/orange_normal.png,0,0
+	element2,overlay,clothes/sleepy/sweater_mp3_lines.png,0,0
+}
+
+surface13006 //light orange sweater
+{
+	element0,overlay,clothes/sleepy/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/orange_light.png,0,0
+	element2,overlay,clothes/sleepy/sweater_mp3_lines.png,0,0
+}
+
+surface13007 //dark yellow sweater
+{
+	element0,overlay,clothes/sleepy/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/yellow_dark.png,0,0
+	element2,overlay,clothes/sleepy/sweater_mp3_lines.png,0,0
+}
+
+surface13008 //normal yellow sweater
+{
+	element0,overlay,clothes/sleepy/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/yellow_normal.png,0,0
+	element2,overlay,clothes/sleepy/sweater_mp3_lines.png,0,0
+}
+
+surface13009 //light yellow sweater
+{
+	element0,overlay,clothes/sleepy/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/yellow_light.png,0,0
+	element2,overlay,clothes/sleepy/sweater_mp3_lines.png,0,0
+}
+
+surface13010 //dark green sweater
+{
+	element0,overlay,clothes/sleepy/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/green_dark.png,0,0
+	element2,overlay,clothes/sleepy/sweater_mp3_lines.png,0,0
+}
+
+surface13011 //normal green sweater
+{
+	element0,overlay,clothes/sleepy/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/green_normal.png,0,0
+	element2,overlay,clothes/sleepy/sweater_mp3_lines.png,0,0
+}
+
+surface13012 //light green sweater
+{
+	element0,overlay,clothes/sleepy/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/green_light.png,0,0
+	element2,overlay,clothes/sleepy/sweater_mp3_lines.png,0,0
+}
+
+surface13013 //dark cyan sweater
+{
+	element0,overlay,clothes/sleepy/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/cyan_dark.png,0,0
+	element2,overlay,clothes/sleepy/sweater_mp3_lines.png,0,0
+}
+
+surface13014 //normal cyan sweater
+{
+	element0,overlay,clothes/sleepy/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/cyan_normal.png,0,0
+	element2,overlay,clothes/sleepy/sweater_mp3_lines.png,0,0
+}
+
+surface13015 //light cyan sweater
+{
+	element0,overlay,clothes/sleepy/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/cyan_light.png,0,0
+	element2,overlay,clothes/sleepy/sweater_mp3_lines.png,0,0
+}
+
+surface13016 //dark blue sweater
+{
+	element0,overlay,clothes/sleepy/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/blue_dark.png,0,0
+	element2,overlay,clothes/sleepy/sweater_mp3_lines.png,0,0
+}
+
+surface13017 //normal blue sweater
+{
+	element0,overlay,clothes/sleepy/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/blue_normal.png,0,0
+	element2,overlay,clothes/sleepy/sweater_mp3_lines.png,0,0
+}
+
+surface13018 //light blue sweater
+{
+	element0,overlay,clothes/sleepy/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/blue_light.png,0,0
+	element2,overlay,clothes/sleepy/sweater_mp3_lines.png,0,0
+}
+
+surface13019 //dark purple sweater
+{
+	element0,overlay,clothes/sleepy/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/purple_dark.png,0,0
+	element2,overlay,clothes/sleepy/sweater_mp3_lines.png,0,0
+}
+
+surface13020 //normal purple sweater
+{
+	element0,overlay,clothes/sleepy/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/purple_normal.png,0,0
+	element2,overlay,clothes/sleepy/sweater_mp3_lines.png,0,0
+}
+
+surface13021 //light purple sweater
+{
+	element0,overlay,clothes/sleepy/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/purple_light.png,0,0
+	element2,overlay,clothes/sleepy/sweater_mp3_lines.png,0,0
+}
+
+surface13022 //dark magenta sweater
+{
+	element0,overlay,clothes/sleepy/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/magenta_dark.png,0,0
+	element2,overlay,clothes/sleepy/sweater_mp3_lines.png,0,0
+}
+
+surface13023 //normal magenta sweater
+{
+	element0,overlay,clothes/sleepy/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/magenta_normal.png,0,0
+	element2,overlay,clothes/sleepy/sweater_mp3_lines.png,0,0
+}
+
+surface13024 //light magenta sweater
+{
+	element0,overlay,clothes/sleepy/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/magenta_light.png,0,0
+	element2,overlay,clothes/sleepy/sweater_mp3_lines.png,0,0
+}
+
+surface13025 //dark gray sweater
+{
+	element0,overlay,clothes/sleepy/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/gray_dark.png,0,0
+	element2,overlay,clothes/sleepy/sweater_mp3_lines.png,0,0
+}
+
+surface13026 //normal gray sweater
+{
+	element0,overlay,clothes/sleepy/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/gray_normal.png,0,0
+	element2,overlay,clothes/sleepy/sweater_mp3_lines.png,0,0
+}
+
+surface13027 //light gray sweater
+{
+	element0,overlay,clothes/sleepy/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/gray_light.png,0,0
+	element2,overlay,clothes/sleepy/sweater_mp3_lines.png,0,0
+}
+
+
+
+surface13050 //dark red hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/red_dark.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_mp3_lines.png,0,0
+}
+
+surface13051 //normal red hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/red_normal.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_mp3_lines.png,0,0
+}
+
+surface13052 //light red hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/red_light.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_mp3_lines.png,0,0
+}
+
+surface13053 //dark orange hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/orange_dark.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_mp3_lines.png,0,0
+}
+
+surface13054 //normal orange hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/orange_normal.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_mp3_lines.png,0,0
+}
+
+surface13055 //light orange hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/orange_light.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_mp3_lines.png,0,0
+}
+
+surface13056 //dark yellow hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/yellow_dark.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_mp3_lines.png,0,0
+}
+
+surface13057 //normal yellow hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/yellow_normal.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_mp3_lines.png,0,0
+}
+
+surface13058 //light yellow hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/yellow_light.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_mp3_lines.png,0,0
+}
+
+surface13059 //dark green hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/green_dark.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_mp3_lines.png,0,0
+}
+
+surface13060 //normal green hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/green_normal.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_mp3_lines.png,0,0
+}
+
+surface13061 //light green hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/green_light.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_mp3_lines.png,0,0
+}
+
+surface13062 //dark cyan hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/cyan_dark.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_mp3_lines.png,0,0
+}
+
+surface13063 //normal cyan hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/cyan_normal.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_mp3_lines.png,0,0
+}
+
+surface13064 //light cyan hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/cyan_light.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_mp3_lines.png,0,0
+}
+
+surface13065 //dark blue hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/blue_dark.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_mp3_lines.png,0,0
+}
+
+surface13066 //normal blue hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/blue_normal.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_mp3_lines.png,0,0
+}
+
+surface13067 //light blue hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/blue_light.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_mp3_lines.png,0,0
+}
+
+surface13068 //dark purple hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/purple_dark.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_mp3_lines.png,0,0
+}
+
+surface13069 //normal purple hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/purple_normal.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_mp3_lines.png,0,0
+}
+
+surface13070 //light purple hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/purple_light.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_mp3_lines.png,0,0
+}
+
+surface13071 //dark magenta hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/magenta_dark.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_mp3_lines.png,0,0
+}
+
+surface13072 //normal magenta hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/magenta_normal.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_mp3_lines.png,0,0
+}
+
+surface13073 //light magenta hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/magenta_light.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_mp3_lines.png,0,0
+}
+
+surface13074 //dark gray hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/gray_dark.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_mp3_lines.png,0,0
+}
+
+surface13075 //normal gray hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/gray_normal.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_mp3_lines.png,0,0
+}
+
+surface13076 //light gray hoodie
+{
+	element0,overlay,clothes/sleepy/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/gray_light.png,0,0
+	element2,overlay,clothes/sleepy/hoodie_mp3_lines.png,0,0
+}
+
+
+
+surface13101 //dark red tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/red_dark.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_mp3_lines.png,0,0
+}
+
+surface13102 //normal red tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/red_normal.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_mp3_lines.png,0,0
+}
+
+surface13103 //light red tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/red_light.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_mp3_lines.png,0,0
+}
+
+surface13104 //dark orange tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/orange_dark.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_mp3_lines.png,0,0
+}
+
+surface13105 //normal orange tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/orange_normal.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_mp3_lines.png,0,0
+}
+
+surface13106 //light orange tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/orange_light.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_mp3_lines.png,0,0
+}
+
+surface13107 //dark yellow tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/yellow_dark.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_mp3_lines.png,0,0
+}
+
+surface13108 //normal yellow tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/yellow_normal.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_mp3_lines.png,0,0
+}
+
+surface13109 //light yellow tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/yellow_light.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_mp3_lines.png,0,0
+}
+
+surface13110 //dark green tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/green_dark.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_mp3_lines.png,0,0
+}
+
+surface13111 //normal green tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/green_normal.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_mp3_lines.png,0,0
+}
+
+surface13112 //light green tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/green_light.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_mp3_lines.png,0,0
+}
+
+surface13113 //dark cyan tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/cyan_dark.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_mp3_lines.png,0,0
+}
+
+surface13114 //normal cyan tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/cyan_normal.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_mp3_lines.png,0,0
+}
+
+surface13115 //light cyan tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/cyan_light.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_mp3_lines.png,0,0
+}
+
+surface13116 //dark blue tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/blue_dark.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_mp3_lines.png,0,0
+}
+
+surface13117 //normal blue tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/blue_normal.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_mp3_lines.png,0,0
+}
+
+surface13118 //light blue tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/blue_light.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_mp3_lines.png,0,0
+}
+
+surface13119 //dark purple tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/purple_dark.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_mp3_lines.png,0,0
+}
+
+surface13120 //normal purple tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/purple_normal.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_mp3_lines.png,0,0
+}
+
+surface13121 //light purple tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/purple_light.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_mp3_lines.png,0,0
+}
+
+surface13122 //dark magenta tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/magenta_dark.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_mp3_lines.png,0,0
+}
+
+surface13123 //normal magenta tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/magenta_normal.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_mp3_lines.png,0,0
+}
+
+surface13124 //light magenta tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/magenta_light.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_mp3_lines.png,0,0
+}
+
+surface13125 //dark gray tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/gray_dark.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_mp3_lines.png,0,0
+}
+
+surface13126 //normal gray tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/gray_normal.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_mp3_lines.png,0,0
+}
+
+surface13127 //light gray tshirt
+{
+	element0,overlay,clothes/sleepy/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/gray_light.png,0,0
+	element2,overlay,clothes/sleepy/tshirt_mp3_lines.png,0,0
+}
+
+
+surface13150 //dark red sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/red_dark.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_mp3_lines.png,0,0
+}
+
+surface13151 //normal red sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/red_normal.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_mp3_lines.png,0,0
+}
+
+surface13152 //light red sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/red_light.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_mp3_lines.png,0,0
+}
+
+surface13153 //dark orange sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/orange_dark.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_mp3_lines.png,0,0
+}
+
+surface13154 //normal orange sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/orange_normal.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_mp3_lines.png,0,0
+}
+
+surface13155 //light orange sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/orange_light.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_mp3_lines.png,0,0
+}
+
+surface13156 //dark yellow sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/yellow_dark.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_mp3_lines.png,0,0
+}
+
+surface13157 //normal yellow sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/yellow_normal.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_mp3_lines.png,0,0
+}
+
+surface13158 //light yellow sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/yellow_light.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_mp3_lines.png,0,0
+}
+
+surface13159 //dark green sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/green_dark.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_mp3_lines.png,0,0
+}
+
+surface13160 //normal green sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/green_normal.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_mp3_lines.png,0,0
+}
+
+surface13161 //light green sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/green_light.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_mp3_lines.png,0,0
+}
+
+surface13162 //dark cyan sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/cyan_dark.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_mp3_lines.png,0,0
+}
+
+surface13163 //normal cyan sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/cyan_normal.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_mp3_lines.png,0,0
+}
+
+surface13164 //light cyan sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/cyan_light.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_mp3_lines.png,0,0
+}
+
+surface13165 //dark blue sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/blue_dark.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_mp3_lines.png,0,0
+}
+
+surface13166 //normal blue sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/blue_normal.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_mp3_lines.png,0,0
+}
+
+surface13167 //light blue sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/blue_light.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_mp3_lines.png,0,0
+}
+
+surface13168 //dark purple sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/purple_dark.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_mp3_lines.png,0,0
+}
+
+surface13169 //normal purple sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/purple_normal.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_mp3_lines.png,0,0
+}
+
+surface13170 //light purple sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/purple_light.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_mp3_lines.png,0,0
+}
+
+surface13171 //dark magenta sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/magenta_dark.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_mp3_lines.png,0,0
+}
+
+surface13172 //normal magenta sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/magenta_normal.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_mp3_lines.png,0,0
+}
+
+surface13173 //light magenta sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/magenta_light.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_mp3_lines.png,0,0
+}
+
+surface13174 //dark gray sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/gray_dark.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_mp3_lines.png,0,0
+}
+
+surface13175 //normal gray sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/gray_normal.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_mp3_lines.png,0,0
+}
+
+surface13176 //light gray sleeveless
+{
+	element0,overlay,clothes/sleepy/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/gray_light.png,0,0
+	element2,overlay,clothes/sleepy/sleeveless_mp3_lines.png,0,0
+}
+
+
+
+
+
+
+//=========================Awake=========================
+
+surface20000 //Default pants
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/default_purple.png,0,0
+	element2,overlay,clothes/awake/pants_lines.png,0,0
+}
+
+surface20001 //Pants red dark
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/red_dark.png,0,0
+	element2,overlay,clothes/awake/pants_lines.png,0,0
+}
+
+surface20002 //Pants red normal
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/red_normal.png,0,0
+	element2,overlay,clothes/awake/pants_lines.png,0,0
+}
+
+surface20003 //Pants red light
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/red_light.png,0,0
+	element2,overlay,clothes/awake/pants_lines.png,0,0
+}
+
+surface20004 //Pants orange dark
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/orange_dark.png,0,0
+	element2,overlay,clothes/awake/pants_lines.png,0,0
+}
+
+surface20005 //Pants orange normal
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/orange_normal.png,0,0
+	element2,overlay,clothes/awake/pants_lines.png,0,0
+}
+
+surface20006 //Pants orange light
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/orange_light.png,0,0
+	element2,overlay,clothes/awake/pants_lines.png,0,0
+}
+
+surface20007 //Pants yellow dark
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/yellow_dark.png,0,0
+	element2,overlay,clothes/awake/pants_lines.png,0,0
+}
+
+surface20008 //Pants yellow normal
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/yellow_normal.png,0,0
+	element2,overlay,clothes/awake/pants_lines.png,0,0
+}
+
+surface20009 //Pants yellow light
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/yellow_light.png,0,0
+	element2,overlay,clothes/awake/pants_lines.png,0,0
+}
+
+surface20010 //Pants green dark
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/green_dark.png,0,0
+	element2,overlay,clothes/awake/pants_lines.png,0,0
+}
+
+surface20011 //Pants green normal
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/green_normal.png,0,0
+	element2,overlay,clothes/awake/pants_lines.png,0,0
+}
+
+surface20012 //Pants green light
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/green_light.png,0,0
+	element2,overlay,clothes/awake/pants_lines.png,0,0
+}
+
+surface20013 //Pants cyan dark
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/cyan_dark.png,0,0
+	element2,overlay,clothes/awake/pants_lines.png,0,0
+}
+
+surface20014 //Pants cyan normal
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/cyan_normal.png,0,0
+	element2,overlay,clothes/awake/pants_lines.png,0,0
+}
+
+surface20015 //Pants cyan light
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/cyan_light.png,0,0
+	element2,overlay,clothes/awake/pants_lines.png,0,0
+}
+
+surface20016 //Pants blue dark
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/blue_dark.png,0,0
+	element2,overlay,clothes/awake/pants_lines.png,0,0
+}
+
+surface20017 //Pants blue normal
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/blue_normal.png,0,0
+	element2,overlay,clothes/awake/pants_lines.png,0,0
+}
+
+surface20018 //Pants blue light
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/blue_light.png,0,0
+	element2,overlay,clothes/awake/pants_lines.png,0,0
+}
+
+surface20019 //Pants purple dark
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/purple_dark.png,0,0
+	element2,overlay,clothes/awake/pants_lines.png,0,0
+}
+
+surface20020 //Pants purple normal
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/purple_normal.png,0,0
+	element2,overlay,clothes/awake/pants_lines.png,0,0
+}
+
+surface20021 //Pants purple light
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/purple_light.png,0,0
+	element2,overlay,clothes/awake/pants_lines.png,0,0
+}
+
+surface20022 //Pants magenta dark
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/magenta_dark.png,0,0
+	element2,overlay,clothes/awake/pants_lines.png,0,0
+}
+
+surface20023 //Pants magenta normal
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/magenta_normal.png,0,0
+	element2,overlay,clothes/awake/pants_lines.png,0,0
+}
+
+surface20024 //Pants magenta light
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/magenta_light.png,0,0
+	element2,overlay,clothes/awake/pants_lines.png,0,0
+}
+
+surface20025 //Pants gray dark
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/gray_dark.png,0,0
+	element2,overlay,clothes/awake/pants_lines.png,0,0
+}
+
+surface20026 //Pants gray normal
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/gray_normal.png,0,0
+	element2,overlay,clothes/awake/pants_lines.png,0,0
+}
+
+surface20027 //Pants gray light
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/gray_light.png,0,0
+	element2,overlay,clothes/awake/pants_lines.png,0,0
+}
+
+
+surface20051 //Jeans red dark
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/red_dark.png,0,0
+	element2,overlay,clothes/awake/jeans_lines.png,0,0
+}
+
+surface20052 //Jeans red normal
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/red_normal.png,0,0
+	element2,overlay,clothes/awake/jeans_lines.png,0,0
+}
+
+surface20053 //Jeans red light
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/red_light.png,0,0
+	element2,overlay,clothes/awake/jeans_lines.png,0,0
+}
+
+surface20054 //Jeans orange dark
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/orange_dark.png,0,0
+	element2,overlay,clothes/awake/jeans_lines.png,0,0
+}
+
+surface20055 //Jeans orange normal
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/orange_normal.png,0,0
+	element2,overlay,clothes/awake/jeans_lines.png,0,0
+}
+
+surface20056 //Jeans orange light
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/orange_light.png,0,0
+	element2,overlay,clothes/awake/jeans_lines.png,0,0
+}
+
+surface20057 //Jeans yellow dark
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/yellow_dark.png,0,0
+	element2,overlay,clothes/awake/jeans_lines.png,0,0
+}
+
+surface20058 //Jeans yellow normal
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/yellow_normal.png,0,0
+	element2,overlay,clothes/awake/jeans_lines.png,0,0
+}
+
+surface20059 //Jeans yellow light
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/yellow_light.png,0,0
+	element2,overlay,clothes/awake/jeans_lines.png,0,0
+}
+
+surface20060 //Jeans green dark
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/green_dark.png,0,0
+	element2,overlay,clothes/awake/jeans_lines.png,0,0
+}
+
+surface20061 //Jeans green normal
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/green_normal.png,0,0
+	element2,overlay,clothes/awake/jeans_lines.png,0,0
+}
+
+surface20062 //Jeans green light
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/green_light.png,0,0
+	element2,overlay,clothes/awake/jeans_lines.png,0,0
+}
+
+surface20063 //Jeans cyan dark
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/cyan_dark.png,0,0
+	element2,overlay,clothes/awake/jeans_lines.png,0,0
+}
+
+surface20064 //Jeans cyan normal
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/cyan_normal.png,0,0
+	element2,overlay,clothes/awake/jeans_lines.png,0,0
+}
+
+surface20065 //Jeans cyan light
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/cyan_light.png,0,0
+	element2,overlay,clothes/awake/jeans_lines.png,0,0
+}
+
+surface20066 //Jeans blue dark
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/blue_dark.png,0,0
+	element2,overlay,clothes/awake/jeans_lines.png,0,0
+}
+
+surface20067 //Jeans blue normal
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/blue_normal.png,0,0
+	element2,overlay,clothes/awake/jeans_lines.png,0,0
+}
+
+surface20068 //Jeans blue light
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/blue_light.png,0,0
+	element2,overlay,clothes/awake/jeans_lines.png,0,0
+}
+
+surface20069 //Jeans purple dark
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/purple_dark.png,0,0
+	element2,overlay,clothes/awake/jeans_lines.png,0,0
+}
+
+surface20070 //Jeans purple normal
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/purple_normal.png,0,0
+	element2,overlay,clothes/awake/jeans_lines.png,0,0
+}
+
+surface20071 //Jeans purple light
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/purple_light.png,0,0
+	element2,overlay,clothes/awake/jeans_lines.png,0,0
+}
+
+surface20072 //Jeans magenta dark
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/magenta_dark.png,0,0
+	element2,overlay,clothes/awake/jeans_lines.png,0,0
+}
+
+surface20073 //Jeans magenta normal
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/magenta_normal.png,0,0
+	element2,overlay,clothes/awake/jeans_lines.png,0,0
+}
+
+surface20074 //Jeans magenta light
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/magenta_light.png,0,0
+	element2,overlay,clothes/awake/jeans_lines.png,0,0
+}
+
+surface20075 //Jeans gray dark
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/gray_dark.png,0,0
+	element2,overlay,clothes/awake/jeans_lines.png,0,0
+}
+
+surface20076 //Jeans gray normal
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/gray_normal.png,0,0
+	element2,overlay,clothes/awake/jeans_lines.png,0,0
+}
+
+surface20077 //Jeans gray light
+{
+	element0,overlay,clothes/awake/pants_blocking.png,0,0
+	element1,overlayfast,colors/gray_light.png,0,0
+	element2,overlay,clothes/awake/jeans_lines.png,0,0
+}
+
+
+
+
+
+surface21000 //Default sweater
+{
+	element0,overlay,clothes/awake/sweater_blocking.png,0,0
+	element1,overlayfast,colors/default_blue.png,0,0
+	element2,overlay,clothes/awake/sweater_lines.png,0,0
+}
+
+surface21001 //dark red sweater
+{
+	element0,overlay,clothes/awake/sweater_blocking.png,0,0
+	element1,overlayfast,colors/red_dark.png,0,0
+	element2,overlay,clothes/awake/sweater_lines.png,0,0
+}
+
+surface21002 //normal red sweater
+{
+	element0,overlay,clothes/awake/sweater_blocking.png,0,0
+	element1,overlayfast,colors/red_normal.png,0,0
+	element2,overlay,clothes/awake/sweater_lines.png,0,0
+}
+
+surface21003 //light red sweater
+{
+	element0,overlay,clothes/awake/sweater_blocking.png,0,0
+	element1,overlayfast,colors/red_light.png,0,0
+	element2,overlay,clothes/awake/sweater_lines.png,0,0
+}
+
+surface21004 //dark orange sweater
+{
+	element0,overlay,clothes/awake/sweater_blocking.png,0,0
+	element1,overlayfast,colors/orange_dark.png,0,0
+	element2,overlay,clothes/awake/sweater_lines.png,0,0
+}
+
+surface21005 //normal orange sweater
+{
+	element0,overlay,clothes/awake/sweater_blocking.png,0,0
+	element1,overlayfast,colors/orange_normal.png,0,0
+	element2,overlay,clothes/awake/sweater_lines.png,0,0
+}
+
+surface21006 //light orange sweater
+{
+	element0,overlay,clothes/awake/sweater_blocking.png,0,0
+	element1,overlayfast,colors/orange_light.png,0,0
+	element2,overlay,clothes/awake/sweater_lines.png,0,0
+}
+
+surface21007 //dark yellow sweater
+{
+	element0,overlay,clothes/awake/sweater_blocking.png,0,0
+	element1,overlayfast,colors/yellow_dark.png,0,0
+	element2,overlay,clothes/awake/sweater_lines.png,0,0
+}
+
+surface21008 //normal yellow sweater
+{
+	element0,overlay,clothes/awake/sweater_blocking.png,0,0
+	element1,overlayfast,colors/yellow_normal.png,0,0
+	element2,overlay,clothes/awake/sweater_lines.png,0,0
+}
+
+surface21009 //light yellow sweater
+{
+	element0,overlay,clothes/awake/sweater_blocking.png,0,0
+	element1,overlayfast,colors/yellow_light.png,0,0
+	element2,overlay,clothes/awake/sweater_lines.png,0,0
+}
+
+surface21010 //dark green sweater
+{
+	element0,overlay,clothes/awake/sweater_blocking.png,0,0
+	element1,overlayfast,colors/green_dark.png,0,0
+	element2,overlay,clothes/awake/sweater_lines.png,0,0
+}
+
+surface21011 //normal green sweater
+{
+	element0,overlay,clothes/awake/sweater_blocking.png,0,0
+	element1,overlayfast,colors/green_normal.png,0,0
+	element2,overlay,clothes/awake/sweater_lines.png,0,0
+}
+
+surface21012 //light green sweater
+{
+	element0,overlay,clothes/awake/sweater_blocking.png,0,0
+	element1,overlayfast,colors/green_light.png,0,0
+	element2,overlay,clothes/awake/sweater_lines.png,0,0
+}
+
+surface21013 //dark cyan sweater
+{
+	element0,overlay,clothes/awake/sweater_blocking.png,0,0
+	element1,overlayfast,colors/cyan_dark.png,0,0
+	element2,overlay,clothes/awake/sweater_lines.png,0,0
+}
+
+surface21014 //normal cyan sweater
+{
+	element0,overlay,clothes/awake/sweater_blocking.png,0,0
+	element1,overlayfast,colors/cyan_normal.png,0,0
+	element2,overlay,clothes/awake/sweater_lines.png,0,0
+}
+
+surface21015 //light cyan sweater
+{
+	element0,overlay,clothes/awake/sweater_blocking.png,0,0
+	element1,overlayfast,colors/cyan_light.png,0,0
+	element2,overlay,clothes/awake/sweater_lines.png,0,0
+}
+
+surface21016 //dark blue sweater
+{
+	element0,overlay,clothes/awake/sweater_blocking.png,0,0
+	element1,overlayfast,colors/blue_dark.png,0,0
+	element2,overlay,clothes/awake/sweater_lines.png,0,0
+}
+
+surface21017 //normal blue sweater
+{
+	element0,overlay,clothes/awake/sweater_blocking.png,0,0
+	element1,overlayfast,colors/blue_normal.png,0,0
+	element2,overlay,clothes/awake/sweater_lines.png,0,0
+}
+
+surface21018 //light blue sweater
+{
+	element0,overlay,clothes/awake/sweater_blocking.png,0,0
+	element1,overlayfast,colors/blue_light.png,0,0
+	element2,overlay,clothes/awake/sweater_lines.png,0,0
+}
+
+surface21019 //dark purple sweater
+{
+	element0,overlay,clothes/awake/sweater_blocking.png,0,0
+	element1,overlayfast,colors/purple_dark.png,0,0
+	element2,overlay,clothes/awake/sweater_lines.png,0,0
+}
+
+surface21020 //normal purple sweater
+{
+	element0,overlay,clothes/awake/sweater_blocking.png,0,0
+	element1,overlayfast,colors/purple_normal.png,0,0
+	element2,overlay,clothes/awake/sweater_lines.png,0,0
+}
+
+surface21021 //light purple sweater
+{
+	element0,overlay,clothes/awake/sweater_blocking.png,0,0
+	element1,overlayfast,colors/purple_light.png,0,0
+	element2,overlay,clothes/awake/sweater_lines.png,0,0
+}
+
+surface21022 //dark magenta sweater
+{
+	element0,overlay,clothes/awake/sweater_blocking.png,0,0
+	element1,overlayfast,colors/magenta_dark.png,0,0
+	element2,overlay,clothes/awake/sweater_lines.png,0,0
+}
+
+surface21023 //normal magenta sweater
+{
+	element0,overlay,clothes/awake/sweater_blocking.png,0,0
+	element1,overlayfast,colors/magenta_normal.png,0,0
+	element2,overlay,clothes/awake/sweater_lines.png,0,0
+}
+
+surface21024 //light magenta sweater
+{
+	element0,overlay,clothes/awake/sweater_blocking.png,0,0
+	element1,overlayfast,colors/magenta_light.png,0,0
+	element2,overlay,clothes/awake/sweater_lines.png,0,0
+}
+
+surface21025 //dark gray sweater
+{
+	element0,overlay,clothes/awake/sweater_blocking.png,0,0
+	element1,overlayfast,colors/gray_dark.png,0,0
+	element2,overlay,clothes/awake/sweater_lines.png,0,0
+}
+
+surface21026 //normal gray sweater
+{
+	element0,overlay,clothes/awake/sweater_blocking.png,0,0
+	element1,overlayfast,colors/gray_normal.png,0,0
+	element2,overlay,clothes/awake/sweater_lines.png,0,0
+}
+
+surface21027 //light gray sweater
+{
+	element0,overlay,clothes/awake/sweater_blocking.png,0,0
+	element1,overlayfast,colors/gray_light.png,0,0
+	element2,overlay,clothes/awake/sweater_lines.png,0,0
+}
+
+
+surface21050 //dark red hoodie
+{
+	element0,overlay,clothes/awake/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/red_dark.png,0,0
+	element2,overlay,clothes/awake/hoodie_lines.png,0,0
+}
+
+surface21051 //normal red hoodie
+{
+	element0,overlay,clothes/awake/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/red_normal.png,0,0
+	element2,overlay,clothes/awake/hoodie_lines.png,0,0
+}
+
+surface21052 //light red hoodie
+{
+	element0,overlay,clothes/awake/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/red_light.png,0,0
+	element2,overlay,clothes/awake/hoodie_lines.png,0,0
+}
+
+surface21053 //dark orange hoodie
+{
+	element0,overlay,clothes/awake/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/orange_dark.png,0,0
+	element2,overlay,clothes/awake/hoodie_lines.png,0,0
+}
+
+surface21054 //normal orange hoodie
+{
+	element0,overlay,clothes/awake/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/orange_normal.png,0,0
+	element2,overlay,clothes/awake/hoodie_lines.png,0,0
+}
+
+surface21055 //light orange hoodie
+{
+	element0,overlay,clothes/awake/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/orange_light.png,0,0
+	element2,overlay,clothes/awake/hoodie_lines.png,0,0
+}
+
+surface21056 //dark yellow hoodie
+{
+	element0,overlay,clothes/awake/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/yellow_dark.png,0,0
+	element2,overlay,clothes/awake/hoodie_lines.png,0,0
+}
+
+surface21057 //normal yellow hoodie
+{
+	element0,overlay,clothes/awake/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/yellow_normal.png,0,0
+	element2,overlay,clothes/awake/hoodie_lines.png,0,0
+}
+
+surface21058 //light yellow hoodie
+{
+	element0,overlay,clothes/awake/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/yellow_light.png,0,0
+	element2,overlay,clothes/awake/hoodie_lines.png,0,0
+}
+
+surface21059 //dark green hoodie
+{
+	element0,overlay,clothes/awake/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/green_dark.png,0,0
+	element2,overlay,clothes/awake/hoodie_lines.png,0,0
+}
+
+surface21060 //normal green hoodie
+{
+	element0,overlay,clothes/awake/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/green_normal.png,0,0
+	element2,overlay,clothes/awake/hoodie_lines.png,0,0
+}
+
+surface21061 //light green hoodie
+{
+	element0,overlay,clothes/awake/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/green_light.png,0,0
+	element2,overlay,clothes/awake/hoodie_lines.png,0,0
+}
+
+surface21062 //dark cyan hoodie
+{
+	element0,overlay,clothes/awake/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/cyan_dark.png,0,0
+	element2,overlay,clothes/awake/hoodie_lines.png,0,0
+}
+
+surface21063 //normal cyan hoodie
+{
+	element0,overlay,clothes/awake/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/cyan_normal.png,0,0
+	element2,overlay,clothes/awake/hoodie_lines.png,0,0
+}
+
+surface21064 //light cyan hoodie
+{
+	element0,overlay,clothes/awake/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/cyan_light.png,0,0
+	element2,overlay,clothes/awake/hoodie_lines.png,0,0
+}
+
+surface21065 //dark blue hoodie
+{
+	element0,overlay,clothes/awake/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/blue_dark.png,0,0
+	element2,overlay,clothes/awake/hoodie_lines.png,0,0
+}
+
+surface21066 //normal blue hoodie
+{
+	element0,overlay,clothes/awake/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/blue_normal.png,0,0
+	element2,overlay,clothes/awake/hoodie_lines.png,0,0
+}
+
+surface21067 //light blue hoodie
+{
+	element0,overlay,clothes/awake/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/blue_light.png,0,0
+	element2,overlay,clothes/awake/hoodie_lines.png,0,0
+}
+
+surface21068 //dark purple hoodie
+{
+	element0,overlay,clothes/awake/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/purple_dark.png,0,0
+	element2,overlay,clothes/awake/hoodie_lines.png,0,0
+}
+
+surface21069 //normal purple hoodie
+{
+	element0,overlay,clothes/awake/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/purple_normal.png,0,0
+	element2,overlay,clothes/awake/hoodie_lines.png,0,0
+}
+
+surface21070 //light purple hoodie
+{
+	element0,overlay,clothes/awake/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/purple_light.png,0,0
+	element2,overlay,clothes/awake/hoodie_lines.png,0,0
+}
+
+surface21071 //dark magenta hoodie
+{
+	element0,overlay,clothes/awake/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/magenta_dark.png,0,0
+	element2,overlay,clothes/awake/hoodie_lines.png,0,0
+}
+
+surface21072 //normal magenta hoodie
+{
+	element0,overlay,clothes/awake/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/magenta_normal.png,0,0
+	element2,overlay,clothes/awake/hoodie_lines.png,0,0
+}
+
+surface21073 //light magenta hoodie
+{
+	element0,overlay,clothes/awake/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/magenta_light.png,0,0
+	element2,overlay,clothes/awake/hoodie_lines.png,0,0
+}
+
+surface21074 //dark gray hoodie
+{
+	element0,overlay,clothes/awake/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/gray_dark.png,0,0
+	element2,overlay,clothes/awake/hoodie_lines.png,0,0
+}
+
+surface21075 //normal gray hoodie
+{
+	element0,overlay,clothes/awake/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/gray_normal.png,0,0
+	element2,overlay,clothes/awake/hoodie_lines.png,0,0
+}
+
+surface21076 //light gray hoodie
+{
+	element0,overlay,clothes/awake/hoodie_blocking.png,0,0
+	element1,overlayfast,colors/gray_light.png,0,0
+	element2,overlay,clothes/awake/hoodie_lines.png,0,0
+}
+
+
+
+surface21101 //dark red tshirt
+{
+	element0,overlay,clothes/awake/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/red_dark.png,0,0
+	element2,overlay,clothes/awake/tshirt_lines.png,0,0
+}
+
+surface21102 //normal red tshirt
+{
+	element0,overlay,clothes/awake/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/red_normal.png,0,0
+	element2,overlay,clothes/awake/tshirt_lines.png,0,0
+}
+
+surface21103 //light red tshirt
+{
+	element0,overlay,clothes/awake/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/red_light.png,0,0
+	element2,overlay,clothes/awake/tshirt_lines.png,0,0
+}
+
+surface21104 //dark orange tshirt
+{
+	element0,overlay,clothes/awake/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/orange_dark.png,0,0
+	element2,overlay,clothes/awake/tshirt_lines.png,0,0
+}
+
+surface21105 //normal orange tshirt
+{
+	element0,overlay,clothes/awake/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/orange_normal.png,0,0
+	element2,overlay,clothes/awake/tshirt_lines.png,0,0
+}
+
+surface21106 //light orange tshirt
+{
+	element0,overlay,clothes/awake/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/orange_light.png,0,0
+	element2,overlay,clothes/awake/tshirt_lines.png,0,0
+}
+
+surface21107 //dark yellow tshirt
+{
+	element0,overlay,clothes/awake/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/yellow_dark.png,0,0
+	element2,overlay,clothes/awake/tshirt_lines.png,0,0
+}
+
+surface21108 //normal yellow tshirt
+{
+	element0,overlay,clothes/awake/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/yellow_normal.png,0,0
+	element2,overlay,clothes/awake/tshirt_lines.png,0,0
+}
+
+surface21109 //light yellow tshirt
+{
+	element0,overlay,clothes/awake/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/yellow_light.png,0,0
+	element2,overlay,clothes/awake/tshirt_lines.png,0,0
+}
+
+surface21110 //dark green tshirt
+{
+	element0,overlay,clothes/awake/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/green_dark.png,0,0
+	element2,overlay,clothes/awake/tshirt_lines.png,0,0
+}
+
+surface21111 //normal green tshirt
+{
+	element0,overlay,clothes/awake/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/green_normal.png,0,0
+	element2,overlay,clothes/awake/tshirt_lines.png,0,0
+}
+
+surface21112 //light green tshirt
+{
+	element0,overlay,clothes/awake/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/green_light.png,0,0
+	element2,overlay,clothes/awake/tshirt_lines.png,0,0
+}
+
+surface21113 //dark cyan tshirt
+{
+	element0,overlay,clothes/awake/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/cyan_dark.png,0,0
+	element2,overlay,clothes/awake/tshirt_lines.png,0,0
+}
+
+surface21114 //normal cyan tshirt
+{
+	element0,overlay,clothes/awake/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/cyan_normal.png,0,0
+	element2,overlay,clothes/awake/tshirt_lines.png,0,0
+}
+
+surface21115 //light cyan tshirt
+{
+	element0,overlay,clothes/awake/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/cyan_light.png,0,0
+	element2,overlay,clothes/awake/tshirt_lines.png,0,0
+}
+
+surface21116 //dark blue tshirt
+{
+	element0,overlay,clothes/awake/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/blue_dark.png,0,0
+	element2,overlay,clothes/awake/tshirt_lines.png,0,0
+}
+
+surface21117 //normal blue tshirt
+{
+	element0,overlay,clothes/awake/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/blue_normal.png,0,0
+	element2,overlay,clothes/awake/tshirt_lines.png,0,0
+}
+
+surface21118 //light blue tshirt
+{
+	element0,overlay,clothes/awake/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/blue_light.png,0,0
+	element2,overlay,clothes/awake/tshirt_lines.png,0,0
+}
+
+surface21119 //dark purple tshirt
+{
+	element0,overlay,clothes/awake/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/purple_dark.png,0,0
+	element2,overlay,clothes/awake/tshirt_lines.png,0,0
+}
+
+surface21120 //normal purple tshirt
+{
+	element0,overlay,clothes/awake/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/purple_normal.png,0,0
+	element2,overlay,clothes/awake/tshirt_lines.png,0,0
+}
+
+surface21121 //light purple tshirt
+{
+	element0,overlay,clothes/awake/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/purple_light.png,0,0
+	element2,overlay,clothes/awake/tshirt_lines.png,0,0
+}
+
+surface21122 //dark magenta tshirt
+{
+	element0,overlay,clothes/awake/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/magenta_dark.png,0,0
+	element2,overlay,clothes/awake/tshirt_lines.png,0,0
+}
+
+surface21123 //normal magenta tshirt
+{
+	element0,overlay,clothes/awake/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/magenta_normal.png,0,0
+	element2,overlay,clothes/awake/tshirt_lines.png,0,0
+}
+
+surface21124 //light magenta tshirt
+{
+	element0,overlay,clothes/awake/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/magenta_light.png,0,0
+	element2,overlay,clothes/awake/tshirt_lines.png,0,0
+}
+
+surface21125 //dark gray tshirt
+{
+	element0,overlay,clothes/awake/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/gray_dark.png,0,0
+	element2,overlay,clothes/awake/tshirt_lines.png,0,0
+}
+
+surface21126 //normal gray tshirt
+{
+	element0,overlay,clothes/awake/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/gray_normal.png,0,0
+	element2,overlay,clothes/awake/tshirt_lines.png,0,0
+}
+
+surface21127 //light gray tshirt
+{
+	element0,overlay,clothes/awake/tshirt_blocking.png,0,0
+	element1,overlayfast,colors/gray_light.png,0,0
+	element2,overlay,clothes/awake/tshirt_lines.png,0,0
+}
+
+
+
+surface21150 //dark red sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/red_dark.png,0,0
+	element2,overlay,clothes/awake/sleeveless_lines.png,0,0
+}
+
+surface21151 //normal red sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/red_normal.png,0,0
+	element2,overlay,clothes/awake/sleeveless_lines.png,0,0
+}
+
+surface21152 //light red sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/red_light.png,0,0
+	element2,overlay,clothes/awake/sleeveless_lines.png,0,0
+}
+
+surface21153 //dark orange sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/orange_dark.png,0,0
+	element2,overlay,clothes/awake/sleeveless_lines.png,0,0
+}
+
+surface21154 //normal orange sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/orange_normal.png,0,0
+	element2,overlay,clothes/awake/sleeveless_lines.png,0,0
+}
+
+surface21155 //light orange sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/orange_light.png,0,0
+	element2,overlay,clothes/awake/sleeveless_lines.png,0,0
+}
+
+surface21156 //dark yellow sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/yellow_dark.png,0,0
+	element2,overlay,clothes/awake/sleeveless_lines.png,0,0
+}
+
+surface21157 //normal yellow sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/yellow_normal.png,0,0
+	element2,overlay,clothes/awake/sleeveless_lines.png,0,0
+}
+
+surface21158 //light yellow sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/yellow_light.png,0,0
+	element2,overlay,clothes/awake/sleeveless_lines.png,0,0
+}
+
+surface21159 //dark green sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/green_dark.png,0,0
+	element2,overlay,clothes/awake/sleeveless_lines.png,0,0
+}
+
+surface21160 //normal green sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/green_normal.png,0,0
+	element2,overlay,clothes/awake/sleeveless_lines.png,0,0
+}
+
+surface21161 //light green sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/green_light.png,0,0
+	element2,overlay,clothes/awake/sleeveless_lines.png,0,0
+}
+
+surface21162 //dark cyan sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/cyan_dark.png,0,0
+	element2,overlay,clothes/awake/sleeveless_lines.png,0,0
+}
+
+surface21163 //normal cyan sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/cyan_normal.png,0,0
+	element2,overlay,clothes/awake/sleeveless_lines.png,0,0
+}
+
+surface21164 //light cyan sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/cyan_light.png,0,0
+	element2,overlay,clothes/awake/sleeveless_lines.png,0,0
+}
+
+surface21165 //dark blue sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/blue_dark.png,0,0
+	element2,overlay,clothes/awake/sleeveless_lines.png,0,0
+}
+
+surface21166 //normal blue sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/blue_normal.png,0,0
+	element2,overlay,clothes/awake/sleeveless_lines.png,0,0
+}
+
+surface21167 //light blue sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/blue_light.png,0,0
+	element2,overlay,clothes/awake/sleeveless_lines.png,0,0
+}
+
+surface21168 //dark purple sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/purple_dark.png,0,0
+	element2,overlay,clothes/awake/sleeveless_lines.png,0,0
+}
+
+surface21169 //normal purple sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/purple_normal.png,0,0
+	element2,overlay,clothes/awake/sleeveless_lines.png,0,0
+}
+
+surface21170 //light purple sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/purple_light.png,0,0
+	element2,overlay,clothes/awake/sleeveless_lines.png,0,0
+}
+
+surface21171 //dark magenta sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/magenta_dark.png,0,0
+	element2,overlay,clothes/awake/sleeveless_lines.png,0,0
+}
+
+surface21172 //normal magenta sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/magenta_normal.png,0,0
+	element2,overlay,clothes/awake/sleeveless_lines.png,0,0
+}
+
+surface21173 //light magenta sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/magenta_light.png,0,0
+	element2,overlay,clothes/awake/sleeveless_lines.png,0,0
+}
+
+surface21174 //dark gray sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/gray_dark.png,0,0
+	element2,overlay,clothes/awake/sleeveless_lines.png,0,0
+}
+
+surface21175 //normal gray sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/gray_normal.png,0,0
+	element2,overlay,clothes/awake/sleeveless_lines.png,0,0
+}
+
+surface21176 //light gray sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/gray_light.png,0,0
+	element2,overlay,clothes/awake/sleeveless_lines.png,0,0
+}
+
+
+
+
+
+
+
+//-------------------------Think-------------------------
+
+surface22000 //Default sweater
+{
+	element0,overlay,clothes/awake/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/default_blue.png,0,0
+	element2,overlay,clothes/awake/sweater_think_lines.png,0,0
+}
+
+surface22001 //dark red sweater
+{
+	element0,overlay,clothes/awake/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/red_dark.png,0,0
+	element2,overlay,clothes/awake/sweater_think_lines.png,0,0
+}
+
+surface22002 //normal red sweater
+{
+	element0,overlay,clothes/awake/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/red_normal.png,0,0
+	element2,overlay,clothes/awake/sweater_think_lines.png,0,0
+}
+
+surface22003 //light red sweater
+{
+	element0,overlay,clothes/awake/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/red_light.png,0,0
+	element2,overlay,clothes/awake/sweater_think_lines.png,0,0
+}
+
+surface22004 //dark orange sweater
+{
+	element0,overlay,clothes/awake/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/orange_dark.png,0,0
+	element2,overlay,clothes/awake/sweater_think_lines.png,0,0
+}
+
+surface22005 //normal orange sweater
+{
+	element0,overlay,clothes/awake/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/orange_normal.png,0,0
+	element2,overlay,clothes/awake/sweater_think_lines.png,0,0
+}
+
+surface22006 //light orange sweater
+{
+	element0,overlay,clothes/awake/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/orange_light.png,0,0
+	element2,overlay,clothes/awake/sweater_think_lines.png,0,0
+}
+
+surface22007 //dark yellow sweater
+{
+	element0,overlay,clothes/awake/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/yellow_dark.png,0,0
+	element2,overlay,clothes/awake/sweater_think_lines.png,0,0
+}
+
+surface22008 //normal yellow sweater
+{
+	element0,overlay,clothes/awake/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/yellow_normal.png,0,0
+	element2,overlay,clothes/awake/sweater_think_lines.png,0,0
+}
+
+surface22009 //light yellow sweater
+{
+	element0,overlay,clothes/awake/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/yellow_light.png,0,0
+	element2,overlay,clothes/awake/sweater_think_lines.png,0,0
+}
+
+surface22010 //dark green sweater
+{
+	element0,overlay,clothes/awake/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/green_dark.png,0,0
+	element2,overlay,clothes/awake/sweater_think_lines.png,0,0
+}
+
+surface22011 //normal green sweater
+{
+	element0,overlay,clothes/awake/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/green_normal.png,0,0
+	element2,overlay,clothes/awake/sweater_think_lines.png,0,0
+}
+
+surface22012 //light green sweater
+{
+	element0,overlay,clothes/awake/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/green_light.png,0,0
+	element2,overlay,clothes/awake/sweater_think_lines.png,0,0
+}
+
+surface22013 //dark cyan sweater
+{
+	element0,overlay,clothes/awake/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/cyan_dark.png,0,0
+	element2,overlay,clothes/awake/sweater_think_lines.png,0,0
+}
+
+surface22014 //normal cyan sweater
+{
+	element0,overlay,clothes/awake/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/cyan_normal.png,0,0
+	element2,overlay,clothes/awake/sweater_think_lines.png,0,0
+}
+
+surface22015 //light cyan sweater
+{
+	element0,overlay,clothes/awake/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/cyan_light.png,0,0
+	element2,overlay,clothes/awake/sweater_think_lines.png,0,0
+}
+
+surface22016 //dark blue sweater
+{
+	element0,overlay,clothes/awake/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/blue_dark.png,0,0
+	element2,overlay,clothes/awake/sweater_think_lines.png,0,0
+}
+
+surface22017 //normal blue sweater
+{
+	element0,overlay,clothes/awake/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/blue_normal.png,0,0
+	element2,overlay,clothes/awake/sweater_think_lines.png,0,0
+}
+
+surface22018 //light blue sweater
+{
+	element0,overlay,clothes/awake/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/blue_light.png,0,0
+	element2,overlay,clothes/awake/sweater_think_lines.png,0,0
+}
+
+surface22019 //dark purple sweater
+{
+	element0,overlay,clothes/awake/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/purple_dark.png,0,0
+	element2,overlay,clothes/awake/sweater_think_lines.png,0,0
+}
+
+surface22020 //normal purple sweater
+{
+	element0,overlay,clothes/awake/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/purple_normal.png,0,0
+	element2,overlay,clothes/awake/sweater_think_lines.png,0,0
+}
+
+surface22021 //light purple sweater
+{
+	element0,overlay,clothes/awake/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/purple_light.png,0,0
+	element2,overlay,clothes/awake/sweater_think_lines.png,0,0
+}
+
+surface22022 //dark magenta sweater
+{
+	element0,overlay,clothes/awake/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/magenta_dark.png,0,0
+	element2,overlay,clothes/awake/sweater_think_lines.png,0,0
+}
+
+surface22023 //normal magenta sweater
+{
+	element0,overlay,clothes/awake/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/magenta_normal.png,0,0
+	element2,overlay,clothes/awake/sweater_think_lines.png,0,0
+}
+
+surface22024 //light magenta sweater
+{
+	element0,overlay,clothes/awake/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/magenta_light.png,0,0
+	element2,overlay,clothes/awake/sweater_think_lines.png,0,0
+}
+
+surface22025 //dark gray sweater
+{
+	element0,overlay,clothes/awake/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/gray_dark.png,0,0
+	element2,overlay,clothes/awake/sweater_think_lines.png,0,0
+}
+
+surface22026 //normal gray sweater
+{
+	element0,overlay,clothes/awake/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/gray_normal.png,0,0
+	element2,overlay,clothes/awake/sweater_think_lines.png,0,0
+}
+
+surface22027 //light gray sweater
+{
+	element0,overlay,clothes/awake/sweater_think_blocking.png,0,0
+	element1,overlayfast,colors/gray_light.png,0,0
+	element2,overlay,clothes/awake/sweater_think_lines.png,0,0
+}
+
+
+
+surface22050 //dark red hoodie
+{
+	element0,overlay,clothes/awake/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/red_dark.png,0,0
+	element2,overlay,clothes/awake/hoodie_think_lines.png,0,0
+}
+
+surface22051 //normal red hoodie
+{
+	element0,overlay,clothes/awake/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/red_normal.png,0,0
+	element2,overlay,clothes/awake/hoodie_think_lines.png,0,0
+}
+
+surface22052 //light red hoodie
+{
+	element0,overlay,clothes/awake/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/red_light.png,0,0
+	element2,overlay,clothes/awake/hoodie_think_lines.png,0,0
+}
+
+surface22053 //dark orange hoodie
+{
+	element0,overlay,clothes/awake/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/orange_dark.png,0,0
+	element2,overlay,clothes/awake/hoodie_think_lines.png,0,0
+}
+
+surface22054 //normal orange hoodie
+{
+	element0,overlay,clothes/awake/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/orange_normal.png,0,0
+	element2,overlay,clothes/awake/hoodie_think_lines.png,0,0
+}
+
+surface22055 //light orange hoodie
+{
+	element0,overlay,clothes/awake/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/orange_light.png,0,0
+	element2,overlay,clothes/awake/hoodie_think_lines.png,0,0
+}
+
+surface22056 //dark yellow hoodie
+{
+	element0,overlay,clothes/awake/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/yellow_dark.png,0,0
+	element2,overlay,clothes/awake/hoodie_think_lines.png,0,0
+}
+
+surface22057 //normal yellow hoodie
+{
+	element0,overlay,clothes/awake/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/yellow_normal.png,0,0
+	element2,overlay,clothes/awake/hoodie_think_lines.png,0,0
+}
+
+surface22058 //light yellow hoodie
+{
+	element0,overlay,clothes/awake/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/yellow_light.png,0,0
+	element2,overlay,clothes/awake/hoodie_think_lines.png,0,0
+}
+
+surface22059 //dark green hoodie
+{
+	element0,overlay,clothes/awake/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/green_dark.png,0,0
+	element2,overlay,clothes/awake/hoodie_think_lines.png,0,0
+}
+
+surface22060 //normal green hoodie
+{
+	element0,overlay,clothes/awake/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/green_normal.png,0,0
+	element2,overlay,clothes/awake/hoodie_think_lines.png,0,0
+}
+
+surface22061 //light green hoodie
+{
+	element0,overlay,clothes/awake/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/green_light.png,0,0
+	element2,overlay,clothes/awake/hoodie_think_lines.png,0,0
+}
+
+surface22062 //dark cyan hoodie
+{
+	element0,overlay,clothes/awake/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/cyan_dark.png,0,0
+	element2,overlay,clothes/awake/hoodie_think_lines.png,0,0
+}
+
+surface22063 //normal cyan hoodie
+{
+	element0,overlay,clothes/awake/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/cyan_normal.png,0,0
+	element2,overlay,clothes/awake/hoodie_think_lines.png,0,0
+}
+
+surface22064 //light cyan hoodie
+{
+	element0,overlay,clothes/awake/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/cyan_light.png,0,0
+	element2,overlay,clothes/awake/hoodie_think_lines.png,0,0
+}
+
+surface22065 //dark blue hoodie
+{
+	element0,overlay,clothes/awake/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/blue_dark.png,0,0
+	element2,overlay,clothes/awake/hoodie_think_lines.png,0,0
+}
+
+surface22066 //normal blue hoodie
+{
+	element0,overlay,clothes/awake/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/blue_normal.png,0,0
+	element2,overlay,clothes/awake/hoodie_think_lines.png,0,0
+}
+
+surface22067 //light blue hoodie
+{
+	element0,overlay,clothes/awake/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/blue_light.png,0,0
+	element2,overlay,clothes/awake/hoodie_think_lines.png,0,0
+}
+
+surface22068 //dark purple hoodie
+{
+	element0,overlay,clothes/awake/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/purple_dark.png,0,0
+	element2,overlay,clothes/awake/hoodie_think_lines.png,0,0
+}
+
+surface22069 //normal purple hoodie
+{
+	element0,overlay,clothes/awake/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/purple_normal.png,0,0
+	element2,overlay,clothes/awake/hoodie_think_lines.png,0,0
+}
+
+surface22070 //light purple hoodie
+{
+	element0,overlay,clothes/awake/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/purple_light.png,0,0
+	element2,overlay,clothes/awake/hoodie_think_lines.png,0,0
+}
+
+surface22071 //dark magenta hoodie
+{
+	element0,overlay,clothes/awake/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/magenta_dark.png,0,0
+	element2,overlay,clothes/awake/hoodie_think_lines.png,0,0
+}
+
+surface22072 //normal magenta hoodie
+{
+	element0,overlay,clothes/awake/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/magenta_normal.png,0,0
+	element2,overlay,clothes/awake/hoodie_think_lines.png,0,0
+}
+
+surface22073 //light magenta hoodie
+{
+	element0,overlay,clothes/awake/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/magenta_light.png,0,0
+	element2,overlay,clothes/awake/hoodie_think_lines.png,0,0
+}
+
+surface22074 //dark gray hoodie
+{
+	element0,overlay,clothes/awake/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/gray_dark.png,0,0
+	element2,overlay,clothes/awake/hoodie_think_lines.png,0,0
+}
+
+surface22075 //normal gray hoodie
+{
+	element0,overlay,clothes/awake/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/gray_normal.png,0,0
+	element2,overlay,clothes/awake/hoodie_think_lines.png,0,0
+}
+
+surface22076 //light gray hoodie
+{
+	element0,overlay,clothes/awake/hoodie_think_blocking.png,0,0
+	element1,overlayfast,colors/gray_light.png,0,0
+	element2,overlay,clothes/awake/hoodie_think_lines.png,0,0
+}
+
+
+surface22101 //dark red tshirt
+{
+	element0,overlay,clothes/awake/tshirt_think_blocking.png,0,0
+	element1,overlayfast,colors/red_dark.png,0,0
+	element2,overlay,clothes/awake/tshirt_think_lines.png,0,0
+}
+
+surface22102 //normal red tshirt
+{
+	element0,overlay,clothes/awake/tshirt_think_blocking.png,0,0
+	element1,overlayfast,colors/red_normal.png,0,0
+	element2,overlay,clothes/awake/tshirt_think_lines.png,0,0
+}
+
+surface22103 //light red tshirt
+{
+	element0,overlay,clothes/awake/tshirt_think_blocking.png,0,0
+	element1,overlayfast,colors/red_light.png,0,0
+	element2,overlay,clothes/awake/tshirt_think_lines.png,0,0
+}
+
+surface22104 //dark orange tshirt
+{
+	element0,overlay,clothes/awake/tshirt_think_blocking.png,0,0
+	element1,overlayfast,colors/orange_dark.png,0,0
+	element2,overlay,clothes/awake/tshirt_think_lines.png,0,0
+}
+
+surface22105 //normal orange tshirt
+{
+	element0,overlay,clothes/awake/tshirt_think_blocking.png,0,0
+	element1,overlayfast,colors/orange_normal.png,0,0
+	element2,overlay,clothes/awake/tshirt_think_lines.png,0,0
+}
+
+surface22106 //light orange tshirt
+{
+	element0,overlay,clothes/awake/tshirt_think_blocking.png,0,0
+	element1,overlayfast,colors/orange_light.png,0,0
+	element2,overlay,clothes/awake/tshirt_think_lines.png,0,0
+}
+
+surface22107 //dark yellow tshirt
+{
+	element0,overlay,clothes/awake/tshirt_think_blocking.png,0,0
+	element1,overlayfast,colors/yellow_dark.png,0,0
+	element2,overlay,clothes/awake/tshirt_think_lines.png,0,0
+}
+
+surface22108 //normal yellow tshirt
+{
+	element0,overlay,clothes/awake/tshirt_think_blocking.png,0,0
+	element1,overlayfast,colors/yellow_normal.png,0,0
+	element2,overlay,clothes/awake/tshirt_think_lines.png,0,0
+}
+
+surface22109 //light yellow tshirt
+{
+	element0,overlay,clothes/awake/tshirt_think_blocking.png,0,0
+	element1,overlayfast,colors/yellow_light.png,0,0
+	element2,overlay,clothes/awake/tshirt_think_lines.png,0,0
+}
+
+surface22110 //dark green tshirt
+{
+	element0,overlay,clothes/awake/tshirt_think_blocking.png,0,0
+	element1,overlayfast,colors/green_dark.png,0,0
+	element2,overlay,clothes/awake/tshirt_think_lines.png,0,0
+}
+
+surface22111 //normal green tshirt
+{
+	element0,overlay,clothes/awake/tshirt_think_blocking.png,0,0
+	element1,overlayfast,colors/green_normal.png,0,0
+	element2,overlay,clothes/awake/tshirt_think_lines.png,0,0
+}
+
+surface22112 //light green tshirt
+{
+	element0,overlay,clothes/awake/tshirt_think_blocking.png,0,0
+	element1,overlayfast,colors/green_light.png,0,0
+	element2,overlay,clothes/awake/tshirt_think_lines.png,0,0
+}
+
+surface22113 //dark cyan tshirt
+{
+	element0,overlay,clothes/awake/tshirt_think_blocking.png,0,0
+	element1,overlayfast,colors/cyan_dark.png,0,0
+	element2,overlay,clothes/awake/tshirt_think_lines.png,0,0
+}
+
+surface22114 //normal cyan tshirt
+{
+	element0,overlay,clothes/awake/tshirt_think_blocking.png,0,0
+	element1,overlayfast,colors/cyan_normal.png,0,0
+	element2,overlay,clothes/awake/tshirt_think_lines.png,0,0
+}
+
+surface22115 //light cyan tshirt
+{
+	element0,overlay,clothes/awake/tshirt_think_blocking.png,0,0
+	element1,overlayfast,colors/cyan_light.png,0,0
+	element2,overlay,clothes/awake/tshirt_think_lines.png,0,0
+}
+
+surface22116 //dark blue tshirt
+{
+	element0,overlay,clothes/awake/tshirt_think_blocking.png,0,0
+	element1,overlayfast,colors/blue_dark.png,0,0
+	element2,overlay,clothes/awake/tshirt_think_lines.png,0,0
+}
+
+surface22117 //normal blue tshirt
+{
+	element0,overlay,clothes/awake/tshirt_think_blocking.png,0,0
+	element1,overlayfast,colors/blue_normal.png,0,0
+	element2,overlay,clothes/awake/tshirt_think_lines.png,0,0
+}
+
+surface22118 //light blue tshirt
+{
+	element0,overlay,clothes/awake/tshirt_think_blocking.png,0,0
+	element1,overlayfast,colors/blue_light.png,0,0
+	element2,overlay,clothes/awake/tshirt_think_lines.png,0,0
+}
+
+surface22119 //dark purple tshirt
+{
+	element0,overlay,clothes/awake/tshirt_think_blocking.png,0,0
+	element1,overlayfast,colors/purple_dark.png,0,0
+	element2,overlay,clothes/awake/tshirt_think_lines.png,0,0
+}
+
+surface22120 //normal purple tshirt
+{
+	element0,overlay,clothes/awake/tshirt_think_blocking.png,0,0
+	element1,overlayfast,colors/purple_normal.png,0,0
+	element2,overlay,clothes/awake/tshirt_think_lines.png,0,0
+}
+
+surface22121 //light purple tshirt
+{
+	element0,overlay,clothes/awake/tshirt_think_blocking.png,0,0
+	element1,overlayfast,colors/purple_light.png,0,0
+	element2,overlay,clothes/awake/tshirt_think_lines.png,0,0
+}
+
+surface22122 //dark magenta tshirt
+{
+	element0,overlay,clothes/awake/tshirt_think_blocking.png,0,0
+	element1,overlayfast,colors/magenta_dark.png,0,0
+	element2,overlay,clothes/awake/tshirt_think_lines.png,0,0
+}
+
+surface22123 //normal magenta tshirt
+{
+	element0,overlay,clothes/awake/tshirt_think_blocking.png,0,0
+	element1,overlayfast,colors/magenta_normal.png,0,0
+	element2,overlay,clothes/awake/tshirt_think_lines.png,0,0
+}
+
+surface22124 //light magenta tshirt
+{
+	element0,overlay,clothes/awake/tshirt_think_blocking.png,0,0
+	element1,overlayfast,colors/magenta_light.png,0,0
+	element2,overlay,clothes/awake/tshirt_think_lines.png,0,0
+}
+
+surface22125 //dark gray tshirt
+{
+	element0,overlay,clothes/awake/tshirt_think_blocking.png,0,0
+	element1,overlayfast,colors/gray_dark.png,0,0
+	element2,overlay,clothes/awake/tshirt_think_lines.png,0,0
+}
+
+surface22126 //normal gray tshirt
+{
+	element0,overlay,clothes/awake/tshirt_think_blocking.png,0,0
+	element1,overlayfast,colors/gray_normal.png,0,0
+	element2,overlay,clothes/awake/tshirt_think_lines.png,0,0
+}
+
+surface22127 //light gray tshirt
+{
+	element0,overlay,clothes/awake/tshirt_think_blocking.png,0,0
+	element1,overlayfast,colors/gray_light.png,0,0
+	element2,overlay,clothes/awake/tshirt_think_lines.png,0,0
+}
+
+
+
+surface22150 //dark red sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/red_dark.png,0,0
+	element2,overlay,clothes/awake/sleeveless_think_lines.png,0,0
+}
+
+surface22151 //normal red sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/red_normal.png,0,0
+	element2,overlay,clothes/awake/sleeveless_think_lines.png,0,0
+}
+
+surface22152 //light red sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/red_light.png,0,0
+	element2,overlay,clothes/awake/sleeveless_think_lines.png,0,0
+}
+
+surface22153 //dark orange sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/orange_dark.png,0,0
+	element2,overlay,clothes/awake/sleeveless_think_lines.png,0,0
+}
+
+surface22154 //normal orange sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/orange_normal.png,0,0
+	element2,overlay,clothes/awake/sleeveless_think_lines.png,0,0
+}
+
+surface22155 //light orange sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/orange_light.png,0,0
+	element2,overlay,clothes/awake/sleeveless_think_lines.png,0,0
+}
+
+surface22156 //dark yellow sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/yellow_dark.png,0,0
+	element2,overlay,clothes/awake/sleeveless_think_lines.png,0,0
+}
+
+surface22157 //normal yellow sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/yellow_normal.png,0,0
+	element2,overlay,clothes/awake/sleeveless_think_lines.png,0,0
+}
+
+surface22158 //light yellow sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/yellow_light.png,0,0
+	element2,overlay,clothes/awake/sleeveless_think_lines.png,0,0
+}
+
+surface22159 //dark green sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/green_dark.png,0,0
+	element2,overlay,clothes/awake/sleeveless_think_lines.png,0,0
+}
+
+surface22160 //normal green sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/green_normal.png,0,0
+	element2,overlay,clothes/awake/sleeveless_think_lines.png,0,0
+}
+
+surface22161 //light green sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/green_light.png,0,0
+	element2,overlay,clothes/awake/sleeveless_think_lines.png,0,0
+}
+
+surface22162 //dark cyan sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/cyan_dark.png,0,0
+	element2,overlay,clothes/awake/sleeveless_think_lines.png,0,0
+}
+
+surface22163 //normal cyan sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/cyan_normal.png,0,0
+	element2,overlay,clothes/awake/sleeveless_think_lines.png,0,0
+}
+
+surface22164 //light cyan sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/cyan_light.png,0,0
+	element2,overlay,clothes/awake/sleeveless_think_lines.png,0,0
+}
+
+surface22165 //dark blue sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/blue_dark.png,0,0
+	element2,overlay,clothes/awake/sleeveless_think_lines.png,0,0
+}
+
+surface22166 //normal blue sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/blue_normal.png,0,0
+	element2,overlay,clothes/awake/sleeveless_think_lines.png,0,0
+}
+
+surface22167 //light blue sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/blue_light.png,0,0
+	element2,overlay,clothes/awake/sleeveless_think_lines.png,0,0
+}
+
+surface22168 //dark purple sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/purple_dark.png,0,0
+	element2,overlay,clothes/awake/sleeveless_think_lines.png,0,0
+}
+
+surface22169 //normal purple sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/purple_normal.png,0,0
+	element2,overlay,clothes/awake/sleeveless_think_lines.png,0,0
+}
+
+surface22170 //light purple sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/purple_light.png,0,0
+	element2,overlay,clothes/awake/sleeveless_think_lines.png,0,0
+}
+
+surface22171 //dark magenta sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/magenta_dark.png,0,0
+	element2,overlay,clothes/awake/sleeveless_think_lines.png,0,0
+}
+
+surface22172 //normal magenta sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/magenta_normal.png,0,0
+	element2,overlay,clothes/awake/sleeveless_think_lines.png,0,0
+}
+
+surface22173 //light magenta sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/magenta_light.png,0,0
+	element2,overlay,clothes/awake/sleeveless_think_lines.png,0,0
+}
+
+surface22174 //dark gray sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/gray_dark.png,0,0
+	element2,overlay,clothes/awake/sleeveless_think_lines.png,0,0
+}
+
+surface22175 //normal gray sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/gray_normal.png,0,0
+	element2,overlay,clothes/awake/sleeveless_think_lines.png,0,0
+}
+
+surface22176 //light gray sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/gray_light.png,0,0
+	element2,overlay,clothes/awake/sleeveless_think_lines.png,0,0
+}
+
+
+
+
+
+//---------------------------------MP3-----------------------------------
+
+
+surface23000 //Default sweater
+{
+	element0,overlay,clothes/awake/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/default_blue.png,0,0
+	element2,overlay,clothes/awake/sweater_mp3_lines.png,0,0
+}
+
+surface23001 //dark red sweater
+{
+	element0,overlay,clothes/awake/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/red_dark.png,0,0
+	element2,overlay,clothes/awake/sweater_mp3_lines.png,0,0
+}
+
+surface23002 //normal red sweater
+{
+	element0,overlay,clothes/awake/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/red_normal.png,0,0
+	element2,overlay,clothes/awake/sweater_mp3_lines.png,0,0
+}
+
+surface23003 //light red sweater
+{
+	element0,overlay,clothes/awake/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/red_light.png,0,0
+	element2,overlay,clothes/awake/sweater_mp3_lines.png,0,0
+}
+
+surface23004 //dark orange sweater
+{
+	element0,overlay,clothes/awake/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/orange_dark.png,0,0
+	element2,overlay,clothes/awake/sweater_mp3_lines.png,0,0
+}
+
+surface23005 //normal orange sweater
+{
+	element0,overlay,clothes/awake/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/orange_normal.png,0,0
+	element2,overlay,clothes/awake/sweater_mp3_lines.png,0,0
+}
+
+surface23006 //light orange sweater
+{
+	element0,overlay,clothes/awake/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/orange_light.png,0,0
+	element2,overlay,clothes/awake/sweater_mp3_lines.png,0,0
+}
+
+surface23007 //dark yellow sweater
+{
+	element0,overlay,clothes/awake/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/yellow_dark.png,0,0
+	element2,overlay,clothes/awake/sweater_mp3_lines.png,0,0
+}
+
+surface23008 //normal yellow sweater
+{
+	element0,overlay,clothes/awake/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/yellow_normal.png,0,0
+	element2,overlay,clothes/awake/sweater_mp3_lines.png,0,0
+}
+
+surface23009 //light yellow sweater
+{
+	element0,overlay,clothes/awake/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/yellow_light.png,0,0
+	element2,overlay,clothes/awake/sweater_mp3_lines.png,0,0
+}
+
+surface23010 //dark green sweater
+{
+	element0,overlay,clothes/awake/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/green_dark.png,0,0
+	element2,overlay,clothes/awake/sweater_mp3_lines.png,0,0
+}
+
+surface23011 //normal green sweater
+{
+	element0,overlay,clothes/awake/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/green_normal.png,0,0
+	element2,overlay,clothes/awake/sweater_mp3_lines.png,0,0
+}
+
+surface23012 //light green sweater
+{
+	element0,overlay,clothes/awake/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/green_light.png,0,0
+	element2,overlay,clothes/awake/sweater_mp3_lines.png,0,0
+}
+
+surface23013 //dark cyan sweater
+{
+	element0,overlay,clothes/awake/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/cyan_dark.png,0,0
+	element2,overlay,clothes/awake/sweater_mp3_lines.png,0,0
+}
+
+surface23014 //normal cyan sweater
+{
+	element0,overlay,clothes/awake/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/cyan_normal.png,0,0
+	element2,overlay,clothes/awake/sweater_mp3_lines.png,0,0
+}
+
+surface23015 //light cyan sweater
+{
+	element0,overlay,clothes/awake/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/cyan_light.png,0,0
+	element2,overlay,clothes/awake/sweater_mp3_lines.png,0,0
+}
+
+surface23016 //dark blue sweater
+{
+	element0,overlay,clothes/awake/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/blue_dark.png,0,0
+	element2,overlay,clothes/awake/sweater_mp3_lines.png,0,0
+}
+
+surface23017 //normal blue sweater
+{
+	element0,overlay,clothes/awake/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/blue_normal.png,0,0
+	element2,overlay,clothes/awake/sweater_mp3_lines.png,0,0
+}
+
+surface23018 //light blue sweater
+{
+	element0,overlay,clothes/awake/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/blue_light.png,0,0
+	element2,overlay,clothes/awake/sweater_mp3_lines.png,0,0
+}
+
+surface23019 //dark purple sweater
+{
+	element0,overlay,clothes/awake/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/purple_dark.png,0,0
+	element2,overlay,clothes/awake/sweater_mp3_lines.png,0,0
+}
+
+surface23020 //normal purple sweater
+{
+	element0,overlay,clothes/awake/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/purple_normal.png,0,0
+	element2,overlay,clothes/awake/sweater_mp3_lines.png,0,0
+}
+
+surface23021 //light purple sweater
+{
+	element0,overlay,clothes/awake/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/purple_light.png,0,0
+	element2,overlay,clothes/awake/sweater_mp3_lines.png,0,0
+}
+
+surface23022 //dark magenta sweater
+{
+	element0,overlay,clothes/awake/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/magenta_dark.png,0,0
+	element2,overlay,clothes/awake/sweater_mp3_lines.png,0,0
+}
+
+surface23023 //normal magenta sweater
+{
+	element0,overlay,clothes/awake/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/magenta_normal.png,0,0
+	element2,overlay,clothes/awake/sweater_mp3_lines.png,0,0
+}
+
+surface23024 //light magenta sweater
+{
+	element0,overlay,clothes/awake/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/magenta_light.png,0,0
+	element2,overlay,clothes/awake/sweater_mp3_lines.png,0,0
+}
+
+surface23025 //dark gray sweater
+{
+	element0,overlay,clothes/awake/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/gray_dark.png,0,0
+	element2,overlay,clothes/awake/sweater_mp3_lines.png,0,0
+}
+
+surface23026 //normal gray sweater
+{
+	element0,overlay,clothes/awake/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/gray_normal.png,0,0
+	element2,overlay,clothes/awake/sweater_mp3_lines.png,0,0
+}
+
+surface23027 //light gray sweater
+{
+	element0,overlay,clothes/awake/sweater_mp3_blocking.png,0,0
+	element1,overlayfast,colors/gray_light.png,0,0
+	element2,overlay,clothes/awake/sweater_mp3_lines.png,0,0
+}
+
+
+
+surface23050 //dark red hoodie
+{
+	element0,overlay,clothes/awake/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/red_dark.png,0,0
+	element2,overlay,clothes/awake/hoodie_mp3_lines.png,0,0
+}
+
+surface23051 //normal red hoodie
+{
+	element0,overlay,clothes/awake/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/red_normal.png,0,0
+	element2,overlay,clothes/awake/hoodie_mp3_lines.png,0,0
+}
+
+surface23052 //light red hoodie
+{
+	element0,overlay,clothes/awake/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/red_light.png,0,0
+	element2,overlay,clothes/awake/hoodie_mp3_lines.png,0,0
+}
+
+surface23053 //dark orange hoodie
+{
+	element0,overlay,clothes/awake/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/orange_dark.png,0,0
+	element2,overlay,clothes/awake/hoodie_mp3_lines.png,0,0
+}
+
+surface23054 //normal orange hoodie
+{
+	element0,overlay,clothes/awake/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/orange_normal.png,0,0
+	element2,overlay,clothes/awake/hoodie_mp3_lines.png,0,0
+}
+
+surface23055 //light orange hoodie
+{
+	element0,overlay,clothes/awake/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/orange_light.png,0,0
+	element2,overlay,clothes/awake/hoodie_mp3_lines.png,0,0
+}
+
+surface23056 //dark yellow hoodie
+{
+	element0,overlay,clothes/awake/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/yellow_dark.png,0,0
+	element2,overlay,clothes/awake/hoodie_mp3_lines.png,0,0
+}
+
+surface23057 //normal yellow hoodie
+{
+	element0,overlay,clothes/awake/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/yellow_normal.png,0,0
+	element2,overlay,clothes/awake/hoodie_mp3_lines.png,0,0
+}
+
+surface23058 //light yellow hoodie
+{
+	element0,overlay,clothes/awake/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/yellow_light.png,0,0
+	element2,overlay,clothes/awake/hoodie_mp3_lines.png,0,0
+}
+
+surface23059 //dark green hoodie
+{
+	element0,overlay,clothes/awake/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/green_dark.png,0,0
+	element2,overlay,clothes/awake/hoodie_mp3_lines.png,0,0
+}
+
+surface23060 //normal green hoodie
+{
+	element0,overlay,clothes/awake/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/green_normal.png,0,0
+	element2,overlay,clothes/awake/hoodie_mp3_lines.png,0,0
+}
+
+surface23061 //light green hoodie
+{
+	element0,overlay,clothes/awake/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/green_light.png,0,0
+	element2,overlay,clothes/awake/hoodie_mp3_lines.png,0,0
+}
+
+surface23062 //dark cyan hoodie
+{
+	element0,overlay,clothes/awake/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/cyan_dark.png,0,0
+	element2,overlay,clothes/awake/hoodie_mp3_lines.png,0,0
+}
+
+surface23063 //normal cyan hoodie
+{
+	element0,overlay,clothes/awake/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/cyan_normal.png,0,0
+	element2,overlay,clothes/awake/hoodie_mp3_lines.png,0,0
+}
+
+surface23064 //light cyan hoodie
+{
+	element0,overlay,clothes/awake/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/cyan_light.png,0,0
+	element2,overlay,clothes/awake/hoodie_mp3_lines.png,0,0
+}
+
+surface23065 //dark blue hoodie
+{
+	element0,overlay,clothes/awake/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/blue_dark.png,0,0
+	element2,overlay,clothes/awake/hoodie_mp3_lines.png,0,0
+}
+
+surface23066 //normal blue hoodie
+{
+	element0,overlay,clothes/awake/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/blue_normal.png,0,0
+	element2,overlay,clothes/awake/hoodie_mp3_lines.png,0,0
+}
+
+surface23067 //light blue hoodie
+{
+	element0,overlay,clothes/awake/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/blue_light.png,0,0
+	element2,overlay,clothes/awake/hoodie_mp3_lines.png,0,0
+}
+
+surface23068 //dark purple hoodie
+{
+	element0,overlay,clothes/awake/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/purple_dark.png,0,0
+	element2,overlay,clothes/awake/hoodie_mp3_lines.png,0,0
+}
+
+surface23069 //normal purple hoodie
+{
+	element0,overlay,clothes/awake/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/purple_normal.png,0,0
+	element2,overlay,clothes/awake/hoodie_mp3_lines.png,0,0
+}
+
+surface23070 //light purple hoodie
+{
+	element0,overlay,clothes/awake/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/purple_light.png,0,0
+	element2,overlay,clothes/awake/hoodie_mp3_lines.png,0,0
+}
+
+surface23071 //dark magenta hoodie
+{
+	element0,overlay,clothes/awake/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/magenta_dark.png,0,0
+	element2,overlay,clothes/awake/hoodie_mp3_lines.png,0,0
+}
+
+surface23072 //normal magenta hoodie
+{
+	element0,overlay,clothes/awake/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/magenta_normal.png,0,0
+	element2,overlay,clothes/awake/hoodie_mp3_lines.png,0,0
+}
+
+surface23073 //light magenta hoodie
+{
+	element0,overlay,clothes/awake/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/magenta_light.png,0,0
+	element2,overlay,clothes/awake/hoodie_mp3_lines.png,0,0
+}
+
+surface23074 //dark gray hoodie
+{
+	element0,overlay,clothes/awake/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/gray_dark.png,0,0
+	element2,overlay,clothes/awake/hoodie_mp3_lines.png,0,0
+}
+
+surface23075 //normal gray hoodie
+{
+	element0,overlay,clothes/awake/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/gray_normal.png,0,0
+	element2,overlay,clothes/awake/hoodie_mp3_lines.png,0,0
+}
+
+surface23076 //light gray hoodie
+{
+	element0,overlay,clothes/awake/hoodie_mp3_blocking.png,0,0
+	element1,overlayfast,colors/gray_light.png,0,0
+	element2,overlay,clothes/awake/hoodie_mp3_lines.png,0,0
+}
+
+
+
+surface23101 //dark red tshirt
+{
+	element0,overlay,clothes/awake/tshirt_mp3_blocking.png,0,0
+	element1,overlayfast,colors/red_dark.png,0,0
+	element2,overlay,clothes/awake/tshirt_mp3_lines.png,0,0
+}
+
+surface23102 //normal red tshirt
+{
+	element0,overlay,clothes/awake/tshirt_mp3_blocking.png,0,0
+	element1,overlayfast,colors/red_normal.png,0,0
+	element2,overlay,clothes/awake/tshirt_mp3_lines.png,0,0
+}
+
+surface23103 //light red tshirt
+{
+	element0,overlay,clothes/awake/tshirt_mp3_blocking.png,0,0
+	element1,overlayfast,colors/red_light.png,0,0
+	element2,overlay,clothes/awake/tshirt_mp3_lines.png,0,0
+}
+
+surface23104 //dark orange tshirt
+{
+	element0,overlay,clothes/awake/tshirt_mp3_blocking.png,0,0
+	element1,overlayfast,colors/orange_dark.png,0,0
+	element2,overlay,clothes/awake/tshirt_mp3_lines.png,0,0
+}
+
+surface23105 //normal orange tshirt
+{
+	element0,overlay,clothes/awake/tshirt_mp3_blocking.png,0,0
+	element1,overlayfast,colors/orange_normal.png,0,0
+	element2,overlay,clothes/awake/tshirt_mp3_lines.png,0,0
+}
+
+surface23106 //light orange tshirt
+{
+	element0,overlay,clothes/awake/tshirt_mp3_blocking.png,0,0
+	element1,overlayfast,colors/orange_light.png,0,0
+	element2,overlay,clothes/awake/tshirt_mp3_lines.png,0,0
+}
+
+surface23107 //dark yellow tshirt
+{
+	element0,overlay,clothes/awake/tshirt_mp3_blocking.png,0,0
+	element1,overlayfast,colors/yellow_dark.png,0,0
+	element2,overlay,clothes/awake/tshirt_mp3_lines.png,0,0
+}
+
+surface23108 //normal yellow tshirt
+{
+	element0,overlay,clothes/awake/tshirt_mp3_blocking.png,0,0
+	element1,overlayfast,colors/yellow_normal.png,0,0
+	element2,overlay,clothes/awake/tshirt_mp3_lines.png,0,0
+}
+
+surface23109 //light yellow tshirt
+{
+	element0,overlay,clothes/awake/tshirt_mp3_blocking.png,0,0
+	element1,overlayfast,colors/yellow_light.png,0,0
+	element2,overlay,clothes/awake/tshirt_mp3_lines.png,0,0
+}
+
+surface23110 //dark green tshirt
+{
+	element0,overlay,clothes/awake/tshirt_mp3_blocking.png,0,0
+	element1,overlayfast,colors/green_dark.png,0,0
+	element2,overlay,clothes/awake/tshirt_mp3_lines.png,0,0
+}
+
+surface23111 //normal green tshirt
+{
+	element0,overlay,clothes/awake/tshirt_mp3_blocking.png,0,0
+	element1,overlayfast,colors/green_normal.png,0,0
+	element2,overlay,clothes/awake/tshirt_mp3_lines.png,0,0
+}
+
+surface23112 //light green tshirt
+{
+	element0,overlay,clothes/awake/tshirt_mp3_blocking.png,0,0
+	element1,overlayfast,colors/green_light.png,0,0
+	element2,overlay,clothes/awake/tshirt_mp3_lines.png,0,0
+}
+
+surface23113 //dark cyan tshirt
+{
+	element0,overlay,clothes/awake/tshirt_mp3_blocking.png,0,0
+	element1,overlayfast,colors/cyan_dark.png,0,0
+	element2,overlay,clothes/awake/tshirt_mp3_lines.png,0,0
+}
+
+surface23114 //normal cyan tshirt
+{
+	element0,overlay,clothes/awake/tshirt_mp3_blocking.png,0,0
+	element1,overlayfast,colors/cyan_normal.png,0,0
+	element2,overlay,clothes/awake/tshirt_mp3_lines.png,0,0
+}
+
+surface23115 //light cyan tshirt
+{
+	element0,overlay,clothes/awake/tshirt_mp3_blocking.png,0,0
+	element1,overlayfast,colors/cyan_light.png,0,0
+	element2,overlay,clothes/awake/tshirt_mp3_lines.png,0,0
+}
+
+surface23116 //dark blue tshirt
+{
+	element0,overlay,clothes/awake/tshirt_mp3_blocking.png,0,0
+	element1,overlayfast,colors/blue_dark.png,0,0
+	element2,overlay,clothes/awake/tshirt_mp3_lines.png,0,0
+}
+
+surface23117 //normal blue tshirt
+{
+	element0,overlay,clothes/awake/tshirt_mp3_blocking.png,0,0
+	element1,overlayfast,colors/blue_normal.png,0,0
+	element2,overlay,clothes/awake/tshirt_mp3_lines.png,0,0
+}
+
+surface23118 //light blue tshirt
+{
+	element0,overlay,clothes/awake/tshirt_mp3_blocking.png,0,0
+	element1,overlayfast,colors/blue_light.png,0,0
+	element2,overlay,clothes/awake/tshirt_mp3_lines.png,0,0
+}
+
+surface23119 //dark purple tshirt
+{
+	element0,overlay,clothes/awake/tshirt_mp3_blocking.png,0,0
+	element1,overlayfast,colors/purple_dark.png,0,0
+	element2,overlay,clothes/awake/tshirt_mp3_lines.png,0,0
+}
+
+surface23120 //normal purple tshirt
+{
+	element0,overlay,clothes/awake/tshirt_mp3_blocking.png,0,0
+	element1,overlayfast,colors/purple_normal.png,0,0
+	element2,overlay,clothes/awake/tshirt_mp3_lines.png,0,0
+}
+
+surface23121 //light purple tshirt
+{
+	element0,overlay,clothes/awake/tshirt_mp3_blocking.png,0,0
+	element1,overlayfast,colors/purple_light.png,0,0
+	element2,overlay,clothes/awake/tshirt_mp3_lines.png,0,0
+}
+
+surface23122 //dark magenta tshirt
+{
+	element0,overlay,clothes/awake/tshirt_mp3_blocking.png,0,0
+	element1,overlayfast,colors/magenta_dark.png,0,0
+	element2,overlay,clothes/awake/tshirt_mp3_lines.png,0,0
+}
+
+surface23123 //normal magenta tshirt
+{
+	element0,overlay,clothes/awake/tshirt_mp3_blocking.png,0,0
+	element1,overlayfast,colors/magenta_normal.png,0,0
+	element2,overlay,clothes/awake/tshirt_mp3_lines.png,0,0
+}
+
+surface23124 //light magenta tshirt
+{
+	element0,overlay,clothes/awake/tshirt_mp3_blocking.png,0,0
+	element1,overlayfast,colors/magenta_light.png,0,0
+	element2,overlay,clothes/awake/tshirt_mp3_lines.png,0,0
+}
+
+surface23125 //dark gray tshirt
+{
+	element0,overlay,clothes/awake/tshirt_mp3_blocking.png,0,0
+	element1,overlayfast,colors/gray_dark.png,0,0
+	element2,overlay,clothes/awake/tshirt_mp3_lines.png,0,0
+}
+
+surface23126 //normal gray tshirt
+{
+	element0,overlay,clothes/awake/tshirt_mp3_blocking.png,0,0
+	element1,overlayfast,colors/gray_normal.png,0,0
+	element2,overlay,clothes/awake/tshirt_mp3_lines.png,0,0
+}
+
+surface23127 //light gray tshirt
+{
+	element0,overlay,clothes/awake/tshirt_mp3_blocking.png,0,0
+	element1,overlayfast,colors/gray_light.png,0,0
+	element2,overlay,clothes/awake/tshirt_mp3_lines.png,0,0
+}
+
+
+surface23150 //dark red sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/red_dark.png,0,0
+	element2,overlay,clothes/awake/sleeveless_mp3_lines.png,0,0
+}
+
+surface23151 //normal red sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/red_normal.png,0,0
+	element2,overlay,clothes/awake/sleeveless_mp3_lines.png,0,0
+}
+
+surface23152 //light red sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/red_light.png,0,0
+	element2,overlay,clothes/awake/sleeveless_mp3_lines.png,0,0
+}
+
+surface23153 //dark orange sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/orange_dark.png,0,0
+	element2,overlay,clothes/awake/sleeveless_mp3_lines.png,0,0
+}
+
+surface23154 //normal orange sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/orange_normal.png,0,0
+	element2,overlay,clothes/awake/sleeveless_mp3_lines.png,0,0
+}
+
+surface23155 //light orange sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/orange_light.png,0,0
+	element2,overlay,clothes/awake/sleeveless_mp3_lines.png,0,0
+}
+
+surface23156 //dark yellow sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/yellow_dark.png,0,0
+	element2,overlay,clothes/awake/sleeveless_mp3_lines.png,0,0
+}
+
+surface23157 //normal yellow sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/yellow_normal.png,0,0
+	element2,overlay,clothes/awake/sleeveless_mp3_lines.png,0,0
+}
+
+surface23158 //light yellow sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/yellow_light.png,0,0
+	element2,overlay,clothes/awake/sleeveless_mp3_lines.png,0,0
+}
+
+surface23159 //dark green sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/green_dark.png,0,0
+	element2,overlay,clothes/awake/sleeveless_mp3_lines.png,0,0
+}
+
+surface23160 //normal green sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/green_normal.png,0,0
+	element2,overlay,clothes/awake/sleeveless_mp3_lines.png,0,0
+}
+
+surface23161 //light green sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/green_light.png,0,0
+	element2,overlay,clothes/awake/sleeveless_mp3_lines.png,0,0
+}
+
+surface23162 //dark cyan sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/cyan_dark.png,0,0
+	element2,overlay,clothes/awake/sleeveless_mp3_lines.png,0,0
+}
+
+surface23163 //normal cyan sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/cyan_normal.png,0,0
+	element2,overlay,clothes/awake/sleeveless_mp3_lines.png,0,0
+}
+
+surface23164 //light cyan sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/cyan_light.png,0,0
+	element2,overlay,clothes/awake/sleeveless_mp3_lines.png,0,0
+}
+
+surface23165 //dark blue sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/blue_dark.png,0,0
+	element2,overlay,clothes/awake/sleeveless_mp3_lines.png,0,0
+}
+
+surface23166 //normal blue sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/blue_normal.png,0,0
+	element2,overlay,clothes/awake/sleeveless_mp3_lines.png,0,0
+}
+
+surface23167 //light blue sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/blue_light.png,0,0
+	element2,overlay,clothes/awake/sleeveless_mp3_lines.png,0,0
+}
+
+surface23168 //dark purple sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/purple_dark.png,0,0
+	element2,overlay,clothes/awake/sleeveless_mp3_lines.png,0,0
+}
+
+surface23169 //normal purple sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/purple_normal.png,0,0
+	element2,overlay,clothes/awake/sleeveless_mp3_lines.png,0,0
+}
+
+surface23170 //light purple sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/purple_light.png,0,0
+	element2,overlay,clothes/awake/sleeveless_mp3_lines.png,0,0
+}
+
+surface23171 //dark magenta sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/magenta_dark.png,0,0
+	element2,overlay,clothes/awake/sleeveless_mp3_lines.png,0,0
+}
+
+surface23172 //normal magenta sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/magenta_normal.png,0,0
+	element2,overlay,clothes/awake/sleeveless_mp3_lines.png,0,0
+}
+
+surface23173 //light magenta sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/magenta_light.png,0,0
+	element2,overlay,clothes/awake/sleeveless_mp3_lines.png,0,0
+}
+
+surface23174 //dark gray sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/gray_dark.png,0,0
+	element2,overlay,clothes/awake/sleeveless_mp3_lines.png,0,0
+}
+
+surface23175 //normal gray sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/gray_normal.png,0,0
+	element2,overlay,clothes/awake/sleeveless_mp3_lines.png,0,0
+}
+
+surface23176 //light gray sleeveless
+{
+	element0,overlay,clothes/awake/sleeveless_blocking.png,0,0
+	element1,overlayfast,colors/gray_light.png,0,0
+	element2,overlay,clothes/awake/sleeveless_mp3_lines.png,0,0
+}

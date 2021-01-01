@@ -1,0 +1,323 @@
+OnMouseDoubleClick
+{
+	showingproject = 0
+	if reference5 == 0 && booting != 1 //reference5 is the mouse button being clicked, in this case a left click. The booting variable is here to prevent the user from interrupting firstboot, which for some reason passivemode does not do.
+	{
+		if reference4 == "Face" || reference4 == "Head" //Booping
+		{
+			Booped
+		}
+		else //Menu
+		{
+			if holdingObsidian == 1
+			{
+				"\![get,property,OnObsidianJumpDown,currentghost.scope(0).rect]\e"
+			}
+			else
+			{
+				booting = 0
+				if nowmode == "Asleep"
+				{
+					"\0%(b)* (Do you want to wake her up?)\n\n"
+					--
+					"\![*]\q[Yes,OnSakuraMenu]\n\![*]\q[Let her sleep,cancelnodialogue]\e"
+				}
+				else
+				{
+					OnSakuraMenu
+				}
+			}
+		}
+	}
+}
+
+OnMouseMove
+{
+	if reference3 == 0 //reference3 is what character the mouse is over. 0 is Sakura, 1 is Kero
+	{
+		if reference4 == "Head"
+		{
+			stroke++ //Stroke value only goes up when over the appropriate areas
+			continuousstroke++
+			
+			if continuousstroke >= 160 //this would happen starting at 4 pets
+			{
+				if stroke >= 160 //Stroke count is longer so that you have time to read the dialogue here. Adjust as you like.
+				{
+					showingproject = 0
+					stroke = 0
+					totalpets++
+					currentpetstreak++
+					if sleepPetMod < 6 //The more you pet, the more sleepy she becomes...
+					{
+						sleepPetMod++
+					}
+					
+					ContinuousPet
+				}
+			}
+			elseif stroke >= 40 //At less than 4 pets, normal dialogue...
+			{
+				showingproject = 0
+				stroke = 0 //Stroke value is reset
+				totalpets++
+				currentpetstreak++
+				
+				NormalPet
+			}
+		}
+		elseif reference4 == "Obsidian" //If your collision is named Obsidian
+		{
+			stroke++
+			if stroke >= 40
+			{
+				stroke = 0
+				res_reference0 = "Dusty"
+				
+				"\e LuloObsiPets"
+			}
+		}
+	}
+}
+
+OnMouseLeaveAll //When the mouse leaves the ghost. You can change to OnMouseLeave if you want it to happen when you leave that specific hitbox
+{
+	if continuousstroke > 160 && continuousstroke > pethighscore //Checks if you're in continuous petting, and if you are, if you got a high score. \C will display the previous balloon again.
+	{
+		friendship += mdfriendplus
+		DP += mdDPplus
+		if ASEARCH("Got a petting high score",TodaysActions) == -1 //If the user hasn't gotten a high score yet today
+		{
+			TodaysActions ,= "Got a petting high score"
+			DP += lgDPplus
+			friendship += mdfriendplus
+		}
+		
+		pethighscore = continuousstroke
+		
+		_b = BalloonCheck
+		if _b == 1
+		{
+			"\C%(b)\n\n* (New high score! %(pethighscore)!)\e"
+		}
+	}
+	--
+	if currentpetstreak > toppetstreak //Same thing here, but it's counting the number of actual pets you got. You can use this instead of the stroke count if you like.
+	{
+		toppetstreak = currentpetstreak
+	}
+	--
+	stroke = 0
+	continuousstroke = 0
+	currentpetstreak = 0
+}
+
+NormalPet
+{
+	friendship += smfriendplus
+	if ASEARCH("Petted",TodaysActions) == -1
+	{
+		DP += mdDPplus
+		friendship += mdfriendplus
+		TodaysActions ,= "Petted"
+	}
+	
+	"\0%(b)"
+	--
+	if nowmode == "Awake"
+	{
+		"\s[1102]\i[10]* (She sighs contently.)\e"
+		"\s[1104]Hehe,\w4 you're good at this.\e"
+		"\s[1102]\i[10]* (She holds still as you brush your cursor along her skull.)\e"
+		"\s[1104]Thanks,\w4 %(userprop).\e"
+		"\s[1104]Hehe,\w4 that kinda tickles...\e"
+		"\s[1102]\i[10]* (She hums a little.)\e"
+		"\s[1102]\i[10]* (She leans into your petting.)\e"
+		"\s[1104]Hehe,\w4 my anDad likes to do this too.\e"
+	}
+	elseif nowmode == "Asleep"
+	{
+		"\s[2000]"
+		"\s[2001]"
+		--
+		"...%(mumble)...\e"
+		"...%(mumb)..?\e"
+		"...zzz...\e"
+		"...mmm...\w8\w8 %(username)..?\w8\w8\w8 %(mumb)%(mumb)..."
+		"\s[2000]* (She relaxes as you stroke her head softly.)\w8\w8\n\n...%(mumble)...\e"
+		"\s[2000]* (You think you see the faintest trace of a smile on her face...)\e"
+		"\s[2000]* (She stirs slightly,\w4 then settles down into a deeper sleep.)\e"
+		"\s[2000]* (She makes a tiny sound in her sleep.)\e"
+		"\s[2000]* (She murmurs indistinctly.)\e"
+	}
+	else //Sleepy
+	{
+		if friendship <= friendshiplow
+		{
+			"\s[107]...um,\w4 why are you touching my head..?\e"
+			"\s[113]...um,\w4 why are you rubbing my skull..?\e"
+			"\s[108]...um,\w4 did you need something..?\e"
+			"\s[109]...i don't really know you...\e"
+		}
+		else
+		{
+			"\s[102]...mmm...\e"
+			//"\s[102]...mmm...\w8\w8 soft...\e"
+			"\s[102]* (Her head moves slightly along with the rhythm of your cursor.)\e"
+			"\s[102]* (She sighs quietly.)\e"
+			"\s[102]* (She leans slightly into the pet.)\e"
+			"\s[0]...thanks...\e"
+			"\s[103]...heh...\e"
+			"\s[102]...mmm...\w8\w8 thanks...\e"
+			"\s[102]* (She seems content.)\e"
+		}
+	}
+}
+
+ContinuousPet
+{
+	friendship += smfriendplus
+	if ASEARCH("Petted continuously",TodaysActions) == -1
+	{
+		DP += lgDPplus
+		friendship += mdfriendplus
+		TodaysActions ,= "Petted continuously"
+	}
+	if nowmode == "Awake"
+	{
+		if sleepPetMod >= 6
+		{
+			"\0%(b)\s[1109]\i[10]\![raise,OnDialogueVars,asleepMode]* (She gives a big yawn,\w4 her eyes drooping,\w4\s[106] then sits down and\s[2000] gives in to sleep.)\e"
+		}
+		{
+			"\0%(b)\s[1113]...You must have a lot of energy.\e"
+			"\0%(b)\s[1113]...You must really like petting skeletons.\e"
+			"\0%(b)\s[1113]...Um,\w4 are you after a high score?\e"
+			"\0%(b)\s[1104]My skull is warm now,\w4 hehe.\e"
+		}
+	}
+	elseif nowmode == "Asleep"
+	{
+		"\0%(b)\s[2000]* (Her breaths deepen as you continue to pet.)\e"
+		"\0%(b)\s[2000]* (She mumbles something about it being warm out.)\e"
+		"\0%(b)\s[2000]* (Is it possible to be more relaxed than this?)\e"
+		"\0%(b)\s[2000]* (She lets out a deep sigh.)\e"
+	}
+	else //Sleepy
+	{
+		if sleepPetMod >= 4
+		{
+			"\0\b[8]\s[2000]\![raise,OnDialogueVars,asleepMode]* (You feel her body give in to sleep as you stroke her skull over and over.)\e"
+		}
+		{
+			"\0%(b)\s[102]* (She's starting to look sleepy...)\e"
+			"\0%(b)\s[102]* (Her eyes close drowsily as she leans into your petting...)\e"
+		}
+	}
+}
+
+Booped
+{
+	totalboops++
+	//TODO I want this to make her be a bit more awake, but I don't have that system ready to go yet
+	
+	if ASEARCH("Booped",TodaysActions) == -1 //If the user has not booped her yet today
+	{
+		TodaysActions ,= "Booped"
+		DP += smDPplus
+		friendship += smfriendplus
+	}
+	
+	if holdingObsidian == 1
+	{
+		"" //TODO Laterrrr when I have frames
+	}
+	elseif nowmode == "Awake"
+	{
+		"\0\s[1110]\i[10]* (You boop her nose!)\w8\w8\n\n* (Or,\w4 the equivalent.)"
+		"\0\s[1110]\i[10]* (You give her a boop!)"
+		"\0\s[1110]\i[10]* (Boop!)"
+		"\0\s[1110]\i[10]* (You give her a boop with your cursor!)"
+		"\0\s[1110]\i[10]* (You give her a playful boop!)"
+		--
+		"\w8\w8\w8\n\n\s[1106]"
+		"\w8\w8\w8\n\n\s[1107]"
+		"\w8\w8\w8\n\n\s[1113]"
+		--
+		if totalboops <= 5 || friendship < friendshiplow
+		{
+			"Um,\w4 what was that for?\e"
+			"Not you too...\e"
+			"Thanks..?\e"
+			"Um,\w4 %(userprop),\w4 why are you doing that?\e"
+			"%(userprop)..?\e"
+		}
+		else
+		{
+			friendship += smfriendplus
+			
+			"That's not fair,\w4 I can't reach you from here...\w8\w8\s[1112] Yet.\e"
+			"\s[1104]Hehe,\w4 cut it out %(userprop).\e"
+			"This again???\e"
+			"\s[1113]You're gonna knock my freckles off if you keep bumping my face.\e"
+			"\s[1107]I can never escape the boops,\w4 no matter where I go...\e"
+			if SInstalled && !SPresent
+			{
+				"Do you do this to my anDad,\w4 too..?\e"
+				"\s[1107]But I can't reach you...\w8\w8\s[1112] Maybe I'll get my anDad next time I see him.\e"
+			}
+		}
+	}
+	elseif nowmode == "Asleep"
+	{
+		"\0* (You give her a gentle boop.)"
+		"\0* (You give her a very soft boop.)"
+		"\0* (You boop her softly so she doesn't wake.)"
+		"\0* (You give her a boop as light as a feather.)"
+		--
+		"\w8\w8\n\n\s[2000]"
+		"\w8\w8\n\n\s[2001]"
+		--
+		"...%(mumb)%(mumb)...\w8\w8 %(username)..?\e"
+		"...wha...\w8\w8 %(username)..?\e"
+		"...pokin' me...\w8\w8 who's...\e"
+		"\s[2001]...stoppit...\e"
+		"\s[2001]...Cambria,\w4 cut it out...\e"
+		"\s[2001]...m'busy...\e"
+		"...later...\e"
+		"...g'way...\e"
+		"...%(mumb)%(mumb)..."
+	}
+	else //Sleepy
+	{
+		"\0\s[111]* (You boop her softly.)"
+		"\0\s[111]* (You boop her gently with your cursor.)"
+		"\0\s[111]* (You give her a light boop.)"
+		"\0\s[111]* (Boop!)"
+		--
+		"\w8\w8\w8\n\n\s[0]"
+		"\w8\w8\w8\n\n\s[105]"
+		"\w8\w8\w8\n\n\s[106]"
+		"\w8\w8\w8\n\n\s[107]"
+		"\w8\w8\w8\n\n\s[112]"
+		"\w8\w8\w8\n\n\s[113]"
+		--
+		if totalboops <= 5 || friendship < friendshiplow
+		{
+			"...um,\w4 what're you doing that for..?\e"
+			"...kay...\e"
+			"...%(username)..?\e"
+			"...why..?\e"
+		}
+		else
+		{
+			"...that's not fair,\w4 i can't get you back...\e"
+			"...mhmm...\e"
+			"...kay...\e"
+			"...i don't have a nose,\w4 though...\e"
+			"...did you want somethin or are you just poking me..?\e"
+			if !CambriaPresent; "...my anBigSister does this too...\w8\w8\s[0] she ends up regretting it later when i'm more awake...\e"
+		}
+		
+	}
+}

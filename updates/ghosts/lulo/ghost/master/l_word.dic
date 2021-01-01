@@ -1,0 +1,1412 @@
+OnDialogueVars //Setting variables in random dialogue
+{
+	case reference0
+	{
+		when "asleepMode"
+		{
+			nowmode = "Asleep"
+			"\C\![set,tasktrayicon,lulo_icon_asleep.ico]"
+		}
+		when "sleepyMode"
+		{
+			nowmode = "Sleepy"
+			"\C\![set,tasktrayicon,lulo_icon_sleepy.ico]"
+		}
+		when "awakeMode"
+		{
+			nowmode = "Sleepy"
+			"\C\![set,tasktrayicon,lulo_icon_awake.ico]"
+		}
+		when "readSleepy"
+		{
+			nowmode = "Sleepy"
+		}
+		when "readAsleep"
+		{
+			nowmode = "Asleep"
+		}
+		when "learnaboutsoul"
+		{
+			MiscFlags ,= "knowaboutsoul"
+		}
+		when "learnaboutdreams"
+		{
+			MiscFlags ,= "knowaboutdreams"
+		}
+		when "learnaboutmp3"
+		{
+			MiscFlags ,= "knowaboutmp3"
+		}
+		when "learnaboutnotebook"
+		{
+			MiscFlags ,= "knowaboutnotebook"
+		}
+		when "learnaboutgames"
+		{
+			MiscFlags ,= "knowaboutgames"
+		}
+		when "learnaboutshop"
+		{
+			MiscFlags ,= "knowaboutshop"
+		}
+	}
+}
+
+//Display name|Category|Price|Unlock condition (1 if always available)|Sold out condition (0 if never sells out) - old
+//"Item name,categories,dressup type,price,unlock,sold out"
+ShopItems : array
+{
+	_cheapclothing = 50
+	_cheapfood = 10
+	_cheappuzzle = 20
+	_latenight = "%(hour < 5)"
+	
+	
+	
+	//---Sweaters---
+	"Dark Red Sweater,clothes-sweaters-dark,Shirts,%(_cheapclothing),1,%(ASEARCH('Dark Red Sweater',PurchasedShirts))"
+	"Medium Red Sweater,clothes-sweaters-medium,Shirts,%(_cheapclothing),1,%(ASEARCH('Medium Red Sweater',PurchasedShirts))"
+	"Light Red Sweater,clothes-sweaters-light,Shirts,%(_cheapclothing),1,%(ASEARCH('Light Red Sweater',PurchasedShirts))"
+	
+	"Dark Orange Sweater,clothes-sweaters-dark,Shirts,%(_cheapclothing),1,%(ASEARCH('Dark Orange Sweater',PurchasedShirts))"
+	"Medium Orange Sweater,clothes-sweaters-medium,Shirts,%(_cheapclothing),1,%(ASEARCH('Medium Orange Sweater',PurchasedShirts))"
+	"Light Orange Sweater,clothes-sweaters-light,Shirts,%(_cheapclothing),1,%(ASEARCH('Light Orange Sweater',PurchasedShirts))"
+	
+	"Dark Yellow Sweater,clothes-sweaters-dark,Shirts,%(_cheapclothing),1,%(ASEARCH('Dark Yellow Sweater',PurchasedShirts))"
+	"Medium Yellow Sweater,clothes-sweaters-medium,Shirts,%(_cheapclothing),1,%(ASEARCH('Medium Yellow Sweater',PurchasedShirts))"
+	"Light Yellow Sweater,clothes-sweaters-light,Shirts,%(_cheapclothing),1,%(ASEARCH('Light Yellow Sweater',PurchasedShirts))"
+	
+	"Dark Green Sweater,clothes-sweaters-dark,Shirts,%(_cheapclothing),1,%(ASEARCH('Dark Green Sweater',PurchasedShirts))"
+	"Medium Green Sweater,clothes-sweaters-medium,Shirts,%(_cheapclothing),1,%(ASEARCH('Medium Green Sweater',PurchasedShirts))"
+	"Light Green Sweater,clothes-sweaters-light,Shirts,%(_cheapclothing),1,%(ASEARCH('Light Green Sweater',PurchasedShirts))"
+	
+	"Dark Cyan Sweater,clothes-sweaters-dark,Shirts,%(_cheapclothing),1,%(ASEARCH('Dark Cyan Sweater',PurchasedShirts))"
+	"Medium Cyan Sweater,clothes-sweaters-medium,Shirts,%(_cheapclothing),1,%(ASEARCH('Medium Cyan Sweater',PurchasedShirts))"
+	"Light Cyan Sweater,clothes-sweaters-light,Shirts,%(_cheapclothing),1,%(ASEARCH('Light Cyan Sweater',PurchasedShirts))"
+	
+	"Dark Blue Sweater,clothes-sweaters-dark,Shirts,%(_cheapclothing),1,%(ASEARCH('Dark Blue Sweater',PurchasedShirts))"
+	"Medium Blue Sweater,clothes-sweaters-medium,Shirts,%(_cheapclothing),1,%(ASEARCH('Medium Blue Sweater',PurchasedShirts))"
+	"Light Blue Sweater,clothes-sweaters-light,Shirts,%(_cheapclothing),1,%(ASEARCH('Light Blue Sweater',PurchasedShirts))"
+	
+	"Dark Purple Sweater,clothes-sweaters-dark,Shirts,%(_cheapclothing),1,%(ASEARCH('Dark Purple Sweater',PurchasedShirts))"
+	"Medium Purple Sweater,clothes-sweaters-medium,Shirts,%(_cheapclothing),1,%(ASEARCH('Medium Purple Sweater',PurchasedShirts))"
+	"Light Purple Sweater,clothes-sweaters-light,Shirts,%(_cheapclothing),1,%(ASEARCH('Light Purple Sweater',PurchasedShirts))"
+	
+	"Dark Pink Sweater,clothes-sweaters-dark,Shirts,%(_cheapclothing),1,%(ASEARCH('Dark Pink Sweater',PurchasedShirts))"
+	"Medium Pink Sweater,clothes-sweaters-medium,Shirts,%(_cheapclothing),1,%(ASEARCH('Medium Pink Sweater',PurchasedShirts))"
+	"Light Pink Sweater,clothes-sweaters-light,Shirts,%(_cheapclothing),1,%(ASEARCH('Light Pink Sweater',PurchasedShirts))"
+	
+	"Dark Gray Sweater,clothes-sweaters-dark,Shirts,%(_cheapclothing),1,%(ASEARCH('Dark Gray Sweater',PurchasedShirts))"
+	"Medium Gray Sweater,clothes-sweaters-medium,Shirts,%(_cheapclothing),1,%(ASEARCH('Medium Gray Sweater',PurchasedShirts))"
+	"Light Gray Sweater,clothes-sweaters-light,Shirts,%(_cheapclothing),1,%(ASEARCH('Light Gray Sweater',PurchasedShirts))"
+	
+	
+	
+	//---Hoodies---
+	"Dark Red Hoodie,clothes-hoodies-dark,Shirts,%(_cheapclothing),1,%(ASEARCH('Dark Red Hoodie',PurchasedShirts))"
+	"Medium Red Hoodie,clothes-hoodies-medium,Shirts,%(_cheapclothing),1,%(ASEARCH('Medium Red Hoodie',PurchasedShirts))"
+	"Light Red Hoodie,clothes-hoodies-light,Shirts,%(_cheapclothing),1,%(ASEARCH('Light Red Hoodie',PurchasedShirts))"
+	
+	"Dark Orange Hoodie,clothes-hoodies-dark,Shirts,%(_cheapclothing),1,%(ASEARCH('Dark Orange Hoodie',PurchasedShirts))"
+	"Medium Orange Hoodie,clothes-hoodies-medium,Shirts,%(_cheapclothing),1,%(ASEARCH('Medium Orange Hoodie',PurchasedShirts))"
+	"Light Orange Hoodie,clothes-hoodies-light,Shirts,%(_cheapclothing),1,%(ASEARCH('Light Orange Hoodie',PurchasedShirts))"
+	
+	"Dark Yellow Hoodie,clothes-hoodies-dark,Shirts,%(_cheapclothing),1,%(ASEARCH('Dark Yellow Hoodie',PurchasedShirts))"
+	"Medium Yellow Hoodie,clothes-hoodies-medium,Shirts,%(_cheapclothing),1,%(ASEARCH('Medium Yellow Hoodie',PurchasedShirts))"
+	"Light Yellow Hoodie,clothes-hoodies-light,Shirts,%(_cheapclothing),1,%(ASEARCH('Light Yellow Hoodie',PurchasedShirts))"
+	
+	"Dark Green Hoodie,clothes-hoodies-dark,Shirts,%(_cheapclothing),1,%(ASEARCH('Dark Green Hoodie',PurchasedShirts))"
+	"Medium Green Hoodie,clothes-hoodies-medium,Shirts,%(_cheapclothing),1,%(ASEARCH('Medium Green Hoodie',PurchasedShirts))"
+	"Light Green Hoodie,clothes-hoodies-light,Shirts,%(_cheapclothing),1,%(ASEARCH('Light Green Hoodie',PurchasedShirts))"
+	
+	"Dark Cyan Hoodie,clothes-hoodies-dark,Shirts,%(_cheapclothing),1,%(ASEARCH('Dark Cyan Hoodie',PurchasedShirts))"
+	"Medium Cyan Hoodie,clothes-hoodies-medium,Shirts,%(_cheapclothing),1,%(ASEARCH('Medium Cyan Hoodie',PurchasedShirts))"
+	"Light Cyan Hoodie,clothes-hoodies-light,Shirts,%(_cheapclothing),1,%(ASEARCH('Light Cyan Hoodie',PurchasedShirts))"
+	
+	"Dark Blue Hoodie,clothes-hoodies-dark,Shirts,%(_cheapclothing),1,%(ASEARCH('Dark Blue Hoodie',PurchasedShirts))"
+	"Medium Blue Hoodie,clothes-hoodies-medium,Shirts,%(_cheapclothing),1,%(ASEARCH('Medium Blue Hoodie',PurchasedShirts))"
+	"Light Blue Hoodie,clothes-hoodies-light,Shirts,%(_cheapclothing),1,%(ASEARCH('Light Blue Hoodie',PurchasedShirts))"
+	
+	"Dark Purple Hoodie,clothes-hoodies-dark,Shirts,%(_cheapclothing),1,%(ASEARCH('Dark Purple Hoodie',PurchasedShirts))"
+	"Medium Purple Hoodie,clothes-hoodies-medium,Shirts,%(_cheapclothing),1,%(ASEARCH('Medium Purple Hoodie',PurchasedShirts))"
+	"Light Purple Hoodie,clothes-hoodies-light,Shirts,%(_cheapclothing),1,%(ASEARCH('Light Purple Hoodie',PurchasedShirts))"
+	
+	"Dark Pink Hoodie,clothes-hoodies-dark,Shirts,%(_cheapclothing),1,%(ASEARCH('Dark Pink Hoodie',PurchasedShirts))"
+	"Medium Pink Hoodie,clothes-hoodies-medium,Shirts,%(_cheapclothing),1,%(ASEARCH('Medium Pink Hoodie',PurchasedShirts))"
+	"Light Pink Hoodie,clothes-hoodies-light,Shirts,%(_cheapclothing),1,%(ASEARCH('Light Pink Hoodie',PurchasedShirts))"
+	
+	"Dark Gray Hoodie,clothes-hoodies-dark,Shirts,%(_cheapclothing),1,%(ASEARCH('Dark Gray Hoodie',PurchasedShirts))"
+	"Medium Gray Hoodie,clothes-hoodies-medium,Shirts,%(_cheapclothing),1,%(ASEARCH('Medium Gray Hoodie',PurchasedShirts))"
+	"Light Gray Hoodie,clothes-hoodies-light,Shirts,%(_cheapclothing),1,%(ASEARCH('Light Gray Hoodie',PurchasedShirts))"
+	
+	
+	
+	//---Tshirts---
+	"Dark Red T-Shirt,clothes-tshirts-dark,Shirts,%(_cheapclothing),1,%(ASEARCH('Dark Red T-Shirt',PurchasedShirts))"
+	"Medium Red T-Shirt,clothes-tshirts-medium,Shirts,%(_cheapclothing),1,%(ASEARCH('Medium Red T-Shirt',PurchasedShirts))"
+	"Light Red T-Shirt,clothes-tshirts-light,Shirts,%(_cheapclothing),1,%(ASEARCH('Light Red T-Shirt',PurchasedShirts))"
+	
+	"Dark Orange T-Shirt,clothes-tshirts-dark,Shirts,%(_cheapclothing),1,%(ASEARCH('Dark Orange T-Shirt',PurchasedShirts))"
+	"Medium Orange T-Shirt,clothes-tshirts-medium,Shirts,%(_cheapclothing),1,%(ASEARCH('Medium Orange T-Shirt',PurchasedShirts))"
+	"Light Orange T-Shirt,clothes-tshirts-light,Shirts,%(_cheapclothing),1,%(ASEARCH('Light Orange T-Shirt',PurchasedShirts))"
+	
+	"Dark Yellow T-Shirt,clothes-tshirts-dark,Shirts,%(_cheapclothing),1,%(ASEARCH('Dark Yellow T-Shirt',PurchasedShirts))"
+	"Medium Yellow T-Shirt,clothes-tshirts-medium,Shirts,%(_cheapclothing),1,%(ASEARCH('Medium Yellow T-Shirt',PurchasedShirts))"
+	"Light Yellow T-Shirt,clothes-tshirts-light,Shirts,%(_cheapclothing),1,%(ASEARCH('Light Yellow T-Shirt',PurchasedShirts))"
+	
+	"Dark Green T-Shirt,clothes-tshirts-dark,Shirts,%(_cheapclothing),1,%(ASEARCH('Dark Green T-Shirt',PurchasedShirts))"
+	"Medium Green T-Shirt,clothes-tshirts-medium,Shirts,%(_cheapclothing),1,%(ASEARCH('Medium Green T-Shirt',PurchasedShirts))"
+	"Light Green T-Shirt,clothes-tshirts-light,Shirts,%(_cheapclothing),1,%(ASEARCH('Light Green T-Shirt',PurchasedShirts))"
+	
+	"Dark Cyan T-Shirt,clothes-tshirts-dark,Shirts,%(_cheapclothing),1,%(ASEARCH('Dark Cyan T-Shirt',PurchasedShirts))"
+	"Medium Cyan T-Shirt,clothes-tshirts-medium,Shirts,%(_cheapclothing),1,%(ASEARCH('Medium Cyan T-Shirt',PurchasedShirts))"
+	"Light Cyan T-Shirt,clothes-tshirts-light,Shirts,%(_cheapclothing),1,%(ASEARCH('Light Cyan T-Shirt',PurchasedShirts))"
+	
+	"Dark Blue T-Shirt,clothes-tshirts-dark,Shirts,%(_cheapclothing),1,%(ASEARCH('Dark Blue T-Shirt',PurchasedShirts))"
+	"Medium Blue T-Shirt,clothes-tshirts-medium,Shirts,%(_cheapclothing),1,%(ASEARCH('Medium Blue T-Shirt',PurchasedShirts))"
+	"Light Blue T-Shirt,clothes-tshirts-light,Shirts,%(_cheapclothing),1,%(ASEARCH('Light Blue T-Shirt',PurchasedShirts))"
+	
+	"Dark Purple T-Shirt,clothes-tshirts-dark,Shirts,%(_cheapclothing),1,%(ASEARCH('Dark Purple T-Shirt',PurchasedShirts))"
+	"Medium Purple T-Shirt,clothes-tshirts-medium,Shirts,%(_cheapclothing),1,%(ASEARCH('Medium Purple T-Shirt',PurchasedShirts))"
+	"Light Purple T-Shirt,clothes-tshirts-light,Shirts,%(_cheapclothing),1,%(ASEARCH('Light Purple T-Shirt',PurchasedShirts))"
+	
+	"Dark Pink T-Shirt,clothes-tshirts-dark,Shirts,%(_cheapclothing),1,%(ASEARCH('Dark Pink T-Shirt',PurchasedShirts))"
+	"Medium Pink T-Shirt,clothes-tshirts-medium,Shirts,%(_cheapclothing),1,%(ASEARCH('Medium Pink T-Shirt',PurchasedShirts))"
+	"Light Pink T-Shirt,clothes-tshirts-light,Shirts,%(_cheapclothing),1,%(ASEARCH('Light Pink T-Shirt',PurchasedShirts))"
+	
+	"Dark Gray T-Shirt,clothes-tshirts-dark,Shirts,%(_cheapclothing),1,%(ASEARCH('Dark Gray T-Shirt',PurchasedShirts))"
+	"Medium Gray T-Shirt,clothes-tshirts-medium,Shirts,%(_cheapclothing),1,%(ASEARCH('Medium Gray T-Shirt',PurchasedShirts))"
+	"Light Gray T-Shirt,clothes-tshirts-light,Shirts,%(_cheapclothing),1,%(ASEARCH('Light Gray T-Shirt',PurchasedShirts))"
+	
+	
+	
+	//---Sleeveless---
+	"Dark Red Sleeveless,clothes-sleeveless-dark,Shirts,%(_cheapclothing),1,%(ASEARCH('Dark Red Sleeveless',PurchasedShirts))"
+	"Medium Red Sleeveless,clothes-sleeveless-medium,Shirts,%(_cheapclothing),1,%(ASEARCH('Medium Red Sleeveless',PurchasedShirts))"
+	"Light Red Sleeveless,clothes-sleeveless-light,Shirts,%(_cheapclothing),1,%(ASEARCH('Light Red Sleeveless',PurchasedShirts))"
+	
+	"Dark Orange Sleeveless,clothes-sleeveless-dark,Shirts,%(_cheapclothing),1,%(ASEARCH('Dark Orange Sleeveless',PurchasedShirts))"
+	"Medium Orange Sleeveless,clothes-sleeveless-medium,Shirts,%(_cheapclothing),1,%(ASEARCH('Medium Orange Sleeveless',PurchasedShirts))"
+	"Light Orange Sleeveless,clothes-sleeveless-light,Shirts,%(_cheapclothing),1,%(ASEARCH('Light Orange Sleeveless',PurchasedShirts))"
+	
+	"Dark Yellow Sleeveless,clothes-sleeveless-dark,Shirts,%(_cheapclothing),1,%(ASEARCH('Dark Yellow Sleeveless',PurchasedShirts))"
+	"Medium Yellow Sleeveless,clothes-sleeveless-medium,Shirts,%(_cheapclothing),1,%(ASEARCH('Medium Yellow Sleeveless',PurchasedShirts))"
+	"Light Yellow Sleeveless,clothes-sleeveless-light,Shirts,%(_cheapclothing),1,%(ASEARCH('Light Yellow Sleeveless',PurchasedShirts))"
+	
+	"Dark Green Sleeveless,clothes-sleeveless-dark,Shirts,%(_cheapclothing),1,%(ASEARCH('Dark Green Sleeveless',PurchasedShirts))"
+	"Medium Green Sleeveless,clothes-sleeveless-medium,Shirts,%(_cheapclothing),1,%(ASEARCH('Medium Green Sleeveless',PurchasedShirts))"
+	"Light Green Sleeveless,clothes-sleeveless-light,Shirts,%(_cheapclothing),1,%(ASEARCH('Light Green Sleeveless',PurchasedShirts))"
+	
+	"Dark Cyan Sleeveless,clothes-sleeveless-dark,Shirts,%(_cheapclothing),1,%(ASEARCH('Dark Cyan Sleeveless',PurchasedShirts))"
+	"Medium Cyan Sleeveless,clothes-sleeveless-medium,Shirts,%(_cheapclothing),1,%(ASEARCH('Medium Cyan Sleeveless',PurchasedShirts))"
+	"Light Cyan Sleeveless,clothes-sleeveless-light,Shirts,%(_cheapclothing),1,%(ASEARCH('Light Cyan Sleeveless',PurchasedShirts))"
+	
+	"Dark Blue Sleeveless,clothes-sleeveless-dark,Shirts,%(_cheapclothing),1,%(ASEARCH('Dark Blue Sleeveless',PurchasedShirts))"
+	"Medium Blue Sleeveless,clothes-sleeveless-medium,Shirts,%(_cheapclothing),1,%(ASEARCH('Medium Blue Sleeveless',PurchasedShirts))"
+	"Light Blue Sleeveless,clothes-sleeveless-light,Shirts,%(_cheapclothing),1,%(ASEARCH('Light Blue Sleeveless',PurchasedShirts))"
+	
+	"Dark Purple Sleeveless,clothes-sleeveless-dark,Shirts,%(_cheapclothing),1,%(ASEARCH('Dark Purple Sleeveless',PurchasedShirts))"
+	"Medium Purple Sleeveless,clothes-sleeveless-medium,Shirts,%(_cheapclothing),1,%(ASEARCH('Medium Purple Sleeveless',PurchasedShirts))"
+	"Light Purple Sleeveless,clothes-sleeveless-light,Shirts,%(_cheapclothing),1,%(ASEARCH('Light Purple Sleeveless',PurchasedShirts))"
+	
+	"Dark Pink Sleeveless,clothes-sleeveless-dark,Shirts,%(_cheapclothing),1,%(ASEARCH('Dark Pink Sleeveless',PurchasedShirts))"
+	"Medium Pink Sleeveless,clothes-sleeveless-medium,Shirts,%(_cheapclothing),1,%(ASEARCH('Medium Pink Sleeveless',PurchasedShirts))"
+	"Light Pink Sleeveless,clothes-sleeveless-light,Shirts,%(_cheapclothing),1,%(ASEARCH('Light Pink Sleeveless',PurchasedShirts))"
+	
+	"Dark Gray Sleeveless,clothes-sleeveless-dark,Shirts,%(_cheapclothing),1,%(ASEARCH('Dark Gray Sleeveless',PurchasedShirts))"
+	"Medium Gray Sleeveless,clothes-sleeveless-medium,Shirts,%(_cheapclothing),1,%(ASEARCH('Medium Gray Sleeveless',PurchasedShirts))"
+	"Light Gray Sleeveless,clothes-sleeveless-light,Shirts,%(_cheapclothing),1,%(ASEARCH('Light Gray Sleeveless',PurchasedShirts))"
+	
+	
+	
+	//---Slacks---
+	"Dark Red Slacks,clothes-slacks-dark,Pants,%(_cheapclothing),1,%(ASEARCH('Dark Red Slacks',PurchasedPants))"
+	"Medium Red Slacks,clothes-slacks-medium,Pants,%(_cheapclothing),1,%(ASEARCH('Medium Red Slacks',PurchasedPants))"
+	"Light Red Slacks,clothes-slacks-light,Pants,%(_cheapclothing),1,%(ASEARCH('Light Red Slacks',PurchasedPants))"
+	
+	"Dark Orange Slacks,clothes-slacks-dark,Pants,%(_cheapclothing),1,%(ASEARCH('Dark Orange Slacks',PurchasedPants))"
+	"Medium Orange Slacks,clothes-slacks-medium,Pants,%(_cheapclothing),1,%(ASEARCH('Medium Orange Slacks',PurchasedPants))"
+	"Light Orange Slacks,clothes-slacks-light,Pants,%(_cheapclothing),1,%(ASEARCH('Light Orange Slacks',PurchasedPants))"
+	
+	"Dark Yellow Slacks,clothes-slacks-dark,Pants,%(_cheapclothing),1,%(ASEARCH('Dark Yellow Slacks',PurchasedPants))"
+	"Medium Yellow Slacks,clothes-slacks-medium,Pants,%(_cheapclothing),1,%(ASEARCH('Medium Yellow Slacks',PurchasedPants))"
+	"Light Yellow Slacks,clothes-slacks-light,Pants,%(_cheapclothing),1,%(ASEARCH('Light Yellow Slacks',PurchasedPants))"
+	
+	"Dark Green Slacks,clothes-slacks-dark,Pants,%(_cheapclothing),1,%(ASEARCH('Dark Green Slacks',PurchasedPants))"
+	"Medium Green Slacks,clothes-slacks-medium,Pants,%(_cheapclothing),1,%(ASEARCH('Medium Green Slacks',PurchasedPants))"
+	"Light Green Slacks,clothes-slacks-light,Pants,%(_cheapclothing),1,%(ASEARCH('Light Green Slacks',PurchasedPants))"
+	
+	"Dark Cyan Slacks,clothes-slacks-dark,Pants,%(_cheapclothing),1,%(ASEARCH('Dark Cyan Slacks',PurchasedPants))"
+	"Medium Cyan Slacks,clothes-slacks-medium,Pants,%(_cheapclothing),1,%(ASEARCH('Medium Cyan Slacks',PurchasedPants))"
+	"Light Cyan Slacks,clothes-slacks-light,Pants,%(_cheapclothing),1,%(ASEARCH('Light Cyan Slacks',PurchasedPants))"
+	
+	"Dark Blue Slacks,clothes-slacks-dark,Pants,%(_cheapclothing),1,%(ASEARCH('Dark Blue Slacks',PurchasedPants))"
+	"Medium Blue Slacks,clothes-slacks-medium,Pants,%(_cheapclothing),1,%(ASEARCH('Medium Blue Slacks',PurchasedPants))"
+	"Light Blue Slacks,clothes-slacks-light,Pants,%(_cheapclothing),1,%(ASEARCH('Light Blue Slacks',PurchasedPants))"
+	
+	"Dark Purple Slacks,clothes-slacks-dark,Pants,%(_cheapclothing),1,%(ASEARCH('Dark Purple Slacks',PurchasedPants))"
+	"Medium Purple Slacks,clothes-slacks-medium,Pants,%(_cheapclothing),1,%(ASEARCH('Medium Purple Slacks',PurchasedPants))"
+	"Light Purple Slacks,clothes-slacks-light,Pants,%(_cheapclothing),1,%(ASEARCH('Light Purple Slacks',PurchasedPants))"
+	
+	"Dark Pink Slacks,clothes-slacks-dark,Pants,%(_cheapclothing),1,%(ASEARCH('Dark Pink Slacks',PurchasedPants))"
+	"Medium Pink Slacks,clothes-slacks-medium,Pants,%(_cheapclothing),1,%(ASEARCH('Medium Pink Slacks',PurchasedPants))"
+	"Light Pink Slacks,clothes-slacks-light,Pants,%(_cheapclothing),1,%(ASEARCH('Light Pink Slacks',PurchasedPants))"
+	
+	"Dark Gray Slacks,clothes-slacks-dark,Pants,%(_cheapclothing),1,%(ASEARCH('Dark Gray Slacks',PurchasedPants))"
+	"Medium Gray Slacks,clothes-slacks-medium,Pants,%(_cheapclothing),1,%(ASEARCH('Medium Gray Slacks',PurchasedPants))"
+	"Light Gray Slacks,clothes-slacks-light,Pants,%(_cheapclothing),1,%(ASEARCH('Light Gray Slacks',PurchasedPants))"
+	
+	
+	//---Jeans---
+	"Dark Red Jeans,clothes-jeans-dark,Pants,%(_cheapclothing),1,%(ASEARCH('Dark Red Jeans',PurchasedPants))"
+	"Medium Red Jeans,clothes-jeans-medium,Pants,%(_cheapclothing),1,%(ASEARCH('Medium Red Jeans',PurchasedPants))"
+	"Light Red Jeans,clothes-jeans-light,Pants,%(_cheapclothing),1,%(ASEARCH('Light Red Jeans',PurchasedPants))"
+	
+	"Dark Orange Jeans,clothes-jeans-dark,Pants,%(_cheapclothing),1,%(ASEARCH('Dark Orange Jeans',PurchasedPants))"
+	"Medium Orange Jeans,clothes-jeans-medium,Pants,%(_cheapclothing),1,%(ASEARCH('Medium Orange Jeans',PurchasedPants))"
+	"Light Orange Jeans,clothes-jeans-light,Pants,%(_cheapclothing),1,%(ASEARCH('Light Orange Jeans',PurchasedPants))"
+	
+	"Dark Yellow Jeans,clothes-jeans-dark,Pants,%(_cheapclothing),1,%(ASEARCH('Dark Yellow Jeans',PurchasedPants))"
+	"Medium Yellow Jeans,clothes-jeans-medium,Pants,%(_cheapclothing),1,%(ASEARCH('Medium Yellow Jeans',PurchasedPants))"
+	"Light Yellow Jeans,clothes-jeans-light,Pants,%(_cheapclothing),1,%(ASEARCH('Light Yellow Jeans',PurchasedPants))"
+	
+	"Dark Green Jeans,clothes-jeans-dark,Pants,%(_cheapclothing),1,%(ASEARCH('Dark Green Jeans',PurchasedPants))"
+	"Medium Green Jeans,clothes-jeans-medium,Pants,%(_cheapclothing),1,%(ASEARCH('Medium Green Jeans',PurchasedPants))"
+	"Light Green Jeans,clothes-jeans-light,Pants,%(_cheapclothing),1,%(ASEARCH('Light Green Jeans',PurchasedPants))"
+	
+	"Dark Cyan Jeans,clothes-jeans-dark,Pants,%(_cheapclothing),1,%(ASEARCH('Dark Cyan Jeans',PurchasedPants))"
+	"Medium Cyan Jeans,clothes-jeans-medium,Pants,%(_cheapclothing),1,%(ASEARCH('Medium Cyan Jeans',PurchasedPants))"
+	"Light Cyan Jeans,clothes-jeans-light,Pants,%(_cheapclothing),1,%(ASEARCH('Light Cyan Jeans',PurchasedPants))"
+	
+	"Dark Blue Jeans,clothes-jeans-dark,Pants,%(_cheapclothing),1,%(ASEARCH('Dark Blue Jeans',PurchasedPants))"
+	"Medium Blue Jeans,clothes-jeans-medium,Pants,%(_cheapclothing),1,%(ASEARCH('Medium Blue Jeans',PurchasedPants))"
+	"Light Blue Jeans,clothes-jeans-light,Pants,%(_cheapclothing),1,%(ASEARCH('Light Blue Jeans',PurchasedPants))"
+	
+	"Dark Purple Jeans,clothes-jeans-dark,Pants,%(_cheapclothing),1,%(ASEARCH('Dark Purple Jeans',PurchasedPants))"
+	"Medium Purple Jeans,clothes-jeans-medium,Pants,%(_cheapclothing),1,%(ASEARCH('Medium Purple Jeans',PurchasedPants))"
+	"Light Purple Jeans,clothes-jeans-light,Pants,%(_cheapclothing),1,%(ASEARCH('Light Purple Jeans',PurchasedPants))"
+	
+	"Dark Pink Jeans,clothes-jeans-dark,Pants,%(_cheapclothing),1,%(ASEARCH('Dark Pink Jeans',PurchasedPants))"
+	"Medium Pink Jeans,clothes-jeans-medium,Pants,%(_cheapclothing),1,%(ASEARCH('Medium Pink Jeans',PurchasedPants))"
+	"Light Pink Jeans,clothes-jeans-light,Pants,%(_cheapclothing),1,%(ASEARCH('Light Pink Jeans',PurchasedPants))"
+	
+	"Dark Gray Jeans,clothes-jeans-dark,Pants,%(_cheapclothing),1,%(ASEARCH('Dark Gray Jeans',PurchasedPants))"
+	"Medium Gray Jeans,clothes-jeans-medium,Pants,%(_cheapclothing),1,%(ASEARCH('Medium Gray Jeans',PurchasedPants))"
+	"Light Gray Jeans,clothes-jeans-light,Pants,%(_cheapclothing),1,%(ASEARCH('Light Gray Jeans',PurchasedPants))"
+	
+	
+	
+	"Glass of water,consumables,(A glass of cool water. Good for hydration and keeping oneself awake.),%(_cheapfood),1,-1"
+	"Glass of milk,consumables,(A glass of milk. Full of strong bones.),%(_cheapfood),1,-1"
+	"Cup of tea,consumables,(A cup of soothing herbal tea. Good for relaxing.),%(_cheapfood),1,-1"
+	"Juice box,consumables,(Comes in a variety of fruity flavors! Full of sugar.),%(_cheapfood),1,-1"
+	"Crossword,consumables,(A crossword puzzle. Good for keeping the mind active.),%(_cheappuzzle),1,-1"
+	"Junior Jumble,consumables,(A junior jumble. Good for keeping the mind active.),%(_cheappuzzle),1,-1"
+	"Sudoku,consumables,(A sudoku puzzle. Good for keeping the mind active.),%(_cheappuzzle),1,-1"
+	"Word Search,consumables,(A word search. Good for keeping the mind active.),%(_cheappuzzle),1,-1"
+	
+	//"Blanket 1,accessories,Blankets,50,1,%(ASEARCH('Blanket 1',PurchasedBlankets))"
+}
+//"Item name,categories,dressup type/consumable description,price,unlock,sold out"
+
+b //Balloon picker
+{
+	if nowmode == "Awake"; "\b[4]"
+	elseif nowmode == "Asleep"; "\b[8]"
+	else; "\b[0]"
+}
+
+bb //Big balloon picker
+{
+	if SHIORI3FW.BalloonName != "Dream Cloud"
+	{
+		"\b[2]"
+	}
+	else
+	{
+		if nowmode == "Awake"; "\b[6]"
+		elseif nowmode == "Asleep"; "\b[10]"
+		else; "\b[2]"
+	}
+}
+
+family
+{
+	"anWD"
+	"anDings"
+	"anWings"
+	"anBarcode"
+	"anS"
+	"anBlue"
+	"anAbbi"
+	"anRosie"
+	"anRoman"
+	"anCambria"
+	"anTriton"
+	//"anLulo"
+	"anAzo"
+	"anSigil"
+	"anElko"
+}
+
+myfamily
+{
+	"my anGrandpa"
+	"my anUncle"
+	"my anAunt"
+	"my anGrandma"
+	"my anDad"
+	"my anStepdad"
+	"anAbbi"
+	"anRosie"
+	"anRoman"
+	"anCambria"
+	"anTriton"
+	//"anLulo"
+	"anAzo"
+	"anSigil"
+	"anElko"
+}
+
+usersfolder
+{
+	"start bar"
+	"documents folder"
+	"games folder"
+	"pictures folder"
+	"music folder"
+}
+
+filetype
+{
+	".txt"
+	".dic"
+	".png"
+	".jpg"
+	".jpeg"
+	".mp3"
+	".exe"
+	".bat"
+	".cfg"
+	".wav"
+	".pdf"
+	".dat"
+	".gif"
+	".tiff"
+	".dll"
+	".pna"
+	".ico"
+	".dau"
+	".zip"
+	".nar"
+	".html"
+	".psd"
+	".mp4"
+	".ttf"
+}
+
+sleepiness //Mm.... it's hitting a bit low. I should add a variable that goes up and down over time and affects this? Maybe in place of the RANDs. If she's already asleep, maybe I should add a little more so she's unlikely to keep going back and forth?
+{
+	_sleepiness = 0
+	--
+	_passhour = 0
+	if passhour >= 20
+	{
+		_sleepiness += 8
+		_passhour = 8
+	}
+	elseif passhour >= 10
+	{
+		_sleepiness += 4
+		_passhour = 4
+	}
+	elseif passhour >= 4
+	{
+		_sleepiness += 2
+		_passhour = 2
+	}
+	--
+	_timeslot = 0
+	if timeslot == "earlymorning" || timeslot == "afternoon" || timeslot == "latenight"
+	{
+		_sleepiness += 2
+		_timeslot = 2
+	}
+	elseif timeslot == "midnight"
+	{
+		_sleepiness += 4
+		_timeslot = 4
+	}
+	--
+	_temp = 0
+	if temp == "Hot" || temp == "Boiling"
+	{
+		_sleepiness += 4
+		_temp = 4
+	}
+	--
+	_season = 0
+	if season == "Summer"
+	{
+		_sleepiness += 2
+		_season = 2
+	}
+	--
+	//The fuller the moon, the more awake she is. Half moons are neutral.
+	_moon = 0
+	if phase == "Full Moon"
+	{
+		_sleepiness -= 4
+		_moon = -4
+	}
+	elseif phase == "Waxing Gibbous" || phase == "Waning Gibbous"
+	{
+		_sleepiness -= 2
+		_moon = -2
+	}
+	elseif phase == "Waxing Crescent" || phase == "Waning Crescent"
+	{
+		_sleepiness += 2
+		_moon = 2
+	}
+	elseif phase == "New Moon"
+	{
+		_sleepiness += 4
+		_moon = 4
+	}
+	--
+	_sleepiness += sleepPetMod
+	--
+	_sleepiness += sleepyrand
+	_rand = sleepyrand
+	--
+	_sleepiness -= sleephour
+	_resthours = sleephour
+	_sleepiness += sleepymod
+	--
+	_sleepiness += wakehour
+	_wakehours = wakehour
+	--
+	"%(_sleepiness)"
+	
+	sleepywhy = "\n\nPasshour: %(_passhour)\nTimeslot: %(_timeslot)\nTemp: %(_temp)\nSeason: %(_season)\nMoon: %(_moon)\nRand: %(_rand)\nPets: %(sleepPetMod)\nRest: -%(_resthours)\nWake: %(_wakehours)"
+}
+
+wakechance
+{
+	_wake = 0
+	
+	--
+	_passhour = 0
+	if passhour >= 20
+	{
+		_wake += 2
+		_passhour = 2
+	}
+	elseif passhour >= 10
+	{
+		_wake += 4
+		_passhour = 4
+	}
+	elseif passhour >= 4
+	{
+		_wake += 8
+		_passhour = 8
+	}
+	--
+	_timeslot = 0
+	if timeslot == "lunch"
+	{
+		_wake += 2
+		_timeslot = 2
+	}
+	elseif timeslot == "evening"
+	{
+		_wake += 2
+		_timeslot = 4
+	}
+	--
+	_season = 0
+	if season == "Spring"
+	{
+		_wake += 2
+		_season = 2
+	}
+	--
+	//The fuller the moon, the more awake she is. Half moons are neutral.
+	_moon = 0
+	if phase == "Full Moon"
+	{
+		_wake += 4
+		_moon = 4
+	}
+	elseif phase == "Waxing Gibbous" || phase == "Waning Gibbous"
+	{
+		_wake += 2
+		_moon = 2
+	}
+	elseif phase == "Waxing Crescent" || phase == "Waning Crescent"
+	{
+		_wake -= 2
+		_moon = -2
+	}
+	elseif phase == "New Moon"
+	{
+		_wake -= 4
+		_moon = -4
+	}
+	--
+	_wake -= sleepPetMod
+	--
+	_wake -= sleepyrand
+	_rand = sleepyrand
+	--
+	_wake += sleephour
+	_resthours = sleephour
+	_wake += sleepymod
+	--
+	_wake -= wakehour
+	_wakehours = wakehour
+	--
+	if sleephour > 10; _wake = 100
+	--
+	"%(_wake)"
+}
+
+wakeup
+{
+	"\0\b[8]* (You nudge her gently.)\w8\w8\n\n"
+	"\0\b[8]* (You nudge her softly.)\w8\w8\n\n"
+	"\0\b[8]* (You wake her gently.)\w8\w8\n\n"
+	"\0\b[8]* (You wake her carefully.)\w8\w8\n\n"
+	--
+	"\s[106]...%(mumble)..?"
+	"\s[106]...%(mumble)huh..?"
+	"...zzz...\w8\w8\s[106] %(mumble)..?"
+	"...zzz%(mumble)...\w8\w8\s[106] %(mumble)..?"
+	--
+	"\w8\w8\b[0]\![set,tasktrayicon,lulo_icon_sleepy.ico]"
+	--
+	"\s[0] "
+	"\s[105] "
+	"\s[107] "
+	"\s[109] "
+	--
+	"...oh,\w4 yeah..."
+	"...oh,\w4 %(username)..."
+	"...oh,\w4 hey %(username)..."
+	"...%(username)..?"
+	"...hey..."
+	"...oh...\w8\w8 hey,\w4 %(username)..."
+	--
+	"\w8\w7\w1\n\n"
+	//the \w8\w7\w1 is here instead of \w8\w8 so that I can use a replace command to get rid of the last linebreak if I need
+}
+
+driftoff
+{
+	".\w8.\w8.\w8\s[2000]\b[8]zzz...\w8\w8\n\n"
+	--
+	"* (She's gone back to sleep...)\e"
+	"* (She's fallen back to sleep...)\e"
+	"* (She's drifted off...)\e"
+	"* (Looks like she's not ready to wake up just yet...)\e"
+	"* (Still tired,\w4 apparently...)\e"
+}
+
+sleepmumble
+{
+	"...zzz...\w8\w8 mm..."
+	"...zzhh..."
+	"...mmmn..."
+	"...hhnmmf..."
+	"...zzhnhm..."
+	"...zzz..."
+	"...zzrmnh..."
+	"...mmnnh..."
+}
+
+mumble
+{
+	"%(mumble2)%(mumble2)"
+	"%(mumble2)%(mumble2)%(mumble2)"
+}
+
+mumble2 : nonoverlap
+{
+	"zz"
+	"mmf"
+	"zgh"
+	"fmm"
+	"mkffn"
+	"nnm"
+	"rhm"
+	"rmh"
+	"mrf"
+	"ghhnz"
+	"fzz"
+	"mzz"
+	"zmm"
+	"zll"
+	"nzz"
+	"zzr"
+	"zzz"
+	"zzk"
+	"mk"
+	"zfk"
+	"drf"
+	"dzznm"
+	"znnmf"
+	"dzm"
+	"dzk"
+	"frm"
+	"zz...\w8\w8 %(mumb)"
+	"mm...\w8\w8 %(mumb)"
+	"krf..?\w8\w8 %(mumb)"
+	"mnn...\w8\w8 %(mumb)"
+}
+
+mumb : nonoverlap
+{
+	"zkm"
+	"frm"
+	"lrnm"
+	"zzm"
+	"fhngk"
+	"zzm"
+	"hhz"
+	"zff"
+	"zzl"
+	"zzn"
+	"mrfz"
+	"mlz"
+	"mfz"
+	"zzmnf"
+}
+
+maymb //maybe mumble
+{
+	"...%(mumble2)...\w8\w8 "
+	""
+}
+
+seriffont
+{
+	"Lumos"
+	"Garetha"
+	"Cinzel"
+	"Kiano"
+	"Mermaid"
+	"Chapaza"
+	"Apple Garamond"
+	"Afterglow"
+	"Mogena"
+	"Timeless"
+	"Askara"
+	"Yeseva One"
+	"Rosmatika"
+	"Neothic"
+	"Atlane"
+	"Jerome"
+	"Backslash"
+	"Spinwerad"
+	"Bosque"
+	"Sanchez"
+	"Gravtrac"
+	"Rondal"
+	"Wensley"
+	"The Queen"
+	"March"
+	"Night"
+	"Mitchaella"
+	"Imperator"
+	"Nilland"
+	"Carentro"
+	"Bogota"
+	"Morva"
+	"Agatho"
+	"Unreal"
+	"Nevrada"
+}
+
+scriptfont
+{
+	"Good Things"
+	"Shorelines Script"
+	"Brokenbrush"
+	"Homework"
+	"Challenge"
+	"Arfelick Feather"
+	"Hello Honey"
+	"Muthiara"
+	"Wishingly"
+	"Sunshine"
+	"Before Sunday"
+	"Sweet Purple"
+	"Cactus Story"
+	"Before Christmas"
+	"Montana"
+	"Magical Feather"
+	"Hug Me Tight"
+	"Lambresia"
+	"Internet Friends"
+	"Birds of Paradise"
+	"Cherolina"
+	"Amarillo"
+	"Danilla"
+	"Billion Dreams"
+	"Smille"
+	"The Amberton"
+	"Cute"
+	"One Push"
+	"Please Write Me A Song"
+	"Leathering"
+	"Handletters"
+	"Paper Flowers"
+	"Moonbright"
+	"Silvertone"
+	"Chasing Embers"
+	"Lemon Yellow Sun"
+}
+
+dingbatfont
+{
+	"Garlic Salt"
+	"Heart Warming"
+	"Plants"
+	"Grunge Strokes"
+	"Butterflies"
+	"Donuts Icons"
+	"Leafs"
+	"Milk"
+	"Coffee Icons"
+	"Planets"
+	"Nymphette"
+	"Type Icons"
+	"Little Pinky Doodles"
+	"KG Arrows"
+	"Haircut"
+	"Laurus Nobilis"
+	"QR Font"
+	"Dripping"
+	"Summer Coast"
+	"Old Retro Labels"
+	"Video Games"
+	"RFX Splatz"
+	"Mountain"
+	"Under"
+	"Schooldays"
+	"Lassus"
+	"Starz 2"
+	"Skullx"
+	"Arrow Crafter"
+	"Constellations Ostia"
+	"Elder Futhark"
+	"DeathMetal Logo"
+	"Sneakers"
+	"Flower Ornaments"
+	"Fire"
+	"Kalocsai Flowers"
+	"Kitty Cats"
+	"Hiragana TBF"
+	"Cityscape"
+	"Aurebesh"
+	"Wings of Wind"
+	"Pyrobats"
+}
+
+//---Dream Stuff---
+
+dream
+{
+	"There was a giant %(creature),\w4 with huge %(bodypiece).\w8\w8 %(dreampart2)\e"
+}
+
+//---
+dreampart2
+{
+	"It crushed the nearby town before leaving for the %(naturalarea)."
+	"It flew over the town and headed for the %(naturalarea)." //Would have to put a check for if it was a dragon or smth
+	"It fled,\w4 chased by angry people from the town."
+}
+
+creature
+{
+	"dragon"
+	"dinosaur"
+	"mermaid"
+	"unicorn"
+	"hedgehog"
+	"skeleton"
+	"zombie"
+	"minotaur"
+	"centaur"
+	"satyr"
+	"druid"
+	"dryad"
+	"wyvern"
+}
+
+colormod
+{
+	{
+		"light "
+		"dark "
+		"bright "
+		"soft "
+		"desaturated "
+		"saturated "
+		"intense "
+		"shimmery "
+		"glittery "
+		"brilliant "
+		"bold "
+		"dusty "
+		"mellow "
+		"rich "
+		"vibrant "
+		"vivid "
+		"faded "
+		"pale "
+		"rustic "
+	}
+	{
+		""
+	}
+}
+
+color
+{
+	"red"
+	"orange"
+	"yellow"
+	"green"
+	"cyan"
+	"blue"
+	"purple"
+	"pink"
+	"gray"	
+}
+
+bodypiece
+{
+	"jaws"
+	"wings"
+	"legs"
+	"fangs"
+	"claws"
+	"talons"
+	"teeth"
+	"scales"
+	"horns"
+	"hooves"
+}
+
+material
+{
+	"stone"
+	"wood"
+	"metal"
+	"fire"
+	"water"
+	"magic"
+	"light"
+	"darkness"
+	"bone"
+	"plastic"
+	"iron"
+	"copper"
+	"silver"
+	"gold"
+	"brass"
+	"onyx"
+	"crystal"
+	"diamond"
+	"ruby"
+	"jasmine"
+	"emerald"
+	"topaz"
+	"chitin"
+}
+
+naturalarea
+{
+	"ocean"
+	"forest"
+	"mountains"
+	"caves"
+	"plains"
+	"woods"
+	"tunnels"
+	"valley"
+}
+
+ThriftDescript
+{
+	"antique"
+	"retro"
+	"shiny"
+	"weird"
+	"modern"
+	"brand new"
+}
+
+ThriftItem
+{
+	"watering can,'s got a wood texture on it even though it's metal"
+	"toaster, can  make 6 slices of toast at once"
+	//"candle holder,"
+}
+
+blue {"\f[color,141,136,247]"} //brother
+orange {"\f[color,227,147,093]"} //other dad
+cyan {"\f[color,122,218,232]"} //twin
+df {"\f[color,default]"}
+gray {"\f[color,175,175,175]"}
+d {"\f[default]"}
+
+Capitalize
+{
+	_word = _argv[0] //Sets _word to the word the user sent
+	_buffer = SUBSTR(_word,0,1) //Storing the first character in _buffer
+	_word = ERASE(_word,0,1) //Erasing the first character from _word
+	_word = INSERT(_word,0,TOUPPER(_buffer)) //Making the character in _buffer uppercase and inserting it back into _word
+	_word //Returns the capitalized word
+}
+
+//-----Menu stuff-----
+season //Current season. Might add a hemisphere check later.
+{
+	if month > 2 && month < 6; "Spring"
+	elseif month > 5 && month < 9; "Summer"
+	elseif month > 8 && month < 12; "Autumn"
+	else; "Winter"
+}
+
+nowhour //hour12 displays the hour like a 12 hour clock, except for 12 which is displayed as 0
+{
+	if hour12 == 0; "12"
+	else; "%(hour12)"
+}
+
+nowmin //Adding a 0 to the minute if it's under 10
+{
+	if minute < 10; "0%(minute)"
+	else; "%(minute)"
+}
+
+nowpassmin //Same as above but with passmin
+{
+	if passmin < 10; "0%(passmin)"
+	else; "%(passmin)"
+}
+
+ap //AM or PM - ampm is 0 during am, and 1 during pm
+{
+ 	if ampm == 0; "AM"
+ 	else; "PM"
+}
+
+wd //Abbreviated week day
+{
+	if weekday == 0; "Sun"
+	elseif weekday == 1; "Mon"
+	elseif weekday == 2; "Tue"
+	elseif weekday == 3; "Wed"
+	elseif weekday == 4; "Thu"
+	elseif weekday == 5; "Fri"
+	else; "Sat"
+}
+
+nowday //Full week day
+{
+	if weekday == 0; "Sunday"
+	elseif weekday == 1; "Monday"
+	elseif weekday == 2; "Tuesday"
+	elseif weekday == 3; "Wednesday"
+	elseif weekday == 4; "Thursday"
+	elseif weekday == 5; "Friday"
+	else; "Saturday"
+}
+
+nowmonth //The current month name
+{
+	_month = month
+	if _argv[0] == "next"
+	{
+		_month++
+		if _month > 12; _month = 1
+	}
+	if _argv[0] == "last"
+	{
+		_month--
+		if _month < 1; _month = 12
+	}
+	
+	if _month == 1; "January"
+	elseif _month == 2; "February"
+	elseif _month == 3; "March"
+	elseif _month == 4; "April"
+	elseif _month == 5; "May"
+	elseif _month == 6; "June"
+	elseif _month == 7; "July"
+	elseif _month == 8; "August"
+	elseif _month == 9; "September"
+	elseif _month == 10; "October"
+	elseif _month == 11; "November"
+	else; "December"
+}
+
+leapyear //Checks if this is a leap year
+{
+	if year % 4 != 0; 0
+	elseif year % 100 != 0; 1
+	elseif year % 400 != 0; 0
+	else; 1
+}
+
+timeslot //From the GT template. Breaking down the day into a few distinct chunks so you dont have to add checks for every hour.
+{
+	if hour >= 5 && hour <= 8; "earlymorning" //5-8am
+	elseif hour >= 9 && hour <= 11; "morning" //9-11am
+	elseif hour >= 12 && hour <= 14; "lunch" //12-2pm
+	elseif hour >= 15 && hour <= 17; "afternoon" //3-5pm
+	elseif hour >= 18 && hour <= 20; "evening" //6-8pm
+	elseif hour >= 21 && hour <= 24; "latenight" //9pm-12am
+	else; "midnight" //1-4am
+}
+
+temp //I've based this on the feelslike tempurature. If you want actual tempurature, just do a find and replace and change feelslike to tempurature
+{
+	if ForC == "°F"
+	{
+		if feelslike <= 0; "Below Zero" //Below zero, 0 and below 
+		elseif feelslike <= 20; "Freezing" //Freezing, 0-20
+		elseif feelslike <= 40; "Cold" //Cold, 21-40
+		elseif feelslike <= 60; "Chilly" //Chilly, 41-60
+		elseif feelslike <= 80; "Pleasant" //Pleasant, 61-80
+		elseif feelslike <= 95; "Hot" //Hot, 81-95
+		elseif feelslike >= 96; "Boiling"  //Everything is terrible, 96+
+		else; "Unknown"
+	}
+	elseif ForC == "°C"
+	{
+		if feelslike <= -17; "Below Zero" //Below zero, 0 and below
+		elseif feelslike <= -6; "Freezing" //Freezing, 0-20
+		elseif feelslike <= 4; "Cold" //Cold, 21-40
+		elseif feelslike <= 15; "Chilly" //Chilly, 41-60
+		elseif feelslike <= 26; "Pleasant" //Pleasant, 61-80
+		elseif feelslike <= 35; "Hot" //Hot, 81-95
+		elseif feelslike >= 36; "Boiling" //Everything is terrible, 96+
+		else; "Unknown"
+	}
+	else
+	{
+		"Unknown"
+	}
+}
+
+humid
+{
+	if humidity == "Unknown"; "Unknown"
+	elseif humidity <= 30; "Dry"
+	elseif humidity > 30 && humidity <= 60; "Comfortable"
+	elseif humidity >= 61 && humidity <= 80; "Muggy"
+	elseif humidity >= 81; "Soup"
+	else; "Unknown"
+}
+
+loadingmoon
+{
+	"%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)"
+	--
+	"%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)"
+	--
+	"%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)"
+	--
+	"%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)"
+	--
+	"\_w[160]"
+}
+
+lm : sequential //Changed the loadingmoon thing to just use sequential, it's less prone to bugs and means I don't need a variable!
+{
+	"\_b[img\Moon01,inline,--option=use_self_alpha]\w4\c"
+	"\_b[img\Moon02,inline,--option=use_self_alpha]\w4\c"
+	"\_b[img\Moon03,inline,--option=use_self_alpha]\w4\c"
+	"\_b[img\Moon04,inline,--option=use_self_alpha]\w4\c"
+	"\_b[img\Moon05,inline,--option=use_self_alpha]\w4\c"
+	"\_b[img\Moon06,inline,--option=use_self_alpha]\w4\c"
+	"\_b[img\Moon07,inline,--option=use_self_alpha]\w4\c"
+	"\_b[img\Moon08,inline,--option=use_self_alpha]\w4\c"
+}
+
+moonphase //Moon phase for main menu
+{
+	if phase == "New Moon"; "anMoon01"
+	elseif phase == "Waxing Crescent"; "anMoon02"
+	elseif phase == "First Quarter"; "anMoon03"
+	elseif phase == "Waxing Gibbous"; "anMoon04"
+	elseif phase == "Full Moon"; "anMoon05"
+	elseif phase == "Waning Gibbous"; "anMoon06"
+	elseif phase == "Last Quarter"; "anMoon07"
+	elseif phase == "Waning Crescent"; "anMoon08"
+	else; "anMoon09"
+}
+
+friendshiplow //Threshold for unlocking stuff with minimal friendship
+{
+	40
+}
+
+friendshipmed //Medium friendship
+{
+	150
+}
+
+friendshiphigh //High friendship
+{
+	400
+}
+
+highesttrust
+{
+	if friendship >= friendshiphigh && ASEARCH("thesplit",MiscFlags) != -1; 1
+	else; 0
+}
+
+
+smfriendplus //Small friendship increment
+{
+	1
+}
+
+mdfriendplus //Medium friendship increment
+{
+	3
+}
+
+lgfriendplus //Large friendship increment
+{
+	5
+}
+
+
+smDPplus //Small dream points increment
+{
+	5
+}
+
+mdDPplus //Medium dream points increment
+{
+	10
+}
+
+lgDPplus //Large dream points increment
+{
+	15
+}
+
+//These can be written as 'if !FamilyPresent'; ie, if family is not present. Alternatively, 'if FamilyPresent', if family is present
+FamilyPresent
+{
+	if ("RYS-0825" _in_ ghostexlist || "Dusty" _in_ ghostexlist || "Cambria" _in_ ghostexlist || "Triton" _in_ ghostexlist)
+	{
+		1
+	}
+	else
+	{
+		0
+	}
+}
+
+FamilyInstalled
+{
+	if SInstalled || DustyInstalled || CambriaInstalled || TritonInstalled; 1
+	else; 0
+}
+
+SPresent
+{
+	if "RYS-0825" _in_ ghostexlist; 1
+	else; 0
+}
+
+SInstalled
+{
+	if ASEARCH("S the Skeleton",installedghostlist) != -1; 1
+	else; 0
+}
+
+DustyPresent
+{
+	if "Dusty" _in_ ghostexlist; 1
+	else; 0
+}
+
+DustyInstalled
+{
+	if ASEARCH("Dusty and Obsidian",installedghostlist) != -1; 1
+	else; 0
+}
+
+CambriaPresent
+{
+	if "Cambria" _in_ ghostexlist; 1
+	else; 0
+}
+
+CambriaInstalled
+{
+	if ASEARCH("Cambria and Elko",installedghostlist) != -1; 1
+	else; 0
+}
+
+TritonPresent
+{
+	if "Triton" _in_ ghostexlist; 1
+	else; 0
+}
+
+TritonInstalled
+{
+	if ASEARCH("Triton",installedghostlist) != -1; 1
+	else; 0
+}
+
+
+
+//Don't touch this.
+On_\person
+{
+ 	person
+}
+
+ShuffleArray
+{
+	_start = IARRAY
+	for _i = 0; _i < _argc; _i++
+	{
+		_start ,= _argv[_i]
+	}
+	
+	_len = ARRAYSIZE(_start)
+	_output = IARRAY
+	for _i = 0; _i < _len; _i++
+	{
+		_l = ARRAYSIZE(_start)
+		_rand = RAND(_l)
+		_output ,= _start[_rand]
+		_start[_rand] = IARRAY
+	}
+	_output
+}
+
+ShufflePlaylist //Like ShuffleArray, but whatever _argv0 is remains the first one
+{
+	_start = IARRAY
+	for _i = 0; _i < _argc - 1; _i++
+	{
+		if _i == _argv[0]; continue
+		else; _start ,= _i
+	}
+	
+	_len = ARRAYSIZE(_start)
+	_output = IARRAY
+	if _argv[0] != "|removed|"; _output ,= _argv[0]
+	for _i = 0; _i < _len; _i++
+	{
+		_l = ARRAYSIZE(_start)
+		_rand = RAND(_l)
+		_output ,= _start[_rand]
+		_start[_rand] = IARRAY
+	}
+	_output
+}
+
+ArrayCycle
+{
+	_output = IARRAY
+	if _argv[0] == "-" //Backwards
+	{
+		_c = _argc - 1
+		_output ,= _argv[_c]
+		for _i = 1; _i < _c; _i++
+		{
+			_output ,= _argv[_i]
+		}
+	}
+	else //Forwards
+	{
+		for _i = 2; _i < _argc; _i++
+		{
+			_output ,= _argv[_i]
+		}
+		_output ,= _argv[1]
+	}
+	_output
+}
+
+Slow
+{
+	_output = ""
+	_p = ""
+	if _argv[2] == "1" //If it's a precision \_w tag
+	{
+		_p = "\_w[" + _argv[1] + "]"
+	}
+	else //Simple \w tag
+	{
+		_p = "\w" + _argv[1]
+	}
+	for _i = 0; _i < STRLEN(_argv[0]); _i++
+	{
+		_output += "%(SUBSTR(_argv[0],_i,1))%(_p)"
+	}
+	_output
+}
+
+Fast
+{
+	_output = ""
+	_argv[1] = TOINT(_argv[1]) //These two prevent infinite loops
+	if _argv[1] < 1; _argv[1] = 1
+	for _i = 0; _i < STRLEN(_argv[0]); _i++
+	{
+		_output += "\![quicksection,true]"
+		_output += "%(SUBSTR(_argv[0],_i,_argv[1]))"
+		_output += "\![quicksection,false]\w1"
+		_i += _argv[1] - 1
+	}
+	_output
+}
+
+
+
+
+
+//---Dream stuff---
+
+NameGen : nonoverlap
+{
+	"ch"
+	"ii"
+	"oe"
+	"lo"
+	"me"
+	"ne"
+	"fi"
+	"ki"
+	"pi"
+	"xh"
+	"sha"
+	"da"
+	"ide"
+	"ero"
+	"ku"
+	"kli"
+	"sri"
+	"ira"
+	"gre"
+	"hi"
+}

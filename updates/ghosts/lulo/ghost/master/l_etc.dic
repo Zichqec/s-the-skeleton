@@ -1,0 +1,2338 @@
+//----Drag and Drop----
+
+OnFileDrop2 //When you drop a file on the ghost that isn't something it can install
+{
+	_filepath = SPLITPATH(reference0)
+	_filename = _filepath[2]
+	_fileext = TOLOWER(_filepath[3])
+	
+	if showingproject == 1 //Showing Lulo a project from the interact menu
+	{
+		showedproject++
+		showingproject = 0
+		"\0%(b)"
+		--
+		if nowmode == "Awake"
+		{
+			"\s[1104]Oooh,\w4 this is so cool!\w8\w8\s[1111] Did you make this all yourself?\w8\w8\s[1104] It's amazing!"
+		}
+		else //Sleepy
+		{
+			"\s[111]...wow,\w4 this is really cool...\w8\w8 how did you make it..?\w8\w8\s[112] are there more like this..?"
+			"\s[111]...oh,\w4 this is really cool...\w8\w8 i like it,\w4 %(username)..."
+		}
+		--
+		InteractReturn
+	}
+	else //Normal file dropping
+	{
+		if ARRAYSIZE(reference0) == 1
+		{
+			case _fileext
+			{
+				if _fileext == ".jpg" || _fileext == ".jpeg" || _fileext == ".bmp" || _fileext == ".png" //These are pictures that they can set to wallpapers. Png works for me, but if it doesn't work for you let us know please, I'm curious about this.
+				{	
+					if nowmode == "Awake"
+					{
+						"\0%(b)\s[1111]Oh,\w4 do you want this as your wallpaper?"
+					}
+					else
+					{
+						if nowmode == "Asleep"
+						{
+							"%(wakeup)"
+						}
+						--
+						"\0\b[0]\s[0]...oh,\w4 do you want this as your wallpaper..?"
+					}
+					--
+					"\n\n\_q"
+					--
+					"\![*]\q[Centered,OnWallpaper,Center,%(reference0)]\n/
+					\![*]\q[Tiled,OnWallpaper,Tile,%(reference0)]\n/
+					\![*]\q[Stretched,OnWallpaper,Stretch,%(reference0)]"
+					--
+					if "Windows 10" _in_ NotifyOS
+					{
+						"\n\![*]\q[Spanned,OnWallpaper,Span,%(reference0)]"
+					}
+					--
+					"\n\n\![*]\q[No thanks,WallpaperCancel]\e"
+				}
+				elseif (_fileext == ".mid" || _fileext == ".wav" || _fileext == ".mp3" || _fileext == ".wma") && ASEARCH("knowaboutmp3",MiscFlags) != -1 //.flac, .au, .ogg, .m4a aren't supported
+				//when ".mid", ".wav", ".mp3", ".wma" 
+				{
+					addedsongs++
+					CurrentPlaylist ,= reference0
+					ShuffledPlaylist = ShufflePlaylist(NowPlaying[1],CurrentPlaylist)
+					if nowmode == "Awake"
+					{
+						"\0%(b)\s[1400]Added %(_filename) to your playlist.\w8\w8 D'you want me to play it now?"
+					}
+					elseif nowmode == "Asleep"
+					{
+						"\0%(b)\s[2000]...%(mumble)...\w8\w8 added %(TOLOWER(_filename))..."
+					}
+					else //Sleepy
+					{
+						"\0%(b)\s[400]...added %(TOLOWER(_filename)) to your playlist...\w8\w8 d'you want me to play it now..?"
+					}
+					--
+					"\n\n\![*]\q[Play it!,OnPlaySong,justadded,%(reference0)]\n\![*]\q[Open music player,OnMusicPlayerOpen]\n\n\![*]\q[No thanks,cancelnodialogue]\e"
+				}
+				elseif (_fileext == ".au" || _fileext == ".flac" || _fileext == ".ogg" || _fileext == ".m4a") && ASEARCH("knowaboutmp3",MiscFlags) != -1
+				{
+					if nowmode == "Awake"
+					{
+						"\0%(b)\s[1106]Sorry,\w4 my mp3 player doesn't play %(_fileext)s.\w8\w8\s[1000] You should try a .mp3,\w4 .wav,\w4 or a .wma instead.\w8\w8\s[1112] Or even a .mid.\e"
+					}
+					elseif nowmode == "Asleep"
+					{
+						"\0%(b)\s[2001]...%(mumble)...\w8\w8 can't play %(TOLOWER(_fileext))s...\e"
+					}
+					else //Sleepy
+					{
+						"\0%(b)\s[107]...sorry,\w4 my mp3 player can't play %(TOLOWER(_fileext))s...\w8\w8\s[0] you can try a .mp3,\w4 .wav,\w4 or a .wma...\w8\w8\s[112] or maybe a .mid...\e"
+					}
+				}
+				else
+				{
+					if _fileext == "" && ASEARCH("knowaboutmp3",MiscFlags) != -1  //It's a folder
+					{
+						_files = FENUM(reference0,",")
+						_musicfiles = OnMultiFileCheck(_files,reference0)
+						
+						_path = _filepath[1]
+						SETDELIM(_path,"\")
+						_len = ARRAYSIZE(_path) - 2
+						_folder = _path[_len]
+						
+						if ARRAYSIZE(_musicfiles) == 0 //If there are no music files
+						{
+							if nowmode == "Awake"
+							{
+								"\0%(b)\s[1406]Sorry,\w4 none of the files in %(_folder) are compatible with my mp3 player.\e"
+							}
+							elseif nowmode == "Asleep"
+							{
+								"\0%(b)\s[2001]* (None of the files in %(_folder) are compatible with the music player.)\e"
+							}
+							else //Sleepy
+							{
+								"\0%(b)\s[407]...sorry,\w4 none of the files in %(TOLOWER(_folder)) are compatible with my mp3 player...\e"
+							}
+						}
+						else //If there are music files; files will be listed in _musicfiles as an array
+						{
+							_s = ""; if ARRAYSIZE(_musicfiles) != 1; _s = "s"
+							addedsongs += ARRAYSIZE(_musicfiles)
+							if nowmode == "Awake"
+							{
+								"\0%(b)\s[1400]Added %(ARRAYSIZE(_musicfiles)) file%(_s) from %(_folder) to the playlist!"
+							}
+							elseif nowmode == "Asleep"
+							{
+								"\0%(b)\s[2000]* (Added %(ARRAYSIZE(_musicfiles)) file%(_s) from %(_folder) to the playlist.)"
+							}
+							else //Sleepy
+							{
+								"\0%(b)\s[401]...added %(ARRAYSIZE(_musicfiles)) file%(_s) from %(TOLOWER(_folder)) to the playlist..."
+							}
+							--
+							"\n\n\![*]\q[Open music player,OnMusicPlayerOpen]\n\![*]\q[Got it,cancelnodialogue]\e"
+						}
+					}
+					else //It's something else
+					{
+						if nowmode == "Awake"
+						{
+							"\0%(b)\s[1106]Sorry,\w4 I can't do anything with this.\w8\w8\s[1104] But thanks for showing me.\e"
+						}
+						else
+						{
+							if nowmode == "Asleep"
+							{
+								"%(wakeup)"
+							}
+							--
+							"\0\b[0]\s[106]...sorry,\w4 i'm not sure what to do with this..."
+							--
+							if nowmode == "Asleep"
+							{
+								"\w8\w8\w8 %(driftoff)"
+							}
+							--
+							"\e"
+						}
+					}
+				}
+			}
+		}
+		else //Multiple files
+		{
+			_musicfiles = OnMultiFileCheck(reference0)
+			
+			if ASEARCH("knowaboutmp3",MiscFlags) != -1
+			{
+				if ARRAYSIZE(_musicfiles) == 0 //If there are no music files
+				{
+					if nowmode == "Awake"
+					{
+						"\0%(b)\s[1406]Sorry,\w4 none of those files are compatible with my mp3 player.\e"
+					}
+					elseif nowmode == "Asleep"
+					{
+						"\0%(b)\s[2001]* (None of those files are compatible with the music player.)\e"
+					}
+					else //Sleepy
+					{
+						"\0%(b)\s[407]...sorry,\w4 none of those files are compatible with my mp3 player...\e"
+					}
+				}
+				else //If there are music files; files will be listed in _musicfiles as an array
+				{
+					_s = ""; if ARRAYSIZE(_musicfiles) != 1; _s = "s"
+					addedsongs += ARRAYSIZE(_musicfiles)
+					if nowmode == "Awake"
+					{
+						"\0%(b)\s[1400]Added %(ARRAYSIZE(_musicfiles)) file%(_s) to the playlist!"
+					}
+					elseif nowmode == "Asleep"
+					{
+						"\0%(b)\s[2000]* (Added %(ARRAYSIZE(_musicfiles)) file%(_s) to the playlist.)"
+					}
+					else //Sleepy
+					{
+						"\0%(b)\s[401]...added %(ARRAYSIZE(_musicfiles)) file%(_s) to the playlist..."
+					}
+					--
+					"\n\n\![*]\q[Open music player,OnMusicPlayerOpen]\n\![*]\q[Got it,cancelnodialogue]\e"
+				}
+			}
+			else
+			{
+				if nowmode == "Awake"
+				{
+					"\0%(b)\s[1104]Oh,\w4 these are neat.  I can't do anything with them,\w4 though.\e"
+				}
+				else
+				{
+					if nowmode == "Asleep"
+					{
+						"%(wakeup)"
+					}
+					--
+					"\0\b[0]\s[112]...oh,\w4 these are neat...\w8\w8\s[107] i can't do anything with them,\w4 though..."
+					--
+					if nowmode == "Asleep"
+					{
+						"\w8\w8\w8 %(driftoff)"
+					}
+					--
+					"\e"
+				}
+			}
+		}
+	}
+}
+
+OnMultiFileCheck //Checks for music files in folders and multiple files
+{
+	//CurrentPlaylist ,= reference0
+	//ShuffledPlaylist = ShufflePlaylist(NowPlaying[1],CurrentPlaylist)
+	_added = IARRAY
+	foreach _argv[0]; _song
+	{
+		_path = SPLITPATH(_song)
+		_ext = TOLOWER(_path[3])
+		if _ext == ".wav" || _ext == ".mp3" || _ext == ".wma" || _ext == ".mid"
+		{
+			CurrentPlaylist ,= "%(_argv[1])%(_song)"
+			_added ,= _song
+		}
+	}
+	_added
+}
+
+OnNotifyOSInfo
+{
+	NotifyOS = reference0
+}
+
+OnWallpaper
+{
+	if reference0 == "Center"
+	{
+		"\![set,wallpaper,%(reference1),center]"
+		--
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1104]Ok,\w4 I've centered it.\w8\w8\s[1000] Does it look ok?\e"
+		}
+		else
+		{
+			"\0\b[0]\s[105]...ok,\w4 i've centered it..."
+		}
+	}
+	elseif reference0 == "Tile"
+	{
+		"\![set,wallpaper,%(reference1),tile]"
+		--
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1104]Ok,\w4 I've tiled it across.\w8\w8\s[1000] How does it look?\e"
+		}
+		else
+		{
+			"\0\b[0]\s[105]...ok,\w4 i've tiled it..."
+		}
+	}
+	elseif reference0 == "Stretch"
+	{
+		"\![set,wallpaper,%(reference1),stretch]"
+		--
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1104]Ok,\w4 I've stretched it to fit.\w8\w8\s[1106] Is that alright?\e"
+		}
+		else
+		{
+			"\0\b[0]\s[105]...ok,\w4 i've stretched it..."
+		}
+	}
+	elseif reference0 == "Span"
+	{
+		"\![set,wallpaper,%(reference1),span]"
+		--
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1104]Ok,\w4 I've spanned it over your monitors.\w8\w8\s[1000] How is it?\e"
+		}
+		else
+		{
+			"\0\b[0]\s[105]...ok,\w4 i've spanned it..."
+		}
+	}
+	--
+	if nowmode == "Asleep"
+	{
+		"\w8\w8\w8 %(driftoff)"
+	}
+	--
+	"\e"
+	//--
+	//If you want you can add a single line of dialogue for setting wallpapers down here instead of unique lines for each type. Just leave the commands that actually set the wallpaper in place.
+}
+
+Select.WallpaperCancel
+{
+	if nowmode == "Awake"
+	{
+		"\0%(b)\s[1104]Ok,\w4 let me know if you change your mind.\e"
+	}
+	else
+	{
+		"\0\b[0]\s[105]...ok...\e"
+	}
+}
+
+OnInstallBegin
+{
+	if nowmode == "Awake"
+	{
+		"\0%(b)\s[1111]Oh,\w4 you need something installed?\w8\w8\s[1112] Let me see...\e"
+	}
+	else
+	{
+		if nowmode == "Asleep"
+		{
+			"%(wakeup)"
+		}
+		--
+		"\0\b[0]\s[111]...oh,\w4 sure...\w8\w8 installing...\e"
+	}
+}
+
+OnInstallComplete //Installing something ghost related. Reference1 is the name of whatever was installed
+{
+	if nowmode == "Sleepy"
+	{
+		reference1 = TOLOWER(reference1)
+	}
+	if reference0 == "ghost"
+	{
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1104]I've installed %(reference1).\w8\w8\s[1111] Should I bring them here?"
+		}
+		else //Sleepy
+		{
+			"\0\b[0]\s[107]...mmm...\w8\w8 done...\w8\w8\s[0] should i bring them..?"
+		}
+		--
+		"\n\n\![*]\q[Change to %(reference1),ChangeToGhost]\n/
+		\![*]\q[Call %(reference1),CallGhost]\n/
+		\![*]\q[No thanks,cancelnodialogue]\e"
+	}
+	elseif reference0 == "shell"
+	{
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1104]Finished installing %(reference1)!\e"
+		}
+		else //Sleepy
+		{
+			"\0\b[0]\s[107]...mmm,\w4 finished...\w8\w8 %(reference1)..."
+		}
+	}
+	elseif reference0 == "balloon"
+	{
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1104]Installed a new balloon!\w8\w8\s[1111] It's called %(reference1).\e"
+		}
+		else //Sleepy
+		{
+			"\0\b[0]\s[107]...mmm,\w4 finished...\w8\w8 it's a balloon called %(reference1)..."
+		}
+	}
+	elseif reference0 == "plugin"
+	{
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1104]I've installed a new plugin called %(reference1).\e"
+		}
+		else //Sleepy
+		{
+			"\0\b[0]\s[107]...mmm,\w4 new plugin...\w8\w8 %(reference1)..."
+		}
+	}
+	elseif reference0 == "calendar skin"
+	{
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1104]I've installed a new calendar skin!\w8\w8\s[1000] It's called %(reference1).\e"
+		}
+		else //Sleepy
+		{
+			"\0\b[0]\s[107]...mmm,\w4 new calendar...\w8\w8 %(reference1)..."
+		}
+	}
+	elseif reference0 == "headline"
+	{
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1104]Headline set up!\w8\w8\s[1000] It's %(reference1).\e"
+		}
+		else //Sleepy
+		{
+			"\0\b[0]\s[107]...mmm,\w4 headline...\w8\w8 %(reference1)..."
+		}
+	}
+	elseif reference0 == "rss"
+	{
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1104]RSS feed set up!\w8\w8\s[1000] It's %(reference1).\e"
+		}
+		else //Sleepy
+		{
+			"\0\b[0]\s[107]...mmm,\w4 rss...\w8\w8 %(reference1)..."
+		}
+	}
+	else
+	{
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1104]Finished installing %(reference1).\e"
+		}
+		else //Sleepy
+		{
+			"\0\b[0]\s[107]...mmm,\w4 finished... %(reference1)"
+		}
+	}
+	--
+	if nowmode == "Asleep"
+	{
+		"\w8\w8\w8 %(driftoff)"
+	}
+	--
+	"\e"
+}
+
+Select.ChangeToGhost
+{
+	if nowmode == "Awake"
+	{
+		"\0%(b)\s[1104]Alright,\w4 see you later %(userprop)!\e"
+	}
+	else //Sleepy
+	{
+		"\0\b[0]\s[0]...ok,\w4 see you...\e"
+	}
+	--
+	"\![change,ghost,lastinstalled]\e"
+}
+
+Select.CallGhost
+{
+	"\![call,ghost,lastinstalled]"
+	--
+	if nowmode == "Asleep"
+	{
+		"%(driftoff)"
+	}
+	--
+	"\e"
+}
+
+OnInstallFailure //If the install fails
+{
+	if reference0 == "artificial"
+	{
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1110]Oh-\w4 did you change your mind?\w8\w8\s[1104] Alright,\w4 then."
+		}
+		else
+		{
+			"\0\b[0]\s[108]...oh,\w4 nevermind..?\w8\w8\s[109] alright then..."
+		}
+	}
+	else
+	{
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1106]Sorry,\w4 something went wrong.\w8\w8 "
+		}
+		else //Sleepy
+		{
+			"\0\b[0]\s[107]...mmm,\w4 can't do that...\w8\w8 "
+		}
+		--
+		if reference0 == "unsupported"
+		{
+			if nowmode == "Awake"
+			{
+				"That file isn't supported."
+			}
+			else //Sleepy
+			{
+				"not supported..."
+			}
+		}
+		elseif reference0 == "extraction"
+		{
+			if nowmode == "Awake"
+			{
+				"I can't extract it."
+			}
+			else //Sleepy
+			{
+				"can't extract it..."
+			}
+		}
+		else
+		{
+			if nowmode == "Awake"
+			{
+				"I'm not sure why,\w4 it says '%(reference0)'."
+			}
+			else //Sleepy
+			{
+				"not sure why,\w4 '%(reference0)'..."
+			}
+		}
+	}
+	--
+	if nowmode == "Asleep"
+	{
+		"\w8\w8\w8 %(driftoff)"
+	}
+	--
+	"\e"
+}
+
+OnInstallRefuse //reference0 is the name of the ghost it's intended for
+{
+	if nowmode == "Awake"
+	{
+		"\0%(b)\s[1106]Sorry,\w4 I can't install this,\w4 it's meant for %(reference0).\e"
+	}
+	else //Sleepy
+	{
+		"\0\b[0]\s[107]...mmm,\w4 can't do that...\w8\w8\s[106] this is meant for %(reference0)..."
+	}
+	--
+	if nowmode == "Asleep"
+	{
+		"\w8\w8\w8 %(driftoff)"
+	}
+	--
+	"\e"
+}
+
+OnUpdatedataCreating //Creating an updates2.dau
+{
+	if nowmode == "Awake"
+	{
+		"\0%(b)\s[1104]Creating an update file!\e"
+	}
+	else
+	{
+		if nowmode == "Asleep"
+		{
+			"%(wakeup)"
+		}
+		--
+		"...updates2.dau...\e"
+	}
+}
+
+OnUpdatedataCreated //Finished creating
+{
+	if nowmode == "Awake"
+	{
+		"\0%(b)\s[1111]Finished!\e"
+	}
+	else
+	{
+		"\0\b[0]\s[105]...finished."
+	}
+	--
+	if nowmode == "Asleep"
+	{
+		"\w8\w8\w8 %(driftoff)"
+	}
+	--
+	"\e"
+}
+
+OnNarCreating //Creating a .nar -- reference2 is what it is, balloon/ghost/etc, and reference0 is the name
+{
+	if nowmode == "Awake"
+	{
+		"\0%(b)\s[1111]Creating a .nar file for '%(reference0)'!\e"
+	}
+	else
+	{
+		if nowmode == "Asleep"
+		{
+			"%(wakeup)"
+		}
+		--
+		"\0\b[0]\s[105]...'%(reference0)'...\e"
+	}
+}
+
+OnNarCreated //Finished creating -- references are the same as above
+{
+	
+	
+	if nowmode == "Awake"
+	{
+		"\0%(b)\s[1104]Done!\w8\w8 Made a .nar for your %(reference2),\w4 \_a[OnNarLocation,%(reference1)]'%(reference0)'\_a.\e"
+	}
+	else //Sleepy
+	{
+		"\0\b[0]\s[105]...done,\w4 made a .nar for \_a[OnNarLocation,%(reference1)]'%(TOLOWER(reference0))'\_a..."
+	}
+	--
+	if nowmode == "Asleep"
+	{
+		"\w8\w8\w8\n\n%(driftoff)"
+	}
+	--
+	"\e"
+}
+
+OnNarLocation
+{
+	_path = reference0
+	_path = REPLACE(_path,"/","\")
+	SETDELIM(_path,"\")
+	_len = ARRAYSIZE(_path) - 1
+	_path[_len] = IARRAY
+	
+	"\C\![open,file,%(_path)]"
+}
+
+//----Uninstalling----
+
+OnVanishSelecting //Bringing up the uninstall option
+{
+	if nowmode == "Awake"
+	{
+		"\0%(b)\s[1208]"
+	}
+	elseif nowmode == "Asleep"
+	{
+		"\0%(b)\s[2000]"
+	}
+	else //Sleepy
+	{
+		"\0%(b)\s[109]"
+	}
+	--
+	"* (Are you sure you want to uninstall her?\w8\w8 This can't be undone.)\e"
+}
+
+OnVanishSelected //Deciding to uninstall
+{
+	if nowmode == "Awake"
+	{
+		"\0%(b)\s[1110]Oh,\w4 \s[1106]alright then.\w8\w8\s[1104] I'd better get home.\w8\w8\e"
+	}
+	else
+	{
+		if nowmode == "Asleep"
+		{
+			"%(wakeup)"
+		}
+		--
+		"\0\b[0]\s[108]...oh...\w8\w8\s[105] alright,\w4 i'll head home then...\w8\w8\e"
+	}
+}
+
+OnVanishCancel //Changing your mind
+{
+	"\0%(b)* (The correct decision.)\e"
+}
+
+OnVanishButtonHold //Canceling uninstallation by double clicking the balloon
+{
+	if nowmode == "Awake"
+	{
+		"\0%(b)\s[1110]Oh,\w4\s[1106] did you change your mind?\w8\w8\s[1104] Alright.\e"
+	}
+	else
+	{
+		"\0\b[0]\s[107]...oh,\w4 alright then..."
+	}
+	--
+	if nowmode == "Asleep"
+	{
+		"\w8\w8\w8 %(driftoff)"
+	}
+	--
+	"\e"
+}
+
+OnVanished //When another ghost has been uninstalled and it switches to this ghost - Also happens if this ghost is open when another is uninstalled. Reference0 is the ghost that was uninstalled.
+{
+	if nowmode == "Awake"
+	{
+		"\0%(b)\s[1206]Oh,\w4 %(reference0)...\e"
+	}
+	elseif nowmode == "Asleep"
+	{
+		"\0%(b)\s[2001]...nnhh...\w8\w8 %(reference0)...\e"
+	}
+	else //Sleepy
+	{
+		"\0%(b)\s[109]...%(reference0)...\e"
+	}
+}
+
+//----Mail checking----
+
+OnBIFFBegin
+{
+	if nowmode == "Awake"
+	{
+		"\0%(b)\s[1104]Ok,\w4 checking for emails!\e"
+	}
+	else
+	{
+		if nowmode == "Asleep"
+		{
+			"%(wakeup)"
+		}
+		--
+		"\0\b[0]\s[105]...mmm,\w4 emails...\e"
+	}
+}
+
+OnBIFFComplete
+{
+	_s = ""; if reference0 != 1; _s = "s"
+	if reference0 == 0 //No new emails
+	{
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1104]Nothing new!\e"
+		}
+		else //Sleepy
+		{
+			"\0\b[0]\s[107]...mmm,\w4 nothing new...\e"
+		}
+	}
+	elseif reference0 < 100 //less than 100 new emails
+	{
+		if reference7 != "" //Reference7 is the headers. If it's empty(if the user has headers off), no need to run this loop. I STRONGLY ENCOURAGE YOU not to run this loop for more than 100 headers, as it may cause severe amounts of lag/freezing
+		{
+			_buff = reference7
+			_len = ARRAYSIZE(_buff)
+			headers = ""
+			_i = 0
+			while _i < _len //Runs through all the elements of the array
+			{
+				if "<" _in_ _buff[_i] && "@" _in_ _buff[_i] && "." _in_ _buff[_i] && ">" _in_ _buff[_i] //If it has an email address
+				{
+					if _i != 0; headers += "\n\n[half]" //Add line breaks
+					headers += "\![*]%(_buff[_i])" //Add a menu option and the header text
+				}
+				else //If it does not have an email address, it must be a particle
+				{
+					headers += ",%(_buff[_i])" //Add the text
+				}	
+				_i++
+			}
+		}
+		--
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1104]You have %(reference0) new email%(_s)!"
+		}
+		else //Sleepy
+		{
+			"\0\b[0]\s[0]...you have %(reference0) new email%(_s)..."
+		}
+		--
+		if reference7 != "" //Same as above, no need to ask if there are no headers
+		{
+			if nowmode == "Awake"
+			{
+				"\w8\w8 Do you want to see the header%(_s)?"
+			}
+			else //Sleepy
+			{
+				"\w8\w8 do you want to see the header%(_s)..?"
+			}
+			--
+			"\n\n\![*]\q[Yes,SeeHeaders]\n\*\![*]\q[No,cancelnodialogue]"
+		}
+		--
+		"\e"
+	}
+	else //more than 100 new emails
+	{
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1110]Wow, you've got %(reference0) new emails.\w8\w8\s[1106] That's a lot,\w4 isn't it?\e"
+		}
+		else //Sleepy
+		{
+			"\0\b[0]\s[112]...%(reference0) emails...\w8\w8\s[107] that's so many..."
+		}
+		--
+		if nowmode == "Asleep"
+		{
+			"\w8\w8\w8 %(driftoff)"
+		}
+		--
+		"\e"
+	}
+}
+
+Select.SeeHeaders
+{
+	if nowmode == "Awake"
+	{
+		"\0%(bb)\s[1000]"
+	}
+	else //Sleepy
+	{
+		"\0\b[2]\s[0]"
+	}
+	--
+	"\_q%(headers)\*\n\n\![*]\q[Done,cancelnodialogue]"
+	--
+	headers = NULL
+}
+
+OnBIFFFailure //Email checking failed
+{
+	if reference0 == "timeout" //If the connection times out
+	{
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1106]Sorry,\w4 the connection timed out.\e"
+		}
+		else //Sleepy
+		{
+			"\0\b[0]\s[107]...connection timed out..."
+		}
+	}
+	elseif reference0 == "kick" //if the ghost can't get into the account. Gmail requires an app specific password to get in
+	{
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1106]I can't get into your account,\w4 sorry.\e"
+		}
+		else //Sleepy
+		{
+			"\0\b[0]\s[107]...can't get in..."
+		}
+	}
+	elseif reference0 == "defect" //If info in the POP menu is wrong
+	{
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1106]Your POP settings are wrong."
+		}
+		else //Sleepy
+		{
+			"\0\b[0]\s[107]...pop settings aren't right..."
+		}
+		--
+		"\![open,configurationdialog]"
+	}
+	elseif reference0 == "artificial" //As far as I can tell, artificial is if the user double clicks on the balloon to stop it
+	{
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1110]Oh,\w4 changed your mind?\e"
+		}
+		else //Sleepy
+		{
+			"\0\b[0]\s[107]..ok..."
+		}
+	}
+	else //Some other kind of error. The GT template has this as %(reference[0]), but I don't know which is right.
+	{
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1106]Sorry,\w4 it gave me an error: '%(reference0)'.\e"
+		}
+		else //Sleepy
+		{
+			"\0\b[0]\s[107]...mmm,\w4 got an error...\w8\w8 '%(reference0)'..."
+		}
+	}
+	--
+	if nowmode == "Asleep"
+	{
+		"\w8\w8\w8 %(driftoff)"
+	}
+	--
+	"\e"
+}
+
+//----Network update---
+
+OnUpdateCheckComplete //When the ghost finishes checking for updates
+{
+	if reference0 != "none" //If there are no new files
+	{
+		if AutoUpdateCheck == 1 //This if stops the dialogue from displaying if this check was performed automatically. They'll tell the user later.
+		{
+			"\e"
+		}
+		--
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1000]Nothing new."
+		}
+		else //Sleepy
+		{
+			"\0\b[0]\s[107]...nothing new..."
+			--
+			if nowmode == "Asleep"
+			{
+				"\w8\w8\w8 %(driftoff)"
+			}
+			--
+			"\e"
+		}
+	}
+	else
+	{
+		if AutoUpdateCheck == 1
+		{
+			AutoUpdateCheck = 2
+			"\e"
+		}
+		--
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1104]There's something new!\w8\w8\n\n"
+		}
+		else //Sleepy
+		{
+			"\0\b[0]\s[112]...something new...\w8\w8\n\n"
+		}
+		--
+		if "aitalk" _in_ reference1 //reference1 is a list of files separated by commas. Check for as many file names as you like and add them here.
+		{
+			if nowmode == "Awake"
+			{
+				"\s[1111]There's new random dialogue!\w8\w8\n\n"
+			}
+			else //Sleepy
+			{
+				"\s[111]...new dialogue...\w8\w8\n\n"
+			}
+		}
+		--
+		if nowmode == "Awake"
+		{
+			"\s[1000]Should I update now?"
+		}
+		else //Sleepy
+		{
+			"\s[0]...should i update now..?"
+		}
+		--
+		"\n\n\![*]\q[Update now,StartUpdate]\n\![*]\q[No thanks,cancelnodialogue]\e"
+	}
+}
+
+Select.StartUpdate
+{
+	"\![updatebymyself]"
+}
+
+OnUpdateBegin //Starting to actually update
+{
+	if nowmode == "Awake"
+	{
+		"\0%(b)\s[1104]Ok,\w4 updating!\w8\w8\e"
+	}
+	else //Sleepy
+	{
+		if nowmode == "Asleep"
+		{
+			"%(wakeup)"
+		}
+		--
+		"\0\b[0]\s[105]...ok,\w4 updating...\w8\w8\e"
+	}
+}
+
+OnUpdateReady
+{
+	reference0 += 1 //Number of files starts from 0, so this displays the correct amount
+	booting = 2
+	_s = ""; if reference0 != 1; _s = "s"
+	if nowmode == "Awake"
+	{
+		"\0%(b)\s[1111]There are %(reference0) new file%(_s).\w8\w8\e"
+	}
+	else //Sleepy
+	{
+		"\0\b[0]\s[111]...%(reference0) new file%(_s)...\w8\w8\e"
+	}
+}
+
+//When the update finishes. Don't forget to initialize any new variables you set, I'd recommend making a variable for each version you release, check if that variable is blank, and if it is then initialize variables for that update. That way no matter what version people update from, they get all the necessary variables.
+OnUpdateComplete
+{
+	updateavailable = 0
+	booting = 0
+	if reference0 == "none"
+	{
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1106]There's nothing new.\e"
+		}
+		else //Sleepy
+		{
+			"\0\b[0]\s[107]...nothing to update with..."
+			--
+			if nowmode == "Asleep"
+			{
+				"\w8\w8\w8 %(driftoff)"
+			}
+			--
+			"\e"
+		}
+	}
+	else
+	{
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1104]Update complete!\w8\w8\s[1000] Want to see the changelog?\e"
+		}
+		else //Sleepy
+		{
+			"\0\s[0]\s[105]...mmm,\w4 finished...\w8\w8\s[111] want the changelog..?"
+		}
+		--
+		"\n\n\![*]\q[Yes,OnChangeLog]\n\![*]\q[No,NoChangelog]\e"
+	}
+}
+
+ghostver
+{
+	"0.0.1"
+}
+
+OnChangeLog //the autoscroll tag here means the user will see the changelog starting from the top
+{
+	"\![set,autoscroll,disable]\_q\b2\_l[90]-Version b0.0.1-\n\n/
+	-Initial beta release\n\n\n"
+	--
+	if reference0 == "FromMenu" //Checks to see if the user came here from the functions menu
+	{
+		"\![*]\q[Back to functions,OnFunctionMenu]\n"
+	}
+	--
+	"\![*]\q[Done,cancelnodialogue]\e"
+}
+
+Select.NoChangelog
+{
+	if nowmode == "Awake"
+	{
+		"\0%(b)\s[1104]Ok,\w4 if you want to see it later just ask.\e"
+	}
+	else //Sleepy
+	{
+		"\0\s[0]\s[107]...ok..."
+	}
+	--
+	if nowmode == "Asleep"
+	{
+		"\w8\w8\w8 %(driftoff)"
+	}
+	--
+	"\e"
+}
+
+OnUpdate.OnDownloadBegin //Taken from the GT template because I see no reason to redo this and probably break it
+{
+	if nowmode == "Awake"
+	{
+		"\0%(bb)\s[1112]"
+	}
+	else //Sleepy
+	{
+		"\0\b[2]\s[112]"
+	}
+	--
+	"\_q*(Downloading %(reference0)...)\n\n"
+	--
+	_Update_Process = TOINT(reference1) + 1
+	_Update_Total = TOINT(reference2) + 1
+	Update_Remaining = _Update_Total - _Update_Process
+	currentfile = reference0
+
+	//defining starting points
+	_PointA = 1
+	_PointB = 1
+
+	//defining text buffers beforehand, otherwise they don't display right
+	_txt = ""
+
+	//loop calculates how many check boxes to display based on the variables above
+
+	while _PointA <= _Update_Process
+	{
+		//_txt += "Z"
+		_txt += "\_b[img\Moon05,inline,--option=use_self_alpha]"
+		_PointA++
+	}
+	//see above except for blank boxes
+	while _PointB <= Update_Remaining
+	{
+		//_txt += "z"
+		_txt += "\_b[img\Moon01,inline,--option=use_self_alpha]"
+		_PointB++
+	}
+	--
+	//using the text buffers to display the correct number of boxes
+	"%(_txt)\n\n%(_Update_Process) of %(_Update_Total)"
+	--
+	"\e"
+} 
+
+OnUpdate.OnMD5CompareFailure
+{
+	if nowmode == "Awake"
+	{
+		"\0%(bb)\s[1206]The MD5 values don't match on\n\n'%(currentfile)'\w8\w8\e"
+	}
+	else //Sleepy
+	{
+		"\0\b[2]\s[107]...md5 values don't match...\w8\w8\n\n'%(currentfile)'\w8\w8\e"
+	}
+}
+
+OnUpdateFailure //If the update fails
+{
+	booting = 0
+	if reference0 == "timeout" //If it timed out
+	{
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1106]Sorry,\w4 the connection timed out.\e"
+		}
+		else //Sleepy
+		{
+			"\0\b[0]\s[107]...timed out..."
+		}
+	}
+	elseif reference0 == "md5 miss" //If the update files have not been uploaded correctly and don't match the updates2.dau
+	{
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1106]The MD5 values don't match.\w8\w8 You should contact Zichqec and let her know that there's an error on\n\n'%(currentfile)'\e"
+		}
+		else //Sleepy
+		{
+			"\0\b[0]\s[107]...md5 values don't match...\w8\w8\s[106] you should tell zichqec there's an error on\n\n'%(currentfile)'"
+		}
+	}
+	elseif reference0 == "artificial" //If the user cancels the update by double clicking the balloon
+	{
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1110]Oh,\w4 changed your mind?\e"
+		}
+		else //Sleepy
+		{
+			"\0\b[0]\s[107]...ok..."
+		}
+	}
+	else
+	{
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1106]Sorry,\w4 I got an error:\w4 '%(reference0)'.\e"
+		}
+		else //Sleepy
+		{
+			"\0\b[0]\s[107]...got an error,\w4 '%(reference0)'..."
+		}
+	}
+	--
+	if nowmode == "Asleep"
+	{
+		"\w8\w8\w8 %(driftoff)"
+	}
+	--
+	"\e"
+}
+
+OnUpdateCheckFailure //Similar to above, but for if the ghost was just checking and not updating
+{
+	if AutoUpdateCheck == 1 //Stops the dialogue from showing if it's an auto check
+	{
+		"\e"
+	}
+	--
+	if reference0 == "timeout" //If it timed out
+	{
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1106]Sorry,\w4 the connection timed out.\e"
+		}
+		else //Sleepy
+		{
+			"\0\b[0]\s[107]...timed out..."
+		}
+	}
+	else
+	{
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1106]Sorry,\w4 I got an error: '%(reference0)'.\e"
+		}
+		else //Sleepy
+		{
+			"\0\b[0]\s[107]...got an error,\w4 '%(reference0)'..."
+		}
+	}
+	--
+	if nowmode == "Asleep"
+	{
+		"\w8\w8\w8 %(driftoff)"
+	}
+	--
+	"\e"
+}
+
+OnHeadlinesenseBegin
+{
+	if nowmode == "Awake"
+	{
+		"\0%(b)\s[1104]Sure,\w4 opening %(reference0)!\w8\w8\e"
+	}
+	else
+	{
+		_headline = TOLOWER(reference0)
+		if nowmode == "Asleep"
+		{
+			"%(wakeup)"
+		}
+		--
+		"\0\b[0]\s[105]...%(_headline)...\e"
+	}
+}
+
+//Taken from Zarla's GT template. Slightly modified because the top part was redundant as far as I could tell..?
+OnHeadlinesense.OnFind
+{
+	_display = REPLACE(reference3,"\_a[","\![*]\_a[")
+ 	//---- Headlines
+	if nowmode == "Asleep"
+	{
+		"\0\b[2]"
+	}
+	else
+	{
+		"\0%(bb)"
+	}
+	--
+	"%(reference0):\n\n%(_display)\n"
+ 	--
+	//---- Pages
+ 	if reference2 == "First" || reference2 == "Next"
+	{
+ 		//---- Bottom buttons
+		"\![*]\q[Next,] - \![*]\q[Stop,Headline_Cancel]\e"
+ 	}
+	else
+ 	{
+		//---- Bottom buttons
+ 		"\![*]\q[Stop,Headline_Cancel]\e"
+ 	}
+}
+
+Select.Headline_Cancel
+{
+	if nowmode == "Awake"
+	{
+		"\0%(b)\s[1104]Ok,\w4 let me know if you want to see it again!\e"
+	}
+	else //Sleepy
+	{
+		"\0\b[0]\s[105]...kay..."
+		--
+		if nowmode == "Asleep"
+		{
+			"\w8\w8\w8 %(driftoff)"
+		}
+		--
+		"\e"
+	}
+}
+
+OnHeadlinesenseComplete //Looks like this happens if you view a headline and nothing has changed. I can only get RSS to work, so... I'll leave it here just in case.
+{
+	if nowmode == "Awake"
+	{
+		"\0%(b)\s[1106]There's no update.\e"
+	}
+	else //Sleepy
+	{
+		"\0\b[0]\s[107]...no update..."
+		--
+		if nowmode == "Asleep"
+		{
+			"\w8\w8\w8 %(driftoff)"
+		}
+		--
+		"\e"
+	}
+}
+
+OnHeadlinesenseFailure
+{
+	if nowmode == "Awake"
+	{
+		"\0%(b)\s[1106]Sorry,\w4 I can't update the feed.\w8\w8 "
+	}
+	else //Sleepy
+	{
+		"\0\b[0]\s[107]...can't update the feed...\w8\w8 "
+	}
+	--
+	if reference0 == "can't download"
+	{
+		if nowmode == "Awake"
+		{
+			"I can't download it."
+		}
+		else //Sleepy
+		{
+			"can't download..."
+		}
+	}
+	elseif reference0 == "can't analyze"
+	{
+		if nowmode == "Awake"
+		{
+			"I can't analyze it."
+		}
+		else //Sleepy
+		{
+			"can't analyze..."
+		}
+	}
+	else
+	{
+		if nowmode == "Awake"
+		{
+			"I'm not sure why."
+		}
+		else //Sleepy
+		{
+			"not sure why..."
+		}
+	}
+	--
+	if nowmode == "Asleep"
+	{
+		"\w8\w8\w8 %(driftoff)"
+	}
+	--
+	"\e"
+}
+
+//----Misc----
+
+OnSNTPBegin
+{
+	if nowmode == "Awake"
+	{
+		"\0%(b)\s[1104]Ok,\w4 I'll use %(reference0) to check your clock.\e"
+	}
+	else
+	{
+		if nowmode == "Asleep"
+		{
+			"%(wakeup)"
+		}
+		--
+		"\0\b[0]\s[105]...oh,\w4 the time,\w4 sure...\e"
+	}
+}
+
+OnSNTPCompare //Grabbed this from the GT template, don't see a reason to redo this
+{
+	if nowmode == "Asleep"
+	{
+		"\0\b[0]"
+	}
+	else
+	{
+		"\0%(b)"
+	}
+	//if reference1[5] < 10; reference1[5] = "0%(reference1[5])"
+	--
+	if nowmode == "Awake"
+	{
+		"Retrieved Time:  %reference1[1]/%reference1[2]/%reference1[0]  %reference1[3]:%reference1[4]:%reference1[5]\w2\n/
+		Your Time:  %reference2[1]/%reference2[2]/%reference2[0]  %reference2[3]:%reference2[4]:%reference2[5]\w2\n\n"
+	}
+	else
+	{
+		"...retrieved time:  %reference1[1]/%reference1[2]/%reference1[0]  %reference1[3]:%reference1[4]:%reference1[5]...\w2\n/
+		...your time:  %reference2[1]/%reference2[2]/%reference2[0]  %reference2[3]:%reference2[4]:%reference2[5]...\w2\n\n"
+	}
+	--
+ 	if reference3 == 0 //if your clock is already accurate.
+	{
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1000]Your clock is already accurate.\e"
+		}
+		else //Sleepy
+		{
+			"\0\b[0]\s[107]...your clock is correct..."
+		}
+		--
+		if nowmode == "Asleep"
+		{
+			"\w8\w8\w8 %(driftoff)"
+		}
+		--
+		"\e"
+	}
+ 	else //if your clock doesn't match
+	{
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1110]It doesn't match.\w8\w8 Should I fix it?"
+		}
+		else //Sleepy
+		{
+			"\0\b[0]\s[105]...doesn't match...\w8\w8\s[111] should i fix it..?"
+		}
+		--
+		"\n\n[half]\![*]\q[Fix it,OnSNTPEXECUTE]\n/
+		\![*]\q[Leave it alone,OnSNTPCANCEL]\e" 
+	}
+}
+
+OnSNTPEXECUTE //The \6 is what actually changes the clock
+{
+	if nowmode == "Awake"
+	{
+		"\6\0%(b)\s[1104]Ok,\w4 it should be correct now!\e"
+	}
+	else //Sleepy
+	{
+		"\6\0\b[0]\s[105]...ok,\w4 should be fixed..."
+		--
+		if nowmode == "Asleep"
+		{
+			"\w8\w8\w8 %(driftoff)"
+		}
+		--
+		"\e"
+	}
+	
+}
+
+OnSNTPCANCEL
+{
+	if nowmode == "Awake"
+	{
+		"\0%(b)\s[1110]Oh,\w4 alright.\w8\w8\s[1104] Let me know if you change your mind.\e"
+	}
+	else //Sleepy
+	{
+		"\0\b[0]\s[107]...kay."
+		--
+		if nowmode == "Asleep"
+		{
+			"\w8\w8\w8 %(driftoff)"
+		}
+		--
+		"\e"
+	}
+}
+
+OnSNTPFailure
+{
+	if nowmode == "Awake"
+	{
+		"\0%(b)\s[1106]Sorry,\w4 something went wrong.\w8\w8 I couldn't connect.\e"
+	}
+	else //Sleepy
+	{
+		"\0\b[0]\s[107]...something went wrong,\w4 i couldn't connect..."
+		--
+		if nowmode == "Asleep"
+		{
+			"\w8\w8\w8 %(driftoff)"
+		}
+		--
+		"\e"
+	}
+}
+
+OnDisplayChange
+{
+	displaybpp = reference0
+ 	displaywidth = reference1
+	displayheight = reference2
+}
+
+/*OnScreenSaverStart //I've never gotten this to work but you can add it if you like
+{
+	"\0%(b)\s[0]Your screensaver is starting!\e"
+}*/
+
+OnScreenSaverEnd
+{
+	if nowmode == "Awake"
+	{
+		"\0%(b)\s[1110]Your computer dreams too..?\e"
+	}
+	elseif nowmode == "Asleep"
+	{
+		"\0%(b)\s[2001]...%(mumb)...\e"
+	}
+	else //Sleepy
+	{
+		"\0%(b)\s[112]...mmm...\e"
+	}
+}
+
+OnBatteryLow //Usually 20% or less
+{
+	if nowmode == "Awake"
+	{
+		"\0%(b)\s[1107]...Your battery looks as tired as me.\e"
+	}
+	elseif nowmode == "Asleep"
+	{
+		"\0%(b)\s[2001]...zzf...\w8\w8 %(reference0)%...\e"
+	}
+	else //Sleepy
+	{
+		"\0%(b)\s[107]...your battery looks tired...\e"
+	}
+}
+
+OnBatteryCritical //Usually 5% or less
+{
+	if nowmode == "Awake"
+	{
+		"\0%(b)\s[1108]%(userprop),\w4 you should let your computer rest.\e"
+	}
+	elseif nowmode == "Asleep"
+	{
+		"\0%(b)\s[2001]...Zhhf...\w8\w8 Only %(reference0)%..."
+	}
+	else //Sleepy
+	{
+		"\0%(b)\s[107]...your battery needs rest...\e"
+	}
+}
+
+OnShellScaling //reference0 is the new size, reference1 is the previous. Sadly, you can't check for the Y scale.
+{
+	nowscale = reference0
+	if nowmode == "Asleep"
+	{
+		"\0%(b)\s[2000]...%(mumb)%(mumb)...\w8\w8\n\n* (She's too asleep to notice...)\e"
+	}
+	elseif reference0 == 100
+	{
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1106]Aw,\w4 but I was having so much fun at %(reference1)%.\e"
+		}
+		else //Sleepy
+		{
+			"\0%(b)\s[113]...back to normal...\e"
+		}
+	}
+	elseif reference0 < 0 //If it's backwards
+	{
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1110]...Whoa.\e"
+		}
+		else //Sleepy
+		{
+			"\0%(b)\s[111]..?\e"
+		}
+	}
+	elseif reference0 > reference1 //=========Getting bigger===========
+	{
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1104]Bigger!\w8\w8\s[1208] I might be taller than anDad now...\e"
+		}
+		else //Sleepy
+		{
+			"\0%(b)\s[106]...\e"
+		}
+	}
+	elseif reference0 < reference1 //==========Getting smaller============
+	{
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1104]Smaller!\w8\w8\s[1112] I might be able to fit behind your %(usersfolder) now...\e"
+		}
+		else //Sleepy
+		{
+			"\0%(b)\s[106]...\e"
+		}
+	}
+}
+
+
+//=============Weather related stuff=============
+//author: vita @yuyudev on twitter - With major modifications by Zichqec, I'm sorry Vita for what I've done to your code lol
+
+OnWeatherLocation
+{
+	weatherquiet = 0
+	if Degrees == ""; {Degrees[0] = "Fahrenheit"; Degrees[1] = "°F"}
+	
+	if curlocation != "" && curlocation != "Set a location" //WeatherDialogue
+	{
+		if nowmode == "Awake"
+		{
+			"\0%(bb)\s[1000]\_qYour location is currently set to %(curlocation)\n\n"
+		}
+		else //Sleepy
+		{
+			"\0%(bb)\s[105]\_q...your location is set to %(curlocation)...\n\n"
+		}
+	}
+	else
+	{
+		"\_q"
+	}
+	--
+	if nowmode == "Awake"
+	{
+		"%(bb)Do you live inside or outside the USA?"
+	}
+	else //Sleepy
+	{
+		"%(bb)do you live inside or outside the usa..?"
+	}
+	--
+	"\n\n\![*]\q[In the USA,OnUSALoc]\n/
+    \![*]\q[Outside the USA,OnOtherLoc]\n\n/
+	\![*](Current format: \q[%(Degrees[0]),ToggleDegreesLocation])\n\n"
+	--
+	if fromfunctionmenu == 1
+	{
+		"\![*]\q[Back to functions,OnFunctionMenu]\e"
+	}
+	elseif fromfunctionmenu == 2 //This is actually from the moon anchor, not the function menu
+	{
+		"\![*]\q[Back to menu,OnMenuRun]\e"
+	}
+	else
+	{
+		"\![*]\q[Back to config,OnConfigMenu]\e"
+	}
+}
+
+
+OnUSALoc 
+{
+	templocation = "USA"
+    "\![set,balloontimeout,-1]\*\_q"
+	--
+	if nowmode == "Awake"
+	{
+		"\0%(b)\s[1000]Ok,\w4 what's your zipcode?"
+	}
+	else //Sleepy
+	{
+		"\0%(b)\s[105]...what's your zipcode..?"
+	}
+	--
+	"\![open,inputbox,OnLocCode,-1]\![set,balloontimeout,-1]\e"
+}
+
+OnOtherLoc //WeatherDialogue
+{
+	templocation = ""
+    "\![set,balloontimeout,-1]\*\_q"
+	--
+	if nowmode == "Awake"
+	{
+		"\0%(b)\s[0]Ok,\w4 go to \_a[https://weather.com/]weather.com\_a,\w4 search your city,\w4 and enter the URL."
+	}
+	else //Sleepy
+	{
+		"\0%(b)\s[105]...go to \_a[https://weather.com/]weather.com\_a,\w4 search your city,\w4 and enter the url..."
+	}
+	--
+	"\![open,inputbox,OnLocCode,-1]\![set,balloontimeout,-1]\e"
+}
+
+Select.ToggleDegreesLocation
+{
+	if Degrees != "Fahrenheit,°F"
+	{
+		Degrees = "Fahrenheit,°F"
+		tempurature[0] = tempurature[1]
+	}
+	else
+	{
+		Degrees = "Celsius,°C"
+		tempurature[0] = tempurature[2]
+	}
+	OnWeatherLocation
+}
+
+OnLocCode
+{
+	if templocation == "USA"
+	{
+		tempcode = reference0
+	}
+	else
+	{
+		if "/l/" _in_ reference0
+		{
+			tempcode = SPLIT(reference0,"/l/")[1]
+		}
+		else
+		{
+			tempcode = reference0
+		}
+	}
+	"\![execute,http-get,https://zichqec.github.io/s-the-skeleton/weatherregex.html,--async=OnNonFunction,--file=weatherregex.html,--timeout=300]"
+	--
+	"\![execute,http-get,https://weather.com/weather/today/l/%(tempcode),--async=OnCheckWeatherLoc,--file=weather.html,--timeout=300]%(loadingmoon)"
+}
+
+OnCheckWeatherLocFailure
+{
+	// tempurature = "Unknown"
+	// ForC = "Unknown"
+	// feelslike = "Unknown"
+	// humidity = "Unknown"
+	// wind = "Unknown"
+	// weather = "Unknown"
+	// pollen = "Unknown"
+	// phase = "Unknown"
+	// sunset = "Unknown"
+	// sunrise = "Unknown"
+	if weatherquiet == 1
+	{
+		weatherquiet = 0
+		"\e"
+	}
+	--
+	"\0%(b)"
+	--
+	if reference4 == "404"
+	{
+		if templocation == "USA"
+		{
+			if nowmode == "Awake"
+			{
+				"\s[1106]Sorry,\w4 I couldn't find that location."
+			}
+			else //Sleepy
+			{
+				"\s[107]...couldn't find your location..."
+			}
+			--
+			if STRLEN(locationcode) != 5
+			{
+				if nowmode == "Awake"
+				{
+					"\w8\w8 \s[1113]That's not a valid zipcode."
+				}
+				else //Sleepy
+				{
+					"\w8\w8\s[106] ...zipcodes have to be 5 digits..."
+				}
+			}
+		}
+		else
+		{
+			if nowmode == "Awake"
+			{
+				"\s[1106]Sorry,\w4 that URL isn't valid.\w8\w8 You can enter the whole URL,\w4 or if that isn't working, enter the long string of letters and numbers after the last \_a[OnBlank]/\_a in the URL."
+			}
+			else //Sleepy
+			{
+				"\s[107]...can't find that location...\w8\w8 you can enter the whole url,\w4 or if that doesn't work,\w4 enter the long string of letters and numbers after the last \_a[OnBlank]/\_a..."
+			}
+		}
+	}
+	elseif reference4 == "timeout"
+	{
+		if nowmode == "Awake"
+		{
+			"\s[1106]Sorry,\w4 looks like it timed out.\w8\w8\s[1000] Maybe we can try again later?\e"
+		}
+		else //Sleepy
+		{
+			"\s[107]...timed out,\w4 sorry...\w8\w8\s[105] we can try again later...\e"
+		}
+	}
+	else
+	{
+		if nowmode == "Awake"
+		{
+			"\s[1106]Sorry,\w4 I got this error: '%(reference4)'.\w8\w8 You should probably let Zichqec know about that."
+		}
+		else //Sleepy
+		{
+			"\s[107]...got an error,\w4 ...'%(reference4)'...\w8\w8\s[0] you should let Zichqec know..."
+		}
+	}
+	--
+	if nowmode == "Awake"
+	{
+		"\w8\w8 Do you want to try again?"
+	}
+	else //Sleepy
+	{
+		"\w8\w8 want me to try again..?"
+	}
+	--
+	"\n\n\![*]\q[Yes,OnWeatherLocation]\n\![*]\q[No,cancelnodialogue]"
+}
+
+OnCheckWeatherLoc
+{
+    templocation = ""
+	_file = "var\\weather.html"
+	_file2 = "var\\weatherregex.html"
+	_buff=""
+	_buff2=""
+	
+	_reg = ''
+	_regloc = '';      _Cregloc = '';      _Fregloc = ''
+	
+	FCHARSET(1)
+	
+	tempurature = "Unknown"
+	ForC = "Unknown"
+	feelslike = "Unknown"
+	humidity = "Unknown"
+	wind = "Unknown"
+	weather = "Unknown"
+	pollen = ""
+	sunrise = "Unknown"
+	sunset = "Unknown"
+	phase = "Unknown"
+
+	--
+	if FOPEN(_file2,'r')
+	{
+		for _buff2 = FREAD(_file2); _buff2 != -1; _buff2 = FREAD(_file2)
+		{
+			if RE_SEARCH (_buff2,'CREG--(.*)--CREG'); {_reg = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'CREGLOC--(.*)--CREGLOC'); {_Cregloc = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'FREGLOC--(.*)--FREGLOC'); {_Fregloc = RE_GETSTR[1]}
+		}
+	}
+	--
+	FCLOSE(_file2);
+	--
+	if FOPEN(_file,'r') {
+	
+		_buff = FREAD(_file) //get the first line of the HTML to check what type of page we got
+
+		if RE_SEARCH(_buff, _reg) //reg expressions for chrome formatted page
+		{
+			_regloc = _Cregloc
+		}
+		else //reg expressions for firefox formatted page
+		{
+			_regloc = _Fregloc
+		}
+
+		for _buff = FREAD(_file); _buff != -1; _buff = FREAD(_file)
+		{
+			if RE_SEARCH (_buff,_regloc); {templocation = RE_GETSTR[1]} //set location
+		}
+	}
+	--
+    FCLOSE(_file);
+	--
+	if nowmode == "Awake"
+	{
+		"\0%(b)\s[1000]You're in %(templocation),\w4 right?"
+	}
+	else //Sleepy
+	{
+		_location = TOLOWER(templocation)
+		"\0%(b)\s[0]...is it %(_location)..?"
+	}
+	--
+	"\n\n/
+	\![*]\q[Yes,confirmweather]\n/
+	\![*]\q[Enter a different location,OnWeatherLocation]\n/
+	\![*]\q[Cancel,cancelnodialogue]\e"
+}
+
+Select.confirmweather
+{
+	locationcode = tempcode
+	curlocation = templocation
+	tempurature = "Unknown"
+	ForC = "Unknown"
+	feelslike = "Unknown"
+	humidity = "Unknown"
+	wind = "Unknown"
+	weather = "Unknown"
+	pollen = "Unknown"
+	phase = "Unknown"
+	sunset = "Unknown"
+	sunrise = "Unknown"
+	--
+	if fromfunctionmenu == 1 || fromfunctionmenu == 2
+	{
+		fromfunctionmenu = 0
+		weatherquiet = 0
+		"\![raise,OnDownloadCurWeather]"
+	}
+	else
+	{
+		OnConfigMenu
+	}
+}
+
+
+//current weather functions
+OnDownloadCurWeather
+{
+	if weatherquiet != 1 //Might move??
+	{
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1104]Checking the weather!\w8\w8\c"
+		}
+		else //Sleepy
+		{
+			"\0%(b)\s[105]...weather...\w8\w8\c"
+		}
+	}
+	--
+	if weatherquiet == 0
+	{
+		"\0\![execute,http-get,https://zichqec.github.io/s-the-skeleton/weatherregex.html,--async=OnNonFunction,--file=weatherregex.html,--timeout=300]"
+		--
+		"\![execute,http-get,https://weather.com/weather/today/l/%(locationcode),--async=OnCurWeatherFound,--file=weather.html,--timeout=300]%(loadingmoon)"
+	}
+	else
+	{
+		"\0\![execute,http-get,https://zichqec.github.io/s-the-skeleton/weatherregex.html,--async=OnNonFunction,--file=weatherregex.html,--timeout=300,--nodescript]"
+		--
+		"\![execute,http-get,https://weather.com/weather/today/l/%(locationcode),--async=OnCurWeatherFound,--file=weather.html,--timeout=300,--nodescript]\b[-1]\e"
+	}
+}
+
+OnCurWeatherFound
+{ 
+	templocation = ""
+	_file = "var\\weather.html"
+	_file2 = "var\\weatherregex.html"
+	_buff=""
+	_buff2=""
+	
+	_reg = '';         _regsunrise = '';   _regsunset = ''
+	_regtemp = '';     _Cregtemp = '';     _Fregtemp = ''
+	_regdegree = '';   _Cregdegree = '';   _Fregdegree = ''
+	_regfeels = '';    _Cregfeels = '';    _Fregfeels = ''
+	_reghumidity = ''; _Creghumidity = ''; _Freghumidity = ''
+	_regwind = '';     _Cregwind = '';     _Fregwind = ''
+	_regstate = '';    _Cregstate = '';    _Fregstate = ''
+	_regloc = '';      _Cregloc = '';      _Fregloc = ''
+	_regpollen = '';   _Cregpollen = '';   _Fregpollen = ''
+	
+	FCHARSET(1)
+	
+	tempurature = ("Unknown","0","0")
+	ForC = "Unknown"
+	feelslike = ("Unknown","0","0")
+	humidity = "Unknown"
+	wind = "Unknown"
+	weather = "Unknown"
+	pollen = ""
+	sunrise = "Unknown"
+	sunset = "Unknown"
+	phase = "Unknown"
+	sunset = "Unknown"
+	sunrise = "Unknown"
+
+	--
+	if FOPEN(_file2,'r')
+	{
+		for _buff2 = FREAD(_file2); _buff2 != -1; _buff2 = FREAD(_file2) //This loop scrapes the current regex from my website, to apply to the weather.com page
+		{
+			if RE_SEARCH (_buff2,'CREG--(.*)--CREG'); {_reg = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'CREGTEMP--(.*)--CREGTEMP'); {_Cregtemp = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'CREGDEGREE--(.*)--CREGDEGREE'); {_Cregdegree = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'CREGFEELS--(.*)--CREGFEELS'); {_Cregfeels = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'CREGHUMIDITY--(.*)--CREGHUMIDITY'); {_Creghumidity = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'CREGWIND--(.*)--CREGWIND'); {_Cregwind = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'CREGSTATE--(.*)--CREGSTATE'); {_Cregstate = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'CREGLOC--(.*)--CREGLOC'); {_Cregloc = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'CREGPOLLEN--(.*)--CREGPOLLEN'); {_Cregpollen = RE_GETSTR[1]}
+			//---
+			if RE_SEARCH (_buff2,'FREGTEMP--(.*)--FREGTEMP'); {_Fregtemp = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'FREGDEGREE--(.*)--FREGDEGREE'); {_Fregdegree = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'FREGFEELS--(.*)--FREGFEELS'); {_Fregfeels = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'FREGHUMIDITY--(.*)--FREGHUMIDITY'); {_Freghumidity = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'FREGWIND--(.*)--FREGWIND'); {_Fregwind = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'FREGSTATE--(.*)--FREGSTATE'); {_Fregstate = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'FREGLOC--(.*)--FREGLOC'); {_Fregloc = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'FREGPOLLEN--(.*)--FREGPOLLEN'); {_Fregpollen = RE_GETSTR[1]}
+			//---
+			if RE_SEARCH (_buff2,'REGSUNRISE--(.*)--REGSUNRISE'); {_regsunrise = RE_GETSTR[1]}
+			if RE_SEARCH (_buff2,'REGSUNSET--(.*)--REGSUNSET'); {_regsunset = RE_GETSTR[1]}
+		}
+	}
+	--
+	FCLOSE(_file2);
+	--
+	if FOPEN(_file,'r') {
+	
+		_buff = FREAD(_file) //get the first line of the HTML to check what type of page we got
+
+		if RE_SEARCH(_buff, _reg) //reg expressions for chrome formatted page
+		{
+			_regtemp = _Cregtemp
+			_regdegree = _Cregdegree
+			_regfeels = _Cregfeels
+			_reghumidity = _Creghumidity
+			_regwind = _Cregwind
+			_regstate = _Cregstate
+			_regloc = _Cregloc
+			_regpollen = _Cregpollen
+		}
+		else //reg expressions for firefox formatted page
+		{
+			_regtemp = _Fregtemp
+			_regdegree = _Fregdegree
+			_regfeels = _Fregfeels
+			_reghumidity = _Freghumidity
+			_regwind = _Fregwind
+			_regstate = _Fregstate
+			_regloc = _Fregloc
+			_regpollen = _Fregpollen
+		}
+
+		for _buff = FREAD(_file); _buff != -1; _buff = FREAD(_file)
+		{
+			if RE_SEARCH (_buff,_regtemp); {tempurature[1] = TOINT(RE_GETSTR[1])} //current temp
+			if RE_SEARCH (_buff,_regdegree); {ForC = RE_GETSTR[1]} //degrees (F or C)
+			if RE_SEARCH (_buff,_regfeels); {feelslike[1] = TOINT(RE_GETSTR[1])} //feels like temp
+			if RE_SEARCH (_buff,_reghumidity); {humidity = TOINT(RE_GETSTR[1])} //humidity
+			if RE_SEARCH (_buff,_regwind); {wind = RE_GETSTR[1]} //wind
+			if RE_SEARCH (_buff,_regstate); {weather = RE_GETSTR[1]} //state (cloudy, sunny, etc)
+			if RE_SEARCH (_buff,_regloc); {curlocation = RE_GETSTR[1]} //set location
+			if RE_SEARCH (_buff,_regpollen); {pollen = "Local Pollen Alert"} //search for pollen stuff
+			if RE_SEARCH (_buff,_regsunrise); {sunrise = "%(RE_GETSTR[3]) %(RE_GETSTR[4])m"} //Sunrise time
+			if RE_SEARCH (_buff,_regsunset); {sunset = "%(RE_GETSTR[3]) %(RE_GETSTR[4])m"} //Sunset time
+		}
+	}
+	--
+	FCLOSE(_file)
+	--
+	if tempurature != ""
+	{
+		"\![raise,OnCelsius]\![raise,OnDownloadMoonPhase]"
+	}
+	else
+	{
+		if weatherquiet == 1
+		{
+			weatherquiet = 0
+			"\e Something went wrong, you should talk to Zichqec about that."
+		}
+		else
+		{
+			if nowmode == "Awake"
+			{
+				"\0%(b)\s[1106]Sorry,\w4 something went wrong.\w8\w8 You should talk to Zichqec about that.\e"
+			}
+			else //Sleepy
+			{
+				"\0%(b)\s[107]...something went wrong,\w4 not sure what...\w8\w8 you should ask Zichqec about it...\e"
+			}
+		}
+	}
+}
+
+OnCurWeatherFoundFailure
+{
+	tempurature = ("Unknown","0","0")
+	ForC = "Unknown"
+	feelslike = ("Unknown","0","0")
+	humidity = "Unknown"
+	wind = "Unknown"
+	weather = "Unknown"
+	pollen = ""
+	sunrise = "Unknown"
+	sunset = "Unknown"
+	phase = "Unknown"
+	sunset = "Unknown"
+	sunrise = "Unknown"
+	if weatherquiet == 1
+	{
+		weatherquiet = 0
+		"\e"
+	}
+	--
+	if nowmode == "Awake"
+	{
+		"\s[1106]Sorry,\w4 looks like it timed out.\w8\w8\s[1000] Maybe we can try again later?\e"
+	}
+	else //Sleepy
+	{
+		"\s[107]...timed out,\w4 sorry...\w8\w8\s[105] we can try again later...\e"
+	}
+	--
+	if nowmode == "Awake"
+	{
+		"\w8\w8 Do you want to try again?"
+	}
+	else //Sleepy
+	{
+		"\w8\w8 want me to try again..?"
+	}
+	--
+	"\n\n\![*]\q[Yes,OnDownloadCurWeather]\n\![*]\q[No,cancelnodialogue]"
+}
+
+OnCelsius //Written by Zdzisiu, thank you ;w;
+{
+	_runpnum = 0
+	_celc = (tempurature[1] - 32)
+	_celc = _celc*(5.0/9.0)
+	_firstnumcelc = TOINT(_celc)
+	_toroundup = ERASE(_celc,0,2)
+	--
+	if (_firstnumcelc[0] < 10 && _firstnumcelc[0] > 0) || (_firstnumcelc[0] > -10 && _firstnumcelc[0] < 0)
+	{
+		_celc = ERASE(_celc,6,10)
+		_runpnum = 3
+	}
+	else
+	{
+		_celc = ERASE(_celc,7,10)
+		_runpnum = 4
+	}
+	--
+	if _toroundup < 50 
+	{
+		_celc = ERASE(_celc,_runpnum,10)
+	}
+	else
+	{
+		_celc = TOINT(ERASE(_celc,_runpnum,10)) + 1
+	}
+	tempurature[2] = TOINT(_celc)
+	--
+	_runpnum = 0
+	_celc = (feelslike[1] - 32)
+	_celc = _celc*(5.0/9.0)
+	_firstnumcelc = TOINT(_celc)
+	_toroundup = ERASE(_celc,0,2)
+	--
+	if (_firstnumcelc[0] < 10 && _firstnumcelc[0] > 0) || (_firstnumcelc[0] > -10 && _firstnumcelc[0] < 0)
+	{
+		_celc = ERASE(_celc,4,10)
+		_runpnum = 1
+	}
+	else
+	{
+		_celc = ERASE(_celc,5,10)
+		_runpnum = 2
+	}
+	--
+	if _toroundup < 50 
+	{
+		_celc = ERASE(_celc,_runpnum,10)
+	}
+	else
+	{
+		_celc = TOINT(ERASE(_celc,_runpnum,10)) + 1
+	}
+	feelslike[2] = TOINT(_celc)
+	//ForC = "°C"
+}
+
+OnDownloadMoonPhase
+{
+    "\0%(b)\![execute,http-get,https://www.moongiant.com/phase/today/,--async=OnMoonFound,--file=moon.html,--timeout=200]"
+}
+
+OnMoonFound
+{
+    //file to be read
+    _file = "var\\moon.html"
+    //line being read
+    _buff=""
+    //regular expressions to extract data
+    _regphase=',"Phase: <span>([\w|\s]*)<./span>'
+    _found = 0;
+    //using UTF-8 charset
+    FCHARSET(1)
+    //string for holding phase
+    phase = ""
+    --
+    if FOPEN(_file,'r') {
+        for _buff = FREAD(_file); _buff != -1 && !_found; _buff = FREAD(_file)
+		{
+            if RE_SEARCH ( _buff, _regphase ) {
+                
+                phase = RE_GETSTR[1]
+                _found = 1; //break loop since we dont need to continue parsing
+            }
+        }
+    }
+    --
+    FCLOSE(_file);
+	--
+    if weatherquiet == 1
+	{
+        "\e"
+    }
+	else
+	{
+		checkedweather++
+		if ASEARCH("Checked the weather",TodaysActions) == -1 //If this is the first time the user has checked the weather today
+		{
+			TodaysActions ,= "Checked the weather"
+			DP += mdDPplus
+			friendship += mdfriendplus
+		}
+	}
+    --
+	
+	
+	
+	weatherquiet = 0
+	//change the dialogue as you wish
+	//[temp, degrees, feels like temp, humidity, wind, state (cloudy, rainy, etc)]
+	
+	//Grab the sunrise and sunset in ways we can do math on
+	sunrisearray[2] = SPLIT(sunrise," ")[1] //AM/PM
+	_risetemp = SPLIT(sunrise," ")[0]
+	sunrisearray[0] = TOINT(SPLIT(_risetemp,":")[0]) //Hour
+	sunrisearray[1] = TOINT(SPLIT(_risetemp,":")[1]) //Minute
+	if sunrisearray[2] == "PM"; sunrisearray[0] += 12 //Changing to 24 hour time
+	
+	sunsetarray[2] = SPLIT(sunset," ")[1]
+	_settemp = SPLIT(sunset," ")[0]
+	sunsetarray[0] = TOINT(SPLIT(_settemp,":")[0])
+	sunsetarray[1] = TOINT(SPLIT(_settemp,":")[1])
+	if sunsetarray[2] == "PM"; sunsetarray[0] += 12
+	
+	if Degrees[0] == "Fahrenheit"
+	{
+		tempurature[0] = TOINT(tempurature[1])
+		feelslike[0] = TOINT(feelslike[1])
+	}
+	else
+	{
+		tempurature[0] = TOINT(tempurature[2])
+		feelslike[0] = TOINT(feelslike[2])
+	}
+	
+	if nowmode == "Awake"
+	{
+		"\0%(b)\s[1112]"
+	}
+	else //Sleepy
+	{
+		"\0%(b)\s[105]"
+	}
+	--
+	"\b2\_qThe weather for %(curlocation):\n\n/
+	Weather: %(weather)\n/
+	Temperature: %(tempurature[0])%(Degrees[1])\n/
+	Feels like: %(feelslike[0])%(Degrees[1])\n/
+	Humidity: %(humidity)%\n/
+	Wind: %(wind)\n/
+	Moon Phase: %(phase)"
+	
+    --
+    if currentweatherarray[6] == "Local Pollen Alert"
+	{
+		if nowmode == "Awake"
+		{
+			"\nThere's a local pollen alert."
+		}
+		else //Sleepy
+		{
+			"\nthere's a local pollen alert."
+		}	
+    }
+	--
+	if fromfunctionmenu == 1
+	{
+		"\n\n\![*]\q[Back to functions,OnFunctionMenu]"
+	}
+	else
+	{
+		"\n"
+	}
+	--
+	"\n\![*]\q[I'm done,cancelnodialogue]\e"
+}

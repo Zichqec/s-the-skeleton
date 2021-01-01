@@ -1,0 +1,226 @@
+seriko.alignmenttodesktop,free
+seriko.use_self_alpha,1
+
+charset,UTF-8
+type,shell
+name,Default Shell
+craftman,Zichqec
+craftmanurl,https://zichqec.github.io/s-the-skeleton/index.html
+
+sakura.balloon.offsetx,0
+sakura.balloon.offsety,0
+kero.balloon.offsetx,0
+kero.balloon.offsety,0
+sakura.balloon.alignment,none
+kero.balloon.alignment,none
+
+shiori.logo.filename,resources\niseshiori.png
+shiori.logo.x,16
+shiori.logo.y,256
+
+
+//Menu stuff
+
+menu.background.font.color.r,0
+menu.background.font.color.g,0
+menu.background.font.color.b,0
+
+menu.foreground.font.color.r,255
+menu.foreground.font.color.g,255
+menu.foreground.font.color.b,255
+
+menu.disable.font.color.r,225
+menu.disable.font.color.g,225
+menu.disable.font.color.b,225
+
+menu.separator.color.r,225
+menu.separator.color.g,225
+menu.separator.color.b,225
+
+menu.background.alignment,righttop
+menu.foreground.alignment,righttop
+menu.sidebar.alignment,bottom
+
+menu.background.bitmap.filename,menu_background.png
+menu.foreground.bitmap.filename,menu_foreground.png
+menu.sidebar.bitmap.filename,menu_sidebar.png
+
+sakura.bindgroup10000.name,Pants,Default Slacks
+sakura.bindoption10000.group,Pants,mustselect
+sakura.bindgroup10000.default,1
+
+sakura.bindgroup10001.name,Pants,Dark Red Slacks
+sakura.bindgroup10002.name,Pants,Medium Red Slacks
+sakura.bindgroup10003.name,Pants,Light Red Slacks
+sakura.bindgroup10004.name,Pants,Dark Orange Slacks
+sakura.bindgroup10005.name,Pants,Medium Orange Slacks
+sakura.bindgroup10006.name,Pants,Light Orange Slacks
+sakura.bindgroup10007.name,Pants,Dark Yellow Slacks
+sakura.bindgroup10008.name,Pants,Medium Yellow Slacks
+sakura.bindgroup10009.name,Pants,Light Yellow Slacks
+sakura.bindgroup10010.name,Pants,Dark Green Slacks
+sakura.bindgroup10011.name,Pants,Medium Green Slacks
+sakura.bindgroup10012.name,Pants,Light Green Slacks
+sakura.bindgroup10013.name,Pants,Dark Cyan Slacks
+sakura.bindgroup10014.name,Pants,Medium Cyan Slacks
+sakura.bindgroup10015.name,Pants,Light Cyan Slacks
+sakura.bindgroup10016.name,Pants,Dark Blue Slacks
+sakura.bindgroup10017.name,Pants,Medium Blue Slacks
+sakura.bindgroup10018.name,Pants,Light Blue Slacks
+sakura.bindgroup10019.name,Pants,Dark Purple Slacks
+sakura.bindgroup10020.name,Pants,Medium Purple Slacks
+sakura.bindgroup10021.name,Pants,Light Purple Slacks
+sakura.bindgroup10022.name,Pants,Dark Pink Slacks
+sakura.bindgroup10023.name,Pants,Medium Pink Slacks
+sakura.bindgroup10024.name,Pants,Light Pink Slacks
+sakura.bindgroup10025.name,Pants,Dark Gray Slacks
+sakura.bindgroup10026.name,Pants,Medium Gray Slacks
+sakura.bindgroup10027.name,Pants,Light Gray Slacks
+
+
+sakura.bindgroup10051.name,Pants,Dark Red Jeans
+sakura.bindgroup10052.name,Pants,Medium Red Jeans
+sakura.bindgroup10053.name,Pants,Light Red Jeans
+sakura.bindgroup10054.name,Pants,Dark Orange Jeans
+sakura.bindgroup10055.name,Pants,Medium Orange Jeans
+sakura.bindgroup10056.name,Pants,Light Orange Jeans
+sakura.bindgroup10057.name,Pants,Dark Yellow Jeans
+sakura.bindgroup10058.name,Pants,Medium Yellow Jeans
+sakura.bindgroup10059.name,Pants,Light Yellow Jeans
+sakura.bindgroup10060.name,Pants,Dark Green Jeans
+sakura.bindgroup10061.name,Pants,Medium Green Jeans
+sakura.bindgroup10062.name,Pants,Light Green Jeans
+sakura.bindgroup10063.name,Pants,Dark Cyan Jeans
+sakura.bindgroup10064.name,Pants,Medium Cyan Jeans
+sakura.bindgroup10065.name,Pants,Light Cyan Jeans
+sakura.bindgroup10066.name,Pants,Dark Blue Jeans
+sakura.bindgroup10067.name,Pants,Medium Blue Jeans
+sakura.bindgroup10068.name,Pants,Light Blue Jeans
+sakura.bindgroup10069.name,Pants,Dark Purple Jeans
+sakura.bindgroup10070.name,Pants,Medium Purple Jeans
+sakura.bindgroup10071.name,Pants,Light Purple Jeans
+sakura.bindgroup10072.name,Pants,Dark Pink Jeans
+sakura.bindgroup10073.name,Pants,Medium Pink Jeans
+sakura.bindgroup10074.name,Pants,Light Pink Jeans
+sakura.bindgroup10075.name,Pants,Dark Gray Jeans
+sakura.bindgroup10076.name,Pants,Medium Gray Jeans
+sakura.bindgroup10077.name,Pants,Light Gray Jeans
+
+
+//sakura.bindgroup10001.name,Pants,Jeans test
+
+sakura.bindgroup11000.name,Shirts,Default Sweater
+sakura.bindoption11000.group,Shirts,mustselect
+sakura.bindgroup11000.default,1
+
+sakura.bindgroup11001.name,Shirts,Dark Red Sweater
+sakura.bindgroup11002.name,Shirts,Medium Red Sweater
+sakura.bindgroup11003.name,Shirts,Light Red Sweater
+sakura.bindgroup11004.name,Shirts,Dark Orange Sweater
+sakura.bindgroup11005.name,Shirts,Medium Orange Sweater
+sakura.bindgroup11006.name,Shirts,Light Orange Sweater
+sakura.bindgroup11007.name,Shirts,Dark Yellow Sweater
+sakura.bindgroup11008.name,Shirts,Medium Yellow Sweater
+sakura.bindgroup11009.name,Shirts,Light Yellow Sweater
+sakura.bindgroup11010.name,Shirts,Dark Green Sweater
+sakura.bindgroup11011.name,Shirts,Medium Green Sweater
+sakura.bindgroup11012.name,Shirts,Light Green Sweater
+sakura.bindgroup11013.name,Shirts,Dark Cyan Sweater
+sakura.bindgroup11014.name,Shirts,Medium Cyan Sweater
+sakura.bindgroup11015.name,Shirts,Light Cyan Sweater
+sakura.bindgroup11016.name,Shirts,Dark Blue Sweater
+sakura.bindgroup11017.name,Shirts,Medium Blue Sweater
+sakura.bindgroup11018.name,Shirts,Light Blue Sweater
+sakura.bindgroup11019.name,Shirts,Dark Purple Sweater
+sakura.bindgroup11020.name,Shirts,Medium Purple Sweater
+sakura.bindgroup11021.name,Shirts,Light Purple Sweater
+sakura.bindgroup11022.name,Shirts,Dark Pink Sweater
+sakura.bindgroup11023.name,Shirts,Medium Pink Sweater
+sakura.bindgroup11024.name,Shirts,Light Pink Sweater
+sakura.bindgroup11025.name,Shirts,Dark Gray Sweater
+sakura.bindgroup11026.name,Shirts,Medium Gray Sweater
+sakura.bindgroup11027.name,Shirts,Light Gray Sweater
+
+sakura.bindgroup11050.name,Shirts,Dark Red Hoodie
+sakura.bindgroup11051.name,Shirts,Medium Red Hoodie
+sakura.bindgroup11052.name,Shirts,Light Red Hoodie
+sakura.bindgroup11053.name,Shirts,Dark Orange Hoodie
+sakura.bindgroup11054.name,Shirts,Medium Orange Hoodie
+sakura.bindgroup11055.name,Shirts,Light Orange Hoodie
+sakura.bindgroup11056.name,Shirts,Dark Yellow Hoodie
+sakura.bindgroup11057.name,Shirts,Medium Yellow Hoodie
+sakura.bindgroup11058.name,Shirts,Light Yellow Hoodie
+sakura.bindgroup11059.name,Shirts,Dark Green Hoodie
+sakura.bindgroup11060.name,Shirts,Medium Green Hoodie
+sakura.bindgroup11061.name,Shirts,Light Green Hoodie
+sakura.bindgroup11062.name,Shirts,Dark Cyan Hoodie
+sakura.bindgroup11063.name,Shirts,Medium Cyan Hoodie
+sakura.bindgroup11064.name,Shirts,Light Cyan Hoodie
+sakura.bindgroup11065.name,Shirts,Dark Blue Hoodie
+sakura.bindgroup11066.name,Shirts,Medium Blue Hoodie
+sakura.bindgroup11067.name,Shirts,Light Blue Hoodie
+sakura.bindgroup11068.name,Shirts,Dark Purple Hoodie
+sakura.bindgroup11069.name,Shirts,Medium Purple Hoodie
+sakura.bindgroup11070.name,Shirts,Light Purple Hoodie
+sakura.bindgroup11071.name,Shirts,Dark Pink Hoodie
+sakura.bindgroup11072.name,Shirts,Medium Pink Hoodie
+sakura.bindgroup11073.name,Shirts,Light Pink Hoodie
+sakura.bindgroup11074.name,Shirts,Dark Gray Hoodie
+sakura.bindgroup11075.name,Shirts,Medium Gray Hoodie
+sakura.bindgroup11076.name,Shirts,Light Gray Hoodie
+
+sakura.bindgroup11101.name,Shirts,Dark Red T-Shirt
+sakura.bindgroup11102.name,Shirts,Medium Red T-Shirt
+sakura.bindgroup11103.name,Shirts,Light Red T-Shirt
+sakura.bindgroup11104.name,Shirts,Dark Orange T-Shirt
+sakura.bindgroup11105.name,Shirts,Medium Orange T-Shirt
+sakura.bindgroup11106.name,Shirts,Light Orange T-Shirt
+sakura.bindgroup11107.name,Shirts,Dark Yellow T-Shirt
+sakura.bindgroup11108.name,Shirts,Medium Yellow T-Shirt
+sakura.bindgroup11109.name,Shirts,Light Yellow T-Shirt
+sakura.bindgroup11110.name,Shirts,Dark Green T-Shirt
+sakura.bindgroup11111.name,Shirts,Medium Green T-Shirt
+sakura.bindgroup11112.name,Shirts,Light Green T-Shirt
+sakura.bindgroup11113.name,Shirts,Dark Cyan T-Shirt
+sakura.bindgroup11114.name,Shirts,Medium Cyan T-Shirt
+sakura.bindgroup11115.name,Shirts,Light Cyan T-Shirt
+sakura.bindgroup11116.name,Shirts,Dark Blue T-Shirt
+sakura.bindgroup11117.name,Shirts,Medium Blue T-Shirt
+sakura.bindgroup11118.name,Shirts,Light Blue T-Shirt
+sakura.bindgroup11119.name,Shirts,Dark Purple T-Shirt
+sakura.bindgroup11120.name,Shirts,Medium Purple T-Shirt
+sakura.bindgroup11121.name,Shirts,Light Purple T-Shirt
+sakura.bindgroup11122.name,Shirts,Dark Pink T-Shirt
+sakura.bindgroup11123.name,Shirts,Medium Pink T-Shirt
+sakura.bindgroup11124.name,Shirts,Light Pink T-Shirt
+sakura.bindgroup11125.name,Shirts,Dark Gray T-Shirt
+sakura.bindgroup11126.name,Shirts,Medium Gray T-Shirt
+sakura.bindgroup11127.name,Shirts,Light Gray T-Shirt
+
+sakura.bindgroup11150.name,Shirts,Dark Red Sleeveless
+sakura.bindgroup11151.name,Shirts,Medium Red Sleeveless
+sakura.bindgroup11152.name,Shirts,Light Red Sleeveless
+sakura.bindgroup11153.name,Shirts,Dark Orange Sleeveless
+sakura.bindgroup11154.name,Shirts,Medium Orange Sleeveless
+sakura.bindgroup11155.name,Shirts,Light Orange Sleeveless
+sakura.bindgroup11156.name,Shirts,Dark Yellow Sleeveless
+sakura.bindgroup11157.name,Shirts,Medium Yellow Sleeveless
+sakura.bindgroup11158.name,Shirts,Light Yellow Sleeveless
+sakura.bindgroup11159.name,Shirts,Dark Green Sleeveless
+sakura.bindgroup11160.name,Shirts,Medium Green Sleeveless
+sakura.bindgroup11161.name,Shirts,Light Green Sleeveless
+sakura.bindgroup11162.name,Shirts,Dark Cyan Sleeveless
+sakura.bindgroup11163.name,Shirts,Medium Cyan Sleeveless
+sakura.bindgroup11164.name,Shirts,Light Cyan Sleeveless
+sakura.bindgroup11165.name,Shirts,Dark Blue Sleeveless
+sakura.bindgroup11166.name,Shirts,Medium Blue Sleeveless
+sakura.bindgroup11167.name,Shirts,Light Blue Sleeveless
+sakura.bindgroup11168.name,Shirts,Dark Purple Sleeveless
+sakura.bindgroup11169.name,Shirts,Medium Purple Sleeveless
+sakura.bindgroup11170.name,Shirts,Light Purple Sleeveless
+sakura.bindgroup11171.name,Shirts,Dark Pink Sleeveless
+sakura.bindgroup11172.name,Shirts,Medium Pink Sleeveless
+sakura.bindgroup11173.name,Shirts,Light Pink Sleeveless
+sakura.bindgroup11174.name,Shirts,Dark Gray Sleeveless
+sakura.bindgroup11175.name,Shirts,Medium Gray Sleeveless
+sakura.bindgroup11176.name,Shirts,Light Gray Sleeveless

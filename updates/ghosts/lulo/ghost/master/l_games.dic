@@ -1,0 +1,527 @@
+//============================Hangman============================
+
+OnStartHangman //Sets up starting variables
+{
+	HMword = hangmanwords //Pulls the word to guess from a pool of words
+	HMlet = IARRAY //HMlet[0] is guessed letters, HMlet[1] is incorrect letters
+	OnHangman
+}
+
+OnHangman //Main game window
+{
+	_maxwrong = 6 //Maximum incorrect guesses
+	_word = ""
+	_left = 0
+	for _i = 0; _i < STRLEN(HMword); _i++
+	{
+		_let = TOLOWER(SUBSTR(HMword,_i,1)) //Get the current letter and make it lowercase
+		if _let _in_ HMlet[0] || _let == " "
+		{
+			_word += "%(SUBSTR(HMword,_i,1))"
+		}
+		else
+		{
+			_word += "_ "
+			_left++
+		}
+	}
+	--
+	if (STRLEN(HMlet[1]) / 2) >= _maxwrong //If the number of incorrect letters is equal to or greater than the number of max tries
+	{
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1111]Sorry,\w4 you're all out of guesses!\w8\w8\s[1104] The word was %(HMword)!"
+		}
+		else //Sleepy
+		{
+			"\0%(b)\s[103]...heh,\w4 nope,\w4 i win...\w8\w8 it was %(HMword)..."
+		}
+	}
+	elseif _left > 0 //If there are still letters to guess
+	{
+		_mistakes = (_maxwrong - (STRLEN(HMlet[1]) / 2))
+		_marker = ""
+		
+		"\0\_q\*%(bb)\![set,balloontimeout,-1]\![set,autoscroll,disable]\![open,inputbox,OnGuessNormal,-1]"
+		--
+		"%(_word)\n\nGuessed so far: %(HMlet[1])\n\nTries left: "
+		--
+		for _i = 0; _i < _mistakes; _i++
+		{
+			_marker += "\![*]"
+		}
+		--
+		"%(_marker)"
+		--
+		if _left > 1
+		{
+			"\n\n\![*]\q[Guess the whole word,HangmanGuessWhole]"
+		}
+		--
+		"\n\![*]\q[Open the input box again,HangmanInput]\n\n\![*]\q[Give up,HangmanQuit]\e"
+	}
+	else //If _left is still 0, the user has guessed all letters correctly
+	{
+		HangmanWin
+		--
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1110]Oh,\w4\s[1104] you got it!\w8\w8\s[1000] It was %(HMword)!"
+		}
+		else //Sleepy
+		{
+			"\0%(b)\s[103]...you got it,\w4 nice...\w8\w8 it was %(TOLOWER(HMword))..."
+		}
+	}
+	--
+	HangmanBack
+}
+
+OnGuessNormal
+{
+	if STRLEN(reference0) > 1 //The user has put in more than 1 letter
+	{
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1106]Only single letters,\w4 please.\x"
+		}
+		else //Sleepy
+		{
+			"\0%(b)\s[107]...single letters only...\x"
+		}
+	}
+	elseif TOLOWER(reference0) _in_ TOLOWER(HMlet[0]) //The user has already guessed that letter
+	{
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1110]You already guessed %(reference0)!\w8\w8\s[1112] Try something new.\x"
+		}
+		else //Sleepy
+		{
+			"\0%(b)\s[106]...you already guessed %(TOLOWER(reference0))...\w8\w8 pick something new...\x"
+		}
+	}
+	elseif TOLOWER(reference0) _in_ TOLOWER(HMword) //The letter is in the word
+	{
+		HMlet[0] += reference0
+	}
+	else
+	{
+		HMlet[0] += reference0
+		HMlet[1] += "%(TOLOWER(reference0)) "
+	}
+	--
+	OnHangman
+}
+
+
+Select.HangmanGuessWhole
+{
+	_word = ""
+	_left = 0
+	for _i = 0; _i < STRLEN(HMword); _i++
+	{
+		_let = TOLOWER(SUBSTR(HMword,_i,1)) //Get the current letter and make it lowercase
+		if _let _in_ HMlet[0] || _let == " "
+		{
+			_word += "%(SUBSTR(HMword,_i,1))"
+		}
+		else
+		{
+			_word += "_ "
+			_left++
+		}
+	}
+	"\0\*%(b)\![set,balloontimeout,-1]\![set,autoscroll,disable]\![close,inputbox,OnGuessNormal]\![open,inputbox,OnGuessWhole,-1]"
+	--
+	if nowmode == "Awake"
+	{
+		"\s[1110]Oh,\w4\s[1111] feeling brave?\w8\w8\s[1112] Alright,\w4 then.\w8\w8\s[1000]\n\nThe word so far is %(_word)\n\nYou've guessed these letters so far: %(HMlet[1])\n\nWhat do you think it is?"
+	}
+	else //Sleepy
+	{
+		"\s[0]...confident,\w4 huh..?\w8\w8\s[112] ...alright...\w8\w8\n\n...the word so far is %(TOLOWER(_word)) ...\n\n...you've guessed these letters so far... %(HMlet[1])\n\n\s[111]...what's your guess..?"
+	}
+	--
+	"\n\n\n\![*]\q[Open the input box again,WholeInput]\n\n\![*]\q[Give up,HangmanQuit]\e"
+}
+
+OnGuessWhole
+{
+	_word = ""
+	_left = 0
+	for _i = 0; _i < STRLEN(HMword); _i++
+	{
+		_let = TOLOWER(SUBSTR(HMword,_i,1)) //Get the current letter and make it lowercase
+		if _let _in_ HMlet[0] || _let == " "
+		{
+			_word += "%(SUBSTR(HMword,_i,1))"
+		}
+		else
+		{
+			_word += "_ "
+			_left++
+		}
+	}
+	if TOLOWER(reference0) == TOLOWER(HMword) //Correct guess, instant win
+	{
+		HangmanWin
+		--
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1110]Oh,\w4 wow,\w4\s[1104] you got it!\w8\w8\s[1112] There were still %(_left) letters left,\w4 I'll have to think of something harder next time..."
+		}
+		else //Sleepy
+		{
+			"\0\s[111]...wow,\w4 that's right...\w8\w8 there were %(_left) letters to go,\w4 that's pretty good...\w8\w8\s[112] i'll have to come up with harder words..."
+		}
+	}
+	else //Incorrect guess, instant lose
+	{
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1104]Nope,\w4 sorry!\w8\w8\s[1000] The word was %(HMword)!\w8\w8\s[1102] Better luck next time,\w4 hehe."
+		}
+		else //Sleepy
+		{
+			"\0%(b)\s[0]...nope,\w4 it was %(TOLOWER(HMword))...\w8\w8\s[103] better luck next time..."
+		}
+	}
+	--
+	HangmanBack
+}
+
+Select.HangmanInput
+{
+	"\C\![close,inputbox,OnGuessNormal]\![open,inputbox,OnGuessNormal,-1]\_l[0,0] "
+}
+
+Select.WholeInput
+{
+	"\C\![close,inputbox,OnGuessWhole]\![open,inputbox,OnGuessWhole,-1]\_l[0,0] "
+}
+
+Select.HangmanQuit
+{
+	"\0\![close,inputbox,OnGuessNormal]\![close,inputbox,OnGuessWhole]%(b)"
+	--
+	if nowmode == "Awake"
+	{
+		"\s[1113]Aw,\w4 it was just getting interesting.\w8\w8\s[1000] It was %(HMword).\w8\w8\s[1104] Better luck next time!"
+	}
+	else //Sleepy
+	{
+		"\s[109]...oh,\w4 ok...\w8\w8\s[0] it was %(TOLOWER(HMword))...\w8\w8 better luck next time..."
+	}
+	--
+	HangmanBack
+}
+
+HangmanBack
+{
+	"\n\n\![*]\q[Another!,OnStartHangman]\n\![*]\q[Back to games menu,OnGamesMenu]\n\n\![*]\q[I'm done,cancelnodialogue]\e"
+}
+
+HangmanWin
+{
+	DP += smDPplus
+	if ASEARCH("Won Hangman",TodaysActions) == -1 //If the user has won hangman for the first time today
+	{
+		DP += smDPplus
+		friendship += smfriendplus
+		TodaysActions ,= "Won Hangman"
+	}
+}
+
+hangmanwords : nonoverlap //Words it can choose
+{
+	"Lucid"
+	"Dream"
+	"Imagination"
+	"Skeleton"
+	"Character"
+	"Freckle"
+	"Freckles"
+	"Magic"
+	"Story"
+	"Creature"
+	"Dragon"
+	"Nightmare"
+	"Night"
+	"Pastel"
+	"Blanket"
+	"Sleepy"
+	"Tired"
+	"Bed"
+	"Cuddle"
+	"Cuddly"
+	"Snuggle"
+	"Snuggly"
+	"Plush"
+	"Soft"
+	"Fantasy"
+	"Twilight"
+	"Dusk"
+	"Dawn"
+	"Midnight"
+	"Moon"
+	"Lunar"
+	"Bones"
+	"World"
+	"Puzzle"
+	"Puzzles"
+	"Dark"
+	"Creation"
+	"Imagine"
+	"Daydream"
+	"Drowsy"
+	"Doze"
+	"Sweater"
+	"Hoodie"
+	"Pajamas"
+	"Skull"
+	"Construction"
+	"Complex"
+	"Complicated"
+	"Energy"
+	"Soul"
+	"Introvert"
+	"Introverted"
+	"Quiet"
+	"Background"
+	"Landscape"
+	"Mumble"
+	"Yawn"
+	"Bleary"
+	"Sweet"
+	"Monster"
+	"Fiction"
+	"Story"
+	"Storyteller"
+	"Reading"
+	"Book"
+	"Cozy"
+	"Bubble"
+	"Idea"
+	"Invent"
+	"Invention"
+	"Vision"
+	"Illusion"
+	"Abstract"
+	"Crayon"
+	"Marker"
+	"Mellow"
+	"Gentle"
+}
+
+//--------------------------------------------------------------
+
+OnStartMadlibs
+{
+	madlib = IARRAY
+	madlibterms = IARRAY
+	madlibnum = 0
+	
+	madlib = madlibstemplates
+	SETDELIM(madlib," ")
+	for _i = 0; _i < ARRAYSIZE(madlib); _i++
+	{
+		_word = madlib[_i," "]
+		if "[" _in_ _word && "]" _in_ _word
+		{
+			_word = REPLACE(_word,"[","")
+			_word = REPLACE(_word,"]","")
+			_word = TOLOWER(_word)
+			
+			madlibterms ,= _word
+		}
+	}
+	OnMadlibGather
+}
+
+OnMadlibGather
+{
+	if STRLEN(madlibterms[madlibnum]) > 0
+	{
+		_a = "a"; if TOLOWER(SUBSTR(madlibterms[madlibnum],0,1)) == "a" || TOLOWER(SUBSTR(madlibterms[madlibnum],0,1)) == "e" || TOLOWER(SUBSTR(madlibterms[madlibnum],0,1)) == "i" || TOLOWER(SUBSTR(madlibterms[madlibnum],0,1)) == "o" || TOLOWER(SUBSTR(madlibterms[madlibnum],0,1)) == "u"; _a = "an"
+		"\![open,inputbox,OnMadlibInput]"
+		--
+		"Write %(_a) %(madlibterms[madlibnum])"
+		--
+		"\n\n\![Cancel,OnMadlibCancel]\![open,inputbox,OnMadlibInput]\![set,balloontimeout,-1]\*\e"
+	}
+	else
+	{
+		OnMadlibResult
+	}
+}
+
+OnMadlibInput
+{
+	madlibterms[madlibnum] = reference0
+	madlibnum++
+	OnMadlibGather
+}
+
+OnMadlibCancel
+{
+	"\![close,inputbox,OnMadlibInput]\![raise,OnGamesMenu]"
+}
+
+OnMadlibResult
+{
+	SETDELIM(madlib," ")
+	_x = 0
+	for _i = 0; _i < ARRAYSIZE(madlib); _i++
+	{
+		_word = madlib[_i," "]
+		if "[" _in_ _word && "]" _in_ _word
+		{
+			_after = SPLIT(madlib[_i],"]")[1]
+			madlib[_i] = madlibterms[_x] + _after
+			_x++
+		}
+	}
+	"%(madlib)\x\![raise,OnGamesMenu]"
+}
+
+madlibstemplates
+{
+	"This is just a proof of concept template.\w8\w8 Here's the adverb you wrote, if you followed the directions: [ADVERB].\w8\w8 After that, you were asked to write a verb: [VERB].\w8\w8 Then,\w4 you were asked to write a noun: [NOUN].\w8\w8 And finally,\w4 you were asked to write an adjective: [ADJECTIVE].\w8\w8 If you look at the madlipstemplates function in l_games.dic,\w4 you can see how easy it will be to add new templates.\w8\w8\n\nThis needs a lot of work still; for example, I want to add in the possibility for ghosts to comment between paragraphs, and the UI for this is kinda nonexistent right now...\w8\w8 But there's some good potential here!"
+}
+
+
+//---Rock Paper Scissors---
+OnStartRPS
+{
+	"\0%(bb)"
+	--
+	if nowmode == "Awake"
+	{
+		"\s[1111]Alright,\w4 you're on.\w8\w8 Rock,\w4 paper,\w4 scissors..."
+	}
+	else //Asleep
+	{
+		"\s[111]...ok then...\w8\w8 rock,\w4 paper,\w4 scissors..."
+	}
+	--
+	"\_q\n\n/
+	\![*]\q[Rock,OnRPS,rock]\n/
+	\![*]\q[Paper,OnRPS,paper]\n/
+	\![*]\q[Scissors,OnRPS,scissors]\n\n/
+	\![*]\q[Nevermind,OnRPSQuit]\e"
+}
+
+OnRPS //Can use a local variable to control her surfaces here
+{
+	_winlose = ""
+	
+	_userthrow = reference0 //Gets the user's pick
+	
+	_lulothrow = RAND(3) //Gets Lulo's pick
+	if _lulothrow == 0; _lulothrow = "rock"
+	elseif _lulothrow == 1; _lulothrow = "paper"
+	elseif _lulothrow == 2; _lulothrow = "scissors"
+	
+	if _userthrow == _lulothrow; _winlose = "tie"
+	elseif _userthrow == "rock" && _lulothrow == "scissors"; _winlose = "win"
+	elseif _userthrow == "paper" && _lulothrow == "rock"; _winlose = "win"
+	elseif _userthrow == "scissors" && _lulothrow == "paper"; _winlose = "win"
+	else; _winlose = "lose"
+	
+	_winreason = ""
+	if _winlose == "win" //Setting up a local variable with the 'reason' your choice wins, or Lulo's choice wins
+	{
+		if _userthrow == "rock"; _winreason = "rock smashes scissors"
+		elseif _userthrow == "paper"; _winreason = "paper covers rock"
+		else; _winreason = "scissors cuts up paper"
+	}
+	else //lose - this'll still be set if you tie, but it just won't be called
+	{
+		if _lulothrow == "rock"; _winreason = "rock smashes scissors"
+		elseif _lulothrow == "paper"; _winreason = "paper covers rock"
+		else; _winreason = "scissors cuts up paper"
+	}
+	
+	"\0%(bb)"
+	--
+	if nowmode == "Awake"
+	{
+		if _winlose == "win"
+		{
+			"\s[1110]Aah!\w8\w8 %(_userthrow) beats %(_lulothrow),\w4\s[1107] you got me!"
+			"\s[1110]Oh no,\w4 %(_winreason),\w4 you won!"
+		}
+		elseif _winlose == "tie"
+		{
+			"\s[1110]Oh,\w4\s[1104] looks like we both picked %(_userthrow)."
+		}
+		else //Lose
+		{
+			"\s[1104]Hehe,\w4 sorry!\w8\w8\s[1000] %(_lulothrow) beats %(_userthrow)!"
+			"\s[1104]Aha,\w4 got you!\w8\w8\s[1111] %(Capitalize(_winreason))!"
+		}
+	}
+	else //Sleepy
+	{
+		if _winlose == "win"
+		{
+			"\s[107]...aw,\w4 i picked %(_lulothrow),\w4 your %(_userthrow) wins..."
+			"\s[107]...aw,\w4 %(_winreason)...\w8\w8 you got me..."
+		}
+		elseif _winlose == "tie"
+		{
+			"\s[111]...oh,\w4 we both picked %(_userthrow)...\w8\w8\s[0] it's a draw..."
+		}
+		else //Lose
+		{
+			"\s[103]...heh,\w4 sorry,\w4 your %(_userthrow) is weak to my %(_lulothrow)..."
+			"\s[103]...heh,\w4 %(_winreason),\w4 sorry..."
+			
+		}
+	}
+	--
+	if _winlose == "win"
+	{
+		DP += smDPplus
+		//friendship += smfriendplus
+		if ASEARCH("Won a game of rock paper scissors",TodaysActions) == -1
+		{
+			TodaysActions ,= "Won a game of rock paper scissors"
+			friendship += mdfriendplus
+			DP += mdDPplus
+		}
+	}
+	--
+	if nowmode == "Awake"
+	{
+		if _winlose == "win"; "\w8\w8\s[1111] C'mon,\w4 lets go again,\w4 I wanna beat you this time!"
+		"\w8\w8\s[1111] C'mon,\w4 lets go again!"
+		"\w8\w8\s[1112] Wanna try again?"
+	}
+	else //Sleepy
+	{
+		"\w8\w8\s[0] wanna try another round..?"
+		"\w8\w8\s[112] wanna try again..?"
+		"\w8\w8\s[0] wanna do another round..?"
+	}
+	--
+	"\_q\n\n/
+	\![*]\q[Another round!,OnStartRPS]\n/
+	\![*]\q[Play something else,OnGamesMenu]\n\n/
+	\![*]\q[I'm done,cancelnodialogue]\e"
+}
+
+OnRPSQuit
+{
+	if nowmode == "Awake"
+	{
+		"\0%(b)\s[1110]Oh,\w4 uh,\w4\s[1107] alright then.\x"
+	}
+	else //Sleepy
+	{
+		"\0%(b)\s[107]...aw,\w4 ok...\x"
+	}
+	--
+	"\![raise,OnGamesMenu]"
+}

@@ -1,0 +1,24 @@
+charset, UTF-8
+charset.dic, UTF-8
+charset.output, UTF-8
+charset.file, UTF-8
+charset.save, UTF-8
+charset.extension, UTF-8
+
+
+include, system_config.txt
+dic, l_aitalk.dic
+dic, l_anchor.dic
+dic, l_bootend.dic
+dic, l_commu.dic
+dic, l_etc.dic
+dic, l_games.dic
+dic, l_menu.dic
+dic, l_mouse.dic
+dic, l_nameteach.dic
+dic, l_string.dic
+dic, l_word.dic
+
+
+//log, ayame.log
+msglang,english

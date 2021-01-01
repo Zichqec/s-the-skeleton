@@ -1,0 +1,715 @@
+OnFirstBoot //Dialogue when you first open the ghost
+{
+	FirstBootVars //Initialize all your variables at the very bottom!
+	--
+	"\0\![enter,passivemode]\![bind,Shirts,Default Sweater,1]\![bind,Pants,Default Slacks,1]\1\s[-1]\0%(b)\s[300]\w7"
+	--
+	if reference0 == 0 //Very first boot
+	{
+		"\s[2000]...zz%(mumb)%(mumb)...\w8\w8\n\n* (Here she is,\w4 looks like she's still asleep though...)\w8\w8\n\n\s[106]...%(mumb)zz..?\w8\w8\s[0]\n\n...oh...\w8\w8\s[113] where is this..?\w8\w8 i'm not still dreaming,\w4 am i..?\w8\w8 no,\w4 definitely not...\w8\w8\n\n\s[108]...oh,\w4 um,\w4 hi there...\w8\w8 who are you..?\w8\w8\s[109] ...i should probably start with my name first,\w4 shouldn't i...\w8\w8\s[0]\n\n...mine's lulo,\w8 what's yours..?\![open,inputbox,OnNameTeach]"
+	}
+	else //If you've reinstalled the ghost
+	{
+		"\s[2001]...mmmh...\w8\w8\w8\s[106] hm..?\w8\w8\s[113] ...i've been here before,\w4 haven't i..?\w8\w8\s[108] um,\w4 i'm lulo...\w8\w8 what's your name..?\![open,inputbox,OnNameTeach]"
+	}
+}
+
+OnBoot //Normal booting
+{
+	BootVars //This sets variables you want to be set on a normal boot
+	_timesince = FUNCTIONEX("time_check.dll","how_many_days",lastclosed[0],lastclosed[1],lastclosed[2],0,0,0)//lastclosed[3],lastclosed[4],lastclosed[5] if you want the hours/minutes/seconds
+	_timesince *= -1 //Multiply it by -1 to get rid of the negative sign, or to add one if the user traveled back in time.
+	
+	"\1\s[-1]\0\s[0]"
+	--
+	if _timesince < 0 //If the user has changed their clock backwards
+	{
+		_time = _timesince * -1
+		"\0%(b)\s[107].\w8.\w8.\w8\w8\s[108]%(username),\w4 have you been changing your clock..?\w8\w8\s[113] it was %(_time) days in the future,\w4 last time i was here...\e"
+	}
+	elseif "%(month)/%(day)" == userbirthday
+	{
+		"\0%(b)\s[0]...hi,\w4 %(username)...\w8\w8\s[103] it's your birthday,\w4 isn't it..?\w8\w8 happy birthday...\e"
+	}
+	elseif userbirthday == "4/29" && leapyear == 0 && month == 2 && day == 28
+	{
+		"\0%(b)\s[0]...hi,\w4 %(username)...\w8\w8\s[112] your birthday's normally on a leap day,\w4 isn't it..?\w8\w8\s[0] but it's not a leap year this year,\w4 so i'll just say happy birthday now...\w8\w8\n\n\s[103]...happy birthday,\w4 %(username)...\e"
+	}
+	elseif month == 1 && day == 1 //New year's
+	{
+		"\0%(b)\s[300]\w7\s[0]...happy new year,\w4 %(username)...\w8\w8\s[112] %(year) already...\e"
+	}
+	elseif month == 2 && day == 14 //Valentine's
+	{
+		"\0%(b)\s[300]\w7\s[0]...oh,\w4 hey %(username)...\w8\w8\s[113] happy...\w8\w8 valentine's,\w4 i guess..?\w8\w8\s[107] i don't really understand valentines...\w8\w8\s[111] chocolate usually goes on sale tomorrow,\w4 though...\e"
+	}
+	elseif month == 10 && day == 31 //Halloween
+	{
+		"\0%(b)\s[300]\w7\s[0]...hey,\w4 %(username)...\w8\w8\s[103] happy halloween..."
+		--
+		if hour >= 20
+		{
+			"\w8\w8 have you been out to get candy,\w4 yet..?"
+		}
+		--
+		"\e"
+	}
+	elseif month == 12 && day == 25 //Christmas
+	{
+		"\0%(b)\s[300]\w7\s[0]...oh,\w4 hey %(username)...\w8\w8\s[103] happy gyftmas...\e"
+	}
+	elseif _timesince >= 90 //At least 3 months have passed
+	{
+		TimeBoot
+	}
+	else
+	{
+		NormalBoot
+	}
+}
+
+TimeBoot //This will be called if it's been at least 3 months since you opened the ghost last
+{
+	_timesince = FUNCTIONEX("time_check.dll","how_many_days",lastclosed[0],lastclosed[1],lastclosed[2],0,0,0)//lastclosed[3],lastclosed[4],lastclosed[5] if you want the hours/minutes/seconds
+	_timesince *= -1 //Multiply it by -1 to get rid of the negative sign, or to add one if the user traveled back in time.
+	
+	if _timesince >= 365 //A year
+	{
+		"\0%(b)\s[300]\w7\s[111]...oh,\w4 hey there,\w4 %(username)...\w8\w8\s[103] it's nice to see you again,\w4 it's been forever...\e"
+	}
+	else
+	{
+		"\0%(b)\s[300]\w7\s[111]...oh,\w4 hi %(username)...\w8\w8\s[0] i haven't seen you in a while...\w8\w8 how're you..?\e"
+	}
+}
+
+NormalBoot
+{
+	if RAND(100) == 99
+	{
+		nowmode = "Awake"
+		
+		{
+			"\0%(b)\s[1300]\w7\s[1104]Hi %(userprop)!\e"
+			"\0%(b)\s[1300]\w7\s[1000]Hi %(userprop),\w4 how are you?\e"
+			"\0%(b)\s[1300]\w7\s[1104]Hey %(userprop).\w8\w8\s[1111] Doing anything fun?\e"
+		}
+		
+		if timeslot == "earlymorning"
+		{
+			"\0%(b)\s[1300]\w7\s[1110]Oh,\w4 hi %(userprop).\w8\w8\s[1104] You're up early.\w8\w8\s[1113] I guess I am,\w4 too.\e"
+		}
+		if timeslot == "morning"
+		{
+			"\0%(b)\s[1300]\w7\s[1104]Morning,\w4 %(userprop).\w8\w8\s[1000] What's up?\e"
+		}
+		if timeslot == "lunch"
+		{
+			"\0%(b)\s[1300]\w7\s[1106]Aw,\w4 I was just gonna have lunch.\w8\w8\s[1000] What's up,\w4 %(userprop)?\e"
+		}
+		if timeslot == "afternoon"
+		{
+			"\0%(b)\s[1300]\w7\s[1104]Hi %(userprop)!\w8\w8\s[1106] I was gonna take a nap,\w4 but I'm too awake right now anyways...\e"
+		}
+		if timeslot == "evening"
+		{
+			"\0%(b)\s[1300]\w7\s[1104]Hi %(userprop).\w8\w8\s[1107] The day's winding down,\w4 but I'm not tired yet...\w8\w8\s[1111] What're you up to?\e"
+		}
+		if timeslot == "latenight"
+		{
+			"\0%(b)\s[1300]\w7\s[1106]Hey,\w4 %(userprop).\w8\w8\s[1107] You're not tired yet either?\e"
+		}
+		if timeslot == "midnight"
+		{
+			"\0%(b)\s[1300]\w7\s[1108]Oh,\w4 you're still awake too?\w8\w8\s[1107] I hope you can get to sleep soon...\w8\w8\s[1113] Me,\w4 too,\w4 or I'll sleep all day tomorrow...\e"
+		}
+	}
+	else
+	{
+		//Asleep
+		{
+			{
+				"\0\b[8]\s[300]\w7\s[2000]...%(mumble)...\w8\w8\n\n* (Looks like she's asleep...)"
+				"\0\b[8]\s[300]\w7\s[2000]...%(mumb)%(mumb)...\w8\w8\s[2001] ...%(username)..?\w8\w8 %(mumb)..."
+			}
+			
+			if timeslot == "earlymorning"
+			{
+				"\0\b[8]\s[300]\w7\s[2000]...%(mumble)...\w8\w8\n\n* (Looks like she's still asleep...)"
+			}
+			if timeslot == "morning"
+			{
+				"\0\b[8]\s[300]\w7\s[2000]...%(mumble)...\w8\w8\n\n* (She must be sleeping in...)"
+			}
+			if timeslot == "lunch"
+			{
+				"\0\b[8]\s[300]\w7\s[2000]...%(mumble)...\w8\w8\n\n* (She can't still be sleeping in at this hour,\w4 can she..?)"
+			}
+			if timeslot == "afternoon"
+			{
+				"\0\b[8]\s[300]\w7\s[2000]...%(mumble)...\w8\w8\n\n* (Looks like she's taking a nap...)"
+			}
+			if timeslot == "evening"
+			{
+				"\0\b[8]\s[300]\w7\s[2000]...%(mumble)...\w8\w8\n\n* (She must have already gone to bed...)"
+			}
+			if timeslot == "latenight"
+			{
+				"\0\b[8]\s[300]\w7\s[2000]...%(mumble)...\w8\w8\n\n* (She's asleep...)"
+			}
+			if timeslot == "midnight"
+			{
+				"\0\b[8]\s[300]\w7\s[2000]...%(mumble)...\w8\w8\n\n* (It's late,\w4 it's probably a good thing she's asleep...)"
+			}
+			--
+			"\e:eval=nowmode='Asleep'"
+		}
+		
+		//Sleepy
+		{
+			{
+				"\0%(b)\s[300]\w7\s[0]...hey,\w4 %(username)...\e"
+				"\0%(b)\s[300]\w7\s[0]...hi,\w4 %(username)...\w8\w8 how're you..?\e"
+				"\0%(b)\s[300]\w7\s[0]...oh,\w4 hey there %(username)...\w8\w8 good to see you...\e"
+			}
+			
+			if timeslot == "earlymorning"
+			{
+				"\0%(b)\s[300]\w7\s[0]...oh,\w4 you're up early...\w8\w8 hi...\e"
+			}
+			if timeslot == "morning"
+			{
+				"\0%(b)\s[300]\w7\s[0]...good morning...\w8\w8 how're you,\w4 %(username)..?\e"
+			}
+			if timeslot == "lunch"
+			{
+				"\0%(b)\s[300]\w7\s[0]...oh,\w4 hey %(username)...\w8\w8 did you just wake up too..?\e"
+			}
+			if timeslot == "afternoon"
+			{
+				"\0%(b)\s[300]\w7\s[0]...oh,\w4 hey %(username)...\w8\w8 i was just gonna take a nap...\e"
+			}
+			if timeslot == "evening"
+			{
+				"\0%(b)\s[300]\w7\s[0]...evening,\w4 %(username)...\w8\w8 i was gonna go to bed,\w4 but i guess i can stay up a little longer...\e"
+			}
+			if timeslot == "latenight"
+			{
+				"\0%(b)\s[300]\w7\s[0]...hey,\w4 %(username)...\w8\w8\s[107] it's getting pretty late,\w4 aren't you tired..?\e"
+			}
+			if timeslot == "midnight"
+			{
+				"\0%(b)\s[300]\w7\s[0]...oh,\w4 hey %(username)...\w8\w8 can't sleep..?\e"
+			}
+		}
+	}
+}
+
+OnClose
+{
+	lastclosed = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)") //This tracks the last time the ghost was closed
+	_i = FUNCTIONEX("mciaudior.dll","stop") //Need this or SSP crashes
+	
+	if holdingObsidian == 1
+	{
+		"\0\s[500]Alright then, guess I have to give Obsidian back. See you around!"
+	}
+	else
+	{
+		if passmin >= 5 || passhour > 0 //If the ghost has been open longer than 5 minutes
+		{
+			//Non-if-dependant dialogues, inside brackets so they get called 50% of the time. If you add more ifs, the probability will change
+			{
+				if nowmode == "Awake"
+				{
+					"\0%(b)\s[1111]Alright,\w4 see you %(userprop)!"
+				}
+				elseif nowmode == "Asleep"
+				{
+					"\0%(b)\s[2000]* (You gently send her away to sleep at home.)"
+				}
+				else //Sleepy
+				{
+					"\0%(b)\s[0]...ok,\w4 see you later,\w4 %(username)..."
+				}
+			}
+			if timeslot == "earlymorning"
+			{
+				if nowmode == "Awake"
+				{
+					"\0%(b)\s[1106]You're not just going to bed,\w4 are you?\w8\w8\s[1104] Take care, %(userprop)!"
+				}
+				elseif nowmode == "Asleep"
+				{
+					"\0%(b)\s[2000]* (She should be sleeping at home at this time of day...)"
+				}
+				else //Sleepy
+				{
+					if "RYS-0825" !_in_ ghostexlist
+					{
+						"\0%(b)\s[105]...anDad is probably awake by now,\w4 maybe he'll make breakfast..."
+					}
+					else
+					{
+						res_reference0 = "RYS-0825" //TODO see if this works? If not I know there's a thing for other ghosts closing... that's probably cleaner??
+						
+						"\0%(b)\s[105]...see you, dad..."
+					}
+				}
+			}
+			if timeslot == "morning"
+			{
+				if nowmode == "Awake"
+				{
+					"\0%(b)\s[1000]Have you had breakfast yet?\w8\w8\s[1104] I'm gonna go see if I can get some.\w8\w8\s[1111] See you."
+				}
+				elseif nowmode == "Asleep"
+				{
+					"\0%(b)\s[2000]* (The smell of breakfast might wake her...)"
+				}
+				else //Sleepy
+				{
+					"\0%(b)\s[105]...mmm,\w4 it's probably time for breakfast now...\w8\w8\s[0] see you,\w4 %(username)..."
+				}
+			}
+			if timeslot == "lunch"
+			{
+				if nowmode == "Awake"
+				{
+					"\0%(b)\s[1000]Alright then,\w8\s[1104] I'm off to see what's for lunch!"
+				}
+				elseif nowmode == "Asleep"
+				{
+					"\0%(b)\s[2000]* (Maybe she'll have more energy if she eats lunch...)"
+				}
+				else //Sleepy
+				{
+					"\0%(b)\s[105]...ok, i'm gonna go get lunch...\w8\w8\s[0] see you,\w4 %(username)..."
+				}
+			}
+			if timeslot == "afternoon"
+			{
+				if nowmode == "Awake"
+				{
+					"\0%(b)\s[1208]Hm,\w4 I wonder if it's sunny at home..."
+				}
+				elseif nowmode == "Asleep"
+				{
+					"\0%(b)\s[2000]* (She can take her afternoon nap at home.)"
+				}
+				else //Sleepy
+				{
+					"\0%(b)\s[105]...just in time to catch the sun,\w4 if it's out...\w8\w8\s[0] see you,\w4 %(username)..."
+				}
+			}
+			if timeslot == "evening"
+			{
+				if nowmode == "Awake"
+				{
+					"\0%(b)\s[1000]Off for the evening?\w8\w8\s[1104] Take care,\w4 %(userprop)!"
+				}
+				elseif nowmode == "Asleep"
+				{
+					"\0%(b)\s[2000]* (Better send her home before it gets too dark...)"
+				}
+				else //Sleepy
+				{
+					"\0%(b)\s[105]...it's almost time for bed...\w8\w8\s[0] good night,\w4 %(username)..."
+				}
+			}
+			if timeslot == "latenight"
+			{
+				if nowmode == "Awake"
+				{
+					"\0%(b)\s[1206]It's pretty late already,\w4 huh..?\w8\w8\s[1106] I'll see you later,\w4 %(userprop)."
+				}
+				elseif nowmode == "Asleep"
+				{
+					"\0%(b)\s[2000]* (She should definitely be in bed at this hour...)"
+				}
+				else //Sleepy
+				{
+					"\0%(b)\s[105]...mmm,\w4 i guess i should head to bed...\w8\w8\s[0] see you,\w4 %(username)..."
+				}
+			}
+			if timeslot == "midnight"
+			{
+				if nowmode == "Awake"
+				{
+					"\0%(b)\s[1106]It's really late there,\w4 isn't it?\w8\w8\s[1107] Make sure you get enough rest,\w4 %(userprop)."
+				}
+				elseif nowmode == "Asleep"
+				{
+					"\0%(b)\s[2000]* (She'll probably sleep all night,\w4 best to send her home...)"
+				}
+				else //Sleepy
+				{
+					"\0%(b)\s[106]...mmm,\w4 it's definitely bed time...\w8\w8\s[107] make sure you rest too,\w4 %(username)..."
+				}
+			}
+		}
+		else //If the ghost has been open less than 5 minutes
+		{
+			if nowmode == "Awake"
+			{
+				"\0%(b)\s[1110]Oh,\w4 already?\w8\w8\s[1104] Ok,\w4 see you later %(userprop)!"
+			}
+			elseif nowmode == "Asleep"
+			{
+				"\0%(b)\s[2000]* (She must be very tired...)\w8\w8\n\n* (Better send her home for now.)"
+			}
+			else //Sleepy
+			{
+				"\0%(b)\s[111]...oh,\w4 so soon..?\w8\w8\s[105] ok,\w4 see you..."
+			}
+		}
+	}
+	--
+	"\w8\w8\-\e"
+}
+
+OnWindowStateRestore //When you bring the ghost back up after minimizing it
+{
+	if nowmode == "Awake"
+	{
+		"\0%(b)\s[1206]...What was that?\w8\w8\s[1108] It was dark,\w4\s[1109] and cold...\e" //replaceframe hugging self?
+	}
+	elseif nowmode == "Asleep"
+	{
+		"\0%(b)\s[2000]* (She doesn't seem to have noticed...)\e"
+	}
+	else //Sleepy
+	{
+		"\0%(b)\s[113]...cold...\e"
+	}
+}
+
+OnGhostChanging //Changing to another ghost
+{
+	_i = FUNCTIONEX("mciaudior.dll","stop") //Need this or SSP crashes
+	if reference0 == "Lulo" //If reloading
+	{
+		if holdingObsidian == 1
+		{
+			"\0%(b)\s[500]Reloading.\e"
+		}
+		elseif nowmode == "Awake"
+		{
+			"\0%(b)\s[1104]Reloading!\e"
+		}
+		elseif nowmode == "Asleep"
+		{
+			"\0%(b)\s[2000]* (Reloading...)\e"
+		}
+		else //Sleepy
+		{
+			"\0%(b)\s[0]...reloading...\e"
+		}
+	}
+	else
+	{
+		lastclosed = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)") //Same as above, tracks when they were last closed
+		
+		if holdingObsidian == 1
+		{
+			holdingObsidian = 0
+			
+			"\0%(b)\s[500]Alright then, guess I have to give Obsidian back. See you around!\w8\w8\e"
+		}
+		elseif nowmode == "Awake"
+		{
+			"\0%(b)\s[1104]Ok,\w4 have fun hanging out with %(reference0)!\w8\e"
+		}
+		elseif nowmode == "Asleep"
+		{
+			"\0%(b)\s[2000]* (Maybe %(reference0) will be more awake...)\w8\e"
+		}
+		else //Sleepy
+		{
+			"\0%(b)\s[105]...ok,\w4 i'll get %(reference0)...\w8\w8\s[0] see you...\w8\e"
+		}
+	}
+}
+
+OnGhostChanged //After switching
+{
+	"\1\s[-1]\0\s[0]"
+	--
+	if reference0 == "Lulo" //Finished reloading
+	{
+		NowPlaying[0] = IARRAY //song name
+		NowPlaying[1] = 0 //song position
+		
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1104]Done!\e"
+		}
+		elseif nowmode == "Asleep"
+		{
+			"\0%(b)\s[2000]* (Done.)\e"
+		}
+		else //Sleepy
+		{
+			"\0%(b)\s[0]...done.\e"
+		}
+	}
+	else
+	{
+		BootVars
+		_timesince = FUNCTIONEX("time_check.dll","how_many_days",lastclosed[0],lastclosed[1],lastclosed[2],0,0,0)//lastclosed[3],lastclosed[4],lastclosed[5] if you want the hours/minutes/seconds
+		_timesince *= -1 //Multiply it by -1 to get rid of the negative sign, or to add one if the user traveled back in time.
+		
+		if _timesince >= 90 //If it's been 3 months or more since you opened them, it'll do the 'wow it's been a long time' dialogue instead of switching dialogue. You can change this if you like!
+		{
+			TimeBoot
+		}
+		else
+		{
+			if RAND(100) == 99
+			{
+				nowmode = "Awake"
+				
+				"\0%(b)\s[1110]Oh,\w4\s[1111] done hanging out with %(reference0)?\w8\w8\s[1104] Ok.\e"
+			}
+			else
+			{
+				//Asleep
+				{
+					"\0%(b)\s[2000]...%(mumble)...\w8\w8\n\n* (Looks like she's asleep,\w4 she probably didn't notice %(reference0) leaving...)\e:eval=nowmode='Asleep'"
+				}
+				//Sleepy
+				{
+					_ghost = TOLOWER(reference0)
+					
+					"\0%(b)\s[112]...oh,\w4 cya %(_ghost)...\e"
+				}
+			}
+		}
+	}
+}
+
+OnShellChanging //Starting to change the shell
+{
+	"\![get,property,OnGetCoords,currentghost.scope(0).rect]" //This gets the current ghost coordinates so that they don't jump around the screen when they change shells
+	--
+	if reference0 == nowshell
+	{
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1113]Um,\w4 alright?"
+		}
+		else
+		{
+			if nowmode == "Asleep"
+			{
+				"%(wakeup)"
+			}
+			--
+			"\0\b[0]\s[106]...i'm already wearing that..?"
+		}
+	}
+	elseif reference0 == "Default Shell"
+	{
+		if nowmode == "Awake"
+		{
+			"\0%(b)\s[1104]Ok,\w4 back to the default."
+		}
+		else
+		{
+			if nowmode == "Asleep"
+			{
+				"%(wakeup)"
+			}
+			--
+			"\0\b[0]\s[105]...default shell..."
+		}
+	}
+	--
+	"\w8\w8\e"
+}
+
+OnShellChanged //After the shell has changed
+{
+	if booting != 2
+	{
+		"\![move,--X=%(shellcoord[0]),--Y=%(shellcoord[1]),--base=primaryscreen]\1\s[-1]\0\s[0]"
+		--
+		if reference0 == nowshell && booting != 2
+		{
+			if nowmode == "Awake"
+			{
+				"\0%(b)\s[1113]...Done.\e"
+			}
+			else //Sleepy
+			{
+				"\0%(b)\s[107]...\e"
+			}
+		}
+		elseif reference0 == "Default Shell"
+		{
+			nowshell = "Default Shell"
+			
+			if nowmode == "Awake"
+			{
+				"\0%(b)\s[1104]Done!\e"
+			}
+			else //Sleepy
+			{
+				"\0%(b)\s[105]...done.\e"
+			}
+		}
+	}
+	else
+	{
+		"\![raise,OnUpdateComplete]"
+	}
+}
+
+OnGetCoords //This gets the x and y coordinates
+{
+	shellcoord[0] = reference0[0]
+	shellcoord[1] = reference0[1]
+}
+
+BootVars
+{
+	lastTalk = ""
+	passsec = 0
+	passmin = 0
+	passhour = 0
+	AutoUpdateCheck = 0
+	weatherquiet = 2 //Setting this to 2 so that within a few minutes of opening they do a weather check
+	nowmode = "Sleepy"
+	totalboots++
+	booting = 0
+	TodaysActions = IARRAY
+	NowPlaying[0] = IARRAY //song name
+	NowPlaying[1] = 0 //song position
+	NowPlaying[2] = IARRAY //Paused song, if any
+	
+	templocation = ""
+	locationcode = ""
+	tempurature = ("Unknown","0","0")
+	ForC = "Unknown"
+	feelslike = ("Unknown","0","0")
+	humidity = "Unknown"
+	wind = "Unknown"
+	weather = "Unknown"
+	pollen = ""
+	sunrise = "Unknown"
+	sunset = "Unknown"
+	phase = "Unknown"
+	sunset = "Unknown"
+	sunrise = "Unknown"
+}
+
+FirstBootVars
+{
+	lastTalk = ""
+	passsec = 0
+	passmin = 0
+	passhour = 0
+	totalhours = 0
+	nowshell = "Default Shell"
+	username = "--"
+	userprop = "--"
+	heshe = "they"
+	himher = "them"
+	hisher = "their"
+	hesshes = "they're"
+	birthdayprint = "???"
+	talkrate = "every 5 minutes"
+	aitalkinterval = 300
+	stroke = 0
+	pethighscore = 0
+	deleteshitai = "Off"
+	AutoUpdateCheck = 0
+	AutoUpdates = "Off"
+	updateavailable = 0
+	firstbooted = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)") //This tracks the exact day and time the ghost was installed
+	totalboots = 1
+	booting = 1 //This will be set to 0 after firstboot is complete
+	
+	//---0.0.1---
+	//Really important ones
+	nowmode = "Sleepy"
+	friendship = 0
+	DP = 0
+	
+	//Arrays
+	MiscFlags = IARRAY
+	CurrentPlaylist = IARRAY
+	ShuffledPlaylist = IARRAY
+	NowPlaying[0] = IARRAY //song name
+	NowPlaying[1] = 0 //song position
+	NowPlaying[2] = IARRAY //Paused song, if any
+	MusicSettings = ("100","100","0","loop playlist")
+	TodaysActions = IARRAY
+	PurchasedShirts = IARRAY
+	PurchasedPants = IARRAY
+	PurchasedBlankets = IARRAY
+	PurchasedPlushes = IARRAY
+	PurchasedHats = IARRAY
+	PurchasedSocks = IARRAY
+	PurchasedConsumables = IARRAY
+	Dressups = ("Default Sweater","Default Slacks","","","","")
+	Family = (0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+	MetGhosts = IARRAY
+	
+	
+	//Ghosts she knows, these arent' in MetGhosts because I might do more than 1 and 0 with them
+	TalkedToS = 0
+	TalkedToDusty = 0
+	TalkedToCambria = 0
+	
+	//Weather variables. Could possibly make an array... Mm.
+	templocation = ""
+	locationcode = ""
+	tempurature = ("Unknown","0","0")
+	ForC = "Unknown"
+	feelslike = ("Unknown","0","0")
+	humidity = "Unknown"
+	wind = "Unknown"
+	weather = "Unknown"
+	pollen = ""
+	sunrise = "Unknown"
+	sunset = "Unknown"
+	phase = "Unknown"
+	sunset = "Unknown"
+	sunrise = "Unknown"
+	
+	//Sleep variables, likely to change in the future
+	sleepymod = 0
+	sleepPetMod = 0
+	sleepyrand = 0
+	sleepmin = 0
+	sleephour = 0
+	wakemin = 0
+	wakehour = 0
+	
+	//Individual counters, mostly used in the Check function for silliness
+	checked = 0
+	confided = 0
+	gushed = 0
+	joked = 0
+	totalpets = 0
+	totalboops = 0
+	totalhugs = 0
+	totalread = 0
+	totalsangfor = 0
+	changedclothes = 0
+	showedproject = 0
+	addedsongs = 0
+	checkedweather = 0
+	journalssaved = 0
+	
+	//Some misc stuff
+	continuousstroke = 0
+	showingproject = 0
+	currentpetstreak = 0
+	toppetstreak = 0
+	JournalSort = "Newest to oldest"
+	JournalPage = 1
+	reading = 0 //How long the user has been reading for
+	AutoWeather = "Off"
+}

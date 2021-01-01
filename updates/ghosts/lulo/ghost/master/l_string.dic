@@ -1,0 +1,258 @@
+//Original string.dic written by umeici
+
+On_username
+{
+	username
+}
+
+On_homeurl
+{
+	if betaTester == "ON"
+	{
+		"https://zichqec.github.io/s-the-skeleton/updates/beta_testing/lulo/"
+	}
+	else
+	{
+		"https://zichqec.github.io/s-the-skeleton/updates/ghosts/lulo/"
+	}
+}
+
+On_recommendrootbutton.caption //Change to your username
+{
+	"More from Zichqec"
+}
+
+On_sakura.recommendsites
+{
+	"Zi's Ukagaka Hub"
+	--
+	"%ASC(1)https://zichqec.github.io/s-the-skeleton/index.html%ASC(2)"
+	--
+	"Lulo on Toyhouse"
+	--
+	"%ASC(1)https://toyhou.se/5587547.lulo%ASC(2)"
+	--
+ 	"Zichqec's DA"
+	--
+	"%ASC(1)https://www.deviantart.com/zichqec%ASC(2)"
+	--
+	"Zichqec's Tumblr"
+	--
+	"%ASC(1)https://www.zichqec.tumblr.com%ASC(2)"
+	--
+	"Zichqec's Twitter"
+	--
+	"%ASC(1)https://twitter.com/Zichqec%ASC(2)"
+}
+ 
+On_portalrootbutton.caption
+{
+	"Reference Sites"
+}
+
+On_sakura.portalsites //You can make these anything you like. I've set them to link to my template, Zarla's template, and anything else helpful for making ghosts.
+{
+	"Built on X. Template YAYA (Beta ver)"
+	--
+	"%ASC(1)https://zichqec.github.io/s-the-skeleton/xtemplate.html%ASC(2)"
+	--
+	"Zarla's Ghost Template Walkthrough"
+	--
+	"%ASC(1)http://www.ashido.com/ukagaka/walkthrough.html%ASC(2)"
+	--
+	"SSP"
+	--
+	"%ASC(1)http://ssp.shillest.net/%ASC(2)"
+	--
+	"SSP Wiki (Translated)"
+	--
+	"%ASC(1)https://translate.google.com/translate?hl=&sl=ja&tl=en&u=http%3A%2F%2Fssp.shillest.net%2Fukadoc%2Fmanual%2Flist_sakura_script.html%ASC(2)"
+	--
+	"YAYA Wiki (Translated)"
+	--
+	"%ASC(1)https://translate.google.com/translate?hl=&sl=ja&tl=en&u=http%3A%2F%2Femily.shillest.net%2Fayaya%2F%3FFrontPage%ASC(2)"
+	--
+	"Crow + SSP Reference (J)"
+	--
+	"%ASC(1)http://crow.aqrs.jp/reference/all/index.html%ASC(2)"
+	--
+	"Ghost Documentation (J)"
+	--
+	"%ASC(1)http://usada.sakura.vg/contents/specification.html%ASC(2)"
+}
+ 
+On_kero.recommendbuttoncaption
+{
+	"More websites"
+}
+
+On_kero.recommendsites
+{
+	"Github Pages"
+	--
+	"%ASC(1)https://pages.github.com/%ASC(2)"
+	--
+	"w3 schools"
+	--
+	"%ASC(1)https://www.w3schools.com/%ASC(2)"
+}
+
+On_dressuprootbutton.visible
+{
+	0
+}
+
+On_updatebutton.caption
+{
+	"Check for updates"
+}
+
+On_dressuprootbutton.caption
+{
+	"Accessories"
+}
+
+On_headlinesenserootbutton.caption
+{
+	"Headlines and RSS"
+}
+
+On_readmebutton.caption
+{
+	"Readme"
+}
+
+On_vanishbutton.caption
+{
+	"Uninstall"
+}
+
+On_shellrootbutton.caption
+{
+	"Change Shell"
+}
+
+On_ghostrootbutton.caption
+{
+	"Change Ghost"
+}
+
+On_callghostrootbutton.caption
+{
+	"Call Ghost"
+}
+
+On_quitbutton.caption
+{
+	"Quit"
+}
+
+On_hidebutton.caption //default is 'Iconify'
+{
+	"Minimize"
+}
+
+On_calendarbutton.caption //The default right click menu has this typoed as 'Calender'
+{
+	"Calendar"
+}
+
+//-----Don't touch these-----
+
+//---- 소멸 지시 버튼 표시 교체 -------------------------------------------------------
+On_vanishbutton.visible
+ {
+ 	if deleteshitai == "On"
+ 	{
+		"1"
+	}
+	else
+	{
+		"0"
+	}
+}
+
+//---- 딳벍뭷궻뫜궻긕?긚긣뼹롦벦 -------------------------------------------------------
+On_otherghostname
+{
+	ghostexlist = ""
+	_i = 0
+	while _i >= 0 {
+		_ghostname = NAMETOVALUE("reference%_i")
+		if _ghostname != "" {
+			if _i > 0; ghostexlist += ","
+			ghostexlist += _ghostname[0]
+			_i++
+		}
+		else; _i = -1
+	}
+	ghostexcount = ARRAYSIZE(ghostexlist)
+}
+
+/*OnCheckInstalledGhosts
+{
+	installedlist = ""
+	_i = 0
+	while _i >= 0 {
+		_ghostname = NAMETOVALUE("reference%_i")
+		if _ghostname != "" {
+			if _i > 0; installedlist += ","
+			installedlist += _ghostname[0]
+			_i++
+		}
+		else; _i = -1
+	}
+	installedcount = ARRAYSIZE(installedlist)
+}*/
+
+On_installedballoonname
+{
+	balloonlist = ""
+	_i = 0
+	while _i >= 0 {
+		_ghostname = NAMETOVALUE("reference%_i")
+		if _ghostname != "" {
+			if _i > 0; balloonlist += ","
+			balloonlist += _ghostname[0]
+			_i++
+		}
+		else; _i = -1
+	}
+	ballooncount = ARRAYSIZE(balloonlist)
+}
+
+//---- SHIORI 듫쁀륃뺪 ------------------------------------------------------------------
+On_version
+{
+	GETSETTING(AYAINFO_VERSION)
+}
+
+On_craftman
+{
+	"umeici"
+}
+
+On_craftmanw
+{
+	"?럖"
+}
+
+On_name
+{
+	"AYA"
+}
+
+//---- Owned SSTP 뾭 uniqueid 롦벦 ------------------------------------------------------
+On_uniqueid
+{
+	uniqueid = reference0
+}
+
+//---- hwnd 롦벦 ------------------------------------------------------------------------
+On_hwnd
+{
+	sakurahwnd    = reference0[0]
+	kerohwnd      = reference0[1]
+	sakurablnhwnd = reference1[0]
+	keroblnhwnd   = reference1[1]
+}

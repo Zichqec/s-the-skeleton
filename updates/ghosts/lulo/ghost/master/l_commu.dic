@@ -1,0 +1,389 @@
+OnCommunicate
+{
+	if reference0 == "user" || reference0 == "User"
+ 	{
+		//Answering the user - I've removed the function that goes along with this because it doesn't link to anything.
+	}
+ 	else
+	{
+ 		//Answering another ghost
+		/*_b = BalloonCheck
+		if _b == 1 && "\![commu]" !_in_ CurrentTalk
+		{
+			waitingcommu[0] = reference0
+			waitingcommu[1] = reference1
+		}
+		else
+		{
+			if reference0 == "|-|waitingcommu|-|"
+			{
+				reference0 = waitingcommu[0]; waitingcommu[0] = ""
+				reference1 = waitingcommu[1]; waitingcommu[1] = ""
+			}
+			--*/
+			ReplyToGhost
+		//}
+ 	}
+}
+
+OnBalloonClose
+{
+	if waitingcommu[0] != ""; WaitingCommu
+}
+
+OnBalloonBreak
+{
+	if waitingcommu[0] != ""; WaitingCommu
+}
+
+OnBalloonTimeout
+{
+	if waitingcommu[0] != ""; WaitingCommu
+}
+
+WaitingCommu
+{
+	"\![raise,OnCommunicate,|-|waitingcommu|-|]"
+}
+
+//This is your ghost starting a conversation with another ghost. It will choose a random one from the currently open ghosts.
+OnStartTalking
+{
+	"\![commu]"
+	--
+	if nowmode == "Asleep"
+	{
+		"\0%(b)\s[2000]* (She's asleep,\w4 she can't talk to anyone right now.)\e"
+	}
+	else
+	{
+		AlreadyResponded = 1
+		if ghostexcount > 0
+		{
+			_num = RAND(ghostexcount)
+			_ghost = "%(ghostexlist[_num])"
+			--
+			//Checks for the Sakura name
+			case _ghost
+			{
+				when "Girlaaaaaaaaaaaaaaaaaq" //Known ghosts, add as many whens as needed.
+				{
+					res_reference0 = "Girl"
+					
+					"\0\s[0]Hello Girl!\w8\w8 Hello Triangle!\w8\w8\e GirlTriangleHello01"
+					"\0\s[0]Hi Girl!\w8\w8 How are you,\w4 Triangle?\w8\w8\e GirlTriangleHello03"
+				}
+				/*when "RYS-0825"
+				{
+					ConvoTag = "ExampleA_L1"
+					--
+					"%(DustySLulo)"
+				}*/
+				others //Ghosts there is no specific response to.
+				{
+					res_reference0 = _ghost
+					
+					AlreadyResponded = 1
+					
+					if nowmode == "Awake"
+					{
+						"\0%(b)\s[1104]Hey there,\w4 %(_ghost)!\w8\w8\e"
+					}
+					else //Sleepy
+					{
+						_lower = TOLOWER(_ghost)
+						
+						"\0%(b)\s[0]...hey,\w4 %(_lower)...\w8\w8\e"
+					}
+				}
+			}
+		}
+		else //If no ghosts are open.
+		{
+			if nowmode == "Awake"
+			{
+				"\0%(b)\s[1106]Um,\w4 nobody else is here...\e"
+			}
+			else //Sleepy
+			{
+				"\0%(b)\s[107]...nobody else is here...\e"
+			}
+		}
+	}
+}
+
+ReplyToGhost //This is your ghost receiving a communication.
+{
+	_Speech = SPLIT(reference1,"\e")[0] //Everything the ghost said that the user can see
+	ConvoTag = SPLIT(reference1,"\e")[1] //Everything after the \e, which will be the invisible tags that track the conversation
+	_Last = SPLIT(reference1,"::")[1] //Ghosts using the reflect system send ":%(_Speech)" at the end of every communication, so _Last is what THIS ghost last said. See below.
+	
+	_Last = RemovePauses(_Last) //removes any \w tags and quicksection tags
+	"\![commu]" //tag for noninterrupting system; shouldn't show in dialogue
+	--
+	if nowmode == "Asleep"
+	{
+		res_reference0 = ""
+		
+		"\0%(b)\s[2000]* (She's too deeply asleep to notice %(reference0)...)\e"
+		"\0%(b)\s[2000]* (She's asleep,\w4 she doesn't notice %(reference0)...)\e"
+		"\0%(b)\s[2000]...%(mumble)...\w8\w8\n\n* (She's too asleep to respond...)\e"
+	}
+	else
+	{
+		if "Dusty-S-Lulo" _in_ ConvoTag //3 way convos
+		{
+			"%(DustySLulo)"
+		}
+		else
+		{
+			case reference0
+			{
+				when "RYS-0825"
+				{
+					"\![quicksection,true]%(_Last)\![quicksection,false]"
+					--
+					"%(TalkToS)"
+					--
+					"::%(_Speech)" //Only add this for ghosts that use the reflect system
+				}
+				when "Dusty"
+				{
+					/*if "CanYouHoldObsidian? 0" _in_ reference1 //Respond to Dusty's ping
+					{
+						res_reference0 = "Dusty"
+						
+						"\e ICanHoldObsidian,0"
+					}
+					elseif "LuloPickupObsidian02" _in_ reference1 //Actually picking her up
+					{
+						res_reference0 = "Dusty"
+						holdingObsidian = 1
+						
+						"\0\s[0]Aw, hello Obsidian.\w8\w8\e LuloPickupObsidian03"
+					}
+					elseif "LuloPickupObsidian04" _in_ reference1 //Response to Dusty's comment
+					{
+						res_reference0 = ""
+						
+						"\0\s[0]She's so cute, I don't mind.\e"
+					}
+					elseif "LuloObsiJumpDown03" _in_ reference1 //Commenting on Obsidian leaving
+					{
+						res_reference0 = ""
+						
+						"\0\s[0]Aw, bye Obsidian.\e"
+					}
+					elseif "DustyMinimizedLulo" _in_ reference1 //Dusty was minimized
+					{
+						res_reference0 = ""
+						holdingObsidian = 0
+						
+						"\0\s[0]* (Obsidian disappears into the taskbar with Dusty.)\w8\w8\n\nAw...\e"
+					}
+					elseif "Lulo,0ObsiJumpDown01" _in_ reference1
+					{
+						"\0\s[0]\![get,property,OnObsidianJumpDown,currentghost.scope(0).rect]"
+					}*/
+					if nowmode == "Awake"
+					{
+						"\0%(b)\s[1104]Hi,\w4 Dusty!\e"
+					}
+					else //Sleepy
+					{
+						"\0%(b)\s[0]...hey,\w4 dusty...\e"
+					}
+				}
+				others //Responses to unknown ghosts. AlreadyResponded keeps them from getting stuck in a loop.
+				{
+					if AlreadyResponded == 0
+					{
+						AlreadyResponded = 1
+						
+						if nowmode == "Awake"
+						{
+							res_reference0 = reference0
+							
+							"\0%(b)\s[1104]Hey there,\w4 %(reference0)!\w8\w8\e"
+						}
+						elseif nowmode == "Asleep"
+						{
+							res_reference0 = ""
+							
+							"\0%(b)\s[2000]* (She's too asleep to notice...)\e"
+						}
+						else //Sleepy
+						{
+							res_reference0 = reference0
+							_lower = TOLOWER(reference0)
+							
+							"\0%(b)\s[0]...hey,\w4 %(_lower)...\w8\w8\e"
+						}
+					}
+					else
+					{
+						AlreadyResponded = 0
+						res_reference0 = ""
+						
+						if nowmode == "Awake"
+						{
+							"\0%(b)\s[1000]How are you?\w8\w8\e"
+						}
+						elseif nowmode == "Asleep"
+						{
+							"\0%(b)\s[2000]* (She continues sleeping,\w4 unaware...)\e"
+						}
+						else //Sleepy
+						{
+							"\0%(b)\s[0]...hope you're doing well...\w8\w8\e"
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+TalkToS
+{
+	if "commuchain1b" _in_ ConvoTag
+	{
+		res_reference0 = ""
+		
+		"\n\nEnd of part 1\e"
+	}
+	elseif "commuchain2b" _in_ ConvoTag
+	{
+		res_reference0 = ""
+		
+		"\n\nEnd of part 2\e"
+	}
+	elseif "commuchain3b" _in_ ConvoTag
+	{
+		res_reference0 = ""
+		
+		"\n\nEnd of part 3\e"
+	}
+	elseif "commuchain4b" _in_ ConvoTag
+	{
+		res_reference0 = ""
+		
+		"\n\nEnd of part 4\e"
+	}
+	else
+	{
+		"hey dad\e"
+	}
+}
+
+StartThreeWay
+{
+	ConvoTag = "ExampleA_L1"
+	--
+	"%(DustySLulo)"
+	//res_reference0 = "RYS-0825"
+	//"\0%(b)%(_reply1)\e Dusty-S-Lulo_ExampleA_S1"
+	
+}
+
+DustySLulo //3 way conversations between Dusty, S, and Lulo
+{
+	if "ExampleA" _in_ ConvoTag
+	{
+		_reply1 = "\s[1104]This is my first dialogue.\w8\w8 It includes pauses,\w4\s[1208] and surface changes.\w8\w8"
+		_reply2 = "\n\n\s[1000]This is my first response,\w4 after S and Dusty have spoken.\w8\w8\s[1205] Hi guys.\w8\w8"
+		_reply3 = "\n\n\s[1102]This is my final word,\w4 the conversation will pass to S again and then end.\w8\w8"
+		
+		if "_L1" _in_ ConvoTag //This probably wont be used, but I still need the reply1 stuff in here
+		{
+			res_reference0 = "RYS-0825"
+			"\0%(b)%(_reply1)\e Dusty-S-Lulo_ExampleA_S1"
+		}
+		elseif "_L2" _in_ ConvoTag
+		{
+			res_reference0 = "Dusty"
+			"\_q\0%(b)%(RemovePauses(_reply1))\_q"
+			--
+			"%(_reply2)\e Dusty-S-Lulo_ExampleA_D2"
+		}
+		elseif "_L3" _in_ ConvoTag
+		{
+			res_reference0 = "RYS-0825"
+			"\_q\0%(b)%(RemovePauses(_reply1))%(RemovePauses(_reply2))\_q"
+			--
+			"%(_reply3)\e Dusty-S-Lulo_ExampleA_S3"
+		}
+		else
+		{
+			res_reference0 = ""
+			"Something went wrong,\w4 you've hit an else."
+		}
+	}
+}
+
+RemovePauses //Removes \w tags and quicksection tags
+{
+	_argv[0] = REPLACE(_argv[0],"\![quicksection,true]","")
+	_argv[0] = REPLACE(_argv[0],"\![quicksection,false]","")
+	_argv[0] = REPLACE(_argv[0],"\w9","")
+	_argv[0] = REPLACE(_argv[0],"\w8","")
+	_argv[0] = REPLACE(_argv[0],"\w7","")
+	_argv[0] = REPLACE(_argv[0],"\w6","")
+	_argv[0] = REPLACE(_argv[0],"\w5","")
+	_argv[0] = REPLACE(_argv[0],"\w4","")
+	_argv[0] = REPLACE(_argv[0],"\w3","")
+	_argv[0] = REPLACE(_argv[0],"\w2","")
+	_argv[0] = REPLACE(_argv[0],"\w1","")
+	_argv[0]
+}
+
+
+
+
+
+
+
+
+OnObsidianJumpDown
+{
+    res_reference0 = "Dusty"
+    _XCoord = TOINT(reference0[0])
+    _XCoord -= 10
+    _YCoord = TOINT(reference0[3])
+    "\0\s[0]\e LuloObsiJumpDown02,%(_XCoord),%(_YCoord) Right\e"
+    "\0\s[0]\e LuloObsiJumpDown02,%(_XCoord),%(_YCoord) Left\e"
+}
+
+OnOtherGhostChanged
+{
+	if holdingObsidian == 1
+	{
+		if reference0 == "Dusty"
+		{
+			holdingObsidian = 0
+			"\0\s[0]Oh, just a moment Dusty!\s[-1]\w8\w8\w8\w8\s[0] Can't just leave Obsidian here.\e"
+		}
+	}
+}
+
+OnOtherGhostClosed
+{
+	if holdingObsidian == 1
+	{
+		if reference0 == "Dusty"
+		{
+			holdingObsidian = 0
+			"\0\s[0]Oh, just a moment Dusty!\s[-1]\w8\w8\w8\w8\s[0] Can't just leave Obsidian here.\e"
+		}
+	}
+}
+
+OnWindowStateMinimize
+{
+    if holdingObsidian == 1
+    {
+        res_reference0 = "Dusty"
+        holdingObsidian = 0
+        "\e LuloObsiMinimize"
+    }
+}

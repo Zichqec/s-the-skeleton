@@ -1,0 +1,70 @@
+charset,UTF-8
+version,1
+option,DisableNoDefineSurfaces
+
+group,Sleepy
+{
+	scope,0
+	
+	0,Neutral
+	102,Content
+	103,Smile
+	105,Look Left
+	106,Sleepy
+	107,Sigh
+	108,Frown
+	109,Frown Left
+	111,Interested
+	112,Think Neutral
+	113,Think Frown
+	
+	200,Away
+	204,Regret
+	205,Daydream
+	206,Think Frown
+	208,Think Neutral
+	
+	300,Blip in
+	
+	400,mp3 forward
+	401,mp3 down
+	402,mp3 content
+	407,mp3 sigh
+	411,mp3 interested
+}
+
+group,Awake
+{
+	1000,Neutral
+	1102,Content
+	1104,Grin
+	1106,Nervous
+	1107,Good Sigh
+	1108,Concern
+	1109,Concern Sigh
+	1110,Mild Surprise
+	1111,Interested
+	1112,Think Left Smile
+	1113,Think Left Nervous
+	
+	1204,Regret
+	1205,Daydream
+	1206,Think Concern
+	1208,Think Smile
+	
+	1300,Blip in
+	
+	1400,mp3 forward
+	1401,mp3 down
+	1404,mp3 smile
+	1406,mp3 sweat smile
+	1407,mp3 sigh
+	1410,mp3 mild surprise
+}
+
+group,Asleep
+{
+	2000,Neutral
+	2001,Frown
+	2002,Smile
+}

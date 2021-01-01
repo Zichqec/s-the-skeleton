@@ -1,0 +1,584 @@
+OnTranslate
+{
+	_talk = reference0
+	
+	_talk = REPLACE(_talk, "* (", "\__v[disable]*\__v (")
+	
+	/*if userpronounce != "" && "---Config---" !_in_ _talk //Too dangerous
+	{
+		_talk = REPLACE(_talk,username,"\__v[alternate,%(userpronounce)]%(username)\__v")
+		_talk = REPLACE(_talk,userprop,"\__v[alternate,%(userpronounce)]%(userprop)\__v")
+	}*/
+	_talk = REPLACE(_talk, "andad", "\_a[FA-s]dad\_a")
+	
+	//Family members
+	if nowmode == "Awake"
+	{
+		_talk = REPLACE(_talk, "Zichqec", "\_a[https://zichqec.github.io/s-the-skeleton/index.html]Zichqec\_a")
+		_talk = REPLACE(_talk, "anGrandpa", "\_a[FAwd]Grandpa\_a")
+		_talk = REPLACE(_talk, "anUncle", "\_a[FAdings]Uncle\_a")
+		_talk = REPLACE(_talk, "anAunt", "\_a[FAwings]Aunt\_a")
+		_talk = REPLACE(_talk, "anGrandma", "\_a[FAbarcode]Grandma\_a")
+		_talk = REPLACE(_talk, "anDad", "\_a[FA-s]Dad\_a")
+		_talk = REPLACE(_talk, "anStepdad", "\_a[FAbluejeans]Stepdad\_a")
+		_talk = REPLACE(_talk, "anBlue", "\_a[FAbluejeans]Blue\_a")
+		_talk = REPLACE(_talk, "anAbbi", "\_a[FAabbi]Abbi\_a")
+		_talk = REPLACE(_talk, "anRosie", "\_a[FArosie]Rosie\_a")
+		_talk = REPLACE(_talk, "anRoman", "\_a[FAroman]Roman\_a")
+		_talk = REPLACE(_talk, "anCambria", "\_a[FAcambria]Cambria\_a")
+		_talk = REPLACE(_talk, "anBigSister", "\_a[FAcambria]big sister\_a")
+		_talk = REPLACE(_talk, "anTriton", "\_a[FAtriton]Triton\_a")
+		_talk = REPLACE(_talk, "anAzo", "\_a[FAazo]Azo\_a")
+		_talk = REPLACE(_talk, "anSigil", "\_a[FAsigil]Sigil\_a")
+		_talk = REPLACE(_talk, "anElko", "\_a[FAelko]Elko\_a")
+	}
+	else
+	{
+		_talk = REPLACE(_talk, "Zichqec", "\_a[https://zichqec.github.io/s-the-skeleton/index.html]zichqec\_a")
+		_talk = REPLACE(_talk, "anGrandpa", "\_a[FAwd]grandpa\_a")
+		_talk = REPLACE(_talk, "anUncle", "\_a[FAdings]uncle\_a")
+		_talk = REPLACE(_talk, "anAunt", "\_a[FAwings]aunt\_a")
+		_talk = REPLACE(_talk, "anGrandma", "\_a[FAbarcode]grandma\_a")
+		_talk = REPLACE(_talk, "anDad", "\_a[FA-s]dad\_a")
+		_talk = REPLACE(_talk, "anStepdad", "\_a[FAbluejeans]stepdad\_a")
+		_talk = REPLACE(_talk, "anBlue", "\_a[FAbluejeans]blue\_a")
+		_talk = REPLACE(_talk, "anAbbi", "\_a[FAabbi]abbi\_a")
+		_talk = REPLACE(_talk, "anRosie", "\_a[FArosie]rosie\_a")
+		_talk = REPLACE(_talk, "anRoman", "\_a[FAroman]roman\_a")
+		_talk = REPLACE(_talk, "anCambria", "\_a[FAcambria]cambria\_a")
+		_talk = REPLACE(_talk, "anBigSister", "\_a[FAcambria]big sister\_a")
+		_talk = REPLACE(_talk, "anTriton", "\_a[FAtriton]triton\_a")
+		_talk = REPLACE(_talk, "anAzo", "\_a[FAazo]azo\_a")
+		_talk = REPLACE(_talk, "anSigil", "\_a[FAsigil]sigil\_a")
+		_talk = REPLACE(_talk, "anElko", "\_a[FAelko]elko\_a")
+	}
+	
+	//Choice markers in the family menu - These all have 'Familymenu' on the end so that it'll add an 'ask about someone else' at the bottom of the text. That way, if you click on an anchor when he's just talking randomly, it wont take you back to the menu because that'd be weird, but if you click on an anchor in the family menu it'll take you back to the family menu. Not super important, but.... QoL yknow?
+	_talk = REPLACE(_talk, "anIWD", "\_a[FAwdFamilymenu]\![*]\_a")
+	_talk = REPLACE(_talk, "anIDings", "\_a[FAdingsFamilymenu]\![*]\_a")
+	_talk = REPLACE(_talk, "anIWings", "\_a[FAwingsFamilymenu]\![*]\_a")
+ 	_talk = REPLACE(_talk, "anIBarcode", "\_a[FAbarcodeFamilymenu]\![*]\_a")
+	_talk = REPLACE(_talk, "anI-S", "\_a[FA-sFamilymenu]\![*]\_a")
+	_talk = REPLACE(_talk, "anIBlue", "\_a[FAbluejeansFamilymenu]\![*]\_a")
+	_talk = REPLACE(_talk, "anIBluJeans", "\_a[FAbluejeansFamilymenu]\![*]\_a")
+	_talk = REPLACE(_talk, "anIAbbi", "\_a[FAabbiFamilymenu]\![*]\_a")
+	_talk = REPLACE(_talk, "anIRosie", "\_a[FArosieFamilymenu]\![*]\_a")
+	_talk = REPLACE(_talk, "anIRoman", "\_a[FAromanFamilymenu]\![*]\_a")
+	_talk = REPLACE(_talk, "anICambria", "\_a[FAcambriaFamilymenu]\![*]\_a")
+	_talk = REPLACE(_talk, "anITriton", "\_a[FAtritonFamilymenu]\![*]\_a")
+ 	_talk = REPLACE(_talk, "anIAzo", "\_a[FAazoFamilymenu]\![*]\_a")
+	_talk = REPLACE(_talk, "anISigil", "\_a[FAsigilFamilymenu]\![*]\_a")
+	_talk = REPLACE(_talk, "anIElko", "\_a[FAelkoFamilymenu]\![*]\_a")
+	
+	//Proper names, but being accessed through the family menu. They also have the 'Ask about someone else' button on the end of em. I don't need all of these, but I might as well be thorough...
+	
+	if nowmode == "Awake"
+	{
+		_talk = REPLACE(_talk, "anMGrandpa", "\_a[FAwdFamilymenu]Grandpa\_a")
+		_talk = REPLACE(_talk, "anMUncle", "\_a[FAdingsFamilymenu]Uncle\_a")
+		_talk = REPLACE(_talk, "anMAunt", "\_a[FAwingsFamilymenu]Aunt\_a")
+		_talk = REPLACE(_talk, "anMGrandma", "\_a[FAbarcodeFamilymenu]Grandma\_a")
+		_talk = REPLACE(_talk, "anMDad", "\_a[FA-sFamilymenu]Dad\_a")
+		_talk = REPLACE(_talk, "anMdad", "\_a[FA-sFamilymenu]dad\_a")
+		_talk = REPLACE(_talk, "anM-S", "\_a[FA-sFamilymenu]S\_a")
+		_talk = REPLACE(_talk, "anMBlue", "\_a[FAbluejeansFamilymenu]Blue\_a")
+		_talk = REPLACE(_talk, "anMBluJeans", "\_a[FAbluejeansFamilymenu]Blue Jeans\_a")
+		_talk = REPLACE(_talk, "anMAbbi", "\_a[FAabbiFamilymenu]Abbi\_a")
+		_talk = REPLACE(_talk, "anMRosie", "\_a[FArosieFamilymenu]Rosie\_a")
+		_talk = REPLACE(_talk, "anMRoman", "\_a[FAromanFamilymenu]Roman\_a")
+		_talk = REPLACE(_talk, "anMCambria", "\_a[FAcambriaFamilymenu]Cambria\_a")
+		_talk = REPLACE(_talk, "anMTriton", "\_a[FAtritonFamilymenu]Triton\_a")
+		_talk = REPLACE(_talk, "anMAzo", "\_a[FAazoFamilymenu]Azo\_a")
+		_talk = REPLACE(_talk, "anMSigil", "\_a[FAsigilFamilymenu]Sigil\_a")
+		_talk = REPLACE(_talk, "anMElko", "\_a[FAelkoFamilymenu]Elko\_a")
+	}
+	else //Sleepy
+	{
+		_talk = REPLACE(_talk, "anMGrandpa", "\_a[FAwdFamilymenu]grandpa\_a")
+		_talk = REPLACE(_talk, "anMUncle", "\_a[FAdingsFamilymenu]uncle\_a")
+		_talk = REPLACE(_talk, "anMAunt", "\_a[FAwingsFamilymenu]aunt\_a")
+		_talk = REPLACE(_talk, "anMGrandma", "\_a[FAbarcodeFamilymenu]grandma\_a")
+		_talk = REPLACE(_talk, "anMDad", "\_a[FA-sFamilymenu]dad\_a")
+		_talk = REPLACE(_talk, "anMdad", "\_a[FA-sFamilymenu]dad\_a")
+		_talk = REPLACE(_talk, "anM-S", "\_a[FA-sFamilymenu]s\_a")
+		_talk = REPLACE(_talk, "anMBlue", "\_a[FAbluejeansFamilymenu]blue\_a")
+		_talk = REPLACE(_talk, "anMBluJeans", "\_a[FAbluejeansFamilymenu]blue jeans\_a")
+		_talk = REPLACE(_talk, "anMAbbi", "\_a[FAabbiFamilymenu]abbi\_a")
+		_talk = REPLACE(_talk, "anMRosie", "\_a[FArosieFamilymenu]rosie\_a")
+		_talk = REPLACE(_talk, "anMRoman", "\_a[FAromanFamilymenu]roman\_a")
+		_talk = REPLACE(_talk, "anMCambria", "\_a[FAcambriaFamilymenu]cambria\_a")
+		_talk = REPLACE(_talk, "anMTriton", "\_a[FAtritonFamilymenu]triton\_a")
+		_talk = REPLACE(_talk, "anMAzo", "\_a[FAazoFamilymenu]azo\_a")
+		_talk = REPLACE(_talk, "anMSigil", "\_a[FAsigilFamilymenu]sigil\_a")
+		_talk = REPLACE(_talk, "anMElko", "\_a[FAelkoFamilymenu]elko\_a")
+	}
+	
+	
+	//Moon phases
+	_talk = REPLACE(_talk, "anMoon01", "\_a[CheckWeather]\_b[img\Moon01,inline,--option=use_self_alpha]\_a")
+	_talk = REPLACE(_talk, "anMoon02", "\_a[CheckWeather]\_b[img\Moon02,inline,--option=use_self_alpha]\_a")
+	_talk = REPLACE(_talk, "anMoon03", "\_a[CheckWeather]\_b[img\Moon03,inline,--option=use_self_alpha]\_a")
+	_talk = REPLACE(_talk, "anMoon04", "\_a[CheckWeather]\_b[img\Moon04,inline,--option=use_self_alpha]\_a")
+	_talk = REPLACE(_talk, "anMoon05", "\_a[CheckWeather]\_b[img\Moon05,inline,--option=use_self_alpha]\_a")
+	_talk = REPLACE(_talk, "anMoon06", "\_a[CheckWeather]\_b[img\Moon06,inline,--option=use_self_alpha]\_a")
+	_talk = REPLACE(_talk, "anMoon07", "\_a[CheckWeather]\_b[img\Moon07,inline,--option=use_self_alpha]\_a")
+	_talk = REPLACE(_talk, "anMoon08", "\_a[CheckWeather]\_b[img\Moon08,inline,--option=use_self_alpha]\_a")
+	_talk = REPLACE(_talk, "anMoon09", "\_a[CheckWeather]\_b[img\Moon09,inline,--option=use_self_alpha]\_a")
+	
+	_talk = REPLACE(_talk, "andad", "\_a[andad]dad\_a")
+	
+	if reference1 == "" && reference2 == "" //If ref2 is blank, it must be coming from an input box, and if ref1 is blank, it's not being sent with a special flag
+	{ //send input box : no event (ref2) , no special flag (ref1)
+		EVAL('"' + REPLACE(_talk,'"','" + CHR(0x22) + "') + '"')
+		//replaces " with """, for... some purpose??? And surrounds it with quotes. But the """ isn't like, just 3 quotes, one of em is a ~fancy~ quote that won't break dialogue. Somehow, this makes envelopes/functions work in script input. I suppose this is why you have to use 'single quotes' instead of "double quotes"
+	}
+    else
+	{ //event result from ghost
+		TOSTR(_talk)
+	}
+	CurrentTalk = reference0
+	
+	//Alternate idea, make OnTranslate control a flag for if you're in the music menu
+}
+
+//As the name implies, this checks if the balloon is currently open or not. This was written by Levidre!
+//To use it I would do this, so you don't have to copy this whole chunk of code:
+//_b = BalloonCheck
+//if _b == 0 //_b will be 0 if the balloon is not open, or 1 if it is open
+BalloonCheck
+{
+	if ASEARCH("Status",var.req.key) != -1
+    {
+        _currentstatus = var.req.value[ASEARCH("Status",var.req.key)]
+        if "balloon" _in_ _currentstatus
+        {
+            1
+        }
+        else
+        {
+            0
+        }
+    }
+}
+
+OnAnchorSelect
+{
+	if "http://" _in_ reference0 || "https://" _in_ reference0 //checking to see if the link is a web address
+	{
+		"\j[%(reference0)]\e"
+	}
+	elseif "FA" _in_ reference0 //Family Anchor. I don't know if I'll have other anchor words, but anything with FA is asking about a family member and should end with the 'I'm done' button
+	{
+		if "wd" _in_ reference0
+		{
+			if Family[0] != 1
+			{
+				Family[0] = 1
+				friendship += smfriendplus
+				DP += smDPplus
+				knowaboutfamily = 1
+			}
+			"%(bb)\_b[img\P00WD.png,centerx,45,--option=use_self_alpha]\n\n\n\n\n\n\n\n\n"
+			--
+			if nowmode == "Awake"
+			{
+				"\s[1104]My grandpa is called WD,\w4\s[1112] but his font is actually Wingdings 1.\w8\w8\s[1104] He's really cool,\w4 he spends a lot of time with us.\w8\w8\s[1206] He's usually the one to take me to the hospital if anMDad isn't home..."
+			}
+			else //Sleepy
+			{
+				"\s[0]...wd's my anMDad's dad...\w8\w8\s[105] his font's wingdings 1,\w4 but everyone calls him wd...\w8\w8\s[103] he's fun,\w4 he does all kinds of stuff with us...\w8\w8\s[112] he also used to dreamwalk,\w4 apparently...\w8\w8\s[0] dunno if he does it anymore,\w4 though..."
+			}
+		}
+		elseif "dings" _in_ reference0
+		{
+			if Family[1] != 1
+			{
+				Family[1] = 1
+				friendship += smfriendplus
+				DP += smDPplus
+				knowaboutfamily = 1
+			}
+			"%(bb)\_b[img\P01Dings.png,centerx,45,--option=use_self_alpha]\n\n\n\n\n\n\n\n\n"
+			--
+			if nowmode == "Awake"
+			{
+				"\s[1000]Dings is my grand uncle,\w4\s[1102] but I usually just call him my uncle since it's shorter.\w8\w8\s[1208] His font is Wingdings 2,\w4 but we never call him that.\w8\w8\s[1107] He doesn't hang out with us much..."
+			}
+			else //Sleepy
+			{
+				"\s[0]...dings's actually my grand uncle...\w8\w8 his font's wingdings 2,\w4 but we call him dings...\w8\w8\s[112] he's kinda grumpy,\w4 and mostly keeps to himself...\w8\w8\s[105] i understand wanting to be alone sometimes,\w4 though..."
+			}
+		}
+		elseif "wings" _in_ reference0
+		{
+			if Family[2] != 1
+			{
+				Family[2] = 1
+				friendship += smfriendplus
+				DP += smDPplus
+				knowaboutfamily = 1
+			}
+			"%(bb)\_b[img\P02Wings.png,centerx,45,--option=use_self_alpha]\n\n\n\n\n\n\n\n\n"
+			--
+			if nowmode == "Awake"
+			{
+				"\s[1104]Wings is my grand aunt,\w4 but I just call her my aunt 'cause it's shorter.\w8\w8\s[1111] She's always busy doing something,\w4\s[1113] usually making sure everyone's taking care of themselves..."
+			}
+			else //Sleepy
+			{
+				"\s[0]...she's my grand aunt,\w4 actually...\w8\w8 her font's wingdings 3,\w4 but she goes by wings...\w8\w8\s[105] she's really smart and brave...\w8\w8\s[112] and she always seems so energetic...\w8\w8\s[0] she's cool..."
+			}
+		}
+		elseif "barcode" _in_ reference0
+		{
+			if Family[3] != 1
+			{
+				Family[3] = 1
+				friendship += smfriendplus
+				DP += smDPplus
+				knowaboutfamily = 1
+			}
+			"%(bb)\_b[img\P03Barcode.png,centerx,45,--option=use_self_alpha]\n\n\n\n\n\n\n\n\n"
+			--
+			if nowmode == "Awake"
+			{
+				"\s[1000]My grandma's name is Barcode.\w8\w8\s[1112] Well,\w4 we all call her that, but her font is actually Free 3 of 9.\w8\w8\s[1111] She's really good with her hands,\w4 she makes all kinds of cool stuff.\w8\w8\s[1104] I should bring some of it here to show you."
+			}
+			else //Sleepy
+			{
+				"\s[0]...barcode's my anMDad's mom...\w8\w8 her font is actually called free 3 of 9,\w4 barcode is a nickname...\w8\w8\s[112] she's really good with her hands,\w4 she builds and repairs all kinds of stuff...\w8\w8 it's cool to watch her work..."
+			}
+		}
+		elseif "FA-s" _in_ reference0 //S
+		{
+			if Family[4] != 1
+			{
+				Family[4] = 1
+				friendship += smfriendplus
+				DP += smDPplus
+				knowaboutfamily = 1
+			}
+			"%(bb)\_b[img\P04S.png,centerx,45,--option=use_self_alpha]\n\n\n\n\n\n\n\n\n"
+			--
+			if SInstalled
+			{
+				if SPresent
+				{
+					if nowmode == "Awake"
+					{
+						"\s[1113]Um,\w4 he's right here,\w4 you can just talk to him."
+					}
+					else //Sleepy
+					{
+						"\s[112]...he's right here,\w4 you can just talk to him..."
+					}
+				}
+				else
+				{
+					if nowmode == "Awake"
+					{
+						"\s[1000]You've met my dad,\w4 his name's S.\w8\w8\s[1104] He's really great,\w4 he has a very big heart.\w8\w8\s[1113] Which is good 'cause there's a lot of us."
+					}
+					else //Sleepy
+					{
+						"\s[0]...you've met my dad,\w4 his name's s...\w8\w8\s[112] he works really hard to take care of us all...\w8\w8\s[0] he does most of the cooking,\w4\s[103] he's the best at it..."
+					}
+				}
+			}
+			else
+			{
+				if nowmode == "Awake"
+				{
+					"\s[1104]\_a[https://zichqec.github.io/s-the-skeleton/s_the_skeleton.html]My dad's name is S.\_a\w8\w8\s[1112] He works really hard to take care of us all and keep us together.\w8\w8\s[1113] I dunno how he does it..."
+				}
+				else //Sleepy
+				{
+					"\s[0]\_a[https://zichqec.github.io/s-the-skeleton/s_the_skeleton.html]...his name's s...\_a\w8\w8\s[112] he works really hard to take care of us all...\w8\w8\s[0] he does most of the cooking,\w4\s[103] he's the best at it..."
+				}
+			}
+			
+		}
+		elseif "bluejeans" _in_ reference0
+		{
+			if Family[5] != 1
+			{
+				Family[5] = 1
+				friendship += smfriendplus
+				DP += smDPplus
+				knowaboutfamily = 1
+			}
+			"%(bb)\_b[img\P05BlueJeans.png,centerx,45,--option=use_self_alpha]\n\n\n\n\n\n\n\n\n"
+			--
+			if nowmode == "Awake"
+			{
+				"\s[1000]Oh,\w4 my step dad is Blue Jeans.\w8\w8\s[1205] He married my anMDad not long ago,\w4 and they seem pretty happy together.\w8\w8\s[1102] He's nice."
+			}
+			else //Sleepy
+			{
+				"\s[112]...his name is blue jeans...\w8\w8\s[105] he and my anMDad got married not long ago...\w8\w8\s[208] they seem happy together..."
+			}
+		}
+		elseif "abbi" _in_ reference0
+		{
+			if Family[6] != 1
+			{
+				Family[6] = 1
+				friendship += smfriendplus
+				DP += smDPplus
+				knowaboutfamily = 1
+			}
+			"%(bb)\_b[img\P06Abbi.png,centerx,45,--option=use_self_alpha]\n\n\n\n\n\n\n\n\n"
+			--
+			if nowmode == "Awake"
+			{
+				"\s[1000]Abbi is my uncle,\w4 but we're pretty close in age so he's more like a brother to me.\w8\w8\s[1104] He's really nice,\w4 I'm glad he lives with us."
+			}
+			else //Sleepy
+			{
+				"\s[0]...he's actually my uncle,\w4 i guess,\w4 but he's not much older than me,\w4 so he's more like a brother...\w8\w8\s[111] we get along pretty well..."
+			}
+		}
+		elseif "rosie" _in_ reference0
+		{
+			if Family[7] != 1
+			{
+				Family[7] = 1
+				friendship += smfriendplus
+				DP += smDPplus
+				knowaboutfamily = 1
+			}
+			"%(bb)\_b[img\P07Rosie.png,centerx,45,--option=use_self_alpha]\n\n\n\n\n\n\n\n\n"
+			--
+			if nowmode == "Awake"
+			{
+				"\s[1113]Rosie's actually my aunt,\w4 but she's more like a sister since we're so close in age.\w8\w8\s[1000] Her font is actually Rosella,\w4 Rosie is a nickname."
+			}
+			else //Sleepy
+			{
+				"\s[0]...her font's rosella,\w4 but we call her rosie...\w8\w8 we're almost the same age,\w4 but she's actually my aunt...\w8\w8\s[112] she's more like a sister,\w4 though...\w8\w8\s[103] we get up to all kinds of stuff,\w4 when i'm awake enough for it..."
+			}
+		}
+		elseif "roman" _in_ reference0
+		{
+			if Family[8] != 1
+			{
+				Family[8] = 1
+				friendship += smfriendplus
+				DP += smDPplus
+				knowaboutfamily = 1
+			}
+			"%(bb)\_b[img\P08Roman.png,centerx,45,--option=use_self_alpha]\n\n\n\n\n\n\n\n\n"
+			--
+			if nowmode == "Awake"
+			{
+				"\s[1000]We call him Roman,\w4 but his font is actually Times New Roman.\w8\w8\s[1113] Um,\w4 he's my uh...\w8\w8 first cousin,\w4 once removed?\w8\w8\s[1107] Something like that.\w8\w8\s[1208] I guess it doesn't really matter,\w4 though."
+			}
+			else //Sleepy
+			{
+				"\s[113]...he's um...\w8\w8 my first cousin,\w4 once removed..?\w8\w8\s[108] i think that's right...\w8\w8\s[107] it's hard to remember sometimes...\w8\w8\s[205] he's just a toddler,\w4 still,\w4 so i guess it doesn't matter much..."
+			}
+		}			
+		elseif "cambria" _in_ reference0
+		{
+			if Family[9] != 1
+			{
+				Family[9] = 1
+				friendship += smfriendplus
+				DP += smDPplus
+				knowaboutfamily = 1
+			}
+			"%(bb)\_b[img\P09Cambria.png,centerx,45,--option=use_self_alpha]\n\n\n\n\n\n\n\n\n"
+			--
+			if CambriaInstalled
+			{
+				if CambriaPresent
+				{
+					if nowmode == "Awake"
+					{
+						"\s[1106]She's right here,\w4 you should just ask her."
+					}
+					else //Sleepy
+					{
+						"\s[0]...you can just ask her,\w4 if you wanna know about her..."
+					}
+				}
+				else
+				{
+					if nowmode == "Awake"
+					{
+						"\s[1104]You know my big sister.\w8\w8\s[1000] She's really smart,\w4 she's planning to become a doctor.\w8\w8\s[1113] I don't think I could do something like that,\w4 sounds like it'd take a lot of energy..."
+					}
+					else //Sleepy
+					{
+						"\s[0]...you've met her,\w4 she's my big sister...\w8\w8\s[111] she's really smart,\w4 she's planning to become a doctor...\w8\w8\s[113] she's really good at everything she does..."
+					}
+				}
+			}
+			else
+			{
+				if nowmode == "Awake"
+				{
+					"\s[1000]Cambria's my big sister.\w8\w8 She's really smart,\w4 she's planning to become a doctor.\w8\w8\s[1113] I don't think I could do something like that,\w4 sounds like it'd take a lot of energy..."
+				}
+				else //Sleepy
+				{
+					"\s[0]...cambria's my big sister...\w8\w8\s[111] she's really smart,\w4 she's planning to become a doctor...\w8\w8\s[113] she's really good at everything she does..."
+				}
+			}
+		}
+		elseif "triton" _in_ reference0
+		{
+			if Family[10] != 1
+			{
+				Family[10] = 1
+				friendship += smfriendplus
+				DP += smDPplus
+				knowaboutfamily = 1
+			}
+			"%(bb)\_b[img\P10Triton.png,centerx,45,--option=use_self_alpha]\n\n\n\n\n\n\n\n\n"
+			--
+			if nowmode == "Awake"
+			{
+				"\s[1104]He's by big brother.\w8\w8\s[1113] He's not a skeleton,\w4 so he doesn't actually have a special font,\w4 but he was named after the font KR Triton.\w8\w8\s[1107] Don't ask me why,\w4 'cause I dunno.\w8\w8\s[1104] He doesn't seem bothered by it anyways."
+			}
+			else //Sleepy
+			{
+				"\s[0]...my anMDad adopted him when i was really little...\w8\w8\s[105] he mostly keeps to himself and his plants...\w8\w8\s[0] but i can tell he cares,\w4 even if he tries to hide it..."
+			}
+		}
+		elseif "azo" _in_ reference0
+		{
+			if Family[12] != 1
+			{
+				Family[12] = 1
+				friendship += smfriendplus
+				DP += smDPplus
+				knowaboutfamily = 1
+			}
+			"%(bb)\_b[img\P12Azo.png,centerx,45,--option=use_self_alpha]\n\n\n\n\n\n\n\n\n"
+			--
+			if nowmode == "Awake"
+			{
+				"\s[1000]Azo's my little brother.\w8\w8\s[1107] He gets into all kinds of trouble;\w4 he messes with everything he can get his hands on,\w4 and he has four hands,\w4 so..."
+			}
+			else //Sleepy
+			{
+				"\s[0]...he's my little brother...\w8\w8\s[113] he's um,\w4 really energetic...\w8\w8\s[107] maybe it's cause he's still so little..."
+			}
+		}
+		elseif "sigil" _in_ reference0
+		{
+			if Family[13] != 1
+			{
+				Family[13] = 1
+				friendship += smfriendplus
+				DP += smDPplus
+				knowaboutfamily = 1
+			}
+			"%(bb)\_b[img\P13Sigil.png,centerx,45,--option=use_self_alpha]\n\n\n\n\n\n\n\n\n"
+			--
+			if nowmode == "Awake"
+			{
+				"\s[1000]Sigil's my sister.\w8\w8\s[1107] She's uh,\w4 really creative,\w4 I guess,\w4 but she's so little that we have to clean her creativity off of the walls and floor a lot..."
+			}
+			else //Sleepy
+			{
+				"\s[113]...she's my half-sister...\w8\w8\s[208] we share anM-S as a dad...\w8\w8\s[107] she's really messy,\w4 i'm glad i don't share a room with her..."
+			}
+		}
+		elseif "elko" _in_ reference0
+		{
+			if Family[14] != 1
+			{
+				Family[14] = 1
+				friendship += smfriendplus
+				DP += smDPplus
+				knowaboutfamily = 1
+			}
+			"%(bb)\_b[img\P14Elko.png,centerx,45,--option=use_self_alpha]\n\n\n\n\n\n\n\n\n\n\n"
+			--
+			if CambriaInstalled
+			{
+				if CambriaPresent
+				{
+					if nowmode == "Awake"
+					{
+						"\s[1106]Um,\w4 you could just talk to her..?\w8\w8\s[1107] She's right here..."
+					}
+					else //Sleepy
+					{
+						"\s[0]...she's right here,\w4 you can just talk to her..."
+					}
+				}
+				else
+				{
+					if nowmode == "Awake"
+					{
+						"\s[1104]You know her,\w4 she's anMCambria's best friend.\w8\w8\s[1000] She's cool,\w4 we get along pretty well."
+					}
+					else //Sleepy
+					{
+						"\s[105]...you've met her already,\w4 she's anMCambria's best friend...\w8\w8\s[0] she's cool,\w4 she always says hi when she sees me..."
+					}
+				}
+			}
+			else
+			{
+				if nowmode == "Awake"
+				{
+					"\s[1102]She's "
+					--
+					if Family[9] == 1
+					{
+						"anMCambria's"
+					}
+					else
+					{
+						"my big sister's"
+					}
+					--
+					" best friend.\w8\w8\s[1000] She's cool,\w4 we get along pretty well.\w8\w8\s[1208] I think she's planning to be a doctor too."
+				}
+				else //Sleepy
+				{
+					"\s[0]...she's "
+					--
+					if Family[9] == 1
+					{
+						"anMCambria's"
+					}
+					else
+					{
+						"my big sister's"
+					}
+					--
+					" best friend...\w8\w8 she's cool,\w4 she always says hi when she sees me...\w8\w8\s[112] she's planning to become a doctor too..."
+				}
+			}
+		}
+		--
+		"\n\n" //No matter which option is first, they'll be spaced properly
+		--
+		if "Familymenu" _in_ reference0 //As mentioned above, if you're accessing anchor text from the family menu, this'll let you go back to it
+		{
+			"\![*]\q[Ask about someone else,OnAboutFamily]\n"
+		}
+		--
+		"\![*]\q[I'm done,cancelnodialogue]\e" //Either way, here's a cancel button that leads to nothing. This is also here to prevent anchor text from being overwritten by random text... I may or may not make it so that this doesn't time out.
+		
+	}
+	elseif reference0 == "CheckWeather"
+	{
+		weatherquiet = 0
+		if curlocation != "" && curlocation != "Set a location"
+		{
+			fromfunctionmenu = 0
+			"\![raise,OnDownloadCurWeather]"
+		}
+		else
+		{
+			OnWeatherLocation
+			fromfunctionmenu = 2
+		}
+	}
+}
