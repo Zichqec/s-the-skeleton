@@ -146,6 +146,7 @@ OnUpdateReady
 //When the update finishes. Don't forget to initialize any new variables you set, I'd recommend making a variable for each version you release, check if that variable is blank, and if it is then initialize variables for that update. That way no matter what version people update from, they get all the necessary variables.
 OnUpdateComplete
 {
+	OnUpdateVars
 	AutoUpdates[1] = 0
 	if reference0 == "none"
 	{
