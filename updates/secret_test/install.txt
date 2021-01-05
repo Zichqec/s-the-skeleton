@@ -2,8 +2,7 @@
 
 charset,UTF-8
 type,ghost
+name,Hydrate
+directory,hydrate
 
-name,X. Template YAYA - v1.0.0
-directory,x_template_yaya_v1_0_0
-
-balloon.directory,x_template_balloon
+balloon.directory,h2o

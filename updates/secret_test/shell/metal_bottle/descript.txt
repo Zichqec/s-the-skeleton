@@ -1,0 +1,108 @@
+﻿seriko.alignmenttodesktop,free
+seriko.use_self_alpha,1
+
+charset,UTF-8
+type,shell
+name,Metal Bottle
+craftman,Zichqec
+craftmanurl,https://zichqec.github.io/s-the-skeleton/index.html
+homeurl,https://zichqec.github.io/s-the-skeleton/updates/shells/metal_bottle/
+
+sakura.balloon.offsetx,0
+sakura.balloon.offsety,0
+kero.balloon.offsetx,0
+kero.balloon.offsety,0
+sakura.balloon.alignment,none
+kero.balloon.alignment,none
+
+shiori.logo.filename,resources\niseshiori.png
+shiori.logo.x,16
+shiori.logo.y,256
+
+menu.background.font.color.r,0
+menu.background.font.color.g,20
+menu.background.font.color.b,40
+
+menu.foreground.font.color.r,255
+menu.foreground.font.color.g,255
+menu.foreground.font.color.b,255
+
+menu.disable.font.color.r,120
+menu.disable.font.color.g,120
+menu.disable.font.color.b,120
+
+menu.separator.color.r,150
+menu.separator.color.g,150
+menu.separator.color.b,150
+
+menu.background.alignment,righttop
+menu.foreground.alignment,righttop
+menu.sidebar.alignment,bottom
+
+menu.background.bitmap.filename,menu_background.png
+menu.foreground.bitmap.filename,menu_foreground.png
+menu.sidebar.bitmap.filename,menu_sidebar.png
+
+sakura.bindgroup100.name,Cap,White
+sakura.bindoption100.group,Cap,mustselect
+sakura.bindgroup100.default,1
+
+sakura.bindgroup101.name,Cap,Gray 1
+sakura.bindgroup102.name,Cap,Gray 2
+sakura.bindgroup103.name,Cap,Gray 3
+sakura.bindgroup104.name,Cap,Gray 4
+sakura.bindgroup105.name,Cap,Black
+
+
+
+sakura.bindgroup1000.name,Bottle,Gray
+sakura.bindoption1000.group,Bottle,mustselect
+sakura.bindgroup1000.default,1
+
+//sakura.bindgroup1001.name,Bottle,Galaxy Red
+sakura.bindgroup1002.name,Bottle,S Hoodie
+//plaid read
+sakura.bindgroup1004.name,Bottle,Denim
+sakura.bindgroup1005.name,Bottle,Lulo Sparkles
+//sakura.bindgroup1006.name,Bottle,Blue
+sakura.bindgroup1007.name,Bottle,Bowtie
+sakura.bindgroup1007.addid,100001
+
+sakura.bindgroup1008.name,Bottle,Smudge 1
+sakura.bindgroup1009.name,Bottle,Smudge 2
+sakura.bindgroup1010.name,Bottle,Smudge 3
+sakura.bindgroup1011.name,Bottle,Blood
+sakura.bindgroup1012.name,Bottle,Plaid Red
+sakura.bindgroup1013.name,Bottle,Plaid Orange
+sakura.bindgroup1014.name,Bottle,Plaid Yellow
+sakura.bindgroup1015.name,Bottle,Plaid Green
+sakura.bindgroup1016.name,Bottle,Plaid Cyan
+sakura.bindgroup1017.name,Bottle,Plaid Blue
+sakura.bindgroup1018.name,Bottle,Plaid Purple
+sakura.bindgroup1019.name,Bottle,Plaid Pink
+sakura.bindgroup1020.name,Bottle,Galaxy Red
+sakura.bindgroup1021.name,Bottle,Galaxy Orange
+sakura.bindgroup1022.name,Bottle,Galaxy Yellow
+sakura.bindgroup1023.name,Bottle,Galaxy Green
+sakura.bindgroup1024.name,Bottle,Galaxy Cyan
+sakura.bindgroup1025.name,Bottle,Galaxy Blue
+sakura.bindgroup1026.name,Bottle,Galaxy Purple
+sakura.bindgroup1027.name,Bottle,Galaxy Pink
+sakura.bindgroup1028.name,Bottle,Gradient Red
+sakura.bindgroup1029.name,Bottle,Gradient Orange
+sakura.bindgroup1030.name,Bottle,Gradient Yellow
+sakura.bindgroup1031.name,Bottle,Gradient Green
+sakura.bindgroup1032.name,Bottle,Gradient Cyan
+sakura.bindgroup1033.name,Bottle,Gradient Blue
+sakura.bindgroup1034.name,Bottle,Gradient Purple
+sakura.bindgroup1035.name,Bottle,Gradient Pink
+
+
+sakura.bindoption10000.group,Stickers,multiple
+
+sakura.bindgroup10000.name,Stickers,Heart 1
+sakura.bindgroup10001.name,Stickers,Heart 2
+sakura.bindgroup10002.name,Stickers,Heart 3
+
+
+//sakura.bindgroup100001.name,Stickers,Bowtie

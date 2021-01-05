@@ -7,17 +7,12 @@ charset.extension, UTF-8
 
 
 include, system_config.txt
-dic, xt_aitalk.dic
-dic, xt_anchor.dic
-dic, xt_bootend.dic
-dic, xt_commu.dic
-dic, xt_etc.dic
-dic, xt_menu.dic
-dic, xt_mouse.dic
-dic, xt_nameteach.dic
-dic, xt_string.dic
-dic, xt_word.dic
-dic, zzz_todo.dic
+dic, hy_bootend.dic
+dic, hy_commu.dic
+dic, hy_etc.dic
+dic, hy_menu.dic
+dic, hy_string.dic
+dic, hy_word.dic
 
 
 //log, ayame.log

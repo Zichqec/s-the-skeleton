@@ -1,18 +1,18 @@
 charset,UTF-8
 
-name,X. Template YAYA - v1.0.0
+name,Hydrate
 type,ghost
 
-sakura.name,X. Template
-kero.name,Blank
+sakura.name,Hydrate
+kero.name,You being healthier
 
-craftman,Zichqec
-craftmanw,Zichqec
+craftman,Zdzisiu and Zichqec
+craftmanw,Zdzisiu and Zichqec
 craftmanurl,https://zichqec.github.io/s-the-skeleton/index.html
 
 sstp.allowunspecifiedsend,0
 shiori,yaya.dll
 
+icon,hydrate.ico
 //http://www.convertico.com/ is handy for making .icos
-icon,x_template.ico
-balloon,X. Template Balloon
+balloon,H2O

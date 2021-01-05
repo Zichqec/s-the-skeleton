@@ -1,0 +1,121 @@
+OnCommunicate
+{
+	if reference0 == "user" || reference0 == "User"
+ 	{
+		//Deprecated function I think? Either way, I'm not using ReplyToUser so I got rid of it
+	}
+	else
+	{
+		//Answering another ghost
+		_nocomma = REPLACE(reference0,",","")
+		_b = BalloonCheck
+		if _b == 1 && "[commu-%(_nocomma)]" !_in_ SHIORI3FW.LastTalk
+		{
+			waitingcommuS ,= reference0
+			waitingcommuM ,= reference1
+		}
+		elseif "[commu-%(_nocomma)]" !_in_ SHIORI3FW.LastTalk
+		{
+			if reference0 == "|-|waitingcommu|-|"
+			{
+				reference0 = waitingcommuS[0]; waitingcommuS[0] = IARRAY
+				reference1 = waitingcommuM[0]; waitingcommuM[0] = IARRAY
+			}
+			--
+			ReplyToGhost
+		}
+ 	}
+}
+
+ReplyToGhost
+{
+	res_reference = reference0
+	ConvoTag = SPLIT(reference1,"\e")[1]
+	_nocomma = REPLACE(reference0,",","")
+	
+	if "HydrateStatsSilent" !_in_ reference1
+	{
+		"\0"
+		--
+		"(Stay hydrated,\w4 %(reference0)!)"
+		"(Make sure to stay hydrated,\w4 %(reference0)!)"
+		"(Make sure you get a drink of water if you're thirsty,\w4 %(reference0)!)"
+	}
+	--
+	_send = "%(currentdressups)"
+	_send = REPLACE(_send,",","|-|")
+	"\e [commu-%(_nocomma)] %(ConvoTag),%(todayswaters),%(currentdrinkstreak),%(totalwaters),%(extrasipstoday),%(extrasipstotal),%(nowshell),%(_send),%(nowscale)"
+	/*
+	0 is the \e and the ConvoTag you sent to Hydrate, if any. You can use this if you need to to ping Hydrate and see where you were in conversation when it replies!
+	1 is the number of drinks the user has taken this session
+	2 is the number of drinks they've taken in a row without missing one or dismissing the box
+	3 is the total number of drinks they've taken since the ghost was installed
+	4 is the current shell
+	5 is a list of all dressups being used. They're split with the delimiter |-|, so as not to overlap with other items in the array. You'll have to break it down in your own ghost, maybe like so: _HYdressups = REPLACE(reference5,"|-|",",")
+	
+	Here's what I'm using with my ghosts if you just want to copy it:
+	
+	ConvoTag = SPLIT(reference1,"\e")[1]
+	_replyto = ConvoTag[0]
+	_HYsession = TOINT(ConvoTag[1])
+	_HYstreak = TOINT(ConvoTag[2])
+	_HYtotal = TOINT(ConvoTag[3])
+	_HYextratoday = TOINT(ConvoTag[4])
+	_HYextratotal = TOINT(ConvoTag[5])
+	_HYshell = ConvoTag[6]
+	_HYdressups = REPLACE(ConvoTag[7],"|-|",",")
+	_HYscale = TOINT(ConvoTag[8])
+	
+	
+	Here's the code for recieving stats via the raiseother command. Note that it starts at reference1 because reference0 would be the ConvoTag, but no ConvoTag is needed here
+	
+	_HYsession = TOINT(reference1)
+	_HYstreak = TOINT(reference2)
+	_HYtotal = TOINT(reference3)
+	_HYextratoday = TOINT(reference4)
+	_HYextratotal = TOINT(reference5)
+	_HYshell = reference6
+	_HYdressups = REPLACE(reference7,"|-|",",")
+	_HYscale = TOINT(reference8)
+	*/
+}
+
+/*OnBalloonClose
+{
+	if waitingcommu[0] != ""; WaitingCommu
+}
+
+OnBalloonBreak
+{
+	if waitingcommu[0] != ""; WaitingCommu
+}
+
+OnBalloonTimeout
+{
+	if waitingcommu[0] != ""; WaitingCommu
+}*/
+
+WaitingCommu
+{
+	"\![raise,OnCommunicate,|-|waitingcommu|-|]"
+}
+
+//As the name implies, this checks if the balloon is currently open or not. This was written by Levidre!
+//To use it I would do this, so you don't have to copy this whole chunk of code:
+//_b = BalloonCheck
+//if _b == 0 //_b will be 0 if the balloon is not open, or 1 if it is open
+BalloonCheck
+{
+	if ASEARCH("Status",var.req.key) != -1
+    {
+        _currentstatus = var.req.value[ASEARCH("Status",var.req.key)]
+        if "balloon" _in_ _currentstatus
+        {
+            1
+        }
+        else
+        {
+            0
+        }
+    }
+}

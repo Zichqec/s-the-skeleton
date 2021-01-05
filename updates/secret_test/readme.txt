@@ -1,6 +1,6 @@
-This is where your readme goes! Put instructions or information for your ghost here. This will pop up when the ghost is successfully installed.
+This is a simple ghost made by Zdzisiu and Zichqec to remind you to hydrate!
 
 ---Version History---
 
--v1.0.0-
+-v1.0-
 Initial release
