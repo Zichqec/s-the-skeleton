@@ -98,21 +98,17 @@ OnVanished //When another ghost has been uninstalled and it switches to this gho
 
 OnUpdateCheckComplete //When the ghost finishes checking for updates
 {
-	if reference0 != "none" //If there are no new files
+	if reference0 == "none" //If there are no new files
 	{
-		updateavailable = 0
-		if AutoUpdateCheck == 1 //This if stops the dialogue from displaying if this check was performed automatically. They'll tell the user later.
-		{
-			"\e"
-		}
+		if AutoUpdates[1] == 1; "\e" //This if stops the dialogue from displaying if this check was performed automatically.
 		--
 		"\0\s[0](There are no new files.)\e"
 	}
 	else
 	{
-		if AutoUpdateCheck == 1
+		if AutoUpdates[1] == 1 //If this was an automatic check
 		{
-			updateavailable = 1
+			AutoUpdates[1] = 2 //This makes it so the ghost will tell the user there's a new update next time they open their menu
 			"\e"
 		}
 		--
@@ -127,33 +123,74 @@ Select.StartUpdate
 
 OnUpdateBegin //Starting to actually update
 {
-	"\0\s[0](Beginning update.)\w8\w8\e"
+	if AutoUpdateCheck != 1 //If the user is checking manually
+	{
+		"\0\s[0](Beginning update.)\w8\w8\e"
+	}
+	
 }
 
 OnUpdateReady
 {
-	reference[0] += 1 //Number of files starts from 0, so this displays the correct amount
-	booting = 2
-	"\0\s[0](There are %(reference[0]) new files.)\w8\w8\e"
+	reference0++ //Number of files starts from 0, so this displays the correct amount
+	if AutoUpdateCheck != 1
+	{
+		"\0\s[0](There are %(reference0) new files.)\w8\w8\e"
+	}
+	else
+	{
+		"\0\s[0](Found %(reference0) new files to update with,\w4 beginning update.)\w8\w8\w8\e"
+	}
 }
 
 //When the update finishes. Don't forget to initialize any new variables you set, I'd recommend making a variable for each version you release, check if that variable is blank, and if it is then initialize variables for that update. That way no matter what version people update from, they get all the necessary variables.
 OnUpdateComplete
 {
-	updateavailable = 0
+	AutoUpdates[1] = 0
 	if reference0 == "none"
 	{
 		"\0\s[0](There are no new files.)\e"
 	}
 	else
 	{
-		"\0\s[0](Update complete.)\![raise,OnDialogueVars,updatecomplete]\e"
+		"\0\s[0](Update complete.)"
+		--
+		"\n\n\![*]\q[Show changelog,OnChangeLog]\n\![*]\q[Ok,NoChangelog]\e"
 	}
+}
+
+ghostver
+{
+	"1.1.0"
+}
+
+OnChangeLog
+{
+	"\![set,autoscroll,disable]\_q\b2\_l[44]-Version 1.1.0-\n\n/
+	-Hydrate will now have special comments based on how many drinks in a row you've hit!\n\n/
+	-Changed the shell menu to dynamically change depending on what shells you have installed. Check the link in it if you want to download more shells!\n\n/
+	-Added a dynamic dressup menu if the current shell has available dressup items!\n\n/
+	-Added a stats menu to track your stats! Please note that most of these will start at 0 since they were just added.\n\n/
+	-Added an option to tell Hydrate you took an extra sip of water! This won't count towards the timed drinks, but you still get some credit!\n\n/
+	-Hydrate will now send your stats to other ghosts when pinged, and will ping them every hour with your stats! If other ghosts are set up to receive and process these stats, you might see your other ghosts comment on them!\n\n/
+	-Added in the auto update system that I had removed for some reason. Hydrate will now check for updates once a day and let you know if there's something new!\n\n/
+	-Unfortunately, it cannot automatically check for balloon and shell updates. There are buttons in the menu to check for updates for balloons and shells, make sure you check now and then for your favorite shells!\n\n/
+	-Please note, if you're using the H2O balloon, that got an update as well. You should see larger balloons in the menus; if not, please ask Hydrate to update the balloon in the Config menu!\n\n/
+	-The reminder balloon will now time out if you don't interact with it for long enough. This is set for 5 minutes by default, but it will be shorter if you set a shorter reminder time!\n\n/
+	-If you're interested in having your ghost receive stats from Hydrate, or you'd like to make a shell for Hydrate, please check in Hydrate's folder for documentation!/
+	\n\n\n"
+	--
+	if reference0 == "FromMenu" //Checks to see if the user came here from the functions menu
+	{
+		"\![*]\q[Back to Config,OnConfigMenu]\n"
+	}
+	--
+	"\![*]\q[Done,cancelnodialogue]\e"
 }
 
 OnUpdate.OnDownloadBegin //Taken from the GT template because I see no reason to redo this and probably break it
 {
-	"\_q(Downloading %(reference0)...)\n\n"
+	"\_q(Ghost update: downloading %(reference0)...)\n\n"
 	--
 	Update_Process = TOINT(reference1) + 1
 	Update_Total = TOINT(reference2) + 1
@@ -199,7 +236,7 @@ OnUpdateFailure //If the update fails
 	}
 	elseif reference0 == "md5 miss" //If the update files have not been uploaded correctly and don't match the updates2.dau
 	{
-		"(The MD5 values don't match.\w8\w8 You should contact Zichqec or Zdzisiu.)\e"
+		"(The MD5 values don't match.\w8\w8 You should contact Zichqec and let her know.)\e"
 	}
 	elseif reference0 == "artificial" //If the user cancels the update by double clicking the balloon
 	{
@@ -211,7 +248,7 @@ OnUpdateFailure //If the update fails
 	}
 }
 
-OnUpdateCheckFailure //Similar to above, but for if the ghost was just checking and not updating
+/*OnUpdateCheckFailure //Similar to above, but for if the ghost was just checking and not updating
 {
 	if reference0 == "timeout" //If it timed out
 	{
@@ -221,6 +258,83 @@ OnUpdateCheckFailure //Similar to above, but for if the ghost was just checking 
 	{
 		"\0\s[0](Error:\w4 '%(reference0)'.)\e"
 	}
+}*/
+
+OnUpdateOtherBegin
+{
+	if reference3 == "balloon"
+	{
+		"(Checking for updates to the current balloon, %(SHIORI3FW.BalloonName).)"
+	}
+	elseif reference3 == "shell"
+	{
+		"(Checking for updates to the current shell, %(nowshell).)"
+	}
+	else
+	{
+		"(Beginning %(reference3) update.)"
+	}
+	--
+	"\w8\w8\e"
+}
+
+OnUpdateOtherReady
+{
+	reference0++
+	"\0\s[0](There are %(reference0) new files.)\w8\w8\e"
+}
+
+OnUpdateOtherComplete
+{
+	if reference0 == "none"
+	{
+		"\0(No new files for the current %(reference3) to update with.\w8 Make sure you check the others, too!)\e"
+	}
+	else
+	{
+		"\0(Update complete!)\e"
+	}
+	
+}
+
+OnUpdateOther.OnDownloadBegin
+{
+	"\_q(%(reference3) update: downloading %(reference0)...)\n\n"
+	--
+	Update_Process = TOINT(reference1) + 1
+	Update_Total = TOINT(reference2) + 1
+	Update_Remaining = Update_Total - Update_Process
+
+	//defining starting points
+	_PointA = 1
+	_PointB = 1
+
+	//defining text buffers beforehand, otherwise they don't display right
+	_txt = ""
+
+	//loop calculates how many check boxes to display based on the variables above
+
+	while _PointA <= Update_Process
+	{
+		_txt += "O"
+		_PointA++
+	}
+	//see above except for blank boxes
+	while _PointB <= Update_Remaining
+	{
+		_txt += "o"
+		_PointB++
+	}
+	--
+	//using the text buffers to display the correct number of boxes
+	"%(_txt)\n\n(%(Update_Process) of %(Update_Total))"
+	--
+	"\e"
+}
+
+OnUpdateOtherFailure
+{
+	"\0(%(reference3) update failed; '%(reference0)'.)\e"
 }
 
 OnDisplayChange
@@ -232,5 +346,7 @@ OnDisplayChange
 
 OnShellScaling //reference0 is the new size, reference1 is the previous. Sadly, you can't check for the Y scale.
 {
+	nowscale = reference0
+	
 	"\0\s[0](%(reference0)% hydration.)\e"
 }

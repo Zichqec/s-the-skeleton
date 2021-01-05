@@ -7,7 +7,14 @@ On_username
 
 On_homeurl
 {
-	"https://zichqec.github.io/s-the-skeleton/updates/ghosts/hydrate/" //I recommend using Github Pages to set up a site and store their files! It's free and reliable!
+	if debug == 1
+	{
+		
+	}
+	else
+	{
+		"https://zichqec.github.io/s-the-skeleton/updates/ghosts/hydrate/" //I recommend using Github Pages to set up a site and store their files! It's free and reliable!
+	}
 }
 
 On_recommendrootbutton.caption //Change to your username
@@ -20,6 +27,10 @@ On_sakura.recommendsites
 	"Zi's Ukagaka Hub"
 	--
 	"%ASC(1)https://zichqec.github.io/s-the-skeleton/index.html%ASC(2)"
+	--
+	"Zdzisiu's website"
+	--
+	"%ASC(1)https://zdzisiu.github.io/Ukagaka/index.html%ASC(2)"
 }
  
 On_portalrootbutton.caption
@@ -29,7 +40,7 @@ On_portalrootbutton.caption
 
 On_sakura.portalsites //You can make these anything you like. I've set them to link to my template, Zarla's template, and anything else helpful for making ghosts.
 {
-	"X. Template Site"
+	"Built on X. Template Beta"
 	--
 	"%ASC(1)https://zichqec.github.io/s-the-skeleton/index.html%ASC(2)"
 	--
@@ -112,6 +123,11 @@ On_dressuprootbutton.caption //Encouragement
 	"(Treat yourself like you would a friend!)"
 }
 
+On_dressuprootbutton.visible
+{
+	"0"
+}
+
 On_headlinesenserootbutton.visible
 {
 	"0"
@@ -167,6 +183,11 @@ On_quitbutton.caption
 On_hidebutton.caption //default is 'Iconify'
 {
 	"Minimize"
+}
+
+On_calendarbutton.caption //The default right click menu has this typoed as 'Calender'
+{
+	"Calendar"
 }
 
 

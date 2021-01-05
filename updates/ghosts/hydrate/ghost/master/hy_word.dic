@@ -62,7 +62,7 @@ nowhour
 {
 	if hour12 == 0
 	{
-		"1"
+		"12"
 	}
 	else
 	{
@@ -277,4 +277,48 @@ OnAnchorSelect
 	{
 		"\j[%(reference0)]\e"
 	}
+}
+
+
+Wobble
+{
+	//Default values - Set these to whatever you'd like, you can override them for each individual dialogue if you like
+	_UPlow = 0		//Controls if letters are randomly converted to upper/lowercase. 0 for off, 1 for on.
+	_Xjitter = 5	//Controls how much space can be between each letter. Higher numbers will be more spaced out.
+	_Yjitter = 5	//Controls how much letters can vary up and down. Higher numbers will be more spaced out.
+	_SizeJitter = 0 //Controls how much the font size can change per letter. Higher numbers will have more extreme variance.
+	_SizeUpDown = 1 //Controls if the font size can go up, down, or both. 0 for both, 1 for up, 2 for down.
+	
+	if _argv[1] != ""; _UPlow = _argv[1] //These check if the user has sent special arguments, and if not, uses the default values
+	if _argv[2] != ""; _Xjitter = _argv[2]
+	if _argv[3] != ""; _Yjitter = _argv[3]
+	if _argv[4] != ""; _SizeJitter = _argv[4]
+	if _argv[5] != ""; _SizeUpDown = _argv[5]
+	
+	_word = "" //Initialize display
+	for _i = 0; _i < STRLEN(_argv[0]); _i++
+	{
+		_let = SUBSTR(_argv[0],_i,1) //Get the current letter
+		if TOINT(_UPlow) == 1 //If random upper/lower is on, flip a coin to determine which this letter will be
+		{
+			if RAND(2) == 1; _let = TOUPPER(_let); else; _let = TOLOWER(_let)
+		}
+		_X = RAND(_Xjitter) //Get random values for X, Y, and Size
+		_Y = RAND(_Yjitter)
+		_Sz = RAND(_SizeJitter)
+		if _SizeUpDown == 1 //Size only goes up
+		{
+			_Sz = "+" + _Sz
+		}
+		elseif _SizeUpDown == 2 //Size only goes down
+		{
+			_Sz = "-" + _Sz
+		}
+		else //Flip a coin on if the size should go up or down
+		{
+			if RAND(2) == 1; _Sz = "+" + _Sz; else; _Sz = "-" + _Sz 
+		}
+		_word += "\_l[@%(_X),%(_Y)]\f[height,%(_Sz)]" + _let //Add to the display
+	}
+	_word
 }

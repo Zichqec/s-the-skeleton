@@ -8,6 +8,7 @@ charset.extension, UTF-8
 
 include, system_config.txt
 dic, hy_bootend.dic
+dic, hy_commu.dic
 dic, hy_etc.dic
 dic, hy_menu.dic
 dic, hy_string.dic

@@ -1,0 +1,56 @@
+//Hydrate can send stats about how the user is doing to other ghosts! There are two methods for this, the commu ping method, and the raiseother method.
+
+//The commu ping method is when your ghost pings Hydrate, and Hydrate responds by sending its stats. You can use this to control exactly when your ghost receives the stats.
+
+//The raiseother method is initiated on Hydrate's side every hour on the hour, and sends stats to every ghost that will receive them. This can be useful for keeping your ghost's stats up to date, though I don't recommend using it to say dialogue. I'm making this a raise command and not a notify command just in case someone has a neat idea they want to do with it, but I will be very sad if multiple ghosts start making water comments on the hour. Please use this wisely.
+
+//Which method you want to use is up to you, you can use both if you like! What you do with the stats is also entirely up to you, Hydrate will just send them, and what you do from there is up to your imagination!
+
+//I'll detail the commu ping method first. This requires a basic understanding of how commu works, if you're not sure about that you can ask me (Zichqec) and I'll help you out. I will eventually write a commu guide up on my website! https://zichqec.github.io/s-the-skeleton/index.html
+
+//All you need to do to get stats from Hydrate is to ping it. That's all, no matter what your ghost says, Hydrate will send back the stats with a little message telling that ghost to hydrate.
+//Ok, there is ONE exception. If your message includes "HydrateStatsSilent", Hydrate will send the stats silently! You can use this to have your ghost comment on the user's Hydrate stats without needing to store them, without making Hydrate also speak. Such a ping would look like this:
+
+//Other commu stuff up here
+when "Hydrate"
+{
+	res_reference0 = "Hydrate"
+	"\e HydrateStatsSilent"
+}
+
+//Now then, when Hydrate responds, it will send your ghost a simple array. This is how it breaks down, you can change the names of the local variables if you wish.
+
+ConvoTag = SPLIT(reference1,"\e")[1]			//This is splitting off everything after the \e in Hydrate's message, so the commas in the dialogue don't mess up the array
+_replyto = ConvoTag[0]							//If you sent something else after the \e, like a conversation tag, it will be in here. It is not the ONLY thing in there, though, so make sure you use an _in_ check if you want to check what tag you sent!
+_HYsession = TOINT(ConvoTag[1])					//This is how many drinks the user has taken this session
+_HYstreak = TOINT(ConvoTag[2])					//This is how many drinks in a row the user has currently taken
+_HYtotal = TOINT(ConvoTag[3])					//This is how many total drinks the user has taken (note that this was not tracked until 1.1.0)
+_HYextratoday = TOINT(ConvoTag[4])				//This is how many extra sips the user has taken this session
+_HYextratotal = TOINT(ConvoTag[5])				//This is how many extra sips the user has taken total
+_HYshell = ConvoTag[6]							//This is the name of the shell Hydrate is currently in
+_HYdressups = REPLACE(ConvoTag[7],"|-|",",")	//This is a simple array of all the dressups Hydrate is currently using! How many there are will vary depending on the shell being used, but you can check for specific ones with _in_ checks!
+_HYscale = TOINT(ConvoTag[8])					//This is Hydrate's current shell scaling, as a percentage.
+
+//Once you've received that array and broken it up into variables, it's yours to do with as you wish! Make a silly comment about their choice of shell, or about how many extra sips of water they've racked up. Or that they've made the bottle teeny tiny! Whatever you wanna do with it.
+
+
+//Alright, so what about the raiseother method? Well, the way it works is this. Every hour on the hour, Hydrate sends a raiseother out to __SYSTEM_ALL_GHOST__. That means every ghost that has that event will run it. If you want your ghost to receive these pings, then add this event!
+
+OnHydrateGhostStats
+{
+	HYsession = TOINT(reference1)
+	HYstreak = TOINT(reference2)
+	HYtotal = TOINT(reference3)
+	HYextratoday = TOINT(reference4)
+	HYextratotal = TOINT(reference5)
+	HYshell = reference6
+	HYdressups = REPLACE(reference7,"|-|",",")
+	HYscale = TOINT(reference8)
+}
+
+//That's it! Now you've got Hydrate's stats, updated every hour that they're open! Now, you may want to add in a system to your ghost to reset those stats when Hydrate is closed, or after your ghost has been closed, but you can do that however you like. OnOtherGhostClosed may be helpful to you there.
+
+//I will note again, DON'T PUT DIALOGUE IN THIS FUNCTION. I made it a raise function rather than a notify in case someone needed to put in a raise or notify command of their own, or maybe something with the property system, but it will be really weird if you have your ghost comment directly on the Hydrate stats in this function!
+
+
+//And that's all! If you do something fun with these stats, please let me know! I love to see this stuff!

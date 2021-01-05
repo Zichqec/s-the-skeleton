@@ -3,36 +3,234 @@ OnMouseDoubleClick
 	if reference5 == 0 && booting != 1 //reference5 is which mouse button is being clicked, in this case 0 is a left click
 	{
 		booting = 0
-		OnMenuRun
+		if AutoUpdates[1] == 2
+		{
+			"\0\s[0](An update is available!\w8 Do you want to download it?)"
+			--
+			//Note: the download it now option will go straight into updating without directing to another function. You can do this with some things using 'script:' in the function name, but it's finicky. If this gives you issues feel free to replace it.
+			"\_q\n\n\![*]\q[Download it now,script:\![updatebymyself\]]\n/
+			\![*]\q[Maybe later,UpdateLater]\n\n/
+			\![*]\q[Turn off auto updates,UpdateOff]\e"
+		}
+		else
+		{
+			OnMenuRun
+		}
 	}
+}
+
+Select.UpdateLater //If the user decides to update later
+{
+	AutoUpdates[1] = 1
+	
+	"\0\s[0](Alright, you will be reminded once a day.)\e"
+}
+
+Select.UpdateOff //If the user no longer wants to be notified about updates
+{
+	AutoUpdates[0] = "OFF"
+	AutoUpdates[1] = 1
+	
+	"\0\s[0](Auto Update checks turned off, you can turn them on again in the Config menu.)\e"
 }
 
 OnMenuRun
 {
-	"\_q\![*]\q[Config,OnConfigMenu]\n/
-	\![*]\q[Change Shell,OnShellMenu]\n\n"
+	"\0\![set,autoscroll,disable]\b2\_q/
+	\![*]\q[I took an extra sip!,OnExtraSip]\n\n[half]/
+	\![*]\q[Change Shell,OnShellMenu]"
 	--
-	"\![*]\q[Nevermind,Cancel]\n\n\n\n[half]"
-	--
-	if todayswaters != 1
+	if ARRAYSIZE(availabledressups) > 0
 	{
-		"%(todayswaters) drinks taken today!"
-	}
-	else
-	{
-		"%(todayswaters) drink taken today!"
+		"\n\![*]\q[Change Design,OnDressupMenu]"
 	}
 	--
-	"\nRuntime: %(passhour):%(displaymin)\nVersion 1.0.1\e"
+	"\n\n[half]/
+	\![*]\q[Stats,OnWaterStats]\n/
+	\![*]\q[Config,OnConfigMenu]/
+	\n\n\![*]\q[Nevermind,Cancel]"
+	--
+	_s = ""; if todayswaters != 1; _s = "s"
+	"\n\n\n\n\n\n[half]%(todayswaters) drink%(_s) taken this session!"
+	--
+	if currentdrinkstreak > 3
+	{
+		"\n%(currentdrinkstreak) drinks in a row!"
+	}
+	--
+	"\n\f[height,-2]Runtime: %(passhour):%(displaymin)\nVersion %(ghostver)\e"
+}
+
+OnExtraSip
+{
+	extrasipstoday++
+	extrasipstotal++
+	
+	"\0"
+	--
+	"(That's awesome,\w4 good job!)"
+	"(Good going,\w4 well done!)"
+	"(Noted,\w4 keep up the good work!)"
+	"(Great!\w4 1 extra sip added to your total!)"
+	--
+	"\e"
 }
 
 OnShellMenu
+{
+	shelllist = IARRAY
+	"\![get,property,OnShellCount,currentghost.shelllist.count]" //Gets the count of shells (Starts from 1)
+}
+
+OnShellCount
+{
+	shelllist[0] = TOINT(reference0) //Make it an integer, store it as the first element of the array
+	"\![get,property,OnGetShells,currentghost.shelllist.index(%(ARRAYSIZE(shelllist) - 1)).name]" //Get the name of the first one
+}
+
+OnGetShells
+{
+	shelllist ,= reference0
+	if ARRAYSIZE(shelllist) < (shelllist[0] + 1) //If there are still shells to gather, keep gathering more
+	{
+		"\![get,property,OnGetShells,currentghost.shelllist.index(%(ARRAYSIZE(shelllist) - 1)).name]"
+	}
+	else //If all the shells have been gathered, display them
+	{
+		_display = ""
+		for _i = 1; _i < ARRAYSIZE(shelllist); _i++
+		{
+			if shelllist[_i] == nowshell; _display += "\![*]"
+			_display += "\q[%(shelllist[_i]),OnSwitchShell,%(shelllist[_i])]\n"
+		}
+		--
+		"\0\*\_q"
+		--
+		if ARRAYSIZE(shelllist) > 16; "\b4\n\n[half]\![*]\q[Back to menu,OnMenuRun]"
+		elseif ARRAYSIZE(shelllist) > 11; "\b4"
+		else; "\b2"
+		--
+		"\![set,autoscroll,0]\_l[53]---Shells---"
+		--
+		"\n\n[half]\![*]\q[Download more shells,OnShellUrl]"
+		--
+		"\n\n[half]%(_display)\n\n[half]\![*]\q[Back to menu,OnMenuRun]\n\![*]\q[Nevermind,Cancel]\e"
+		shelllist = IARRAY //erase the list since we don't need it anymore
+	}
+}
+
+OnShellUrl
+{
+	"\C\j[https://zichqec.github.io/s-the-skeleton/hydrate.html]"
+}
+
+OnSwitchShell
+{
+	"\![get,property,OnGetCoords,currentghost.scope(0).rect]\![change,shell,%(reference0)]"
+}
+
+/*OnShellMenu
 {
 	"\_q\_l[53]---Shells---\n\n/
 	\![*]\q[Clear,script:\![get,property,OnGetCoords,currentghost.scope(0).rect\]\![change,shell,Clear\]]\n\n/
 	\![*]\q[Back to the menu,OnMenuRun]\e"
 	
+}*/
+
+OnDressupMenu
+{
+	_display = "" //Initializing variables
+	_currentcategories = IARRAY
+	_items = 0
+	
+	foreach availabledressups; _dressup //For every dressup that the ghost has
+	{
+		_category = _dressup[0,"|"] //Gather the name and category of the current dressup
+		_name = _dressup[1,"|"]
+		
+		if reference0 == "" && ASEARCH(_category,_currentcategories) == -1 //If the user is not in a submenu AND we haven't logged this category yet
+		{
+			_currentcategories ,= _category //Add the category to a list
+			_display += "\__q[OnDressupMenu,%(_category)]%(_category)\__q\n" //Make a menu option for it
+		}
+		elseif _category == reference0 //Otherwise, if the user IS in a submenu, AND this item matches the current submenu category
+		{
+			_items++
+			_pos = ASEARCH("%(_category)|%(_name)",currentdressups) //See if the name of this item is in the name of dressups currently being used
+			if _pos != -1; _display += "\![*]"
+			_display += "\__q[OnChangeDesign,%(_category),%(_name)]%(_name)\__q\n"
+		}
+	}
+	--
+	"\0\*\_q\![set,autoscroll,0]"
+	--
+	if reference0 == ""
+	{
+		"\_l[51]---Designs---"
+	}
+	else
+	{
+		"\_l[51]---%(reference0)---"
+	}
+	--
+	if reference0 == ""
+	{
+		if ARRAYSIZE(_currentcategories) > 18; "\b4\n\n[half]\![*]\q[Back to menu,OnMenuRun]"
+		elseif ARRAYSIZE(_currentcategories) > 11; "\b4"
+		else; "\b2"
+	}
+	elseif reference0 != ""
+	{
+		if _items > 18; "\b4\n\n[half]\![*]\q[Back,OnDressupMenu]"
+		elseif _items > 11; "\b4"
+		else; "\b2"
+	}
+	--
+	"\n\n[half]%(_display)\n[half]"
+	--
+	if reference0 == ""
+	{
+		"\![*]\q[Back to menu,OnMenuRun]\n\![*]\q[Nevermind,Cancel]\e"
+	}
+	else
+	{
+		"\![*]\q[Back,OnDressupMenu]\n\![*]\q[Nevermind,Cancel]\e"
+	}
 }
+
+OnChangeDesign
+{
+	"\0\_q\![bind,%(reference0),%(reference1)] \![raise,OnDressupMenu,%(reference0)]"
+}
+
+OnWaterStats
+{
+	"\0\*\b2\_q"
+	--
+	_s = ""; if todayswaters != 1; _s = "s"
+	"%(todayswaters) drink%(_s) taken today\n"
+	--
+	_s = ""; if totalwaters != 1; _s = "s"
+	"%(totalwaters) drink%(_s) taken in total\n"
+	--
+	_s = ""; if currentdrinkstreak != 1; _s = "s"
+	"Currently on a streak of %(currentdrinkstreak) drink%(_s)!\n"
+	--
+	_s = ""; if extrasipstoday != 1; _s = "s"
+	"%(extrasipstoday) extra sip%(_s) taken today\n"
+	--
+	_s = ""; if extrasipstotal != 1; _s = "s"
+	"%(extrasipstotal) extra sip%(_s) taken in total\n\n\n"
+	--
+	"(You're doing awesome, keep it up!)"
+	"(Good job, keep going!)"
+	"(You've got this!)"
+	"(Heck yeah!)"
+	"(Look at you go!)"
+	--
+	"\n\n\![*]\q[Back to menu,OnMenuRun]\e"
+}
+
 
 //----------Config Menu----------
 OnConfigMenu //I moved changing name/pronouns/birthday over to Nameteach, because they're info about the user
@@ -42,10 +240,15 @@ OnConfigMenu //I moved changing name/pronouns/birthday over to Nameteach, becaus
 		deleteshitai = "OFF"
 	}
 	if talkrate == ""; {talkrate = "every hour"; aitalkinterval = 3600}
+	if AutoUpdates[0] == ""; AutoUpdates[0] = "ON"
 	--
-	"\_q\_l[53]---Config---\n/
-	Reminder rate:\n\![*]\q[%(talkrate),ChangeTalk]\n\n/
-	\![*]\q[Check for updates,UpdateCheck]\n/
+	"\_q\b2\_l[53]---Config---\n/
+	Reminder rate:\n\![*]\q[%(talkrate),ChangeTalk]\n\n[half]/
+	\![*]\q[Check for ghost updates,OnUpdateCheck,ghost]\n/
+	\![*]Enable auto ghost updates? (Currently: \q[%(AutoUpdates[0]),ToggleAutoUpdates])\n\n[half]/
+	\![*]\q[Check for shell updates,OnUpdateCheck,shell]\n/
+	\![*]\q[Check for balloon updates,OnUpdateCheck,balloon]\n\n[half]/
+	\![*]\q[See the changelog,OnChangeLog,FromMenu]\n\n[half]/
 	\![*]Enable Uninstall?\n(Currently: \q[%(deleteshitai),ToggleUninstall])\n\n/
 	\![*]\q[Back to the menu,OnMenuRun]\e"
 }
@@ -59,6 +262,17 @@ Select.ChangeTalk
 OnDrinkTime
 {
 	aitalkinterval = (reference0 * 60)
+	if aitalkinterval <= 300 //if it's less than 5 minutes; the default
+	{
+		timeouttime = aitalkinterval - 60 //make it 1 minute less than what the user set it to
+		if timeouttime <= 60; timeouttime = 30 //If it's less than a minute, make it at least 30 seconds
+	}
+	else
+	{
+		timeouttime = 300 //set it to 5 minutes, the default
+	}
+	timeouttime *= 1000
+	
 	if reference0 == 0
 	{
 		talkrate = "off"
@@ -101,9 +315,34 @@ OnDrinkTime
 	}
 }
 
-Select.UpdateCheck
+OnUpdateCheck
 {
-	"\0\s[0](Checking for updates.)\![updatebymyself,checkonly]\e"
+	if reference0 == "ghost"
+	{
+		"\![updatebymyself]\e"
+	}
+	elseif reference0 == "balloon"
+	{
+		"\![update,balloon]\e"
+	}
+	else //shell
+	{
+		"\![update,shell]\e"
+	}
+}
+
+Select.ToggleAutoUpdates
+{
+	if AutoUpdates[0] != "ON"
+	{
+		AutoUpdates[0] = "ON"
+	}
+	else
+	{
+		AutoUpdates[0] = "OFF"
+	}
+	--
+	OnConfigMenu
 }
 
 Select.ToggleUninstall
@@ -124,47 +363,21 @@ Select.ToggleUninstall
 
 OnChoiceTimeout
 {
+	if "drinknotif" _in_ reference0
+	{
+		currentdrinkstreak = 0
+	}
+	--
 	"\e"
-}
-
-OnTestVar
-{
-	"Testing!\e"
 }
 
 //---Stuff from Aitalk---
 
-AiTalk
-{
-	if RAND(100) < communicateratio
- 	{
- 		StartCommunicate
-	}
- 	else
-	{
- 		if mikireflag == 0
-		{
-			if CHAIN.IDName == ""
-			{
- 				lastTalk = RandomTalk
-			}
-			else
-			{
-				lastTalk = ChainTalk
-			}
-			lastTalk
-		}
- 		else
-		{ 
-			MikireTalk
- 		}
-	}
-}
-
-//This is all the random dialogue your ghost will say on its own. nonoverlap here means all pieces of available dialogue will be said before it begins repeating dialogue.
-RandomTalk : nonoverlap
+AiTalk : nonoverlap
 {
 	"\0\s[0]"
+	--
+	if nowshell == "Alkohol"; "%(WobbleTalk)\e"
 	--
 	"(It's time to drink some water!)"
 	"(You should take a sip of water.)"
@@ -173,47 +386,150 @@ RandomTalk : nonoverlap
 	"(You should get a drink!)"
 	"(Get a drink and move around a little!)"
 	--
-	"\*\n\n\![*]\q[Done,drankwater]\n\n[half]\![*]\q[Dismiss,cancelnodialogue]"
+	"\![set,choicetimeout,%(timeouttime)]\n\n\![*]\q[Done,drankwater]\n\n[half]\![*]\q[Dismiss,dismisswater]\e drinknotif"
 }
 
-Select.drankwater
+Select.drankwater : nonoverlap
 {
 	todayswaters++
-	"\0\s[0](Good job!)\e"
-	"\0\s[0](Well done!)\e"
-	"\0\s[0](Keep it up!)\e"
-	"\0\s[0](Excellent!)\e"
-	"\0\s[0](Great!)\e"
-	"\0\s[0](Thank you!)\e"
-	"\0\s[0](Heck yeah,\w4 hydration!)\e"
-	"\0\s[0](Awesome!)\e"
-	"\0\s[0](You're great!)\e"
-	"\0\s[0](You're rad!)\e"
-	"\0\s[0](Fresh!)\e"
-	"\0\s[0](You did it!)\e"
-}
-
-OnHourChange
-{
-	if hour == 0
+	totalwaters++
+	currentdrinkstreak++
+	
+	"\0\s[0]"
+	--
+	if totalwaters % 100 == 0
 	{
-		"\0\s[0](It's midnight.)\e"
+		MilestoneDrink
+		
 	}
-	elseif hour == 12
+	elseif currentdrinkstreak == 3
 	{
-		"\0\s[0](It's noon. If you haven't eaten yet,\w4 you should sip some water first.)\e"
+		"(You've reached a streak of drinks in a row, good job! Keep it up!)"
+		"(You've started a streak! Keep going!)"
+		"(You're doing really well, you've started a streak!)"
+		"(3 drink combo! Keep going!)"
+	}
+	elseif currentdrinkstreak % 5 == 0
+	{
+		StreakDrink
 	}
 	else
 	{
-		"\0\s[0](It's %(hour12).)\e"
+		GeneralDrink
 	}
+	--
+	"\e"
+}
+
+Select.dismisswater
+{
+	currentdrinkstreak = 0
+}
+
+GeneralDrink : nonoverlap
+{
+	"(Good job!)"
+	"(Well done!)"
+	"(Keep it up!)"
+	"(Excellent!)"
+	"(Great!)"
+	"(Thank you!)"
+	"(Heck yeah,\w4 hydration!)"
+	"(Awesome!)"
+	"(You're great!)"
+	"(You're rad!)"
+	"(Fresh!)"
+	"(You did it!)"
+}
+
+StreakDrink : nonoverlap
+{
+	"(That's %(currentdrinkstreak) drinks in a row! Way to go!)"
+	"(%(currentdrinkstreak) strong! You're doing awesome!)"
+	"(%(currentdrinkstreak) so far! Awesome!)"
+	"(You've had %(currentdrinkstreak) so far! That's really great, good job!)"
+}
+
+MilestoneDrink : nonoverlap
+{
+	"(You've reached %(totalwaters) total timed drinks, good job!)"
+	"(You've reached %(totalwaters) total timed drinks, you're a hydration pro!)"
+}
+
+
+WobbleTalk : nonoverlap
+{
+	Wobble("(It's time to drink some water!)",0,0,currentdrinkstreak)
+	Wobble("(You should get a sip of water.)",0,0,currentdrinkstreak)
+	Wobble("(Stay hydrated & sip water!)",0,0,currentdrinkstreak)
+	Wobble("(It's time for a sip of water!)",0,0,currentdrinkstreak)
+	Wobble("(You should get a drink!)",0,0,currentdrinkstreak)
+	Wobble("(Get a drink and move around!)",0,0,currentdrinkstreak)
+	--
+	"\![set,choicetimeout,%(timeouttime)]\n\n\![*]\q[Done,drankwobble]\n\n[half]\![*]\q[Dismiss,cancelnodialogue]\e drinknotif"
+}
+
+Select.drankwobble : nonoverlap
+{
+	todayswaters++
+	totalwaters++
+	currentdrinkstreak++
+
+	"\0\s[0]"
+	--
+	Wobble("(Good job!)",0,0,currentdrinkstreak)
+	Wobble("(Well done!)",0,0,currentdrinkstreak)
+	Wobble("(Keep it up!)",0,0,currentdrinkstreak)
+	Wobble("(Excellent!)",0,0,currentdrinkstreak)
+	Wobble("(Great!)",0,0,currentdrinkstreak)
+	Wobble("(Thank you!)",0,0,currentdrinkstreak)
+	Wobble("(Heck yeah,\w4 hydration!)",0,0,currentdrinkstreak)
+	Wobble("(Awesome!)",0,0,currentdrinkstreak)
+	Wobble("(You're great!)",0,0,currentdrinkstreak)
+	Wobble("(You're rad!)",0,0,currentdrinkstreak)
+	Wobble("(Fresh!)",0,0,currentdrinkstreak)
+	Wobble("(You did it!)",0,0,currentdrinkstreak)
+	--
+	"\e"
+}
+
+OnHourTalk
+{
+	if hour == 0
+	{
+		"\0\s[0](It's midnight.)"
+	}
+	elseif hour == 12
+	{
+		"\0\s[0](It's noon. If you haven't eaten yet,\w4 you should sip some water first.)"
+	}
+	else
+	{
+		"\0\s[0](It's %(hour12).)"
+	}
+	--
+	_send = "%(currentdressups)"
+	_send = REPLACE(_send,",","|-|")
+	--
+	"\![raiseother,__SYSTEM_ALL_GHOST__,OnHydrateGhostStats,,%(todayswaters),%(currentdrinkstreak),%(totalwaters),%(extrasipstoday),%(extrasipstotal),%(nowshell),%(_send),%(nowscale)]"
 }
 
 OnMinuteChange
 {
-	if mikireflag == 1
+	if minute == 0
+	{
+		if hour == 0; AutoUpdates[1] = 0
+		OnHourTalk
+	}
+	elseif mikireflag == 1
  	{
  		MikireTalk
+	}
+	--
+	if AutoUpdates[0] == "ON" && AutoUpdates[1] == 0 //Once a day the ghost will check for updates if the user has auto updates on
+	{
+		AutoUpdates[1] = 1
+		"\![updatebymyself,checkonly]"
 	}
 }
 
@@ -237,16 +553,23 @@ OnSecondChange
 	{
 		EndMikireTalk
 	}
-	mikireflag = reference1
-	if reference2 == 1 //This is for if your Sakura and Kero are overlapping
+	elseif ARRAYSIZE(waitingcommuS) > 0 && second % 5 == 0
+	{
+		_b = BalloonCheck
+		if _b == 0; WaitingCommu
+	}
+	
+	/*if reference2 == 1 //This is for if your Sakura and Kero are overlapping
 	{
 		
-	}
+	}*/
+	
+	mikireflag = reference1
 }
 
 MikireTalk //Off the screen dialogue. Ctrl Shift F12 will bring characters back onto the screen
 {
-	"\0\s[0](To bring the water bottle back, press Ctrl Shift F12.)\e"
+	"\0\s[0](To continue hydrating, press Ctrl Shift F12.)\e"
 }
 
 OnKeyPress
@@ -257,5 +580,18 @@ OnKeyPress
 		{
 			"\![open,readme]"
 		}
+		when "v"
+		{
+			if debug == 1; OnTestVar
+		}
+		when "t"
+		{
+			if debug == 1; OnAiTalk
+		}
 	}
+}
+
+OnTestVar
+{
+	"\_q\![set,autoscroll,disable]Current: %(currentdressups)\n\nAvailable: %(availabledressups)\x"
 }

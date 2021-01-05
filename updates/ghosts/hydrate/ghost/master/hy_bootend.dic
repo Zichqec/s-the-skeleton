@@ -10,6 +10,15 @@ OnFirstBoot //Dialogue when you first open the ghost
 	aitalkinterval = 3600
 	deleteshitai = "OFF"
 	todayswaters = 0
+	totalwaters = 0
+	currentdrinkstreak = 0
+	extrasipstoday = 0
+	extrasipstotal = 0
+	timeouttime = 3000 //5 minutes
+	waitingcommuS = IARRAY
+	waitingcommuM = IARRAY
+	AutoUpdates = ("ON",0)
+	nowscale = 100
 	
 	booting = 0 //This will be set to 0 after firstboot is complete
 	
@@ -23,7 +32,10 @@ OnBoot //Normal booting
 	passmin = 0
 	passhour = 0
 	todayswaters = 0
+	//currentdrinkstreak = 0
+	extrasipstoday = 0
 	booting = 0
+	AutoUpdates[1] = 0
 	
 	"\1\s[-1]\0\s[0]"
 	--
@@ -42,10 +54,21 @@ OnBoot //Normal booting
 		"(Reminders are currently off.)\w8\n\n"
 	}
 	--
-	"(You've got this!)\e"
-	"(Take care of yourself!)\e"
-	"(Be good to you!)\e"
-	"(It's ok to miss one,\w4 but try not to miss two in a row!)\e"
+	"(You've got this!)"
+	"(Take care of yourself!)"
+	"(Be good to you!)"
+	"(It's ok to miss one,\w4 but try not to miss two in a row!)"
+	--
+	if AutoUpdates == "ON"
+	{
+		AutoUpdateCheck = 1
+		"\![updatebymyself,checkonly]\e"
+	}
+	else
+	{
+		AutoUpdateCheck = 0 //Just in case
+		"\e"
+	}
 }
 
 OnClose
@@ -64,7 +87,7 @@ OnClose
 
 OnWindowStateRestore //When you bring the ghost back up after minimizing it
 {
-	"\0\s[0]I'm back!\e"
+	"\0\s[0]\e"
 }
 
 OnGhostChanging //Changing to another ghost
@@ -107,25 +130,122 @@ OnShellChanging //Starting to change the shell
 
 OnShellChanged //After the shell has changed
 {
+	_last = nowshell
 	nowshell = reference0
-	"\1\s[-1]\0\s[0]"
+	"\0\![move,--X=%(shellcoord[0]),--Y=fix,--base=primaryscreen]\1\s[-1]\0\s[0]" //Default surfaces, and moves the ghost to where it was before changing shells
 	--
-	if reference0 == nowshell && booting != 2
+	if reference0 == _last //If the shell they changed to is the same as the last one
 	{
 		"\e"
 	}
-	elseif reference0 == "Clear"
+	elseif reference0 == "Clear" //If they've switched back to the default
 	{
 		"(Default water.)\e"
 	}
-	else
+	--
+	"(Now using %(reference0).)\w8\w8\n\n" //If they're using anything other than the default
+	--
+	if reference0 == "Alkohol" //Optional comments for individual shells
 	{
-		"(Now using %(reference0).)\e"
+		"(Drink responsibly!)"
 	}
+	elseif reference0 == "Teacup"
+	{
+		"(Make sure to drink water, too!)"
+		"(Possibly full of caffiene!)"
+		"(Hot leaf water!)"
+		"(Drink it before it gets too cold!)\n\n(Unless that's your thing.)"
+	}
+	elseif reference0 == "Metal Bottle"
+	{
+		"(Comes in a variety of designs!)"
+		"(Keeps your water cold!)"
+		"(Make sure to keep it clean!)"
+		"(Reusable is cheaper!)"
+		"(Makes a squeaky noise when you take the cap off!)"
+		"(Clean it with vinegar if it starts smelling funky!)"
+		"(Might not be dishwasher safe!)"
+		"(Carry it with you everywhere!)"
+		"(Keeps your water hot, if you want!)"
+		"(Fits into cupholders!)"
+		"(Cats love to lick them!)"
+		"(Cool to the touch!)"
+	}
+	elseif reference0 == "Potion"
+	{
+		"(Magical effects!*)\n\n\f[height,-2](*Magical effects not guaranteed.)"
+		"(Mysterious and strange!)"
+		"(Good for regenerating stats, but too precious for general hydration!)"
+		"(Pretty colors!)"
+	}
+	elseif reference0 == "Poison"
+	{
+		"(You should probably drink water instead!)"
+		"(Water is definitely healthier!)"
+		"(Don't drink poison!)"
+		"(Not a good choice for hydration, but it sure is pretty!)"
+		"(Hydration for your worst enemies!*)\n\n\f[height,-2](*Murder is bad and illegal.)"
+	}
+	--
+	"\e"
 }
 
-OnGetCoords //This gets the x and y coordinates
+OnGetCoords //This gets the x coordinate
 {
-	shellchangexcoord = reference0[0]
-	shellchangeycoord = reference0[1]
+	shellcoord[0] = reference0[0]
+}
+
+OnUpdateVars
+{
+	//---1.1.0---
+	/*
+	totalwaters = 0
+	currentdrinkstreak = 0
+	extrasipstoday = 0
+	extrasipstotal = 0
+	timeouttime = 3000 //5 minutes
+	waitingcommuS = IARRAY
+	waitingcommuM = IARRAY
+	AutoUpdates = ("On",0)
+	nowscale = 100
+	*/
+	if ISVAR('totalwaters') == 0; totalwaters = 0
+	if ISVAR('currentdrinkstreak') == 0; currentdrinkstreak = 0
+	if ISVAR('extrasipstoday') == 0; extrasipstoday = 0
+	if ISVAR('extrasipstotal') == 0; extrasipstotal = 0
+	if ISVAR('timeouttime') == 0
+	{
+		if aitalkinterval <= 300 //if it's less than 5 minutes; the default
+		{
+			timeouttime = aitalkinterval - 60 //make it 1 minute less than what the user set it to
+			if timeouttime <= 60; timeouttime = 30 //If it's less than a minute, make it at least 30 seconds
+		}
+		else
+		{
+			timeouttime = 300 //set it to 5 minutes, the default
+		}
+		timeouttime *= 1000
+	}
+	if ISVAR('waitingcommuS') == 0; waitingcommuS = IARRAY
+	if ISVAR('waitingcommuM') == 0; waitingcommuM = IARRAY
+	if ISVAR('AutoUpdates') == 0; AutoUpdates = ("ON",0)
+	if ISVAR('nowscale') == 0; nowscale = 100
+}
+
+OnNotifyDressupInfo
+{
+	availabledressups = IARRAY //This one is to display the dressup menu
+	currentdressups = IARRAY //This one is so we can display which dressups are currently in use
+	foreach reference; _dressup //if you just write reference, you get all the references, apparently? Which is super useful
+	{
+		//Ok, so here's the deal. When it lists the dressups, the amount of options that can be specified _varies._ It can be empty, 1, 2, or 3. To the best of my knowledge. SO. This inner loop starts at 3 (because elements 0 1 and 2 are static), checks to see if the next element has a keyword, and skips it if it does. Then when it finds the on/off indicator, it breaks the loop. IT DIDNT HAVE TO BE THIS WAY.
+		_onoff = 0
+		for _i = 3; _i < ARRAYSIZE(_dressup); _i++
+		{
+			if _dressup[_i] == "default" || _dressup[_i] == "mustselect" || _dressup[_i] == "multiple" || _dressup[_i] == ""; continue
+			else; _onoff = _dressup[_i]; break
+		}
+		availabledressups ,= _dressup[1] + "|" + _dressup[2]
+		if _onoff == 1; currentdressups ,= _dressup[1] + "|" + _dressup[2]
+	}
 }

@@ -1,0 +1,12 @@
+//Making shells for Hydrate is very easy! Hydrate uses only 1 surface, so if you only want to make a simple shell, all you have to do is draw a single frame! Your shell will automatically be included in Hydrate's shell menu. If you want your shell linked on Hydrate's page on my website, please do get in contact! https://zichqec.github.io/s-the-skeleton/hydrate.html
+
+//If you want to make a shell with extra dressup items, like different designs, stickers, liquids, etc, Hydrate is set up to handle that too! How you structure your shell is entirely up to you, just know that Hydrate will use surface0 and surface0 only, so plan accordingly.
+//If dressup items exist in the current shell, Hydrate will display them in the design menu. They'll be listed under their category name, so pick good names for your categories and items! For example, if I have a dressup set up like this...
+
+sakura.bindgroup1020.name,Bottle,Galaxy Red
+
+//That will add the category 'Bottle' to Hydrate's design menu, and when the user clicks the 'Bottle' category, they'll see "Galaxy Red" inside! Clicking "Galaxy Red" will apply that dressup, and clicking it again will remove it.
+//Dressups are listed in numerical order, not alphabetical. You may wish to take that into account as well.
+//It will also handle dressups where the user must select an option, or multiple options can be selected. If the menu ever behaves strangely for you, please do let me know and I'll do my best to fix it!
+
+//That's about it. The menu system should be pretty solid, so just play around and see what it looks like! And please do tell me if you make a shell for my little water ghost, I love seeing them.
