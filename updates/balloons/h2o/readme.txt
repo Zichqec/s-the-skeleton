@@ -13,5 +13,5 @@ http://ashido.com/ukagaka/
 
 --------Version History
 
-
+Ver 1.1.0 - Update with larger balloon sizes, also changed Kero marker to be the same as Sakura marker
 Ver 1.0 - Balloon Release
