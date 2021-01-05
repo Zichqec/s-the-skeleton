@@ -240,10 +240,10 @@ OnConfigMenu //I moved changing name/pronouns/birthday over to Nameteach, becaus
 	--
 	"\_q\b2\_l[53]---Config---\n/
 	Reminder rate:\n\![*]\q[%(talkrate),ChangeTalk]\n\n[half]/
-	\![*]\q[Check for ghost updates,UpdateCheck,ghost]\n/
+	\![*]\q[Check for ghost updates,OnUpdateCheck,ghost]\n/
 	\![*]Enable auto ghost updates? (Currently: \q[%(AutoUpdates[0]),ToggleAutoUpdates])\n\n[half]/
-	\![*]\q[Check for shell updates,UpdateCheck,shell]\n/
-	\![*]\q[Check for balloon updates,balloon]\n\n[half]/
+	\![*]\q[Check for shell updates,OnUpdateCheck,shell]\n/
+	\![*]\q[Check for balloon updates,OnUpdateCheck,balloon]\n\n[half]/
 	\![*]Enable Uninstall?\n(Currently: \q[%(deleteshitai),ToggleUninstall])\n\n/
 	\![*]\q[Back to the menu,OnMenuRun]\e"
 }
@@ -310,11 +310,11 @@ OnDrinkTime
 	}
 }
 
-Select.UpdateCheck
+OnUpdateCheck
 {
 	if reference0 == "ghost"
 	{
-		"\0(Checking for updates...)\w8\![updatebymyself]"
+		"\![updatebymyself]\e"
 	}
 	elseif reference0 == "balloon"
 	{
@@ -322,10 +322,8 @@ Select.UpdateCheck
 	}
 	else //shell
 	{
-		"\0(Checking for updates to the current shell, %(nowshell).)\w8\![update,shell]\e"
+		"\![update,shell]\e"
 	}
-	
-	
 }
 
 Select.ToggleAutoUpdates

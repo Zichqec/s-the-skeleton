@@ -213,6 +213,19 @@ OnUpdateVars
 	if ISVAR('currentdrinkstreak') == 0; currentdrinkstreak = 0
 	if ISVAR('extrasipstoday') == 0; extrasipstoday = 0
 	if ISVAR('extrasipstotal') == 0; extrasipstotal = 0
+	if ISVAR('timeouttime') == 0
+	{
+		if aitalkinterval <= 300 //if it's less than 5 minutes; the default
+		{
+			timeouttime = aitalkinterval - 60 //make it 1 minute less than what the user set it to
+			if timeouttime <= 60; timeouttime = 30 //If it's less than a minute, make it at least 30 seconds
+		}
+		else
+		{
+			timeouttime = 300 //set it to 5 minutes, the default
+		}
+		timeouttime *= 1000
+	}
 	if ISVAR('waitingcommuS') == 0; waitingcommuS = IARRAY
 	if ISVAR('waitingcommuM') == 0; waitingcommuM = IARRAY
 	if ISVAR('AutoUpdates') == 0; AutoUpdates = ("On",0)
