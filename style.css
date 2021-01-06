@@ -195,6 +195,13 @@ h6
     text-align: center;
 }
 
+.floatBG
+{
+	background: #d1d1d1;
+    border-radius: 15px;
+	padding: 5px 5px 5px 5px;
+}
+
 .flLf /*Float left*/
 {
     float: left;
@@ -499,8 +506,8 @@ input#OnWander {
     display: none;
 }
 
-/*OnCreepyText*/
-.OnCreepyText-content {
+/*CreepyText*/
+.CreepyText-content {
     max-height: 0;
     overflow: hidden; 
     padding: 0 0 0 50px;
@@ -509,13 +516,13 @@ input#OnWander {
 input:checked ~ label {
     background-image: url(close.png);
 }
-input:checked ~ .OnCreepyText-content {
+input:checked ~ .CreepyText-content {
     max-height: 100%;
     background-color: #d1d1d1;
     border-radius: 25px;
 }
 
-.collapsible-OnCreepyText label {
+.collapsible-CreepyText label {
     font-size: 20px;
     display: block;
     cursor: pointer;
@@ -529,12 +536,12 @@ input:checked ~ .OnCreepyText-content {
     border-radius: 25px;    
 }
 
-.collapsible-OnCreepyText label:hover
+.collapsible-CreepyText label:hover
 {
     background: #b6b5b6;
 }
 
-input#OnCreepyText {
+input#CreepyText {
     display: none;
 }
 
@@ -578,8 +585,8 @@ input#Headers {
     display: none;
 }
 
-/*OnSimulTalk*/
-.OnSimulTalk-content {
+/*Wobble*/
+.Wobble-content {
     max-height: 0;
     overflow: hidden; 
     padding: 0 0 0 50px;
@@ -588,13 +595,13 @@ input#Headers {
 input:checked ~ label {
     background-image: url(close.png);
 }
-input:checked ~ .OnSimulTalk-content {
+input:checked ~ .Wobble-content {
     max-height: 100%;
     background-color: #d1d1d1;
     border-radius: 25px;
 }
 
-.collapsible-OnSimulTalk label {
+.collapsible-Wobble label {
     font-size: 20px;
     display: block;
     cursor: pointer;
@@ -608,12 +615,168 @@ input:checked ~ .OnSimulTalk-content {
     border-radius: 25px;    
 }
 
-.collapsible-OnSimulTalk label:hover
+.collapsible-Wobble label:hover
 {
     background: #b6b5b6;
 }
 
-input#OnSimulTalk {
+input#Wobble {
+    display: none;
+}
+
+/*Capitalize*/
+.Capitalize-content {
+    max-height: 0;
+    overflow: hidden; 
+    padding: 0 0 0 50px;
+}
+/* Toggle Effect */
+input:checked ~ label {
+    background-image: url(close.png);
+}
+input:checked ~ .Capitalize-content {
+    max-height: 100%;
+    background-color: #d1d1d1;
+    border-radius: 25px;
+}
+
+.collapsible-Capitalize label {
+    font-size: 20px;
+    display: block;
+    cursor: pointer;
+    background: url(menu.png) no-repeat left center;
+    padding: 10px 50px 10px 50px;
+    text-align: center;
+    background: #d1d1d1;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 25%;
+    border-radius: 25px;    
+}
+
+.collapsible-Capitalize label:hover
+{
+    background: #b6b5b6;
+}
+
+input#Capitalize {
+    display: none;
+}
+
+/*Fast*/
+.Fast-content {
+    max-height: 0;
+    overflow: hidden; 
+    padding: 0 0 0 50px;
+}
+/* Toggle Effect */
+input:checked ~ label {
+    background-image: url(close.png);
+}
+input:checked ~ .Fast-content {
+    max-height: 100%;
+    background-color: #d1d1d1;
+    border-radius: 25px;
+}
+
+.collapsible-Fast label {
+    font-size: 20px;
+    display: block;
+    cursor: pointer;
+    background: url(menu.png) no-repeat left center;
+    padding: 10px 50px 10px 50px;
+    text-align: center;
+    background: #d1d1d1;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 25%;
+    border-radius: 25px;    
+}
+
+.collapsible-Fast label:hover
+{
+    background: #b6b5b6;
+}
+
+input#Fast {
+    display: none;
+}
+
+/*Slow*/
+.Slow-content {
+    max-height: 0;
+    overflow: hidden; 
+    padding: 0 0 0 50px;
+}
+/* Toggle Effect */
+input:checked ~ label {
+    background-image: url(close.png);
+}
+input:checked ~ .Slow-content {
+    max-height: 100%;
+    background-color: #d1d1d1;
+    border-radius: 25px;
+}
+
+.collapsible-Slow label {
+    font-size: 20px;
+    display: block;
+    cursor: pointer;
+    background: url(menu.png) no-repeat left center;
+    padding: 10px 50px 10px 50px;
+    text-align: center;
+    background: #d1d1d1;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 25%;
+    border-radius: 25px;    
+}
+
+.collapsible-Slow label:hover
+{
+    background: #b6b5b6;
+}
+
+input#Slow {
+    display: none;
+}
+
+/*Mock*/
+.Mock-content {
+    max-height: 0;
+    overflow: hidden; 
+    padding: 0 0 0 50px;
+}
+/* Toggle Effect */
+input:checked ~ label {
+    background-image: url(close.png);
+}
+input:checked ~ .Mock-content {
+    max-height: 100%;
+    background-color: #d1d1d1;
+    border-radius: 25px;
+}
+
+.collapsible-Mock label {
+    font-size: 20px;
+    display: block;
+    cursor: pointer;
+    background: url(menu.png) no-repeat left center;
+    padding: 10px 50px 10px 50px;
+    text-align: center;
+    background: #d1d1d1;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 25%;
+    border-radius: 25px;    
+}
+
+.collapsible-Mock label:hover
+{
+    background: #b6b5b6;
+}
+
+input#Mock {
     display: none;
 }
 
