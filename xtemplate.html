@@ -73,7 +73,7 @@
         <h1>X. Template</h1>
         <img src="img/X_TemplateThumb.png" alt="X. Template" width="280" height="250" class="center">
         <br>
-        <div class="cntr"><a href="http://www.mediafire.com/file/5s5bqtv3je87pfw/x_template_yaya_v1.0.2.nar/file">Download the latest .nar file here!</a></div>
+        <div class="cntr"><a href="https://www.mediafire.com/file/5nfskx6it6xnc43/x_template_yaya_v1.0.3.nar/file">Download the latest .nar file here!</a></div>
         <p>X. Template is a template ghost I made! It's intended for ghost developers who already know how ghosts work, generally. If you're new to making ghosts, I suggest <a href="http://ashido.com/ukagaka/">Zarla's GT Template</a> instead; it includes a walkthrough to get you started!</p>
         <p>So, if you're not a new ghost dev, why should you use X. Template? Well, for one I'm sure you've noticed that once you don't need the walkthrough comments anymore, they're a hassle to get rid of. Haven't we all had the experience of trying to remove Triangle but he keeps popping up in unexpected places? X. Template starts you without those things. Here are some differences with X. Template.</p>
         <br>
@@ -89,7 +89,6 @@
                 <li>Right clicking the ghost will not cause their personal menu to open.</li>
                 <li>Changing name/birthday/pronouns will lead back to the config menu.</li>
                 <li>Offers a changelog after updating!</li>
-                <li>When checking for updates through the menu, they check first and ask for confirmation before updating.</li>
                 <li>Hitting the ghost for the first time will pop up a confirmation dialogue, to prevent accidental punches.</li>
                 <li>You can type in the name of the month you were born instead of just the number.</li>
                 <li>Petting ghosts repeatedly without taking your mouse off of them will have special dialogue.</li>
@@ -112,7 +111,7 @@
                 <li>Anchor.dic has been updated to allow https links as well as http.</li>
                 <li>Removed some functions from etc.dic that were non-functional, and some other redundant functions.</li>
                 <li>Much fewer global variables, some variables have been changed to arrays, notably the birthday variables (bithday[0] to see the written birthday and birthday[1] to see it written DD/MM) and the passhour/min/sec variables (are now runtime[0], [1], and [2]).</li>
-                <li>Commu.dic should be ready to use, and offers a method of doing commu dialogue that is much more readable.</li>
+                <li>Commu.dic should be ready to use, and offers a method of doing commu dialogue that is much more readable. From 1.0.3 onward, there is also a non-interrupting system so that the ghost will wait to respond to commu dialogues until it's not doing anything else, and a better loop prevention system that is less awkward!</li>
                 <li>You can have the template ghost check if there is a new version of the template.</li>
             </ul>
         </div>
@@ -127,6 +126,23 @@
     </article>
     <article>
         <h1>Version history</h1>
+		<div class="ver">
+                <div class="centerheadsm"><b>---1.0.3---</b>
+                <div class="ctr">(1/5/21)</div></div>
+                <ul>
+					<li>Fixed an incorrect variable name when updates finish. 'updateavailable' should be 'AutoUpdates[1]'</li>
+					<li>Changed "'o clock" in the hour notifications to "o'clock"</li>
+					<li>Added a better loop prevention system in commu dialogue</li>
+					<li>Added a non-interrupt system in commu dialogue</li>
+					<li>Slightly restructured things in OnSecondChange</li>
+					<li>Checking for an update from the ghost's menu now actually starts an update, not just a check (sorry, I keep changing my mind lol)</li>
+					<li>Changed the recommendations for UpdateVars, now it has a proper check to see if the variable exists</li>
+					<li>Made a tweak to nowday and nowmonth. If you call them and include 'last' or 'next' as the second argument, you'll get the previous day/month or next day/month, respectively.</li>
+					<li>Added the Capitalize function</li>
+					<li>When done creating a .nar file, the ghost will give you a link to click that will open the folder you made the .nar in.</li>
+				</ul>
+            <br>
+        </div>
 		<div class="ver">
                 <div class="centerheadsm"><b>---1.0.2---</b>
                 <div class="ctr">(11/26/20)</div></div>
