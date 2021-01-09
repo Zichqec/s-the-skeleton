@@ -346,49 +346,8 @@ pre
   /*Found here https://www.dlitz.net/stuff/pre-tag-overflow/ and the word wrap here https://mediatemple.net/blog/design-creative/considerations-for-styling-the-pre-tag/ Thanks so much this is so helpful*/
 
 
-
-/*Hangman with Tutorial*/
-.HMtut-content {
-    max-height: 0;
-    overflow: hidden; 
-    padding: 0 0 0 50px;
-}
-/* Toggle Effect */
-input:checked ~ label {
-    background-image: url(close.png);
-}
-input:checked ~ .HMtut-content {
-    max-height: 100%;
-    background-color: #d1d1d1;
-    border-radius: 25px;
-}
-
-.collapsible-HMtut label {
-    font-size: 20px;
-    display: block;
-    cursor: pointer;
-    background: url(menu.png) no-repeat left center;
-    padding: 10px 50px 10px 50px;
-    text-align: center;
-    background: #d1d1d1;
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 25%;
-    border-radius: 25px;    
-}
-
-.collapsible-HMtut label:hover
-{
-    background: #b6b5b6;
-}
-
-input#HMtut {
-    display: none;
-}
-
-
 /*Hangman minimal comments*/
-.HMmin-content {
+.Hangman-content {
     max-height: 0;
     overflow: hidden; 
     padding: 0 0 0 50px;
@@ -397,13 +356,13 @@ input#HMtut {
 input:checked ~ label {
     background-image: url(close.png);
 }
-input:checked ~ .HMmin-content {
+input:checked ~ .Hangman-content {
     max-height: 100%;
     background-color: #d1d1d1;
     border-radius: 25px;
 }
 
-.collapsible-HMmin label {
+.collapsible-Hangman label {
     font-size: 20px;
     display: block;
     cursor: pointer;
@@ -417,12 +376,12 @@ input:checked ~ .HMmin-content {
     border-radius: 25px;    
 }
 
-.collapsible-HMmin label:hover
+.collapsible-Hangman label:hover
 {
     background: #b6b5b6;
 }
 
-input#HMmin {
+input#Hangman {
     display: none;
 }
 
