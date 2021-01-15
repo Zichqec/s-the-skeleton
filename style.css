@@ -358,6 +358,11 @@ pre
 	margin-right: auto;
 }
 
+.linkbutton:hover
+{
+	background: #b6b5b6;
+}
+
 /*Collapsible code from here https://www.w3schools.com/howto/howto_js_collapsible.asp */
 .collapsible {
 	font-size: 20px;
