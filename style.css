@@ -343,8 +343,20 @@ pre
     margin: 0;
 }
 
-  /*Found here https://www.dlitz.net/stuff/pre-tag-overflow/ and the word wrap here https://mediatemple.net/blog/design-creative/considerations-for-styling-the-pre-tag/ Thanks so much this is so helpful*/
+/*Found here https://www.dlitz.net/stuff/pre-tag-overflow/ and the word wrap here https://mediatemple.net/blog/design-creative/considerations-for-styling-the-pre-tag/ Thanks so much this is so helpful*/
 
+
+.linkbutton
+{
+	background: #d1d1d1;
+	text-align: center;
+    font-size: 15px;
+	padding: 10px 50px 10px 50px;
+	max-width: 25%;
+	border-radius: 25px;
+	margin-left: auto;
+	margin-right: auto;
+}
 
 /*Collapsible code from here https://www.w3schools.com/howto/howto_js_collapsible.asp */
 .collapsible {

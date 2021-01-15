@@ -78,7 +78,7 @@
 		<h1>Holding Obsidian</h1>
 		<p class="centerreg">Do you want YOUR GHOST to be able to pick up <a href="dusty.html">Dusty's cat, Obsidian?</a> Great! Me too! Here's a video showing what it looks like, and a .zip download with instructions and examples. If you want to set up special commu dialogue between your ghost and Dusty, please let me know and I'd be glad to collaborate!</p>
 		<p class="centerreg">Demo video includes <a href="https://zdzisiu.github.io/Ukagaka/md.html">MiniDev</a> by Zdzisiu.</p>
-		<div class="cntr"><a href="http://www.mediafire.com/file/b9a2k87ikhwxdyr/How_To_Make_Your_Ghost_Hold_Obsidian_v1.0.1.zip/file">Download the latest .zip file here!</a></div>
+		<div class="linkbutton"><a href="http://www.mediafire.com/file/b9a2k87ikhwxdyr/How_To_Make_Your_Ghost_Hold_Obsidian_v1.0.1.zip/file">Download the latest .zip file here!</a></div>
 		<br>
 		<div class="resp-container">
             <iframe class="resp-iframe" src="https://www.youtube.com/embed/KR7Jqr2Fok4" gesture="media"  allow="encrypted-media" allow="accelerometer" allowfullscreen></iframe>
@@ -88,7 +88,7 @@
 	<article>
         <h1>Interval Stacker</h1>
         <p class="centerreg">Do you use lots of intervals to create poses in your shell, and need an easier way to set up poses? Here's a .dic file and Saori that you can add to your ghost! Demonstrated with <a href="http://www.drdowasure.com/gaster/">Zarla's Gaster</a> because I haven't made any ghosts with lots of intervals.</p>
-		<div class="cntr"><a href="http://www.mediafire.com/file/t1pbf8untm17tfu/IntervalStacker_v1.0.1.zip/file">Download the latest .dic file here!</a></div>
+		<div class="linkbutton"><a href="http://www.mediafire.com/file/t1pbf8untm17tfu/IntervalStacker_v1.0.1.zip/file">Download the latest .dic file here!</a></div>
 		<br>
         <div class="resp-container">
             <iframe class="resp-iframe" src="https://www.youtube.com/embed/qt3wpa2978Q" gesture="media"  allow="encrypted-media" allow="accelerometer" allowfullscreen></iframe>
@@ -96,42 +96,129 @@
 	</article>
 	
 	<article>
-        <h1>CreepyText</h1>
-        <p class="centerreg">Want to be able to write text in a really creepy and nonsensical way? Here's a simple function:</p>
-        <div class="cntr"><img src="img/function_creepytext.gif" alt="CreepyText Demonstrated" width="571" height="397" class="center"></div>
+		<h1>Simple Flags</h1>
+		<p class="centerreg">If you have a lot of variables that only need to be set to 1 or 0, this set of functions can help you do that without needing lots of global variables! It also makes your flags easier to read.</p>
 		<br>
 		<label class="collapsible">See the code here</label>
 		<div class="collapsible-content">
 		<pre>
 //Written by Zichqec https://zichqec.github.io/s-the-skeleton/index.html
 
-//To call the function, you can either call the function in your code like this:
-//CreepyText("Your dialogue here!")
-//Or in dialogue like this:
-//"%(CreepyText('Your dialogue here!'))"
-//If you want to change the max \w tag value, put the number you want as the second argument. If you want to change the max x and y values, put them as the third and fourth argument, respectively. You can set defaults in the function below.
+//Usage: This is intended to take the place of single-use variables that only contain 0 or 1, used as flags for certain events and such. With these functions, you can store all those flags as a single array, meaning you can make as many flags as you want without having to really worry about save bloat. It can also make your code a bit more readable!
 
-CreepyText
+//You'll want to put 'MiscFlags = IARRAY' into your OnFirstBoot. That'll set up an empty array for flags to be stored in.
+//When you want to check if a flag is set or not, you can do it like so:
+//if Flag("My Flag") == 0
+//or
+//if Flag("My Flag") == 1
+
+//Any flags that are NOT in the array are 0, and any flags that ARE in the array are 1. So, to set a flag to 1, you add it to the array like this:
+//if Flag("My Flag") == 0; MiscFlags ,= "My Flag"
+
+//You don't technically need the if check there, but it stops duplicate entries from being added. The ,= is also important; that adds a new element to an array. Don't use += for this!
+
+//If you want to set a flag back to 0, you can remove it like so:
+//_i = RemoveFlag("My Flag")
+//The _i part there is important, it makes it so that a 1 or 0 doesn't appear as dialogue
+
+//Flag names can be just about anything you want! They're just stored as strings. For example, for S I have "Saw Gaster with googly eyes", and for Lulo I have things like "Unlocked MP3 player" and "Unlocked journal". If you want to see what flags are set, you can just put %(MiscFlags) into script input, so it's helpful to have names that describe the flag!
+
+Flag //Checks to see if a flag exists. Returns 1 if yes, returns 0 if no
 {
-	_argv[0] = REPLACE(_argv[0],"##","'") //Replaces ## with an apostrophe, change it if you like
-    _display = ""
-    for _i = 0; _i < STRLEN(_argv[0]); _i++
-    {
-		_w = 0
-		_x = 0
-		_y = 0
-		if _argv[1] != ""; _w = RAND(_argv[1]); else; _w = RAND(10)  //Set this to the maximum pause time you want, or comment it out if you don't want random pauses (Don't put it higher than 10 or you'll call invalid \w commands)
-        if _argv[2] != ""; _x = RAND(_argv[2]); else; _x = RAND(250) //Set this to the maximum X coordinate you want
-        if _argv[3] != ""; _y = RAND(_argv[3]); else; _y = RAND(100) //Set this to the maximum Y coordinate you want
-        
-        _display += ("\_l[%(_x),%(_y)]" + SUBSTR(_argv[0],_i,1) + "\w%(_w)")
-    }
-    _display
-}  
-        </pre>
-		</div>
+	if ASEARCH(_argv[0],MiscFlags) != -1; 1
+	else; 0
+}
 
-    </article>
+RemoveFlag //Removes all instances of a flag in the array. Returns 0 if there was no flag to erase, and 1 upon successfully erasing all flags
+{
+	_elements = ASEARCHEX(_argv[0],MiscFlags)
+	if ARRAYSIZE(_elements) == 0; 0 //If there was no flag to erase
+	else
+	{
+		for _i = ARRAYSIZE(_elements) - 1; _i >= 0; _i-- //Goes from the end of the list to the start, so the elements stay in the same positions while we erase
+		{
+			_current = _elements[_i]
+			MiscFlags[_current] = IARRAY
+		}
+		1
+	}
+}
+
+
+//Technical details:
+
+//ASEARCH is a YAYA command that searches an array for the value you specify. If it doesn't find the value, it returns -1. If it finds the value, it returns the position in the array.
+
+//ASEARCHEX is similar, but it finds all instances of the same value, and returns the positions as a new array.
+
+//So, it IS possible to skip a step here and write if ASEARCH("My Flag",MiscFlags) != -1, to see if a flag is set. But != -1 is a bit confusing at times! So the Flag function here returns 1 if the flag is set, and 0 if it is not, to simplify things.
+
+//With the RemoveFlag function, all it does is see how many instances of the value there are, then start erasing them from the end of the array working towards the start of the array, so that the array positions don't change as it erases. The reason I've done it this way is so that if someone accidentally adds the same flag to the array a bunch of times, all of them will be erased, so that the flag returns 0.
+		</pre>
+	</article>
+	
+	<article>
+		<h1>Parallel</h1>
+		<p class="centerreg">Parallel is a function written to replace an old SAORI(?) that I couldn't get working. It lets multiple characters say different dialogues at the same time!</p>
+		<div class="cntr"><img src="img/function_parallel.gif" alt="Parallel Demonstrated" width="876" height="547" class="center"></div>
+		<br>
+		<label class="collapsible">See the code here</label>
+		<div class="collapsible-content">
+		<pre>
+//Written by Zichqec https://zichqec.github.io/s-the-skeleton/index.html
+
+//This function is intended to replace the functionality of an old SAORI(?) that I found and couldn't get working. It lets multiple characters say different things at the same time.
+
+//To call the function, you can either call the function in your code like this:
+//Parallel(0,"Dialogue for the Sakura!",1,"Dialogue for the Kero!")
+//Or in dialogue like this:
+//"%(Parallel(0,'Dialogue for the Sakura!',1,'Dialogue for the Kero!'))"
+
+//You can call any characters, in any order, and in any amount. Every other tag is a character tag, so you should write a number, the the dialogue that goes with that number.
+//%(Parallel(5,'Char 5 dialogue',37,'Char 37 dialogue',0,'Sakura dialogue',9,'Char 9 dialogue'))
+
+//Please take care when writing the tags. I think I worked out all the infinite loop problems, but if your ghost ever crashes while using this function, do let me know and I'll see what I can do to fix it!
+
+//You cannot write sakurascript tags within the Parallel tag, and if you want to write an apostrophe, you should write it as ##
+
+Parallel
+{
+	//Initializing variables
+	_output = ""
+	_chararray = IARRAY
+	_textarray = IARRAY
+	
+	_i = 0
+	while _i < _argc //Sorts each argument into characters and dialogue
+	{
+		_chararray ,= _argv[_i]
+		_i++
+		_textarray ,= REPLACE(_argv[_i],"##","'") //Changes ## to an apostrophe, change it if you like
+		_i++
+	}
+	--
+	while ARRAYSIZE(_chararray) > 0 //Repeats until all dialogues have been outputted
+	{
+		_i = 0
+		_output += "\![quicksection,1]"
+		while _i < ARRAYSIZE(_chararray) //Loops through each char and displays a single character of dialogue, erases any dialogues/chars that have become empty
+		{
+			if STRLEN(_textarray[_i]) == 0
+			{
+				_chararray[_i] = IARRAY
+				_textarray[_i] = IARRAY
+				continue
+			}
+			_output += + "\p[" + _chararray[_i] + "]" + SUBSTR(_textarray[_i],0,1)
+			_textarray[_i] = ERASE(_textarray[_i],0,1)
+			_i++
+		}
+		_output += "\![quicksection,0]\w1"
+	}
+	_output
+}
+		</pre>
+	</article>
 	
 	<article>
 	  <h1>Wobble</h1>
@@ -367,6 +454,44 @@ Mock
 }
 	</pre>
 	</article>
+	
+	<article>
+        <h1>CreepyText</h1>
+        <p class="centerreg">Want to be able to write text in a really creepy and nonsensical way? Here's a simple function:</p>
+        <div class="cntr"><img src="img/function_creepytext.gif" alt="CreepyText Demonstrated" width="571" height="397" class="center"></div>
+		<br>
+		<label class="collapsible">See the code here</label>
+		<div class="collapsible-content">
+		<pre>
+//Written by Zichqec https://zichqec.github.io/s-the-skeleton/index.html
+
+//To call the function, you can either call the function in your code like this:
+//CreepyText("Your dialogue here!")
+//Or in dialogue like this:
+//"%(CreepyText('Your dialogue here!'))"
+//If you want to change the max \w tag value, put the number you want as the second argument. If you want to change the max x and y values, put them as the third and fourth argument, respectively. You can set defaults in the function below.
+
+CreepyText
+{
+	_argv[0] = REPLACE(_argv[0],"##","'") //Replaces ## with an apostrophe, change it if you like
+    _display = ""
+    for _i = 0; _i < STRLEN(_argv[0]); _i++
+    {
+		_w = 0
+		_x = 0
+		_y = 0
+		if _argv[1] != ""; _w = RAND(_argv[1]); else; _w = RAND(10)  //Set this to the maximum pause time you want, or comment it out if you don't want random pauses (Don't put it higher than 10 or you'll call invalid \w commands)
+        if _argv[2] != ""; _x = RAND(_argv[2]); else; _x = RAND(250) //Set this to the maximum X coordinate you want
+        if _argv[3] != ""; _y = RAND(_argv[3]); else; _y = RAND(100) //Set this to the maximum Y coordinate you want
+        
+        _display += ("\_l[%(_x),%(_y)]" + SUBSTR(_argv[0],_i,1) + "\w%(_w)")
+    }
+    _display
+}  
+        </pre>
+		</div>
+
+    </article>
 	
     <article>
         <h1>OnWander</h1>
