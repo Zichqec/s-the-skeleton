@@ -89,31 +89,29 @@
         <p>And much more that I can't fit here! I'm always adding new things to S, so keep an eye out for updates!</p>
         <br>
         <p>Don't mind spoilers and want to know how to unlock some of S's more hidden content? Check under the spoiler tab at your own risk.</p>
-        <div class="collapsible-sSpoilers">
-            <input type="checkbox" id="sSpoilers">
-            <br>
-                <label for="sSpoilers">Reveal Spoilers</label>
-                <div class="sSpoilers-content">
-                    <h2>RYS mode</h2>
-                    <img src="img/RYSThumb.png" alt="RYS Mode" width="221" height="292" class="center">
-                    <p>RYS mode can be unlocked by booting S while certain conditions are met. He doesn't have as much content as normal S, but I do hope to add more to him in the future!</p>
-                    <ol>
-                        <li>Learn about at least 1 of S's family members, by clicking on their highlighted names in his random dialogue.</li>
-                        <li>Go to the 'do something' menu, and click 'Check'. Investigate for more details.</li>
-                        <li>Go to his question menu and ask him about his LV.</li>
-                        <li>Boot him on August 25th or at 8:25, AM or PM.</li>
-                        <li>After you've spoken to RYS a few times, if you close him and open the ghost again, you'll be back to S. Ask him about RYS in his question menu, and you'll unlock an option on the main menu to switch between the two at will.</li>
-                    </ol>
-                    <p>You can ask RYS questions about himself and his life, and eventually he may ask you a question or two if you're kind to him. You can also change his name, and perform standard actions like petting and hugging.</p>
-                </div>
-            </div>
-			<webring-banner>
-				<p>Member of the <a href="https://ukagakawebring.netlify.com/">Ukagaka/Ghost Development and Download</a> webring</p>
-				<a href="https://ukagakawebring.netlify.com//prev">Previous</a>
-				<a href="https://ukagakawebring.netlify.com//random">Random</a>
-				<a href="https://ukagakawebring.netlify.com//next">Next</a>
-			</webring-banner>
-			<script async src="https://ukagakawebring.netlify.com//embed.js" charset="utf-8"></script>
+        <br>
+		<label class="collapsible">Reveal spoilers</label>
+		<div class="collapsible-content">
+			<h2>RYS mode</h2>
+			<img src="img/RYSThumb.png" alt="RYS Mode" width="221" height="292" class="center">
+			<p>RYS mode can be unlocked by booting S while certain conditions are met. He doesn't have as much content as normal S, but I do hope to add more to him in the future!</p>
+			<ol>
+				<li>Learn about at least 1 of S's family members, by clicking on their highlighted names in his random dialogue.</li>
+				<li>Go to the 'do something' menu, and click 'Check'. Investigate for more details.</li>
+				<li>Go to his question menu and ask him about his LV.</li>
+				<li>Boot him on August 25th or at 8:25, AM or PM.</li>
+				<li>After you've spoken to RYS a few times, if you close him and open the ghost again, you'll be back to S. Ask him about RYS in his question menu, and you'll unlock an option on the main menu to switch between the two at will.</li>
+			</ol>
+			<p>You can ask RYS questions about himself and his life, and eventually he may ask you a question or two if you're kind to him. You can also change his name, and perform standard actions like petting and hugging.</p>
+		</div>
+		<br>
+		<webring-banner>
+			<p>Member of the <a href="https://ukagakawebring.netlify.com/">Ukagaka/Ghost Development and Download</a> webring</p>
+			<a href="https://ukagakawebring.netlify.com//prev">Previous</a>
+			<a href="https://ukagakawebring.netlify.com//random">Random</a>
+			<a href="https://ukagakawebring.netlify.com//next">Next</a>
+		</webring-banner>
+		<script async src="https://ukagakawebring.netlify.com//embed.js" charset="utf-8"></script>
     </article>
     <article>
         <h1>Version history</h1>
@@ -276,6 +274,23 @@
         <a href="https://toyhou.se/Zichqec" class="footlink">Toyhouse</a> |
         <a href="https://www.youtube.com/channel/UC_9BGh45mIL3b3riZ4aTRIA" class="footlink">Youtube</a>
     </footer>
-</body>
+	
+<script> <!--For the collapsible-->
+var coll = document.getElementsByClassName("collapsible");
+var i;
 
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+
+</body>
 </html>

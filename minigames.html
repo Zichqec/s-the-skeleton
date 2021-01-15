@@ -81,13 +81,10 @@
         <div class="resp-container">
             <iframe class="resp-iframe" src="https://www.youtube.com/embed/oLq3xPsQ9D8" gesture="media"  allow="encrypted-media" allow="accelerometer" allowfullscreen></iframe>
         </div>
-            <div class="collapsible-Hangman">
-                <input type="checkbox" id="Hangman">
-                <br>
-				<label for="Hangman">See the code here</label>
-					<div class="Hangman-content">
-						<pre>
-
+        <br>
+		<label class="collapsible">See the code here</label>
+		<div class="collapsible-content">
+		<pre>
 //Written by Zichqec https://zichqec.github.io/s-the-skeleton/index.html
 
 OnStartHangman //Sets up starting variables
@@ -275,9 +272,8 @@ hangmanwords : nonoverlap //Words it can choose - add lots of these!
     "Ukagaka"
     "Ghost"
 }
-                    </pre>
-                </div>
-            </div>
+			</pre>
+		</div>
     </article>
 
    <article>
@@ -286,13 +282,10 @@ hangmanwords : nonoverlap //Words it can choose - add lots of these!
         <div class="resp-container">
             <iframe class="resp-iframe" src="https://www.youtube.com/embed/ev6VMp5lSsw" gesture="media"  allow="encrypted-media" allow="accelerometer" allowfullscreen></iframe>
         </div>
-        <div class="collapsible-Cntn">
-            <input type="checkbox" id="Cntn">
-            <br>
-                <label for="Cntn">See the code here</label>
-                <div class="Cntn-content">
-                    <pre>
-
+        <br>
+		<label class="collapsible">See the code here</label>
+		<div class="collapsible-content">
+		<pre>
 //I've redone the petting code from the GT template, since some of it didn't actually do what it claimed to, at least in my testing. With this system, we track two stroke values, one for normal petting which resets every time you trigger dialogue, and one for continuous petting that counts up until the mouse leaves the character. For this to work, it's vital that you use either OnMouseLeave or OnMouseLeaveAll to reset the stroke values when the mouse leaves the character. The way the template had this set up doesn't actually work, so it's important you add the new event.
 
 MouseMoveSakura
@@ -349,8 +342,7 @@ OnMouseLeaveAll //Activates when the mouse leaves all hitboxes. You can change t
     currentpetstreak = 0
 }
                         
-                    </pre>
-                </div>
+            </pre>
         </div>
 
         <!--<p class="centerreg"><a href="https://docs.google.com/document/d/1XMFFnLugQHKCs-_VutkhdHAdGwmcGYgkjwuzwLf9jPs/edit#heading=h.2zy65cebvd8c">Get the code here!</a></p>-->
@@ -368,7 +360,22 @@ OnMouseLeaveAll //Activates when the mouse leaves all hitboxes. You can change t
         <a href="https://www.youtube.com/channel/UC_9BGh45mIL3b3riZ4aTRIA" class="footlink">Youtube</a>
     </footer>
 
-    
-</body>
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
 
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+
+</body>
 </html>
