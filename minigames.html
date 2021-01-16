@@ -152,6 +152,7 @@ OnHangman //Main game window
 
 OnGuessNormal
 {
+	if TOSTR(reference0) == "0.0" || TOSTR(reference0) == "0.000000"; reference0 = "." //Unlikely to come up, but periods are handled strangely, and also differently between aya and yaya because screw you lol
 	if STRLEN(reference0) > 1 //The user has put in more than 1 letter
 	{
 		"\0\s[0]Single letters only, please.\x"
