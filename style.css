@@ -33,6 +33,11 @@ nav
     border-radius: 15px;
 }
 
+pre
+{
+	 font-family: 'Courier New', monospace;
+}
+
 .navlink:hover
 {
     background: #b6b5b6;

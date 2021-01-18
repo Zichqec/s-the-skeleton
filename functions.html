@@ -78,7 +78,7 @@
 		<h1>Holding Obsidian</h1>
 		<p class="centerreg">Do you want YOUR GHOST to be able to pick up <a href="dusty.html">Dusty's cat, Obsidian?</a> Great! Me too! Here's a video showing what it looks like, and a .zip download with instructions and examples. If you want to set up special commu dialogue between your ghost and Dusty, please let me know and I'd be glad to collaborate!</p>
 		<p class="centerreg">Demo video includes <a href="https://zdzisiu.github.io/Ukagaka/md.html">MiniDev</a> by Zdzisiu.</p>
-		<div class="cntr"><a href="http://www.mediafire.com/file/b9a2k87ikhwxdyr/How_To_Make_Your_Ghost_Hold_Obsidian_v1.0.1.zip/file" class="linkbutton">Download the latest .zip file here!</a></div>
+		<div class="cntr"><a href="http://www.mediafire.com/file/b9a2k87ikhwxdyr/How_To_Make_Your_Ghost_Hold_Obsidian_v1.0.1.zip/file">Download the latest .zip file here!</a></div>
 		<br>
 		<div class="resp-container">
             <iframe class="resp-iframe" src="https://www.youtube.com/embed/KR7Jqr2Fok4" gesture="media"  allow="encrypted-media" allow="accelerometer" allowfullscreen></iframe>
@@ -88,7 +88,7 @@
 	<article>
         <h1>Interval Stacker</h1>
         <p class="centerreg">Do you use lots of intervals to create poses in your shell, and need an easier way to set up poses? Here's a .dic file and Saori that you can add to your ghost! Demonstrated with <a href="http://www.drdowasure.com/gaster/">Zarla's Gaster</a> because I haven't made any ghosts with lots of intervals.</p>
-		<div class="cntr"><a href="https://www.mediafire.com/file/pv3n99i7v8ervov/IntervalStacker_v2.0.5.zip/file" class="linkbutton">Download the latest .dic file here!</a></div>
+		<div class="cntr"><a href="https://www.mediafire.com/file/pv3n99i7v8ervov/IntervalStacker_v2.0.5.zip/file">Download the latest .dic file here!</a></div>
 		<br>
         <div class="resp-container">
             <iframe class="resp-iframe" src="https://www.youtube.com/embed/qt3wpa2978Q" gesture="media"  allow="encrypted-media" allow="accelerometer" allowfullscreen></iframe>
@@ -155,6 +155,7 @@ RemoveFlag //Removes all instances of a flag in the array. Returns 0 if there wa
 
 //With the RemoveFlag function, all it does is see how many instances of the value there are, then start erasing them from the end of the array working towards the start of the array, so that the array positions don't change as it erases. The reason I've done it this way is so that if someone accidentally adds the same flag to the array a bunch of times, all of them will be erased, so that the flag returns 0.
 		</pre>
+		</div>
 	</article>
 	
 	<article>
@@ -218,6 +219,7 @@ Parallel
 	_output
 }
 		</pre>
+		</div>
 	</article>
 	
 	<article>
@@ -292,6 +294,7 @@ Wobble
 	_word
 }
 		</pre>
+		</div>
 	</article>
 	
 	<article>
@@ -317,6 +320,7 @@ Capitalize
 	_argv[0] //Returns the capitalized word
 }
 		</pre>
+		</div>
 	</article>
 	
 	<article>
@@ -395,6 +399,7 @@ Slow
 	_output
 }
 	</pre>
+	</div>
 	</article>
 	
 	<article>
@@ -453,8 +458,54 @@ Mock
     _output
 }
 	</pre>
+	</div>
 	</article>
 	
+	<article>
+		<h1>Shuffle</h1>
+        <p class="centerreg">Need to shuffle an array or a string? This function will do that automatically for you!</p>
+        <div class="cntr"><img src="img/function_shuffle.gif" alt="Shuffle Demonstrated" width="470" height="418" class="center"></div>
+		<br>
+		<label class="collapsible">See the code here</label>
+		<div class="collapsible-content">
+		<pre>	
+//Written by Zichqec https://zichqec.github.io/s-the-skeleton/index.html
+
+//To call the function, you can either call the function in your code like this:
+//Shuffle("A string!") or Shuffle(SomeArray)
+//Or in dialogue like this:
+//"%(Shuffle('A string!'))" or "%(Shuffle(SomeArray))"
+//It will automatically detect strings vs arrays. General purpose arrays will have their elements shuffled. Anything else is treated as a string, including simple arrays, and will have the characters scrambled.
+//If you send more than 1 argument, it will not work, so don't do that.
+
+Shuffle
+{
+	_output = IARRAY
+	if GETTYPE(_argv) == 4 //If it's an array. General purpose arrays only!
+	{
+		while ARRAYSIZE(_argv) > 0
+		{
+			_rand = RAND(ARRAYSIZE(_argv))
+			_output ,= _argv[_rand]
+			_argv[_rand] = IARRAY
+		}
+	}
+	else //If it's anything else it'll be treated as a string
+	{
+		_argv = TOSTR(_argv)
+		while STRLEN(_argv) > 0
+		{
+			_rand = RAND(STRLEN(_argv))
+			_output += SUBSTR(_argv,_rand,1)
+			_argv = ERASE(_argv,_rand,1)
+		}
+	}
+	_output
+}
+		</pre>
+		</div>
+	</article>
+
 	<article>
         <h1>CreepyText</h1>
         <p class="centerreg">Want to be able to write text in a really creepy and nonsensical way? Here's a simple function:</p>
@@ -490,7 +541,6 @@ CreepyText
 }  
         </pre>
 		</div>
-
     </article>
 	
     <article>
@@ -690,6 +740,7 @@ OnDisplayHandover //This sets the variables for if your ghost is moved between m
 //Please also add this line to your OnShellScaling, so that it can properly adjust itself if the user changes the ghost's size. Don't forget to define it as 100 in OnFirstBoot, too!
 nowscale = reference0
     </pre>
+	</div>
     </article>
 	
 	
