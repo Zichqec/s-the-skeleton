@@ -445,7 +445,12 @@ Mock
         for _i = 0; _i < STRLEN(_argv[0]); _i++
         {
             _let = SUBSTR(_argv[0],_i,1)
-            if _i % 2 == 0
+			if _let == " "
+			{
+				_output += _let
+				continue
+			}
+            if _m % 2 == 0
             {
                 _output += TOLOWER(_let)
             }
@@ -453,6 +458,7 @@ Mock
             {
                 _output += TOUPPER(_let)
             }
+			_m++
         }
     }
     _output
