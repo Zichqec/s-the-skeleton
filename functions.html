@@ -118,8 +118,7 @@
 //You don't technically need the if check there, but it stops duplicate entries from being added. The ,= is also important; that adds a new element to an array. Don't use += for this!
 
 //If you want to set a flag back to 0, you can remove it like so:
-//_i = RemoveFlag("My Flag")
-//The _i part there is important, it makes it so that a 1 or 0 doesn't appear as dialogue
+//RemoveFlag("My Flag")
 
 //Flag names can be just about anything you want! They're just stored as strings. For example, for S I have "Saw Gaster with googly eyes", and for Lulo I have things like "Unlocked MP3 player" and "Unlocked journal". If you want to see what flags are set, you can just put %(MiscFlags) into script input, so it's helpful to have names that describe the flag!
 
@@ -129,18 +128,16 @@ Flag //Checks to see if a flag exists. Returns 1 if yes, returns 0 if no
 	else; 0
 }
 
-RemoveFlag //Removes all instances of a flag in the array. Returns 0 if there was no flag to erase, and 1 upon successfully erasing all flags
+RemoveFlag //Removes all instances of a flag in the array.
 {
 	_elements = ASEARCHEX(_argv[0],MiscFlags)
-	if ARRAYSIZE(_elements) == 0; 0 //If there was no flag to erase
-	else
+	if ARRAYSIZE(_elements) > 0
 	{
 		for _i = ARRAYSIZE(_elements) - 1; _i >= 0; _i-- //Goes from the end of the list to the start, so the elements stay in the same positions while we erase
 		{
 			_current = _elements[_i]
 			MiscFlags[_current] = IARRAY
 		}
-		1
 	}
 }
 
