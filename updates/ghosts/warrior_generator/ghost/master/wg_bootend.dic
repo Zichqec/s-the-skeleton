@@ -5,7 +5,7 @@ OnFirstBoot //Dialogue when you first open the ghost
 	booting = 0
 	OnDownloadMoonPhase
 	--
-	"\0\b2\![bind,Front Right Leg,Toes,1]\![bind,Front Left Leg,Toes,1]\![bind,Blaze,Forehead,1]\![bind,Eyes,Green 1,1]Greetings,\w4 fellow warrior.\w8\w8\![embed,OnRandomDressup] "
+	"\0\s[0]\b2\![bind,Front Right Leg,Toes,1]\![bind,Front Left Leg,Toes,1]\![bind,Blaze,Forehead,1]\![bind,Eyes,Green 1,1]Greetings,\w4 fellow warrior.\w8\w8\![embed,OnRandomDressup] "
 	--
 	"This generator will serve as an aide for creating new characters and designs.\w8\w8\![embed,OnRandomDressup]"
 	--
@@ -210,7 +210,7 @@ FirstBootVars
 	//---1.0.0---
 	shellauthor = ("Zichqec","Zichqec","https://zichqec.github.io/s-the-skeleton/index.html")
 	phase = "Unknown"
-	CharacterArray = ("Star","light","Leader","StarClan","Click highlighted options to change them, or click the randomize button to randomize everything.")
+	CharacterArray = ("Star","light","Leader","StarClan","Tom","Click highlighted options to change them, or click the randomize button to randomize everything.")
 	CharacterSettingsArray = ("Default","Default")
 	ClanList = IARRAY
 	GenderList = IARRAY
