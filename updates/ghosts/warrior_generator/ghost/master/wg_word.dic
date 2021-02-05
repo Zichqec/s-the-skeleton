@@ -1,0 +1,541 @@
+//-----Envelopes-----
+
+//If you write all your envelopes as lowercase, you can send them through this function whenever you need the first letter capitalized! It'd look something like this: "%(Capitalize(exampleenvelope))"
+Capitalize
+{
+	_word = _argv[0] //Sets _word to the word the user sent
+	_buffer = SUBSTR(_word,0,1) //Storing the first character in _buffer
+	_word = ERASE(_word,0,1) //Erasing the first character from _word
+	_word = INSERT(_word,0,TOUPPER(_buffer)) //Making the character in _buffer uppercase and inserting it back into _word
+	_word //Returns the capitalized word
+}
+
+bb
+{
+	if SHIORI3FW.BalloonName == "StarClan"; "\b4"
+	else; "\b2"
+}
+
+//-----Menu stuff-----
+season //Current season
+{
+	if hemisphere == "Southern"
+	{
+		if month > 2 && month < 6; "Leaf-fall"
+		elseif month > 5 && month < 9; "Leaf-bare"
+		elseif month > 8 && month < 12; "Newleaf"
+		else; "Greenleaf"
+	}
+	else
+	{
+		if month > 2 && month < 6; "Newleaf"
+		elseif month > 5 && month < 9; "Greenleaf"
+		elseif month > 8 && month < 12; "Leaf-fall"
+		else; "Leaf-bare"
+	}
+}
+
+nowhour //hour12 displays the hour like a 12 hour clock, except for 12 which is displayed as 0
+{
+	if hour12 == 0; "12"
+	else; "%(hour12)"
+}
+
+nowmin //Adding a 0 to the minute if it's under 10
+{
+	if minute < 10; "0%(minute)"
+	else; "%(minute)"
+}
+
+runmin //Same as above but with the runtime minutes
+{
+	if runtime[1] < 10; "0%(runtime[1])"
+	else; "%(runtime[1])"
+}
+
+ap //AM or PM - ampm is 0 during am, and 1 during pm
+{
+ 	if ampm == 0; "AM"
+ 	else; "PM"
+}
+
+wd //Abbreviated week day
+{
+	if weekday == 0; "Sun"
+	elseif weekday == 1; "Mon"
+	elseif weekday == 2; "Tue"
+	elseif weekday == 3; "Wed"
+	elseif weekday == 4; "Thu"
+	elseif weekday == 5; "Fri"
+	else; "Sat"
+}
+
+nowday //Full week day
+{
+	_day = weekday
+	if _argv[0] == "next"
+	{
+		_day++
+		if _day > 6; _day = 1
+	}
+	if _argv[0] == "last"
+	{
+		_day--
+		if _day < 1; _day = 6
+	}
+	
+	if _day == 0; "Sunday"
+	elseif _day == 1; "Monday"
+	elseif _day == 2; "Tuesday"
+	elseif _day == 3; "Wednesday"
+	elseif _day == 4; "Thursday"
+	elseif _day == 5; "Friday"
+	else; "Saturday"
+}
+
+nowmonth //The current month name
+{
+	_month = month
+	if _argv[0] == "next"
+	{
+		_month++
+		if _month > 12; _month = 1
+	}
+	if _argv[0] == "last"
+	{
+		_month--
+		if _month < 1; _month = 12
+	}
+	
+	if _month == 1; "January"
+	elseif _month == 2; "February"
+	elseif _month == 3; "March"
+	elseif _month == 4; "April"
+	elseif _month == 5; "May"
+	elseif _month == 6; "June"
+	elseif _month == 7; "July"
+	elseif _month == 8; "August"
+	elseif _month == 9; "September"
+	elseif _month == 10; "October"
+	elseif _month == 11; "November"
+	else; "December"
+}
+
+timeslot //From the GT template. Breaking down the day into a few distinct chunks so you dont have to add checks for every hour.
+{
+	if hour >= 5 && hour <= 8; "earlymorning" //5-8am
+	elseif hour >= 9 && hour <= 11; "morning" //9-11am
+	elseif hour >= 12 && hour <= 14; "lunch" //12-2pm
+	elseif hour >= 15 && hour <= 17; "afternoon" //3-5pm
+	elseif hour >= 18 && hour <= 20; "evening" //6-8pm
+	elseif hour >= 21 && hour <= 24; "latenight" //9pm-12am
+	else; "midnight" //1-4am
+}
+
+moonphase //Moon phase for main menu
+{
+	if AutoPhase == "On"
+	{
+		if phase == "New Moon"; "\_b[img\Moon01,inline,--option=use_self_alpha]"
+		elseif phase == "Waxing Crescent"; "\_b[img\Moon02,inline,--option=use_self_alpha]"
+		elseif phase == "First Quarter"; "\_b[img\Moon03,inline,--option=use_self_alpha]"
+		elseif phase == "Waxing Gibbous"; "\_b[img\Moon04,inline,--option=use_self_alpha]"
+		elseif phase == "Full Moon"; "\_b[img\Moon05,inline,--option=use_self_alpha]"
+		elseif phase == "Waning Gibbous"; "\_b[img\Moon06,inline,--option=use_self_alpha]"
+		elseif phase == "Last Quarter"; "\_b[img\Moon07,inline,--option=use_self_alpha]"
+		elseif phase == "Waning Crescent"; "\_b[img\Moon08,inline,--option=use_self_alpha]"
+		else; "\_b[img\Moon00,inline,--option=use_self_alpha]"
+	}
+}
+
+
+prophecy
+{
+	"%(Capitalize(prophecycat)) alone will %(prophecyaction)."
+	"In our darkest hour, %(prophecycat) will %(prophecyaction)."
+	"When all seems lost, %(prophecycat) will %(prophecyaction)."
+	"Only %(prophecycat) can %(prophecyaction)."
+	"%(Capitalize(prophecycat)) will %(prophecyactionneg)."
+	"When hope is running out, %(prophecysetup) will come. Watch for %(prophecycat), they will %(prophecyaction)."
+	"Change is coming. %(Capitalize(prophecysetup)) approaches swiftly, that only the power of %(prophecycat) can stop."
+	"%(Capitalize(prophecysetup)) races towards us. Search for %(prophecycat), they will %(prophecyaction)."
+	"%(Capitalize(prophecysetup)) comes. You must %(prophecyclanaction)."
+	"As %(prophecyclan) rises, %(prophecycat) will bring %(prophecysetup). %(Capitalize(prophecyclanaction)), and %(prophecyaction)."
+	"%(Capitalize(prophecycat)) brings dangerous change to the %(prophecylocation). %(Capitalize(prophecysetup)) will come, and %(prophecyactionneg)."
+}
+
+prophecycat : nonoverlap
+{
+	""
+	//"a storm"
+	"the half "
+	"the howling "
+	"a silent "
+	"a great "
+	"a great "
+	"a powerful "
+	"the humble "
+	"the quiet "
+	"the shrieking "
+	"the trembling "
+	"a thunderous "
+	"a terrifying "
+	--
+	"%(prophecyprefix)"
+}
+
+prophecyprefix : nonoverlap
+{
+	"mist"
+	"fog"
+	"fire"
+	"storm"
+	"owl"
+	"wolf"
+	"newt"
+	"fish"
+	"trout"
+	"minnow"
+	"rock"
+	"leopard"
+	"tiger"
+	"lion"
+	"frost"
+}
+
+prophecyaction
+{
+	"save our clan"
+	"lead us to glory"
+	"bring us victory"
+	"bring us home"
+	"change our destiny"
+	"lead us to a bright new dawn"
+	"lead us into the light"
+	"return our clan to glory"
+	"bring us back together"
+	"rescue our fractured pieces"
+}
+
+prophecyactionneg
+{
+	"bring grave danger"
+	"drive us into a dark night"
+	"destroy our destiny"
+	"bring with it dark clouds to cover the moon"
+	"tear our clan apart"
+	"tear the skies apart"
+	"rend the sky in two"
+	"blot out the moon"
+	"bring the deepest darkness"
+	"cause terrible calamity"
+	"bring much sorrow and grief"
+	//"bring wailing and"
+}
+
+prophecysetup
+{
+	"a great storm"
+	"a bright dawn"
+	"the darkest dusk"
+	"the blackest night"
+	"the hottest greenleaf"
+	"the bitterest leaf-bare"
+	"the coldest leaf-bare"
+	"a great drought"
+	"a great deluge"
+	"a great flood"
+	"a raging fire"
+	"a raging torrent"
+	"a great quaking"
+	"a great war"
+	"the coldest frost"
+	"the deepest snow"
+	"a great sickness"
+	"a great disease"
+	"an incurable disease"
+}
+
+prophecyclanaction
+{
+	"search for %(prophecycat)"
+	"prepare to weather the danger"
+	"look to %(prophecycat)"
+	"search the skies for %(prophecycat)"
+	"warn %(prophecyclan) before %(prophecyotherclan)"
+}
+
+prophecyclan
+{
+	"the great river"
+	"the howling wind"
+	"the deepest shadow"
+	"the crashing thunder"
+	"the highest peak"
+	"the pine forest"
+	"the pale dawn"
+	"the quiet stream"
+}
+
+prophecyotherclan
+{
+	"they are swept away"
+	"they are driven apart"
+	"they are driven away"
+	"they are torn to pieces"
+	"the danger takes them"
+}
+
+prophecylocation
+{
+	"forest"
+	"lake"
+	"river"
+	"woods"
+	"plains"
+	"peaks"
+	"mountains"
+	"gorge"
+	"moors"
+	"valley"
+	"hills"
+}
+
+rank
+{
+	"Kit"
+	"Apprentice"
+	"Warrior"
+	if _argv[0] != "Tom"; "Queen"
+	"Medicine Cat Apprentice"
+	"Medicine Cat"
+	"Elder"
+	"Deputy"
+	"Leader"
+}
+
+gender
+{
+	"Tom"
+	"She-cat"
+	"Cat"
+}
+
+randombio
+{
+	"General personality: "
+	--
+	"Bubbly and outgoing"
+	"Gruff and irritable"
+	"Shy"
+	"Curious, maybe a bit nosey"
+	"Boastful and obnoxious"
+	"Sarcastic, but has a good heart"
+	"Loyal and brave"
+	"Bold"
+	"Sneaky and conniving"
+	"Kind and fair"
+	--
+	"\n\nFavorite prey: "
+	--
+	"Mice"
+	"Voles"
+	"Squirrels"
+	"Rabbits"
+	"Sparrows"
+	"Finches"
+	"Hawks"
+	"Water voles"
+	"Shrews"
+	"Frogs"
+	"Thrushes"
+	"Crows"
+	"Pigeons"
+	"Starlings"
+	"Magpies"
+	"Pheasants"
+	"Wrens"
+	"Moorhens"
+	"Blackbirds"
+	"Robins"
+	"Wagtails"
+	"Lapwings"
+	"Trout"
+	"Carp"
+	"Minnows"
+	"Chubs"
+	"Bats"
+	"Weasels"
+	"Hares"
+	"Lizards"
+	"Rats"
+	--
+	"\n\nFavorite time of day: "
+	--
+	"Twilight"
+	"Dawn"
+	"Sunhigh"
+	"Dusk"
+	"Night"
+	--
+	"\n\nWants a mate: "
+	--
+	"Absolutely not"
+	"No thanks"
+	"No"
+	"Maybe"
+	"If the right cat shows up"
+	"Yes"
+	"Yes please"
+	"Couldn't live without one"
+	--
+	"\n\nWants kits: "
+	--
+	"No way"
+	"No thanks"
+	"Could be convinced"
+	"Maybe"
+	"With the right cat"
+	"Yes"
+	"They've always dreamed about it"
+	--
+	"\n\nFavorite duty: "
+	--
+	"Taking care of the elders"
+	"Building up the camp"
+	"Border patrols"
+	"Hunting patrols"
+	"Training apprentices"
+	"Practicing battle moves"
+	"A little of everything"
+	"Amusing the kits"
+	--
+}
+
+prefix : array
+{
+	if Prefixes[0] == "On"; PrefixListOne
+	if Prefixes[1] == "On"; PrefixListTwo
+	if Prefixes[2] == "On"; CanonLikePrefixes
+	if Prefixes[3] == "On"; ExtraPrefixes
+}
+
+suffix : array
+{
+	if Suffixes[0] == "On"; SuffixListOne
+	if Suffixes[1] == "On"; SuffixListTwo
+	if Suffixes[2] == "On"; CanonLikeSuffixes
+	if Suffixes[3] == "On"; ExtraSuffixes
+}
+
+PrefixListOne : array
+{
+	"Acorn"; "Adder"; "Alder"; "Ant"; "Ash"
+	"Aspen"; "Badger"; "Bark"; "Bee"; "Beech"
+	"Beetle"; "Berry"; "Big"; "Birch"; "Bird"
+	"Black"; "Blaze"; "Blizzard"; "Blossom"; "Blue"
+	"Boulder"; "Bracken"; "Bramble"; "Breeze"; "Briar"
+	"Bright"; "Brindle"; "Bristle"; "Broken"; "Brown"
+	"Bug"; "Bumble"; "Buzzard"; "Cedar"; "Cherry"
+	"Cinder"; "Claw"; "Clear"; "Cloud"; "Clover"
+	"Creek"; "Cricket"; "Crooked"; "Crow"; "Daisy"
+	"Dapple"; "Dark"; "Dawn"; "Dead"; "Deer"
+	"Dew"; "Dove"; "Drizzle"; "Duck"; "Dusk"
+	"Dust"; "Echo"; "Ember"; "Fallen"; "Fallow"
+	"Fawn"; "Feather"; "Fennel"; "Fern"; "Ferret"
+	"Fin"; "Finch"; "Fire"; "Flame"; "Fleet"
+	"Flint"; "Flower"; "Fog"; "Fox"; "Freckle"
+	"Frog"; "Frost"; "Furze"; "Fuzzy"; "Golden"
+	"Goose"; "Gorse"; "Grass"; "Gravel"; "Gray"
+	"Green"; "Hail"; "Half"; "Hare"; "Hawk"
+	"Hazel"; "Heather"; "Heavy"; "Heron"; "Hickory"
+	"Hollow"; "Holly"; "Honey"; "Hoot"; "Ice"
+	"Ivy"; "Jagged"; "Jay"; "Juniper"; "Kestrel"
+	"Kink"; "Kite"; "Lake"; "Larch"; "Lark"
+	"Lavender"; "Leaf"; "Leopard"; "Lichen"; "Light"
+	"Lightning"; "Lily"; "Lion"; "Little"; "Lizard"
+	"Long"; "Lost"; "Loud"; "Low"; "Lynx"
+	"Mallow"; "Maple"; "Marigold"; "Marsh"; "Milk"
+	"Minnow"; "Mint"; "Mist"; "Misty"; "Mole"
+	"Morning"; "Moss"; "Mossy"; "Moth"; "Mouse"
+	"Mud"; "Mumble"; "Nectar"; "Needle"; "Nettle"
+	"Newt"; "Night"; "Oak"; "Odd"; "Olive"
+	"One"; "Otter"; "Owl"; "Pale"; "Patch"
+	"Pebble"; "Petal"; "Pigeon"; "Pike"; "Pine"
+	"Poppy"; "Prickle"; "Puddle"; "Quick"; "Quiet"
+	"Rabbit"; "Ragged"; "Rain"; "Rat"; "Raven"
+	"Red"; "Reed"; "Ripple"; "River"; "Robin"
+	"Rock"; "Root"; "Rose"; "Rowan"; "Running"
+	"Russet"; "Sage"; "Sand"; "Sandy"; "Scorch"
+	"Sedge"; "Seed"; "Shade"; "Shadow"; "Sharp"
+	"Shell"; "Short"; "Shred"; "Shrew"; "Silver"
+	"Sky"; "Slate"; "Small"; "Smoke"; "Snail"
+	"Snake"; "Snap"; "Sneeze"; "Snow"; "Soft"
+	"Soot"; "Sorrel"; "Sparrow"; "Speckle"; "Spider"
+	"Splash"; "Spotted"; "Squirrel"; "Starling"; "Stem"
+	"Stone"; "Storm"; "Sun"; "Sunny"; "Swallow"
+	"Swamp"; "Swan"; "Sweet"; "Swift"; "Tall"
+	"Talon"; "Tangle"; "Tansy"; "Tawny"; "Thistle"
+	"Thorn"; "Thrush"; "Thunder"; "Tiger"; "Tiny"
+	"Toad"; "Torn"; "Trout"; "Tulip"; "Tumble"
+	"Turtle"; "Twig"; "Vine"; "Violet"; "Vixen"
+	"Vole"; "Wasp"; "Weasel"; "Web"; "Weed"
+	"Whisker"; "White"; "Willow"; "Wind"; "Wren"
+	"Yarrow"; "Yellow"; "Yew"	
+}
+
+PrefixListTwo : array
+{
+	"Amber"; "Apple"; "Arch"; "Bay"; "Bloom"
+	"Bounce"; "Brave"; "Bubbling"; "Chestnut"; "Chive"
+	"Cinnamon"; "Cone"; "Copper"; "Crouch"; "Curl"
+	"Curly"; "Cypress"; "Dandelion"; "Dangling"; "Doe"
+	"Down"; "Drift"; "Eagle"; "Ebony"; "Eel"
+	"Fidget"; "Flail"; "Flash"; "Flax"; "Flicker"
+	"Flip"; "Flutter"; "Fly"; "Fringe"; "Frond"
+	"Gull"; "Hatch"; "Haven"; "Hay"; "Hill"
+	"Hop"; "Hope"; "Hound"; "Jump"; "Log"
+	"Maggot"; "Meadow"; "Midge"; "Mistle"; "Monkey"
+	"Mottle"; "Myrtle"; "Nut"; "Oat"; "Parsley"
+	"Pear"; "Perch"; "Pink"; "Plum"; "Pod"
+	"Pool"; "Pounce"; "Primrose"; "Quail"; "Rook"
+	"Rubble"; "Rush"; "Rye"; "Shattered"; "Sheep"
+	"Shimmer"; "Shining"; "Shivering"; "Shy"; "Sleek"
+	"Slight"; "Sloe"; "Snip"; "Song"; "Spark"
+	"Spike"; "Spire"; "Spot"; "Stag"; "Star"
+	"Stoat"; "Stork"; "Strike"; "Stumpy"; "Wave"
+	"Wet"; "Whistle"; "Whorl"; "Wild"; "Wish"
+	"Wolf"; "Wood"; "Woolly"
+}
+
+SuffixListOne : array
+{
+	"belly"; "bird"; "blaze"; "claw"; "cloud"
+	"ear"; "eye"; "eyes"; "face"; "fall"
+	"fang"; "feather"; "fern"; "fire"; "flame"
+	"flight"; "foot"; "frost"; "fur"; "heart"
+	"jaw"; "leaf"; "leap"; "leg"; "light"
+	"mist"; "muzzle"; "nose"; "pelt"; "petal"
+	"pool"; "scar"; "shade"; "shell"; "sky"
+	"song"; "spot"; "spots"; "step"; "storm"
+	"stripe"; "tail"; "throat"; "tuft"; "whisker"
+	"wind"; "wing"; "wish"
+}
+
+SuffixListTwo : array
+{
+	"bark"; "beam"; "bee"; "berry"; "blossom"
+	"branch"; "breeze"; "briar"; "bright"; "brook"
+	"burr"; "burrow"; "bush"; "crawl"; "creek"
+	"dapple"; "dawn"; "dusk"; "dust"; "eater"
+	"fish"; "flake"; "flower"; "gorse"; "hawk"
+	"haze"; "ice"; "mask"; "minnow"; "moon"
+	"mouse"; "needle"; "pad"; "peak"; "poppy"
+	"pounce"; "puddle"; "rose"; "ripple"; "runner"
+	"scratch"; "seed"; "shine"; "sight"; "skip"
+	"slip"; "snout"; "snow"; "speck"; "speckle"
+	"spirit"; "splash"; "spring"; "stalk"; "stem"
+	"stone"; "stream"; "strike"; "swoop"; "teeth"
+	"thistle"; "thorn"; "toe"; "tooth"; "watcher"
+	"water"; "whisper"; "whistle"; "willow"
+}

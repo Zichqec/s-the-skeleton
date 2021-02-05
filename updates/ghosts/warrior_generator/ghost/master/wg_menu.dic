@@ -1,0 +1,1573 @@
+OpenSakuraMenu
+{
+	if AutoUpdates[1] == 2 //If an update is available, the user will be notified when they try to open the menu
+	{
+		"\0\s[0]The stars forsee new content approaching.\w8\w8 Would you like to search the skies for it?"
+		--
+		//Note: the download it now option will go straight into updating without directing to another function. You can do this with some things using 'script:' in the function name, but it's finicky. If this gives you issues feel free to replace it.
+		"\_q\n\n\![*]\q[Download it now,script:\![updatebymyself\]]\n/
+		\![*]\q[Maybe later,UpdateLater]\n\n/
+		\![*]\q[Turn off auto updates,UpdateOff]\e"
+	}
+	else //Normal menu opening
+	{
+		//"\0\b2\s[0]Hi there!"
+		//"\0\b2\s[0]Hello!"
+		//--
+		OnMenuRun
+	}
+}
+
+Select.UpdateLater //If the user decides to update later
+{
+	AutoUpdates[1] = 1
+	
+	"\0\s[0]The stars will seek you out again tomorrow.\e"
+}
+
+Select.UpdateOff //If the user no longer wants to be notified about updates
+{
+	AutoUpdates[0] = "Off"
+	AutoUpdates[1] = 1
+	
+	"\0\s[0]Prophecies will no longer be sought automatically.\e"
+}
+
+OnMenuRun //Main menu
+{
+	if hemisphere == ""; hemisphere = "Northern"
+	if talkrate == ""; talkrate = "Never"; aitalkinterval = 0
+	if AutoUpdates[0] == ""; AutoUpdates[0] = "On"
+	if AutoPhase == ""; AutoPhase = "On"
+	
+	"\b2\_q"
+	--
+	if lastTalk != ""
+	{
+		//"\![*]\q[Repeat last dialogue,OnLastTalk]"
+	}
+	--
+	//\![*]\q[Say something,OnAiTalk]\n/
+	//\![*]\q[Talk to another ghost,OnStartTalking]\n\n/
+	"\n/
+	\![*]\q[Character Menu,OnCharacterMenu]\n\n/
+	\![*]\q[Generate a name,OnNameMenu,%(ANY(prefix)),%(ANY(suffix)),namegen]\n/
+	\![*]\q[See saved names,OnSavedNames,,,mainmenu]\n\n/
+	//\![*]\q[Saved name stats,OnNameStats]\n\n[half]/
+	\![*]\q[Customize appearance,OnDressupMenu]\n/
+	\![*]\q[Change shell,OnShellMenu]\n\n/
+	\![*]\q[Generate a prophecy,OnProphecyMenu]\n\n"
+	--
+	"\![*]Track moon phase?  ("
+	--
+	if AutoPhase != "On"; "\f[color,150,150,150]"
+	--
+	"\q[Yes,OnTogglePhase,On]  \f[default]"
+	--
+	if AutoPhase != "Off"; "\f[color,150,150,150]"
+	--
+	"\q[No,OnTogglePhase,Off]\f[default]"
+	--
+	")\n"
+	--
+	"\![*]Hemisphere:  ("
+	--
+	if hemisphere != "Northern"; "\f[color,150,150,150]"
+	--
+	"\q[Northern,OnToggleHemisphere,Northern]  \f[default]"
+	--
+	if hemisphere != "Southern"; "\f[color,150,150,150]"
+	--
+	"\q[Southern,OnToggleHemisphere,Southern]\f[default]"
+	--
+	")\n"
+	--
+	"\![*]Automatically check for updates?  ("
+	--
+	if AutoUpdates[0] != "On"; "\f[color,150,150,150]"
+	--
+	"\q[Yes,OnToggleUpdate,On]  \f[default]"
+	--
+	if AutoUpdates[0] != "Off"; "\f[color,150,150,150]"
+	--
+	"\q[No,OnToggleUpdate,Off]\f[default])"
+	--
+	"\n\n\![*]\q[Nevermind,Cancel]"
+	--
+	if debug == 1 //%(debug = 1) in script input to show the debug options
+	{
+		"     \![*]\q[Test Variable,OnTestVar]"
+		//The template update check is in zzz_todo.dic. It doesn't do a network update, it checks my website and compares your version to the most recent version. It cannot update automatically, so as not to erase your progress.
+	}
+	--
+	"\n\n\n[half]\f[height,-2]%(wd) %(nowhour):%(nowmin) %(ap), %(month)/%(day)/%(year) - %(season)  %(moonphase)"
+	--
+	"\nRuntime: %(runtime[0]):%(runmin)            Version %(ghostver)\e"
+}
+
+OnToggleHemisphere
+{
+	hemisphere = reference0
+	OnMenuRun
+}
+
+OnTogglePhase
+{
+	AutoPhase = reference0
+	if AutoPhase == "On"
+	{
+		"\![raise,OnDownloadMoonPhase]"
+	}
+	else //Off
+	{
+		phase = "Unknown"
+	}
+	--
+	"\![raise,OnMenuRun]"
+}
+
+OnToggleUpdate
+{
+	AutoUpdates[0] = reference0
+	OnMenuRun
+}
+
+
+//-----------Character Menu-----------
+//CharacterArray
+//0 - Prefix
+//1 - Suffix
+//2 - Rank
+//3 - Clan
+//4 - Gender
+//5 - Bio
+
+OnCharacterMenu
+{
+	if reference0 != ""; CharacterArray[5] = reference0
+	
+	"\0\_q%(bb)\*\![set,autoscroll,disable]\![close,inputbox,OnCharacterSave]"
+	--
+	"\n[half]\f[height,+9]\_a[OnNameMenu,%(CharacterArray[0]),%(CharacterArray[1]),charmenustart]%(CharacterArray[0])%(CharacterArray[1])\_a\f[default]"
+	--
+	"\n\n"
+	--
+	"\_a[OnRankMenu]%(CharacterArray[2])\_a of \_a[OnClanMenu]%(CharacterArray[3])\_a. A \_a[OnGenderMenu]%(CharacterArray[4])\_a."
+	--
+	"\n\n\![*]\q[Edit appearance,OnDressupMenu,,,charmenu]  \![*]\q[Edit bio,OnCustomBio]"
+	--
+	"\n\![*]\q[Save,OnSaveCharacter]  \![*]\q[Load,OnLoadCharacter]  \![*]\q[Screenshot,OnStartScreenshot,charmenu]"
+	--
+	"\n\![*]\q[Randomize all,OnCharacterRandomize,areyousure] \![*]\q[Clear all,OnCharacterClear,areyousure]"
+	--
+	"\n\n[half]\![*]\q[Back to menu,OnMenuRun]"
+	--
+	"\n\n\n"
+	--
+	"%(CharacterArray[5])"
+	--
+	"\e"
+}
+
+OnRankMenu
+{
+	if reference0 == "Randomize"; CharacterArray[2] = rank(CharacterArray[4])
+	elseif reference0 != ""; CharacterArray[2] = reference0
+	
+	"\0\_q%(bb)\*\![close,inputbox,OnRankMenu]"
+	--
+	"\n[half]\f[height,+9]%(CharacterArray[2])\f[default]"
+	--
+	"\n\n\n"
+	--
+	"\q[Kit,OnRankMenu,Kit]   \q[Apprentice,OnRankMenu,Apprentice]   \q[Warrior,OnRankMenu,Warrior]   \q[Queen,OnRankMenu,Queen]   \q[Elder,OnRankMenu,Elder]\n"
+	--
+	"\q[Medicine Cat Apprentice,OnRankMenu,Medicine Cat Apprentice]   \q[Medicine Cat,OnRankMenu,Medicine Cat]\n"
+	--
+	"\q[Deputy,OnRankMenu,Deputy]   \q[Leader,OnRankMenu,Leader]"
+	--
+	"\n\n\![*]\q[Randomize,OnRankMenu,Randomize]   \![*]\q[Custom,OnCustomRank]"
+	--
+	"\n\n\![*]\q[Back to Character Menu,OnCharacterMenu]\e"
+}
+
+OnCustomRank
+{
+	"\![open,inputbox,OnRankMenu]\0%(bb)\_q"
+	--
+	"Type a custom rank."
+	--
+	"\n\n\![*]\q[Cancel,OnRankMenu]\e"
+}
+
+OnClanMenu
+{
+	_prefix = ASORT(prefix)
+	if reference0 == "Randomize"
+	{
+		if CharacterSettingsArray[0] == "Custom"
+		{
+			CharacterArray[3] = "%(ANY(ClanList))"
+		}
+		else //Default
+		{
+			CharacterArray[3] = "%(ANY(_prefix))Clan"
+		}
+	}
+	elseif reference0 != ""; CharacterArray[3] = reference0
+	
+	if reference1 == "default"; CharacterSettingsArray[0] = "Default"
+	elseif reference1 == "custom"; CharacterSettingsArray[0] = "Custom"
+	
+	"\0\_q%(bb)\*\![close,inputbox,OnClanMenu]\![close,inputbox,OnCustomClanList]"
+	--
+	"\n[half]\f[height,+9]%(CharacterArray[3])\f[default]"
+	--
+	"\n\n\n"
+	--
+	"\![*]\q[Randomize,OnClanMenu,Randomize]   \![*]\q[Custom,OnCustomClan]"
+	--
+	"\n\n\nClan names from:  "
+	--
+	if CharacterSettingsArray[0] != "Default"; "\f[color,150,150,150]\q[Default list,OnClanMenu,,default]\f[default]  "
+	else; "Default list  "
+	--
+	if CharacterSettingsArray[0] != "Custom"; "\f[color,150,150,150]\q[Custom list,OnClanMenu,,custom]\f[default]  "
+	else; "Custom list  "
+	--
+	"\n\q[(Define custom list),OnCustomClanList]"
+	--
+	"\n\n\n\![*]\q[Back to Character Menu,OnCharacterMenu]\e"
+}
+
+OnCustomClan
+{
+	"\![open,inputbox,OnClanMenu]\0%(bb)\_q"
+	--
+	"Type a custom clan. -Clan is not automatically appended."
+	--
+	"\n\n\![*]\q[Cancel,OnClanMenu]\e"
+}
+
+OnCustomClanList
+{
+	if reference0 != ""; ClanList ,= reference0
+	if reference1 != ""; ClanList[reference2] = IARRAY
+	
+	_display = ""
+	foreach ClanList; _name
+	{
+		_display += "\q[(x),OnCustomClanList,,remove,%(_i)] %(_name)\n"
+	}
+	
+	"\0\_q%(bb)\*\![close,inputbox,OnCustomClanList]\![open,inputbox,OnCustomClanList]"
+	--
+	"Type a clan name to add it to the list. -Clan is not automatically appended.\n\n"
+	--
+	if ARRAYSIZE(ClanList) > 10; "\![*]\q[Back to Clan Menu,OnClanMenu]\n\n"
+	--
+	_display
+	--
+	"\n\n\![*]\q[Back to Clan Menu,OnClanMenu]"
+}
+
+OnGenderMenu
+{
+	if reference0 == "Random"
+	{
+		if CharacterSettingsArray[1] == "Custom"
+		{
+			CharacterArray[4] = "%(ANY(GenderList))"
+		}
+		else //Default
+		{
+			CharacterArray[4] = gender
+		}
+	}
+	elseif reference0 != ""; CharacterArray[4] = reference0
+	
+	if reference1 == "default"; CharacterSettingsArray[1] = "Default"
+	elseif reference1 == "custom"; CharacterSettingsArray[1] = "Custom"
+
+	"\0\_q%(bb)\*\![close,inputbox,OnGenderMenu]\![close,inputbox,OnGenderList]"
+	--
+	"\n[half]\f[height,+9]%(CharacterArray[4])\f[default]"
+	--
+	"\n\n\![*]\q[Tom,OnGenderMenu,Tom]  \![*]\q[She-cat,OnGenderMenu,She-cat]  \![*]\q[Cat,OnGenderMenu,Cat]"
+	--
+	"\n\n\![*]\q[Randomize,OnGenderMenu,Random]  \![*]\q[Custom,OnCustomGender]"
+	--
+	"\n\nGenders from:  "
+	--
+	if CharacterSettingsArray[1] != "Default"; "\f[color,150,150,150]\q[Default list,OnGenderMenu,,default]\f[default]  "
+	else; "Default list  "
+	--
+	if CharacterSettingsArray[1] != "Custom"; "\f[color,150,150,150]\q[Custom list,OnGenderMenu,,custom]\f[default]  "
+	else; "Custom list  "
+	--
+	"\n\q[(Define custom list),OnGenderList]"
+	--
+	"\n\n\n\![*]\q[Back to Character Menu,OnCharacterMenu]"
+}
+
+OnGenderList
+{
+	if reference0 != ""; GenderList ,= reference0
+	if reference1 != ""; GenderList[reference2] = IARRAY
+	
+	_display = ""
+	foreach GenderList; _name
+	{
+		_display += "\q[(x),OnGenderList,,remove,%(_i)] %(_name)\n"
+	}
+	
+	"\0\_q%(bb)\*\![close,inputbox,OnGenderList]\![open,inputbox,OnGenderList]"
+	--
+	"Type a gender to add it to the list.\n\n"
+	--
+	if ARRAYSIZE(ClanList) > 10; "\![*]\q[Back to Gender Menu,OnGenderMenu]\n\n"
+	--
+	_display
+	--
+	"\n\n\![*]\q[Back to Gender Menu,OnGenderMenu]"
+}
+
+OnCustomGender
+{
+	"\![open,inputbox,OnGenderList]\0%(bb)\_q"
+	--
+	"Type a custom gender."
+	--
+	"\n\n\![*]\q[Cancel,OnGenderMenu]\e"
+}
+
+OnCustomBio //\![open,inputbox,OnEditEntry,-1,%(_entry)]
+{
+	_bio = REPLACE(CharacterArray[5],"]","\]") //Escape any ] in the inputbox so it doesn't break sakurascript tags
+	"\0\_q%(bb)\*\![open,inputbox,OnCharacterMenu,-1,%(_bio)]"
+	--
+	"Write \_a[OnBlank]\_?\n\_?\_a if you want a linebreak. Current bio:\n\n"
+	--
+	"%(CharacterArray[5])"
+	--
+	"\n\n\![*]\q[Cancel,OnCharacterMenu]"
+}
+
+OnSaveCharacter
+{
+	_topdir = FENUM("/../../saved_data/")
+	if ARRAYSIZE(_topdir) == 0; _f = MKDIR("/../../saved_data/") //Make the data directory
+	_chars = FENUM("/../../saved_data/characters/")
+	if ARRAYSIZE(_topdir) == 0; _f = MKDIR("/../../saved_data/characters/") //Make the characters directory
+	_files = FENUM("/../../saved_data/characters/%(shellfld)/")
+	if ARRAYSIZE(_files) == 0; _f = MKDIR("/../../saved_data/characters/%(shellfld)/") //Make a directory for this shell
+	_display = ""
+	foreach _files; _file
+	{
+		if RE_SEARCH(_file,".wgc$")
+		{
+			_file = RE_REPLACE(_file,".wgc$","")
+			_display += "\__q[OnSaveOver,%(_file),areyousure]%(_file)\__q\n"
+		}
+	}
+	"\0\_q%(bb)\*\![set,autoscroll,disable]\![open,inputbox,OnCharacterSave,-1,%(CharacterArray[0])%(CharacterArray[1])]"
+	--
+	"Type a name to save a new character, or click an existing character to save over it.\nAvailable characters:\n\n"
+	--
+	if ARRAYSIZE(_files) > 10; "\n\n\![*]\q[Back to Character Menu,OnCharacterMenu]"
+	--
+	"%(_display)"
+	--
+	"\n\n\![*]\q[Back to Character Menu,OnCharacterMenu]"
+}
+
+OnCharacterSave
+{
+	_name = reference0
+	_name = REPLACE(_name,"\","")
+	_name = REPLACE(_name,"/","")
+	_name = REPLACE(_name,":","")
+	_name = REPLACE(_name,"*","")
+	_name = REPLACE(_name,"?","")
+	_name = REPLACE(_name,'"',"")
+	_name = REPLACE(_name,"<","")
+	_name = REPLACE(_name,">","")
+	_name = REPLACE(_name,"|","")
+	_name = REPLACE(_name,"]","") //sakurascript reasons
+	
+	_files = FENUM("/../../saved_data/characters/%(shellfld)/",",")
+	_files = SPLIT(_files,",")
+	--
+	if ASEARCH("%(_name).wgc",_files) != -1 //If the name is taken
+	{
+		"\0\_q%(bb)\*"
+		--
+		"That name is already taken, do you wish to overwrite the character \_a[OnBlank]%(_name)\_a?"
+		--
+		"\n\n\![*]\q[Overwrite it,OnSaveCharacterFile,%(_name)]  \![*]\q[Don't overwrite it,OnSaveCharacter]\e"
+	}
+	else //If the name is not taken
+	{
+		OnSaveCharacterFile
+	}
+}
+
+OnSaveOver
+{
+	"\0\_q%(bb)\*\![close,inputbox,OnCharacterSave]"
+	--
+	"Are you sure you want to overwrite the character \_a[OnBlank]%(reference0)\_a?"
+	--
+	"\n\n\![*]\q[Overwrite it,OnSaveCharacterFile,%(reference0)]  \![*]\q[Don't overwrite it,OnSaveCharacter]\e"
+}
+
+OnSaveCharacterFile
+{
+	_name = reference0
+	_name = REPLACE(_name,"\","")
+	_name = REPLACE(_name,"/","")
+	_name = REPLACE(_name,":","")
+	_name = REPLACE(_name,"*","")
+	_name = REPLACE(_name,"?","")
+	_name = REPLACE(_name,'"',"")
+	_name = REPLACE(_name,"<","")
+	_name = REPLACE(_name,">","")
+	_name = REPLACE(_name,"|","")
+	_name = REPLACE(_name,"]","") //Sakurascript reasons
+	
+	_bio = CharacterArray[5]
+	_path = "/../../saved_data/characters/%(shellfld)/%(_name).wgc"
+	_o = FOPEN(_path,"w") //Create a new file
+	--
+	_f = FWRITE(_path,"Shell: %(nowshell)")
+	_f = FWRITE(_path,"homeurl: %(shellauthor[2])")
+	_f = FWRITE(_path,"Prefix: %(CharacterArray[0])")
+	_f = FWRITE(_path,"Suffix: %(CharacterArray[1])")
+	_f = FWRITE(_path,"Rank: %(CharacterArray[2])")
+	_f = FWRITE(_path,"Clan: %(CharacterArray[3])")
+	_f = FWRITE(_path,"Gender: %(CharacterArray[4])")
+	//_f = FWRITE(_path,"Design: %(currentdressups)")
+	_f = FWRITE(_path,"") //Spacer
+	_f = FWRITE(_path,"Design:")
+	foreach currentdressups; _dressup
+	{
+		_category = _dressup[0,"|"]
+		_dname = _dressup[1,"|"]
+		
+		_f = FWRITE(_path,"%(_category)|%(_dname)")
+	}
+	_f = FWRITE(_path,"-Design end-") //End of dressups
+	_f = FWRITE(_path,"") //Spacer
+	_f = FWRITE(_path,"Bio:")
+	
+	
+	SETDELIM(_bio,"\n")
+	for _i = 0; _i < ARRAYSIZE(_bio); _i++
+	{
+		_f = FWRITE(_path,"%(_bio[_i])")
+	}
+	--
+	_f = FCLOSE(_path) //Close the file
+	--
+	if _o >= 1 //If opening successful
+	{
+		"\0\_q\*%(bb)"
+		--
+		"Saved successfully as \_a[OnCharacterPath]%(_name).wgc\_a."
+		--
+		"\n\n\![*]\q[Back to Character Menu,OnCharacterMenu]\n\![*]\q[Done,cancelnodialogue]\e"
+	}
+	else
+	{
+		"Saving failed.\_w[1500]\x\![raise,OnCharacterMenu]"
+	}
+}
+
+OnCharacterPath
+{
+	"\C\![open,file,saved_data/characters/%(shellfld)]\_l[0,0] "
+}
+
+OnLoadCharacter
+{
+	_topdir = FENUM("/../../saved_data/")
+	if ARRAYSIZE(_topdir) == 0; _f = MKDIR("/../../saved_data/") //Make the data directory
+	_chars = FENUM("/../../saved_data/characters/")
+	if ARRAYSIZE(_topdir) == 0; _f = MKDIR("/../../saved_data/characters/") //Make the characters directory
+	_files = FENUM("/../../saved_data/characters/%(shellfld)/")
+	if ARRAYSIZE(_files) == 0; _f = MKDIR("characters/") //Make a directory for this shell
+	_display = ""
+	foreach _files; _file
+	{
+		if RE_SEARCH(_file,".wgc$")
+		{
+			_file = RE_REPLACE(_file,".wgc$","")
+			_display += "\q[(x),OnCharacterDelete,%(_file),areyousure] \__q[OnCharacterLoad,%(_file),areyousure]%(_file)\__q\n"
+		}
+	}
+	"\0\_q%(bb)\*\![set,autoscroll,disable]"
+	--
+	"Loading a character will erase any unsaved changes you've made. Available characters:"
+	--
+	if ARRAYSIZE(_files) > 10; "\n\n\![*]\q[Back to Character Menu,OnCharacterMenu]\n\n"
+	--
+	"%(_display)"
+	--
+	"\n\n\![*]\q[Back to Character Menu,OnCharacterMenu]"
+}
+
+OnCharacterLoad
+{
+	if reference1 == "areyousure"
+	{
+		"\0\_q%(bb)"
+		--
+		"Are you sure you want to load %(reference0)? Any unsaved changes will be lost."
+		--
+		"\n\n\![*]\q[Load it,OnCharacterLoad,%(reference0)]  \![*]\q[Back to Character Menu,OnCharacterMenu]\e"
+	}
+	else
+	{
+		_path = "/../../saved_data/characters/%(shellfld)/%(reference0).wgc"
+		_f = FOPEN(_path,"r")
+		--
+		_shell = FREAD(_path)
+		_shell = ERASE(_shell,0,7) //erases "Shell: "
+		
+		_url = FREAD(_path)
+		_url = ERASE(_url,0,9) //erases "homeurl: "
+		
+		_prefix = FREAD(_path)
+		_prefix = ERASE(_prefix,0,8) //erases "Prefix: "
+		
+		_suffix = FREAD(_path)
+		_suffix = ERASE(_suffix,0,8) //erases "Suffix: "
+		
+		_rank = FREAD(_path)
+		_rank = ERASE(_rank,0,6) //erases "Rank: "
+		
+		_clan = FREAD(_path)
+		_clan = ERASE(_clan,0,6) //erases "Prefix: "
+		
+		_gender = FREAD(_path)
+		_gender = ERASE(_gender,0,8) //erases "Gender: "
+		
+		_f = FREAD(_path) //Spacer
+		_f = FREAD(_path) //"Design:"
+		_design = IARRAY
+		for _i = 0; _f != "-Design end-"; _i++
+		{
+			_f = FREAD(_path)
+			if _f == -1 || _f == "-Design end-"; break //If we're out of file, stop
+			_design ,= _f
+			
+		}
+		
+		_f = FREAD(_path) //Spacer
+		_f = FREAD(_path) //"Bio:"
+		_bio = ""
+		for _i = 0; _f != -1; _i++
+		{
+			_f = FREAD(_path)
+			if _f == -1; break //If we're out of file, stop
+			if _i != 0; _bio += "\n" //If this is not the first line, add a \n to the text in _bio
+			_bio += _f //Add the current line to _bio
+			
+			_len = STRLEN(_f) - 1 //Get the last character. If it's a \, check if it's a \\, and if not, make it a \\. This is so it doesn't break sakurascript tags.
+			if SUBSTR(_f,_len,1) == "\"
+			{
+				_len--
+				if SUBSTR(_f,_len,1) != "\"
+				{
+					_bio += "\"
+				}
+			}
+		}
+		--
+		_f = FCLOSE(_path)
+		--
+		if _shell != nowshell
+		{
+			CharacterArray = IARRAY
+			CharacterArray[0] = _prefix
+			CharacterArray[1] = _suffix
+			CharacterArray[2] = _rank
+			CharacterArray[3] = _clan
+			CharacterArray[4] = _gender
+			CharacterArray[5] = _bio
+			
+			
+			"\0Shell of saved file does not match current shell,\w4 unable to load design.\w8 "
+			--
+			if ASEARCH(_shell,ShellList) != -1 //If the shell is installed
+			{
+				"Please change to '%(_shell)' if you wish to load the design.\w8 Other data has been loaded.\x\![raise,OnCharacterMenu]"
+			}
+			else //If the shell is not installed
+			{
+				"You do not have '%(_shell)' installed,\w4 please seek it out at \_a[%(_url)]this link\_a if you wish to load this character.\w8 Other data has been loaded."
+				--
+				"\n\n\![*]\q[Back to Character Menu,OnCharacterMenu]\e"
+			}
+		}
+		else
+		{
+			CharacterArray = IARRAY
+			CharacterArray[0] = _prefix
+			CharacterArray[1] = _suffix
+			CharacterArray[2] = _rank
+			CharacterArray[3] = _clan
+			CharacterArray[4] = _gender
+			CharacterArray[5] = _bio
+
+			_command = ""
+			foreach currentdressups; _dressup //Gets the data for all current dressups and removes them
+			{
+				_category = _dressup[0,"|"]
+				_name = _dressup[1,"|"]
+				_command += "\![bind,%(_category),%(_name),0]"
+			}
+			foreach _design; _dressup //Gets the dressups from the file and adds them
+			{
+				_category = _dressup[0,"|"]
+				_name = _dressup[1,"|"]
+				_command += "\![bind,%(_category),%(_name),1]"
+			}
+			_command += "\![raise,OnCharacterMenu]"
+			_command
+		}
+	}
+}
+
+OnCharacterDelete
+{
+	if reference1 == "areyousure"
+	{
+		"\0\_q%(bb)"
+		--
+		"Are you sure you want to delete %(reference0)? It cannot be recovered once it's gone."
+		--
+		"\n\n\![*]\q[Delete it,OnCharacterDelete,%(reference0)]  \![*]\q[Back to Character Menu,OnCharacterMenu]\e"
+	}
+	else
+	{
+		_f = FDEL("/characters/%(shellfld)/%(reference0).wgc")
+		if _f == 1
+		{
+			"\0%(bb)\_q\*Character deleted successfully."
+		}
+		else
+		{
+			"\0Delete failed,\w4 you can delete it manually \_a[OnCharacterPath]here\_a if you need to."
+		}
+		--
+		"\x\![raise,OnLoadCharacter]"
+	}
+}
+
+OnCharacterRandomize
+{
+	if reference0 == "areyousure"
+	{
+		"\0\_q%(bb)Are you sure you want to randomize this character? This will change everything about them, including the bio, design, and name. If you haven't saved your current character, this cannot be undone.\n\n\![*]\q[Yes,OnCharacterRandomize]  \![*]\q[No,OnCharacterMenu]\e"
+	}
+	else
+	{
+		_prefix = ASORT(prefix)
+		_suffix = ASORT(suffix)
+		CharacterArray[0] = ANY(_prefix)
+		if CharacterSettingsArray[1] == "Custom"
+		{
+			CharacterArray[4] = "%(ANY(GenderList))"
+		}
+		else //Default
+		{
+			CharacterArray[4] = gender
+		}
+		CharacterArray[2] = rank(CharacterArray[4])
+		
+		if CharacterArray[2] == "Kit"
+		{
+			CharacterArray[1] = "kit"
+		}
+		elseif CharacterArray[2] == "Apprentice" || CharacterArray[2] == "Medicine Cat Apprentice"
+		{
+			CharacterArray[1] = "paw"
+		}
+		elseif CharacterArray[2] == "Leader"
+		{
+			CharacterArray[1] = "star"
+		}
+		else //Warrior, Queen, Medicine Cat, Deputy, Elder
+		{
+			CharacterArray[1] = ANY(_suffix)
+		}
+		
+		if CharacterSettingsArray[0] == "Custom"
+		{
+			CharacterArray[3] = "%(ANY(ClanList))"
+		}
+		else //Default
+		{
+			CharacterArray[3] = "%(ANY(_prefix))Clan"
+		}
+		CharacterArray[5] = randombio
+		OnRandomDressup('charmenu')
+		--
+		OnCharacterMenu
+	}
+}
+
+OnCharacterClear
+{
+	if reference0 == "areyousure"
+	{
+		"\0\_q%(bb)Are you sure you want to clear this character? This will erase all their current info, including the bio, design, and name. If you haven't saved your current character, this cannot be undone.\n\n\![*]\q[Yes,OnCharacterClear]  \![*]\q[No,OnCharacterMenu]\e"
+	}
+	else
+	{
+		CharacterArray[0] = "--"
+		CharacterArray[1] = "--"
+		CharacterArray[2] = "--"
+		CharacterArray[3] = "--"
+		CharacterArray[4] = "--"
+		CharacterArray[5] = ""
+		"\![embed,OnClearDesign]\![raise,OnCharacterMenu]"
+	}
+}
+
+OnStartScreenshot
+{
+	if reference0 == "charmenu"
+	{
+		"\0%(bb)\_q\![set,autoscroll,disable]"
+		--
+		"\n[half]\f[height,+9]\_a[OnNameMenu,%(CharacterArray[0]),%(CharacterArray[1]),charmenustart]%(CharacterArray[0])%(CharacterArray[1])\_a\f[default]"
+		--
+		"\n\n"
+		--
+		"\_a[OnRankMenu]%(CharacterArray[2])\_a of \_a[OnClanMenu]%(CharacterArray[3])\_a. A \_a[OnGenderMenu]%(CharacterArray[4])\_a."
+		--
+		"\n\n%(CharacterArray[5])"
+	}
+	--
+	"\![raise,OnScreenshot,%(reference0),,%(reference2)]\_l[0,0] "
+}
+
+OnScreenshot
+{
+	_i = FUNCTIONEX("screencatch.dll")
+	if reference0 == "charmenu"; "\![raise,OnCharacterMenu]"
+	elseif reference0 == "designmenu"; "\![raise,OnDressupMenu,,%(reference2)]"
+}
+
+
+//-----------Name Menu-----------
+//I'm really proud of how this menu came out when I redid it. It may look super cluttered, but it actually uses no global variables to create the names, everything is handled through the references. The basic idea is this: ANY is a function that will select a random element of an array. So if I put \q[Button,OnSomeFunc,%(ANY(_prefix))] I'll get a random prefix as reference0 when the button is clicked. Set this up for both prefixes and suffixes, and do some simple math for some of the buttons, and it's really easy to get random buttons for both prefixes and suffixes, as well as back and forwards buttons. Note, there are a lot of times in here where reference1 is sent as reference1, reference2 is sent as reference2, etc. What this does is maintain the values stored in those references, by sending them forward to the next iteration of the function.
+OnNameMenu
+{
+	_g = "\f[color,150,150,150]" //Sets up quick envelopes for changing text color
+	_d = "\f[default]"
+	_prefix = ASORT(prefix) //Sorts the prefix and suffix arrays because they're separated into categories, so now they'll be in alphabetical order no matter what categories you've chosen
+	_suffix = ASORT(suffix)
+	if ISVAR("tempprefix"); ERASEVAR("tempprefix") //Checks for some globals that are used elsewhere, and erases them if they exist
+	if ISVAR("tempsuffix"); ERASEVAR("tempsuffix")
+	
+	if reference2 == "charmenustart" //If this is coming from the character menu, set the name to the one that's in the character menu
+	{
+		reference0 = CharacterArray[0]
+		reference1 = CharacterArray[1]
+		reference2 = "charmenu"
+	}
+	elseif reference2 == "charmenu" //If this was from the character menu but changes have now been made to the name, save the current name into the character menu
+	{
+		CharacterArray[0] = reference0
+		CharacterArray[1] = reference1
+	}
+	elseif reference2 == "clanmenustart" //Same as above but with the clan menu
+	{
+		//reference0 = CharacterArray[0]
+		//reference1 = CharacterArray[1]
+		reference2 = "clanmenu"
+	}
+	elseif reference2 == "clanmenu" //Same as above but with the clan menu
+	{
+		//CharacterArray[0] = reference0
+		//CharacterArray[1] = reference1
+	}
+	
+	_prefixpos = ASEARCH(reference0,_prefix) //Get the positions of the current prefix and suffix in the arrays
+	_suffixpos = ASEARCH(reference1,_suffix)
+	
+	
+	
+	"\0\b2\_q\*\![close,inputbox,OnPrefixEntered]\![close,inputbox,OnSuffixEntered]\n[half]"
+	--
+	"\f[height,+9]%(reference0)%(reference1)%(_d)"
+	--
+	"\n\n\![*]\q[Generate again,OnNameMenu,%(ANY(prefix)),%(ANY(suffix)),%(reference2)]  \![*]\q[Save name,OnSaveName,%(reference0),%(reference1),%(reference2)]" //When you click on one of these buttons, the next name they've picked is already stored within the button to be sent as a reference value. Have to keep sending reference2 as well, so it remembers if it came from the character/clan menu
+	--
+	if reference3 == "saved"
+	{
+		"\n                                          \f[color,200,200,200](Saved!)%(_d)\n[-100]"
+	}
+	elseif reference3 == "already saved"
+	{
+		"\n                         \f[color,200,200,200](Already saved that name!)%(_d)\n[-100]"
+	}
+	--
+	"\n\n"
+	--
+	if _prefixpos <= 0; "%(_g)<<%(_d)  "
+	else; "\q[<<,OnNameMenu,%(_prefix[0]),%(reference1),%(reference2)]  " //_prefix[0] will of course be the start of the _prefix array, so this goes to the start of the list
+	--
+	if _prefixpos <= 0; "%(_g)<%(_d)"
+	else; "\q[<,OnNameMenu,%(_prefix[_prefixpos - 1]),%(reference1),%(reference2)]" //%(_prefix[_prefixpos - 1]) here grabs the previous prefix on the list and has it ready to put into the reference variables. It's a really easy way to step backwards and forwards in an array
+	--
+	" Prefix "
+	--
+	if _prefixpos >= (ARRAYSIZE(_prefix) - 1); "%(_g)>%(_d)"
+	else; "\q[>,OnNameMenu,%(_prefix[_prefixpos + 1]),%(reference1),%(reference2)]" //Same as above but going forwards
+	--
+	if _prefixpos >= (ARRAYSIZE(_prefix) - 1); "  %(_g)>>%(_d)"
+	else; "  \q[>>,OnNameMenu,%(_prefix[(ARRAYSIZE(_prefix) - 1)]),%(reference1),%(reference2)]" //The last element of the array is always the size of the array minus 1, because ARRAYSIZE starts at 1 while arrays start at 0. So in this case, we grab the last element in the array and go to that, taking us to the end of the list
+	--
+	"           "
+	--
+	if _suffixpos <= 0; "%(_g)<<%(_d)  "
+	else; "\q[<<,OnNameMenu,%(reference0),%(_suffix[0]),%(reference2)]  "
+	--
+	if _suffixpos <= 0; "%(_g)<%(_d)"
+	else; "\q[<,OnNameMenu,%(reference0),%(_suffix[_suffixpos - 1]),%(reference2)]"
+	--
+	" Suffix "
+	--
+	if _suffixpos >= (ARRAYSIZE(_suffix) - 1); "%(_g)>%(_d)"
+	else; "\q[>,OnNameMenu,%(reference0),%(_suffix[_suffixpos + 1])]"
+	--
+	if _suffixpos >= (ARRAYSIZE(_suffix) - 1); "  %(_g)>>%(_d)"
+	else; "  \q[>>,OnNameMenu,%(reference0),%(_suffix[(ARRAYSIZE(_suffix) - 1)])]"
+	--
+	"\n\q[(Random),OnNameMenu,%(ANY(prefix)),%(reference1),%(reference2)]   \q[(Custom),OnCustomPrefix,%(reference0),%(reference1),%(reference2)]     \q[(Random),OnNameMenu,%(reference0),%(ANY(suffix)),%(reference2)]   \q[(Custom),OnCustomSuffix,%(reference0),%(reference1),%(reference2)]" //Wish there was a better way to line these up
+	--
+	"\n\n\![*]\q[See saved names,OnSavedNames,%(reference0),%(reference1),%(reference2)]"
+	--
+	"\n\![*]\q[Choose name categories,OnNameCategories,%(reference0),%(reference1),%(reference2)]"
+	--
+	if reference2 == "charmenu"; "\n\n\![*]\q[Back to Character Menu,OnCharacterMenu]\e" //Sending us back to the correct menu when we want to go back
+	else; "\n\n\![*]\q[Back to menu,OnMenuRun]\e"
+}
+
+OnCustomPrefix
+{
+	tempsuffix[0] = reference1
+	tempsuffix[1] = reference2
+	_display = ""
+	_prefix = ASORT(prefix)
+	_i = 0
+	foreach _prefix; _pre
+	{
+		_display += "\q[%(_pre),OnNameMenu,%(_pre),%(reference1),%(reference2)]"
+		_i++
+		if _i % 5 == 0 {_display += "\n"; _i =  0}
+		else; _display += "    "
+	}
+	"\0\_q\b2\![set,autoscroll,disable]\*\![open,inputbox,OnPrefixEntered]"
+	--
+	"Choose a prefix from the list or type one in."
+	--
+	"\n\n%(_display)"
+	--
+	"\n\n\![*]\q[Cancel,OnCustomPreCancel,%(reference0),%(reference1),%(reference2)]\e"
+}
+
+OnCustomPreCancel
+{
+	"\![close,inputbox,OnPrefixEntered]\![raise,OnNameMenu,%(reference0),%(reference1),%(reference2)]"
+}
+
+OnPrefixEntered
+{
+	"\![raise,OnNameMenu,%(reference0),%(tempsuffix[0]),%(tempsuffix[1])]"
+}
+
+OnCustomSuffix
+{
+	tempprefix[0] = reference0
+	tempprefix[1] = reference2
+	_display = ""
+	_suffix = ASORT(suffix)
+	_i = 0
+	foreach _suffix; _suf
+	{
+		_display += "\q[%(_suf),OnNameMenu,%(reference0),%(_suf),%(reference2)]"
+		_i++
+		if _i % 5 == 0 {_display += "\n"; _i =  0}
+		else; _display += "    "
+	}
+	"\0\_q\b2\![set,autoscroll,disable]\*\![open,inputbox,OnSuffixEntered]"
+	--
+	"Choose a suffix from the list or type one in."
+	--
+	"\n\n%(_display)"
+	--
+	"\n\n\![*]\q[Cancel,OnCustomSufCancel,%(reference0),%(reference1),%(reference2)]\e"
+}
+
+OnCustomSufCancel
+{
+	"\![close,inputbox,OnSuffixEntered]\![raise,OnNameMenu,%(reference0),%(reference1)]"
+}
+
+OnSuffixEntered
+{
+	"\![raise,OnNameMenu,%(tempprefix[0]),%(reference0),%(tempprefix[1])]"
+}
+
+OnSaveName
+{
+	_prefixpos = ASEARCH(reference0,SavedPrefixes)
+	if !(SavedPrefixes[_prefixpos] == reference0 && SavedSuffixes[_prefixpos] == reference1)
+	{
+		SavedPrefixes ,= reference0
+		SavedSuffixes ,= reference1
+		"\![raise,OnNameMenu,%(reference0),%(reference1),%(reference2),saved]"
+	}
+	else
+	{
+		"\![raise,OnNameMenu,%(reference0),%(reference1),%(reference2),already saved]"
+	}
+}
+
+OnSavedNames
+{
+	_display = ""
+	for _i = 0; _i < ARRAYSIZE(SavedPrefixes); _i++
+	{
+		_name = SavedPrefixes[_i] + SavedSuffixes[_i]
+		_display += "\q[(x),OnDeleteName,%(reference0),%(reference1),%(reference2),%(_i)] %(_name)\n"
+	}
+	"\0\b2\_q\*\![set,autoscroll,disable]"
+	--
+	if reference2 != "mainmenu"; "\n\![*]\q[Back to menu,OnNameMenu,%(reference0),%(reference1),%(reference2)]\n\n"
+	else; "\n\![*]\q[Back to menu,OnMenuRun]\n\n"
+	--
+	"%(_display)"
+	--
+	if reference2 != "mainmenu"; "\n\![*]\q[Back to menu,OnNameMenu,%(reference0),%(reference1),%(reference2)]\e"
+	else; "\n\![*]\q[Back to menu,OnMenuRun]\e"
+	
+}
+
+OnDeleteName
+{
+	SavedPrefixes[reference3] = IARRAY
+	SavedSuffixes[reference3] = IARRAY
+	--
+	"\![raise,OnSavedNames,%(reference0),%(reference1),%(reference2)]"
+}
+
+OnNameCategories
+{
+	if reference3 == "prefix"
+	{
+		if Prefixes[reference4] != "On"; Prefixes[reference4] = "On"
+		else; Prefixes[reference4] = "Off"
+	}
+	if reference3 == "suffix"
+	{
+		if Suffixes[reference4] != "On"; Suffixes[reference4] = "On"
+		else; Suffixes[reference4] = "Off"
+	}
+	if !(Prefixes[0] == "On" || Prefixes[1] == "On" || Prefixes[5] == "On"); Prefixes[0] = "On"
+	if !(Suffixes[0] == "On" || Suffixes[1] == "On" || Suffixes[5] == "On"); Suffixes[0] = "On"
+	
+	"\0\b2\_q\*"
+	--
+	"Prefixes:  "
+	--
+	if Prefixes[0] != "On"; "\f[color,150,150,150]"
+	--
+	"\q[Early Canon,OnNameCategories,%(reference0),%(reference1),%(reference2),prefix,0]\f[default]  "
+	--
+	if Prefixes[1] != "On"; "\f[color,150,150,150]"
+	--
+	"\q[Late Canon,OnNameCategories,%(reference0),%(reference1),%(reference2),prefix,1]\f[default]"
+	--
+	"\n\nSuffixes:  "
+	--
+	if Suffixes[0] != "On"; "\f[color,150,150,150]"
+	--
+	"\q[Early Canon,OnNameCategories,%(reference0),%(reference1),%(reference2),suffix,0]\f[default]  "
+	--
+	if Suffixes[1] != "On"; "\f[color,150,150,150]"
+	--
+	"\q[Late Canon,OnNameCategories,%(reference0),%(reference1),%(reference2),suffix,1]\f[default]"
+	--
+	"\n\n\n\![*]\q[Back to name menu,OnNameMenu,%(reference0),%(reference1),%(reference2)]\e"
+}
+
+//---Stats Menu---
+OnNameStats
+{
+	"\0\b2\_q"
+	--
+	"See stats for which name type?\n\n"
+	--
+	"\![*]\q[Prefixes,OnPrefixStats,string,ascending]  \![*]\q[Suffixes,OnSuffixStats,string,ascending]"
+	--
+	"\n\n\![*]\q[Back to menu,OnMenuRun]"
+}
+
+OnPrefixStats
+{
+	_prefixlistnames = IARRAY
+	_prefixlistcount = IARRAY
+	foreach prefix; _prefix
+	{
+		_i = ASEARCHEX(_prefix,SavedPrefixes)
+		if ARRAYSIZE(_i) >= 1
+		{
+			_prefixlistnames ,= _prefix
+			if _i == 1
+			{
+				_prefixlistcount ,= _i
+			}
+			else
+			{
+				_prefixlistcount ,= ARRAYSIZE(_i)
+			}
+		}
+	}
+	_arraysort = IARRAY
+	if reference0 == "int"
+	{
+		_arraysort = ASORT("int,%(reference1),index",_prefixlistcount)
+	}
+	else //string
+	{
+		_arraysort = ASORT("string,%(reference1),index",_prefixlistnames)
+	}
+	_names = _prefixlistnames
+	_count = _prefixlistcount
+	for _i = 0; _i < ARRAYSIZE(_prefixlistnames); _i++
+	{
+		_index = _arraysort[_i]
+		_prefixlistnames[_i] = _names[_index]
+		_prefixlistcount[_i] = _count[_index]
+	}
+	
+	_display = ""
+	for _i = 0; _i < ARRAYSIZE(_prefixlistnames); _i++
+	{
+		_display += "%(_prefixlistnames[_i]) - %(_prefixlistcount[_i])\n"
+	}
+	"\0\_q\*\b2\![set,autoscroll,disable]"
+	--
+	"Prefixes:      "
+	--
+	if reference0 == "int"
+	{
+		"\q[Sort by name,OnPrefixStats,string,%(reference1)]"
+	}
+	else //name
+	{
+		"\q[Sort by number,OnPrefixStats,int,%(reference1)]"
+	}
+	--
+	"      "
+	--
+	if reference1 == "descending"
+	{
+		"\q[Sort ascending,OnPrefixStats,%(reference0),ascending]"
+	}
+	else //ascending
+	{
+		"\q[Sort descending,OnPrefixStats,%(reference0),descending]"
+	}
+	--
+	"\n\n%(_display)"
+	--
+	"\n\n\![*]\q[Back to menu,OnNameStats]\e"
+}
+
+OnSuffixStats
+{
+	_suffixlistnames = IARRAY
+	_suffixlistcount = IARRAY
+	foreach suffix; _suffix
+	{
+		_i = ASEARCHEX(_suffix,SavedSuffixes)
+		if ARRAYSIZE(_i) >= 1
+		{
+			_suffixlistnames ,= _suffix
+			if _i == 1
+			{
+				_suffixlistcount ,= _i
+			}
+			else
+			{
+				_suffixlistcount ,= ARRAYSIZE(_i)
+			}
+		}
+	}
+	_arraysort = IARRAY
+	if reference0 == "int"
+	{
+		_arraysort = ASORT("int,%(reference1),index",_suffixlistcount)
+	}
+	else //string
+	{
+		_arraysort = ASORT("string,%(reference1),index",_suffixlistnames)
+	}
+	_names = _suffixlistnames
+	_count = _suffixlistcount
+	for _i = 0; _i < ARRAYSIZE(_suffixlistnames); _i++
+	{
+		_index = _arraysort[_i]
+		_suffixlistnames[_i] = _names[_index]
+		_suffixlistcount[_i] = _count[_index]
+	}
+	
+	_display = ""
+	for _i = 0; _i < ARRAYSIZE(_suffixlistnames); _i++
+	{
+		_display += "%(_suffixlistnames[_i]) - %(_suffixlistcount[_i])\n"
+	}
+	"\0\_q\*\b2\![set,autoscroll,disable]"
+	--
+	"Suffixes:      "
+	--
+	if reference0 == "int"
+	{
+		"\q[Sort by name,OnSuffixStats,string,%(reference1)]"
+	}
+	else //name
+	{
+		"\q[Sort by number,OnSuffixStats,int,%(reference1)]"
+	}
+	--
+	"      "
+	--
+	if reference1 == "descending"
+	{
+		"\q[Sort ascending,OnSuffixStats,%(reference0),ascending]"
+	}
+	else //ascending
+	{
+		"\q[Sort descending,OnSuffixStats,%(reference0),descending]"
+	}
+	--
+	"\n\n%(_display)"
+	--
+	"\n\n\![*]\q[Back to menu,OnNameStats]\e"
+}
+
+
+
+OnProphecyMenu //Maybe could use the ability to save
+{
+	"%(prophecy)"
+	--
+	"\_q\n\_l[,115]\![*]\q[Generate another,OnProphecyMenu]\n\![*]\q[Back to main menu,OnMenuRun]\n\![*]\q[Cancel,cancelnodialogue]\e"
+}
+
+
+
+
+//-----------Shell and Dressups-----------
+On_installedshellname
+{
+	ShellList = IARRAY
+	foreach reference; _shell
+	{
+		ShellList ,= _shell
+	}
+}
+
+OnShellMenu
+{
+	_display = ""
+	for _i = 0; _i < ARRAYSIZE(ShellList); _i++
+	{
+		if ShellList[_i] == nowshell; _display += "\![*]"
+		_display += "\q[%(ShellList[_i]),OnSwitchShell,%(ShellList[_i])]\n"
+	}
+	--
+	"\0\*\_q"
+	--
+	if ARRAYSIZE(ShellList) > 16; "%(bb)\n\n[half]\![*]\q[Back to menu,OnMenuRun]"
+	elseif ARRAYSIZE(ShellList) > 11; "%(bb)"
+	else; "\b2"
+	--
+	"\![set,autoscroll,0]\_l[104]---Shells---"
+	--
+	"\n\n[half]\![*]\q[Download more shells,OnShellUrl]"
+	--
+	"\n\n[half]%(_display)\n\n[half]\![*]\q[Back to menu,OnMenuRun]\n\![*]\q[Nevermind,Cancel]\e"
+}
+
+OnShellUrl
+{
+	"\C\j[https://zichqec.github.io/s-the-skeleton/warrior_generator.html]"
+}
+
+OnSwitchShell
+{
+	"\![get,property,OnGetCoords,currentghost.scope(0).rect]\![change,shell,%(reference0)]"
+}
+
+OnDressupMenu
+{
+	if ISVAR('FromMenu'); ERASEVAR('FromMenu')
+	_display = "" //Initializing variables
+	_currentcategories = IARRAY
+	_items = 0
+	
+	foreach availabledressups; _dressup //For every dressup that the ghost has
+	{
+		_category = _dressup[0,"|"] //Gather the name and category of the current dressup
+		_name = _dressup[1,"|"]
+		
+		if reference0 == "" && ASEARCH(_category,_currentcategories) == -1 //If the user is not in a submenu AND we haven't logged this category yet
+		{
+			_currentcategories ,= _category //Add the category to a list
+			if ASUB("%(_category)|",currentdressups) != -1; _display += "\![*]" //If a dressup in this category is on, add a menu choice marker to it
+			_display += "\__q[OnDressupMenu,%(_category),,%(reference2)]%(_category)\__q\n" //Make a menu option for it
+		}
+		elseif _category == reference0 //Otherwise, if the user IS in a submenu, AND this item matches the current submenu category
+		{
+			_items++
+			_pos = ASEARCH("%(_category)|%(_name)",currentdressups) //See if the name of this item is in the name of dressups currently being used
+			if _pos != -1; _display += "\![*]"
+			_display += "\__q[OnChangeDesign,%(_category),%(_name),%(reference2)]%(_name)\__q\n"
+		}
+	}
+	--
+	"\0\*\_q%(bb)\![set,autoscroll,0]"
+	--
+	if reference0 == ""
+	{
+		"\_l[101]---Designs---\n\n"
+		--
+		"\![*]\q[Save design,OnSaveDesign,,,%(reference2)]  \![*]\q[Load design,OnLoadDesign,,,%(reference2)]  \![*]\q[Screenshot,OnStartScreenshot,designmenu,,%(reference2)]\n"
+		--
+		"\![*]\q[Randomize design,OnDressupRandom,AreYouSure,,%(reference2)]    \![*]\q[Clear current design,OnClearDesign,AreYouSure,,%(reference2)]\n"
+		--
+		if reference2 == "charmenu"; "\![*]\q[Back to Menu,OnCharacterMenu]"
+		else; "\![*]\q[Back to menu,OnMenuRun]"
+	}
+	else
+	{
+		"\_l[101]---%(reference0)---\n\n\![*]\q[Back,OnDressupMenu,,,%(reference2)]"
+	}
+	--
+	"\n\n[half]%(_display)\n[half]"
+	--
+	if reference0 == ""
+	{
+		if reference2 == "charmenu"; "\![*]\q[Back to Character Menu,OnCharacterMenu]\e"
+		else; "\![*]\q[Back to menu,OnMenuRun]\n\![*]\q[Nevermind,Cancel]\e"
+	}
+	else
+	{
+		
+		"\![*]\q[Back,OnDressupMenu,,,%(reference2)]\n\![*]\q[Nevermind,Cancel]\e"
+	}
+}
+
+OnChangeDesign
+{
+	"\0\_q\![bind,%(reference0),%(reference1)] \![raise,OnDressupMenu,%(reference0),,%(reference2)]"
+}
+
+OnClearDesign
+{
+	if reference0 == "AreYouSure"
+	{
+		"\0%(bb)\_qRemove all design elements? If you haven't saved this design, this cannot be undone."
+		--
+		"\n\n\![*]\q[Yes,OnClearDesign,,,%(reference2),dressupmenu]   \![*]\q[No,OnDressupMenu,,,%(reference2)]"
+	}
+	else
+	{
+		_command = ""
+		foreach currentdressups; _dressup
+		{
+			_category = _dressup[0,"|"]
+			_name = _dressup[1,"|"]
+			_command += "\![bind,%(_category),%(_name),0]"
+		}
+		"%(_command)" //removes all current dressups
+		--
+		if reference3 == "dressupmenu"; OnDressupMenu
+	}
+}
+
+OnDressupRandom
+{
+	if reference0 == "AreYouSure"
+	{
+		"\0%(bb)\_qAre you sure you want to randomize the design? If you haven't saved this design, this cannot be undone."
+		--
+		"\n\n\![*]\q[Yes,OnDressupRandom,,,%(reference2)]   \![*]\q[No,OnDressupMenu,,,%(reference2)]"
+	}
+	else
+	{
+		"\![raise,OnRandomDressup,designmenu,,%(reference2)]"
+	}
+}
+
+OnRandomDressup
+{
+	_command = ""
+	foreach currentdressups; _dressup //Gets the data for all current dressups and removes them
+	{
+		_category = _dressup[0,"|"]
+		_name = _dressup[1,"|"]
+		_command += "\![bind,%(_category),%(_name),0]"
+	}
+	"%(_command)\![done    removing]" //removes all current dressups
+	--
+	_currentcategories = IARRAY
+	foreach availabledressups; _dressup //For every dressup that the ghost has - This breaks up the big list of all the dressups into categories
+	{
+		_category = _dressup[0,"|"] //Gather the name and category of the current dressup
+		_name = _dressup[1,"|"]
+		
+		_index = ASUB("%(_category)|",_currentcategories)
+		if _index == -1 //If the user is not in a submenu AND we haven't logged this category yet
+		{
+			_adding = _category + "|"
+			if _dressup[2,"|"] == "mustselect" || _dressup[3,"|"] == "mustselect"; _adding += "!-!mustselect!-!" + "|" //Add the category to a list
+			if _dressup[2,"|"] == "multiple" || _dressup[3,"|"] == "multiple"; _adding += "!-!multiple!-!" + "|" //Add the category to a list
+			_adding += _name
+			_currentcategories ,= _adding
+			
+		}
+		else
+		{
+			_currentcategories[_index] += "|" + _name
+		}
+		
+	}
+	--
+	_command = ""
+	_skipchance = CustomSkipChance
+	if ISFUNC('CustomSkipChance') == 0; _skipchance = 3
+	foreach _currentcategories; _category //Picks a random dressup from every category
+	{
+		_temp = REPLACE(_category,"|",",") //Changes to comma delimiter
+		_temp = SPLIT(_temp,",") //Makes _temp into a general purpose array
+		_currentctg = _temp[0] //Gets the name of the category
+		
+		_loops = 1 //Always do the loop at least once, I suppose this is what a do-while loop is for haha
+		_multiple = 0
+		_mustselect = 0
+		
+		if _temp[1] == "!-!multiple!-!" || _temp[2] == "!-!multiple!-!" //If it's a multiple option, mark it as such and up the number of loops to be 1 for every dressup available
+		{
+			_multicheck = 1
+			_loops = ARRAYSIZE(_temp) - 2
+		}
+		if _temp[1] == "!-!mustselect!-!" || _temp[2] == "!-!mustselect!-!" //If it's a mustselect, mark it as such. If it's also a multiple, reduce the number of times the loop is run, because this is taking up a slot of the array and we don't want to count it
+		{
+			_mustselect = 1
+			if _multicheck == 1; _loops--
+		}
+		
+		if _temp[2] == "!-!mustselect!-!" || _temp[2] == "!-!multiple!-!" ; _temp[2] = IARRAY //Erase these flags if they're present
+		if _temp[1] == "!-!mustselect!-!" || _temp[1] == "!-!multiple!-!" ; _temp[1] = IARRAY
+		_temp[0] = IARRAY //Erase the category name
+		
+		for _i = 0; _i < _loops; _i++ //Run the loop as determined above
+		{
+			if RAND(_skipchance) != 0 //If it decides it should skip
+			{
+				if _i == 0 //If it's at the start of the category, skip the whole category
+				{
+					if _mustselect == 0; break
+				}
+				else //Otherwise, skip just this one
+				{
+					continue
+				}
+			}
+			
+			toadd = ANY(_temp) //If it doesn't skip, set toadd to any dressup on the array
+			_num = LSO //LSO is a function that gets the element number ANY chose
+			_temp[_num] = IARRAY //Erase the dressup that was chosen
+			
+			_custom = OnCustomDressupRules(_currentctg,"%(_temp)",_command) //See the documentation about how to put your own rules here!
+			_command += "\![Custom: %(_custom)]" //here for debug purposes
+			if _custom == "Continue"; continue
+			//_argv[0] will be the current category
+			//_argv[1] will be all the dressups in that category as a simple array
+			//_argv[2] will be the dressup command so far
+			
+			if toadd == ""; continue //If it's empty, skip
+			_command += "\![bind,%(_currentctg),%(toadd),1]" //Otherwise, add to the command
+		}
+	}
+	"%(_command)"
+	--
+	ERASEVAR('toadd')
+	if reference0 == "charmenu" || _argv[0] == "charmenu"; "\![raise,OnCharacterMenu,,,%(reference2)]"
+	elseif reference0 == "designmenu"; "\![raise,OnDressupMenu,,,%(reference2)]"
+	//"%(_currentcategories[0]) %(_currentcategories[1]) %(_currentcategories[2])"
+}
+
+OnSaveDesign
+{
+	_topdir = FENUM("/../../saved_data/")
+	if ARRAYSIZE(_topdir) == 0; _f = MKDIR("/../../saved_data/") //Make the data directory
+	_chars = FENUM("/../../saved_data/designs/")
+	if ARRAYSIZE(_chars) == 0; _f = MKDIR("/../../saved_data/designs/") //Make the designs directory
+	_files = FENUM("/../../saved_data/designs/%(shellfld)/")
+	if ARRAYSIZE(_files) == 0; _f = MKDIR("/../../saved_data/designs/%(shellfld)/") //Make a directory for this shell
+	
+	if reference2 != ""; FromMenu = reference2
+	"\0%(bb)\_q\*\![open,inputbox,OnDesignName,-1]"
+	--
+	"Enter a name for this design."
+	--
+	"\n\n\![*]\q[Cancel,OnDesignSaveCancel,,,%(reference2)]\e"
+}
+
+OnDesignSaveCancel
+{
+	ERASEVAR('FromMenu')
+	"\![close,inputbox,OnDesignName]\![raise,OnDressupMenu,,,%(reference2)]"
+}
+
+OnDesignName
+{
+	_fname = TOSTR(reference0)
+	_fname = REPLACE(_fname,"\","") //Removing illegal characters. Dunno if I need to do this but??
+	_fname = REPLACE(_fname,"/","")
+	_fname = REPLACE(_fname,":","")
+	_fname = REPLACE(_fname,"*","")
+	_fname = REPLACE(_fname,"%(CHR(0x22))","")
+	_fname = REPLACE(_fname,"<","")
+	_fname = REPLACE(_fname,">","")
+	_fname = REPLACE(_fname,"|","")
+	_fname = REPLACE(_fname,"]","") //This one is because sakurascript
+	
+	_path = "/../../saved_data/designs/%(shellfld)/%(_fname).wgd"
+	_o = FOPEN(_path,"w") //Create a new file
+	--
+	_f = FWRITE(_path,"Shell|%(nowshell)")
+	_f = FWRITE(_path,"homeurl|%(shellauthor[2])")
+	foreach currentdressups; _dressup
+	{
+		_category = _dressup[0,"|"]
+		_name = _dressup[1,"|"]
+		
+		_f = FWRITE(_path,"%(_category)|%(_name)") //Write each file path
+	}
+	--
+	_f = FCLOSE(_path)
+	
+	if _o == 0
+	{
+		"\0Saving failed.\_w[1500]\x\![raise,OnDressupMenu,,,%(FromMenu)]"
+	}
+	else
+	{
+		"\0%(bb)\_qSaved as \_a[OnDesignPath]%(_fname).wgd\_a.\n\n\![*]\q[Back to Design Menu,OnDressupMenu,,,%(FromMenu)]\n\![*]\q[Done,cancelnodialogue]\e"
+	}
+	ERASEVAR('FromMenu')
+}
+
+OnLoadDesign
+{
+	_topdir = FENUM("/../../saved_data/")
+	if ARRAYSIZE(_topdir) == 0; _f = MKDIR("/../../saved_data/") //Make the data directory
+	_chars = FENUM("/../../saved_data/designs/")
+	if ARRAYSIZE(_chars) == 0; _f = MKDIR("/../../saved_data/designs/") //Make the designs directory
+	_files = FENUM("/../../saved_data/designs/%(shellfld)/")
+	if ARRAYSIZE(_files) == 0; _f = MKDIR("/../../saved_data/designs/%(shellfld)/") //Make a directory for this shell
+	
+	_display = ""
+	foreach _files; _file
+	{
+		if RE_SEARCH(_file,".wgd$")
+		{
+			_disp = RE_REPLACE(_file,".wgd$","")
+			_display += "\__q[OnDesignLoad,%(_file),,,%(reference2)]%(_disp)\__q\n"
+		}
+	}
+	"\0%(bb)\_q\*\![set,autoscroll,disable]"
+	--
+	"Choose a design to load. The current design will be lost if it is not saved.\n\n\![*]\q[Back,OnDressupMenu]\n\n"
+	--
+	"%(_display)"
+	--
+	"\n\n\![*]\q[Back,OnDressupMenu,,,%(reference2)]"
+}
+
+OnDesignLoad
+{
+	_path = "/../../saved_data/designs/%(shellfld)/%(reference0)"
+	_design = IARRAY
+	_f = FOPEN(_path,"r")
+	--
+	_shell = FREAD(_path)
+	
+	if _shell[1,"|"] != nowshell
+	{
+		_url = FREAD(_path)
+		"\0Shell of selected design does not match current shell.\w8 "
+		--
+		if ASEARCH(_shell,ShellList) != -1 //If the shell is installed
+		{
+			"Please change to '%(_shell[1,'|'])' if you wish to load this design.\x"
+		}
+		else //If the shell is not installed
+		{
+			"You do not have '%(_shell[1,'|'])' installed,\w4 please seek it out at \_a[%(_url[1,'|'])]this link\_a if you wish to load this design."
+			--
+			"\n\n\![*]\q[Back to Design Menu,OnDressupMenu,,,%(reference2)]\e"
+		}
+		
+	}
+	else
+	{
+		for _buff = ""; _buff != -1; _buff = FREAD(_path)
+		{
+			_design ,= _buff
+		}
+		_f = FCLOSE(_path)
+		--
+		_command = ""
+		foreach currentdressups; _dressup
+		{
+			_category = _dressup[0,"|"]
+			_name = _dressup[1,"|"]
+			_command += "\![bind,%(_category),%(_name),0]"
+		}
+		--
+		"%(_command)\![debug]" //removes all current dressups
+		--
+		_command = ""
+		foreach _design; _dressup
+		{
+			_category = _dressup[0,"|"]
+			_name = _dressup[1,"|"]
+			_command += "\![bind,%(_category),%(_name),1]"
+		}
+		"%(_command)"
+	}
+	--
+	"\![raise,OnDressupMenu,,,%(reference2)]"
+}
+
+OnDesignPath
+{
+	"\C\![open,file,saved_data/designs/%(shellfld)]\_l[0,0] "
+}
+
+OnTestVar
+{
+	"Testing!\e"
+}

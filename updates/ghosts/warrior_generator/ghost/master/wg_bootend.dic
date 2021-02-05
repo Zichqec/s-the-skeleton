@@ -1,0 +1,221 @@
+OnFirstBoot //Dialogue when you first open the ghost
+{
+	FirstBootVars //Initialize all your variables at the very bottom!
+	--
+	booting = 0
+	OnDownloadMoonPhase
+	--
+	"\0\b2\![bind,Front Right Leg,Toes,1]\![bind,Front Left Leg,Toes,1]\![bind,Blaze,Forehead,1]\![bind,Eyes,Green 1,1]Greetings,\w4 fellow warrior.\w8\w8\![embed,OnRandomDressup] "
+	--
+	"This generator will serve as an aide for creating new characters and designs.\w8\w8\![embed,OnRandomDressup]"
+	--
+	"\n\nTo start generating names,\w4 designs,\w4 and characters,\w4 simply double click to access the menu.\w8\w8\![embed,OnRandomDressup]"
+	--
+	"\n\nIf you are interested in a different design base,\w4 check the link in the shell menu for where you can download more.\w8\w8\![embed,OnRandomDressup]"
+	--
+	"\n\nIf you are interested in creating your own design base,\w4 check the documentation in \_a[OnBootPath]this folder.\_a\w8\w8\![embed,OnRandomDressup]"
+	--
+	"\n\nBases do not have to be warrior cats themed,\w4 the stars are the limit if you have the will.\w8\w8\![embed,OnClearDesign]\![bind,Front Right Leg,Toes,1]\![bind,Front Left Leg,Toes,1]\![bind,Blaze,Forehead,1]\![bind,Eyes,Green 1,1]"
+	--
+	"\n\nHave fun,\w4 and may the stars light your way!\e"
+}
+
+OnBootPath
+{
+	"\C\![open,file,ghost/../]\_l[0,0] "
+}
+
+OnBoot //Normal booting
+{
+	BootVars
+}
+
+OnClose
+{
+	lastclosed = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)") //This tracks the last time the ghost was closed.
+	
+	"May StarClan light your path.\w8\w8\-\e"
+}
+
+OnGhostChanging //Changing to another ghost. This is the internal name of your ghost, as written in descript.txt
+{
+	if reference0 == sakuraname //If reloading.
+	{
+		"\0\s[0]Reloading..."
+		--
+		"\w8\w8\e" //Gives the user a moment to read the dialogue before they disappear
+	}
+	else
+	{
+		lastclosed = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)") //Same as above, tracks when they were last closed.
+		
+		"May StarClan light your path."
+		--
+		"\w8\w8\e"
+	}
+}
+
+OnGhostChanged //After switching.
+{
+	"\1\s[-1]\0\s[0]"
+	--
+	if reference0 == sakuraname //Finished reloading.
+	{
+		//GetCustomShellRules - This could be an issue for users who install a bad shell
+		//--
+		"Finished reloading.\e"
+	}
+	else
+	{
+		BootVars
+	}
+}
+
+OnShellChanging //Starting to change the shell
+{
+	"\![get,property,OnGetCoords,currentghost.scope(0).rect]" //This gets the current ghost coordinates so that they don't jump around the screen when they change shells
+	--
+	"\0\s[0]Switching to '%(reference0)'."
+	--
+	"\w8\w8\e"
+}
+
+OnShellChanged //After the shell has changed
+{
+	GetCustomShellRules
+	--
+	"\![get,property,OnShellAuthor,currentghost.shelllist.current.craftman,currentghost.shelllist.current.craftmanw,currentghost.shelllist.current.craftmanurl]\1\s[-1]\0\![move,--X=%(shellchange[0]),--base=primaryscreen]" //Moves the ghost to where they were on the previous shell. You might want to get rid of this if your shells are drastically different. This also has the tags to hide the kero, remove them if you want.
+	--
+	nowshell = reference0
+	
+	shellfld = reference0
+	shellfld = REPLACE(shellfld,"\","")
+	shellfld = REPLACE(shellfld,"/","")
+	shellfld = REPLACE(shellfld,":","")
+	shellfld = REPLACE(shellfld,"*","")
+	shellfld = REPLACE(shellfld,"?","")
+	shellfld = REPLACE(shellfld,'"',"")
+	shellfld = REPLACE(shellfld,"<","")
+	shellfld = REPLACE(shellfld,">","")
+	shellfld = REPLACE(shellfld,"|","") //So folders won't have illegal characters
+
+	--
+	"\s[0]Now using %(nowshell).\e"
+}
+
+OnShellAuthor
+{
+	shellauthor = IARRAY
+	shellauthor[0] = reference0 //craftman
+	if shellauthor[0] == ""; shellauthor[0] = reference1 //Craftman is replaced by craftmanw if craftman is empty
+	shellauthor[1] = reference1 //craftmanw
+	shellauthor[2] = reference2 //craftmanurl
+}
+
+GetCustomShellRules //This function checks for a file called DressupRules.dic, and if it exists, writes everything in it into its own file and reloads the shiori! That means you can add custom dressup rules to the random dressup generator!!
+{
+	_f = FENUM(SHIORI3FW.ShellPath)
+	_files = SPLIT(_f,",")
+	if ASEARCH("DressupRules.dic",_files) != -1
+	{
+		_pathR = "%(SHIORI3FW.ShellPath)DressupRules.dic"
+		_pathW = "wg_dressuprules.dic"
+		_oR = FOPEN(_pathR,"r")
+		_oW = FOPEN(_pathW,"w")
+		--
+		_f = FWRITE(_pathW,"//This is the code the ghost has copied into its own files, don't edit this one or your changes will be overwritten!")
+		for _buff = FREAD(_pathR); _buff != -1; _buff = FREAD(_pathR)
+		{
+			_f = FWRITE(_pathW,_buff)
+		}
+		_f = FWRITE(_pathW,"//This is the code the ghost has copied into its own files, don't edit this one or your changes will be overwritten!")
+		--
+		_f = FCLOSE(_pathR)
+		_f = FCLOSE(_pathW)
+		--
+		"\![reload,shiori]"
+	}
+	else
+	{
+		_pathW = "wg_dressuprules.dic"
+		_oW = FOPEN(_pathW,"w")
+		_f = FWRITE(_pathW,"//No dressup rules to copy")
+		_f = FWRITE(_pathW,"OnCustomDressupRules {'None'}")
+		_f = FCLOSE(_pathW)
+		--
+		"\![reload,shiori]"
+	}
+}
+
+OnGetCoords //This gets the x and y coordinates when changing shells
+{
+	shellchange[0] = reference0[0]
+	shellchange[1] = reference0[1]
+}
+
+//These are all the variables you want to set during a normal boot. So every time the ghost opens, we reset the timekeeping, whether the ghost has checked for updates, and if they've said anything yet.
+BootVars
+{
+	lastTalk = ""
+	runtime[0] = 0
+	runtime[1] = 0
+	runtime[2] = 0
+	AutoUpdates[1] = 0
+	booting = 1
+	waitingcommuS = IARRAY
+	waitingcommuM = IARRAY
+	phase = "Unknown"
+	OnDownloadMoonPhase
+}
+
+//These are new variables to initialize after an update. By checking if the variable doesn't exist before initializing it, we prevent variables already in use from being overwritten. This is VERY IMPORTANT, or you risk resetting the user's progress on your new variables every time they update.
+//ISVAR is a built in YAYA function that checks if a variable exists(is initialized) or not. It returns 0 if the variable doesn't exist, and 1 if it does.
+UpdateVars
+{
+	//if ISVAR("examplevariable") == 0; examplevariable = 0
+}
+
+//These are all the variables that need to be initialized when the user first installs the ghost.
+FirstBootVars
+{
+	lastTalk = ""
+	runtime[0] = 0		//Hours, replaces passhour
+	runtime[1] = 0		//Minutes, replaces passmin
+	runtime[2] = 0		//Seconds, replaces passsec
+	totalhours = 0		//Total number of hours the ghost has been run
+	nowshell = "Default Cat"
+	shellfld = "Default Cat"
+	nowscale = 100
+	// username = "User"
+	// birthday[0] = "???"	//The user's birthday, written out with words
+	// birthday[1] = "???"	//The user's birthday, written in DD/MM format
+	talkrate = "Never"
+	aitalkinterval = 0
+	hemisphere = "Northern"
+	//---Petting related variables---
+	// stroke[0] = 0		//The stroke value, which resets after each pet
+	// stroke[1] = 0		//The stroke value, but it doesn't reset after each pet
+	// stroke[2] = 0		//The current streak of successful pets
+	// pethighscore[0] = 0	//The petting high score, as the number of the stroke value
+	// pethighscore[1] = 0	//The petting high score, as the number of pets
+	// totalpets = 0		//The total times the ghost has been pet
+	//---
+	AutoUpdates = ("On",0)
+	//nowmode = "Default" //Uncomment if you plan to add more modes
+	installdate = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)","%(ghostver)") //This tracks the exact day and time the ghost was installed, in case you want to mess around with that later. It also tracks what version the user installed, which may be helpful for debugging!
+	//booting = 1 //This will be set to 0 after firstboot is complete
+	waitingcommuS = IARRAY //These two arrays handle the non-interrupt system for communication. They're for storing messages from other ghosts when your ghost is busy talking.
+	waitingcommuM = IARRAY
+	
+	//---1.0.0---
+	shellauthor = ("Zichqec","Zichqec","https://zichqec.github.io/s-the-skeleton/index.html")
+	phase = "Unknown"
+	CharacterArray = ("Star","light","Leader","StarClan","Click highlighted options to change them, or click the randomize button to randomize everything.")
+	CharacterSettingsArray = ("Default","Default")
+	ClanList = IARRAY
+	GenderList = IARRAY
+	SavedPrefixes = IARRAY
+	SavedSuffixes = IARRAY
+	Prefixes = ("On","Off","Off","Off")
+	Suffixes = ("On","Off","Off","Off")
+}

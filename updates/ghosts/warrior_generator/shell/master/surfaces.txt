@@ -1,0 +1,3440 @@
+version,1 //This is using the new seriko definition. If you want to use the old one, change the version to 0
+
+//Sakura surfaces
+
+
+surface0
+{
+	//element0,overlay,surface0.png,0,0
+	
+	animation10000.interval,bind
+	animation10000.pattern,add,10000,0,0,0
+}
+
+surface.append0 //Base colors
+{
+	//Black
+	animation100.interval,bind
+	animation100.pattern,add,100,0,0,0
+	
+	animation101.interval,bind
+	animation101.pattern,add,101,0,0,0
+	
+	animation102.interval,bind
+	animation102.pattern,add,102,0,0,0
+	
+	animation103.interval,bind
+	animation103.pattern,add,103,0,0,0
+	
+	animation104.interval,bind
+	animation104.pattern,add,104,0,0,0
+	
+	animation105.interval,bind
+	animation105.pattern,add,105,0,0,0
+	
+	animation106.interval,bind
+	animation106.pattern,add,106,0,0,0
+	
+	animation107.interval,bind
+	animation107.pattern,add,107,0,0,0
+	
+	animation108.interval,bind
+	animation108.pattern,add,108,0,0,0
+	
+	animation109.interval,bind
+	animation109.pattern,add,109,0,0,0
+	
+	//Chocolate
+	animation110.interval,bind
+	animation110.pattern,add,110,0,0,0
+	
+	animation111.interval,bind
+	animation111.pattern,add,111,0,0,0
+	
+	animation112.interval,bind
+	animation112.pattern,add,112,0,0,0
+	
+	animation113.interval,bind
+	animation113.pattern,add,113,0,0,0
+	
+	animation114.interval,bind
+	animation114.pattern,add,114,0,0,0
+	
+	animation115.interval,bind
+	animation115.pattern,add,115,0,0,0
+	
+	animation116.interval,bind
+	animation116.pattern,add,116,0,0,0
+	
+	animation117.interval,bind
+	animation117.pattern,add,117,0,0,0
+	
+	
+	//Cinnamon
+	animation120.interval,bind
+	animation120.pattern,add,120,0,0,0
+	
+	animation121.interval,bind
+	animation121.pattern,add,121,0,0,0
+	
+	animation122.interval,bind
+	animation122.pattern,add,122,0,0,0
+	
+	animation123.interval,bind
+	animation123.pattern,add,123,0,0,0
+	
+	animation124.interval,bind
+	animation124.pattern,add,124,0,0,0
+	
+	animation125.interval,bind
+	animation125.pattern,add,125,0,0,0
+	
+	animation126.interval,bind
+	animation126.pattern,add,126,0,0,0
+	
+	
+	//Red
+	animation130.interval,bind
+	animation130.pattern,add,130,0,0,0
+	
+	animation131.interval,bind
+	animation131.pattern,add,131,0,0,0
+	
+	animation132.interval,bind
+	animation132.pattern,add,132,0,0,0
+	
+	animation133.interval,bind
+	animation133.pattern,add,133,0,0,0
+	
+	animation134.interval,bind
+	animation134.pattern,add,134,0,0,0
+	
+	animation135.interval,bind
+	animation135.pattern,add,135,0,0,0
+	
+	animation136.interval,bind
+	animation136.pattern,add,136,0,0,0
+	
+	animation137.interval,bind
+	animation137.pattern,add,137,0,0,0
+	
+	animation138.interval,bind
+	animation138.pattern,add,138,0,0,0
+	
+	//Yellow
+	animation140.interval,bind
+	animation140.pattern,add,140,0,0,0
+	
+	animation141.interval,bind
+	animation141.pattern,add,141,0,0,0
+	
+	animation142.interval,bind
+	animation142.pattern,add,142,0,0,0
+	
+	animation143.interval,bind
+	animation143.pattern,add,143,0,0,0
+	
+	animation144.interval,bind
+	animation144.pattern,add,144,0,0,0
+	
+	animation145.interval,bind
+	animation145.pattern,add,145,0,0,0
+	
+	
+	//Apricot
+	animation150.interval,bind
+	animation150.pattern,add,150,0,0,0
+	
+	animation151.interval,bind
+	animation151.pattern,add,151,0,0,0
+}
+
+surface.append0 //Tortie 1
+{
+	//Black
+	animation200.interval,bind
+	animation200.pattern,add,200,0,0,0
+	
+	animation201.interval,bind
+	animation201.pattern,add,201,0,0,0
+	
+	animation202.interval,bind
+	animation202.pattern,add,202,0,0,0
+	
+	animation203.interval,bind
+	animation203.pattern,add,203,0,0,0
+	
+	animation204.interval,bind
+	animation204.pattern,add,204,0,0,0
+	
+	animation205.interval,bind
+	animation205.pattern,add,205,0,0,0
+	
+	animation206.interval,bind
+	animation206.pattern,add,206,0,0,0
+	
+	animation207.interval,bind
+	animation207.pattern,add,207,0,0,0
+	
+	animation208.interval,bind
+	animation208.pattern,add,208,0,0,0
+	
+	animation209.interval,bind
+	animation209.pattern,add,209,0,0,0
+	
+	//Chocolate
+	animation210.interval,bind
+	animation210.pattern,add,210,0,0,0
+	
+	animation211.interval,bind
+	animation211.pattern,add,211,0,0,0
+	
+	animation212.interval,bind
+	animation212.pattern,add,212,0,0,0
+	
+	animation213.interval,bind
+	animation213.pattern,add,213,0,0,0
+	
+	animation214.interval,bind
+	animation214.pattern,add,214,0,0,0
+	
+	animation215.interval,bind
+	animation215.pattern,add,215,0,0,0
+	
+	animation216.interval,bind
+	animation216.pattern,add,216,0,0,0
+	
+	animation217.interval,bind
+	animation217.pattern,add,217,0,0,0
+	
+	
+	//Cinnamon
+	animation220.interval,bind
+	animation220.pattern,add,220,0,0,0
+	
+	animation221.interval,bind
+	animation221.pattern,add,221,0,0,0
+	
+	animation222.interval,bind
+	animation222.pattern,add,222,0,0,0
+	
+	animation223.interval,bind
+	animation223.pattern,add,223,0,0,0
+	
+	animation224.interval,bind
+	animation224.pattern,add,224,0,0,0
+	
+	animation225.interval,bind
+	animation225.pattern,add,225,0,0,0
+	
+	animation226.interval,bind
+	animation226.pattern,add,226,0,0,0
+	
+	
+	//Red
+	animation230.interval,bind
+	animation230.pattern,add,230,0,0,0
+	
+	animation231.interval,bind
+	animation231.pattern,add,231,0,0,0
+	
+	animation232.interval,bind
+	animation232.pattern,add,232,0,0,0
+	
+	animation233.interval,bind
+	animation233.pattern,add,233,0,0,0
+	
+	animation234.interval,bind
+	animation234.pattern,add,234,0,0,0
+	
+	animation235.interval,bind
+	animation235.pattern,add,235,0,0,0
+	
+	animation236.interval,bind
+	animation236.pattern,add,236,0,0,0
+	
+	animation237.interval,bind
+	animation237.pattern,add,237,0,0,0
+	
+	animation238.interval,bind
+	animation238.pattern,add,238,0,0,0
+	
+	//Yellow
+	animation240.interval,bind
+	animation240.pattern,add,240,0,0,0
+	
+	animation241.interval,bind
+	animation241.pattern,add,241,0,0,0
+	
+	animation242.interval,bind
+	animation242.pattern,add,242,0,0,0
+	
+	animation243.interval,bind
+	animation243.pattern,add,243,0,0,0
+	
+	animation244.interval,bind
+	animation244.pattern,add,244,0,0,0
+	
+	animation245.interval,bind
+	animation245.pattern,add,245,0,0,0
+	
+	
+	//Apricot
+	animation250.interval,bind
+	animation250.pattern,add,250,0,0,0
+	
+	animation251.interval,bind
+	animation251.pattern,add,251,0,0,0
+}
+
+surface.append0 //Tortie 2
+{
+	//Black
+	animation300.interval,bind
+	animation300.pattern,add,300,0,0,0
+	
+	animation301.interval,bind
+	animation301.pattern,add,301,0,0,0
+	
+	animation302.interval,bind
+	animation302.pattern,add,302,0,0,0
+	
+	animation303.interval,bind
+	animation303.pattern,add,303,0,0,0
+	
+	animation304.interval,bind
+	animation304.pattern,add,304,0,0,0
+	
+	animation305.interval,bind
+	animation305.pattern,add,305,0,0,0
+	
+	animation306.interval,bind
+	animation306.pattern,add,306,0,0,0
+	
+	animation307.interval,bind
+	animation307.pattern,add,307,0,0,0
+	
+	animation308.interval,bind
+	animation308.pattern,add,308,0,0,0
+	
+	animation309.interval,bind
+	animation309.pattern,add,309,0,0,0
+	
+	//Chocolate
+	animation310.interval,bind
+	animation310.pattern,add,310,0,0,0
+	
+	animation311.interval,bind
+	animation311.pattern,add,311,0,0,0
+	
+	animation312.interval,bind
+	animation312.pattern,add,312,0,0,0
+	
+	animation313.interval,bind
+	animation313.pattern,add,313,0,0,0
+	
+	animation314.interval,bind
+	animation314.pattern,add,314,0,0,0
+	
+	animation315.interval,bind
+	animation315.pattern,add,315,0,0,0
+	
+	animation316.interval,bind
+	animation316.pattern,add,316,0,0,0
+	
+	animation317.interval,bind
+	animation317.pattern,add,317,0,0,0
+	
+	
+	//Cinnamon
+	animation320.interval,bind
+	animation320.pattern,add,320,0,0,0
+	
+	animation321.interval,bind
+	animation321.pattern,add,321,0,0,0
+	
+	animation322.interval,bind
+	animation322.pattern,add,322,0,0,0
+	
+	animation323.interval,bind
+	animation323.pattern,add,323,0,0,0
+	
+	animation324.interval,bind
+	animation324.pattern,add,324,0,0,0
+	
+	animation325.interval,bind
+	animation325.pattern,add,325,0,0,0
+	
+	animation326.interval,bind
+	animation326.pattern,add,326,0,0,0
+	
+	
+	//Red
+	animation330.interval,bind
+	animation330.pattern,add,330,0,0,0
+	
+	animation331.interval,bind
+	animation331.pattern,add,331,0,0,0
+	
+	animation332.interval,bind
+	animation332.pattern,add,332,0,0,0
+	
+	animation333.interval,bind
+	animation333.pattern,add,333,0,0,0
+	
+	animation334.interval,bind
+	animation334.pattern,add,334,0,0,0
+	
+	animation335.interval,bind
+	animation335.pattern,add,335,0,0,0
+	
+	animation336.interval,bind
+	animation336.pattern,add,336,0,0,0
+	
+	animation337.interval,bind
+	animation337.pattern,add,337,0,0,0
+	
+	animation338.interval,bind
+	animation338.pattern,add,338,0,0,0
+	
+	//Yellow
+	animation340.interval,bind
+	animation340.pattern,add,340,0,0,0
+	
+	animation341.interval,bind
+	animation341.pattern,add,341,0,0,0
+	
+	animation342.interval,bind
+	animation342.pattern,add,342,0,0,0
+	
+	animation343.interval,bind
+	animation343.pattern,add,343,0,0,0
+	
+	animation344.interval,bind
+	animation344.pattern,add,344,0,0,0
+	
+	animation345.interval,bind
+	animation345.pattern,add,345,0,0,0
+	
+	
+	//Apricot
+	animation350.interval,bind
+	animation350.pattern,add,350,0,0,0
+	
+	animation351.interval,bind
+	animation351.pattern,add,351,0,0,0
+}
+
+surface.append0 //Tortie 3
+{
+	//Black
+	animation400.interval,bind
+	animation400.pattern,add,400,0,0,0
+	
+	animation401.interval,bind
+	animation401.pattern,add,401,0,0,0
+	
+	animation402.interval,bind
+	animation402.pattern,add,402,0,0,0
+	
+	animation403.interval,bind
+	animation403.pattern,add,403,0,0,0
+	
+	animation404.interval,bind
+	animation404.pattern,add,404,0,0,0
+	
+	animation405.interval,bind
+	animation405.pattern,add,405,0,0,0
+	
+	animation406.interval,bind
+	animation406.pattern,add,406,0,0,0
+	
+	animation407.interval,bind
+	animation407.pattern,add,407,0,0,0
+	
+	animation408.interval,bind
+	animation408.pattern,add,408,0,0,0
+	
+	animation409.interval,bind
+	animation409.pattern,add,409,0,0,0
+	
+	//Chocolate
+	animation410.interval,bind
+	animation410.pattern,add,410,0,0,0
+	
+	animation411.interval,bind
+	animation411.pattern,add,411,0,0,0
+	
+	animation412.interval,bind
+	animation412.pattern,add,412,0,0,0
+	
+	animation413.interval,bind
+	animation413.pattern,add,413,0,0,0
+	
+	animation414.interval,bind
+	animation414.pattern,add,414,0,0,0
+	
+	animation415.interval,bind
+	animation415.pattern,add,415,0,0,0
+	
+	animation416.interval,bind
+	animation416.pattern,add,416,0,0,0
+	
+	animation417.interval,bind
+	animation417.pattern,add,417,0,0,0
+	
+	
+	//Cinnamon
+	animation420.interval,bind
+	animation420.pattern,add,420,0,0,0
+	
+	animation421.interval,bind
+	animation421.pattern,add,421,0,0,0
+	
+	animation422.interval,bind
+	animation422.pattern,add,422,0,0,0
+	
+	animation423.interval,bind
+	animation423.pattern,add,423,0,0,0
+	
+	animation424.interval,bind
+	animation424.pattern,add,424,0,0,0
+	
+	animation425.interval,bind
+	animation425.pattern,add,425,0,0,0
+	
+	animation426.interval,bind
+	animation426.pattern,add,426,0,0,0
+	
+	
+	//Red
+	animation430.interval,bind
+	animation430.pattern,add,430,0,0,0
+	
+	animation431.interval,bind
+	animation431.pattern,add,431,0,0,0
+	
+	animation432.interval,bind
+	animation432.pattern,add,432,0,0,0
+	
+	animation433.interval,bind
+	animation433.pattern,add,433,0,0,0
+	
+	animation434.interval,bind
+	animation434.pattern,add,434,0,0,0
+	
+	animation435.interval,bind
+	animation435.pattern,add,435,0,0,0
+	
+	animation436.interval,bind
+	animation436.pattern,add,436,0,0,0
+	
+	animation437.interval,bind
+	animation437.pattern,add,437,0,0,0
+	
+	animation438.interval,bind
+	animation438.pattern,add,438,0,0,0
+	
+	//Yellow
+	animation440.interval,bind
+	animation440.pattern,add,440,0,0,0
+	
+	animation441.interval,bind
+	animation441.pattern,add,441,0,0,0
+	
+	animation442.interval,bind
+	animation442.pattern,add,442,0,0,0
+	
+	animation443.interval,bind
+	animation443.pattern,add,443,0,0,0
+	
+	animation444.interval,bind
+	animation444.pattern,add,444,0,0,0
+	
+	animation445.interval,bind
+	animation445.pattern,add,445,0,0,0
+	
+	
+	//Apricot
+	animation450.interval,bind
+	animation450.pattern,add,450,0,0,0
+	
+	animation451.interval,bind
+	animation451.pattern,add,451,0,0,0
+}
+
+surface.append0 //Tortie 4
+{
+	//Black
+	animation500.interval,bind
+	animation500.pattern,add,500,0,0,0
+	
+	animation501.interval,bind
+	animation501.pattern,add,501,0,0,0
+	
+	animation502.interval,bind
+	animation502.pattern,add,502,0,0,0
+	
+	animation503.interval,bind
+	animation503.pattern,add,503,0,0,0
+	
+	animation504.interval,bind
+	animation504.pattern,add,504,0,0,0
+	
+	animation505.interval,bind
+	animation505.pattern,add,505,0,0,0
+	
+	animation506.interval,bind
+	animation506.pattern,add,506,0,0,0
+	
+	animation507.interval,bind
+	animation507.pattern,add,507,0,0,0
+	
+	animation508.interval,bind
+	animation508.pattern,add,508,0,0,0
+	
+	animation509.interval,bind
+	animation509.pattern,add,509,0,0,0
+	
+	//Chocolate
+	animation510.interval,bind
+	animation510.pattern,add,510,0,0,0
+	
+	animation511.interval,bind
+	animation511.pattern,add,511,0,0,0
+	
+	animation512.interval,bind
+	animation512.pattern,add,512,0,0,0
+	
+	animation513.interval,bind
+	animation513.pattern,add,513,0,0,0
+	
+	animation514.interval,bind
+	animation514.pattern,add,514,0,0,0
+	
+	animation515.interval,bind
+	animation515.pattern,add,515,0,0,0
+	
+	animation516.interval,bind
+	animation516.pattern,add,516,0,0,0
+	
+	animation517.interval,bind
+	animation517.pattern,add,517,0,0,0
+	
+	
+	//Cinnamon
+	animation520.interval,bind
+	animation520.pattern,add,520,0,0,0
+	
+	animation521.interval,bind
+	animation521.pattern,add,521,0,0,0
+	
+	animation522.interval,bind
+	animation522.pattern,add,522,0,0,0
+	
+	animation523.interval,bind
+	animation523.pattern,add,523,0,0,0
+	
+	animation524.interval,bind
+	animation524.pattern,add,524,0,0,0
+	
+	animation525.interval,bind
+	animation525.pattern,add,525,0,0,0
+	
+	animation526.interval,bind
+	animation526.pattern,add,526,0,0,0
+	
+	
+	//Red
+	animation530.interval,bind
+	animation530.pattern,add,530,0,0,0
+	
+	animation531.interval,bind
+	animation531.pattern,add,531,0,0,0
+	
+	animation532.interval,bind
+	animation532.pattern,add,532,0,0,0
+	
+	animation533.interval,bind
+	animation533.pattern,add,533,0,0,0
+	
+	animation534.interval,bind
+	animation534.pattern,add,534,0,0,0
+	
+	animation535.interval,bind
+	animation535.pattern,add,535,0,0,0
+	
+	animation536.interval,bind
+	animation536.pattern,add,536,0,0,0
+	
+	animation537.interval,bind
+	animation537.pattern,add,537,0,0,0
+	
+	animation538.interval,bind
+	animation538.pattern,add,538,0,0,0
+	
+	//Yellow
+	animation540.interval,bind
+	animation540.pattern,add,540,0,0,0
+	
+	animation541.interval,bind
+	animation541.pattern,add,541,0,0,0
+	
+	animation542.interval,bind
+	animation542.pattern,add,542,0,0,0
+	
+	animation543.interval,bind
+	animation543.pattern,add,543,0,0,0
+	
+	animation544.interval,bind
+	animation544.pattern,add,544,0,0,0
+	
+	animation545.interval,bind
+	animation545.pattern,add,545,0,0,0
+	
+	
+	//Apricot
+	animation550.interval,bind
+	animation550.pattern,add,550,0,0,0
+	
+	animation551.interval,bind
+	animation551.pattern,add,551,0,0,0
+}
+
+surface.append0 //Tabby
+{
+	animation900.interval,bind
+	animation900.pattern,add,900,0,0,0
+	
+	animation901.interval,bind
+	animation901.pattern,add,901,0,0,0
+	
+	animation902.interval,bind
+	animation902.pattern,add,902,0,0,0
+	
+	animation903.interval,bind
+	animation903.pattern,add,903,0,0,0
+	
+	animation920.interval,bind
+	animation920.pattern,add,920,0,0,0
+	
+	animation921.interval,bind
+	animation921.pattern,add,921,0,0,0
+	
+	animation922.interval,bind
+	animation922.pattern,add,922,0,0,0
+	
+	animation923.interval,bind
+	animation923.pattern,add,923,0,0,0
+	
+	animation930.interval,bind
+	animation930.pattern,add,930,0,0,0
+	
+	animation931.interval,bind
+	animation931.pattern,add,931,0,0,0
+	
+	animation932.interval,bind
+	animation932.pattern,add,932,0,0,0
+	
+	animation933.interval,bind
+	animation933.pattern,add,933,0,0,0
+	
+	animation940.interval,bind
+	animation940.pattern,add,940,0,0,0
+	
+	animation941.interval,bind
+	animation941.pattern,add,941,0,0,0
+	
+	animation942.interval,bind
+	animation942.pattern,add,942,0,0,0
+	
+	animation943.interval,bind
+	animation943.pattern,add,943,0,0,0
+}
+
+surface.append0 //White spotting - Legs
+{
+	animation1000.interval,bind
+	animation1000.pattern,add,1000,0,0,0
+	
+	animation1001.interval,bind
+	animation1001.pattern,add,1001,0,0,0
+	
+	animation1002.interval,bind
+	animation1002.pattern,add,1002,0,0,0
+	
+	animation1003.interval,bind
+	animation1003.pattern,add,1003,0,0,0
+	
+	animation1004.interval,bind
+	animation1004.pattern,add,1004,0,0,0
+	
+	animation1005.interval,bind
+	animation1005.pattern,add,1005,0,0,0
+	
+	animation1100.interval,bind
+	animation1100.pattern,add,1100,0,0,0
+	
+	animation1101.interval,bind
+	animation1101.pattern,add,1101,0,0,0
+	
+	animation1102.interval,bind
+	animation1102.pattern,add,1102,0,0,0
+	
+	animation1103.interval,bind
+	animation1103.pattern,add,1103,0,0,0
+	
+	animation1104.interval,bind
+	animation1104.pattern,add,1104,0,0,0
+	
+	animation1105.interval,bind
+	animation1105.pattern,add,1105,0,0,0
+	
+	animation1200.interval,bind
+	animation1200.pattern,add,1200,0,0,0
+	
+	animation1201.interval,bind
+	animation1201.pattern,add,1201,0,0,0
+	
+	animation1202.interval,bind
+	animation1202.pattern,add,1202,0,0,0
+	
+	animation1203.interval,bind
+	animation1203.pattern,add,1203,0,0,0
+	
+	animation1204.interval,bind
+	animation1204.pattern,add,1204,0,0,0
+	
+	animation1205.interval,bind
+	animation1205.pattern,add,1205,0,0,0
+	
+	animation1206.interval,bind
+	animation1206.pattern,add,1206,0,0,0
+	
+	animation1300.interval,bind
+	animation1300.pattern,add,1300,0,0,0
+	
+	animation1301.interval,bind
+	animation1301.pattern,add,1301,0,0,0
+	
+	animation1302.interval,bind
+	animation1302.pattern,add,1302,0,0,0
+	
+	animation1303.interval,bind
+	animation1303.pattern,add,1303,0,0,0
+	
+	animation1304.interval,bind
+	animation1304.pattern,add,1304,0,0,0
+	
+	animation1305.interval,bind
+	animation1305.pattern,add,1305,0,0,0
+	
+	animation1306.interval,bind
+	animation1306.pattern,add,1306,0,0,0
+}
+
+surface.append0 //White spotting - other
+{
+	animation1400.interval,bind
+	animation1400.pattern,add,1400,0,0,0
+	
+	animation1401.interval,bind
+	animation1401.pattern,add,1401,0,0,0
+	
+	animation1402.interval,bind
+	animation1402.pattern,add,1402,0,0,0
+	
+	animation1403.interval,bind
+	animation1403.pattern,add,1403,0,0,0
+	
+	animation1500.interval,bind
+	animation1500.pattern,add,1500,0,0,0
+	
+	animation1501.interval,bind
+	animation1501.pattern,add,1501,0,0,0
+	
+	animation1502.interval,bind
+	animation1502.pattern,add,1502,0,0,0
+	
+	animation1503.interval,bind
+	animation1503.pattern,add,1503,0,0,0
+	
+	animation1504.interval,bind
+	animation1504.pattern,add,1504,0,0,0
+	
+	animation1505.interval,bind
+	animation1505.pattern,add,1505,0,0,0
+	
+	animation1600.interval,bind
+	animation1600.pattern,add,1600,0,0,0
+	
+	animation1601.interval,bind
+	animation1601.pattern,add,1601,0,0,0
+	
+	animation1602.interval,bind
+	animation1602.pattern,add,1602,0,0,0
+	
+	animation1603.interval,bind
+	animation1603.pattern,add,1603,0,0,0
+	
+	animation1700.interval,bind
+	animation1700.pattern,add,1700,0,0,0
+	
+	animation1701.interval,bind
+	animation1701.pattern,add,1701,0,0,0
+	
+	animation1800.interval,bind
+	animation1800.pattern,add,1800,0,0,0
+	
+	animation1801.interval,bind
+	animation1801.pattern,add,1801,0,0,0
+	
+	animation1802.interval,bind
+	animation1802.pattern,add,1802,0,0,0
+
+	animation1900.interval,bind
+	animation1900.pattern,add,1900,0,0,0
+	
+	animation1901.interval,bind
+	animation1901.pattern,add,1901,0,0,0
+	
+	animation1902.interval,bind
+	animation1902.pattern,add,1902,0,0,0
+	
+	animation1903.interval,bind
+	animation1903.pattern,add,1903,0,0,0
+	
+	animation1904.interval,bind
+	animation1904.pattern,add,1904,0,0,0
+	
+	animation1905.interval,bind
+	animation1905.pattern,add,1905,0,0,0
+	
+	animation1906.interval,bind
+	animation1906.pattern,add,1906,0,0,0
+
+	animation1907.interval,bind
+	animation1907.pattern,add,1907,0,0,0
+	
+	animation1908.interval,bind
+	animation1908.pattern,add,1908,0,0,0
+	
+	animation1909.interval,bind
+	animation1909.pattern,add,1909,0,0,0
+	
+	animation1910.interval,bind
+	animation1910.pattern,add,1910,0,0,0
+	
+	animation1911.interval,bind
+	animation1911.pattern,add,1911,0,0,0
+	
+	animation1912.interval,bind
+	animation1912.pattern,add,1912,0,0,0
+
+	animation1913.interval,bind
+	animation1913.pattern,add,1913,0,0,0
+	
+	animation1914.interval,bind
+	animation1914.pattern,add,1914,0,0,0
+	
+	animation1915.interval,bind
+	animation1915.pattern,add,1915,0,0,0
+	
+	animation2000.interval,bind
+	animation2000.pattern,add,2000,0,0,0
+	
+	animation2001.interval,bind
+	animation2001.pattern,add,2001,0,0,0
+	
+	animation2002.interval,bind
+	animation2002.pattern,add,2002,0,0,0
+	
+	animation2010.interval,bind
+	animation2010.pattern,add,2010,0,0,0
+	
+	animation2011.interval,bind
+	animation2011.pattern,add,2011,0,0,0
+	
+	animation2012.interval,bind
+	animation2012.pattern,add,2012,0,0,0
+	
+	animation2013.interval,bind
+	animation2013.pattern,add,2013,0,0,0
+	
+	animation2014.interval,bind
+	animation2014.pattern,add,2014,0,0,0
+	
+	animation2020.interval,bind
+	animation2020.pattern,add,2020,0,0,0
+	
+	animation2021.interval,bind
+	animation2021.pattern,add,2021,0,0,0
+	
+	animation2022.interval,bind
+	animation2022.pattern,add,2022,0,0,0
+	
+	animation2030.interval,bind
+	animation2030.pattern,add,2030,0,0,0
+	
+	animation2031.interval,bind
+	animation2031.pattern,add,2031,0,0,0
+	
+	animation2032.interval,bind
+	animation2032.pattern,add,2032,0,0,0
+	
+	animation2033.interval,bind
+	animation2033.pattern,add,2033,0,0,0
+	
+	animation2035.interval,bind
+	animation2035.pattern,add,2035,0,0,0
+	
+	animation2036.interval,bind
+	animation2036.pattern,add,2036,0,0,0
+	
+	animation2037.interval,bind
+	animation2037.pattern,add,2037,0,0,0
+	
+	animation2038.interval,bind
+	animation2038.pattern,add,2038,0,0,0
+	
+	animation2040.interval,bind
+	animation2040.pattern,add,2040,0,0,0
+	
+	animation2041.interval,bind
+	animation2041.pattern,add,2041,0,0,0
+	
+	animation2042.interval,bind
+	animation2042.pattern,add,2042,0,0,0
+	
+	animation2043.interval,bind
+	animation2043.pattern,add,2043,0,0,0
+	
+	animation2044.interval,bind
+	animation2044.pattern,add,2044,0,0,0
+	
+	animation2050.interval,bind
+	animation2050.pattern,add,2050,0,0,0
+}
+
+surface.append0 //Eyes
+{
+	animation3000.interval,bind
+	animation3000.pattern,add,3000,0,0,0
+	
+	animation3001.interval,bind
+	animation3001.pattern,add,3001,0,0,0
+	
+	animation3002.interval,bind
+	animation3002.pattern,add,3002,0,0,0
+	
+	animation3003.interval,bind
+	animation3003.pattern,add,3003,0,0,0
+	
+	animation3010.interval,bind
+	animation3010.pattern,add,3010,0,0,0
+	
+	animation3011.interval,bind
+	animation3011.pattern,add,3011,0,0,0
+	
+	animation3012.interval,bind
+	animation3012.pattern,add,3012,0,0,0
+	
+	animation3013.interval,bind
+	animation3013.pattern,add,3013,0,0,0
+	
+	animation3020.interval,bind
+	animation3020.pattern,add,3020,0,0,0
+	
+	animation3021.interval,bind
+	animation3021.pattern,add,3021,0,0,0
+	
+	animation3022.interval,bind
+	animation3022.pattern,add,3022,0,0,0
+	
+	animation3023.interval,bind
+	animation3023.pattern,add,3023,0,0,0
+	
+	animation3030.interval,bind
+	animation3030.pattern,add,3030,0,0,0
+	
+	animation3031.interval,bind
+	animation3031.pattern,add,3031,0,0,0
+	
+	animation3032.interval,bind
+	animation3032.pattern,add,3032,0,0,0
+	
+	animation3033.interval,bind
+	animation3033.pattern,add,3033,0,0,0
+	
+	animation3040.interval,bind
+	animation3040.pattern,add,3040,0,0,0
+	
+	animation3041.interval,bind
+	animation3041.pattern,add,3041,0,0,0
+	
+	animation3042.interval,bind
+	animation3042.pattern,add,3042,0,0,0
+	
+	animation3043.interval,bind
+	animation3043.pattern,add,3043,0,0,0
+	
+	animation3050.interval,bind
+	animation3050.pattern,add,3050,0,0,0
+	
+	animation3051.interval,bind
+	animation3051.pattern,add,3051,0,0,0
+	
+	animation3052.interval,bind
+	animation3052.pattern,add,3052,0,0,0
+	
+	animation3053.interval,bind
+	animation3053.pattern,add,3053,0,0,0
+	
+	animation3060.interval,bind
+	animation3060.pattern,add,3060,0,0,0
+	
+	animation3061.interval,bind
+	animation3061.pattern,add,3061,0,0,0
+	
+	animation3062.interval,bind
+	animation3062.pattern,add,3062,0,0,0
+	
+	animation3063.interval,bind
+	animation3063.pattern,add,3063,0,0,0
+}
+
+surface.append0 //Heterochromia
+{
+	animation3100.interval,bind
+	animation3100.pattern,add,3100,0,0,0
+	
+	animation3101.interval,bind
+	animation3101.pattern,add,3101,0,0,0
+	
+	animation3102.interval,bind
+	animation3102.pattern,add,3102,0,0,0
+	
+	animation3103.interval,bind
+	animation3103.pattern,add,3103,0,0,0
+	
+	animation3110.interval,bind
+	animation3110.pattern,add,3110,0,0,0
+	
+	animation3111.interval,bind
+	animation3111.pattern,add,3111,0,0,0
+	
+	animation3112.interval,bind
+	animation3112.pattern,add,3112,0,0,0
+	
+	animation3113.interval,bind
+	animation3113.pattern,add,3113,0,0,0
+	
+	animation3120.interval,bind
+	animation3120.pattern,add,3120,0,0,0
+	
+	animation3121.interval,bind
+	animation3121.pattern,add,3121,0,0,0
+	
+	animation3122.interval,bind
+	animation3122.pattern,add,3122,0,0,0
+	
+	animation3123.interval,bind
+	animation3123.pattern,add,3123,0,0,0
+	
+	animation3130.interval,bind
+	animation3130.pattern,add,3130,0,0,0
+	
+	animation3131.interval,bind
+	animation3131.pattern,add,3131,0,0,0
+	
+	animation3132.interval,bind
+	animation3132.pattern,add,3132,0,0,0
+	
+	animation3133.interval,bind
+	animation3133.pattern,add,3133,0,0,0
+	
+	animation3140.interval,bind
+	animation3140.pattern,add,3140,0,0,0
+	
+	animation3141.interval,bind
+	animation3141.pattern,add,3141,0,0,0
+	
+	animation3142.interval,bind
+	animation3142.pattern,add,3142,0,0,0
+	
+	animation3143.interval,bind
+	animation3143.pattern,add,3143,0,0,0
+	
+	animation3150.interval,bind
+	animation3150.pattern,add,3150,0,0,0
+	
+	animation3151.interval,bind
+	animation3151.pattern,add,3151,0,0,0
+	
+	animation3152.interval,bind
+	animation3152.pattern,add,3152,0,0,0
+	
+	animation3153.interval,bind
+	animation3153.pattern,add,3153,0,0,0
+	
+	animation3160.interval,bind
+	animation3160.pattern,add,3160,0,0,0
+	
+	animation3161.interval,bind
+	animation3161.pattern,add,3161,0,0,0
+	
+	animation3162.interval,bind
+	animation3162.pattern,add,3162,0,0,0
+	
+	animation3163.interval,bind
+	animation3163.pattern,add,3163,0,0,0
+}
+
+surface.append0 //Noses
+{
+	animation3200.interval,bind
+	animation3200.pattern,add,3200,0,0,0
+	
+	animation3201.interval,bind
+	animation3201.pattern,add,3201,0,0,0
+	
+	animation3202.interval,bind
+	animation3202.pattern,add,3202,0,0,0
+	
+	animation3203.interval,bind
+	animation3203.pattern,add,3203,0,0,0
+	
+	animation3204.interval,bind
+	animation3204.pattern,add,3204,0,0,0
+}
+
+surface100 //Black
+{
+	element0,overlay,pelt_base.png,0,0
+	element1,overlayfast,colors/black_10.png,0,0
+}
+
+surface101 //Gray 1
+{
+	element0,overlay,pelt_base.png,0,0
+	element1,overlayfast,colors/black_20.png,0,0
+}
+
+surface102 //Gray 2
+{
+	element0,overlay,pelt_base.png,0,0
+	element1,overlayfast,colors/black_30.png,0,0
+}
+
+surface103 //Gray 3
+{
+	element0,overlay,pelt_base.png,0,0
+	element1,overlayfast,colors/black_40.png,0,0
+}
+
+surface104 //Gray 4
+{
+	element0,overlay,pelt_base.png,0,0
+	element1,overlayfast,colors/black_50.png,0,0
+}
+
+surface105 //Gray 5
+{
+	element0,overlay,pelt_base.png,0,0
+	element1,overlayfast,colors/black_60.png,0,0
+}
+
+surface106 //Gray 6
+{
+	element0,overlay,pelt_base.png,0,0
+	element1,overlayfast,colors/black_70.png,0,0
+}
+
+surface107 //Gray 7
+{
+	element0,overlay,pelt_base.png,0,0
+	element1,overlayfast,colors/black_80.png,0,0
+}
+
+surface108 //Gray 8
+{
+	element0,overlay,pelt_base.png,0,0
+	element1,overlayfast,colors/black_90.png,0,0
+}
+
+surface109 //White
+{
+	element0,overlay,pelt_base.png,0,0
+	element1,overlayfast,colors/black_96.png,0,0
+}
+
+
+//Chocolate
+surface110 //Chocolate 1
+{
+	element0,overlay,pelt_base.png,0,0
+	element1,overlayfast,colors/chocolate_20.png,0,0
+}
+
+surface111 //Chocolate 2
+{
+	element0,overlay,pelt_base.png,0,0
+	element1,overlayfast,colors/chocolate_30.png,0,0
+}
+
+surface112 //Chocolate 3
+{
+	element0,overlay,pelt_base.png,0,0
+	element1,overlayfast,colors/chocolate_40.png,0,0
+}
+
+surface113 //Chocolate 4
+{
+	element0,overlay,pelt_base.png,0,0
+	element1,overlayfast,colors/chocolate_50.png,0,0
+}
+
+surface114 //Chocolate 5
+{
+	element0,overlay,pelt_base.png,0,0
+	element1,overlayfast,colors/chocolate_60.png,0,0
+}
+
+surface115 //Chocolate 6
+{
+	element0,overlay,pelt_base.png,0,0
+	element1,overlayfast,colors/chocolate_70.png,0,0
+}
+
+surface116 //Chocolate 7
+{
+	element0,overlay,pelt_base.png,0,0
+	element1,overlayfast,colors/chocolate_80.png,0,0
+}
+
+surface117 //Chocolate 8
+{
+	element0,overlay,pelt_base.png,0,0
+	element1,overlayfast,colors/chocolate_90.png,0,0
+}
+
+//Cinnamon
+surface120 //Cinnamon 1
+{
+	element0,overlay,pelt_base.png,0,0
+	element1,overlayfast,colors/cinnamon_30.png,0,0
+}
+
+surface121 //Cinnamon 2
+{
+	element0,overlay,pelt_base.png,0,0
+	element1,overlayfast,colors/cinnamon_40.png,0,0
+}
+
+surface122 //Cinnamon 3
+{
+	element0,overlay,pelt_base.png,0,0
+	element1,overlayfast,colors/cinnamon_50.png,0,0
+}
+
+surface123 //Cinnamon 4
+{
+	element0,overlay,pelt_base.png,0,0
+	element1,overlayfast,colors/cinnamon_60.png,0,0
+}
+
+surface124 //Cinnamon 5
+{
+	element0,overlay,pelt_base.png,0,0
+	element1,overlayfast,colors/cinnamon_70.png,0,0
+}
+
+surface125 //Cinnamon 6
+{
+	element0,overlay,pelt_base.png,0,0
+	element1,overlayfast,colors/cinnamon_80.png,0,0
+}
+
+surface126 //Cinnamon 7
+{
+	element0,overlay,pelt_base.png,0,0
+	element1,overlayfast,colors/cinnamon_90.png,0,0
+}
+
+
+//Red
+surface130 //Red 1
+{
+	element0,overlay,pelt_base.png,0,0
+	element1,overlayfast,colors/red_30.png,0,0
+}
+
+surface131 //Red 2
+{
+	element0,overlay,pelt_base.png,0,0
+	element1,overlayfast,colors/red_40.png,0,0
+}
+
+surface132 //Red 3
+{
+	element0,overlay,pelt_base.png,0,0
+	element1,overlayfast,colors/red_50.png,0,0
+}
+
+surface133 //Red 4
+{
+	element0,overlay,pelt_base.png,0,0
+	element1,overlayfast,colors/red_60.png,0,0
+}
+
+surface134 //Red 5
+{
+	element0,overlay,pelt_base.png,0,0
+	element1,overlayfast,colors/red_70.png,0,0
+}
+
+surface135 //Red 6
+{
+	element0,overlay,pelt_base.png,0,0
+	element1,overlayfast,colors/red_80.png,0,0
+}
+
+surface136 //Red 7
+{
+	element0,overlay,pelt_base.png,0,0
+	element1,overlayfast,colors/red_90.png,0,0
+}
+
+surface137 //Red 8
+{
+	element0,overlay,pelt_base.png,0,0
+	element1,overlayfast,colors/red_95.png,0,0
+}
+
+surface138 //Red 9
+{
+	element0,overlay,pelt_base.png,0,0
+	element1,overlayfast,colors/red_95-s25.png,0,0
+}
+
+
+//Yellow
+surface140 //Yellow 1
+{
+	element0,overlay,pelt_base.png,0,0
+	element1,overlayfast,colors/yellow_70.png,0,0
+}
+
+surface141 //Yellow 2
+{
+	element0,overlay,pelt_base.png,0,0
+	element1,overlayfast,colors/yellow_80.png,0,0
+}
+
+surface142 //Yellow 3
+{
+	element0,overlay,pelt_base.png,0,0
+	element1,overlayfast,colors/yellow_90.png,0,0
+}
+
+surface143 //Yellow 4
+{
+	element0,overlay,pelt_base.png,0,0
+	element1,overlayfast,colors/yellow_95.png,0,0
+}
+
+surface144 //Yellow 5
+{
+	element0,overlay,pelt_base.png,0,0
+	element1,overlayfast,colors/yellow_95-s30.png,0,0
+}
+
+surface145 //Yellow 6
+{
+	element0,overlay,pelt_base.png,0,0
+	element1,overlayfast,colors/yellow_95-s25.png,0,0
+}
+
+
+//Apricot
+surface150 //Apricot 1
+{
+	element0,overlay,pelt_base.png,0,0
+	element1,overlayfast,colors/apricot_s50.png,0,0
+}
+
+surface151 //Apricot 2
+{
+	element0,overlay,pelt_base.png,0,0
+	element1,overlayfast,colors/apricot_s40.png,0,0
+}
+
+
+//-------Tortie 1-------
+
+surface200 //Black
+{
+	element0,overlay,tortie_00.png,0,0
+	element1,overlayfast,colors/black_10.png,0,0
+}
+
+surface201 //Gray 1
+{
+	element0,overlay,tortie_00.png,0,0
+	element1,overlayfast,colors/black_20.png,0,0
+}
+
+surface202 //Gray 2
+{
+	element0,overlay,tortie_00.png,0,0
+	element1,overlayfast,colors/black_30.png,0,0
+}
+
+surface203 //Gray 3
+{
+	element0,overlay,tortie_00.png,0,0
+	element1,overlayfast,colors/black_40.png,0,0
+}
+
+surface204 //Gray 4
+{
+	element0,overlay,tortie_00.png,0,0
+	element1,overlayfast,colors/black_50.png,0,0
+}
+
+surface205 //Gray 5
+{
+	element0,overlay,tortie_00.png,0,0
+	element1,overlayfast,colors/black_60.png,0,0
+}
+
+surface206 //Gray 6
+{
+	element0,overlay,tortie_00.png,0,0
+	element1,overlayfast,colors/black_70.png,0,0
+}
+
+surface207 //Gray 7
+{
+	element0,overlay,tortie_00.png,0,0
+	element1,overlayfast,colors/black_80.png,0,0
+}
+
+surface208 //Gray 8
+{
+	element0,overlay,tortie_00.png,0,0
+	element1,overlayfast,colors/black_90.png,0,0
+}
+
+surface209 //White
+{
+	element0,overlay,tortie_00.png,0,0
+	element1,overlayfast,colors/black_96.png,0,0
+}
+
+
+//Chocolate
+surface210 //Chocolate 1
+{
+	element0,overlay,tortie_00.png,0,0
+	element1,overlayfast,colors/chocolate_20.png,0,0
+}
+
+surface211 //Chocolate 2
+{
+	element0,overlay,tortie_00.png,0,0
+	element1,overlayfast,colors/chocolate_30.png,0,0
+}
+
+surface212 //Chocolate 3
+{
+	element0,overlay,tortie_00.png,0,0
+	element1,overlayfast,colors/chocolate_40.png,0,0
+}
+
+surface213 //Chocolate 4
+{
+	element0,overlay,tortie_00.png,0,0
+	element1,overlayfast,colors/chocolate_50.png,0,0
+}
+
+surface214 //Chocolate 5
+{
+	element0,overlay,tortie_00.png,0,0
+	element1,overlayfast,colors/chocolate_60.png,0,0
+}
+
+surface215 //Chocolate 6
+{
+	element0,overlay,tortie_00.png,0,0
+	element1,overlayfast,colors/chocolate_70.png,0,0
+}
+
+surface216 //Chocolate 7
+{
+	element0,overlay,tortie_00.png,0,0
+	element1,overlayfast,colors/chocolate_80.png,0,0
+}
+
+surface217 //Chocolate 8
+{
+	element0,overlay,tortie_00.png,0,0
+	element1,overlayfast,colors/chocolate_90.png,0,0
+}
+
+//Cinnamon
+surface220 //Cinnamon 1
+{
+	element0,overlay,tortie_00.png,0,0
+	element1,overlayfast,colors/cinnamon_30.png,0,0
+}
+
+surface221 //Cinnamon 2
+{
+	element0,overlay,tortie_00.png,0,0
+	element1,overlayfast,colors/cinnamon_40.png,0,0
+}
+
+surface222 //Cinnamon 3
+{
+	element0,overlay,tortie_00.png,0,0
+	element1,overlayfast,colors/cinnamon_50.png,0,0
+}
+
+surface223 //Cinnamon 4
+{
+	element0,overlay,tortie_00.png,0,0
+	element1,overlayfast,colors/cinnamon_60.png,0,0
+}
+
+surface224 //Cinnamon 5
+{
+	element0,overlay,tortie_00.png,0,0
+	element1,overlayfast,colors/cinnamon_70.png,0,0
+}
+
+surface225 //Cinnamon 6
+{
+	element0,overlay,tortie_00.png,0,0
+	element1,overlayfast,colors/cinnamon_80.png,0,0
+}
+
+surface226 //Cinnamon 7
+{
+	element0,overlay,tortie_00.png,0,0
+	element1,overlayfast,colors/cinnamon_90.png,0,0
+}
+
+
+//Red
+surface230 //Red 1
+{
+	element0,overlay,tortie_00.png,0,0
+	element1,overlayfast,colors/red_30.png,0,0
+}
+
+surface231 //Red 2
+{
+	element0,overlay,tortie_00.png,0,0
+	element1,overlayfast,colors/red_40.png,0,0
+}
+
+surface232 //Red 3
+{
+	element0,overlay,tortie_00.png,0,0
+	element1,overlayfast,colors/red_50.png,0,0
+}
+
+surface233 //Red 4
+{
+	element0,overlay,tortie_00.png,0,0
+	element1,overlayfast,colors/red_60.png,0,0
+}
+
+surface234 //Red 5
+{
+	element0,overlay,tortie_00.png,0,0
+	element1,overlayfast,colors/red_70.png,0,0
+}
+
+surface235 //Red 6
+{
+	element0,overlay,tortie_00.png,0,0
+	element1,overlayfast,colors/red_80.png,0,0
+}
+
+surface236 //Red 7
+{
+	element0,overlay,tortie_00.png,0,0
+	element1,overlayfast,colors/red_90.png,0,0
+}
+
+surface237 //Red 8
+{
+	element0,overlay,tortie_00.png,0,0
+	element1,overlayfast,colors/red_95.png,0,0
+}
+
+surface238 //Red 9
+{
+	element0,overlay,tortie_00.png,0,0
+	element1,overlayfast,colors/red_95-s25.png,0,0
+}
+
+
+//Yellow
+surface240 //Yellow 1
+{
+	element0,overlay,tortie_00.png,0,0
+	element1,overlayfast,colors/yellow_70.png,0,0
+}
+
+surface241 //Yellow 2
+{
+	element0,overlay,tortie_00.png,0,0
+	element1,overlayfast,colors/yellow_80.png,0,0
+}
+
+surface242 //Yellow 3
+{
+	element0,overlay,tortie_00.png,0,0
+	element1,overlayfast,colors/yellow_90.png,0,0
+}
+
+surface243 //Yellow 4
+{
+	element0,overlay,tortie_00.png,0,0
+	element1,overlayfast,colors/yellow_95.png,0,0
+}
+
+surface244 //Yellow 5
+{
+	element0,overlay,tortie_00.png,0,0
+	element1,overlayfast,colors/yellow_95-s30.png,0,0
+}
+
+surface245 //Yellow 6
+{
+	element0,overlay,tortie_00.png,0,0
+	element1,overlayfast,colors/yellow_95-s25.png,0,0
+}
+
+
+//Apricot
+surface250 //Apricot 1
+{
+	element0,overlay,tortie_00.png,0,0
+	element1,overlayfast,colors/apricot_s50.png,0,0
+}
+
+surface251 //Apricot 2
+{
+	element0,overlay,tortie_00.png,0,0
+	element1,overlayfast,colors/apricot_s40.png,0,0
+}
+
+
+//-------Tortie 2-------
+
+surface300 //Black
+{
+	element0,overlay,tortie_01.png,0,0
+	element1,overlayfast,colors/black_10.png,0,0
+}
+
+surface301 //Gray 1
+{
+	element0,overlay,tortie_01.png,0,0
+	element1,overlayfast,colors/black_20.png,0,0
+}
+
+surface302 //Gray 2
+{
+	element0,overlay,tortie_01.png,0,0
+	element1,overlayfast,colors/black_30.png,0,0
+}
+
+surface303 //Gray 3
+{
+	element0,overlay,tortie_01.png,0,0
+	element1,overlayfast,colors/black_40.png,0,0
+}
+
+surface304 //Gray 4
+{
+	element0,overlay,tortie_01.png,0,0
+	element1,overlayfast,colors/black_50.png,0,0
+}
+
+surface305 //Gray 5
+{
+	element0,overlay,tortie_01.png,0,0
+	element1,overlayfast,colors/black_60.png,0,0
+}
+
+surface306 //Gray 6
+{
+	element0,overlay,tortie_01.png,0,0
+	element1,overlayfast,colors/black_70.png,0,0
+}
+
+surface307 //Gray 7
+{
+	element0,overlay,tortie_01.png,0,0
+	element1,overlayfast,colors/black_80.png,0,0
+}
+
+surface308 //Gray 8
+{
+	element0,overlay,tortie_01.png,0,0
+	element1,overlayfast,colors/black_90.png,0,0
+}
+
+surface309 //White
+{
+	element0,overlay,tortie_01.png,0,0
+	element1,overlayfast,colors/black_96.png,0,0
+}
+
+
+//Chocolate
+surface310 //Chocolate 1
+{
+	element0,overlay,tortie_01.png,0,0
+	element1,overlayfast,colors/chocolate_20.png,0,0
+}
+
+surface311 //Chocolate 2
+{
+	element0,overlay,tortie_01.png,0,0
+	element1,overlayfast,colors/chocolate_30.png,0,0
+}
+
+surface312 //Chocolate 3
+{
+	element0,overlay,tortie_01.png,0,0
+	element1,overlayfast,colors/chocolate_40.png,0,0
+}
+
+surface313 //Chocolate 4
+{
+	element0,overlay,tortie_01.png,0,0
+	element1,overlayfast,colors/chocolate_50.png,0,0
+}
+
+surface314 //Chocolate 5
+{
+	element0,overlay,tortie_01.png,0,0
+	element1,overlayfast,colors/chocolate_60.png,0,0
+}
+
+surface315 //Chocolate 6
+{
+	element0,overlay,tortie_01.png,0,0
+	element1,overlayfast,colors/chocolate_70.png,0,0
+}
+
+surface316 //Chocolate 7
+{
+	element0,overlay,tortie_01.png,0,0
+	element1,overlayfast,colors/chocolate_80.png,0,0
+}
+
+surface317 //Chocolate 8
+{
+	element0,overlay,tortie_01.png,0,0
+	element1,overlayfast,colors/chocolate_90.png,0,0
+}
+
+//Cinnamon
+surface320 //Cinnamon 1
+{
+	element0,overlay,tortie_01.png,0,0
+	element1,overlayfast,colors/cinnamon_30.png,0,0
+}
+
+surface321 //Cinnamon 2
+{
+	element0,overlay,tortie_01.png,0,0
+	element1,overlayfast,colors/cinnamon_40.png,0,0
+}
+
+surface322 //Cinnamon 3
+{
+	element0,overlay,tortie_01.png,0,0
+	element1,overlayfast,colors/cinnamon_50.png,0,0
+}
+
+surface323 //Cinnamon 4
+{
+	element0,overlay,tortie_01.png,0,0
+	element1,overlayfast,colors/cinnamon_60.png,0,0
+}
+
+surface324 //Cinnamon 5
+{
+	element0,overlay,tortie_01.png,0,0
+	element1,overlayfast,colors/cinnamon_70.png,0,0
+}
+
+surface325 //Cinnamon 6
+{
+	element0,overlay,tortie_01.png,0,0
+	element1,overlayfast,colors/cinnamon_80.png,0,0
+}
+
+surface326 //Cinnamon 7
+{
+	element0,overlay,tortie_01.png,0,0
+	element1,overlayfast,colors/cinnamon_90.png,0,0
+}
+
+
+//Red
+surface330 //Red 1
+{
+	element0,overlay,tortie_01.png,0,0
+	element1,overlayfast,colors/red_30.png,0,0
+}
+
+surface331 //Red 2
+{
+	element0,overlay,tortie_01.png,0,0
+	element1,overlayfast,colors/red_40.png,0,0
+}
+
+surface332 //Red 3
+{
+	element0,overlay,tortie_01.png,0,0
+	element1,overlayfast,colors/red_50.png,0,0
+}
+
+surface333 //Red 4
+{
+	element0,overlay,tortie_01.png,0,0
+	element1,overlayfast,colors/red_60.png,0,0
+}
+
+surface334 //Red 5
+{
+	element0,overlay,tortie_01.png,0,0
+	element1,overlayfast,colors/red_70.png,0,0
+}
+
+surface335 //Red 6
+{
+	element0,overlay,tortie_01.png,0,0
+	element1,overlayfast,colors/red_80.png,0,0
+}
+
+surface336 //Red 7
+{
+	element0,overlay,tortie_01.png,0,0
+	element1,overlayfast,colors/red_90.png,0,0
+}
+
+surface337 //Red 8
+{
+	element0,overlay,tortie_01.png,0,0
+	element1,overlayfast,colors/red_95.png,0,0
+}
+
+surface338 //Red 9
+{
+	element0,overlay,tortie_01.png,0,0
+	element1,overlayfast,colors/red_95-s25.png,0,0
+}
+
+
+//Yellow
+surface340 //Yellow 1
+{
+	element0,overlay,tortie_01.png,0,0
+	element1,overlayfast,colors/yellow_70.png,0,0
+}
+
+surface341 //Yellow 2
+{
+	element0,overlay,tortie_01.png,0,0
+	element1,overlayfast,colors/yellow_80.png,0,0
+}
+
+surface342 //Yellow 3
+{
+	element0,overlay,tortie_01.png,0,0
+	element1,overlayfast,colors/yellow_90.png,0,0
+}
+
+surface343 //Yellow 4
+{
+	element0,overlay,tortie_01.png,0,0
+	element1,overlayfast,colors/yellow_95.png,0,0
+}
+
+surface344 //Yellow 5
+{
+	element0,overlay,tortie_01.png,0,0
+	element1,overlayfast,colors/yellow_95-s30.png,0,0
+}
+
+surface345 //Yellow 6
+{
+	element0,overlay,tortie_01.png,0,0
+	element1,overlayfast,colors/yellow_95-s25.png,0,0
+}
+
+
+//Apricot
+surface350 //Apricot 1
+{
+	element0,overlay,tortie_01.png,0,0
+	element1,overlayfast,colors/apricot_s50.png,0,0
+}
+
+surface351 //Apricot 2
+{
+	element0,overlay,tortie_01.png,0,0
+	element1,overlayfast,colors/apricot_s40.png,0,0
+}
+
+//-------Tortie 3-------
+
+surface400 //Black
+{
+	element0,overlay,tortie_02.png,0,0
+	element1,overlayfast,colors/black_10.png,0,0
+}
+
+surface401 //Gray 1
+{
+	element0,overlay,tortie_02.png,0,0
+	element1,overlayfast,colors/black_20.png,0,0
+}
+
+surface402 //Gray 2
+{
+	element0,overlay,tortie_02.png,0,0
+	element1,overlayfast,colors/black_30.png,0,0
+}
+
+surface403 //Gray 3
+{
+	element0,overlay,tortie_02.png,0,0
+	element1,overlayfast,colors/black_40.png,0,0
+}
+
+surface404 //Gray 4
+{
+	element0,overlay,tortie_02.png,0,0
+	element1,overlayfast,colors/black_50.png,0,0
+}
+
+surface405 //Gray 5
+{
+	element0,overlay,tortie_02.png,0,0
+	element1,overlayfast,colors/black_60.png,0,0
+}
+
+surface406 //Gray 6
+{
+	element0,overlay,tortie_02.png,0,0
+	element1,overlayfast,colors/black_70.png,0,0
+}
+
+surface407 //Gray 7
+{
+	element0,overlay,tortie_02.png,0,0
+	element1,overlayfast,colors/black_80.png,0,0
+}
+
+surface408 //Gray 8
+{
+	element0,overlay,tortie_02.png,0,0
+	element1,overlayfast,colors/black_90.png,0,0
+}
+
+surface409 //White
+{
+	element0,overlay,tortie_02.png,0,0
+	element1,overlayfast,colors/black_96.png,0,0
+}
+
+
+//Chocolate
+surface410 //Chocolate 1
+{
+	element0,overlay,tortie_02.png,0,0
+	element1,overlayfast,colors/chocolate_20.png,0,0
+}
+
+surface411 //Chocolate 2
+{
+	element0,overlay,tortie_02.png,0,0
+	element1,overlayfast,colors/chocolate_30.png,0,0
+}
+
+surface412 //Chocolate 3
+{
+	element0,overlay,tortie_02.png,0,0
+	element1,overlayfast,colors/chocolate_40.png,0,0
+}
+
+surface413 //Chocolate 4
+{
+	element0,overlay,tortie_02.png,0,0
+	element1,overlayfast,colors/chocolate_50.png,0,0
+}
+
+surface414 //Chocolate 5
+{
+	element0,overlay,tortie_02.png,0,0
+	element1,overlayfast,colors/chocolate_60.png,0,0
+}
+
+surface415 //Chocolate 6
+{
+	element0,overlay,tortie_02.png,0,0
+	element1,overlayfast,colors/chocolate_70.png,0,0
+}
+
+surface416 //Chocolate 7
+{
+	element0,overlay,tortie_02.png,0,0
+	element1,overlayfast,colors/chocolate_80.png,0,0
+}
+
+surface417 //Chocolate 8
+{
+	element0,overlay,tortie_02.png,0,0
+	element1,overlayfast,colors/chocolate_90.png,0,0
+}
+
+//Cinnamon
+surface420 //Cinnamon 1
+{
+	element0,overlay,tortie_02.png,0,0
+	element1,overlayfast,colors/cinnamon_30.png,0,0
+}
+
+surface421 //Cinnamon 2
+{
+	element0,overlay,tortie_02.png,0,0
+	element1,overlayfast,colors/cinnamon_40.png,0,0
+}
+
+surface422 //Cinnamon 3
+{
+	element0,overlay,tortie_02.png,0,0
+	element1,overlayfast,colors/cinnamon_50.png,0,0
+}
+
+surface423 //Cinnamon 4
+{
+	element0,overlay,tortie_02.png,0,0
+	element1,overlayfast,colors/cinnamon_60.png,0,0
+}
+
+surface424 //Cinnamon 5
+{
+	element0,overlay,tortie_02.png,0,0
+	element1,overlayfast,colors/cinnamon_70.png,0,0
+}
+
+surface425 //Cinnamon 6
+{
+	element0,overlay,tortie_02.png,0,0
+	element1,overlayfast,colors/cinnamon_80.png,0,0
+}
+
+surface426 //Cinnamon 7
+{
+	element0,overlay,tortie_02.png,0,0
+	element1,overlayfast,colors/cinnamon_90.png,0,0
+}
+
+
+//Red
+surface430 //Red 1
+{
+	element0,overlay,tortie_02.png,0,0
+	element1,overlayfast,colors/red_30.png,0,0
+}
+
+surface431 //Red 2
+{
+	element0,overlay,tortie_02.png,0,0
+	element1,overlayfast,colors/red_40.png,0,0
+}
+
+surface432 //Red 3
+{
+	element0,overlay,tortie_02.png,0,0
+	element1,overlayfast,colors/red_50.png,0,0
+}
+
+surface433 //Red 4
+{
+	element0,overlay,tortie_02.png,0,0
+	element1,overlayfast,colors/red_60.png,0,0
+}
+
+surface434 //Red 5
+{
+	element0,overlay,tortie_02.png,0,0
+	element1,overlayfast,colors/red_70.png,0,0
+}
+
+surface435 //Red 6
+{
+	element0,overlay,tortie_02.png,0,0
+	element1,overlayfast,colors/red_80.png,0,0
+}
+
+surface436 //Red 7
+{
+	element0,overlay,tortie_02.png,0,0
+	element1,overlayfast,colors/red_90.png,0,0
+}
+
+surface437 //Red 8
+{
+	element0,overlay,tortie_02.png,0,0
+	element1,overlayfast,colors/red_95.png,0,0
+}
+
+surface438 //Red 9
+{
+	element0,overlay,tortie_02.png,0,0
+	element1,overlayfast,colors/red_95-s25.png,0,0
+}
+
+
+//Yellow
+surface440 //Yellow 1
+{
+	element0,overlay,tortie_02.png,0,0
+	element1,overlayfast,colors/yellow_70.png,0,0
+}
+
+surface441 //Yellow 2
+{
+	element0,overlay,tortie_02.png,0,0
+	element1,overlayfast,colors/yellow_80.png,0,0
+}
+
+surface442 //Yellow 3
+{
+	element0,overlay,tortie_02.png,0,0
+	element1,overlayfast,colors/yellow_90.png,0,0
+}
+
+surface443 //Yellow 4
+{
+	element0,overlay,tortie_02.png,0,0
+	element1,overlayfast,colors/yellow_95.png,0,0
+}
+
+surface444 //Yellow 5
+{
+	element0,overlay,tortie_02.png,0,0
+	element1,overlayfast,colors/yellow_95-s30.png,0,0
+}
+
+surface445 //Yellow 6
+{
+	element0,overlay,tortie_02.png,0,0
+	element1,overlayfast,colors/yellow_95-s25.png,0,0
+}
+
+
+//Apricot
+surface450 //Apricot 1
+{
+	element0,overlay,tortie_02.png,0,0
+	element1,overlayfast,colors/apricot_s50.png,0,0
+}
+
+surface451 //Apricot 2
+{
+	element0,overlay,tortie_02.png,0,0
+	element1,overlayfast,colors/apricot_s40.png,0,0
+}
+
+
+//-------Tortie 4-------
+
+surface500 //Black
+{
+	element0,overlay,tortie_03.png,0,0
+	element1,overlayfast,colors/black_10.png,0,0
+}
+
+surface501 //Gray 1
+{
+	element0,overlay,tortie_03.png,0,0
+	element1,overlayfast,colors/black_20.png,0,0
+}
+
+surface502 //Gray 2
+{
+	element0,overlay,tortie_03.png,0,0
+	element1,overlayfast,colors/black_30.png,0,0
+}
+
+surface503 //Gray 3
+{
+	element0,overlay,tortie_03.png,0,0
+	element1,overlayfast,colors/black_40.png,0,0
+}
+
+surface504 //Gray 4
+{
+	element0,overlay,tortie_03.png,0,0
+	element1,overlayfast,colors/black_50.png,0,0
+}
+
+surface505 //Gray 5
+{
+	element0,overlay,tortie_03.png,0,0
+	element1,overlayfast,colors/black_60.png,0,0
+}
+
+surface506 //Gray 6
+{
+	element0,overlay,tortie_03.png,0,0
+	element1,overlayfast,colors/black_70.png,0,0
+}
+
+surface507 //Gray 7
+{
+	element0,overlay,tortie_03.png,0,0
+	element1,overlayfast,colors/black_80.png,0,0
+}
+
+surface508 //Gray 8
+{
+	element0,overlay,tortie_03.png,0,0
+	element1,overlayfast,colors/black_90.png,0,0
+}
+
+surface509 //White
+{
+	element0,overlay,tortie_03.png,0,0
+	element1,overlayfast,colors/black_96.png,0,0
+}
+
+
+//Chocolate
+surface510 //Chocolate 1
+{
+	element0,overlay,tortie_03.png,0,0
+	element1,overlayfast,colors/chocolate_20.png,0,0
+}
+
+surface511 //Chocolate 2
+{
+	element0,overlay,tortie_03.png,0,0
+	element1,overlayfast,colors/chocolate_30.png,0,0
+}
+
+surface512 //Chocolate 3
+{
+	element0,overlay,tortie_03.png,0,0
+	element1,overlayfast,colors/chocolate_40.png,0,0
+}
+
+surface513 //Chocolate 4
+{
+	element0,overlay,tortie_03.png,0,0
+	element1,overlayfast,colors/chocolate_50.png,0,0
+}
+
+surface514 //Chocolate 5
+{
+	element0,overlay,tortie_03.png,0,0
+	element1,overlayfast,colors/chocolate_60.png,0,0
+}
+
+surface515 //Chocolate 6
+{
+	element0,overlay,tortie_03.png,0,0
+	element1,overlayfast,colors/chocolate_70.png,0,0
+}
+
+surface516 //Chocolate 7
+{
+	element0,overlay,tortie_03.png,0,0
+	element1,overlayfast,colors/chocolate_80.png,0,0
+}
+
+surface517 //Chocolate 8
+{
+	element0,overlay,tortie_03.png,0,0
+	element1,overlayfast,colors/chocolate_90.png,0,0
+}
+
+//Cinnamon
+surface520 //Cinnamon 1
+{
+	element0,overlay,tortie_03.png,0,0
+	element1,overlayfast,colors/cinnamon_30.png,0,0
+}
+
+surface521 //Cinnamon 2
+{
+	element0,overlay,tortie_03.png,0,0
+	element1,overlayfast,colors/cinnamon_40.png,0,0
+}
+
+surface522 //Cinnamon 3
+{
+	element0,overlay,tortie_03.png,0,0
+	element1,overlayfast,colors/cinnamon_50.png,0,0
+}
+
+surface523 //Cinnamon 4
+{
+	element0,overlay,tortie_03.png,0,0
+	element1,overlayfast,colors/cinnamon_60.png,0,0
+}
+
+surface524 //Cinnamon 5
+{
+	element0,overlay,tortie_03.png,0,0
+	element1,overlayfast,colors/cinnamon_70.png,0,0
+}
+
+surface525 //Cinnamon 6
+{
+	element0,overlay,tortie_03.png,0,0
+	element1,overlayfast,colors/cinnamon_80.png,0,0
+}
+
+surface526 //Cinnamon 7
+{
+	element0,overlay,tortie_03.png,0,0
+	element1,overlayfast,colors/cinnamon_90.png,0,0
+}
+
+
+//Red
+surface530 //Red 1
+{
+	element0,overlay,tortie_03.png,0,0
+	element1,overlayfast,colors/red_30.png,0,0
+}
+
+surface531 //Red 2
+{
+	element0,overlay,tortie_03.png,0,0
+	element1,overlayfast,colors/red_40.png,0,0
+}
+
+surface532 //Red 3
+{
+	element0,overlay,tortie_03.png,0,0
+	element1,overlayfast,colors/red_50.png,0,0
+}
+
+surface533 //Red 4
+{
+	element0,overlay,tortie_03.png,0,0
+	element1,overlayfast,colors/red_60.png,0,0
+}
+
+surface534 //Red 5
+{
+	element0,overlay,tortie_03.png,0,0
+	element1,overlayfast,colors/red_70.png,0,0
+}
+
+surface535 //Red 6
+{
+	element0,overlay,tortie_03.png,0,0
+	element1,overlayfast,colors/red_80.png,0,0
+}
+
+surface536 //Red 7
+{
+	element0,overlay,tortie_03.png,0,0
+	element1,overlayfast,colors/red_90.png,0,0
+}
+
+surface537 //Red 8
+{
+	element0,overlay,tortie_03.png,0,0
+	element1,overlayfast,colors/red_95.png,0,0
+}
+
+surface538 //Red 9
+{
+	element0,overlay,tortie_03.png,0,0
+	element1,overlayfast,colors/red_95-s25.png,0,0
+}
+
+
+//Yellow
+surface540 //Yellow 1
+{
+	element0,overlay,tortie_03.png,0,0
+	element1,overlayfast,colors/yellow_70.png,0,0
+}
+
+surface541 //Yellow 2
+{
+	element0,overlay,tortie_03.png,0,0
+	element1,overlayfast,colors/yellow_80.png,0,0
+}
+
+surface542 //Yellow 3
+{
+	element0,overlay,tortie_03.png,0,0
+	element1,overlayfast,colors/yellow_90.png,0,0
+}
+
+surface543 //Yellow 4
+{
+	element0,overlay,tortie_03.png,0,0
+	element1,overlayfast,colors/yellow_95.png,0,0
+}
+
+surface544 //Yellow 5
+{
+	element0,overlay,tortie_03.png,0,0
+	element1,overlayfast,colors/yellow_95-s30.png,0,0
+}
+
+surface545 //Yellow 6
+{
+	element0,overlay,tortie_03.png,0,0
+	element1,overlayfast,colors/yellow_95-s25.png,0,0
+}
+
+
+//Apricot
+surface550 //Apricot 1
+{
+	element0,overlay,tortie_03.png,0,0
+	element1,overlayfast,colors/apricot_s50.png,0,0
+}
+
+surface551 //Apricot 2
+{
+	element0,overlay,tortie_03.png,0,0
+	element1,overlayfast,colors/apricot_s40.png,0,0
+}
+
+
+//-------Tabby-------
+
+surface900
+{
+	element0,overlay,tabby_classic_00.png,0,0
+}
+
+surface901
+{
+	element0,overlay,tabby_mackerel_00.png,0,0
+}
+
+surface902
+{
+	element0,overlay,tabby_ticked_00.png,0,0
+}
+
+surface903
+{
+	element0,overlay,tabby_agouti_00.png,0,0
+}
+
+surface920
+{
+	element0,overlay,tabby_colorpoint_00.png,0,0
+}
+
+surface921
+{
+	element0,overlay,tabby_classic_01.png,0,0
+}
+
+surface922
+{
+	element0,overlay,tabby_mackerel_01.png,0,0
+}
+
+surface923
+{
+	element0,overlay,tabby_ticked_01.png,0,0
+}
+
+surface930
+{
+	element0,overlay,tabby_colorpoint_01.png,0,0
+}
+
+surface931
+{
+	element0,overlay,tabby_classic_02.png,0,0
+}
+
+surface932
+{
+	element0,overlay,tabby_mackerel_02.png,0,0
+}
+
+surface933
+{
+	element0,overlay,tabby_ticked_02.png,0,0
+}
+
+surface940
+{
+	element0,overlay,tabby_colorpoint_02.png,0,0
+}
+
+surface941
+{
+	element0,overlay,tabby_classic_03.png,0,0
+}
+
+surface942
+{
+	element0,overlay,tabby_mackerel_03.png,0,0
+}
+
+surface943
+{
+	element0,overlay,tabby_ticked_03.png,0,0
+}
+
+surface1000
+{
+	element0,overlay,leg_fl_00.png,0,0
+}
+
+surface1001
+{
+	element0,overlay,leg_fl_01.png,0,0
+}
+
+surface1002
+{
+	element0,overlay,leg_fl_02.png,0,0
+}
+
+surface1003
+{
+	element0,overlay,leg_fl_03.png,0,0
+}
+
+surface1004
+{
+	element0,overlay,leg_fl_04.png,0,0
+}
+
+surface1005
+{
+	element0,overlay,leg_fl_05.png,0,0
+}
+
+surface1100
+{
+	element0,overlay,leg_fr_00.png,0,0
+}
+
+surface1101
+{
+	element0,overlay,leg_fr_01.png,0,0
+}
+
+surface1102
+{
+	element0,overlay,leg_fr_02.png,0,0
+}
+
+surface1103
+{
+	element0,overlay,leg_fr_03.png,0,0
+}
+
+surface1104
+{
+	element0,overlay,leg_fr_04.png,0,0
+}
+
+surface1105
+{
+	element0,overlay,leg_fr_05.png,0,0
+}
+
+surface1200
+{
+	element0,overlay,leg_bl_00.png,0,0
+}
+
+surface1201
+{
+	element0,overlay,leg_bl_01.png,0,0
+}
+
+surface1202
+{
+	element0,overlay,leg_bl_02.png,0,0
+}
+
+surface1203
+{
+	element0,overlay,leg_bl_03.png,0,0
+}
+
+surface1204
+{
+	element0,overlay,leg_bl_04.png,0,0
+}
+
+surface1205
+{
+	element0,overlay,leg_bl_05.png,0,0
+}
+
+surface1206
+{
+	element0,overlay,leg_bl_05.png,0,0
+}
+
+surface1300
+{
+	element0,overlay,leg_br_00.png,0,0
+}
+
+surface1301
+{
+	element0,overlay,leg_br_01.png,0,0
+}
+
+surface1302
+{
+	element0,overlay,leg_br_02.png,0,0
+}
+
+surface1303
+{
+	element0,overlay,leg_br_03.png,0,0
+}
+
+surface1304
+{
+	element0,overlay,leg_br_04.png,0,0
+}
+
+surface1305
+{
+	element0,overlay,leg_br_05.png,0,0
+}
+
+surface1306
+{
+	element0,overlay,leg_br_05.png,0,0
+}
+
+surface1400
+{
+	element0,overlay,tail_00.png,0,0
+}
+
+surface1401
+{
+	element0,overlay,tail_01.png,0,0
+}
+
+surface1402
+{
+	element0,overlay,tail_02.png,0,0
+}
+
+surface1403
+{
+	element0,overlay,tail_03.png,0,0
+}
+
+surface1500
+{
+	element0,overlay,chest_00.png,0,0
+}
+
+surface1501
+{
+	element0,overlay,chest_01.png,0,0
+}
+
+surface1502
+{
+	element0,overlay,chest_02.png,0,0
+}
+
+surface1503
+{
+	element0,overlay,chest_03.png,0,0
+}
+
+surface1504
+{
+	element0,overlay,chest_04.png,0,0
+}
+
+surface1505
+{
+	element0,overlay,chest_05.png,0,0
+}
+
+surface1600
+{
+	element0,overlay,belly_00.png,0,0
+}
+
+surface1601
+{
+	element0,overlay,belly_01.png,0,0
+}
+
+surface1602
+{
+	element0,overlay,belly_02.png,0,0
+}
+
+surface1603
+{
+	element0,overlay,belly_03.png,0,0
+}
+
+surface1700
+{
+	element0,overlay,undercoat_00.png,0,0
+}
+
+surface1701
+{
+	element0,overlay,undercoat_01.png,0,0
+}
+
+surface1800
+{
+	element0,overlay,bicolor_00.png,0,0
+}
+
+surface1801
+{
+	element0,overlay,bicolor_01.png,0,0
+}
+
+surface1802
+{
+	element0,overlay,bicolor_02.png,0,0
+}
+
+surface1900
+{
+	element0,overlay,spots_00.png,0,0
+}
+
+surface1901
+{
+	element0,overlay,spots_01.png,0,0
+}
+
+surface1902
+{
+	element0,overlay,spots_02.png,0,0
+}
+
+surface1903
+{
+	element0,overlay,spots_03.png,0,0
+}
+
+surface1904
+{
+	element0,overlay,spots_04.png,0,0
+}
+
+surface1905
+{
+	element0,overlay,spots_05.png,0,0
+}
+
+surface1906
+{
+	element0,overlay,spots_06.png,0,0
+}
+
+surface1907
+{
+	element0,overlay,spots_07.png,0,0
+}
+
+surface1908
+{
+	element0,overlay,spots_08.png,0,0
+}
+
+surface1909
+{
+	element0,overlay,spots_09.png,0,0
+}
+
+surface1910
+{
+	element0,overlay,spots_10.png,0,0
+}
+
+surface1911
+{
+	element0,overlay,spots_11.png,0,0
+}
+
+surface1912
+{
+	element0,overlay,spots_12.png,0,0
+}
+
+surface1913
+{
+	element0,overlay,spots_13.png,0,0
+}
+
+surface1914
+{
+	element0,overlay,spots_14.png,0,0
+}
+
+surface1915
+{
+	element0,overlay,spots_15.png,0,0
+}
+
+surface2000
+{
+	element0,overlay,mouth_00.png,0,0
+}
+
+surface2001
+{
+	element0,overlay,mouth_01.png,0,0
+}
+
+surface2002
+{
+	element0,overlay,mouth_02.png,0,0
+}
+
+surface2010
+{
+	element0,overlay,blaze_00.png,0,0
+}
+
+surface2011
+{
+	element0,overlay,blaze_01.png,0,0
+}
+
+surface2012
+{
+	element0,overlay,blaze_02.png,0,0
+}
+
+surface2013
+{
+	element0,overlay,blaze_03.png,0,0
+}
+
+surface2014
+{
+	element0,overlay,blaze_04.png,0,0
+}
+
+surface2020
+{
+	element0,overlay,muzzle_00.png,0,0
+}
+
+surface2021
+{
+	element0,overlay,muzzle_01.png,0,0
+}
+
+surface2022
+{
+	element0,overlay,muzzle_02.png,0,0
+}
+
+surface2030
+{
+	element0,overlay,left_ear_00.png,0,0
+}
+
+surface2031
+{
+	element0,overlay,left_ear_01.png,0,0
+}
+
+surface2032
+{
+	element0,overlay,left_ear_02.png,0,0
+}
+
+surface2033
+{
+	element0,overlay,left_ear_03.png,0,0
+}
+
+surface2035
+{
+	element0,overlay,right_ear_00.png,0,0
+}
+
+surface2036
+{
+	element0,overlay,right_ear_01.png,0,0
+}
+
+surface2037
+{
+	element0,overlay,right_ear_02.png,0,0
+}
+
+surface2038
+{
+	element0,overlay,right_ear_03.png,0,0
+}
+
+surface2040
+{
+	element0,overlay,eyespots_00.png,0,0
+}
+
+surface2041
+{
+	element0,overlay,eyespots_01.png,0,0
+}
+
+surface2042
+{
+	element0,overlay,eyespots_02.png,0,0
+}
+
+surface2043
+{
+	element0,overlay,eyespots_03.png,0,0
+}
+
+surface2044
+{
+	element0,overlay,eyespots_04.png,0,0
+}
+
+surface2050
+{
+	element0,overlay,eyebrows_00.png,0,0
+}
+
+surface3000
+{
+	element0,overlay,eye_left.png,0,0
+	element1,overlay,eye_right.png,0,0
+	element2,overlayfast,colors/deep_blue_00.png,0,0
+}
+
+surface3001
+{
+	element0,overlay,eye_left.png,0,0
+	element1,overlay,eye_right.png,0,0
+	element2,overlayfast,colors/deep_blue_01.png,0,0
+}
+
+surface3002
+{
+	element0,overlay,eye_left.png,0,0
+	element1,overlay,eye_right.png,0,0
+	element2,overlayfast,colors/deep_blue_02.png,0,0
+}
+
+surface3003
+{
+	element0,overlay,eye_left.png,0,0
+	element1,overlay,eye_right.png,0,0
+	element2,overlayfast,colors/deep_blue_03.png,0,0
+}
+
+surface3010
+{
+	element0,overlay,eye_left.png,0,0
+	element1,overlay,eye_right.png,0,0
+	element2,overlayfast,colors/blue_00.png,0,0
+}
+
+surface3011
+{
+	element0,overlay,eye_left.png,0,0
+	element1,overlay,eye_right.png,0,0
+	element2,overlayfast,colors/blue_01.png,0,0
+}
+
+surface3012
+{
+	element0,overlay,eye_left.png,0,0
+	element1,overlay,eye_right.png,0,0
+	element2,overlayfast,colors/blue_02.png,0,0
+}
+
+surface3013
+{
+	element0,overlay,eye_left.png,0,0
+	element1,overlay,eye_right.png,0,0
+	element2,overlayfast,colors/blue_03.png,0,0
+}
+
+surface3020
+{
+	element0,overlay,eye_left.png,0,0
+	element1,overlay,eye_right.png,0,0
+	element2,overlayfast,colors/green_00.png,0,0
+}
+
+surface3021
+{
+	element0,overlay,eye_left.png,0,0
+	element1,overlay,eye_right.png,0,0
+	element2,overlayfast,colors/green_01.png,0,0
+}
+
+surface3022
+{
+	element0,overlay,eye_left.png,0,0
+	element1,overlay,eye_right.png,0,0
+	element2,overlayfast,colors/green_02.png,0,0
+}
+
+surface3023
+{
+	element0,overlay,eye_left.png,0,0
+	element1,overlay,eye_right.png,0,0
+	element2,overlayfast,colors/green_03.png,0,0
+}
+
+surface3030
+{
+	element0,overlay,eye_left.png,0,0
+	element1,overlay,eye_right.png,0,0
+	element2,overlayfast,colors/green_00.png,0,0
+}
+
+surface3031
+{
+	element0,overlay,eye_left.png,0,0
+	element1,overlay,eye_right.png,0,0
+	element2,overlayfast,colors/green_01.png,0,0
+}
+
+surface3032
+{
+	element0,overlay,eye_left.png,0,0
+	element1,overlay,eye_right.png,0,0
+	element2,overlayfast,colors/green_02.png,0,0
+}
+
+surface3033
+{
+	element0,overlay,eye_left.png,0,0
+	element1,overlay,eye_right.png,0,0
+	element2,overlayfast,colors/green_03.png,0,0
+}
+
+surface3040
+{
+	element0,overlay,eye_left.png,0,0
+	element1,overlay,eye_right.png,0,0
+	element2,overlayfast,colors/yellow_green_00.png,0,0
+}
+
+surface3041
+{
+	element0,overlay,eye_left.png,0,0
+	element1,overlay,eye_right.png,0,0
+	element2,overlayfast,colors/yellow_green_01.png,0,0
+}
+
+surface3042
+{
+	element0,overlay,eye_left.png,0,0
+	element1,overlay,eye_right.png,0,0
+	element2,overlayfast,colors/yellow_green_02.png,0,0
+}
+
+surface3043
+{
+	element0,overlay,eye_left.png,0,0
+	element1,overlay,eye_right.png,0,0
+	element2,overlayfast,colors/yellow_green_03.png,0,0
+}
+
+surface3050
+{
+	element0,overlay,eye_left.png,0,0
+	element1,overlay,eye_right.png,0,0
+	element2,overlayfast,colors/yellow_00.png,0,0
+}
+
+surface3051
+{
+	element0,overlay,eye_left.png,0,0
+	element1,overlay,eye_right.png,0,0
+	element2,overlayfast,colors/yellow_01.png,0,0
+}
+
+surface3052
+{
+	element0,overlay,eye_left.png,0,0
+	element1,overlay,eye_right.png,0,0
+	element2,overlayfast,colors/yellow_02.png,0,0
+}
+
+surface3053
+{
+	element0,overlay,eye_left.png,0,0
+	element1,overlay,eye_right.png,0,0
+	element2,overlayfast,colors/yellow_03.png,0,0
+}
+
+surface3060
+{
+	element0,overlay,eye_left.png,0,0
+	element1,overlay,eye_right.png,0,0
+	element2,overlayfast,colors/amber_00.png,0,0
+}
+
+surface3061
+{
+	element0,overlay,eye_left.png,0,0
+	element1,overlay,eye_right.png,0,0
+	element2,overlayfast,colors/amber_01.png,0,0
+}
+
+surface3062
+{
+	element0,overlay,eye_left.png,0,0
+	element1,overlay,eye_right.png,0,0
+	element2,overlayfast,colors/amber_02.png,0,0
+}
+
+surface3063
+{
+	element0,overlay,eye_left.png,0,0
+	element1,overlay,eye_right.png,0,0
+	element2,overlayfast,colors/amber_03.png,0,0
+}
+
+surface3100
+{
+	element0,overlay,eye_right.png,0,0
+	element1,overlayfast,colors/deep_blue_00.png,0,0
+}
+
+surface3101
+{
+	element0,overlay,eye_right.png,0,0
+	element1,overlayfast,colors/deep_blue_01.png,0,0
+}
+
+surface3102
+{
+	element0,overlay,eye_right.png,0,0
+	element1,overlayfast,colors/deep_blue_02.png,0,0
+}
+
+surface3103
+{
+	element0,overlay,eye_right.png,0,0
+	element1,overlayfast,colors/deep_blue_03.png,0,0
+}
+
+surface3110
+{
+	element0,overlay,eye_right.png,0,0
+	element1,overlayfast,colors/blue_00.png,0,0
+}
+
+surface3111
+{
+	element0,overlay,eye_right.png,0,0
+	element1,overlayfast,colors/blue_01.png,0,0
+}
+
+surface3112
+{
+	element0,overlay,eye_right.png,0,0
+	element1,overlayfast,colors/blue_02.png,0,0
+}
+
+surface3113
+{
+	element0,overlay,eye_right.png,0,0
+	element1,overlayfast,colors/blue_03.png,0,0
+}
+
+surface3120
+{
+	element0,overlay,eye_right.png,0,0
+	element1,overlayfast,colors/green_00.png,0,0
+}
+
+surface3121
+{
+	element0,overlay,eye_right.png,0,0
+	element1,overlayfast,colors/green_01.png,0,0
+}
+
+surface3122
+{
+	element0,overlay,eye_right.png,0,0
+	element1,overlayfast,colors/green_02.png,0,0
+}
+
+surface3123
+{
+	element0,overlay,eye_right.png,0,0
+	element1,overlayfast,colors/green_03.png,0,0
+}
+
+surface3130
+{
+	element0,overlay,eye_right.png,0,0
+	element1,overlayfast,colors/green_00.png,0,0
+}
+
+surface3131
+{
+	element0,overlay,eye_right.png,0,0
+	element1,overlayfast,colors/green_01.png,0,0
+}
+
+surface3132
+{
+	element0,overlay,eye_right.png,0,0
+	element1,overlayfast,colors/green_02.png,0,0
+}
+
+surface3133
+{
+	element0,overlay,eye_right.png,0,0
+	element1,overlayfast,colors/green_03.png,0,0
+}
+
+surface3140
+{
+	element0,overlay,eye_right.png,0,0
+	element1,overlayfast,colors/yellow_green_00.png,0,0
+}
+
+surface3141
+{
+	element0,overlay,eye_right.png,0,0
+	element1,overlayfast,colors/yellow_green_01.png,0,0
+}
+
+surface3142
+{
+	element0,overlay,eye_right.png,0,0
+	element1,overlayfast,colors/yellow_green_02.png,0,0
+}
+
+surface3143
+{
+	element0,overlay,eye_right.png,0,0
+	element1,overlayfast,colors/yellow_green_03.png,0,0
+}
+
+surface3150
+{
+	element0,overlay,eye_right.png,0,0
+	element1,overlayfast,colors/yellow_00.png,0,0
+}
+
+surface3151
+{
+	element0,overlay,eye_right.png,0,0
+	element1,overlayfast,colors/yellow_01.png,0,0
+}
+
+surface3152
+{
+	element0,overlay,eye_right.png,0,0
+	element1,overlayfast,colors/yellow_02.png,0,0
+}
+
+surface3153
+{
+	element0,overlay,eye_right.png,0,0
+	element1,overlayfast,colors/yellow_03.png,0,0
+}
+
+surface3160
+{
+	element0,overlay,eye_right.png,0,0
+	element1,overlayfast,colors/amber_00.png,0,0
+}
+
+surface3161
+{
+	element0,overlay,eye_right.png,0,0
+	element1,overlayfast,colors/amber_01.png,0,0
+}
+
+surface3162
+{
+	element0,overlay,eye_right.png,0,0
+	element1,overlayfast,colors/amber_02.png,0,0
+}
+
+surface3163
+{
+	element0,overlay,eye_right.png,0,0
+	element1,overlayfast,colors/amber_03.png,0,0
+}
+
+surface3200
+{
+	element0,overlay,nose_00.png,0,0
+	element1,overlayfast,colors/nose_00.png,0,0
+}
+
+surface3201
+{
+	element0,overlay,nose_00.png,0,0
+	element1,overlayfast,colors/nose_01.png,0,0
+}
+
+surface3202
+{
+	element0,overlay,nose_00.png,0,0
+	element1,overlayfast,colors/nose_02.png,0,0
+}
+
+surface3203
+{
+	element0,overlay,nose_00.png,0,0
+	element1,overlayfast,colors/nose_03.png,0,0
+}
+
+surface3204
+{
+	element0,overlay,nose_00.png,0,0
+	element1,overlayfast,colors/nose_04.png,0,0
+}
+
+
+
+
+surface10000 //Lineart
+{
+	element0,overlay,lineart.png,0,0
+}

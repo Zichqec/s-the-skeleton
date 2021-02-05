@@ -1,0 +1,72 @@
+AiTalk
+{
+	"%(ANY(prefix))%(ANY(suffix))\e"
+}
+
+//-----------Timekeeping systems and related dialogue-----------
+
+OnMinuteChange
+{
+	if minute == 0 //Top of the hour notifications
+	{
+		if hour == 0
+		{
+			AutoUpdates[1] = 0
+			"\0\s[0]It's moonhigh.\e"
+		}
+		elseif hour == 12
+		{
+			"\0\s[0]It's sunhigh."
+			--
+			if AutoPhase == "On"; "\![raise,OnDownloadMoonPhase]"
+			--
+			"\e"
+		}
+		else
+		{
+			"\0\s[0]It's %(hour12) o'clock.\e"
+		}
+	}
+	--
+	if AutoUpdates[0] == "On" && AutoUpdates[1] == 0 //Once a day the ghost will check for updates if the user has auto updates on
+	{
+		AutoUpdates[1] = 1
+		"\![updatebymyself,checkonly]"
+	}
+	
+}
+
+OnSecondChange
+{
+	if runtime[2] >= 59
+	{
+		runtime[2] = 0
+		runtime[1]++
+		if runtime[1] >= 59
+		{
+			runtime[1] = 0
+			runtime[0]++
+			totalhours++
+		}
+	}
+	else
+	{
+		runtime[2]++
+	}
+	if ARRAYSIZE(waitingcommuS) > 0 && second % 5 == 0 //Every 5 seconds, check if the balloon is closed and a communication is waiting, and if so trigger a response
+	{
+		_b = BalloonCheck
+		if _b == 0; WaitingCommu
+	}
+}
+
+OnOffscreen
+{
+	_array = SPLIT(reference0,",")
+	if ASEARCH("0",_array) != -1; "\0Generator is off screen.\w8 To bring it back, press Ctrl Shift F12.\e"
+}
+
+OnSurfaceRestore //OnSurfaceRestore happens around 30 seconds after the ghost's last dialogue. reference0 here stores the number of the previous surface, so you can have them comment when they change back if you like.
+{
+	if reference0 != 0; "\1\s[-1]\0\s[0]\e"
+}

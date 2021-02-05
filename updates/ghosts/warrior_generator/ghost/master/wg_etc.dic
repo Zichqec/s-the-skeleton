@@ -1,0 +1,851 @@
+//----Drag and Drop----
+
+//When you drop a file on the ghost that isn't something it can install
+//reference0 is the file path, which is split up amongst the local variables below
+OnFileDrop2
+{
+	_filepath = SPLITPATH(reference0)
+	_filename = _filepath[2]
+	_fileext = TOLOWER(_filepath[3])
+	case _fileext
+	{
+		when ".jpg", ".jpeg", ".bmp", ".png" //These are pictures that they can set to wallpapers. Png works for me, but if it doesn't work for you let us know please, I'm curious about this.
+		{
+			if "]" _in_ reference0 //If the file name contains a character that would break the wallpaper command
+			{
+				"\0\s[0]This is %(_filename)%(_fileext),\w4 warrior.\w8\w8 If you wish it to be set as your wallpaper,\w4 remove the ']' from the file name.\e"
+			}
+			else
+			{
+				"\0\s[0]Do you wish for %(_filename)%(_fileext) to be set as your wallpaper?\n\n"
+				--
+				"\![*]\q[Centered,OnWallpaper,Center,%(reference0)]\n/
+				\![*]\q[Tiled,OnWallpaper,Tile,%(reference0)]\n/
+				\![*]\q[Stretched,OnWallpaper,Stretch,%(reference0)]"
+				--
+				if "Windows 10" _in_ NotifyOS //NotifyOS is set just below. The Span option is only available if you're on Win 10, so this means it won't display unless you're on Win 10
+				{
+					"\n\![*]\q[Spanned,OnWallpaper,Span,%(reference0)]"
+				}
+				--
+				"\n\n\![*]\q[No thanks,cancelnodialogue]\e"
+			}
+		}
+		/*
+		when ".wgc" //Warrior Generator Character
+		{
+			_name = ""
+			_shellfull = ""
+			_url = ""
+			for _i = 0; _i < ARRAYSIZE(reference0); _i++
+			{
+				_o = FOPEN(reference0[_i],"r")
+				_shell = FREAD(_path)
+				_shell = ERASE(_shell,0,7) //erases "Shell: "
+				_url = FREAD(_path)
+				_url = ERASE(_url,0,9) //erases "homeurl: "
+				_f = FCLOSE(reference0[_i])
+				_shellfull = _shell
+				_shell = REPLACE(_shell,"\","")
+				_shell = REPLACE(_shell,"/","")
+				_shell = REPLACE(_shell,":","")
+				_shell = REPLACE(_shell,"*","")
+				_shell = REPLACE(_shell,"?","")
+				_shell = REPLACE(_shell,'"',"")
+				_shell = REPLACE(_shell,"<","")
+				_shell = REPLACE(_shell,">","")
+				_shell = REPLACE(_shell,"|","") //So folders won't have illegal characters
+				
+				_f = FENUM("/../../saved_data/characters/%(_shell)/")
+				if ARRAYSIZE(_f) == 0; _f = MKDIR("/../../saved_data/characters/%(_shell)/")
+				_path = SPLITPATH(reference0[_i])
+				_name = _path[2]
+				
+				_x = 0
+				_xx = "0"
+				if ASEARCH("%(_name).wgc",_f) != -1
+				{
+					_x = 0
+					_xx = "0"
+					while ASEARCH("%(_name)_%(_xx)%(_x).wgc",_f) != -1
+					{
+						_x++
+						if _x < 10; _xx = "0"; else; _xx = ""
+						if ASEARCH("%(_name)_%(_xx)%(_x).wgc",_f) == -1; _name = "%(_name)_%(_xx)%(_x)"
+					}
+				}
+				
+				
+				_pathR = reference0[_i]
+				_pathW = "/../../saved_data/characters/%(_shell)/%(_name).wgc"
+				--
+				if _pathR != _pathW
+				{
+					_oR = FOPEN(_pathR,"r")
+					_oW = FOPEN(_pathW,"w")
+					--
+					for _buff = FREAD(_pathR); _buff != -1; _buff = FREAD(_pathR)
+					{
+						_f = FWRITE(_pathW,_buff)
+					}
+					--
+					_f = FCLOSE(_pathR)
+					_f = FCLOSE(_pathW)
+				}
+			}
+			if ARRAYSIZE(reference0) == 1
+			{
+				"\0Successfully copied character file as \_a[OnCharacterPath]%(_name).wgc\_a.\w8 "
+				--
+				if _shellfull == nowshell
+				{
+					"Would you like to load this character now?\w8 If you have any unsaved changes,\w4 they will be lost."
+					--
+					"\n\n\![*]\q[Load it,OnCharacterLoad,%(_name)]  \![*]\q[No,cancelnodialogue]\e"
+				}
+				else
+				{
+					if ASEARCH(_shellfull,ShellList) != -1
+					{
+						"To load this character,\w4 please change to the '%(_shellfull)' shell.\e"
+					}
+					else
+					{
+						"You do not have the shell that this character requires,\w4 to load it please seek the shell at \_a[%(_url)]this link\_a.\e"
+					}
+				}
+			}
+			else
+			{
+				"\0Copied character files.\w8 Make sure to change to the appropriate shell to load the characters.\w8\n\nIf you're unsure what shell to use, or you don't have a given shell,\w4 you can open a character file with a text editor to see the shell name and url.\e"
+			}
+		}
+		when ".wgd" //Warrior Generator Design
+		{
+			_name = ""
+			_shellfull = ""
+			_url = ""
+			for _i = 0; _i < ARRAYSIZE(reference0); _i++
+			{
+				_o = FOPEN(reference0[_i],"r")
+				_shell = FREAD(reference0[_i])
+				_shell = _shell[1,"|"]
+				_url = FREAD(reference0[_i])
+				_url = _url[1,"|"]
+				_f = FCLOSE(reference0[_i])
+				_shellfull = _shell
+				_shell = REPLACE(_shell,"\","")
+				_shell = REPLACE(_shell,"/","")
+				_shell = REPLACE(_shell,":","")
+				_shell = REPLACE(_shell,"*","")
+				_shell = REPLACE(_shell,"?","")
+				_shell = REPLACE(_shell,'"',"")
+				_shell = REPLACE(_shell,"<","")
+				_shell = REPLACE(_shell,">","")
+				_shell = REPLACE(_shell,"|","") //So folders won't have illegal characters
+				
+				_f = FENUM("/../../saved_data/designs/%(_shell)/")
+				if ARRAYSIZE(_f) == 0; _f = MKDIR("/../../saved_data/designs/%(_shell)/")
+				_path = SPLITPATH(reference0[_i])
+				_name = _path[2]
+				
+				_x = 0
+				_xx = "0"
+				if ASEARCH("%(_name).wgd",_f) != -1
+				{
+					_x = 0
+					_xx = "0"
+					while ASEARCH("%(_name)_%(_xx)%(_x).wgd",_f) != -1
+					{
+						_x++
+						if _x < 10; _xx = "0"; else; _xx = ""
+						if ASEARCH("%(_name)_%(_xx)%(_x).wgd",_f) == -1; _name = "%(_name)_%(_xx)%(_x)"
+					}
+				}
+				
+				_pathR = reference0[_i]
+				_pathW = "/../../saved_data/designs/%(_shell)/%(_name).wgd"
+				--
+				if _pathR != _pathW
+				{
+					_oR = FOPEN(_pathR,"r")
+					_oW = FOPEN(_pathW,"w")
+					--
+					for _buff = FREAD(_pathR); _buff != -1; _buff = FREAD(_pathR)
+					{
+						_f = FWRITE(_pathW,_buff)
+					}
+					--
+					_f = FCLOSE(_pathR)
+					_f = FCLOSE(_pathW)
+				}
+			}
+			if ARRAYSIZE(reference0) == 1
+			{
+				"\0Successfully copied design file as \_a[OnDesignPath]%(_name).wgd\_a.\w8 "
+				--
+				if _shellfull == nowshell
+				{
+					"Would you like to load this design now?\w8 If you have any unsaved changes,\w4 they will be lost."
+					--
+					"\n\n\![*]\q[Load it,OnDesignLoad,%(_name).wgd]  \![*]\q[No,cancelnodialogue]\e"
+				}
+				else
+				{
+					if ASEARCH(_shellfull,ShellList) != -1
+					{
+						"To load this design,\w4 please change to the '%(_shellfull)' shell.\e"
+					}
+					else
+					{
+						"You do not have the shell that this design requires,\w4 to load it please seek the shell at \_a[%(_url)]this link\_a.\e"
+					}
+				}
+			}
+			else
+			{
+				"\0Copied design files.\w8 Make sure to change to the appropriate shell to load the designs.\w8\n\nIf you're unsure what shell to use, or you don't have a given shell,\w4 you can open a design file with a text editor to see the shell name and url.\e"
+			}
+		}
+		*/
+		others
+		{
+			"\0\s[0]Nothing can be done with this file,\w4 warrior.\e"
+		}
+	}		
+}
+
+//You can get other information about the OS here, it's in the other references. Reference0 includes the OS system, version, and display name
+OnNotifyOSInfo
+{
+	NotifyOS = reference0
+}
+
+OnWallpaper
+{
+	if reference0 == "Center"
+	{
+		"\![set,wallpaper,%(reference1),center]\e"
+	}
+	elseif reference0 == "Tile"
+	{
+		"\![set,wallpaper,%(reference1),tile]\e"
+	}
+	elseif reference0 == "Stretch"
+	{
+		"\![set,wallpaper,%(reference1),stretch]\e"
+	}
+	elseif reference0 == "Span"
+	{
+		"\![set,wallpaper,%(reference1),span]\e"
+	}
+}
+
+OnInstallBegin
+{
+	"\0\s[0]A new prophecy reveals itself...\e"
+}
+
+//Finished installing something ghost related. You can remove any of the ifs here if you like, and just have it go to the else.
+//reference0 is the type of installed item, reference1 is the name.
+OnInstallComplete
+{
+	"A %(reference0) has arrived;\w4 its name is '%(reference1)'."
+	--
+	if reference0 == "ghost"
+	{
+		"\n\n\![*]\q[Call %(reference1),CallGhost]\n/
+		\![*]\q[Change to %(reference1),ChangeToGhost]\n\n/
+		\![*]\q[No thanks,cancelnodialogue]"
+	}
+	--
+	"\e"
+}
+
+//Calling the ghost that was just installed. Add dialogues to these if you like.
+Select.CallGhost
+{
+	"\![call,ghost,lastinstalled]\e"
+}
+
+//Opening the ghost that was just installed.
+Select.ChangeToGhost
+{
+	"\![change,ghost,lastinstalled]\e"
+}
+
+//reference0 is the reason the install failed
+OnInstallFailure //If the install fails
+{
+	if reference0 == "artificial" //If the user cancels by double clicking the balloon
+	{
+		"\0\s[0]The prophecy will wait.\w8\w8 All will happen in due time...\e"
+	}
+	else
+	{
+		"\0\s[0]The prophecy remains unclear...\w8\w8 '%(Capitalize(reference0))'.\e"
+	}
+}
+
+//reference0 is the Sakura name of the ghost the item was meant for, reference1 (since SSP 2.4.85) is the type of item you tried to install
+OnInstallRefuse
+{
+	"\0\s[0]This prophecy is meant for %(reference0) only...\e"
+}
+
+OnUpdatedataCreating //Creating an updates2.dau
+{
+	"\0\s[0]Preparing a new prophecy...\w8\e"
+}
+
+OnUpdatedataCreated //Finished creating
+{
+	"\0\s[0]The prophecy is ready to be sent.\e"
+}
+
+//reference0 is the name of what you're making a nar for, reference2 is what you're making (balloon/ghost/etc)
+OnNarCreating //Creating a .nar
+{
+	"\0\s[0]Preparing for a new adventure...\w8\e"
+}
+
+//reference0 is the name of what you're making a nar for, reference2 is what you're making (balloon/ghost/etc)
+OnNarCreated //Finished creating
+{
+	"\0\s[0]All is prepared.\w8\w8 You can find the resources you need \_a[OnNarLocation,%(reference1)]here.\_a\e"
+}
+
+//When you click on the anchor in the OnNarCreated dialogue, this function will open the folder you created the .nar in
+OnNarLocation
+{
+	_path = reference0
+	_path = REPLACE(_path,"/","\")
+	SETDELIM(_path,"\")
+	_len = ARRAYSIZE(_path) - 1
+	_path[_len] = IARRAY
+	
+	"\C\![open,file,%(_path)]"
+}
+
+//----Uninstalling----
+
+//Bringing up the uninstall option
+OnVanishSelecting
+{
+	"\0\s[0]You no longer seek guidance?\e"
+}
+
+//Deciding to uninstall
+OnVanishSelected
+{
+	"\0\s[0]Farewell,\w4 warrior.\w8\w8 May the stars light your path always.\w8\w8\e"
+}
+
+//Changing your mind
+OnVanishCancel 
+{
+	"\0\s[0]You still seek the wisdom of your ancestors.\w8\w8 Very well.\e"
+}
+
+//Canceling uninstallation by double clicking the balloon
+OnVanishButtonHold
+{
+	"\0\s[0]You have decided to continue seeking the wisdom of your ancestors?\w8\w8 It is not to be passed by without thought.\e"
+}
+
+//When another ghost has been uninstalled and it switches to this ghost - Also happens if this ghost is open when another is uninstalled
+//reference0 is the name of the uninstalled ghost
+OnVanished
+{
+	"\0\s[0]%(reference0) has left to walk different skies.\e"
+}
+
+//----Mail checking----
+
+//reference2 is the email address it's checking? Wiki says mail server.
+OnBIFFBegin
+{
+	"\0\s[0]Seeking answers from the stars...\e"
+}
+
+//reference0 is the number of emails found
+OnBIFFComplete
+{
+	if reference0 == 0 //No new emails
+	{
+		"\0\s[0]No new answers to be found.\e"
+	}
+	elseif reference0 < 100 //less than 100 new emails
+	{
+		
+		if reference7 != "" //Reference7 is the headers. If it's empty(if the user has headers off), no need to run this loop. I STRONGLY ENCOURAGE YOU not to run this loop for more than 100 headers, as it may cause severe amounts of lag/freezing. Also, that's a lot to scroll through.
+		{
+			_buff = reference7
+			_len = ARRAYSIZE(_buff)
+			headers = ""
+			_i = 0
+			while _i < _len //Runs through all the elements of the array
+			{
+				if "<" _in_ _buff[_i] && "@" _in_ _buff[_i] && "." _in_ _buff[_i] && ">" _in_ _buff[_i] //If it has an email address
+				{
+					if _i != 0; headers += "\n\n[half]" //Add line breaks
+					headers += "\![*]%(_buff[_i])" //Add a menu option and the header text
+				}
+				else //If it does not have an email address, it must be a particle
+				{
+					headers += ",%(_buff[_i])" //Add the text
+				}	
+				_i++
+			}
+		}
+		--
+		_s = ""; if reference0 != 1; _s = "s" //Plural check, adds an s if the number of emails is not 1
+		"\0\s[0]Found %(reference0) new answer%(_s)."
+		--
+		if reference7 != "" //Same as above, no need to ask if there are no headers
+		{
+			"\w8\w8 Do you wish to know the detail%(_s)?"
+			--
+			"\n\n\![*]\q[Yes,OnSeeHeaders]\n\*\![*]\q[No,cancelnodialogue]"
+		}
+		--
+		"\e"
+	}
+	else //more than 100 new emails
+	{
+		"\0\s[0]Found %(reference0) waiting answers."
+	}
+}
+
+//Displaying the headers. No need to touch this other than changing the surface, or if you want to make the buttons different or something. Reference0 is the list of headers
+OnSeeHeaders
+{
+	"\0\s[0]\b2\_q%(headers)\*\n\n\![*]\q[Done,cancelnodialogue]"
+	--
+	ERASEVAR('headers') //This erases the variable so you're not storing all those headers and bloating your save. Also, privacy reasons.
+}
+
+//Email checking failed
+//reference0 is the error returned
+OnBIFFFailure
+{
+	if reference0 == "timeout" //If the connection times out
+	{
+		"\0\s[0]Answers could not be found;\w8 we could not reach the skies. (Timed out)\e"
+	}
+	elseif reference0 == "kick" //if the ghost can't get into the account. Gmail requires an app specific password to get in
+	{
+		"\0\s[0]Answers could not be found,\w4 the skies have rejected our request.\w8\w8 (Could not access account)\e"
+	}
+	elseif reference0 == "defect" //If info in the POP menu is wrong
+	{
+		"\0\s[0]Anwers could not be found;\w4 the stars are not aligned as they should be.\w8\w8 (POP settings are not correct)"
+		--
+		"\![open,configurationdialog,biff]\e"
+	}
+	elseif reference0 == "artificial" //As far as I can tell, artificial is if the user double clicks on the balloon to stop it
+	{
+		"\0\s[0]Perhaps you will seek answers another time.\e"
+	}
+	else //Some other kind of error.
+	{
+		"\0\s[0]Answers could not be found.\w8\w8 (%(reference0))\e"
+	}
+}
+
+//----Network update---
+
+//When the ghost finishes checking for updates
+//reference0 is 'none' if there are no new files, and 'changed' if there are new files. reference1 is a list of the changed files, separated by commas
+OnUpdateCheckComplete 
+{
+	if reference0 == "none" //If there are no new files
+	{
+		if AutoUpdates[1] == 1 //Sets it so it won't check again until at least midnight
+	}
+	else
+	{
+		AutoUpdates[1] = 2 //This makes it so the ghost will tell the user there's a new update next time they open their menu
+	}
+}
+
+//Starting to actually update
+OnUpdateBegin
+{
+	"\0\s[0]Searching for new prophecies...\w8\w8\e"
+}
+
+//reference0 is the number of new files, starting from 0
+OnUpdateReady
+{
+	reference0++ //Number of files starts from 0, so this displays the correct amount
+	_s = ""; _is = "is"; if reference0 != 1; _s = "s"; _is = "are" //plural checks, adds an s and changes is to are if there's more than 1 file
+	
+	"\0\s[0]A new prophecy is waiting.\w8\w8\e"
+}
+
+//When the update finishes. Don't forget to initialize any new variables you've created, more on that in Bootend.
+//reference0 is 'none' if there were no new files to update with, reference1 is a list of new file names, separated by commas
+OnUpdateComplete
+{
+	UpdateVars
+	AutoUpdates[1] = 0
+	if reference0 == "none"
+	{
+		"\0\s[0]There are no prophecies to be found.\e"
+	}
+	else
+	{
+		UpdateVars //Sets new variables upon a successful update. See the end of Bootend for an explanation on this.
+		
+		"\0\s[0]The new prophecy has arrived.\w8\w8 Do you wish to see the details?"
+		--
+		"\n\n\![*]\q[Yes,OnChangeLog]\n\![*]\q[No,NoChangelog]\e"
+	}
+}
+
+//I've put this here so it's easier to remember to update the version number while you're updating the changelog. This will display on the ghost's menu. I made it an envelope so you can have it be the same across multiple menus for multiple modes, if you want.
+ghostver
+{
+	"1.0.0"
+}
+
+//the autoscroll tag here means the user will see the changelog starting from the top. I recommend putting the new versions on top, and old versions under that.
+OnChangeLog
+{
+	"\![set,autoscroll,disable]\_q\b2\_l[90]-Version 1.0.0-\n\n/
+	-Initial release\n\n\n"
+	--
+	if reference0 == "FromMenu" //Checks to see if the user came here from the functions menu
+	{
+		"\![*]\q[Back to functions,OnFunctionMenu]\n"
+	}
+	--
+	"\![*]\q[Done,cancelnodialogue]\e"
+}
+
+Select.NoChangelog
+{
+	"\0\s[0]Very well,\w4 if you wish to know the mysteries,\w4 you have only to ask.\e"
+}
+
+//Taken from the GT template because I see no reason to redo this and probably break it
+//reference0 is the file currently being downloaded
+OnUpdate.OnDownloadBegin
+{
+	"\0\s[0]\b2\_qDownloading %(reference0)...\n\n"
+	--
+	_Update_Progress = TOINT(reference1) + 1
+	_Update_Total = TOINT(reference2) + 1
+	Update_Remaining = _Update_Total - _Update_Progress
+	currentfile = reference0
+
+	//defining starting points
+	_PointA = 1
+	_PointB = 1
+
+	//defining text buffers beforehand, otherwise they don't display right
+	_txt = ""
+
+	//loop calculates how many check boxes to display based on the variables above
+
+	while _PointA <= _Update_Progress
+	{
+		_txt += "*"
+		_PointA++
+	}
+	//see above except for blank boxes
+	while _PointB <= Update_Remaining
+	{
+		_txt += "\f[color,150,150,150]*"
+		_PointB++
+	}
+	--
+	//using the text buffers to display the correct number of boxes
+	"\f[height,+5]%(_txt)\f[default]\n\n%(_Update_Progress) of %(_Update_Total)"
+	--
+	"\e"
+} 
+
+//_remaining should be the number of the file that's giving the error, in the order they're being downloaded. currentfile will be the file path.
+OnUpdate.OnMD5CompareFailure
+{
+	_remaining = Update_Remaining + 1
+	"\0\s[0]This prophecy is incorrect:\w4 '%(currentfile)'.\w8\w8\e"
+}
+
+//reference0 is the reason the update failed
+OnUpdateFailure //If the update fails
+{
+	if reference0 == "timeout" //If it timed out
+	{
+		"\0\s[0]The skies could not be reached.\w8\w8 (Timed out)\e"
+	}
+	elseif reference0 == "md5 miss" //If the update files have not been uploaded correctly and don't match the updates2.dau
+	{
+		"\0\s[0]The prophecy is not ready to be recieved.\w8\w8 You must contact \_a[https://zichqec.github.io/s-the-skeleton/index.html]Zichqec\_a and tell her that '%(currentfile)' contains a contradiction.\w8\w8 (MD5 error)\e"
+	}
+	elseif reference0 == "artificial" //If the user cancels the update by double clicking the balloon
+	{
+		"\0\s[0]You are not ready for the prophecy at this time?\w8\w8 The stars can wait.\e"
+	}
+	else //Any other errors
+	{
+		"\0\s[0]The prophecy could not be obtained.\w8\w8 (%(reference0))\e"
+	}
+}
+
+//Similar to above, but for if the ghost was just checking and not actually updating
+//reference0 is the reason the check failed
+OnUpdateCheckFailure
+{
+	if AutoUpdates[1] == 1; "\e" //Stops the dialogue from showing if it's an auto check
+	--
+	if reference0 == "timeout" //If it timed out
+	{
+		"\0\s[0]The skies could not be reached.\w8\w8 (Timed out)\e"
+	}
+	else
+	{
+		"\0\s[0]The prophecy could not be reached.\w8\w8 (%(reference0))\e"
+	}
+}
+
+//reference0 is the name of the site, reference1 is the url
+OnHeadlinesenseBegin
+{
+	"\0\s[0]Searching %(reference0) for answers...\e"
+}
+
+//Taken from Zarla's GT template. Slightly modified because the top part was redundant as far as I could tell..?
+//reference0 is the site name, reference1 is the url, reference3 is the headlines
+OnHeadlinesense.OnFind
+{
+ 	//---- Headlines
+	"\0\b2%(reference0):\n\n%(reference3)\n"
+ 	--
+	//---- Pages
+ 	if reference2 == "First" || reference2 == "Next"
+	{
+ 		//---- Bottom buttons
+		"\![*]\q[Next,] - \![*]\q[Stop,cancelnodialogue]\e"
+ 	}
+	else
+ 	{
+		//---- Bottom buttons
+ 		"\![*]\q[Stop,cancelnodialogue]\e"
+ 	}
+}
+
+//Looks like this happens if you view a headline and nothing has changed. I can only get RSS to work, so... I'll leave it here just in case.
+OnHeadlinesenseComplete 
+{
+	"\0\s[0]No new answers are available.\e"
+}
+
+//reference0 is the reason it failed
+OnHeadlinesenseFailure
+{
+	"\0\s[0]The answers you seek could not be reached.\w8\w8 "
+	--
+	if reference0 == "can't download"
+	{
+		"They remain far beyond the stars...\w8\w8 (Couldn't download)\e"
+	}
+	elseif reference0 == "can't analyze"
+	{
+		"They are shrouded in mystery...\w8\w8 (Couldn't analyze)\e"
+	}
+	else
+	{
+		"(%(reference0))\e"
+	}
+}
+
+//----Misc----
+
+//reference0 is the name of the server it's connecting to
+OnSNTPBegin
+{
+	"\0\s[0]Checking the time...\w8\e"
+}
+
+//Grabbed this from the GT template, don't see a reason to redo this
+//**** 미카 (http://homepage2.nifty.com/ko-ki/)의 사전을 참고했습니다．감사＞こ 나무 성
+//Above comment from the person who originally coded these functions
+//reference0 is the name of the server it's connecting to, reference1 is the server's time, reference2 is the computer's time, reference3 is the difference (in seconds)
+OnSNTPCompare
+{
+ 	"Retrieved Time: %reference1[1]/%reference1[2]/%reference1[0] %reference1[3]:%reference1[4]:%reference1[5]\w2\n/
+	Your Time: %reference2[1]/%reference2[2]/%reference2[0] %reference2[3]:%reference2[4]:%reference2[5]\w2\n\n"
+	--
+ 	if reference3 == 0 //if your clock is already accurate.
+	{
+		"\s[1010]Your time already aligns with StarClan's will.\e"
+	}
+ 	else //if your clock doesn't match
+	{
+		"\0\s[0]Your time is not accurate."
+		--
+		"\n\n[half]/
+		\![*]\q[Fix it,OnSNTPExecute]\n/
+		\![*]\q[Leave it alone,cancelnodialogue]\e" 
+	}
+}
+
+//The \6 is what actually changes the clock
+OnSNTPExecute
+{
+	"\6"
+	--
+	"\0\s[0]Your time is now aligned.\e"
+}
+
+//reference0 is the name of the SNTP server - Note that this may happen before any other STNP dialogue is said! Keep in mind when writing your dialogue that the user will not necessarily have clicked the yes button.
+OnSNTPFailure
+{
+	"\0\s[0]The time could not be reached.\e"
+}
+
+OnDisplayChange
+{
+	displaybpp = reference0
+ 	displaywidth = reference1
+	displayheight = reference2
+}
+
+//reference0 is the new size, reference1 is the previous size. Sadly, you can't check for the Y scale.
+OnShellScaling
+{
+	nowscale = reference0
+}
+
+//Hotkeys. reference0 is the name of the key as displayed on the keycap. reference4, for SSP only, will have things like ctrl and alt, separated by commas.
+OnKeyPress
+{
+	case reference0
+	{
+		when "t"
+		{
+			OnAiTalk
+		}
+		when "r"
+		{
+			OnLastTalk
+		}
+		when "f1"
+		{
+			"\![open,readme]"
+		}
+		when "v"
+		{
+			if debug == 1
+			{
+				OnTestVar
+			}
+		}
+		when "p"
+		{
+			if debug == 1; OnRandomDressup
+		}
+	}
+}
+
+OnNotifyDressupInfo
+{
+	availabledressups = IARRAY //This one is to display the dressup menu
+	currentdressups = IARRAY //This one is so we can display which dressups are currently in use
+	foreach reference; _dressup //if you just write reference, you get all the references, apparently? Which is super useful
+	{
+		//Ok, so here's the deal. When it lists the dressups, the amount of options that can be specified _varies._ It can be empty, 1, 2, or 3. To the best of my knowledge. SO. This inner loop starts at 3 (because elements 0 1 and 2 are static), checks to see if the next element has a keyword, and skips it if it does. Then when it finds the on/off indicator, it breaks the loop. IT DIDNT HAVE TO BE THIS WAY.
+		_onoff = 0
+		_must = 0
+		_mult = 0
+		for _i = 3; _i < ARRAYSIZE(_dressup); _i++
+		{
+			if _dressup[_i] == "default" || _dressup[_i] == ""; continue
+			elseif _dressup[_i] == "mustselect" {_must = 1; continue}
+			elseif _dressup[_i] == "multiple" {_mult = 1; continue}
+			else; _onoff = _dressup[_i]; break
+		}
+		_toadd = _dressup[1] + "|" + _dressup[2]
+		if _must == 1; _toadd += "|mustselect"
+		if _mult == 1; _toadd += "|multiple"
+		availabledressups ,= _toadd
+		if _onoff == 1; currentdressups ,= _dressup[1] + "|" + _dressup[2]
+	}
+}
+
+RemoveFlag //Removes all instances of a flag in the array.
+{
+	_elements = ASEARCHEX(_argv[0],MiscFlags)
+	if ARRAYSIZE(_elements) > 0
+	{
+		for _i = ARRAYSIZE(_elements) - 1; _i >= 0; _i-- //Goes from the end of the list to the start, so the elements stay in the same positions while we erase
+		{
+			_current = _elements[_i]
+			MiscFlags[_current] = IARRAY
+		}
+	}
+}
+
+OnDownloadMoonPhase
+{
+	"\![execute,http-get,https://zichqec.github.io/s-the-skeleton/weatherregex.html,--async=OnNonFunction,--file=regex.html,--timeout=300]"
+	--
+	"\![execute,http-get,https://www.moongiant.com/phase/today/,--async=OnMoonPhase,--file=moon.html,--timeout=200]"
+}
+
+OnMoonPhase
+{
+	phase = "Unknown"
+	_regfile = "var/regex.html"
+	_moonfile = "var/moon.html"
+	_reg = ""
+	
+	_f = FOPEN(_regfile,"r")
+	--
+	for _regbuff = ""; _regbuff != -1; _regbuff = FREAD(_regfile)
+	{
+		if RE_SEARCH (_regbuff,'REGPHASE--(.*)--REGPHASE'); {_reg = RE_GETSTR[1]; break}
+	}
+	--
+	_f = FCLOSE(_regfile)
+	
+	
+	_f = FOPEN(_moonfile,"r")
+	--
+	for _moonbuff = ""; _moonbuff != -1; _moonbuff = FREAD(_moonfile)
+	{
+		if RE_SEARCH(_moonbuff,_reg); {phase = RE_GETSTR[1]; break}
+	}
+	--
+	_f = FCLOSE(_moonfile)
+	
+	if booting == 1
+	{
+		booting = 0
+		
+		"\0Greetings,\w4 warrior."
+		--
+		if phase == "Full Moon" //Full moon
+		{
+			"\w8\w8 The moon is full tonight,\w4 there will be a gathering."
+		}
+		elseif phase == "First Quarter" || phase == "Last Quarter" //Half moon
+		{
+			"\w8\w8 The moon is half full tonight,\w4 the medicine cats will be meeting."
+		}
+		--
+		"\e"
+	}
+}
+
+OnMoonPhaseFailure
+{
+	phase = "Unknown"
+	if booting == 1
+	{
+		"\0Greetings,\w4 warrior.\e"
+	}
+}

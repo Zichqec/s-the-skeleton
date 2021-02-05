@@ -1,0 +1,67 @@
+If you're reading this, I assume you're interested in creating a shell for my ghost, Warrior Generator. Awesome, please let me know if you make one! I can also answer any questions you have about it, feel free to reach out to me though any of my socials which are linked on my website here: https://zichqec.github.io/s-the-skeleton/index.html or you can find me on the Ukagaka Dream Team Discord server, which is here! https://ukagakadreamteam.tumblr.com/discord
+
+If you're completely new to creating a shell, I recommend reading Zarla's guide on ghost making, specifically the shell and clothing portions. http://ashido.com/ukagaka/ Shells for Warrior Generator are thankfully very simple! And if you need any guidance, I'd be glad to answer questions.
+
+Warrior Generator uses only a single surface; surface0. Everything else is dressups layered on top to give different looks. Because of how I've set it up, every dressup you add will automatically be shown in the customization menu! They'll also automatically be available in the random design function. All you have to do is draw your shell and add in all the customization as dressups! Make sure you pick descriptive category and dressup names, as those are what'll show in the menu.
+
+Side note if you're new to this and just read Zarla's guide, you'll also need to remember to include an install.txt with your shell! You should read the section of her guide on how to publish your ghost, it'll tell you how to create a .nar file. Publishing a shell is very similar to publishing a ghost; make sure the type in install.txt is set as 'shell', and when everything is how you want it, drag and drop your shell's whole folder onto a ghost and ask them to make a .nar file for you. Make sure you test your .nar file by dragging and dropping it onto a ghost for them to install! You might want to do that on a duplicate install of Warrior Generator.
+
+Anyhow, back to making a shell. There is one more important thing, and it's actually why I'm writing this file. If you've played with Warrior Generator's random design function a bit, you may have noticed that there are certain color combinations that it does not pick for tortoiseshells. It also will/should never pick two different tortoiseshell colors at the same time! This isn't hardcoded into the randomizer, though, so how does it work?
+
+I set up a system where you can insert custom code into the randomizer for your shell to use. It's a bit limited, but you can use it to test for certain conditions, and if those conditions are/aren't met, have it skip adding the dressup it was trying to add. Or, you can have it change the dressup that it's about to add to the dressup command!
+
+You'll need to add a file called DressupRules.dic to your shell's folder. MAKE SURE IT IS SPELLED JUST LIKE THAT! It's case sensitive, and you CANNOT change the name whatsoever. What the ghost does is, every time the shell is changed, it searches in the new shell's folder for a file called DressupRules.dic. If it finds one, it copies it into wg_dressuprules.dic in the ghost/master folder. (Don't make edits to wg_dressuprules.dic! They'll be overwritten!) If you don't have a DressupRules.dic, it will just copy in a placeholder comment, so you can totally ignore this stuff if you want to!
+
+Also, note that this means that TO RELOAD YOUR CUSTOM SHELL CODE, YOU MUST CHANGE SHELLS. Alternatively, you can use script input to call the function 'GetCustomShellRules'. This tripped me up a lot when I was making mine, since I'm so used to just reloading the shiori from the dev pallete.
+
+
+Alright, so lets say you want to try adding some custom rules. How do you use it? Well, the basic gist of the generator is this:
+
+-It figures out all the possible categories of dressups and what options they have enabled. Then, it loops through every category and does some checks.
+
+-If it's a mustselect category, it will not be skipped, and will pick a random dressup from that category.
+
+-If it's a multiple category, the category will have a chance to be skipped, and if not, it will loop through every possible dressup in that category and pick some to add and some to skip.
+
+-If it's a mustselect+multiple, it acts the same as multiple, except that at least 1 dressup will be chosen. The entire category will never be skipped in this case.
+
+-If it's niether mustselect nor multiple, it will either skip the category or pick a random dressup from within it.
+
+-Once it has picked which dressup it wants to add, it checks the OnCustomDressupRules function. If the OnCustomDressupRules function returns "Continue", it will skip the dressup.
+
+-If none of the skips have happened, congrats! That dressup has been added to the command that will be executed at the end of the loop.
+
+
+So how would one use the OnCustomDressupRules function? It's sent 3 different arguments that you can use to set up rules.
+
+_argv[0] is the current category
+_argv[1] is all the dressups in that category as a simple array
+_argv[2] is the dressup command so far
+Note that the variable 'toadd' is a global variable that contains the dressup it's currently trying to add; you can make changes to this variable in your code if you want!
+
+Using all this, you can use _in_ checks to determine things about what dressups are already going to be added. For example, I have the Default Cat shell check if any tortie colors are already present, and if so, it makes the tortie color it's trying to add match the tortie color already in the command. If no tortie color is present, and the color it's trying to add is illegal, it returns "Continue" and the tortie is skipped.
+
+Another example is the Heterochromia. I want heterochromia to be rare, because it's a rare trait, so I set it up with a simple random number generator. It has a 19/20 chance to return "Continue", but if it doesn't, then the cat will get heterochromia!
+
+Another note: You can modify the chance of the generator skipping a given dressup! Simply add the CustomSkipChance function, and put in the number you want. The generator is set up such that you're telling it you want a 1 out of X chance to apply the dressup. So a value of 5 means a 1 in 5 chance to apply the dressup, or a 4 out of 5 chance to skip. The default if you don't include this function is 3.
+
+
+So here's what DressupRules.dic might look like with some simple examples:
+
+OnCustomDressupRules
+{
+	_currentctg = _argv[0]
+	if "Heterochromia" _in_ _currentctg && RAND(20) < 19; "Continue" //Makes heterochromia rare
+}
+
+CustomSkipChance
+{
+	2
+}
+
+This would make heterochromia a 1/20 chance to occur, and make it a little less likely for dressups to be skipped.
+
+
+If all this stuff seems a bit convoluted to you it's totally ok to skip making any custom rules. If you need to make custom rules and you need to ask me some questions, please do! I might also be able to make small tweaks to this system if I find a way to make it more capable.
+
+PLEASE NOTE! Please please double check that the ghost still loads properly when your shell is loaded in! If the user installs your shell and suddenly the ghost won't load because you've accidentally overlapped an existing function name or something, that's going to be a mess. I still plan to add more to Warrior Generator, so please try to keep any extra function names unique, and don't use any of the base SHIORI functions! It's probably kinda dangerous to give you access to the code this way, but I think being able to set special rules for your shell is too valuable to pass up.

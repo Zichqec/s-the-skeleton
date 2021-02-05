@@ -1,0 +1,523 @@
+seriko.alignmenttodesktop,free
+seriko.use_self_alpha,1
+
+charset,UTF-8
+type,shell
+
+name,Default Cat
+craftman,Zichqec
+craftmanurl,https://zichqec.github.io/s-the-skeleton/index.html
+
+sakura.balloon.offsetx,0
+sakura.balloon.offsety,0
+kero.balloon.offsetx,0
+kero.balloon.offsety,0
+sakura.balloon.alignment,none
+kero.balloon.alignment,none
+
+shiori.logo.filename,resources\niseshiori.png
+shiori.logo.x,16
+shiori.logo.y,256
+
+
+//Menu stuff
+
+//Text color for options that you're not hovering over
+menu.background.font.color.r,255
+menu.background.font.color.g,255
+menu.background.font.color.b,255
+
+//Text color for options that you're hovering over
+menu.foreground.font.color.r,255
+menu.foreground.font.color.g,255
+menu.foreground.font.color.b,255
+
+//Text color for options that are disabled/grayed out
+menu.disable.font.color.r,150
+menu.disable.font.color.g,150
+menu.disable.font.color.b,150
+
+//Color of the separator bars
+menu.separator.color.r,200
+menu.separator.color.g,200
+menu.separator.color.b,200
+
+menu.background.alignment,righttop
+menu.foreground.alignment,righttop
+menu.sidebar.alignment,bottom
+
+menu.background.bitmap.filename,menu_background.png
+menu.foreground.bitmap.filename,menu_foreground.png
+menu.sidebar.bitmap.filename,menu_sidebar.png
+
+
+sakura.menu,auto
+
+// sakura.bindgroup10000.name,Lines,Lines
+// sakura.bindoption10000.group,Lines,mustselect
+// sakura.bindgroup10000.default,1
+
+sakura.bindoption100.group,Color,mustselect
+sakura.bindgroup100.default,1
+
+sakura.bindgroup100.name,Color,Black
+sakura.bindgroup101.name,Color,Gray 1
+sakura.bindgroup102.name,Color,Gray 2
+sakura.bindgroup103.name,Color,Gray 3
+sakura.bindgroup104.name,Color,Gray 4
+sakura.bindgroup105.name,Color,Gray 5
+sakura.bindgroup106.name,Color,Gray 6
+sakura.bindgroup107.name,Color,Gray 7
+sakura.bindgroup108.name,Color,Gray 8
+sakura.bindgroup109.name,Color,White
+
+sakura.bindgroup110.name,Color,Chocolate 1
+sakura.bindgroup111.name,Color,Chocolate 2
+sakura.bindgroup112.name,Color,Chocolate 3
+sakura.bindgroup113.name,Color,Chocolate 4
+sakura.bindgroup114.name,Color,Chocolate 5
+sakura.bindgroup115.name,Color,Chocolate 6
+sakura.bindgroup116.name,Color,Chocolate 7
+sakura.bindgroup117.name,Color,Chocolate 8
+
+sakura.bindgroup120.name,Color,Cinnamon 1
+sakura.bindgroup121.name,Color,Cinnamon 2
+sakura.bindgroup122.name,Color,Cinnamon 3
+sakura.bindgroup123.name,Color,Cinnamon 4
+sakura.bindgroup124.name,Color,Cinnamon 5
+sakura.bindgroup125.name,Color,Cinnamon 6
+sakura.bindgroup126.name,Color,Cinnamon 7
+
+sakura.bindgroup130.name,Color,Red 1
+sakura.bindgroup131.name,Color,Red 2
+sakura.bindgroup132.name,Color,Red 3
+sakura.bindgroup133.name,Color,Red 4
+sakura.bindgroup134.name,Color,Red 5
+sakura.bindgroup135.name,Color,Red 6
+sakura.bindgroup136.name,Color,Red 7
+sakura.bindgroup137.name,Color,Red 8
+sakura.bindgroup138.name,Color,Red 9
+
+sakura.bindgroup140.name,Color,Yellow 1
+sakura.bindgroup141.name,Color,Yellow 2
+sakura.bindgroup142.name,Color,Yellow 3
+sakura.bindgroup143.name,Color,Yellow 4
+sakura.bindgroup144.name,Color,Yellow 5
+sakura.bindgroup145.name,Color,Yellow 6
+
+sakura.bindgroup150.name,Color,Apricot 1
+sakura.bindgroup151.name,Color,Apricot 2
+
+
+//Tortie 1
+sakura.bindgroup200.name,Tortie 1,Black
+sakura.bindgroup201.name,Tortie 1,Gray 1
+sakura.bindgroup202.name,Tortie 1,Gray 2
+sakura.bindgroup203.name,Tortie 1,Gray 3
+sakura.bindgroup204.name,Tortie 1,Gray 4
+sakura.bindgroup205.name,Tortie 1,Gray 5
+sakura.bindgroup206.name,Tortie 1,Gray 6
+sakura.bindgroup207.name,Tortie 1,Gray 7
+sakura.bindgroup208.name,Tortie 1,Gray 8
+sakura.bindgroup209.name,Tortie 1,White
+
+sakura.bindgroup210.name,Tortie 1,Chocolate 1
+sakura.bindgroup211.name,Tortie 1,Chocolate 2
+sakura.bindgroup212.name,Tortie 1,Chocolate 3
+sakura.bindgroup213.name,Tortie 1,Chocolate 4
+sakura.bindgroup214.name,Tortie 1,Chocolate 5
+sakura.bindgroup215.name,Tortie 1,Chocolate 6
+sakura.bindgroup216.name,Tortie 1,Chocolate 7
+sakura.bindgroup217.name,Tortie 1,Chocolate 8
+
+sakura.bindgroup220.name,Tortie 1,Cinnamon 1
+sakura.bindgroup221.name,Tortie 1,Cinnamon 2
+sakura.bindgroup222.name,Tortie 1,Cinnamon 3
+sakura.bindgroup223.name,Tortie 1,Cinnamon 4
+sakura.bindgroup224.name,Tortie 1,Cinnamon 5
+sakura.bindgroup225.name,Tortie 1,Cinnamon 6
+sakura.bindgroup226.name,Tortie 1,Cinnamon 7
+
+sakura.bindgroup230.name,Tortie 1,Red 1
+sakura.bindgroup231.name,Tortie 1,Red 2
+sakura.bindgroup232.name,Tortie 1,Red 3
+sakura.bindgroup233.name,Tortie 1,Red 4
+sakura.bindgroup234.name,Tortie 1,Red 5
+sakura.bindgroup235.name,Tortie 1,Red 6
+sakura.bindgroup236.name,Tortie 1,Red 7
+sakura.bindgroup237.name,Tortie 1,Red 8
+sakura.bindgroup238.name,Tortie 1,Red 9
+
+sakura.bindgroup240.name,Tortie 1,Yellow 1
+sakura.bindgroup241.name,Tortie 1,Yellow 2
+sakura.bindgroup242.name,Tortie 1,Yellow 3
+sakura.bindgroup243.name,Tortie 1,Yellow 4
+sakura.bindgroup244.name,Tortie 1,Yellow 5
+sakura.bindgroup245.name,Tortie 1,Yellow 6
+
+sakura.bindgroup250.name,Tortie 1,Apricot 1
+sakura.bindgroup251.name,Tortie 1,Apricot 2
+
+//Tortie 2
+sakura.bindgroup300.name,Tortie 2,Black
+sakura.bindgroup301.name,Tortie 2,Gray 1
+sakura.bindgroup302.name,Tortie 2,Gray 2
+sakura.bindgroup303.name,Tortie 2,Gray 3
+sakura.bindgroup304.name,Tortie 2,Gray 4
+sakura.bindgroup305.name,Tortie 2,Gray 5
+sakura.bindgroup306.name,Tortie 2,Gray 6
+sakura.bindgroup307.name,Tortie 2,Gray 7
+sakura.bindgroup308.name,Tortie 2,Gray 8
+sakura.bindgroup309.name,Tortie 2,White
+
+sakura.bindgroup310.name,Tortie 2,Chocolate 1
+sakura.bindgroup311.name,Tortie 2,Chocolate 2
+sakura.bindgroup312.name,Tortie 2,Chocolate 3
+sakura.bindgroup313.name,Tortie 2,Chocolate 4
+sakura.bindgroup314.name,Tortie 2,Chocolate 5
+sakura.bindgroup315.name,Tortie 2,Chocolate 6
+sakura.bindgroup316.name,Tortie 2,Chocolate 7
+sakura.bindgroup317.name,Tortie 2,Chocolate 8
+
+sakura.bindgroup320.name,Tortie 2,Cinnamon 1
+sakura.bindgroup321.name,Tortie 2,Cinnamon 2
+sakura.bindgroup322.name,Tortie 2,Cinnamon 3
+sakura.bindgroup323.name,Tortie 2,Cinnamon 4
+sakura.bindgroup324.name,Tortie 2,Cinnamon 5
+sakura.bindgroup325.name,Tortie 2,Cinnamon 6
+sakura.bindgroup326.name,Tortie 2,Cinnamon 7
+
+sakura.bindgroup330.name,Tortie 2,Red 1
+sakura.bindgroup331.name,Tortie 2,Red 2
+sakura.bindgroup332.name,Tortie 2,Red 3
+sakura.bindgroup333.name,Tortie 2,Red 4
+sakura.bindgroup334.name,Tortie 2,Red 5
+sakura.bindgroup335.name,Tortie 2,Red 6
+sakura.bindgroup336.name,Tortie 2,Red 7
+sakura.bindgroup337.name,Tortie 2,Red 8
+sakura.bindgroup338.name,Tortie 2,Red 9
+
+sakura.bindgroup340.name,Tortie 2,Yellow 1
+sakura.bindgroup341.name,Tortie 2,Yellow 2
+sakura.bindgroup342.name,Tortie 2,Yellow 3
+sakura.bindgroup343.name,Tortie 2,Yellow 4
+sakura.bindgroup344.name,Tortie 2,Yellow 5
+sakura.bindgroup345.name,Tortie 2,Yellow 6
+
+sakura.bindgroup350.name,Tortie 2,Apricot 1
+sakura.bindgroup351.name,Tortie 2,Apricot 2
+
+//Tortie 3
+sakura.bindgroup400.name,Tortie 3,Black
+sakura.bindgroup401.name,Tortie 3,Gray 1
+sakura.bindgroup402.name,Tortie 3,Gray 2
+sakura.bindgroup403.name,Tortie 3,Gray 3
+sakura.bindgroup404.name,Tortie 3,Gray 4
+sakura.bindgroup405.name,Tortie 3,Gray 5
+sakura.bindgroup406.name,Tortie 3,Gray 6
+sakura.bindgroup407.name,Tortie 3,Gray 7
+sakura.bindgroup408.name,Tortie 3,Gray 8
+sakura.bindgroup409.name,Tortie 3,White
+
+sakura.bindgroup410.name,Tortie 3,Chocolate 1
+sakura.bindgroup411.name,Tortie 3,Chocolate 2
+sakura.bindgroup412.name,Tortie 3,Chocolate 3
+sakura.bindgroup413.name,Tortie 3,Chocolate 4
+sakura.bindgroup414.name,Tortie 3,Chocolate 5
+sakura.bindgroup415.name,Tortie 3,Chocolate 6
+sakura.bindgroup416.name,Tortie 3,Chocolate 7
+sakura.bindgroup417.name,Tortie 3,Chocolate 8
+
+sakura.bindgroup420.name,Tortie 3,Cinnamon 1
+sakura.bindgroup421.name,Tortie 3,Cinnamon 2
+sakura.bindgroup422.name,Tortie 3,Cinnamon 3
+sakura.bindgroup423.name,Tortie 3,Cinnamon 4
+sakura.bindgroup424.name,Tortie 3,Cinnamon 5
+sakura.bindgroup425.name,Tortie 3,Cinnamon 6
+sakura.bindgroup426.name,Tortie 3,Cinnamon 7
+
+sakura.bindgroup430.name,Tortie 3,Red 1
+sakura.bindgroup431.name,Tortie 3,Red 2
+sakura.bindgroup432.name,Tortie 3,Red 3
+sakura.bindgroup433.name,Tortie 3,Red 4
+sakura.bindgroup434.name,Tortie 3,Red 5
+sakura.bindgroup435.name,Tortie 3,Red 6
+sakura.bindgroup436.name,Tortie 3,Red 7
+sakura.bindgroup437.name,Tortie 3,Red 8
+sakura.bindgroup438.name,Tortie 3,Red 9
+
+sakura.bindgroup440.name,Tortie 3,Yellow 1
+sakura.bindgroup441.name,Tortie 3,Yellow 2
+sakura.bindgroup442.name,Tortie 3,Yellow 3
+sakura.bindgroup443.name,Tortie 3,Yellow 4
+sakura.bindgroup444.name,Tortie 3,Yellow 5
+sakura.bindgroup445.name,Tortie 3,Yellow 6
+
+sakura.bindgroup450.name,Tortie 3,Apricot 1
+sakura.bindgroup451.name,Tortie 3,Apricot 2
+
+//Tortie 4
+sakura.bindgroup500.name,Tortie 4,Black
+sakura.bindgroup501.name,Tortie 4,Gray 1
+sakura.bindgroup502.name,Tortie 4,Gray 2
+sakura.bindgroup503.name,Tortie 4,Gray 3
+sakura.bindgroup504.name,Tortie 4,Gray 4
+sakura.bindgroup505.name,Tortie 4,Gray 5
+sakura.bindgroup506.name,Tortie 4,Gray 6
+sakura.bindgroup507.name,Tortie 4,Gray 7
+sakura.bindgroup508.name,Tortie 4,Gray 8
+sakura.bindgroup509.name,Tortie 4,White
+
+sakura.bindgroup510.name,Tortie 4,Chocolate 1
+sakura.bindgroup511.name,Tortie 4,Chocolate 2
+sakura.bindgroup512.name,Tortie 4,Chocolate 3
+sakura.bindgroup513.name,Tortie 4,Chocolate 4
+sakura.bindgroup514.name,Tortie 4,Chocolate 5
+sakura.bindgroup515.name,Tortie 4,Chocolate 6
+sakura.bindgroup516.name,Tortie 4,Chocolate 7
+sakura.bindgroup517.name,Tortie 4,Chocolate 8
+
+sakura.bindgroup520.name,Tortie 4,Cinnamon 1
+sakura.bindgroup521.name,Tortie 4,Cinnamon 2
+sakura.bindgroup522.name,Tortie 4,Cinnamon 3
+sakura.bindgroup523.name,Tortie 4,Cinnamon 4
+sakura.bindgroup524.name,Tortie 4,Cinnamon 5
+sakura.bindgroup525.name,Tortie 4,Cinnamon 6
+sakura.bindgroup526.name,Tortie 4,Cinnamon 7
+
+sakura.bindgroup530.name,Tortie 4,Red 1
+sakura.bindgroup531.name,Tortie 4,Red 2
+sakura.bindgroup532.name,Tortie 4,Red 3
+sakura.bindgroup533.name,Tortie 4,Red 4
+sakura.bindgroup534.name,Tortie 4,Red 5
+sakura.bindgroup535.name,Tortie 4,Red 6
+sakura.bindgroup536.name,Tortie 4,Red 7
+sakura.bindgroup537.name,Tortie 4,Red 8
+sakura.bindgroup538.name,Tortie 4,Red 9
+
+sakura.bindgroup540.name,Tortie 4,Yellow 1
+sakura.bindgroup541.name,Tortie 4,Yellow 2
+sakura.bindgroup542.name,Tortie 4,Yellow 3
+sakura.bindgroup543.name,Tortie 4,Yellow 4
+sakura.bindgroup544.name,Tortie 4,Yellow 5
+sakura.bindgroup545.name,Tortie 4,Yellow 6
+
+sakura.bindgroup550.name,Tortie 4,Apricot 1
+sakura.bindgroup551.name,Tortie 4,Apricot 2
+
+//Tabby patterns and colorpoint
+sakura.bindgroup900.name,Tabby,Classic
+sakura.bindgroup901.name,Tabby,Mackerel
+sakura.bindgroup902.name,Tabby,Ticked
+sakura.bindgroup903.name,Tabby,Agouti
+
+sakura.bindgroup920.name,Tabby,Colorpoint 1
+sakura.bindgroup921.name,Tabby,Colorpoint 1 + Classic
+sakura.bindgroup922.name,Tabby,Colorpoint 1 + Mackerel
+sakura.bindgroup923.name,Tabby,Colorpoint 1 + Ticked
+
+sakura.bindgroup930.name,Tabby,Colorpoint 2
+sakura.bindgroup931.name,Tabby,Colorpoint 2 + Classic
+sakura.bindgroup932.name,Tabby,Colorpoint 2 + Mackerel
+sakura.bindgroup933.name,Tabby,Colorpoint 2 + Ticked
+
+sakura.bindgroup940.name,Tabby,Colorpoint 3
+sakura.bindgroup941.name,Tabby,Colorpoint 3 + Classic
+sakura.bindgroup942.name,Tabby,Colorpoint 3 + Mackerel
+sakura.bindgroup943.name,Tabby,Colorpoint 3 + Ticked
+
+
+
+sakura.bindgroup1000.name,Front Left Leg,Toes
+sakura.bindgroup1001.name,Front Left Leg,Mitten
+sakura.bindgroup1002.name,Front Left Leg,Sock
+sakura.bindgroup1003.name,Front Left Leg,Boot
+sakura.bindgroup1004.name,Front Left Leg,Knee
+sakura.bindgroup1005.name,Front Left Leg,3/4
+
+sakura.bindgroup1100.name,Front Right Leg,Toes
+sakura.bindgroup1101.name,Front Right Leg,Mitten
+sakura.bindgroup1102.name,Front Right Leg,Sock
+sakura.bindgroup1103.name,Front Right Leg,Boot
+sakura.bindgroup1104.name,Front Right Leg,Knee
+sakura.bindgroup1105.name,Front Right Leg,3/4
+
+sakura.bindgroup1200.name,Back Left Leg,Toes
+sakura.bindgroup1201.name,Back Left Leg,Mitten
+sakura.bindgroup1202.name,Back Left Leg,Sock
+sakura.bindgroup1203.name,Back Left Leg,Boot
+sakura.bindgroup1204.name,Back Left Leg,Ankle
+sakura.bindgroup1205.name,Back Left Leg,Knee
+sakura.bindgroup1206.name,Back Left Leg,3/4
+
+sakura.bindgroup1300.name,Back Right Leg,Toes
+sakura.bindgroup1301.name,Back Right Leg,Mitten
+sakura.bindgroup1302.name,Back Right Leg,Sock
+sakura.bindgroup1303.name,Back Right Leg,Boot
+sakura.bindgroup1304.name,Back Right Leg,Ankle
+sakura.bindgroup1305.name,Back Right Leg,Knee
+sakura.bindgroup1306.name,Back Right Leg,3/4
+
+sakura.bindgroup1400.name,Tail,Small tip
+sakura.bindgroup1401.name,Tail,Tip
+sakura.bindgroup1402.name,Tail,1/4
+sakura.bindgroup1403.name,Tail,Half
+
+sakura.bindgroup1500.name,Chest,Spot
+sakura.bindgroup1501.name,Chest,Low
+sakura.bindgroup1502.name,Chest,Mid
+sakura.bindgroup1503.name,Chest,High
+sakura.bindgroup1504.name,Chest,Top
+sakura.bindgroup1505.name,Chest,Full
+
+sakura.bindgroup1600.name,Belly,Low
+sakura.bindgroup1601.name,Belly,Mid
+sakura.bindgroup1602.name,Belly,High
+sakura.bindgroup1603.name,Belly,Full
+
+sakura.bindgroup1700.name,Undercoat,Small
+sakura.bindgroup1701.name,Undercoat,Bigger
+
+sakura.bindgroup1800.name,Bicolor,Mask & Mantle
+sakura.bindgroup1801.name,Bicolor,Cap & Saddle
+sakura.bindgroup1802.name,Bicolor,Van
+
+sakura.bindoption1900.group,White Spotting,multiple
+sakura.bindgroup1900.name,White Spotting,Patches 1
+sakura.bindgroup1901.name,White Spotting,Patches 2
+sakura.bindgroup1902.name,White Spotting,Patches 3
+sakura.bindgroup1903.name,White Spotting,Patches 4
+sakura.bindgroup1904.name,White Spotting,Patches 5
+sakura.bindgroup1905.name,White Spotting,Patches 6
+sakura.bindgroup1906.name,White Spotting,Patches 7
+sakura.bindgroup1907.name,White Spotting,Patches 8
+sakura.bindgroup1908.name,White Spotting,Patches 9
+sakura.bindgroup1909.name,White Spotting,Patches 10
+sakura.bindgroup1910.name,White Spotting,Patches 11
+sakura.bindgroup1911.name,White Spotting,Patches 12
+sakura.bindgroup1912.name,White Spotting,Patches 13
+sakura.bindgroup1913.name,White Spotting,Patches 14
+sakura.bindgroup1914.name,White Spotting,Patches 15
+sakura.bindgroup1915.name,White Spotting,Patches 16
+
+sakura.bindgroup2000.name,Mouth,Spot
+sakura.bindgroup2001.name,Mouth,Bridge
+sakura.bindgroup2002.name,Mouth,Chin
+
+sakura.bindgroup2010.name,Blaze,Tiny
+sakura.bindgroup2011.name,Blaze,Small
+sakura.bindgroup2012.name,Blaze,Mid
+sakura.bindgroup2013.name,Blaze,Large
+sakura.bindgroup2014.name,Blaze,Forehead
+
+sakura.bindgroup2020.name,Muzzle,Low
+sakura.bindgroup2021.name,Muzzle,Mid
+sakura.bindgroup2022.name,Muzzle,High
+
+sakura.bindgroup2030.name,Left Ear,Tiny
+sakura.bindgroup2031.name,Left Ear,1/3
+sakura.bindgroup2032.name,Left Ear,2/3
+sakura.bindgroup2033.name,Left Ear,Full
+
+sakura.bindgroup2035.name,Right Ear,Tiny
+sakura.bindgroup2036.name,Right Ear,1/3
+sakura.bindgroup2037.name,Right Ear,2/3
+sakura.bindgroup2038.name,Right Ear,Full
+
+sakura.bindgroup2040.name,Eye spots,Shadow
+sakura.bindgroup2041.name,Eye spots,Wings
+sakura.bindgroup2042.name,Eye spots,Tears
+sakura.bindgroup2043.name,Eye spots,Spots
+sakura.bindgroup2044.name,Eye spots,Freckles
+
+sakura.bindgroup2050.name,Eyebrows,White
+
+//---Eyes---
+sakura.bindoption3000.group,Eyes,mustselect
+sakura.bindgroup3000.default,1
+
+sakura.bindgroup3000.name,Eyes,Deep Blue 1
+sakura.bindgroup3001.name,Eyes,Deep Blue 2
+sakura.bindgroup3002.name,Eyes,Deep Blue 3
+sakura.bindgroup3003.name,Eyes,Deep Blue 4
+
+sakura.bindgroup3010.name,Eyes,Blue 1
+sakura.bindgroup3011.name,Eyes,Blue 2
+sakura.bindgroup3012.name,Eyes,Blue 3
+sakura.bindgroup3013.name,Eyes,Blue 4
+
+sakura.bindgroup3020.name,Eyes,Blue-Green 1
+sakura.bindgroup3021.name,Eyes,Blue-Green 2
+sakura.bindgroup3022.name,Eyes,Blue-Green 3
+sakura.bindgroup3023.name,Eyes,Blue-Green 4
+
+sakura.bindgroup3030.name,Eyes,Green 1
+sakura.bindgroup3031.name,Eyes,Green 2
+sakura.bindgroup3032.name,Eyes,Green 3
+sakura.bindgroup3033.name,Eyes,Green 4
+
+sakura.bindgroup3040.name,Eyes,Yellow-Green 1
+sakura.bindgroup3041.name,Eyes,Yellow-Green 2
+sakura.bindgroup3042.name,Eyes,Yellow-Green 3
+sakura.bindgroup3043.name,Eyes,Yellow-Green 4
+
+sakura.bindgroup3050.name,Eyes,Yellow 1
+sakura.bindgroup3051.name,Eyes,Yellow 2
+sakura.bindgroup3052.name,Eyes,Yellow 3
+sakura.bindgroup3053.name,Eyes,Yellow 4
+
+sakura.bindgroup3060.name,Eyes,Amber 1
+sakura.bindgroup3061.name,Eyes,Amber 2
+sakura.bindgroup3062.name,Eyes,Amber 3
+sakura.bindgroup3063.name,Eyes,Amber 4
+
+sakura.bindgroup3100.name,Heterochromia,Deep Blue 1
+sakura.bindgroup3101.name,Heterochromia,Deep Blue 2
+sakura.bindgroup3102.name,Heterochromia,Deep Blue 3
+sakura.bindgroup3103.name,Heterochromia,Deep Blue 4
+
+sakura.bindgroup3110.name,Heterochromia,Blue 1
+sakura.bindgroup3111.name,Heterochromia,Blue 2
+sakura.bindgroup3112.name,Heterochromia,Blue 3
+sakura.bindgroup3113.name,Heterochromia,Blue 4
+
+sakura.bindgroup3120.name,Heterochromia,Blue-Green 1
+sakura.bindgroup3121.name,Heterochromia,Blue-Green 2
+sakura.bindgroup3122.name,Heterochromia,Blue-Green 3
+sakura.bindgroup3123.name,Heterochromia,Blue-Green 4
+
+sakura.bindgroup3130.name,Heterochromia,Green 1
+sakura.bindgroup3131.name,Heterochromia,Green 2
+sakura.bindgroup3132.name,Heterochromia,Green 3
+sakura.bindgroup3133.name,Heterochromia,Green 4
+
+sakura.bindgroup3140.name,Heterochromia,Yellow-Green 1
+sakura.bindgroup3141.name,Heterochromia,Yellow-Green 2
+sakura.bindgroup3142.name,Heterochromia,Yellow-Green 3
+sakura.bindgroup3143.name,Heterochromia,Yellow-Green 4
+
+sakura.bindgroup3150.name,Heterochromia,Yellow 1
+sakura.bindgroup3151.name,Heterochromia,Yellow 2
+sakura.bindgroup3152.name,Heterochromia,Yellow 3
+sakura.bindgroup3153.name,Heterochromia,Yellow 4
+
+sakura.bindgroup3160.name,Heterochromia,Amber 1
+sakura.bindgroup3161.name,Heterochromia,Amber 2
+sakura.bindgroup3162.name,Heterochromia,Amber 3
+sakura.bindgroup3163.name,Heterochromia,Amber 4
+
+//---Nose---
+sakura.bindoption3200.group,Nose,mustselect
+sakura.bindgroup3200.default,1
+
+sakura.bindgroup3200.name,Nose,Black
+sakura.bindgroup3201.name,Nose,Dark Gray
+sakura.bindgroup3202.name,Nose,Light Gray
+sakura.bindgroup3203.name,Nose,Lilac
+sakura.bindgroup3204.name,Nose,Pink
+
+
+sakura.bindgroup10000.name,Lines,Lines
+sakura.bindoption10000.group,Lines,mustselect
+sakura.bindgroup10000.default,1
+

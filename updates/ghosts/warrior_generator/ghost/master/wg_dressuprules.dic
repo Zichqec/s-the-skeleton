@@ -1,0 +1,40 @@
+//This is the code the ghost has copied into its own files, don't edit this one or your changes will be overwritten!
+OnCustomDressupRules
+{
+	_currentctg = _argv[0]
+	_temp = SPLIT(_argv[1],",")
+	_command = _argv[2]
+	
+	if "Tortie" _in_ _currentctg //Prevents overlap of illegal tortie colors
+	{
+		if "Tortie" _in_ _command //If a tortie is already present, match the color
+		{
+			if !("Color,%(toadd)" _in_ _command) //If the tortie matches the base color, go ahead and add it; can add neat effects. If not, change it to match the current tortie
+			{
+				_r = RE_SEARCH(_command,'\![bind,Tortie [1|2|3|4],(\w\s\d),1]'); toadd = RE_GETSTR[1]
+			}
+		}
+		else //If there is no tortie, make sure the color is legal
+		{
+			if "Color,Black" _in_ _command || "Color,Gray" _in_ _command || "Color,White" _in_ _command //If the base color is black
+			{
+				if !("Red" _in_ toadd) //If the tortie color is NOT red
+				{
+					"Continue"
+				}
+			}
+			if "Color,Chocolate" _in_ _command; {if "Yellow" !_in_ toadd; "Continue"}
+			if "Color,Cinnamon" _in_ _command; {if "Apricot" !_in_ toadd; "Continue"}
+			if "Color,Red" _in_ _command; {if !("Black" _in_ toadd || "Gray" _in_ toadd || "White" _in_ toadd); "Continue"}
+			if "Color,Yellow" _in_ _command; {if "Chocolate" !_in_ toadd; "Continue"}
+			if "Color,Apricot" _in_ _command; {if "Cinnamon" !_in_ toadd; "Continue"}
+		}
+	}
+	if "Heterochromia" _in_ _currentctg && RAND(20) < 19; "Continue" //Makes heterochromia rare
+}
+
+CustomSkipChance
+{
+	2
+}
+//This is the code the ghost has copied into its own files, don't edit this one or your changes will be overwritten!

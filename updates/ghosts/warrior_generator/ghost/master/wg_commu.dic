@@ -1,0 +1,78 @@
+OnCommunicate
+{
+	if reference0 == "user" || reference0 == "User"
+ 	{
+		//Answering the user - I've removed the function that goes along with this because it doesn't link to anything.
+	}
+ 	else
+	{
+ 		//Answering another ghost
+		_b = BalloonCheck
+		if _b == 1 && "\![commu-%(reference0)]" !_in_ SHIORI3FW.LastTalk //If the balloon is open and the commu tag does NOT match the current conversation, or does not exist, store this message in the arrays so it can be responded to later
+		{
+			_check = ASEARCH(reference0,waitingcommuS)
+			if _check == -1 //If there are no other messages from this ghost waiting in the queue
+			{
+				waitingcommuS ,= reference0 //Sender - Stores the name of the ghost in an array
+				waitingcommuM ,= reference1 //Message - Stores the message that was sent in an array
+			}
+			else //If there is a message from this ghost waiting in the queue, replace it with the one that was just received
+			{
+				waitingcommuS[_check] = reference0
+				waitingcommuM[_check] = reference1
+			}
+		}
+		else //The balloon is not open, or the conversation tag matches the ghost that is currently sending a message
+		{
+			if reference0 == "|-|waitingcommu|-|" //If this was called because there was a commu waiting
+			{
+				reference0 = waitingcommuS[0]; waitingcommuS[0] = IARRAY //Sets the name of the ghost as reference0 and clears the first element of the array
+				reference1 = waitingcommuM[0]; waitingcommuM[0] = IARRAY //Sets reference1 as the message that was saved and clears the first element of the array
+			}
+			--
+			ReplyToGhost
+		}
+ 	}
+}
+
+WaitingCommu //If a commu message is waiting, trigger OnCommunicate and tell it to use the stored messages
+{
+	"\![raise,OnCommunicate,|-|waitingcommu|-|]"
+}
+
+ReplyToGhost //This is your ghost receiving a communication.
+{
+	_Speech = SPLIT(reference1,"\e")[0] //Everything the ghost said that the user can see
+	ConvoTag = SPLIT(reference1,"\e")[1] //Everything after the \e, which will be the invisible tags that track the 
+	res_reference0 = reference0
+	_send = "%(currentdressups)"
+	_send = REPLACE(_send,",","|-|")
+	
+	if "WarriorGeneratorStatsSilent" !_in_ ConvoTag
+	{
+		"\0\s[0]May the stars light your way,\w4 %(reference0)."
+	}
+	--
+	"\e WarriorGeneratorStatsSent %(ConvoTag),%(nowshell),%(_send),%(phase),"
+	
+	//0 - Tags, use _in_ if you want to see what ConvoTag you sent
+	//1 - Current shell
+	//2 - A list of current dressups. Dressups are separated by |-|, which you can convert to commas. Each element of the array is split by a |, to the left of the | is the category and to the right of the | is the name of the piece.
+	//3 - The current moon phase
+}
+
+RemovePauses //Removes \w tags and quicksection tags - Add more tags if you need to
+{
+	_argv[0] = REPLACE(_argv[0],"\![quicksection,true]","")
+	_argv[0] = REPLACE(_argv[0],"\![quicksection,false]","")
+	_argv[0] = REPLACE(_argv[0],"\w9","")
+	_argv[0] = REPLACE(_argv[0],"\w8","")
+	_argv[0] = REPLACE(_argv[0],"\w7","")
+	_argv[0] = REPLACE(_argv[0],"\w6","")
+	_argv[0] = REPLACE(_argv[0],"\w5","")
+	_argv[0] = REPLACE(_argv[0],"\w4","")
+	_argv[0] = REPLACE(_argv[0],"\w3","")
+	_argv[0] = REPLACE(_argv[0],"\w2","")
+	_argv[0] = REPLACE(_argv[0],"\w1","")
+	_argv[0]
+}

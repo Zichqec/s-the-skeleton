@@ -1,0 +1,23 @@
+charset, UTF-8
+charset.dic, UTF-8
+charset.output, UTF-8
+charset.file, UTF-8
+charset.save, UTF-8
+charset.extension, UTF-8
+
+include, system_config.txt
+dic, wg_aitalk.dic
+dic, wg_anchor.dic
+dic, wg_bootend.dic
+dic, wg_commu.dic
+dic, wg_dressuprules.dic
+dic, wg_etc.dic
+dic, wg_menu.dic
+dic, wg_mouse.dic
+dic, wg_nameteach.dic
+dic, wg_string.dic
+dic, wg_word.dic
+
+
+//log, ayame.log
+msglang,english
