@@ -6,6 +6,8 @@ Warrior Generator uses only a single surface; surface0. Everything else is dress
 
 Side note if you're new to this and just read Zarla's guide, you'll also need to remember to include an install.txt with your shell! You should read the section of her guide on how to publish your ghost, it'll tell you how to create a .nar file. Publishing a shell is very similar to publishing a ghost; make sure the type in install.txt is set as 'shell', and when everything is how you want it, drag and drop your shell's whole folder onto a ghost and ask them to make a .nar file for you. Make sure you test your .nar file by dragging and dropping it onto a ghost for them to install! You might want to do that on a duplicate install of Warrior Generator.
 
+Also, you should add a homeurl so that you can release updates in the future!
+
 Anyhow, back to making a shell. There is one more important thing, and it's actually why I'm writing this file. If you've played with Warrior Generator's random design function a bit, you may have noticed that there are certain color combinations that it does not pick for tortoiseshells. It also will/should never pick two different tortoiseshell colors at the same time! This isn't hardcoded into the randomizer, though, so how does it work?
 
 I set up a system where you can insert custom code into the randomizer for your shell to use. It's a bit limited, but you can use it to test for certain conditions, and if those conditions are/aren't met, have it skip adding the dressup it was trying to add. Or, you can have it change the dressup that it's about to add to the dressup command!

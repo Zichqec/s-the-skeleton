@@ -82,7 +82,7 @@ OnMenuRun //Main menu
 	--
 	")\n"
 	--
-	"\![*]Automatically check for updates?  ("
+	"\![*]Auto check for ghost updates?  ("
 	--
 	if AutoUpdates[0] != "On"; "\f[color,150,150,150]"
 	--
@@ -92,12 +92,13 @@ OnMenuRun //Main menu
 	--
 	"\q[No,OnToggleUpdate,Off]\f[default])"
 	--
+	"\n\![*]\q[Check for shell updates,OnShellUpdate]"
+	--
 	"\n\n\![*]\q[Nevermind,Cancel]"
 	--
 	if debug == 1 //%(debug = 1) in script input to show the debug options
 	{
 		"     \![*]\q[Test Variable,OnTestVar]"
-		//The template update check is in zzz_todo.dic. It doesn't do a network update, it checks my website and compares your version to the most recent version. It cannot update automatically, so as not to erase your progress.
 	}
 	--
 	"\n\n\n[half]\f[height,-2]%(wd) %(nowhour):%(nowmin) %(ap), %(month)/%(day)/%(year) - %(season)  %(moonphase)"
@@ -1202,7 +1203,7 @@ OnShellMenu
 	--
 	"\![set,autoscroll,0]\_l[104]---Shells---"
 	--
-	"\n\n[half]\![*]\q[Download more shells,OnShellUrl]"
+	"\n\n[half]\![*]\q[Download more shells,OnShellUrl]\n\![*]\q[Make your own shell,OnCustomShell]"
 	--
 	"\n\n[half]%(_display)\n\n[half]\![*]\q[Back to menu,OnMenuRun]\n\![*]\q[Nevermind,Cancel]\e"
 }
@@ -1210,6 +1211,11 @@ OnShellMenu
 OnShellUrl
 {
 	"\C\j[https://zichqec.github.io/s-the-skeleton/warrior_generator.html]"
+}
+
+OnCustomShell
+{
+	"\C\![open,file,ghost/../how_to_make_a_shell.txt]"
 }
 
 OnSwitchShell

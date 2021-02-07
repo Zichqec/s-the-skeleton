@@ -91,7 +91,12 @@ On_updatebutton.caption //Caption for the update button
 
 On_dressuprootbutton.caption //Caption for the dressup button
 {
-	"Accessories"
+	"Design"
+}
+
+On_dressuprootbutton.visible //Caption for the dressup button
+{
+	"0"
 }
 
 On_headlinesenserootbutton.caption //Caption for the RSS/Headlines button

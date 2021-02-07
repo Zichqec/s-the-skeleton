@@ -254,9 +254,15 @@ OnInstallComplete
 	--
 	if reference0 == "ghost"
 	{
-		"\n\n\![*]\q[Call %(reference1),CallGhost]\n/
+		"\n\n\_q\![*]\q[Call %(reference1),CallGhost]\n/
 		\![*]\q[Change to %(reference1),ChangeToGhost]\n\n/
 		\![*]\q[No thanks,cancelnodialogue]"
+	}
+	elseif reference0 == "shell"
+	{
+		"\n\n\_q/
+		\![*]\q[Change to %(reference1),ChangeToShell]\n\n/
+		\![*]\q[No thnaks,cancelnodialogue]"
 	}
 	--
 	"\e"
@@ -272,6 +278,11 @@ Select.CallGhost
 Select.ChangeToGhost
 {
 	"\![change,ghost,lastinstalled]\e"
+}
+
+Select.ChangeToShell
+{
+	"\![get,property,OnGetCoords,currentghost.scope(0).rect]\![change,shell,lastinstalled]\e"
 }
 
 //reference0 is the reason the install failed
@@ -611,6 +622,87 @@ OnUpdateCheckFailure
 	}
 }
 
+OnShellUpdate
+{
+	"\![update,shell]"
+}
+
+OnUpdateOtherBegin
+{
+	if reference3 == "shell"
+	{
+		"\0\s[0]Searching the skies for prophecies for '%(nowshell)'..."
+	}
+	--
+	"\w8\w8\e"
+}
+
+OnUpdateOtherReady
+{
+	reference0++
+	"\0\s[0]A new prophecy for %(nowshell) is waiting.\w8\w8\e"
+}
+
+OnUpdateOtherComplete
+{
+	if reference0 == "none"
+	{
+		"\0\s[0]No new prophecies for '%(nowshell)'.\w8 You may wish to check any others,\w4 too.\e"
+	}
+	else
+	{
+		"\0\s[0]A new prophecy has arrived for '%(nowshell)'.\e"
+	}
+	
+}
+
+OnUpdateOther.OnDownloadBegin
+{
+	"\_q%(reference3) update: downloading %(reference0)...\n\n"
+	--
+	_Update_Process = TOINT(reference1) + 1
+	_Update_Total = TOINT(reference2) + 1
+	Update_Remaining = _Update_Total - _Update_Process
+
+	//defining starting points
+	_PointA = 1
+	_PointB = 1
+
+	//defining text buffers beforehand, otherwise they don't display right
+	_txt = ""
+
+	//loop calculates how many check boxes to display based on the variables above
+
+	while _PointA <= _Update_Process
+	{
+		_txt += "*"
+		_PointA++
+	}
+	//see above except for blank boxes
+	while _PointB <= _Update_Remaining
+	{
+		_txt += "\f[color,150,150,150]*"
+		_PointB++
+	}
+	--
+	//using the text buffers to display the correct number of boxes
+	"\f[height,+5]%(_txt)\f[default]\n\n(%(_Update_Process) of %(_Update_Total))"
+	--
+	"\e"
+}
+
+OnUpdateOtherFailure
+{
+	if reference0 == "timeout" //If it timed out
+	{
+		"\0\s[0]The skies could not be reached.\w8\w8 (Timed out)\e"
+	}
+	else
+	{
+		"\0\s[0]The prophecy could not be reached.\w8\w8 (%(reference0))\e"
+	}
+}
+
 //reference0 is the name of the site, reference1 is the url
 OnHeadlinesenseBegin
 {
@@ -846,6 +938,7 @@ OnMoonPhaseFailure
 	phase = "Unknown"
 	if booting == 1
 	{
+		booting = 0
 		"\0Greetings,\w4 warrior.\e"
 	}
 }

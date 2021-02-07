@@ -166,7 +166,7 @@ BootVars
 	waitingcommuM = IARRAY
 	phase = "Unknown"
 	if AutoPhase == "On"; OnDownloadMoonPhase
-	else; "\0\s[0]Greeings,\w4 Warrior.\e"
+	else; {"\0\s[0]Greeings,\w4 Warrior.\e"; booting = 0}
 }
 
 //These are new variables to initialize after an update. By checking if the variable doesn't exist before initializing it, we prevent variables already in use from being overwritten. This is VERY IMPORTANT, or you risk resetting the user's progress on your new variables every time they update.
