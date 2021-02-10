@@ -1,18 +1,20 @@
+﻿//---------------------------Descript.txt----------------------------------
+
 charset,UTF-8
 
-name,Hydrate
+name,Skyrim Guard
 type,ghost
 
-sakura.name,Hydrate
-kero.name,You being healthier
+sakura.name,Guard
+kero.name,None
 
-craftman,Zdzisiu and Zichqec
-craftmanw,Zdzisiu and Zichqec
-craftmanurl,https://zichqec.github.io/s-the-skeleton/index.html
+craftman,zichqec
+craftmanw,Zichqec
+craftmanurl,https://www.deviantart.com/zichqec
 
 sstp.allowunspecifiedsend,0
 shiori,yaya.dll
 
-icon,hydrate.ico
 //http://www.convertico.com/ is handy for making .icos
-balloon,H2O
+
+icon,skyrim_guard.ico

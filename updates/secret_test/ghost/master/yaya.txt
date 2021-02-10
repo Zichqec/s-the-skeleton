@@ -1,3 +1,5 @@
+﻿//These define what character set your ghost will be using. Don't touch any of them.
+
 charset, UTF-8
 charset.dic, UTF-8
 charset.output, UTF-8
@@ -6,14 +8,24 @@ charset.save, UTF-8
 charset.extension, UTF-8
 
 
-include, system_config.txt
-dic, hy_bootend.dic
-dic, hy_commu.dic
-dic, hy_etc.dic
-dic, hy_menu.dic
-dic, hy_string.dic
-dic, hy_word.dic
+//---- Dictionary Files ---------------------------------------------------------------------
+
+//These are the .dic files your ghost will be using. You can add new .dic files or take them away as you like, just always make sure to test your ghost to make sure it still works if you do. This can be very finicky.
+//I would recommend adding the initials of your ghost to the front of your .dic files, such as hs_string or hs_bootend, particularly if you're going to be editing multiple ghosts at once, or studying other ghost's files to see how they work. It'll help you keep the files straight in Notepad++. You don't have to though, that's optional. If you do, make sure to change the filenames here too, so if you changed the filename to hs_string, make sure you come back here and change the line here to dic,hs_string.
+
+include, system_config.txt		
+dic, sky_string.dic			
+dic, sky_aitalk.dic			
+dic, sky_bootend.dic				
+dic, sky_etc.dic			
+dic, sky_menu.dic
+dic, sky_word.dic
+dic, sky_nameteach.dic
+dic, sky_quest.dic
+
+//---- Log Location -------------------------------------------------------------------------
+//I'm not entirely sure what this does, but basically don't touch it.
 
 
-//log, ayame.log
+//log, ayame.log	
 msglang,english

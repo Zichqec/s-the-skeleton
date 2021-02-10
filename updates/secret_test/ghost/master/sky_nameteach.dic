@@ -1,0 +1,390 @@
+﻿//---------------------------The User's Name--------------------------
+
+OnTeachName	
+{
+	if reference0 == "TEACHNAME"
+	{
+		"\0%(idle)(My name is...)\![open,inputbox,OnNameTeach,-1]\e"
+	}
+	else
+	{
+		
+	}
+}
+
+
+OnNameTeach
+{
+	tempname = reference0 //this stores the name value temporarily in reference0
+	reference0 = TOLOWER(reference0) //changes it to lowercase
+	reference0 = REPLACE(reference0," ","") //removes spaces
+	reference0 = REPLACE(reference0,".","") //removes periods
+	reference0 = REPLACE(reference0,"-","") //removes dashes
+	
+	if reference0 == "skyrim" || reference0 == "guard" || reference0 == "jarl" || reference0 == "thane" || reference0 == "azura" || reference0 == "boethiah" || reference0 == "clavicusvile" || reference0 == "hermaeusmora" || reference0 == "hircine" || reference0 == "jyggalag" || reference0 == "malacath" || reference0 == "mehrunesdagon" || reference0 == "mephala" || reference0 == "meridia" || reference0 == "molagbal" || reference0 == "namira" || reference0 ==  "nocturnal" || reference0 == "peryite" || reference0 == "sanguine" || reference0 == "sheogorath" || reference0 == "vaermina" || reference0 == "lorkhan" || reference0 == "akatosh" || reference0 == "arkay" || reference0 == "dibella" || reference0 == "julianos" || reference0 == "kynareth" || reference0 == "mara" || reference0 == "stendarr" || reference0 == "zenithar" || reference0 == "talos"
+	{
+		"(Invalid name, try again.)\w8\w8"
+		--
+		OnSelectName
+	}
+	elseif reference0 == ""
+	{
+		username = "Null"
+		if creatingcharacter == 1
+		{
+			OnSelectSign
+		}
+		else
+		{
+			"(Name is now set as %(username).)\e"
+		}
+	}
+	else //if the user put in something not specified above, ie a proper name the ghost can use. 
+	{
+		username = tempname
+		if creatingcharacter == 1
+		{
+			OnSelectSign
+		}
+		else
+		{
+			"(Name is now set as %(username).)\e"
+		}
+	}
+}
+	
+
+
+
+NameDone
+{
+		"\0\s[0]The user is now called %(username).\e"
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+OnCreateCharacter
+{
+	creatingcharacter = 1
+	if reference0 == "firstboot" || reference0 == "reset"
+	{
+		"\b2\![quicksection,true]Halt! Who goes there?\n\n"
+	}
+	--
+	"\b2(I am a...)\n\n"
+	--
+	"\_l[,75]\![*]\q[Altmer,choosealtmer]/
+	\n\![*]\q[Bosmer,choosebosmer]/
+	\n\![*]\q[Dunmer,choosedunmer]/
+	\n\![*]\q[Orc,chooseorc]/
+	\n\n\![*]\q[Khajiit,choosekhajiit]/
+	\_l[75,75]\![*]\q[Nord,choosenord]/
+	\n\_l[75]\![*]\q[Imperial,chooseimperial]/
+	\n\_l[75]\![*]\q[Breton,choosebreton]/
+	\n\_l[75]\![*]\q[Redguard,chooseredguard]/
+	\n\n\_l[75]\![*]\q[Argonian,chooseargonian]"
+	archery = 15
+	block = 15
+	heavyarmor = 15
+	onehanded = 15
+	smithing = 15
+	twohanded = 15
+	alteration = 15
+	conjuration = 15
+	destruction = 15
+	enchanting = 15
+	illusion = 15
+	restoration = 15
+	alchemy = 15
+	lightarmor = 15
+	lockpicking = 15
+	pickpocket = 15
+	sneak = 15
+	speech = 15
+}
+
+Select.choosealtmer
+{
+	race = "Altmer"
+	illusion += 10
+	alteration += 5
+	conjuration += 5
+	destruction += 5
+	enchanting += 5
+	restoration += 5
+	OnSelectGender
+}
+
+Select.choosebosmer
+{
+	race = "Bosmer"
+	archery += 10
+	alchemy += 5
+	lightarmor += 5
+	pickpocket += 5
+	restoration += 5
+	sneak += 5
+	OnSelectGender
+}
+
+Select.choosedunmer
+{
+	race = "Dunmer"
+	destruction += 10
+	alchemy += 5
+	alteration += 5
+	illusion += 5
+	lightarmor += 5
+	sneak += 5
+	OnSelectGender
+}
+
+Select.chooseorc
+{
+	race = "Orc"
+	heavyarmor += 10
+	block += 5
+	enchanting += 5
+	onehanded += 5
+	smithing += 5
+	twohanded += 5
+	OnSelectGender
+}
+
+Select.choosekhajiit
+{
+	race = "Khajiit"
+	sneak += 10
+	alchemy += 5
+	lockpicking += 5
+	pickpocket += 5
+	onehanded += 5
+	OnSelectGender
+}
+
+Select.choosenord
+{
+	race = "Nord"
+	twohanded += 10
+	block += 5
+	lightarmor += 5
+	onehanded += 5
+	smithing += 5
+	speech += 5
+	OnSelectGender
+}
+
+Select.chooseimperial
+{
+	race = "Imperial"
+	restoration += 10
+	block += 5
+	destruction += 5
+	enchanting += 5
+	heavyarmor += 5
+	onehanded += 5
+	OnSelectGender
+}
+
+Select.choosebreton
+{
+	race = "Breton"
+	conjuration += 10
+	alchemy += 5
+	alteration += 5
+	illusion += 5
+	restoration += 5
+	speech += 5
+	OnSelectGender
+}
+
+Select.chooseredguard
+{
+	race = "Redguard"
+	onehanded += 10
+	alteration += 5
+	archery += 5
+	block += 5
+	destruction += 5
+	smithing += 5
+	OnSelectGender
+}
+
+Select.chooseargonian
+{
+	race = "Argonian"
+	lockpicking += 10
+	alteration += 5
+	lightarmor += 5
+	pickpocket += 5
+	restoration += 5
+	sneak += 5
+	OnSelectGender
+}
+
+
+OnSelectGender
+{
+	"\b2\![quicksection,true]%(race)\n\n"
+	--
+	"\![*]\q[Man,choosemale]\n/
+	\![*]\q[Woman,choosefemale]\n/
+	\![*]\q[Person,chooseniether]"
+}
+
+Select.choosemale
+{
+	presuffix = "masculine"
+	himher = "him"
+	heshe = "he"
+	hisher = "his"
+	gender = "man"
+	--
+	OnSelectName
+}
+
+Select.choosefemale
+{
+	presuffix = "feminine"
+	himher = "her"
+	heshe = "she"
+	hisher = "her"
+	gender = "woman"
+	--
+	OnSelectName
+}
+
+Select.chooseniether
+{
+	presuffix = "undefine"
+	himher = "them"
+	heshe = "they"
+	hisher = "their"
+	gender = "person"
+	--
+	OnSelectName
+}
+
+OnSelectName
+{
+	"\b2\![quicksection,true]%(race) %(gender)\n\n(Named...)\![open,inputbox,OnNameTeach,-1]"
+}
+
+OnSelectSign
+{
+	"\b2\![quicksection,true]%(race) %(gender) named %(username),\n\n(Born under the sign of the...)\n\n"
+	--
+	"\_l[,75]\![*]\q[Ritual,chooseritual]/
+	\n\![*]\q[Lover,chooselover]/
+	\n\![*]\q[Lord,chooselord]/
+	\n\![*]\q[Mage,choosemage]/
+	\n\![*]\q[Shadow,chooseshadow]/
+	\n\![*]\q[Steed,choosesteed]/
+	\_l[75,75]\![*]\q[Apprentice,chooseapprentice]/
+	\n\_l[75]\![*]\q[Warrior,choosewarrior]/
+	\n\_l[75]\![*]\q[Lady,chooselady]/
+	\n\_l[75]\![*]\q[Tower,choosetower]/
+	\n\_l[75]\![*]\q[Atronach,chooseatronach]/
+	\n\_l[75]\![*]\q[Thief,choosethief ]"
+}
+
+Select.chooseritual
+{
+	sign = "Ritual"
+	OnCharacterFinish
+}
+
+Select.chooselover
+{
+	sign = "Lover"
+	OnCharacterFinish
+}
+
+Select.chooselord
+{
+	sign = "Lord"
+	OnCharacterFinish
+}
+
+Select.choosemage
+{
+	sign = "Mage"
+	OnCharacterFinish
+}
+
+Select.chooseshadow
+{
+	sign = "Shadow"
+	OnCharacterFinish
+}
+
+Select.choosesteed
+{
+	sign = "Steed"
+	OnCharacterFinish
+}
+
+Select.chooseapprentice
+{
+	sign = "Apprentice"
+	OnCharacterFinish
+}
+
+Select.choosewarrior
+{
+	sign = "Warrior"
+	OnCharacterFinish
+}
+
+Select.chooselady
+{
+	sign = "Lady"
+	OnCharacterFinish
+}
+
+Select.choosetower
+{
+	sign = "Tower"
+	OnCharacterFinish
+}
+
+Select.chooseatronach
+{
+	sign = "Atronach"
+	OnCharacterFinish
+}
+
+Select.choosethief
+{
+	sign = "Thief"
+	OnCharacterFinish
+}
+
+OnCharacterFinish
+{
+	"\b2\![quicksection,true]%(race) %(gender) named %(username), born under the sign of the %(sign).\n\n(Is this correct?)\n\n"
+	--
+	"\![*]\q[Yes,finishcreation]  \![*]\q[No,startagain]"
+}
+
+Select.startagain
+{
+	OnCreateCharacter
+}
+
+Select.finishcreation
+{
+	booting = 0
+	creatingcharacter = 0
+	"\0%(idle)Well,\w4 alright then.\w8\w8 %(hold)'s under my protection,\w4 you watch yourself now.\![leave,passivemode]\e"
+}
