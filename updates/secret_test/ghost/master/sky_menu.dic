@@ -16,7 +16,7 @@ OpenSakuraMenu
 		"\0%(idle)(An update is available.)\w8\w8\n\n(Do you want to download it now?)\n\n/
 		\![*]\q[Download it now,updatecheck]\n/
 		\![*]\q[Maybe later,updatelater]\n\n/
-		\![*]\q[Turn off auto updates,nomoreupdatesplease]\e"
+		\![*]\q[Turn off auto updates,nomoreupfdgsogfdihjldsfjhglsdjkfglsjfdhgilonbvflkjsnfdgloisjkfdsgkjndatesplease]\e"
 	}
 	else
 	{
