@@ -1,0 +1,3042 @@
+/// translate /////////////////////////////////////////////////
+//Parts of this were translated from Japanese to English by Zarla.
+//http://www.ashido.com or zarla.deviantart.com, email is Astronia@aol.com
+//Certain sections have been marked with "znote" for easy searching.
+//Those sections are usually places you can customize the message (provided you know ssp speech syntax).
+//I znoted the menus (for my own reference) but you probably shouldn't mess with those.
+//If you have better translations for anything in here let me know and I will update the file.
+
+OnTranslate
+{
+_text = reference0
+_text = REPLACE(_text, "”", "%(CHR(0x22))") //This replaces the wonky quotation mark with one specified in ASCII.
+
+if ○現在シェル=='Miku' && 'Meiko' _in_ ○着せ替えoption { //As far as I can tell, if currentshell is miku/meiko in dressup option...
+	_text = REPLACE(_text, '\s[10]', '')
+	_text = REPLACE(_text, '\s[0]', '\s[0]\1\s[700]\0')
+	_text = REPLACE(_text, '\s[6]', '\s[6]\1\s[706]\0')
+	_text = REPLACE(_text, '\s[25]', '\s[25]\1\s[725]\0') //this changes certain poses in the coding to other poses specific to those shells
+	}
+_text
+}
+
+/// boot event /////////////////////////////////////////////////
+
+
+
+OnFirstBoot {
+//---- 初回変数初期化---- //
+○ユーザ名 = "User"
+○演奏中曲No = 0
+○曲名ウィンドウON = 0
+○曲リスト = IARRAY
+○ホットキー操作 = "ON"
+○演奏法 = "random"
+○モード = "normal"
+○演奏中CDトラック = 0
+○CDトラック数 = -1
+ERASEVAR('○演奏中曲パス')
+//----------------------- //
+--
+□起動
+--
+if ○現在シェル=='Jockey' //This if statement checks if Jockey is the current shell
+	{
+	"\0\s[35]\w5Hi! I'm Jockey! \s[2120]Nice to meet you! 8D \s[25]\n\w5I'll sing any song you want! \s[35]\n\w8\w5Just drag and drop a song from a folder onto me! \s[2120]\n\w5It'll be fun! \s[0]\w8 \e"
+	}
+elseif ○現在シェル=='Gordon Freeman' //This if statement checks if Gordon is the current shell
+	{
+	"\0\s[20]\w5[\w4Welcome to the \nHEV Mark V FLELE protective system.\w5\nTo begin sound \nprocessing, drag &\ndrop an audio file \nonto the current \nHEV suit user.\w5\nFurther instructions available in the \nreadme.txt file.\w5\nHave a very safe \nday!\w4]\w9\w9%(○サーフェス)\e"
+	}
+elseif ○現在シェル=='Cibus'
+	{
+		"\0\s[2]Hello there.\w8\w8\s[3] I'm Cibus,\w4 it's good to meet you.\w8\w8\s[2] If you'd like me to sing for you,\w4 just drag and drop a music file onto me.\w8\w8 You can check the readme for further instructions.%(○サーフェス)\e"
+	}
+else 
+	{
+	"\e"
+	}
+}
+
+
+□起動 {
+
+//--- 起動毎変数初期化--- //
+ERASEVAR ("○曲の数")
+○サーフェス = "\s[0]"
+○演奏中 = 0
+○起動中演奏回 = 0
+○ヘルプメニュー表示中 = 0
+_path=(GETSETTING(2))
+_パス字数 = (STRLEN(_path))-13
+○現在パス = ERASE(_path,_パス字数,13)
+○sender = basewarename
+○起動時OS時間=systemuphour
+aitalkinterval=400
+talktime = "5 minutes"
+
+//セーブデータRemove_Song対策
+if (ISVAR("○ダウンロード曲リスト"))==0 { ○ダウンロード曲リスト = IARRAY }
+if (ISVAR("○Playback時間帯"))==0 { ○Playback時間帯 = (0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0) }
+if (ISVAR("○曲リストメニュー"))==0 { ○曲リストメニュー = "ON" }
+if (ISVAR("○ホットキー操作"))==0 { ○ホットキー操作 = "ON" }
+if (ISVAR("○m3u出力パス"))==0 { ○m3u出力パス = ○現在パス+"m3u_file\flele.m3u" }
+
+//左から/曲Playback/一時停止/メニュー/曲ウィンドウ/曲クリア/終了
+if (ISVAR('○キー設定'))==0 { ○キー設定 = 'r,s,m,w,c,e,,,,,,,,,,,,,,,r,s,m,w,c,e' }
+
+//ogg設定確認
+	if (FOPEN('saori\mciaudior.txt','r'))==1 {
+	_txt = ''
+	_i=0
+		while _txt != -1 && _i<5000 {
+		_i++
+		_txt = (FREAD ('saori\mciaudior.txt'))
+			if _txt=="ogg.mode%(CHR(0x2c))mci" {
+			○ogg設定='mci'
+			_i=5000
+			}
+		}
+	(FCLOSE('saori\mciaudior.txt'))
+	}
+	else {
+	○ogg設定='playsound'
+	}
+
+
+□タスクトレイアイコン指定
+--
+
+//SAORI準備
+//_i=LOADLIB('saori\mcidonut.dll')
+//------ Weirds.dll ------ //
+_i=SAORI("saori\Weirds.dll", "set_hwnd", ○hwnd)
+_i=SAORI("saori\Weirds.dll", "owner_id", ○uniqueid)
+//------ hotkey.dll------ //
+if ○ホットキー操作=="ON" {□ホットキー準備}
+--
+if ○モード == "CD" {○CDトラック数=(SAORI('saori\mcidonut.dll', 'trackcount'))}
+
+--
+□表示
+□曲名ウィンドウONなら表示
+
+}
+OnBoot {
+□起動
+--
+
+	if ○現在シェル=='Jockey'
+	{
+		//time related announcements, delete this block if unwanted
+		dayslot = GetDaySlot
+		timeslot = GetTimeSlot
+		if dayslot == userbirthday
+		{
+				"\0\s[35]Today is %(bornmonthprint) %(borndayprint)...\w8\nIt's your birthday, %username! \w8\s[2120]\n Happy birthday!\s[0]\e" 
+		}
+		elseif dayslot == "12month 25day"
+		{
+					"\0\s[35]Yay, it's Christmas!\s[0]\e"
+		}
+		elseif dayslot == "10month 31day"
+		{
+					"\0\s[35]Oh wow, Halloween!\nI LOVE Halloween!!\nIt's one of my favorite holidays! \nGive me some scary songs to sing!\s[0]\e"
+		}
+		else
+		{
+			"%(normalboottalk)"
+		}
+	}
+	elseif ○現在シェル=='Gordon Freeman'
+	{
+	"\0\s[20]\w5[\w3Welcome to the \nHEV Mark V FLELE protective system.\w5\nAudio processing \nactivated.\w5\nHave a very safe \nday!\w3]\w9\w9%(○サーフェス)\e"
+	}
+	elseif ○現在シェル=='Cibus'
+	{
+		"\0\s[4]Hello again.\w8\w8 It's a good day today,\w4 isn't it?%(○サーフェス)\e"
+		"\0\s[4]Hello there.\w8\w8\s[2] Did you want me to sing for you?%(○サーフェス)\e"
+		"\0\s[2]Hello again.\w8\w8\s[4] I'm ready to sing.%(○サーフェス)\e"
+	}
+}
+	
+normalboottalk
+{
+	if ○現在シェル=='Jockey' 
+	{
+		if weekday == 6 && hour >= 19
+		{
+		"\0\s[35]Saturday night fever! 8D\s[0]\e"
+		}
+		else
+		{
+			if timeslot == "earlymorning"
+			{
+				"\0\s[35]Hi! You're up really early... \s[45]\n\w4or is it really late?\s[0]\e"
+				"\0\s[45]Wow, it's early... \s[35]\nbut I'm still ready to sing for you!\s[0]\e"
+				"\1\s[35]I hope you're having a good morning so far.\w8\nThere's still plenty left to go, haha!\s[0]\e"
+			}
+			elseif timeslot == "morning"
+			{
+				"\0\s[35]Hi hi hi! Hee hee.\nGood morning!\s[0]\e"
+				"\0\s[35]Good morning! \n\w8Did you have breakfast yet?\s[0]\e"
+			}
+			 elseif timeslot == "lunch"
+			{
+				"\0\s[35]Lunchtime! Was it good? \w6\s[45]Or are you eating at your computer? :o\s[0]\e"
+				"\0\s[35]Lunch is over, time for work~ \n\w3But I'll keep you company! 8D\s[0]\e"
+				"\0\s[35]Lunchtime! Did you eat something? \n\w5\s[45]I hope you did, it's important to eat! :o\s[0]\e"
+			}
+			elseif timeslot == "afternoon"
+			{
+				"\0\s[35]Good afternoon! \w5I'm ready to sing!\s[0]\e"
+				"\0\s[35]Good afternoon! \w5This is such a nice time of day. \n\s[0]\w4 Great for hiking! 8D\s[0]\e"
+			}
+			elseif timeslot == "evening"
+			{
+				"\0\s[35]Good evening! \w4\nDid you just come home? \s[0]\e"
+				"\0\s[35]Good evening! \w4\nStarting to get cooler now, huh?\s[0]\e"
+				"\0\s[35]Good evening! \w4\nDid you see the sunset?\s[0]\e"
+			}
+			elseif timeslot == "latenight"
+			{
+				"\0\s[35]Hello! \w4It's getting late, huh? \s[0]\e"
+				"\0\s[35]Hi! How are you? \w4\nStaying up late, huh? \s[0]\e"
+				"\0\s[35]I love the night! \w4\nThe stars and moon are so pretty, haha! You should go take a look! \s[0]\e"
+			}
+			else
+			{
+				"\0\s[35]Hello! \w4It's getting late, huh? \s[0]\e"
+				"\0\s[35]Hi! How are you? \w4\nStaying up late, huh? \s[0]\e"
+				"\0\s[35]I love the night! \w4\nThe stars and moon are so pretty, haha! You should go take a look! \s[0]\e"
+				"\0\s[35]\w5Hi! I'm Jockey! \s[2120]\nNice to meet you! 8D \s[25]\n\w5I'll sing any song you want! \s[35]\n\w8\w5Just drag and drop a song from a folder onto me! \s[2120]\n\w5It'll be fun! \s[0]\w8 \e"
+			}
+		}
+	}
+	elseif ○現在シェル=='Gordon Freeman'
+	{
+	"\0\s[20]\w5[\w3Welcome to the \nHEV Mark V FLELE protective system.\w5\nAudio processing \nactivated.\w5\nHave a very safe \nday!\w3]\w9\w9%(○サーフェス)\e"
+	}
+}
+//end time-related announcements
+
+
+OnGhostChanged {
+txt = "_" + reference0
+□起動
+--
+□GhostChanged
+--
+	if ○現在シェル=='Jockey' {
+	"\0\s[35]Hi! Ready to sing for you again! \s[0]\e"
+	}
+	elseif ○現在シェル=='Gordon Freeman'
+	{
+	"\0\s[20]\w5[\w3HEV Mark V FLELE protective system online.\w5\nAudio processing \nactivated.\w5\nHave a very safe \nday!\w3]\w9\w9%(○サーフェス)\e"
+	}
+	elseif ○現在シェル=='Cibus'
+	{
+		"\0\s[4]Hello again.\w8\w8 It's a good day today,\w4 isn't it?%(○サーフェス)\e"
+		"\0\s[4]Hello there.\w8\w8\s[2] Did you want me to sing for you?%(○サーフェス)\e"
+		"\0\s[2]Hello again.\w8\w8\s[4] I'm ready to sing.%(○サーフェス)\e"
+	}
+	else 
+	{
+	"\e"
+	}
+}
+
+//znote - Secondary time announcements, delete this block if not wanted.
+
+OnMinuteChange
+ {
+	if ○現在シェル=='Jockey'
+	{
+	//----
+ 	if minute == 0
+	{
+ 		if hour == 12
+		{
+ 			"\0\s[35]It's high noon!\nTime for lunch?\w9\w9%(○サーフェス)\e"
+			"\0\s[35]It's noon! It's a good time to swim! \nIf you remember to wear sunscreen...\w9\w9%(○サーフェス)\e"
+			"\0\s[35]Twelve o' clock! Hmm... \s[45]I can't think of any songs about noon... \w9\w9%(○サーフェス)\e"
+		}
+ 		elseif hour == 0
+		{
+ 			"\0\s[35]It's midnight, %username!\nAre you working late?\w9\w9%(○サーフェス)\e"
+ 			"\0\s[35]The fun starts at midnight!\w9\w9%(○サーフェス)\e"
+ 			"\0\s[35]It's 0:00! A new day!\w9\w9%(○サーフェス)\e"
+			"\0\s[25]Gimme gimme gimme a man\nafter midnight~\w9\w9%(○サーフェス)\e"
+		}
+		elseif hour == 23
+		{
+			if minute == 55
+			{
+			"\0\s[35]In 5 minutes, it's tomorrow! How exciting! 8D\w9\w9%(○サーフェス)\e"
+			}
+			else
+			{
+			"\0\s[35]Just an hour left until tomorrow!\w9\w9%(○サーフェス)\e"
+			}
+		}
+		elseif hour == 20 && minute == 30 && weekday == 0
+		{
+			"\0\s[35]It's 8:30, Sunday!\nA nice time to relax.\w9\w9%(○サーフェス)\e"
+		}
+		elseif hour == 6
+		{
+			"\0\s[25]Haha, 6:00 on a\nChristmas morning~!\nHee hee.\w9\w9%(○サーフェス)\e"
+		}
+		elseif hour == 3
+		{
+			"\0\s[25]It's 3 AM, and I'm\ndrifting... \n\w9Staring at an\nilluminous screen, \w5I'm pondering...\w9\w9\w9%(○サーフェス)\e"
+		}
+		elseif hour == 2
+		{
+			"\0\s[55]\w9.\w9.\w9.\w9\w9 tired...\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[55]\w9.\w9.\w9.\w9\w9\w9\w9\w9\w9 \0\s[56]\e"
+		}
+		else
+		{
+			"\0\s[35]It's %(hour12)'o clock!\w9\w9%(○サーフェス)\e"
+		}
+	}
+	}
+	
+	//znote - random sentence block, delete if unwanted. Will say a random sentence every ten minutes. Change or remove times to change how frequently they come up.
+	//col 39 is the line break, each line is 17/20 characters
+	if ○現在シェル=='Jockey'
+	{
+	if minute == 6 || minute == 16 || minute == 26 || minute == 36 || minute == 46 || minute == 56
+		{
+			"\0\s[35]TAAAAAANK!! Hee hee.\w9\w9%(○サーフェス)\e"
+			"\0\s[35]Looking for new music?\w9\w9%(○サーフェス)\e"
+			"\0\s[45]I wonder how the others are doing...\w9\w9%(○サーフェス)\e"
+			"\0\s[25]Dancing at the\ndisco at the end\nof the world~ \w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]Take me down~ \n6 underground~ \w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]You want to dance\nwith the angels?\nWell, show me a sign~ \w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[35]JOCKEY!! \s[45]Wait...\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[35]Pills here!\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[35]SPITTER!! Haha.\w9\w9%(○サーフェス)\e"
+			"\0\s[35]Hee hee hee!\w9\w9%(○サーフェス)\e"
+			"\0\s[35]Ha ha!\w9\w9%(○サーフェス)\e"
+			"\0\s[45]Sometimes I have dreams about my friends where they're... \s[7]\w9\w9\w9\n\s[45]Never mind... I don't want to think about it anymore...\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[45]I have these scary dreams sometimes... \w6\nwhere I'm this creepy zombie thing... \w8\nI wish they would stop.\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[45]I'm glad there aren't any zombies here...\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]Two very fine examples of \n16th century man~ \w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]Check it out, who's in my shack? \nThis is my train and you're on my track, unh!\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]Stamp on the ground~ \n\w4Jump jump jump jump~ \w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]Oh there's a spark inside us~ \n\w4That we can all ignite~ \w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]Then I awake \n\w8At the end of time... \n\w9Time and space \n\w5are friends of \nmi\w5i\w5i\w5ine \nSomeone let me out of here! \w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]Heeeeyy I like \nit like this \n\w4I like it like that \n\w4I like it like this~ \w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[45]I hope my friends are okay...\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[35]Do you like dancepop? I sure do.\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[35]Do you like heavy metal? I do!\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[35]I like acapella too!\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[35]wub wub wub~\n\w9Hee hee!\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[35]I love riding horses. Do you?\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[35]Working or playing? Either one is fine with me, hee hee.\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[45]You doing alright?\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[35]Har har har!\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[35]Do you have any computer games?\nMy friend Lorelei loves computer games.\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[35]I bet everyone's fine... haha.\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[45]My hair is so long...\nSometimes it's a pain to take care of. \n\s[35]Braids are easy though!\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[35]My favorite color is yellow! \nIt's so cheery and bright! 8D \n\s[35]What's yours?\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[35]Do you have songs in lots of languages? \nI love music in all kinds of languages!\nI just like music in general I guess, haha.\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[35]I heard he was flying the helicopter!\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[35]Have you gone outside today? \nHow's the weather?\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[35]I wouldn't mind living on Syra,\nI think.\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[35]Do you have any Space Pony stuff? \nI love how weird it all is, ha ha.\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[35]You can always count on me! 8D\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[35]You can check the readme file in the menu for more info!\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[45]I never spent much time on computers before... \n\w4\s[35]Though I guess this is sort of different, haha.\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[35]You should go take a walk! \nIt's good for your heart.\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[35]Gotta show em No Mercy! Or it'll be a Blood Harvest, hee hee.\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[46]They keep saying everyone else is dead but I know they're not. \n\w5I know they're out there somewhere.\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[45]Nobody ever lets me use the grenade launcher,\nit's not fair.\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[35]I can check if you have email! \nYou can set it in the options/preferences menu.\n\s[45]You'll need to know your POP info though...\n\s[35]but it's not hard to learn!\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[35]I can also download files if you drag and drop the URL on me. Give it a try!\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[35]Did you know you can drag and drop a URL on me and I'll add it to the rss folder under headlines, where I can check it for updates for you? \nTry it and see!\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[35]Am I Dead Center?\nOr maybe I've got Swamp Fever, hee hee.\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]Deep, deep in the\nforest night \n\w4Children dance the waltz~ \w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]Daddy DJ, please take me to the party\n\w4And let me dance along, 'til all the lights are gone~ \w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]Oh you wouldn't understand \noh just how I feel \w4\nI'm at my breaking point and I'm-a burn it down~ \w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]I'll bring you all my love \nOne night is all I want \w4\nI'll bring you all my love \nand show you paradise~ \w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]Werewolf bar mitzvah, spooky scary \nBoys becoming men, men becoming wolves!\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]La la la la \nlittle my star, \n\w4little my star, \n\w4little my star~ \w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]I have a mandolin~\n\w5I play it all night long~ \n\w5It makes me want to kill myself~\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]Never hold back your step for a moment! \n\w5Never doubt that your courage will grow! \n\w5Yes it's higher and higher and into the fire we go~ \w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]Into the fires of forever \nWe will fly through the heavens! \nWith the power of the universe \nwe STAND STRONG TOGETHER!\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]I know you\nlove me\nI wanna wad\nyou up\ninto my life \nLet's roll up to be \na single star in\nthe sky~\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]She's a sticky fingered filcher\nfrom Berlin down to Belize \n\w5She'll take you for a ride \w5on a slow boat to China \n\w5Tell me where in \nthe world is\nCarmen Sandiego?\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]Met a girl in the parking lot \nAnd all I did was say hello! \n\w8Her pepper spray made it rather hard\nFor me to walk her home \n\w8But I guess that's the way it goes~\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]I'd rather waltz than just walk through the forest \nThe trees keep the tempo and they\nSWAY in time! \nQuartet of crickets chime in for the chorus \nIf I were to pluck on your heartstrings\nwould you strum on mine?\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]I fell into a \nburning ring of fire~ \nI went down down down and the \nflames went higher\nAnd it burns burns burns \n\w8the ring of fire,\nthe ring of fire~\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]If anyone says that this is dope, \nI swear I'll probably take my fist\nand punch a hole in this computer \ntell the fans to get it straight \nCause last time he dropped a hit was 199-never-8!\nThat's the reason why I hate on everyone that says he's great \nand plus he sounds so monotone, his style doesn't ever\nelevate!\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]I am the voice \nand I will kill\nthe silence \n\w4One two three now\npump up the beats\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]He had rhythm \n\w5He had music \n\w5He had pinworms,\nwho could ask for\nanything more? \w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]Welcome to Lazytown, a place where you'll want to stay! \n\w5You'll meet Robbie\nand his rotten plans \n\w5And Sportacus\nsaving the day!\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]My name is Gato \n\w5I have metal joints\n\w5Beat me up \nand earn fifteen silver points~ \w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]Thinking of you now tonight \n\w4Not caring if it's wrong or right \nWe can try to compromise but \nIt won't help us\nto survive~ \w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]Burgalveist \w4and throwing numbers,\w4\nhuman insanity, \n\w4with glowing\nforehead \n\w4and draining\nmonkey~\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]When I was just \na little girl \n\w5I asked my\nmother,\nwhat will I be?\n\w5\s[25]Will I be pretty,\nwill I be rich?\nHere's what she\nsaid to me~ \w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]I can see a lot of life in you\n\w4I can see a lot of bright in you \n\w4And I think the dress looks nice on you \n\w4I can see a lot of \nlife in you~\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]Woke up this morning and it seemed to me \n\w4that every night turned out to be \n\w4A little bit more like Bukowski \n\w4And yeah, I know he's a pretty good read \n\w5But god, who'd wanna be \w8\nGod, who'd wanna be such an\nasshole?\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]Something must have been not quite right with you! \n\w4\s[25]We're all a little crazy but we keep it inside! \n\w4I was just about to show you a door \n\w4But I guess you won't be needing that anymore...\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]I can pull the taut strings of adolescence \n\w4\s[25]I can feel our laces break as we jump over that great fence \n\w4Hot smoking university lady \n\w4The mind can only hold so many things... \n\w8The mind can only hold so many things...\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]Pretty little thing\n\w8Goin low low low \n\w4\s[25]Bouncin up and\ndown \non the po po po~\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]All the people in the world \n\w8Every boy and every girl \n\w4\s[25]Just imagine that we could \w7face our brotherhood~\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]Hello welcome come in come in \n\w8Come and take a look around \n\w4\s[25]at all the stuff we just GOT in\nfor you to buy!\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[46]It was night time and...\w8I was in the middle of the ocean. I was trying to swim... \n\w8but I was too cold. \n\w5And I, I kept looking, kept looking for something to hang onto...\n\w8\w8and there were presents,\nfloating, floating all around me. \n\w8They were wrapped up, they were tied with bows... \n\w8and I tried to grab onto them but they kept popping away... \n\w8\w8\w8and then I started\nto sink.\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]Vatabet ishto me'acharav vatehinetsiv melach~\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]Green is in the mistletoe and red is in the holly \n\w5Silver in the stars above that shine on everybody~\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]Life couldn't get better! (Yeah!)\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]Everything is perfect now~\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]C A P!\w8 T A I! \n\w8 N J A C K!\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]Could you be the kind of lady I've been seeking?\n\w8After all this time could it be true love?\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]Oh once I had a flock of sheep,\n\w5they grazed upon a feather\n\w8I'd keep them in a music box \w6from wind or rainy weather~\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]That the difference between \w8the sprout and the bean \w5is a golden ring,\w5 it is a twisted string~\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]Sacrifice on railroad tracks\nFreight-freight train coming!\nFreight-freight train coming!\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]Let's open up a restaurant in Santa Fe~\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]My girl wants to\nparty all the time,\nparty all the time,\nparty all the tiiime~\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[46]He couldn't believe how easy it was...\n\w8he put the gun into his face\n\w8Bang!\n\w8\w8So much blood from such a tiny little hole...\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]Grinding\w5 binding\n\w5taking \w5away \n\w8needles \w5above\n\w5the prey\n\w8wreath of barbs\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]Someday out of the blue \n\w8in a crowded street or a\ndeserted square\n\w5I'll turn and I'll see you \w8as if our love were new\n\w6Someday we can start again, someday soon\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]Someone left the cake out in the rain\n\w8I don't think that I can take it\n'cause it took so long to bake it\n\w5and I'll never have that recipe again,\w5 oh noooo\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]One pill makes you larger \n\w8and one pill makes you small \n\w8and the ones that mother gives you don't do anything\n\w5at all~\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]Reno was an aimless girl,\na geographic memory\n\w8Cathy was a Jesus-freak, she liked that kind of misery~ \w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]The other player\ngot an extra spin\n\w8The other player said 'is there a T?'\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]A friend in need's a friend indeed,\n\w6my Japanese is better~\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]Living in the woods\n(Shia Labeouf)!\n\w5Killing for sport\n(Shia Labeouf)!\n\w5Eating all the bo~dies~\n\w5Actual cannibal\nShia Labeouf!\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]That girl is on the move! \n\w6That girl is on the run! \n\w6That girl is on the guestlist!\n\w6That girl is all about\nall about fun!\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[25]Where once was light\n\w5now darkness\nfalls\w5\nWhere once was love\n\w5love is no more\n\w5Don't say goodbye\n\w5Don't say I didn't try\n\w5These tears we cry\n\w5are falling rain\n\w5for all the lies you told us\n\w5the hurt, the blame\n\w5and we will weep\nto be so alone\w5\nWe are lost, we can never go home...\w9\w9\w9\w9%(○サーフェス)\e"
+			"\0\s[8].\w9\w9 .\w9\w9 .\w9\w9 \w9\w9\w9\w9\w9\w9%(○サーフェス)\e"
+			
+		}
+	}
+		
+	//end random sentence block
+	
+	elseif mikireflag == 1
+ 	{
+		//---- ? != 0 ，?? ?? ?? ?? ??? ???.
+ 		MikireTalk
+	}
+}
+
+
+GetTimeSlot
+{
+	if hour >= 5 && hour <= 8
+	{
+		"earlymorning"
+	}
+	elseif hour >= 9 && hour <= 11
+	{
+		"morning"
+	}
+	elseif hour >= 12 && hour <= 14
+	{
+		"lunch"
+	}
+	elseif hour >= 15 && hour <= 17
+	{
+		"afternoon"
+	}
+	elseif hour >= 18 && hour <= 20
+	{
+		"evening"
+	}
+	elseif hour >= 21 && hour <= 24
+	{
+		"latenight"
+	}
+	else
+	{
+		"midnight"
+	}
+}
+
+GetDaySlot
+{
+	"%(month)month %(day)day"
+}
+
+//end time announcements
+
+ 
+//バルーン切り替え
+OnBalloonChange {
+○現在バルーン = reference0
+□ヘルプメニュー消滅した
+}
+OnBalloonTimeout {□ヘルプメニュー消滅した}
+OnBalloonBreak {□ヘルプメニュー消滅した}
+
+
+//znote - when the flele shell is changed
+//シェル切り替え
+
+OnShellChanged 
+{
+○ヘルプメニュー表示中 = 0
+○現在シェル = reference0
+if ○現在シェル=='Gordon Freeman'
+	{
+	"\1\s[10]\0\s[20]\w5[\w3Welcome to the \nHEV Mark V FLELE protective system.\w5\nAudio processing \nactivated.\w5\nHave a very safe \nday!\w3]\w9\w9%(○サーフェス)"
+	--
+	□タスクトレイアイコン指定
+
+	"\e"
+	}
+	elseif ○現在シェル=='Jockey'
+	{
+	"\1\s[10]\0\s[35]Hi! Ready to sing for you!\s[0]\e\w9\w9%(○サーフェス)"
+	--
+	□タスクトレイアイコン指定
+
+	"\e"
+	}
+	elseif ○現在シェル=='Cibus'
+	{
+		"\1\s[10]"
+		--
+		"\0\s[4]Hello again.\w8\w8 It's a good day today,\w4 isn't it?"
+		"\0\s[4]Hello there.\w8\w8\s[2] Did you want me to sing for you?"
+		"\0\s[2]Hello again.\w8\w8\s[4] I'm ready to sing."
+		--
+		"%(○サーフェス)"
+		--
+		□タスクトレイアイコン指定
+
+		"\e"
+	}
+	else
+	{
+	"\0%(○サーフェス)\1\s[10]"
+	--
+	□タスクトレイアイコン指定
+	
+	"\e"
+	}
+}
+
+OnNotifySelfInfo {
+○現在シェル = reference3
+○現在バルーン = reference5
+}
+
+
+//着せ替え切り替え
+
+OnDressupChanged {
+
+	if ○現在シェル=='Miku' {
+		if (reference1+reference2)=='Meiko1' {○着せ替えoption='Meiko'}
+		else {○着せ替えoption='-'}
+	"\0%(○サーフェス)\1\s[10]\e"
+	}
+}
+
+OnNotifyDressupInfo {
+	if ○現在シェル=='Miku' {
+		if reference0=='0,option,Meiko,,1,'&&'Meiko'!=○着せ替えoption {
+		○着せ替えoption='Meiko'
+		}
+	}
+
+}
+
+
+□ホットキー準備 {
+SAORI("saori\hotkey.dll",(○キー設定[0]),"flele","none")
+SAORI("saori\hotkey.dll",(○キー設定[1]),"flele","none")
+SAORI("saori\hotkey.dll",(○キー設定[2]),"flele","none")
+SAORI("saori\hotkey.dll",(○キー設定[3]),"flele","none")
+SAORI("saori\hotkey.dll",(○キー設定[4]),"flele","none")
+SAORI("saori\hotkey.dll",(○キー設定[5]),"flele","none")
+}
+□ホットキー停止 {_i=SAORI("saori\hotkey.dll")}
+
+/// window state //////////////////////////////////////////////
+
+OnWindowStateMinimize {
+// 最小化時には曲名ウィンドウも閉じる
+if ○曲名ウィンドウON==1 {_i=SAORI("saori\bln.dll", "win01", "", "0", "0", "kyokumei")}
+□ヘルプメニュー消滅した
+}
+
+//znote - when you unminimize the flele
+OnWindowStateRestore {
+□表示
+// 最小化復元時に曲名ウィンドウもどす
+□曲名ウィンドウONなら表示
+--
+if ○現在シェル=='Jockey'
+{
+"\0\s[35]Hello again! \w9\w9%(○サーフェス)\e"
+}
+else
+{
+"\e"
+}
+}
+
+/// end event /////////////////////////////////////////////////
+
+□終了前 {
+
+_i=SAORI('saori\mciaudior.dll', 'stop')
+if ○モード=="CD" {_i=SAORI('saori\mcidonut.dll', 'stop')}
+//if ○演奏中==1 {_i=SAORI('saori\mcidonut.dll', 'play')}
+
+
+if ○ホットキー操作=="ON" {□ホットキー停止}
+//いらない変数けす
+ERASEVAR ("○演奏中")
+ERASEVAR ("○起動中演奏回")
+ERASEVAR ("○サーフェス")
+ERASEVAR ("○表示曲名")
+ERASEVAR ("○空白")
+ERASEVAR ("○DL開始")
+ERASEVAR ("○DL成功")
+ERASEVAR ("○ヘルプメニュー表示中")
+ERASEVAR ("○path")
+ERASEVAR ("○file")
+ERASEVAR ("○No")
+ERASEVAR ("○URL")
+ERASEVAR ("○AllFilepath")
+ERASEVAR ("○ディレクトリ")
+ERASEVAR ("○演奏中曲名")
+ERASEVAR ("○ナンバー")
+ERASEVAR ("○現在パス")
+ERASEVAR ("○演奏中CDトラック")
+ERASEVAR ("○weirdsリスト")
+ERASEVAR ("○曲リスト更新")
+ERASEVAR ("○hwnd")
+ERASEVAR ("○uniqueid")
+ERASEVAR ("○sender")
+ERASEVAR ("○成否")
+ERASEVAR ("txt")
+ERASEVAR ("url")
+ERASEVAR ("○イベント名")
+ERASEVAR ("○上書き曲DL")
+ERASEVAR ("○起動時OS時間")
+
+}
+
+
+□SAORI終了 {
+if ○モード=="CD" {UNLOADLIB("saori\mcidonut.dll")}
+if ○曲名ウィンドウON==1 {_i=SAORI("saori\bln.dll", "win01", "", "0", "0", "kyokumei")}
+}
+
+//znote - when you close the flele
+OnClose {
+	□終了前
+--
+if ○現在シェル=='Jockey'
+{
+	"\0\w4\s[0]Goodbye~ \1\s[10]\w9\w5\- \e"
+}
+elseif ○現在シェル=='Gordon Freeman'
+{
+	"\0\w4\s[20][\w3Thank you for \nusing the HEV Mark V FLELE protective system.\w5\nHave a very safe\nday!\w3]\1\s[10]\w9\w5\- \e"
+}
+elseif ○現在シェル=='Cibus'
+{
+	"\0\s[2]See you later!\-\e"
+	"\0\s[2]Take care!\-\e"
+}
+else
+{
+"\-\e"
+}	
+□SAORI終了
+}
+
+//znote - when you change to another ghost (not a shell, a ghost)
+OnGhostChanging {
+	□終了前
+--
+□SAORI終了
+--
+if ○現在シェル=='Jockey'
+{
+	"\0\w4\s[35]Switching to %reference0? \nOkay! Maybe I'll see you later? \1\s[10]\w9\w5\e"
+}
+elseif ○現在シェル=='Gordon Freeman'
+{
+	"\0\w4\s[20][\w3Thank you for \nusing the HEV Mark V FLELE protective system.\w5\nHave a very safe\nday!\w3]\1\s[10]\w9\w5\- \e"
+}
+elseif ○現在シェル=='Cibus'
+{
+	"\0\s[2]See you later!\e"
+	"\0\s[2]Take care!\e"
+}
+else
+{
+"\0\w4\s[0]\1\s[10]\w9\w5\e"
+}	
+}
+
+//znote - I think this is when you uninstall it
+OnVanishSelected {
+	□終了前
+--
+if ○現在シェル=='Jockey'
+{
+	"\0\w4\s[35]Bye!\1\s[10]\w9\w5\e"
+}
+elseif ○現在シェル=='Cibus'
+{
+	"\0\s[4]Take care!\w8\w8\w8\e"
+}
+else
+{
+"\0\w4\s[0]\1\s[10]\w9\w5\e"
+}
+□SAORI終了
+}
+
+//znote - When you close it I think
+On_終了する { 
+	□終了前
+--
+if ○現在シェル=='Jockey'
+{
+	"\w4\s[35]Goodbye!\1\s[10]\-\e"
+	}
+	elseif ○現在シェル=='Gordon Freeman'
+{
+	"\0\w4\s[20][\w3Thank you for \nusing the HEV Mark V FLELE protective system.\w5\nHave a very safe\nday!\w3]\1\s[10]\w9\w5\- \e"
+}
+elseif ○現在シェル=='Cibus'
+{
+	"\0\s[4]See you later!\w8\w8\-\e"
+	"\0\s[4]Take care!\w8\w8\-\e"
+}
+	else
+	{
+	"\w4\s[0]\1\s[10]\-\e"
+	}
+--
+□SAORI終了
+}
+
+OnScreenSaverEnd 
+{ 
+if ○現在シェル=='Jockey'
+	{
+	"\w4\s[35]Hi again!\w9\w9%(○サーフェス)\e"
+	}
+	else
+	{
+	"\e"
+	}
+}
+
+
+/// mouse event /////////////////////////////////////////////////
+
+OnMouseClick {
+
+if (STRSTR(reference4,"o_",0))==0 && reference5 != 1  {
+	reference4 = (ERASE(reference4,0,2))
+	□クリック判定
+ }
+elseif ○曲リストメニュー=="ON" {
+	_i=SAORI("saori\Weirds.dll", "menu_close")
+	if reference5 == 1 && reference4 == "menu" {
+	"\0"
+	--
+	□weirds
+	}
+	elseif reference5 == 1 && reference4 == "o_menu" {
+	"\0"
+	--
+	□weirds
+	}
+ }
+
+}
+
+
+OnMouseDoubleClick {
+	if basewarename!="The%(CHR(0x20))Hand" {
+	□クリック判定
+	}
+}
+
+□クリック判定 {
+_c = reference4
+reference4 = 0
+	case _c {
+when "stop_button1"	{□演奏一時停止}
+when "stop_button2"	{□演奏一時停止}
+when "k_window"		{□曲名ウィンドウ表示}
+when "play_button"	{□曲ランダムPlayback}
+when "clear_button"	{□曲リストクリア}
+when "menu"		{□メニュー}
+when "minimize"		{□アイコン化}
+when "end_sect"		{□終了する}
+//others	;	{}
+			}
+}
+
+
+
+//　イージーバルーン（CROW非対応）
+OnEBMouseDoubleClick {
+if reference3 == "kyokumei" {□曲名ウィンドウ非表示}
+}
+
+
+
+//　カーソル移動
+OnMouseMove
+{
+ if reference3 == 0
+ {
+ //---- 本体側の撫で
+
+	if reference4 != ""
+	{
+		//----どこかが撫でられている
+		stroke++
+		//---- 撫でられた量が一定量に達したら「なでられている」と判断
+		if stroke >= 50
+		{
+			//---- 撫でられた。撫でられた部位を見てトークする
+			if reference4 == "stroke_p"
+			{
+				□撫で反応
+			}
+			elseif ○現在シェル=="Sorcerer-F" && reference4 == "stop_button1"
+			{
+				□撫で反応
+			}
+			stroke = 0
+		}
+	}
+	else
+	{
+		// 定義された部位はどこも撫でられていない
+		stroke = 0
+	}
+
+ }
+}
+
+//znote - reactions when flele is petted
+//note, the %(○サーフェス)\b[-1] tag is to return the flele to the default pose and get rid of the balloon afterwards, presumably since flele doesn't have the return to default surfacecheck function most ghosts do after a set amount of time
+□撫で反応 
+{
+if ○現在シェル=='Jockey'
+	{
+	"\0\s[2110]\w5 . \w5 . \w5 . \w9\w9\w9\w9\w9\w9\w9\w9\w9%(○サーフェス)\b[-1]\e"
+	"\0\s[2120]\w5 Ha ha! \w9\w9\w9\w9\w9\w9\w9\w9\w9%(○サーフェス)\b[-1]\e"
+	"\0\s[2130]\w5 Aww... \w9\w9\w9\w9\w9\w9\w9\w9\w9%(○サーフェス)\b[-1]\e"
+	"\0\s[2140]\w5 Oh! \w9\w9\w9\w9\w9\w9\w9\w9\w9%(○サーフェス)\b[-1]\e"
+	}
+	elseif ○現在シェル=='Cibus'
+	{
+		"\0\s[1].\w5.\w5.\w5Mmm\w5.\w5.\w5.%(○サーフェス)\b[-1]\e"
+		"\0\s[1].\w5.\w5.%(○サーフェス)\b[-1]\e"
+		"\0\s[1].\w5.\w5.\w5Hehe\w5.\w5.\w5.%(○サーフェス)\b[-1]\e"
+	}
+	else
+	{
+	"\0\s[1]\w5 . \w5 . \w5 . \w9\w9\w9\w9\w9\w9\w9\w9\w9%(○サーフェス)\b[-1]\e"
+	}
+}
+
+/// key event ///////////////////////////////////////////////////
+
+
+
+OnKeyPress {
+_s = SAORI("saori\Weirds.dll","notify_keypress",reference0)
+txt=reference0
+□キー判定
+
+}
+OnHotKeyPress {
+txt=reference0
+□キー判定
+}
+
+□キー判定 {
+if txt=="￥" {txt = "\"}
+
+_key0=(○キー設定[0])
+_key1=(○キー設定[1])
+_key2=(○キー設定[2])
+_key3=(○キー設定[3])
+_key4=(○キー設定[4])
+_key5=(○キー設定[5])
+
+if txt==_key0 {□曲ランダムPlayback}
+elseif txt==_key1 {□演奏一時停止}
+elseif txt==_key2 {□メニュー}
+elseif txt==_key3 {□曲名ウィンドウ表示}
+elseif txt==_key4 {□曲リストクリア}
+elseif txt==_key5 {"\0\![raise,On_終了する]"}
+
+}
+
+//□曲ランダムPlayback
+
+
+
+/// communicate //////////////////////////////////////////////////
+
+OnHandActivate {
+	//　さわりはじまった
+	if reference0=="NormalStart" {
+		//　ダブルクリックはセリフ変更
+		if reference2=="OnMouseDoubleClick" {"\0\b[-1]\w9\w9\b[1]\c…\w2…\w2…\w2…\w2…\w2…\w2。\w9\w9\e"}
+		//　ダブルクリック以外
+		else {"\0\b[-1]\w9\w9\w9\w9\b[1]\c…\w2…\w2…\w2。\e"}
+	}
+	//　ダブルクリックし終わった
+	elseif reference0 == "NormalEnd" && reference2 == "OnMouseDoubleClick" {
+	"\0%(○サーフェス)\s[0]\b[-1]\w9\b[1]…\w7…\w7…\w7…\w7…\w7…\w7。\w9\w9\w9\w9%(○サーフェス)\e"
+	}
+}
+
+
+OnCommunicate {
+
+	if reference0 != "user" && reference0 != "User" {
+		if "音楽" _in_ reference1 || "サウンド" _in_ reference1 || "曲" _in_ reference1 {
+			if "Playback" _in_ reference1 || "演奏" _in_ reference1 || "かけて" _in_ reference1 || "歌って" _in_ reference1 {
+				res_reference0 = ""
+				"\0\s[0]\c…\w7…\w7…。\w9\w9\w5\b[-1]\s[25]\w9"
+				--
+				□曲ランダムPlayback
+			}
+		}
+	}
+
+}
+
+
+/// help menu ////////////////////////////////////////////////////
+
+□メニューヘッダ {
+
+"\0\b[2]\c\![set,autoscroll,disable]\*\_q"}
+
+□メニュー {
+
+// 既にメニュー表示されてたら消す
+if ○ヘルプメニュー表示中 == 1 {
+	○ヘルプメニュー表示中 = 0
+	"\0\b[-1]\e"
+	}
+else {
+// 表示されてなかったら表示
+□メニュー_index
+	}
+}
+
+□メニュー_index {
+
+
+
+○ヘルプメニュー表示中 = 1
+	□メニューヘッダ
+--
+
+_gtime=systemuphour-○起動時OS時間
+// 「%(_gtime)」
+
+"\v%(menu_bg)"
+--
+if 'for flele'_in_○現在バルーン {"\_l[3,2]"}
+--
+// 曲インフォ -------------------------
+  if ○曲の数 >=1 {"Playlist: %(fcl)"
+		--
+		if ○モード=='CD' {
+			_曲数=SAORI('saori\mcidonut.dll', 'trackcount')
+			if _曲数<0{"--"}
+			else{ _曲数 }
+	}
+		else {"%(○曲の数)"}
+		--
+		"%(def)　"
+  --
+	if ○演奏中 == 1 { 
+
+
+			//　文字数12を越えたら省略
+			if ○曲名文字数 > 12 {
+				_抜き出し = SUBSTR ("%(○演奏中曲名)",0,12)
+				○表示曲名 = "%(_抜き出し)…"
+    				}
+			else {○表示曲名 = "%(○演奏中曲名)"}
+		if ○モード=='CD' {
+		"%(fcl)CD Track %(○演奏中CDトラック)%(def) is playing"
+		}
+		else {
+		"%(fcl)%(○表示曲名)%(def) is playing"
+		}
+	}
+	else { "%(fcl)Player is idle%(def)" }
+  }
+else {"Playlist is empty."}
+--
+	if ○現在バルーン=='for flele' {"\_l[0,94]"}
+	elseif ○現在バルーン=='for flele / wide' {"\_l[0,110]"}
+	else {'\n\n'}
+--
+// キーインフォ -------------------------
+" %(アイコン2('point','□'))Hotkeys ［\q[Config,□キー設定_pre]］\n[half]/
+\n　Playback %(fcl)\f[bold,1]%(キー設定表示名(0))\f[bold,default]%(def)　Stop Playback %(fcl)\f[bold,1]%(キー設定表示名(1))\f[bold,default]%(def)/
+\n　Menu %(fcl)\f[bold,1]%(キー設定表示名(2))\f[bold,default]%(def)　Song Window %(fcl)\f[bold,1]%(キー設定表示名(3))\f[bold,default]%(def)/
+\n　Playlist Clear %(fcl)\f[bold,1]%(キー設定表示名(4))\f[bold,default]%(def)　Exit Program %(fcl)\f[bold,1]%(キー設定表示名(5))\f[bold,default]%(def)/
+"
+
+--
+// 1段目 -------------------------
+"\n\n\n[half]　%(アイコン('info','>')) \q[Readme,□readme開く]"
+--
+if ○モード!="CD" && ○曲の数 >= 1 && ○起動中演奏回 >= 1 {"　 　%(アイコン2('music'))\q[Current Song_Info,□現在曲Song_Info]"}
+--
+if ○モード=="CD" {"　 　 　 %(アイコン('cd','>')) \q[CDを出す,□CD取り出し]/\q[入れる,□CD入れ]"}
+--
+
+// 2段目 -------------------------
+"\n　%(アイコン('hotkey','>')) \q[Key Settings,□設定]"
+--
+
+"　%(アイコン('fopen','>')) \q[Add file/m3u,□手動で曲を追加]"
+
+
+//"　 %(アイコン('k_win','>')) \q["
+//--
+//	if ○曲名ウィンドウON != 1 {
+//	"曲名ウィンドウ表示"
+//	}
+//	else {
+//	"曲名ウィンドウ非表示"
+//	}
+//--
+//",□ヘルプメニューから曲ウィンドウ]"
+--
+
+// 3段目 -------------------------
+if ○sender == "SSP" {
+	"\n　%(アイコン('urldl','>')) \q[Download URL,□URL入力ダウンロード]"
+	}
+--
+if (ARRAYSIZE(○ダウンロード曲リスト))>0 {
+	"　　%(アイコン('urlfor','>')) \q[DL Folder,□DL曲のSong_Folder]"
+	}
+--
+
+// 4段目 -------------------------
+"\n　%(アイコン('clear','>')) \q[Playlist Clear,□曲リストクリア]　%(アイコン('m3u','>')) \q[Save Playlist,□曲リスト出力]"
+--
+// ナビ -------------------------
+"\n\n　　　　　　　　\q[CLOSE,□close]\e"
+
+}
+
+
+□readme開く {
+	if ○sender=='SSP'{
+	"\c\![open,readme]"
+	}
+--
+□ヘルプメニュー消滅した
+}
+
+
+
+
+□メニュー_説明
+{
+	□メニューヘッダ
+--
+": %(アイコン2('info'))説明 :::::::::::::::::::::::::\n\n[half]/
+%(アイコン2('point','□'))%(fcl)midi/wave/mp3/wma/ogg/au%(def)形式の音楽ファイル、又は%(fcl)m3u%(def)形式の曲リストファイルをFLELEにドロップすると曲リストに追加されます。/
+\n[half]/
+\nウェブサイトから曲をダウンロードする場合はサウンドファイルのリンクをドロップするか、%(fcl)”URL入力ダウンロード”%(def)からURLを直接入力してください。/
+\n[half]"
+--
+if ○ホットキー操作=="ON" {
+"\n%(アイコン2('point','□'))FLELEがアクティブになっていない時、ショートカットキーはshift+ctrlと一緒に押してください。\n[half]"}
+--
+if ○曲リストメニュー=="ON" {
+"\n%(アイコン2('point','□'))FLELEのヘルプメニューを出す場所を右クリックすると曲個別操作ができる曲リストメニューが出ます。\n[half]"}
+--
+"\n\n　　　　　　 \q[CLOSE,□close]｜\q[BACK,□メニュー_index]\e"
+}
+
+□現在曲Song_Info {
+○path = ○演奏中曲絶対パス
+i=○path
+○No = ○演奏中曲No
+○イベント名 = "□現在曲Song_Info"
+	□メニューヘッダ
+--
+": %(アイコン('music'))Current Song_Info ::::::::::\n\n[half]"
+--
+□曲Song_Info中身
+--
+"\n[half]/
+\n　　　　　　 \q[［RELOAD］,□現在曲Song_Info]\n\n[half]/
+\n　　　　　　\q[CLOSE,□close]｜\q[BACK,□メニュー_index]\e"
+}
+
+□曲Song_Info中身 {
+
+	if (FATTRIB(○演奏中曲パス2)) == -1 {
+"%(fcl)* ファイルが存在しません *%(def)\n/
+%(fcl)Number　 %(def): %(○No)　( Total %(○曲の数) )\n/
+%(fcl)Filepath %(def): \_!%(○path)\_!\n/
+"
+	}
+	else {
+"/
+%(fcl)number　 %(def): %(○No)　( Total %(○曲の数) )\n/
+%(fcl)track 　 %(def): %(曲解析('GetTrack')) \n/
+%(fcl)artist 　%(def): %(曲解析('GetArtist')) \n/
+%(fcl)genre 　 %(def): %(ジャンル番号解析)\n/
+%(fcl)year 　　%(def): %(曲解析('GetYear'))\n/
+%(fcl)filepath %(def): \_!%(絶対パス変換(○path))\_!\n/
+%(fcl)filesize %(def): %(○現在曲サイズ)\n/
+%(fcl)comment　%(def): %(曲解析('GetComment'))\n/
+"
+	}
+}
+
+□CD入れ {
+_i=SAORI("saori\mcidonut.dll", "doorclose")
+□メニュー_index
+}
+□CD取り出し {
+_i=SAORI("saori\mcidonut.dll", "dooropen")
+□メニュー_index
+}
+
+
+//znote - add file menu
+□手動で曲を追加
+{
+	□メニューヘッダ
+--
+": %(アイコン2('fopen'))Add file/m3u ::::::::::::::::\n\n"
+--
+"%(アイコン2('point','□'))%(fcl)%(fcc)\q[Add file individually,□曲を参照して追加]\n　/
+└\q[Add folder containing file,□フォルダを参照して追加]%(def)%(defc)\n\n[half]/
+%(アイコン2('point','□'))%(fcl)%(fcc)\q[Type in file location,□曲をパス入力で追加]\n　/
+└\q[Type in folder location,□フォルダをパス入力で追加]%(def)%(defc)\n\n[half]/
+"
+--
+"\n\n　　　　　　 \q[CLOSE,□close]｜\q[BACK,□メニュー_index]\e"
+}
+
+□曲をパス入力で追加 {
+	"\0\![open,inputbox,mpath,-1]\e"
+□ヘルプメニュー消滅した
+}
+
+□フォルダをパス入力で追加 {
+	"\0\![open,inputbox,mfpath,-1]\e"
+□ヘルプメニュー消滅した
+}
+
+□曲を参照して追加 {
+○path=0
+○path=□ファイル選択ダイアログ
+	if ○path!=0 {
+	□ファイルがドロップされた
+	}
+	else {□手動で曲を追加}
+}
+
+□フォルダを参照して追加 {
+○ディレクトリ=0
+○path=0
+○path=□ファイル選択ダイアログ
+○ディレクトリ=(SPLITPATH(○path)[0])+(SPLITPATH(○path)[1])
+
+	if ○ディレクトリ!=0 {
+	□ディレクトリドロップ処理
+	}
+	else {□手動で曲を追加}
+}
+
+□URL入力ダウンロード {
+○ヘルプメニュー表示中 = 0
+	"\0\![open,inputbox,url,-1]\e"
+}
+
+□DL曲のSong_Folder {
+	"\0\![open,file,..\..\sound_file]\c"
+	--
+	□メニュー_index
+}
+
+
+□設定
+{
+	□メニューヘッダ
+--
+": %(アイコン2('hotkey'))Key Settings :::::::::::::::::::::::::\n\n"
+--
+
+"%(アイコン2('point','□'))%(fcl)%(fcc)\q[Music Playback Settings,□Playback設定]%(def)%(defc)\n\n[half]"
+--
+"%(アイコン2('point','□'))%(fcl)%(fcc)\q[Operation Settings,□動作設定]%(def)%(defc)\n\n"
+--
+
+"\n　　　　　　　\q[CLOSE,□close]｜\q[BACK,□メニュー_index]\e"
+}
+
+□動作設定 {
+	□メニューヘッダ
+--
+": %(アイコン2('hotkey'))Operation Settings :::::::::::::::::::::\n\n"
+--
+//znote - operation settings menu
+
+"%(アイコン2('point','□'))Inactive when %(fcl)Ctrl + Shift + Key%(def)\nare pressed\n\n[half]"
+--
+if ○ホットキー操作=="ON" {"　　　　%(fcl)ON%(def) ［\q[Change,□ホットキーOFF]］"}
+else {"　　　　%(fcl)OFF%(def)［\q[Change,□ホットキーON]］"}
+--
+"\n\n%(アイコン2('point','□'))Enable right click (music list)\nmenu\n\n[half]"
+--
+if ○曲リストメニュー=="ON" {"　　　　%(fcl)ON%(def) ［\q[Change,□曲リストメニューOFF]］"}
+else {"　　　　%(fcl)OFF%(def)［\q[Change,□曲リストメニューON]］"}
+--
+
+"\n\n[half]/
+\n　　　　　　　\q[CLOSE,□close]｜\q[BACK,□設定]\e"
+}
+
+
+
+□ホットキーOFF {
+	○ホットキー操作 = "OFF"
+	□ホットキー停止
+	--
+	"\![reload,shiori]"
+	--
+	□動作設定
+}
+
+□ホットキーON {
+	○ホットキー操作 = "ON"
+	□ホットキー準備
+	--
+	"\![reload,shiori]"
+	--
+	□動作設定
+}
+
+□曲リストメニューOFF {○曲リストメニュー = "OFF";□動作設定}
+□曲リストメニューON {○曲リストメニュー = "ON";□動作設定}
+
+
+
+
+
+□Playback設定 {
+□演奏ストップ
+--
+	□メニューヘッダ
+--
+": %(アイコン2('hotkey'))Music Playback Settings :::::::::::::::\n\n[half]"
+--
+"%(アイコン2('point','□'))Mode\n\n[half]"
+--
+case  ○モード {
+	when "CD" {"　　%(fcl)CDPlayback%(def)［\q[変更,□モードnormal]］"}
+	others {
+	
+	"　　%(fcl)Music File Playback%(def)"
+	--
+	//"［\q[変更,□モードCD]］"
+	}
+ }
+--
+"\n\n%(アイコン2('point','□'))Playback Settings\n\n[half]"
+--
+case ○演奏法 {
+	when "one" {"　　 %(fcl)Play song once%(def)［\q[Change,□演奏法loop]］"}
+	when "loop" {"　　 %(fcl)Loop song%(def)［\q[Change,□演奏法random]］"}
+	when "seq_loop" {"　　 %(fcl)Loop in order%(def)［\q[Change,□演奏法seq_one]］"}
+	when "seq_one" {"　　 %(fcl)Play in order%(def)［\q[Change,□演奏法one]］"}
+	others {"　　 %(fcl)Shuffle songs%(def)［\q[Change,□演奏法seq_loop]］" }
+}
+--
+"\n\n"
+--
+//znote - music playback settings menu
+
+"%(アイコン2('point','□')).ogg Playback Settings\n\n[half]"
+--
+	if ○ogg設定=="mci" {
+	"　　%(fcl).wav Playback conversion%(def)［\q[Change,□oggモードplaysound]］\n/
+	（Can pause if conflicts with\nPlaySound, is heavy）"
+	}
+	else {
+	
+	"　　%(fcl)Memory Playback%(def)［\q[Change,□oggモードmci]］\n/
+	（Can't pause if conflicts with\nPlaySound, is light）"
+	}
+
+
+--
+"\n\n\n[half]　　　　　　　\q[CLOSE,□close]｜\q[BACK,□設定]\e"
+}
+
+□モードnormal {□曲を全て停止;○モード = "normal";□Playback設定}
+□モードCD { □曲を全て停止;○モード = "CD";□Playback設定}
+
+//同じ曲を繰り返し
+□演奏法loop {○演奏法 = "loop";□Playback設定}
+//ランダムで延々と
+□演奏法random {○演奏法 = "random";□Playback設定}
+//一度だけPlayback
+□演奏法one {○演奏法 = "one";□Playback設定}
+//曲順演奏繰り返し
+□演奏法seq_loop {○演奏法 = "seq_loop";□Playback設定}
+//曲順に一周のみ
+□演奏法seq_one {○演奏法 = "seq_one";□Playback設定}
+
+
+
+
+□oggモードplaysound {
+
+
+○ogg設定="playsound"
+if (FOPEN('saori\mciaudior.txt','w'))==1 {
+	_i=FWRITE('saori\mciaudior.txt',"ogg.mode%(CHR(0x2c))playsound")
+	_i=FCLOSE('saori\mciaudior.txt')
+	}
+_i=UNLOADLIB('saori\mciaudior.dll')
+_i=LOADLIB('saori\mciaudior.dll')
+--
+□Playback設定
+}
+
+□oggモードmci {
+
+
+○ogg設定="mci"
+if (FOPEN('saori\mciaudior.txt','w'))==1 {
+	_i=FWRITE('saori\mciaudior.txt',"ogg.mode%(CHR(0x2c))mci")
+	_i=FCLOSE('saori\mciaudior.txt')
+	}
+_i=UNLOADLIB('saori\mciaudior.dll')
+_i=LOADLIB('saori\mciaudior.dll')
+
+--
+□Playback設定
+}
+
+
+
+□曲リスト出力 {
+	□メニューヘッダ
+--
+//znote - save playlist menu
+": %(アイコン2('m3u'))Save Playlist :::::::::::::::::\n\n[half]"
+--
+"This will create an m3u of your \nplaylist. Choose a location then type\nin the desired filename followed by [.m3u].\n/
+\n%(アイコン2('point','□'))Output File ［\q[Change,□出力先ディレクトリ変更]］［\q[Folder,□m3uSong_Folder]］/
+\n%(fcl)\_!%(○m3u出力パス)\_!%(def)"
+--
+if ○曲の数>=1 {
+	"\n\n　　　　　　 ［\q[Create,□m3uで出力]］\n"
+	}
+else {
+	"\n\n　　　　　 - no data -\n"
+	}
+--
+"\n\n[half]　　　　　　 \q[CLOSE,□close]｜\q[BACK,□メニュー_index]\e"
+}
+
+//\![open,inputbox,m3u,-1]
+
+//znote - message for if you don't put in a proper path while using the save playlist feature
+□出力先ディレクトリ変更 {
+_path=□ファイル選択ダイアログ
+
+_拡張子=TOLOWER((SPLITPATH(_path))[3])
+
+		if FATTRIB((SPLITPATH(_path)[0])+(SPLITPATH(_path)[1]))[2] != 1 || _path==0 {
+		□曲リスト出力
+		}
+		elseif _拡張子!=".m3u" {
+			"Please choose an \nm3u file, or enter\na filename ending\nwith [.m3u].\n[half]/
+			\n　 \q[CLOSE,□close]｜\q[RETRY,□出力先ディレクトリ変更]/
+			\e"
+		}
+		else {
+			○m3u出力パス=_path
+			□曲リスト出力
+		}
+
+
+
+}
+
+//"\![open,inputbox,m3u_d,-1,%(○m3u出力パス)]"
+
+□m3uSong_Folder {
+_dpath = ((SPLITPATH(○m3u出力パス))[0])+((SPLITPATH(○m3u出力パス))[1])
+_i=(STRLEN(_dpath))-1
+_dpath=(SUBSTR(_dpath,0,_i))
+
+"\0\![open,file,%(_dpath)]\c"
+--
+□曲リスト出力
+}
+
+□m3uファイル名変更 {"\![open,inputbox,m3u_f,-1,%(○m3uファイル名)]"}
+
+□m3u時刻OFF{○m3u時刻=0;□曲リスト出力}
+□m3u時刻ON{○m3u時刻=1;□曲リスト出力}
+□m3u上書きOFF{○m3u上書き=0;□曲リスト出力}
+□m3u上書きON{○m3u上書き=1;□曲リスト出力}
+
+
+//znote - when you're using the save playlist feature to make a m3u and are overwriting a file
+□m3uで出力 {
+○ヘルプメニュー表示中 = 0
+if (FATTRIB(○m3u出力パス)) != -1 {
+	"A file with this\nname already\nexists.\w5 Do you\nwant to overwrite? \w4\n[half]/
+	\n　　　 \q[OK,□m3u上書き出力]｜\q[NO,□曲リスト出力]/
+	\e"
+	}
+else {
+	□m3u上書き出力
+	}
+
+}
+
+
+
+//□m3u別名出力 {
+//}
+
+□m3u上書き出力 {
+
+□m3u生成
+
+--
+if ○成否==1 {
+//znote - when the save playlist successfully makes a playlist
+_file=(SPLITPATH(○m3u出力パス)[2])+(SPLITPATH(○m3u出力パス)[3])
+
+	"\0%(○サーフェス)\s[0]Playlist %(fcl)”%(_file)”%(def) was created./
+	\n\n　　\q[OPEN FOLDER,□m3uSong_Folder]/
+	\n　　　 \q[CLOSE,□close]/
+	\w9\w9\w9\w9%(○サーフェス)/
+	\e"
+	}
+else {
+	"\0Failed to create playlist.\e"
+	}
+
+}
+
+□m3u生成 {
+○成否 = 0
+_di = (SPLITPATH(reference1)[0])+(SPLITPATH(reference1)[1])
+_f = FDEL(_di+"\tmp.m3u")
+_f = FDEL(○m3u出力パス)
+FCHARSET (0)
+if (FOPEN ("dat\tmp.m3u","w")) != 0 {
+	foreach ○曲リスト ; _i {
+		_i = 絶対パス変換(_i)
+		FWRITE ("dat\tmp.m3u",_i)
+		}
+	FCLOSE ("dat\tmp.m3u")
+	if (FCOPY ("dat\tmp.m3u",_di))==1 {
+		○成否 = FRENAME (_di+"\tmp.m3u",○m3u出力パス)
+		}
+	}
+}
+
+/// キーコンフィグ
+
+□キー設定_pre {
+_key0=(○キー設定[0])
+_key1=(○キー設定[1])
+_key2=(○キー設定[2])
+_key3=(○キー設定[3])
+_key4=(○キー設定[4])
+_key5=(○キー設定[5])
+○キー設定[20]=_key0
+○キー設定[21]=_key1
+○キー設定[22]=_key2
+○キー設定[23]=_key3
+○キー設定[24]=_key4
+○キー設定[25]=_key5
+□キー設定
+}
+
+□キーコンフィグヘッダ {": %(アイコン2('keycon'))Key Config :::::::::::::::\n\n[half]"}
+
+//znote - hotkey config menu
+□キー設定 {
+	□メニューヘッダ
+--
+	□キーコンフィグヘッダ
+--
+"Click [change] to change a key.\nWhen you're satisfied with the\nchanges, click [save changes].\n/
+\n/
+%(アイコン2('point','□'))Song Playback　　　　［%(キー設定表示名(20))］［\q[Change,□曲Playbackキー変更]］\n\n[half]/
+%(アイコン2('point','□'))Stop Playback　　　［%(キー設定表示名(21))］［\q[Change,□一時停止キー変更]］\n\n[half]/
+%(アイコン2('point','□'))Menu　　　［%(キー設定表示名(22))］［\q[Change,□メニューキー変更]］\n\n[half]/
+%(アイコン2('point','□'))Song Window   ［%(キー設定表示名(23))］［\q[Change,□曲ウィンドウキー変更]］\n\n[half]/
+%(アイコン2('point','□'))Playlist Clear　　　［%(キー設定表示名(24))］［\q[Change,□曲クリアキー変更]］\n\n[half]/
+%(アイコン2('point','□'))Exit Program　　　　　［%(キー設定表示名(25))］［\q[Change,□終了キー変更]］\n\n[half]/
+\n　　　　　　［\q[Save Changes,□キー設定完了]］/
+"
+--
+"\n\n\n[half]　　　　　　 \q[CLOSE,□close]｜\q[BACK,□メニュー_index]\e"
+}
+
+
+キー設定表示名 {
+
+_i=TOINT(_argv[0])
+_キー名=(○キー設定[(_i)])
+
+
+	if (_キー名) == 'up'			{'↑'}
+	elseif (_キー名) == 'left'		{'←'}
+	elseif (_キー名) == 'down'		{'↓'}
+	elseif (_キー名) == 'right'		{'→'}
+	elseif (_キー名) == ':'			{'*'}
+	elseif (_キー名) == ';'			{'+'}
+	elseif (_キー名) == 'return'	{'enter'}
+	//「/」の時
+	elseif (_キー名) == (CHR(0x2f))	{'?'}
+	//「\の時」
+	elseif (_キー名) == '￥'	{'\\'}
+	elseif (STRLEN(_キー名))<=1||(SUBSTR(_キー名,0,1))=='f' {
+		TOUPPER(_キー名)
+		}
+	else {(_キー名)}
+
+
+}
+
+
+□曲Playbackキー変更{
+○イベント名 = "キー変更0"
+□キー設定2
+}
+□一時停止キー変更{
+○イベント名 = "キー変更1"
+□キー設定2
+}
+□メニューキー変更{
+○イベント名 = "キー変更2"
+□キー設定2
+}
+□曲ウィンドウキー変更{
+○イベント名 = "キー変更3"
+□キー設定2
+}
+□曲クリアキー変更{
+○イベント名 = "キー変更4"
+□キー設定2
+}
+□終了キー変更{
+○イベント名 = "キー変更5"
+□キー設定2
+}
+
+
+□キー設定2 {
+	□メニューヘッダ
+--
+	□キーコンフィグヘッダ
+--
+"%(アイコン2('point','□'))Select the key you want to set.\n/
+\n/
+\q[ A ,□key_a]\q[ B ,□key_b]\q[ C ,□key_c]\q[ D ,□key_d]\q[ E ,□key_e]\q[ F ,□key_f]\q[ G ,□key_g]\q[ H ,□key_h]\q[ I ,□key_i]\q[ J ,□key_j]\q[ K ,□key_k]\q[ L ,□key_l]\n/
+\q[ M ,□key_m]\q[ N ,□key_n]\q[ O ,□key_o]\q[ P ,□key_p]\q[ Q ,□key_q]\q[ R ,□key_r]\q[ S ,□key_s]\q[ T ,□key_t]\q[ U ,□key_u]\q[ V ,□key_v]\q[ W ,□key_w]\q[ X ,□key_x]\n/
+\q[ Y ,□key_y]\q[ Z ,□key_z]\n/
+\n \q[enter,□key_return]　\q[space,□key_space]　\q[backspace,□key_back]　\q[tab,□key_tab]/
+\n \q[insert,□key_insert]　\q[delete,□key_delete]/
+\n/
+\n \q[Up ↑,□key_up] \q[Left ←,□key_left] \q[Down ↓,□key_down] \q[Right →,□key_right]/
+\n\n\n　　　　　　 \q[CLOSE,□close]｜\q[BACK,□キー設定]\e"
+
+}
+
+
+//HOTKEYでつかえないもの
+//
+//\q[ ^ ,□key_^]\q[ %(CHR(0x5c)) ,□key_￥]\q[ @ ,□key_@]\q[ + ,□key_;]\q[ * ,□key_:]\q[ ? ,□key_/]\n/
+//\q[ F1 ,□key_f1]\q[ F2 ,□key_f2]\q[ F3 ,□key_f3]\q[ F4 ,□key_f4]\q[ F5 ,□key_f5]\q[ F6 ,□key_f6]\q[ F7 ,□key_f7]\q[ F8 ,□key_f8]\q[ F9 ,□key_f9]/
+//\n \q[F10,□key_f10] \q[F11,□key_f11] \q[F12,□key_f12]\n/
+//\q[home,□key_home]　\q[end,□key_end]　\q[shift,□key_shift]　
+
+
+□キー選択 {
+	_選択key = (REPLACE(reference0,"□key_",""))
+	_設定箇所 = (TOINT((REPLACE(○イベント名,"キー変更",""))))
+	_i=_設定箇所+20
+
+	_仮キー配列 = (○キー設定[20],○キー設定[21],○キー設定[22],○キー設定[23],○キー設定[24],○キー設定[25])
+	_仮キー配列[_設定箇所]='_'
+	if (ASEARCH(_選択key,_仮キー配列))!=-1 {
+	□メニューヘッダ
+--
+	□キーコンフィグヘッダ
+--
+	"\0%(アイコン2('point','□'))That key is already set to a shortcut.\_q\x"
+	--
+	□キー設定
+	}
+	else {
+		○キー設定[_i]=_選択key
+		--
+		□キー設定
+	}
+}
+
+□キー設定完了 {
+_key0=(○キー設定[20])
+_key1=(○キー設定[21])
+_key2=(○キー設定[22])
+_key3=(○キー設定[23])
+_key4=(○キー設定[24])
+_key5=(○キー設定[25])
+○キー設定[0]=_key0
+○キー設定[1]=_key1
+○キー設定[2]=_key2
+○キー設定[3]=_key3
+○キー設定[4]=_key4
+○キー設定[5]=_key5
+	if ○ホットキー操作=="ON" {
+	SAORI("saori\hotkey.dll")
+	□ホットキー準備
+	}
+	□メニューヘッダ
+--
+	□キーコンフィグヘッダ
+--
+"\v%(アイコン2('point','□'))Key settings are saved.\_q\x"
+	--
+	□メニュー_index
+}
+
+
+/// input box ///////////////////////////////////////////////////
+
+//znote - when you type in an address for adding a file
+OnUserInput {
+"\0"
+--
+//　空打ち確認
+ if reference1 == "" {
+	"\b[-1]"
+	}
+else {
+//　InputBoxID確認
+  if reference0 == "url" {
+		//　URLだったらダウンロード
+		if "http://" _in_ reference1 {
+			○URL = reference1
+			□URLから曲ダウンロード
+			}
+		elseif !reference1 {"\0\b[-1]\e"} 
+		//　URLじゃなかったら警告
+		else {"Please enter the\nURL of the sound\nfile.\n[half]/
+		\n　 \q[CLOSE,□close]｜\q[RETRY,□URL入力ダウンロード]/
+		\e"}
+		}
+	elseif reference0 == "m3u_d" {
+		if FATTRIB((SPLITPATH(reference1)[0])+(SPLITPATH(reference1)[1]))[2] != 1 {
+			"That directory\ndoes not exist.\n[half]/
+			\n　 \q[CLOSE,□close]｜\q[RETRY,□出力先ディレクトリ変更]/
+			\e"
+		}
+		elseif (SPLITPATH(reference1)[3])!=".m3u" {
+			"Please input a\npath to a file\nending with .m3u.\n[half]/
+			\n　 \q[CLOSE,□close]｜\q[RETRY,□出力先ディレクトリ変更]/
+			\e"
+			}
+		else {
+			○m3u出力パス=reference1
+			□曲リスト出力
+			}
+		}
+
+  elseif reference0 == "mpath" {
+	○path=0
+	○path=reference1
+		if ○path!=0 {
+		□ファイルがドロップされた
+		}
+	}
+  elseif reference0 == "mfpath" {
+	○ディレクトリ=0
+	○path=reference1
+		if (FATTRIB(○path)[2])==1 {
+		○ディレクトリ=○path
+		□ディレクトリドロップ処理
+		}
+	}
+ }
+}
+
+
+/// k_window ////////////////////////////////////////////////////
+
+//　マウスやキーで曲名ウィンドウオンオフ
+□曲名ウィンドウ表示 {
+if ○曲名ウィンドウON != 1
+	{
+	○曲名ウィンドウON = 1
+	_i=SAORI("saori\bln.dll", "win01", "%(○ウィンドウ表示用曲名)", "0", "0", "kyokumei")
+	}
+else {□曲名ウィンドウ非表示}
+}
+
+□曲名ウィンドウ非表示 {
+	○曲名ウィンドウON = 0
+	_i=SAORI("saori\bln.dll", "win01", "", "0", "0", "kyokumei")
+}
+
+//　曲名表示更新
+□ウィンドウに曲名表示 {
+	_i=SAORI("saori\bln.dll", "win01", "%(○ウィンドウ表示用曲名)", "0", "0", "kyokumei", "1")
+}
+
+//　曲名ウィンドウONの場合何かあって一時的に非表示にした後再表示
+□曲名ウィンドウONなら表示 {
+if ○曲名ウィンドウON == 1	{□ウィンドウに曲名表示}
+}
+
+○ウィンドウ表示用曲名 {
+if ○演奏中 == 1 {
+
+	if ○モード == "CD" {○ナンバー=○演奏中CDトラック}
+	else {○ナンバー=○演奏中曲No}
+
+			//　文字数18を越えると省略
+			if ○曲名文字数 > 18 {
+				_抜き出し = SUBSTR ("%(○演奏中曲名)",0,18)
+				○表示曲名 = "%(_抜き出し)…"
+    				}
+			else {○表示曲名 = "%(○演奏中曲名)"}
+			
+			// 曲No位置調整
+			_曲No文字数 = STRLEN (○ナンバー)
+				if _曲No文字数==1 { ○空白 = "\_q　" }
+				elseif _曲No文字数==2 { ○空白 = "\_q%(CHR(0x20))" }
+				else { ○空白 = "\_q" }
+				
+	//　表示
+
+		if ○モード == "CD" {
+		"%(○空白)%(○演奏中CDトラック)/%(○CDトラック数)\_q　CD - Track %(○演奏中CDトラック)"
+		}
+		else {
+		"%(○空白)%(○ナンバー)/%(○曲の数)\_q %(○表示曲名)"
+		}
+}
+else {
+	if ○モード == "CD" {"\_q　0/%(○CDトラック数) - NO PLAYING -\_q"}
+	else {"\_q　0/%(○曲の数) - NO PLAYING -\_q"}
+
+}
+}
+
+//_バイト数 = GETSTRBYTES ("%(○演奏中曲No)/%(○曲の数) %(○演奏中曲名)")
+
+□ヘルプメニューから曲ウィンドウ {
+□ヘルプメニュー消滅した
+□曲名ウィンドウ表示
+}
+
+
+/// weirds /////////////////////////////////////////////////////
+
+
+□weirds {
+○ヘルプメニュー表示中 = 0
+_i=SAORI("saori\Weirds.dll", "show", "/
+//メニュー
+%(ASC(1))%(ASC(1))　- music list -%(ASC(1))Dummy%(ASC(2))/
+%(ASC(1))%(ASC(1))%(ASC(1))Separator%(ASC(2))/
+%(□weirds曲メニュー判別)/
+","/
+//デザイン
+background.font.color%(ASC(1))0,0,0%(ASC(2))/
+background.base.color%(ASC(1))255,255,255%(ASC(2))/
+foreground.font.color%(ASC(1))%(mffc)%(ASC(2))/
+foreground.base.color%(ASC(1))%(mfbc)%(ASC(2))/
+menu.disable.font.color%(ASC(1))150,150,150%(ASC(2))/
+menu.item.fontname%(ASC(1))MS UI Gothic%(ASC(2))/
+sidebar.base.color%(ASC(1))255,255,255%(ASC(2))/
+menu.item.width%(ASC(1))100%(ASC(2))/
+sidebar.width%(ASC(1))0%(ASC(2))/
+")
+--
+"\e"
+}
+//%(fbgc)
+
+□weirds曲メニュー判別 {
+	if ○モード=="CD" { ○weirdsCDメニュー }
+	else { ○weirds曲メニュー }
+}
+
+○weirds曲メニュー {
+if ○曲の数>=1 {
+//キャッシュ更新
+if ○曲リスト更新!=0 {□weirdsリスト生成}
+--
+//znote - changes playlist display, breaks behaviors unless you replace them everywhere
+"/
+
+%(REPLACE(○weirdsリスト,ASC(4),'Playback'))/
+
+%(REPLACE(○weirdsリスト,ASC(4),'Song_Info'))/
+
+%(REPLACE(○weirdsリスト,ASC(4),'Song_Folder'))/
+
+%(REPLACE(○weirdsリスト,ASC(4),'Remove_Song'))/
+
+
+//znote - these change the menu display
+"
+	}
+	else {"%(ASC(1))%(ASC(1))　　 no data%(ASC(1))Dummy%(ASC(2))"}
+--
+"%(ASC(1))%(ASC(1))%(ASC(1))Separator%(ASC(2))"
+--
+	□weirdsPlayback法("Shuffle songs","ランダムで連続Playback","random")
+--
+	□weirdsPlayback法("Loop in order","seq_loop")
+--
+	□weirdsPlayback法("Play in order","seq_one")
+--
+	□weirdsPlayback法("Play song once","one")
+--
+	□weirdsPlayback法("Loop song","loop")
+--
+}
+
+
+
+
+
+□weirdsリスト生成 {
+ERASEVAR("○weirdsリスト")
+//○曲リスト配列の各要素値を順番に取り出し
+_c=0
+  //25曲以下ならフォルダにいれない
+  if ○曲の数<=25 {
+	foreach ○曲リスト ; _i {
+	// ファイル名を曲名に
+	_曲名 = ((SPLITPATH (_i))[2]) + ((SPLITPATH (_i))[3])
+
+	○weirdsリスト = ○weirdsリスト + ASC(4) + ASC(1) + ASC(1) + _曲名 + ASC(1) + "Event" + ASC(1) + "On_weirds曲%(ASC(4))" + ASC(1) + _c + ASC(2)
+	_c++
+	}
+  }
+  else {
+	foreach ○曲リスト ; _i {
+	// ファイル名を曲名に
+	_曲名 = ((SPLITPATH (_i))[2]) + ((SPLITPATH (_i))[3])
+	_フォルダ = (_c/25)*25+25
+	○weirdsリスト = ○weirdsリスト + ASC(4) + "\" + "～ " + _フォルダ + ASC(1) + ASC(1) + _曲名 + ASC(1) + "Event" + ASC(1) + "On_weirds曲%(ASC(4))" + ASC(1) + _c + ASC(2)
+	_c++
+
+	}
+  }
+
+
+○曲リスト更新=0
+}
+
+On_weirds曲Playback {
+○指定曲番号 = TOINT(reference0)+1
+□曲ランダムPlayback
+}
+
+On_曲ランダムPlayback {
+□曲ランダムPlayback
+}
+
+On_weirds曲Remove_Song {
+//曲の数が１の場合全て消去
+if ○曲の数<=1 {
+	□演奏ストップ
+	--
+	○曲リスト = IARRAY
+	FDEL(○ダウンロード曲リスト)
+	○ダウンロード曲リスト = IARRAY
+	}
+else {
+	_i=○曲リスト[(TOINT(reference0))]
+	if ○演奏中曲パス==_i {
+		ERASEVAR('○演奏中曲パス')
+		□演奏ストップ
+		}
+	//ダウンロード曲かどうか調べる
+	_d = ASEARCH(reference0,○ダウンロード曲リスト)
+	//ダウンロード曲だったらそれもRemove_Song
+	if _d != -1 { 
+		FDEL(○ダウンロード曲リスト[_d]) 
+		//リストからもRemove_Song
+		if (ARRAYSIZE(○ダウンロード曲リスト))<=1 {○ダウンロード曲リスト = IARRAY}
+		else {○ダウンロード曲リスト[_d] = IARRAY }
+		}
+	○曲リスト[(TOINT(reference0))] = IARRAY
+	}
+○曲リスト更新=1
+}
+
+On_曲リストクリア {
+"\0\v"
+--
+□曲リストクリア
+}
+
+On_weirds曲Song_Info {
+○path = ○曲リスト[reference0]
+○No = reference0+1
+□weirds曲Song_Info
+}
+
+□weirds曲Song_Info {
+○イベント名 = "□weirds曲Song_Info"
+□メニューヘッダ
+--
+"\v: %(アイコン2('music'))Song_Info ::::::::::\n\n[half]"
+--
+□曲Song_Info中身
+--
+"\n[half]/
+\n　　　　　　　　\q[CLOSE,□close]\e"
+}
+
+On_weirds曲Song_Folder {
+□weirds曲フォルダ
+}
+
+□weirds曲フォルダ {
+_path = ○曲リスト[reference0]
+_dpath = ((SPLITPATH(_path))[0])+((SPLITPATH(_path))[1])
+if _dpath == "..\..\..\sound_file\" {_dpath = "..\..\sound_file"}
+else {
+	_i=(STRLEN(_dpath))-1
+	_dpath=(SUBSTR(_dpath,0,_i))
+	}
+"\0\![open,file,%(_dpath)]\e"
+}
+
+
+○weirdsCDメニュー {
+
+//キャッシュ更新
+	if ○CDトラック数>0 {
+	□weirdsCDリスト生成
+
+	}
+	else {"%(ASC(1))%(ASC(1))　　 no data%(ASC(1))Dummy%(ASC(2))"}
+--
+"%(ASC(1))%(ASC(1))%(ASC(1))Separator%(ASC(2))"
+--
+	□weirdsPlayback法("Shuffle songs","ランダムで連続Playback","random")
+--
+	□weirdsPlayback法("リスト順にエンドレス","seq_loop")
+--
+	□weirdsPlayback法("リスト順に一周だけ","seq_one")
+--
+	□weirdsPlayback法("一曲を一度だけ","one")
+--
+	□weirdsPlayback法("同じ曲をエンドレス","loop")
+--
+"/
+%(ASC(1))%(ASC(1))%(ASC(1))Separator%(ASC(2))/
+%(ASC(1))%(ASC(1))CDを取り出す%(ASC(1))Event%(ASC(1))On_CDを取り出す%(ASC(2))/
+%(ASC(1))%(ASC(1))CDをセットする%(ASC(1))Event%(ASC(1))On_CDをセットする%(ASC(2))/
+"
+}
+
+□weirdsPlayback法 {
+
+"Playback Options%(ASC(1))"
+--
+if ○演奏法==_argv[1] ; "C"
+elseif (ISVAR("○演奏法"))==0 && _argv[1]=="random" ; "C"
+--
+"%(ASC(1))%(_argv[0])%(ASC(1))"
+--
+if ○演奏法==_argv[1] ; "Dummy"
+elseif (ISVAR("○演奏法"))==0 && _argv[1]=="random" ; "Dummy"
+else {"Event"}
+--
+"%(ASC(1))On_Playback法変更%(ASC(1))%(_argv[1])%(ASC(2))"
+}
+
+
+□weirdsCDリスト生成 {
+ERASEVAR("○weirdsリスト")
+_c=0
+
+	//20曲以下ならフォルダにいれない
+	if ○CDトラック数<=20 {
+		for _c = 1 ; _c <= ○CDトラック数 ; _c++ {
+		○weirdsリスト = ○weirdsリスト  + ASC(1) + ASC(1) + "Track %(_c)" + ASC(1) + "Event" + ASC(1) + "On_weirdsCD指定Playback" + ASC(1) + _c + ASC(2)
+		}
+	}
+	else {
+		for _c = 1 ; _c <= ○CDトラック数 ; _c++ {
+		_フォルダ = (_c/25)*25+25
+		○weirdsリスト = ○weirdsリスト + "～ " + _フォルダ  + ASC(1) + ASC(1) + "Track %(_c)" + ASC(1) + "Event" + ASC(1) + "On_weirdsCD指定Playback" + ASC(1) + _c + ASC(2)
+		}
+	}
+
+○weirdsリスト
+○CD曲リスト更新=0
+}
+
+On_weirdsCD指定Playback {
+○指定曲番号 = 0
+○指定曲番号 = TOINT(reference0)
+□曲ランダムPlayback
+}
+
+On_CDを取り出す { _i=SAORI("saori\mcidonut.dll", "dooropen") }
+
+On_CDをセットする { _i=SAORI("saori\mcidonut.dll", "doorclose") }
+
+On_Playback法変更 {
+○演奏法=reference0
+"\0\e"
+}
+
+
+/// url drop ///////////////////////////////////////////////////
+
+OnURLQuery {
+
+if "audio" _in_ reference2 {
+	○URL=reference0
+	□URLから曲ダウンロード
+	}
+
+}
+
+□URLから曲ダウンロード {
+//znote - when downloading files
+	//　URLが音楽ファイルかどうか確認
+	_拡張子 = TOLOWER ((SPLITPATH (○URL))[3])
+	if (ASEARCH(_拡張子,'.mid','.mp3','.wav','.wma','.ogg')) != -1 {
+	○DL開始 = 0
+	○DL成功 = 0
+	○URL = reference0
+		"\0"
+	--
+	○上書き曲DL=0
+		_file = ((SPLITPATH (○URL))[2])+((SPLITPATH (○URL))[3])
+file=_file
+		if (FATTRIB("..\..\sound_file\%(_file)")) != -1 {
+			"\b[0]A song with this\nname has already\nbeen downloaded. \w5\nDo you want to\noverwrite? \w4\n[half]/
+			\n　　　 \q[OK,□上書き曲ダウンロード]｜\q[NO,□close]/
+			\e"
+		}
+		else {□曲ダウンロード開始}
+	}
+}
+
+□上書き曲ダウンロード {
+	○上書き曲DL=1
+	○演奏中 = 0
+	○サーフェス = "\s[0]"
+	_i=SAORI("saori\mciaudior.dll", "stop")
+	_ファイル名 = ((SPLITPATH (○URL))[2])+((SPLITPATH (○URL))[3])
+	_i=FDEL ("..\..\sound_file\%(_ファイル名)")
+--
+□曲ダウンロード開始
+}
+
+
+□曲ダウンロード開始 {
+		○DL開始 = 1
+		_file=(SPLITPATH(○URL))[2]+(SPLITPATH(○URL))[3]
+		"\0\s[6]%(fcl)”%(_file)”%(def)\n now loading...\![execute,http-get,%(○URL),--timeout=40,--async=soundfile,--file=%(_file)]\e"
+}
+
+
+OnExecuteHTTPComplete {
+	if reference0=="get"&& reference1=="soundfile" {
+
+		_ファイル名 = ((SPLITPATH (○URL))[2])+((SPLITPATH (○URL))[3])
+		//DLファイル移動
+		_i=FMOVE ( "var\%(_ファイル名)","..\..\sound_file\" )
+--
+		if ○上書き曲DL==1 {
+		"\0\s[0]%(_ファイル名) has been redownloaded./
+		\n\n[half]　　 \q[PLAY,□上書き曲Playback]｜\q[CLOSE,□close]/
+		\e"
+		○上書き曲DL=0
+		}
+		else {
+			_Filename = "..\..\..\sound_file\%(_ファイル名)"
+		
+				//　まだ入ってないならダウンロード曲リストに追加
+				if (ASEARCH(_Filename,○ダウンロード曲リスト)) == -1 {
+					if (ARRAYSIZE(○ダウンロード曲リスト))==0 {
+					○ダウンロード曲リスト = _Filename
+					}
+					else {○ダウンロード曲リスト = (○ダウンロード曲リスト,_Filename)}
+				}
+				○DL成功 = 1
+				//　ファイルパスをAllFilepathに保存し処理
+				○AllFilepath = _Filename
+				□ドロップファイル処理
+		}
+	}
+
+}
+
+OnExecuteHTTPFailure {"\0\s[6]\n\n　> Download-error\w9\w9\w9\w9%(○サーフェス)\b[-1]\e"}
+
+
+□上書き曲Playback {
+_ファイル名 = ((SPLITPATH (○URL))[2])+((SPLITPATH (○URL))[3])
+_Filename = "..\..\..\sound_file\%(_ファイル名)"
+○指定曲番号=(ASEARCH(_Filename,○曲リスト))+1
+□曲ランダムPlayback
+}
+
+/// file drop //////////////////////////////////////////////////
+
+OnDirectoryDrop
+{
+○ディレクトリ=0
+○ディレクトリ=reference0
+□ディレクトリドロップ処理
+}
+
+□ディレクトリパス調整 {
+	if ○sender == "SSP" {○ディレクトリ = ○path}
+	else {○ディレクトリ = ○path + "\"}
+□ディレクトリドロップ処理
+}
+
+
+□ディレクトリドロップ処理 {
+"\0\b[6]\b[-1]"
+--
+	//　ディレクトリに入ってるファイルを全て配列保存
+	○AllFilepath = FENUM (○ディレクトリ)
+	--
+	□ドロップファイル処理
+--
+"\e"
+}
+
+
+
+OnFileDrop2 {
+○path=0
+○path=reference0
+□ファイルがドロップされた
+}
+
+□ファイルがドロップされた {
+"\0"
+--
+	//　ディレクトリかどうか判断
+	if (FATTRIB (○path))[2] == 1 {
+	○ディレクトリ=0
+	○ディレクトリ=reference0
+	□ディレクトリパス調整
+	}
+	
+	//　ディレクトリじゃなかったらファイルとして処理
+	else {
+	○ディレクトリ = 0
+	//　簡易配列を汎用配列へ変換
+	○AllFilepath = SPLIT (○path, ",")
+	○path = (○AllFilepath[0])
+	_拡張子 = TOLOWER ((SPLITPATH (○path))[3])
+		// m3uを投げられた
+	if _拡張子 == ".m3u" || _拡張子 == ".pls" {
+		□プレイリスト処理
+		}
+		else {
+		□ドロップファイル処理
+		}
+	}
+--
+"\e"
+}
+
+
+
+□ドロップファイル処理 {
+	_ドロップファイル数 = ARRAYSIZE (○AllFilepath)
+	_追加した曲数 = 0
+	_既に入ってた曲数 = 0
+//ドロップされたファイル配列の各要素値を順番に取り出し
+foreach ○AllFilepath ; _Filename {
+	//音楽ファイルかどうか拡張子で判断
+	_拡張子 = TOLOWER ((SPLITPATH (_Filename))[3])
+	if (ASEARCH(_拡張子,'.mid','.mp3','.wav','.wma','.ogg')) != -1
+		{
+		//ディレクトリパスが付いてなかったら付ける
+		if ○ディレクトリ != 0 {_Filename = ○ディレクトリ + _Filename}
+		
+		//音楽ファイルならリストに入っているか判断(無い場合-1)
+		if (ASEARCH(_Filename,○曲リスト)) == -1
+			{
+			//入っていない曲ならリストに追加
+			if ○曲の数<=0 {○曲リスト = _Filename}
+			else {○曲リスト = (○曲リスト,_Filename)}
+			_追加した曲数++
+			}
+			//既に入ってた曲なら何もしないでカウント
+			else { _既に入ってた曲数++ }
+		}
+
+	}
+//曲追加した場合曲数報告
+//znote - when adding songs to the playlist
+--
+if _追加した曲数 >= 1 {
+	○曲リスト更新=1
+	□ヘルプメニュー消滅した
+	--
+	if ○曲の数 == 1 {○曲リスト = ○曲リスト[0]}
+	"\b[0]\c%(○サーフェス)\s[0] %(_追加した曲数) song(s) added. \w5\n There are %(○曲の数)\nsong(s) in the\nplaylist."
+	--
+	if _追加した曲数 == 1 && ○モード != "CD" {
+	"\n\n[half]　　 \q[PLAY,□ドロップ曲Playback]｜\q[CLOSE,□close]"
+		}
+	--
+	"\w9\w9\w9\w9%(○サーフェス)"
+	}
+	
+//曲追加できなかった
+else {
+	□ヘルプメニュー消滅した
+	--
+	//既に入ってた曲を1つ以上ドロップされた
+	if _既に入ってた曲数 >0	{"\b[0]\s[0]Song is already on the playlist.\w9\w9\w9\w9%(○サーフェス)"}
+	}
+//　セーブ
+SAVEVAR
+}
+
+□ドロップ曲Playback {
+○指定曲番号=○曲の数
+□曲ランダムPlayback
+}
+
+□プレイリスト処理 {
+_f=FOPEN (○path,"r")
+_txt=0
+_i=0
+○AllFilepath = IARRAY
+	while _txt != -1 && _i<5000 {
+	_i++
+	_txt = FREAD (○path)
+	_d = _i-2
+		//先頭にFile*=がついてたらRemove_Song
+		if (STRSTR(_txt,"File%(_d)=",0))==0 {
+		_txt = REPLACE(_txt, "File%(_d)=", "")
+		}
+		//先頭に#EXTM3Uや#EXTINFや[playlist]がついてなかったら○AllFilepathに追加
+		if (STRSTR(_txt,"[playlist]",0))!=0 && (STRSTR(_txt,"#EXTM3U:",0))!=0 && (STRSTR(_txt,"#EXTINF:",0))!=0 && _txt!=-1 {
+		○AllFilepath = (○AllFilepath,_txt)
+		}
+	}
+FCLOSE (○path)
+	if (ARRAYSIZE(○AllFilepath)) >=1 {
+	□ドロップファイル処理
+	}
+}
+
+
+
+/// music //////////////////////////////////////////////////////
+
+□曲ランダムPlayback {
+○ヘルプメニュー表示中=0
+
+ //CDモードの時===========================
+ if ○モード =="CD" {
+ ○CDトラック数=(SAORI('saori\mcidonut.dll', 'trackcount'))
+	if ○CDトラック数 >= 1 {
+			//指定番号がある場合
+			if ○指定曲番号>=1 {
+			○演奏中CDトラック = ○指定曲番号
+			ERASEVAR ("○指定曲番号")
+			}
+			//トラック数が1か
+			elseif ○CDトラック数==1 {○演奏中CDトラック = 1}
+			elseif ○演奏法=="seq_one"&&(ISVAR("○指定曲番号"))==0 {
+			○演奏中CDトラック = 1
+			}
+
+			elseif ○演奏法=="seq_loop" {
+				if ○演奏中CDトラック == ○CDトラック数 {
+				○演奏中CDトラック = 1
+				}
+				else {
+				_i=TOINT(○演奏中CDトラック)
+				○演奏中CDトラック=_i+1
+				}
+			}
+
+			//2以上なら前回Playbackしたトラック以外を演奏
+			else {
+				_選択トラック=○演奏中CDトラック
+				while _選択トラック==○演奏中CDトラック {
+				_t = ○CDトラック数-1
+				_選択トラック = (RAND(_t))+1 
+				}
+			○演奏中CDトラック = _選択トラック
+			}
+
+		_e=SAORI("saori\mcidonut.dll", "stop")
+		_e=SAORI("saori\mcidonut.dll", "seek", ○演奏中CDトラック)
+		_e=SAORI("saori\mcidonut.dll", "play")
+		○サーフェス = "\s[25]"
+
+		if ○演奏中 == 0 {"\b[6]\0\b[-1]\s[25]\e"
+		--
+		□ヘルプメニュー消滅した
+		}
+		○演奏中 = 1
+		○起動中演奏回++
+		○Playback時間帯[hour] = (○Playback時間帯[hour])+1
+		--
+		//曲名ウィンドウ表示してたら曲名更新
+		□曲名ウィンドウONなら表示
+	}
+ }
+ //通常モードの時===========================
+ else {
+   //曲が一曲以上あれば実行
+   if ○曲の数 >= 1 {
+   	//演奏していない状態だったら歌サーフェスにする
+	if ○演奏中 == 0 {"\0\b[-1]\s[25]\e"
+		--
+		□ヘルプメニュー消滅した}
+	_前回演奏曲パス = ○演奏中曲パス
+		//曲が1曲しかない場合それを演奏
+		//又は演奏法がseq_oneの場合1から演奏
+		if ○曲の数 == 1 {
+			○演奏中曲パス = ○曲リスト
+			○演奏中曲No = 1
+		}
+		elseif ○演奏法 == "seq_one"&& (ISVAR("○指定曲番号"))==0 {
+			○演奏中曲パス = ○曲リスト[0]
+			○演奏中曲No = 1
+		}
+		elseif (ISVAR("○指定曲番号"))==1 {
+			○演奏中曲パス = ○曲リスト[(○指定曲番号-1)]
+			○演奏中曲No = ○指定曲番号
+		}
+		//曲が2曲以上ある場合ランダム演奏
+		else {
+		_演奏する曲パス = (ANY(○曲リスト))
+		○演奏中曲No = TOINT(LSO+1)
+			//前回と違う曲を選ぶまでループ
+			while _演奏する曲パス == _前回演奏曲パス {
+			_演奏する曲パス = (ANY(○曲リスト))
+			○演奏中曲No = TOINT(LSO+1)
+			}
+		○演奏中曲パス = _演奏する曲パス
+		}
+	//選んだファイルを演奏
+	_i=SAORI("saori\mciaudior.dll", "load", "%(○演奏中曲パス)")
+	_i=SAORI("saori\mciaudior.dll", "play")
+	○Playback時間帯[hour] = TOINT((○Playback時間帯[hour])+1)
+	○サーフェス = "\s[25]"
+	○演奏中 = 1
+	○起動中演奏回++
+	ERASEVAR ("○指定曲番号")
+	// ファイル名を曲名にする
+	○演奏中曲名 = "%((SPLITPATH (○演奏中曲パス))[2])%((SPLITPATH (○演奏中曲パス))[3])"
+	if ○演奏曲拡張子 == ".mp3"
+	{
+
+		_トラック = SAORI("saori\KI.dll","ExtractMP3","%(○演奏中曲絶対パス)","GetTrack")
+		
+		// トラック取得成功したら曲名にする
+		if "id3%(CHR(0x20))tag%(CHR(0x28))v1%(CHR(0x29))%(CHR(0x20))is%(CHR(0x20))not%(CHR(0x20))found" !_in_ _トラック && "204%(CHR(0x20))No%(CHR(0x20))Content" !_in_ _トラック && "Not%(CHR(0x20))Found" !_in_ _トラック { ○演奏中曲名 = _トラック }
+	}
+
+	--
+	//曲名ウィンドウ表示してたら曲名更新
+	□曲名ウィンドウONなら表示
+   }
+ }
+}
+
+
+□演奏一時停止 {
+//CDモード
+ if ○モード=="CD" && ○CDトラック数 >= 1 && ○起動中演奏回 >= 1 {
+	_i = SAORI("saori\mcidonut.dll", "play")
+		if ○演奏中 == 1 {
+		○演奏中 = 0
+		○サーフェス = "\s[0]"
+		"\0\b[-1]\s[0]\e"
+		--
+		□ヘルプメニュー消滅した
+		}
+		else {
+		○演奏中 = 1
+		○サーフェス = "\s[25]"
+		"\0\b[-1]\s[25]\e"
+		--
+		□ヘルプメニュー消滅した
+		}
+ }
+//通常モード
+ elseif ○曲の数 >= 1 && (ISVAR('○演奏中曲パス')) >= 1 {
+
+
+
+		//　演奏曲の拡張子が.oggかつmciモードではない場合停止/同じ曲をPlayback
+		if ○演奏曲拡張子 == ".ogg" && ○ogg設定!="mci" {
+			if ○演奏中 == 1 {
+			_i=SAORI("saori\mciaudior.dll", "stop")
+			}
+			else {
+			_i=SAORI("saori\mciaudior.dll", "play")
+			}
+		□演奏中かどうか判断
+		}
+		//　起動した直後の場合前回終了時の曲を演奏
+		elseif ○起動中演奏回 < 1 {
+		○指定曲番号 = ○演奏中曲No
+		□曲ランダムPlayback
+		}
+		//　その他の場合一時停止/解除
+		else {
+		_i=SAORI("saori\mciaudior.dll", "play")
+		□演奏中かどうか判断
+		}
+
+	--
+	□ヘルプメニュー消滅した
+	--
+	"\0%(○サーフェス)\e"
+
+ }
+
+}
+
+□演奏中かどうか判断 {
+		if ○演奏中 == 1 {
+		○演奏中 = 0
+		○サーフェス = "\s[0]"
+		}
+		else {
+		○演奏中 = 1
+		○サーフェス = "\s[25]"
+		}
+}
+
+□演奏停止 {
+	□ヘルプメニュー消滅した
+	--
+	○サーフェス = "\s[0]"
+	○演奏中 = 0
+	_i=SAORI("saori\mciaudior.dll", "stop")
+	"\0\s[0]\e"
+}
+
+//曲が演奏終了した
+OnMAAPlayFinish {
+	_i=SAORI("saori\mciaudior.dll", "stop")
+	if ○演奏法 == "one" {
+	○サーフェス = "\s[0]"
+	○演奏中 = 0
+	"\0\c\s[0]\e"
+	}
+	elseif ○演奏法 == "loop" {
+	○指定曲番号=○演奏中曲No
+	□曲ランダムPlayback
+	}
+	elseif ○演奏法 == "seq_one" {
+		if ○曲の数 == ○演奏中曲No {
+		○サーフェス = "\s[0]"
+		○演奏中 = 0
+		"\0\c\s[0]\e"
+		}
+		else {
+		○指定曲番号=○演奏中曲No+1
+		□曲ランダムPlayback
+		}
+	}
+	elseif ○演奏法 == "seq_loop" {
+		if ○曲の数 == ○演奏中曲No {
+		○指定曲番号=1
+		□曲ランダムPlayback
+		}
+		else {
+		○指定曲番号=○演奏中曲No+1
+		□曲ランダムPlayback
+		}
+	}
+	else {□曲ランダムPlayback}
+}
+
+//CD1トラック終了
+OnMCIDonutTrackFinish {
+	if ○演奏法 == "one" {
+	_i=SAORI("saori\mcidonut.dll", "stop")
+	○サーフェス = "\s[0]"
+	○演奏中 = 0
+	"\0\s[0]\e"
+	}
+	elseif ○演奏法 == "seq_one" {
+		if ○演奏中CDトラック == ○CDトラック数 {
+		_i=SAORI("saori\mcidonut.dll", "stop")
+		○サーフェス = "\s[0]"
+		○演奏中 = 0
+		"\0\s[0]\e"
+		}
+		else {
+		○起動中演奏回++
+		○演奏中CDトラック++
+		○Playback時間帯[hour] = (○Playback時間帯[hour])+1
+		□曲名ウィンドウONなら表示
+		}
+	}
+	elseif ○演奏法 == "loop" {
+	○指定曲番号=○演奏中CDトラック
+	□曲ランダムPlayback
+	}
+	elseif ○演奏法 == "seq_loop" {
+		if ○演奏中CDトラック == ○CDトラック数 {
+		○指定曲番号=1
+		□曲ランダムPlayback
+		}
+		else {
+		○起動中演奏回++
+		○演奏中CDトラック++
+		○Playback時間帯[hour] = (○Playback時間帯[hour])+1
+		□曲名ウィンドウONなら表示
+		}
+	}
+	else {
+	_i=SAORI("saori\mcidonut.dll", "stop")
+	□曲ランダムPlayback
+	}
+}
+
+
+//CDが取り出された
+OnMCIDonutCDEject {
+○CDトラック数 = -1
+if ○モード=="CD" {□CDストップ}
+}
+
+//CDがセットされた
+OnMCIDonutCDInsert {
+if ○モード=="CD" {○CDトラック数=(SAORI('saori\mcidonut.dll', 'trackcount'))}
+}
+
+/// list clear /////////////////////////////////////////////////
+
+□曲リストクリア {
+_ダウンロード曲数 = (ARRAYSIZE(○ダウンロード曲リスト))
+□ヘルプメニュー消滅した
+--
+　// 曲が一曲以上あれば実行
+//znote - for clearing the playlist
+   if ○曲の数 >= 1 {
+   	if _ダウンロード曲数 >= 1 {
+	"\0\s[0]There are %(○曲の数)\nsong(s) \w3 and %(_ダウンロード曲数)\ndownloaded song(s)\nin the playlist. \w5\nShould the list\nbe cleared?"
+	}
+	else {
+	"\0\s[0] There are %(○曲の数) song(s)\nin the playlist. \n\w4/
+	Should the list\nbe cleared? \w5\n[half]"
+	}
+--
+"\n　　　 \q[OK,□曲リストクリア実行]｜\q[NO,□close]\e"
+   }
+   // 曲がなかった
+   else { "\0\s[0]There are no songs in the playlist... \e" }
+}
+
+□曲リストクリア実行 {
+	//　ダウンロードした曲を全てRemove_Song
+	foreach ○ダウンロード曲リスト ; _Filename {
+	_ファイルRemove_Song = FDEL("\"+_Filename)
+	}
+	○曲リスト = IARRAY
+	○ダウンロード曲リスト = IARRAY
+	○曲リスト更新=1
+	ERASEVAR('○演奏中曲パス')
+	--
+	□演奏ストップ
+	--
+	"\c Playlist cleared.\e"
+	--
+	□曲名ウィンドウONなら表示
+}
+
+
+
+/// test ////////////////////////////////////////////////////////
+
+□動作テスト {
+_i=SAORI("saori\mcidonut.dll", "play")
+_i=SAORI("saori\mcidonut.dll", "trackcount")
+_d=SAORI("saori\mcidonut.dll", "validtrack")
+	□メニューヘッダ
+--
+"/
+%(_i)/
+%(_d)/
+"
+--
+"\n\n[half]\n　　　　　　\q[CLOSE,□close]\e"
+}
+
+
+/// event ///////////////////////////////////////////////////////
+
+OnSNTPBegin {□EventBegin}
+
+OnSNTPCompare { 
+
+"\0\6\e"
+
+}
+
+OnSNTPCorrect {
+_時刻=reference1[0]+'/'+reference1[1]+'/'+reference1[2]+' '+reference1[3]+':'+reference1[4]+':'+reference1[5]
+
+//znote - for resetting the time
+
+"\0\s[0]/
+\_q\n[half]/
+%(fcl)%(_時刻)%(def)\n/
+\n[half]/
+\_qTime reset.\w9\w9\w9\w9%(○サーフェス)\e"
+
+}
+
+OnSNTPFailure {□ConnectError}
+
+/////////////////////////////////////////////////////////////////
+
+//znote - when you check mail
+OnBIFFBegin {□EventBegin}
+
+OnBIFFComplete {
+"\0mail> %(○サーフェス)”%(reference2)”\w6\n/
+%(reference3) new out of %(reference0)\w6\n\e"
+//	if reference3 >= 1 {
+//		//---- ? ?? ?? ?
+// 		"\0\s[45]%(reference3) new emails!%(○サーフェス)\e"
+//	}
+ //	else {
+ //		//---- ? ??? ??		
+//		"\0\s[35]No new emails!%(○サーフェス)\e"
+ //	}
+}
+
+OnBIFF2Complete {
+"\0mail> %(○サーフェス)”%(reference2)”\w6\n/
+%(reference0)\w6\n/
+%(reference1)byte\e"
+}
+
+OnBIFFFailure {□ConnectError}
+
+/////////////////////////////////////////////////////////////////
+
+OnHeadlinesenseBegin {□EventBegin}
+
+OnHeadlinesense.OnFind {
+"\0\c%(○サーフェス)"
+--
+	if ○現在バルーン=="for flele" {
+	"\b[4]"
+	}
+	else {
+	"\b[2]"
+	}
+--
+"\![set,autoscroll,disable]\*\_q"
+--
+	//タイトル//
+	"%(fcl)”%(reference0)”%(def)\n[half]\n"
+	--
+	//本文//
+	_本文 = reference3
+
+	"%(_本文)\n[half]"
+	--
+	//リンク//
+	if reference2 == "First" || reference2 == "Next" {
+	"　　　\q[OPEN BROWSER,%(reference1)]｜\q[CLOSE,□close]｜\q[NEXT,]"
+	}
+	else {
+	"　　　　\q[OPEN BROWSER,%(reference1)]｜\q[CLOSE,□close]"
+	}
+--
+"\e"
+}
+
+OnHeadlinesenseComplete { "\0\b[6]\w9%(○サーフェス)\e" }
+
+OnHeadlinesenseFailure {□ConnectError}
+
+/////////////////////////////////////////////////////////////////
+
+OnRSSBegin {□EventBegin}
+
+OnRSSComplete {
+"\0\c%(○サーフェス)"
+--
+	if ○現在バルーン=="for flele" {
+	"\b[8]"
+	}
+	else {
+	"\b[2]"
+	}
+--
+"\![set,autoscroll,disable]\*\_q"
+--
+	//タイトル//
+	//%(SUBSTR (reference0,0,10))
+	_表示件数 = 12
+	if (STRLEN(reference0)) >=13 {_表示件数 = 11}
+	elseif ○現在バルーン=="for flele / wide" {_表示件数 = 11}
+
+	"%(fcl)”\q[%(reference0),%(reference1)]”%(def) %(_表示件数) listed\n[half]\n"
+	--
+	//本文//
+	_i=1
+	txt=""
+	while _i<=_表示件数 {
+	_i++
+	_タイトル = ((EVAL("reference" + _i))[0])
+	_タイトル = (REPLACE(_タイトル, '[' , '［'))
+	_タイトル = (REPLACE(_タイトル, ']' , '］'))
+	_タイトル = (REPLACE(_タイトル, '\' , '\\'))
+	_URL = (EVAL("reference" + _i))[1]
+		if _URL != "" {
+			if STRLEN(_タイトル) > 16 {
+			_タイトル = (SUBSTR (_タイトル,0,16)) + "…"
+			}
+			elseif _タイトル=="" {
+			_タイトル = "--------"
+			}
+		txt = txt + "%(_i-1)・\q[%(_タイトル),%(ASC(4))RSSURL_%(_URL)]\n[half]\n"
+		}
+	}
+	--
+	txt
+	--
+	"　　　　　　　　\q[CLOSE,□close]"
+
+--
+"\e"
+}
+
+
+□RSSURLジャンプ {
+_URL = (REPLACE(reference0,"%(ASC(4))RSSURL_",""))
+○URL=_URL
+"\j[%(_URL)]"
+}
+
+
+
+
+OnRSSFailure {□ConnectError}
+
+/////////////////////////////////////////////////////////////////
+
+OnInstallBegin {
+□EventBegin
+}
+
+OnInstallComplete {
+"\0%(○サーフェス)install complete\n[half]\n"
+--
+case reference0 {
+	when "rss" ; "RSS"
+	others ; reference0
+	}
+--
+" %(fcl)”%(reference1)”%(def)"
+--
+if reference0=="shell" {
+	"\w9\w9\w9\w9\w9\w9\![change,shell,%(reference1)]"
+	}
+//elseif reference0=="ghost" {
+//	"\n\n"
+//	}
+--
+
+
+"\e"
+}
+
+
+OnInstallFailure {
+if ○DL成功 == 0 {□InstallError}
+}
+
+OnInstallRefuse {□InstallError}
+
+/////////////////////////////////////////////////////////////////
+
+OnUpdatedataCreating {□EventBegin}
+
+OnNarCreating {□EventBegin}
+
+OnUpdatedataCreated { "\0%(○サーフェス)\s[0]%(fcl)”updates2.dau”%(def) created.\w9\w9\w9\w9%(○サーフェス)\e" }
+
+OnNarCreated { "\0%(○サーフェス)\s[0]%(reference2)%(fcl)”%(reference0)”%(def) created.\w9\w9\w9\w9%(○サーフェス)\e" }
+
+/////////////////////////////////////////////////////////////////
+
+OnUpdateBegin{□EventBegin}
+
+OnUpdateReady {
+_file=(TOINT(reference0))+1
+
+"\0\s[0]%(fcl)”%(_file)”%(def) update file"
+--
+if_file>1 {"s"}
+--
+"\e"
+}
+
+OnUpdate.OnDownloadBegin
+{
+	"\0\s[6]\_qloading %(fcl)”%(reference0)”%(def)\_q\e"
+}
+
+OnUpdateComplete {
+	if reference0 == "none" {"\0\s[0]%(reference3) no update file\w9\w9\w9\w9%(○サーフェス)\e"}
+	else {
+	"\0\s[0]%(reference3) update complete\w9\w9\w9\w9%(○サーフェス)\e"
+	}
+}
+
+OnUpdateFailure{
+
+"\0\s[6]%(reference3) update-failure\w9\w9\w9\w9%(○サーフェス)\b[-1]\e"
+
+}
+
+/////////////////////////////////////////////////////////////////
+
+OnSecondChange{}
+
+/////////////////////////////////////////////////////////////////
+
+// デフォサーフェスと違うサーフェスが一定時間続いたらもどす
+OnSurfaceChange {
+if Reference0 != ○サーフェス {"\0%(○サーフェス)\e"}
+}
+
+/////////////////////////////////////////////////////////////////
+
+□EventBegin {
+"\0\s[6]waiting\w7.\w7.\w7.\e"
+--
+□ヘルプメニュー消滅した
+}
+
+□ConnectError { "\0\s[6]connect-error\w9\w9\w9\w9%(○サーフェス)\b[-1]\e" }
+
+□InstallError { "\0\s[6]install-error\w9\w9\w9\w9%(○サーフェス)\b[-1]\e" }
+
+□close {
+"\0\b[-1]\w9\w9\w9%(○サーフェス)\e"
+--
+□ヘルプメニュー消滅した
+}
+
+□表示 {
+"\0%(○サーフェス)\1\s[10]"
+--
+□ヘルプメニュー消滅した
+}
+
+□一時的に手前に {
+"\0\v\e" 
+--
+□ヘルプメニュー消滅した
+}
+
+□アイコン化 { "\0\![set,windowstate,minimize]\e" }
+
+
+
+□ヘルプメニュー消滅した {○ヘルプメニュー表示中=0}
+
+//演奏中の曲Remove_Songされたときとか
+□演奏ストップ {
+	○演奏中 = 0
+	○サーフェス = "\s[0]"
+	_i=SAORI("saori\mciaudior.dll", "stop")
+	"\0\s[0]"
+}
+
+//CDを停めたい時
+□CDストップ {
+	○演奏中 = 0
+	○サーフェス = "\s[0]"
+	_i=SAORI("saori\mcidonut.dll", "stop")
+	"\0\s[0]"
+}
+
+//両方停める
+□曲を全て停止 {
+	_i=SAORI("saori\mcidonut.dll", "stop")
+	_i=SAORI("saori\mciaudior.dll", "stop")
+	○演奏中 = 0
+	○サーフェス = "\s[0]"
+	"\0\s[0]"
+}
+
+
+□タスクトレイアイコン指定 {
+if ○sender == "SSP"
+	{
+		case ○現在シェル {
+		when "Black" ; "\![set,tasktrayicon,img\fle_b.ico]"
+		when "White" ; "\![set,tasktrayicon,img\fle_w.ico]"
+		when "MA564J/A" ; "\![set,tasktrayicon,img\fle_m.ico]"
+		others ; "\![set,tasktrayicon,img\fle_n.ico]"
+		}
+	}
+
+}
+
+
+//ファイル選択ダイアログを表示し選択したファイルのパスを返す
+□ファイル選択ダイアログ {
+FUNCTIONEX("saori\proxy.dll","wvt.exe","OpenDialog")
+}
+
+
+/////////////////////////////////////////////////////////////////
+
+○曲の数 { TOINT((ARRAYSIZE(○曲リスト))) }
+○演奏中曲絶対パス {絶対パス変換(○演奏中曲パス)}
+○演奏曲拡張子 {TOLOWER ((SPLITPATH (○演奏中曲パス))[3])}
+○曲名文字数 {STRLEN (○演奏中曲名)}
+
+○現在曲サイズ {
+_i = FSIZE(○path)
+
+if _i == -1 {"　"}
+elseif _i>=1000000000 {
+	_i/1000000000 + "." + _i%1000000000/100000000 + "GB"
+	}
+elseif _i>=1000000 {
+	_i/1000000 + "." + _i%1000000/100000 + "MB"
+	}
+elseif _i>=1000 {
+	_i/1000 + "." + _i%1000/100 + "KB"
+	}
+else {
+	"%(_i)byte"
+	}
+}
+
+/////////////////////////////////////////////////////////////////
+
+絶対パス変換 {
+//相対パスなら絶対パスになおす
+if "..\..\..\sound_file\" _in_ _argv[0] {
+	REPLACE(_argv[0],"..\..\..\sound_file\","%(○現在パス)sound_file\")
+	}
+else {_argv[0]}
+}
+
+//ExtractMP3全般
+曲解析 {
+_i = SAORI("saori\KI.dll","ExtractMP3",○path,_argv[0])
+if (ASEARCH(_i,'id3 tag(v1) is not found','Target Not Found','204 No Content','arg0 is error','arg1 is error','arg2 is error')) != -1 {_i=''}
+_i = REPLACE(_i,"[","［")
+_i = REPLACE(_i,"]","］")
+_i = REPLACE(_i,"\","￥")
+_i
+}
+
+ジャンル番号解析 {
+_i = SAORI("saori\KI.dll","ExtractMP3",○path,"GetGenre")
+if _i==255 {""}
+elseif _i>=0 && _i<=147 {
+	ジャンル番号[(_i)]
+	}
+elseif _i==248 {'Heavy Rock'}
+elseif _i==249 {'Doom Rock'}
+elseif _i==250 {'J-POP'}
+elseif _i==251 {'Seiyu'}
+elseif _i==252 {'Tecno Ambient'}
+elseif _i==253 {'Moemoe'}
+elseif _i==254 {'Tokusatsu'}
+else {''}
+}
+
+
+/// string //////////////////////////////////////////////////////
+
+On_portalrootbutton.caption	{"　"}
+On_portalrootbutton.visible	{"0"}
+On_recommendrootbutton.caption	{"Link(&R)"}
+On_kero.recommendbutton.caption	{"　"}
+On_kero.recommendbutton.visible	{"0"}
+On_hidebutton.caption		{"Hide Flele(&I)"}
+On_readmebutton.caption		{"FLELE Readme(&G)"}
+
+//On_headlinesenserootbutton.caption	{
+//	if ○sender=="SSP" {"ヘッドライン/RSS(&H)"}
+//	else {"ヘッドライン(&H)"}
+//}
+
+//リンク
+On_sakura.recommendsites {"/
+
+Home%(ASC(1))/
+http://navy.nm.land.to/ukgk/flele/%(ASC(2))/
+
+iPod shuffle%(ASC(1))/
+http://www.apple.com/jp/ipodshuffle/%(ASC(2))/
+
+SSP%(ASC(1))/
+http://ssp.shillest.net/%(ASC(2))/
+
+FLELE translated by%(ASC(1))/
+http://zarla.deviantart.net/%(ASC(2))/
+"}
+
+//ネットワーク更新
+//On_updatebutton.caption		{"　"}
+//On_updatebutton.visible		{"0"}
+On_homeurl {"http://navy.nm.land.to/ukgk/flele/update/"}
+

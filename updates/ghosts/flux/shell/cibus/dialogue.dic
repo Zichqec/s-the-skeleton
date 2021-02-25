@@ -1,0 +1,89 @@
+shellver
+{
+	"2.0.0"
+}
+
+Custom_trayicon
+{
+	//Tray icon stuff - So it can be switched to after any kind of shell/ghost switching, even OnVanished and such. Maybe surfacerestore? Idk
+}
+
+Custom_OnBoot
+{
+	CibusGenericGreeting
+}
+
+Custom_OnShellChanging
+{
+	CibusGenericFarewell
+}
+
+CibusGenericFarewell
+{
+	"\0\s[2]See you later!"
+	"\0\s[2]Take care!"
+}
+
+Custom_OnShellChanged
+{
+	CibusGenericGreeting
+}
+
+CibusGenericGreeting
+{
+	"\0\s[4]Hello again.\w8\w8 It's a good day today,\w4 isn't it?"
+	"\0\s[4]Hello there.\w8\w8\s[2] Did you want me to sing for you?"
+	"\0\s[2]Hello again.\w8\w8\s[4] I'm ready to sing."
+}
+
+Custom_BirthdaySet //If the user sets their birthday and it's today
+{
+	"\0\s[2]Oh,\w4 it's your birthday,\w4 %(username)?\w8\w8\s[4] Happy birthday!"
+}
+
+Custom_Petting
+{
+	"\0\s[1].\w5.\w5.\w5Mmm\w5.\w5.\w5.\e"
+	"\0\s[1].\w5.\w5.\e"
+	"\0\s[1].\w5.\w5.\w5Hehe\w5.\w5.\w5.\e"
+}
+
+
+
+
+
+Custom_RandomTalk
+{
+	if NowPlaying[0] != "" && NowPlaying[2] == ""; CibusSingingDialogue
+	else; CibusIdleDialogue
+}
+
+CibusSingingDialogue : nonoverlap
+{
+	"\0Midnight,\w4 turn your face to the moonlight~\w8\w8\n\nLet your memory lead you,\w4 open up,\w4 enter in~\e:chain=memory"
+}
+
+CibusIdleDialogue : nonoverlap
+{
+	"\0\s[6]Hmm-mm...\e"
+	"\0\s[6](She's humming to herself.)\e"
+	"\0\s[6](She seems content to wait.)\e"
+}
+
+//---Song Chains---
+memory //The reprise version because I like that version better
+{{CHAIN
+	"\0If you find there the meaning of what happiness is,\w4 then a new life will begin~\e"
+	"\0Memory,\w4 all alone in the moonlight~\w8\w8\n\nI can smile at the old days,\w4 I was beautiful then~\e"
+	"\0I remember the time I knew what happiness was~\w8\w8\n\nLet the memory live again~\e"
+	"\0Burnt out ends of smoky days,\w4 the stale cold smell of morning~\w8\w8\n\nA streetlamp dies,\w4 another night is over,\w4 another day is dawning~\e"
+	"\0Daylight,\w4 I must wait for the sunrise~\w8\w8\n\nI must think of a new life,\w4 and I mustn't give in~\e"
+	"\0When the dawn comes tonight will be a memory too,\w4 and a new day will begin~\e"
+	"\0Sunlight through the trees in summer,\w4 endless masquerading~\w8\w8\n\nLike a flower as the dawn is breaking,\w4 the memory is fading~\e"
+	"\0Touch me!\w8\w8 it's so easy to leave me!\w8\w8\n\nAll alone with the memory,\w4 of my days in the sun!\w8\w8\n\nIf you touch me you'll understand what happiness is.\w8\w8\n\nLook,\w4 a new day has begun~\e:chain=end"
+}}CHAIN
+
+dejavu
+{{CHAIN
+	
+}}CHAIN

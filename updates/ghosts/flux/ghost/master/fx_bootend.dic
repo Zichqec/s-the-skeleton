@@ -1,0 +1,365 @@
+OnFirstBoot //Dialogue when you first open the ghost
+{
+	FirstBootVars //Initialize all your variables at the very bottom!
+	
+	"\0\*\t%(bb)\_q\![enter,passivemode][Please choose a language for FLUX player. This can be changed at any time in the config menu.]\n\n"
+	--
+	//TRANSLATORS: Add a menu option for your language here. The second argument is what the language variable will be set to, make sure you spell it exactly the same as your if checks!
+	"\![*]\q[English,OnLanguageChosen,English]\n"
+	--
+	"\e" 
+}
+
+OnLanguageChosen
+{
+	language = reference0
+	deleteshitai[1] = onoff[1]
+	AutoUpdates[2] = onoff[0]
+	
+	if language == "Placeholder" //TRANSLATORS: This is the introduction dialogue, once a language has been chosen. You also need to set a couple variables here! They're the labels for the toggles that appear in the config menu.
+	{
+		
+	}
+	else //English
+	{
+		hemiphere[1] = "Northern"
+		talkoption[1] = "any time" //"Talk any time"
+		
+		
+		"\0\s[0]%(bb)[Finished installing FLUX player.]\n\n\w8\w8[To add songs,\w4 drag and drop them onto FLUX.\w8\w8 You can also drag and drop a .m3u playlist.]\n\n\w8\w8[If you want to change the look of FLUX,\w4 check the Shell and Dressup menus.]\n\n\w8\w8[For other options,\w4 including changing languages,\w4 check the Config menu.]"
+	}
+	--
+	"\![leave,passivemode]\e"
+}
+
+OnBoot //Normal booting
+{
+	BootVars //This sets variables you want to be set on a normal boot, like resetting the runtime. Again, make sure you set these up at the bottom.
+	_timesince = FUNCTIONEX("time_check.dll","how_many_days",lastclosed[0],lastclosed[1],lastclosed[2],0,0,0)
+	_timesince *= -1 //Multiply it by -1 to get rid of the negative sign, or to add one if the user traveled back in time.
+	
+	"%(OnNotifySongInfo)"
+	--
+	if ISFUNC("Custom_OnBoot"); Custom_OnBoot
+	else; FluxBoot
+}
+
+FluxBoot
+{	
+	"\0\s[0]%(b)"
+	--
+	if language == "Placeholder" //TRANSLATORS: This is for booting the ghost, both regular booting and changing to FLUX from another ghost
+	{
+		
+	}
+	else //English
+	{
+		"[Starting FLUX player...]\n\n\w8\w8[Ready to play music.]\e"
+	}
+}
+
+
+OnClose
+{
+	NowPlaying[0] = ""
+	NowPlaying[2] = ""
+	MusicSettings[4] = ""
+	lastclosed = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)") //This tracks the last time the ghost was closed.
+	
+	"\![sound,stop]%(OnNotifySongInfo)"
+	--
+	if ISFUNC("Custom_OnClose"); Custom_OnClose
+	else; FluxClose
+	--
+	"\w8\w8\-\e"
+}
+
+FluxClose
+{
+	if language == "Placeholder" //TRANSLATORS: This is the generic closing dialogue, both for closing and switching to another ghost
+	{
+		
+	}
+	else //English
+	{
+		"\0%(b)[Closing FLUX player.]\n\n\w8\w8[Have a nice day!]"
+	}
+	--
+	"\e"
+}
+
+OnGhostChanging //Changing to another ghost. This is the internal name of your ghost, as written in descript.txt
+{
+	if reference0 == sakuraname //If reloading.
+	{
+		if language == "Placeholder" //TRANSLATORS: Reloading the ghost
+		{
+			
+		}
+		else //English
+		{
+			"\0%(b)[Reloading...]"
+		}
+		--
+		"\w8\w8\e" //Gives the user a moment to read the dialogue before they disappear
+	}
+	else
+	{
+		NowPlaying[0] = ""
+		NowPlaying[2] = ""
+		MusicSettings[4] = ""
+		lastclosed = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)") //This tracks the last time the ghost was closed.
+		
+		"\![sound,stop]%(OnNotifySongInfo)"
+		--
+		if ISFUNC("Custom_OnGhostChanging"); Custom_OnGhostChanging
+		else
+		{
+			FluxClose
+		}
+		--
+		"\w8\w8\e"
+	}
+}
+
+OnGhostChanged //After switching.
+{
+	if reference0 == sakuraname //Finished reloading.
+	{
+		if language == "Placeholder" //TRANSLATORS: Finished reloading the ghost
+		{
+			
+		}
+		else //English
+		{
+			"\0\s[0][Reload complete.]\e"
+		}
+	}
+	else
+	{
+		BootVars
+		_timesince = FUNCTIONEX("time_check.dll","how_many_days",lastclosed[0],lastclosed[1],lastclosed[2],0,0,0)
+		_timesince *= -1
+		
+		"%(OnNotifySongInfo)"
+		--
+		if ISFUNC("Custom_OnGhostChanged"); Custom_OnGhostChanged
+		else
+		{
+			FluxBoot
+		}
+	}
+}
+
+OnShellChanging //Starting to change the shell
+{
+	shellchange = IARRAY
+	"\1\s[-1]\0\![get,property,OnGetCoords,currentghost.scope(0).rect]" //This gets the current ghost coordinates so that they don't jump around the screen when they change shells
+	--
+	if reference0 == nowshell
+	{
+		if language == "Placeholder" //TRANSLATORS: Dialogue for switching to the same shell again, effectively reloading it
+		{
+			
+		}
+		else //English
+		{
+			"\0%(b)[Reloading shell.]"
+		}
+	}
+	else
+	{
+		if ISFUNC("Custom_OnShellChanging"); Custom_OnShellChanging
+		else; "\e"
+	}
+	--
+	"\w8\w8\e"
+}
+
+OnShellChanged //After the shell has changed
+{
+	shellchange[7] = reference0
+	"\s[-1]\![get,property,OnGetCoords2,currentghost.scope(0).rect]"
+	
+}
+
+OnGetCoords //This gets the x and y coordinates when changing shells
+{
+	shellchange[0] = reference0[0] //Head height
+	shellchange[1] = reference0[3] //Feet height
+	shellchange[2] = TOINT(reference0[3]) - TOINT(reference0[1]) //Frame height
+}
+
+OnGetCoords2 //This gets the x and y coordinates when changing shells
+{
+	shellchange[3] = reference0[0] //Head height
+	shellchange[4] = reference0[3] //Feet height
+	shellchange[5] = TOINT(reference0[3]) - TOINT(reference0[1]) //Frame height
+	shellchange[6] = TOINT(shellchange[1]) - TOINT(shellchange[5]) //Should be the feet height of the before shell, and then the height of the after shell added to it...
+	--
+	"\0\![move,--X=%(shellchange[0]),--Y=%(TOINT(shellchange[6])),--base=primaryscreen]\s[0]"
+	--
+	GetCustomShellDialogue
+	lastTalk = ""
+	--
+	"\![get,property,OnShellAuthor,currentghost.shelllist.current.craftman,currentghost.shelllist.current.craftmanw,currentghost.shelllist.current.craftmanurl]" //Moves the ghost to where they were on the previous shell, and gathers the craftman info for the shell
+	//ERASEVAR("shellchange")
+	--
+	
+	if shellchange[7] == nowshell //If the user switches to the shell they're already using
+	{
+		if language == "Placeholder" //TRANSLATORS: When finished reloading a shell
+		{
+			
+		}
+		else //English
+		{
+			"\0%(b)[Reloaded '%(shellchange[7])'.]\e"
+		}
+	}
+	else
+	{
+		"\![raise,OnChangedShell,%(shellchange[7])]"
+	}
+	nowshell = shellchange[7]
+}
+
+OnChangedShell //I have this here because it takes a moment for it to read the dialogue file and have the function ready. By raising the function, it gives it just enough time that it can call the custom dialogue. I assume that's what's happening, anyways.
+{
+	"\0%(b)"
+	--
+	if ISFUNC("Custom_OnShellChanged"); Custom_OnShellChanged
+	else
+	{
+		if language == "Placeholder" //TRANSLATORS: This dialogue is for changing to a shell with no custom dialogue
+		{
+			
+		}
+		else //English
+		{
+			"[Changed to '%(reference0)'.]"
+		}
+	}
+	--
+	if NowPlaying[0] != "" && NowPlaying[2] == ""; "%(SingingSurfaces)"
+	--
+	//"\_q%(bb)\n\nPrevious shell's Y value: %(shellchange[0])\nPrevious shell's feet level: %(shellchange[1])\nPrevious shell's height: %(shellchange[2])\n\n%(nowshell)'s Y value before moving: %(shellchange[3])\n%(nowshell)'s feet level before moving: %(shellchange[4])\n%(nowshell)'s height: %(shellchange[5])\n%(nowshell)'s new Y value: %(shellchange[6])\x"
+	--
+	"\e"
+}
+
+OnShellAuthor
+{
+	shellauthor = IARRAY
+	shellauthor[0] = reference0 //craftman
+	if shellauthor[0] == ""; shellauthor[0] = reference1 //Craftman is replaced by craftmanw if craftman is empty
+	shellauthor[1] = reference1 //craftmanw
+	shellauthor[2] = reference2 //craftmanurl
+}
+
+GetCustomShellDialogue
+{
+	_f = FENUM(SHIORI3FW.ShellPath)
+	_files = SPLIT(_f,",")
+	if ASEARCH("dialogue.dic",_files) != -1
+	{
+		_pathR = "%(SHIORI3FW.ShellPath)dialogue.dic"
+		_pathW = "fx_shelldialogue.dic"
+		_oR = FOPEN(_pathR,"r")
+		_oW = FOPEN(_pathW,"w")
+		--
+		_warning = "//###############################################################This is the code the ghost has copied into its own files, don't edit this one or your changes will be overwritten!###############################################################"
+		_f = FWRITE(_pathW,_warning)
+		for _buff = FREAD(_pathR); _buff != -1; _buff = FREAD(_pathR)
+		{
+			if _buff == ""; _f = FWRITE(_pathW,_warning)
+			else; _f = FWRITE(_pathW,_buff)
+		}
+		_f = FWRITE(_pathW,_warning)
+		--
+		_f = FCLOSE(_pathR)
+		_f = FCLOSE(_pathW)
+		--
+		"\![reload,shiori]"
+	}
+	else
+	{
+		_pathW = "fx_shelldialogue.dic"
+		_oW = FOPEN(_pathW,"w")
+		_f = FWRITE(_pathW,"//No shell dialogue to copy")
+		_f = FWRITE(_pathW,"//If you're creating a shell and want to add custom dialogue/code, check the documentation! You'll need to add a file called 'dialogue.dic' to your shell's folder.")
+		_f = FWRITE(_pathW,"//This file is updated upon changing shells. You can reload it by clicking the shell you're already using in the change shell menu, or by calling the function GetCustomShellDialogue")
+		_f = FCLOSE(_pathW)
+		--
+		"\![reload,shiori]"
+	}
+}
+
+//These are all the variables you want to set during a normal boot. So every time the ghost opens, we reset the timekeeping, whether the ghost has checked for updates, and if they've said anything yet.
+BootVars
+{
+	lastTalk = ""
+	runtime[0] = 0
+	runtime[1] = 0
+	runtime[2] = 0
+	AutoUpdates[1] = 0
+	booting = 0
+	waitingcommuS = IARRAY
+	waitingcommuM = IARRAY
+	NowPlaying[0] = ""
+	NowPlaying[2] = ""
+	MusicSettings[4] = ""
+	InstalledShellName = ""
+}
+
+//These are new variables to initialize after an update. By checking if the variable doesn't exist before initializing it, we prevent variables already in use from being overwritten. This is VERY IMPORTANT, or you risk resetting the user's progress on your new variables every time they update.
+//ISVAR is a built in YAYA function that checks if a variable exists(is initialized) or not. It returns 0 if the variable doesn't exist, and 1 if it does.
+UpdateVars
+{
+	//if ISVAR("examplevariable") == 0; examplevariable = 0
+}
+
+//These are all the variables that need to be initialized when the user first installs the ghost.
+FirstBootVars
+{
+	lastTalk = ""
+	runtime[0] = 0		//Hours, replaces passhour
+	runtime[1] = 0		//Minutes, replaces passmin
+	runtime[2] = 0		//Seconds, replaces passsec
+	totalhours = 0		//Total number of hours the ghost has been run
+	nowshell = "FLUX"
+	nowscale = 100
+	username = "User"
+	birthday[0] = "???"	//The user's birthday, written out with words
+	birthday[1] = "???"	//The user's birthday, written in DD/MM format
+	talkrate = "every 5 minutes"
+	aitalkinterval = 300
+	totalpunches = 0
+	//---Petting related variables---
+	stroke[0] = 0		//The stroke value, which resets after each pet
+	stroke[1] = 0		//The stroke value, but it doesn't reset after each pet
+	stroke[2] = 0		//The current streak of successful pets
+	pethighscore[0] = 0	//The petting high score, as the number of the stroke value
+	pethighscore[1] = 0	//The petting high score, as the number of pets
+	totalpets = 0		//The total times the ghost has been pet
+	//---
+	deleteshitai = (0,"Off")
+	AutoUpdates = (1,0,"On")
+	//nowmode = "Default" //Uncomment if you plan to add more modes
+	installdate = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)","%(ghostver)") //This tracks the exact day and time the ghost was installed, in case you want to mess around with that later. It also tracks what version the user installed, which may be helpful for debugging!
+	//booting = 1 //This will be set to 0 after firstboot is complete
+	waitingcommuS = IARRAY //These two arrays handle the non-interrupt system for communication. They're for storing messages from other ghosts when your ghost is busy talking.
+	waitingcommuM = IARRAY
+	
+	NowPlaying = ("",-1,"")
+	MusicSettings = (100,100,0,0,"")
+	talkoption = (0,"any time")
+	InstalledShellName = ""
+	shellauthor = ("Zichqec","Zichqec","https://zichqec.github.io/s-the-skeleton/index.html")
+	CurrentPlaylist = IARRAY
+	ShuffledPlaylist = IARRAY
+	DraggedFile = ""
+	Hotkeys = IARRAY
+	balloonmode = 0 //Dark mode
+	hemisphere = (0,"Northern")
+}

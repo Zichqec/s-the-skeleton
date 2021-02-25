@@ -1,0 +1,291 @@
+//I put anything related to who the user is in here. Name, pronouns, birthday.
+
+OnChangeName
+{
+	"\0%(b)\*\![open,inputbox,OnNameTeach,-1]"
+	--
+	if language == "Placeholder" //TRANSLATORS: Start of changing your name
+	{
+		
+	}
+	else //English
+	{
+		"[Set your desired name.]"
+		--
+		"\n\n\![*]\q[Cancel,OnConfigMenu]\e"
+	}
+}
+
+OnNameTeach
+{
+	_tempname = reference0
+	_tempname = TOLOWER(_tempname) //changes it to lowercase
+	_tempname = REPLACE(_tempname," ","") //removes spaces
+	_tempname = REPLACE(_tempname,".","") //removes periods
+	_tempname = REPLACE(_tempname,"-","") //removes dashes
+	
+	if language == "Placeholder" //TRANSLATORS: Setting the new name. FLUX is the only name that is blocked. I have the default name in English as User, you can translate that if you want, just make sure you set it both here and in FirstBootVars
+	{
+		
+	}
+	else //English
+	{
+		if reference0 == username && booting != 1 //If the user gives the exact same name as before. The booting check has to be there in case they put in 'user'
+		{
+			"\0[Cancelled the name change.]"
+		}
+		elseif _tempname == "FLUX"
+		{
+			"\0[Invalid name.\w8\w8 Try again.]\x\![raise,OnChangeName]\e"
+		}
+		elseif _tempname == "" //If the user doesn't put in anything
+		{
+			username = "User"
+			
+			"\0[You will be referred to as %(username),\w4 you can change this at any time in the config menu.]"
+		}
+		else //if it's none of these above names, we can use it. You can add names that just have comments and can still be used, just don't add a \e at the end.
+		{
+			username = reference0
+			"\0[Name set as %(username).]"
+		}
+		--
+		"\_q\n\n\![*]\q[Back to config,OnConfigMenu]\n\![*]\q[Close,OnCancel]\e"
+	}
+}
+
+OnChangePronoun //Envelope names are the same as the GT template, since I figured most people will be used to them.
+{
+	if language == "Placeholder" //TRANSLATORS: If the pronoun system needs something extra in your language, do let me know and we can try to work something out. It's important the user be able to change these, though, because most shells probably won't get translated and may rely on these envelopes.
+	{
+		
+	}
+	else //English
+	{
+		"\0%(bb)[How would you like to be referred to?]"
+		--
+		"\n\n\_q/
+		\![*]\q[He/Him/His,OnPronouns,masc]\n/
+		\![*]\q[She/Her/Hers,OnPronouns,fem]\n/	
+		\![*]\q[They/Them/Their,OnPronouns,undef]\e"
+	}
+}
+
+
+OnPronouns
+{
+	if language == "Placeholder" //TRANSLATORS: Same as above. This is a temporary setup, I suspect this may need to get more intricate later.
+	{
+		
+	}
+	else //English
+	{
+		if reference0 == "masc"
+		{
+			heshe = "he"
+			himher = "him"
+			hisher = "his"
+			hesshes = "he's"
+		}
+		elseif reference0 == "fem"
+		{
+			heshe = "she"
+			himher = "her"
+			hisher = "her"
+			hesshes = "she's"
+		}
+		else
+		{
+			heshe = "they"
+			himher = "them"
+			hisher = "their"
+			hesshes = "they're"
+		}
+		--
+		"\0%(bb)[%(heshe), %(himher), and %(hisher) will be used.]"
+		--
+		"\n\n\![*]\q[Back to Config,OnConfigMenu]\n\![*]\q[Close,OnCancel]\e"
+	}
+	
+}
+//Pronoun examples for my own sake:
+//"%(heshe) left that there."
+//"%(hisher) work is really cool."
+//"I'll ask %(himher) later."
+//"%(hesshes) really good at it."
+
+OnChangeBirthday //Pulled a lot of this from the GT template, but I also modified it a lot
+{
+	"\0%(b)\![open,inputbox,OnUserBornMonth,-1]\*"
+	--
+	if language == "Placeholder" //TRANSLATORS: Starting the birthday input
+	{
+		
+	}
+	else //English
+	{
+		"[Write the name or number of the month you were born in.]"
+		--
+		"\n\n\![*]\q[Cancel,OnConfigMenu]\e"
+	}
+}
+
+//birthday[0] - word birthday
+//birthday[1] - number birthday
+//birthday[2] - word month
+//birthday[3] - word day
+//birthday[4] - number month
+//birthday[5] - number day
+//birthday[6] - word birthday DD/MM
+//birthday[7] - DD/MM format
+//Use birthday[0] to display the user's birthday, and birthday[1] to do checks with the numbers
+
+OnUserBornMonth
+{
+	_tempmonth = reference0 //this stores what the user put in as a variable called _tempmonth
+	_tempmonth = TOLOWER(_tempmonth) //changes it to lowercase
+	
+	//TRANSLATORS: You can add an || here for your language's version of the month names!
+	if _tempmonth == "january" || _tempmonth == "1" {birthday[4] = 1; birthday[2] = "January"}
+	elseif _tempmonth == "february" || _tempmonth == "2" {birthday[4] = 2; birthday[2] = "February"}
+	elseif _tempmonth == "march" || _tempmonth == "3" {birthday[4] = 3; birthday[2] = "March"}
+	elseif _tempmonth == "april" || _tempmonth == "4" {birthday[4] = 4; birthday[2] = "April"}
+	elseif _tempmonth == "may" || _tempmonth == "5" {birthday[4] = 5; birthday[2] = "May"}
+	elseif _tempmonth == "june" || _tempmonth == "6" {birthday[4] = 6; birthday[2] = "June"}
+	elseif _tempmonth == "july" || _tempmonth == "7" {birthday[4] = 7; birthday[2] = "July"}
+	elseif _tempmonth == "august" || _tempmonth == "8" {birthday[4] = 8; birthday[2] = "August"}
+	elseif _tempmonth == "september" || _tempmonth == "9" {birthday[4] = 9; birthday[2] = "September"}
+	elseif _tempmonth == "october" || _tempmonth == "10" {birthday[4] = 10; birthday[2] = "October"}
+	elseif _tempmonth == "november" || _tempmonth == "11" {birthday[4] = 11; birthday[2] = "November"}
+	elseif _tempmonth == "december" || _tempmonth == "12" {birthday[4] = 12; birthday[2] = "December"}
+	else //if the month isn't a valid month, like 32 or something.
+	{
+		if language == "Placeholder" //TRANSLATORS: If the user inputs an invalid month for their birthday
+		{
+			
+		}
+		else //English
+		{
+			"\0%(bb)[Invalid month.\w8\w8 Please try again.]"
+		}
+		--
+		"\x\![raise,OnChangeBirthday]"
+	}
+	--
+	//If it's a valid month
+	OnChangeBirthdayDay
+}
+
+OnChangeBirthdayDay
+{
+	"\0%(b)\![open,inputbox,OnUserBornDay,-1]\*"
+	--
+	if language == "Placeholder" //TRANSLATORS: Second stage of inputting your birthday. birthday[2] will be the month name that the user put in
+	{
+		
+	}
+	else //English
+	{
+		"[Enter the day in %(birthday[2]) that you were born.]"
+		--
+		"\n\n\![*]\q[Cancel,OnBirthdayCancel]"
+	}
+}
+
+OnBirthdayCancel
+{
+	birthday = ("???","???","","",-1,-1)
+	"\![close,inputbox,OnUserBornDay]\![raise,OnConfigMenu]"
+}
+
+OnUserBornDay
+{
+	_tempday = reference0 //storing the input in _tempday
+	_tempday = TOLOWER(_tempday) //changes it to lowercase
+	_tempday = REPLACE(_tempday,"st","") //if the user types something like 2nd, 3rd, etc, this will make it just the number. It'll just add the suffix back later on the one that actually shows.
+	_tempday = REPLACE(_tempday,"nd","")
+	_tempday = REPLACE(_tempday,"rd","")
+	_tempday = REPLACE(_tempday,"th","")
+	_tempday = TOINT(_tempday) //Converts it to an integer
+	_month = birthday[4] //Just for readability
+	
+	if ((_month == 1 || _month == 3 || _month == 5 || _month == 7 || _month == 8 || _month == 10 || _month == 12) && _tempday >= 1 && _tempday <= 31) || (_month == 2 && _tempday >= 1 && _tempday <= 29) || ((_month == 4 || _month == 6 || _month == 9 || _month == 11) && _tempday >= 1 && _tempday <= 30) //This ugly function checks if the day falls into a valid range. If it does, we set some variables and continue down.
+	{
+		birthday[5] = _tempday
+		birthday[3] = Printday
+		birthday[1] = "%(birthday[4])/%(birthday[5])" //MM/DD format
+		birthday[7] = "%(birthday[5])/%(birthday[4])" //DD/MM format
+		birthday[0] = "%(birthday[2]) %(birthday[3])" //Words format, MM/DD
+		birthday[6] = "%(birthday[3]) of %(birthday[2])" //Words format, DD/MM (or so I have been told, this is just in case really)
+	}
+	else //If it isn't a valid day, we open the input box again and have a \e so the dialogue below doesn't play.
+	{
+		if language == "Placeholder" //TRANSLATORS: If the user puts in an invalid day for their birthday
+		{
+			
+		}
+		else //English
+		{
+			"\0%(bb)[Invalid day,\w4 please try again.]"
+		}
+		--
+		"\x\![raise,OnChangeBirthdayDay]"
+	}
+	-- 
+	//All of these only happen if it's a valid birthday
+	if birthday[1] == "%(month)/%(day)" //if today is the user's birthday. Don't forget to switch this if you change the format to DD/MM
+	{
+		if ISFUNC("Custom_BirthdaySet"); Custom_BirthdaySet
+		else
+		{
+			if language == "Placeholder" //TRANSLATORS: If the user's birthday was set successfully and is today, AND there's no special shell dialogue for it
+			{
+				
+			}
+			else //English
+			{
+				"\0%(bb)[Birthday set for today.\w8\w8 Happy birthday %(username)!]"
+			}
+		}
+	}
+	else //if the birthday is not listed above.
+	{
+		if language == "Placeholder" //TRANSLATORS: Finishing setting the birthday. birthday[0] is the birthday written out in words (like 'February 27th'). If you want it written like ('27th of February'), use birthday[6]. If you want just a number display (like '2/27' or '27/2'), use birthday[1] for MM/DD, or birthday[7] for DD/MM
+		{
+			
+		}
+		else //English
+		{
+			"\0%(bb)[Birthday set as %(birthday[0]).]"
+		}
+	}
+	--
+	"\n\n\![*]\q[Back to config,OnConfigMenu]\n\![*]\q[Close,OnCancel]\e"
+}
+
+Printday //Sets the appropriate suffix
+{
+	if language == "Placeholder" //TRANSLATORS: This is setting up the suffixes for days. birthday[5] is the day number
+	{
+		
+	}
+	else //English
+	{
+		if birthday[5] == 1 || birthday[5] == 21 || birthday[5] == 31
+		{
+			"%(birthday[5])st"
+		}
+		elseif birthday[5] == 2 || birthday[5] == 22
+		{
+			"%(birthday[5])nd"
+		}
+		elseif birthday[5] == 3 || birthday[5] == 23
+		{
+			"%(birthday[5])rd"
+		}
+		else
+		{
+			"%(birthday[5])th"
+		}
+	}
+}	

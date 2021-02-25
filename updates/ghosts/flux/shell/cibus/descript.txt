@@ -1,0 +1,62 @@
+charset,Shift_JIS
+type,shell
+name,Cibus
+craftman,Zichqec
+craftmanurl,https://zichqec.github.io/s-the-skeleton/index.html
+seriko.alignmenttodesktop,free
+sakura.balloon.offsetx,10
+sakura.balloon.offsety,-50
+
+// Menu Background
+menu.background.bitmap.filename,menu_background.png
+menu.foreground.bitmap.filename,menu_foreground.png
+
+
+// Menu font color
+menu.background.font.color.r,255
+menu.background.font.color.g,255
+menu.background.font.color.b,255
+
+// Menu foreground font color
+menu.foreground.font.color.r,0
+menu.foreground.font.color.g,0
+menu.foreground.font.color.b,0
+
+// Menu disabled font color
+menu.disable.font.color.r,145
+menu.disable.font.color.g,165
+menu.disable.font.color.b,180
+
+// Menu border color
+menu.separator.color.r,0
+menu.separator.color.g,0
+menu.separator.color.b,0
+
+seriko.use_self_alpha,1
+
+
+sakura.bindgroup800.name,Hairband,Red
+sakura.bindgroup801.name,Hairband,Orange
+sakura.bindgroup802.name,Hairband,Yellow
+sakura.bindgroup803.name,Hairband,Green
+sakura.bindgroup804.name,Hairband,Blue
+sakura.bindgroup805.name,Hairband,Purple
+sakura.bindgroup806.name,Hairband,Pink
+sakura.bindgroup807.name,Hairband,Gray
+sakura.bindgroup808.name,Hairband,White
+
+sakura.bindgroup850.name,Earrings,Small Hoop
+sakura.bindgroup851.name,Earrings,Hanging
+
+sakura.menuitem0,800
+sakura.menuitem1,801
+sakura.menuitem2,802
+sakura.menuitem3,803
+sakura.menuitem4,804
+sakura.menuitem5,805
+sakura.menuitem6,806
+sakura.menuitem7,807
+sakura.menuitem8,808
+sakura.menuitem9,-
+sakura.menuitem10,850
+sakura.menuitem11,851

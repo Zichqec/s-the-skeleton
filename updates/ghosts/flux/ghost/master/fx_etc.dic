@@ -1,0 +1,1220 @@
+//----Drag and Drop----
+
+//When you drop a file on the ghost that isn't something it can install
+//reference0 is the file path, which is split up amongst the local variables below
+OnFileDrop2
+{
+	_filepath = SPLITPATH(reference0)
+	_filename = _filepath[2]
+	_fileext = TOLOWER(_filepath[3])
+	if ARRAYSIZE(reference0) == 1 //If it's a single file
+	{
+		case _fileext
+		{
+			when ".jpg", ".jpeg", ".bmp", ".png" //These are pictures that they can set to wallpapers. Png works for me, but if it doesn't work for you let us know please, I'm curious about this.
+			{
+				if language == "Placeholder" //TRANSLATORS: If the user drags an image file onto FLUX. _filename is the file name, and _fileext is the extension
+				{
+					
+				}
+				else //English
+				{
+					if "]" _in_ reference0 //If the file name contains a character that would break the wallpaper command
+					{
+						"\0%(b)\s[6][If you want this set as your wallpaper,\w4 please remove any ']' characters from the filename.]\e"
+					}
+					else
+					{
+						"\0%(b)\s[6][Setting '%(_filename)%(_fileext)' as wallpaper...]\n\n\_q"
+						--
+						"\![*]\q[Centered,OnWallpaper,center,%(reference0)]\n/
+						\![*]\q[Tiled,OnWallpaper,tile,%(reference0)]\n/
+						\![*]\q[Stretched,OnWallpaper,stretch,%(reference0)]"
+						--
+						if "Windows 10" _in_ NotifyOS //NotifyOS is set just below. The Span option is only available if you're on Win 10, so this means it won't display unless you're on Win 10
+						{
+							"\n\![*]\q[Spanned,OnWallpaper,span,%(reference0)]"
+						}
+						--
+						"\n\n\![*]\q[Cancel,OnCancel]\e"
+					}
+				}
+			}
+			when ".mid", ".wav", ".mp3", ".wma"
+			{
+				CurrentPlaylist ,= reference0
+				ShuffledPlaylist = ShufflePlaylist(NowPlaying[1],CurrentPlaylist)
+				
+				if language == "Placeholder" //TRANSLATORS: When the user drags a single compatible music file onto FLUX
+				{
+					
+				}
+				else //English
+				{
+					"\0%(b)\s[6][Added '%(_filename)' to the playlist.]"
+					--
+					"\n\n\_q\![*]\q[Play it now,OnPlaySong,%(reference0),justadded]\n\![*]\q[Open music player,OnMusicMenu]\n\n\![*]\q[Close,OnCancel]\e"
+				}
+			}
+			when ".au", ".flac", ".ogg", ".m4a"
+			{
+				if language == "Placeholder" //TRANSLATORS: When the user drags a single incompatible music file onto FLUX
+				{
+					
+				}
+				else //English
+				{
+					"\0%(b)\s[6][This it not a compatible file type.\w8 Compatible types are .mp3, .wav, .wma, or .mid.]\e"
+				}
+			}
+			when ".m3u" //If it's a playlist
+			{
+				_path = "/../../playlists/"
+				_playlists = FENUM(_path)
+				_playlists = SPLIT(_playlists,",")
+				if ASEARCH("%(_filename).m3u",_playlists) != -1
+				{
+					if language == "Placeholder" //TRANSLATORS: If the user drags and drops a .m3u playlist onto FLUX, but one with the same name already exists, it should ask if they want to overwrite it
+					{
+						
+					}
+					else //English
+					{
+						"\0%(b)\s[6][A playlist called '%(_filename)' already exists.\w8 Do you wish to overwrite it?]"
+						--
+						"\n\n\![*]\q[Overwrite it,OnPlaylistCopy,Overwrite,%(reference0),%(_filename)]\n\![*]\q[Cancel,OnPlaylistCopy,Don't]"
+					}
+				}
+				else
+				{
+					_f = FCOPY(reference0,_path) //Copies the playlist into FLUX's files
+					
+					PlaylistCopied("%(_f)","%(_filename)")
+				}
+			}
+			others
+			{
+				if _fileext == "" //If it's a folder
+				{
+					_files = FENUM(reference0) //Gets all the files in the folder
+					_musicfiles = OnFindSongs(_files,reference0)
+					
+					_path = _filepath[1]
+					SETDELIM(_path,"\")
+					_len = ARRAYSIZE(_path) - 2
+					_folder = _path[_len] //This stuff gets the folder name
+					
+					if ARRAYSIZE(_musicfiles) == 0 //If there were no compatible songs inside
+					{
+						if language == "Placeholder" //TRANSLATORS: If the user drags a folder on FLUX, and none of the files inside are compatible music files. Use %(_folder) for the folder name
+						{
+							
+						}
+						else //English
+						{
+							"\0%(b)\s[6][None of the files in %(_folder) are compatible music files.]\e"
+						}
+					}
+					else //If there are compatible songs
+					{
+						_num = ARRAYSIZE(_musicfiles)
+						if language == "Placeholder" //TRANSLATORS: If the user drags a folder on FLUX, and at least some of the files inside are compatible music files. Use _num for the number of songs that were added, and %(_folder) for the folder name
+						{
+							
+						}
+						else //English
+						{
+							"\0%(b)\s[6][Added %(_num) songs from %(_folder).]"
+							--
+							"\n\n\_q\![*]\q[Open music player,OnMusicMenu]\n\![*]\q[Close,OnCancel]\e"
+						}
+					}
+				}
+				else //If it's a file
+				{
+					if language == "Placeholder" //TRANSLATORS: If the user drags a file with no known extension onto FLUX
+					{
+						
+					}
+					else //English
+					{
+						"\0%(b)\s[6][This file is not compatible with FLUX player.]\e"
+					}
+				}
+			}
+		}
+	}
+	else //More than 1 file
+	{
+		_musicfiles = OnFindSongs(reference0)
+		
+		if ARRAYSIZE(_musicfiles) == 0 //If there are no music files
+		{
+			if language == "Placeholder" //TRANSLATORS: If the user dragged and dropped multiple files on FLUX, but none of them were compatible music files
+			{
+				
+			}
+			else //English
+			{
+				"\0%(b)\s[6][None of these files are compatible with FLUX player.]\e"
+			}
+		}
+		else //If there are music files
+		{
+			_num = ARRAYSIZE(_musicfiles)
+			if language == "Placeholder" //TRANSLATORS: If the user dragged and dropped multiple files on FLUX, and at least some of them are compatible. Use _num as the count of songs
+			{
+				
+			}
+			else //English
+			{
+				"\0%(b)\s[6][%(_num) compatible songs added to the playlist.]"
+				--
+				"\n\n\_q\![*]\q[Open music player,OnMusicMenu]\n\![*]\q[Close,OnCancel]\e"
+			}
+		}
+	}
+}
+
+OnPlaylistCopy
+{
+	if reference0 == "Overwrite"
+	{
+		_f = FCOPY(reference1,_path)
+		
+		PlaylistCopied("%(_f)","%(reference2)")
+	}
+	else
+	{
+		if language == "Placeholder" //TRANSLATORS: When the user decides not to overwrite the playlist the ghost already has
+		{
+			
+		}
+		else //English
+		{
+			"\0%(b)\s[6][Please rename the playlist,\w4 then drag and drop it again.]\e"
+		}
+	}
+}
+
+PlaylistCopied
+{
+	if language == "Placeholder" //TRANSLATORS: When FLUX finishes copying a .m3u file that the user dragged onto them
+	{
+		
+	}
+	else //English
+	{
+		if _argv[0] == "1" //If it was successful
+		{
+			
+			"\0%(b)\s[6][Successfully copied playlist '%(_argv[1])'.\w8 Do you want to load it now?]"
+			--
+			"\n\n\![*]\q[Load '%(_argv[1])',OnSelectPlaylist,%(_argv[1])]\n\![*]\q[Open music player,OnMusicMenu]\n\n\![*]\q[Close,OnCancel]\e"
+		}
+		else //If it failed
+		{
+			"\0%(b)\s[6][Copying failed,\w4 please try again.]\e"
+		}
+	}
+}
+
+//You can get other information about the OS here, it's in the other references. Reference0 includes the OS system, version, and display name
+OnNotifyOSInfo
+{
+	NotifyOS = reference0
+}
+
+OnWallpaper
+{
+	"\0\![set,wallpaper,%(reference1),%(reference0)]\e"
+}
+
+OnInstallBegin
+{
+	if language == "Placeholder" //TRANSLATORS: Beginning an install
+	{
+		
+	}
+	else //English
+	{
+		"\0%(b)\s[6][Beginning installation...]\e"
+	}
+}
+
+//Finished installing something ghost related. You can remove any of the ifs here if you like, and just have it go to the else.
+//reference0 is the type of installed item, reference1 is the name.
+OnInstallComplete
+{
+	"\0%(b)\s[6]"
+	--
+	if reference0 == "ghost"
+	{
+		if language == "Placeholder" //TRANSLATORS: When a ghost has finished installing. reference1 is the name of the installed ghost
+		{
+			
+		}
+		else //English
+		{
+			"[Successfully installed '%(reference1)'.]\n\n"
+			--
+			"\![*]\q[Call %(reference1),CallGhost]\n/
+			\![*]\q[Change to %(reference1),ChangeToGhost]\n\n/
+			\![*]\q[Close,OnCancel]\e"
+		}
+	}
+	elseif reference0 == "shell"
+	{
+		if language == "Placeholder" //TRANSLATORS: When a shell has finished installing. reference1 is the name of the installed shell
+		{
+			
+		}
+		else //English
+		{
+			"[Successfully installed '%(reference1)'.]\n\n"
+			--
+			"\![*]\q[Change to %(reference1),OnChangeToShell]\n\n/
+			\![*]\q[Close,OnCancel]\e"
+		}
+	}
+	else
+	{
+		if language == "Placeholder" //TRANSLATORS: Generic install finished dialogue. reference1 is the name of the installed thing
+		{
+			
+		}
+		else //English
+		{
+			"[Successfully installed '%(reference1)'.]\e"
+		}
+	}
+}
+
+//Calling the ghost that was just installed. Add dialogues to these if you like.
+Select.CallGhost
+{
+	"\![call,ghost,lastinstalled]\e"
+}
+
+//Opening the ghost that was just installed.
+Select.ChangeToGhost
+{
+	"\![change,ghost,lastinstalled]\e"
+}
+
+OnChangeToShell
+{
+	if reference0 != ""; "\![change,shell,%(reference0)]\e"
+	else; "\![change,shell,lastinstalled]\e"
+}
+
+//reference0 is the reason the install failed
+OnInstallFailure //If the install fails
+{
+	"\0%(b)\s[6]"
+	--
+	if reference0 == "artificial" //If the user cancels by double clicking the balloon
+	{
+		if language == "Placeholder" //TRANSLATORS: When the user cancels the installation
+		{
+			
+		}
+		else //English
+		{
+			"[Cancelled installation.]\e"
+		}
+	}
+	else
+	{
+		if language == "Placeholder" //TRANSLATORS: If the installation failed. reference0 is the reason why it failed
+		{
+			
+		}
+		else //English
+		{
+			"[The installation failed.\w8\w8 '%(reference0)'.]\e"
+		}
+	}
+}
+
+OnFileDropping //When the user is holding a file over FLUX, before it's dropped
+{
+	DraggedFile = reference0 //This is for converting FLELE shells
+}
+
+OnInstallReroute //When you try to install a file meant for another ghost, and that ghost is also running
+{
+	if language == "Placeholder" //TRANSLATORS: This is if the user tries to install a file for another ghost while the other ghost is running. Rather than copy over the function from below, since I think that'd feel weird in practice, I'm going to have it direct the user to close FLELE in order to install FLELE shells. reference1 is the type of item you tried to install, reference0 is the sakura name of the ghost it's compatible with
+	{
+		
+	}
+	else //English
+	{
+		if reference0 == "flele" && reference1 == "shell"
+		{
+			"\0%(b)\s[6][This shell is set to install only for FLELE.\w8\w8 It can still be installed by FLUX,\w4 but you must close FLELE first.\w8\w8 Alternatively,\w4 you can alter the install.txt of the shell to remove the restriction.]\e"
+		}
+		else //Other ghosts
+		{
+			"\0%(b)\s[6][This %(reference1) is compatible with %(reference0) only.]\e"
+		}
+	}
+}
+
+//reference0 is the Sakura name of the ghost the item was meant for, reference1 (since SSP 2.4.85) is the type of item you tried to install
+OnInstallRefuse
+{
+	if reference0 == "flele" && reference1 == "shell" //If this is meant for FLELE, then FLUX will convert it so that you can install it
+	{
+		//Ok look, I gotta talk about all this nonsense below, because HAHA THIS WAS A PAIN AND ITS KINDA JANKY BUT IT WORKS OK
+		//So here's the deal. UNFORTUNATELY, most FLELE shells are set up such that ONLY FLELE will install them, and other ghosts will refuse. But! Thanks to the magic of OnFileDropping, I was able to grab the file path of the .nar file you just dropped. Then, if it sees it's supposed to be for FLELE, it does all this stuff!
+		//First, it copies the .nar file into its shell folder. It renames it to a .zip (I'm not sure if this step is actually necessary but I'm not gonna fuss with it now), then it uses a SAORI I found (@the person who made the SAORI, I love you so much) to unzip the contents. It deletes the copied archive since we don't need it, then it scans through the install.txt to get the name and directory. It saves the name for after it reloads, and it renames the folder to what the directory is supposed to be called.
+		//Then, after it reloads, OnSecondChange sees that the InstalledNewShell variable is not empty, and brings up a dialogue box for having installed a new shell. Tada! Got around the FLELE only problem! Hahahahaha this is so janky XD I can't believe this works.
+		//I should probably add some sort of error handling or something???
+		
+		
+		_path = "../../shell/"
+		_f = FCOPY(DraggedFile,_path) //Copy the file that was dropped
+		
+		_name = SPLITPATH(DraggedFile)[2] //Get the name and extension
+		_ext = SPLITPATH(DraggedFile)[3]
+		
+		_f = FRENAME("%(_path)%(_name)%(_ext)","%(_path)%(_name).zip") //Rename it to a .zip
+		
+		_i = FUNCTIONEX("zarc.dll","unzip","%(_path)%(_name).zip","%(_path)%(_name)/") //Unzip it
+		_f = FDEL("%(_path)%(_name).zip") //Delete the archive since we have the contents in a folder now
+		
+		_file = "%(_path)%(_name)/install.txt" //Initialize loop variables
+		_found = ""
+		InstalledShellName = ""
+		
+		_o = FOPEN(_file,"r")
+		--
+		for _buff = FREAD(_file); _buff != -1; _buff = FREAD(_file) //Loop through to get the name and directory
+		{
+			if "directory," _in_ _buff; _found = _buff[1]
+			if "name," _in_ _buff; InstalledShellName = _buff[1] //Note, by putting something into InstalledShellName, it will trigger the dialogue in OnSecondChange after reloading
+		}
+		--
+		_f = FCLOSE(_file)
+		
+		if SUBSTR(_found,0,1) == " " && STRLEN(_found) > 0 //This loop erases any spaces at the start of the directory name
+		{
+			_temp = _found
+			while SUBSTR(_found,0,1) == " " && STRLEN(_found) > 0
+			{
+				_found = ERASE(_found,0,1)
+				if STRLEN(_found) == 0; {_found = _temp; break}
+			}
+		}
+		
+		if SUBSTR(InstalledShellName,0,1) == " " && STRLEN(InstalledShellName) > 0 //This loop erases any spaces at the start of the ghost name
+		{
+			_temp = InstalledShellName
+			while SUBSTR(InstalledShellName,0,1) == " " && STRLEN(InstalledShellName) > 0
+			{
+				InstalledShellName = ERASE(InstalledShellName,0,1)
+				if STRLEN(InstalledShellName) == 0; {InstalledShellName = _temp; break}
+			}
+		}
+		
+		if _found != ""; _f = FRENAME("%(_path)%(_name)/","%(_path)%(_found)/") //Rename the folder to match the directory name in install.txt
+		
+		if _o == 1 && InstalledShellName != "" //If the file opened successfully and a name exists, it must have installed properly, so go ahead and reload
+		{
+			"\![reload,ghost]"
+		}
+		else
+		{
+			if language == "Placeholder" //TRANSLATORS: If the user tries to install a FLELE only shell, and it fails for some reason
+			{
+				
+			}
+			else //English
+			{
+				"\0%(b)\s[6][Could not install the shell.\w8 Please extract the archive,\w4 go into install.txt,\w4 and remove the line 'accept,flele'.\w8 Then zip it,\w4 and try it again.]\e"
+			}
+		}
+		
+		
+		/* //This code was an attempt to rezip the folder and make it into a nar again. For some reason, I couldn't get it to zip the file. Then I realized I could just install the shell manually and skip having the user drag and drop it again lol
+		_f = FOPEN(_file,"r")
+		_filearray = IARRAY
+		for _buff = FREAD(_file); _buff != -1; _buff = FREAD(_file)
+		{
+			_filearray ,= _buff
+		}
+		_f = FCLOSE(_file)
+		_f = FOPEN(_file,"w")
+		foreach _filearray; _buff
+		{
+			if _buff == "accept,flele"; {_f = FWRITE(_file,"//accept,flele"); _f = FWRITE(_file,"//Modified automatically by FLUX player")}
+			else; _f = FWRITE(_file,_buff)
+		}
+		_f = FCLOSE(_file)
+		SomeDebugVar = FUNCTIONEX("zarc.dll","zip","../../converted_shells/%(_name)_converted_test.zip","../../converted_shells/test")
+		//_f = FRENAME("%(_path)%(_name)_converted.zip","%(_path)%(_name)_converted.nar")
+		
+		"%(SomeDebugVar) \x"
+		*/
+	
+		
+		//"Debug: \_?%(DraggedFile)\_?"
+	}
+	else
+	{
+		if language == "Placeholder" //TRANSLATORS: If the user tries to install something that's only compatible with another ghost. reference1 is the type of thing they tried to install, reference0 is the sakura name of the other ghost
+		{
+			
+		}
+		else //English
+		{
+			"\0%(b)\s[6][Cannot install this %(reference1),\w4 it is compatible only with %(reference0).]\e"
+		}
+	}
+}
+
+OnUpdatedataCreating //Creating an updates2.dau
+{
+	if language == "Placeholder" //TRANSLATORS: Creating an updates2.dau file
+	{
+		
+	}
+	else //English
+	{
+		"\0%(b)\s[6][Creating an update file...]\e"
+	}
+}
+
+OnUpdatedataCreated //Finished creating
+{
+	if language == "Placeholder" //TRANSLATORS: Finished creating an updates2.dau file
+	{
+		
+	}
+	else //English
+	{
+		"\0%(b)\s[6][Finished creating updates2.dau.]\e"
+	}
+}
+
+//reference0 is the name of what you're making a nar for, reference2 is what you're making (balloon/ghost/etc)
+OnNarCreating //Creating a .nar
+{
+	if language == "Placeholder" //TRANSLATORS: Creating a .nar file
+	{
+		
+	}
+	else //English
+	{
+		"\0%(b)\s[6][Creating a .nar...]\e"
+	}
+}
+
+//reference0 is the name of what you're making a nar for, reference2 is what you're making (balloon/ghost/etc)
+OnNarCreated //Finished creating
+{
+	if language == "Placeholder" //TRANSLATORS: Finished creating a .nar. The anchor will take the user to where the .nar was saved
+	{
+		
+	}
+	else //English
+	{
+		"\0%(b)\s[6][Finished creating \_a[OnNarLocation,%(reference1)]%(reference0)\_a.]\e"
+	}
+}
+
+//When you click on the anchor in the OnNarCreated dialogue, this function will open the folder you created the .nar in
+OnNarLocation
+{
+	_path = SPLITPATH(reference0)[0] + SPLITPATH(reference0)[1]
+	
+	"\C\![open,file,%(_path)]"
+}
+
+//----Uninstalling----
+
+//Bringing up the uninstall option
+OnVanishSelecting
+{
+	if language == "Placeholder" //TRANSLATORS: The user has brought up the uninstall option
+	{
+		
+	}
+	else //English
+	{
+		"\0%(b)\s[6][Are you sure you want to uninstall FLUX player and all the shells you have installed?]\e"
+	}
+}
+
+//Deciding to uninstall
+OnVanishSelected
+{
+	if language == "Placeholder" //TRANSLATORS: The user has decided to uninstall. Added some extra wait time here in case they change their minds or clicked by accident
+	{
+		
+	}
+	else //English
+	{
+		"\0%(b)\s[6][Uninstalling FLUX...]\n\n\w8\w8\s[0][Have a nice day.]"
+	}
+	--
+	"\w8\w8\w8\w8\w8\w8\e"
+}
+
+//Changing your mind
+OnVanishCancel 
+{
+	if language == "Placeholder" //TRANSLATORS: The user has decided not to uninstall
+	{
+		
+	}
+	else //English
+	{
+		"\0%(b)\s[6][Cancelled uninstall.]\e"
+	}
+}
+
+//Canceling uninstallation by double clicking the balloon
+OnVanishButtonHold
+{
+	if language == "Placeholder" //TRANSLATORS: The user cancelled the uninstall before it could complete
+	{
+		
+	}
+	else //English
+	{
+		"\0%(b)\s[6][Cancelled uninstall.]\e"
+	}
+}
+
+//When another ghost has been uninstalled and it switches to this ghost - Also happens if this ghost is open when another is uninstalled
+//reference0 is the name of the uninstalled ghost
+OnVanished
+{
+	if ISFUNC("Custom_OnVanished"); Custom_OnVanished
+}
+
+//----Mail checking----
+
+//reference2 is the email address it's checking? Wiki says mail server.
+OnBIFFBegin
+{
+	if language == "Placeholder" //TRANSLATORS: Starting an email check
+	{
+		
+	}
+	else //English
+	{
+		"\0%(b)\s[6][Checking for emails...]\e"
+	}
+}
+
+//reference0 is the number of emails found
+OnBIFFComplete
+{
+	if reference7 != "" && reference0 < 100 //Reference7 is the headers. If it's empty(if the user has headers off), no need to run this loop. I STRONGLY ENCOURAGE YOU not to run this loop for more than 100 headers, as it may cause severe amounts of lag/freezing. Also, that's a lot to scroll through.
+	{
+		_buff = reference7
+		_len = ARRAYSIZE(_buff)
+		headers = ""
+		_i = 0
+		while _i < _len //Runs through all the elements of the array
+		{
+			if "<" _in_ _buff[_i] && "@" _in_ _buff[_i] && "." _in_ _buff[_i] && ">" _in_ _buff[_i] //If it has an email address
+			{
+				if _i != 0; headers += "\n\n[half]" //Add line breaks
+				headers += "\![*]%(_buff[_i])" //Add a menu option and the header text
+			}
+			else //If it does not have an email address, it must be a particle
+			{
+				headers += ",%(_buff[_i])" //Add the text
+			}	
+			_i++
+		}
+	}
+	--
+	"\0%(b)\s[6]"
+	--
+	if language == "Placeholder" //TRANSLATORS: Result of checking emails, reference0 is the number of emails. It will only offer to show headers if headers are on and there are less than 100 of them
+	{
+		
+	}
+	else //English
+	{
+		_s = ""; if reference0 != 1; _s = "s" //Plural check, adds an s if the number of emails is not 1
+		
+		if reference0 == 0 //No new emails
+		{
+			"[No new emails.]\e"
+		}
+		else //There are new emails
+		{
+			"[%(reference0) new email%(_s).]"
+			--
+			if reference7 != "" && reference0 < 100 //If it's less than 100 emails and there are headers
+			{
+				"\n\n\w8\w8[Do you want to see the header%(_s)?]"
+				--
+				"\n\n\![*]\q[Yes,OnSeeHeaders]  \![*]\q[No,OnCancel]"
+			}
+			--
+			"\e"
+		}
+	}
+}
+
+//Displaying the headers. No need to touch this other than changing the surface, or if you want to make the buttons different or something. Reference0 is the list of headers
+OnSeeHeaders
+{
+	"\0%(bbb)\s[6]\_q%(headers)\*"
+	--
+	if language == "Placeholder" //TRANSLATORS: This is just the button for when you're done looking at email headers
+	{
+		
+	}
+	else //English
+	{
+		"\n\n\![*]\q[Close,OnCancel]\e"
+	}
+	--
+	ERASEVAR("headers") //This erases the variable so you're not storing all those headers and bloating your save. Also, privacy reasons.
+}
+
+//Email checking failed
+//reference0 is the error returned
+OnBIFFFailure
+{
+	"\0%(b)\s[6]"
+	--
+	if language == "Placeholder" //TRANSLATORS: If the email checking fails
+	{
+		
+	}
+	else //English
+	{
+		if reference0 == "timeout" //If the connection times out
+		{
+			"[The connection timed out.]\e"
+		}
+		elseif reference0 == "kick" //if the ghost can't get into the account. Gmail requires an app specific password to get in
+		{
+			"[Cannot get into the account.]\e"
+		}
+		elseif reference0 == "defect" //If info in the POP menu is wrong
+		{
+			"[The POP settings are not correct.]"
+			--
+			"\![open,configurationdialog,biff]\e"
+		}
+		elseif reference0 == "artificial" //As far as I can tell, artificial is if the user double clicks on the balloon to stop it
+		{
+			"[Cancelled email check.]\e"
+		}
+		else //Some other kind of error.
+		{
+			"[Email check failed: '%(reference0)'.]\e"
+		}
+	}
+}
+
+//----Network update---
+
+//When the ghost finishes checking for updates
+//reference0 is 'none' if there are no new files, and 'changed' if there are new files. reference1 is a list of the changed files, separated by commas
+OnUpdateCheckComplete 
+{
+	if reference0 == "none" //If there are no new files
+	{
+		if AutoUpdates[1] == 1 //Sets it so it won't check again until at least midnight
+	}
+	else
+	{
+		AutoUpdates[1] = 2 //This makes it so the ghost will tell the user there's a new update next time they open their menu
+	}
+}
+
+//Starting to actually update
+OnUpdateBegin
+{
+	if language == "Placeholder" //TRANSLATORS: Beginning an update
+	{
+		
+	}
+	else //English
+	{
+		"\0%(b)\s[6][Beginning update...]\e"
+	}
+}
+
+//reference0 is the number of new files, starting from 0
+OnUpdateReady
+{
+	reference0++ //Number of files starts from 0, so this displays the correct amount
+	
+	if language == "Placeholder" //TRANSLATORS: If update files were found. reference0 is the number of files
+	{
+		
+	}
+	else //English
+	{
+		_s = ""; _is = "is"; if reference0 != 1; _s = "s"; _is = "are" //plural checks, adds an s and changes is to are if there's more than 1 file
+
+		"\0%(b)\s[6][There %(_is) %(reference0) new file%(_s).]\w8\w8\e"
+	}
+}
+
+//When the update finishes. Don't forget to initialize any new variables you've created, more on that in Bootend.
+//reference0 is 'none' if there were no new files to update with, reference1 is a list of new file names, separated by commas
+OnUpdateComplete
+{
+	UpdateVars
+	AutoUpdates[1] = 0
+	
+	if language == "Placeholder" //TRANSLATORS: If there are no new files, or an update completed successfully
+	{
+		
+	}
+	else //English
+	{
+		if reference0 == "none"
+		{
+			"\0%(b)\s[6][FLUX is up to date.\w8\w8 To check for shell updates,\w4 click the update shell option on the main menu.]\e"
+		}
+		else
+		{
+			UpdateVars //Sets new variables upon a successful update. See the end of Bootend for an explanation on this.
+			
+			"\0%(b)\s[6][Update complete.\w8\w8 Do you want to see the changelog?]"
+			--
+			"\n\n\![*]\q[Yes,OnChangeLog]\n\![*]\q[No,OnCancel]\e"
+		}
+	}
+}
+
+//I've put this here so it's easier to remember to update the version number while you're updating the changelog. This will display on the ghost's menu. I made it an envelope so you can have it be the same across multiple menus for multiple modes, if you want.
+ghostver
+{
+	"1.0.0"
+}
+
+//the autoscroll tag here means the user will see the changelog starting from the top. I recommend putting the new versions on top, and old versions under that.
+OnChangeLog
+{
+	"\![set,autoscroll,disable]\_q%(bb)\_l[90]-Version 1.0.0-\n\n/
+	-Initial release\n\n\n"
+	--
+	if language == "Placeholder" //TRANSLATORS: These are the back buttons for the changelog
+	{
+		
+	}
+	else //English
+	{
+		if reference0 == "FromMenu" //Checks to see if the user came here from the functions menu
+		{
+			"\![*]\q[Back to functions,OnFunctionMenu]\n"
+		}
+		--
+		"\![*]\q[Done,OnCancel]\e"
+	}
+}
+
+//Taken from the GT template because I see no reason to redo this and probably break it
+//reference0 is the file currently being downloaded
+OnUpdate.OnDownloadBegin
+{
+	"\0%(b)\s[6]\_q"
+	--
+	if language == "Placeholder" //TRANSLATORS: While files are downloading
+	{
+		
+	}
+	else //English
+	{
+		"[Downloading %(reference0)...]\n\n"
+	}
+	--
+	_Update_Progress = TOINT(reference1) + 1
+	_Update_Total = TOINT(reference2) + 1
+	Update_Remaining = _Update_Total - _Update_Progress
+	
+
+	//defining starting points
+	_PointA = 1
+	_PointB = 1
+
+	//defining text buffers beforehand, otherwise they don't display right
+	_filled = ""
+	_empty = ""
+
+	//loop calculates how many check boxes to display based on the variables above
+
+	while _PointA <= _Update_Progress
+	{
+		_filled += "♪"
+		_PointA++
+	}
+	//see above except for blank boxes
+	while _PointB <= Update_Remaining
+	{
+		_empty += "♪"
+		_PointB++
+	}
+	--
+	"\f[name,arial]\f[height,+4]%(_filled)\f[color,120,120,120]%(_empty)\f[default]"
+	--
+	"\n\n%(_Update_Progress)/%(_Update_Total)\e"
+} 
+
+//_remaining should be the number of the file that's giving the error, in the order they're being downloaded. currentfile will be the file path.
+OnUpdate.OnMD5CompareFailure
+{
+	_currentfile = SPLITPATH(reference0)[2] + SPLITPATH(reference0)[3]
+	
+	if language == "Placeholder" //TRANSLATORS: If one of the files has an MD5 error. _currentfile is the name of the file
+	{
+		
+	}
+	else //English
+	{
+		"\0%(b)\s[6][The MD5 values don't match for '%(_currentfile)'.]\w8\w8\e"
+	}
+}
+
+//reference0 is the reason the update failed
+OnUpdateFailure //If the update fails
+{
+	"\0%(b)\s[6]"
+	--
+	if language == "Placeholder" //TRANSLATORS: If the update fails for some reason. For the md5 miss one, _currentfile is the name of the file that had the error
+	{
+		
+	}
+	else //English
+	{
+		if reference0 == "timeout" //If it timed out
+		{
+			"[The connection has timed out.]\e"
+		}
+		elseif reference0 == "md5 miss" //If the update files have not been uploaded correctly and don't match the updates2.dau
+		{
+			_currentfile = SPLITPATH(reference1)[2] + SPLITPATH(reference1)[3]
+			
+			"[The MD5 values don't match on '%(_currentfile)'.\w8\w8 You should contact \_a[https://zichqec.github.io/s-the-skeleton/index.html]Zichqec\_a and let her know.]\e"
+		}
+		elseif reference0 == "artificial" //If the user cancels the update by double clicking the balloon
+		{
+			"[Update cancelled.]\e"
+		}
+		else //Any other errors
+		{
+			"[Couldn't update: '%(reference0)'.]\e"
+		}
+	}
+	
+}
+
+//reference0 is the name of the site, reference1 is the url
+OnHeadlinesenseBegin
+{
+	if language == "Placeholder" //TRANSLATORS: Opening an RSS feed
+	{
+		
+	}
+	else //English
+	{
+		"\0%(b)\s[6][Opening %(reference0)...]\e"
+	}
+}
+
+//Taken from Zarla's GT template. Slightly modified because the top part was redundant as far as I could tell..?
+//reference0 is the site name, reference1 is the url, reference3 is the headlines
+OnHeadlinesense.OnFind
+{
+	_display = REPLACE(reference3,"\_a[","\![*]\_a[")
+ 	//Headlines
+	"\0%(bb)\s[6]"
+	--
+	"%(reference0):\n\n%(_display)\n"
+ 	--
+	//Pages
+	if language == "Placeholder" //TRANSLATORS: Buttons for the RSS feed window
+	{
+		
+	}
+	else //English
+	{
+		if reference2 == "First" || reference2 == "Next"
+		{
+			//Bottom buttons
+			"\![*]\q[Next,] - \![*]\q[Close,OnCancel]\e"
+		}
+		else
+		{
+			//Bottom buttons
+			"\![*]\q[Close,OnCancel]\e"
+		}
+	}
+}
+
+//Looks like this happens if you view a headline and nothing has changed. I can only get RSS to work, so... I'll leave it here just in case.
+OnHeadlinesenseComplete 
+{
+	if language == "Placeholder" //TRANSLATORS: Supposedly this happens if there's no update to a headline when you check it
+	{
+		
+	}
+	else //English
+	{
+		"\0%(b)\s[6][No update.]\e"
+	}
+}
+
+//reference0 is the reason it failed
+OnHeadlinesenseFailure
+{
+	if language == "Placeholder" //TRANSLATORS: If there's an error when getting an RSS feed
+	{
+		
+	}
+	else //English
+	{
+		"\0%(b)\s[6][Can't update feed: '%(reference0)'.]"
+	}
+}
+
+//----Misc----
+
+//reference0 is the name of the server it's connecting to
+OnSNTPBegin
+{
+	if language == "Placeholder" //TRANSLATORS: Starting an SNTP check
+	{
+		
+	}
+	else //English
+	{
+		"\0%(b)\s[6][Checking the time...]\w8\w8\e"
+	}
+}
+
+//Grabbed this from the GT template, don't see a reason to redo this
+//**** 미카 (http://homepage2.nifty.com/ko-ki/)의 사전을 참고했습니다．감사＞こ 나무 성
+//Above comment from the person who originally coded these functions
+//reference0 is the name of the server it's connecting to, reference1 is the server's time, reference2 is the computer's time, reference3 is the difference (in seconds)
+OnSNTPCompare
+{
+	"\0%(b)\s[6]"
+	--
+	if language == "Placeholder" //TRANSLATORS: Comparing the time
+	{
+		
+	}
+	else //English
+	{
+		"[Retrieved Time: %(reference1[1])/%(reference1[2])/%(reference1[0]) %(reference1[3]):%(reference1[4]):%(reference1[5])]\n\_w[1]"
+		--
+		"[Your Time: %(reference2[1])/%(reference2[2])/%(reference2[0]) %(reference2[3]):%(reference2[4]):%(reference2[5])]\n\n\_w[1]"
+		--
+		if reference3 == 0 //if your clock is already accurate.
+		{
+			"[Your clock is accurate.]\e"
+		}
+		else //if your clock doesn't match
+		{
+			"[Your clock doesn't match.]\n\n"
+			--
+			"\![*]\q[Fix it,OnSNTPExecute]  \![*]\q[Leave it alone,OnCancel]\e" 
+		}
+	}
+}
+
+//The \6 is what actually changes the clock
+OnSNTPExecute
+{
+	"\0%(b)\s[6]\6"
+	--
+	if language == "Placeholder" //TRANSLATORS: Fixing the clock
+	{
+		
+	}
+	else //English
+	{
+		"[The clock has been fixed.]\e"
+	}
+}
+
+//reference0 is the name of the SNTP server - Note that this may happen before any other STNP dialogue is said! Keep in mind when writing your dialogue that the user will not necessarily have clicked the yes button.
+OnSNTPFailure
+{
+	if language == "Placeholder" //TRANSLATORS: If the SNTP check fails
+	{
+		
+	}
+	else
+	{
+		"\0%(b)\s[6][Couldn't get the time.]\e"
+	}
+}
+
+OnDisplayChange
+{
+	displaybpp = reference0
+ 	displaywidth = reference1
+	displayheight = reference2
+}
+
+//Usually at 20% battery or less
+//reference0 should be the exact percentage left
+OnBatteryLow
+{
+	if language == "Placeholder" //TRANSLATORS: If the battery is getting low
+	{
+		
+	}
+	else
+	{
+		"\0%(b)\s[6][Your battery is getting low.]\e"
+	}
+}
+
+//Usually at 5% battery or less
+//reference0 should be the exact percentage left
+OnBatteryCritical
+{
+	if language == "Placeholder" //TRANSLATORS: If the battery is getting critically low
+	{
+		
+	}
+	else
+	{
+		"\0%(b)\s[6][Your battery is critically low.]\e"
+	}
+}
+
+//reference0 is the new size, reference1 is the previous size. Sadly, you can't check for the Y scale.
+OnShellScaling
+{
+	nowscale = reference0
+}
+
+//Hotkeys. reference0 is the name of the key as displayed on the keycap. reference4, for SSP only, will have things like ctrl and alt, separated by commas.
+OnKeyPress
+{
+	if "changing hotkey: " _in_ SHIORI3FW.LastTalk //If the hotkey input is open
+	{
+		_k = TOUPPER(reference0)
+		_changing = TOINT(SPLIT(SHIORI3FW.LastTalk,"changing hotkey: ")[1])
+		
+		if language == "Placeholder" //TRANSLATORS: If the user puts in a hotkey that isn't valid
+		{
+			
+		}
+		else //English
+		{
+			if _k == "T" || _k == "R" || _k == "F1" || _k == "V" //If it's reserved
+			{
+				"\0%(bb)\s[0]\_q[That hotkey is reserved, please choose another.]\x"
+			}
+			elseif ASEARCH(_k,Hotkeys) != -1 //If this hotkey is already selected for something else
+			{
+				"\0%(bb)\s[0]\_q[That hotkey is already in use, please clear it before assigning it to another option.]\x"
+			}
+			else //If it's a valid key
+			{
+				Hotkeys[_changing] = TOUPPER(reference0)
+				"\![raise,OnHotkeys]\e"
+			}
+		}
+		--
+		"\![raise,OnChangeHotkey,%(_changing)]"
+		
+	}
+	else
+	{
+		reference0 = TOUPPER(reference0)
+		if reference0 == "T"
+		{
+			"\![raise,OnAiTalk,Hotkey]"
+		}
+		elseif reference0 == "R"
+		{
+			
+		}
+		elseif reference0 == "F1"
+		{
+			"\![open,readme]"
+		}
+		elseif reference0 == "V"
+		{
+			if debug == 1; OnTestVar
+		}
+		elseif reference0 == Hotkeys[1] //Play/Pause
+		{
+			_inmenu = ""
+			if "music player main menu" _in_ SHIORI3FW.LastTalk; _inmenu = "menuopen"
+			elseif "FLUX main menu" _in_ SHIORI3FW.LastTalk; _inmenu = "mainmenu"
+			_b = BalloonCheck
+			_m = MenuCheck
+			if _m == 1 && _b == 1; "\C"
+			--
+			if NowPlaying[0] == ""; "\![raise,OnPlaySong,,,hotkey,%(_b),%(_inmenu)]"
+			elseif NowPlaying[2] != ""; "\![raise,OnPauseSong,resume,,hotkey,%(_b),%(_inmenu)]"
+			else; "\![raise,OnPauseSong,pause,,hotkey,%(_b),%(_inmenu)]"
+		}
+		elseif reference0 == Hotkeys[2] //Next song
+		{
+			_inmenu = ""
+			if "music player main menu" _in_ SHIORI3FW.LastTalk; _inmenu = "menuopen"
+			elseif "FLUX main menu" _in_ SHIORI3FW.LastTalk; _inmenu = "mainmenu"
+			if NowPlaying[0] != ""
+			{
+				_b = BalloonCheck
+				_m = MenuCheck
+				if _m == 1 && _b == 1; "\C\![raise,OnNextSong,,,hotkey,,%(_inmenu)]"
+				else; "\![raise,OnNextSong,,,hotkey,,%(_inmenu)]\e"
+			}
+		}
+		elseif reference0 == Hotkeys[3] //Previous song
+		{
+			_inmenu = ""
+			if "music player main menu" _in_ SHIORI3FW.LastTalk; _inmenu = "menuopen"
+			elseif "FLUX main menu" _in_ SHIORI3FW.LastTalk; _inmenu = "mainmenu"
+			if NowPlaying[0] != ""
+			{
+				_b = BalloonCheck
+				_m = MenuCheck
+				if _m == 1 && _b == 1; "\C\![raise,OnPrevSong,,,hotkey,,%(_inmenu)]"
+				else; "\![raise,OnPrevSong,,,hotkey,,%(_inmenu)]\e"
+			}
+		}
+		elseif reference0 == Hotkeys[4] //Stop song
+		{
+			OnStopSong
+		}
+		elseif reference0 == Hotkeys[5] //Music menu
+		{
+			OnMusicMenu
+		}
+	}
+}
+
+OnBalloonBreak
+{
+	OnSurfaceRestore
+}
+
+OnBalloonTimeout
+{
+	OnSurfaceRestore
+}
+
+OnBalloonClose
+{
+	OnSurfaceRestore
+}
+
+OnCancel
+{
+	OnSurfaceRestore
+}
