@@ -35,6 +35,12 @@ OnMusicMenu //Main music menu display; this displays the list of songs and the c
 	{
 		
 	}
+	elseif language == "Polski"
+	{
+		"\![*]\q[Powrót,OnMenuRun]  \![*]\q[Zamknij,script: \e]\n"
+		--
+		"\![*]\q[Ustawienia i informacje,OnMusicSettings]  \![*]\q[Przenieś utwory,OnScootSongMenu]\n\n[half]"
+	}
 	else //English
 	{
 		"\![*]\q[Back,OnMenuRun]  \![*]\q[Close window,script: \e]\n"
@@ -50,6 +56,10 @@ OnMusicMenu //Main music menu display; this displays the list of songs and the c
 		{
 			
 		}
+		elseif language == "Polski"
+		{
+			"%(_g)<<<   \![*]Pauza       %(_d)\![*]\q[Graj,OnPlaySong,,,playbutton]    %(_g)>>>%(_d)\n\n[half]"
+		}
 		else //English
 		{
 			"%(_g)<<<   \![*]Pause       %(_d)\![*]\q[Play,OnPlaySong,,,playbutton]    %(_g)>>>%(_d)\n\n[half]"
@@ -60,6 +70,15 @@ OnMusicMenu //Main music menu display; this displays the list of songs and the c
 		if language == "Placeholder"
 		{
 			
+		}
+		elseif language == "Polski"
+		{
+			"\q[<<<,OnPrevSong]   "
+			--
+			if NowPlaying[2] != ""; "\![*]\q[Wznów,OnPauseSong,resume,menu]"
+			else; "\![*]\q[Pauza,OnPauseSong,pause,menu]   "
+			--
+			"    \![*]\q[Zatrzymaj,OnStopSong]    \q[>>>,OnNextSong]\n\n[half]"
 		}
 		else
 		{
@@ -76,6 +95,10 @@ OnMusicMenu //Main music menu display; this displays the list of songs and the c
 	{
 		
 	}
+	elseif language == "Polski"
+	{
+		"Teraz gra:"
+	}
 	else //English
 	{
 		"Now playing:"
@@ -89,6 +112,10 @@ OnMusicMenu //Main music menu display; this displays the list of songs and the c
 	{
 		
 	}
+	elseif language == "Polski"
+	{
+		"\![*]\q[Powrót,OnMenuRun]  \![*]\q[Zamknij,script: \e]\e music player main menu"
+	}
 	else //English
 	{
 		"\![*]\q[Back,OnMenuRun]  \![*]\q[Close window,script: \e]\e music player main menu"
@@ -98,6 +125,7 @@ OnMusicMenu //Main music menu display; this displays the list of songs and the c
 
 OnPlaySong //Function that actually plays the songs, nothing needs translated in here
 {
+	_old = NowPlaying
 	NowPlaying[2] = "" //Clearing the paused song if there was one
 	if MusicSettings[0] == ""; MusicSettings[0] = 100 //Volume
 	if MusicSettings[1] == ""; MusicSettings[1] = 100 //Speed
@@ -133,7 +161,9 @@ OnPlaySong //Function that actually plays the songs, nothing needs translated in
 		
 		if TOSTR(reference3) == "1"; "\C\_l[0,0]" //If the balloon is currently open, keep it open
 		--
-		"%(SingingSurfaces)%(OnNotifySongInfo)" //Start the singing animations
+		if _old[0] == "" || _old[2] != ""; "%(SingingSurfaces)"
+		--
+		"%(OnNotifySongInfo)" //Start the singing animations if they weren't already started
 		--
 		"\![sound,stop]" //Stop anything that might be playing
 		--
@@ -328,6 +358,10 @@ OnScootSongMenu
 	{
 		
 	}
+	elseif language == "Polski"
+	{
+		"\![*]\q[Powrót,OnMusicMenu]\n\n"
+	}
 	else //English
 	{
 		"\![*]\q[Back,OnMusicMenu]\n\n"
@@ -338,6 +372,10 @@ OnScootSongMenu
 	if language == "Placeholder"
 	{
 		
+	}
+	elseif language == "Polski"
+	{
+		"\![*]\q[Powrót,OnMusicMenu]\n\n"
 	}
 	else //English
 	{
@@ -448,7 +486,7 @@ OnSoundStop //When a song ends on its own
 		}
 		elseif MusicSettings[3] == 2 //Loop one song
 		{
-			_next = NowPlaying[1]
+			_next = TOINT(NowPlaying[1])
 		}
 		else //Loop playlist
 		{
@@ -479,6 +517,37 @@ OnMusicSettings //Settings menu
 	if language == "Placeholder" //TRANSLATORS: this is the settings menu. I'll put notes for each individual block, for what parts you need to translate
 	{
 		
+	}
+	elseif language == "Polski"
+	{
+		if _mode == 1; _mode = "Miksuj i Zapętl" 
+		elseif _mode == 2; _mode = "Zapętl Jedną Piosenkę"
+		elseif _mode == 3; _mode = "Zagraj Jedną Piosenkę"
+		else; _mode = "Zapętlij Playlistę"
+		
+		"/
+		Tryb odtwarzania: \![*]\q[%(_mode),OnPlaybackType]\n\n[half]/
+		Głośność: \![*]\q[%(_vol),OnMusicSet,Volume]\n/
+		Prędkość: \![*]\q[%(_speed),OnMusicSet,Speed]\n/
+		Balans: \![*]\q[%(_bal),OnMusicSet,Balance]\n\n"
+		--
+		"\q[Zatrzymaj po bieżącym utworze,OnStopAfterPlayback]"
+		--
+		if MusicSettings[4] == "stop after playback" 
+		{
+			" \![*]"
+		}
+		--
+		"\n\n/
+		\![*]\q[Zapisz bieżącą playlistę,OnSavePlaylist]\n/
+		\![*]\q[Wczytaj playlistę,OnLoadPlaylist]\n/
+		\![*]\q[Wyczyść bieżącą listę odtwarzania,OnClearPlaylist]\n\n/
+		\![*]\q[Zmień skróty,OnHotkeys]\n\n/
+		\![*]\q[Jak dodać piosenkę?,OnMusicInfo,addsong]\n/
+		\![*]\q[Dlaczego w niektórych utworach pojawia się error?,OnMusicInfo,error]\n/
+		\![*]\q[Gdzie są zapisywane playlisty?,OnMusicInfo,playlistsave]"
+		--
+		"\n\n\![*]\q[Powrót do menu muzycznego,OnMusicMenu]\e"
 	}
 	else //English
 	{
@@ -523,6 +592,17 @@ OnPlaybackType //Changing the playback type
 	{
 		
 	}
+	elseif language == "Polski"
+	{
+		"/
+		\![*]\q[Zapętl Playlistę,OnPlaybackTypeChange,0]\n/
+		\![*]\q[Miksuj i Zapętl,OnPlaybackTypeChange,1]\n/
+		\![*]\q[Zapętl Jedną Piosenkę,OnPlaybackTypeChange,2]\n/
+		\![*]\q[Zagraj Jedną Piosenkę,OnPlaybackTypeChange,3]\n/
+		"
+		--
+		"\n\n\![*]\q[Powrót do ustawień muzycznych,OnMusicSettings]\e"
+	}
 	else //English
 	{
 		"/
@@ -553,6 +633,29 @@ OnMusicSet //Bringing up input boxes
 	if language == "Placeholder" //TRANSLATORS: Leave the reference0 parts alone, just translate the dialogues
 	{
 		
+	}
+	elseif language == "Polski"
+	{
+		if reference0 == "Balance"
+		{
+			"\![open,inputbox,OnMusicBalance,-1]"
+			--
+			"[Wprowadzić wartość balansu. 0 oznacza środek, -100 oznacza skrajnie w lewo, 100 oznacza skrajnie w prawo. Balans zostanie zaktualizowany po rozpoczęciu następnego utworu..]"
+		}
+		elseif reference0 == "Speed"
+		{
+			"\![open,sliderinput,OnMusicSpeed,-1,100,1,300]"
+			--
+			"[Wybierz prędkość. 100 to prędkość normalna. Prędkość będzie aktualizowana po rozpoczęciu następnego utworu.]."
+		}
+		else //volume
+		{
+			"\![open,sliderinput,OnMusicVolume,-1,100,1,100]"
+			--
+			"[Wybierz głośność. 100 jest wartością domyślną. Głośność zmieni się, gdy rozpocznie się następny utwór.]"
+		}
+		--
+		"\n\n\![*]\q[Anuluj,OnCloseMusicSet,%(reference0)]\e"
 	}
 	else //English
 	{
@@ -653,10 +756,19 @@ OnHotkeys
 	{
 		
 	}
+	elseif language == "Polski"
+	{
+		"[Kliknij na klawisz skrótu, aby go zmienić, kliknij na (x), aby go wyłączyć.]\n\n"
+		--
+		"\q[(x),OnUnsetHotkey,1] Odtwarzanie/Pauza: \q[%(_playpause),OnChangeHotkey,1]\n/
+		\q[(x),OnUnsetHotkey,2] Następny utwór: \q[%(_next),OnChangeHotkey,2]\n/
+		\q[(x),OnUnsetHotkey,3] Poprzedni utwór: \q[%(_prev),OnChangeHotkey,3]\n/
+		\q[(x),OnUnsetHotkey,4] Zatrzymaj utwór: \q[%(_stop),OnChangeHotkey,4]\n/
+		\q[(x),OnUnsetHotkey,5] Otwórz menu: \q[%(_menu),OnChangeHotkey,5]\n/
+		\n\n\![*]\q[Powrót do ustawień muzycznych,OnMusicSettings]\e"
+	}
 	else //English
 	{
-		
-		
 		"[Click a hotkey to change it, click the (x) to unset it.]\n\n"
 		--
 		"\q[(x),OnUnsetHotkey,1] Play/Pause: \q[%(_playpause),OnChangeHotkey,1]\n/
@@ -679,6 +791,19 @@ OnChangeHotkey
 	if language == "Placeholder" //TRANSLATORS: Menu for actually changing a hotkey
 	{
 		
+	}
+	elseif language == "Polski"
+	{
+		_option = "" //TRANSLATORS: Make sure to translate these too, use _option in dialogue for which hotkey is being changed
+		if reference0 == 2; _option = "następny utwór"
+		elseif reference0 == 3; _option = "poprzedni utwór"
+		elseif reference0 == 4; _option = "zatrzymaj utwór"
+		elseif reference0 == 5; _option = "open menu"
+		else; _option =  "Odtwarzanie/Pauza"
+		
+		"[Naciśnij przycisk, dla opcji '%(_option)'.]"
+		--
+		"\n\n\![*]\q[Anuluj,OnHotkeys,%(reference0),%(_temp)]"
 	}
 	else //English
 	{
@@ -705,6 +830,10 @@ OnUnsetHotkey
 	{
 		
 	}
+	elseif language == "Polski"
+	{
+		_msg = "Kliknij, aby ustawić przycisk"
+	}
 	else
 	{
 		_msg = "Click to set a key"
@@ -720,6 +849,21 @@ OnMusicInfo //Information that the user can ask about
 	if language == "Placeholder" //TRANSLATORS: These are the questions the user can ask about how FLUX works. Only translate the dialogues, not the reference0 checks
 	{
 		
+	}
+	elseif language == "Polski"
+	{
+		if reference0 == "addsong" //Asking how to add songs
+		{
+			"[Aby dodać utwory,\w4 przeciągnij je na odtwarzacz FLUX.\w8 Można przeciągać wiele plików jednocześnie,\w4 lub całe foldery.\w8 Kompatybilne typy plików to \_a[OnBlank].mp3\_a, \_a[OnBlank].wav\_a, \_a[OnBlank].wma\_a, and \_a[OnBlank].mid\_a.]\x"
+		}
+		elseif reference0 == "error" //Asking why some songs give errors
+		{
+			"[Niektóre utwory nie będą odtwarzane, mimo że są właściwego typu.\w8 Jest to ograniczenie SSP.\w8 Możesz zaimportować utwór do programu do edycji audio, np. \_a[https://www.audacityteam.org/]Audacity\_a, lub przekonwertować go na inny kompatybilny typ za pomocą czegoś takiego jak \_a[https://www.onlineconverter.com/]Online Converter\_a.]\x"
+		}
+		elseif reference0 == "playlistsave" //Asking where playlists save
+		{
+			"[Playlisty są zapisywane w \_a[OnPlaylistPath]SSP/ghost/flux/playlists\_a. Możesz również załadować listę odtwarzania z innego miejsca, przeciągając i upuszczając ją na FLUX..]\x"
+		}
 	}
 	else //English
 	{
@@ -757,6 +901,12 @@ OnSavePlaylist //Saving a playlist
 	if language == "Placeholder" //TRANSLATORS: This is saving a playlist. It'll present a list of playlists that already exist, in case the user wants to update an old playlist by overwriting it
 	{
 		
+	}
+	elseif language == "Polski"
+	{
+		"[Wpisz nazwę, aby zapisać bieżącą listę odtwarzania jako nową listę odtwarzania, lub kliknij starą listę odtwarzania, aby ją nadpisać.]"
+		--
+		"\n\n\![*]\q[Anuluj,PlaylistSaveCancel]"
 	}
 	else //English
 	{
@@ -802,19 +952,39 @@ OnPlaylistName //After the user types a name
 		--
 		_f = FCLOSE(_path)
 		--
+		"\![close,inputbox,OnPlaylistName]\0%(bb)"
+		--
 		if language == "Placeholder" //TRANSLATORS: Once the playlist has been saved, or saving has failed. Use _name as the playlist name
 		{
 			
+		}
+		elseif language == "Polski" //TRANSLATORS: Once the playlist has been saved, or saving has failed. Use _name as the playlist name
+		{
+			
+			if _o == 1 //If it saves successfully
+			{
+				"[Lista odtwarzania zapisana pomyślnie jako '%(_name)'.]"
+			}
+			else //If saving fails
+			{
+				if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Error]"
+				else; "\s[6]"
+				--
+				"[Nie udało się zapisać listy odtwarzania.]"
+			}
 		}
 		else //English
 		{
 			if _o == 1 //If it saves successfully
 			{
-				"\![close,inputbox,OnPlaylistName][Playlist saved successfully as '%(_name)'.]"
+				"[Playlist saved successfully as '%(_name)'.]"
 			}
 			else //If saving fails
 			{
-				"\![close,inputbox,OnPlaylistName][Failed to save playlist.]"
+				if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Error]"
+				else; "\s[6]"
+				--
+				"[Failed to save playlist.]"
 			}
 		}
 		--
@@ -826,13 +996,21 @@ OnPlaylistOverwrite
 {
 	if reference1 == "are you sure"
 	{
+		"\0%(bb)"
+		--
 		if language == "Placeholder" //TRANSLATORS: If the user types the name of a playlist that already exists
 		{
 			
 		}
+		elseif language == "Polski"
+		{
+			"[Nazwa '%(reference0)' jest już w użyciu.\w8\w8 Czy chcesz nadpisać '%(reference0)'?]"
+			--
+			"\n\n\![*]\q[Nadpisz,OnPlaylistOverwrite,%(reference0)]\n\n\![*]\q[Nie nadpisuj,OnSavePlaylist]\e"
+		}
 		else //English
 		{
-			"\0%(bb)[The name '%(reference0)' is already in use.\w8\w8 Do you want to overwrite '%(reference0)'?]"
+			"[The name '%(reference0)' is already in use.\w8\w8 Do you want to overwrite '%(reference0)'?]"
 			--
 			"\n\n\![*]\q[Overwrite it,OnPlaylistOverwrite,%(reference0)]\n\n\![*]\q[Don't,OnSavePlaylist]\e"
 		}
@@ -859,6 +1037,12 @@ OnLoadPlaylist //Menu for loading playlists
 	if language == "Placeholder" //TRANSLATORS: Loading a playlist, needs a note that if your current playlist is not saved it will be lost
 	{
 		
+	}
+	elseif language == "Polski"
+	{
+		"[Którą listę odtwarzania chcesz załadować? Jeśli aktualna lista odtwarzania nie zostanie zapisana, zostanie utracona..]"
+		--
+		"\n\n\![*]\q[Powrót do ustawień muzycznych,OnMusicSettings]"
 	}
 	else
 	{
@@ -914,6 +1098,12 @@ OnDeletePlaylist
 	{
 		
 	}
+	elseif language == "Polski"
+	{
+		"[Czy na pewno chcesz usunąć '%(reference0)' i %(_songs) utworów w środku?\w8 Tego nie da się cofnąć.]"
+		--
+		"\n\n\![*]\q[Usuń,OnPlaylistDeleted,%(reference0)]\n\![*]\q[Anuluj,OnLoadPlaylist]\e"
+	}
 	else //English
 	{
 		"[Are you sure you want to delete '%(reference0)' and the %(_songs) songs inside?\w8 This cannot be undone.]"
@@ -931,6 +1121,17 @@ OnPlaylistDeleted //Actually deleting the file
 	if language == "Placeholder" //TRANSLATORS: Once a playlist has been deleted, or deleting has failed. Use reference0 for the playlist name.
 	{
 		
+	}
+	elseif language == "Polski"
+	{
+		if _f == 1 //If the playlist deleted successfully
+		{
+			"[Playlists '%(reference0)' usunięta.]\x"
+		}
+		else //If it was unable to delete
+		{
+			"[Coś poszło nie tak.\w8 Możesz ją usunąć ręcznie \_a[OnPlaylistPath]tutaj\_a jeśli chcesz.]\x"
+		}
 	}
 	else
 	{
@@ -956,9 +1157,17 @@ OnClearPlaylist
 {
 	_num = ARRAYSIZE(CurrentPlaylist)
 	//TRANSLATORS: Confirmation dialogue for clearing the current playlist. _num is the number of songs in the playlist
+	"\0%(bb)"
+	--
 	if language == "Placeholder"
 	{
 		
+	}
+	elseif language == "Polski"
+	{
+		"\0%(bb)[W tej playliście jest %(_num) utworów. Czy na pewno chcesz ją wyczyścić? Nie można jej przywrócić, jeśli nie została zapisana..]"
+		--
+		"\n\n\_q\![*]\q[Wyczyść,OnPlaylistCleared,%(_argv[0])]\n\![*]\q[Nie czyść,OnMusicSettings]\e"
 	}
 	else //English
 	{
@@ -976,7 +1185,7 @@ OnPlaylistCleared
 	NowPlaying[2] = "" //Paused song
 	"\![sound,stop]%(OnNotifySongInfo)"
 	--
-	"%(NonSingingSurfaces)%9b)"
+	"%(NonSingingSurfaces)%(bb)"
 	--
 	if reference0 == ""; OnMusicMenu
 	else
@@ -984,6 +1193,12 @@ OnPlaylistCleared
 		if language == "Placeholder" //TRANSLATORS: This is if the user clears the playlist via a hotspot on the ghost
 		{
 			
+		}
+		elseif language == "Polski"
+		{
+			"[Playlista została wyczyszczona..]"
+			--
+			"\n\n\_q\![*]\q[Otwórz kontrolki muzyki,OnMusicMenu]\n\![*]\q[Zamknij,OnCancel]\e"
 		}
 		else
 		{

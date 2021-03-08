@@ -4,13 +4,13 @@ OnMouseMove
 	{
 		MouseMoveSakura
 	}
-	elseif ISFUNC("Custom_OnMouseMoveExtra"); Custom_OnMouseMoveExtra
+	elseif ISFUNC("OnCustom_MouseMoveExtra") && CustomFuncs[0] == 1; OnCustom_MouseMoveExtra
 }
 
 //stroke is an array here, to save on variables. stroke[0] is the original stroke value, which resets after every successful pet. stroke[1] is the continuous stroking. It's the same as stroke[0], but it does not reset until your mouse leaves the character. stroke[2] is the number of successful pets in a row. I haven't used it here but you can if you want.
 MouseMoveSakura
 {
-	if reference4 == "Head" || reference4 == "stroke_p"
+	if reference4 == "stroke_p"
 	{
 		stroke[0]++ //Stroke value only goes up when over the appropriate areas
 		stroke[1]++ //For continuous petting, which I have removed
@@ -20,12 +20,12 @@ MouseMoveSakura
 			stroke[0] = 0 //Stroke value is reset
 			stroke[2]++
 			totalpets++
-			
-			if ISFUNC("Custom_Petting"); Custom_Petting
+
+			if ISFUNC("OnCustom_Petting") && CustomFuncs[0] == 1; OnCustom_Petting
 			else; "\0\s[1].\w5 .\w5 .\w5\e"
 		}
 	}
-	elseif ISFUNC("Custom_MouseMoveSakura"); Custom_MouseMoveSakura
+	elseif ISFUNC("OnCustom_MouseMoveSakura") && CustomFuncs[0] == 1; OnCustom_MouseMoveSakura
 }
 
 OnMouseLeaveAll //When the mouse is no longer on a hitbox. You can change to OnMouseLeave if you want it to happen when you leave any hitbox for another one
@@ -44,7 +44,7 @@ OnMouseDoubleClick
 		{
 			MouseDoubleClickSakura
 		}
-		elseif ISFUNC("Custom_OnMouseDoubleClickExtra"); Custom_OnMouseDoubleClickExtra
+		elseif ISFUNC("OnCustom_MouseDoubleClickExtra") && CustomFuncs[0] == 1; OnCustom_MouseDoubleClickExtra
 	}
 }
 
@@ -71,6 +71,10 @@ MouseDoubleClickSakura
 		{
 			"\![raise,OnPlaySong,,,hotspot,%(_b),%(_inmenu)]"
 		}
+		elseif NowPlaying[2] != ""
+		{
+			"\![raise,OnPauseSong,resume,,hotkey,%(_b),%(_inmenu)]"
+		}
 		else //If a song is already playing, go to the next one
 		{
 			_inmenu = ""
@@ -90,5 +94,5 @@ MouseDoubleClickSakura
 	{
 		OnClearPlaylist("Hotspot")
 	}
-	elseif ISFUNC("Custom_MouseDoubleClickSakura"); Custom_MouseDoubleClickSakura
+	elseif ISFUNC("OnCustom_MouseDoubleClickSakura") && CustomFuncs[0] == 1; OnCustom_MouseDoubleClickSakura
 }

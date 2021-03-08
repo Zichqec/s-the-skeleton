@@ -7,6 +7,7 @@ On_homeurl
 On_recommendrootbutton.caption //Change this to your username, or change the whole caption to whatever you want. This is the top list of websites
 {
 	if language == "Placeholder"; {} //TRANSLATORS: The label for the top set of websites
+	elseif language == "Polski"; {"Więcej od deweloperów"}
 	else; {"More from the devs"}
 }
 
@@ -15,6 +16,20 @@ On_sakura.recommendsites //Websites under the top dropdown menu, make em whateve
 	if language == "Placeholder" //TRANSLATORS: Make sure you add your name and URL for your translation! And all of my thanks for bringing FLUX to a wider audience <3
 	{
 		
+	}
+	elseif language == "Polski" //TRANSLATORS: Make sure you add your name and URL for your translation! And all of my thanks for bringing FLUX to a wider audience <3
+	{
+		"Odtwarzacz FLUX od Zichqec"
+		--
+		"%ASC(1)https://zichqec.github.io/s-the-skeleton/index.html%ASC(2)"
+		--
+		"Polskie tłumaczenie od Zdzicha"
+		--
+		"%ASC(1)https://zdzisiu.github.io/Ukagaka/%ASC(2)"
+		--
+		"skorupa %(nowshell) od %(shellauthor[0])"
+		--
+		"%ASC(1)%(shellauthor[2])%ASC(2)"
 	}
 	else //English
 	{
@@ -38,6 +53,10 @@ On_portalrootbutton.caption //Caption for the second list of websites
 	{
 		
 	}
+	elseif language == "Polski"
+	{
+		"Strony źródłowe"
+	}
 	else //English
 	{
 		"Reference Sites"
@@ -49,6 +68,44 @@ On_sakura.portalsites //You can make these anything you like. I've set them to l
 	if language == "Placeholder" //TRANSLATORS: The actual set of links for resources
 	{
 		
+	}
+	elseif language == "Polski" //TRANSLATORS: The actual set of links for resources
+	{
+		"Zbudowany na X. Template YAYA - v.1.0.4" //I'd appreciate it if you left this link in your ghost so that other people can find the source <3
+		--
+		"%ASC(1)https://zichqec.github.io/s-the-skeleton/xtemplate.html%ASC(2)"
+		--
+		"Jak skonfigurować aktualizacje z Githubem"
+		--
+		"%ASC(1)https://zichqec.github.io/s-the-skeleton/github.html%ASC(2)"
+		--
+		"Szablon duchów Zarli Walkthrough"
+		--
+		"%ASC(1)http://www.ashido.com/ukagaka/walkthrough.html%ASC(2)"
+		--
+		"Ukagaka Dream Team Discord"
+		--
+		"%ASC(1)https://ukagakadreamteam.tumblr.com/discord%ASC(2)"
+		--
+		"SSP"
+		--
+		"%ASC(1)http://ssp.shillest.net/%ASC(2)"
+		--
+		"Ukadoc (Translated)"
+		--
+		"%ASC(1)https://translate.google.com/translate?hl=&sl=ja&tl=en&u=http%3A%2F%2Fssp.shillest.net%2Fukadoc%2Fmanual%2Flist_sakura_script.html%ASC(2)"
+		--
+		"YAYA Wiki (Translated)"
+		--
+		"%ASC(1)https://translate.google.com/translate?hl=&sl=ja&tl=en&u=http%3A%2F%2Femily.shillest.net%2Fayaya%2F%3FFrontPage%ASC(2)"
+		--
+		"Crow + SSP Reference (J)"
+		--
+		"%ASC(1)http://crow.aqrs.jp/reference/all/index.html%ASC(2)"
+		--
+		"Dokumentacja duchów (J)"
+		--
+		"%ASC(1)http://usada.sakura.vg/contents/specification.html%ASC(2)"
 	}
 	else //English
 	{
@@ -149,6 +206,7 @@ On_callghostrootbutton.caption //Caption for the call ghost button
 On_hidebutton.caption //Caption for the minimize/iconify button
 {
 	if lanugage == "Placeholder"; {} //TRANSLATORS: The minimize button
+	elseif lanugage == "Placeholder"; {"Zminimalizuj"}
 	else; {"Minimize"}
 }
 
@@ -159,7 +217,8 @@ On_quitbutton.caption //Caption for the quit button
 
 On_calendarbutton.caption //The default right click menu has this typoed as 'Calender'
 {
-	if lanugage == "Placeholder"; {} //TRANSLATORS: The calendar button. The english version is typoed, or this wouldn't be necessary...
+	if language == "Placeholder"; {} //TRANSLATORS: The calendar button. The english version is typoed, or this wouldn't be necessary...
+	elseif language == "Polski"; {"Kalendarz"}
 	else; {"Calendar"}
 }
 

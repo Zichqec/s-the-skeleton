@@ -2,19 +2,22 @@ Charset,UTF-8
 __system_settings_version__,2
 seriko.scaling.dither,1
 seriko.scaling.balloonlink,0
-char0.bind.savearray,800=0 801=0 802=0 803=0 804=0 805=0 806=0 807=1 808=0 850=0 851=1
-balloon,F:\Stuff\SSP\balloon\flux_notes\
+char0.bind.savearray,8000=0 8001=0 8002=0 8003=0 8004=0 8005=0 8006=0 8007=1 8008=0 8050=1 8051=0
+balloon,F:\Stuff\SSP\balloon\dev\flux_notes\
 Char1.balloon.isleft,1
-balloon0.offset,-8.52
+balloon0.offset,-60.18
 scriptbox.left,896
-Char0.centery,1046
+Char0.centery,1040
+Char2.centery,856
 balloon1.offset,70.-251
 Char0.balloon.isleft,1
-Char.VirtualDesktop,6ff25ac0-5ec5-4814-8d23-3359b8ad3930
-Char0.center,1617
+Char.VirtualDesktop,29dd8763-1bf2-4325-86d9-90374a6ca0ae
+Char2.center,1544
+Char0.center,1771
 scriptbox.top,989
 Char1.centery,1040
 Char1.center,1686
 seriko.scaling.percent.x,75
 seriko.scaling.percent.y,75
+Char2.balloon.isleft,1
 __system_written_flag_do_not_remove__,written

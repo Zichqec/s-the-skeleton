@@ -2699,7 +2699,7 @@ surface1205
 
 surface1206
 {
-	element0,overlay,leg_bl_05.png,0,0
+	element0,overlay,leg_bl_06.png,0,0
 }
 
 surface1300
@@ -2734,7 +2734,7 @@ surface1305
 
 surface1306
 {
-	element0,overlay,leg_br_05.png,0,0
+	element0,overlay,leg_br_06.png,0,0
 }
 
 surface1400
@@ -3097,28 +3097,28 @@ surface3020
 {
 	element0,overlay,eye_left.png,0,0
 	element1,overlay,eye_right.png,0,0
-	element2,overlayfast,colors/green_00.png,0,0
+	element2,overlayfast,colors/blue_green_00.png,0,0
 }
 
 surface3021
 {
 	element0,overlay,eye_left.png,0,0
 	element1,overlay,eye_right.png,0,0
-	element2,overlayfast,colors/green_01.png,0,0
+	element2,overlayfast,colors/blue_green_01.png,0,0
 }
 
 surface3022
 {
 	element0,overlay,eye_left.png,0,0
 	element1,overlay,eye_right.png,0,0
-	element2,overlayfast,colors/green_02.png,0,0
+	element2,overlayfast,colors/blue_green_02.png,0,0
 }
 
 surface3023
 {
 	element0,overlay,eye_left.png,0,0
 	element1,overlay,eye_right.png,0,0
-	element2,overlayfast,colors/green_03.png,0,0
+	element2,overlayfast,colors/blue_green_03.png,0,0
 }
 
 surface3030
@@ -3284,25 +3284,25 @@ surface3113
 surface3120
 {
 	element0,overlay,eye_right.png,0,0
-	element1,overlayfast,colors/green_00.png,0,0
+	element1,overlayfast,colors/blue_green_00.png,0,0
 }
 
 surface3121
 {
 	element0,overlay,eye_right.png,0,0
-	element1,overlayfast,colors/green_01.png,0,0
+	element1,overlayfast,colors/blue_green_01.png,0,0
 }
 
 surface3122
 {
 	element0,overlay,eye_right.png,0,0
-	element1,overlayfast,colors/green_02.png,0,0
+	element1,overlayfast,colors/blue_green_02.png,0,0
 }
 
 surface3123
 {
 	element0,overlay,eye_right.png,0,0
-	element1,overlayfast,colors/green_03.png,0,0
+	element1,overlayfast,colors/blue_green_03.png,0,0
 }
 
 surface3130

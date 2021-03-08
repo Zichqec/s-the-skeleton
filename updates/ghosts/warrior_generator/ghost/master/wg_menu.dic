@@ -39,6 +39,7 @@ OnMenuRun //Main menu
 	if talkrate == ""; talkrate = "Never"; aitalkinterval = 0
 	if AutoUpdates[0] == ""; AutoUpdates[0] = "On"
 	if AutoPhase == ""; AutoPhase = "On"
+	if randomwarn == ""; randomwarn = "On"
 	
 	"\b2\_q"
 	--
@@ -49,7 +50,7 @@ OnMenuRun //Main menu
 	--
 	//\![*]\q[Say something,OnAiTalk]\n/
 	//\![*]\q[Talk to another ghost,OnStartTalking]\n\n/
-	"\n/
+	"\n[half]/
 	\![*]\q[Character Menu,OnCharacterMenu]\n\n/
 	\![*]\q[Generate a name,OnNameMenu,%(ANY(prefix)),%(ANY(suffix)),namegen]\n/
 	\![*]\q[See saved names,OnSavedNames,,,mainmenu]\n\n/
@@ -57,6 +58,18 @@ OnMenuRun //Main menu
 	\![*]\q[Customize appearance,OnDressupMenu]\n/
 	\![*]\q[Change shell,OnShellMenu]\n\n/
 	\![*]\q[Generate a prophecy,OnProphecyMenu]\n\n"
+	--
+	"\![*]Warn before randomizing?  ("
+	--
+	if randomwarn != "On"; "\f[color,150,150,150]"
+	--
+	"\q[Yes,OnToggleRandomWarn,On]  \f[default]"
+	--
+	if randomwarn != "Off"; "\f[color,150,150,150]"
+	--
+	"\q[No,OnToggleRandomWarn,Off]\f[default]"
+	--
+	")\n"
 	--
 	"\![*]Track moon phase?  ("
 	--
@@ -101,9 +114,15 @@ OnMenuRun //Main menu
 		"     \![*]\q[Test Variable,OnTestVar]"
 	}
 	--
-	"\n\n\n[half]\f[height,-2]%(wd) %(nowhour):%(nowmin) %(ap), %(month)/%(day)/%(year) - %(season)  %(moonphase)"
+	"\n\n\f[height,-2]%(wd) %(nowhour):%(nowmin) %(ap), %(month)/%(day)/%(year) - %(season)  %(moonphase)"
 	--
-	"\nRuntime: %(runtime[0]):%(runmin)            Version %(ghostver)\e"
+	"\nGenerator v%(ghostver)"
+	--
+	"       Runtime: %(runtime[0]):%(runmin)"
+	--
+	if ISFUNC("shellver"); "\n%(nowshell) v%(shellver)"
+	--
+	"\e"
 }
 
 OnToggleHemisphere
@@ -125,6 +144,12 @@ OnTogglePhase
 	}
 	--
 	"\![raise,OnMenuRun]"
+}
+
+OnToggleRandomWarn
+{
+	randomwarn = reference0
+	OnMenuRun
 }
 
 OnToggleUpdate
@@ -158,6 +183,8 @@ OnCharacterMenu
 	"\n\n\![*]\q[Edit appearance,OnDressupMenu,,,charmenu]  \![*]\q[Edit bio,OnCustomBio]"
 	--
 	"\n\![*]\q[Save,OnSaveCharacter]  \![*]\q[Load,OnLoadCharacter]  \![*]\q[Screenshot,OnStartScreenshot,charmenu]"
+	--
+	if ISFUNC("ExportFileNames"); "  \![*]\q[Export Design,OnExportName,charmenu,,charmenu]"
 	--
 	"\n\![*]\q[Randomize all,OnCharacterRandomize,areyousure] \![*]\q[Clear all,OnCharacterClear,areyousure]"
 	--
@@ -359,7 +386,7 @@ OnSaveCharacter
 	_topdir = FENUM("/../../saved_data/")
 	if ARRAYSIZE(_topdir) == 0; _f = MKDIR("/../../saved_data/") //Make the data directory
 	_chars = FENUM("/../../saved_data/characters/")
-	if ARRAYSIZE(_topdir) == 0; _f = MKDIR("/../../saved_data/characters/") //Make the characters directory
+	if ARRAYSIZE(_chars) == 0; _f = MKDIR("/../../saved_data/characters/") //Make the characters directory
 	_files = FENUM("/../../saved_data/characters/%(shellfld)/")
 	if ARRAYSIZE(_files) == 0; _f = MKDIR("/../../saved_data/characters/%(shellfld)/") //Make a directory for this shell
 	_display = ""
@@ -375,7 +402,7 @@ OnSaveCharacter
 	--
 	"Type a name to save a new character, or click an existing character to save over it.\nAvailable characters:\n\n"
 	--
-	if ARRAYSIZE(_files) > 10; "\n\n\![*]\q[Back to Character Menu,OnCharacterMenu]"
+	if ARRAYSIZE(_files) > 10; "\n\n\![*]\q[Back to Character Menu,OnCharacterMenu]\n\n"
 	--
 	"%(_display)"
 	--
@@ -494,7 +521,7 @@ OnLoadCharacter
 	_topdir = FENUM("/../../saved_data/")
 	if ARRAYSIZE(_topdir) == 0; _f = MKDIR("/../../saved_data/") //Make the data directory
 	_chars = FENUM("/../../saved_data/characters/")
-	if ARRAYSIZE(_topdir) == 0; _f = MKDIR("/../../saved_data/characters/") //Make the characters directory
+	if ARRAYSIZE(_chars) == 0; _f = MKDIR("/../../saved_data/characters/") //Make the characters directory
 	_files = FENUM("/../../saved_data/characters/%(shellfld)/")
 	if ARRAYSIZE(_files) == 0; _f = MKDIR("characters/") //Make a directory for this shell
 	_display = ""
@@ -652,7 +679,7 @@ OnCharacterDelete
 	}
 	else
 	{
-		_f = FDEL("/characters/%(shellfld)/%(reference0).wgc")
+		_f = FDEL("/../../saved_data/characters/%(shellfld)/%(reference0).wgc")
 		if _f == 1
 		{
 			"\0%(bb)\_q\*Character deleted successfully."
@@ -668,12 +695,13 @@ OnCharacterDelete
 
 OnCharacterRandomize
 {
-	if reference0 == "areyousure"
+	if reference0 == "areyousure" && randomwarn != "Off"
 	{
 		"\0\_q%(bb)Are you sure you want to randomize this character? This will change everything about them, including the bio, design, and name. If you haven't saved your current character, this cannot be undone.\n\n\![*]\q[Yes,OnCharacterRandomize]  \![*]\q[No,OnCharacterMenu]\e"
 	}
 	else
 	{
+		reference0 = "" //So that the character bio isn't overwritten
 		_prefix = ASORT(prefix)
 		_suffix = ASORT(suffix)
 		CharacterArray[0] = ANY(_prefix)
@@ -1262,6 +1290,8 @@ OnDressupMenu
 		--
 		if reference2 == "charmenu"; "\![*]\q[Back to Menu,OnCharacterMenu]"
 		else; "\![*]\q[Back to menu,OnMenuRun]"
+		--
+		if ISFUNC("ExportFileNames"); "                         \![*]\q[Export Design,OnExportName,designmenu,,%(reference2)]"
 	}
 	else
 	{
@@ -1312,7 +1342,7 @@ OnClearDesign
 
 OnDressupRandom
 {
-	if reference0 == "AreYouSure"
+	if reference0 == "AreYouSure" && randomwarn != "Off"
 	{
 		"\0%(bb)\_qAre you sure you want to randomize the design? If you haven't saved this design, this cannot be undone."
 		--
@@ -1459,6 +1489,36 @@ OnDesignName
 	_fname = REPLACE(_fname,"|","")
 	_fname = REPLACE(_fname,"]","") //This one is because sakurascript
 	
+	_files = FENUM("/../../saved_data/designs/%(shellfld)/",",")
+	_files = SPLIT(_files,",")
+	
+	if ASEARCH("%(_fname).wgd",_files) != -1 //If the name is taken
+	{
+		"\0\_q%(bb)\*"
+		--
+		"That name is already taken, do you wish to overwrite the design \_a[OnBlank]%(_fname)\_a?"
+		--
+		"\n\n\![*]\q[Overwrite it,OnSaveDesignFile,%(_fname)]  \![*]\q[Don't overwrite it,OnSaveDesign]\e"
+	}
+	else //If the name is not taken
+	{
+		OnSaveDesignFile
+	}
+}
+
+OnSaveDesignFile
+{
+	_fname = TOSTR(reference0)
+	_fname = REPLACE(_fname,"\","") //Removing illegal characters. Dunno if I need to do this but??
+	_fname = REPLACE(_fname,"/","")
+	_fname = REPLACE(_fname,":","")
+	_fname = REPLACE(_fname,"*","")
+	_fname = REPLACE(_fname,"%(CHR(0x22))","")
+	_fname = REPLACE(_fname,"<","")
+	_fname = REPLACE(_fname,">","")
+	_fname = REPLACE(_fname,"|","")
+	_fname = REPLACE(_fname,"]","") //This one is because sakurascript
+	
 	_path = "/../../saved_data/designs/%(shellfld)/%(_fname).wgd"
 	_o = FOPEN(_path,"w") //Create a new file
 	--
@@ -1500,7 +1560,7 @@ OnLoadDesign
 		if RE_SEARCH(_file,".wgd$")
 		{
 			_disp = RE_REPLACE(_file,".wgd$","")
-			_display += "\__q[OnDesignLoad,%(_file),,,%(reference2)]%(_disp)\__q\n"
+			_display += "\q[(x),OnDesignDelete,%(_disp),areyousure] \__q[OnDesignLoad,%(_file),,,%(reference2)]%(_disp)\__q\n"
 		}
 	}
 	"\0%(bb)\_q\*\![set,autoscroll,disable]"
@@ -1573,7 +1633,210 @@ OnDesignPath
 	"\C\![open,file,saved_data/designs/%(shellfld)]\_l[0,0] "
 }
 
+OnDesignDelete
+{
+	if reference1 == "areyousure"
+	{
+		"\0\_q%(bb)"
+		--
+		"Are you sure you want to delete \_a[OnBlank]%(reference0)\_a? It cannot be recovered once it's gone."
+		--
+		"\n\n\![*]\q[Delete it,OnDesignDelete,%(reference0)]  \![*]\q[Back to Design Menu,OnDressupMenu]\e"
+	}
+	else
+	{
+		_f = FDEL("/../../saved_data/designs/%(shellfld)/%(reference0).wgd")
+		if _f == 1
+		{
+			"\0%(bb)\_q\*Design deleted successfully."
+		}
+		else
+		{
+			"\0Delete failed,\w4 you can delete it manually \_a[OnDesignPath]here\_a if you need to."
+		}
+		--
+		"\x\![raise,OnLoadDesign]"
+	}
+}
+
+OnExportName
+{
+	temprefs = (reference0,reference1,reference2)
+	
+	"\0%(bb)\![open,inputbox,OnExportDesign,-1]\*\_q"
+	--
+	"Please enter a name for this image. Leave blank for the current date/time."
+	--
+	"\n\n\![*]\q[Cancel,OnExportCancel]\e"
+}
+
+OnExportDesign
+{
+	_topdir = FENUM("/../../saved_data/")
+	if ARRAYSIZE(_topdir) == 0; _f = MKDIR("/../../saved_data/") //Make the data directory
+	_chars = FENUM("/../../saved_data/exported_images/")
+	if ARRAYSIZE(_chars) == 0; _f = MKDIR("/../../saved_data/exported_images/") //Make the characters directory
+	_existing = FENUM("/../../saved_data/exported_images/%(shellfld)/")
+	if ARRAYSIZE(_existing) == 0; _f = MKDIR("/../../saved_data/exported_images/%(shellfld)/") //Make a directory for this shell
+	
+	_existing = SPLIT(_existing,",")
+
+	if ASEARCH("%(reference0).png",_existing) == -1 || reference1 == "Overwrite" //If it's a unique name
+	{
+		_shellpath = SPLIT(SHIORI3FW.ShellPath,"/")
+		_shellpath = _shellpath[ARRAYSIZE(_shellpath) - 2]
+		_path = "../../shell/%(_shellpath)/"
+		if reference0 == ""
+		{
+			_nowmon = ""; if month < 10; _nowmon = "0%(month)"; else; _nowmon = "%(month)"
+			_nowday = ""; if day < 10; _nowday = "0%(day)"; else; _nowday = "%(day)"
+			_now24 = ""; if hour < 10; _now24 = "0%(hour)"; else; _now24 = "%(hour)"
+			_nowsec = ""; if second < 10; _nowsec = "0%(second)"; else; _nowsec = "%(second)"
+			
+			reference0 = "%(year)-%(_nowmon)-%(_nowday)_%(_now24)-%(nowmin)-%(_nowsec)" //Put it all together
+		}
+		reference0 = TOSTR(reference0)
+		reference0 = REPLACE(reference0,"\","") //Removing illegal characters. Dunno if I need to do this but??
+		reference0 = REPLACE(reference0,"/","")
+		reference0 = REPLACE(reference0,":","")
+		reference0 = REPLACE(reference0,"*","")
+		reference0 = REPLACE(reference0,"%(CHR(0x22))","")
+		reference0 = REPLACE(reference0,"<","")
+		reference0 = REPLACE(reference0,">","")
+		reference0 = REPLACE(reference0,"|","")
+		reference0 = REPLACE(reference0,"]","") //This one is because sakurascript
+		
+		_images = IARRAY
+		_images ,= "../../saved_data/exported_images/%(shellfld)/%(reference0).png" //Output file
+		_debug = ""
+		foreach currentdressups; _dressup
+		{
+			_listing = ASUB(_dressup,ExportFileNames)
+			if _listing != -1
+			{
+				_arrayresult = ExportFileNames[_listing]
+				_category = _arrayresult[0,"|"]
+				_name = _arrayresult[1,"|"]
+				_file = _arrayresult[2,"|"]
+				_tosend = ""
+				
+				if ":" _in_ _file //If there's special delimiters
+				{
+					_file = SPLIT(_file,":")
+					for _i = 0; _i < ARRAYSIZE(_file); _i++
+					{
+						if _file[_i] == "AND" || _file[_i] == "CLIP" || _file[_i] == "MASK"
+						{
+							_tosend += ":%(_file[_i]):"
+						}
+						else //It's a file path
+						{
+							_tosend += "%(_path)%(_file[_i])"
+						}
+						
+					}
+				}
+				else //If it's just one path
+				{
+					_tosend = "%(_path)%(_file)"
+				}
+				_images ,= _tosend
+				
+			}
+			else //Debug stuff, this will happen if your dressup array is not set up properly
+			{
+				_debug = "Error: '%(_dressup)' is not properly set up in the ExportFileNames array.\w8\w8 Please contact \_a[%(shellauthor[2])]the shell author\_a."
+				break
+			}
+		}
+		--
+		"%(bb)"
+		--
+		if _debug == ""
+		{
+			_i = FUNCTIONEX("proxy_ex.dll","ImageCompositor.exe",_images)
+			--
+			if _i == "Done "
+			{
+				"\_qExported successfully as \_a[OnExportPath]%(reference0).png\_a."
+				--
+				"\n\n"
+				--
+				if temprefs[0] == "charmenu"; "\![*]\q[Back to menu,OnCharacterMenu,,,%(temprefs[2])]"
+				else; "\![*]\q[Back to menu,OnDressupMenu,,,%(temprefs[2])]"
+				--
+				"  \![*]\q[Done,cancelnodialogue]\e"
+				
+			}
+			elseif _i == ""
+			{
+				"Error: Could not access SAORI, please contact \_a[https://zichqec.github.io/s-the-skeleton/index.html]Zichqec\_a and let her know."
+			}
+			else
+			{
+				"%(_i)"
+			}
+		}
+		else
+		{
+			"%(_debug)"
+		}
+		--
+		"\x"
+		--
+		if temprefs[0] == "charmenu"; "\![raise,OnCharacterMenu,,,%(temprefs[2])]"
+		else; "\![raise,OnDressupMenu,,,%(temprefs[2])]"
+		ERASEVAR("temprefs")
+	}
+	else //If this file already exists
+	{
+		"\0%(bb)\*\_q"
+		--
+		"A file with that name already exists, do you want to overwrite it?"
+		--
+		"\n\n\![*]\q[Overwrite it,OnExportDesign,%(reference0),Overwrite]  \![*]\q[Cancel,OnExportCancel]\e"
+	}
+}
+
+OnExportDone
+{
+	if reference0 == "Done"
+	{
+		"Exported successfully as \_a[OnExportPath]%(reference0)\_a."
+	}
+	else
+	{
+		"%(reference0)"
+	}
+}
+
+OnExportPath
+{
+	"\C\![open,file,saved_data/exported_images/%(shellfld)]\_l[0,0] "
+}
+
+OnExportCancel
+{
+	"\![close,inputbox,OnExportDesign]"
+	--
+	if temprefs[0] == "charmenu"; "\![raise,OnCharacterMenu,,,%(temprefs[2])]"
+	else; "\![raise,OnDressupMenu,,,%(temprefs[2])]"
+	ERASEVAR("temprefs")
+}
+
 OnTestVar
 {
-	"Testing!\e"
+	//"Testing!\e"
+	//_path = "../../shell/master"
+	//_images = ("../../saved_data/exported_images/SaoriOutput.png","%(_path)/pelt_base.png,%(_path)/colors/black_30.png","%(_path)/bicolor_01.png","%(_path)/tail_01.png")
+	//_i = FUNCTIONEX("proxy_ex.dll","ImageCompositer.exe",_images)
+	//_i = FUNCTIONEX("proxy_ex.dll","double.exe",RAND(500))
+	//_i
+	
+	//OnTestExport
+	
+	
+	_i = FUNCTIONEX("proxy_ex.dll","parallel.exe","test 1","test 2","test 3")
+	_i
 }
+

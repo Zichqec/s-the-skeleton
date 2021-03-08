@@ -48,6 +48,8 @@ ReplyToGhost //This is your ghost receiving a communication.
 	_send = "%(currentdressups)"
 	_send = REPLACE(_send,",","|-|")
 	
+	"\![commu-%(reference0)]"
+	--
 	if "WarriorGeneratorStatsSilent" !_in_ ConvoTag
 	{
 		"\0\s[0]May the stars light your way,\w4 %(reference0)."

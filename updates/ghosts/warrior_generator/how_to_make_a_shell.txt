@@ -8,6 +8,8 @@ Side note if you're new to this and just read Zarla's guide, you'll also need to
 
 Also, you should add a homeurl so that you can release updates in the future!
 
+----------------------------------------------
+
 Anyhow, back to making a shell. There is one more important thing, and it's actually why I'm writing this file. If you've played with Warrior Generator's random design function a bit, you may have noticed that there are certain color combinations that it does not pick for tortoiseshells. It also will/should never pick two different tortoiseshell colors at the same time! This isn't hardcoded into the randomizer, though, so how does it work?
 
 I set up a system where you can insert custom code into the randomizer for your shell to use. It's a bit limited, but you can use it to test for certain conditions, and if those conditions are/aren't met, have it skip adding the dressup it was trying to add. Or, you can have it change the dressup that it's about to add to the dressup command!
@@ -65,5 +67,57 @@ This would make heterochromia a 1/20 chance to occur, and make it a little less 
 
 
 If all this stuff seems a bit convoluted to you it's totally ok to skip making any custom rules. If you need to make custom rules and you need to ask me some questions, please do! I might also be able to make small tweaks to this system if I find a way to make it more capable.
+
+----------------------------------------------
+
+After I wrote this documentation I added a new feature to Warrior Generator: the ability to export designs with no background!
+
+To use this, YOUR IMAGES MUST ALL BE THE SAME SIZE. Absolutely must, no exceptions!
+
+What you need to do is set up an envelope in DressupRules.dic that contains a list of your dressups and their associated file names. Yes, this is a pain! No, there's no way for me to automate it at this time, sorry! But once you've set it up one time, you'll get the Export option in the menu while your shell is being used, and the SAORI I wrote will take care of the rest!
+
+Here's an example of what this would look like:
+
+ExportFileNames : array
+{
+	"Category|Dressup Name|dressup_image.png"
+}
+
+First you write the category name, then the dressup name, and then the file path. Note: it will automatically add the path to your shell's folder. If you have subfolders, like for example, for colors, you'll have to add those in! That would looke like this:
+
+
+ExportFileNames : array
+{
+	"Category|Dressup Name|someFolder/dressup_image.png"
+}
+
+Ok, so what about stuff like clipping layers or masks? Or dressups that have more than 1 piece? It will handle those too. There are 3 special delimiters: :AND:, :CLIP:, and :MASK:. :AND: will put two images together, like for example, two separate eye bases so you can overlay a color onto both. :CLIP: works like a clipping layer, the image after the delimiter will be overlayed onto the one before it. :MASK: is similar, but it will instead use the image after the delimiter to cut away the image before the delimiter, leaving it transparent.
+
+That would look like this:
+
+ExportFileNames : array
+{
+	"Category|Dressup Name|dressup_base.png:CLIP:colors/somecolor.png"
+}
+
+And you can chain together several of these!
+
+ExportFileNames : array
+{
+	"Category|Dressup Name|dressup_base_00.png:AND:dressup_base_01.png:CLIP:colors/somecolor.png"
+}
+
+Warrior Generator will tell you if it runs into any errors while exporting a file. Let me know if it's giving you any trouble and I'll try to help you out! Don't forget to reload your shell through the change shell option when you're testing this!
+
+----------------------------------------------
+
+One final function that you may find useful, especially if you update your shell now and then. If you add a function called shellver to DressupRules.dic, you can write a version number as a string in there and it will display on the main menu. That should help your users keep up to date, and help you debug if anything goes wrong! Here's what that would look like, don't forget to keep it updated!
+
+shellver
+{
+	"1.0.0"
+}
+
+----------------------------------------------
 
 PLEASE NOTE! Please please double check that the ghost still loads properly when your shell is loaded in! If the user installs your shell and suddenly the ghost won't load because you've accidentally overlapped an existing function name or something, that's going to be a mess. I still plan to add more to Warrior Generator, so please try to keep any extra function names unique, and don't use any of the base SHIORI functions! It's probably kinda dangerous to give you access to the code this way, but I think being able to set special rules for your shell is too valuable to pass up.

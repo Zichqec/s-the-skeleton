@@ -3,7 +3,7 @@ This is the default shell that comes with the Warrior Generator ghost https://zi
 
 It comes with a variety of dressups to create basic cat designs. This is intended to inspire creative ideas for cat designs, but you are free to take screenshots of the designs you create and share them, as well as upload them to places like Toyhou.se.
 
-DO NOT sell any designs created with this generator. If this generator inspires you to create your own character, and you make your own art for it, you can do what you like, but do not screenshot designs from this generator and sell them to others.
+DO NOT sell any designs created with this generator. If this generator inspires you to create your own character, and you make your own art for it, you can do what you like, but do not screenshot/export designs from this generator and sell them to others.
 
 Please note that this shell has special rules when used with the random generator: illegal tortie combinations will not be generated, and heterochromia will be chosen rarely.
 

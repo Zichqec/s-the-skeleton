@@ -25,12 +25,11 @@ AiTalk
 //nonoverlap means that all possible dialogue candidates will be chosen at least once before any dialogues are repeated. Note that anything within brackets counts as a single dialogue candidate! This causes the probability issues mentioned in the YAYA tips file, and also, if you separate your RandomTalk into different modes or something, you'll have to make them separate functions if you still want to use nonoverlap!
 RandomTalk
 {
-	
-	if ISFUNC("Custom_RandomTalk")
+	if ISFUNC("OnCustom_RandomTalk") && CustomFuncs[0] == 1
 	{
 		if SHIORI3FW.BalloonName == "Notes"; "%(b)"
 		--
-		Custom_RandomTalk
+		OnCustom_RandomTalk
 	}
 }
 
@@ -44,6 +43,30 @@ OnMinuteChange
 		{
 			
 		}
+		elseif language == "Polski"
+		{
+			if hour == 0
+			{
+				AutoUpdates[1] = 0
+				if day == 1 && month == 1
+				{
+					if ISFUNC("OnCustom_NewYear"); OnCustom_NewYear
+					else; "\0%(b)[Szczęśliwego nowego roku!]\e"
+				}
+				else
+				{
+					"\0%(b)[Jest północ.]\e"
+				}
+			}
+			elseif hour == 12
+			{
+				"\0%(b)[Jest połódnie.]\e"
+			}
+			else
+			{
+				"\0%(b)[jest %(hour12) %(ranoorsmth).]\e"
+			}
+		}
 		else //English
 		{
 			if hour == 0
@@ -51,21 +74,23 @@ OnMinuteChange
 				AutoUpdates[1] = 0
 				if day == 1 && month == 1
 				{
-					if ISFUNC("Custom_NewYear"); Custom_NewYear
-					else; "\0%(bb)[Happy new year!]\e"
+					"\0%(b)"
+					--
+					if ISFUNC("OnCustom_NewYear") && CustomFuncs[0] == 1; OnCustom_NewYear
+					else; "\0%(b)[Happy new year!]\e"
 				}
 				else
 				{
-					"\0%(bb)[It's midnight.]\e"
+					"\0%(b)[It's midnight.]\e"
 				}
 			}
 			elseif hour == 12
 			{
-				"\0%(bb)[It's noon.]\e"
+				"\0%(b)[It's noon.]\e"
 			}
 			else
 			{
-				"\0%(bb)[It's %(hour12) o'clock.]\e"
+				"\0%(b)[It's %(hour12) o'clock.]\e"
 			}
 		}
 	}
@@ -99,29 +124,53 @@ OnSecondChange
 	{
 		runtime[2]++
 	}
-	if NowPlaying[0] != "" && NowPlaying[2] == ""
+	if Singing
 	{
 		if playtime[2] >= 59
-	{
-		playtime[2] = 0
-		playtime[1]++
-		if playtime[1] >= 59
 		{
-			playtime[1] = 0
-			playtime[0]++
+			playtime[2] = 0
+			playtime[1]++
+			if playtime[1] >= 59
+			{
+				playtime[1] = 0
+				playtime[0]++
+			}
 		}
+		else
+		{
+			playtime[2]++
+		}
+	}
+	if SHIORI3FW.CanTalk //If not talking
+	{
+		SinceTalk++
 	}
 	else
 	{
-		playtime[2]++
-	}
+		SinceTalk = 0
 	}
 	if InstalledShellName != "" //If the user installed a shell that's supposed to be only FLELE compatible
 	{
-		"\0\s[0]\*[Successfully installed '%(InstalledShellName)'.]\n\n"
+		"\0\s[0]%(b)\*"
 		--
-		"\![*]\q[Change to %(InstalledShellName),OnChangeToShell,%(InstalledShellName)]\n\n/
-		\![*]\q[Close,OnCancel]\![raise,OnDialogueVars,InstalledNewShell]\e"
+		if language == "Placeholder" //TRANSLATORS: After installing a new shell. This one happens when FLUX uses my workaround to install FLELE shells that are set up to only be installed by FLELE
+		{
+			
+		}
+		elseif language == "Polski"
+		{
+			"[Zainstalowałem '%(reference1)'.]\n\n"
+			--
+			"\![*]\q[Zmień na %(reference1),OnChangeToShell]\n\n/
+			\![*]\q[Zamknij,OnCancel]\e"
+		}
+		else //English
+		{
+			"[Successfully installed '%(InstalledShellName)'.]\n\n"
+			--
+			"\![*]\q[Change to %(InstalledShellName),OnChangeToShell,%(InstalledShellName)]\n\n/
+			\![*]\q[Close,OnCancel]\![raise,OnDialogueVars,InstalledNewShell]\e"
+		}
 		ERASEVAR("DraggedFile")
 	}
 	elseif mikireflag == 0 && reference1 == 1 //Dialogue for putting them off the screen. You could make this a unique line if you wanted, and have MikireTalk be for if they continue to be offscreen
@@ -131,10 +180,6 @@ OnSecondChange
 	elseif mikireflag == 1 && reference1 == 0 //Dialogue for coming back on the screen
 	{
 		EndMikireTalk
-	}
-	elseif reference2 == 1 //This is for if your Sakura and Kero are overlapping. \4 will move the speaking character away from the other character.
-	{
-		
 	}
 	elseif ARRAYSIZE(waitingcommuS) > 0 && second % 5 == 0 //Every 5 seconds, check if the balloon is closed and a communication is waiting, and if so trigger a response
 	{
@@ -146,48 +191,78 @@ OnSecondChange
 
 MikireTalk //Off the screen dialogue. Ctrl Shift F12 will bring characters back onto the screen
 {
+	"\0%(b)"
+	--
 	if language == "Placeholder" //TRANSLATORS: If FLUX is off screen
 	{
 		
 	}
+	elseif language == "Polski"
+	{
+		"[FLUX player jest poza ekranem.\w8\w8 Możesz go przywrócić klikająć Ctrl-Shift-F12.]\e"
+	}
 	else //English
 	{
-		"\0%(bb)[FLUX player is off screen.\w8\w8 You can bring it back with Ctrl-Shift-F12.]\e"
+		"[FLUX player is off screen.\w8\w8 You can bring it back with Ctrl-Shift-F12.]\e"
 	}
 }
 
 EndMikireTalk //Being brought back on the screen.
 {
+	"\0%(b)"
+	--
 	if language == "Placeholder" //TRANSLATORS: Bringing FLUX back on screen
 	{
 		
 	}
+	elseif language == "Polski"
+	{
+		"[FLUX player jest spowrotem na ekranie.]\e"
+	}
 	else //English
 	{
-		"\0%(bb)[FLUX player is back on screen.]\e"
+		"[FLUX player is back on screen.]\e"
+	}
+}
+
+OnOverlap
+{
+	if "0-1" _in_ reference0 || "1-0" _in_ reference0
+	{
+		if ISFUNC("OnCustom_Overlap"); OnCustom_Overlap
+	}
+	else
+	{
+		if ISFUNC("OnCustom_OverlapExtra"); OnCustom_OverlapExtra
 	}
 }
 
 OnSurfaceRestore //OnSurfaceRestore happens around 30 seconds after the ghost's last dialogue. reference0 here stores the number of the previous surface, so you can have them comment when they change back if you like.
 {
-	if NowPlaying[0] == "" || NowPlaying[2] != "" //If no song is playing
-	{
-		"%(NonSingingSurfaces)\e"
-	}
-	else //If a song is playing
-	{
-		"%(SingingSurfaces)\e"
-	}
+	if Singing; SingingSurfaces //If a song is playing
+	else; NonSingingSurfaces //If no song is playing
+	--
+	"\e"
 }
 
 NonSingingSurfaces
 {
-	if ISFUNC("Custom_NonSingingSurfaces"); Custom_NonSingingSurfaces
-	else; "\1\s[-1]\0\s[0]"
+	if ISFUNC("OnCustom_IdleSurfaces") && CustomFuncs[0] == 1; OnCustom_IdleSurfaces
+	else
+	{
+		if SHIORI3FW.IsVisible[1] != 0; "\1\s[-1]"
+		--
+		if SHIORI3FW.LastSurface[0] != 0; "\0\s[0]"
+	}
 }
 
 SingingSurfaces
 {
-	if ISFUNC("Custom_SingingSurfaces"); Custom_SingingSurfaces
-	else; "\1\s[-1]\0\s[25]"
+	if ISFUNC("OnCustom_SingingSurfaces") && CustomFuncs[0] == 1; OnCustom_SingingSurfaces
+	else
+	{
+		if SHIORI3FW.IsVisible[1] != 0; "\1\s[-1]"
+		--
+		if SHIORI3FW.LastSurface[0] != 25; "\0\s[25]"
+	}
 }

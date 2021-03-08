@@ -1,3 +1,8 @@
+shellver
+{
+	"1.0.0"
+}
+
 OnCustomDressupRules
 {
 	_currentctg = _argv[0]
@@ -35,4 +40,506 @@ OnCustomDressupRules
 CustomSkipChance
 {
 	2
+}
+
+ExportFileNames : array
+{
+	// "Color|Cinnamon 1|pelt_base.png:CLIP:colors/cinnamon_30.png"
+	// "Back Right Leg|Toes|leg_br_00.png"
+	// "Muzzle|Low|muzzle_00.png"
+	// "Nose|Light Gray|nose_00.png:CLIP:colors/nose_02.png"
+	// "Eyes|Deep Blue 1|eye_left.png:AND:eye_right.png:CLIP:colors/deep_blue_00.png"
+	// "Lines|Lines|lineart.png"
+	
+	//---Base colors---
+	//Black
+	"Color|Black|pelt_base.png:CLIP:colors/black_10.png"
+	"Color|Gray 1|pelt_base.png:CLIP:colors/black_20.png"
+	"Color|Gray 2|pelt_base.png:CLIP:colors/black_30.png"
+	"Color|Gray 3|pelt_base.png:CLIP:colors/black_40.png"
+	"Color|Gray 4|pelt_base.png:CLIP:colors/black_50.png"
+	"Color|Gray 5|pelt_base.png:CLIP:colors/black_60.png"
+	"Color|Gray 6|pelt_base.png:CLIP:colors/black_70.png"
+	"Color|Gray 7|pelt_base.png:CLIP:colors/black_80.png"
+	"Color|Gray 8|pelt_base.png:CLIP:colors/black_90.png"
+	"Color|White|pelt_base.png:CLIP:colors/black_96.png"
+	//Chocolate
+	"Color|Chocolate 1|pelt_base.png:CLIP:colors/chocolate_20.png"
+	"Color|Chocolate 2|pelt_base.png:CLIP:colors/chocolate_30.png"
+	"Color|Chocolate 3|pelt_base.png:CLIP:colors/chocolate_40.png"
+	"Color|Chocolate 4|pelt_base.png:CLIP:colors/chocolate_50.png"
+	"Color|Chocolate 5|pelt_base.png:CLIP:colors/chocolate_60.png"
+	"Color|Chocolate 6|pelt_base.png:CLIP:colors/chocolate_70.png"
+	"Color|Chocolate 7|pelt_base.png:CLIP:colors/chocolate_80.png"
+	"Color|Chocolate 8|pelt_base.png:CLIP:colors/chocolate_90.png"
+	//Cinnamon
+	"Color|Cinnamon 1|pelt_base.png:CLIP:colors/cinnamon_30.png"
+	"Color|Cinnamon 2|pelt_base.png:CLIP:colors/cinnamon_40.png"
+	"Color|Cinnamon 3|pelt_base.png:CLIP:colors/cinnamon_50.png"
+	"Color|Cinnamon 4|pelt_base.png:CLIP:colors/cinnamon_60.png"
+	"Color|Cinnamon 5|pelt_base.png:CLIP:colors/cinnamon_70.png"
+	"Color|Cinnamon 6|pelt_base.png:CLIP:colors/cinnamon_80.png"
+	"Color|Cinnamon 7|pelt_base.png:CLIP:colors/cinnamon_90.png"
+	//Red
+	"Color|Red 1|pelt_base.png:CLIP:colors/red_30.png"
+	"Color|Red 2|pelt_base.png:CLIP:colors/red_40.png"
+	"Color|Red 3|pelt_base.png:CLIP:colors/red_50.png"
+	"Color|Red 4|pelt_base.png:CLIP:colors/red_60.png"
+	"Color|Red 5|pelt_base.png:CLIP:colors/red_70.png"
+	"Color|Red 6|pelt_base.png:CLIP:colors/red_80.png"
+	"Color|Red 7|pelt_base.png:CLIP:colors/red_90.png"
+	"Color|Red 8|pelt_base.png:CLIP:colors/red_95.png"
+	"Color|Red 9|pelt_base.png:CLIP:colors/red_95-s25.png"
+	//Yellow
+	"Color|Yellow 1|pelt_base.png:CLIP:colors/yellow_70.png"
+	"Color|Yellow 2|pelt_base.png:CLIP:colors/yellow_80.png"
+	"Color|Yellow 3|pelt_base.png:CLIP:colors/yellow_90.png"
+	"Color|Yellow 4|pelt_base.png:CLIP:colors/yellow_95.png"
+	"Color|Yellow 5|pelt_base.png:CLIP:colors/yellow_95-s30.png"
+	"Color|Yellow 6|pelt_base.png:CLIP:colors/yellow_95-s25.png"
+	//Apricot
+	"Color|Apricot 1|pelt_base.png:CLIP:colors/apricot_s50.png"
+	"Color|Apricot 2|pelt_base.png:CLIP:colors/apricot_s40.png"
+	
+	//---Tortie 1---
+	//Black
+	"Tortie 1|Black|tortie_00.png:CLIP:colors/black_10.png"
+	"Tortie 1|Gray 1|tortie_00.png:CLIP:colors/black_20.png"
+	"Tortie 1|Gray 2|tortie_00.png:CLIP:colors/black_30.png"
+	"Tortie 1|Gray 3|tortie_00.png:CLIP:colors/black_40.png"
+	"Tortie 1|Gray 4|tortie_00.png:CLIP:colors/black_50.png"
+	"Tortie 1|Gray 5|tortie_00.png:CLIP:colors/black_60.png"
+	"Tortie 1|Gray 6|tortie_00.png:CLIP:colors/black_70.png"
+	"Tortie 1|Gray 7|tortie_00.png:CLIP:colors/black_80.png"
+	"Tortie 1|Gray 8|tortie_00.png:CLIP:colors/black_90.png"
+	"Tortie 1|White|tortie_00.png:CLIP:colors/black_96.png"
+	//Chocolate
+	"Tortie 1|Chocolate 1|tortie_00.png:CLIP:colors/chocolate_20.png"
+	"Tortie 1|Chocolate 2|tortie_00.png:CLIP:colors/chocolate_30.png"
+	"Tortie 1|Chocolate 3|tortie_00.png:CLIP:colors/chocolate_40.png"
+	"Tortie 1|Chocolate 4|tortie_00.png:CLIP:colors/chocolate_50.png"
+	"Tortie 1|Chocolate 5|tortie_00.png:CLIP:colors/chocolate_60.png"
+	"Tortie 1|Chocolate 6|tortie_00.png:CLIP:colors/chocolate_70.png"
+	"Tortie 1|Chocolate 7|tortie_00.png:CLIP:colors/chocolate_80.png"
+	"Tortie 1|Chocolate 8|tortie_00.png:CLIP:colors/chocolate_90.png"
+	//Cinnamon
+	"Tortie 1|Cinnamon 1|tortie_00.png:CLIP:colors/cinnamon_30.png"
+	"Tortie 1|Cinnamon 2|tortie_00.png:CLIP:colors/cinnamon_40.png"
+	"Tortie 1|Cinnamon 3|tortie_00.png:CLIP:colors/cinnamon_50.png"
+	"Tortie 1|Cinnamon 4|tortie_00.png:CLIP:colors/cinnamon_60.png"
+	"Tortie 1|Cinnamon 5|tortie_00.png:CLIP:colors/cinnamon_70.png"
+	"Tortie 1|Cinnamon 6|tortie_00.png:CLIP:colors/cinnamon_80.png"
+	"Tortie 1|Cinnamon 7|tortie_00.png:CLIP:colors/cinnamon_90.png"
+	//Red
+	"Tortie 1|Red 1|tortie_00.png:CLIP:colors/red_30.png"
+	"Tortie 1|Red 2|tortie_00.png:CLIP:colors/red_40.png"
+	"Tortie 1|Red 3|tortie_00.png:CLIP:colors/red_50.png"
+	"Tortie 1|Red 4|tortie_00.png:CLIP:colors/red_60.png"
+	"Tortie 1|Red 5|tortie_00.png:CLIP:colors/red_70.png"
+	"Tortie 1|Red 6|tortie_00.png:CLIP:colors/red_80.png"
+	"Tortie 1|Red 7|tortie_00.png:CLIP:colors/red_90.png"
+	"Tortie 1|Red 8|tortie_00.png:CLIP:colors/red_95.png"
+	"Tortie 1|Red 9|tortie_00.png:CLIP:colors/red_95-s25.png"
+	//Yellow
+	"Tortie 1|Yellow 1|tortie_00.png:CLIP:colors/yellow_70.png"
+	"Tortie 1|Yellow 2|tortie_00.png:CLIP:colors/yellow_80.png"
+	"Tortie 1|Yellow 3|tortie_00.png:CLIP:colors/yellow_90.png"
+	"Tortie 1|Yellow 4|tortie_00.png:CLIP:colors/yellow_95.png"
+	"Tortie 1|Yellow 5|tortie_00.png:CLIP:colors/yellow_95-s30.png"
+	"Tortie 1|Yellow 6|tortie_00.png:CLIP:colors/yellow_95-s25.png"
+	//Apricot
+	"Tortie 1|Apricot 1|tortie_00.png:CLIP:colors/apricot_s50.png"
+	"Tortie 1|Apricot 2|tortie_00.png:CLIP:colors/apricot_s40.png"
+	
+	//---Tortie 2---
+	//Black
+	"Tortie 2|Black|tortie_01.png:CLIP:colors/black_10.png"
+	"Tortie 2|Gray 1|tortie_01.png:CLIP:colors/black_20.png"
+	"Tortie 2|Gray 2|tortie_01.png:CLIP:colors/black_30.png"
+	"Tortie 2|Gray 3|tortie_01.png:CLIP:colors/black_40.png"
+	"Tortie 2|Gray 4|tortie_01.png:CLIP:colors/black_50.png"
+	"Tortie 2|Gray 5|tortie_01.png:CLIP:colors/black_60.png"
+	"Tortie 2|Gray 6|tortie_01.png:CLIP:colors/black_70.png"
+	"Tortie 2|Gray 7|tortie_01.png:CLIP:colors/black_80.png"
+	"Tortie 2|Gray 8|tortie_01.png:CLIP:colors/black_90.png"
+	"Tortie 2|White|tortie_01.png:CLIP:colors/black_96.png"
+	//Chocolate
+	"Tortie 2|Chocolate 1|tortie_01.png:CLIP:colors/chocolate_20.png"
+	"Tortie 2|Chocolate 2|tortie_01.png:CLIP:colors/chocolate_30.png"
+	"Tortie 2|Chocolate 3|tortie_01.png:CLIP:colors/chocolate_40.png"
+	"Tortie 2|Chocolate 4|tortie_01.png:CLIP:colors/chocolate_50.png"
+	"Tortie 2|Chocolate 5|tortie_01.png:CLIP:colors/chocolate_60.png"
+	"Tortie 2|Chocolate 6|tortie_01.png:CLIP:colors/chocolate_70.png"
+	"Tortie 2|Chocolate 7|tortie_01.png:CLIP:colors/chocolate_80.png"
+	"Tortie 2|Chocolate 8|tortie_01.png:CLIP:colors/chocolate_90.png"
+	//Cinnamon
+	"Tortie 2|Cinnamon 1|tortie_01.png:CLIP:colors/cinnamon_30.png"
+	"Tortie 2|Cinnamon 2|tortie_01.png:CLIP:colors/cinnamon_40.png"
+	"Tortie 2|Cinnamon 3|tortie_01.png:CLIP:colors/cinnamon_50.png"
+	"Tortie 2|Cinnamon 4|tortie_01.png:CLIP:colors/cinnamon_60.png"
+	"Tortie 2|Cinnamon 5|tortie_01.png:CLIP:colors/cinnamon_70.png"
+	"Tortie 2|Cinnamon 6|tortie_01.png:CLIP:colors/cinnamon_80.png"
+	"Tortie 2|Cinnamon 7|tortie_01.png:CLIP:colors/cinnamon_90.png"
+	//Red
+	"Tortie 2|Red 1|tortie_01.png:CLIP:colors/red_30.png"
+	"Tortie 2|Red 2|tortie_01.png:CLIP:colors/red_40.png"
+	"Tortie 2|Red 3|tortie_01.png:CLIP:colors/red_50.png"
+	"Tortie 2|Red 4|tortie_01.png:CLIP:colors/red_60.png"
+	"Tortie 2|Red 5|tortie_01.png:CLIP:colors/red_70.png"
+	"Tortie 2|Red 6|tortie_01.png:CLIP:colors/red_80.png"
+	"Tortie 2|Red 7|tortie_01.png:CLIP:colors/red_90.png"
+	"Tortie 2|Red 8|tortie_01.png:CLIP:colors/red_95.png"
+	"Tortie 2|Red 9|tortie_01.png:CLIP:colors/red_95-s25.png"
+	//Yellow
+	"Tortie 2|Yellow 1|tortie_01.png:CLIP:colors/yellow_70.png"
+	"Tortie 2|Yellow 2|tortie_01.png:CLIP:colors/yellow_80.png"
+	"Tortie 2|Yellow 3|tortie_01.png:CLIP:colors/yellow_90.png"
+	"Tortie 2|Yellow 4|tortie_01.png:CLIP:colors/yellow_95.png"
+	"Tortie 2|Yellow 5|tortie_01.png:CLIP:colors/yellow_95-s30.png"
+	"Tortie 2|Yellow 6|tortie_01.png:CLIP:colors/yellow_95-s25.png"
+	//Apricot
+	"Tortie 2|Apricot 1|tortie_01.png:CLIP:colors/apricot_s50.png"
+	"Tortie 2|Apricot 2|tortie_01.png:CLIP:colors/apricot_s40.png"
+	
+	//---Tortie 3---
+	//Black
+	"Tortie 3|Black|tortie_02.png:CLIP:colors/black_10.png"
+	"Tortie 3|Gray 1|tortie_02.png:CLIP:colors/black_20.png"
+	"Tortie 3|Gray 2|tortie_02.png:CLIP:colors/black_30.png"
+	"Tortie 3|Gray 3|tortie_02.png:CLIP:colors/black_40.png"
+	"Tortie 3|Gray 4|tortie_02.png:CLIP:colors/black_50.png"
+	"Tortie 3|Gray 5|tortie_02.png:CLIP:colors/black_60.png"
+	"Tortie 3|Gray 6|tortie_02.png:CLIP:colors/black_70.png"
+	"Tortie 3|Gray 7|tortie_02.png:CLIP:colors/black_80.png"
+	"Tortie 3|Gray 8|tortie_02.png:CLIP:colors/black_90.png"
+	"Tortie 3|White|tortie_02.png:CLIP:colors/black_96.png"
+	//Chocolate
+	"Tortie 3|Chocolate 1|tortie_02.png:CLIP:colors/chocolate_20.png"
+	"Tortie 3|Chocolate 2|tortie_02.png:CLIP:colors/chocolate_30.png"
+	"Tortie 3|Chocolate 3|tortie_02.png:CLIP:colors/chocolate_40.png"
+	"Tortie 3|Chocolate 4|tortie_02.png:CLIP:colors/chocolate_50.png"
+	"Tortie 3|Chocolate 5|tortie_02.png:CLIP:colors/chocolate_60.png"
+	"Tortie 3|Chocolate 6|tortie_02.png:CLIP:colors/chocolate_70.png"
+	"Tortie 3|Chocolate 7|tortie_02.png:CLIP:colors/chocolate_80.png"
+	"Tortie 3|Chocolate 8|tortie_02.png:CLIP:colors/chocolate_90.png"
+	//Cinnamon
+	"Tortie 3|Cinnamon 1|tortie_02.png:CLIP:colors/cinnamon_30.png"
+	"Tortie 3|Cinnamon 2|tortie_02.png:CLIP:colors/cinnamon_40.png"
+	"Tortie 3|Cinnamon 3|tortie_02.png:CLIP:colors/cinnamon_50.png"
+	"Tortie 3|Cinnamon 4|tortie_02.png:CLIP:colors/cinnamon_60.png"
+	"Tortie 3|Cinnamon 5|tortie_02.png:CLIP:colors/cinnamon_70.png"
+	"Tortie 3|Cinnamon 6|tortie_02.png:CLIP:colors/cinnamon_80.png"
+	"Tortie 3|Cinnamon 7|tortie_02.png:CLIP:colors/cinnamon_90.png"
+	//Red
+	"Tortie 3|Red 1|tortie_02.png:CLIP:colors/red_30.png"
+	"Tortie 3|Red 2|tortie_02.png:CLIP:colors/red_40.png"
+	"Tortie 3|Red 3|tortie_02.png:CLIP:colors/red_50.png"
+	"Tortie 3|Red 4|tortie_02.png:CLIP:colors/red_60.png"
+	"Tortie 3|Red 5|tortie_02.png:CLIP:colors/red_70.png"
+	"Tortie 3|Red 6|tortie_02.png:CLIP:colors/red_80.png"
+	"Tortie 3|Red 7|tortie_02.png:CLIP:colors/red_90.png"
+	"Tortie 3|Red 8|tortie_02.png:CLIP:colors/red_95.png"
+	"Tortie 3|Red 9|tortie_02.png:CLIP:colors/red_95-s25.png"
+	//Yellow
+	"Tortie 3|Yellow 1|tortie_02.png:CLIP:colors/yellow_70.png"
+	"Tortie 3|Yellow 2|tortie_02.png:CLIP:colors/yellow_80.png"
+	"Tortie 3|Yellow 3|tortie_02.png:CLIP:colors/yellow_90.png"
+	"Tortie 3|Yellow 4|tortie_02.png:CLIP:colors/yellow_95.png"
+	"Tortie 3|Yellow 5|tortie_02.png:CLIP:colors/yellow_95-s30.png"
+	"Tortie 3|Yellow 6|tortie_02.png:CLIP:colors/yellow_95-s25.png"
+	//Apricot
+	"Tortie 3|Apricot 1|tortie_02.png:CLIP:colors/apricot_s50.png"
+	"Tortie 3|Apricot 2|tortie_02.png:CLIP:colors/apricot_s40.png"
+	
+	//---Tortie 4---
+	//Black
+	"Tortie 4|Black|tortie_03.png:CLIP:colors/black_10.png"
+	"Tortie 4|Gray 1|tortie_03.png:CLIP:colors/black_20.png"
+	"Tortie 4|Gray 2|tortie_03.png:CLIP:colors/black_30.png"
+	"Tortie 4|Gray 3|tortie_03.png:CLIP:colors/black_40.png"
+	"Tortie 4|Gray 4|tortie_03.png:CLIP:colors/black_50.png"
+	"Tortie 4|Gray 5|tortie_03.png:CLIP:colors/black_60.png"
+	"Tortie 4|Gray 6|tortie_03.png:CLIP:colors/black_70.png"
+	"Tortie 4|Gray 7|tortie_03.png:CLIP:colors/black_80.png"
+	"Tortie 4|Gray 8|tortie_03.png:CLIP:colors/black_90.png"
+	"Tortie 4|White|tortie_03.png:CLIP:colors/black_96.png"
+	//Chocolate
+	"Tortie 4|Chocolate 1|tortie_03.png:CLIP:colors/chocolate_20.png"
+	"Tortie 4|Chocolate 2|tortie_03.png:CLIP:colors/chocolate_30.png"
+	"Tortie 4|Chocolate 3|tortie_03.png:CLIP:colors/chocolate_40.png"
+	"Tortie 4|Chocolate 4|tortie_03.png:CLIP:colors/chocolate_50.png"
+	"Tortie 4|Chocolate 5|tortie_03.png:CLIP:colors/chocolate_60.png"
+	"Tortie 4|Chocolate 6|tortie_03.png:CLIP:colors/chocolate_70.png"
+	"Tortie 4|Chocolate 7|tortie_03.png:CLIP:colors/chocolate_80.png"
+	"Tortie 4|Chocolate 8|tortie_03.png:CLIP:colors/chocolate_90.png"
+	//Cinnamon
+	"Tortie 4|Cinnamon 1|tortie_03.png:CLIP:colors/cinnamon_30.png"
+	"Tortie 4|Cinnamon 2|tortie_03.png:CLIP:colors/cinnamon_40.png"
+	"Tortie 4|Cinnamon 3|tortie_03.png:CLIP:colors/cinnamon_50.png"
+	"Tortie 4|Cinnamon 4|tortie_03.png:CLIP:colors/cinnamon_60.png"
+	"Tortie 4|Cinnamon 5|tortie_03.png:CLIP:colors/cinnamon_70.png"
+	"Tortie 4|Cinnamon 6|tortie_03.png:CLIP:colors/cinnamon_80.png"
+	"Tortie 4|Cinnamon 7|tortie_03.png:CLIP:colors/cinnamon_90.png"
+	//Red
+	"Tortie 4|Red 1|tortie_03.png:CLIP:colors/red_30.png"
+	"Tortie 4|Red 2|tortie_03.png:CLIP:colors/red_40.png"
+	"Tortie 4|Red 3|tortie_03.png:CLIP:colors/red_50.png"
+	"Tortie 4|Red 4|tortie_03.png:CLIP:colors/red_60.png"
+	"Tortie 4|Red 5|tortie_03.png:CLIP:colors/red_70.png"
+	"Tortie 4|Red 6|tortie_03.png:CLIP:colors/red_80.png"
+	"Tortie 4|Red 7|tortie_03.png:CLIP:colors/red_90.png"
+	"Tortie 4|Red 8|tortie_03.png:CLIP:colors/red_95.png"
+	"Tortie 4|Red 9|tortie_03.png:CLIP:colors/red_95-s25.png"
+	//Yellow
+	"Tortie 4|Yellow 1|tortie_03.png:CLIP:colors/yellow_70.png"
+	"Tortie 4|Yellow 2|tortie_03.png:CLIP:colors/yellow_80.png"
+	"Tortie 4|Yellow 3|tortie_03.png:CLIP:colors/yellow_90.png"
+	"Tortie 4|Yellow 4|tortie_03.png:CLIP:colors/yellow_95.png"
+	"Tortie 4|Yellow 5|tortie_03.png:CLIP:colors/yellow_95-s30.png"
+	"Tortie 4|Yellow 6|tortie_03.png:CLIP:colors/yellow_95-s25.png"
+	//Apricot
+	"Tortie 4|Apricot 1|tortie_03.png:CLIP:colors/apricot_s50.png"
+	"Tortie 4|Apricot 2|tortie_03.png:CLIP:colors/apricot_s40.png"
+	
+	//---Tabby---
+	"Tabby|Classic|tabby_classic_00.png"
+	"Tabby|Mackerel|tabby_mackerel_00.png"
+	"Tabby|Ticked|tabby_ticked_00.png"
+	"Tabby|Agouti|tabby_agouti_00.png"
+	
+	"Tabby|Colorpoint 1|tabby_colorpoint_00.png"
+	"Tabby|Colorpoint 1 + Classic|tabby_classic_01.png"
+	"Tabby|Colorpoint 1 + Mackerel|tabby_mackerel_01.png"
+	"Tabby|Colorpoint 1 + Ticked|tabby_ticked_01.png"
+	
+	"Tabby|Colorpoint 2|tabby_colorpoint_01.png"
+	"Tabby|Colorpoint 2 + Classic|tabby_classic_02.png"
+	"Tabby|Colorpoint 2 + Mackerel|tabby_mackerel_02.png"
+	"Tabby|Colorpoint 2 + Ticked|tabby_ticked_02.png"
+	
+	"Tabby|Colorpoint 3|tabby_colorpoint_02.png"
+	"Tabby|Colorpoint 3 + Classic|tabby_classic_03.png"
+	"Tabby|Colorpoint 3 + Mackerel|tabby_mackerel_03.png"
+	"Tabby|Colorpoint 3 + Ticked|tabby_ticked_03.png"
+	
+	//---White spotting---
+	
+	//Front Left Leg
+	"Front Left Leg|Toes|leg_fl_00.png"
+	"Front Left Leg|Mitten|leg_fl_01.png"
+	"Front Left Leg|Sock|leg_fl_02.png"
+	"Front Left Leg|Boot|leg_fl_03.png"
+	"Front Left Leg|Knee|leg_fl_04.png"
+	"Front Left Leg|3/4|leg_fl_05.png"
+	
+	//Front Right Leg
+	"Front Right Leg|Toes|leg_fr_00.png"
+	"Front Right Leg|Mitten|leg_fr_01.png"
+	"Front Right Leg|Sock|leg_fr_02.png"
+	"Front Right Leg|Boot|leg_fr_03.png"
+	"Front Right Leg|Knee|leg_fr_04.png"
+	"Front Right Leg|3/4|leg_fr_05.png"
+	
+	//Back Left Leg
+	"Back Left Leg|Toes|leg_bl_00.png"
+	"Back Left Leg|Mitten|leg_bl_01.png"
+	"Back Left Leg|Sock|leg_bl_02.png"
+	"Back Left Leg|Boot|leg_bl_03.png"
+	"Back Left Leg|Ankle|leg_bl_04.png"
+	"Back Left Leg|Knee|leg_bl_05.png"
+	"Back Left Leg|3/4|leg_bl_06.png"
+	
+	//Back Right Leg
+	"Back Right Leg|Toes|leg_br_00.png"
+	"Back Right Leg|Mitten|leg_br_01.png"
+	"Back Right Leg|Sock|leg_br_02.png"
+	"Back Right Leg|Boot|leg_br_03.png"
+	"Back Right Leg|Ankle|leg_br_04.png"
+	"Back Right Leg|Knee|leg_br_05.png"
+	"Back Right Leg|3/4|leg_br_06.png"
+	
+	//Tail
+	"Tail|Small tip|tail_00.png"
+	"Tail|Tip|tail_01.png"
+	"Tail|1/4|tail_02.png"
+	"Tail|Half|tail_03.png"
+	
+	//Chest
+	"Chest|Spot|chest_00.png"
+	"Chest|Low|chest_01.png"
+	"Chest|Mid|chest_02.png"
+	"Chest|High|chest_03.png"
+	"Chest|Top|chest_04.png"
+	"Chest|Full|chest_05.png"
+	
+	//Belly
+	"Belly|Low|belly_00.png"
+	"Belly|Mid|belly_01.png"
+	"Belly|High|belly_02.png"
+	"Belly|Full|belly_03.png"
+	
+	//Undercoat
+	"Undercoat|Small|undercoat_00.png"
+	"Undercoat|Bigger|undercoat_01.png"
+	
+	//Bicolor
+	"Bicolor|Mask & Mantle|bicolor_00.png"
+	"Bicolor|Cap & Saddle|bicolor_01.png"
+	"Bicolor|Van|bicolor_02.png"
+	
+	//White Spotting
+	"White Spotting|Patches 1|spots_00.png"
+	"White Spotting|Patches 2|spots_01.png"
+	"White Spotting|Patches 3|spots_02.png"
+	"White Spotting|Patches 4|spots_03.png"
+	"White Spotting|Patches 5|spots_04.png"
+	"White Spotting|Patches 6|spots_05.png"
+	"White Spotting|Patches 7|spots_06.png"
+	"White Spotting|Patches 8|spots_07.png"
+	"White Spotting|Patches 9|spots_08.png"
+	"White Spotting|Patches 10|spots_09.png"
+	"White Spotting|Patches 11|spots_10.png"
+	"White Spotting|Patches 12|spots_11.png"
+	"White Spotting|Patches 13|spots_12.png"
+	"White Spotting|Patches 14|spots_13.png"
+	"White Spotting|Patches 15|spots_14.png"
+	"White Spotting|Patches 16|spots_15.png"
+	
+	//Mouth
+	"Mouth|Spot|mouth_00.png"
+	"Mouth|Bridge|mouth_01.png"
+	"Mouth|Chin|mouth_02.png"
+	
+	//Blaze
+	"Blaze|Tiny|blaze_00.png"
+	"Blaze|Small|blaze_01.png"
+	"Blaze|Mid|blaze_02.png"
+	"Blaze|Large|blaze_03.png"
+	"Blaze|Forehead|blaze_04.png"
+	
+	//Muzzle
+	"Muzzle|Low|muzzle_00.png"
+	"Muzzle|Mid|muzzle_01.png"
+	"Muzzle|High|muzzle_02.png"
+	
+	//Left Ear
+	"Left Ear|Tiny|left_ear_00.png"
+	"Left Ear|1/3|left_ear_01.png"
+	"Left Ear|2/3|left_ear_02.png"
+	"Left Ear|Full|left_ear_03.png"
+	
+	//Right Ear
+	"Right Ear|Tiny|right_ear_00.png"
+	"Right Ear|1/3|right_ear_01.png"
+	"Right Ear|2/3|right_ear_02.png"
+	"Right Ear|Full|right_ear_03.png"
+	
+	//Eye Spots
+	"Eye Spots|Shadow|eyespots_00.png"
+	"Eye Spots|Wings|eyespots_01.png"
+	"Eye Spots|Tears|eyespots_02.png"
+	"Eye Spots|Spots|eyespots_03.png"
+	"Eye Spots|Freckles|eyespots_04.png"
+	
+	//Eyebrows
+	"Eyebrows|White|eyebrows_00.png"
+	
+	//---Eyes---
+	
+	//Normal eyes
+	//Deep Blue
+	"Eyes|Deep Blue 1|eye_left.png:AND:eye_right.png:CLIP:colors/deep_blue_00.png"
+	"Eyes|Deep Blue 2|eye_left.png:AND:eye_right.png:CLIP:colors/deep_blue_01.png"
+	"Eyes|Deep Blue 3|eye_left.png:AND:eye_right.png:CLIP:colors/deep_blue_02.png"
+	"Eyes|Deep Blue 4|eye_left.png:AND:eye_right.png:CLIP:colors/deep_blue_03.png"
+	
+	//Blue
+	"Eyes|Blue 1|eye_left.png:AND:eye_right.png:CLIP:colors/blue_00.png"
+	"Eyes|Blue 2|eye_left.png:AND:eye_right.png:CLIP:colors/blue_01.png"
+	"Eyes|Blue 3|eye_left.png:AND:eye_right.png:CLIP:colors/blue_02.png"
+	"Eyes|Blue 4|eye_left.png:AND:eye_right.png:CLIP:colors/blue_03.png"
+	
+	//Blue-Green
+	"Eyes|Blue-Green 1|eye_left.png:AND:eye_right.png:CLIP:colors/blue_green_00.png"
+	"Eyes|Blue-Green 2|eye_left.png:AND:eye_right.png:CLIP:colors/blue_green_01.png"
+	"Eyes|Blue-Green 3|eye_left.png:AND:eye_right.png:CLIP:colors/blue_green_02.png"
+	"Eyes|Blue-Green 4|eye_left.png:AND:eye_right.png:CLIP:colors/blue_green_03.png"
+	
+	//Green
+	"Eyes|Green 1|eye_left.png:AND:eye_right.png:CLIP:colors/green_00.png"
+	"Eyes|Green 2|eye_left.png:AND:eye_right.png:CLIP:colors/green_01.png"
+	"Eyes|Green 3|eye_left.png:AND:eye_right.png:CLIP:colors/green_02.png"
+	"Eyes|Green 4|eye_left.png:AND:eye_right.png:CLIP:colors/green_03.png"
+	
+	//Yellow-Green
+	"Eyes|Yellow-Green 1|eye_left.png:AND:eye_right.png:CLIP:colors/yellow_green_00.png"
+	"Eyes|Yellow-Green 2|eye_left.png:AND:eye_right.png:CLIP:colors/yellow_green_01.png"
+	"Eyes|Yellow-Green 3|eye_left.png:AND:eye_right.png:CLIP:colors/yellow_green_02.png"
+	"Eyes|Yellow-Green 4|eye_left.png:AND:eye_right.png:CLIP:colors/yellow_green_03.png"
+	
+	//Yellow
+	"Eyes|Yellow 1|eye_left.png:AND:eye_right.png:CLIP:colors/yellow_00.png"
+	"Eyes|Yellow 2|eye_left.png:AND:eye_right.png:CLIP:colors/yellow_01.png"
+	"Eyes|Yellow 3|eye_left.png:AND:eye_right.png:CLIP:colors/yellow_02.png"
+	"Eyes|Yellow 4|eye_left.png:AND:eye_right.png:CLIP:colors/yellow_03.png"
+	
+	//Amber
+	"Eyes|Amber 1|eye_left.png:AND:eye_right.png:CLIP:colors/amber_00.png"
+	"Eyes|Amber 2|eye_left.png:AND:eye_right.png:CLIP:colors/amber_01.png"
+	"Eyes|Amber 3|eye_left.png:AND:eye_right.png:CLIP:colors/amber_02.png"
+	"Eyes|Amber 4|eye_left.png:AND:eye_right.png:CLIP:colors/amber_03.png"
+	
+	//Heterochromia
+	//Deep Blue
+	"Heterochromia|Deep Blue 1|eye_right.png:CLIP:colors/deep_blue_00.png"
+	"Heterochromia|Deep Blue 2|eye_right.png:CLIP:colors/deep_blue_01.png"
+	"Heterochromia|Deep Blue 3|eye_right.png:CLIP:colors/deep_blue_02.png"
+	"Heterochromia|Deep Blue 4|eye_right.png:CLIP:colors/deep_blue_03.png"
+	
+	//Blue
+	"Heterochromia|Blue 1|eye_right.png:CLIP:colors/blue_00.png"
+	"Heterochromia|Blue 2|eye_right.png:CLIP:colors/blue_01.png"
+	"Heterochromia|Blue 3|eye_right.png:CLIP:colors/blue_02.png"
+	"Heterochromia|Blue 4|eye_right.png:CLIP:colors/blue_03.png"
+	
+	//Blue-Green
+	"Heterochromia|Blue-Green 1|eye_right.png:CLIP:colors/blue_green_00.png"
+	"Heterochromia|Blue-Green 2|eye_right.png:CLIP:colors/blue_green_01.png"
+	"Heterochromia|Blue-Green 3|eye_right.png:CLIP:colors/blue_green_02.png"
+	"Heterochromia|Blue-Green 4|eye_right.png:CLIP:colors/blue_green_03.png"
+	
+	//Green
+	"Heterochromia|Green 1|eye_right.png:CLIP:colors/green_00.png"
+	"Heterochromia|Green 2|eye_right.png:CLIP:colors/green_01.png"
+	"Heterochromia|Green 3|eye_right.png:CLIP:colors/green_02.png"
+	"Heterochromia|Green 4|eye_right.png:CLIP:colors/green_03.png"
+	
+	//Yellow-Green
+	"Heterochromia|Yellow-Green 1|eye_right.png:CLIP:colors/yellow_green_00.png"
+	"Heterochromia|Yellow-Green 2|eye_right.png:CLIP:colors/yellow_green_01.png"
+	"Heterochromia|Yellow-Green 3|eye_right.png:CLIP:colors/yellow_green_02.png"
+	"Heterochromia|Yellow-Green 4|eye_right.png:CLIP:colors/yellow_green_03.png"
+	
+	//Yellow
+	"Heterochromia|Yellow 1|eye_right.png:CLIP:colors/yellow_00.png"
+	"Heterochromia|Yellow 2|eye_right.png:CLIP:colors/yellow_01.png"
+	"Heterochromia|Yellow 3|eye_right.png:CLIP:colors/yellow_02.png"
+	"Heterochromia|Yellow 4|eye_right.png:CLIP:colors/yellow_03.png"
+	
+	//Amber
+	"Heterochromia|Amber 1|eye_right.png:CLIP:colors/amber_00.png"
+	"Heterochromia|Amber 2|eye_right.png:CLIP:colors/amber_01.png"
+	"Heterochromia|Amber 3|eye_right.png:CLIP:colors/amber_02.png"
+	"Heterochromia|Amber 4|eye_right.png:CLIP:colors/amber_03.png"
+	
+	//---Nose---
+	"Nose|Black|nose_00.png:CLIP:colors/nose_00.png"
+	"Nose|Dark Gray|nose_00.png:CLIP:colors/nose_01.png"
+	"Nose|Light Gray|nose_00.png:CLIP:colors/nose_02.png"
+	"Nose|Lilac|nose_00.png:CLIP:colors/nose_03.png"
+	"Nose|Pink|nose_00.png:CLIP:colors/nose_04.png"
+	
+	
+	//Lineart
+	"Lines|Lines|lineart.png"
 }

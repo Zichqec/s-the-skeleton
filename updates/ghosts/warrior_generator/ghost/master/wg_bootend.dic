@@ -219,4 +219,5 @@ FirstBootVars
 	SavedSuffixes = IARRAY
 	Prefixes = ("On","Off","Off","Off")
 	Suffixes = ("On","Off","Off","Off")
+	randomwarn = "On"
 }

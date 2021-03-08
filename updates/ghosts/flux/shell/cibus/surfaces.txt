@@ -68,7 +68,7 @@ surface4 //Smile closed eyes
 	element1,overlay,surface604.png,0,0
 }
 
-surface.append1-5 //Talks
+surface.append1-6 //Talks
 {
 	animation1.interval,talk,4
 	animation1.pattern0,alternativestart,(2,3,4)
@@ -103,260 +103,190 @@ surface25 //Singing
 	element4,overlay,surface700.png,0,0
 	element5,overlay,surface600.png,0,0
 	
-	animation0.interval,random,3
-	animation0.pattern0,alternativestart,(101,102,103,201,202,203,301,302,303,304,305)
+	//For anyone curious, and for myself later when I forget all this stuff, I'll add some notes on how this works. The FLUX shell does it too, with 3 arms and the expressions.
+	//First of all, since giving an animation a random,1 call makes it take a second to start the animations, I couldn't do that for FLUX's arm animations. So instead, I use a runonce to start each animation loop.
+	//Each thing that can animate gets a control animation, which is started by an initialize animation. The control animation uses alternativestart to randomly call one of the animations for that piece (the arm or mouth or whatever that it controls). Every animation calls the control animation when it finishes, so that it can call something else in a seamless loop.
 	
+	//---Mouth animations---
 	
-	//Mouth animations
-	animation1.interval,random,1
-	animation1.pattern0,alternativestart,(2,3,4,5,6,7)
+	//Calls open mouth animations
+	animation100.interval,runonce
+	animation100.pattern0,alternativestart,(1002,1003,1004,1005) //(1000,1001,1002,1003,1004,1005)
 	
-	// animation2.interval,never
-	// animation2.pattern0,overlay,-1,0,0,0
-	// animation2.pattern1,overlay,703,0,0,0
-	// animation2.pattern2,overlay,702,100,0,0
-	// animation2.pattern3,overlay,705,150,0,0
-	// animation2.pattern4,overlay,704,250,0,0
-	// animation2.pattern5,overlay,701,250,0,0
-	// animation2.pattern6,overlay,704,150,0,0
-	// animation2.pattern7,overlay,706,250,0,0
-	// animation2.pattern8,overlay,703,150,0,0
-	// animation2.pattern9,overlay,-1,250,0,0
-	
-	// animation3.interval,never
-	// animation3.pattern0,overlay,-1,0,0,0
-	// animation3.pattern1,overlay,704,0,0,0
-	// animation3.pattern2,overlay,701,200,0,0
-	// animation3.pattern3,overlay,702,100,0,0
-	// animation3.pattern4,overlay,703,250,0,0
-	// animation3.pattern5,overlay,704,250,0,0
-	// animation3.pattern6,overlay,706,250,0,0
-	// animation3.pattern7,overlay,703,150,0,0
-	// animation3.pattern8,overlay,702,250,0,0
-	// animation3.pattern9,overlay,704,250,0,0
-	// animation3.pattern10,overlay,-1,250,0,0
-	
-	// animation4.interval,never
-	// animation4.pattern0,overlay,-1,0,0,0
-	// animation4.pattern1,overlay,704,0,0,0
-	// animation4.pattern2,overlay,701,200,0,0
-	// animation4.pattern3,overlay,702,100,0,0
-	// animation4.pattern4,overlay,703,250,0,0
-	// animation4.pattern5,overlay,706,250,0,0
-	// animation4.pattern6,overlay,704,100,0,0
-	// animation4.pattern7,overlay,-1,250,0,0
-	
-	// animation5.interval,never
-	// animation5.pattern0,overlay,-1,0,0,0
-	// animation5.pattern1,overlay,703,0,0,0
-	// animation5.pattern2,overlay,706,200,0,0
-	// animation5.pattern3,overlay,702,100,0,0
-	// animation5.pattern4,overlay,703,250,0,0
-	// animation5.pattern5,overlay,705,250,0,0
-	// animation5.pattern6,overlay,706,250,0,0
-	// animation5.pattern7,overlay,704,150,0,0
-	// animation5.pattern8,overlay,702,250,0,0
-	// animation5.pattern9,overlay,-1,150,0,0
-	
-	// animation6.interval,never
-	// animation6.pattern0,overlay,-1,0,0,0
-	// animation6.pattern1,overlay,705,0,0,0
-	// animation6.pattern2,overlay,704,200,0,0
-	// animation6.pattern3,overlay,702,400,0,0
-	// animation6.pattern4,overlay,706,250,0,0
-	// animation6.pattern5,overlay,703,150,0,0
-	// animation6.pattern6,overlay,701,400,0,0
-	// animation6.pattern7,overlay,703,150,0,0
-	// animation6.pattern8,overlay,703,250,0,0
-	// animation6.pattern9,overlay,-1,150,0,0
-	
-	// animation7.interval,never
-	// animation7.pattern0,overlay,-1,0,0,0
-	// animation7.pattern1,overlay,702,0,0,0
-	// animation7.pattern2,overlay,701,400,0,0
-	// animation7.pattern3,overlay,704,150,0,0
-	// animation7.pattern4,overlay,705,300,0,0
-	// animation7.pattern5,overlay,702,200,0,0
-	// animation7.pattern6,overlay,706,400,0,0
-	// animation7.pattern7,overlay,702,150,0,0
-	// animation7.pattern8,overlay,703,250,0,0
-	// animation7.pattern9,overlay,-1,150,0,0
-	
-	animation2.interval,never
-	animation2.pattern0,overlay,-1,0,0,0
-	animation2.pattern1,overlay,703,0,0,0
-	animation2.pattern2,overlay,702,100-300,0,0
-	animation2.pattern3,overlay,705,100-300,0,0
-	animation2.pattern4,overlay,704,100-300,0,0
-	animation2.pattern5,overlay,701,100-300,0,0
-	animation2.pattern6,overlay,704,100-300,0,0
-	animation2.pattern7,overlay,706,100-300,0,0
-	animation2.pattern8,overlay,703,100-300,0,0
-	animation2.pattern9,overlay,-1,100-300,0,0
-	
-	animation3.interval,never
-	animation3.pattern0,overlay,-1,0,0,0
-	animation3.pattern1,overlay,704,0,0,0
-	animation3.pattern2,overlay,701,100-300,0,0
-	animation3.pattern3,overlay,702,100-300,0,0
-	animation3.pattern4,overlay,703,100-300,0,0
-	animation3.pattern5,overlay,704,100-300,0,0
-	animation3.pattern6,overlay,706,100-300,0,0
-	animation3.pattern7,overlay,703,100-300,0,0
-	animation3.pattern8,overlay,702,100-300,0,0
-	animation3.pattern9,overlay,704,100-300,0,0
-	animation3.pattern10,overlay,-1,100-300,0,0
-	
-	animation4.interval,never
-	animation4.pattern0,overlay,-1,0,0,0
-	animation4.pattern1,overlay,704,0,0,0
-	animation4.pattern2,overlay,701,100-300,0,0
-	animation4.pattern3,overlay,702,100-300,0,0
-	animation4.pattern4,overlay,703,100-300,0,0
-	animation4.pattern5,overlay,706,100-300,0,0
-	animation4.pattern6,overlay,704,100-300,0,0
-	animation4.pattern7,overlay,-1,100-300,0,0
-	
-	animation5.interval,never
-	animation5.pattern0,overlay,-1,0,0,0
-	animation5.pattern1,overlay,703,0,0,0
-	animation5.pattern2,overlay,706,100-300,0,0
-	animation5.pattern3,overlay,702,100-300,0,0
-	animation5.pattern4,overlay,703,100-300,0,0
-	animation5.pattern5,overlay,705,100-300,0,0
-	animation5.pattern6,overlay,706,100-300,0,0
-	animation5.pattern7,overlay,704,100-300,0,0
-	animation5.pattern8,overlay,702,100-300,0,0
-	animation5.pattern9,overlay,-1,100-300,0,0
-	
-	animation6.interval,never
-	animation6.pattern0,overlay,-1,0,0,0
-	animation6.pattern1,overlay,705,0,0,0
-	animation6.pattern2,overlay,704,100-300,0,0
-	animation6.pattern3,overlay,702,100-300,0,0
-	animation6.pattern4,overlay,706,100-300,0,0
-	animation6.pattern5,overlay,703,100-300,0,0
-	animation6.pattern6,overlay,701,100-300,0,0
-	animation6.pattern7,overlay,703,100-300,0,0
-	animation6.pattern8,overlay,703,100-300,0,0
-	animation6.pattern9,overlay,-1,100-300,0,0
-	
-	animation7.interval,never
-	animation7.pattern0,overlay,-1,0,0,0
-	animation7.pattern1,overlay,702,0,0,0
-	animation7.pattern2,overlay,701,100-300,0,0
-	animation7.pattern3,overlay,704,100-300,0,0
-	animation7.pattern4,overlay,705,100-300,0,0
-	animation7.pattern5,overlay,702,100-300,0,0
-	animation7.pattern6,overlay,706,100-300,0,0
-	animation7.pattern7,overlay,702,100-300,0,0
-	animation7.pattern8,overlay,703,100-300,0,0
-	animation7.pattern9,overlay,-1,100-300,0,0
-	
-	
-	
-	//Blinks
-	animation50.interval,random,4
-	animation50.pattern0,alternativestart,(51,52,53,54,55,56)
-	
-	animation51.interval,never
-	animation51.pattern0,overlay,650,50,0,0
-	animation51.pattern1,overlay,651,100,0,0
-	animation51.pattern2,overlay,-1,30,0,0
-	
-	animation52.interval,never
-	animation52.pattern0,overlay,601,-1,0,0
-	animation52.pattern1,overlay,650,1000,0,0
-	animation52.pattern2,overlay,652,100,0,0
-	animation52.pattern3,overlay,601,30,0,0
-	animation52.pattern4,overlay,-1,700,0,0
-	
-	animation53.interval,never
-	animation53.pattern0,overlay,602,-1,0,0
-	animation53.pattern1,overlay,655,1000,0,0
-	animation53.pattern2,overlay,653,100,0,0
-	animation53.pattern3,overlay,602,30,0,0
-	animation53.pattern4,overlay,-1,700,0,0
-	
-	animation54.interval,never
-	animation54.pattern0,overlay,653,-1,0,0
-	animation54.pattern1,overlay,655,1000,0,0
-	animation54.pattern2,overlay,654,100,0,0
-	animation54.pattern3,overlay,653,30,0,0
-	animation54.pattern4,overlay,-1,700,0,0
-	
-	animation55.interval,never
-	animation55.pattern0,overlay,603,-1,0,0
-	animation55.pattern1,overlay,-1,2000,0,0
-	
-	animation56.interval,never
-	animation56.pattern0,overlay,604,-1,0,0
-	animation56.pattern1,overlay,-1,2000,0,0
-	
-	
-	
-	
-	//Left arms
-	animation100.interval,never
-	animation100.pattern0,replace,404,-1,0,78
-	animation100.pattern1,replace,-1,3000,0,78
-	
-	
+	//Calls closed mouth animations
 	animation101.interval,never
-	animation101.pattern0,replace,401,-1,0,78
-	animation101.pattern1,replace,-1,3000,0,78
+	animation101.pattern0,alternativestart,(1000,1001,1006) //(1000,1001,1002,1003,1004,1005)
 	
-	animation102.interval,never
-	animation102.pattern0,replace,402,-1,0,78
-	animation102.pattern1,replace,-1,3000,0,78
+	//I have the animations below set up so that if the mouth is closed, it MUST call an open mouth next. Open mouths can call either an open mouth, or a closed one.
 	
-	animation103.interval,never
-	animation103.pattern0,replace,403,-1,0,78
-	animation103.pattern1,replace,-1,3000,0,78
+	animation1000.interval,never
+	animation1000.pattern0,overlay,700,0,0,0
+	animation1000.pattern1,overlay,-1,100-400,0,0
+	animation1000.pattern2,start,100
 	
+	animation1001.interval,never
+	animation1001.pattern0,overlay,701,0,0,0
+	animation1001.pattern1,overlay,-1,100-400,0,0
+	animation1001.pattern2,start,100
+	
+	animation1002.interval,never
+	animation1002.pattern0,overlay,702,0,0,0
+	animation1002.pattern1,overlay,-1,100-400,0,0
+	animation1002.pattern2,alternativestart,(100,101)
+
+	animation1003.interval,never
+	animation1003.pattern0,overlay,703,0,0,0
+	animation1003.pattern1,overlay,-1,100-400,0,0
+	animation1003.pattern2,alternativestart,(100,101)
+	
+	animation1004.interval,never
+	animation1004.pattern0,overlay,704,0,0,0
+	animation1004.pattern1,overlay,-1,100-400,0,0
+	animation1004.pattern2,alternativestart,(100,101)
+	
+	animation1005.interval,never
+	animation1005.pattern0,overlay,705,0,0,0
+	animation1005.pattern1,overlay,-1,100-400,0,0
+	animation1005.pattern2,alternativestart,(100,101)
+	
+	animation1006.interval,never
+	animation1006.pattern0,overlay,706,0,0,0
+	animation1006.pattern1,overlay,-1,100-400,0,0
+	animation1006.pattern2,start,100
+	
+	//Anim#.Pattern#,Type,Method,Surface#,Weight,X,Y
+	
+	//---Eye animations---
+	//Starts the loop when the surface is called
+	animation110.interval,runonce
+	animation110.pattern0,alternativestart,(1100,1102,1104,1106,1108,1109)
+	//Calls an animation. Each of these animations ends by calling this animation again, so it loops
+	
+	//Normal eyes
+	animation1100.interval,never
+	animation1100.pattern0,overlay,-1,-1,0,0
+	animation1100.pattern1,overlay,-1,1000-3000,0,0
+	animation1100.pattern2,alternativestart,(110,1101)
+	
+		//Blink
+		animation1101.interval,never
+		animation1101.pattern0,overlay,650,-1,0,0
+		animation1101.pattern1,overlay,651,100,0,0
+		animation1101.pattern2,overlay,-1,30,0,0
+		animation1101.pattern3,start,1100
+		//Blinks start their original animation again, so she doesn't always change expression when she blinks
+		
+	
+	
+	//Look left
+	animation1102.interval,never 
+	animation1102.pattern0,overlay,601,-1,0,0
+	animation1102.pattern1,overlay,-1,1000-3000,0,0
+	animation1102.pattern2,alternativestart,(110,1103)
+	
+		//Blink
+		animation1103.interval,never
+		animation1103.pattern0,overlay,650,-1,0,0  
+		animation1103.pattern1,overlay,652,100,0,0
+		animation1103.pattern2,overlay,-1,30,0,0
+		animation1103.pattern3,start,1102
+	
+	
+	//Look down
+	animation1104.interval,never
+	animation1104.pattern0,overlay,602,-1,0,0
+	animation1104.pattern1,overlay,-1,1000-3000,0,0
+	animation1104.pattern4,alternativestart,(110,1105)
+	
+		//Blink
+		animation1105.interval,never
+		animation1105.pattern0,overlay,650,-1,0,0
+		animation1105.pattern1,overlay,653,100,0,0
+		animation1105.pattern2,overlay,-1,30,0,0
+		animation1105.pattern3,start,1104
+	
+	
+	//Half closed
+	animation1106.interval,never
+	animation1106.pattern0,overlay,653,-1,0,0
+	animation1106.pattern1,overlay,-1,1000-3000,0,0
+	animation1106.pattern2,alternativestart,(110,1107)
+	
+		//Blink
+		animation1107.interval,never
+		animation1107.pattern0,overlay,655,-1,0,0
+		animation1107.pattern1,overlay,654,100,0,0
+		animation1107.pattern2,overlay,-1,30,0,0
+		animation1107.pattern3,start,1106
+	
+	
+	//Closed down
+	animation1108.interval,never
+	animation1108.pattern0,overlay,603,-1,0,0
+	animation1108.pattern1,overlay,-1,1000-3000,0,0
+	animation1108.pattern2,start,110
+	
+	
+	//Closed up
+	animation1109.interval,never
+	animation1109.pattern0,overlay,604,-1,0,0
+	animation1109.pattern1,overlay,-1,1000-3000,0,0
+	animation1109.pattern2,start,110
+	
+	
+	//---Left arms---
+	animation200.interval,runonce
+	animation200.pattern0,alternativestart,(2000,2001,2002,2003)
+	
+	//Behind back
+	animation2000.interval,never
+	animation2000.pattern0,replace,404,-1,0,78
+	animation2000.pattern1,replace,-1,2000-5000,0,78 //test??
+	animation2000.pattern2,start,200 //test
+	
+	//Out down
+	animation2001.interval,never
+	animation2001.pattern0,replace,401,-1,0,78
+	animation2001.pattern1,replace,-1,2000-5000,0,78
+	animation2001.pattern2,start,200
+	
+	//Out up
+	animation2002.interval,never
+	animation2002.pattern0,replace,402,-1,0,78
+	animation2002.pattern1,replace,-1,2000-5000,0,78
+	animation2002.pattern2,start,200
+	
+	//Chest
+	animation2003.interval,never
+	animation2003.pattern0,replace,403,-1,0,78
+	animation2003.pattern1,replace,-1,2000-5000,0,78
+	animation2003.pattern2,start,200
+	
+	
+	//---Right arms---
+	animation300.interval,runonce
+	animation300.pattern0,alternativestart,(3000,3001,3002,3003)
 	
 	//Right arms
-	animation200.interval,never
-	animation200.pattern0,replace,504,-1,121,78
-	animation200.pattern1,replace,-1,3000,121,78
+	animation3000.interval,never
+	animation3000.pattern0,replace,504,-1,121,78
+	animation3000.pattern1,replace,-1,2000-5000,121,78
+	animation3000.pattern2,start,300
 	
-	animation201.interval,never
-	animation201.pattern0,replace,501,-1,121,78
-	animation201.pattern1,replace,-1,3000,121,78
+	animation3001.interval,never
+	animation3001.pattern0,replace,501,-1,121,78
+	animation3001.pattern1,replace,-1,2000-5000,121,78
+	animation3001.pattern2,start,300
 	
-	animation202.interval,never
-	animation202.pattern0,replace,502,-1,121,78
-	animation202.pattern1,replace,-1,3000,121,78
+	animation3002.interval,never
+	animation3002.pattern0,replace,502,-1,121,78
+	animation3002.pattern1,replace,-1,2000-5000,121,78
+	animation3002.pattern2,start,300
 	
-	animation203.interval,never
-	animation203.pattern0,replace,503,-1,121,78
-	animation203.pattern1,replace,-1,3000,121,78
-	
-	
-	//Paired arms
-	animation300.interval,never
-	animation300.pattern0,replace,10,-1,0,78
-	animation300.pattern1,overlay,-1,3000,0,78
-	
-	animation301.interval,never
-	animation301.pattern0,replace,550,-1,0,78
-	animation301.pattern1,replace,-1,3000,121,78
-	
-	animation302.interval,never
-	animation302.pattern0,replace,551,-1,0,78
-	animation302.pattern1,replace,-1,3000,121,78
-	
-	animation303.interval,never
-	animation303.pattern0,replace,552,-1,0,78
-	animation303.pattern1,replace,-1,3000,121,78
-	
-	animation304.interval,never
-	animation304.pattern0,replace,553,-1,0,78
-	animation304.pattern1,replace,-1,3000,121,78
-	
-	animation305.interval,never
-	animation305.pattern0,replace,554,-1,0,78
-	animation305.pattern1,replace,-1,3000,121,78
+	animation3003.interval,never
+	animation3003.pattern0,replace,503,-1,121,78
+	animation3003.pattern1,replace,-1,2000-5000,121,78
+	animation3003.pattern2,start,300
 }
 
 
@@ -365,6 +295,7 @@ surface25 //Singing
 
 surface.append0-25,!10
 {
+	collision7,113,89,125,99,Locket
 	collision0,96,76,149,98,stop_button1
 	collision2,99,41,145,79,play_button
 	collision3,123,258,145,293,k_window
@@ -372,38 +303,38 @@ surface.append0-25,!10
 	collision5,86,258,126,286,clear_button
 	collision6,95,15,154,47,stroke_p
 	
-	animation800.interval,bind
-	animation800.pattern0,overlay,800,-1,0,0
+	animation8000.interval,bind
+	animation8000.pattern0,overlay,800,-1,0,0
 
-	animation801.interval,bind
-	animation801.pattern0,overlay,801,-1,0,0
+	animation8001.interval,bind
+	animation8001.pattern0,overlay,801,-1,0,0
 
-	animation802.interval,bind
-	animation802.pattern0,overlay,802,-1,0,0
+	animation8002.interval,bind
+	animation8002.pattern0,overlay,802,-1,0,0
 
-	animation803.interval,bind
-	animation803.pattern0,overlay,803,-1,0,0
+	animation8003.interval,bind
+	animation8003.pattern0,overlay,803,-1,0,0
 
-	animation804.interval,bind
-	animation804.pattern0,overlay,804,-1,0,0
+	animation8004.interval,bind
+	animation8004.pattern0,overlay,804,-1,0,0
 
-	animation805.interval,bind
-	animation805.pattern0,overlay,805,-1,0,0
+	animation8005.interval,bind
+	animation8005.pattern0,overlay,805,-1,0,0
 
-	animation806.interval,bind
-	animation806.pattern0,overlay,806,-1,0,0
+	animation8006.interval,bind
+	animation8006.pattern0,overlay,806,-1,0,0
 
-	animation807.interval,bind
-	animation807.pattern0,overlay,807,-1,0,0
+	animation8007.interval,bind
+	animation8007.pattern0,overlay,807,-1,0,0
 
-	animation808.interval,bind
-	animation808.pattern0,overlay,808,-1,0,0
+	animation8008.interval,bind
+	animation8008.pattern0,overlay,808,-1,0,0
 	
-	animation850.interval,bind
-	animation850.pattern0,overlay,850,-1,0,0
+	animation8050.interval,bind
+	animation8050.pattern0,overlay,850,-1,0,0
 
-	animation851.interval,bind
-	animation851.pattern0,overlay,851,-1,0,0
+	animation8051.interval,bind
+	animation8051.pattern0,overlay,851,-1,0,0
 }
 
 
