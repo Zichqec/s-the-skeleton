@@ -3,7 +3,6 @@
 { /*this affects all site elements*/
     font-family: 'Varela Round', sans-serif;
     color: #222020; /*Text color*/
-    text-align: left;
 }
 
 body
@@ -16,7 +15,8 @@ body
 /*body is an element that woud be affected*/
 
 p
-{ 
+{
+	text-align: left;
     font-size: 15px;
 }
 
@@ -35,7 +35,7 @@ nav
 
 pre
 {
-	 font-family: 'Courier New', monospace;
+	font-family: 'Courier New', monospace;
 }
 
 .navlink:hover
@@ -327,6 +327,11 @@ h6
 
 /*Got the responsive iframe from https://blog.theodo.com/2018/01/responsive-iframes-css-trick/ bless this person*/
 
+.ver
+{
+	text-align: left;
+}
+
 .ver:hover
 {
     background: #d1d1d1;
@@ -366,6 +371,11 @@ pre
 .linkbutton:hover
 {
 	background: #b6b5b6;
+}
+
+.wrap
+{
+	word-wrap: break-word;
 }
 
 /*Collapsible code from here https://www.w3schools.com/howto/howto_js_collapsible.asp */

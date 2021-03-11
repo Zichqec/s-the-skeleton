@@ -46,11 +46,12 @@
 			<a href="balloons.html" class="navlink">Balloons</a>
 			<!---->
 			<div class="dropdown">
-				<button class="dropbtn">Tutorials
+				<button class="dropbtn">Guides
 				  <i class="fa fa-caret-down"></i>
 				</button>
 				<div class="dropdown-content">
 				  <a href="github.html">Network updates with Github</a>
+				  <a href="saori_basic.html">Creating SAORI-Basic</a>
 				</div>
 			</div>
 			<!---->
@@ -72,7 +73,7 @@
 	
     <article>
         <h1>X. Template</h1>
-        <img src="img/X_TemplateThumb.png" alt="X. Template" width="280" height="250" class="center">
+        <img src="img/xtemplate_00.png" alt="X. Template" width="280" height="250" class="center">
         <br>
         <div class="cntr"><a href="https://www.mediafire.com/file/rh7yvgal4s52h2a/x_template_yaya_v1.0.4.nar/file">Download the latest .nar file here!</a></div>
         <p>X. Template is a template ghost I made! It's intended for ghost developers who already know how ghosts work, generally. If you're new to making ghosts, I suggest <a href="http://ashido.com/ukagaka/">Zarla's GT Template</a> instead; it includes a walkthrough to get you started!</p>
@@ -127,69 +128,77 @@
     </article>
     <article>
         <h1>Version history</h1>
-		<div class="ver">
-                <div class="centerheadsm"><b>---1.0.4---</b>
-                <div class="ctr">(1/5/21)</div></div>
-                <ul>
-					<li>Removed some testing stuff I left in commu.dic by mistake</li>
-					<li>Uncommented some stuff that I had commented in aitalk.dic by mistake</li>
-					<li>Added some clarification about nonoverlap in aitalk.dic</li>
-				</ul>
-            <br>
-        </div>
-		<div class="ver">
-                <div class="centerheadsm"><b>---1.0.3---</b>
-                <div class="ctr">(1/5/21)</div></div>
-                <ul>
-					<li>Fixed an incorrect variable name when updates finish. 'updateavailable' should be 'AutoUpdates[1]'</li>
-					<li>Changed "'o clock" in the hour notifications to "o'clock"</li>
-					<li>Added a better loop prevention system in commu dialogue</li>
-					<li>Added a non-interrupt system in commu dialogue</li>
-					<li>Slightly restructured things in OnSecondChange</li>
-					<li>Checking for an update from the ghost's menu now actually starts an update, not just a check (sorry, I keep changing my mind lol)</li>
-					<li>Changed the recommendations for UpdateVars, now it has a proper check to see if the variable exists</li>
-					<li>Made a tweak to nowday and nowmonth. If you call them and include 'last' or 'next' as the second argument, you'll get the previous day/month or next day/month, respectively.</li>
-					<li>Added the Capitalize function</li>
-					<li>When done creating a .nar file, the ghost will give you a link to click that will open the folder you made the .nar in.</li>
-				</ul>
-            <br>
-        </div>
-		<div class="ver">
-                <div class="centerheadsm"><b>---1.0.2---</b>
-                <div class="ctr">(11/26/20)</div></div>
-                <ul>
-					<li>Fixed email checking again, I forgot to change the name of 1 variable and I'm very sorry for the trouble.</li>
-					<li>Fixed the aitalkinterval being set to 6 minutes instead of 5 during the first boot, and adjusted a check in the config menu as well.</li>
-					<li>Removed some unnecessary brackets in the config menu and some spots in etc, added in some semicolons instead.</li>
-					<li>Made the RSS/Headline failure dialogue tell the user what error it got even if it isn't a recognized error.</li>
-					<li>Added a note about OnSNTPFailure.</li>
-					<li>Added a check for ] characters when setting wallpapers, as a ] in the file name will cause the wallpaper command to break. X. Template will now tell you that you need to remove any ]s from the file name first.</li>
-				</ul>
-            <br>
-        </div>
-		 <div class="ver">
-                <div class="centerheadsm"><b>---1.0.1---</b>
-                <div class="ctr">(11/06/20)</div></div>
-                <ul>
-					<li>Fixed email checking, it should no longer spew headers all over the place before you've asked.</li>
-					<li>Fixed the header code, it's much simpler, cleaner, and works properly now.</li>
-					<li>Fixed an issue where the auto updates button wasn't appearing in the config menu.</li>
-					<li>Changed some options in the config menu to display a 'Back to menu' and 'I'm done' button, instead of clicking the balloon to go back.</li>
-					<li>Changed how new variables are added in updates, and removed that section from the 'Some YAYA tips' file since it's no longer relevant (new explanation is in Bootend because it's very short)</li>
-					<li>Changed the URL that links to the template in the right click menu; it now correctly points to X. Template's page instead of the website's homepage.</li>
-					<li>Changed wallpaper code so that it can see what OS you're running without needing the Saori, meaning that the span option should always appear if available.</li>
-					<li>Changed the function that checks the template's version number, the changelog will now be displayed instantly.</li>
-                </ul>
-            <br>
-        </div>
-        <div class="ver">
-                <div class="centerhead"><b>=====1.0.0=====</b>
-                <div class="ctr">(10/21/20)</div></div>
-                <ul>
-                    <li>Initial release on 10/21/20</li>
-                </ul>
-            <br>
-        </div>
+		<label class="collapsible">Version 1.0.x - Initial Release</label>
+		<div class="collapsible-content">
+			
+			<div class="ver">
+					<div class="centerhead"><b>=====1.0.0=====</b>
+					<div class="ctr">(10/21/20)</div></div>
+					<ul>
+						<li>Initial release on 10/21/20</li>
+					</ul>
+				<br>
+			</div>
+			
+			<div class="ver">
+					<div class="centerheadsm"><b>---1.0.1---</b>
+					<div class="ctr">(11/06/20)</div></div>
+					<ul>
+						<li>Fixed email checking, it should no longer spew headers all over the place before you've asked.</li>
+						<li>Fixed the header code, it's much simpler, cleaner, and works properly now.</li>
+						<li>Fixed an issue where the auto updates button wasn't appearing in the config menu.</li>
+						<li>Changed some options in the config menu to display a 'Back to menu' and 'I'm done' button, instead of clicking the balloon to go back.</li>
+						<li>Changed how new variables are added in updates, and removed that section from the 'Some YAYA tips' file since it's no longer relevant (new explanation is in Bootend because it's very short)</li>
+						<li>Changed the URL that links to the template in the right click menu; it now correctly points to X. Template's page instead of the website's homepage.</li>
+						<li>Changed wallpaper code so that it can see what OS you're running without needing the Saori, meaning that the span option should always appear if available.</li>
+						<li>Changed the function that checks the template's version number, the changelog will now be displayed instantly.</li>
+					</ul>
+				<br>
+			</div>
+			
+			<div class="ver">
+					<div class="centerheadsm"><b>---1.0.2---</b>
+					<div class="ctr">(11/26/20)</div></div>
+					<ul>
+						<li>Fixed email checking again, I forgot to change the name of 1 variable and I'm very sorry for the trouble.</li>
+						<li>Fixed the aitalkinterval being set to 6 minutes instead of 5 during the first boot, and adjusted a check in the config menu as well.</li>
+						<li>Removed some unnecessary brackets in the config menu and some spots in etc, added in some semicolons instead.</li>
+						<li>Made the RSS/Headline failure dialogue tell the user what error it got even if it isn't a recognized error.</li>
+						<li>Added a note about OnSNTPFailure.</li>
+						<li>Added a check for ] characters when setting wallpapers, as a ] in the file name will cause the wallpaper command to break. X. Template will now tell you that you need to remove any ]s from the file name first.</li>
+					</ul>
+				<br>
+			</div>
+			
+			<div class="ver">
+					<div class="centerheadsm"><b>---1.0.3---</b>
+					<div class="ctr">(1/5/21)</div></div>
+					<ul>
+						<li>Fixed an incorrect variable name when updates finish. 'updateavailable' should be 'AutoUpdates[1]'</li>
+						<li>Changed "'o clock" in the hour notifications to "o'clock"</li>
+						<li>Added a better loop prevention system in commu dialogue</li>
+						<li>Added a non-interrupt system in commu dialogue</li>
+						<li>Slightly restructured things in OnSecondChange</li>
+						<li>Checking for an update from the ghost's menu now actually starts an update, not just a check (sorry, I keep changing my mind lol)</li>
+						<li>Changed the recommendations for UpdateVars, now it has a proper check to see if the variable exists</li>
+						<li>Made a tweak to nowday and nowmonth. If you call them and include 'last' or 'next' as the second argument, you'll get the previous day/month or next day/month, respectively.</li>
+						<li>Added the Capitalize function</li>
+						<li>When done creating a .nar file, the ghost will give you a link to click that will open the folder you made the .nar in.</li>
+					</ul>
+				<br>
+			</div>
+			
+			<div class="ver">
+					<div class="centerheadsm"><b>---1.0.4---</b>
+					<div class="ctr">(1/5/21)</div></div>
+					<ul>
+						<li>Removed some testing stuff I left in commu.dic by mistake</li>
+						<li>Uncommented some stuff that I had commented in aitalk.dic by mistake</li>
+						<li>Added some clarification about nonoverlap in aitalk.dic</li>
+					</ul>
+				<br>
+			</div>
+		</div>
     </article>
 
     <footer>
@@ -200,6 +209,30 @@
         <a href="https://toyhou.se/Zichqec" class="footlink">Toyhouse</a> |
         <a href="https://www.youtube.com/channel/UC_9BGh45mIL3b3riZ4aTRIA" class="footlink">Youtube</a>
     </footer>
+
+<script> <!--For the collapsible-->
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++)
+{
+	coll[i].addEventListener("click", function()
+	{
+		this.classList.toggle("active");
+		var content = this.nextElementSibling;
+		if (content.style.display === "block")
+		{
+			content.style.display = "none";
+		}
+		else
+		{
+			content.style.display = "block";
+		}
+	}
+  );
+}
+</script>
+
 </body>
 <!--Test-->
 </html>

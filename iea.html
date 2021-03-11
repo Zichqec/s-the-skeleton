@@ -46,11 +46,12 @@
 			<a href="balloons.html" class="navlink">Balloons</a>
 			<!---->
 			<div class="dropdown">
-				<button class="dropbtn">Tutorials
+				<button class="dropbtn">Guides
 				  <i class="fa fa-caret-down"></i>
 				</button>
 				<div class="dropdown-content">
 				  <a href="github.html">Network updates with Github</a>
+				  <a href="saori_basic.html">Creating SAORI-Basic</a>
 				</div>
 			</div>
 			<!---->
@@ -73,11 +74,11 @@
     <article>
         <!--<h1>Zi's Ukagaka Hub</h1>-->
         <h1>Iea</h1>
-        <img src="img/Ieathumb.png" alt="Iea" width="310" height="260" class="centersq">
+        <img src="img/iea_00.png" alt="Iea" width="310" height="260" class="centersq">
         <br>
         <div class="cntr"><a href="http://www.mediafire.com/file/e5bwtua399tfoyw/iea_v1_1.nar/file">Download her latest .nar file here!</a></div>
         <p>Iea was made in collaboration with my brother, Pommy, for Ghost Jam 2020! A lot of the normal ghost functionality has been stripped out, and her main purpose is to slowly give you pieces of a story.</p>
-        <p><img src="img/Iea1.png" alt="Iea says hello" width="458" height="319" class="center"><br><img src="img/Iea2.png" alt="Iea's menu" width="458" height="380" class="center"></p>
+        <p><img src="img/iea_01.png" alt="Iea says hello" width="458" height="319" class="center"><br><img src="img/iea_02.png" alt="Iea's menu" width="458" height="380" class="center"></p>
         <br>
         <webring-banner>
 			<p>Member of the <a href="https://ukagakawebring.netlify.com/">Ukagaka/Ghost Development and Download</a> webring</p>
@@ -89,22 +90,26 @@
     </article>
     <article>
         <h1>Version history</h1>
-        <div class="ver">
-        <div class="centerheadsm"><b>---1.1---</b>
-            <div class="ctr">(4/25/20)</div></div>
-        <ul>
-            <li>Fixed some small typos</li>
-        </ul>
-        <br>
-        </div>
-        <div class="ver">
-        <div class="centerhead"><b>=====1.0=====</b>
-            <div class="ctr">(4/25/20)</div></div>
-        <ul>
-            <li>Initial release for Ghost Jam 2020</li>
-        </ul>
-        <br>
-        </div>
+		<label class="collapsible">Version 1.0 & 1.1 - Initial Release</label>
+		<div class="collapsible-content">
+			<div class="ver">
+				<div class="centerhead"><b>=====1.0=====</b>
+					<div class="ctr">(4/25/20)</div></div>
+				<ul>
+					<li>Initial release for Ghost Jam 2020</li>
+				</ul>
+				<br>
+			</div>
+			<div class="ver">
+				<div class="centerheadsm"><b>---1.1---</b>
+					<div class="ctr">(4/25/20)</div></div>
+				<ul>
+					<li>Fixed some small typos</li>
+				</ul>
+				<br>
+			</div>
+		</div>
+        
     </article>
 
     <footer>
@@ -115,6 +120,30 @@
         <a href="https://toyhou.se/Zichqec" class="footlink">Toyhouse</a> |
         <a href="https://www.youtube.com/channel/UC_9BGh45mIL3b3riZ4aTRIA" class="footlink">Youtube</a>
     </footer>
+	
+<script> <!--For the collapsible-->
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++)
+{
+	coll[i].addEventListener("click", function()
+	{
+		this.classList.toggle("active");
+		var content = this.nextElementSibling;
+		if (content.style.display === "block")
+		{
+			content.style.display = "none";
+		}
+		else
+		{
+			content.style.display = "block";
+		}
+	}
+  );
+}
+</script>
+
 </body>
 
 </html>

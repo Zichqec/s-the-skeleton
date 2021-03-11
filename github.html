@@ -46,11 +46,12 @@
 			<a href="balloons.html" class="navlink">Balloons</a>
 			<!---->
 			<div class="dropdown">
-				<button class="dropbtn">Tutorials
+				<button class="dropbtn">Guides
 				  <i class="fa fa-caret-down"></i>
 				</button>
 				<div class="dropdown-content">
 				  <a href="github.html">Network updates with Github</a>
+				  <a href="saori_basic.html">Creating SAORI-Basic</a>
 				</div>
 			</div>
 			<!---->
@@ -69,6 +70,7 @@
 			<!---->
 		</div>
     </nav>
+
 
     <article>
         <h1>Setting up network updates with Github</h1>
@@ -102,8 +104,10 @@
         <p>The two highlighted files are the ones you need to delete. <b>yaya_variable.cfg</b> is all the variables that the ghost has set while you've been running it, and the profile folder has to do with things like where you've dragged the ghost on screen, I believe. Since this is a copy of your ghost's files (or it should be), you can just delete them without losing your own save!</p>
         <p>(Note, this tutorial assumes you're using YAYA. If you're using AYA or any other ghost language, the file you'll have to delete will be different. I'm not sure what it will be called, but you'll need to find out before you move on.)</p>
         <p>Just one more thing to set up before your ghost is prepared for updates. You need to set up the homeurl in string.dic. When using Github, there are two possible URLs. Sometimes one works and the other doesn't, and I'm not really sure why. I believe the github.io URL only works if you have Github pages set up (see below), but it's been a bit finicky. Give one a try, and if it doesn't work, try the other. The link formats are like so:</p>
+		<div class="wrap">
         <p><b>Link format A:</b> https://raw.githubusercontent.com/YourUsername/YourRepository/master/Updates/YourGhost/</p>
         <p><b>Link format B:</b> https://YourUsername.github.io/YourRepository/Updates/YourGhost/</p>
+		</div>
 		<p>Please note, sometimes the word master in the url needs to be capitalized, and sometimes it doesn't! I'm not sure why that is. Make sure you look at your repository's URL carefully, and if updates aren't working, try changing that! Also, don't forget to change the homeurl in the string.dic that's in your repository so they both match.</p>
         <p>Your string.dic should look something like this.</p>
         <img src="githubtutorial/10.png" alt="String.dic example" class="center" width="829" height="110">
