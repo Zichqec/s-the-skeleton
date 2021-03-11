@@ -109,7 +109,7 @@ print(word*num)
 
 		<br>
 
-		<p>Now, to actually use this SAORI in YAYA, we have to do a couple of things first. Your SAORI must be compiled as a .exe file, which you can do with something like PyInstaller (or auto-py-to-exe, which also uses PyInstaller but it gives you a gui to work with). Make sure you compile it with the option <b>onefile</b> so that it's a single file with everything in it, otherwise users who don't have a Python environment installed won't be able to use the SAORI. Once you've compiled the SAORI, stick it in your ghost's files somewhere.</p>
+		<p>Now, to actually use this SAORI in YAYA, we have to do a couple of things first. Your SAORI must be compiled as a .exe file, which for Python, you can do with something like PyInstaller (or auto-py-to-exe, which also uses PyInstaller but it gives you a gui to work with). Make sure you compile it with the option <b>onefile</b> so that it's a single file with everything in it, otherwise users who don't have a Python environment installed won't be able to use the SAORI. If you're writing in another language, I'm not sure how it'll work exactly for you, but make sure you check this carefully. Once you've compiled the SAORI, stick it in your ghost's files somewhere.</p>
 
 		<p>Next, make certain that the proxy SAORI is in your ghost's files somewhere too. Note that when you call the SAORIs, the relative filepath starts at yaya.dll. Once that's done, you can call it in your ghost with the FUNCTIONEX function like this:<br>---</p>
 <pre>
