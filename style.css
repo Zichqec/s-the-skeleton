@@ -12,7 +12,7 @@ body
     margin-right: 8%;
 }
 
-/*body is an element that woud be affected*/
+/*body is an element that would be affected*/
 
 p
 {
@@ -371,11 +371,6 @@ pre
 .linkbutton:hover
 {
 	background: #b6b5b6;
-}
-
-.wrap
-{
-	word-wrap: break-word;
 }
 
 /*Collapsible code from here https://www.w3schools.com/howto/howto_js_collapsible.asp */
