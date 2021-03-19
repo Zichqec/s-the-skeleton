@@ -12,7 +12,7 @@ body
     margin-right: 8%;
 }
 
-/*body is an element that would be affected*/
+/*body is an element that woud be affected*/
 
 p
 {
@@ -373,6 +373,11 @@ pre
 	background: #b6b5b6;
 }
 
+.wrap
+{
+	word-wrap: break-word;
+}
+
 /*Collapsible code from here https://www.w3schools.com/howto/howto_js_collapsible.asp */
 .collapsible {
 	font-size: 20px;
@@ -399,6 +404,20 @@ pre
 	padding: 20px 20px 20px 20px;
 	overflow: hidden;
 	display: none;
+}
+
+.invis-collapsible {
+	font-size: 20px;
+	display: block;
+	cursor: pointer;
+	background: url(menu.png) no-repeat left center;
+	padding: 10px 50px 10px 50px;
+	text-align: center;
+	/*background: #d1d1d1;*/
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 25%;
+	border-radius: 25px;
 }
 
 /*I used these collapsibles before I learned JavaScript https://codeburst.io/how-to-make-a-collapsible-menu-using-only-css-a1cd805b1390 */
