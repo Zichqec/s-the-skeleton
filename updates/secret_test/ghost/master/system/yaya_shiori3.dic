@@ -1097,6 +1097,8 @@ On_installedghostname
 
 	// Referenceから取得
 	installedghostlist = reference.raw
+	
+	OnCheckInstalledGhosts
 }
 
 //------------------------------------------------------------------------------

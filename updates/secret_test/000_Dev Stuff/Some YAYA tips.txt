@@ -1,0 +1,589 @@
+//---Some tips---
+
+//-------------------------Setting variables in random dialogue-------------------------
+//Sometimes you want to set a variable along with a line of specific dialogue, but only for that specific line. Here's an example.
+Function
+{
+	"I like to drink tea.\e"
+	"I like to drink water.\e"
+	"Don't tell anyone, but I also like to drink coffee.\e"
+}
+//Lets say you want to set a variable when the character mentions they secretly like to drink coffee. If you try just putting the variable within the brackets, it will set it no matter which dialogue is called. So instead, there are two solutions. The old solution was to raise a function specifically for setting variables, like this.
+Function
+{
+	"I like to drink tea.\e"
+	"I like to drink water.\e"
+	"Don't tell anyone, but I also like to drink coffee.\![raise,OnDialogueVars,drinkcoffee]\e"
+}
+
+OnDialogueVars
+{
+	if reference1 == "drinkcoffee"
+	{
+		knowaboutcoffee = 1
+	}
+}
+
+//This works perfectly fine. However, if you just want to set a simple variable, there is an easier way. You can write \e:eval=YourVariable=1. Like so.
+Function
+{
+	"I like to drink tea.\e"
+	"I like to drink water.\e"
+	"Don't tell anyone, but I also like to drink coffee.\e:eval=knowaboutcoffee=1"
+}
+//Use whichever way feels best to you.
+//Also, if you want to set a variable to a word, you can do it with single quotes like so:
+"Don't tell anyone, but I also like to drink coffee.\e:eval=knowaboutcoffee='yes'"
+
+
+//-------------------------Semicolons-------------------------
+//Semicolons are a handy way of condensing down long code. They tell the program to continue on the same line as though it were a line break. So, for example, if you had a long piece of code like this...
+Function
+{
+	if ThingA == 1
+	{
+		ThingB = "Blue"
+	}
+	elseif ThingA == 2
+	{
+		ThingB = "Green"
+		ThingC = "Yellow"
+	}
+	--
+	"I like the color %(ThingB).\e"
+}
+//That feels like a very large piece of code on top for a single line, doesn't it? But with semicolons, you can condense that onto just a few lines.
+//I will note, brackets can already be wrapped tightly around the code within them if you want, so writing 'if ThingA == 1 {ThingB = "Blue"}' is valid without needing semicolons. The problem comes in the example's elseif, where you have to set two variables.
+Function
+{
+	if ThingA == 1 {ThingB = "Blue"}; elseif ThingA == 2 {ThingB = "Green"; ThingC = "Yellow"}
+	--
+	"I like the color %(ThingB).\e"
+}
+//I wouldn't use this everywhere, personally, because it can make your code harder to read. Spacing is important! But if you've just got some variables that need setting and they're in the way, semicolons are very helpful.
+
+
+
+//-------------------------The probability problem-------------------------
+//Alright, lets discuss the thing in YAYA that makes me want to pull my hair out the most. I've dubbed it the probability problem, and it comes up when you have large pools of dialogue that you want to be pulled with certain probabilities. For example.
+Function
+{
+	"Dialogue 1\e"
+	"Dialogue 2\e"
+	"Dialogue 3\e"
+	"Dialogue 4\e"
+}
+//When you have multiple lines of dialogue in a set of brackets, they will be chosen from randomly. Each of these dialogues in the example has a 1/4th chance of being chosen. Great! Now lets add an if.
+
+Function
+{
+	"Dialogue 1\e"
+	"Dialogue 2\e"
+	if friendship >= 100
+	{
+		"Dialogue 3\e"
+		"Dialogue 4\e"
+	}
+}
+
+//What you'd hope would happen is that when friendship is under 100, you only get the first two dialogues, and then when friendship is at or over 100, it opens up the other two and each one is pulled with a 1/4th chance of being chosen. But that isn't what happens. When friendship is at or over 100, the first two dialogues will have a 1/3rd chance of being chosen, and each one inside the if will have a 1/6th chance of being chosen. Ouch, not what you were hoping for, right?
+//Here's how I think of it. The IF itself has a 1/3rd chance of being chosen if the condition is true. Then, if the IF is chosen, it will pick from the dialogues inside. So, 1/3rd of the time the IF will be picked, and then since there are two dialogues in that set of brackets, they will each have a 1/2 chance of being chosen.
+//Note that you don't need an IF for this to take effect, you can use brackets with no condition.
+//Sometimes this is very helpful! For example, a traditional magic 8 ball has 20 responses, 50% of which are a good outcome, 25% are neutral, and 25% are negative. You could write out 20 responses, and make sure you have the correct amount of each. Or, you could write something like this...
+Magic8Ball
+{
+	{
+		"Good outcome 1.\e"
+		"Good outcome 2.\e"
+		"Good outcome 3.\e"
+		"Good outcome 4.\e"
+	}
+	{
+		{
+			"Neutral outcome 1\e"
+			"Neutral outcome 2\e"
+			"Neutral outcome 3\e"
+		}
+		{
+			"Bad outcome 1\e"
+			"Bad outcome 2\e"
+			"Bad outcome 3\e"
+			"Bad outcome 4\e"
+			"Bad outcome 5\e"
+			"Bad outcome 6\e"
+		}
+	}
+}
+//Even though you have more bad outcomes than good outcomes, these will still be called with the same probabilities as a traditional magic 8 ball! So, you could add as much dialogue as you like.
+//But there are times that you don't want this, such as in randomtalk if you have a lot of ifs; or if you want a lot, but not ALL dialogue, to be gated behind a friendship level. I'm sad to say there isn't a great solution to this. Here's what I've come up with.
+//One thing you can do is use brackets to your advantage. For example, if you have a lot of dialogue in ifs that isn't getting called very often because you have a lot of dialogue outside of ifs, you can take the if-less dialogues and bundle them together in a set of brackets (or more! You might try separating them by topic). This helps the dynamic dialogue within ifs have a greater chance of being called, and it's very easy to do, like this.
+Function
+{
+	{
+		"Non-if dialogue 1.\e"
+		"Non-if dialogue 2.\e"
+		"Non-if dialogue 3.\e"
+		"Non-if dialogue 4.\e"
+		"Non-if dialogue 5.\e"
+	}
+	if knowaboutcoffee == 1
+	{
+		"Coffee dialogue 1.\e"
+		"Coffee dialogue 2.\e"
+		"Coffee dialogue 3.\e"
+		"Coffee dialogue 4.\e"
+		"Coffee dialogue 5.\e"
+		"Coffee dialogue 6.\e"
+		"Coffee dialogue 7.\e"
+		"Coffee dialogue 8.\e"
+	}
+	if season == "Summer"
+	{
+		"Summer dialogue 1.\e"
+		"Summer dialogue 2.\e"
+		"Summer dialogue 3.\e"
+		"Summer dialogue 4.\e"
+		"Summer dialogue 5.\e"
+		"Summer dialogue 6.\e"
+		"Summer dialogue 7.\e"
+	}
+}
+//If you didn't have the set of brackets around the non-if dialogues up there, each coffee related dialogue would only have a 1/56 chance of being called! But now, each set of brackets has a 1/3rd chance of being called, and then each dialogue inside them gets picked at random. That gives each coffee dialogue a 1/24 chance of being chosen. Much better.
+//Where it gets really messy is if you want to gate certain dialogues WITHIN ifs to only happen above certain friendship thresholds. The best advice I have for this is to use whitespace to your advantage. You don't want to make sets of brackets with multiple dialogues inside of another set of brackets, or they'll have an even lower chance of being called. (If you want the dialogue to be rare, go ahead, but this is assuming you don't want that.)
+Function
+{
+	{
+		"Non-if dialogue 1.\e"
+		"Non-if dialogue 2.\e"
+		"Non-if dialogue 3.\e"
+		"Non-if dialogue 4.\e"
+if frnd >= 100;"Non-if dialogue 5.\e"
+	}
+	if knowaboutcoffee == 1
+	{
+		"Coffee dialogue 1.\e"
+		"Coffee dialogue 2.\e"
+		"Coffee dialogue 3.\e"
+		"Coffee dialogue 4.\e"
+		"Coffee dialogue 5.\e"
+		"Coffee dialogue 6.\e"
+if frnd >= 100;"Coffee dialogue 7.\e"
+if frnd >= 100;"Coffee dialogue 8.\e"
+	}
+	if season == "Summer"
+	{
+		"Summer dialogue 1.\e"
+		"Summer dialogue 2.\e"
+		"Summer dialogue 3.\e"
+		"Summer dialogue 4.\e"
+		"Summer dialogue 5.\e"
+if frnd >= 100;"Summer dialogue 6.\e"
+if frnd >= 100;"Summer dialogue 7.\e"
+	}
+}
+//So this is using a couple different things. First of all, I've used a short variable name and pushed it as far left as it'll go, to try and stop it interrupting my nice neat lines as much as possible. This works a lot better if you have more whitespace on the left because you have a lot of nested ifs. The other thing we're using here is that, if an IF has a single line of dialogue, you don't have to use brackets! Also, I'm using semicolons, as I talked about above, to keep them on the same line.
+//Now then, this has a few major drawbacks. One, it can be very messy. And two, all these duplicate ifs are probably very inefficient. Ghosts tend to be very light, so I probably wouldn't stress about that too much? But it's still something to consider.
+//And that's the probability problem! It sucks. You can also get around this by having a totally different pool of dialogues for each friendship stage, but that makes it hard to have multiple stages, and it also is a pain trying to remember what lines to copy where as you update. Whatever you decide to do, think hard about it before you commit to a solution because it's a massive pain to change later. And if you come up with a better solution, please for the love of god tell me.
+
+
+
+//-------------------------nonoverlap and sequential-------------------------
+//So you may have noticed that the Randomtalk function has a little thing after it, ': nonoverlap'. What does that mean? The answer is very simple, if you put : nonoverlap after a function, it will run through each dialogue at least once before it picks a duplicate. 'But,' you say, 'I've used a lot of ghosts that had this and they definitely repeated dialogues before I saw them all!'
+//Well, the answer to that is simple. nonoverlap resets if the available outputs change. So, if there are if statements within Randomtalk and one of them changes to true, the whole thing resets. Still, it will generally keep some of the repetition away.
+//You can use this on any function you like, too!
+Function : nonoverlap
+{
+	"Dialogue 1.\e"
+	"Dialogue 2.\e"
+	"Dialogue 3.\e"
+	"Dialogue 4.\e"
+	"Dialogue 5.\e"
+}
+//Each one of these dialogues will be picked at least once before you see it repeat itself.
+
+//In a similar vein, we have sequential. Sequential can be written like this.
+Thing : sequential
+{
+	"Dialogue 1.\e"
+	"Dialogue 2.\e"
+	"Dialogue 3.\e"
+	"Dialogue 4.\e"
+	"Dialogue 5.\e"
+}
+//Sequential plays each dialogue in order until it runs out, then it repeats. So, the first time you call the function Thing, you'll get "Dialogue 1.", the second time you'll get "Dialogue 2.", etc.
+
+//I've used this for a little loading icon before. Something like this.
+loading : sequential
+{
+	"\c"
+	--
+	"\\"
+	"|"	
+	"/"
+	"-"
+	--
+	"\w4"
+}
+//Every time you call %(loading) in dialogue, you would get the next symbol in order. I've also added a clear command at the top, and a wait at the bottom, which will be added on to each one so you don't have to type it every time. Also note that I've escaped the \ so it shows up properly in dialogue.
+
+
+
+//Simple plural checks
+//Sometimes you have a piece of dialogue that needs to be plural/not plural based on a variable. Here's a really simple way to set that up.
+Function
+{
+	"You've pet me %(totalpets) time"
+	--
+	if totalpets != 1; "s"
+	--
+	".\e"
+}
+//Since 1 is the only number that doesn't have the plural form of the word, we use a not equal symbol to check if it's NOT 1, and if it's not, then add an s. You can adjust the dialogue around the s (or es) as you need.
+
+
+
+//-------------------------Subfolders in surfaces-------------------------
+//This is actually a seriko tip, but whatever
+//You can put your surfaces in subfolders! I'd be careful with it, but it could be very useful! Just put the folder name with a forward slash before the image name
+surface0
+{
+	element0,overlay,ExampleFolder/surface0.png,0,0
+}
+//If you want your blink/talk frames in subfolders, you MUST define them, and put the subfolder there. You should be able to hide them from the surface test by putting some special options into your surfacetable, like this.
+
+group,__disabled
+{
+	100,__parts
+}
+//This would make surface100 be hidden from the surface test window
+
+
+
+//-------------------------If/Else, Case/When, and Switch-------------------------
+//So if you're using this template, you must be familiar with if/else. case/when and switch are a little more tricky. I'll run through all three and the advantages/disadvantages of each.
+
+//If/Else is fairly straightforward. We start at the top, and check each condition. When we find one that is true, we run whatever's in the brackets. Then the if/else is over and it will move on if there is more code.
+Function
+{
+	if friendship <= 20
+	{
+		"I don't know you very well yet.\e"
+	}
+	elseif friendship <= 60
+	{
+		"I know you pretty well.\e"
+	}
+	elseif friendship <= 100
+	{
+		"You're a good friend.\e"
+	}
+	else
+	{
+		"Besties forever.\e"
+	}
+}
+//Pretty simple stuff.
+//But that's fairly inefficient. For most things it's fine, but if you have hundreds of checks, it might start to bog your ghost down. Also, what if you need it to NOT go from top to bottom? What if you want it to evaluate every possible option at once? That's where case/when comes in.
+Function
+{
+	case friendship
+	{
+		when "Low"
+		{
+			"I don't know you very well yet.\e"
+		}
+		when "Mid"
+		{
+			"I know you pretty well.\e"
+		}
+		when "High"
+		{
+			"You're a good friend.\e"
+		}
+		others
+		{
+			"Besties forever.\e"
+		}
+	}
+}
+
+//Now then, you can pretty quickly see 2 big drawbacks to case/when. First of all, we can't do a >= or any other sort of math on an integer. With case/when, you have to have the EXACT possible inputs, which can be a bit limiting. The other drawback is that you have to nest the whens into the case, and that means more whitespace depending how you write it.
+//But, there are also advantages! You might notice that case/when is used in anchor.dic. That's because we always know exactly what the inputs will be because it'll always be the anchors you set up. If you have a lot of anchors, it's far more efficient to use case/when for them because you don't NEED to do any sort of math on them, and it will evaluate them all at once instead of running through each one. The whitespace also isn't a huge issue there.
+//There's another advantage, too. If you want multiple inputs to have the same output, you can write it like so.
+Function
+{
+	case friendship
+	{
+		when "Low", "Super Low", "Absolute Zero"
+		{
+			":(\e"
+		}
+		when "Mid", "Mid-High", "High"
+		{
+			":)\e"
+		}
+		others
+		{
+			":|\e"
+		}
+	}
+}
+
+//It's very easy and clean to add multiple inputs! With if/else, you'd have to write 'if friendship == "Low" || friendship == "Super Low" || friendship == "Absolute Zero"', and that takes up a ton more space.
+//However, if/else does have one other important advantage. With if/else. you can use _in_ checks. Just as you can't do math on a case/when, you can't use _in_. With if/else, you can write something like this.
+Function
+{
+	if "Burger" _in_ eatenfoods
+	{
+		"I already ate a burger today.\e"
+	}
+	else
+	{
+		"Thanks!\e"
+	}
+}
+
+//_in_ checks are EXTREMELY helpful for a lot of things, so honestly I find if/else to be the better choice, except in specific circumstances.
+//Now then, it's time to talk about Switch. Switch confused me for a long time, and I couldn't understand what the use would be. But I've finally figured it out, and it might have some uses depending on how you set your ghost up.
+//So the deal with switch is this: it evaluates a variable that you give it, and based on that variable it determines which output candidate/dialogue to select.
+
+Function
+{
+	_variable = 3
+	
+	switch _variable
+	{
+		"Dialogue 0.\e"
+		"Dialogue 1.\e"
+		"Dialogue 2.\e"
+		"Dialogue 3.\e"
+	}
+}
+
+//So, as you can see, _variable is equal to 3. That means the Switch case will pull the 4th output candidate/dialogue (since we count from 0). The result would be "Dialogue 3".
+//Now this isn't a very useful function as written. But lets say you have a friendship system with 4 stages to it, 0-3. You could write something like this.
+
+Function
+{
+	switch friendship
+	{
+		"I don't know you very well yet.\e"
+		"I know you pretty well.\e"
+		"You're a good friend.\e"
+		"Besties forever.\e"
+	}
+}
+
+//Look at how clean that is! If you're at friendship stage 2, it'll pick the second dialogue. But in order to use this, you'd have to keep very careful track of how many stages you have, and you'd have to have dialogue for _every_ stage in every function that you used Switch. Personally, I don't think this will be much help to me, but maybe my mind will change later.
+//One more thing. Do you remember the probability problem, and how a set of brackets with dialogue in it is picked, and then the dialogues WITHIN the brackets are chosen from at random? You can do the same with switch.
+Function
+{
+	switch preference
+	{
+		{
+			"Right now I want a burger.\e"
+			"I want a burger right now.\e"
+			"I'm feeling like a burger, you?\e"
+		}
+		{
+			"I could do with some fries.\e"
+			"I feel like eating some fries right now.\e"
+		}
+		{
+			"I want something sweet.\e"
+			"I'd like a cookie.\e"
+			"I could eat 10 cookies. Right now.\e"
+		}
+		{
+			"I'm not hungry yet.\e"
+			"I'm not very hungry.\e"
+			"I don't want to eat just yet.\e"
+		}
+	}
+}
+
+//So the first set of brackets would be called if the variable preference was 0. The second set of brackets would be chosen if the variable was 1, and so on. So, you could control which of the pools of dialogue the character would pick from based on a variable.
+//It's probably more efficient than if/else, and the dialogue certainly looks cleaner. But tbh, I would probably end up putting comments by each set of brackets to remind me what they were, and if I'm going to do that... I might as well just write the if/else and get all the flexibility that comes with it.
+//But if switch makes more sense to you and you want to keep your dialogues super clean, go for it! I'm sure there's a good use for it I haven't thought of yet, if you find one please do tell.
+
+//To recap, here's the same function written with if/else, case/when, and switch.
+
+Function
+{
+	if friendship <= 20
+	{
+		"I don't know you very well yet.\e"
+	}
+	elseif friendship <= 60
+	{
+		"I know you pretty well.\e"
+	}
+	elseif friendship <= 100
+	{
+		"You're a good friend.\e"
+	}
+	else
+	{
+		"Besties forever.\e"
+	}
+}
+
+Function
+{
+	case friendship
+	{
+		when "Low"
+		{
+			"I don't know you very well yet.\e"
+		}
+		when "Mid"
+		{
+			"I know you pretty well.\e"
+		}
+		when "High"
+		{
+			"You're a good friend.\e"
+		}
+		others
+		{
+			"Besties forever.\e"
+		}
+	}
+}
+
+Function
+{
+	switch friendship
+	{
+		"I don't know you very well yet.\e"
+		"I know you pretty well.\e"
+		"You're a good friend.\e"
+		"Besties forever.\e"
+	}
+}
+
+//Use whatever works best for you!
+
+//-------------------------Local Varables and Arrays-------------------------
+//I'm certain you know what a variable is by now if you're using this template. But what are Local Variables and Arrays, and how do they work? What are they even for, why do you need them?
+//First of all, we'll cover local variables. They look like this.
+
+_thing = 1
+
+//Local variables always start with an _underscore. Variables that don't start with an underscore are actually called Global variables! A global variable is accessible anytime, anywhere, and is saved in your ghost's variables forever unless you deliberately erase it.
+//A local variable, on the other hand, only exists until it reaches the end of the brackets it's within.
+Function
+{
+	_thing = 2 + 1
+	"2 plus 1 is %(_thing)!\e"
+}
+//So, this line of dialogue in this function will display '2 plus 1 is 3!' However, if you were to use %(_thing) anywhere else in your ghost, it would be blank because the variable no longer exists.
+//Why might you want this? Well, the main reason is save bloat. The more variables your ghost has to load upon startup, the slower it will load. I don't know about you but I use variables a ton. Cutting as many of them down into local variables is very helpful!
+//They can also be useful for other things. For example, in X. Template you might have noticed a few 'plural checks' in the code. For things like updating or email checking, there's a change there will only be 1 new file or 1 email, and it's awkward if the ghost says '1 emails'. So, I've set up something simple with a local variable.
+Function
+{
+	_s = ""
+	if emails != 1
+	{
+		_s = "s"
+	}
+	"You have %(emails) new email%(_s)!\e"
+}
+//In the actual code I have condensed this onto a single line, but I've spread it out here so you can see.
+//First of all, I have to define the local variable outside the if check, otherwise it would be erased before it reaches the dialogue. Then we check if the number of emails is NOT equal to 1. If it is 1, the local variable _s would remain blank, and so the dialogue would show 'You have 1 new email!' But if it's any number other than 1, an s will be added after emails.
+//You wouldn't want to store something like this in a local variable, that'd be kinda silly and would just take up extra space. So we use a local variable to handle it!
+
+//Now, what about arrays? Those are a bit more complicated, and honestly they look scary at first. But they're actually very helpful! You can think of an array as multiple variables stored together. Why might that be helpful? Well, again, it keeps down save bloat.
+//There are multiple ways to define an array. You might actually be familiar with one if you've learned how to use double envelopes in the GT template!
+
+anArray = "Red,Blue,Yellow"
+
+//This is called a simple array. Each variable in the array is separated by a comma. It's actually a pseudo array and can only hold strings, not integers or floats, but that's good enough for some purposes. To access an array, you write the name of the array, then a number in brackets. The number corresponds to which variable you want. In this example, Red is in position 0, Blue is in position 1, and Yellow is in position 2. If I wanted to display Yellow in dialogue, I would write %(anArray[2])
+//These work just like any other string variable! You could do anArray[0] + anArray[2] and you would get 'RedYellow'
+
+anArray = (1,"Green",27)
+
+//This is a general array. It can hold different variable types, as you can see. If you did anArray[0] + anArray[2] with this, you would get '28'.
+//So why might you want something like this? Isn't it just more complicated to keep track of what's what? Well, if you get into more advanced functions, you're going to love arrays, believe me.
+//Something basic that makes arrays very helpful is ARRAYSIZE. You can use it to see how long an array is. You might be familiar with ghostexlist, which is a list of all currently running ghosts, listed by their sakura names. That's an array! If you have 4 ghosts running, you could use ghostexlist[2] to see the name of the 3rd ghost (remember, it starts from 0). So you can set up a function like this...
+Function
+{
+	_len = ARRAYSIZE(ghostexlist)
+	_rand = RAND(_len)
+	_ghost = ghostexlist[_rand]
+	
+	"Hello %(_ghost)!\e"
+}
+
+//This will pick a random ghost out of the list of available ghosts and say hello. This would be hard to do with normal variables, but with an array it's super easy. We just get the length of the array, pick a random number based on the length, then call the array using that random number.
+//Now, another really helpful thing to know is how to remove an item from an array. You can do that like so
+Function
+{
+	anArray[3] = IARRAY
+}
+
+//This will erase the 4th item in the array (again, we start from 0). The space will be left there (anArray[4] will not move spaces), but it will now be blank. You can also initialize a blank array by writing 'anArray = IARRAY'!
+//I've personally used this to create things such as custom categories where the user can input their own words for playing hangman, and the like. That's a lot more involved than just having an array, but arrays are essential to that process because they are flexible lists that you can add to and remove from. That's all they really are! Just lists that you can edit very easily.
+//One final note. If you were to call your array like this %(anArray) it would display the whole array as a comma separated list. In X. Template, I've changed passhour, passmin, and passsec into an array. If you write %(runtime), you'll see the runtime listed as hours,minutes,seconds! Probably not something you want to display to the user without changing how it's formatted, but I wanted to make a note of it anyways.
+
+
+//-------------------------Commu Reflect System-------------------------
+//Right. So commu is hard. But hopefully, the way X. Template has it set up is fairly straightforward.
+//Basic rundown in case you don't know. If you set res_reference0 to the internal name of a running ghost, they will receive whatever message your ghost just said. They will also see anything that comes after the \e, even though the user can't see it, so you can use this to set up conversations with multiple parts.
+//So what's the reflect system? Well, the thing is, when ghosts talk back and forth with communication, each time they say something new the text they said before is erased and it can be hard to read. The reflect system is where your ghost sends the other ghost's message back to them after the \e, so they can display it again instantly, and it'll be nearly seamless. It looks good once you've got it set up, I promise.
+//Now, most of this is already set up in commu.dic for you, you've just got to follow the example. But I'll make a proper note of how it works here. First of all, you should ONLY USE THIS SYSTEM FOR GHOSTS THAT ALSO USE THE REFLECT SYSTEM. If you use it with other ghosts, they may behave strangely.
+//The first thing you'll need to do is at the top of the ReplyToGhost function.
+
+_Speech = SPLIT(reference1,"\e")[0]
+_Last = SPLIT(reference1,"|:|")[1]
+
+//_Speech will be everything the other ghost just said, since it's everything before the \e
+//_Last is the dialogue THIS GHOST previously said, since it's everything after the |:|
+//Then, we want to display the previous dialogue instantly. So, inside the brackets for the ghost we're replying to, we put this:
+
+"\![quicksection,true]%(_Last)\![quicksection,false]"
+
+//That redisplays THIS GHOST'S last dialogue again, and after that you can display whatever the new response is. Then, after your dialogue...
+
+"::%(_Speech)"
+
+//This sends the other ghost's last message back to them! So they keep displaying their old messages instantly, then adding more to it, and sending it back over to the other one.
+//There are also some REPLACE lines, those remove tags like \w, and also removes the quicksection tags. If you don't remove those, your dialogue will not display instantly and it's bad.
+
+
+//-------------------------Commu non-interrupt and loop prevention systems-------------------------
+//So what's the deal with the non-interrupt stuff in commu, and the new loop prevention? I'll explain it here, but you don't need to touch any of it unless you don't like it!
+//First of all, the non-interrupt system is based off some work by Levidre, though I did not look at any of their code (besides the balloon check code) before writing my own. So, they might work vastly different. What does non-interrupt mean? Well, when a ghost receives a communication from another ghost, they'll generally reply even if they were in the middle of a random dialogue, or if you were in their menus or something. As you can imagine, that could get pretty annoying if you have a bunch of ghosts that randomly ping other ghosts!
+//What the non-interrupt system does is check if the ghost is busy saying something already, and if it is, it stores the other ghost's message for later. Later, when the balloon is closed, it will check and see if any conversations are waiting, and if there are, it'll respond to those old messages. There's a check in OnSecondChange, which you might notice only happens every 5 seconds. I did this because I didn't want the balloon check to be happening every second, but you could change that if you like.
+//What about the loop prevention system? Well, there's something really handy I found out about. SHIORI3FW.LastTalk is a built in YAYA variable that you can check, it holds the contents of whatever your ghost last said, no matter what it was! Often, it's just the surface restore script. However, this means if we were to stick some sort of unique tag in all commu dialogues, we could recognize if the ghost was in the middle of a commu conversation or not!
+//Another thing to note, if you make a tag like \![this] that is not a valid sakurascript tag, nothing will happen, but the tag will not show up in dialogue! So, we can just stick a tag at the front of all commu dialogues that shouldn't have any effect and shouldn't be seen by the user! I've chosen to write it like this: \![commu-%(reference0)]
+//With that, you can also track which ghost you're in conversation with and see if it matches! So, if they get a commu from another ghost, they won't interrupt the conversation they were already having.
+//Again, you shouldn't need to touch these systems unless you don't like them. But hopefully that explains a little of what's going on! When a conversation is received, it checks to see if the balloon is open, and if so, if this is a response to a conversation it's in the middle of. If not, it stores it for later. If this is a ghost it doesn't know and it's not the first message, it ends the conversation so that it doesn't get stuck in loops.
+
+
+//-------------------------Capitalizing the first letter of an envelope-------------------------
+//Sometimes you've got an envelope, like say a list of ingredients, where it makes sense to have all the words in it be lowercase because most of the time they won't be used as the first word in a sentence. But what if you do want to use them as the first word in a sentence? It would look incorrect then. Not to worry! There's a simple solution.
+//UPDATE: I made a function that'll do this for you! It's included in word.dic. To use it, just write your envelope like this if you need the first letter capitalized.
+
+"%(Capitalize(ingredients))"
+
+
+//-------------------------Including a balloon with your ghost-------------------------
+//This is also not technically a YAYA tip, but shh.
+//If you've created a custom balloon for your ghost, you probably want it to install at the same time as your ghost so that when it first boots it's already using it!
+//This is actually fairly simple. You'll want to put a copy of your balloon's folders into your ghost's files. It should be on the top level, next to the shell and ghost folders. Then, make sure that you put the folder you want your balloon to install to in your ghost's install.txt (it's balloon.directory), and list the balloon name in your ghost's descript.txt. Then you can make your .nar file, and when you install it you should see that it attempts to install your balloon too.
+//If you use network updates, I advise against putting the balloon's files in with your ghost's files wherever you're hosting them. When the ghost installs the balloon, it will empty the balloon folder that's in it's own files, and the balloon will instead be in SSP/balloon. Since the ghost now sees that it is missing files in its own folder, it will want to update and get those files back, meaning every fresh install of your ghost will think it needs to update.
+//You should host the update files for your balloon separately, because you can't update them properly just by including them with your ghost's files. There is a sakurascript command for updating the balloon the user is currently running that may be of some help to you, but it's finicky because the user can change the balloon they're using.
+
+
+//-------------------------PNAs and how to not need them-------------------------
+//You probably know that you can put 'seriko.user_self_alpha,1' in your shell's descript.txt, which will mean that any transparency in your images will be treated as transparent and you won't need PNAs. You can also do this for balloons and for images that you want your ghost to display in dialogue!
+//For balloons, you'll want to put 'use_self_alpha,1' in the balloon's descript.txt. Easy! The only problem is, this does not work for the communicate boxes. Those little ones you use to input your name and such. But PNAs don't work for those, either. They cannot have partial transparency, so plan for that or they'll look weird.
+//Now, for images you want to display in dialogue, it's a little different. In your image command, you'll need to add '--option=use_self_alpha' as an argument. For example:
+
+\_b[img\yourimage.png,inline,--option=use_self_alpha]
+
+\_b[img\yourimage.png,centerx,centery,--option=use_self_alpha]
+
+//That's not so bad, right?
+//Ok, so that leaves one thing left. The thumbnail of the ghost. There's something you can do for that as well! I'll be honest, I haven't really tried it myself, but if you have FLELE you might have noticed that the thumbnails for the shells are .pnr files. As far as I can tell, they're a renamed PNG file, but the color in the very top left pixel will become transparent. I'm unsure if this supports partial transparency or not, but it's worth a try! Honestly though, I'd just make the PNA file since it's just for one thing.

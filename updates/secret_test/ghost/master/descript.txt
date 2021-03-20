@@ -1,20 +1,18 @@
-﻿//---------------------------Descript.txt----------------------------------
-
 charset,UTF-8
 
-name,Skyrim Guard
+name,X. Template YAYA - v1.0.5
 type,ghost
 
-sakura.name,Guard
-kero.name,None
+sakura.name,X. Template
+kero.name,Blank
 
-craftman,zichqec
+craftman,Zichqec
 craftmanw,Zichqec
-craftmanurl,https://www.deviantart.com/zichqec
+craftmanurl,https://zichqec.github.io/s-the-skeleton/index.html
 
 sstp.allowunspecifiedsend,0
 shiori,yaya.dll
 
 //http://www.convertico.com/ is handy for making .icos
-
-icon,skyrim_guard.ico
+icon,x_template.ico
+balloon,X. Template Balloon
