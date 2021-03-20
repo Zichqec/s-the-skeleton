@@ -75,7 +75,7 @@
         <h1>X. Template</h1>
         <img src="img/xtemplate_00.png" alt="X. Template" width="280" height="250" class="center">
         <br>
-        <div class="cntr"><a href="https://www.mediafire.com/file/rh7yvgal4s52h2a/x_template_yaya_v1.0.4.nar/file">Download the latest .nar file here!</a></div>
+        <div class="cntr"><a href="https://www.mediafire.com/file/f3vpnjwdg0tsoe4/x_template_yaya_v1.0.5.nar/file">Download the latest .nar file here!</a></div>
         <p>X. Template is a template ghost I made! It's intended for ghost developers who already know how ghosts work, generally. If you're new to making ghosts, I suggest <a href="http://ashido.com/ukagaka/">Zarla's GT Template</a> instead; it includes a walkthrough to get you started!</p>
         <p>So, if you're not a new ghost dev, why should you use X. Template? Well, for one I'm sure you've noticed that once you don't need the walkthrough comments anymore, they're a hassle to get rid of. Haven't we all had the experience of trying to remove Triangle but he keeps popping up in unexpected places? X. Template starts you without those things. Here are some differences with X. Template.</p>
         <br>
@@ -195,6 +195,29 @@
 						<li>Removed some testing stuff I left in commu.dic by mistake</li>
 						<li>Uncommented some stuff that I had commented in aitalk.dic by mistake</li>
 						<li>Added some clarification about nonoverlap in aitalk.dic</li>
+					</ul>
+				<br>
+			</div>
+			
+			<div class="ver">
+					<div class="centerheadsm"><b>---1.0.5---</b>
+					<div class="ctr">(3/19/21)</div></div>
+					<ul>
+						<li>Fixed a terrible bug I added in 1.0.2, which prevented you from changing the talk rate or the pronouns... Turns out those brackets were necessary!</li>
+						<li>Added a Commu Ping Menu. If the variable debug is set to 1, you can press C to get a nice window with the names of all the currently open ghosts in it. Click a name to send them a generic ping, or click the custom option to type in a custom message to send. Good for easily testing commu dialogues!</li>
+						<li>Added a new hotkey: pressing Y will start a commu conversation with a random ghost, same as clicking the 'Talk to another ghost' option in the menu.</li>
+						<li>Changed to the dedicated OnOffscreen function for offscreen dialogue, instead of using OnSecondChange. The format is a little more complicated, but now you can check if any character is off the screen, not just the sakura.</li>
+						<li>Related, changed the name of MikireTalk and EndMikireTalk to OffscreenTalk and EndOffscreenTalk. Same functions, clearer labels.</li>
+						<li>OnGhostChanging now checks to see if reference0 and sakuraname are the same, so you don't need to actually type your ghost's name in there at all.</li>
+						<li>New function: leapyear. Is 1 if it's currently a leapyear, and 0 if it's not.</li>
+						<li>When email checking fails because the user has their POP settings wrong, it opens the configuration dialogue to the POP page specifically.</li>
+						<li>betaTester and nowscale variables are now properly initialized on first boot</li>
+						<li>Got rid of the currentfile global variable. New system uses a local variable, and uses the SPLITPATH function to grab just the file name and extension instead of the whole path.</li>
+						<li>Viewing headlines/RSS feeds will now display a choice marker in front of every item.</li>
+						<li>Tweaked the format of the name change function and birthday teaching functions to better match the rest of X. Template.</li>
+						<li>Added cancel buttons to the name change function and birthday teaching functions. These cancel buttons will activate a bit of code in the config menu, which closes the appropriate input boxes. If you were in the middle of changing your birthday, this also resets it back to what it was before you tried to change it.</li>
+						<li>Updated surfaces.txt with some new info about SERIKO comments, and tweaked my comments appropriately.</li>
+						<li>Fixed a missing surface call when there was an MD5 error during updates, and corrected an incorrect surface call in the SNTP functions.</li>
 					</ul>
 				<br>
 			</div>
