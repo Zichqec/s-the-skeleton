@@ -351,6 +351,7 @@ pre
     overflow: auto;
     padding: 0;
     margin: 0;
+	background: #d1d1d1;
 }
 
 /*Found here https://www.dlitz.net/stuff/pre-tag-overflow/ and the word wrap here https://mediatemple.net/blog/design-creative/considerations-for-styling-the-pre-tag/ Thanks so much this is so helpful*/
