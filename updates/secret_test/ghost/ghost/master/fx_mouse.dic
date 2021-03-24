@@ -1,0 +1,98 @@
+OnMouseMove
+{
+	if reference3 == 0 //reference3 is what character the mouse is over. 0 is Sakura, 1 is Kero
+	{
+		MouseMoveSakura
+	}
+	elseif ISFUNC("OnCustom_MouseMoveExtra") && CustomFuncs[0] == 1; OnCustom_MouseMoveExtra
+}
+
+//stroke is an array here, to save on variables. stroke[0] is the original stroke value, which resets after every successful pet. stroke[1] is the continuous stroking. It's the same as stroke[0], but it does not reset until your mouse leaves the character. stroke[2] is the number of successful pets in a row. I haven't used it here but you can if you want.
+MouseMoveSakura
+{
+	if reference4 == "stroke_p"
+	{
+		stroke[0]++ //Stroke value only goes up when over the appropriate areas
+		stroke[1]++ //For continuous petting, which I have removed
+
+		if stroke[0] % 40 == 0
+		{
+			stroke[0] = 0 //Stroke value is reset
+			stroke[2]++
+			totalpets++
+
+			if ISFUNC("OnCustom_Petting") && CustomFuncs[0] == 1; OnCustom_Petting
+			else; "\0\s[1].\w5 .\w5 .\w5\e"
+		}
+	}
+	elseif ISFUNC("OnCustom_MouseMoveSakura") && CustomFuncs[0] == 1; OnCustom_MouseMoveSakura
+}
+
+OnMouseLeaveAll //When the mouse is no longer on a hitbox. You can change to OnMouseLeave if you want it to happen when you leave any hitbox for another one
+{
+	stroke[0] = 0
+	stroke[1] = 0
+	stroke[2] = 0
+}
+
+OnMouseDoubleClick
+{
+	if reference5 == 0 && booting != 1 //reference5 is the mouse button being clicked, in this case a left click. The booting variable is here to prevent the user from interrupting firstboot, which for some reason passivemode does not do.
+	{
+		booting = 0
+		if reference3 == 0 //this is the character, as above
+		{
+			MouseDoubleClickSakura
+		}
+		elseif ISFUNC("OnCustom_MouseDoubleClickExtra") && CustomFuncs[0] == 1; OnCustom_MouseDoubleClickExtra
+	}
+}
+
+MouseDoubleClickSakura
+{
+	if reference4 == "menu" || reference4 == "" //Menu open
+	{
+		OpenSakuraMenu
+	}
+	elseif reference4 == "stop_button1" //Stopping the music
+	{
+		OnStopSong
+	}
+	elseif reference4 == "play_button" //Playing a song. This should always start the next one, probably? If none is playing, it should either start at 0 or a random position... If something is playing, it should skip to the next, I think.
+	{
+		_inmenu = ""
+		if "music player main menu" _in_ SHIORI3FW.LastTalk; _inmenu = "menuopen"
+		elseif "FLUX main menu" _in_ SHIORI3FW.LastTalk; _inmenu = "mainmenu"
+		_b = BalloonCheck
+		_m = MenuCheck
+		if _m == 1 && _b == 1; "\C"
+		--
+		if NowPlaying[0] == "" //If no song is playing
+		{
+			"\![raise,OnPlaySong,,,hotspot,%(_b),%(_inmenu)]"
+		}
+		elseif NowPlaying[2] != ""
+		{
+			"\![raise,OnPauseSong,resume,,hotkey,%(_b),%(_inmenu)]"
+		}
+		else //If a song is already playing, go to the next one
+		{
+			_inmenu = ""
+			if "music player main menu" _in_ SHIORI3FW.LastTalk; _inmenu = "menuopen"
+			elseif "FLUX main menu" _in_ SHIORI3FW.LastTalk; _inmenu = "mainmenu"
+			if _m == 1 && _b == 1; "\C\![raise,OnNextSong,,,hotspot,,%(_inmenu)]"
+			else; "\![raise,OnNextSong,,,hotspot,%(_b),%(_inmenu)]\e"
+		}
+		//elseif NowPlaying[2] != ""; "\![raise,OnPauseSong,resume,,hotspot,%(_b),%(_inmenu)]"
+		//else; "\![raise,OnPauseSong,pause,,hotspot,%(_b),%(_inmenu)]"
+	}
+	elseif reference4 == "k_window" //I think this is the song bar... I'm going to make it open the music menu
+	{
+		OnMusicMenu
+	}
+	elseif reference4 == "clear_button" //Clearing the current playlist
+	{
+		OnClearPlaylist("Hotspot")
+	}
+	elseif ISFUNC("OnCustom_MouseDoubleClickSakura") && CustomFuncs[0] == 1; OnCustom_MouseDoubleClickSakura
+}

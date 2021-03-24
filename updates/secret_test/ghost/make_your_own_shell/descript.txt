@@ -1,0 +1,58 @@
+seriko.alignmenttodesktop,free
+seriko.use_self_alpha,1
+
+charset,UTF-8
+type,shell
+
+//Change the name of your shell here, and add in your own name and URL so people can find who made it. Your name and URL will automatically be added to the right click menu of FLUX while your shell is being used, too! Don't forget to add a homeurl, too. If you have no place to host files, you can do so on Github for free! I have a guide on how to do that here: https://zichqec.github.io/s-the-skeleton/github.html
+name,Your Shell
+craftman,YourNameHere
+craftmanurl,https://Your-Url-Here.com/
+homeurl,https://Your-Url-Here.com/your_shell/
+
+sakura.balloon.offsetx,0
+sakura.balloon.offsety,0
+kero.balloon.offsetx,0
+kero.balloon.offsety,0
+sakura.balloon.alignment,none
+kero.balloon.alignment,none
+
+shiori.logo.filename,resources\niseshiori.png
+shiori.logo.x,16
+shiori.logo.y,256
+
+
+//Right click menu stuff
+
+//Text color for options that you're not hovering over
+menu.background.font.color.r,255
+menu.background.font.color.g,255
+menu.background.font.color.b,255
+
+//Text color for options that you're hovering over
+menu.foreground.font.color.r,255
+menu.foreground.font.color.g,255
+menu.foreground.font.color.b,255
+
+//Text color for options that are disabled/grayed out
+menu.disable.font.color.r,120
+menu.disable.font.color.g,120
+menu.disable.font.color.b,120
+
+//Color of the separator bars
+menu.separator.color.r,240
+menu.separator.color.g,240
+menu.separator.color.b,240
+
+menu.background.alignment,righttop
+menu.foreground.alignment,righttop
+menu.sidebar.alignment,bottom
+
+menu.background.bitmap.filename,menu_background.png
+menu.foreground.bitmap.filename,menu_foreground.png
+menu.sidebar.bitmap.filename,menu_sidebar.png
+
+
+
+//An example dressup
+//sakura.bindgroup2000.name,Synths,Red

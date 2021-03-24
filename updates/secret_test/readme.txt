@@ -1,1 +1,0 @@
-This is where your readme goes! Put instructions or information for your ghost here. This will pop up when the ghost is successfully installed.

@@ -1,0 +1,157 @@
+OnCommunicate
+{
+	if reference0 == "user" || reference0 == "User"
+ 	{
+		//Answering the user - I've removed the function that goes along with this because it doesn't link to anything.
+	}
+ 	else
+	{
+ 		//Answering another ghost
+		_b = BalloonCheck
+		if _b == 1 && "\![commu-%(reference0)]" !_in_ SHIORI3FW.LastTalk //If the balloon is open and the commu tag does NOT match the current conversation, or does not exist, store this message in the arrays so it can be responded to later
+		{
+			_check = ASEARCH(reference0,waitingcommuS)
+			if _check == -1 //If there are no other messages from this ghost waiting in the queue
+			{
+				waitingcommuS ,= reference0 //Sender - Stores the name of the ghost in an array
+				waitingcommuM ,= reference1 //Message - Stores the message that was sent in an array
+			}
+			else //If there is a message from this ghost waiting in the queue, replace it with the one that was just received
+			{
+				waitingcommuS[_check] = reference0
+				waitingcommuM[_check] = reference1
+			}
+		}
+		else //The balloon is not open, or the conversation tag matches the ghost that is currently sending a message
+		{
+			if reference0 == "|-|waitingcommu|-|" //If this was called because there was a commu waiting
+			{
+				reference0 = waitingcommuS[0]; waitingcommuS[0] = IARRAY //Sets the name of the ghost as reference0 and clears the first element of the array
+				reference1 = waitingcommuM[0]; waitingcommuM[0] = IARRAY //Sets reference1 as the message that was saved and clears the first element of the array
+			}
+			--
+			ReplyToGhost
+		}
+ 	}
+}
+
+WaitingCommu //If a commu message is waiting, trigger OnCommunicate and tell it to use the stored messages
+{
+	"\![raise,OnCommunicate,|-|waitingcommu|-|]"
+}
+
+//This is your ghost starting a conversation with another ghost. It will choose a random one from the currently open ghosts.
+/*OnStartTalking
+{
+	AlreadyResponded = 1
+	if ghostexcount > 0
+	{
+		_num = RAND(ghostexcount)
+		_randghost = "%(ghostexlist[_num])"
+		--
+		//Checks for the Sakura name
+		case _randghost
+		{
+			when "Girl" //Known ghosts, add as many whens as needed.
+			{
+				res_reference0 = "Girl"
+				
+				"\0\s[0]Hello Girl!\w8\w8 Hello Triangle!\w8\w8\e GirlTriangleHello01"
+				"\0\s[0]Hi Girl!\w8\w8 How are you,\w4 Triangle?\w8\w8\e GirlTriangleHello03"
+			}
+			others //Ghosts there is no specific response to.
+			{
+				res_reference0 = _randghost
+				
+				"\0\s[0]Hello %(_randghost)!\w8\w8\e"
+			}
+		}
+	}
+	else //If no ghosts are open.
+	{
+		"\0\s[0]Nobody else is here.\e"
+	}
+}*/
+
+ReplyToGhost //This is your ghost receiving a communication.
+{
+	_Speech = SPLIT(reference1,"\e")[0] //Everything the ghost said that the user can see
+	ConvoTag = SPLIT(reference1,"\e")[1] //Everything after the \e, which will be the invisible tags that track the conversation
+	_Last = SPLIT(reference1,"::")[1] //Ghosts using the reflect system send "::%(_Speech)" at the end of every communication, so _Last is what THIS ghost last said. See below.
+	
+	_Last = RemovePauses(_Last) //Removes pauses and quicksection tags so it can display properly
+	"\![commu-%(reference0)]" //This isn't a real sakurascript tag, but structuring it like one means it wont show in dialogue. This is for the non-interrupt system and loop prevention.
+	--
+	if ISFUNC("OnCustom_Commu") && CustomFuncs[0] == 1; OnCustom_Commu
+	--
+	_send = "%(currentdressups)"
+	_send = REPLACE(_send,",","|-|")
+
+	if "FLUXStatsSilent" !_in_ ConvoTag
+	{
+		"\0%(b)"
+		--
+		"[%(n)\w8%(n)\w8%(n)\w4~]"
+	}
+	--
+	"\e, FLUXStatsSent %(ConvoTag),%(NowPlaying[0]),%(NowPlaying[1]),%(NowPlaying[2]),%(MusicSettings[0]),%(MusicSettings[1]),%(MusicSettings[2]),%(MusicSettings[3]),%(MusicSettings[4]),%(ARRAYSIZE(CurrentPlaylist)),%(playtime[0]),%(playtime[1]),%(playtime[2]),%(language),%(nowshell),%(shellver),%(_send),%(totalpets),"
+	--
+	if ISFUNC("OnCustom_CommuStats") && CustomFuncs[0] == 1; "%(OnCustom_CommuStats)"
+	--
+	",Dummy value,"
+	
+	//0 - FLUXStatsSent and the ConvoTag you sent (use an _in_ check if you need to see what it was)
+	//1 - The file path of the currently playing song. If empty, no song is loaded. Any , have been replaced with ||
+	//2 - The index number of the currently playing song. If the song is paused, the index number is still tracked. This probably isn't that useful but I feel like I'll regret it later if I don't add it.
+	//3 - If there is a song listed in here, then that song is paused. If this is empty and there is a song loaded, the song is playing. Any , have been replaced with ||
+	//4 - Current volume from 0 - 100
+	//5 - Current speed, from 0 - 300. 100 is normal speed
+	//6 - Current balance. 0 is normal, -100 is all the way left, 100 is all the way right
+	//7 - The play mode. 0 for loop playlist, 1 for shuffle playlist, 2 for loop song, 3 for play one song
+	//8 - If not empty, then playback will stop after the current song
+	//9 - Number of songs in the current playlist
+	//10 - Total hours music has been played for
+	//11 - minutes music has been played for (resets when it reaches 60, raises the hours by 1)
+	//12 - seconds music has been played for (resets when it reaches 60, raises the minutes by 1)
+	//13 - The language FLUX is using
+	//14 - The shell FLUX is using
+	//15 - The version of the shell FLUX is using. If this is empty, it's probably a FLELE shell rather than a FLUX shell
+	//16 - A list of dressups FLUX is currently using, separated by |-|
+	//17 - Total number of times the user has pet FLUX
+	//18 - Any custom stats that go with the shell. IF YOURE MAKING A SHELL, DO NOT USE A COMMA AS A DELIMITER FOR THESE! IT WILL SCREW UP THE STATS ARRAY FOR ANY VALUES BEING SENT AFTER THIS POINT! Try using | instead
+}
+
+OnNotifySongInfo
+{
+	"\![notifyother,__SYSTEM_ALL_GHOST__,OnFLUXSongInfo,,%(NowPlaying[0]),%(NowPlaying[1]),%(NowPlaying[2]),%(MusicSettings[0]),%(MusicSettings[1]),%(MusicSettings[2]),%(MusicSettings[3]),%(MusicSettings[4]),%(ARRAYSIZE(CurrentPlaylist)),%(playtime[0]),%(playtime[1]),%(playtime[2])]"
+	
+	//References:
+	//1 - The file path of the currently playing song. If empty, no song is loaded. Any , have been replaced with ||
+	//2 - The index number of the currently playing song. If the song is paused, the index number is still tracked. This probably isn't that useful but I feel like I'll regret it later if I don't add it.
+	//3 - If there is a song listed in here, then that song is paused. If this is empty and there is a song loaded, the song is playing. Any , have been replaced with ||
+	//4 - Current volume from 0 - 100
+	//5 - Current speed, from 0 - 300. 100 is normal speed
+	//6 - Current balance. 0 is normal, -100 is all the way left, 100 is all the way right
+	//7 - The play mode. 0 for loop playlist, 1 for shuffle playlist, 2 for loop song, 3 for play one song
+	//8 - If not empty, then playback will stop after the current song
+	//9 - Number of songs in the current playlist
+	//10 - Total hours music has been played for
+	//11 - minutes music has been played for (resets when it reaches 60, raises the hours by 1)
+	//12 - seconds music has been played for (resets when it reaches 60, raises the minutes by 1)
+}
+
+RemovePauses //Removes \w tags and quicksection tags - Add more tags if you need to
+{
+	_argv[0] = REPLACE(_argv[0],"\![quicksection,true]","")
+	_argv[0] = REPLACE(_argv[0],"\![quicksection,false]","")
+	_argv[0] = REPLACE(_argv[0],"\w9","")
+	_argv[0] = REPLACE(_argv[0],"\w8","")
+	_argv[0] = REPLACE(_argv[0],"\w7","")
+	_argv[0] = REPLACE(_argv[0],"\w6","")
+	_argv[0] = REPLACE(_argv[0],"\w5","")
+	_argv[0] = REPLACE(_argv[0],"\w4","")
+	_argv[0] = REPLACE(_argv[0],"\w3","")
+	_argv[0] = REPLACE(_argv[0],"\w2","")
+	_argv[0] = REPLACE(_argv[0],"\w1","")
+	_argv[0]
+}

@@ -1,0 +1,162 @@
+//###############################################################This is the code the ghost has copied into its own files, don't edit this one or your changes will be overwritten!###############################################################
+// shellver //Commented out because it looks awkward on the main menu...
+// {
+	// "1.0.0"
+// }
+//###############################################################This is the code the ghost has copied into its own files, don't edit this one or your changes will be overwritten!###############################################################
+OnCustom_OnBoot
+{
+	"\1\s[-1]\0\s[50]\w6%(FluxBoot)"
+}
+//###############################################################This is the code the ghost has copied into its own files, don't edit this one or your changes will be overwritten!###############################################################
+OnCustom_OnGhostChanged
+{
+	"\1\s[-1]\0\s[50]\w6%(FluxBoot)"
+}
+//###############################################################This is the code the ghost has copied into its own files, don't edit this one or your changes will be overwritten!###############################################################
+OnCustom_OnShellChanged
+{
+	"\1\s[-1]\0\s[50]\w6"
+	--
+	"\s[0]"
+	"\s[1]"
+	--
+	"%(n)\w2%(n)\w2~"
+	"%(n)\w2%(n)\w2%(n)\w2!"
+	"%(n)\w2%(n)\w2%(n)\w2%(n)\w2~!"
+	--
+	"\w8\w8"
+}
+//###############################################################This is the code the ghost has copied into its own files, don't edit this one or your changes will be overwritten!###############################################################
+FX_Notes
+{
+	_output = ""
+	_rand = RAND(TOINT(_argv[0])) + 1
+	for _i = 0; _i < _rand; _i++
+	{
+		if _i > 0; _output += "\w%(RAND(TOINT(_argv[1])) + 1)"
+		_output += n
+	}
+	_output
+}
+//###############################################################This is the code the ghost has copied into its own files, don't edit this one or your changes will be overwritten!###############################################################
+OnCustom_BirthdaySet
+{
+	"%(n)\w8%(n)\w8%(n)\w4~!"
+}
+//###############################################################This is the code the ghost has copied into its own files, don't edit this one or your changes will be overwritten!###############################################################
+OnCustom_RandomTalk
+{
+	if Singing
+	{
+		if SHIORI3FW.LastSurface[0] != 25; "\0\s[25]"
+		else; "\0"
+		--
+		"%(FX_Notes(7,5))\w4~"
+		"%(FX_Notes(15))!!"
+		"%(FX_Notes(10,2))\w4~!"
+	}
+	else
+	{
+		"\0\s[0].\w2.\w2.\w2%(n)~\e"
+		"\0\s[1]%(n)\w4%(n)\w2.\w2.\w4~\e"
+		"\0\s[0].\w2.\w2.%(n)\w4%(n)\w4%(n)\w2.\w2.\w4~\e"
+		"\0\s[1]%(n)~\w8 %(n)~\w8 %(n)~\e"
+		"\0\s[1]%n\w4%n\w2~\w8\w8 .\w4.\w4.\w4%n%n%n~!\e"
+		"\0\s[0]%n!\w8\w8 \s[1]%n\w4%n~\w4%n\w4...\e"
+		"\0\s[1].\w4.\w4.\w4%n~\w8\w8 %n\w4%n\w4%n!\w8\w8 .\w4.\w4.\w4%n~\e"
+	}
+}
+//###############################################################This is the code the ghost has copied into its own files, don't edit this one or your changes will be overwritten!###############################################################
+OnCustom_NewYear
+{
+	if Singing
+	{
+		"\s[25]\i[50]"
+	}
+	else
+	{
+		"\s[1]"
+	}
+	--
+	"%(n)\w8%(n)\w8%(n)\w4~"
+}
+//###############################################################This is the code the ghost has copied into its own files, don't edit this one or your changes will be overwritten!###############################################################
+OnCustom_IdleSurfaces
+{
+	if !(SHIORI3FW.LastSurface[0] == 0 || SHIORI3FW.LastSurface[0] == 1 || SHIORI3FW.LastSurface[0] == 6 || SHIORI3FW.LastSurface[0] == 8) || reference0 != ""
+	{
+		"\s[0]"
+		"\s[1]"
+		"\s[6]"
+		"\s[8]"
+	}
+}
+//###############################################################This is the code the ghost has copied into its own files, don't edit this one or your changes will be overwritten!###############################################################
+OnCustom_SingingSurfaces
+{
+	if SHIORI3FW.LastSurface[0] != 25
+	{
+		"\s[25]"
+	}
+}
+//###############################################################This is the code the ghost has copied into its own files, don't edit this one or your changes will be overwritten!###############################################################
+OnCustom_ActionSurfaces
+{
+	if Singing
+	{
+		if reference0 == "Error"
+		{
+			"\s[25]\i[51]"
+		}
+		elseif reference0 == "Refuse"
+		{
+			""
+		}
+		else
+		{
+			"\s[25]\i[50]"
+		}
+	}
+	else
+	{
+		if reference0 == "Error"
+		{
+			"\s[7]"
+		}
+		elseif reference0 == "Refuse"
+		{
+			"\s[8]"
+		}
+		else
+		{
+			"\s[6]"
+		}
+	}
+}
+//###############################################################This is the code the ghost has copied into its own files, don't edit this one or your changes will be overwritten!###############################################################
+OnCustom_Petting
+{
+	if Singing
+	{
+		"\0\s[25]\i[50]"
+		--
+		"%(n)\w4%(n)\w4%(n)\w4%(n)\w4%(n)\w4~!!"
+		--
+		"\e"
+	}
+	else
+	{
+		"\0\s[1]"
+		--
+		"%(n)\w8%(n)\w8%(n)~"
+		--
+		"\e"
+	}
+}
+//###############################################################This is the code the ghost has copied into its own files, don't edit this one or your changes will be overwritten!###############################################################
+OnCustom_TestFunc
+{
+	"Test!!"
+}
+//###############################################################This is the code the ghost has copied into its own files, don't edit this one or your changes will be overwritten!###############################################################

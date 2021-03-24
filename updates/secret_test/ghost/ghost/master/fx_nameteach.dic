@@ -1,0 +1,413 @@
+//I put anything related to who the user is in here. Name, pronouns, birthday.
+
+OnChangeName
+{
+	"\0%(b)\*\![open,inputbox,OnNameTeach,-1]"
+	--
+	if language == "Placeholder" //TRANSLATORS: Start of changing your name
+	{
+		
+	}
+	elseif language == "Polski"
+	{
+		"[Ustaw swoją nazwę.]"
+		--
+		"\n\n\![*]\q[Anuluj,OnConfigMenu]\e"
+	}
+	else //English
+	{
+		"[Set your desired name.]"
+		--
+		"\n\n\![*]\q[Cancel,OnConfigMenu]\e"
+	}
+}
+
+OnNameTeach
+{
+	_tempname = reference0
+	_tempname = TOLOWER(_tempname) //changes it to lowercase
+	_tempname = REPLACE(_tempname," ","") //removes spaces
+	_tempname = REPLACE(_tempname,".","") //removes periods
+	_tempname = REPLACE(_tempname,"-","") //removes dashes
+	
+	"\0%(b)"
+	--
+	if language == "Placeholder" //TRANSLATORS: Setting the new name. FLUX is the only name that is blocked. I have the default name in English as User, you can translate that if you want, just make sure you set it both here and in FirstBootVars
+	{
+		
+	}
+	elseif language == "Polski"
+	{
+		if reference0 == username && booting != 1 //If the user gives the exact same name as before. The booting check has to be there in case they put in 'user'
+		{
+			"[Anulowano zmianę nazwy.]"
+		}
+		elseif _tempname == "FLUX"
+		{
+			"[Nieprawidłowa nazwa.\w8\w8 spróbuj ponownie.]\x\![raise,OnChangeName]\e"
+		}
+		elseif _tempname == "" //If the user doesn't put in anything
+		{
+			username = "User"
+			
+			"[Będziesz określany jako %(username),\w4 można to zmienić w każdej chwili w menu konfiguracji.]"
+		}
+		else //if it's none of these above names, we can use it. You can add names that just have comments and can still be used, just don't add a \e at the end.
+		{
+			username = reference0
+			"[Nazwa ustawiona jako %(username).]"
+		}
+		--
+		"\_q\n\n\![*]\q[Powrót do ustawień,OnConfigMenu]\n\![*]\q[Zamknij,OnCancel]\e"
+	}
+	else //English
+	{
+		if reference0 == username && booting != 1 //If the user gives the exact same name as before. The booting check has to be there in case they put in 'user'
+		{
+			"[Cancelled the name change.]"
+		}
+		elseif _tempname == "FLUX"
+		{
+			"[Invalid name.\w8\w8 Try again.]\x\![raise,OnChangeName]\e"
+		}
+		elseif _tempname == "" //If the user doesn't put in anything
+		{
+			username = "User"
+			
+			"[You will be referred to as %(username),\w4 you can change this at any time in the config menu.]"
+		}
+		else //if it's none of these above names, we can use it. You can add names that just have comments and can still be used, just don't add a \e at the end.
+		{
+			username = reference0
+			"[Name set as %(username).]"
+		}
+		--
+		"\_q\n\n\![*]\q[Back to config,OnConfigMenu]\n\![*]\q[Close,OnCancel]\e"
+	}
+}
+
+OnChangePronoun //Envelope names are the same as the GT template, since I figured most people will be used to them.
+{
+	if language == "Placeholder" //TRANSLATORS: If the pronoun system needs something extra in your language, do let me know and we can try to work something out. It's important the user be able to change these, though, because most shells probably won't get translated and may rely on these envelopes.
+	{
+		
+	}
+	elseif language == "Polski"
+	{
+		"\0%(b)[Jak chcesz być nazywany?]"
+		--
+		"\n\n\_q/
+		\![*]\q[On/Jemu/Jego,OnPronouns,masc]\n/
+		\![*]\q[Ona/Jej/Jej,OnPronouns,fem]\n/	
+		\![*]\q[Oni/Im/Ich,OnPronouns,undef]"
+		--
+		"\n\n\![*]\q[Anuluj,OnConfigMenu]\e"
+	}
+	else //English
+	{
+		"\0%(b)[How would you like to be referred to?]"
+		--
+		"\n\n\_q/
+		\![*]\q[He/Him/His,OnPronouns,masc]\n/
+		\![*]\q[She/Her/Hers,OnPronouns,fem]\n/	
+		\![*]\q[They/Them/Their,OnPronouns,undef]"
+		--
+		"\n\n\![*]\q[Cancel,OnConfigMenu]\e"
+	}
+}
+
+
+OnPronouns
+{
+	gender = reference0
+	
+	if language == "Placeholder" //TRANSLATORS: Same as above. This is a temporary setup, I suspect this may need to get more intricate later.
+	{
+		
+	}
+	elseif language == "Polski"
+	{
+		"\0%(b)[%(heshe)), %(himher), i %(hisher) będą używane.]"
+		--
+		"\n\n\![*]\q[Powrót do konfiguracji,OnConfigMenu]\n\![*]\q[Zamknij,OnCancel]\e"
+	}
+	else //English
+	{
+		"\0%(b)[%(heshe), %(himher), and %(hisher) will be used.]"
+		--
+		"\n\n\![*]\q[Back to Config,OnConfigMenu]\n\![*]\q[Close,OnCancel]\e"
+	}
+	
+}
+//Pronoun examples for my own sake:
+//"%(heshe) left that there."
+//"%(hisher) work is really cool."
+//"I'll ask %(himher) later."
+//"%(hesshes) really good at it."
+
+OnChangeBirthday //Pulled a lot of this from the GT template, but I also modified it a lot
+{
+	oldbirthday = birthday
+	"\0%(b)\![open,inputbox,OnUserBornMonth,-1]\*"
+	--
+	if language == "Placeholder" //TRANSLATORS: Starting the birthday input
+	{
+		
+	}
+	elseif language == "Polski"
+	{
+		"[Napisz nazwę lub numer miesiąca, w którym się urodziłeś.]"
+		--
+		"\n\n\![*]\q[Zamknij,OnConfigMenu]\e"
+	}
+	else //English
+	{
+		"[Write the name or number of the month you were born in.]"
+		--
+		"\n\n\![*]\q[Cancel,OnConfigMenu]\e"
+	}
+}
+
+//birthday[0] - word birthday
+//birthday[1] - number birthday
+//birthday[2] - word month
+//birthday[3] - word day
+//birthday[4] - number month
+//birthday[5] - number day
+//birthday[6] - DD/MM format
+//Use birthday[0] to display the user's birthday, and birthday[1] to do checks with the numbers
+
+OnUserBornMonth
+{
+	_tempmonth = reference0 //this stores what the user put in as a variable called _tempmonth
+	_tempmonth = TOLOWER(_tempmonth) //changes it to lowercase
+	
+	//TRANSLATORS: You can add an || to each of these for your language's version of the month names!
+	if _tempmonth == "january" || _tempmonth == "1" || _tempmonth == "styczeń"
+	{
+		birthday[4] = 1
+	}
+	elseif _tempmonth == "february" || _tempmonth == "2" || _tempmonth == "luty"
+	{
+		birthday[4] = 2
+	}
+	elseif _tempmonth == "march" || _tempmonth == "3" || _tempmonth == "marzec"
+	{
+		birthday[4] = 3
+	}
+	elseif _tempmonth == "april" || _tempmonth == "4" || _tempmonth == "kwiecień"
+	{
+		birthday[4] = 4
+	}
+	elseif _tempmonth == "may" || _tempmonth == "5" || _tempmonth == "maj"
+	{
+		birthday[4] = 5
+	}
+	elseif _tempmonth == "june" || _tempmonth == "6" || _tempmonth == "czerwiec"
+	{
+		birthday[4] = 6
+	}
+	elseif _tempmonth == "july" || _tempmonth == "7" || _tempmonth == "lipiec"
+	{
+		birthday[4] = 7
+	}
+	elseif _tempmonth == "august" || _tempmonth == "8" || _tempmonth == "sierpień"
+	{
+		birthday[4] = 8
+	}
+	elseif _tempmonth == "september" || _tempmonth == "9" || _tempmonth == "wrzesień"
+	{
+		birthday[4] = 9
+	}
+	elseif _tempmonth == "october" || _tempmonth == "10" || _tempmonth == "październik"
+	{
+		birthday[4] = 10
+	}
+	elseif _tempmonth == "november" || _tempmonth == "11" || _tempmonth == "listopad"
+	{
+		birthday[4] = 11
+	}
+	elseif _tempmonth == "december" || _tempmonth == "12" || _tempmonth == "grudzień"
+	{
+		birthday[4] = 12
+	}
+	else //if the month isn't a valid month, like 32 or something.
+	{
+		"\0%(b)"
+		--
+		if language == "Placeholder" //TRANSLATORS: If the user inputs an invalid month for their birthday
+		{
+			
+		}
+		elseif language == "Polski" //TRANSLATORS: If the user inputs an invalid month for their birthday
+		{
+			"[Nieprawidłowy miesiąc.\w8\w8 Proszę spróbować ponownie.]"
+		}
+		else //English
+		{
+			"[Invalid month.\w8\w8 Please try again.]"
+		}
+		--
+		"\x\![raise,OnChangeBirthday]"
+	}
+	--
+	//If it's a valid month
+	OnChangeBirthdayDay
+}
+
+OnChangeBirthdayDay
+{
+	birthday[2] = "%(MonthName(birthday[4],language))"
+	
+	"\0%(b)\![open,inputbox,OnUserBornDay,-1]\*"
+	--
+	if language == "Placeholder" //TRANSLATORS: Second stage of inputting your birthday. birthday[2] will be the month name that the user put in
+	{
+		
+	}
+	elseif language == "Polski"
+	{
+		"[Wpisz dzień w którym się urodziłeś.]"
+		--
+		"\n\n\![*]\q[Cancel,OnBirthdayCancel]"
+	}
+	else //English
+	{
+		"[Enter the day in %(birthday[2]) that you were born.]"
+		--
+		"\n\n\![*]\q[Cancel,OnBirthdayCancel]"
+	}
+}
+
+OnBirthdayCancel
+{
+	birthday = oldbirthday
+	"\![close,inputbox,OnUserBornDay]\![raise,OnConfigMenu]"
+}
+
+OnUserBornDay
+{
+	_tempday = reference0 //storing the input in _tempday
+	_tempday = TOLOWER(_tempday) //changes it to lowercase
+	_tempday = REPLACE(_tempday,"st","") //if the user types something like 2nd, 3rd, etc, this will make it just the number. It'll just add the suffix back later on the one that actually shows.
+	_tempday = REPLACE(_tempday,"nd","")
+	_tempday = REPLACE(_tempday,"rd","")
+	_tempday = REPLACE(_tempday,"th","")
+	_tempday = TOINT(_tempday) //Converts it to an integer
+	_month = birthday[4] //Just for readability
+	
+	if ((_month == 1 || _month == 3 || _month == 5 || _month == 7 || _month == 8 || _month == 10 || _month == 12) && _tempday >= 1 && _tempday <= 31) || (_month == 2 && _tempday >= 1 && _tempday <= 29) || ((_month == 4 || _month == 6 || _month == 9 || _month == 11) && _tempday >= 1 && _tempday <= 30) //This ugly function checks if the day falls into a valid range. If it does, we set some variables and continue down.
+	{
+		birthday[5] = _tempday
+		birthday[3] = Printday
+		birthday[1] = "%(birthday[4])/%(birthday[5])" //MM/DD format
+		birthday[6] = "%(birthday[5])/%(birthday[4])" //DD/MM format
+		birthday[0] = "%(birthday[2]) %(birthday[3])" //Words format, MM/DD
+	}
+	else //If it isn't a valid day, we open the input box again and have a \e so the dialogue below doesn't play.
+	{
+		"\0%(b)"
+		--
+		if language == "Placeholder" //TRANSLATORS: If the user puts in an invalid day for their birthday
+		{
+			
+		}
+		elseif language == "Polski"
+		{
+			"[Nieprawidłowy dzień,\w4 proszę spróbować ponownie.]"
+		}
+		else //English
+		{
+			"[Invalid day,\w4 please try again.]"
+		}
+		--
+		"\x\![raise,OnChangeBirthdayDay]"
+	}
+	-- 
+	//All of these only happen if it's a valid birthday
+	if birthday[1] == "%(month)/%(day)" //if today is the user's birthday. Don't forget to switch this if you change the format to DD/MM
+	{
+		if ISFUNC("OnCustom_BirthdaySet") && CustomFuncs[0] == 1; OnCustom_BirthdaySet
+		else
+		{
+			"\0%(b)"
+			--
+			if language == "Placeholder" //TRANSLATORS: If the user's birthday was set successfully and is today, AND there's no special shell dialogue for it
+			{
+				
+			}
+			elseif language == "Polski"
+			{
+				"[Urodziny ustawione na dzisiaj.\w8\w8 Wszystkiego najlepszego %(username)!]"
+			}
+			else //English
+			{
+				"[Birthday set for today.\w8\w8 Happy birthday %(username)!]"
+			}
+		}
+		ERASEVAR("oldbirthday")
+	}
+	else //if the birthday is not listed above.
+	{
+		//birthday[0] - word birthday (Based on the current language)
+		//birthday[1] - number birthday, MM/DD format
+		//birthday[2] - word month (Based on the current language)
+		//birthday[3] - word day (Based on current language)
+		//birthday[4] - number month
+		//birthday[5] - number day
+		//birthday[6] - number birthday, DD/MM format
+		
+		if language == "Placeholder" //TRANSLATORS: Finishing setting the birthday. Above are the variables that you can use to display the user's birthday, pick and choose what you need.
+		{
+			
+		}
+		elseif language == "Polski"
+		{
+			"\0%(b)[Urodziny ustawione na %(birthday[0]).]"
+		}
+		else //English
+		{
+			"\0%(b)[Birthday set as %(birthday[0]).]"
+		}
+		ERASEVAR("oldbirthday")
+	}
+	--
+	"\n\n\![*]\q[Back to config,OnConfigMenu]\n\![*]\q[Close,OnCancel]\e"
+}
+
+Printday //Sets the appropriate suffix
+{
+	GetDaySuffix(birthday[5],language)
+}
+
+GetDaySuffix
+{
+	if language == "Placeholder" //TRANSLATORS: This is setting up the suffixes for days. _argv[0] is the day number
+	{
+		
+	}
+	elseif language == "Polski"
+	{
+		//in polish just leave the number, we don't really have smth like this as far as I know
+		"%(_argv[0])"
+	}
+	else //English
+	{
+		if _argv[0] == 1 || _argv[0] == 21 || _argv[0] == 31
+		{
+			"%(_argv[0])st"
+		}
+		elseif _argv[0] == 2 || _argv[0] == 22
+		{
+			"%(_argv[0])nd"
+		}
+		elseif _argv[0] == 3 || _argv[0] == 23
+		{
+			"%(_argv[0])rd"
+		}
+		else
+		{
+			"%(_argv[0])th"
+		}
+	}
+}
