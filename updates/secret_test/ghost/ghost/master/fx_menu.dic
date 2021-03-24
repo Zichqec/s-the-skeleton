@@ -305,9 +305,10 @@ OnConfigMenu //I moved changing name/pronouns/birthday over to Nameteach, becaus
 			"\f[default]\n"
 		}
 		--
+		//TODO Polski Japanese - Need to update this button from Auto FLUX updates
 		"\nTalk rate: \_a[OnChangetalk]%(talkrate)\_a\n/
 		Talk \_a[OnToggleTalkOption]%(talkoption[1])\_a\n\n/
-		Auto update checks \_a[OnToggleUpdate]%(_atoupdbtn)\_a\n/ //TODO Polski Japanese - Need to update this button from Auto FLUX updates
+		Auto update checks \_a[OnToggleUpdate]%(_atoupdbtn)\_a\n/
 		\![*]\q[Check for FLUX updates,UpdateCheck]\n/
 		\![*]\q[Check for shell updates,UpdateShell]\n/
 		Custom Shell Functions/Dialogue \_a[OnToggleCustomFuncs]%(_cstfncbtn)\_a\n\n/
