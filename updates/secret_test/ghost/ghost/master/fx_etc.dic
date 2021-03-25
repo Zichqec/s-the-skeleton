@@ -1224,7 +1224,7 @@ OnStartUpdates
 
 //When the ghost finishes checking for updates
 //reference0 is 'none' if there are no new files, and 'changed' if there are new files. reference1 is a list of the changed files, separated by commas
-OnUpdateCheckComplete 
+OnUpdateCheckComplete
 {
 	AutoUpdates[1] = 1 //Sets it so it won't check again until at least midnight
 	if reference0 == "none" //If there are no new files
@@ -1245,6 +1245,19 @@ OnUpdateCheckComplete
 	else; "\e Update Check Complete"
 }
 
+OnUpdateCheckFailure
+{
+	AutoUpdates[1] = 1 //Sets it so it won't check again until at least midnight
+	if reference3 == "ghost"; AutoUpdates[3] = 0
+	elseif reference3 == "shell"; AutoUpdates[4] = 0
+	elseif reference3 == "balloon"; AutoUpdates[5] = 0
+	--
+	if reference3 == "ghost"; "\![update,shell,checkonly]"
+	elseif reference3 == "shell"; "\![update,balloon,checkonly]"
+	else; "\e Update Check Complete"
+}
+
+
 //Starting to actually update
 OnUpdateBegin
 {
@@ -1259,11 +1272,11 @@ OnUpdateBegin
 	}
 	elseif language == "Polski"
 	{
-		"[Zaczynam aktualizacjie...]\e"
+		"[Zaczynam aktualizacjie...]\w8\e"
 	}
 	else //English
 	{
-		"[Beginning update...]\e"
+		"[Beginning update...]\w8\e"
 	}
 }
 
@@ -1336,9 +1349,9 @@ OnUpdateComplete
 		{
 			UpdateVars //Sets new variables upon a successful update. See the end of Bootend for an explanation on this.
 			
-			"[Update complete.\w8\w8 Do you want to see the changelog?]"
+			"[FLUX Update complete.]" //TODO POLSKI - Changed line
 			--
-			"\n\n\![*]\q[Yes,OnChangeLog]\n\![*]\q[No,OnCancel]\e"
+			"\w8\e"
 		}
 	}
 }
@@ -1526,11 +1539,11 @@ OnUpdateOtherBegin
 	}
 	elseif language == "Polski" //TODO POLSKI - New dialogue
 	{
-		"[Zaczynam aktualizacjie...]\e"
+		"[Zaczynam aktualizacjie...]\w8\e"
 	}
 	else //English
 	{
-		"[Beginning %(reference3) update...]\e"
+		"[Beginning %(reference3) update...]\w8\e"
 	}
 }
 
@@ -1555,7 +1568,7 @@ OnUpdateOtherReady
 	}
 	else //English
 	{
-		_s = ""; _is = "is"; if reference0 != 1; _s = "s"; _is = "are" //plural checks, adds an s and changes 'is' to 'are' if there's more than 1 file
+		_s = ""; _is = "is"; if reference0 != 1; {_s = "s"; _is = "are"} //plural checks, adds an s and changes 'is' to 'are' if there's more than 1 file
 
 		"[There %(_is) %(reference0) new file%(_s).]\w8\w8\e"
 	}
@@ -1598,7 +1611,7 @@ OnUpdateOtherComplete
 		}
 		else
 		{
-			"[%(reference3) update complete.]\e"
+			"[%(reference3) update complete.]\w8\e"
 		}
 	}
 	

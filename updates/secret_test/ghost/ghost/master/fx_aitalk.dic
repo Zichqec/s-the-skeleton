@@ -100,20 +100,22 @@ OnMinuteChange
 			}
 		}
 	}
-	elseif mikireflag == 1 //If the ghost is off the screen, it will run the off screen dialogue every minute
- 	{
- 		MikireTalk
-	}
-	--
-	if AutoUpdates[0] == 1 && AutoUpdates[1] == 0 //Once a day the ghost will check for updates if the user has auto updates on
+	else //Won't do offscreen dialogue or update checks if the top of the hour notif happens instead
 	{
-		AutoUpdates[1] = 1
-		AutoUpdates[3] = 0
-		AutoUpdates[4] = 0
-		AutoUpdates[5] = 0
-		"\![update,ghost,checkonly]"
+		if mikireflag == 1 //If the ghost is off the screen, it will run the off screen dialogue every minute
+		{
+			MikireTalk
+		}
+		--
+		if AutoUpdates[0] == 1 && AutoUpdates[1] == 0 //Once a day the ghost will check for updates if the user has auto updates on
+		{
+			AutoUpdates[1] = 1
+			AutoUpdates[3] = 0
+			AutoUpdates[4] = 0
+			AutoUpdates[5] = 0
+			"\![update,ghost,checkonly]"
+		}
 	}
-	
 }
 
 OnSecondChange
