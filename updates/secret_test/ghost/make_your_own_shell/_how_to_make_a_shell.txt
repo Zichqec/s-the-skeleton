@@ -321,7 +321,7 @@
 
 //Again, you could just write these as %(heshe) or %(hisher), etc, but they will change based on the language the user set FLUX to. If that's something you want, go for it, but if you think it'd look a bit weird then go ahead and add a specific language.
 
-//As for the birthday system, 
+//As for the birthday system, TODO FINISH THIS
 
 
 
@@ -353,11 +353,11 @@
 //============================Section 4 - Network updates & Publishing==========================
 //==============================================================================================
 
-//If you've made shells or ghosts before, you probably don't need to read this. But, I will remind you to add a homeurl to your shell! One of the main reasons I made FLUX is that it includes a button that lets the user check for network updates for the shell. Even if you don't THINK you'll be putting up updates, I still recommend setting up a homeurl just in case! If you don't have anywhere to host files, I have a guide on how you can host them for free on github: https://zichqec.github.io/s-the-skeleton/github.html
+//If you've made shells or ghosts before, you probably don't need to read this. But, I will remind you to add a homeurl to your shell! One of the main reasons I made FLUX is that it includes a button that lets the user check for network updates for the shell, as well as an auto update check feature. Even if you don't THINK you'll be putting up updates, I still recommend setting up a homeurl just in case! If you don't have anywhere to host files, I have a guide on how you can host them for free on github: https://zichqec.github.io/s-the-skeleton/github.html
 
 //Seriously, it's better to take a few minutes to set up a URL now than regret not doing so later.
 
-//I recommend reading Zarla's guide to network updates, she covers it pretty well. Basically, you need to put a mirror of your shell's files in a place like Github, then put the url for that folder as the homeurl in descript.txt. Then, if you ever update the files online, the user can use FLUX to check for updates, and it will download any new/updated files it finds. Unfortunately, there's no auto update check feature for shells, but if SSP ever adds that I will add it to FLUX!
+//I recommend reading Zarla's guide to network updates, she covers it pretty well. Basically, you need to put a mirror of your shell's files in a place like Github, then put the url for that folder as the homeurl in descript.txt. Then, if you ever update the files online, the user can use FLUX to check for updates, and it will download any new/updated files it finds. As of SSP 2.4.92, auto update checks are available for shells and balloons! If the user leaves auto updates on, and they are running your shell, FLUX will automatically check for updates once a day (sometimes more depending on how often the user opens/closes it and how often they change shells).
 
 //When you've got your shell completely ready to be published, drag and drop the whole folder onto FLUX, and click the option to create a .nar. Save your .nar file somewhere, and when it's done creating, that .nar file can now be dragged and dropped onto FLUX or FLELE to install it as a shell! You can distribute that .nar file however you please.
 

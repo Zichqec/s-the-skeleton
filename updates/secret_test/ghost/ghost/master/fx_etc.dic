@@ -1038,11 +1038,11 @@ OnBIFFBegin
 //reference0 is the number of emails found
 OnBIFFComplete
 {
+	headers = ""
 	if reference7 != "" && reference0 < 100 //Reference7 is the headers. If it's empty(if the user has headers off), no need to run this loop. I STRONGLY ENCOURAGE YOU not to run this loop for more than 100 headers, as it may cause severe amounts of lag/freezing. Also, that's a lot to scroll through.
 	{
 		_buff = reference7
 		_len = ARRAYSIZE(_buff)
-		headers = ""
 		_i = 0
 		while _i < _len //Runs through all the elements of the array
 		{
@@ -1085,7 +1085,7 @@ OnBIFFComplete
 		{
 			"[%(reference0) nowy%(_c) email%(_s).]"
 			--
-			if reference7 != "" && reference0 < 100 //If it's less than 100 emails and there are headers
+			if headers != "" //If there are headers
 			{
 				"\n\n\w8\w8[Czy chcesz zobaczyć nagłów%(_ki)?]"
 				--
@@ -1107,7 +1107,7 @@ OnBIFFComplete
 		{
 			"[%(reference0) new email%(_s).]"
 			--
-			if reference7 != "" && reference0 < 100 //If it's less than 100 emails and there are headers
+			if headers != "" //If there are headers
 			{
 				"\n\n\w8\w8[Do you want to see the header%(_s)?]"
 				--
@@ -1330,7 +1330,7 @@ OnUpdateComplete
 	{
 		if reference0 == "none"
 		{
-			"[FLUX is up to date.\w8\w8 To check for shell updates,\w4 click the update shell option on the main menu.]\e"
+			"[FLUX is up to date.\w8\w8 To check for shell updates,\w4 click the update shell option in the config menu.]\e" //TODO POLSKI - uh, my mistake, config menu not main menu
 		}
 		else
 		{
@@ -1434,28 +1434,28 @@ OnUpdate.OnDownloadBegin
 } 
 
 //_remaining should be the number of the file that's giving the error, in the order they're being downloaded. currentfile will be the file path.
-OnUpdate.OnMD5CompareFailure
-{
-	_currentfile = SPLITPATH(reference0)[2] + SPLITPATH(reference0)[3]
+// OnUpdate.OnMD5CompareFailure
+// {
+	// _currentfile = SPLITPATH(reference0)[2] + SPLITPATH(reference0)[3]
 	
-	"\0%(b)"
-	--
-	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Error]"
-	else; "\s[6]"
-	--
-	if language == "Placeholder" //TRANSLATORS: If one of the files has an MD5 error. _currentfile is the name of the file
-	{
+	// "\0%(b)"
+	// --
+	// if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Error]"
+	// else; "\s[6]"
+	// --
+	// if language == "Placeholder" //TRANSLATORS: If one of the files has an MD5 error. _currentfile is the name of the file
+	// {
 		
-	}
-	elseif language == "Polski"
-	{
-		"\0%(b)\s[6][Wartości MD5 nie zgadzają się dla '%(_currentfile)'.]\w8\w8\e"
-	}
-	else //English
-	{
-		"[The MD5 values don't match for '%(_currentfile)'.]\w8\w8\e"
-	}
-}
+	// }
+	// elseif language == "Polski"
+	// {
+		// "\0%(b)\s[6][Wartości MD5 nie zgadzają się dla '%(_currentfile)'.]\w8\w8\e"
+	// }
+	// else //English
+	// {
+		// "[The MD5 values don't match for '%(_currentfile)'.]\w8\w8\e"
+	// }
+// }
 
 //reference0 is the reason the update failed
 OnUpdateFailure //If the update fails
@@ -1464,7 +1464,6 @@ OnUpdateFailure //If the update fails
 	--
 	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Error]"
 	else; "\s[6]"
-	--
 	--
 	if language == "Placeholder" //TRANSLATORS: If the update fails for some reason. For the md5 miss one, _currentfile is the name of the file that had the error
 	{
@@ -1512,7 +1511,203 @@ OnUpdateFailure //If the update fails
 			"[Couldn't update: '%(reference0)'.]\e"
 		}
 	}
+}
+
+OnUpdateOtherBegin
+{
+	"\0%(b)"
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+	else; "\s[6]"
+	--
+	if language == "Placeholder" //TRANSLATORS: Beginning an update for a shell/balloon. reference3 will have either shell or balloon, depending on what is being updated.
+	{
+		
+	}
+	elseif language == "Polski" //TODO POLSKI - New dialogue
+	{
+		"[Zaczynam aktualizacjie...]\e"
+	}
+	else //English
+	{
+		"[Beginning %(reference3) update...]\e"
+	}
+}
+
+OnUpdateOtherReady
+{
+	reference0++ //Number of files starts from 0, so this displays the correct amount
 	
+	"\0%(b)"
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+	else; "\s[6]"
+	--
+	if language == "Placeholder" //TRANSLATORS: If update files were found for a shell/balloon. reference0 is the number of files
+	{
+		
+	}
+	elseif language == "Polski"
+	{
+		_s = ""; if reference0 != 1; _s = "ów"; //plural checks, adds an s and changes is to are if there's more than 1 file
+
+		"[Znalezłem %(reference0) nowych plik%(_s).]\w8\w8\e"
+	}
+	else //English
+	{
+		_s = ""; _is = "is"; if reference0 != 1; _s = "s"; _is = "are" //plural checks, adds an s and changes 'is' to 'are' if there's more than 1 file
+
+		"[There %(_is) %(reference0) new file%(_s).]\w8\w8\e"
+	}
+}
+
+OnUpdateOtherComplete
+{
+	UpdateVars
+	AutoUpdates[1] = 0
+	
+	"\0%(b)"
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+	else; "\s[6]"
+	--
+	if reference3 == "shell"; OnGetCustomShellDialogue
+	--
+	if language == "Placeholder" //TRANSLATORS: If there are no new files, or an update completed successfully
+	{
+		
+	}
+	elseif language == "Polski"
+	{
+		if reference0 == "none"
+		{
+			"[FLUX jest aktualny.\w8\w8 Aby sprawdzić dostępność aktualizacji skorupy,\w4 kliknij opcję aktualizacji skorupy w menu głównym.]\e"
+		}
+		else
+		{
+			"[Aktualizacja zakończona.\w8\w8 Czy chcesz zobaczyć liste zmian??]"
+			--
+			"\n\n\![*]\q[Tak,OnChangeLog]\n\![*]\q[Nie,OnCancel]\e"
+		}
+	}
+	else //English
+	{
+		if reference0 == "none"
+		{
+			"[%(reference3) is up to date.]\e" //TODO POLSKI - New dialogue
+		}
+		else
+		{
+			"[%(reference3) update complete.]\e"
+		}
+	}
+	
+}
+
+OnUpdateOther.OnDownloadBegin
+{
+	"\0%(b)\_q"
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+	else; "\s[6]"
+	--
+	if language == "Placeholder" //TRANSLATORS: While files are downloading
+	{
+		
+	}
+	elseif language == "Polski"
+	{
+		"[Pobieram %(reference0)...]\n\n"
+	}
+	else //English
+	{
+		"[Downloading %(reference0)...]\n\n"
+	}
+	--
+	_Update_Progress = TOINT(reference1) + 1
+	_Update_Total = TOINT(reference2) + 1
+	Update_Remaining = _Update_Total - _Update_Progress
+	
+
+	//defining starting points
+	_PointA = 1
+	_PointB = 1
+
+	//defining text buffers beforehand, otherwise they don't display right
+	_filled = ""
+	_empty = ""
+
+	//loop calculates how many check boxes to display based on the variables above
+
+	while _PointA <= _Update_Progress
+	{
+		_filled += "♪"
+		_PointA++
+	}
+	//see above except for blank boxes
+	while _PointB <= Update_Remaining
+	{
+		_empty += "♪"
+		_PointB++
+	}
+	--
+	"\f[name,arial]\f[height,+4]%(_filled)\f[color,120,120,120]%(_empty)\f[default]"
+	--
+	"\n\n%(_Update_Progress)/%(_Update_Total)\e"
+}
+
+OnUpdateOtherFailure
+{
+	_author = shellauthor[0]
+	_authorurl = shellauthor[2]
+	_currentfile = SPLITPATH(reference1)[2] + SPLITPATH(reference1)[3]
+	"\0%(b)"
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Error]"
+	else; "\s[6]"
+	--
+	if language == "Placeholder" //TRANSLATORS: If the shell/balloon update fails for some reason. For the md5 miss one, _currentfile is the name of the file that had the error, _author is the name of the shell/balloon author, and _authorurl is their url which you can put into the anchor. reference3 will be either shell or ghost, depending on what type of update this is.
+	{
+		
+	}
+	elseif language == "Polski"
+	{
+		if reference0 == "timeout" //If it timed out
+		{
+			"[Połączenie zostało przerwane..]\e"
+		}
+		elseif reference0 == "md5 miss" //If the update files have not been uploaded correctly and don't match the updates2.dau
+		{
+			"[Wartości MD5 nie zgadzają się na '%(_currentfile)'.\w8\w8 Powinieneś skontaktować się z \_a[https://zichqec.github.io/s-the-skeleton/index.html]Zichqec\_a i dać jej znać.]\e"
+		}
+		elseif reference0 == "artificial" //If the user cancels the update by double clicking the balloon
+		{
+			"[Aktualizacja anulowana.]\e"
+		}
+		else //Any other errors
+		{
+			"[Nie można było zaktualizować: '%(reference0)'.]\e"
+		}	
+	}
+	else //English //TODO POLSKI - New stuff
+	{
+		if reference0 == "timeout" //If it timed out
+		{
+			"[The connection has timed out.]\e"
+		}
+		elseif reference0 == "md5 miss" //If the update files have not been uploaded correctly and don't match the updates2.dau
+		{
+			"[The MD5 values don't match on '%(_currentfile)'.\w8\w8 You should contact \_a[%(_authorurl)]%(_author)\_a.]\e"
+		}
+		elseif reference0 == "artificial" //If the user cancels the update by double clicking the balloon
+		{
+			"[%(reference3) update cancelled.]\e"
+		}
+		else //Any other errors
+		{
+			"[Couldn't update %(reference3): '%(reference0)'.]\e"
+		}
+	}
 }
 
 //reference0 is the name of the site, reference1 is the url

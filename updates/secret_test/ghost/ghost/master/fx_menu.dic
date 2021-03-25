@@ -23,9 +23,9 @@ OpenSakuraMenu
 			--
 			if AutoUpdates[3] == 1; "[FLUX Player]\n\![]"
 			--
-			if AutoUpdates[4] == 1; "[%(nowshell) shell]\n\![]"
+			if AutoUpdates[4] == 1; "['%(nowshell)' shell]\n\![]"
 			--
-			if AutoUpdates[5] == 1; "[%(SHIORI3FW.BalloonName) balloon]\n"
+			if AutoUpdates[5] == 1; "['%(SHIORI3FW.BalloonName)' balloon]\n"
 			--
 			"\_q\n\![*]\q[Download updates now,OnStartUpdates]\n/
 			\![*]\q[Maybe later,UpdateLater]\n\n/
@@ -41,6 +41,9 @@ OpenSakuraMenu
 Select.UpdateLater //If the user decides to update later
 {
 	AutoUpdates[1] = 1
+	AutoUpdates[3] = 0
+	AutoUpdates[4] = 0
+	AutoUpdates[5] = 0
 	
 	"\0%(b)"
 	--

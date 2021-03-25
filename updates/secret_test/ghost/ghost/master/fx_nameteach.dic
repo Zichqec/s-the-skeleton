@@ -127,7 +127,7 @@ OnPronouns
 	}
 	elseif language == "Polski"
 	{
-		"\0%(b)[%(heshe)), %(himher), i %(hisher) będą używane.]"
+		"\0%(b)[%(heshe), %(himher), i %(hisher) będą używane.]"
 		--
 		"\n\n\![*]\q[Powrót do konfiguracji,OnConfigMenu]\n\![*]\q[Zamknij,OnCancel]\e"
 	}

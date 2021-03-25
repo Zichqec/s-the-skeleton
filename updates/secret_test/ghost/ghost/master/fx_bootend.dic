@@ -222,6 +222,7 @@ OnShellChanged //After the shell has changed
 	shellchange[7] = reference0
 	shellchange[8] = reference1
 	shellchange[9] = reference2
+	AutoUpdates[4] = 0
 	
 	"\s[-1]\![get,property,OnGetCoords2,currentghost.scope(0).rect]"
 	
