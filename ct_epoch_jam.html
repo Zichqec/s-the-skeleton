@@ -74,15 +74,17 @@
     </nav>
 	
     <article>
-        <!--<h1>Zi's Ukagaka Hub</h1>-->
-        <h1>Iea</h1>
-        <img src="img/iea_00.png" alt="Iea" width="310" height="260" class="centersq">
+        <h1>CT Epoch Jam</h1>
+		<img src="img/ct_00.png" alt="Thumbnail drawn by KFC" width="280" height="250" class="center">
+		
         <br>
-        <div class="cntr"><a href="http://www.mediafire.com/file/e5bwtua399tfoyw/iea_v1_1.nar/file">Download her latest .nar file here!</a></div>
-        <p>Iea was made in collaboration with my brother, Pommy, for Ghost Jam 2020! A lot of the normal ghost functionality has been stripped out, and her main purpose is to slowly give you pieces of a story.</p>
-        <p><img src="img/iea_01.png" alt="Iea says hello" width="458" height="319" class="center"><br><img src="img/iea_02.png" alt="Iea's menu" width="458" height="380" class="center"></p>
+        <div class="cntr"><a href="http://www.drdowasure.com/ct_epoch_jam/index.html">Download their latest .nar file here!</a></div>
+        <p>This Chrono Trigger based ghost is a collaboration between KFC, Zarla, and myself, for Ghost Jam 2021! Bring Crono, Marle, and Lucca onto your desktop to hang out! There isn't too much content right now, but we hope to expand them in the future!</p>
+		<p>All of the adorable shell art was made by KFC, the amazing dialogues are by Zarla, and I pulled these elements together with the code! My job was the easiest of the three, truly. (Don't let them try to tell you any different! Ha, I can say what I want on <i>my own website,</i> and neither of you can stop me!)</p>
+		<p>There aren't too many mechanics in place for these three yet, but there are a couple of things you might find interesting! You can rename the party members in Crono's menu to any string of 5 characters (which for right now has no restrictions), and you can also position them in any order on your screen and they will always face each other properly when talking! Check it out!</p>
+		<img src="img/ct_01.gif" alt="Gif of the 3 main characters turning to face each other no matter what order they're arranged in" width="571" height="397" class="center">
         <br>
-        <webring-banner>
+		<webring-banner>
 			<p>Member of the <a href="https://ukagakawebring.netlify.com/">Ukagaka/Ghost Development and Download</a> webring</p>
 			<a href="https://ukagakawebring.netlify.com//prev">Previous</a>
 			<a href="https://ukagakawebring.netlify.com//random">Random</a>
@@ -92,31 +94,22 @@
     </article>
     <article>
         <h1>Version history</h1>
-		<label class="collapsible">Version 1.0 & 1.1 - Initial Release</label>
+		<label class="collapsible">Version 1.0.x - Initial Release</label>
 		<div class="collapsible-content">
-			<div class="ver">
-				<div class="centerhead"><b>=====1.0=====</b>
-					<div class="ctr">(4/25/20)</div></div>
-				<ul>
-					<li>Initial release for Ghost Jam 2020</li>
-				</ul>
-				<br>
-			</div>
-			<div class="ver">
-				<div class="centerheadsm"><b>---1.1---</b>
-					<div class="ctr">(4/25/20)</div></div>
-				<ul>
-					<li>Fixed some small typos</li>
-				</ul>
-				<br>
-			</div>
-		</div>
-        
+		<div class="ver">
+            <div class="centerhead"><b>=====1.0=====</b>
+            <div class="ctr">(4/24/21)</div></div>
+            <ul>
+                <li>Initial release for Ghost Jam 2021</li>
+            </ul>
+            <br>
+        </div>
+        </div>
     </article>
 
     <footer>
         More from Zichqec<br>
-        <a href="https://www.deviantart.com/zichqec"class="footlink">Deviantart</a> | 
+        <a href="https://www.deviantart.com/zichqec" class="footlink">Deviantart</a> | 
         <a href="https://zichqec.tumblr.com/" class="footlink">Tumblr</a> | 
         <a href="https://twitter.com/Zichqec" class="footlink">Twitter</a> | 
         <a href="https://toyhou.se/Zichqec" class="footlink">Toyhouse</a> |
@@ -144,8 +137,28 @@ for (i = 0; i < coll.length; i++)
 	}
   );
 }
+
+var coll = document.getElementsByClassName("invis-collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++)
+{
+	coll[i].addEventListener("click", function()
+	{
+		this.classList.toggle("active");
+		var content = this.nextElementSibling;
+		if (content.style.display === "block")
+		{
+			content.style.display = "none";
+		}
+		else
+		{
+			content.style.display = "block";
+		}
+	}
+  );
+}
 </script>
 
 </body>
-
 </html>

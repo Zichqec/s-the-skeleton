@@ -123,7 +123,20 @@ bakedgoods
 	"oreo cheesecake"
 }
 
-family
+condiment
+{
+	"ketchup"
+	"mustard"
+	"mayo"
+	"bbq sauce"
+	"steak sauce"
+	"worcestershire sauce"
+	"horseradish"
+	"relish"
+	"fry sauce"
+}
+
+family : nonoverlap
 {
 	"anWD"
 	"anDings"
@@ -247,7 +260,7 @@ colormodC
 	}
 }
 
-color
+colors
 {
 	"red"
 	"orange"
@@ -259,6 +272,44 @@ color
 	"pink"
 	"gray"	
 }
+
+tagcolor
+{
+	if yearweek == 53; "pink"
+	else
+	{
+		switch yearweek % 4
+		{
+			"red"
+			"yellow"
+			"green"
+			"blue"
+		}
+	}
+}
+
+familytime
+{
+	switch yearweek % 8
+	{
+		"\_a[FArosie]my sister\_a"
+		"\_a[FAabbi]my brother\_a"
+		"\_a[FAbarcode]my mom\_a"
+		"\_a[FAwd]my dad\_a"
+		"\_a[FAbluejeans]my %(StSfhusband)\_a"
+		"\_a[FAwings]my aunt\_a"
+		"\_a[FAroman]my cousin\_a"
+		"my kids"
+	}
+}
+
+// testswitch
+// {
+	// for _i = 1; _i < 54; _i++
+	// {
+		// LOGGING("%(_i): %(_i % 8)")
+	// }
+// }
 
 fcolor //flower colors
 {
@@ -338,18 +389,65 @@ RYSIdle
 	}
 }
 
-default {"\f[color,default]"}
-purple {"\f[color,183,129,227]"}
-teal {"\f[color,132,184,180]"}
-red {"\f[color,227,142,142]"}
-orange {"\f[color,227,147,093]"}
-green {"\f[color,064,180,103]"}
-yellow {"\f[color,212,206,071]"}
-blue {"\f[color,141,136,247]"}
-cyan {"\f[color,122,218,232]"}
-pink {"\f[color,246,171,247]"}
-brown {"\f[color,181,153,094]"}
+//Text decoration functions
 
+bold
+{
+	"\f[bold,1]%(_argv[0])\f[bold,default]"
+}
+
+italic
+{
+	"\f[italic,1]%(_argv[0])\f[italic,default]"
+}
+
+strike
+{
+	"\f[strike,1]%(_argv[0])\f[strike,default]"
+}
+
+underline
+{
+	"\f[underline,1]%(_argv[0])\f[underline,default]"
+}
+
+sub
+{
+	"\f[sub,1]%(_argv[0])\f[sub,default]"
+}
+
+sup
+{
+	"\f[sup,1]%(_argv[0])\f[sup,default]"
+}
+
+fontcolor
+{
+	"\f[color,%(_argv[1])]%(_argv[0])\f[color,default]"
+}
+
+fontsize
+{
+	"\f[height,%(_argv[1])]%(_argv[0])\f[height,default]"
+}
+
+font
+{
+	"\f[name,%(_argv[1])]%(_argv[0])\f[name,default]"
+}
+
+
+default {"\f[color,default]"}
+purple {"\f[color,183,129,227]%(_argv[0])\f[color,default]"} //Nobody???
+teal {"\f[color,132,184,180]%(_argv[0])\f[color,default]"} //partner
+red {"\f[color,227,142,142]%(_argv[0])\f[color,default]"} //first son
+orange {"\f[color,227,147,093]%(_argv[0])%(_argv[1])\f[color,default]"} //first husband
+green {"\f[color,064,180,103]%(_argv[0])\f[color,default]"} //second doctor
+yellow {"\f[color,212,206,071]%(_argv[0])\f[color,default]"} //first doctor
+blue {"\f[color,141,136,247]%(_argv[0])\f[color,default]"} //first bio son
+cyan {"\f[color,122,218,232]%(_argv[0])\f[color,default]"} //twin
+pink {"\f[color,246,171,247]%(_argv[0])\f[color,default]"} //adoptive dad
+brown {"\f[color,181,153,094]%(_argv[0])\f[color,default]"} //'friend'
 
 sleepchance
 {
@@ -421,7 +519,7 @@ etcwake
 //Copied from Lulo
 sleepmumble
 {
-	"...zzz... mm..."
+	"...zzz...\w8\w8 mm..."
 	"...zzhh..."
 	"...mmmn..."
 	"...hhnmmf..."
@@ -465,10 +563,10 @@ mumble2
 	"dzm"
 	"dzk"
 	"frm"
-	"zz... %(mumb)"
-	"mm... %(mumb)"
-	"krf..? %(mumb)"
-	"mnn... %(mumb)"
+	"zz...\w8\w8 %(mumb)"
+	"mm...\w8\w8 %(mumb)"
+	"krf..?\w8\w8 %(mumb)"
+	"mnn...\w8\w8 %(mumb)"
 }
 
 mumb
@@ -519,6 +617,21 @@ dreammumb2
 	"\e"
 }
 
+LuloPresent
+{
+	if "Lulo" _in_ ghostexlist; 1
+	else; 0
+}
+
+Capitalize
+{
+	_word = _argv[0] //Sets _word to the word the user sent
+	_buffer = SUBSTR(_word,0,1) //Storing the first character in _buffer
+	_word = ERASE(_word,0,1) //Erasing the first character from _word
+	_word = INSERT(_word,0,TOUPPER(_buffer)) //Making the character in _buffer uppercase and inserting it back into _word
+	_word //Returns the capitalized word
+}
+
 //---Menu Envelopes---
 
 displayhour
@@ -544,30 +657,69 @@ wd
 	else; "Sat"
 }
 
-displayweekday
+nowday
 {
-	if weekday == 0; "Sunday"
-	elseif weekday == 1; "Monday"
-	elseif weekday == 2; "Tuesday"
-	elseif weekday == 3; "Wednesday"
-	elseif weekday == 4; "Thursday"
-	elseif weekday == 5; "Friday"
+	_weekday = weekday
+	if _argv[0] == "next"
+	{
+		_weekday++
+		if _weekday > 6; _weekday = 0
+	}
+	if _argv[0] == "last"
+	{
+		_weekday--
+		if _weekday < 0; _weekday = 6
+	}
+	
+	if GETTYPE(_argv[0]) == 1 //If it's an integer
+	{
+		while _argv[0] > 6; {_argv[0] -= 7} //idk why this needs 7s, feels wrong, but it works when I make it this way
+		while _argv[0] < 0; {_argv[0] += 7}
+		_weekday = _argv[0]
+	}
+	
+	if _weekday == 0; "Sunday"
+	elseif _weekday == 1; "Monday"
+	elseif _weekday == 2; "Tuesday"
+	elseif _weekday == 3; "Wednesday"
+	elseif _weekday == 4; "Thursday"
+	elseif _weekday == 5; "Friday"
 	else; "Saturday"
 }
 
-displaymonth
+nowmonth //The current month name
 {
-	if month == 1; "January"
-	elseif month == 2; "February"
-	elseif month == 3; "March"
-	elseif month == 4; "April"
-	elseif month == 5; "May"
-	elseif month == 6; "June"
-	elseif month == 7; "July"
-	elseif month == 8; "August"
-	elseif month == 9; "September"
-	elseif month == 10; "October"
-	elseif month == 11; "November"
+	_month = month
+	
+	if _argv[0] == "next"
+	{
+		_month++
+		if _month > 12; _month = 1
+	}
+	if _argv[0] == "last"
+	{
+		_month--
+		if _month < 1; _month = 12
+	}
+	
+	if GETTYPE(_argv[0]) == 1 //If it's an integer
+	{
+		while _argv[0] > 12; {_argv[0] -= 12}
+		while _argv[0] < 1; {_argv[0] += 12}
+		_month = _argv[0]
+	}
+	
+	if _month == 1; "January"
+	elseif _month == 2; "February"
+	elseif _month == 3; "March"
+	elseif _month == 4; "April"
+	elseif _month == 5; "May"
+	elseif _month == 6; "June"
+	elseif _month == 7; "July"
+	elseif _month == 8; "August"
+	elseif _month == 9; "September"
+	elseif _month == 10; "October"
+	elseif _month == 11; "November"
 	else; "December"
 }
 
@@ -601,6 +753,16 @@ season
 	else; "Winter"
 }
 
+daytime //Note: S is based in a particular geopraphical location, so FOR HIM, this is accurate-ish. If you're in another hemisphere, or near a pole or something, this will be wrong. Oh well XD
+{
+	//Top if is the timeslots that will always be day.
+	//Elseifs are extra timeslots during summer months.
+	//If it's none of those, it's not daytime.
+	if timeslot == "morning" || timeslot == "lunch" || timeslot == "afternoon"; 1
+	elseif season == "Summer" && (timeslot == "earlymorning" || timeslot == "evening"); 1
+	else; 0
+}
+
 GetTimeSlot
 {
 	if hour >= 5 && hour <= 8; "earlymorning"
@@ -621,7 +783,8 @@ GetDaySlot
 
 temp
 {
-	if Degrees[1] == "°F"
+	if feelslike[0] == "Unknown" || tempurature[0] == "Unknown"; "Unknown"
+	elseif Degrees[1] == "°F"
 	{
 		if feelslike[0] <= 0; "Below Zero" //Below zero, 0 and below
 		elseif feelslike[0] <= 20; "Freezing" //Freezing, 0-20
@@ -697,6 +860,72 @@ lm : sequential //Changed the loadingmoon thing to just use sequential, it's les
 	"\_b[img\Moon08,inline,--option=use_self_alpha]\w4\c"
 }
 
+
+
+/*Types I've gathered are as follows(please let me know if you find more that aren't included here!):
+	Clear			Partly Cloudy	Showers in the Vicinity
+	Mostly Clear	Mostly Cloudy	Few Showers
+	Sunny			Cloudy			Showers
+	Mostly Sunny					Rain Shower
+	Fair							Light Rain
+									Rain
+									Heavy Rain
+	
+	Rain and Snow	Fog				Isolated Thunderstorms
+	Snow Shower		Haze			Scattered Thunderstorms
+	Snow							Thunderstorm
+	Light Snow						Heavy Thunderstorm
+	Wintry Mix
+*/
+
+weather_clear
+{
+	if weather == "Clear" || weather == "Mostly Clear" || weather == "Sunny" || weather == "Mostly Sunny" || weather == "Fair"; 1
+	else; 0
+}
+
+weather_cloudy
+{
+	if weather == "Partly Cloudy" || weather == "Mostly Cloudy" || weather == "Cloudy"; 1
+	else; 0
+}
+
+weather_mightrain
+{
+	if weather == "Showers in the Vicinity" || weather == "Few Showers" || weather == "Showers"; 1
+	else; 0
+}
+
+weather_raining
+{
+	if weather == "Rain Shower" || weather == "Light Rain" || weather == "Rain" || weather == "Heavy Rain"; 1
+	else; 0
+}
+
+weather_snowing
+{
+	if weather == "Rain and Snow" || weather == "Snow Shower" || weather == "Snow" || weather == "Light Snow" || weather == "Wintry Mix"; 1
+	else; 0
+}
+
+weather_thunderstorm
+{
+	if weather == "Light Rain with Thunder" || weather == "Isolated Thunderstorms" || weather == "Scattered Thunderstorms" || weather == "Thunderstorm" || weather == "Heavy Thunderstorm"; 1
+	else; 0
+}
+
+weather_foghaze
+{
+	if weather == "Fog" || weather == "Haze"; 1
+	else; 0
+}
+
+pollen_alert
+{
+	if pollen == "Local Pollen Alert"; 1
+	else; 0
+}
+
 /*loadingmoon
 {
 	"\_b[img\Moon0%(loadmoonnum),inline,--option=use_self_alpha]\w4\c"
@@ -723,15 +952,115 @@ OnLoadB
 }*/
 
 
-km //Kero choice marker. If the balloon being used is the default one, use the special marker, and if not then use the default marker - Don't need this anymore thanks to an SSP update, but I'll leave the code here for posterity
+// km //Kero choice marker. If the balloon being used is the default one, use the special marker, and if not then use the default marker - Don't need this anymore thanks to an SSP update, but I'll leave the code here for posterity
+// {
+	// if nowballoon == "Purple Soul" 
+	// {
+		// "\_b[img/km.png,inline,--option=use_self_alpha] "
+	// }
+	// else
+	// {
+		// "\![*]"
+	// }
+// }
+
+//This handy function is for those lines of dialogue that word wrap awkwardly in your balloon! The problem with those dialogues is that if you manually add a \n, it might look terrible in other balloons. So, instead, if you add a %(br), it will check if the user is using the default balloon and if so, add a \n! If the user is not on the default balloon, this will add a space instead, so be mindful of that when writing dialogue!
+//You'll need to put your balloon's name in here. Also, if you're on AYA, you might need to add a variable for tracking what balloon the user is using, since I don't think it has this variable. You can use OnNotifyBalloonInfo and put 'nowballoon = reference0' in there.
+//Example: "This dialogue would cut awkwardly in the default%(br)balloon,\w4 so a manual linebreak is added.\w8\w8 In any other balloon this would be a%(br)continuous line,\w4 using SSP's default word wrap.\e"
+br
 {
-	if nowballoon == "Purple Soul" 
+	if SHIORI3FW.BalloonName == "Purple Soul"; "\n"
+	else; " "
+}
+
+DustyPresent
+{
+	if "Dusty" _in_ ghostexlist; 1
+	else; 0
+}
+
+DustyInstalled
+{
+	if ASEARCH("Dusty and Obsidian",installedghostlist) != -1; 1
+	else; 0
+}
+
+LuloInstalled
+{
+	if ASEARCH("Lulo",installedghostlist) != -1; 1
+	else; 0
+}
+
+CambriaPresent
+{
+	if "Cambria" _in_ ghostexlist; 1
+	else; 0
+}
+
+PastUnlocked
+{
+	if LVCheck == 1 && thesplit == 1; 1
+	else; 0
+}
+
+OutOfSeason
+{
+	if (nowshell == "autumn_flannel" && season != "Autumn") || (nowshell == "winter_coat" && season != "Winter") || (nowshell == "spring_overalls" && season != "Spring") || (nowshell == "summer_swimsuit" && season != "Summer"); 1
+	else; 0
+}
+
+//If you've managed to successfully pet him 20 times for every time you snag his head. It's not the end of the world if you mess up a few times, but if you're really good about it you get some special dialogue
+UserGentle
+{
+	if totalpets > 100 && snagged == 0 && (totalpets / 20) > totalsnags && love >= 150; 1
+	else; 0
+}
+
+ASUB //ASEARCH but for substrings
+{
+	_array = _argv //Takes in all the elements of the array
+	_array[0] = IARRAY //erases _argv[0] since that's the string we're searching for
+	for _i = 0; _i < ARRAYSIZE(_array); _i++
 	{
-		"\_b[img/km.png,inline,--option=use_self_alpha] "
+		if _argv[0] _in_ _array[_i]
+		{
+			_i
+			return
+		}
 	}
-	else
+	-1
+}
+
+//---Flag---
+//Checks to see if a flag exists (is "set") in the MiscFlags array.
+//Argument 0: The flag you want to check for
+//Note, if you want to add a flag to the flag system, write it like so: MiscFlags ,= "Discovered her darkest secrets"
+
+//if Flag("Discovered her darkest secrets") == 1
+
+Flag //Checks to see if a flag exists. Returns 1 if yes, returns 0 if no
+{
+	if ASEARCH(_argv[0],MiscFlags) != -1; 1
+	else; 0
+}
+
+
+//---RemoveFlag---
+//Removes all instances of a flag from the MiscFlags array. Returns 0 if there was no flag to erase.
+//Argument 0: The flag you want to "unset", or erase.
+
+//RemoveFlag("Discovered her darkest secrets")
+
+RemoveFlag //Removes all instances of a flag in the array.
+{
+	_elements = ASEARCHEX(_argv[0],MiscFlags)
+	if ARRAYSIZE(_elements) > 0
 	{
-		"\![*]"
+		for _i = ARRAYSIZE(_elements) - 1; _i >= 0; _i-- //Goes from the end of the list to the start, so the elements stay in the same positions while we erase
+		{
+			_current = _elements[_i]
+			MiscFlags[_current] = IARRAY
+		}
 	}
 }
 
@@ -795,9 +1124,104 @@ StSfdad
 
 
 
+//Multiplies a string like Python does
+MLTSTR
+{
+	_output = ""
+	for _i = 0; _i < TOINT(_argv[1]); _i++
+	{
+		_output += TOSTR(_argv[0])
+	}
+	_output
+}
+
+
+OnToggle
+{
+	EVAL("%(reference0) = %(reference1)")
+	--
+	"\![raise,%(reference2)]"
+}
+
+yearday //Gets the day of the year that it currently is
+{
+	_output = 0
+	for _i = 1; _i < month; _i++
+	{
+		case _i
+		{
+			when 1,3,5,7,8,10,12 //31 days
+			{
+				_output += 31
+			}
+			when 2 //February. This relies on my leapyear function.
+			{
+				if leapyear == 1; _output += 29
+				else; _output += 28
+			}
+			others //30 days
+			{
+				_output += 30
+			}
+		}
+	}
+	_output += day
+	_output
+}
+
+yearweek
+{
+	_days = yearday
+	
+	_trailingdays = 0
+	while weekday - _trailingdays >= 0
+	{
+		_trailingdays++
+	}
+	
+	_days -= _trailingdays
+	_weeks = _days / 7
+	_leadingdays = _days % 7
+	
+	if _leadingdays > 0; _weeks++
+	if _trailingdays > 0; _weeks++
+
+	if _weeks == 53
+	{
+		_daysleft = 31 - day
+		if _daysleft + _trailingdays < 7; _weeks = 1
+	}
+	_weeks
+}
 
 
 
+leapyear //Checks if this is a leap year
+{
+	_year = year; if _argv[0] != ""; _year = _argv[0]
+	if _year % 4 != 0; 0
+	elseif _year % 100 != 0; 1
+	elseif _year % 400 != 0; 0
+	else; 1
+}
+
+
+
+
+// OnTestRSS
+// {
+	// "Done"
+// }
+
+// OnExecuteRSSComplete
+// {
+	// "complete"
+// }
+
+// OnExecuteRSSFailure
+// {
+	// "failure: %(reference4)"
+// }
 
 //Moved this over to word.dic. This isn't an envelope, but this should keep it out of the way but also easy to reach for setting variables...
 
@@ -892,14 +1316,17 @@ OnDialogueVariables
 	elseif reference0 == "getadrinkw"
 	{
 		currentlydrinking = 1
+		drinkcounter = 2
 	}
 	elseif reference0 == "getadrinkj"
 	{
 		currentlydrinking = 2
+		drinkcounter = 2
 	}
 	elseif reference0 == "getadrinkm"
 	{
 		currentlydrinking = 3
+		drinkcounter = 2
 	}
 	elseif reference0 == "knowRYS"
 	{
@@ -947,4 +1374,116 @@ OnDialogueVariables
 		nowmode = "Default"
 		recentnightmare = 1
 	}
+	elseif reference0 == "newwindowhighscore"
+	{
+		WindowHighScore = TOINT(reference1)
+	}
+}
+
+ChangeVersion : array
+{
+	" Latest "
+	"  1.3.0  "
+	"  1.2.0  "
+	"  1.1.0  "
+	"  1.0.0  "
+}
+
+ChangeLog : array
+{
+	LatestUpdate //This is in etc so I remember to update it lol
+	
+	//------1.3.0------
+	
+	"\_l[84]-Version 1.3.0-\n\n\n[half]/
+	-Added an Autumn themed shell! It comes with an accessory you can put on him using the right click menu.\n\n/
+	-S will now fall asleep randomly! If he's having bad dreams, you can pet him a few times to give him nicer dreams for a little while.\n\n/
+	-Fixed weather checking, again. From now on I should be able to update it on my end without patching S, hopefully. You might need to enter your weather location again.\n\n/
+	-If you are outside the US, you should now be able to get the tempuratures in celcius if you use a page in celcius on Weather.com!\n\n/
+	-S can now hold \_a[https://zichqec.github.io/s-the-skeleton/dusty.html]Obsidian\_a if you drag her onto him! Don't do it until I put up a patch for Dusty, though, or it will behave strangely.\n\n/
+	-Auto weather checks will no longer open the balloon, and should happen completely silently.\n\n/
+	-More dialogue and bugfixes all around!\n\n\n/
+	\_l[84]-Version 1.3.1-\n\n/
+	-Fixed weather checking (I swear this is the last time... probably). Non-US urls SHOULDN'T give any more trouble, and if they do, S will direct you to another way of inputting it. \f[bold,1]Please let me know if this gives you any issues!\f[default] As a result of this change...\n\n/
+	-There is now a toggle in the menu for Celsius vs Fahrenheit! You should be able to switch between them seamlessly.\n\n/
+	-Changed the date/time/etc on the bottom of S's menu to have a slightly smaller font, to give it more room.\n\n/
+	-Added a bunch more dialogue for falling asleep and waking up!\n\n/
+	-Added a few extra lines of dialogue in various places.\n\n/
+	-Balloon files will now be hosted separately from S's update files, so fresh installs will no longer want to redownload the balloon files.\n\n/
+	-Fixed some typos, fixed a few small bugs, tightened up some code and made the formatting nicer.\n\n\n/
+	\_l[84]-Version 1.3.2-\n\n/
+	-I've updated the way S holds \_a[https://zichqec.github.io/s-the-skeleton/dusty.html]Obsidian\_a, please make sure you also update Dusty before making him hold her again! Also, if you ever have trouble with S not picking up Obsidian, reloading him seems to help.\n\n/
+	-Commu dialogue should no longer cause issues when S is in modes other than default.\n\n/
+	-Fixed the error messages for weather checking.\n\n/
+	-He has some new dialogue, if you try to get \_a[http://www.drdowasure.com/gaster/]Gaster\_a to talk to him...\n\n/
+	-A few more misc tweaks, mostly behind the scenes stuff.\n\n\n/
+	\_l[84]-Version 1.3.3-\n\n/
+	-If you boot S and he's asleep, and no other ghosts are present, you should now have an option to switch to another (random) ghost.\n\n/
+	-Fixed some major issues in his communication dialogues.\n\n/
+	-Hopefully fixed an issue where, if you booted S while Dusty was also present, he would sometimes go into sleep mode.\n\n/
+	-Made OS version detection better, for the purposes of setting a wallpaper as Spanned (Windows 10/multi monitor only feature).\n\n/
+	-Fixed header code and made it a lot lighter.\n\n/
+	-Cleaned up some more code.\n\n/
+	-Fixed a small visual issue while S was holding Obsidian.\n\n/
+	-Added a couple extra dialogues.\n\n"
+	
+	//------1.2.0------
+	
+	"\_l[84]-Version 1.2.0-\n\n\n[half]/
+	-It's S's birthday today (8/25)! So here's an update to celebrate.\n\n/
+	-Updated the balloon. If the balloon looks strange while using the Timeline menu, you can download the new file \_a[http://www.mediafire.com/file/c25fwju9hsly11k/purple_soul_v1.2.nar/file]here\_a, or change your balloon to Purple Soul and ask S to update from the 'do something for you' menu!\n\n/
+	-Added a new secret mode! If you don't mind spoilers and want to know how to unlock it, you can find the answer on my website \_a[https://zichqec.github.io/s-the-skeleton/index.html]here\_a.\n\n/
+	-S can now check the weather! If you've checked the weather recently, or if you have auto weather updates on, he may comment on the weather randomly!\n\n/
+	-S will now comment if you move him far enough across your screen, or move him onto a secondary monitor.\n\n/
+	-S can now comment on how much trash you're hoarding in your recycle bin!\n\n/
+	-He may also comment if you plug in a tablet, if you allow him to see programs on your PC.\n\n/
+	-S can now display email headers when he checks your email!\n\n/
+	-You can boop his nose if your friendship is high!\n\n/
+	-Lots of new dialogue, patched bugs, a few new expressions, and cleaned up code! Drastically less spaghetti.\n\n/
+	-Balloons and position on screen will now sync across shells.\n\n/
+	-You can opt in to beta updates! This is intended for folks on the Ukagaka Dream Team Discord server. If you'd like to help me test updates, and see new features before they're live, \_a[https://ukagakadreamteam.tumblr.com/discord]join us\_a! If you're going to opt in, PLEASE BACKUP YOUR SAVE.\n\n\n/
+	\_l[84]-Version 1.2.1-\n\n\n[half]/
+	-Fixed a couple typos.\n\n/
+	-Fixed a bug where dragging S around sometimes caused an empty balloon to pop up.\n\n/
+	-Fixed a bug where S would think the humidity was super high if he didn't know it.\n\n\n/
+	\_l[84]-Version 1.2.2-\n\n\n[half]/
+	-Fixed weather checking. It should no longer break, even if weather.com changes their tags again.\n\n\n"
+	
+	//------1.1.0------
+	
+	"\_l[84]-Version 1.1.0-\n\n\n[half]/ 
+	-Added blinking animations!\n\n/
+	-New shell: Pink Apron!\n\n/
+	-Added blip in animations!\n\n/
+	-New timelines menu that can be unlocked by asking him about timelines\n\n/
+	-Added lots more dialogue to the family menu\n\n/
+	-You can now ask about skeletons in general\n\n/
+	-There may be special dialogue if you pet him for a while without stopping...\n\n/
+	-Head collisions vastly improved\n\n/
+	-Slight improvements to the balloon\n\n/
+	-Rebalanced dialogue, dynamic dialogue should appear more often now\n\n/
+	-Changed the update system, it should be much faster next update!\n\n/
+	-Added colors when referencing certain characters, to help differentiate them\n\n/
+	-Various QoL tweaks and bugfixes\n\n/
+	-Option to ask about your music will only show if you're using a compatible player now (foobar2000, winamp, VLC)\n\n\n/
+	\_l[84]-Version 1.1.1-\n\n\n[half]/
+	-Fixed a couple typos and formatting issues, if you find any more please do contact me and let me know!\n\n\n/
+	\_l[84]-Version 1.1.2-\n\n\n[half]/
+	-Fixed a bug where S would stop talking after a few hours if you had a ghost he didn't recognize open\n\n/
+	-Fixed some more typos\n\n/
+	-Changed the actual values of the talk rate to match what it says in the config menu. This won't change until you change your talk rate again.\n\n/
+	-Changed the name of the red_hoodie shell folder to master, to prevent an error message from popping up due to a recent SSP update. If you still have a folder called red_hoodie in your files, you should delete it!\n\n/
+	-Migrated S to Github! I've also made a website for him which you can check out over \_a[https://zichqec.github.io/s-the-skeleton/s_the_skeleton.html]here!\_a\n\n\n"
+	
+	//------1.0.0------
+	
+	"\_l[84]-Version 1.0.0-\n\n\n[half]/
+	-Added S\n\n/
+	-Added Red Hoodie shell\n\n/
+	-Added Purple Soul Balloon\n\n/
+	-Added menus\n\n/
+	-Added sass\n\n/
+	-Added update functionality\n\n/
+	-Changed thumbnail picture and right click menu\n\n\n"
+	
 }

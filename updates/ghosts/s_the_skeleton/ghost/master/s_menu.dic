@@ -1,12 +1,20 @@
-﻿//---------------------------Menus--------------------------
-
-OpenSakuraMenu
+﻿OpenSakuraMenu
 {
+	currentlydrinking = 0
 	if nowmode == "Asleep"
 	{
-		"* (Do you want to wake him up?)\n\n/
-		\![*]\q[Wake him,OnWakeMenu,%(CHAIN.IDName)]\n/
-		\![*]\q[Let him sleep,cancelnodialogue]\e"
+		if "JustFellAsleep" _in_ SHIORI3FW.LastTalk //This will only happen around 30 seconds after he falls asleep
+		{
+			nowmode = "Default"
+			"\0\s[109]Mh-!\w8\w8 Huh?\w8\w8 Yeah,\w4 'm awake..."
+			"\0\s[109]Hh-!\w8\w8 Mm?\w8\w8 Wha's goin on..."
+		}
+		else
+		{
+			"* (Do you want to wake him up?)\n\n/
+			\![*]\q[Wake him,OnWakeMenu,%(CHAIN.IDName)]\n/
+			\![*]\q[Let him sleep,cancelnodialogue]\e"
+		}
 	}
 	elseif autoupdate == "ON" && updateavailable == 1
 	{
@@ -41,9 +49,23 @@ OpenSakuraMenu
 			"\0\b2\s[110]Ah!\w8\w8 "
 			--
 			"\s[106]There you are %(username),\w4\s[107] I was starting to get worried..."
-			"\s[106]You're back!\w8\w8\s[206] It was getting kinda lonely around here..."
+			if ghostexcount == 0; "\s[106]You're back!\w8\w8\s[206] It was getting kinda lonely around here..."
 			"\s[106]Hey %(username),\w4 good to see you back."
 			"\s[106]Hey,\w4 %(username).\w8\w8 It's been like %(lastinteracted) hours,\w4 is everything alright?"
+			"\s[106]There you are,\w4 I was wondering if you'd be coming back..."
+			"\s[106]Hey,\w4 kiddo.\w8\w8 I was getting a bit worried there..."
+			"\s[107]Oh,\w4 it's just you.\w8\w8\s[106] You've been gone a while,\w4 is everything alright?"
+			if lastinteracted >= 20; "\s[110]%(username),\w4 is that you?\w8\w8\s[107] You've been gone for %(lastinteracted) hours,\w4 I was starting to wonder if you'd forgotten about me...\w8\w8\w8\s[106] ...Yeah,\w4 I kept track."
+			if CameBack == 1; "\s[106]You're back again.\w8\w8\s[107] So uh,\w4 are you gonna stay this time?"
+			if ghostexcount == 0; "\s[107]Geez,\w4 there you are.\w8\w8\s[106] I get worried when I'm here on my own,\w4 y'know?"
+			if ghostexcount == 0 && CameBack == 1
+			{
+				"\s[106]You're back again.\w8\w8\s[107] Um,\w4 if you're gonna leave me here all the time,\w4 could you maybe bring someone else here so I have someone to talk to?"
+				--
+				if DustyInstalled; "\w8\w8\s[202] Dusty would be a good choice,\w4 he's usually pretty open,\w4 doesn't have any pressing matters to get back to...\w8\w8\s[107] He likes being outside his void,\w4 too;\w8 it's not just for my sake."
+				else; "\w8\w8\s[202] Ah,\w4 but I don't really want to inconvenience anyone else,\w4 either..."
+			}
+			if ghostexcount == 1 && "Hydrate" _in_ ghostexlist; "\s[106]There you are.\w8\w8\s[107] Me and Hydrate were getting lonely...\w8\w8\s[101] We're friends now,\w4 a lot happened while you were gone."
 		}
 		else
 		{
@@ -54,11 +76,13 @@ OpenSakuraMenu
 			else
 			{
 				"\0\s[400]Hmph.\w8\w8\n\n* (He's ignoring you,\w4 perhaps because you ignored him for so long...)\e"
+				"\0\s[400]* (He won't even look at you,\w4 maybe because you ignored him for so long...)\e"
 			}
 		}
 	}
 	else //normal menu open
 	{
+		//debuggingthisdangthing = lastinteracted
 		if LV == 0 //Friendship routes
 		{
 			if love >= 75 //After good friendship, don't see a need for more with full friendship.. maybe later
@@ -103,6 +127,13 @@ OpenSakuraMenu
 				"Yeah,\w4 kiddo?"
 				"Yeah,\w4 %(username)?"
 				"Yeah,\w4 what's up?"
+				"Yeah,\w4 what'd you need?"
+				"Yeah,\w4 what'd you need,\w4 %(username)?"
+				"Yeah,\w4 what'd you need,\w4 kiddo?"
+				"Yes?"
+				"Need me for something?"
+				"What can I do for you?"
+				if love >= 500; "\s[111]I've been poked!"
 			}
 			elseif love >= 20 //getting to know him a little
 			{
@@ -170,7 +201,15 @@ OnWakeMenu
 	--
 	if reference0 == "dreamb3" || reference0 == "dreamb4" || reference0 == "dreamb5" || reference0 == "dreamb6" || reference0 == "dreamb10"
 	{
-		"\s[1100]Hh-!\w8\w8\w8\s[302] Hhh...\w8\w8\n\n* (He takes a deep breath.)\w8\w8\n\n\s[302]Uh,\w4 thanks.\w8\w8\s[300] That was about to get bad...\w8\w8\n\n\s[109]* (He sighs.)\w8\w8\n\n\s[106]Anyways,\w4 ah,\w4 did you need something?"
+		"\s[1100]Hh-!\w8\w8\w8\s[302] Hhh...\w8\w8\n\n* (He takes a deep breath.)\w8\w8\n\n\s[302]Uh,\w4 thanks.\w8\w8\s[300] That was about to get bad...\w8\w8\n\n\s[109]* (He sighs.)\w8\w8\n\n\s[106]Anyways,\w4 ah,\w4"
+		"\s[1100]Hhk-!\w8\w8\w8\s[301] Hhh...\w8\w8\w8\s[204] Mmm.\w8\w8\n\n* (He takes a deep,\w4 shuddering breath.)\w8\w8\w8\n\n\s[200]...Thanks,\w4 I wasn't looking forward to the end of that.\w8\w8\n\n\s[106]Anyways,\w4 ah,\w4"
+		"\s[1100]Hhk-!\w8\w8\w8\s[300] Mhh...\w8\w8\w8\s[302]\n\n* (He sighs,\w4 sounding resigned.)\w8\w8\n\n\s[201]Uh,\w4 thanks,\w4\s[200] I guess that's at least one time I won't have to finish that one...\w8\w8\w8\n\n\s[106]So,\w4 ah,\w4"
+		--
+		" did you need something?"
+		" what did you need?"
+		" what's up?"
+		" what did you want?"
+		" hi."
 	}
 	else
 	{
@@ -184,6 +223,8 @@ OnWakeMenu
 		"\s[110]Oh,\w8\s[107] hi,\w4 %(username).\w8\w8 "
 		"\s[110]Oh,\w8\s[107] it's you.\w8\w8 "
 		"\s[110]Oh,\w8\s[107] right.\w8\w8 "
+		"\s[110]Oh,\w8\s[107] still here.\w8\w8 "
+		"\s[110]Oh,\w8\s[107] oops.\w8\w8 "
 		--
 		{
 			"\s[106]How long was I asleep?"
@@ -192,15 +233,21 @@ OnWakeMenu
 		}
 		if dreams >= 3 //If he was having good dreams
 		{
-			"\s[107]Guess I must've fallen asleep.\w8\w8 at least I slept pretty good though..."
+			"\s[107]Guess I must've fallen asleep.\w8\w8 At least I slept pretty good though..."
+			"\s[107]Aw,\w4 I was having a nice dream for once...\w8\w8\s[106] Maybe I can pick it back up later.\w8\w8 What'd you need?"
 		}
 		if dreams <= 1 //If he was having bad dreams
 		{
 			"\s[206]Mm,\w4 I didn't mean to fall asleep on you there..."
+			"\s[206]Mm,\w4 probably better to be awake anyways..."
+			"\s[206]I wasn't liking where that was headed,\w4 so it's probably better that I'm up..."
 		}
 		if lastinteracted >= 6
 		{
+			CameBack = 1
 			"\s[106]Sorry,\w4 you weren't around and I got a bit drowsy..."
+			"\s[106]Sorry,\w4 I figured while you were gone,\w4 maybe I could catch up on some sleep..."
+			if ghostexcount == 0; "\s[106]It was a bit lonely here without you,\w4 so I thought I'd just sleep while I waited..."
 		}
 		if sleephour >= 6
 		{
@@ -209,6 +256,8 @@ OnWakeMenu
 		if timeslot == "earlymorning"
 		{
 			"\s[104]You're up early,\w4 huh?\w8\w8\s[111] Did you need something?"
+			"\s[104]Wow,\w4 you're up early.\w8\w8\s[101] Or uh,\w4 did you not go to sleep yet?"
+			"\s[104]Getting an early start to your day?\w8\w8\s[107] Or uh,\w4 getting to bed late?"
 		}
 		if timeslot == "morning"
 		{
@@ -217,14 +266,17 @@ OnWakeMenu
 		if timeslot == "lunch"
 		{
 			"\s[106]Is it lunchtime already?"
+			"\s[106]Wow,\w4 it's already lunchtime.\w8\w8\s[107] I wonder if there's anything to eat around here..."
 		}
 		if timeslot == "afternoon"
 		{
 			"\s[106]Sorry,\w4 I don't usually stay awake through the afternoon."
+			"\s[106]Sorry,\w4 I usually nap through the afternoon."
 		}
 		if timeslot == "evening"
 		{
 			"\s[107]Hmm,\w4 it's starting to get late,\w4 huh...\w8\w8 Did you need something?"
+			"\s[107]Hmm,\w4 it'll be late soon...\w8\w8\s[0] What did you need?"
 		}
 		if timeslot == "latenight"
 		{
@@ -262,7 +314,7 @@ Select.nomoreupdatesplease //If the user decides to turn off auto updates
 {
 	if LV == 0
 	{
-		"\0\s[104]Ok,\w4 I won't bother you about updates anymore.\w8\w8\s[0] If you change your mind, you can turn it back on in the config menu.\e"
+		"\0\s[104]Ok,\w4 I won't bother you about updates anymore.\w8\w8\s[0] If you change your mind,\w4 you can turn it back on in the config menu.\e"
 	}
 	else
 	{
@@ -282,7 +334,7 @@ MenuRun
 	}
 	else
 	{
-		"\n\n\_q\b2* (You ask S...)\n\n[half]"
+		"\n\n\_q\b2\![set,autoscroll,disable]* (You ask S...)\n\n[half]"
 	}
 	--
 	if lastTalk != "" //If he's already said at least one thing
@@ -315,7 +367,18 @@ MenuRun
 		"\n"
 	}
 	--
- 	"\n\![*]\q[Nevermind,CANCEL]\n\n[half]\f[height,12]%(wd) %(displayhour):%(nowmin) %(ap), %(month)/%(day)/%(year)  -  %(season)"
+ 	"\n\![*]\q[Nevermind,CANCEL]"
+	--
+	if debug == 1 //You can access the debug menu by opening script input (ctrl S) and putting in "%(debug = 1)", but do so at your own risk. I'd recommend double checking the test variable before clicking on it, because sometimes I leave things in there that will alter your variables.
+	{
+		//"\n* (Or, for the very curious...) Love: %(love) LV: %(LV)\n\n[half]/
+		//if lastTalk != ""; {"\_l[87,209]"}
+		//else; {"\_l[87,194]"}
+		--
+		"  \![*]\q[Debug,OnDebugMenu]  \![*]\q[Test Variable,OnTestVariable]"
+	}
+	--
+	"\n\n[half]\f[height,12]%(wd) %(displayhour):%(nowmin) %(ap), %(month)/%(day)/%(year)  -  %(season)"
 	--
 	if AutoWeather == "ON" //If the user has weather updates on, this will display the current moon phase. Clicking on the moon will perform a weather check.
 	{
@@ -323,6 +386,7 @@ MenuRun
 		{
 			", %(tempurature[0])%(Degrees[1])"
 		}
+		else; ", ??%(Degrees[1])" //weird wrapping issuessss
 		--
 		" %(moonphase) Runtime: %(passhour):%(displaymin)                          Version %(ghostver)"
 	}
@@ -331,25 +395,18 @@ MenuRun
 		"\nRuntime: %(passhour):%(displaymin)            Version %(ghostver)"
 	}
 	--
-	if debug == 1 //You can access the debug menu by opening script input (ctrl S) and putting in "%(debug = 1)", but do so at your own risk. I'd recommend double checking the test variable before clicking on it, because sometimes I leave things in there that will alter your variables.
-	{
-		//"\n* (Or, for the very curious...) Love: %(love) LV: %(LV)\n\n[half]/
-		if lastTalk != ""; {"\_l[87,209]"}
-		else; {"\_l[87,194]"}
-		--
-		"\f[default]\![*]\q[Debug,zidebug]  \![*]\q[Test Variable,OnTestVariable]"
-	}
-	--
 	"\e:chain=end"
 }
 
 //Repeating himself
-OnLastTalk 
+OnLastTalk
 {
 	"%(lastTalk)\e"
 }
 
 //============================================================Questions menu=======================================================================
+//{
+
 Select.ihavequestions
 {
 	askquestions
@@ -447,6 +504,7 @@ Select.aboutyou : nonoverlap //the menu option to ask more questions is taken ca
 			"\0\s[104]I like to cook.\w8\s[1010] It's my great passion in life.\w8\s[103] My family matters to me more than anything,\w4 \s[104]and I discovered a long time ago that an easy way to make them smile is by making good food.\w8\s[205]\n\nEver since then,\w4 I've thrown myself into studying everything about food that I can find,\w4 and experimenting with new recipes.\w8\s[1010] I'm always learning more,\w4 but that's half the fun of it."
 			"\0* (You ask him what sort of job he has.)\w8\w8\n\n\s[205]I used to work at a local restaurant back when monsters were still sealed underground,\w4\s[1010] but now that we're on the surface my family owns a farm,\w4 and I help to manage it.\w8\w8\n\n\s[0]I mostly take care of the house and the kids,\w4\s[104] and I have a small herb garden."
 			"\0\s[205]I'm not much good operating a lot of the farm equipment.\w8\s[202] Besides,\w4 someone's got to keep the house in order.\w8\s[0] I cook and clean,\w4 and take care of the kids.\w8\s[102] Housework suits me,\w4 so I don't mind it at all."
+			"\0\s[205]I've never been a very adventurous person.\w8\w8\s[0] I'd rather stay home and take care of my family,\w4 y'know?"
 			if love >= 150 
 			{
 				"\0* (You ask what his home is like.)\w8\w8\n\n\s[208]Hmm...\w8\w8\s[104] It's very peaceful there,\w4 generally.\w8\w8\s[0] A lot of open space and fresh air.\w8\w8\s[1090]\i[1] Here let me see...\w8\w8\n\n\s[104]The atmosphere sounds kinda like \_a[https://mynoise.net/NoiseMachines/custom.php?l=57330134002955294926&m=JAPANESEOASE1~FOREST22~RAIN2~MEADOW3~RAIN7~WTFARM8~MEADOW8~WTFARM9~FOREST29~MEADOW9&d=0&title=S%27s%20Home]this\_a."
@@ -472,7 +530,7 @@ Select.aboutyou : nonoverlap //the menu option to ask more questions is taken ca
 			}
 			if nowshell == "pink_apron" && thesplit == 1
 			{
-				"\0* (You ask where he got his pink apron.)\w8\w8\n\n\s[205]Ah,\w4 it's not really anything fancy.\w8\w8\s[206] The original one my %(teal)first partner%(default) made for me is long gone,\w4 unfortunately...\w8\w8\s[202] But this one sort of looks like it."
+				"\0* (You ask where he got his pink apron.)\w8\w8\n\n\s[205]Ah,\w4 it's not really anything fancy.\w8\w8\s[206] The original one my %(teal('first partner')) made for me is long gone,\w4 unfortunately...\w8\w8\s[202] But this one sort of looks like it."
 			}
 			if season == "Summer"
 			{
@@ -480,7 +538,7 @@ Select.aboutyou : nonoverlap //the menu option to ask more questions is taken ca
 			}
 			if season == "Winter"
 			{
-if LVCheck == 1;"\0\s[206]Back when I lived in Snowdin,\w4 it was actually dangerous for me to be out in the cold for very long.\w8\w8\s[202] Probably should've been living somewhere else,\w4 but it just didn't happen that way.\w8\w8\n\n\s[205]These days there's nothing to stop me,\w4 and I can't help feeling a little giddy inside when it's freezing and I can stand outside without a care in the world.\w8\w8\w8\n\n\s[107]Until someone catches me and drags me inside,\w4 anyways...\w8\w8\s[106] Don't be like me,\w4 put on a coat if you're going out."
+				if LVCheck == 1; "\0\s[206]Back when I lived in Snowdin,\w4 it was actually dangerous for me to be out in the cold for very long.\w8\w8\s[202] Probably should've been living somewhere else,\w4 but it just didn't happen that way.\w8\w8\n\n\s[205]These days there's nothing to stop me,\w4 and I can't help feeling a little giddy inside when it's freezing and I can stand outside without a care in the world.\w8\w8\w8\n\n\s[107]Until someone catches me and drags me inside,\w4 anyways...\w8\w8\s[106] Don't be like me,\w4 put on a coat if you're going out."
 			}
 		}
 		elseif love >= 20 //getting to know him a little
@@ -721,8 +779,9 @@ OnFamilyMenu
 	}
 	--
 	"\n\n\n[half]* (Or maybe try \![*]\q[asking generally,thewholefam])\n\n/
-	\n[half]\![*]\q[Go back,ihavequestions]/
-	\n\![*]\q[I'm done,CANCEL]\e"
+	\n[half]\![*]\q[Go back,ihavequestions]"
+	--
+	"\n\![*]\q[I'm done,CANCEL]\e"
 }
 
 
@@ -737,46 +796,26 @@ Select.infowd : nonoverlap
 	{
 		"\0\s[1020]He's always checking up on me to make sure I'm doing ok.\w8\w8 "
 		--
-		if LVCheck == 1
-		{
-			"\s[200]I think he feels bad for not being able to help me...\w8\w8\s[204] back then.\w8\w8\n\n"
-		}
+		if LVCheck; "\s[200]I think he feels bad for not being able to help me...\w8\w8\s[204] back then.\w8\w8\n\n"
 		--
 		"\0\s[107]I'm fine though,\w4 really.\w8\w8\s[104] If I ever do need something,\w4 I know I can definitely come to him."
 	}
-	if thesplit == 1
+	if thesplit; "\0\s[200]He spent a lot of time in the void,\w4 watching over the timeline without being able to affect anything.\w8\w8\s[204] Almost like my memory nightmares,\w4 in a way,\w4 but about the present instead of the past..."
+	if askedaboutdings; "\0\s[200]He and anMDings have always had a rocky relationship.\w8\s[201]  anMWD has been reaching out lately and trying to improve things,\s[204] but it's up to anMDings to accept that and meet him halfway."
+	if askedaboutdings; "\0\s[208]The cracks on his skull are kinda the inverse of mine and anDings's.\w8\w8\s[1020] It's weird."
+	if askedaboutbarcode
 	{
-		"\0\s[200]He spent a lot of time in the void,\w4 watching over the timeline without being able to affect anything.\w8\w8\s[204] Almost like my memory nightmares,\w4 in a way,\w4 but about the present instead of the past..."
+		"\0\s[104]He and anMmom make a really good couple,\w4 they're very supportive of each other and us kids."
+		--
+		if thesplit; "\w8\w8\s[206] It's probably in part because they spent so much time apart...\w8\w8\s[102] I'm glad that's over now."
 	}
-	if askedaboutdings == 1
-	{
-		"\0\s[200]He and anMDings have always had a rocky relationship.\w8\s[201]  anMWD has been reaching out lately and trying to improve things,\s[204] but it's up to anMDings to accept that and meet him halfway."
-		"\0\s[208]The cracks on his skull are kinda the inverse of mine and anDings's.\w8\w8\s[1020] It's weird."
-	}
-	if askedaboutbarcode == 1
-	{
-		{
-			"\0\s[104]He and anMmom make a really good couple,\w4 they're very supportive of each other and us kids."
-			--
-			if thesplit == 1
-			{
-				"\w8\w8\s[206] It's probably in part because they spent so much time apart...\w8\w8\s[102] I'm glad that's over now."
-			}
-		}
-	}
-	if askedaboutrosie == 1
+	if askedaboutrosie
 	{
 		"\0\s[205]He's very protective of anMRosie.\w8\w8\s[106] Maybe a little overprotective sometimes."
 		--
-		if knowaboutnine == 2
-		{
-			"\s[204]\n\nThough,\w4 I suppose given past events...\w8\w8\s[109] It's not unreasonable."
-		}
+		if knowaboutnine == 2; "\s[204]\n\nThough,\w4 I suppose given past events...\w8\w8\s[109] It's not unreasonable."
 	}
-	if askedabouttriton == 1
-	{
-		"\0\s[102]He really goes out of his way to try and make anMTriton feel like he belongs in the family,\w4 and I appreciate that.\w8\w8\s[208] I'm pretty sure my anMdad's attempts have more weight with him because they work together out on the farm so much."
-	}
+	if askedabouttriton; "\0\s[102]He really goes out of his way to try and make anMTriton feel like he belongs in the family,\w4 and I appreciate that.\w8\w8\s[208] I'm pretty sure my anMdad's attempts have more weight with him because they work together out on the farm so much."
 	--
 	"%(familyreturn)"
 }
@@ -784,18 +823,15 @@ Select.infowd : nonoverlap
 Select.infodings : nonoverlap
 {
 	love += 0.1
+	
 	"\0\s[200]It's...\w8 been tricky, trying to find ways to connect with him.\w8\w8\s[204] I'm pretty sure he doesn't really want to interact with me; he wants to ignore his problems and hide from them.\w8\w8\s[200] But we can't just let him keep doing that.\w8\w8\s[204] That's what caused the problem in the first place."
 	"\0\s[109]He's...\w8 difficult.\w8\w8\n\n* (He tries to hide a sigh.)\w8\w8\n\n\s[201]We're doing our best to help him and work with his needs,\w4\s[200] but it's slow going.\w8\w8\s[201] It's hard to help someone who doesn't really want to be helped."
 	"\0\s[106]He actually makes a pretty good beekeeper,\w4\s[107] turns out having floating hands is really useful for that.\w8\w8\s[208] And being made of bone,\w4\s[202] it's much harder to sting than skin,\w4 I imagine."
 	"\0\s[101]He's always wearing long coats,\w4 even when it's hot out.\w8\w8\s[107] He might be the most stubborn skeleton I've ever met..."
-	if love >= 75
-	{
-		"\0\s[206]He doesn't actually have any arms,\w4 apparently he lost them in the war a very long time ago.\w8\w8\s[108] So instead he just uses floating hands.\w8\w8\n\n\s[107]We've tried to convince him to get prosthetics,\w4 but he wont have it.\w8\w8\s[106] Says he's been without them for so long that he's used to not having them.\w8\w8\s[202] Floating hands aren't so great at catching you if you trip,\w4 though."
-	}
-	if askedaboutroman == 1
-	{
-		"\0\s[104]The way he carries around anMRoman is adorable.\w8\w8\s[202] Though he gets very flustered if he notices me watching.\w8\w8\s[202] It makes for great pictures that I'm sure he'll thank me for in a few years."
-	}
+	"\0\s[202]Don't let his aloof exterior fool you,\w4 when he drinks coffee it's about 60% creamer.\w8\w8\s[107] And 20% espresso..."
+	
+	if love >= 75; "\0\s[206]He doesn't actually have any arms,\w4 apparently he lost them in the war a very long time ago.\w8\w8\s[108] So instead he just uses floating hands.\w8\w8\n\n\s[107]We've tried to convince him to get prosthetics,\w4 but he wont have it.\w8\w8\s[106] Says he's been without them for so long that he's used to not having them.\w8\w8\s[202] Floating hands aren't so great at catching you if you trip,\w4 though."
+	if askedaboutroman; "\0\s[104]The way he carries around anMRoman is adorable.\w8\w8\s[202] Though he gets very flustered if he notices me watching.\w8\w8\s[202] It makes for great pictures that I'm sure he'll thank me for in a few years."
 	--
 	"%(familyreturn)"
 }
@@ -803,21 +839,15 @@ Select.infodings : nonoverlap
 Select.infowings : nonoverlap
 {
 	love += 0.1
+	
 	"\0\s[200]She's...\w8 actually a very strong person,\w4 emotionally.\w8\w8\s[201] She acts like nothing fazes her,\s[200] but I know that's not true.\w8\w8\s[204] She just puts on a brave face for those that rely on her."
 	"\0\s[103]Her healing magic is second to none.\w8\w8\s[107] But maybe her bedside manner could use a little work."
 	"\0\s[106]She actually wakes up earlier than me most days,\w4\s[107] and I'm a pretty early riser."
-	if thesplit == 1
-	{
-		"\0\s[208]She was pregnant with anMRoman when the timeline changed.\w8\w8\s[1070] He must've come from another timeline that got merged in with ours...\w8\w8\s[107] I'm not sure why,\w4 but she hid the fact that she was pregnant from us for a long time.\w8\w8\s[106]\n\nShe did a very good job of it,\w4 too,\w4\s[202] good enough that anMDings dragged her home at 5AM one day holding a crying newborn and none of us had any idea what was going on."
-	}
-	if askedaboutcambria == 1
-	{
-		"\0\s[205]Whatever trait gives anWings her boundless energy must've been passed on to anMCambria,\w4 too.\w8\w8\s[104] Seriously,\w4 those two are so similar sometimes."
-	}
-	if askedaboutroman == 1
-	{
-		"\0\s[206]She doesn't spend all that much time at home,\w4 which leaves anMRoman desperate for her attention when she is.\w8\w8\s[201] She does love him,\w4 very much,\w4 but I don't think she was prepared for motherhood."
-	}
+	
+	if thesplit; "\0\s[208]She was pregnant with anMRoman when the timeline changed.\w8\w8\s[1070] He must've come from another timeline that got merged in with ours...\w8\w8\s[107] I'm not sure why,\w4 but she hid the fact that she was pregnant from us for a long time.\w8\w8\s[106]\n\nShe did a very good job of it,\w4 too,\w4\s[202] good enough that anMDings dragged her home at 5AM one day holding a crying newborn and none of us had any idea what was going on."
+	if askedaboutcambria; "\0\s[205]Whatever trait gives anWings her boundless energy must've been passed on to anMCambria,\w4 too.\w8\w8\s[104] Seriously,\w4 those two are so similar sometimes."
+	if askedaboutroman; "\0\s[206]She doesn't spend all that much time at home,\w4 which leaves anMRoman desperate for her attention when she is.\w8\w8\s[201] She does love him,\w4 very much,\w4 but I don't think she was prepared for motherhood."
+	if askedaboutdings; "\0\s[101]She really likes spicy foods,\w4 much to anMDings's chagrin.\w8\w8\s[202] He can't stand spice at all,\w4 and she never stops teasing him about it."
 	--
 	"%(familyreturn)"
 }
@@ -825,18 +855,15 @@ Select.infowings : nonoverlap
 Select.infobarcode : nonoverlap
 {
 	love += 0.1
+	
 	"\0\s[1010]She really loves my cooking.\w8\w8\s[104] I think she's so vocal about it just to try and encourage me,\w4 but I appreciate it either way."
 	"\0\s[205]I didn't realize I needed a mom in my life until she started taking care of me.\w8\w8\s[104] It's a good feeling to know someone else is there supporting you unconditionally."
-	if thesplit == 1
-	{
-		"\0\s[208]I asked about her tattoos once,\w4\s[110] she's absolutely covered in them,\w4 to the point that her bones are almost completely a different color.\w8\w8\n\n\s[206]Apparently they're from the war,\w4 her font is pretty obscure and almost impossible for humans to read,\w4 so they used them to send messages back and forth."
-		"\0\s[206]She doesn't have as strong of healing magic as anMWings,\w4 but she has enough that they sometimes worked together as field medics during the war.\w8\w8\s[200] I think that was actually how they met...\s[201] Not the most pleasant place to find a friend,\w4 but it seems to have forged a very strong bond between them."
-		"\0\s[0]Her name is actually Free 3 of 9,\w4\s[106] but uh,\w4 that's a little unwieldy,\w4\s[104] so she just goes by Barcode instead."
-	}
-	if askedaboutabbi == 1
-	{
-		"\0\s[102]She and anMAbbi get along really well.\w8\w8 He came to trust her very quickly,\w4 and she loves to spend time with him.\w8\w8\s[200] I'm glad for that,\w4 he was a bit isolated at first,\w4 after...\s[204]\w8\w8\n\n* (He stops himself.)"
-	}
+	
+	if thesplit; "\0\s[208]I asked about her tattoos once,\w4\s[110] she's absolutely covered in them,\w4 to the point that her bones are almost completely a different color.\w8\w8\n\n\s[206]Apparently they're from the war,\w4 her font is pretty obscure and almost impossible for humans to read,\w4 so they used them to send messages back and forth."
+	if thesplit; "\0\s[206]She doesn't have as strong of healing magic as anMWings,\w4 but she has enough that they sometimes worked together as field medics during the war.\w8\w8\s[200] I think that was actually how they met...\s[201] Not the most pleasant place to find a friend,\w4 but it seems to have forged a very strong bond between them."
+	if thesplit; "\0\s[0]Her name is actually Free 3 of 9,\w4\s[106] but uh,\w4 that's a little unwieldy,\w4\s[104] so she just goes by Barcode instead."
+	
+	if askedaboutabbi; "\0\s[102]She and anMAbbi get along really well.\w8\w8 He came to trust her very quickly,\w4 and she loves to spend time with him.\w8\w8\s[200] I'm glad for that,\w4 he was a bit isolated at first,\w4 after...\s[204]\w8\w8\n\n* (He stops himself.)"
 	--
 	"%(familyreturn)"
 }
@@ -844,18 +871,15 @@ Select.infobarcode : nonoverlap
 Select.infobluejeans : nonoverlap
 {
 	love += 0.1
+	
 	"\0\s[105]%(StSfCHe)'s such a sweetheart.\w8 %(StSfCHe) made me a wildflower crown out of the blue once.\w8\w8\s[106] It's wilted since then,\w4 of course,\s[104] but I have pictures of it saved."
 	"\0\s[105]%(StSfCHe)'s fairly reserved around people %(StSfHe) doesn't know,\w4 but %(StSfHe)'s really very kindhearted.\w8\w8\s[200] %(StSfCHe) once found two soaked kittens alone in the rain,\w4 and wrapped %(StSfhis) only coat around them while %(StSfHe) ran them home.\w8\w8\s[1010]\n\nThose two have since grown up to be happy,\w4 healthy farm cats."
 	"\0\s[208]%(StSfCHe)'s usually pretty busy with work on the farm,\w4\s[105] but %(StSfHe) tries %(StSfhis) best to spend a little time with each of the kids and get to know them better."
-	if askedaboutsigil == 1
-	{
-		"\0\s[205]%(StSfCHe) and anMSigil have a very strong bond.\w8\s[104] %(StSfCHe) makes a good %(StSffather),\w4 %(StSfHe) absolutely adores %(StSfhis) daughter.\w8\w8\s[202] I just hope we can keep her from becoming too spoiled."
-		"\0\s[200]%(StSfCHe)'s very protective of anMSigil,\w4 as am I.\w8\w8\s[204] We very nearly didn't have her,\w4 and we'll never forget that."
-	}
-	if askedaboutbarcode == 1 && askedaboutwd == 1
-	{
-		"\0\s[105]%(StSfCHe) gets along really well with my parents,\w4 and I'm always grateful for that."
-	}
+	
+	if askedaboutsigil; "\0\s[205]%(StSfCHe) and anMSigil have a very strong bond.\w8\s[104] %(StSfCHe) makes a good %(StSffather),\w4 %(StSfHe) absolutely adores %(StSfhis) daughter.\w8\w8\s[202] I just hope we can keep her from becoming too spoiled."
+	if askedaboutsigil; "\0\s[200]%(StSfCHe)'s very protective of anMSigil,\w4 as am I.\w8\w8\s[204] We very nearly didn't have her,\w4 and we'll never forget that."
+
+	if askedaboutbarcode && askedaboutwd; "\0\s[105]%(StSfCHe) gets along really well with my parents,\w4 and I'm always grateful for that."
 	--
 	"%(familyreturn)"
 }
@@ -863,20 +887,17 @@ Select.infobluejeans : nonoverlap
 Select.infoabbi : nonoverlap
 {
 	love += 0.1
+	
 	"\0\s[109]I'm glad to have him back.\w8\w8\s[200] It's...\w8\w8\s[204] complicated.\w8\w8 But he was gone for a long time,\s[201] and now that he's back I feel like a piece of my soul that had been missing \s[205]has been filled again."
 	"\0\s[205]He's been doing really well on the surface.\w8\s[104] I'll never forget the look on his face when he first felt the sunshine.\w8\w8\s[102] Ever since then he's been a sun magnet,\w4 and you can often find him curled up by the windows to soak it in."
-	"\0\s[200]The surface has offered him a whole new set of challenges for navigation.\w8\s[204] Roads in particular have been difficult,\w4 he doesn't quite understand cars yet,\w4 but they terrify him."
+	"\0\s[200]The surface has offered him a whole new set of challenges for navigation.\w8\s[204] Roads in particular have been difficult;\w8 he doesn't quite understand cars yet,\w4 but they terrify him."
 	"\0\s[104]He has a whole collection of different scarves,\w4 knit with different patterns and types of yarn.\w8\w8\s[202] Having something soft to hold onto helps with his anxiety,\w4\s[205] and he's gathered a whole variety of them by feel."
-	if askedaboutrosie == 1 && thesplit == 1
-	{
-		"\0\s[1010]He and anMRosie warmed up to each other very quickly.\w8\w8\s[0] They fit together really well,\w4 \s[104]you'd never guess they've only known each other for a few years."
-	}
-	if thesplit == 1
-	{
-		"\0\s[204]He really misses my %(teal)first partner%(default).\w8\w8\s[206] %(teal)He%(default) was the first one to show him kindness,\w4 so he got very deeply attached...\w8\w8\s[109] But now..."
-		"\0\s[206]I think my %(teal)first partner%(default) used to call him sunshine...\w8\w8\s[109] %(teal)He%(default) didn't even know what sunshine was,\w4 just that it was supposed to be warm and bright,\w4 and full of hope.\w8\w8\s[200] I suppose it's fitting that anMAbbi loves the feel of sunlight so much,\w4 now..."
-		"\0\s[204]He's really taken a liking to herbal teas,\w4 recently...\w8\w8\s[200] I think they help him remember my %(teal)first partner%(default)."
-	}
+	
+	if askedaboutrosie && thesplit; "\0\s[1010]He and anMRosie warmed up to each other very quickly.\w8\w8\s[0] They fit together really well,\w4 \s[104]you'd never guess they've only known each other for a few years."
+	
+	if thesplit; "\0\s[204]He really misses my %(teal('first partner')).\w8\w8\s[206] %(teal('He')) was the first one to show him kindness,\w4 so he got very deeply attached...\w8\w8\s[109] But now..."
+	if thesplit; "\0\s[206]I think my %(teal('first partner')) used to call him sunshine...\w8\w8\s[109] %(teal('He')) didn't even know what sunshine was,\w4 just that it was supposed to be warm and bright,\w4 and full of hope.\w8\w8\s[200] I suppose it's fitting that anMAbbi loves the feel of sunlight so much,\w4 now..."
+	if thesplit; "\0\s[204]He's really taken a liking to herbal teas,\w4 recently...\w8\w8\s[200] I think they help him remember my %(teal('first partner'))."
 	--
 	"%(familyreturn)"
 }
@@ -884,21 +905,14 @@ Select.infoabbi : nonoverlap
 Select.inforosie : nonoverlap
 {
 	love += 0.1
+	
 	"\0\s[202]The little scamp is constantly getting into any treats I bake.\w8\s[107] She's a troublemaker,\w4 that's for sure."
 	"\0\s[104]Sometimes she helps me bake desserts.\w8\s[202] I'm pretty sure it's just because she wants to snitch the batter,\w4 though."
 	"\0\s[106]She's actually not all that interested in flowers,\w4 despite the name of her font.\w8\w8\s[104] She does like reds and pinks,\w4 though."
-	if askedaboutcambria == 1
-	{
-		"\0\s[0]She's taken an interest in watching anMCambria sew.\w8\s[205] She's not quite old enough to be trusted with her own sewing machine yet,\s[104] but I get the distinct feeling she'll be getting one in the future."
-	}
-	if askedaboutbarcode == 1
-	{
-		"\0\s[202]She takes after our anMmom a lot.\w8\w8\s[107] Both of them are troublemakers,\w4 and both of them like hassling their siblings."
-	}
-	if askedaboutbarcode == 1 && askedaboutwd == 1
-	{
-		"\0\s[107]Sometimes if anMBarcode tells her that she can't do or have something,\w4 she'll run to ask my dad instead.\w8\w8\s[202] But despite his calm and peaceful manner,\w4 he's very firm in sticking by any rules anMBarcode sets."
-	}	
+	
+	if askedaboutcambria; "\0\s[0]She's taken an interest in watching anMCambria sew.\w8\s[205] She's not quite old enough to be trusted with her own sewing machine yet,\s[104] but I get the distinct feeling she'll be getting one in the future."
+	if askedaboutbarcode; "\0\s[202]She takes after our anMmom a lot.\w8\w8\s[107] Both of them are troublemakers,\w4 and both of them like hassling their siblings."
+	if askedaboutbarcode && askedaboutwd; "\0\s[107]Sometimes if anMBarcode tells her that she can't do or have something,\w4 she'll run to ask my andad instead.\w8\w8\s[202] But despite his calm and peaceful manner,\w4 he's very firm in sticking by any rules anMBarcode sets."	
 	--
 	"%(familyreturn)"
 }
@@ -906,29 +920,17 @@ Select.inforosie : nonoverlap
 Select.inforoman : nonoverlap
 {
 	love += 0.1
-	if love >= 150 && LVCheck == 1
-	{
-		"\0\s[200]I...\w8\w8\s[204] Something about that kid makes me uneasy deep down.\w8\s[300] I don't really know why,\w4 he hasn't done a bad thing since the day he was born.\w8\s[303] It's really not fair to him,\w4 he doesn't deserve any less love than the other kids.\w8\s[302] So why..?"
-		"\0\s[200]I'm trying my best to spend just as much time on him as I do with the others.\w8\s[204] I don't know why it feels so strange,\s[200] but I don't care.\w8 He deserves better from me,\w4 and I won't let him down."
-	}
+	
+	if love >= 150 && LVCheck == 1; "\0\s[200]I...\w8\w8\s[204] Something about that kid makes me uneasy deep down.\w8\s[300] I don't really know why,\w4 he hasn't done a bad thing since the day he was born.\w8\s[303] It's really not fair to him,\w4 he doesn't deserve any less love than the other kids.\w8\s[302] So why..?"
+	if love >= 150 && LVCheck == 1; "\0\s[200]I'm trying my best to spend just as much time on him as I do with the others.\w8\s[204] I don't know why it feels so strange,\s[200] but I don't care.\w8 He deserves better from me,\w4 and I won't let him down."
+	
 	"\0\s[102]He's very cuddly.\w8\w8\s[205] He'd prefer to snuggle up with someone on the couch than run around with the other kids and make noise.\w8\w8\s[106] Sometimes I worry maybe he should run around more,\w4\s[107] but it's hard to say no to such a sweet face."
 	"\0\s[104]He's so very innocent.\w8\s[205] He shares everything he has with the other kids,\w4 it's very sweet."
-	if totalhugs >= 20
-	{
-		"\0\s[202]Heh,\w4 he'd probably like you since you seem to enjoy hugs a lot.\w8\w8\s[104] He'd never let go."
-	}
-	if askedaboutdings == 1
-	{
-		"\0\s[102]Heh,\w4 anMDings wasn't much for cuddling and physical affection,\w4 until anMRoman was born.\w8\w8\s[202] Even the most grumpy of us has been won over by anMRoman's sweet demeanor.\w8\w8\s[104]\n\nI've caught them snoozing together on the couch more times than I can count now."
-	}
-	if askedaboutbarcode == 1 && askedaboutwd == 1
-	{
-		"\0\s[104]He really loves his aunt and uncle,\w4 it's so sweet seeing him bring them drawings and things."
-	}
-	if askedaboutsigil == 1
-	{
-		"\0\s[0]anMRoman and anMSigil were born within a few weeks of each other.\w8\w8\s[104] The two of them seem to enjoy each other's company pretty well,\w4 I hope it stays that way."
-	}
+	
+	if totalhugs >= 20; "\0\s[202]Heh,\w4 he'd probably like you since you seem to enjoy hugs a lot.\w8\w8\s[104] He'd never let go."
+	if askedaboutdings; "\0\s[102]Heh,\w4 anMDings wasn't much for cuddling and physical affection,\w4 until anMRoman was born.\w8\w8\s[202] Even the most grumpy of us has been won over by anMRoman's sweet demeanor.\w8\w8\s[104]\n\nI've caught them snoozing together on the couch more times than I can count now."
+	if askedaboutbarcode && askedaboutwd; "\0\s[104]He really loves his aunt and uncle,\w4 it's so sweet seeing him bring them drawings and things."
+	if askedaboutsigil; "\0\s[0]anMRoman and anMSigil were born within a few weeks of each other.\w8\w8\s[104] The two of them seem to enjoy each other's company pretty well,\w4 I hope it stays that way."
 	--
 	"%(familyreturn)"
 }
@@ -936,20 +938,16 @@ Select.inforoman : nonoverlap
 Select.infocambria : nonoverlap
 {
 	love += 0.1
+	
 	"\0\s[103]She's pretty good at sewing.\w8\s[202] When you have an odd number of arms you've got to either know how to sew,\w4 or know someone who does.\w8\s[104] She seems to be enjoying it,\w4 at least."
 	"\0\s[205]She's grown up so fast...\w8\w8\s[104] It's hard to believe she used to be so tiny,\w4 and now she's starting to get taller than me.\w8\w8\s[202]\n\nNot that that's a difficult feat."
 	"\0\s[104]You shoulda seen the look on my face when I first saw her freckles.\w8\s[106] Who knew that mixing different kinds of magic would have strange effects like that?\w8\s[202]\n\nAt least it's something benign and not dangerous.\w8\s[104] And it's super cute."
-	if thesplit == 1
-	{
-		"\0\s[109]It's been difficult on her,\w4 having a twin that she can't even really remember.\w8\w8\s[200] She tries to hide it and act like she's fine,\s[204] but I know it hurts her deep down inside."
-		"\0\s[109]I wish I could comfort her and tell her that we'll find %(cyan)her twin%(default) somehow,\w4 but.\w8.\w8.\w8\s[204] I don't think that's possible, anymore."
-		"\0\s[200]She still wears her half of the 'best friends' necklace she shared with %(cyan)her twin%(default).\w8\w8\s[204] I don't think she'll ever take it off,\w4 and I can't blame her."
-		"\0\s[109]Of all my kids,\w4 anMCambria has the most memories of my %(orange)first %(StSfhusband)%(default).\w8\w8\s[200] I was worried that she might not be very accepting of anMBlue as her step %(StSffather) as a result,\w4\s[107] but the two of them actually get on pretty well and I'm grateful for that."
-	}
-	if askedaboutelko == 1
-	{
-		"\0\s[104]She and Elko have been best friends since elementary school.\w8\w8\s[206] Both of them got picked on back then,\w4 anMCambria for her 4 arms,\w4 and anMElko for her white fur and red eyes.\w8\w8\s[104] But together they were much more resilient,\w4 and stopped caring so much what anyone else thought.\w8\w8\n\n\s[202]I might have helped a time or two when any particularly cruel children decided to get physical.\w8\w8\s[101] Don't look at me like that,\w4 I didn't hurt them,\w4\s[205] I just...\w8\w8\s[202] gave them a bit of a fright."
-	}
+	
+	if thesplit; "\0\s[109]It's been difficult on her,\w4 having a twin that she can't even really remember.\w8\w8\s[200] She tries to hide it and act like she's fine,\s[204] but I know it hurts her deep down inside."
+	if thesplit; "\0\s[109]I wish I could comfort her and tell her that we'll find %(cyan('her twin')) somehow,\w4 but.\w8.\w8.\w8\s[204] I don't think that's possible,\w4 anymore."
+	if thesplit; "\0\s[200]She still wears her half of the 'best friends' necklace she shared with %(cyan('her twin')).\w8\w8\s[204] I don't think she'll ever take it off,\w4 and I can't blame her."
+	if thesplit; "\0\s[109]Of all my kids,\w4 anMCambria has the most memories of my %(orange('first ',StSfhusband)).\w8\w8\s[200] I was worried that she might not be very accepting of anMBlue as her step %(StSffather) as a result,\w4\s[107] but the two of them actually get on pretty well and I'm grateful for that."
+	if askedaboutelko; "\0\s[104]She and Elko have been best friends since elementary school.\w8\w8\s[206] Both of them got picked on back then,\w4 anMCambria for her 4 arms,\w4 and anMElko for her white fur and red eyes.\w8\w8\s[104] But together they were much more resilient,\w4 and stopped caring so much what anyone else thought.\w8\w8\n\n\s[202]I might have helped a time or two when any particularly cruel children decided to get physical.\w8\w8\s[101] Don't look at me like that,\w4 I didn't hurt them,\w4\s[205] I just...\w8\w8\s[202] gave them a bit of a fright."
 	--
 	"%(familyreturn)"
 }
@@ -957,18 +955,14 @@ Select.infocambria : nonoverlap
 Select.infotriton : nonoverlap
 {
 	love += 0.1
+	
 	"\0\s[104]I think he likes plants more than people.\w8\w8\s[205] But that's fine with me,\w4 I just want him to be happy here."
 	"\0\s[0]I don't go in his room very often,\w4 he likes his privacy.\w8\s[101] But whenever I poke my head in there I'm always blown away by the sheer number of plants he's got growing.\w8\w8\s[104]  It's like a jungle in there.\w8\s[106] Literally.\w8\w8\n\n\s[205]I suppose it's fine as long as he keeps them from spreading into the vents."
 	"\0\s[0]He knows I like chrysanthemums,\w4\s[104] so he always brings me a few for my birthday.\w8\w8\s[106] I'm not sure what I'm going to do with all of these plants if he keeps this up every year."
 	"\0\s[104]His knowledge of plants is really impressive,\w4 any time I have trouble with my garden he always knows exactly what I need to be doing."
-	if askedaboutbluejeans == 1
-	{
-		"\0\s[104]He gave anMBlue some purple flowers to give to me for our anniversary last year.\w8\w8\s[102] He really is a very thoughtful kid,\w4\s[200] but most people don't take the time to get to know him enough to see it."
-	}
-	if thesplit == 1
-	{
-		"\0\s[206]He brought anMCambria some small sprouts when the timeline changed...\w8\w8\s[201] Pretty blue and yellow flowers,\w4 to try and cheer her up.\w8\w8\s[204] He really is sweet,\w4 with his chosen few...\w8\w8\n\n\s[206]anMCambria still has those flowers too,\w4 she takes very good care of them."
-	}
+	
+	if askedaboutbluejeans; "\0\s[104]He gave anMBlue some purple flowers to give to me for our anniversary last year.\w8\w8\s[102] He really is a very thoughtful kid,\w4\s[200] but most people don't take the time to get to know him enough to see it."
+	if thesplit; "\0\s[206]He brought anMCambria some small sprouts when the timeline changed...\w8\w8\s[201] Pretty blue and yellow flowers,\w4 to try and cheer her up.\w8\w8\s[204] He really is sweet,\w4 with his chosen few...\w8\w8\n\n\s[206]anMCambria still has those flowers too,\w4 she takes very good care of them."
 	--
 	"%(familyreturn)"
 }
@@ -976,20 +970,18 @@ Select.infotriton : nonoverlap
 Select.infolulo : nonoverlap
 {
 	love += 0.1
+	_hes = blue("he's") //For talking about the one in blue
+	
 	"\0\s[200]I just wish there was something I could do to heal her soul.\w8 \s[301]She shouldn't-\w8 \s[302]\w8...Doesn't deserve to be stuck like me."
 	"\0\s[300]She's such a sweet child...\w8\w8\s[302] She deserves the world,\w4 and I..."
 	"\0\s[205]She's always been the quiet child.\w8\s[202] Just kinda hangs out in the background,\w4 y'know?\w8\w8\s[205] I try to make sure she doesn't feel left out by spending some time with her one on one,\s[106] but usually that just ends with us taking a nap.\w8\w8\s[107] ...We both fall asleep at the drop of a hat."
 	"\0\s[104]I've saved all the crayon drawings she ever made for us.\w8\s[205] She's moved on to doodling in sketchbooks now,\w4 which means less drawings for the fridge,\s[104] but she seems to really like taking her drawings with her."
-	if thesplit == 1
-	{
-		"\0\s[200]She used to have an %(blue)older brother%(default),\w4 aside from anMTriton.\w8\w8\s[109] It's why there's such an age gap between anLulo and anMCambria;\w4 there's another child there,\w4\s[204] %(blue)he's%(default) just\w8.\w8.\w8."
-		"\0\s[200]I think she misses her brother more than she lets on.\w8\w8\s[204] It's easier to hide your pain when you're already the quiet one."
-		"\0\s[109]She used to be really close to my %(orange)first %(StSfhusband)%(default)...\w8\w8\s[204] She spends a lot of time in and out of the hospital,\w4\s[108] and he used to be the one to take her there and watch over her.\w8\w8\s[200]\n\nanMWD and I share that responsibility now.\w8\w8\s[204] It helps a lot to have my parents around and able to manage the household so I can actually be there for my daughter."
-	}
-	if askedaboutrosie == 1
-	{
-		"\0\s[0]She and anMRosie spend a lot of time together,\w4\s[107] and anMRosie's always getting the two of them into trouble.\w8\w8\s[104] Honestly I'm glad to see it,\w4 though.\w8\w8\s[101] Even though it can be a little frustrating sometimes,\w4 anMLulo needs someone to gently pull her out of her shell now and then."
-	}
+	
+	if thesplit; "\0\s[200]She used to have an %(blue('older brother')),\w4 aside from anMTriton.\w8\w8\s[109] It's why there's such an age gap between anLulo and anMCambria;\w4 there's another child there,\w4\s[204] %(_hes) just\w8.\w8.\w8."
+	if thesplit; "\0\s[200]I think she misses her brother more than she lets on.\w8\w8\s[204] It's easier to hide your pain when you're already the quiet one."
+	if thesplit; "\0\s[109]She used to be really close to my %(orange('first ',StSfhusband))...\w8\w8\s[204] She spends a lot of time in and out of the hospital,\w4\s[108] and he used to be the one to take her there and watch over her.\w8\w8\s[200]\n\nanMWD and I share that responsibility now.\w8\w8\s[204] It helps a lot to have my parents around and able to manage the household so I can actually be there for my daughter."
+
+	if askedaboutrosie; "\0\s[0]She and anMRosie spend a lot of time together,\w4\s[107] and anMRosie's always getting the two of them into trouble.\w8\w8\s[104] Honestly I'm glad to see it,\w4 though.\w8\w8\s[101] Even though it can be a little frustrating sometimes,\w4 anMLulo needs someone to gently pull her out of her shell now and then."
 	--
 	"%(familyreturn)"
 }
@@ -997,17 +989,13 @@ Select.infolulo : nonoverlap
 Select.infoazo : nonoverlap
 {
 	love += 0.1
+	
 	"\0\s[206]He's...\w8 Oddly quiet around strangers,\w4 sometimes.\w8\s[201] I'm hoping he'll grow out of it,\s[202] he's such a kind,\w4 playful kid aside from that."
 	"\0\s[107]Who would've ever thought that having an extra set of arms would mean a toddler can cause twice the mess?\w8\s[106] Seriously,\w4 if you ever have a kid with 4 arms,\w4 keep a close eye on them."
 	"\0\s[202]He seems to prefer signing over talking,\w4 I'm not really sure why.\w8\w8\s[107] I don't really mind it,\w4 but not everyone signs,\w4 so he can't rely on just that..."
-	if askedaboutcambria == 1
-	{
-		"\0\s[200]He and his big sister are the only ones in the family with 4 arms.\w8\s[201] Sometimes I worry they'll feel out of place,\w4 but anMCambria has dealt with it really well.\w8\s[200] I just hope anMAzo follows her example of confidence."
-	}
-	if askedabouttriton == 1
-	{
-		"\0\s[104]He seems to really look up to anMTriton,\w4 we might have two plant-masters on our hands soon."
-	}
+	
+	if askedaboutcambria; "\0\s[200]He and his big sister are the only ones in the family with four arms.\w8\s[201] Sometimes I worry they'll feel out of place,\w4 but anMCambria has dealt with it really well.\w8\s[200] I just hope anMAzo follows her example of confidence."
+	if askedabouttriton; "\0\s[104]He seems to really look up to anMTriton,\w4 we might have two plant-masters on our hands soon."
 	--
 	"%(familyreturn)"
 }
@@ -1015,18 +1003,13 @@ Select.infoazo : nonoverlap
 Select.infosigil : nonoverlap
 {
 	love += 0.1
+	
 	"\0\s[104]She's very excitable,\w4 and loves to laugh.\w8\s[106] I'm exhausted from trying to keep up with her,\s[205] but it does help that she's so cheerful most of the time."
 	"\0\s[104]She got really excited when I put her first drawings up on the fridge.\w8\w8\s[106] And then she uh,\w4 got paint all over the fridge when I wasn't looking.\w8\w8\s[107] I don't think she quite understands the difference between putting art on the fridge and putting art \f[italic,true]on\f[italic,false] the fridge yet."
 	"\0\s[0]Everything is a toy to her,\w4 it doesn't matter how dull.\w8\w8\s[202] If I need a break I just find the weirdest objects I can think of and let her have them for a bit.\w8\w8\s[104]\n\nShe must have a very strong imagination."
 	"\0\s[206]Sometimes I find her staring off really far into space...\w8\w8\s[201] She seems alright,\w4 but...\w8\w8\s[300] I worry."
-	if askedaboutbluejeans == 1
-	{
-		"\0\s[104]She's very energetic and playful.\w8\s[107] I'm glad that anMBluJeans is around to help tire her out,\w4 I have trouble keeping up with her sometimes."
-		if thesplit == 1
-		{
-			"\0\s[200]She's the only one of the kids who is both mine and anMBlue's.\w8\s[204] She's still too little to understand the concept of half siblings.\w8\s[201] I just hope that when the time comes,\w4 she doesn't take it harshly and feel different from the others."
-		}
-	}
+	if askedaboutbluejeans; "\0\s[104]She's very energetic and playful.\w8\s[107] I'm glad that anMBluJeans is around to help tire her out,\w4 I have trouble keeping up with her sometimes."
+	if thesplit; "\0\s[200]She's the only one of the kids who is both mine and anMBlue's.\w8\s[204] She's still too little to understand the concept of half siblings.\w8\s[201] I just hope that when the time comes,\w4 she doesn't take it harshly and feel different from the others."
 	--
 	"%(familyreturn)"
 }
@@ -1034,21 +1017,15 @@ Select.infosigil : nonoverlap
 Select.infoelko : nonoverlap
 {
 	love += 0.1
+	_shes = cyan("she's") //For talking about cyan twin
+	
 	"\0\s[200]She used to be teased a lot at school for her white fur,\s[103] but honestly it makes her fit in a little easier with us.\w8\s[104] She seems to have taken some comfort in that."
 	"\0\s[103]You should see her vampire costume,\w4\s[104] she's really convincing.\w8\w8\s[202] It probably helps that she usually carries around an umbrella anyways."
 	"\0\s[205]She's very confident.\w8\w8\s[107] And honest,\w4 often brutally so.\w8\w8\s[0] But she doesn't put others down,\w8\s[200] she can't stand bullies and refuses to become one herself."
-	if month == 10
-	{
-		"\0\s[102]Heh,\w4 it's her favorite time of year right now.\w8\w8\s[106] You would not believe how much she and her mom decorate their house for halloween.\w8\w8\n\n\s[205]She really gets into character when trick-or-treating starts,\w4 too.\w8\w8\s[104] They have a lot of dedicated human fans who come by every year just get their souls scared out of them.\w8\w8\n\n\s[101]...Halloween is a very strange celebration."
-	}
-	if askedaboutcambria == 1
-	{
-		"\0\s[0]I'm really glad that anMCambria has found such a close friend that she can depend on.\w8\s[204] Especially after...\w8\w8\n\n\s[302]* (He stops himself.)"
-	}
-	if thesplit == 1
-	{
-		"\0\s[200]anMCambria's %(cyan)twin%(default) was anMElko's friend too,\w4 the 3 of them used to be really tight.\w8\w8\s[204] They might as well have been sisters...\w8\w8\s[201] But now %(cyan)she's%(default) gone,\w4 and anMCambria and anMElko are both hurting.\w8\w8\n\n\s[109]At least they have each other to lean on..."
-	}
+	
+	if month == 10; "\0\s[102]Heh,\w4 it's her favorite time of year right now.\w8\w8\s[106] You would not believe how much she and her mom decorate their house for halloween.\w8\w8\n\n\s[205]She really gets into character when trick-or-treating starts,\w4 too.\w8\w8\s[104] They have a lot of dedicated human fans who come by every year just get their souls scared out of them.\w8\w8\n\n\s[101]...Halloween is a very strange celebration."
+	if askedaboutcambria; "\0\s[0]I'm really glad that anMCambria has found such a close friend that she can depend on.\w8\s[204] Especially after...\w8\w8\n\n\s[302]* (He stops himself.)"
+	if thesplit; "\0\s[200]anMCambria's %(cyan('twin')) was anMElko's friend too,\w4 the 3 of them used to be really tight.\w8\w8\s[204] They might as well have been sisters...\w8\w8\s[201] But now %(_shes) gone,\w4 and anMCambria and anMElko are both hurting.\w8\w8\n\n\s[109]At least they have each other to lean on..."
 	--
 	"%(familyreturn)"
 }
@@ -1073,7 +1050,7 @@ Select.thewholefam : nonoverlap
 		}
 		if thesplit == 1 && love >= 150
 		{
-			"\0\![raise,OnDialogueVariables,suppressCoordsOn]\s[200]Members of our family going missing wasn't actually the only thing that happened when the timeline changed.\w8\w8\s[108]\n\nMy parents,\w4 aunt,\w4 and uncle didn't live with us here on the surface originally.\w8\w8\s[109] They'd all died a long time ago,\w4 I never really knew any of them.\w8\w8\n\n\s[302]anAbbi had also died,\w4 around the same time my %(red)first son%(default) did,\w4\s[303] but now he's here again as though it never happened.\w8\w8\s[200]\n\nI guess...\w8\w8 maybe the gaps needed to be filled in?\w8\w8\s[204] Whatever happened,\w4 I'm really grateful to have them here.\w8\w8\s[200]\x\cThat's also the reason there's such an age gap between me,\w4 anMAbbi,\w4 and anMRosie.\w8\w8\n\s[201]anMAbbi came back at the same age he'd died,\w4 and my parents...\w8\w8\s[200]\n\nWell,\w4 they'd been revived in another timeline a while back,\w4 and decided to have another kid since they were alive again and all.\w8\w8\s[106] anMRosie just kinda...\w8\w8 got pulled along with them.\w8\w8\s[1070]\n\nOddly,\w4 though,\w4 it's like she's always been here.\w8\w8\s[206] I have trouble distinguishing between memories that she is and isn't in.\![raise,OnDialogueVariables,suppressCoordsOff]"
+			"\0\![raise,OnDialogueVariables,suppressCoordsOn]\s[200]Members of our family going missing wasn't actually the only thing that happened when the timeline changed.\w8\w8\s[108]\n\nMy parents,\w4 aunt,\w4 and uncle didn't live with us here on the surface originally.\w8\w8\s[109] They'd all died a long time ago,\w4 I never really knew any of them.\w8\w8\n\n\s[302]anAbbi had also died,\w4 around the same time my %(red('first son')) did,\w4\s[303] but now he's here again as though it never happened.\w8\w8\s[200]\n\nI guess...\w8\w8 maybe the gaps needed to be filled in?\w8\w8\s[204] Whatever happened,\w4 I'm really grateful to have them here.\w8\w8\s[200]\x\cThat's also the reason there's such an age gap between me,\w4 anMAbbi,\w4 and anMRosie.\w8\w8\n\s[201]anMAbbi came back at the same age he'd died,\w4 and my parents...\w8\w8\s[200]\n\nWell,\w4 they'd been revived in another timeline a while back,\w4 and decided to have another kid since they were alive again and all.\w8\w8\s[106] anMRosie just kinda...\w8\w8 got pulled along with them.\w8\w8\s[1070]\n\nOddly,\w4 though,\w4 it's like she's always been here.\w8\w8\s[206] I have trouble distinguishing between memories that she is and isn't in.\![raise,OnDialogueVariables,suppressCoordsOff]"
 		}
 		if askedaboutwd == 1 && askedaboutdings == 1 && askedaboutwings == 1
 		{
@@ -1127,12 +1104,9 @@ Select.somethingsoff
 	{
 		"\0\![raise,OnDialogueVariables,suppressCoordsOn]* (You ask S about his other 3 children.)\w8\w8\n\n\s[110]Uh-\w4 what?\w8\w8\n\n* (You tell him he told you that \s[1100]he had 8 children,\w4 but he's only told you about 5.)\w8\w8\n\n\s[200]Uh,\w4 well...\w8\w8\s[512]\n\nThey're\w8.\w8.\w8.\w8\w8\s[510] gone.\w8\w8\n\n* (You begin to apologize for the mistake.)\w8\w8\n\n\s[200]No,\w4 it's...\w8\w8 It's ok.\w8\w8\s[204] I did say that.\w8\w8\s[201] They're...\w8\w8 not dead.\w8\w8\s[200] Not exactly...\w8\w8\x\c\s[300]A couple of years ago,\w4 just after Azo was born,\w4 actually,\w4 the timeline...\w8\w8\s[301] something went wrong.\w8\w8\n\n\s[108]Several members of our family just...\w8\w8 vanished into thin air.\w8\w8\s[302] Well,\w4 more than that,\w4 we...\w8\w8\s[303] none of us can remember them anymore,\w4 not fully.\x\c\s[200]Blue Jeans is actually my second %(StSfhusband).\w8\w8"
 		--
-		if LVCheck == 1
-		{
-			"\s[204] ...My third relationship,\w4 if you count my %(teal)platonic partner%(default) who I escaped the labs with.\w8\w8\n\n"
-		}
+		if LVCheck; "\s[204] ...My third relationship,\w4 if you count my %(teal('platonic partner')) who I escaped the labs with.\w8\w8\n\n"
 		--
-		"\0\s[201]My %(orange)first %(StSfhusband)%(default) is the %(StSffather) of all my children,\w4 except Sigil,\w4 and of course Triton.\w8\w8\s[200] There were two other children,\w4 Cambria's %(cyan)twin%(default), and Lulo's %(blue)older brother%(default).\w8\w8\n\n\s[204]And then there was also my %(red)first son%(default).\w8\w8 %(red)He%(default) died a very long time ago,\w4 but the memory of %(red)him%(default) has since been...\w8\w8\s[302] erased by whatever happened.\w8\w8\x\c\s[108]There's nothing we can really do,\w4 we don't even fully know who we're looking for.\w8\w8\s[200] We do hope that one day they'll reappear somehow,\w4 or our memories will return...\w8\w8\s[204] But as time moves forward that feels less and less likely.\n\n\w8\w8\s[302]It feels wrong not to put them in the count of my children.\w8\w8\s[200] They were my children,\w4\s[204] and I still love them very much no matter how obscured my memories may be.\w8\w8\n\n* (You give him your condolences.)\w8\w8\n\n\s[108]...Thank you.\![raise,OnDialogueVariables,suppressCoordsOff]%(familyreturn)"
+		"\0\s[201]My %(orange('first ',StSfhusband)) is the %(StSffather) of all my children,\w4 except Sigil,\w4 and of course Triton.\w8\w8\s[200] There were two other children,\w4 Cambria's %(cyan('twin')), and Lulo's %(blue('older brother')).\w8\w8\n\n\s[204]And then there was also my %(red('first son')).\w8\w8 %(red('He')) died a very long time ago,\w4 but the memory of %(red('him')) has since been...\w8\w8\s[302] erased by whatever happened.\w8\w8\x\c\s[108]There's nothing we can really do,\w4 we don't even fully know who we're looking for.\w8\w8\s[200] We do hope that one day they'll reappear somehow,\w4 or our memories will return...\w8\w8\s[204] But as time moves forward that feels less and less likely.\n\n\w8\w8\s[302]It feels wrong not to put them in the count of my children.\w8\w8\s[200] They were my children,\w4\s[204] and I still love them very much no matter how obscured my memories may be.\w8\w8\n\n* (You give him your condolences.)\w8\w8\n\n\s[108]...Thank you.\![raise,OnDialogueVariables,suppressCoordsOff]%(familyreturn)"
 	}
 }
 
@@ -1172,42 +1146,42 @@ Select.LoVEcheck //Revealing the easiest layer of secrets. Gain access to this b
 }
 
 //Asking S about his past, available after LVCheck
-Select.bestleftburied //I'll eventually detail this more... lots more.
+Select.bestleftburied : nonoverlap //I'll eventually detail this more... lots more.
 {
-	if love > 74
+	if love >= 75
 	{
-		if talkedaboutpast < 3
+		if talkedaboutpast <= 3
 		{
 			talkedaboutpast += 1
-			"\0\s[200]I was raised to believe I was a thing rather than a person.\w8\w8\s[204] ...It took a long time to unlearn that.%(morequestions)"
-			"\0\s[200]I didn't set foot outside the lab for the first time until I was 16 years old.\w8\w8\s[204] Being in the underground,\w4 and around normal monsters...\w8\w8 meant a lot of adjusting.%(morequestions)"
-			"\0\s[200]I have memory nightmares sometimes,\w4\s[204] it's a trait that runs in the family.\w8\w8\s[300] I'm forced to relive traumatic moments in my life,\w4\s[301] but I can't change anything.\w8\w8\n\n\s[204]It really makes the whole 'forgiving yourself' thing much harder.%(morequestions)"
-		//	"\0* (You ask him where his scars came from.)\w8\w8\s[200]\n\n..." //uh oops looks like I forgot to finish this. Maybe later?
-			
-			if thesplit == 1
-			{
-				"\0* (You ask why he's called S.)\n\n\w8\w8\s[200]...I've had a lot of names.\w8\w8\s[204] My last name was Sanguine,\w4 but after I lost my first %(teal)partner%(default) and %(red)son%(default)...\w8\w8\s[109] I didn't want to be called that anymore.\w8\w8\n\n\s[108]anAbbi was also out of my life for a while,\w4 uh,\w4\s[200] presumed dead I suppose.\w8\w8\s[204] So I didn't really have much left,\w4 and being called what they'd called me was painful,\w4 to say the least.\w8\w8\n\n\s[200]So I changed my name to just be S.\w8\w8\s[201] It's not short for Sanguine,\w4 S is my legal name,\w4 full stop.\w8\w8\n\n\s[200]I've had this name for...\w8\w8 30 years now?\w8\w8 40?\w8\w8\s[201] So I think this one is here to stay."
-				"\0\s[200]anAbbi and I weren't alone when we escaped the lab,\w4 there were two others with us.\w8\w8\s[109] The person who would become my %(teal)first partner%(default),\w4 and the monster I took in as my %(red)son%(default).\w8\w8\n\n\s[204]But now...\w8\w8\s[510] I can't even remember their faces anymore.%(morequestions)"
-				"\0\s[204]I wish I could remember my %(teal)partner%(default) better.\w8\w8 I know that he was kind,\w4 he and anAbbi had a very strong bond,\w4 and he worked himself to exhaustion with multiple jobs so that we could afford food and shelter.\w8\w8\s[201] I couldn't work because my...\w8\w8\s[200] soul condition\w4 was much worse then.\w8\w8\s[109]\n\nMom and Dad being in our lives has really changed everything for us,\w4 I only wish he was here to see it and so that they could help him too...%(morequestions)"
-			}
-			if askedaboutabbi == 1
-			{
-				"\0\s[204]I'll never forgive myself for a lot of the things I did.\w8\w8\s[201] I'm part of the reason anAbbi is blind,\w4\s[109] and that impacts his quality of life every day.\![raise,OnDialogueVariables,abbiisblind]%(morequestions)"		
-			}
+			TalkingAboutPast
 		}
 		else
 		{
 			love -= 1
-			"\0\s[108]Can we talk about something else for a while,\w4 please?\w8\w8\s[109] I don't really like to relive my past.%(morequestions)"
+			"\0\s[108]Can we talk about something else for a while,\w4 please?\w8\w8\s[109] I don't really like to relive my past."
 		}
 	}
 	else
 	{
-		"\0\s[201]I really don't want to talk about it,\w4 kiddo.\w8\w8\s[204] It's not something I discuss lightly.%(morequestions)"
-		"\0\s[204]It was a long time ago,\w4 and best left forgotten.%(morequestions)"
-		"\0\s[200]Please,\w4 I'd rather we not.\w8\w8\s[204] It's not something I enjoy discussing.%(morequestions)"
+		"\0\s[201]I really don't want to talk about it,\w4 kiddo.\w8\w8\s[204] It's not something I discuss lightly."
+		"\0\s[204]It was a long time ago,\w4 and best left forgotten."
+		"\0\s[200]Please,\w4 I'd rather we not.\w8\w8\s[204] It's not something I enjoy discussing."
 	}
-		
+	--
+	"%(morequestions)"
+}
+
+TalkingAboutPast : nonoverlap
+{
+	"\0\s[200]I was raised to believe I was a thing rather than a person.\w8\w8\s[204] ...It took a long time to unlearn that."
+	"\0\s[200]I didn't set foot outside the lab for the first time until I was 16 years old.\w8\w8\s[204] Being in the underground,\w4 and around normal monsters...\w8\w8 meant a lot of adjusting."
+	"\0\s[200]I have memory nightmares sometimes,\w4\s[204] it's a trait that runs in the family.\w8\w8\s[300] I'm forced to relive traumatic moments in my life,\w4\s[301] but I can't change anything.\w8\w8\n\n\s[204]It really makes the whole 'forgiving yourself' thing much harder."
+	//"\0* (You ask him where his scars came from.)\w8\w8\s[200]\n\n..." //uh oops looks like I forgot to finish this. Maybe later?
+	
+	if thesplit; "\0* (You ask why he's called S.)\n\n\w8\w8\s[200]...I've had a lot of names.\w8\w8\s[204] My last name was Sanguine,\w4 but after I lost my first%(br)%(teal('partner')) and %(red('son'))...\w8\w8\s[109] I didn't want to be called that anymore.\w8\w8\n\n\s[108]anAbbi was also out of my life for a while,\w4 uh,\w4\s[200] presumed dead I suppose.\w8\w8\s[204] So I didn't really have much left,\w4 and being called what they'd called me was painful,\w4 to say the least.\w8\w8\n\n\s[200]So I changed my name to just be S.\w8\w8\s[201] It's not short for Sanguine,\w4 S is my legal name,\w4 full stop.\w8\w8\n\n\s[200]I've had this name for...\w8\w8 30 years now?\w8\w8 40?\w8\w8\s[201] So I think this one is here to stay."
+	if thesplit; "\0\s[200]anAbbi and I weren't alone when we escaped the lab,\w4 there were two others with us.\w8\w8\s[109] The person who would become my %(teal('first partner')),\w4 and the monster I took in as my %(red('son')).\w8\w8\n\n\s[204]But now...\w8\w8\s[510] I can't even remember their faces anymore."
+	if thesplit; "\0\s[204]I wish I could remember my %(teal('partner')) better.\w8\w8 I know that he was kind,\w4 he and anAbbi had a very strong bond,\w4 and he worked himself to exhaustion with multiple jobs so that we could afford food and shelter.\w8\w8\s[201] I couldn't work because my...\w8\w8\s[200] soul condition\w4 was much worse then.\w8\w8\s[109]\n\nanMom and anDad being in our lives has really changed everything for us,\w4 I only wish he was here to see it and so that they could help him too..."
+	if askedaboutabbi; "\0\s[204]I'll never forgive myself for a lot of the things I did.\w8\w8\s[201] I'm part of the reason anAbbi is blind,\w4\s[109] and that impacts his quality of life every day.\![raise,OnDialogueVariables,abbiisblind]"
 }
 
 //Asking about skeletons
@@ -1227,14 +1201,14 @@ Select.spookyscary
 		"\0\s[107]A lot of humans seem surprised to learn how light we are compared to them.\w8\w8\s[106] Since we're just made of bones and magic,\w4 it shouldn't be all that surprising that most of us are under 40 pounds."
 		"\0\s[106]No,\w4 we don't work like xylophones.\w8\w8\s[202] I suppose you could get \f[italic,true]some\f[italic,default] sounds,\w4 but they wouldn't be all that loud,\w4 and definitely wouldn't sound very musical."
 		"\0\s[110]Sometimes people are surprised that we have body heat at all,\w4 but ah,\w4\w\s[107] we are still monsters and made of magic...\w8\w8\s[106] Maybe not as much magic as other monsters,\w4 but it's still going to generate a little heat."
-		"\0\s[101]Yes,\w4 we do take showers just as much as anyone else.\w8\w8\s[107] I'm not sure why people assume otherwise.\w8\w8\s[106] I like being clean.\w8\w8\n\n\s[208]I guess technically we could get away with showering less often,\w4\s[202] but that just feels weird."
+		//"\0\s[101]Yes,\w4 we do take showers just as much as anyone else.\w8\w8\s[107] I'm not sure why people assume otherwise.\w8\w8\s[106] I like being clean.\w8\w8\n\n\s[208]I guess technically we could get away with showering less often,\w4\s[202] but that just feels weird."
 		if thesplit == 1
 		{
-			"\0\s[200]Skeletons in my timeline don't bleed.\w8\w8\s[201] Or at least,\w4 they didn't,\w4 but...\w8\w8\s[109] Skeletons in my %(orange)first %(StSfhusband)'s%(default) timeline did,\w4 and our children inherited that trait.\w8\w8\n\n\s[300]anSigil is the exception,\w4 of course,\w4 since she's anBlue's kid."
+			"\0\s[200]Skeletons in my timeline don't bleed.\w8\w8\s[201] Or at least,\w4 they didn't,\w4 but...\w8\w8\s[109] Skeletons in my %(orange('first ',StSfhusband))'s timeline did,\w4 and our children inherited that trait.\w8\w8\n\n\s[300]anSigil is the exception,\w4 of course,\w4 since she's anBlue's kid."
 		}
 		if thesplit == 1 //I split these up both so I could have the else, and also so that it would be called more often...
 		{
-			"\0\s[101]A lot of people think we all look alike,\w4 but that's not really true.\w8\w8\s[0] We have some traits in common,\w4 of course,\w4 but there are lots of differences.\w8\w8\s[208]\n\nMy anmom has a somewhat rare trait,\w4 she doesn't have eyelights at all,\w4\s[0] and that was passed that on to anAbbi and anRosie.\w8\w8\s[200] anCambria and anAzo inherited an extra set of arms from %(orange)their %(StSffather)%(default),\w4 of course,\w4\s[201] meanwhile anLulo actually has a pretty similar skull shape to my %(teal)first partner%(default).\w8\w8\s[1020]\n\nThere's a lot that goes into it."
+			"\0\s[101]A lot of people think we all look alike,\w4 but that's not really true.\w8\w8\s[0] We have some traits in common,\w4 of course,\w4 but there are lots of differences.\w8\w8\s[208]\n\nMy anmom has a somewhat rare trait,\w4 she doesn't have eyelights at all,\w4\s[0] and that was passed that on to anAbbi and anRosie.\w8\w8\s[200] anCambria and anAzo inherited an extra set of arms from %(orange('their ',StSffather)),\w4 of course,\w4\s[201] meanwhile anLulo actually has a pretty similar skull shape to my %(teal('first partner')).\w8\w8\s[1020]\n\nThere's a lot that goes into it."
 		}
 		else
 		{
@@ -1250,7 +1224,7 @@ Select.spookyscary
 	{
 		"\0\s[106]No,\w4 we don't work like xylophones.\w8\w8\s[202] I suppose you could get \f[italic,true]some\f[italic,default] sounds,\w4 but they wouldn't be all that loud,\w4 and probably wouldn't sound very musical."
 		"\0\s[110]Sometimes people are surprised that we have body heat at all,\w4 but ah,\w4\w\s[107] we are still monsters and made of magic...\w8\w8\s[106] Maybe not as much magic as other monsters,\w4 but it's still going to generate a little heat."
-		"\0\s[101]Yes,\w4 we do take showers just as much as anyone else.\w8\w8\s[107] I'm not sure why people assume otherwise.\w8\w8\s[106] I like being clean."
+		//"\0\s[101]Yes,\w4 we do take showers just as much as anyone else.\w8\w8\s[107] I'm not sure why people assume otherwise.\w8\w8\s[106] I like being clean."
 		"\0\s[101]A lot of people think we all look alike,\w4 but that's not really true.\w8\w8\s[0] We have some traits in common,\w4 of course,\w4 but there are a lot of differences in the shapes of skulls,\w4 eyesockets,\w4 cheekbones,\w4 and sometimes even eyelights.\w8\w8\s[110] Some skeletons don't even \f[italic,true]have\f[italic,default] eyelights."
 		if season == "Summer"
 		{
@@ -1261,7 +1235,7 @@ Select.spookyscary
 	{
 		"\0\s[106]No,\w4 we don't work like xylophones."
 		"\0\s[110]Sometimes people are surprised that we have body heat at all,\w4 but ah,\w4\w\s[107] we are still monsters and made of magic..."
-		"\0\s[101]Yes,\w4 we do take showers just as much as anyone else.\w8\w8\s[107] I'm not sure why people assume otherwise."
+		//"\0\s[101]Yes,\w4 we do take showers just as much as anyone else.\w8\w8\s[107] I'm not sure why people assume otherwise."
 		"\0\s[101]A lot of people think we all look alike,\w4 but that's not really true.\w8\w8\s[0] We have some traits in common,\w4 of course,\w4 but there are a lot of differences if you know where to look."
 	}
 	--
@@ -1289,6 +1263,7 @@ GeneralTimelines : nonoverlap //Asking about other timelines. You'll get this if
 		"\0\s[205]I've been to quite a few places in the past few years.\w8\w8\s[202] It's uh,\w4 kinda inconvenient.\w8\w8\s[102] But it is pretty neat to meet other versions of myself."
 		"\0\s[107]I've been to a lot of really strange places.\w8\w8\s[101] Though I guess to them,\w4 their world is normal and I'm the strange one."
 		"\0\s[200]A lot of timelines are...\w8\w8\s[204] pretty dark.\w8\w8\s[201] I guess I happened to get one of the good ones.\w8\w8\n\n\s[108]I try not to take that for granted,\w4 things could be much,\w4 much worse."
+		"\0\s[205]I've seen a lot of different places,\w4 but nothing beats being at home with my family.\w8\w8\s[104] It's just where I belong."
 		if love >= 150
 		{
 			"\0\s[104]I'm glad to be here rather than some other random timeline.\w8\w8\s[0] You've been very kind and welcoming,\w4 and I appreciate it."
@@ -1298,13 +1273,13 @@ GeneralTimelines : nonoverlap //Asking about other timelines. You'll get this if
 			"\0\s[200]I've met younger versions of myself before.\w8\w8 All the way back from my days in the lab.\w8\w8\s[204] They uh...\w8\w8\s[201] don't usually understand the advice I try to give.\w8\w8\s[200] I just hope things end up alright for them and that my presence didn't disturb their timelines too much..."
 			if thesplit == 1
 			{
-				"\0\s[200]I've actually been stuck in a few different labs thanks to falling into different timelines.\w8\w8\s[109] It's how I met my %(orange)first %(StSfhusband)%(default).\w8\w8\s[206] We were stuck there a long time together,\w4 and we were all each other had,\w4 so...\w8\w8\s[204] we got pretty close.\w8\w8\n\n\s[200]Most days there were pretty similar,\w4 though,\w4 so it's...\w8\w8 all a bit of a blur now.\w8\w8\s[300] It wasn't until-\w8\s[301]\n\n* (He cuts himself off.)\w8\w8\8\n\n\s[108]...Sorry,\w4 I got ahead of myself there.\w8\w8\s[109] I don't really want to talk about that."
+				"\0\s[200]I've actually been stuck in a few different labs thanks to falling into different timelines.\w8\w8\s[109] It's how I met my %(orange('first ',StSfhusband)).\w8\w8\s[206] We were stuck there a long time together,\w4 and we were all each other had,\w4 so...\w8\w8\s[204] we got pretty close.\w8\w8\n\n\s[200]Most days there were pretty similar,\w4 though,\w4 so it's...\w8\w8 all a bit of a blur now.\w8\w8\s[300] It wasn't until-\w8\s[301]\n\n* (He cuts himself off.)\w8\w8\8\n\n\s[108]...Sorry,\w4 I got ahead of myself there.\w8\w8\s[109] I don't really want to talk about that."
 			}
 		}
 		if thesplit == 1
 		{
 			"\0\s[200]I'd like to think there's a timeline out there where the rest of our family hasn't...\w8\w8 disappeared.\w8\w8\s[108] But...\w8\w8 no luck thus far,\w4\s[109] and I'm starting to get the impression that they've disappeared from the multiverse completely."
-			"\0\s[200]My %(orange)first %(StSfhusband)%(default) was actually from another timeline.\w8\w8\s[1020] It's uh,\w4 actually why most of my kids have freckles.\w8\w8\s[0]\n\nThey're not a normal feature on skeletons,\w4 but our different magic types mixing caused marks that look like freckles to appear on the kids' faces and shoulders.\w8\w8\n\n\s[104]Thankfully,\w4 it's totally benign.\w8\w8\s[205] They have a couple of other oddities too,\w4 but nothing we can't work around."
+			"\0\s[200]My %(orange('first ',StSfhusband)) was actually from another timeline.\w8\w8\s[1020] It's uh,\w4 actually why most of my kids have freckles.\w8\w8\s[0]\n\nThey're not a normal feature on skeletons,\w4 but our different magic types mixing caused marks that look like freckles to appear on the kids' faces and shoulders.\w8\w8\n\n\s[104]Thankfully,\w4 it's totally benign.\w8\w8\s[205] They have a couple of other oddities too,\w4 but nothing we can't work around."
 		}
 		if askedaboutwd == 1 && love >= 150 && thesplit == 1
 		{
@@ -1368,7 +1343,7 @@ GeneralTimelines : nonoverlap //Asking about other timelines. You'll get this if
 	else
 	{
 		"\0\s[1020]Ah,\w4 do you understand the theory of the multiverse?\w8\w8\s[0] There are many other realities besides our own,\w4 the ones nearest to us are generally the same world with small differences.\w8\w8\n\n\s[106]We're uh,\w4 not really supposed to move outside our own timeline,\w4 though.\w8\w8\s[208] Not sure why I have so much trouble staying in my own timeline,\w4\s[206] it's not like I want to leave."
-		"\0\s[208]This is definitely not the strangest world I've been to.\w8\w8\s[106] Though I guess this could just be a different place in my own timeline.\w8\w8 What're things like out there?"
+		"\0\s[208]This is definitely not the strangest world I've%(br)been to.\w8\w8\s[106] Though I guess this could just be a different place in my own timeline.\w8\w8%(br)What're things like out there?" //TODO TEST THIS
 		"\0\s[107]I'm sure I'll pop out of here soon,\w4\s[106] I'll blink and suddenly be standing in my home as if nothing happened."
 	}
 	--
@@ -1407,8 +1382,9 @@ TimelineMenu
 	--
 	if knowaboutbender == 1; "\n\![*]anMBender"; elseif knowaboutbender == 2; "\nanIBender\q[The bender,TellMeAboutBender]"; else; "\n--- ------"
 	--
-	"\n\n\n\![*]\q[Go back,ihavequestions]/
-	\n\![*]\q[I'm done,CANCEL]\e"
+	"\n\n\n\![*]\q[Go back,ihavequestions]"
+	--
+	"\n\![*]\q[I'm done,CANCEL]\e"
 }
 
 Select.TimelinesInGeneral
@@ -1434,7 +1410,7 @@ Select.TellMeAboutKit : nonoverlap
 	}
 	if thesplit == 1
 	{
-		"\0\s[109]I'm certain that the missing brother and adoptive dad he told me about were versions of my %(teal)first partner%(default) and %(pink)someone else%(default) I met a very long time ago...\w8\w8\s[200] He couldn't fully remember them either.\w8\w8\s[206]\n\nHis dad was apparently a very large shark,\w4 and his brother was a very pretty,\w4 very colorful fish...\w8\w8\s[204] I wish there was something I could do for him."
+		"\0\s[109]I'm certain that the missing brother and adoptive dad he told me about were versions of my %(teal('first partner')) and %(pink('someone else')) I met a very long time ago...\w8\w8\s[200] He couldn't fully remember them either.\w8\w8\s[206]\n\nHis dad was apparently a very large shark,\w4 and his brother was a very pretty,\w4 very colorful fish...\w8\w8\s[204] I wish there was something I could do for him."
 	}
 	--
 	"%(timelinequestions)"
@@ -1443,9 +1419,9 @@ Select.TellMeAboutKit : nonoverlap
 Select.TellMeAboutSmol : nonoverlap
 {
 	love += 0.1
-	"\0\s[200]It's...\w8\w8 weird,\w4 thinking about his connection with my %(red)first son%(default).\w8\w8\s[206] When I look at him,\w4 I almost feel like I can see my %(red)first son%(default) in him,\w4 in some ways...\w8\w8\s[302]\n\nBut it's not him,\w4 not exactly.\w8\w8\s[303] I guess it's more like looking in a mirror and seeing a blurry image,\w4\s[300] but when I look away he isn't really there."
+	"\0\s[200]It's...\w8\w8 weird,\w4 thinking about his connection with my %(red('first son')).\w8\w8\s[206] When I look at him,\w4 I almost feel like I can see my %(red('first son')) in him,\w4 in some ways...\w8\w8\s[302]\n\nBut it's not him,\w4 not exactly.\w8\w8\s[303] I guess it's more like looking in a mirror and seeing a blurry image,\w4\s[300] but when I look away he isn't really there."
 	"\0\s[206]He can't speak.\w8\w8\s[202] But ah,\w4 that doesn't seem to stop him from making himself known.\w8\w8\s[104] He's very energetic and eager to make friends,\w4\s[107] and just about pounced on me when I first appeared.\w8\w8\s[103]\n\nHe's a good kid."
-	"\0\s[208]One of his eyelights is red.\w8\w8\s[206] I can't think of any reason why that would be,\w4 unless it was a trait my %(red)first son%(default) also had..."
+	"\0\s[208]One of his eyelights is red.\w8\w8\s[206] I can't think of any reason why that would be,\w4 unless it was a trait my %(red('first son')) also had..."
 	"\0\s[108]According to his anAbbi,\w4 he never grows any bigger.\w8\w8\s[107] Despite how small he is,\w4 he's actually about as old as anCambria."
 	"\0\s[104]He loves cuddles,\w4 or any affection really.\w8\w8\s[106] But keep in mind,\w4 once you start cuddling him you'll be stuck for a while.\w8\w8 He's \f[italic,true]really\f[italic,false] good at puppy eyes."
 	"\0\s[104]He really likes to draw,\w4\s[103] he drew a picture of me while I was there.\w8\w8\s[104] There were a whole bunch of drawings up on the fridge,\w4 too."
@@ -1542,10 +1518,10 @@ Select.TellMeAboutSerif : nonoverlap
 Select.TellMeAboutEcho : nonoverlap
 {
 	love += 0.1
-	"\0\s[108]He was very sad and lethargic while I was there.\w8\w8\s[200] According to his anWings,\w4 he used to be a cheerful kid...\w8\w8\s[204] but he misses his %(green)dad%(default) and %(orange)brother%(default) very much.\w8\w8\s[201] He'll eventually start to improve,\w4 but it'll take a long while."
+	"\0\s[108]He was very sad and lethargic while I was there.\w8\w8\s[200] According to his anWings,\w4 he used to be a cheerful kid...\w8\w8\s[204] but he misses his %(green('dad')) and %(orange('brother')) very much.\w8\w8\s[201] He'll eventually start to improve,\w4 but it'll take a long while."
 	"\0\s[200]I think he was scared of me...\w8\w8\s[204] I can't say I blame him,\w4 if I was in his position and someone who looked just like me but covered in scars suddenly appeared,\w4 I'd be scared too..."
 	"\0\s[110]They actually had a version of Serif in that timeline,\w4 too.\w8\w8\s[106] I guess because Echo fell in from an outside timeline?\w8\w8\s[107] I didn't ask too much about the specifics.\w8\w8\s[202] I think anWings was just glad that she didn't have to take care of a third version of me."
-	"\0\s[208]His version of anWings didn't say it,\w4 but I'm pretty sure she was pregnant with anRoman while I was there.\w8\w8\s[108] I guess his father must be the %(green)skeleton%(default) she was married to in that timeline?\w8\w8\s[1070] It would explain some things,\w4 I guess..."
+	"\0\s[208]His version of anWings didn't say it,\w4 but I'm pretty sure she was pregnant with anRoman while I was there.\w8\w8\s[108] I guess his father must be the %(green('skeleton')) she was married to in that timeline?\w8\w8\s[1070] It would explain some things,\w4 I guess..."
 	"\0\s[1030]He was fascinated by my tail.\w8\w8\s[107] I explained to him why I have it,\w4 and then he was just really confused why I have so many kids."
 	--
 	"%(timelinequestions)"
@@ -1581,13 +1557,15 @@ timelinequestions
 {
 	if knowaboutkit == 0 && knowaboutsmol == 0 && knowaboutbirdy == 0 && knowaboutsorrel == 0 && knowaboutpmd == 0 && knowaboutbender == 0 && knowaboutnine == 0 && knowaboutserif == 0 && knowaboutecho  == 0 && knowaboutice == 0 && knowaboutomega == 0
 	{
-		"\n\n\![*]\q[Ask something else,ihavequestions]/
-		\n\![*]\q[I'm done,CANCEL]\e"
+		"\n\n\![*]\q[Ask something else,ihavequestions]"
+		--
+		"\n\![*]\q[I'm done,CANCEL]\e"
 	}
 	else
 	{
-		"\n\n\![*]\q[Ask something else,placestobe]/
-		\n\![*]\q[I'm done,cancelnodialogue]\e"
+		"\n\n\![*]\q[Ask something else,placestobe]"
+		--
+		"\n\![*]\q[I'm done,cancelnodialogue]\e"
 	}
 }
 //------------End of timeline menu--------------
@@ -1605,7 +1583,7 @@ Select.aboutRYS : nonoverlap
 {
 	if knowaboutnine == 2
 	{
-		"\0\s[200]It's hard for me to say without actually meeting him,\w4 but he's probably only a few years old,\w4 really.\w8\w8\s[108] He looks older than he is,\w4 because of the whole Sans thing.\w8\w8\n\n\s[201]Even though he's advanced for his age,\w4 he's still only had a few years of experience,\w4 and doesn't know almost anything about the world.\w8\w8\s[204] He'll learn eventually,\w4 but then it will be too late to take his actions back..."
+		"\0\s[200]It's hard for me to say without actually meeting him,\w4 but he's probably only a few years old,\w4 really.\w8\w8\s[108] He looks older than he is,\w4%(br)because of the whole Sans thing.\w8\w8\n\n\s[201]Even though he's advanced for his age,\w4 he's still only had a few years of experience,\w4 and doesn't know almost anything about the world.\w8\w8\s[204] He'll learn eventually,\w4 but then it will be too late to take his actions back..."
 	}
 	"\0\s[200]He hasn't learned to think for himself yet.\w8\w8\s[204] He just does as he's told,\w4 not questioning it at all.\w8\w8\n\n\s[108]Though,\w4 if he did question it,\w4 it wouldn't end up well for him."
 	"\0\s[109]He's hurting inside,\w4 a lot.\w8\w8\s[200] He hasn't yet realized that he \f[italic,1]should\f[italic,0] be free,\w4 and should be treated with basic respect,\w4 so that doesn't bother him much,\w8\s[108] but he's scared for his life most of the time.\w8\w8\s[109] It's not a good existence for a long while."
@@ -1616,7 +1594,7 @@ Select.aboutRYS : nonoverlap
 	"\0\s[107]He must be very confused about this place,\w4 he's never even used a computer before."
 	if RYS != "RYS" && RYS != "RYS-0825" && RYS != "0825" && RYS != "Rhys" //I'm not gonna add a million checks to this, it's your own fault if you name him something mean
 	{
-		"\0\s[110]* (You tell S you're calling him %(RYS).)\w8\w8\s[208]%(RYS),\w4 huh..?\w8\w8\s[102] That's kind of you to give him a better name,\w4 thank you."
+		"\0\s[110]* (You tell S you're calling him '%(RYS)'.)\w8\w8\s[208]%(RYS),\w4 huh..?\w8\w8\s[102] That's kind of you to give him a better name,\w4 thank you."
 	}
 	--
 	"%(morequestions)"
@@ -1638,30 +1616,35 @@ morequestions
 {
 	"\n\n\![*]\q[Ask something else,ihavequestions]\n\![*]\q[I'm done,cancelnodialogue]\e"
 }
-
+//}
 //======================================================================End of questions menu========================================================
 
 //======================================================================Function menu================================================================
-
+//{
 Select.functionmenu
 {
 	if LV == 0 //Friendship routes
 	{
+		"\0\b2"
+		--
 		if love >=100 //Full friendship
 		{
-			"\0\s[0]\b2What did you want me to do?"
-			"\0\s[0]\b2Oh, what was it you needed?"
-			"\0\s[0]\b2Sure, might as well. What'd you need?"
+			"\s[0]What did you want me to do?"
+			"\s[0]Oh,\w4 what was it you needed?"
+			"\s[0]Sure,\w4 might as well. What'd you need?"
+			"\s[0]What is it that you need?"
+			"\s[0]Yeah?"
+			"\s[101]Sure I guess,\w4 as long as it's nothing too physically taxing."
 		}
 		elseif love >= 30 //getting to know him a little
 		{
-			"\0\s[202]\b2Uh, sure.\w8\s[202] What did you need?"
-			"\0\s[202]\b2What do you need?"
+			"\s[202]Uh,\w4 sure.\w8\s[202] What did you need?"
+			"\s[202]What do you need?"
 		}
 		else //He isn't sure what to make of you yet
 		{
-			"\0\s[202]\b2Uh, alright? What did you want?"
-			"\0\s[202]\b2Uh, alright I guess. What did you want?"
+			"\s[202]Uh, alright? What did you want?"
+			"\s[202]Uh, alright I guess. What did you want?"
 		}
 		--
 		"\n\n"
@@ -1676,12 +1659,14 @@ Select.functionmenu
 		{
 			if LV <= 30 //you've been a bit mean
 			{
-				"\s[402]\b2Not a chance,\w4 I'm not running errands for someone like you.\w8\w8\n\n* (Looks like you can still access some functions,\w4 though...)%(LimitedOptions)"
+				"\s[402]\b2Not a chance,\w4 I'm not running errands for someone like you."
 			}
-			elseif LV >=31 //You've been really mean and he hates you a lot
+			elseif LV >= 31 //You've been really mean and he hates you a lot
 			{
-				"\s[403]Are you stupid?\w8 I'm not doing any tasks for someone who is hurting me.%(LimitedOptions)"
+				"\s[403]Are you stupid?\w8 I'm not doing any tasks for someone who is hurting me."
 			}
+			--
+			"\w8\w8%(LimitedOptions)"
 		}
 	}
 	--
@@ -1699,7 +1684,7 @@ Select.functionmenu
 
 LimitedOptions //this is ONLY going to have reset and uninstall. This is for when he's angry with you.
 {
-	"\_q\n\n* (Looks like you can still access some functions, though...)\_q\n\n\![*]\q[Reset him,areyousure]  \![*]\q[Enable uninstall,uninstalltoggle] %(deleteshitai)\n\n\![*]\q[Back to main menu,BACKTOMENU]\n\![*]\q[Forget it,cancelnodialogue]\e" 
+	"\n\n* (Looks like you can still access some functions, though...)\_q\n\n\![*]\q[Reset him,areyousure]  \![*]\q[Enable uninstall,uninstalltoggle] %(deleteshitai)\n\n\![*]\q[Back to main menu,BACKTOMENU]\n\![*]\q[Forget it,cancelnodialogue]\e" 
 }
 
 Select.uninstalltoggle
@@ -1730,11 +1715,10 @@ Onbacktofunctions
 	FunctionMenu
 }
 
-
-
 FunctionMenu
 {
-	"\b2\![*]\q[Check the weather,weathercheck]\n/
+	"\b2/
+	\![*]\q[Check the weather,weathercheck]\n/
 	\![*]\q[Open your calendar,CALENDAR]\n/
 	\![*]\q[Check your email,MailCheck]\n/
 	\![*]\q[Open the SSP preferences,sspconfig]\n/
@@ -1760,21 +1744,21 @@ FunctionMenu
 
 Select.weathercheck //Check the current weather. If the user doesn't have a location set, prompt them to set one.
 {
+	weatherquiet = 0
+	fromfunctionmenu = 1
 	if curlocation != "" && curlocation != "Set a location"
 	{
-		weatherquiet = 0
-		fromfunctionmenu = 1
 		"\0\s[110]Oh,\w4 the weather?\w8\w8\s[104] Sure,\w4\s[1070] give me just a moment..."
 		"\0\s[110]Oh,\w4 the weather?\w8\w8\s[104] Ok,\w4\s[1070] hold on a moment..."
 		"\0\s[104]Sure,\w4 I can check,\w4\s[1070] let's see...\w8\w8 %(curlocation),\w4 huh?"
+		"\0\s[104]Yeah,\w4 I can get the weather for you.\w8\w8\s[1070] Let me see..."
+		"\0\s[110]Oh,\w8\s[104] yeah,\w4 I can get the weather.\w8\w8\s[0] You said you live in %(curlocation),\w4 right?\w8\w8\s[1070] Hmm..."
 		--
-		"\![raise,OnDownloadCurWeather]"
+		"\w8\![raise,OnDownloadCurWeather]"
 	}
 	else
 	{
 		OnWeatherLocation
-		weatherquiet = 0
-		fromfunctionmenu = 1
 	}
 }
 
@@ -1827,7 +1811,7 @@ Select.sspconfig
 	{
 		if LV == 0 //Friendship routes
 		{
-			"\0\s[101]Preferences?\w8 Uh,\w4 is that this thing here..?"
+			"\0\s[101]Preferences?\w8\w8 Uh,\w4 is that this thing here..?"
 			"\0\s[1070]Preferences...\w8\w8\s[106] Is this it?"
 			"\0\s[1070]Sure,\w4 lets see...\w8\w8\s[0] Here it is."
 		}
@@ -1851,72 +1835,88 @@ Select.sspconfig
 Select.ChoiceGarbagecan
 {
 	_gomicheck = FUNCTIONEX("gomi.dll", "-n")
-	if _gomicheck == 0 //If the recycle bin is empty.
+	//_gomicheck = FUNCTIONEX("empty.dll", "-n")
+	_s = ""; if _gomicheck != 1; _s = "s"
+	"%(_gomicheck)\n\n"
+	--
+	if nowmode == "RYS"
 	{
+		"\RYS\s[2006]O-ok.\w8\w8\n\n* (He walks to y\s[-1]our recycle bin.)"
+	}
+	elseif LV == 0
+	{
+		if love >= 75 //getting to know him a little
+		{
+			"\0\s[202]Really?\w8\w8\s[107] It's a couple clicks for you,\w4 but you're gonna make me walk all the way over there?\w8\w8\s[202] I've got a bad leg,\w4 you know."
+			"\0\s[107].\w4.\w4.\w8\w8\s[106]Surely it's far easier for you to empty your recycle bin,\w4 since you don't have to walk all the way over there?\w8\w8\n\n\s[107]* (He sighs,\w8\s[-1] then trudges off,\w4 limping slightly.)"
+		}
+		else //He isn't sure what to make of you yet
+		{
+			"\0\s[201]Uh...\w8\w8 No thanks.\w8\w8\s[200] I'm not here so that you can make me take out your trash.\e" //\e here prevents any of the rest of it from happening
+		}
+	}
+	else //Negative routes -- Again, no need for angry dialogue here
+	{
+		if broken == 1 //broken him down all the way
+		{
+			"\s[510]* (He nods,\w4 and walks to the recycle bin wordlessly)"
+		}
+		else //breaking him, but he's still standing
+		{
+			"\s[512]...Ok."
+		}
+	}
+	--
+	"\w8\w8\s[-1]\n\n.\w8\w8.\w8\w8.\w8\w8.\w8\w8.\w8\w8\n\n" //Adding a pause between dialogue sections, without needing to type this out every time
+	--
+	if _gomicheck > 0 //If there were items to clear
+	{
+		"\![raise,OnGarbagecanEmpty]"
+		--
 		if nowmode == "RYS"
 		{
-			"\RYS\s[2006]O-ok.\w8\w8\n\n* (He walks to y\s[-1]our recycle bin.)\w8\w8\n\n.\w8.\w8.\w8.\w8.\w8\w8\n\n\s[2007]...It was empty.\e"
+			"\s[2007]%(_gomicheck) file%(_s) have been emptied.\e"
 		}
-		else
+		elseif LV == 0 //No need for the friendship level check here, since it'll never go through above
 		{
-			if LV == 0 //Friendship routes -- Dialogue is the same once you've gotten him to at least 30 love
+			"\s[202]There,\w4 done.\w8\s8\s[101] How exciting.\e"
+		}
+		else //Negative routes -- Again, no need for angry dialogue here
+		{
+			if broken == 1 //broken him down all the way
 			{
-				if love >= 75 //getting to know him a little
-				{
-					"\0\s[202]Really?\w8 It's a couple clicks for you,\w4 but you're gonna make me walk all the way over there?\w8 I got a bad leg,\w4 you know.\w8\w8\s[-1]\n\n\w8.\w8\w8.\w8\w8.\w8\w8.\w8\w8.\w8\w8\n\n\c\s[200]It was empty anyways.\w8\s[202] If you're gonna send me off,\w4 can you please make sure it's gonna be worthwhile first?\w8 I don't have my cane with me.\e"
-				}
-				else //He isn't sure what to make of you yet
-				{
-					"\0\s[201]Uh...\w8\w8 No thanks.\w8\w8\s[200] I'm not here so that you can make me take out your trash.\e"
-				}
+				"\s[515]* (Looks like he's done.)\e"
 			}
-			else //Negative routes -- Again, no need for angry dialogue here
+			else //breaking him, but he's still standing
 			{
-				if broken == 1 //broken him down all the way
-				{
-					"\s[510]* (He nods,\w4 and walks to the recycle bin wordlessly)\w8\w8\s[-1]\n\n.\w8\w8.\w8\w8.\w8\w8.\w8\w8\.\w8\w8\c\s[515]...It was empty.\e"
-				}
-				else //breaking him, but he's still standing
-				{
-					"\s[512]...Ok.\w8\w8\s[-1]\n\n.\w8\w8.\w8\w8.\w8\w8.\w8\w8\.\w8\w8\c\s[510]...There was nothing there.\e"
-				}
+				"\s[510]...Done.\e"
 			}
 		}
 	}
-	elseif _gomicheck >= 1 //If the recycle bin is full.
+	else //If it was empty
 	{
 		if nowmode == "RYS"
 		{
-			"\RYS\s[2006]O-ok.\w8\w8\n\n* (He walks to y\s[-1]our recycle bin.)\w8\w8\n\n.\w8.\w8.\w8.\w8.\w8\w8\![raise,OnGarbagecanEmpty]\c\s[2007]%(_gomicheck) files have been emptied.\e"
+			"\s[2007]...It was empty.\e"
 		}
-		else
+		elseif LV == 0
 		{
-			if LV == 0 //Friendship routes -- Dialogue is the same once you've gotten him to at least 30 love
+			"\s[200]It was empty anyways.\w8\w8\s[202] If you're gonna send me off,\w4 can you please make sure it's%(br)gonna be worthwhile first?\w8\w8\s[106] I don't have my cane with me.\e"
+			"\s[106]Kiddo.\w8\w8 Your recycling bin is already empty.\w8\w8\s[202] If this is your way of playing a prank on me,\w4 please don't,\w4 I don't have my cane with me.\e"
+		}
+		else //Negative routes -- Again, no need for angry dialogue here
+		{
+			if broken == 1 //broken him down all the way
 			{
-				if love >= 75 //getting to know him a little
-				{
-					"\0\s[202]Really?\w8 It's a couple clicks for you,\w4 but you're gonna make me walk all the way over there?\w8 I got a bad leg,\w4 you know.\w8\w8\s[-1]\n\n\w8.\w8\w8.\w8\w8.\w8\w8.\w8\w8.\w8\w8\![raise,OnGarbagecanEmpty]\c\s[202]There,\w4 done.\w8\s8\s[101] How exciting.\e"
-				}
-				else //He isn't sure what to make of you yet
-				{
-					"\0\s[201]Uh...\w8\w8 No thanks.\w8\w8\s[200] I'm not here so that you can make me take out your trash.\e"
-				}
+				"\s[515]...It was empty.\e"
 			}
-			else //Negative routes -- Again, no need for angry dialogue here
+			else //breaking him, but he's still standing
 			{
-				if broken == 1 //broken him down all the way
-				{
-					"\s[510]* (He nods,\w4 and walks to the recycle bin wordlessly)\w8\w8\s[-1]\n\n.\w8\w8.\w8\w8.\w8\w8.\w8\w8\.\w8\w8\![raise,OnGarbagecanEmpty]\c\s[515]* (Looks like he's done.)\e"
-				}
-				else //breaking him, but he's still standing
-				{
-					"\s[512]...Ok.\w8\w8\s[-1]\n\n.\w8\w8.\w8\w8.\w8\w8.\w8\w8\.\w8\w8\![raise,OnGarbagecanEmpty]\c\s[510]...Done\e"
-				}
+				"\s[510]...There was nothing there.\e"
 			}
 		}
 	}
 }
-
 
 //This is for the SAORI, don't touch it.
 OnGarbagecanEmpty
@@ -1931,7 +1931,7 @@ Select.ChoiceSystemInformation
 	os_version = FUNCTIONEX("saori_cpuid.dll","os.version")
 	cpu_name = FUNCTIONEX("saori_cpuid.dll","cpu.name")
 	cpu_clockex = FUNCTIONEX("saori_cpuid.dll","cpu.clockex")
-	_free_mem = FUNCTIONEX("saori_cpuid.dll","mem.phya")
+	//_free_mem = FUNCTIONEX("saori_cpuid.dll","mem.phya")
 	if nowmode == "RYS"
 	{
 		"\RYS\b[2]\_q"
@@ -1947,9 +1947,18 @@ Select.ChoiceSystemInformation
 	CPU: %(cpu_name) %(cpu_clockex)MHz\n/
 	Uptime: %(systemuphour):%(systemupminute):%(systemupsecond)\n\n/
 	Ukagaka: %property[baseware.version]\n\n/
+	Local IP: \_a[OnCopySelect,%(IP[0])]%(IP[0])\_a\n/
+	IPv6:%(br)\_a[OnCopySelect,%(IP[1])]%(IP[1])\_a\n\n/
 	//Free Memory: %(_free_mem)\n\n/
-	\![*]\q[Back to functions,Onbacktofunctions]\n/
-	\![*]\q[I'm done,cancelnodialogue]\e"
+	\![*]\q[Back to functions,Onbacktofunctions]\n"
+	--
+	"\![*]\q[I'm done,cancelnodialogue]\e"
+}
+
+OnCopySelect
+{
+	_i = FUNCTIONEX("clipcopy.dll",reference0)
+	"\C\_l[0,0] "
 }
 
 //When clicked, this will automatically tell the ghost to check for updates. More detail on updates in etc.dic.
@@ -1998,7 +2007,7 @@ Select.balloonupdate
 //View the changelog
 Select.changelogplease
 {
-	"\![raise,OnChangeLog,frommenu]\e"
+	"\![raise,OnChangeLog,0,frommenu]\e"
 }
 
 Select.bugreport
@@ -2021,13 +2030,13 @@ Select.bugreport
 	--
 	Onbacktofunctions
 }
-
+//}
 //===========================================================End of functions menu==============================================================
 
 
 
 //============================================================Actions menu======================================================================
-
+//{
 Select.heyyouyourecute
 {
 	if knowaboutfamily == 1
@@ -2088,8 +2097,9 @@ Select.heyyouyourecute
 		--
 	}
 	--
-	"\n\n\![*]\q[Go back,BACKTOMENU]/
-	\n\![*]\q[I'm done,CANCEL]\e"
+	"\n\n\![*]\q[Go back,BACKTOMENU]"
+	--
+	"\n\![*]\q[I'm done,CANCEL]\e"
 	
 }
 
@@ -2108,8 +2118,9 @@ Select.numbersdontlie
 		else
 		{
 			"* S GASTER - ATK 127 DEF 127\n\n\w8\w8* (...That seems a bit strange.\w8\w8 Should you dig a little deeper into his code..?)\n\n[half]/
-			\![*]\q[Investigate,outintheopen]\n/
-			\![*]\q[It doesn't matter,cancelnodialogue]\e"
+			\![*]\q[Investigate,outintheopen]\n"
+			--
+			"\![*]\q[It doesn't matter,cancelnodialogue]\e"
 		}
 	}
 	else
@@ -2118,150 +2129,18 @@ Select.numbersdontlie
 		{
 			if LV ==  0
 			{
-				_songs = SongList
-				SETDELIM(_songs,"\n-")
+				_songs = SPLIT(SongList,"\n-") //changed this, didn't test if it works properly lol
 				_songtotal = ARRAYSIZE(_songs)
 				_songtotal--
 				--
 				"* S GASTER - ATK 127 DEF 127\n\n"
 				--
-				"* Doing his best."
-				"\s[200]* Made of bones and regret."
-				"* Loves his family."
-				"* Always smells like bread."
-				"* A real sweetheart.\n\w8\s[104]* Even if he doesn't have one."
-				"\s[104]* Made of calcium and love."
-				"* Made of perseverence and hugs."
-				"* Old,\w4 but young at the same time.\w8\n* It's confusing,\w4 even for him."
-				"* Made of copious amounts of ifs."
-				"* Baker of bread,\w4 taker of naps."
-				"* Has a confusing history."
-				"* You feel like one of his teeth is fake.\w8\n* Or is it?"
-				"* Now in Ukagaka form."
-				"* Shaped like a friend."
-				"* Surprisingly soft,\w4 for a skeleton."
-				"* Loves water.\w8\n* A lot."
-				"* Has a lot of birthdays."
-				if (givenbooks + givenwarmthings) > 3
-				{
-					"* Comes with extra storage space in his ribcage."
-				}
-				if thesplit == 1
-				{
-					"\s[109]* Has been through hell and back.\w8\n* Would not recommend."
-				}
-				if nowshell == "red_hoodie" || nowshell == "pink_apron"
-				{
-					"* Are those socks or are they shoes?"
-				}
-				if nowshell == "pink_apron"
-				{
-					"* Smells vaguely of %(ingredients)."
-					"* Smells vaguely of %(bakedgoods)."
-				}
-				if "Green Beanie" _in_ dressups && nowshell == "autumn_flannel"
-				{
-					"\s[104]* Looks cute in his hat."
-				}
-				//Want to make todaysingredients into an array and have it pick random ingredients to tell you he has
+				CheckFlavorTexts
 				--
 				_ss = ""; if totalhours != 1; _ss = "s"
 				"\n\n\w8* You've run him for a total of %(totalhours) hour%(_ss)"
 				--
-				if balloonspopped > 0 && poppable == "ON"
-				{
-					_s = ""; if balloonspopped != 1; _s = "s"
-					", popped his balloons %(balloonspopped) time%(_s)"
-				}
-				if totalhugs > 0
-				{
-					_s = ""; if totalhugs != 1; _s = "s"
-					", hugged him %(totalhugs) time%(_s)"
-				}
-				if totalboops > 0
-				{
-					_s = ""; if totalboops != 1; _s = "s"
-					", booped his nose %(totalboops) time%(_s)"
-				}
-				/*if totaltickles > 0
-				{
-					", tickled him %(totaltickles) times,"
-				}*/
-				if totalwaters > 0
-				{
-					_es = ""; if totalwaters != 1; _es = "es"
-					", given him %(totalwaters) glass%(_es) of water"
-				}
-				if _songtotal > 0
-				{
-					_s = ""; if _songtotal != 1; _s = "s"
-					", played him %(_songtotal) new song%(_s)"
-				}
-				if scaled > 0
-				{
-					_s = ""; if scaled != 1; _s = "s"
-					", changed his size %(scaled) time%(_s)"
-				}
-				if beenbackwards > 0
-				{
-					_s = ""; if beenbackwards != 1; _s = "s"
-					", turned him backwards %(beenbackwards) time%(_s)"
-				}
-				if complimented > 0
-				{
-					_s = ""; if complimented != 1; _s = "s"
-					", complimented him %(complimented) time%(_s)"
-				}
-				if reset > 0
-				{
-					_s = ""; if reset != 1; _s = "s"
-					", reset him %(reset) time%(_s)"
-				}
-				if givenbooks > 0
-				{
-					_s = ""; if givenbooks != 1; _s = "s"
-					", given him %(givenbooks) book%(_s)"
-				}
-				if giveningredients > 0
-				{
-					_s = ""; if giveningredients != 1; _s = "s"
-					", given him %(giveningredients) ingredient%(_s)"
-				}
-				if givenfood > 0
-				{
-					_s = ""; if givenfood != 1; _s = "s"
-					", given him %(givenfood) snack%(_s)"
-				}
-				if givensocks > 0
-				{
-					_s = ""; if givensocks != 1; _s = "s"
-					", given him %(givensocks) pair%(_s) of socks"
-				}
-				if givenblankets > 0
-				{
-					_s = ""; if givenblankets != 1; _s = "s"
-					", given him %(givenblankets) blanket%(_s)"
-				}
-				if givenmittens > 0
-				{
-					_s = ""; if givenmittens != 1; _s = "s"
-					", given him %(givenmittens) pair%(_s) of mittens"
-				}
-				if heldObsidian > 0
-				{
-					_s = ""; if heldObsidian != 1; _s = "s"
-					", made him hold Obsidian %(heldObsidian) time%(_s)"
-				}
-				if slept > 0
-				{
-					_s = ""; if slept != 1; _s = "s"
-					", seen him fall asleep %(slept) time%(_s)"
-				}
-				if totalsleep > 0
-				{
-					_s = ""; if totalsleep != 1; _s = "s"
-					", watched him sleep for %(totalsleep) hour%(_s)"
-				}
+				CheckRandomStats
 				--
 				_s = ""; if totalpets != 1; _s = "s"
 				", and pet him %(totalpets) time%(_s)"
@@ -2360,6 +2239,165 @@ Select.outintheopen
 	}
 }
 
+CheckFlavorTexts : nonoverlap
+{
+	"* Doing his best."
+	"\s[200]* Made of bones and regret."
+	"* Loves his family."
+	"* Always smells like bread."
+	"* A real sweetheart.\n\w8\s[104]* Even if he doesn't have one."
+	"\s[104]* Made of calcium and love."
+	"* Made of perseverence and hugs."
+	"* Old,\w4 but young at the same time.\w8\n* It's confusing,\w4 even for him."
+	"* Made of copious amounts of ifs."
+	"* Baker of bread,\w4 taker of naps."
+	"* Has a confusing history."
+	"* You feel like one of his teeth is fake.\w8\n* Or is it?"
+	"* Now in Ukagaka form."
+	"* Shaped like a friend."
+	"* Surprisingly soft,\w4 for a skeleton."
+	"* Loves water.\w8\n* A lot."
+	"* Has a lot of birthdays."
+	"\s[109]* Always seems a little tired."
+	"\s[200]* Full of secrets."
+	"* Likes the cold,\w4 for some reason."
+	"\s[107]* Made of more and more arrays with each passing month."
+	"* Definitely a cat person."
+	
+	{
+		_temp = 2017
+		if month > 10 || (month == 10 && day >= 11); _temp--
+		"* %(year - _temp) years old.\w8\n* Wait,\w4 that's not right...\w8 Is it?"
+	}
+	if LuloPresent; "* Father of Lulo."
+	if RYSprogress == 7; "* A skeleton of many names."
+	if thesplit == 1; "* A conglomeration of timelines."
+	if HydrateStats[2] >= 3; "\s[104]* Is proud of you for doing a good job of hydrating."
+	if (givenbooks + givenwarmthings) > 3
+	{
+		"* Comes with extra storage space in his ribcage."
+	}
+	if thesplit == 1
+	{
+		"\s[109]* Has been through hell and back.\w8\n* Would not recommend."
+	}
+	if nowshell == "red_hoodie" || nowshell == "pink_apron"
+	{
+		"* Are those socks or are they shoes?"
+	}
+	if nowshell == "pink_apron"
+	{
+		"* Smells vaguely of %(ingredients)."
+		"* Smells vaguely of %(bakedgoods)."
+	}
+	if "Green Beanie" _in_ dressups && nowshell == "autumn_flannel"
+	{
+		"\s[104]* Looks cute in his hat."
+	}
+	if ARRAYSIZE(todaysingredients) > 0
+	{
+		"* Smells like that %(ANY(todaysingredients)) you gave him earlier."
+	}
+}
+
+CheckRandomStats : nonoverlap
+{
+	if balloonspopped > 0 && poppable == "ON"
+	{
+		_s = ""; if balloonspopped != 1; _s = "s"
+		", popped his balloons %(balloonspopped) time%(_s)"
+	}
+	if totalhugs > 0
+	{
+		_s = ""; if totalhugs != 1; _s = "s"
+		", hugged him %(totalhugs) time%(_s)"
+	}
+	if totalboops > 0
+	{
+		_s = ""; if totalboops != 1; _s = "s"
+		", booped his nose %(totalboops) time%(_s)"
+	}
+	/*if totaltickles > 0
+	{
+		", tickled him %(totaltickles) times,"
+	}*/
+	if totalwaters > 0
+	{
+		_es = ""; if totalwaters != 1; _es = "es"
+		", given him %(totalwaters) glass%(_es) of water"
+	}
+	if _songtotal > 0
+	{
+		_s = ""; if _songtotal != 1; _s = "s"
+		", played him %(_songtotal) new song%(_s)"
+	}
+	if scaled > 0
+	{
+		_s = ""; if scaled != 1; _s = "s"
+		", changed his size %(scaled) time%(_s)"
+	}
+	if beenbackwards > 0
+	{
+		_s = ""; if beenbackwards != 1; _s = "s"
+		", turned him backwards %(beenbackwards) time%(_s)"
+	}
+	if complimented > 0
+	{
+		_s = ""; if complimented != 1; _s = "s"
+		", complimented him %(complimented) time%(_s)"
+	}
+	if reset > 0
+	{
+		_s = ""; if reset != 1; _s = "s"
+		", reset him %(reset) time%(_s)"
+	}
+	if givenbooks > 0
+	{
+		_s = ""; if givenbooks != 1; _s = "s"
+		", given him %(givenbooks) book%(_s)"
+	}
+	if giveningredients > 0
+	{
+		_s = ""; if giveningredients != 1; _s = "s"
+		", given him %(giveningredients) ingredient%(_s)"
+	}
+	if givenfood > 0
+	{
+		_s = ""; if givenfood != 1; _s = "s"
+		", given him %(givenfood) snack%(_s)"
+	}
+	if givensocks > 0
+	{
+		_s = ""; if givensocks != 1; _s = "s"
+		", given him %(givensocks) pair%(_s) of socks"
+	}
+	if givenblankets > 0
+	{
+		_s = ""; if givenblankets != 1; _s = "s"
+		", given him %(givenblankets) blanket%(_s)"
+	}
+	if givenmittens > 0
+	{
+		_s = ""; if givenmittens != 1; _s = "s"
+		", given him %(givenmittens) pair%(_s) of mittens"
+	}
+	if heldObsidian > 0
+	{
+		_s = ""; if heldObsidian != 1; _s = "s"
+		", made him hold Obsidian %(heldObsidian) time%(_s)"
+	}
+	if slept > 0
+	{
+		_s = ""; if slept != 1; _s = "s"
+		", seen him fall asleep %(slept) time%(_s)"
+	}
+	if totalsleep > 0
+	{
+		_s = ""; if totalsleep != 1; _s = "s"
+		", watched him sleep for %(totalsleep) hour%(_s)"
+	}
+}
+
 Select.agoodsoftboy
 {
 	totalhugs += 1
@@ -2424,109 +2462,109 @@ Select.agoodsoftboy
 
 HugEnd
 {
-		"\w8\w8\w8\n\n"
-		--
-		"* (He feels very boney.)\w8\w8\n\n* (But somehow,\w4 softer than you expected.)"
-		"* (Smells like bread and bones.)"
-		"* (Smells faintly like lemon cleaner.)"
-		"* (Smells like hugs and cuddles.)"
-		"* (Smells like calcium.)\w8\w8\n\n* (Feels like calcium,\w4 too.)"
-		"* (Smells like perseverence.)"
-		"* (Smells purple.)"
-		"* (Smells faintly of cats.)"
-		"* (Smells like garlic bread.)"
-		"* (Smells like magic.)"
-		if passhour > 5
+	"\w8\w8\w8\n\n"
+	--
+	"* (He feels very boney.)\w8\w8\n\n* (But somehow,\w4 softer than you expected.)"
+	"* (Smells like bread and bones.)"
+	"* (Smells faintly like lemon cleaner.)"
+	"* (Smells like hugs and cuddles.)"
+	"* (Smells like calcium.)\w8\w8\n\n* (Feels like calcium,\w4 too.)"
+	"* (Smells like perseverence.)"
+	"* (Smells purple.)"
+	"* (Smells faintly of cats.)"
+	"* (Smells like garlic bread.)"
+	"* (Smells like magic.)"
+	if passhour > 5
+	{
+		"* (Smells sleepy.)"
+		"* (Smells like a nap waiting to happen.)"
+	}
+	if askedaboutbluejeans == 1
+	{
+		"* (Smells like blue jeans.)\w8\w8\n\n* (Also anBluJeans.)"
+	}
+	if askedaboutsigil == 1
+	{
+		"* (Smells faintly of fingerpaints.)"
+	}
+	if givenwater > 1
+	{
+		"* (Smells like hydration.)"
+		"* (Smells like H20.)"
+	}
+	if givenfood > 1
+	{
+		"* (You can smell the snacks in his pocket.)"
+	}
+	if givenbooks > 0
+	{
+		"* (Smells like knowledge.)\w8\w8\n\n* (It's probably coming from the book in his ribcage...)"
+		"* (Smells like new books.)"
+	}
+	if flattered > 2
+	{
+		"* (Smells somewhat flustered.)"
+	}		
+	if season == "Spring"
+	{
+		"* (Smells like wildflowers.)"
+		"* (Smells like fresh herbs.)"
+	}
+	if nowshell == "red_hoodie"
+	{
+		"* (Smells red.)"
+	}
+	if nowshell == "pink_apron"
+	{
+		"* (Trace amounts of flour stick to your clothing.)"
+		"* (Smells like %(ingredients).)"
+		"* (Smells like %(bakedgoods).)"
+		"* (Smells pink.)"
+	}
+	if nowshell == "autumn_flannel"
+	{
+		"* (Smells like fallen leaves.)"
+		"* (Smells like leaf piles.)"
+		"* (Smells like autumn.)"
+		"* (Smells like plaid.)"
+	}
+	if comforted > 0 || talkedaboutpast > 0
+	{
+		"* (He's hugging you a little more tightly than normal...)\w8\w8\n\n* (Maybe he needed a hug,\w4 too.)"
+		if LVCheck == 1
 		{
-			"* (Smells sleepy.)"
-			"* (Smells like a nap waiting to happen.)"
+			"* (Smells faintly like regret.)\w8\w8\n\n* (But maybe a little like hope,\w4 too.)"
+			"* (Smells like the bittersweetness of redemption.)"
 		}
-		if askedaboutbluejeans == 1
-		{
-			"* (Smells like blue jeans.)\w8\w8\n\n* (Also anBluJeans.)"
-		}
-		if askedaboutsigil == 1
-		{
-			"* (Smells faintly of fingerpaints.)"
-		}
-		if givenwater > 1
-		{
-			"* (Smells like hydration.)"
-			"* (Smells like H20.)"
-		}
-		if givenfood > 1
-		{
-			"* (You can smell the snacks in his pocket.)"
-		}
-		if givenbooks > 0
-		{
-			"* (Smells like knowledge.)\w8\w8\n\n* (It's probably coming from the book in his ribcage...)"
-			"* (Smells like new books.)"
-		}
-		if flattered > 2
-		{
-			"* (Smells somewhat flustered.)"
-		}		
-		if season == "Spring"
-		{
-			"* (Smells like wildflowers.)"
-			"* (Smells like fresh herbs.)"
-		}
-		if nowshell == "red_hoodie"
-		{
-			"* (Smells red.)"
-		}
-		if nowshell == "pink_apron"
-		{
-			"* (Trace amounts of flour stick to your clothing.)"
-			"* (Smells like %(ingredients).)"
-			"* (Smells like %(bakedgoods).)"
-			"* (Smells pink.)"
-		}
-		if nowshell == "autumn_flannel"
-		{
-			"* (Smells like fallen leaves.)"
-			"* (Smells like leaf piles.)"
-			"* (Smells like autumn.)"
-			"* (Smells like plaid.)"
-		}
-		if comforted > 0 || talkedaboutpast > 0
-		{
-			"* (He's hugging you a little more tightly than normal...)\w8\w8\n\n* (Maybe he needed a hug,\w4 too.)"
-			if LVCheck == 1
-			{
-				"* (Smells faintly like regret.)\w8\w8\n\n* (But maybe a little like hope,\w4 too.)"
-				"* (Smells like the bittersweetness of redemption.)"
-			}
-		}
-		if totalhours > 500
-		{
-			"* (Smells like your computer.)\w8\w8\n\n* (Or maybe your computer smells like him now?)"
-		}
-		if nowscale < 0
-		{
-			"* (Smells backwards.)"
-			"* (Smells reversed.)"
-			"* (Smells lopsided.)"
-			"* (Feels strange.)"
-			"* (Smells asymmetrical.)"
-		}
-		if changedscaling > 10 || Dragged > 5
-		{
-			"* (Smells dizzy.)"
-		}
-		if CameBack > 0 && ghostexcount == 0
-		{
-			"* (Smells lonely.)"
-			"* (Smells anxious.)"
-		}
-		if talkedtoDusty == 1 && "Dusty" _in_ ghostexlist
-		{
-			"* (Smells a little like the void.)\w8\w8\n\n* (Maybe he was hugging Dusty while you weren't watching.)"
-			"* (Smells like obsidian.)\w8\w8\n\n* (The cat,\w4 not the rock.)"
-		}
-		--
-		"%(actreturn)"
+	}
+	if totalhours > 500
+	{
+		"* (Smells like your computer.)\w8\w8\n\n* (Or maybe your computer smells like him now?)"
+	}
+	if nowscale < 0
+	{
+		"* (Smells backwards.)"
+		"* (Smells reversed.)"
+		"* (Smells lopsided.)"
+		"* (Feels strange.)"
+		"* (Smells asymmetrical.)"
+	}
+	if changedscaling > 10 || Dragged > 5
+	{
+		"* (Smells dizzy.)"
+	}
+	if CameBack > 0 && ghostexcount == 0
+	{
+		"* (Smells lonely.)"
+		"* (Smells anxious.)"
+	}
+	if talkedtoDusty == 1 && "Dusty" _in_ ghostexlist
+	{
+		"* (Smells a little like the void.)\w8\w8\n\n* (Maybe he was hugging Dusty while you weren't watching.)"
+		"* (Smells like obsidian.)\w8\w8\n\n* (The cat,\w4 not the rock.)"
+	}
+	--
+	"%(actreturn)"
 }
 
 Select.yougotthegoodtimelinemydude //seriously things could end up a lot worse for him rip </3
@@ -2582,7 +2620,7 @@ Select.youredoingagoodjob //I wasn't really intending this, but it's ended up th
 			--
 			if thesplit == 1
 			{
-				"\s[206]My %(teal)first partner%(default) actually made me one like this,\w4 a very long time ago...%(actreturn)"
+				"\s[206]My %(teal('first partner')) actually made me one like this,\w4 a very long time ago...%(actreturn)"
 			}
 			"\s[107]I'm not really trying to be cute,\w4\s[104] but uh,\w4 it is a nice apron,\w4 isn't it?%(actreturn)"
 		}
@@ -2642,7 +2680,7 @@ Select.letmetellyouallaboutit //This isn't always gonna be accurate but screw it
 	{ 
 		"\0\s[103]* (You tell S all about your latest interest.)\w8\w8\n\n"
 		--
-		"\s[1010]* (He listens very closely,\w4 giving you his full attention.)\w8\w8\n\n" //replaceframe could use open eyes 7 here
+		"\s[111]* (He listens very closely,\w4 giving you his full attention.)\w8\w8\n\n"
 		"\s[0]* (He pays very close attention,\w4 making note of all the little details.)\w8\w8\n\n"
 		"\s[104]* (He nods along encouragingly as he listens.)\w8\w8\n\n"
 		--
@@ -2655,7 +2693,7 @@ Select.letmetellyouallaboutit //This isn't always gonna be accurate but screw it
 	{
 		"\0\s[103]* (You tell S all about your most recent project.)\w8\w8\n\n"
 		--
-		"\s[1010]* (He listens very closely,\w4 giving you his full attention.)\w8\w8\n\n" //replaceframe could use open eyes 7 here
+		"\s[111]* (He listens very closely,\w4 giving you his full attention.)\w8\w8\n\n"
 		"\s[0]* (He pays very close attention,\w4 making note of all the little details.)\w8\w8\n\n"
 		"\s[104]* (He nods along encouragingly as he listens.)\w8\w8\n\n"
 		--
@@ -2671,8 +2709,9 @@ Select.letmetellyouallaboutit //This isn't always gonna be accurate but screw it
 Select.mostlyforme 
 {
 	"\_q\0\s[110]Oh? What sort of pep talk did you want?\n\n[half]/
-	\![*]\q[I need to finish a project,howtogetthingsdone]\n/
-	\![*]\q[I'm feeling sad,cheerup]"
+	\![*]\q[I need to finish a project,howtogetthingsdone]\n"
+	--
+	"\![*]\q[I'm feeling sad,cheerup]"
 	--
 	if username == "Zichqec"
 	{
@@ -2693,7 +2732,8 @@ Select.cheerup
 {
 	"\0\![raise,OnDialogueVariables,suppressCoordsOn]\s[108]Ah,\w4 not feeling so well,\w4 huh?\w8\w8 \s[1070]Well,\w4 lets see.\w8\w8\s[106] Have you spoken to anyone lately?\w8\w8\s[107] Besides uh,\w4 me.\w8\w8\s[106] I'm glad if I can help you feel a little better,\w4 kiddo,\w4 but I don't really count as talking to another person.\w8\w8\s[108]\n\nI know it can be really easy to become lonely,\w4 and then sometimes you want to withdraw and not talk to anyone,\w4 and it becomes a negative feedback loop.\w8\w8\n\nIt's hard,\w4 but if you haven't spoken to anyone in a while then you should try and force yourself to break that cycle.\w8\w8 Only you know what's going on inside your head,\w4 so you're in the best position to start helping you,\w4 y'know?\w8\w8\s[106]\n\nPeople really like to talk about themselves,\w4 so maybe you can ask a friend about their OCs or projects?\n\n\w8\w8\s[107]I hope that helps,\w4\s[106] it's hard for me to know what to tell you when I don't know your exact situation.\![raise,OnDialogueVariables,suppressCoordsOff]%(actreturn)"
 	"\0\![raise,OnDialogueVariables,suppressCoordsOn]\s[108]Not feeling so good,\w4 huh?\w8\w8\s[1070] Hmm...\w8\w8\s[110] Well,\w4 have you moved around much lately?\w8\w8\s[107] I know it's kinda cliche advice,\w4 but moving your body around a little really does make a difference.\w8\w8\s[110]\n\nMaybe try doing just a couple stretches where you are now,\w4 and get a drink of water,\w4\s[106] and then you can at least feel like you've accomplished something positive?\x\c\s[107]Sometimes if you do a couple of things you know are good for you,\w4 it can kickstart you working on other things,\w4\s[0] and in the end you'll feel better for having gotten something done.\w8\w8\n\n\s[104]Cleaning your room is another good one,\w4 if there's a little clutter on your desk you could try putting away just a couple of items,\w4 and then your mood may improve from having a slightly tidier living space.\![raise,OnDialogueVariables,suppressCoordsOff]%(actreturn)"
-	"\0\![raise,OnDialogueVariables,suppressCoordsOn]\s[108]World got you down?\w8\w8\s[107] It's crazy how much negativity is out there,\w4 really.\w8\w8\s[106]\n\nYou know what I've found has the biggest negative effect on my mental health?\w8\w8\s[107] Watching the news.\w8\w8\s[108]\n\nBeing informed is good,\w4 but bad news attracts viewership,\w4 so media companies often try to make it look like society is crumbling around us.\x\c\s[104]The truth is actually much brighter.\w8\w8\s[103] Lifespans are longer than they've ever been,\w4 violent crimes are down,\w4 infant mortality is way down.\w8\w8\s[108]\n\nYou never see those statistics because people are more attracted to the negative news,\w4 so that's what the news companies give them.\w8\w8\s[110]\n\nIf you don't believe me,\w4 try looking up the stats for yourself, per capita.\w8\w8\s[107] The world is a much safer,\w4 much kinder place than the news makes it out to be,\w4\s[104] and it's improving all the time.\w8\w8\n\n\s[0]It can be really freeing to break yourself out of the news cycle.\w8\w8\s[104] Give it a try,\w4 you can always go back if you don't like it,\w4\s[106] but I can almost guarantee that you will.\w8\w8\x\c\s[106]It's up to you to take care of yourself,\w4 kiddo,\w4 and that may mean removing or reducing things in your life that are dragging you down.\w8\w8\s[104]\n\nIf you feel better,\w4 then you'll naturally be a part of that positive change in the world,\w4 and help make it a better place to live for everyone.\![raise,OnDialogueVariables,suppressCoordsOff]%(actreturn)"
+	"\0\![raise,OnDialogueVariables,suppressCoordsOn]\s[108]World got you down?\w8\w8\s[107] It's crazy how much negativity is out there,\w4 really.\w8\w8\s[106]\n\nYou know what I've found has the biggest negative effect on my mental health?\w8\w8\s[107] Watching the news.\w8\w8\s[108]\n\nBeing informed is good,\w4 but bad news attracts viewership,\w4 so media companies often try to make it look like society is crumbling around us.\x\c\s[104]The truth is actually much brighter.\w8\w8\s[103] Lifespans are longer than they've ever been,\w4 violent crimes are down,\w4 infant mortality is way down.\w8\w8\s[108]\n\nYou never see those statistics because people are more attracted to the negative news,\w4 so that's what the news companies give them.\w8\w8\s[110]\n\nIf you don't believe me,\w4 try looking up the stats for yourself,\w4 per capita.\w8\w8\s[107] The world is a much safer,\w4 much kinder place than the news makes it out to be,\w4\s[104] and it's improving all the time.\w8\w8\n\n\s[0]It can be really freeing to break yourself out of the news cycle.\w8\w8\s[104] Give it a try,\w4 you can always go back if you don't like it,\w4\s[106] but I can almost guarantee that you will.\w8\w8\x\c\s[106]It's up to you to take care of yourself,\w4 kiddo,\w4 and that may mean removing or reducing things in your life that are dragging you down.\w8\w8\s[104]\n\nIf you feel better,\w4 then you'll naturally be a part of that positive change in the world,\w4 and help make it a better place to live for everyone.\![raise,OnDialogueVariables,suppressCoordsOff]%(actreturn)"
+	"\0\![raise,OnDialogueVariables,suppressCoordsOn]\s[208]Hmm...\w8\w8 Sometimes I find it helpful to remember all the things I take for granted.\w8\w8\s[110] Ah,\w4 not to make you feel guilty or anything,\w8\s[106] but it really can help to just take a moment and think about all the stuff you have access to right this moment.\w8\w8\n\n\s[205]We carry devices in our pockets that give us access to vast amounts of knowledge,\w4 let us connect with others,\w4 or just find stuff we like.\w8\w8\s[111] A device that you can customize and make your own,\w4 to an extent.\w8\w8\s[104] And that's just one example.\w8\w8\s[0] Maybe try looking at a couple of things within an arm's reach of you right now,\w4 and really think about them.\w8\w8 Would people a hundred years ago have anything like it?\w8\w8 What does it feel like to pick up and hold,\w4 if you can?\w8\w8 What would your life be like without it?\x\c\s[107]Sometimes when I'm really feeling down,\w4 that'll help me remember how much good is in my life now.\w8\w8\s[106] Sometimes I really am having an awful day,\w4 and the situation just sucks.\w8\w8\s[0] But if I take the time to really take in the world around me and appreciate the little things that I don't think about,\w4 suddenly my problems feel a bit smaller,\w4 and a bit less overwhelming.\![raise,OnDialogueVariables,suppressCoordsOff]%(actreturn)"
 }
 
 Select.justkeepmoving //[Zi] ok this is literally just for me. I'm setting this to only be available if you put in my username as the name, but hey, if you want a pep talk that may or may not fit your situation, feel free to alter the code and make it available for you (it's up there under the select.mostlyforme menu). Please do note that any and all advice coming from S is actually coming from me speaking through him (to myself), and that I can't really give objective advice on how to deal with these subjects because I'm affected by them myself. There are better people to ask for help than me, but if this makes you feel a little better then go for it.
@@ -2701,6 +2741,7 @@ Select.justkeepmoving //[Zi] ok this is literally just for me. I'm setting this 
 	"\0* (You ask S how he keeps his spirits so high despite everything.)\w8\w8\n\n\s[106]Heh,\w4 uh,\w4\s[107] hate to break the illusion kiddo,\w4\s[106] but I'm often a lot more stressed and tired than I let on.\w8\w8\n\n\s[200]There have always been people depending on me to take care of them,\w4 and I think they deserve the world,\s[201] so I keep going for their sakes.\w8\w8\s[104]\n\nBut in return,\w4 those same people love and take care of me,\w4 and we lift each other up higher than we could get on our own.%(actreturn)"
 	"\0* (You ask S how he manages to keep going despite life continually knocking him down.)\w8\w8\n\n\s[106]Heh,\w4 that's uh,\w4 a good question.\w8\w8\s[200] Truthfully,\w4 when you really get down to the heart of it,\w4 I'm just scared of death.\w8\w8\n\n\s[204]It's not the most eloquent answer,\w4 and it wont work for everyone,\w4\s[108] but...\w8\w8 When it comes to these things,\w4 whatever answer works for you and keeps you living is the correct one.\w8\w8\n\n\s[104]It doesn't have to be anything flashy,\w4 it could be as simple as wanting to finish coding that little ghost program you were making for your computer.\w8\w8\s[107]\n\nHaving a goal is really important,\w4\s[106] try not to worry too much about what other people think about that goal.%(actreturn)"
 	"\0* (You ask S if he thinks there's much point to life.)\w8\w8\n\n\s[108]That's a heavy topic,\w4 kiddo.\w8\w8 What brought this on?\w8\w8 Have you spoken to any of your friends lately?\w8\w8\s[200] I know sometimes it can feel like you're bothering people by reaching out,\w4\s[201] but you're not.\w8\w8\s[109]\n\nAs for your question...\w8\w8\s[108] I do think there's some point in living.\w8\w8 I couldn't name a specific reason other than 'I want to',\w4\s[109] but I don't think everything needs to have an explicity stated reason,\w4 nor do I think one reason will fit everyone.\w8\w8\n\n\s[108]You only got one shot at this,\w4 so you might as well press forward and see if you can't find a reason that works for you,\w4 yeah?\w8\w8\s[204] Worst case scenario you feel like garbage for a little while longer,\w4\s[200] best case scenario you eventually find your way in life and are able to start improving things.\w8\w8\n\n\s[202]Just keep going,\w4 alright?\w8\w8 I can't guarantee when or if things will get better for you,\w4 but just remember that it's hard to see the stars when you're in the middle of a deep fog.\w8\w8\s[104] Keep putting one foot in front of the other,\w4 and you'll eventually get somewhere.\w8\w8\s[205] Though that somewhere isn't always the place you expected it'd be.%(actreturn)"
+	"\0\s[101]Look kiddo;\w8 if you die then I die too,\w4 so that's not really an option.\w8\w8 Capiche?\w8\w8 No,\w4 this ukagaka does not absolve you of that responsibility.%(actreturn)"
 }
 
 //guilting him, only available on sad route
@@ -2780,13 +2821,13 @@ actreturn
 {
 	"\n\n\![*]\q[Do something else?,heyyouyourecute]\n\![*]\q[I'm done,cancelnodialogue]\e" //cancel leads to an empty function because it bothers me when they say their menu cancel dialogue after you give them something :|
 }
-
+//}
 //=============================================================End of actions menu=============================================================
 
 
 
 //=================================================================Items menu==================================================================
-
+//{
 Select.bottomlessinventory
 {
 	if LV == 0
@@ -2818,8 +2859,9 @@ Select.bottomlessinventory
 	--
 	"\n\n[half]"
 	--
-	"\n\n\![*]\q[Go back,BACKTOMENU]/
-	\n\![*]\q[I'm done,CANCEL]\e"
+	"\n\n\![*]\q[Go back,BACKTOMENU]"
+	--
+	"\n\![*]\q[I'm done,CANCEL]\e"
 	}
 	else
 	{
@@ -2930,7 +2972,7 @@ Select.herbsandspices
 	if giveningredients < 5 //resets every hour
 	{
 		_ingredient = ingredients
-		todaysingredients += "\n%(_ingredient)"
+		todaysingredients ,= _ingredient
 		love += 1
 		giveningredients += 1
 		"\0* (You hand him some %(_ingredient).)\w8\w8\n\n"
@@ -3013,14 +3055,14 @@ Select.yourfeetarelikeice
 		
 		if love >= 75
 		{
-			"\0* (You offer him a pair of %(colormod)%(color) fuzzy socks%(pattern).)\w8\w8\n\n\s[1010]Aw,\w4 these are really nice.\w8\w8\n\n\s[0]* (He takes them and puts them in his pocket.)\w8\w8\n\n\s[104]Thanks,\w4 %(username).\![raise,OnDialogueVariables,givesocks]%(itemreturn)"
-			"\0* (You offer him a fluffy %(color) blanket%(pattern).)\w8\w8\n\n\s[1010]Aw,\w4 that's sweet of you,\w4 %(username).\w8\w8\s[104] Thanks.\w8\w8\n\n* (He folds it neatly and tucks it into his ribcage.\![raise,OnDialogueVariables,giveblanket])%(itemreturn)"
-			"\0* (You offer him a pair of soft %(color) mittens%(pattern).\w8\w8\n\n\s[104]Aw,\w4 thanks %(username),\w4 I really appreciate it.\w8\w8\n\n* (He takes the mittens and puts them in his pocket.)\![raise,OnDialogueVariables,givemittens]%(itemreturn)"
+			"\0* (You offer him a pair of %(colormod)%(colors) fuzzy socks%(pattern).)\w8\w8\n\n\s[1010]Aw,\w4 these are really nice.\w8\w8\n\n\s[0]* (He takes them and puts them in his pocket.)\w8\w8\n\n\s[104]Thanks,\w4 %(username).\![raise,OnDialogueVariables,givesocks]%(itemreturn)"
+			"\0* (You offer him a fluffy %(colors) blanket%(pattern).)\w8\w8\n\n\s[1010]Aw,\w4 that's sweet of you,\w4 %(username).\w8\w8\s[104] Thanks.\w8\w8\n\n* (He folds it neatly and tucks it into his ribcage.\![raise,OnDialogueVariables,giveblanket])%(itemreturn)"
+			"\0* (You offer him a pair of soft %(colors) mittens%(pattern).\w8\w8\n\n\s[104]Aw,\w4 thanks %(username),\w4 I really appreciate it.\w8\w8\n\n* (He takes the mittens and puts them in his pocket.)\![raise,OnDialogueVariables,givemittens]%(itemreturn)"
 		}
 		else //I changed when this appears, so you'll never get these ones now..... maybe I'll eventually tweak it some more.
 		{
-			"\0* (You offer him a pair of %(colormod)%(color) fuzzy socks%(pattern).)\w8\w8\n\n\s[110]Oh,\w4 for me?\w8\w8 \s[103]That's really kind of you,\w4\s[104] thank you.\w8\w8\n\n* (He takes them and puts them in his pocket.)%(itemreturn)"
-			"\0* (You offer him a pair of soft %(color) mittens%(pattern).)\w8\w8\n\n\s[110]Oh,\w4\s[104] thank you,\w4 that's really kind of you.\w8\w8\n\n* (He takes the mittens and puts them in his pocket.)%(itemreturn)"
+			"\0* (You offer him a pair of %(colormod)%(colors) fuzzy socks%(pattern).)\w8\w8\n\n\s[110]Oh,\w4 for me?\w8\w8 \s[103]That's really kind of you,\w4\s[104] thank you.\w8\w8\n\n* (He takes them and puts them in his pocket.)%(itemreturn)"
+			"\0* (You offer him a pair of soft %(colors) mittens%(pattern).)\w8\w8\n\n\s[110]Oh,\w4\s[104] thank you,\w4 that's really kind of you.\w8\w8\n\n* (He takes the mittens and puts them in his pocket.)%(itemreturn)"
 		}
 	}
 	else
@@ -3043,7 +3085,7 @@ Select.forthekiddos
 			{
 				"\0* (You offer him a plush monster with string arms.)\w8\w8\n\n\s[110].\w8.\w8.\w8\s[200].\w8.\w8.\w8\s[204].\w8.\w8.\w8Thanks.\w8\w8\n\n* (He stores it carefully in his ribcage...)\w8\w8\n\n* (What was that all about?)%(itemreturn)"
 			}
-			"\0* (You offer him a %(colormod)%(color) plush %(animal).)\w8\w8\n\n\s[103]Aw,\w4 that's really cute.\w8\w8\s[1010] I'm sure the kids will love this,\w4 thank you.\w8\w8\n\n\s[104]* (He puts it in his pocket.)%(itemreturn)"
+			"\0* (You offer him a %(colormod)%(colors) plush %(animal).)\w8\w8\n\n\s[103]Aw,\w4 that's really cute.\w8\w8\s[1010] I'm sure the kids will love this,\w4 thank you.\w8\w8\n\n\s[104]* (He puts it in his pocket.)%(itemreturn)"
 			"\0* (You offer him a plush cat with short legs.)\w8\w8\n\n.\w4.\w4.\w4\s[102]Heh,\w4 it reminds me of my first cat.\w8\w8\s[104] I'm sure the kids will love it,\w4 thank you.\n\n\w8\w8* (He takes it and puts it in his pocket.)%(itemreturn)"
 			"\0* (You hand him a plush cardinal.)\w8\w8\n\n\s[1070]* (He stares at it thoughtfully for a few long moments,\w8\s[107] then shrugs,\w4 placing it in his pocket.)\w8\w8\n\n\s[104]Thanks %(username),\w4 I'm sure the kids will like this.%(itemreturn)"
 			
@@ -3065,7 +3107,7 @@ itemreturn
 {
 	"\n\n\![*]\q[Give something else,bottomlessinventory]\n\![*]\q[I'm done,cancelnodialogue]\e" //cancel leads to an empty function because it bothers me when they say their menu cancel dialogue after you give them something :|
 }
-
+//}
 //==============================================================End of item menu===============================================================
 
 
@@ -3209,9 +3251,11 @@ Select.talkinter
 	\![*]\q[Every 30 seconds,TALKMAX]\n/
 	\![*]\q[Every minute,TALKHIGH]\n/
 	\![*]\q[Every 3 minutes,TALKNORMAL]\n/
-	\![*]\q[Every 5 minutes,TALKPOOR]\n/
-	\![*]\q[Don't speak,TALKNONE]\n\n/
-	\![*]\q[Don't change,TalksTill]\e"
+	\![*]\q[Every 5 minutes,TALKPOOR]\n"
+	--
+	"\![*]\q[Don't speak,TALKNONE]\n\n"
+	--
+	"\![*]\q[Don't change,TalksTill]\e"
 }
 
 //30 seconds
@@ -3664,29 +3708,16 @@ Select.CANCEL
 {
 	if LV == 0 //Friendship routes
 	{
-		if love >=100 //Full friendship
+		if love >= 100 //Full friendship
 		{
-			"\0\s[1010]"
 			"\0\s[0]"
-			"\0\s[103]"
 			"\0\s[102]"
-			"\0\s[111]"
+			"\0\s[103]"
 			"\0\s[104]"
+			"\0\s[111]"
+			//"\0\s[1010]"
 			--
-			"Ok,\w4 just let me know if you need something,\w4 %(username)."
-			"Ok,\w4 just let me know if you wanted something."
-			"Ok,\w4 let me know if you change your mind."
-			"Alright."
-			"Alright then."
-			"Alright,\w4 let me know if you change your mind."
-			"Oh,\w4 alright then."
-			"\s[101]Changed your mind,\w4 huh?"
-			"Ok."
-			"Later,\w4 then."
-			if CameBack > 0
-			{
-				"\s[106]Oh,\w4 alright.\w8\w8\s[107] Don't be away too long."
-			}
+			CancelDialogues
 			--
 			"\e"
 		}
@@ -3713,7 +3744,6 @@ Select.CANCEL
 			{
 				"\0\s[510]...Ok.\e"
 			}
-		
 		}
 		else //Just mean for no reason
 		{
@@ -3721,7 +3751,7 @@ Select.CANCEL
 			{
 				"\s[400]Hmph.\e"
 			}
-			elseif LV >=31 //You've been really mean and he hates you a lot
+			elseif LV >= 31 //You've been really mean and he hates you a lot
 			{
 				"\s[400]Hmph.\e"
 			}
@@ -3729,12 +3759,44 @@ Select.CANCEL
 	}
 }
 
+CancelDialogues : nonoverlap
+{
+	"Ok,\w4 just let me know if you need something,\w4 %(ANY('kiddo',username))."
+	"Ok,\w4 just let me know if you wanted something."
+	"Ok,\w4 let me know if you change your mind."
+	"Alright."
+	"Alright then."
+	"Alright,\w4 let me know if you change your mind."
+	"Oh,\w4 alright then."
+	"\s[101]Changed your mind,\w4 huh?"
+	"Ok."
+	"Later,\w4 then."
+	"Oh,\w4 alright then."
+	"Oh,\w4 alright."
+	"Oh,\w4 ok."
+	"Oh,\w4 no problem."
+	"Oh,\w4 alright.\w8\w8 If you want something just let me know."
+	"Alright,\w4 if you change your mind just let me know."
+	"Alright,\w4 no worries."
+	"No worries,\w4 let me know if you change your mind."
+	"No worries,\w4 let me know if you need something."
+	"No worries,\w4 if you need me you know where to find me."
+	"Ok,\w4 if you need me you know where to find me."
+	"Ok,\w4 if you need me I'll be right here."
+	"Alright.\w8\w8 I'm not going anywhere,\w4 so if you need me just let me know."
+	"Ok.\w8\w8\s[205] If you need me,\w4 I'll just be over here."
+	"Alright,\w4 talk to you later then."
+	"Oh,\w4 no worries,\w4 we can chat later."
+	"No worries %(ANY('kiddo',username)),\w4 just let me know if you need me."
+	if CameBack > 0; "\s[106]Oh,\w4 alright.\w8\w8\s[107] Don't be away too long."
+}
+
 //When choices time out
 OnChoiceTimeout
 {
 	if nowmode == "RYS"
 	{
-		if "RYSrandQ" _in_ reference0
+		if "RYSrandQ" _in_ reference0 //If RYS asked you a question and you did not respond in time
 		{
 			"\RYS\s[2013]* (He seems disappointed...)\e"
 		}
@@ -3746,10 +3808,7 @@ OnChoiceTimeout
 			--
 			"* (He squirms uncomfortably.)\e"
 			"* (He shifts uneasily.)\e"
-			if RYStrust > 100
-			{
-				"U-um...\w8\w8 are you still there..?\e"
-			}
+			if RYStrust > 100; "U-um...\w8\w8 are you still there..?\e"
 		}
 	}
 	elseif holdingObsidian == 1
@@ -3766,11 +3825,11 @@ OnChoiceTimeout
 		{
 			"\0\s[101]"
 			"\0\s[106]"
+			"\0\s[110]"
 			"\0\s[200]"
-			"\0\s[206]"
 			"\0\s[201]"
 			"\0\s[202]"
-			"\0\s[110]"
+			"\0\s[206]"
 			--
 			"You still there,\w4 %(username)?\e"
 			"Are you still there,\w4 kiddo?\e"
@@ -3793,16 +3852,14 @@ OnChoiceTimeout
 		{
 			if LVCheck == 1 //know his secrets
 			{
-
-					if broken == 1 //broken him down all the way
-					{
-						"\0\s[510]...\e"
-					}
-					else //breaking him, but he's still standing
-					{
-						"\0\s[510]...\e"
-					}
-				
+				if broken == 1 //broken him down all the way
+				{
+					"\0\s[510]...\e"
+				}
+				else //breaking him, but he's still standing
+				{
+					"\0\s[510]...\e"
+				}
 			}
 			else //Just mean for no reason
 			{
@@ -3819,51 +3876,185 @@ OnChoiceTimeout
 	}
 }
 
-//I wasn't planning to give this a Select.option, it's just meant to be an empty function for choices that should do nothing. However, since I added dialogue for dragging him around the screen and I made it use \C, it would pop up windows after you closed them if you just nudged him around a bit. This here prevents that by making it clear that the balloon is _definitely_ closed, because you clicked a choice to close it. Might change how this works later, but I think this'll be the quickest and cleanest solution because I used cancelnodialogue everywhere.
-//Select.cancelnodialogue
-//{
-//	SinceTalk += 10
-//}
 
 
 
 
+OnTestFunc
+{
+	"\![raise,OnOthertest]"
+}
 
-
+OnOthertest
+{
+	"Hi Dusty"
+}
 
 
 OnTestVariable  //For my own testing purposes. Be careful here.
 {
 	//"\![open,inputbox,OnUrlTest,-1]URL input\e"
-	/*_randx = RAND(100)
-	_randy = RAND(100)
-	_w = RAND(5)
-	"\_l[%(_randx),%(_randy)]H\w%(_w)"
-	--
-	_randx = RAND(100)
-	_randy = RAND(100)
-	"\_l[%(_randx),%(_randy)]E\w%(_w)"
-	--
-	_randx = RAND(100)
-	_randy = RAND(100)
-	"\_l[%(_randx),%(_randy)]L\w%(_w)"
-	--
-	_randx = RAND(100)
-	_randy = RAND(100)
-	"\_l[%(_randx),%(_randy)]P\w%(_w)"
-	--
-	_randx = RAND(100)
-	_randy = RAND(100)
-	"\_l[%(_randx),%(_randy)]M\w%(_w)"
-	--
-	_randx = RAND(100)
-	_randy = RAND(100)
-	"\_l[%(_randx),%(_randy)]E\w%(_w)"
-	--*/
 	//OnWander("0")
-	"%(CHR(1))"
+	//"%(CHR(1))"
+	//_sai2 = FUNCTIONEX("findwin.dll","find",,"sflRootWindow")
+	//"%(_sai2)"
+	//OnSimulTalk("Dialogue to be said at the same time","0","1","2","3","4","5")
+	//OnBackupMenu
+	
+	//_i = Property("rateofuselist(S the Skeleton).percent")
+	
+	//"Test: %(_i)"
+	//_i = FUNCTIONEX("zarc.dll","zip","../../IT_WORKS_OMG.zip","../../purple_soul")
+	//"%(_i)"
+	
+	//"\![get,property,OnPositionTest,currentghost.scope(0).rect]\![embed,OnSayPosition]\e"
+	
+	_i = FUNCTIONEX("window_info.dll")
+	//"\b2\_q%(_i)\n\n%(valueex)\x"
+
+	_display = ""
+	foreach valueex; _program
+	{
+		_program = REPLACE(_program,"\","\\")
+		_display += "\![*]%(_program)\n\n[half]"
+	}
+	"\_q\b4\![set,autoscroll,disable]%(_display)\x"
+
+	//OnMenuExamples
+}
+
+OnMenuExamples
+{
+	"\_q\*"
+	--
+	"/
+	\![*]\q[Static Menus,OnMenu_Static]\n/
+	\![*]\q[Dynamic Menus,OnMenu_Dynamic]\n/
+	"
+	--
+	"\n\![*]\q[Back,OnMenuRun]\e"
+}
+
+OnMenu_Static
+{
+	"\_q\*"
+	--
+	"/
+	\![*]\q[Menu Choice 1,OnSomeFunc]\n/
+	\![*]\q[Menu Choice 2,OnSomeFunc]\n/
+	\![*]\q[Menu Choice 3,OnSomeFunc]\n/
+	"
+	--
+	"\n\![*]\q[Back,OnMenuExamples]\e"
+}
+
+OnMenu_Dynamic
+{
+	_display = ""
+	for _i = 0; _i < ARRAYSIZE(ExampleArray); _i++
+	{
+		_display += "\![*]\q[%(ExampleArray[_i]),OnSomeFunc,%(_i)]\n"
+	}
+	--
+	"\_q\*"
+	--
+	"%(_display)"
+	--
+	"\n\![*]\q[Back,OnMenuExamples]\e"
+}
+
+OnPositionTest
+{
+	SPOS[0] = TOINT(reference0[0])
+	SPOS[1] = TOINT(reference0[1])
+	SPOS[2] = TOINT(reference0[2])
+	SPOS[3] = TOINT(reference0[3])
+}
+
+OnSayPosition
+{
+	"%(SPOS)"
+}
+
+Property
+{
+	"\![get,property,OnPropertyGet,%(_argv[0])]\![embed,OnPropertyResult]"
+}
+
+OnPropertyGet
+{
+	PropertyResult = IARRAY
+	foreach reference; _ref
+	{
+		PropertyResult ,= reference0
+	}
+}
+
+OnPropertyResult
+{
+	PropertyResult
+}
+
+testxor
+{
+	//_xor = xor("%(2 != 1)","%(1 == 1)","'Dusty' _in_ ghostexlist"); _xor
+	if XOR("%(2 == 1)","%(1 != 1)","%('Dusty' !_in_ ghostexlist)","%('Blue' != 'Red')")
+	{
+		"True"
+	}
+	else
+	{
+		"False"
+	}
+}
+
+XOR
+{
+	_sum = 0
+	_i = 0
+	for _i = 0; _i < _argc; _i++
+	{
+		_sum += TOINT(_argv[_i])
+	}
+	if _sum == 1; 1
+	else; 0
+	//if (_argv[0] == 1 && _argv[1] == 0) || (_argv[0] == 0 && _argv[1] == 1); 1
+	//else; 0
+}
+
+OnBackupMenu
+{
+	_files = FENUM("backups/")
+	if ARRAYSIZE(_files) == 0; MKDIR("backups/")
+	_display = ""
+	foreach _files; _file
+	{
+		_display += "\__q[OnLoadBackup,%(_file)]%(_file)\__q\n"
+	}
+	--
+	"\q[Save a backup,OnSaveBackup]\n\n\_q"
+	--
+	_display
 	
 }
+
+OnSaveBackup
+{
+	SAVEVAR("backups/%(year)-%(month)-%(day)_%(hour)-%(minute)-%(second).cfg")
+	OnBackupMenu
+}
+
+OnLoadBackup
+{
+	RESTOREVAR("backups/%(reference0)")
+	--
+	"Variables restored\x"
+	--
+	OnBackupMenu
+}
+
+
+
 
 
 
@@ -4220,683 +4411,430 @@ OnCreepyText
 
 //{ Debug menu
 // Hey look at this I can put whole menus and things into commented brackets so that I dont have to scroll past a million things :D This is brilliant. ...Hm, but it doesn't seem to work with the config menu... not sure why. That's a shame because I don't want to touch that one but it's so long to scroll past. May investigate this further
-Select.zidebug
+//UPDATE: it's because of apostrophes! If you have an apostrophe in a dialogue that is broken up by /s, then it screws up the folding!
+OnDebugMenu
 {
-	ZiDebug
+	"\0\_q\b2\*\![set,autoscroll,disable]"
+	--
+	"/
+	\![*]\q[Commu Ping Menu,OnCommuMenu]   \![*]\q[Weather Menu,OnWeatherMenu]\n\n/
+	love: \_a[OnChangeLove,Love]%(love)\_a\n/
+	LV: \_a[OnChangeLove,LV]%(LV)\_a\n\n/
+	Mode:\n"
+	--
+	_mode = ""
+	--
+	if nowmode == "Asleep"; {"\_a[OnDebugModeToggle,Asleep]Asleep\_a"; _mode = "set"}
+	else; "\__q[OnDebugModeToggle,Asleep]Asleep\__q"
+	--
+	"   "
+	--
+	if nowmode == "RYS"; {"\_a[OnDebugModeToggle,RYS]RYS\_a"; _mode = "set"}
+	else; "\__q[OnDebugModeToggle,RYS]RYS\__q"
+	--
+	"   "
+	--
+	if _mode == ""; "\_a[OnDebugModeToggle,Default]Default\_a"
+	else; "\__q[OnDebugModeToggle,Default]Default\__q"
+	--
+	"\n\nFlags:\n"
+	--
+	if SeenLV == 1; "\_a[OnDebugFlag,SeenLV,0]SeenLV\_a"
+	else; "\__q[OnDebugFlag,SeenLV,1]SeenLV\__q"
+	--
+	"   "
+	--
+	if LVCheck == 1; "\_a[OnDebugFlag,LVCheck,0]LVCheck\_a"
+	else; "\__q[OnDebugFlag,LVCheck,1]LVCheck\__q"
+	--
+	"   "
+	--
+	if broken == 1; "\_a[OnDebugFlag,broken,0]Broken\_a"
+	else; "\__q[OnDebugFlag,broken,1]Broken\__q"
+	--
+	"\n"
+	--
+	if knowaboutfamily == 1; "\_a[OnDebugFlag,knowaboutfamily,0]Know Family\_a"
+	else; "\__q[OnDebugFlag,knowaboutfamily,1]Know Family\__q"
+	--
+	"   "
+	--
+	if askedabouttimelines == 1; "\_a[OnDebugFlag,askedabouttimelines,0]Know Timelines\_a"
+	else; "\__q[OnDebugFlag,askedabouttimelines,1]Know Timelines\__q"
+	--
+	"\n\n"
+	--
+	"/
+	\![*]\q[Family Flags,OnDebugFamily]   \![*]\q[Timeline Flags,OnDebugTimeline]\n/
+	\![*]\q[Misc Flags,OnDebugMisc]/
+	"
+	--
+	"\n\n\![*]\q[Back to menu,BACKTOMENU]\e"
 }
 
-ZiDebug
+OnCommuMenu
 {
-	"\0\_q\b2Adjust Friendship\n\n[half]/
-	\![*]\q[High,MAXFRIEND]\n/
-	\![*]\q[Good,Goodfriend]\n/
-	\![*]\q[Mild,Mildfriend]\n/
-	\![*]\q[Neutral,Newfriend]\n/
-	\![*]\q[Low,EnemiesItIs]\n/
-	\![*]\q[Rock bottom,YoureNotWorthMyTime]\n\n[half]/
-	\![*]\q[LVCheck,IKnowEverythingAboutYou] %(LVCheck)\n/
-	\![*]\q[Broken,brokenskeleman] %(broken)\n/
-	\![*]\q[SeenLV,iseeyou] %(SeenLV)\n/
-	\![*]\q[Know Family,knowfamily] %(knowaboutfamily)\n\n[half]/
-	\![*]\q[Detailed Family Menu,selectfam]\n\n[half]/
-	\![*]\q[Know About Timelines,knowtimelines] %(askedabouttimelines)\n/
-	\![*]\q[Detailed Timeline Menu,selecttimelines]\n\n[half]/
-	Love: %(love) LV: %(LV)\n\n[half]/
- 	\![*]\q[Back to the menu,BACKTOMENU]\e"
-}
-
-Select.knowtimelines
-{
-	if askedabouttimelines == 0
+	_display = "\0\_q\b2\*\![set,autoscroll,disable]\_l[73]---Commu Pings---\n\n"
+	foreach ghostexlist; _ghost
 	{
-		askedabouttimelines = 1
+		_display += "\![*]\q[%(_ghost),OnStartTalking,%(_ghost)]\n"
+	}
+	_display += "\n\![*]\q[Custom ping,OnCustomPing]"
+	_display += "\n\n\![*]\q[Back to Debug,OnDebugMenu]"
+	_display
+}
+
+OnCommuPing
+{
+	res_reference0 = reference0
+	"\0\s[104]Hey,\w4 %(reference0).\e"
+}
+
+OnCustomPing
+{
+	"\![open,inputbox,OnCustomCommu,-1]"
+	--
+	"What do you want to send?"
+	--
+	"\n\n\![*]\q[Back to Debug,OnDebugMenu]"
+}
+
+OnCustomCommu
+{
+	reference0 = REPLACE(reference0,",","##")
+	_display = ""
+	foreach ghostexlist; _ghost
+	{
+		_display += "\![*]\q[%(_ghost),OnCustomPingSend,%(_ghost),%(reference0)]\n"
+	}
+	"\0\b2\*\![set,autoscroll,disable]\_qSend to which ghost?\n\n"
+	--
+	"\![*]\q[Back to Debug,OnDebugMenu]\n\n"
+	--
+	_display
+}
+
+OnCustomPingSend
+{
+	res_reference0 = reference0
+	reference1 = REPLACE(reference1,"##",",")
+	"%(reference1)"
+}
+
+OnWeatherMenu
+{
+	if reference0 == "testdialogue"; "%(OnWeatherFinish)\x"
+	--
+	"\_q\b2\*\_l[66]---Weather Station---\n\n"
+	--
+	"/
+	Temperature: \_a[OnEditWeather,temperature]%(tempurature[0])° | %(tempurature[1])°F | %(tempurature[2])°C\_a\n/
+	Feels like: %(feelslike[0])° | %(feelslike[1])°F | %(feelslike[2])°C\n/
+	Temp: %(temp)\n\n/
+	Humidity: \_a[OnEditWeather,humidity]%(humidity)%\_a\n/
+	Humid: %(humid)\n\n/
+	Weather: \_a[OnEditWeather,weather]%(weather)\_a\n\n/
+	Pollen: \_a[OnEditWeather,pollen]"
+	--
+	if pollen == ""; "None"
+	else; "Pollen Alert"
+	--
+	"\_a\n\n\![*]\q[Test weather dialogue,OnWeatherMenu,testdialogue]"
+	--
+	"\n\n\![*]\q[Back to Debug,OnDebugMenu]\e"
+}
+
+OnEditWeather
+{
+	"\0\_q\*"
+	--
+	if reference0 == "temperature"
+	{
+		"\![open,inputbox,OnTemperatureEdit,-1]Type a temperature"
+	}
+	elseif reference0 == "humidity"
+	{
+		"\![open,sliderinput,OnHumidityEdit,-1,%(humidity),0,100]Pick a humidity"
+	}
+	elseif reference0 == "pollen"
+	{
+		if pollen != "Local Pollen Alert"; pollen = "Local Pollen Alert"
+		else; pollen = ""
+		--
+		"\![raise,OnWeatherMenu]\e"
+	}
+	elseif reference0 == "typeedit"
+	{
+		weather = reference1
+		--
+		"\![raise,OnWeatherMenu]\e"
+	}
+	else //Weather type
+	{
+		"Pick a weather type\n\n/
+		\![*]\q[Clear,OnEditWeather,typeedit,Clear]  \![*]\q[Cloudy,OnEditWeather,typeedit,Cloudy]\n/
+		\![*]\q[Might Rain,OnEditWeather,typeedit,Showers]  \![*]\q[Raining,OnEditWeather,typeedit,Rain]\n/
+		\![*]\q[Snow,OnEditWeather,typeedit,Snow]  \![*]\q[Thunderstorm,OnEditWeather,typeedit,Thunderstorm]\n/
+		\![*]\q[Fog or Haze,OnEditWeather,typeedit,Fog]/
+		"
+	}
+	--
+	"\n\n\![*]\q[Back to weather menu,OnWeatherMenu]\e"
+}
+
+OnTemperatureEdit
+{
+	tempurature[1] = reference0
+	feelslike[1] = reference0
+	--
+	"\![raise,OnCelsius]"
+	--
+	if Degrees[0] == "Fahrenheit"
+	{
+		tempurature[0] = TOINT(tempurature[1])
+		feelslike[0] = TOINT(feelslike[1])
 	}
 	else
 	{
-		askedabouttimelines = 0
+		tempurature[0] = TOINT(tempurature[2])
+		feelslike[0] = TOINT(feelslike[2])
 	}
 	--
-	"%(ZiDebug)\e"
+	"\![raise,OnWeatherMenu]"
 }
 
-Select.MAXFRIEND
+OnHumidityEdit
 {
-	LV = 0
-	love = 150
-	"%(ZiDebug)\e"
+	humidity = reference0
+	OnWeatherMenu
 }
 
-Select.Goodfriend
+OnChangeLove
 {
-	LV = 0
-	love = 80
-	"%(ZiDebug)\e"
-}
-
-Select.Mildfriend
-{
-	LV = 0
-	love = 25
-	"%(ZiDebug)\e"
-}
-
-Select.Newfriend
-{
-	LV = 0
-	love = 0
-	"%(ZiDebug)\e"
-}
-
-Select.EnemiesItIs
-{
-	LV = 20
-	love = 0
-	"%(ZiDebug)\e"
-}
-
-Select.YoureNotWorthMyTime
-{
-	LV = 120
-	love = 0
-	"%(ZiDebug)\e"
-}
-
-Select.IKnowEverythingAboutYou
-{
-	if LVCheck == 0
+	if reference0 == "Love"
 	{
-		LVCheck = 1
+		"\![open,inputbox,OnLoveEdit,-1]Type a love value (currently: %(love))"
 	}
-	else
+	elseif reference0 == "LV"
 	{
-		LVCheck = 0
+		"\![open,inputbox,OnLVEdit,-1]Type a LV value (currently: %(LV))"
 	}
 	--
-	"%(ZiDebug)\e"
+	"\n\n\![*]\q[Back to Debug,OnDebugMenu]\e"
 }
 
-
-Select.brokenskeleman
+OnLoveEdit
 {
-	if broken == 0
-	{
-		broken = 1
-	}
-	else
-	{
-		broken = 0
-	}
+	love = TOINT(reference0)
+	OnDebugMenu
+}
+
+OnLVEdit
+{
+	LV = TOINT(reference0)
+	OnDebugMenu
+}
+
+OnDebugModeToggle
+{
+	nowmode = reference0
+	_restore = REPLACE(OnSurfaceRestore,"\e","")
+	"%(_restore)\![raise,OnDebugMenu]"
+}
+
+OnDebugFlag
+{
+	EVAL("%(reference0) = %(TOINT(reference1))")
+	OnDebugMenu
+}
+
+OnDebugFamily
+{
+	"\0\_q\b2\*\![set,autoscroll,disable]"
 	--
-	"%(ZiDebug)\e"
-}
-
-Select.knowfamily
-{
-	if knowaboutfamily == 0
-	{
-		knowaboutfamily = 1
-	}
-	else
-	{
-		knowaboutfamily = 0
-	}
+	"\_l[92]---Family---\n\n"
 	--
-	"%(ZiDebug)\e"
-}
-
-Select.iseeyou
-{
-	if SeenLV == 0
-	{
-		SeenLV = 1
-	}
-	else
-	{
-		SeenLV = 0
-	}
+	if askedaboutwd == 1; "\_a[OnDebugFamilyToggle,askedaboutwd,0]WD\_a"
+	else; "\__q[OnDebugFamilyToggle,askedaboutwd,1]WD\__q"
 	--
-	"%(ZiDebug)\e"
+	"   "
+	--
+	if askedaboutdings == 1; "\_a[OnDebugFamilyToggle,askedaboutdings,0]Dings\_a"
+	else; "\__q[OnDebugFamilyToggle,askedaboutdings,1]Dings\__q"
+	--
+	"   "
+	--
+	if askedaboutwings == 1; "\_a[OnDebugFamilyToggle,askedaboutwings,0]Wings\_a"
+	else; "\__q[OnDebugFamilyToggle,askedaboutwings,1]Wings\__q"
+	--
+	"   "
+	--
+	if askedaboutbarcode == 1; "\_a[OnDebugFamilyToggle,askedaboutbarcode,0]Barcode\_a"
+	else; "\__q[OnDebugFamilyToggle,askedaboutbarcode,1]Barcode\__q"
+	--
+	"\n"
+	--
+	if askedaboutbluejeans == 1; "\_a[OnDebugFamilyToggle,askedaboutbluejeans,0]Blue Jeans\_a"
+	else; "\__q[OnDebugFamilyToggle,askedaboutbluejeans,1]Blue Jeans\__q"
+	--
+	"   "
+	--
+	if askedaboutabbi == 1; "\_a[OnDebugFamilyToggle,askedaboutabbi,0]Abbi\_a"
+	else; "\__q[OnDebugFamilyToggle,askedaboutabbi,1]Abbi\__q"
+	--
+	"   "
+	--
+	if askedaboutrosie == 1; "\_a[OnDebugFamilyToggle,askedaboutrosie,0]Rosie\_a"
+	else; "\__q[OnDebugFamilyToggle,askedaboutrosie,1]Rosie\__q"
+	--
+	"   "
+	--
+	if askedaboutroman == 1; "\_a[OnDebugFamilyToggle,askedaboutroman,0]Roman\_a"
+	else; "\__q[OnDebugFamilyToggle,askedaboutroman,1]Roman\__q"
+	--
+	"\n"
+	--
+	if askedaboutcambria == 1; "\_a[OnDebugFamilyToggle,askedaboutcambria,0]Cambria\_a"
+	else; "\__q[OnDebugFamilyToggle,askedaboutcambria,1]Cambria\__q"
+	--
+	"   "
+	--
+	if askedabouttriton == 1; "\_a[OnDebugFamilyToggle,askedabouttriton,0]Triton\_a"
+	else; "\__q[OnDebugFamilyToggle,askedabouttriton,1]Triton\__q"
+	--
+	"   "
+	--
+	if askedaboutlulo == 1; "\_a[OnDebugFamilyToggle,askedaboutlulo,0]Lulo\_a"
+	else; "\__q[OnDebugFamilyToggle,askedaboutlulo,1]Lulo\__q"
+	--
+	"   "
+	--
+	if askedaboutazo == 1; "\_a[OnDebugFamilyToggle,askedaboutazo,0]Azo\_a"
+	else; "\__q[OnDebugFamilyToggle,askedaboutazo,1]Azo\__q"
+	--
+	"   "
+	--
+	if askedaboutsigil == 1; "\_a[OnDebugFamilyToggle,askedaboutsigil,0]Sigil\_a"
+	else; "\__q[OnDebugFamilyToggle,askedaboutsigil,1]Sigil\__q"
+	--
+	"\n"
+	--
+	if askedaboutelko == 1; "\_a[OnDebugFamilyToggle,askedaboutelko,0]Elko\_a"
+	else; "\__q[OnDebugFamilyToggle,askedaboutelko,1]Elko\__q"
+	--
+	"\n\n\![*]\q[Set all,OnDebugFamilyAll,1]   \![*]\q[Unset all,OnDebugFamilyAll,0]"
+	--
+	"\n\n\![*]\q[Back to Debug,OnDebugMenu]\e"
 }
 
-Select.areyousure
+OnDebugFamilyToggle
 {
-	"* (Are you sure? This will set all of your progress back to 0 and can't be undone.)\n\n\_q\![*]\q[Yes,reset] \![*]\q[No,cancelnodialogue]"
+	EVAL("%(reference0) = %(TOINT(reference1))")
+	OnDebugFamily
 }
 
-Select.reset
+OnDebugFamilyAll
 {
-	reset += 1
-	FirstVars
+	askedaboutwd = TOINT(reference0)
+	askedaboutdings = TOINT(reference0)
+	askedaboutwings = TOINT(reference0)
+	askedaboutbarcode = TOINT(reference0)
+	askedaboutbluejeans = TOINT(reference0)
+	askedaboutabbi = TOINT(reference0)
+	askedaboutrosie = TOINT(reference0)
+	askedaboutroman = TOINT(reference0)
+	askedaboutcambria = TOINT(reference0)
+	askedabouttriton = TOINT(reference0)
+	askedaboutlulo = TOINT(reference0)
+	askedaboutazo = TOINT(reference0)
+	askedaboutsigil = TOINT(reference0)
+	askedaboutelko = TOINT(reference0)
+	OnDebugFamily
+}
+
+OnDebugTimeline
+{
+	"\0\_q\b2\*\![set,autoscroll,disable]"
+	--
+	"\_l[85]---Timelines---\n/
+	\![*]\q[Kit,OnDebugTimelineToggle,knowaboutkit,%(knowaboutkit + 1)] - %(knowaboutkit)\n/
+	\![*]\q[Smol,OnDebugTimelineToggle,knowaboutsmol,%(knowaboutsmol + 1)] - %(knowaboutsmol)\n/
+	\![*]\q[Birdy,OnDebugTimelineToggle,knowaboutbirdy,%(knowaboutbirdy + 1)] - %(knowaboutbirdy)\n/
+	\![*]\q[Sorrel,OnDebugTimelineToggle,knowaboutsorrel,%(knowaboutsorrel + 1)] - %(knowaboutsorrel)\n/
+	\![*]\q[PMD,OnDebugTimelineToggle,knowaboutpmd,%(knowaboutpmd + 1)] - %(knowaboutpmd)\n/
+	\![*]\q[Bender,OnDebugTimelineToggle,knowaboutbender,%(knowaboutbender + 1)] - %(knowaboutbender)\n/
+	\![*]\q[Nine,OnDebugTimelineToggle,knowaboutnine,%(knowaboutnine + 1)] - %(knowaboutnine)\n/
+	\![*]\q[Serif,OnDebugTimelineToggle,knowaboutserif,%(knowaboutserif + 1)] - %(knowaboutserif)\n/
+	\![*]\q[Echo,OnDebugTimelineToggle,knowaboutecho,%(knowaboutecho + 1)] - %(knowaboutecho)\n/
+	\![*]\q[Ice,OnDebugTimelineToggle,knowaboutice,%(knowaboutice + 1)] - %(knowaboutice)\n/
+	\![*]\q[Omega,OnDebugTimelineToggle,knowaboutomega,%(knowaboutomega + 1)] - %(knowaboutomega)\n\n[half]/
+	Set all to: \q[0,OnDebugTimelineAllToggle,0]  \q[1,OnDebugTimelineAllToggle,1]  \q[2,OnDebugTimelineAllToggle,2]"
+	--
+	"\n\n\![*]\q[Back to Debug,OnDebugMenu]\e"
+}
+
+OnDebugTimelineToggle
+{
+	CVINT(reference1)
+	if reference1 > 2; reference1 = 0
+	EVAL("%(reference0) = %(reference1)")
+	OnDebugTimeline
+}
+
+OnDebugTimelineAllToggle
+{
+	knowaboutkit = TOINT(reference0)
+	knowaboutsmol = TOINT(reference0)
+	knowaboutbirdy = TOINT(reference0)
+	knowaboutsorrel = TOINT(reference0)
+	knowaboutpmd = TOINT(reference0)
+	knowaboutbender = TOINT(reference0)
+	knowaboutnine = TOINT(reference0)
+	knowaboutserif = TOINT(reference0)
+	knowaboutecho = TOINT(reference0)
+	knowaboutice = TOINT(reference0)
+	knowaboutomega = TOINT(reference0)
+	OnDebugTimeline
+}
+
+OnDebugMisc
+{
+	_display = ""
+	foreach MiscFlags; _flag
+	{
+		_display += "\![*]\__q[OnDebugRemoveFlag,%(_flag)]%(_flag)\__q\n\n[half]"
+	}
 	
-	"\![enter,passivemode]\0\s[1110]\w8Wh- \w8\w8 ...Oh,\w4 another timeline..?\w8\w8\n\n\s[1070].\w8\w8.\w8\w8.\w8\w8Or...\w8\w8 have I been here before..?\w8\w8\n\n\s[110]Oh,\w4\s[1020] uh,\w4 hi there.\w8\w8\s[106] Sorry,\w4 I hope I'm not bothering you.\w8\w8\s[107] I have a tendency to fall into random timelines,\w4 I'll probably disappear again soon.\w8\w8\s[208]\n\nLooks like...\w8\w8 a computer this time?\w8\w8\s[1070] Hmm...\w8\w8\n\n\s[104]Anyways,\w4 ah,\w4 my name's S.\w8\w8\s[0] What's yours?\![leave,passivemode]\![open,inputbox,OnNameTeach,-1]\e"
-}
-
-
-Select.selectfam
-{
-	SelectFam
-}
-
-SelectFam
-{
-	
-	"\b2\_q\![*]\q[WD,togglewd] %(askedaboutwd)\n/
-	\![*]\q[Dings,toggledings] %(askedaboutdings)\n/
-	\![*]\q[Wings,togglewings] %(askedaboutwings)\n/
-	\![*]\q[Barcode,togglebarcode] %(askedaboutbarcode)\n/
-	\![*]\q[Blue Jeans,togglebluejeans] %(askedaboutbluejeans)\n/
-	\![*]\q[Abbi,toggleabbi] %(askedaboutabbi)\n/
-	\![*]\q[Rosie,togglerosie] %(askedaboutrosie)\n/
-	\![*]\q[Roman,toggleroman] %(askedaboutroman)\n/
-	\![*]\q[Cambria,togglecambria] %(askedaboutcambria)\n/
-	\![*]\q[Triton,toggletriton] %(askedabouttriton)\n/
-	\![*]\q[Lulo,togglelulo] %(askedaboutlulo)\n/
-	\![*]\q[Azo,toggleazo] %(askedaboutazo)\n/
-	\![*]\q[Sigil,togglesigil] %(askedaboutsigil)\n/
-	\![*]\q[Elko,toggleelko] %(askedaboutelko)\n\n[half]/
-	\![*]\q[Set all to 0,valuereset]\n/
-	\![*]\q[Set all to 1,knowallfam]\n/
-	\![*]\q[The Split,splittoggle] %(thesplit)\n\n[half]/
-	\![*]\q[Back to Debug,zidebug]\e"
-	
-	
-}
-
-Select.togglewd
-{
-	if askedaboutwd == 0
-	{
-		askedaboutwd = 1
-		"%(SelectFam)"
-	}
-	else
-	{
-		askedaboutwd = 0
-		"%(SelectFam)"
-	}
-}
-
-Select.toggledings
-{
-	if askedaboutdings == 0
-	{
-		askedaboutdings = 1
-		"%(SelectFam)"
-	}
-	else
-	{
-		askedaboutdings = 0
-		"%(SelectFam)"
-	}
-}
-Select.togglewings
-{
-	if askedaboutwings == 0
-	{
-		askedaboutwings = 1
-		"%(SelectFam)"
-	}
-	else
-	{
-		askedaboutwings = 0
-		"%(SelectFam)"
-	}
-}
-Select.togglebarcode
-{
-	if askedaboutbarcode == 0
-	{
-		askedaboutbarcode = 1
-		"%(SelectFam)"
-	}
-	else
-	{
-		askedaboutbarcode = 0
-		"%(SelectFam)"
-	}
-}
-Select.togglebluejeans
-{
-	if askedaboutbluejeans == 0
-	{
-		askedaboutbluejeans = 1
-		"%(SelectFam)"
-	}
-	else
-	{
-		askedaboutbluejeans = 0
-		"%(SelectFam)"
-	}
-}
-Select.toggleabbi
-{
-	if askedaboutabbi == 0
-	{
-		askedaboutabbi = 1
-		"%(SelectFam)"
-	}
-	else
-	{
-		askedaboutabbi = 0
-		"%(SelectFam)"
-	}
-}
-Select.togglerosie
-{
-	if askedaboutrosie == 0
-	{
-		askedaboutrosie = 1
-		"%(SelectFam)"
-	}
-	else
-	{
-		askedaboutrosie = 0
-		"%(SelectFam)"
-	}
-}
-Select.toggleroman
-{
-	if askedaboutroman == 0
-	{
-		askedaboutroman = 1
-		"%(SelectFam)"
-	}
-	else
-	{
-		askedaboutroman = 0
-		"%(SelectFam)"
-	}
-}
-Select.togglecambria
-{
-	if askedaboutcambria == 0
-	{
-		askedaboutcambria = 1
-		"%(SelectFam)"
-	}
-	else
-	{
-		askedaboutcambria = 0
-		"%(SelectFam)"
-	}
-}
-Select.toggletriton
-{
-	if askedabouttriton == 0
-	{
-		askedabouttriton = 1
-		"%(SelectFam)"
-	}
-	else
-	{
-		askedabouttriton = 0
-		"%(SelectFam)"
-	}
-}
-Select.togglelulo
-{
-	if askedaboutlulo == 0
-	{
-		askedaboutlulo = 1
-		"%(SelectFam)"
-	}
-	else
-	{
-		askedaboutlulo = 0
-		"%(SelectFam)"
-	}
-}
-Select.toggleazo
-{
-	if askedaboutazo == 0
-	{
-		askedaboutazo = 1
-		"%(SelectFam)"
-	}
-	else
-	{
-		askedaboutazo = 0
-		"%(SelectFam)"
-	}
-}
-
-Select.togglesigil
-{
-	if askedaboutsigil == 0
-	{
-		askedaboutsigil = 1
-		"%(SelectFam)"
-	}
-	else
-	{
-		askedaboutsigil = 0
-		"%(SelectFam)"
-	}
-}
-
-Select.toggleelko
-{
-	if askedaboutelko == 0
-	{
-		askedaboutelko = 1
-		"%(SelectFam)"
-	}
-	else
-	{
-		askedaboutelko = 0
-		"%(SelectFam)"
-	}
-}
-
-Select.valuereset
-{
-	askedaboutwd = 0
-	askedaboutdings = 0
-	askedaboutwings = 0
-	askedaboutbarcode = 0
-	askedaboutbluejeans = 0
-	askedaboutabbi = 0
-	askedaboutrosie = 0
-	askedaboutroman = 0
-	askedaboutcambria = 0
-	askedabouttriton = 0
-	askedaboutlulo = 0
-	askedaboutazo = 0
-	askedaboutsigil = 0
-	askedaboutelko = 0
-	"%(SelectFam)"
-}
-
-Select.knowallfam
-{
-	askedaboutwd = 1
-	askedaboutdings = 1
-	askedaboutwings = 1
-	askedaboutbarcode = 1
-	askedaboutbluejeans = 1
-	askedaboutabbi = 1
-	askedaboutrosie = 1
-	askedaboutroman = 1
-	askedaboutcambria = 1
-	askedabouttriton = 1
-	askedaboutlulo = 1
-	askedaboutazo = 1
-	askedaboutsigil = 1
-	askedaboutelko = 1
-	"%(SelectFam)"
-}
-
-Select.splittoggle
-{
-	if thesplit == 0
-	{
-		thesplit = 1
-	}
-	else
-	{
-		thesplit = 0
-	}
+	"\0\_q\b2\*\![set,autoscroll,disable]"
 	--
-	"%(SelectFam)"
+	"\_l[83]---Misc Flags---\n\n/
+	\![*]\q[Add a flag,OnDebugAddFlag]\n/
+	\![*]\q[Back to Debug,OnDebugMenu]\n\n/
+	%(_display)/
+	"
+	--
+	"\n[half]\![*]\q[Back to Debug,OnDebugMenu]\e"
 }
 
-Select.selecttimelines
+OnDebugRemoveFlag
 {
-	PickTimelines
+	RemoveFlag(reference0)
+	OnDebugMisc
 }
 
-PickTimelines
+OnDebugAddFlag
 {
-	"\b2\_q/
-	\![*]\q[Kit,togglekit] %(knowaboutkit)\n/
-	\![*]\q[Smol,togglesmol] %(knowaboutsmol)\n/
-	\![*]\q[Birdy,togglebirdy] %(knowaboutbirdy)\n/
-	\![*]\q[Sorrel,togglesorrel] %(knowaboutsorrel)\n/
-	\![*]\q[PMD,togglepmd] %(knowaboutpmd)\n/
-	\![*]\q[Bender,togglebender] %(knowaboutbender)\n/
-	\![*]\q[Nine,togglenine] %(knowaboutnine)\n/
-	\![*]\q[Serif,toggleserif] %(knowaboutserif)\n/
-	\![*]\q[Echo,toggleecho] %(knowaboutecho)\n/
-	\![*]\q[Ice,toggleice] %(knowaboutice)\n/
-	\![*]\q[Omega,toggleomega] %(knowaboutomega)\n\n[half]/
-	\![*]\q[Set all to 0,noalltimelines]\n/
-	\![*]\q[Set all to 1,knowalltimelines]\n/
-	\![*]\q[Set all to 2,knowalltimelinesextra]\n/
-	\![*]\q[Back to Debug,zidebug]\e"
+	"\![open,inputbox,OnDebugFlagAdded,-1]\_q\*\b2"
+	--
+	"Type a flag"
+	--
+	"\n\n\![*]\q[Back to Misc Flags,OnDebugMisc]\e"
 }
 
-Select.togglekit
+OnDebugFlagAdded
 {
-	if knowaboutkit == 0
-	{
-		knowaboutkit = 1
-		"%(PickTimelines)"
-	}
-	elseif knowaboutkit == 1
-	{
-		knowaboutkit = 2
-		"%(PickTimelines)"
-	}
-	else
-	{
-		knowaboutkit = 0
-		"%(PickTimelines)"
-	}
-}
-
-Select.togglesmol
-{
-	if knowaboutsmol == 0
-	{
-		knowaboutsmol = 1
-		"%(PickTimelines)"
-	}
-
-	else
-	{
-		knowaboutsmol = 0
-		"%(PickTimelines)"
-	}
-}
-
-Select.togglebirdy
-{
-	if knowaboutbirdy == 0
-	{
-		knowaboutbirdy = 1
-		"%(PickTimelines)"
-	}
-	else
-	{
-		knowaboutbirdy = 0
-		"%(PickTimelines)"
-	}
-}
-
-Select.togglesorrel
-{
-	if knowaboutsorrel == 0
-	{
-		knowaboutsorrel = 1
-		"%(PickTimelines)"
-	}
-	else
-	{
-		knowaboutsorrel = 0
-		"%(PickTimelines)"
-	}
-}
-
-Select.togglepmd
-{
-	if knowaboutpmd == 0
-	{
-		knowaboutpmd = 1
-		"%(PickTimelines)"
-	}
-
-	else
-	{
-		knowaboutpmd = 0
-		"%(PickTimelines)"
-	}
-}
-
-Select.togglebender
-{
-	if knowaboutbender == 0
-	{
-		knowaboutbender = 1
-		"%(PickTimelines)"
-	}
-	else
-	{
-		knowaboutbender = 0
-		"%(PickTimelines)"
-	}
-}
-
-Select.togglenine
-{
-	if knowaboutnine == 0
-	{
-		knowaboutnine = 1
-		"%(PickTimelines)"
-	}
-	elseif knowaboutnine == 1
-	{
-		knowaboutnine = 2
-		"%(PickTimelines)"
-	}
-	else
-	{
-		knowaboutnine = 0
-		"%(PickTimelines)"
-	}
-}
-
-Select.toggleserif
-{
-	if knowaboutserif == 0
-	{
-		knowaboutserif = 1
-		"%(PickTimelines)"
-	}
-	elseif knowaboutserif == 1
-	{
-		knowaboutserif = 2
-		"%(PickTimelines)"
-	}
-	else
-	{
-		knowaboutserif = 0
-		"%(PickTimelines)"
-	}
-}
-
-Select.toggleecho
-{
-	if knowaboutecho == 0
-	{
-		knowaboutecho = 1
-		"%(PickTimelines)"
-	}
-	elseif knowaboutecho == 1
-	{
-		knowaboutecho = 2
-		"%(PickTimelines)"
-	}
-	else
-	{
-		knowaboutecho = 0
-		"%(PickTimelines)"
-	}
-}
-
-Select.toggleice
-{
-	if knowaboutice == 0
-	{
-		knowaboutice = 1
-		"%(PickTimelines)"
-	}
-	elseif knowaboutice == 1
-	{
-		knowaboutice = 2
-		"%(PickTimelines)"
-	}
-	else
-	{
-		knowaboutice = 0
-		"%(PickTimelines)"
-	}
-}
-
-Select.toggleomega
-{
-	if knowaboutomega == 0
-	{
-		knowaboutomega = 1
-		"%(PickTimelines)"
-	}
-	elseif knowaboutomega == 1
-	{
-		knowaboutomega = 2
-		"%(PickTimelines)"
-	}
-	else
-	{
-		knowaboutomega = 0
-		"%(PickTimelines)"
-	}
-}
-
-Select.noalltimelines
-{
-	knowaboutkit = 0
-	knowaboutsmol = 0
-	knowaboutbirdy = 0
-	knowaboutsorrel = 0
-	knowaboutpmd = 0
-	knowaboutbender = 0
-	knowaboutnine = 0
-	knowaboutserif = 0
-	knowaboutecho = 0
-	knowaboutice = 0
-	knowaboutomega = 0
-	"%(PickTimelines)"
-}
-
-Select.knowalltimelines
-{
-	knowaboutkit = 1
-	knowaboutsmol = 1
-	knowaboutbirdy = 1
-	knowaboutsorrel = 1
-	knowaboutpmd = 1
-	knowaboutbender = 1
-	knowaboutnine = 1
-	knowaboutserif = 1
-	knowaboutecho = 1
-	knowaboutice = 1
-	knowaboutomega = 1
-	"%(PickTimelines)"
-}
-
-Select.knowalltimelinesextra
-{
-	knowaboutkit = 2
-	knowaboutsmol = 2
-	knowaboutbirdy = 2
-	knowaboutsorrel = 2
-	knowaboutpmd = 2
-	knowaboutbender = 2
-	knowaboutnine = 2
-	knowaboutserif = 2
-	knowaboutecho = 2
-	knowaboutice = 2
-	knowaboutomega = 2
-	"%(PickTimelines)"
+	if !Flag(reference0); MiscFlags ,= reference0
+	OnDebugMisc
 }
 //} End of debug menu
 
@@ -5002,8 +4940,408 @@ OnLunarEclipseFound
 }
 
 
+OnGroupEvent
+{
+	if reference1 != "End"; GroupEvent = reference0
+	else; GroupEvent = "None"
+	
+	if reference1 == "Start"
+	{
+		if reference0 == "BBQ"
+		{
+			"BBQ has started!\e"
+		}
+	}
+	elseif reference1 == "End"
+	{
+		if reference0 == "BBQ"
+		{
+			"BBQ has ended!\e"
+		}
+	}
+	--
+	//if !(reference1 == "Ongoing" || reference1 == ""); "\n\nr0: %(reference0)\nr1: %(reference1)"
+}
 
 
 
+// OnGomiTest UGH WHY CANT I REPLICATE THE HANGING
+// {
+	// "%(FUNCTIONEX('gomi.dll', '-n'))\_w[1000]\![raise,OnGomiTest]"
+// }
 
 
+
+OnStartRPS
+{
+	"\0\s[0]Alright,\w4 here we go."
+	"\0\s[0]You're on!"
+	--
+	"\w8\w8 Rock,\w4 paper,\w4 scissors..."
+	--
+	"\_q\n\n/
+	\![*]\q[Rock,OnRPS,rock]\n/
+	\![*]\q[Paper,OnRPS,paper]\n/
+	\![*]\q[Scissors,OnRPS,scissors]\n\n/
+	\![*]\q[Nevermind,cancelnodialogue]\e"
+}
+
+OnRPS
+{
+	_userthrow = reference0 //Gets the user's pick
+	_ghostthrow = ANY("rock,paper,scissors") //Gets the ghost's pick. ANY chooses randomly from the comma-separated list
+	
+	//Figures out who won
+	_winlose = ""
+	if _userthrow == _ghostthrow; _winlose = "tie"
+	elseif _userthrow == "rock" && _ghostthrow == "scissors"; _winlose = "win"
+	elseif _userthrow == "paper" && _ghostthrow == "rock"; _winlose = "win"
+	elseif _userthrow == "scissors" && _ghostthrow == "paper"; _winlose = "win"
+	else; _winlose = "lose"
+	
+	//Figures out what surface the ghost should be using. Put your surfaces in here.
+	_pose = ""
+	if _winlose == "lose" //If the ghost won
+	{
+		if _ghostthrow == "rock"; _pose = "\s[0]"
+		elseif _ghostthrow == "paper"; _pose = "\s[0]"
+		else; _pose = "\s[0]"
+	}
+	else //If the user won or it's a tie. You can make another elseif if you want these to be different.
+	{
+		if _ghostthrow == "rock"; _pose = "\s[0]"
+		elseif _ghostthrow == "paper"; _pose = "\s[0]"
+		else; _pose = "\s[0]"
+	}
+	
+	//Gets the throw that won. If it's a draw, it'll default to the ghost, but that won't matter because it won't be called.
+	_winthrow = _ghostthrow
+	if _winlose == "win"; _winthrow = _userthrow
+	
+	//Phrases to add extra spice to dialogue
+	_winreason = ""
+	if _winthrow == "rock"; _winreason = "rock smashes scissors"
+	elseif _winthrow == "paper"; _winreason = "paper covers rock"
+	else; _winreason = "scissors cuts up paper"
+	
+	//Note - If you want to have the winreason or the throws be capitalized, you can use my capitalize function like so: %(Capitalize(_winreason))
+	"\0%(_pose)" //Sets up the appropriate pose
+	--
+	if _winlose == "win" //If the user won
+	{
+		"%(_userthrow) beats %(_ghostthrow),\w4 you got me!"
+		"Oh,\w4 %(_winreason),\w4 I lost!"
+	}
+	elseif _winlose == "tie" //If it was a tie
+	{
+		"Oh,\w4 we both picked %(_userthrow).\w8\w8 It's a draw."
+		"Oh,\w4 we picked the same thing,\w4 it's a draw."
+	}
+	else //If the ghost won
+	{
+		"%(_ghostthrow) beats %(_userthrow)!\w8\w8 I win!"
+		"Got you!\w8\w8 %(_winreason)!"
+	}
+	--
+	"\w8\w8 " //A pause and space between the dialogues. Remove or change if you like.
+	--
+	//You can use _winlose to make special comments for specific outcomes, if you want. It's 'win' if the user won, 'lose' if the ghost won, and 'tie' if it was a draw
+	"\s[0]Lets go again!"
+	"\s[0]Want to try again?"
+	if _winlose == "win"; "\s[0]Let's do another round,\w4 I want to beat you!"
+	--
+	"\_q\n\n/
+	\![*]\q[Another round!,OnStartRPS]\n"
+	--
+	"\![*]\q[I'm done,cancelnodialogue]\e"
+}
+
+
+//Written by Zichqec https://zichqec.github.io/s-the-skeleton/index.html
+
+//Put this in a menu somewhere (the ',,new' is important):
+//\![*]\q[Play Junior Jumble,OnJuniorJumble,,new]
+
+OnJuniorJumble
+{
+	if reference1 == "new" //reference1 so the user can't impact this with the input box
+	{
+		JumbleWord = TOLOWER(JumbleWords)
+		_jumbled = Shuffle(JumbleWord)
+	
+		"\*\![close,inputbox,OnJuniorJumble,-1]\![open,inputbox,OnJuniorJumble,-1]"
+		--
+		"Unscramble the word:"
+		--
+		"\n\n\f[height,+4]%(_jumbled)\f[default]"
+		--
+		"\_q\n\n\![*]\q[Give up,OnJuniorJumbleQuit]\e"
+	}
+	else //If the user put in a guess
+	{
+		if TOLOWER(reference0) == JumbleWord //Win
+		{
+			"That's correct! The word was %(JumbleWord)."
+		}
+		else //Lose
+		{
+			"Nope,\w4 not quite.\w8\w8 You put in %(reference0),\w4 the word was %(JumbleWord)."
+		}
+		--
+		"\_q\n\n\![*]\q[Another word,OnJuniorJumble,,new]\n\![*]\q[I'm done,cancelnodialogue]\e"
+		--
+		ERASEVAR("JumbleWord")
+	}
+}
+
+OnJuniorJumbleQuit
+{
+	"\![close,inputbox,OnJuniorJumble,-1]"
+	--
+	"Aw,\w4 ok.\w8\w8 The word was %(JumbleWord)."
+	--
+	"\_q\n\n\![*]\q[Another word,OnJuniorJumble,,new]\n\![*]\q[I'm done,cancelnodialogue]\e"
+	--
+	ERASEVAR("JumbleWord")
+}
+
+//Fill with words you want it to use - the more the better! Words themed around your ghost can be especially fun. If you also have my hangman game, you could change it so that they share the same pool of words.
+JumbleWords
+{
+	"Example"
+	"Nitroglycerin"
+	"Nyctophobia"
+	"Particular"
+	"Agriculture"
+	"Illustrate"
+	"Breakdown"
+	"Bulletin"
+	"Attention"
+	"Chemistry"
+	"Guarantee"
+	"Temperature"
+	"Diagram"
+	"Exploration"
+}
+
+//For this game to work, you'll also need the Shuffle function I wrote. If you already have it, then don't include this next bit of code. If not, you'll need this too. (You can use it for things besides Junior Jumble, just give it a word or array to scramble!)
+
+Shuffle
+{
+	_output = IARRAY
+	if GETTYPE(_argv) == 4 //If it's an array. General purpose arrays only!
+	{
+		while ARRAYSIZE(_argv) > 0
+		{
+			_rand = RAND(ARRAYSIZE(_argv))
+			_output ,= _argv[_rand]
+			_argv[_rand] = IARRAY
+		}
+	}
+	else //If it's anything else it'll be treated as a string
+	{
+		_argv = TOSTR(_argv)
+		while STRLEN(_argv) > 0
+		{
+			_rand = RAND(STRLEN(_argv))
+			_output += SUBSTR(_argv,_rand,1)
+			_argv = ERASE(_argv,_rand,1)
+		}
+	}
+	_output
+}
+
+
+TestOutput : nonoverlap
+{
+	parallel PoolA
+	if love > 100; parallel PoolB
+}
+
+PoolA : array
+{
+	"0 Coffee"
+	"1 Tea"
+	"2 Juice"
+	//parallel GetDialogue("PoolAA","%(thesplit == 1)")
+}
+
+PoolAA : array
+{
+	"00 Creamer"
+	"11 Sugar"
+	"22 Tasty"
+}
+
+PoolB : array
+{
+	"3 Rugs"
+	"4 Carpet"
+	"5 Fish"
+}
+
+PoolC : array
+{
+	"6 Brains"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"7 Zombies"
+	"8 Cartoons"
+}
+
+TestTalk : nonoverlap
+{
+    // parallel GetDialogue("PoolA","%(booting == 0)")
+    // parallel GetDialogue("PoolB","%(SHIORI3FW.BalloonName == 'Purple Soul')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+    // parallel GetDialogue("PoolC","%(username == 'Zi')")
+}
+
+Pool
+{
+    _output = IARRAY
+	_amt = 1; if _argv[2] != ""; _amt = TOINT(_argv[2])
+    if TOINT(_argv[1])
+    {
+		_targetarray = IARRAY
+        EVAL("_targetarray = %(_argv[0])")
+        foreach _targetarray; _dialogue
+        {
+			for _i = 0; _i < _amt; _i++; {_output ,= _dialogue}
+        }
+    }
+    _output
+}
+
+On2dTest
+{
+	somearray = ("Something,Somethingelse,Blah","Another thing!!,Red,Blue,Whatever")
+	2D_ASSIGN("Only positivity here!!!","somearray[1]","[3]")
+	LOGGING(somearray)
+}
+
+2D_ASSIGN //No local arrays, global only!
+{
+    EVAL("_array = %(_argv[1])")
+    EVAL("_array%(_argv[2]) = '%(_argv[0])'")
+    EVAL("%(_argv[1]) = _array")
+}

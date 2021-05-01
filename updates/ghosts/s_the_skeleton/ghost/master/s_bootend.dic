@@ -33,12 +33,12 @@ OnBoot
 		}
 		else
 		{
-			"\1\s[-1]\0\s[-1]\RYS\s[2790]\w8\w2"
+			"\0\s[-1]\1\s[-1]\RYS\s[2790]\w8\w2"
 		}
 	}
 	else
 	{
-		"\0\s[0]\1\s[-1]\0"
+		"\0\s[-1]\1\s[-1]\0"
 	}
 	--
 	//Hourcheck //[Zi]I don't know if this'll work.... but uh, I'm just gonna hope for the best //Later edit why did I do this? This does nothing
@@ -56,18 +56,11 @@ OnBoot
 			nowmode = "Default"
 			if (dayslot == "8month 25day" || ((hour == 8 || hour == 20) && minute == 25)) && LVCheck == 1 && RYSprogress == 0 //If it's August 25th, or if the time is 8:25 AM or PM
 			{
-				if RYSprogress == 0
-				{
-					nowmode = "RYS"
-					RYSprogress = 1
-					RYSboots = 1
-					RYSunlockDate = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)")
-					"\0\s[-1]\RYS\s[2790].\w8.\w8.\w8.\w8\s[2015]!\w8\w8\w8\n\n\s[2004]* (This isn't S...\w8\w8 is it?)\w8\w8\w8\n\n\s[2007]* (He isn't saying anything...)\e"
-				}
-				else
-				{
-					"\0\s[1122]\w6\s[103]Hey there,\w4 %(username).\w8\s[1010] Did you call me here to wish me a happy birthday?\e"
-				}
+				RYSUnlockSequence
+			}
+			elseif dayslot == "8month 25day"
+			{
+				SBirthday
 			}
 			elseif _timesince < 0
 			{
@@ -101,13 +94,13 @@ OnBoot
 			}
 			elseif day == 1
 			{
-				"\0\s[1122]\w6\s[104]Happy %(displaymonth),\w4 %(username)!\e"
-				"\0\s[1122]\w6\s[103]Hey %(username),\w4\s[104] happy %(displaymonth)!\e"
+				"\0\s[1122]\w6\s[104]Happy %(nowmonth),\w4 %(username)!\e"
+				"\0\s[1122]\w6\s[103]Hey %(username),\w4\s[104] happy %(nowmonth)!\e"
 			}
 			elseif "Dusty" _in_ ghostexlist && talkedtoDusty == 1
 			{
 				res_reference0 = "Dusty"
-				
+				nowmode = "Default" //TODO THIS IS A BANDAID PATCH, COULD DEFINITELY STAND TO DO THIS BETTER
 				"\0\s[1122]\w6\s[104]Hey there,\w4 %(username).\w8\w8\s[205] Hey,\w4 Dusty.\e SBootDusty1"
 			}
 			//Note to self for later, I don't feel like adding these now but I probably will later: Triplets Bday 10/12 (Barcode should have a different one... I'll have to pick an arbitrary one), Blue Jeans 8/11, Rosie 4/27, Roman 12/13, Cambria 3/10, Triton 3/23, Lulo 2/26, Azo 3/13, Sigil is technically 9/28... but I may need to bump that around to match with Azo. Or bump Azo around. One of those... Sigil should be 9-10 months later. Elko 2/26. Maaan these are like all clumped up around the same months XD Do I want to spread them out? Mm.... I'll decide later.
@@ -131,6 +124,19 @@ OnBoot
 	
 }
 
+RYSUnlockSequence
+{
+	nowmode = "RYS"
+	RYSprogress = 1
+	RYSboots = 1
+	RYSunlockDate = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)")
+	"\0\s[-1]\RYS\s[2790].\w8.\w8.\w8.\w8\s[2015]!\w8\w8\w8\n\n\s[2004]* (This isn't S...\w8\w8 is it?)\w8\w8\w8\n\n\s[2007]* (He isn't saying anything...)\e"
+}
+
+SBirthday
+{
+	"\0\s[1122]\w6\s[103]Hey there,\w4 %(username).\w8\w8\s[104] Did you call me here to wish me a happy birthday?\e"
+}
 
 normalboottalk //Ergh, this is a mess. For now, he'll only acknowledge the time if you're being nice to him. Might change later.
 {
@@ -154,12 +160,15 @@ normalboottalk //Ergh, this is a mess. For now, he'll only acknowledge the time 
 		if LV == 0 && love >= 20
 		{
 			{
-				"\0\s[1122]\w6\s[103]Heya,\w4 %(username).\w8 It's good to see you again.\e"
-				"\0\s[1122]\w6\s[0]Heya.\w8 How's it going?\e"
+				"\0\s[1122]\w6\s[103]Heya,\w4 %(username).\w8\w8 It's good to see you again.\e"
+				"\0\s[1122]\w6\s[0]Heya.\w8\w8 How's it going?\e"
 				"\0\s[1122]\w6\s[104]Hey there %(username).\w8\w8\s[103] How's your day been?\e"
-				"\0\s[1122]\w6\s[104]Hey %(username),\w4 having a good %(displayweekday)?\e"
+				"\0\s[1122]\w6\s[104]Hey %(username),\w4 having a good %(nowday)?\e"
 				"\0\s[1122]\w6\s[104]Hey %(username),\w4 how's it going?\e"
-				"\0\s[1122]\w6\s[103]Good to see you,\w4 %(username).\w8\w8\s[104] How's your %(displayweekday) going?\e"
+				"\0\s[1122]\w6\s[103]Good to see you,\w4 %(username).\w8\w8\s[104] How's your %(nowday) going?\e"
+				"\0\s[1122]\w6\s[0]Oh,\w4 hey there.\w8\w8\s[205] Another day on your desktop,\w4 huh?\w8\w8\s[104] Anything fun going on?\e"
+				"\0\s[1122]\w6\s[110]Oh!\w8\w8\s[104] Hey %(username).\w8\w8\s[107] I think you just saved me from a prank...\w8\w8\s[106] Guess I'll lay low here for a while.\w8\w8\n\n\s[0]What're you up to today?\e"
+				"\0\s[1122]\w6\s[111]Ah,\w4 I had a feeling you might call me here.\w8\w8\s[104] Hey,\w4 %(username).\w8\w8 How've you been?\e"
 				
 				{
 					"\s[1110]\w6"
@@ -172,14 +181,31 @@ normalboottalk //Ergh, this is a mess. For now, he'll only acknowledge the time 
 					"I know-"
 					"Maybe I-"
 					"How about-"
+					"I don't know-"
+					"She was planning to-"
+					"Dad said he would-"
+					"You never know when-"
+					"True,\w4 but-"
+					"I was going to make %(bakedgoods)-"
 					--
-					"\n\n\w8\w8\s[110]Oh,\w8\s[104] hey there %(username).\w8\w8\s[0] "
-					"\n\n\w8\w8\s[110]Oh,\w8\s[104] hi %(username).\w8\w8\s[0] "
-					"\n\n\w8\w8\s[110]Oh,\w8\s[104] good to see you %(username).\w8\w8\s[0] "
+					"\n\n\w8\w8\s[110]"
+					--
+					"Oh,\w8\s[104] hey there %(username)."
+					"Oh,\w8\s[104] hi %(username)."
+					"Oh,\w8\s[104] good to see you %(username)."
+					"Oh,\w8\s[107] uh,\w4 I guess we can talk about that later."
+					"Oh,\w8\s[107] sorry %(username),\w4 you caught me in the middle of something."
+					--
+					" \w8\w8\s[0]"
+					" \w8\w8\s[111]"
+					" \w8\w8\s[103]"
+					" \w8\w8\s[104]"
 					--
 					"What's up?\e"
 					"How's it going?\e"
 					"How's your day been?\e"
+					"What did you need?\e"
+					"%(nowday) treating you well?\e"
 				}
 			}
 			
@@ -197,7 +223,7 @@ normalboottalk //Ergh, this is a mess. For now, he'll only acknowledge the time 
 			if timeslot == "morning" //9-11
 			{
 				"\0\s[1122]\w6\s[103]Hi,\w4 %(username).\w8 How's your morning going?\e"
-				"\0\s[1122]\w6\s[0]Hey %(username).\w8\w8\s[104] Happy %(displayweekday).\e"
+				"\0\s[1122]\w6\s[0]Hey %(username).\w8\w8\s[104] Happy %(nowday).\e"
 				"\0\s[1122]\w6\s[103]Good morning,\w4 %(username)!\e"
 				if nowshell == "pink_apron"
 				{
@@ -218,24 +244,24 @@ normalboottalk //Ergh, this is a mess. For now, he'll only acknowledge the time 
 			}
 			if timeslot == "afternoon" //3-5
 			{
-				"\0\s[1110]\w6\s[207]* (He yawns.)\n\n\w8\w8\s[106]Oh,\w4 hi there %(username).\w8\s[107] Sorry,\w4 I was just about to take a nap.\e"
+				"\0\s[1110]\w6\s[207]* (He yawns.)\n\n\w8\w8\s[106]Oh,\w4 hi there %(username).\w8\w8\s[107] Sorry,\w4 I was just about to take a nap.\e"
 				"\0\s[1122]\w6\s[110]Oh,\w4\s[104] afternoon,\w4 %(username).\e"
 				"\0\s[1127]\w6\s[1300].\w2.\w2.\w2%(mumble)...\w8\w8\n\n* (Looks like he's taking a nap...)\w8\w8\n\n* (Do you want to send him home?)%(BootSleepMenu)\*\t\e:eval=nowmode='Asleep'"
 			}
 			if timeslot == "evening" //6-8
 			{
-				"\0\s[1110]\w6\s[207]* (He yawns.)\n\n\w8\w8\s[0]Oh,\w4 hey there %(username).\w8 Is it getting late where you're at?\w8\s[107] The sun's already set at home.\e"
-				"\0\s[1122]\w6\s[104]Hey,\w4 %(username).\w8\w8\s[0] Spending a relaxing %(displayweekday) evening at home?\e"
+				"\0\s[1110]\w6\s[207]* (He yawns.)\n\n\w8\w8\s[0]Oh,\w4 hey there %(username).\w8\w8 Is it getting late where you're at?\w8\w8\s[107] The sun's already set at home.\e"
+				"\0\s[1122]\w6\s[104]Hey,\w4 %(username).\w8\w8\s[0] Spending a relaxing %(nowday) evening at home?\e"
 			}
 			if timeslot == "latenight" //9-12
 			{
-				"\0\s[1122]\w6\s[109]* (He seems confused for a moment.)\n\n\w8\w8\s[1100]Oh..!\w8\s[107] Hey,\w4 %(username).\w8\s[101] Isn't it late there..?\w8\w8\n\n\s[207]* (He yawns slowly.)\w8\w8\w8\n\n\s[107]I was just on my way to bed,\s[0] but I'm here if you need me.\e" //replaceframe could use sleepy with eyes open
+				"\0\s[1122]\w6\s[109]* (He seems confused for a moment.)\n\n\w8\w8\s[1100]Oh..!\w8\s[107] Hey,\w4 %(username).\w8\w8\s[101] Isn't it late there..?\w8\w8\n\n\s[207]* (He yawns slowly.)\w8\w8\w8\n\n\s[107]I was just on my way to bed,\s[0] but I'm here if you need me.\e"
 				"\0\s[1122]\w6\s[110]Ah-\w8\w8\s[106] Oh,\w4 hey %(username).\w8\w8\s[104] Planning to stay up a while?\e"
 				"\0\s[1127]\w6\s[1300].\w2.\w2.\w2%(mumble)...\w8\w8\n\n* (Looks like he's already asleep...)\w8\w8\n\n* (Do you want to send him home?)%(BootSleepMenu)\*\t\e:eval=nowmode='Asleep'"
 			}
 			if timeslot == "midnight" //1-4
 			{
-				"\0\s[1122]\w6\s[108]Ah...\w8\w8 Hey there,\w4 %(username).\w8\s[303] You can't sleep either?\e"
+				"\0\s[1122]\w6\s[108]Ah...\w8\w8 Hey there,\w4 %(username).\w8\w8\s[303] You can't sleep either?\e"
 				"\0\s[1122]\w6\s[109]Hm?\w8\w8\s[110] Ah-\w8\s[104] hey %(username).\w8\w8\s[101] You're up late.\e"
 				"\0\s[1122]\w6\s[109]...Hm?\w8\w8\s[108] Oh-\w8\s[109] Hey %(username).\w8\w8\w8\n\n\s[204]Mmm...\w8\w8\s[202] I'm glad you've brought me here,\w4 because I wasn't getting any sleep at home.\e"
 				"\0\s[1127]\w6\s[1300].\w2.\w2.\w2%(mumble)...\w8\w8\n\n* (Looks like he's asleep...)\w8\w8\n\n* (Do you want to send him home?)%(BootSleepMenu)\*\t\e:eval=nowmode='Asleep'"
@@ -246,7 +272,6 @@ normalboottalk //Ergh, this is a mess. For now, he'll only acknowledge the time 
 		{
 			if LVCheck == 1 //know his secrets
 			{
-		
 				if broken == 1 //broken him down all the way
 				{
 					"\s[1126]\w6"
@@ -269,7 +294,7 @@ normalboottalk //Ergh, this is a mess. For now, he'll only acknowledge the time 
 					"\s[1123]\w6\s[404]Ugh,\w4 not this again.\e"
 					"\s[1123]\w6\s[403]What do you want this time?\e"
 				}
-				elseif LV >=31 //You've been really mean and he hates you a lot
+				elseif LV >= 31 //You've been really mean and he hates you a lot
 				{
 					"\s[1123]\w6\s[403]What,\w4 still not tired of punching me?\e"
 					"\s[1124]\w6\s[411]I'm beginning to think you have nothing better to do with your time.\e"
@@ -292,7 +317,7 @@ BootSleepMenu
 {
 	"\n\n\![*]\q[Keep him here,bootkeep]\n\![*]\q[Send him home,boothome]"
 	--
-	if ghostexlist > 0
+	if ghostexcount < 1
 	{
 		"\n\![*]\q[Switch to someone else,bootswitch]"
 	}
@@ -359,10 +384,11 @@ OnClose
 					"\0\s[1010]See you later,\w4 %(username)!"
 					"\0\s[104]Take care,\w4 %(username)!"
 					"\0\s[102]See you around,\w4 %(username)."
+					
 					if hour <= 18
 					{
 						"\0\s[104]Have a good day,\w4 %(username)!"
-						"\0\s[103]Have a good %(displayweekday),\w4 %(username)!"
+						"\0\s[103]Have a good %(nowday),\w4 %(username)!"
 					}
 					if hour > 18
 					{
@@ -496,7 +522,7 @@ OnClose
 					}
 					else
 					{
-						"\0\s[110]Oh,\w4 did you call me here by accident?\w8\s[1010] Alright,\w4 well,\w4 have a good day anyways!"
+						"\0\s[110]Oh,\w4 did you call me here by accident?\w4\w8\s[104] Alright,\w4 well,\w4 have a good day anyways!"
 					}
 					
 				}
@@ -514,7 +540,6 @@ OnClose
 			{
 				if LVCheck == 1 //know his secrets
 				{
-
 						if broken == 1 //broken him down all the way
 						{
 							"\s[1550]* (You shove him out,\w8\s[-1] you didn't want him here anyways.)\w8\w8"
@@ -523,7 +548,6 @@ OnClose
 						{
 							"\s[516]* (He leaves quickly,\w4\s[-1] seems he wasn't eager to stick around anyways.)"
 						}
-					
 				}
 				else //Just mean for no reason
 				{
@@ -575,6 +599,7 @@ OnWindowStateRestore
 			"\0\s[301]Ah..!\w8\n\n* (He's hyperventilating a little.)\n\n\w8\w8\w8\w8\s[200]Wh-what was that??\w8\w8\s[201] Uh,\w4 %(username),\w4 I'm uh-\w8\w8\s[300] I'm a bit scared of the dark.\w8 And uh...\w8\w8\s[301] Tight spaces.\w8\w8\n\n\s[303]Can we not do that again?\w8 Please?\e" //replaceframe MAYBE some fear frames
 			"\0\s[301]* (He's shuddering violently.)\w8\w8\n\n* (...Maybe you should try not to minimize him.)\w8\w8\n\n\s[302]* (Deep breaths seem to be calming him,\w4 at least.)\e"
 			"\0\s[301]* (His bones are rattling fearfully.)\w8\w8\n\n\s[206]Wh-what was that..?\w8\w8\s[201] %(username),\w4 can you not do that?\w8\w8\s[303] I don't do so well with cramped spaces...\w8\w8\s[300] Or uh,\w4 dark spaces...\e"
+			"\0\s[301]Hhhh-...\w8\w8\w8\w8\n\n\s[206]%(username)..?\w8\w8\w8\s[502] Everything went dark,\w4 I...\w8\w8 I wasn't sure if...\w8\w8\w8\n\n\s[500]* (He shudders.)\e"
 		}
 		else
 		{
@@ -801,18 +826,11 @@ OnGhostChanged
 			{
 				if (dayslot == "8month 25day" || ((hour == 8 || hour == 20) && minute == 25)) && LVCheck == 1 && RYSprogress == 0 //If it's August 25th, or if the time is 8:25 AM or PM
 				{
-					if RYSprogress == 0
-					{
-						nowmode = "RYS"
-						RYSprogress = 1
-						RYSboots = 1
-						RYSunlockDate = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)")
-						"\0\s[-1]\RYS\s[2790].\w8.\w8.\w8.\w8\s[2015]!\w8\w8\w8\n\n\s[2004]* (This isn't S...\w8\w8 is it?)\w8\w8\w8\n\n\s[2007]* (He isn't saying anything...)\e"
-					}
-					else
-					{
-						"\0\s[1122]\w6\s[103]Hey there,\w4 %(username).\w8\s[1010] Did you call me here to wish me a happy birthday?\e"
-					}
+					RYSUnlockSequence
+				}
+				elseif dayslot == "8month 25day"
+				{
+					SBirthday
 				}
 				else
 				{
@@ -845,7 +863,8 @@ OnShellChanging
 	--
 	if nowmode == "RYS"
 	{
-		"\RYS\s[2006]* (He shuffles away\s[-1] obediently to change clothing.)\w8\e"
+		//TODO THERE WAS A \s[-1] IN THE MIDDLE HERE BUT I HAD TO GET RID OF IT FOR NOW
+		"\RYS\s[2006]* (He shuffles away obediently to change clothing.)\w8\e"
 	}
 	elseif holdingObsidian == 1
 	{
@@ -866,11 +885,11 @@ OnShellChanging
 			{
 				"\0\s[106]Uh...\w8\w8 I'm already wearing that,\w4 but ok I guess?\w8\e"
 			}
-	/*		elseif reference0 == "red_hoodie"
-			{
-			""
-			}*/ //[Zi]I can't think of anything to have him say about his hoodie at the moment..... so I'm just going to comment this out. If I think of something later I'll add it back in.
-			elseif reference0 == "Pink Apron"
+			// elseif reference0 == "red_hoodie"
+			// {
+			// ""
+			// } //[Zi]I can't think of anything to have him say about his hoodie at the moment..... so I'm just going to comment this out. If I think of something later I'll add it back in.
+			/*else*/if reference0 == "Pink Apron"
 			{
 				"\0\s[208]Do you smell cookies?\w8\e"
 			}
@@ -904,11 +923,6 @@ OnShellChanging
 	}
 }
  
- 
-//--OnShellChanged
-
-//The sister to the above, this is the dialogue after you've changed the shell.
- 
 OnShellChanged
 {
 	if booting != 2
@@ -916,11 +930,7 @@ OnShellChanged
 		tempshell = reference0 //storing the shell name in tempshell
 		tempshell = TOLOWER(tempshell) //changes it to lowercase
 		tempshell = REPLACE(tempshell," ","_") //replace spaces with underscores. This should work as long as my naming schemes never change |D
-		if nowmode == "RYS"
-		{
-
-		}
-		elseif holdingObsidian == 1
+		if holdingObsidian == 1
 		{
 			if tempshell == nowshell
 			{
@@ -946,8 +956,10 @@ OnShellChanged
 				}
 			}
 		}
+		--
 		switchingtoshell = reference0
 		shellswitching = 1
+		
 		if switchingtoshell == "Red Hoodie" //Again, this is the name of your shell as you put in the descript.txt file for that shell.
 		{
 			nowshell = "red_hoodie"
@@ -965,9 +977,11 @@ OnShellChanged
 			nowshell = "Other"
 		}
 		--
-		"\![move,--X=%(shellchangexcoord),--Y=%(shellchangeycoord),--base=primaryscreen]" //Here's the move command, this puts him to the spot he was before you switched shells
+		"\0\![move,--X=%(shellchangexcoord),--Y=%(shellchangeycoord),--base=primaryscreen]" //Here's the move command, this puts him to the spot he was before you switched shells
 		--
-		"\![change,balloon,%(nowballoon)]\![raise,OnShellChangeDialogue]"  //The balloon needs to switch when the shell does, because of the kero balloon choice markers. This bit of code makes the balloons be the same even if youre switching around shells, but it means the dialogue has to be put below in OnBalloonChange...
+		//"\![change,balloon,%(nowballoon)]"
+		--
+		OnShellChangeDialogue  //The balloon needs to switch when the shell does, because of the kero balloon choice markers. This bit of code makes the balloons be the same even if youre switching around shells, but it means the dialogue has to be put below in OnBalloonChange...
 	}
 	else
 	{
@@ -985,12 +999,10 @@ OnBalloonChange
 {
 	nowballoon = reference0
 	
-	--
 	if shellswitching == 1 //Here's the dialogue for when you've switched shells, so that it doesnt get interrupted.
 	{
-		"\![raise,OnShellChangeDialogue]"
+		OnShellChangeDialogue
 	}
-	
 }
 
 OnShellChangeDialogue
@@ -1129,7 +1141,7 @@ BootVars
 	lastinteracted = 0
 	hugged = 0
 	PollenAlert = 0
-	todaysingredients = ""
+	todaysingredients = IARRAY
 	CameBack = 0
 	askedalready = 1
 	currentlydrinking = 0
@@ -1156,6 +1168,9 @@ BootVars
 	dreams = RAND(4)
 	recentnightmare = 0
 	commuTimer = 0
+	HydrateStats = IARRAY
+	RemoveFlag("Said daily dialogue")
+	RemoveFlag("Day rolled over")
 	
 	if nowmode == "RYS"
 	{
@@ -1171,6 +1186,16 @@ BootVars
 //Variables set after updates, because I have no self control
 OnSetUpdateVariables
 {
+	if UpdatesInstalled[1] != "1.4.0"
+	{
+		UpdatesInstalled[1] = "1.4.0"
+		
+		WindowHighScore = 0
+		RYSBoops = 0
+		MetGhosts = IARRAY
+		RYSMetGhosts = IARRAY
+		MiscFlags = IARRAY
+	}
 	if UpdatesInstalled[0] != "1.3.2"
 	{
 		UpdatesInstalled[0] = "1.3.2"
@@ -1214,7 +1239,7 @@ OnSetUpdateVariables
 		Update1p2p0 = "1.2.0"
 		totalboops = 0
 		weatherquiet = 0
-		todaysingredients = ""
+		todaysingredients = IARRAY //Changed this to an array from a string in 1.4.0
 		totalwaters = 0
 		currentlydrinking = 0
 		switchingtoshell = ""
@@ -1325,9 +1350,12 @@ FirstVars
 	talktime = "5 minutes" //How the value aitalkinterval will display in the config menu.
 	deleteshitai = "OFF" //Sets whether or not the user can uninstall the ghost to "OFF". The user can change it later in the config menu (see menu.dic). 
 	nowshell = "red_hoodie" //This is for a special if check in aitalk.dic to see what shell the ghost is using. You should use the name of your default shell folder here.
+	
+	presuffix = "undefine" //Added 1.4.0...
 	himher = "them"
 	heshe = "they"
 	hisher = "their"
+	
 	LV = 0
 	love = 0
 	SeenLV = 0
@@ -1435,7 +1463,7 @@ FirstVars
 	Update1p2p0 = "1.2.0"	
 	totalboops = 0
 	weatherquiet = 0
-	todaysingredients = ""
+	todaysingredients = IARRAY //Changed from a string to an array in 1.4.0
 	totalwaters = 0
 	currentlydrinking = 0
 	switchingtoshell = ""
@@ -1510,6 +1538,13 @@ FirstVars
 	tempurature[2] = 0
 	//---1.3.2---
 	commuTimer = 0
+	
+	//---1.4.0---
+	WindowHighScore = 0
+	RYSBoops = 0
+	MetGhosts = IARRAY
+	RYSMetGhosts = IARRAY
+	MiscFlags = IARRAY
 	
 	updateavailable = 0
 	booting = 1 //This is here so that when you tell him your name the first time, he'll say the appropriate line.

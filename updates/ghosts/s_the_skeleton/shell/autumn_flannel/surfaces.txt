@@ -14,18 +14,6 @@ collisionex4,Face,polygon,114,48,103,50,95,56,90,68,92,76,91,82,92,89,100,94,118
 0pattern2,3002,10,overlayfast,0,0
 0pattern3,-1,3,overlay,0,0
 
-10interval,never
-10pattern0,0,10,overlay,10,10
-10pattern1,0,20,overlay,20,20
-10pattern2,0,20,overlay,30,30
-10pattern3,0,20,overlay,40,40
-
-11interval,never
-11pattern0,510,10,overlay,-10,-10
-11pattern1,510,20,overlay,-20,-20
-11pattern2,510,20,overlay,-30,-30
-11pattern3,510,20,overlay,-40,-40
-
 9000interval,bind
 9000pattern0,9000,0,overlay,0,0
 }
@@ -1232,14 +1220,6 @@ element0,overlay,surface1110.png,0,0
 0interval,runonce
 0pattern0,1111,10,replace,0,0
 0pattern1,1113,10,replace,0,0
-0pattern2,0,13,replace,0,0
-
-1interval,random,4
-1pattern0,-1,10,overlay,0,0
-1pattern1,3001,5,overlayfast,0,0
-1pattern2,3002,10,overlayfast,0,0
-1pattern3,-1,3,overlay,0,0
-
 }
 
 surface1123 //Appear Mad Left
@@ -1248,14 +1228,6 @@ element0,overlay,surface1110.png,0,0
 0interval,runonce
 0pattern0,1111,10,replace,0,0
 0pattern1,1114,10,replace,0,0
-0pattern2,402,13,replace,0,0
-
-1interval,random,4
-1pattern0,-1,10,overlay,0,0
-1pattern1,3006,5,overlayfast,0,0
-1pattern2,3007,10,overlayfast,0,0
-1pattern3,-1,3,overlay,0,0
-
 }
 
 surface1124 //Appear Mad Forward
@@ -1264,13 +1236,6 @@ element0,overlay,surface1110.png,0,0
 0interval,runonce
 0pattern0,1111,10,replace,0,0
 0pattern1,1115,10,replace,0,0
-0pattern2,412,13,replace,0,0
-
-1interval,random,4
-1pattern0,-1,10,overlay,0,0
-1pattern1,3024,5,overlayfast,0,0
-1pattern2,3025,10,overlayfast,0,0
-1pattern3,-1,3,overlay,0,0
 
 }
 
@@ -1280,13 +1245,6 @@ element0,overlay,surface1110.png,0,0
 0interval,runonce
 0pattern0,1111,10,replace,0,0
 0pattern1,1116,10,replace,0,0
-0pattern2,501,13,replace,0,0
-
-1interval,random,4
-1pattern0,-1,10,overlay,0,0
-1pattern1,3027,5,overlayfast,0,0
-1pattern2,3028,10,overlayfast,0,0
-1pattern3,-1,3,overlay,0,0
 }
 
 surface1126 //Appear Sad Forward
@@ -1295,13 +1253,6 @@ element0,overlay,surface1110.png,0,0
 0interval,runonce
 0pattern0,1111,10,replace,0,0
 0pattern1,1117,10,replace,0,0
-0pattern2,511,13,replace,0,0
-
-1interval,random,4
-1pattern0,-1,10,overlay,0,0
-1pattern1,3031,5,overlayfast,0,0
-1pattern2,3032,10,overlayfast,0,0
-1pattern3,-1,3,overlay,0,0
 }
 
 surface1127 //Appear Sleep
@@ -1310,7 +1261,6 @@ element0,overlay,surface1110.png,0,0
 0interval,runonce
 0pattern0,1111,10,replace,0,0
 0pattern1,1118,10,replace,0,0
-0pattern2,1300,13,replace,0,0
 }
 
 
@@ -1410,12 +1360,6 @@ collisionex3,Face,polygon,111,50,98,53,93,68,94,72,90,76,93,80,93,89,98,93,114,9
 surface1297 //102 stand-in so the hat doesn't cause a visual glitch
 {
 element0,overlay,surface102.png,0,0
-
-collisionex0,Head,polygon,114,48,103,50,105,52,105,61,104,63,102,65,102,68,124,68,124,53,119,48
-collisionex1,Dent,polygon,125,51,124,53,124,68,127,72,129,72,131,71,133,68,130,66,130,62,127,61,127,53
-collisionex2,Cracks,Polygon,103,51,95,56,99,65,99,78,101,78,102,68,102,65,104,63,105,61,105,52
-collisionex3,Cracks2,Polygon,119,78,119,86,123,92,126,89,127,83
-collisionex4,Face,polygon,114,48,103,50,95,56,90,68,92,76,91,82,92,89,100,94,118,94,126,89,127,83,133,76,133,68,130,66,130,62,127,61,127,53,119,48
 }
 
 surface1298 //Jump down
@@ -1452,8 +1396,8 @@ surface.append1200-1225 //Obsidian animations and collision
 collision5,100,95,140,130,Obsidian
 
 //Tail twitch
-1interval,always //Initial frame
-1pattern0,3053,1,overlay,85,144
+1interval,runonce //Initial frame
+1pattern0,3053,-1,overlay,85,144
 
 2interval,random,3 //This decides which animation to play so they dont overlap
 2pattern0,0,0,alternativestart,[3.4.5.6]
@@ -1698,6 +1642,7 @@ surface.append2000-2005
 
 collision0,91,50,126,71,Head
 collision1,126,50,137,75,Dent
+collision2,85,42,140,98,Face
 }
 
 
@@ -1732,6 +1677,7 @@ element0,overlay,surface2010.png,0,0
 
 collision0,97,58,129,87,Head
 collision1,129,58,136,80,Dent
+collision2,91,52,141,102,Face
 }
 
 surface.append2006-2009
@@ -1744,6 +1690,7 @@ surface.append2006-2009
 
 collision0,97,58,129,81,Head
 collision1,129,58,136,80,Dent
+collision2,91,52,141,102,Face
 }
 
 //Left, looking up
@@ -1765,6 +1712,7 @@ element0,overlay,surface2014.png,0,0
 
 collisionex0,Head,polygon,105,53,92,60,88,70,88,78,91,83,99,83,106,79,109,73,106,55,117,61,119,67,123,68,124,72,127,72,126,62,115,53,105,53
 collisionex1,Dent,polygon,106,55,109,73,114,75,117,73,119,80,123,74,123,68,120,67,117,61,106,55
+collisionex2,Face,polygon,95,54,113,49,128,57,131,72,129,85,124,95,117,99,104,103,92,97,84,87,86,76,88,59
 }
 
 surface.append2012-2013
@@ -1777,6 +1725,7 @@ surface.append2012-2013
 
 collisionex0,Head,polygon,105,53,92,60,88,70,88,78,91,83,99,83,106,79,109,73,106,55,117,61,119,67,123,68,124,72,127,72,126,62,115,53,105,53
 collisionex1,Dent,polygon,106,55,109,73,114,75,117,73,119,80,123,74,123,68,120,67,117,61,106,55
+collisionex2,Face,polygon,95,54,113,49,128,57,131,72,129,85,124,95,117,99,104,103,92,97,84,87,86,76,88,59
 }
 
 
@@ -1802,6 +1751,7 @@ surface.append2015-2016
 
 collision0,96,58,128,76,Head
 collision1,127,58,134,79,Dent
+collision2,92,54,136,103,Face
 }
 
 
@@ -1824,6 +1774,7 @@ element0,overlay,surface2022.png,0,0
 
 collisionex0,Head,polygon,119,52,105,53,96,62,94,70,95,75,103,79,122,79,112,76,119,76,114,73,114,64,118,54,127,62,127,68,130,72,134,72,133,63,128,56,119,52
 collisionex1,Dent,polygon,118,54,114,64,114,73,119,76,122,76,122,81,128,78,130,72,127,68,127,62,118,54
+collision2,92,49,136,98,Face
 }
 
 surface.append2020-2021
@@ -1836,6 +1787,7 @@ surface.append2020-2021
 
 collisionex0,Head,polygon,119,52,105,53,96,62,94,70,95,75,103,79,122,79,112,76,119,76,114,73,114,64,118,54,127,62,127,68,130,72,134,72,133,63,128,56,119,52
 collisionex1,Dent,polygon,118,54,114,64,114,73,119,76,122,76,122,81,128,78,130,72,127,68,127,62,118,54
+collision2,92,49,136,98,Face
 }
 
 
@@ -1851,6 +1803,7 @@ element0,overlay,surface2100.png,0,0
 
 collision0,97,58,129,81,Head
 collision1,129,58,136,80,Dent
+collision2,85,42,140,98,Face
 
 1interval,random
 1pattern0,0,0,alternativestart,[2.3]
@@ -1880,6 +1833,7 @@ element0,overlay,surface2790.png,0,0
 
 collision0,97,58,129,81,Head
 collision1,129,58,136,80,Dent
+collision2,85,42,140,98,Face
 }
 
 

@@ -192,22 +192,6 @@ OnMouseDoubleClick
 		}
 	}
 }
-
- //---- MouseDoubleClickSakura ----------------------------------------------------------
- //Like the petting animation above, this is the reactions they have to being double clicked. These also rely on the collisions you set up in surfaces.txt! This set is specifically for the main character, as indicated by the Sakura in the name again.
- 
- //*********************Advanced User Info*******************************
- //As a note, double clicking on a certain area of your ghost doesn't have to be the user hitting them. You could instead set up a collision for a piece of clothing, and then have the character talk about that bit of clothing when it's double clicked, for example. One of Smoker's double clicks gives her a high-five when she's in a certain pose. Maybe double clicking is patting them, or pointing behind them, or tapping them, or any number of things. You can be creative here with how they respond depending on what areas you've set up as collisions!
- 
- //If you don't want your character to be hittable at all, you can just delete everything in MouseDoubleClickSakura except OpenSakuraMenu. So it'd look like
- 
- //MouseDoubleClickSakura
- //{
- //OpenSakuraMenu
- //}
- 
- //That's all there is to it. This method also applies to the secondary character, Kero, below this set.
- //***********************************************************************
  
 MouseDoubleClickSakura
 {
@@ -249,7 +233,7 @@ MouseDoubleClickSakura
 						"\0\s[1550]Ah-!\w8\w8\w8\s[412]\n\n...You know,\w4 I thought you were a good person at first.\w8\w8\s[400] I guess I was mistaken.\e"
 					}
 				}
-				elseif LV >=31 //You've been really mean and he hates you a lot
+				elseif LV >= 31 //You've been really mean and he hates you a lot
 				{
 					"\0\s[1550]Ah-!\w8\w8\w8\s[403]\n\n...Do you never get tired of being needlessly cruel?\e"
 					"\0\s[1550]Gh-!\w8\w8\w8\s[402]\n\n...Yeah,\w4 I get it by now,\w4 you hate me.\w8\w8\s[403] Care to actually give me a reason why?\e"
@@ -328,24 +312,14 @@ Select.ohsoitslikethat
 }*/ //I have an idea for this...... later :3c
 
 
- //---- MouseDoubleClickKero -----------------------------------------------------------
- //This is just the same as MouseDoubleClickSakura above, except for your secondary character. The same principles apply, including how to make your character unhittable.
+//---- MouseDoubleClickKero -----------------------------------------------------------
+//This is just the same as MouseDoubleClickSakura above, except for your secondary character. The same principles apply, including how to make your character unhittable.
  
  
 MouseDoubleClickKero
 {
 	//OpenKeroMenu //This will open his menu set up in menu.dic.
 }
-
- //*********************Advanced User Info*******************************
- //There are other mouse related functions you could set up much like the above, such as OnMouseDragStart, OnMouseDragEnd, OnMouseWheel, and others which correspond to various things you can do with your mouse. You can probably guess what those functions do just by their names - OnMouseWheel would be if someone spun their mouse wheel over a certain area, for example. If you're interested in these, I'd recommend doing some reading at the CROW-SSP Encyclopedia to get a better idea of them and settle down for some trial and error learning as you try to put them in.
- //***********************************************************************
- 
- 
- 
-
- 
-
 
 PetHead
 {
@@ -517,7 +491,7 @@ PetHead
 			}
 			elseif (dreams == 2 || dreams == 3) && recentpets > 6
 			{
-				dreams = 5
+				dreams = 4
 				"\0\s[1304]* (He murmurs quietly,\w4 then lets out a deep sigh.)\w8\w8\n\n* (Seems he's pretty relaxed,\w4 now...)\e:chain=end"
 			}
 			else
@@ -536,11 +510,7 @@ PetHead
 					"\0\s[1300]* (You pat his head softly.)\w8\w8\n\n...%(mumb)...\w8\w8 %(username)..?\w8\w8 %(mumb)%(mumb)...\e"
 					"\0\s[1300]* (You give him the gentlest of pets.)\w8\w8\n\n...%(mumb)%(mumb)...\e"
 					{
-						"\0\s[1300]* (You pet him gently.)\w8\w8\n\n...%(mumb)...\w8\w8 "
-						--
-						"Blue..?\e"
-						"Mom..?\e"
-						"Dad..?\e"
+						"\0\s[1300]* (You pet him gently.)\w8\w8\n\n...%(mumb)...\w8\w8 %(ANY('Blue,Mom,Dad'))..?\e"
 					}
 				}
 			}
@@ -657,11 +627,10 @@ PetHead
 					{
 						"\0\s[102]* (He sighs,\w4 relaxing under your rhythmic stroking motion.)\w8\w8\n\n* (You wonder if he even realized how tense he'd become.)"
 					}
-					if totalpets > 100 && snagged == 0 && (totalpets / 20) > totalsnags
-					{
-						"\0\s[102]* (You know his head well enough by now to pet gently in just the right spot.)\w8\w8\n\n\s[104]* (He seems pleased.)"
-						"\0\s[102]* (You very carefully stroke the part of his skull that is whole.)\w8\w8\n\n\s[104]* (He seems to appreciate the care you're taking.)"
-					}
+					
+					if UserGentle; "\0\s[102]* (You know his head well enough by now to pet gently in just the right spot.)\w8\w8\n\n\s[104]* (He seems pleased.)"
+					if UserGentle; "\0\s[102]* (You very carefully stroke the part of his skull that is whole.)\w8\w8\n\n\s[104]* (He seems to appreciate the care you're taking.)"
+					
 				}
 				--
 				"\e"
@@ -676,8 +645,8 @@ PetHead
 				}
 				elseif snagged > 0
 				{
-					"\0\s[201]* (He shifts away from your cursor.)\w8\w8\n\n\s[200]Uh...\w8\w8 Please don't touch my head right now,\w4 thanks.\w8\w8\n\n* (You wonder if his head is still hurting...)\e"
-					"\0\s[201]* (He shifts away from your cursor.)\w8\w8\n\n\s[200]Please don't.\w8\w8\n\n* (You wonder if his head is still hurting...)\e"
+					"\0\s[201]* (He shifts away from your cursor.)\w8\w8\n\n\s[200]Uh...\w8\w8 Please don't touch my head right now,\w4 thanks.\w8\w8\n\n* (Maybe his head is still hurting...)\e"
+					"\0\s[201]* (He shifts away from your cursor.)\w8\w8\n\n\s[200]Please don't.\w8\w8\n\n* (Maybe his head is still hurting...)\e"
 				}
 				elseif recentpets > 5
 				{
@@ -710,8 +679,8 @@ PetHead
 				}
 				elseif snagged > 0
 				{
-					"\0\s[201]* (He shifts away from your cursor.)\w8\w8\n\n\s[200]Uh...\w8\w8 Please don't touch my head right now,\w4 thanks.\w8\w8\n\n* (You wonder if his head is still hurting...)\e"
-					"\0\s[201]* (He shifts away from your cursor.)\w8\w8\n\n\s[200]Please don't.\w8\w8\n\n* (You wonder if his head is still hurting...)\e"
+					"\0\s[201]* (He shifts away from your cursor.)\w8\w8\n\n\s[200]Uh...\w8\w8 Please don't touch my head right now,\w4 thanks.\w8\w8\n\n* (Maybe his head is still hurting...)\e"
+					"\0\s[201]* (He shifts away from your cursor.)\w8\w8\n\n\s[200]Please don't.\w8\w8\n\n* (Maybe his head is still hurting...)\e"
 				}
 				else
 				{
@@ -785,7 +754,7 @@ SnagDent
 			RYStrust -= 2
 			"\RYS\s[2014]* (He flinches and squirms as you stroke your cursor over the sensitive spot on his head.)\e"
 			"\RYS\s[2014]* (He shudders as you stroke your cursor over the damaged part of his head.)\e"
-			"\RYS\s[2014]Ah-!\w8\w8\n\n* (He's shaking...\w8 You're not sure if it's in pain or fear.)\e"
+			"\RYS\s[2014]Ah-!\w8\w8\n\n* (He's shaking...\w8 You can't be sure if it's in pain or fear.)\e"
 		}
 	}
 	elseif holdingObsidian == 1
@@ -933,29 +902,42 @@ OnMouseDown //Boop!
 {
 	if reference5 == 0 //Reference5 is which mouse key is being clicked. 0 is a left click.
 	{
-		if nowmode == "RYS"
+		if nowmode == "RYS" && reference4 == "Face" && reference3 == 0
 		{
+			RYSBoops++
+			"\0\s[2015]* (Boop!)\w8\w8\w8\n\n"
+			--
+			"\s[2012]"
+			"\s[2013]"
+			"\s[2016]"
+			"\s[2007]"
+			"\s[2008]"
+			--
+			"* (Seems he's not sure what to make of that...)\e"
+			"* (He seems confused...)\e"
+			"* (He isn't sure what to say...)\e"
+		}
+		elseif nowmode == "Asleep" && reference4 == "Face" && reference3 == 0
+		{
+			totalboops++
 			
+			"\0\s[1300]* (Boop!)\w8\w8\n\n"
+			--
+			"* (...What were you expecting,\w4 he's asleep.)\w8\w8\n\n"
+			--
+			"%(sleepmumble)\e"
 		}
 		elseif holdingObsidian == 1 && reference4 == "Face" && reference3 == 0
 		{
 			totalboops += 1
-			"\0\s[1210]* (You boop his nose!)\w8\w8\w8\n\n"
-			"\0\s[1210]* (Boop!)\w8\w8\w8\n\n"
-			"\0\s[1210]* (Got your nose!)\w8\w8\w8\n\n"
-			"\0\s[1210]* (You give him a boop!)\w8\w8\w8\n\n"
+			"\0\s[1210]"
+			--
+			NormalBoopsStart
 			--
 			"\s[1206]"
 			"\s[1207]"
 			--
-			"...Ok??\e"
-			"...Um,\w4 thanks?\e"
-			"...What was that for?\e"
-			"...Alright,\w4 I guess?\e"
-			"...Why?\e"
-			"...Kiddo,\w4 what are you up to?\e"
-			"...%(username),\w4 is there a reason you're doing this?\e"
-			"* (He looks utterly confused.)\e"
+			NormalBoopsEnd
 		}
 		else
 		{
@@ -964,27 +946,39 @@ OnMouseDown //Boop!
 				if reference4 == "Face" && reference3 == 0
 				{
 					totalboops += 1
-					"\0\s[110]* (You boop his nose!)\w8\w8\w8\n\n"
-					"\0\s[110]* (Boop!)\w8\w8\w8\n\n"
-					"\0\s[110]* (Got your nose!)\w8\w8\w8\n\n"
-					"\0\s[110]* (You give him a boop!)\w8\w8\w8\n\n"
+					"\0\s[110]"
+					--
+					NormalBoopsStart
 					--
 					"\s[106]"
 					"\s[107]"
 					"\s[202]"
 					--
-					"...Ok??\e"
-					"...Um,\w4 thanks?\e"
-					"...What was that for?\e"
-					"...Alright,\w4 I guess?\e"
-					"...Why?\e"
-					"...Kiddo,\w4 what are you up to?\e"
-					"...%(username),\w4 is there a reason you're doing this?\e"
-					"* (He looks utterly confused.)\e"
+					NormalBoopsEnd
 				}
 			}
 		}
 	}
+}
+
+NormalBoopsStart
+{
+	"* (You boop his nose!)\w8\w8\w8\n\n"
+	"* (Boop!)\w8\w8\w8\n\n"
+	"* (Got your nose!)\w8\w8\w8\n\n"
+	"* (You give him a boop!)\w8\w8\w8\n\n"
+}
+
+NormalBoopsEnd
+{
+	"...Ok??\e"
+	"...Um,\w4 thanks?\e"
+	"...What was that for?\e"
+	"...Alright,\w4 I guess?\e"
+	"...Why?\e"
+	"...Kiddo,\w4 what are you up to?\e"
+	"...%(username),\w4 is there a reason you're doing this?\e"
+	"* (He looks utterly confused.)\e"
 }
 
 PetObsi
@@ -1012,14 +1006,22 @@ OnMouseDragEnd
 	}
 	elseif nowmode == "Asleep"
 	{
-		
+		_b = BalloonCheck
+		if _b == 0
+		{
+			"\![get,property,OnCheckPosition,currentghost.scope(0).rect]"
+		}
+		else
+		{
+			"\C\![get,property,OnSilentPosition,currentghost.scope(0).rect]\_l[0,0] " 
+		}
 	}
 	else
 	{
 		if LV == 0
 		{
 			//if SHIORI3FW.CanTalk == 1
-			if suppressCoords == 1
+			if suppressCoords == 1 //I wonder if I need this anymore?
 			{
 				
 			}
@@ -1031,7 +1033,7 @@ OnMouseDragEnd
 					dragdizzy++
 					"\![get,property,OnCheckPosition,currentghost.scope(0).rect]"
 				}
-				elseif _b == 0 && mikireflag != 1 && FromDragging != 2 //If the balloon was not open //elseif SinceTalk > 2 && mikireflag != 1 && FromDragging != 2 //SinceTalk is set up in aitalk, it's the seconds since he stopped talking. mikireflag is to do with him being off screen. This ensures that that dialogue doesnt get interrupted.
+				elseif _b == 0 //&& mikireflag != 1 && FromDragging != 2 //If the balloon was not open //elseif SinceTalk > 2 && mikireflag != 1 && FromDragging != 2 //SinceTalk is set up in aitalk, it's the seconds since he stopped talking. mikireflag is to do with him being off screen. This ensures that that dialogue doesnt get interrupted. -- I'M PRETTY SURE I ONLY NEED THE BALLOON CHECK HERE AND THAT I DONT NEED FromDragging AT ALL
 				{
 					"\![get,property,OnCheckPosition,currentghost.scope(0).rect]" //This checks his current coordinates to see if you've dragged him onto a new screen
 					FromDragging = 1

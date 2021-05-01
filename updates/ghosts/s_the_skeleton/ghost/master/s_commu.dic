@@ -4,6 +4,13 @@ OnCommunicate
  	{
 		//Deprecated function I think? Either way, I'm not using ReplyToUser so I got rid of it
 	}
+	elseif "GetSStats" _in_ reference1 //Generic stat request
+	{
+		ConvoTag = SPLIT(reference1,"\e")[1]
+		CurrentPos[4] = reference0 //Ghost that sent the ping
+		
+		"\![get,property,OnSendStats,currentghost.scope(0).x,currentghost.scope(0).y,currentghost.scope(1).x,currentghost.scope(1).y]"	
+	}
 	elseif "DustyGetStatsBoot" _in_ reference1
 	{
 		res_reference0 = "Dusty"
@@ -15,6 +22,10 @@ OnCommunicate
 		res_reference0 = ""
 		if ghostexcount > 0 //Checking to see if there's another ghost
 		{
+			if ASEARCH(reference0,RYSMetGhosts) == -1
+			{
+				RYSMetGhosts ,= reference0
+			}
 			"\RYS\s[2007]* (He seems afraid of %(reference0).)\e"
 		}
 		else
@@ -36,6 +47,10 @@ OnCommunicate
  		//---- answering another ghost
 		if LV == 0
 		{
+			if ASEARCH(reference0,MetGhosts) == -1
+			{
+				MetGhosts ,= reference0
+			}
 			ReplyToGhost
 		}
 		else
@@ -68,13 +83,14 @@ OnCommunicate
  	}
 }
 
+
+
 OnStartTalking //Starting conversations
 {
 	if ghostexcount > 0 //Checking to see if there's another ghost
 	{
-		_number = RAND(ghostexcount) // This checks the number of other ghosts summoned and chooses a random number based on it
-		--
-		_ghost = "%(ghostexlist[_number])" // This grabs the reference name of the ghost to check against known names. It should be the sakura name.
+		_ghost = ANY(ghostexlist)
+		if reference0 != ""; _ghost = reference0 //If this was a manual ping
 		--
 		case _ghost
 		{
@@ -127,12 +143,24 @@ OnStartTalking //Starting conversations
 			{
 				"\0\s[110]* (He's staring at Hydrate...)\w8\w8\n\n* (Maybe you should give him some water.)\e"
 			}
+			when "Lulo"
+			{
+				res_reference0 = "Lulo"
+				
+				"\e GetLuloStats"
+			}
+			when "Dusty"
+			{
+				res_reference0 = "Dusty"
+				
+				"\e GetDustyStats"
+			}
 			others //======Any ghost he doesn't know========
 			{
 				//SHIORI3FW.SetDelayEvent('LoopPrevention',5)
 				commuTimer = 10
 				AlreadyResponded = 1
-				res_reference0 = checkname
+				res_reference0 = _ghost
 				
 				"\0\s[104]Hey,\w4 %(res_reference0).\w8\w8\e"
 			}
@@ -148,17 +176,53 @@ ReplyToGhost //Replying to conversations
 {
 	speech = SPLIT(reference1,"\e")[0] //This is everything the ghost said that the user can see
 	ConvoTag = SPLIT(reference1,"\e")[1] //This is everything after the \e, which will be the invisible tags that track the conversation
-	_Last = SPLIT(ConvoTag,"::")[1] //The other ghost sends ":%(speech)" at the end of every communication, so this grabs what THIS ghost last said. See below.
-		
-	_Last = REPLACE(_Last,"\![quicksection,true]","") //Removing the quicksection tags or they overlap and break...
-	_Last = REPLACE(_Last,"\![quicksection,false]","")
-	_Last = REPLACE(_Last,"\w1","")
-	_Last = REPLACE(_Last,"\w4","")
-	_Last = REPLACE(_Last,"\w8","") //I only ever use \w4, \w8, and \w1. May need to add more for other ghosts they talk with.
+	_Last = SPLIT(ConvoTag,"::")[1] //The other ghost sends "::%(speech)" at the end of every communication, so this grabs what THIS ghost last said. See below.
+	
+	_Last = RemovePauses(_Last)  //removes any \w tags and quicksection tags
 	_Last = REPLACE(_Last,":chain=end","")
+	"\![commu-%(reference0)]" //tag for noninterrupting system; shouldn't show in dialogue
+	
+	_f = "left"; if "Facing:left" _in_ ConvoTag; _f = "right" //If the other ghost is facing left, face this one right. Left by default
 	--
 	
-	if reference0 == "Dusty" //=======Conversations with Dusty=========
+	if "SentLuloStats" _in_ ConvoTag //Receiving stats from Lulo
+	{
+		res_reference0 = "Lulo"
+		LuloMode = ConvoTag[1]
+		if TOINT(ConvoTag[13]) > XCoord; _f = "right" //If Lulo is to his right
+		--
+		"%(LuloConversationPool)"
+		--
+		" Facing:%(_f)::%(speech)"
+	}
+	elseif "Dusty-S-Lulo" _in_ ConvoTag //3 way convos
+	{
+		"%(DustySLulo)"
+	}
+	elseif reference0 == "X. Template"
+	{
+		"\![quicksection,true]%(_Last)\![quicksection,false]"
+		--
+		if "Test00" _in_ ConvoTag
+		{
+			res_reference0 = "X. Template"
+			"\n\nResponse 1\e Test01"
+		}
+		elseif "Test02" _in_ ConvoTag
+		{
+			res_reference0 = "X. Template"
+			"\n\nResponse 2\e Test03"
+		}
+		else
+		{
+			res_reference0 = ""
+			"\n\nElse.\e"
+		}
+		--
+		"::%(speech)"
+		//"Hell yeah it's loop time\e"
+	}
+	elseif reference0 == "Dusty" //=======Conversations with Dusty=========
 	{
 		"\![quicksection,true]%(_Last)\![quicksection,false]"
 		--
@@ -189,14 +253,23 @@ ReplyToGhost //Replying to conversations
 	{
 		"%(TalkToMiniDev)"
 	}
+	elseif reference0 == "Lulo"
+	{
+		res_reference0 = "Lulo"
+		"\![quicksection,true]%(_Last)\![quicksection,false]"
+		--
+		"%(TalkToLulo)"
+		--
+		" Facing:%(_f)::%(speech)"
+	}
 	elseif reference0 == "Gaster"
 	{
 		if "\i[108]" _in_ reference1 || "\i[109]" _in_ reference1 || "\i[110]" _in_ reference1 || "\i[111]" _in_ reference1
 		{
 			res_reference0 = ""
-			if miscflags[0] == 0
+			if ASEARCH("Seen Gaster with googly eyes",MiscFlags) == -1 //miscflags[0] == 0
 			{
-				miscflags[0] = 1
+				MiscFlags ,= "Seen Gaster with googly eyes"
 				
 				"\0\s[110].\w8.\w8.\w8\s[111]Oh my god,\w4 %(username) did you do that?\w8\w8\s[104] That's amazing.\e"
 			}
@@ -212,7 +285,7 @@ ReplyToGhost //Replying to conversations
 		{
 			res_reference0 = ""
 			
-			if miscflags[0] == 1
+			if ASEARCH("Seen Gaster with googly eyes",MiscFlags) != -1
 			{
 				"\0\s[106]He's much easier to deal with when he's got the googly eyes on, y'know.\e"
 				"\0\s[106]Aw,\w4 bring the googly eyes back.\e"
@@ -227,6 +300,10 @@ ReplyToGhost //Replying to conversations
 				"\0\s[410]You're not worth my time.\e"
 			}
 		}
+	}
+	elseif reference0 == "Hydrate"
+	{
+		"%(TalkToHydrate)"
 	}
 	else //=========Ghosts he doesn't know==========
 	{
@@ -456,11 +533,17 @@ TalkToDusty
 		
 		"\0\s[110]\n\n\![moveasync,--X=100,--time=500,--base=me]Kisses???\e"
 	}
+	elseif "DustyMinimizedRYS-0825 0" _in_ ConvoTag
+	{
+		res_reference0 = ""
+		holdingObsidian = 0
+		"\0\s[110]* (Obsidian disappears into your taskbar with Dusty.)\w8\w8\n\n\s[107]Aw...\e"
+	}
 	else //I'm sure as I update them that they wont always have the same convos set up...
 	{
 		res_reference0 = ""
 		
-		"\0\s[0]Hey,\w4 Dusty.\e"
+		"\0\s[0]Hey,\w4 Dusty.\e [Make sure both ghosts are up to date!]"
 	}
 }
 
@@ -643,6 +726,284 @@ TalkToMiniDev
 	}
 }
 
+LuloConversationPool //Conversation starters with Lulo
+{
+	if ConvoTag[1] == "Awake"
+	{
+		"\0\S[104]You seem cheerful today,\w4 feeling good?\w8\w8\e,00,S-Lulo_AwakeGeneral-00"
+	}
+	elseif ConvoTag[1] == "Asleep"
+	{
+		//"Lulo is asleep.\e"
+	}
+	else //Sleepy
+	{
+		"\0\s[109]* (He sighs quietly.)\w8\w8\e 00_S-Lulo_SleepyGeneral-00"
+	}
+	
+	
+}
+
+TalkToLulo
+{
+	//---Awake---
+	// if "S-Lulo_AwakeGeneral-00" _in_ ConvoTag
+	// {
+		// if "01_" _in_ ConvoTag
+		// {
+			// "\0\n\n\s[107]No thanks,\w4 sweetheart.\w8\w8 I don't think my leg would hold up that far.\w8\w8\S[0] If you want to run,\w4 I'll time you.\w8\w8\e 02"
+		// }
+		// elseif "03_" _in_ ConvoTag
+		// {
+			// "\0\n\n\S[111]%(ConvoTag[1]) seconds.\w8\w8\S[104] That's really good,\w4 you've got my high score beat for sure.\w8\w8\e 04"
+		// }
+		// elseif "05_" _in_ ConvoTag
+		// {
+			// "\0\n\n\s[102]Exactly.\w8\w8\e 06"
+		// }
+		// --
+		// "_S-Lulo_AwakeGeneral-00"
+	// }
+	
+	if "S-Lulo_AwakeGeneral-00" _in_ ConvoTag
+	{
+		_pos = ConvoTag[1]
+		switch _pos
+		{
+			"" //Yeah, lots of energy. Wanna race me to %(username)'s %(usersfolder)?
+			"\0\n\n\s[107]No thanks,\w4 sweetheart.\w8\w8 I don't think my leg would hold up that far.\w8\w8\S[0] If you want to run,\w4 I'll time you.\w8\w8\e,02"
+			"" //Ok! * (She darts off in an instant...) Back!
+			"\0\n\n\S[111]%(ConvoTag[3]) seconds.\w8\w8\S[104] That's really good,\w4 you've got my high score beat for sure.\w8\w8\e,04"
+			"" //C'mon dad, you said yourself you can't run that far.
+			"\0\n\n\s[102]Exactly.\w8\w8\e,06"
+			//Dad!!
+		}
+		--
+		",S-Lulo_AwakeGeneral-00"
+	}
+	
+	
+	//---Sleepy---
+	elseif "S-Lulo_SleepyGeneral-00" _in_ ConvoTag
+	{
+		if "01_" _in_ ConvoTag
+		{
+			"\0\n\n\s[104]Yes,\w4 sweetheart?\w8\w8\e 02"
+		}
+		elseif "03_" _in_ ConvoTag
+		{
+			"\0\n\n\s[102]Yes,\w4 I'm fine,\w4 Lulo.\w8\w8\e 04"
+		}
+		elseif "05_" _in_ ConvoTag
+		{
+			"\0\n\n\s[106]I mean it,\w4 kiddo;\w8 I'm alright,\w4 you don't need to worry about me.\w8\w8\e 06"
+		}
+		elseif "07_" _in_ ConvoTag
+		{
+			"\0\n\n\s[206]Well,\w4 I am tired,\w4\s[104] but I can get by.\w8\w8\e 08"
+		}
+		--
+		"_S-Lulo_SleepyGeneral-00"
+	}
+	
+	elseif "Lulo-S_SleepyGeneral-01" _in_ ConvoTag
+	{
+		res_reference0 = ""
+		"\s[110]Oh,\w4 so I did.\w8\w8\s[104] Thanks,\w4 Lulo.\e"
+	}
+	
+	
+	else //If their ConvoTags don't match
+	{
+		res_reference0 = ""
+		
+		"\s[104]Hello,\w4 Lulo.\e"
+	}
+}
+
+TalkToLuloSleepy
+{
+	/*if "commuchain1" _in_ ConvoTag
+	{
+		res_reference0 = "Lulo"
+		
+		"Response to chain 1\e commuchain1b"
+	}
+	elseif "commuchain2" _in_ ConvoTag
+	{
+		res_reference0 = "Lulo"
+		
+		"Response to chain 2\e commuchain2b"
+	}
+	elseif "commuchain3" _in_ ConvoTag
+	{
+		res_reference0 = "Lulo"
+		
+		"Response to chain 3\e commuchain3b"
+	}
+	elseif "commuchain4" _in_ ConvoTag
+	{
+		res_reference0 = "Lulo"
+		
+		"Response to chain 4\e commuchain4b"
+	}
+	elseif "Dark Purple Hoodie" _in_ ConvoTag
+	{
+		"You're wearing a dark purple hoodie"
+	}*/
+}
+
+TalkToHydrate
+{
+	res_reference0 = "Hydrate"
+	/*
+	0 is just the \e, ignore it
+	1 is the number of drinks the user has taken this session
+	2 is the number of drinks they've taken in a row without missing one or dismissing the box
+	3 is the total number of drinks they've taken since the ghost was installed
+	4 is the current shell
+	5 is a list of all dressups being used. I've included 'Dressups:' in front, you can use SPLIT to split off the list, in case multiple are being used at once, and read that as a simple array
+	*/
+	_HYsession = TOINT(ConvoTag[1])
+	_HYstreak = TOINT(ConvoTag[2])
+	_HYtotal = TOINT(ConvoTag[3])
+	_HYextratoday = TOINT(ConvoTag[4])
+	_HYextratotal = TOINT(ConvoTag[5])
+	_HYshell = ConvoTag[6]
+	_HYdressups = SPLIT(ConvoTag[7],"|-|")
+	
+	HydrateStats = (_HYsession,_HYstreak,_HYtotal,_HYextratoday,_HYextratotal,_HYshell,_HYdressups)
+	
+	lastTalk = HydrateComments(HydrateStats)
+	lastTalk
+	
+	--
+	"\0\s[0]You've taken %(_HYsession) drinks this session,\w4 %(_HYstreak) drinks in a row,\w4 and %(_HYtotal) drinks total.\n\nYou've taken %(_HYextratoday) extra sips of water today,\w4 and %(_HYextratotal) extra sips in total.\n\nHydrate is in the %(_HYshell) shell,\w4 using these dressups:\n\n%(_HYdressups)\e"
+}
+
+HydrateComments
+{
+	_HYshell = _argv[5]
+	_HYdressups = _argv[6]
+	
+	if _HYshell == "Poison"
+	{
+		if ASEARCH("picture|Skull",_HYdressups); "\0\s[0]...\s[104]Heh,\w4 it's got a skull on it.\e"
+		else; "\0\s[101]Dare I ask why you have a giant bottle of poison here..?\e"
+	}
+	elseif _HYshell == "Potion"
+	{
+		if ASEARCH("picture|Health",_HYdressups); "\0\s[110]I wonder what kind of healing you could do with that much health potion...\e"
+		else; "\0\s[106]That's a pretty big potion,\w4 are you planning to drink all that..?\e"
+		
+	}
+	elseif _HYshell == "Metal Bottle"
+	{
+		"\0\s[104]That's a pretty neat water bottle,\w4 %(username).\w8\w8\s[0] You like your water cold,\w4 then?\w8\w8 \s[104] Me too.\e"
+	}
+	elseif _HYshell == "Teacup"
+	{
+		"\0\s[110]...That's a lot of tea...\w8\w8\s[106] Are you a big tea drinker,\w4 %(username)?\e"
+		if thesplit == 1; "\0\s[206]...%(teal('He')) used to drink a lot of tea...\e"
+	}
+	elseif _HYshell == "Alkohol"
+	{
+		"\0\s[107]That's a lot of alcohol...\w8\w8\s[202] None for me,\w4 thanks,\w4 my body is completely intolerant of the stuff.\e"
+	}
+	elseif _HYshell == "Bleach"
+	{
+		"\0\s[106]%(username),\w4 please don't drink bleach.\e"
+		"\0\s[107]I can smell that bleach through the bottle...\e"
+		"\0\s[110]Hey,\w4 %(username),\w4 would you mind if I used some of that bleach?\w8\w8\s[101] Some of your older files are kinda grimy.\e"
+	}
+	elseif _HYshell == "Clear"
+	{
+		"\0\s[110]Is...\w8\w8 is that a giant water bottle?\e"
+	}
+	else
+	{
+		"\0\s[104]Good job staying hydrated,\w4 %(username).\e"
+	}
+}
+
+OnHyPingPause
+{
+	"\_w[1500]\![raise,OnAiTalk]"
+}
+
+OnSilentPingHydrate
+{
+	res_reference0 = "Hydrate"
+	"\e HydrateStatsSilent"
+}
+
+OnHydrateGhostStats
+{
+	_HYsession = TOINT(reference1)
+	_HYstreak = TOINT(reference2)
+	_HYtotal = TOINT(reference3)
+	_HYextratoday = TOINT(reference4)
+	_HYextratotal = TOINT(reference5)
+	_HYshell = reference6
+	_HYdressups = REPLACE(reference7,"|-|",",")
+	
+	HydrateStats = (_HYsession,_HYstreak,_HYtotal,_HYextratoday,_HYextratotal,_HYshell,_HYdressups)
+	
+	//"\0\s[0]You've taken %(_HYsession) drinks this session,\w4 %(_HYstreak) drinks in a row,\w4 and %(_HYtotal) drinks total.\n\nYou've taken %(_HYextratoday) extra sips of water today,\w4 and %(_HYextratotal) extra sips in total.\n\nHydrate is in the %(_HYshell) shell,\w4 using these dressups:\n\n%(_HYdressups)\e"
+}
+
+DustySLulo //3 way conversations between Dusty, S, and Lulo
+{
+	if "ExampleA" _in_ ConvoTag
+	{
+		_reply1 = "\s[102]This is my first response to Lulo.\w8\w8 I'm going to drag Dusty into this conversation.\w8\w8\s[205] Hello Dusty.\w8\w8"
+		_reply2 = "\n\n\s[0]Hi to you too,\w4 Obsidian.\w8\w8"
+		_reply3 = "\n\n\s[104]This is the end of the dialogue.\w8\w8 Good talking with you guys."
+		
+		if "_S1" _in_ ConvoTag //This probably wont be used, but I still need the reply1 stuff in here
+		{
+			res_reference0 = "Dusty"
+			"%(_reply1)\e Dusty-S-Lulo_ExampleA_D1"
+		}
+		elseif "_S2" _in_ ConvoTag
+		{
+			res_reference0 = "Lulo"
+			"\_q%(RemovePauses(_reply1))\_q"
+			--
+			"%(_reply2)\e Dusty-S-Lulo_ExampleA_L3"
+		}
+		elseif "_S3" _in_ ConvoTag
+		{
+			res_reference0 = ""
+			"\_q%(RemovePauses(_reply1))%(RemovePauses(_reply2))\_q"
+			--
+			"%(_reply3)\e"
+		}
+		else
+		{
+			res_reference0 = ""
+			"Something went wrong,\w4 you've hit an else."
+		}
+	}
+}
+
+RemovePauses //Removes \w tags, \_w tags, and quicksection tags
+{
+	_argv[0] = REPLACE(_argv[0],"\![quicksection,true]","")
+	_argv[0] = REPLACE(_argv[0],"\![quicksection,false]","")
+	_argv[0] = REPLACE(_argv[0],"\w9","")
+	_argv[0] = REPLACE(_argv[0],"\w8","")
+	_argv[0] = REPLACE(_argv[0],"\w7","")
+	_argv[0] = REPLACE(_argv[0],"\w6","")
+	_argv[0] = REPLACE(_argv[0],"\w5","")
+	_argv[0] = REPLACE(_argv[0],"\w4","")
+	_argv[0] = REPLACE(_argv[0],"\w3","")
+	_argv[0] = REPLACE(_argv[0],"\w2","")
+	_argv[0] = REPLACE(_argv[0],"\w1","")
+	_argv[0] = RE_REPLACE(_argv[0],"\\_w\[\d*]","") //removes any \_w[] tags
+	_argv[0]
+}
+
 OnFacingCoords
 {
 	res_reference0 = "Dusty"
@@ -682,4 +1043,258 @@ OnObsidianJumpDown
 	_SsYCoord = reference0[3]
 	_SsXCoord = TOINT(_SsXCoord)
 	"\0\s[1298]\e SObsiJumpDown02,%(_SsXCoord),%(_SsYCoord)\e SObsiJumpDown02" //replaceframe Obsi jump down
+}
+
+OnSendStats
+{
+	CurrentPos[0] = reference0 //Dusty's X
+	CurrentPos[1] = reference1 //Dusty's Y
+	CurrentPos[2] = reference2 //Obsi's X
+	CurrentPos[3] = reference3 //Obsi's Y
+	res_reference0 = CurrentPos[4]
+	
+	_SeenLV = RAND(10); if SeenLV == 0; _SeenLV = -1 //These are temporary, I will make him a misc flags array at some point
+	_LVCheck = RAND(10); if LVCheck == 0; _LVCheck = -1
+	_broken = RAND(10); if broken == 0; _broken = -1
+	_knowaboutfamily = RAND(10); if knowaboutfamily == 0; _knowaboutfamily = -1
+	_thesplit = RAND(10); if thesplit == 0; _thesplit = -1
+	_askedabouttimelines = RAND(10); if askedabouttimelines == 0; _askedabouttimelines = -1
+	_knowmorethanyoushould = RAND(10); if knowmorethanyoushould == 0; _knowmorethanyoushould = -1
+	_thatsanoddnumber = RAND(10); if thatsanoddnumber == 0; _thatsanoddnumber = -1
+	_abbiblind = RAND(10); if abbiblind == 0; _abbiblind = -1
+	
+	_dressupsnocomma = REPLACE(dressups,",","-")
+	_ingredientsnocomma = REPLACE("%(todaysingredients)",",","-")
+	
+	"\e SentSStats %(ConvoTag),%(nowmode),%(love),%(LV),%(_LVCheck),%(_broken),%(mikireflag),%(nowshell),%(_dressupsnocomma),%(staysafe),%(_thesplit),%(dreams),%(holdingObsidian),%(lastinteracted),%(lookingatphone),%(currentlydrinking),%(nowscale),%(mikireflag),%(reset),%(CurrentPos[0]),%(CurrentPos[1]),%(CurrentPos[2]),%(CurrentPos[3])," //Stuff to do with his current mode
+	--
+	"%(passhour),%(passmin),%(passsec),%(aitalkinterval),%(pethighscore),%(toppetstreak),%(CameBack),%(updateavailable),%(sleephour),%(sleepmin),%(sleepsec)," //Really important ones
+	--
+	"%(installdate[0]),%(installdate[1]),%(installdate[2]),%(installdate[3]),%(installdate[4]),%(installdate[5])," //Install date
+	--
+	"%(RYS),%(RYSprogress),%(RYStrust),%(RYSlearn[0]),%(RYSlearn[1]),%(RYSlearn[2]),%(RYSlearn[3]),%(askedWhoRYS),%(knowaboutABI),%(ASEARCH(reference0,RYSMetGhosts)),%(ARRAYSIZE(RYSMetGhosts))," //RYS important stats
+	--
+	"%(RYSunlockDate[0]),%(RYSunlockDate[1]),%(RYSunlockDate[2]),%(RYSunlockDate[3]),%(RYSunlockDate[4]),%(RYSunlockDate[5]),"
+	--
+	"%(askedaboutwd),%(askedaboutdings),%(askedaboutwings),%(askedaboutbarcode),,%(askedaboutbluejeans),%(askedaboutabbi),%(askedaboutrosie),%(askedaboutroman),%(askedaboutcambria),%(askedabouttriton),%(askedaboutlulo),%(askedaboutazo),%(askedaboutsigil),%(askedaboutelko)," //Family members unlocked, note that there's an extra space where S would go
+	--
+	"%(knowaboutkit),%(knowaboutsmol),%(knowaboutbirdy),%(knowaboutsorrel),%(knowaboutpmd),%(knowaboutbender),%(knowaboutnine),%(knowaboutserif),%(knowaboutecho),%(knowaboutice),%(knowaboutomega)," //Unlocked timelines
+	--
+	"%(talkedtoDusty),%(talkedtoLulo),%(talkedtoCambria),%(talkedtoTemmie),%(talkedtoAzura),%(ASEARCH(reference0,MetGhosts)),%(ARRAYSIZE(MetGhosts)),"
+	--
+	"%(totalpets),%(totalhours),%(totalsnags),%(totalpunches),%(totalhugs),%(totalboops),%(totalwaters),%(beenoffscreen),%(minimized),%(beenbackwards),%(givensocks),%(givenblankets),%(givenmittens),%(scaled),%(dragdizzy),%(scaledizzy),%(slept),%(totalsleep),%(balloonspopped),%(heldObsidian),%(Sboots),"
+	--
+	"%(RYSboots),%(RYSwater),%(RYSsnacks),%(RYSblankets),%(RYSbooks),%(RYShugs),%(RYScomforted),%(RYShours),%(RYSpets)," //RYS counters
+	--
+	"%(complimented),%(comforted),%(snagged),%(flattered),%(talkedaboutpast),%(hugged),%(givenfood),%(giveningredients),%(ARRAYSIZE(todaysingredients)),%(_ingredientsnocomma),%(givenwater),%(givenbooks),%(givenwarmthings),%(givencutethings),%(recentpets),%(changedscaling),%(Dragged),%(recentnightmare),"
+	--
+	"%(RYSrecentBlankets),%(RYSrecentBooks),"
+	--
+	"%(Degrees[0]),%(tempurature[0]),%(feelslike[0]),%(humidity),%(wind[0]),,%(weather),%(pollen),%(sunrise),%(sunset),%(phase)," //Weather
+	--
+	"%(_SeenLV),%(_knowaboutfamily),%(_askedabouttimelines),%(_knowmorethanyoushould),%(_thatsanoddnumber),%(_abbiblind),%(ASEARCH('Seen Gaster with googly eyes',MiscFlags))," //Misc flags - I'm gonna make these all an array eventually, so atm they're using local variables
+	
+	
+	//{Guide to all these variables because dear god
+	
+	//0 - \e SentSStats + ConvoTag (Use an _in_ check if you want to see what the convo tag was)
+	//1 - S's current mode. Can be Default, Asleep, or RYS
+	//2 - S's current friendship with the user, 150 is very high
+	//3 - LV stat is if the user has been cruel to S. This will only be above 0 if the user has punched him! After the user has punched him at least once, it can be raised by other negative actions like being rough with his skull or negative acts in the menu
+	//4 - This will be -1 if the user has not discovered his LV, and some other number if they have
+	//5 - This will be -1 if the user has not broken him, and some other number if they have
+	//6 - 1 if he's off the screen, 0 if he is not
+	//7 - his current shell
+	//8 - Current dressups, any commas are replaced with dashes
+	//9 - If the number is 1, the user has set S to refer to Blue Jeans as female, for safety reasons
+	//10 - If the user has unlocked the final info about S's family
+	//11 - S's current dreams, 0 is the worst dreams, 4 is the best dreams. This number changes randomly every hour, or the user can affect it via petting
+	//12 - 1 if he's currently holding Dusty's cat Obsidian, 0 if he is not
+	//13 - The number of hours since the user last interacted with him. If 6 or higher, he'll be anxious and commenting about hoping they come back soon
+	//14 - 1 if he's looking at his phone, 0 if he's not
+	//15 - 0 if he's not drinking anything, 1 if he's drinking water, 2 if he's drinking juice, 3 if he's drinking milk. More possible in the future, be careful
+	//16 - His current scale, as a percentage
+	//17 - 1 if S is off the screen, 0 if not
+	//18 - How many times the user has reset him
+	//19 - S's X coordinate
+	//20 - S's Y coordinate
+	//21 - The kero character's X coordinate (currently unused)
+	//22 - The kero character's Y coordinate (currently unused)
+	
+	//23 - passhour, How many hours have passed since he was opened
+	//24 - passmin, How many minutes have passed in the current passhour
+	//25 - passsec, How many seconds have passed in the current passmin
+	//26 - How often he should say a randomtalk, in seconds
+	//27 - The user's petting high score, as he lists it in his balloon (stroke count)
+	//28 - The user's petting high score, as the number of complete pets
+	//29 - 1 if the user left him alone for 6 hours or more and then came back this session, 0 otherwise
+	//30 - 1 if an update is available, 0 otherwise
+	//31 - sleephour, How many hours have passed since he fell asleep
+	//32 - sleepmin, How many minutes have passed in the current sleephour
+	//33 - sleepsec, How many seconds have passed in the current sleepmin
+	
+	//These ones are the date he was first installed. Please note that for many people this might be blank, since his first versions didn't set this date!
+	//34 - Year
+	//35 - Month
+	//36 - Day
+	//37 - Hour
+	//38 - Minute
+	//39 - Second
+	
+	//RYS related important variables
+	//40 - RYS's nickname that the player has set. Will be RYS-0825 if they have not touched it.
+	//41 - The user's current progress with RYS. 7 once they've fully unlocked him and can switch back and forth between modes at will
+	//42 - RYS's friendship with the user
+	//43 - 1 if the user told him there's no reason that they pet him, 2 if they say they did it to see how he reacts, 3 if they say they did it because they care, 0 if he hasn't asked or they didn't give an answer
+	//44 - 1 if the user told him there's no reason that they bring him on their computer, 2 if they say they did it because they're curious, 3 if they say they did it because they like him, 4 if they say they did it so he'll be safe, 0 if he hasn't asked or they didn't give an answer
+	//45 - 1 if the user told him there's no reason that they nicknamed him, 2 if they say they did it because they think it's funny, 3 if they say they did it because he needs a good name to make him feel like a person, 0 if he hasn't asked or they didn't give an answer
+	//46 - 1 if the user told him there's no reason that they hug him, 2 if they say they did it to see how he reacts, 3 if they say they did it to try and make him feel safe, 0 if he hasn't asked or they didn't give an answer
+	//47 - 1 if they got RYS to tell them who he really is in the first startup sequence, 0 if they haven't yet (this is required to progress)
+	//48 - If the user has learned about ABI by asking RYS questions yet
+	//49 - If the ghost that is pinging RYS is one that has tried talking to him before
+	//50 - How many ghosts have tried talking to RYS
+	
+	//The date the user unlocked RYS
+	//51 - Year
+	//52 - Month
+	//53 - Day
+	//54 - Hour
+	//55 - Minute
+	//56 - Second
+	
+	//Family members the user has unlocked, 0 if locked, 1 if unlocked
+	//57 - WD
+	//58 - Dings
+	//59 - Wings
+	//60 - Barcode
+	//61 - S //Just here for consistency, will always be blank
+	//62 - Blue Jeans
+	//63 - Abbi
+	//64 - Rosie
+	//65 - Roman
+	//66 - Cambria
+	//67 - Triton
+	//68 - Lulo
+	//69 - Azo
+	//70 - Sigil
+	//71 - Elko
+	
+	//Timelines the user has unlocked, 0 if locked, 1 if it's in the menu but they haven't clicked, 2 if they've clicked
+	//72 - Kit
+	//73 - Smol
+	//74 - Birdy
+	//75 - Sorrel
+	//76 - PMD
+	//77 - Bender
+	//78 - Nine
+	//79 - Serif
+	//80 - Echo
+	//81 - Ice
+	//82 - Omega
+	
+	//83 - 1 if he's ever had commu dialogue with Dusty, 0 if no
+	//84 - 1 if he's ever had commu dialogue with Lulo, 0 if no
+	//85 - 1 if he's ever had commu dialogue with Cambria, 0 if no
+	//86 - 1 if he's ever had commu dialogue with Temmie, 0 if no
+	//87 - 1 if he's ever had commu dialogue with Azura, 0 if no
+	//88 - If the ghost that is pinging S is one he's met before
+	//89 - How many ghosts S has talked to
+	
+	//90 - Total number of times the user has pet S
+	//91 - Total number of hours the user has run S
+	//92 - Total number of times the user has snagged S's head
+	//93 - Total number of times the user has punched S
+	//94 - Total number of times the user has hugged S
+	//95 - Total number of times the user has booped S
+	//96 - Total number of times the user has given S water
+	//97 - Total number of times the user has put S off the screen
+	//98 - Total number of times the user has minimized S
+	//99 - Total number of times the user has flipped S backwards
+	//100 - Total number of times the user has given S socks
+	//101 - Total number of times the user has given S blankets
+	//102 - Total number of times the user has given S mittens
+	//103 - Total number of times the user has scaled S up or down
+	//104 - Total number of times the user has made S dizzy by dragging him
+	//105 - Total number of times the user has made S dizzy by scaling him up and down
+	//106 - Total number of times the user has seen S fall asleep
+	//107 - Total number of hours S has slept on the user's computer
+	//108 - Total number of times the user has popped S's dialogue balloon with the pop noise on
+	//109 - Total number of times the user has given S Obsidian to hold
+	//110 - Total number of times the user has booted S
+	
+	//111 - Total number of times the user has booted RYS
+	//112 - Total number of times the user has given RYS water
+	//113 - Total number of times the user has given RYS snacks
+	//114 - Total number of times the user has given RYS blankets
+	//115 - Total number of times the user has given RYS books
+	//116 - Total number of times the user has given RYS hugs
+	//117 - Total number of times the user has comforted RYS
+	//118 - Total number of hours the user has run RYS
+	//119 - Total number of times the user has pet RYS
+	
+	//120 - The number of times the user has complimented S recently, goes down every hour
+	//121 - The number of times the user has comforted S recently, goes down every hour
+	//122 - The number of times the user has snagged S's head recently, goes down every hour
+	//123 - The number of times the user has flattered S recently, goes down every hour
+	//124 - The number of times the user has asked S about his past recently, goes down every hour
+	//125 - The number of times the user has hugged S recently, goes down every hour
+	//126 - The number of times the user has given S food recently, goes down every hour
+	//127 - The number of times the user has given S ingredients recently, goes down every hour
+	//128 - The number of ingredients the user has given S this session, resets when he boots
+	//129 - A list of the ingredients the user has given S this session, separated by -
+	//130 - The number of times the user has given S water recently, goes down every hour
+	//131 - The number of times the user has given S books recently, goes down every hour
+	//132 - The number of times the user has given S warm things (blankets,  mittens, etc) recently, resets on boot
+	//133 - The number of times the user has given S cute things (plushes mostly) recently, resets on boot
+	//134 - The number of times the user has pet S recently, goes down every hour
+	//135 - The number of times the user has changed S's scaling recently, goes down every hour. If it's 0, the user has never changed his scaling, it never goes below 1 after that
+	//136 - The number of times the user has dragged S around recently, goes down every hour. If it's 0, the user has never changed his scaling, it never goes below 1 after that
+	//137 - 1 if the user woke S up in the middle of a nightmare. Resets to 0 every hour
+	
+	//138 - The number of blankets the user has given RYS recently, goes down every hour
+	//139 - The number of books the user has given RYS recently, goes down every hour
+	
+	//Current weather
+	//140 - 'Fahrenheit' if the user is using fahrenheit, 'Celsius' if the user is using celsius
+	//141 - Current temperature
+	//142 - Current feels like temperature
+	//143 - Current humidity as a percentage
+	//144 - Current wind speed
+	//145 - Blank for now, but I'll add in kph or mph later probably
+	//146 - Weather type (Cloudy, sunny, etc. See the weather dialogues in aitalk for a possibly incomplete list of types)
+	//147 - If there is a pollen alert. It will be blank if there is no pollen alert.
+	//148 - Time of today's sunrise, including if it's am or pm
+	//149 - Time of today's sunset, including if it's am or pm
+	//150 - Current moon phase
+	
+	//Misc flags. One day I'm going to make these into an array! I've set it up so that if the flag returns -1, it is not set, and if it returns any other number, it is set.
+	//151 - If the user has seen S's LV, though they may or may not have confronted him about it yet
+	//152 - If the user knows he has a family
+	//153 - If the user has asked about other timelines and has access to that question
+	//154 - If the user put RYS or 0825 as their name before unlocking RYS mode - Currently not in use anywhere, but the flag will set
+	//155 - If S has mentioned that he has 8 kids
+	//156 - If S has mentioned that Abbi is blind
+	//157 - If S has seen Gaster with googly eyes on
+
+	//}
+}
+
+
+OnFLUXSongInfo
+{
+	_display = ""
+	"\b2\_q"
+	--
+	for _i = 0; _i < ARRAYSIZE(reference); _i++
+	{
+		_display += "r%(_i): \_?%(reference[_i])\_?\n"
+	}
+	"%(_display)"
+	--
+	"\x"
+}
+
+OnApplicationExist
+{
+	"Application:\n%(reference0)\n\n%(reference1)"
 }

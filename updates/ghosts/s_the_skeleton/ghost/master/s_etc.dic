@@ -62,6 +62,7 @@ OnFileDrop2
 						
 						"\0\s[110]Oh,\w4\s[104] this is neat.\w8\w8\s[0] Do you want me to set it as your wallpaper?"
 						"\0\s[110]Oh,\w4 a picture?\w8\w8\s[1020] Uh,\w4 sure,\w4 I think I could set that as your wallpaper.\w8\w8\s[208] How do you want it?"
+						"\0\s[110]Oh,\w4\s[104] This is cool.\w8\w8\s[111] Did you want it as your wallpaper?"
 						--
 						"\n\n/
 						\![*]\q[Centered,SetWallpaper_0]\n/
@@ -385,6 +386,7 @@ OnInstallBegin
 		{
 			"\0\s[0]Oh,\w4 you need something installed?\w8\w8\s[1070] Uh,\w4 let me see...\e"
 			"\0\s[110]Oh sure,\w4\s[1070] let me see here...\e"
+			"\0\s[111]You need this installed?\w8\w8\s[104] Sure,\w4 just a sec.\e"
 		}
 		elseif LVCheck == 1
 		{
@@ -456,6 +458,7 @@ OnInstallComplete
 			if LV == 0
 			{
 				"\0\s[1070]Oh,\w4 someone else..?\w8\w8\s[101] Is this how I ended up here?"
+				"\0\s[1070]Another person..?\w8\w8\s[101] You sure do like having friends in your computer,\w4 I guess."
 			}
 			else
 			{
@@ -1500,6 +1503,7 @@ OnBIFFFailure
 				"\0\s[110]Oh,\w4\s[0] changed your mind?\e"
 				"\0\s[110]Ah,\w4 ok then.\w8\w8 Let me know if you change your mind.\e"
 				"\0\s[110]Oh,\w4 you changed your mind?\w8\w8\s[106] Ok,\w4 I'll uh...\w8\w8 Just put these emails back,\w4 I guess.\e"
+				"\0\s[110]Oh,\w4 nevermind?\w8\w8\s[107] Ok.\e"
 			}
 			else
 			{
@@ -1578,38 +1582,42 @@ OnUpdateBegin
 	lastinteracted = 0
 	if nowmode == "RYS"
 	{
-		"\RYS\s[2007]Um,\w4 sure,\w4 I'll check...\w8\e"
+		"\RYS\s[2007]Um,\w4 sure,\w4 I'll check..."
 	}
 	elseif holdingObsidian == 1
 	{
-		"\0\s[1206]Uh,\w4 my hands are a bit full,\w4 but ok...\w8\e"
+		"\0\s[1206]Uh,\w4 my hands are a bit full,\w4 but ok..."
+		"\0\s[1206]Uh,\w4 sure,\w4 if you really need me to..."
 	}
 	elseif nowmode == "Asleep"
 	{
 		"%(etcwake)"
 		--
-		"Updates...\w8\w8 Mm...\w8\e"
+		"Updates...\w8\w8 Mm..."
 	}
 	else
 	{
 		if LV == 0
 		{
-			"\0\s[110]Updates?\w8\w8\s[1010] Sure,\w4 I can check.\w8\w8\s[1070] Let me see...\w8\e"
-			"\0\s[104]Sure,\w4 I can check for updates.\w8\w8\s[1070] Just a moment...\w8\e"
-			"\0\s[0]Yeah,\w4 I can check for updates.\w8\w8\s[1070] Hold on a moment...\w8\e"
+			"\0\s[110]Updates?\w8\w8\s[1010] Sure,\w4 I can check.\w8\w8\s[1070] Let me see..."
+			"\0\s[104]Sure,\w4 I can check for updates.\w8\w8\s[1070] Just a moment..."
+			"\0\s[0]Yeah,\w4 I can check for updates.\w8\w8\s[1070] Hold on a moment..."
+			"\0\s[104]Sure,\w4 just a moment.\w8\w8\s[1070] Lets see,\w4 anything new..?"
 		}
 		else
 		{
 			if LVCheck == 1
 			{
-				"\0\s[510]* (He nods and begins checking for updates.)\w8\e"
+				"\0\s[510]* (He nods and begins checking for updates.)"
 			}
 			else
 			{
-				"\0\s[400]Hmph.\w8\w8 Maybe I'll get lucky and there'll be an update that lets me punch you instead.\w8\e"
+				"\0\s[400]Hmph.\w8\w8 Maybe I'll get lucky and there'll be an update that lets me punch you instead."
 			}
 		}
 	}
+	--
+	"\w8\w8\e"
 }
 
  //---- OnUpdateReady ---------------------------------------------------------
@@ -1640,6 +1648,9 @@ OnUpdateReady
 			"\0\s[104]There's %(reference0) new file%(_s)."
 			"\0\s[110]Oh,\w4 look at that.\w8\w8\s[103] There's %(reference0) new file%(_s)."
 			"\0\s[103]Hey,\w4 what do you know.\w8\w8\s[104] There's %(reference0) new file%(_s)."
+			"\0\s[103]There's something new,\w4 %(reference0) new file%(_s) to download."
+			"\0\s[104]There's %(reference0) new file%(_s) ready to go."
+			"\0\s[111]Oh nice,\w4 there's %(reference0) new file%(_s) to download."
 			--
 			"\w8\w8\s[1070]\e"
 		}
@@ -1760,7 +1771,7 @@ OnAskChangelog
 		}
 	}
 	--
-	"\n\n\![*]\q[Yes,OnChangeLog]\n\![*]\q[No,nochangelog]\e"	
+	"\n\n\![*]\q[Yes,OnChangeLog,0]\n\![*]\q[No,nochangelog]\e"	
 }
  //---- OnUpdateFailure -------------------------------------------------------------
  //Error messages if the update process fails in some way.
@@ -1787,6 +1798,9 @@ OnUpdateFailure
 			if LV == 0
 			{
 				"\0\s[106]Sorry kiddo,\w4\s[107] looks like the connection timed out.\w8\w8\s[0] Maybe try again later?\e"
+				"\0\s[107]Ah,\w4 the connection timed out.\w8\w8\s[106] Sorry,\w4 maybe we can try again later?\e"
+				"\0\s[107]Oh,\w4 the connection timed out.\w8\w8\s[106] Too bad,\w4 maybe it'll work if we try again later.\e"
+				"\0\s[106]The connection timed out,\w4 you'll have to try again later.\w8\w8\s[107] Sorry about that.\e"
 			}
 			else
 			{
@@ -1805,31 +1819,33 @@ OnUpdateFailure
 	{
 		if nowmode == "RYS"
 		{
-			"\RYS\s[2006]Sorry,\w4 the MD5 values don't match...\w8\w8\s[2007] You should let Zichqec know...\e"
+			"\RYS\s[2006]Sorry,\w4 the MD5 values don't match...\w8\w8\s[2007] You should let anZichqec know...\e"
 		}
 		elseif holdingObsidian == 1
 		{
-			"\0\s[1206]The MD5 values don't match,\w4 you should let Zichqec know.\e"
+			"\0\s[1206]The MD5 values don't match,\w4 you should let anZichqec know.\e"
 		}
 		elseif nowmode == "Asleep"
 		{
-			"\0\s[109]The MD5 values don't match...\w8\w8 You should tell Zichqec...\w8\w8 \s[1300]%(mumb)...\e"
+			"\0\s[109]The MD5 values don't match...\w8\w8 You should tell anZichqec...\w8\w8 \s[1300]%(mumb)...\e"
 		}
 		else
 		{
 			if LV == 0
 			{
-				"\0\s[107]Sorry kiddo,\w4 something went wrong.\w8\w8\s[106] The MD5 values don't match.\w8\w8\s[0] You should let Zichqec know so she can fix it.\e"
+				"\0\s[107]Sorry kiddo,\w4 something went wrong.\w8\w8\s[106] The MD5 values don't match.\w8\w8\s[0] You should let anZichqec know so she can fix it.\e"
+				"\0\s[107]The MD5 values don't match,\w4 I can't finish the update.\w8\w8\s[106] That's on anZichqec's end,\w4 you should let her know so she can fix it.\e"
+				"\0\s[107]The files aren't set up correctly,\w4 I got an MD5 error.\w8\w8\s[106] You should let anZichqec know so she can fix the update files.\e"
 			}
 			else
 			{
 				if LVCheck == 1
 				{
-					"\0\s[515]...I'm sorry,\w4 the files don't match.\w8\w8\s[516] You should let Zichqec know so she can fix it.\e"
+					"\0\s[515]...I'm sorry,\w4 the files don't match.\w8\w8\s[516] You should let anZichqec know so she can fix it.\e"
 				}
 				else
 				{
-					"\0\s[400]The files don't match.\w8\w8\s[402] You'll have to talk to Zichqec about that,\w4 I can't do anything for you."
+					"\0\s[400]The files don't match.\w8\w8\s[402] You'll have to talk to anZichqec about that,\w4 I can't do anything for you."
 				}
 			}
 		}
@@ -1856,12 +1872,14 @@ OnUpdateFailure
 				{
 					"\0\s[101]Careful there,\w4 dev.\e"
 					"\0\s[101]Oop,\w4 that could've been bad,\w4 huh?\e"
+					"\0\s[101]Shouldn't you turn on that 'Update Check Only' option in the dev palette if you're going to be messing with update stuff?\w8\w8\s[107] Or like,\w4 try that 'Update Full Check' thing?\e"
 				}
 				else
 				{
 					"\0\s[110]Oh,\w4 you've changed your mind?\e"
 					"\0\s[110]Oh,\w4 uh,\w4\s[106] alright then.\w8\w8\s[0] Let me know if you change your mind.\e"
 					"\0\s[110]Oh,\w4 did you change your mind?\e"
+					"\0\s[110]Oh,\w4\8\s[106] you don't want to update after all?\w8\w8\s[107] Alright then,\w4 I guess.\w8\w8\s[0] Let me know if you change your mind.\e"
 				}
 			}
 			else
@@ -1895,19 +1913,19 @@ OnUpdateFailure
 		{
 			if LV == 0
 			{
-				"\0\s[106]Sorry kiddo,\w4 something went wrong.\w8\w8\s[1070] All it says is '%(reference0)'.\w8\w8\s[106] Maybe you should let Zichqec know about that?\e"
-				"\0\s[110]Ah,\w4 sorry,\w4 something went wrong.\w8\w8\s[106] Something about '%(reference0)'?\w8\w8 You should let Zichqec know about that.\e"
-				"\0\s[106]Looks like something went wrong,\w4 sorry.\w8\w8\s[110] It says '%(reference0)'.\w8\w8\s[106] Maybe you should ask Zichqec about that?\e"
+				"\0\s[106]Sorry kiddo,\w4 something went wrong.\w8\w8\s[1070] All it says is '%(reference0)'.\w8\w8\s[106] Maybe you should let anZichqec know about that?\e"
+				"\0\s[110]Ah,\w4 sorry,\w4 something went wrong.\w8\w8\s[106] Something about '%(reference0)'?\w8\w8 You should let anZichqec know about that.\e"
+				"\0\s[106]Looks like something went wrong,\w4 sorry.\w8\w8\s[110] It says '%(reference0)'.\w8\w8\s[106] Maybe you should ask anZichqec about that?\e"
 			}
 			else
 			{
 				if LVCheck == 1
 				{
-					"\0\s[512]...I'm sorry,\w4 something went wrong.\w8\w8 All it says is '%(reference0)'.\w8\w8\s[510] You might try talking to Zichqec about that.\e"
+					"\0\s[512]...I'm sorry,\w4 something went wrong.\w8\w8 All it says is '%(reference0)'.\w8\w8\s[510] You might try talking to anZichqec about that.\e"
 				}
 				else
 				{
-					"\0\s[410]Something went wrong.\w8\w8 All it says is '%(reference0)'.\w8\w8\s[402] Maybe you should try asking Zichqec about that.\e"
+					"\0\s[410]Something went wrong.\w8\w8 All it says is '%(reference0)'.\w8\w8\s[402] Maybe you should try asking anZichqec about that.\e"
 				}
 			}
 		}
@@ -2016,7 +2034,7 @@ Select.nochangelog
 	{
 		if LV == 0
 		{
-			"\s[1010]Ok,\w4 if you change your mind just let me know.\e"
+			"\s[104]Ok,\w4 if you change your mind just let me know.\e"
 		}
 		else
 		{
@@ -2027,7 +2045,25 @@ Select.nochangelog
 
 ghostver //S's current version, so I don't have to remember to update it on every menu
 {
-	"1.3.3"
+	"1.4.0"
+}
+
+LatestUpdate
+{
+	"\_l[84]-Version 1.4.0-\n\n\n[half]/
+	-Added a bunch of new random dialogues, and some extra dialogues in other places.\n\n/
+	-Added a new daily dialogues system. S has at least 1 dialogue for every day of the year while on the positive route, and if you haven't seen that day's dialogue he'll have a 5% chance of saying it instead of his normal dialogues.\n\n/
+	-Restructured all of S's random dialogues, nearly all probability issues have been eliminated! His random dialogues should be much more varied now.\n\n/
+	-S will no longer fall asleep randomly if you're the one prompting him to speak. He also won't wake up randomly if you're the one prompting him to speak, unless you get him into a chain nightmare. This should allow you to explore more of his dialogues without him randomly changing modes on you.\n\n/
+	-If S just fell asleep, you now have around 30 seconds to double click him and wake him back up before he's fully asleep.\n\n/
+	-Made the changelog nicer!\n\n/
+	-You can now boop S's secret mode character!\n\n/
+	-Fixed a bug where S would never stop drinking on some operating systems (hopefully)\n\n/
+	-Fixed it so S's best dreams are actually available if you pet him enough while he's sleeping.\n\n/
+	-S can actually recognize his own birthday now! Somehow I had completely screwed up those checks.\n\n/
+	-Fixed a lot of misc bugs, as well as stray pixels, typos, incorrect dialogue formatting,%(br)and word wrap issues.\n\n/
+	-Lots of under the hood changes to make developing easier. Plenty more to come in the future as well. They're my gift to me./
+	\n\n\n"
 }
 
 OnChangeLog //Haha I hope I remember to update this
@@ -2037,41 +2073,11 @@ OnChangeLog //Haha I hope I remember to update this
 		"\RYS"
 	}
 	--
-	"\![set,autoscroll,disable]\_q\b2/
-	\_l[84]-Version 1.3.3-\n\n/
-	-If you boot S and he's asleep, and no other ghosts are present, you should now have an option to switch to another (random) ghost.\n\n/
-	-Fixed some major issues in his communication dialogues.\n\n/
-	-Hopefully fixed an issue where, if you booted S while Dusty was also present, he would sometimes go into sleep mode.\n\n/
-	-Made OS version detection better, for the purposes of setting a wallpaper as Spanned (Windows 10/multi monitor only feature).\n\n/
-	-Fixed header code and made it a lot lighter.\n\n/
-	-Cleaned up some more code.\n\n/
-	-Fixed a small visual issue while S was holding Obsidian.\n\n/
-	-Added a couple extra dialogues.\n\n\n/
-	\_l[84]-Version 1.3.2-\n\n/
-	-I've updated the way S holds \_a[https://zichqec.github.io/s-the-skeleton/dusty.html]Obsidian\_a, please make sure you also update Dusty before making him hold her again! Also, if you ever have trouble with S not picking up Obsidian, reloading him seems to help.\n\n/
-	-Commu dialogue should no longer cause issues when S is in modes other than default.\n\n/
-	-Fixed the error messages for weather checking.\n\n/
-	-He has some new dialogue, if you try to get \_a[http://www.drdowasure.com/gaster/]Gaster\_a to talk to him...\n\n/
-	-A few more misc tweaks, mostly behind the scenes stuff.\n\n\n/
-	\_l[84]-Version 1.3.1-\n\n/
-	-Fixed weather checking (I swear this is the last time... probably). Non-US urls SHOULDN'T give any more trouble, and if they do, S will direct you to another way of inputting it. \f[bold,1]Please let me know if this gives you any issues!\f[default] As a result of this change...\n\n/
-	-There is now a toggle in the menu for Celsius vs Fahrenheit! You should be able to switch between them seamlessly.\n\n/
-	-Changed the date/time/etc on the bottom of S's menu to have a slightly smaller font, to give it more room.\n\n/
-	-Added a bunch more dialogue for falling asleep and waking up!\n\n/
-	-Added a few extra lines of dialogue in various places.\n\n/
-	-Balloon files will now be hosted separately from S's update files, so fresh installs will no longer want to redownload the balloon files.\n\n/
-	-Fixed some typos, fixed a few small bugs, tightened up some code and made the formatting nicer.\n\n\n/
-	\_l[84]-Version 1.3.0-\n\n/
-	-Added an Autumn themed shell! It comes with an accessory you can put on him using the right click menu.\n\n/
-	-S will now fall asleep randomly! If he's having bad dreams, you can pet him a few times to give him nicer dreams for a little while.\n\n/
-	-Fixed weather checking, again. From now on I should be able to update it on my end without patching S, hopefully. You might need to enter your weather location again.\n\n/
-	-If you are outside the US, you should now be able to get the tempuratures in celcius if you use a page in celcius on Weather.com!\n\n/
-	-S can now hold \_a[https://zichqec.github.io/s-the-skeleton/dusty.html]Obsidian\_a if you drag her onto him! Don't do it until I put up a patch for Dusty, though, or it will behave strangely.\n\n/
-	-Auto weather checks will no longer open the balloon, and should happen completely silently.\n\n/
-	-More dialogue and bugfixes all around!\n\n/
-	"
+	"\![set,autoscroll,disable]\_q\b2"
 	--
-	if reference0 == "frommenu"
+	"%(ChangeLog[reference0])"
+	--
+	if reference1 == "frommenu"
 	{
 		if nowmode == "RYS"
 		{
@@ -2083,7 +2089,33 @@ OnChangeLog //Haha I hope I remember to update this
 		}
 	}
 	--
-	"\![*]\q[I'm done,cancelnodialogue]\e"
+	"\![*]\q[I'm done,cancelnodialogue]"
+	--
+	"\_l[0,0]"
+	--
+	if reference0 >= ARRAYSIZE(ChangeLog) - 1; "\f[color,150,150,150]<<\f[color,default]"
+	else; "\q[<<,OnChangeLog,%(ARRAYSIZE(ChangeLog) - 1)]"
+	--
+	"  "
+	--
+	if reference0 >= ARRAYSIZE(ChangeLog) - 1; "\f[color,150,150,150]< Prev\f[color,default]"
+	else; "\q[< Prev,OnChangeLog,%(reference0 + 1)]"
+	--
+	//"    |%(ChangeVersion[reference0])|    "
+	"                                             "
+	--
+	if reference0 <= 0; "\f[color,150,150,150]Next >\f[color,default]"
+	else; "\q[Next >,OnChangeLog,%(reference0 - 1)]"
+	--
+	"  "
+	--
+	if reference0 <= 0; "\f[color,150,150,150]>>\f[color,default]"
+	else; "\q[>>,OnChangeLog,0]"
+	--
+	if reference0 == 0; "\n\_l[81]\f[height,-1]\f[color,150,150,150](Current version)"
+	--
+	"\e"
+	
 } //the autoscroll tag at the top there means that it'll display starting from the top. As far as I can tell, that tag is disabled once the balloon changes? Doesn't seem to be causing any problems anyways.
 
 
@@ -2158,6 +2190,7 @@ OnHeadlinesenseBegin
 			"\0\s[1070]%(reference0)?\w8 Uh,\w4 let me see here...\e"
 			"\0\s[0]Sure,\w4 I'll pull up %(reference0) for you.\e"
 			"\0\s[1070]%(reference0),\w4 huh..?\e"
+			"\0\s[0]Checking for something new?\w8\w8\s[1070] Let me see what they've got...\e"
 		}
 		else
 		{
@@ -2242,6 +2275,7 @@ Select.Headline_Cancel
 			"\0\s[0]Ok,\w4 let me know if you want to see that again.\e"
 			"\0\s[104]Alright,\w4 let me know when you want to see that again.\e"
 			"\0\s[0]Done for now?\w8\w8\s[104] Ok.\e"
+			"\0\s[102]Alright,\w4 I'll just put this away.\w8\w8\s[0] Let me know if you want to check it again.\e"
 		}
 		else
 		{
@@ -2344,10 +2378,15 @@ OnHeadlinesenseFailure
 		if LV == 0
 		{
 			"\0\s[106]"
+			"\0\s[107]"
+			"\0\s[206]"
 			--
-			"Sorry,\w4 I can't update the feed.\w8\w8 "
-			"Sorry,\w4 something went wrong with the feed.\w8\w8 "
-			"Sorry,\w4 I can't seem to get the feed.\w8\w8 "
+			"Sorry,\w4 I can't update the feed."
+			"Sorry,\w4 something went wrong with the feed."
+			"Sorry,\w4 I can't seem to get the feed."
+			"Something went wrong,\w4 sorry."
+			--
+			"\w8\w8 "
 			--
 			if reference0 == "can't download" //if they can't download the rss feed for some reason
 			{
@@ -2359,7 +2398,7 @@ OnHeadlinesenseFailure
 			}
 			else //other errors
 			{
-				"I'm not sure what happened."
+				"I'm not sure what happened,\w4 it says '%(reference0)'."
 			}
 		}
 		else
@@ -2437,6 +2476,8 @@ OnUpdatedataCreating
 			"Creating an update file.\e"
 			"Alright,\w4 creating an update file.\e"
 			"Sure,\w4 creating an update file.\e"
+			"Making an update file.\e"
+			"Sure,\w4 getting an update file ready.\e"
 		}
 		else
 		{
@@ -2481,6 +2522,9 @@ OnUpdatedataCreated
 			--
 			"Successfully created updates2.dau.\e"
 			"Done creating the updates file.\e"
+			"Done,\w4 the updates file is ready.\e"
+			"Finished making the file for you.\e"
+			"It's ready to go.\e"
 		}
 		else
 		{
@@ -2528,6 +2572,7 @@ OnNarCreating
 			"Packing a .nar file.\e"
 			"Ok,\w4 creating a .nar file.\e"
 			"Sure,\w4 putting together a .nar file.\e"
+			"Getting a .nar file ready.\e"
 		}
 		else
 		{
@@ -2550,15 +2595,15 @@ OnNarCreated
 {
 	if nowmode == "RYS"
 	{
-		"\RYS\s[2006]Successfully created %(reference0).\e"
+		"\RYS\s[2006]Successfully created \_a[OnNarLocation,%(reference1)]%(reference0)\_a.\e"
 	}
 	elseif holdingObsidian == 1
 	{
-		"\0\s[1200]Successfully created %(reference0).\e"
+		"\0\s[1200]Successfully created \_a[OnNarLocation,%(reference1)]%(reference0)\_a.\e"
 	}
 	elseif nowmode == "Asleep"
 	{
-		"\0* (Successfully created %(reference0).)\e"
+		"\0* (Successfully created \_a[OnNarLocation,%(reference1)]%(reference0)\_a.)\e"
 	}
 	else
 	{
@@ -2570,16 +2615,16 @@ OnNarCreated
 			"\0\s[111]"
 			"\0\s[0]"
 			--
-			"Successfully created '%(reference0)'.\e"
-			"Done creating the .nar for '%(reference0)'.\e"
-			"'%(reference0)' is ready to go.\e"
-			"Finished making '%(reference0)'.\e"
+			"Successfully created \_a[OnNarLocation,%(reference1)]%(reference0)\_a.\e"
+			"Done creating the .nar for \_a[OnNarLocation,%(reference1)]%(reference0)\_a.\e"
+			"\_a[OnNarLocation,%(reference1)]%(reference0)\_a is ready to go.\e"
+			"Finished making \_a[OnNarLocation,%(reference1)]%(reference0)\_a.\e"
 		}
 		else
 		{
 			if LVCheck == 1
 			{
-				"\0\s[510]Successfully created %(reference0).\e"
+				"\0\s[510]Successfully created \_a[OnNarLocation,%(reference1)]%(reference0)\_a.\e"
 			}
 			else
 			{
@@ -2587,6 +2632,17 @@ OnNarCreated
 			}
 		}
 	}
+}
+
+OnNarLocation
+{
+	_path = reference0
+	_path = REPLACE(_path,"/","\")
+	SETDELIM(_path,"\")
+	_len = ARRAYSIZE(_path) - 1
+	_path[_len] = IARRAY
+	
+	"\C\![open,file,%(_path)]"
 }
 
  //****　Clock Synchronization　**********************************************************
@@ -2624,9 +2680,13 @@ OnSNTPBegin
 	{
 		if LV == 0
 		{
-			"\0\s[110]The time..?\w8\w8\s[1070] Uh,\w4 let me see...\w8\e"
-			"\0\s[110]Your clock?\w8\w8\s[1070] Uh,\w4 sure,\w4 let me check...\w8\e"
-			"\0\s[110]Oh,\w4 sure,\w4 I can check if your clock is synced.\w8\w8\s[1070] Hold on a moment...\w8\e"
+			"\0\s[110]The time..?\w8\w8\s[1070] Uh,\w4 let me see..."
+			"\0\s[110]Your clock?\w8\w8\s[1070] Uh,\w4 sure,\w4 let me check..."
+			"\0\s[110]Oh,\w4 sure,\w4 I can check if your clock is synced.\w8\w8\s[1070] Hold on a moment..."
+			"\0\s[107]Aren't computers supposed to be really good at time?\w8\w8\s[1070] Just a moment,\w4 I'll check..."
+			"\0\s[106]If your computer can't keep the time accurately,\w4 how is checking with another computer more reliable..?\w8\w8\s[107] Anyways,\w4\s[1070]just a moment..."
+			--
+			"\w8\e"
 		}
 		else
 		{
@@ -2647,9 +2707,6 @@ OnSNTPBegin
 			}
 		}
 	}
-	
-	//"\0\s[0]We're going to check the time.\w9\1\s[10]We are connecting to %(reference0).\e"
-	//%(reference0) here is the site they'll be using to check your clock. I wouldn't worry too much about what the site is or where it's defined, it should be accurate. Replace the dialogue with what you need, you don't have to use reference0 if you don't want to.
 }
 
 
@@ -2696,6 +2753,10 @@ OnSNTPCompare
 				"\s[111]"
 				--
 				"Your clock is accurate.\e"
+				"Your clock is fine.\e"
+				"Your clock is correct.\e"
+				"Looks like your clock is already correct.\e"
+				"Your clock doesn't need changed.\e"
 			}
 			else
 			{
@@ -2731,6 +2792,9 @@ OnSNTPCompare
 			if LV == 0
 			{
 				"\s[106]Your clock doesn't match.\w8\w8\s[0] Should I fix it?"
+				"\s[107]I guess your clock is off.\w8\w8\s[0] Do you want me to fix it?"
+				"\s[107]Huh,\w4 your clock is off.\w8\w8\s[0] Should I fix it for you?"
+				"\s[107]Your clock's time is off.\w8\w8\s[0] Do you want me to fix it for you?"
 			}
 			else
 			{
@@ -2741,6 +2805,7 @@ OnSNTPCompare
 				else
 				{
 					"\s[404]It doesn't match.\w8\w8\s[400] I'm not fixing it.\e"
+					"\s[404]It doesn't match.\w8\w8\s[400] Fix your own clock,\w4 I'm not doing it.\e"
 				}
 			}
 		}
@@ -2783,7 +2848,9 @@ OnSNTPEXECUTE
 			"Alright,\w4 should be all good now.\e"
 			"Done.\w8\w8 How's that?\e"
 			"Alright,\w4 all fixed.\e"
-			"There you go,\w4 all good.\w8\w8\s[106] Aren't computers supposed to be good at keeping time?\e"
+			"There you go,\w4 all good.\w8\w8\s[106] Aren't computers supposed to take care of all this for you?\e"
+			"All good now.\e"
+			"There,\w4 fixed.\e"
 		}
 		else
 		{
@@ -2823,6 +2890,7 @@ OnSNTPCANCEL
 			"\0\s[107]Ok,\w4 let me know if you change your mind.\e"
 			"\0\s[106]Uh...\w8\w8\s[107] Well,\w4 I'm sure you've got your reasons.\e"
 			"\0\s[106]Alright then,\w4\s[107] if you change your mind just let me know.\e"
+			"\0\s[107]...Ok.\w4 then.\w8\w8\s[106] If you want it fixed later,\w4 just let me know.\e"
 		}
 		else
 		{
@@ -2862,6 +2930,7 @@ OnSNTPFailure
 			"\0\s[206]Ah,\w4 sorry,\w4 it looks like something went wrong.\w8\w8\s[106] Maybe try again later?\e"
 			"\0\s[107]Something went wrong,\w4 sorry.\w8\w8\s[208] Maybe you can try again later?\e"
 			"\0\s[110]Ah,\w4 looks like something went wrong.\w8\w8\s[107] Maybe it'll work if you try again later?\e"
+			"\0\s[106]Sorry,\w4 I can't get through.\w8\w8 Maybe try again later?\w8\w8 Or you could try changing your settings in the preferences menu.\e"
 		}
 		else
 		{
@@ -2979,6 +3048,8 @@ OnBatteryLow
 			"\0\s[202]Hey,\w4 looks like your battery is getting low, there.\w8\w8\s[200] I don't want to find out what happens if I'm still here and your computer shuts down.\e"
 			"\0\s[202]Uh,\w4 your battery is down to %(reference0)%,\w4 kiddo.\w8\w8 Maybe you should find a charger?\e"
 			"\0\s[206]Your battery is getting pretty low.\w8\w8\s[107] You should probably plug your computer in.\e"
+			"\0\s[107]Your battery is pretty low,\w4 kiddo.\w8\w8\s[106] Keep a close eye on it.\e"
+			"\0\s[107]Keep a close eye on that battery,\w4 kiddo.\w8\w8\s[106] I don't want to be here if your computer shuts down,\w4 I'm not sure what would happen to me.\e"
 		}
 	}
 	//reference0 here is the amount of battery power. Replace as you like.
@@ -3009,6 +3080,7 @@ OnBatteryCritical
 			"\0\s[201]Uh,\w4 hey,\w4 your battery is REALLY low.\w8\w8\s[300] If you can't get to a charger,\w4\s[200] could you at least send me home?\w8\w8\s[302] I'm uh...\w8\w8\s[515] not fond of the dark.\e"
 			"\0\s[108]Hey uh,\w4 your battery is REALLY low.\w8\w8 If you don't have a charger handy,\w4 could you send me home at least?\w8\w8\s[200] I don't want to find out what happens if I'm still here when this thing shuts down...\e"
 			"\0\s[109]Your battery is almost dead,\w4 kiddo.\w8\w8\s[108] Could you send me home if you don't have a charger,\w4 at least?\w8\w8\s[301] I don't want to be here when the power dies.\e"
+			"\0\s[107]Not to alarm you,\w4 but your battery is REALLY low.\w8\w8\s[206] You should probably go find a charger,\w4 like right now.\e"
 		}
 	}
 }
@@ -3017,6 +3089,8 @@ OnBatteryCritical
 //This I believe checks to see if your laptop is plugged in or not. Originally this bit of code was commented out, so I suspect it may not work. It may need a plug-in of some sort. Either way, you can delete it or fill it out as you like.
 //Actually investigating this, leaving this in makes it so the ghost updates you about whether or not your computer is plugged-in constantly, which makes no sense for desktops. No doubt why it was commented out. Just leave it be.
 
+
+//Would be nice to set this up to auto check if you're running on battery power, and if so, use reference0 to check for specific thresholds (75%, 50%, 25%) and notify you when you reach them. But only the first time you reach them, so it's not constant.
 /*
 OnBatteryNotify
 {
@@ -3098,7 +3172,7 @@ OnShellScaling
 		}
 		elseif reference0 > 100 //Bigger
 		{
-			"\0\s[1301]...So tall...\w8\w8 I can smooch the top of \f[italic,1]your\f[italic,0] skull now...\w8\w8 %(mumb)...\e"
+			"\0\s[1303]...So tall...\w8\w8 I can smooch the top of \f[italic,1]your\f[italic,0] skull now...\w8\w8 %(mumb)...\e"
 		}
 		else //Smaller
 		{
@@ -3154,23 +3228,27 @@ OnShellScaling
 				changedscaling += 5
 				beenbackwards++
 				"\0\s[1100]What the-\w8\w8\s[208] what happened??\w8\w8\s[110] Everything's,\w4 um,\w4 backwards??\e"
+				if beenbackwards > 0; "\0\s[1100]Ah-\w8\w8\s[107] Oh,\w4 it's this again...\w8\w8\s[206] This is so weird.\e"
 			}
 			elseif reference0 > reference1 //=========reference 0 is the new size, reference1 is the old. So this is if he's getting bigger.===========
 			{
 				if reference1 > 100 //If it's larger than 100, you already had him big and then you made him bigger again
 				{
 					"\0\s[1100]Whoa.\w8\w8\s[106] Uh,\w4 I'm starting to feel a little fuzzy,\w4 kiddo.\e" //cause his art gets fuzzy... unless you're like me and you turn that off so that he looks crisp at 200% and 300%. RIP my clever dialogue. Ah well, I still think it's funny
+					"\0\s[107]Even bigger..?\w8\w8\s[106] Is there a reason for this?\w8\w8 Are you trying to tell me I'm short?\e"
 				}
 				elseif reference1 < 100 //You had him under 100%, and now you've made him very large
 				{
 					if reference0 > 100 //He's now above normal height
 					{
 						"\0\s[1100]Ah-\w8\w8\s[107] That's kinda disorienting,\w4 kiddo.\e"
+						"\0\s[1100]Whoa-\w8\w8\s[107] Geez,\w4 do you have to change my size so suddenly like that?\e"
 						changedscaling += 3
 					}
 					else //Otherwise, he's still under normal height
 					{
 						"\0\s[106]That's uh,\w4 a little better?\e"
+						"\0\s[107]Well,\w4 that's part of the way back to normal...\w8\w8 Just %(100 - reference0)% to go.\e"
 					}
 				}
 				elseif reference1 == 100 //He was originally normal size
@@ -3218,7 +3296,7 @@ OnDeviceArrival //This will activate any time the user puts a USB into their com
 			_device = reference[0][0,","] + reference[0][1,","] + reference[0][2,","] + reference[0][4,","]//reference0 is a big output of all the information about what you plugged in, this'll make it lowercase so that I can check it in the ifs easier. || This big thing splits that device name, and removes the 4th section (3rd if you're counting from 0) because the 4th section changes if the device is bluetooth. Nothing of value is lost here, he should still be able to recognize the device from the other sections. Many thanks to GrayArea and Firefright for helping me on this one!
 			_device = TOLOWER(_device) 
 			
-			if "wacom" _in_ "%(_device)" || "tablet" _in_ "%(_device)" //Does wacom make things that aren't tablets? I've not heard of such a thing, so he'll assume it's a tablet
+			if "wacom" _in_ _device || "tablet" _in_ _device //Does wacom make things that aren't tablets? I've not heard of such a thing, so he'll assume it's a tablet
 			{
 				"\s[1210]Oh,\w4 you plugged in a tablet?\w8\w8\s[1204] Are you an artist,\w4 %(username)?\e"
 			}
@@ -3226,27 +3304,27 @@ OnDeviceArrival //This will activate any time the user puts a USB into their com
 			{
 				"\0\s[1210]Oh,\w4 is that one of those 'jump drives' my kids were telling me about?\w8\w8\s[1204] Are you moving some files around?\w8\w8\n\n\s[1225].\w4.\w4.\w4\s[1206]You're not planning to move me around,\w4 are you?\e"
 			}
-			elseif "webcam" _in_ "%(_device)"
+			elseif "webcam" _in_ _device
 			{
 				"\0\s[1210]Oh,\w4 a webcam?\w8\w8\s[1204] Are you planning on chatting with someone?\e"
 			}
 			else
 			{
-				if "%(_device)" _in_ DeviceList
+				if _device _in_ DeviceList
 				{
 					"\0\s[1204]Oh hey,\w4 I've seen this device before,\w4 you were using it before weren't you?\w8\w8\s[1200] What's it for,\w4 anyways?\e"
 					"\0\s[1210]Oh,\w4 it's this device again.\w8\w8\s[1204] Hello device.\e"
 				}
-				elseif "%(_device)" _in_ DeviceMemories
+				elseif _device _in_ DeviceMemories
 				{
-					DeviceList ,= "%(_device)"
+					DeviceList ,= _device
 					"\0\s[1220]Hmm...\w8\w8 have I seen this one before..?\w8\w8\s[1206] I'm not sure...\e"
 				}
 				else
 				{
-					DeviceList ,= "%(_device)"
+					DeviceList ,= _device
 					"\0\s[1210]Oh,\w4 you've plugged in something new?\w8\w8\s[1207] Computers sure do have a lot of little devices,\w4 don't they?\e"
-					"\0\s[1210]Oh,\w4 what's this?\e"
+					"\0\s[1210]Oh,\w4 what's this?\w8\w8 Something new?\e"
 				}
 			}
 		}
@@ -3261,35 +3339,35 @@ OnDeviceArrival //This will activate any time the user puts a USB into their com
 				_device = reference[0][0,","] + reference[0][1,","] + reference[0][2,","] + reference[0][4,","]//reference0 is a big output of all the information about what you plugged in, this'll make it lowercase so that I can check it in the ifs easier. || This big thing splits that device name, and removes the 4th section (3rd if you're counting from 0) because the 4th section changes if the device is bluetooth. Nothing of value is lost here, he should still be able to recognize the device from the other sections. Many thanks to GrayArea and Firefright for helping me on this one!
 				_device = TOLOWER(_device) 
 				
-				if "wacom" _in_ "%(_device)" || "tablet" _in_ "%(_device)" //Does wacom make things that aren't tablets? I've not heard of such a thing, so he'll assume it's a tablet
+				if "wacom" _in_ _device || "tablet" _in_ _device //Does wacom make things that aren't tablets? I've not heard of such a thing, so he'll assume it's a tablet
 				{
 					"\s[110]Oh,\w4 you plugged in a tablet?\w8\w8\s[103] Are you an artist,\w4 %(username)?\e"
 				}
-				elseif "mass storage" _in_ "%(_device)" //Every USB I've ever used has had "mass storage device" in the name somewhere... at least that I can remember
+				elseif "mass storage" _in_ _device //Every USB I've ever used has had "mass storage device" in the name somewhere... at least that I can remember
 				{
 					"\0\s[110]Oh,\w4 is that one of those 'jump drives' my kids were telling me about?\w8\w8\s[104] Are you moving some files around?\w8\w8\n\n\s[1070].\w4.\w4.\w4\s[202]You're not planning to move me around,\w4 are you?\e"
 				}
-				elseif "webcam" _in_ "%(_device)"
+				elseif "webcam" _in_ _device
 				{
 					"\0\s[110]Oh,\w4 a webcam?\w8\w8\s[104] Are you planning on chatting with someone?\e"
 				}
 				else
 				{
-					if "%(_device)" _in_ DeviceList
+					if _device _in_ DeviceList
 					{
 						"\0\s[104]Oh hey,\w4 I've seen this device before,\w4 you were using it before weren't you?\w8\w8\s[0] What's it for,\w4 anyways?\e"
 						"\0\s[110]Oh,\w4 it's this device again.\w8\w8\s[104] Hello device.\e"
 					}
-					elseif "%(_device)" _in_ DeviceMemories
+					elseif _device _in_ DeviceMemories
 					{
-						DeviceList ,= "%(_device)"
+						DeviceList ,= _device
 						"\0\s[1070]Hmm...\w8\w8 have I seen this one before..?\w8\w8\s[206] I'm not sure...\e"
 					}
 					else
 					{
-						DeviceList ,= "%(_device)"
+						DeviceList ,= _device
 						"\0\s[110]Oh,\w4 you've plugged in something new?\w8\w8\s[107] Computers sure do have a lot of little devices,\w4 don't they?\e"
-						"\0\s[110]Oh,\w4 what's this?\e"
+						"\0\s[110]Oh,\w4 what's this?\w8\w8 Something new?\e"
 					}
 				}
 			}
@@ -3320,11 +3398,11 @@ OnDeviceRemove
 			if LV == 0
 			{
 				_device = TOLOWER(reference0)
-				if "wacom" _in_ "%(_device)" || "tablet" _in_ "%(_device)"
+				if "wacom" _in_ _device || "tablet" _in_ _device
 				{
 					"\0\s[0]Done drawing for now?\w8\w8\s[104] Make sure to store your tablet properly so the cord doesn't get damaged.\e"
 				}
-				elseif "mass storage" _in_ "%(_device)"
+				elseif "mass storage" _in_ _device
 				{
 					
 				}
@@ -3420,13 +3498,10 @@ OnBalloonBreak //This is so dumb XD do I keep this? I don't know -- Update, I'm 
 {
 	SinceTalk += 10
 	suppressCoords = 0
-	if lastinteracted > 6
-	{
-		CameBack += 1
-	}
 	--
 	if poppable == "ON"
 	{
+		if lastinteracted > 6; CameBack += 1
 		lastinteracted = 0
 		if nowmode == "RYS"
 		{
@@ -3519,7 +3594,6 @@ BalloonCheck
 {
 	if ASEARCH("Status",var.req.key) != -1
 	{
-		//If there is the word balloon is Azura's status, that means one is opened so that she is speaking with the user
 		_currentstatus = var.req.value[ASEARCH("Status",var.req.key)]
 		if "balloon" _in_ _currentstatus
 		{
@@ -3579,7 +3653,7 @@ OnUSALoc
 	"\0\s[0]Ok,\w4 what's your zipcode,\w4 then?"
 	"\0\s[0]Alright,\w4 what's your zipcode?"
 	--
-	"\![open,inputbox,OnLocCode,-1]\![set,balloontimeout,-1]\e"
+	"\![open,inputbox,OnLocCode,-1, ]\![set,balloontimeout,-1]\e"
 }
 
 OnOtherLoc
@@ -3608,6 +3682,8 @@ Select.ToggleDegreesLocation
 
 OnLocCode
 {
+	reference0 = CUTSPACE(TOSTR(reference0))
+	
 	if templocation == "USA"
 	{
 		tempcode = reference0
@@ -3653,7 +3729,7 @@ OnCheckWeatherLocFailure
 		{
 			"\0\s[106]Sorry,\w4 something went wrong.\w8\w8 "
 			--
-			if STRLEN(locationcode) != 5
+			if STRLEN(tempcode) != 5
 			{
 				"That's not a valid zipcode.\w8\w8\n\n"
 			}
@@ -3782,7 +3858,7 @@ OnDownloadCurWeather
 	}
 	else
 	{
-		"\0\![execute,http-get,https://zichqec.github.io/s-the-skeleton/weatherregex.html,--async=OnNonFunction,--file=weatherregex.html,--timeout=300--nodescript]"
+		"\0\![execute,http-get,https://zichqec.github.io/s-the-skeleton/weatherregex.html,--async=OnNonFunction,--file=weatherregex.html,--timeout=300,--nodescript]"
 		--
 		"\![execute,http-get,https://weather.com/weather/today/l/%(locationcode),--async=OnCurWeatherFound,--file=weather.html,--timeout=300,--nodescript]\b[-1]\e"
 	}
@@ -3845,6 +3921,8 @@ OnCurWeatherFound
 			//---
 			if RE_SEARCH (_buff2,'REGSUNRISE--(.*)--REGSUNRISE'); {_regsunrise = RE_GETSTR[1]}
 			if RE_SEARCH (_buff2,'REGSUNSET--(.*)--REGSUNSET'); {_regsunset = RE_GETSTR[1]}
+			//---
+			if RE_SEARCH (_buff2,'REGPHASE--(.*)--REGPHASE'); {regphase = RE_GETSTR[1]}
 		}
 	}
 	--
@@ -3897,9 +3975,9 @@ OnCurWeatherFound
 	if weather _in_ weatherlist; ""
 	else; weatherlist += "%(weather)\n-"
 	--
-	if tempurature != ""
+	if tempurature[1] != ""
 	{
-		"\![raise,OnCelsius]\![raise,OnDownloadMoonPhase]"
+		"\![raise,OnCelsius]\w4\![raise,OnDownloadMoonPhase]"
 	}
 	else
 	{
@@ -3910,7 +3988,7 @@ OnCurWeatherFound
 		}
 		else
 		{
-			"\0\s[106]Sorry,\w4 looks like something went wrong.\w8\w8\s[107] You should talk to Zichqec about that.\e"
+			"\0\s[106]Sorry,\w4 looks like something went wrong.\w8\w8\s[107] You should talk to \_a[https://zichqec.github.io/s-the-skeleton/index.html]Zichqec\_a about that.\e"
 		}
 	}
 
@@ -4006,7 +4084,7 @@ OnCelsius //Written by Zdzisiu, thank you ;w;
 
 OnDownloadMoonPhase
 {
-	"\0\![execute,http-get,https://www.moongiant.com/phase/today/,--async=OnMoonFound,--file=moon.html,--timeout=200]"
+	"\0\![execute,http-get,https://www.moongiant.com/phase/today/,--async=OnMoonFound,--file=moon.html,--timeout=200,--nodescript]"
 }
 
 OnMoonFound
@@ -4016,7 +4094,8 @@ OnMoonFound
 	//line being read
 	_buff=""
 	//regular expressions to extract data
-	_regphase=',"Phase: <span>([\w|\s]*)<./span>'
+	//_regphase=',"Phase: <span>([\w|\s]*)<./span>' //old one, doesn't work anymore
+	//_regphase='\d</b><br>([\w|\s]*)<br>Illumination: <span>\d'
 	_found = 0;
 	//using UTF-8 charset
 	FCHARSET(1)
@@ -4032,7 +4111,7 @@ OnMoonFound
 	{
 		for _buff = FREAD(_file); _buff != -1 && !_found; _buff = FREAD(_file)
 		{
-			if RE_SEARCH ( _buff, _regphase )
+			if RE_SEARCH ( _buff, regphase )
 			{
 				phase = RE_GETSTR[1]
 				_found = 1 //break loop since we dont need to continue parsing
@@ -4072,9 +4151,18 @@ OnMoonFound
 		feelslike[0] = TOINT(feelslike[2])
 	}
 	
+	
+	ERASEVAR(regphase)
 	//change the dialogue as you wish
 	//[temp, degrees, feels like temp, humidity, wind, state (cloudy, rainy, etc)]
-	
+	--
+	OnWeatherFinish
+	--
+	"\n\![*]\q[I'm done,cancelnodialogue]\e"
+}
+
+OnWeatherFinish
+{
 	//========================Weather Dialogue=============================
 	
 	/*if temp == "Below 0" //0F and below, 
@@ -4113,20 +4201,16 @@ OnMoonFound
 		"\0\s[0]"
 	}
 	--
-	{
-		"It's %(tempurature[0]) degree"
-		--
-		if tempurature[0] != 1; "s"
-		--
-		" there.\w8\w8 "
-	}
-	{
-		"It's %(tempurature[0]) degree"
-		--
-		if tempurature[0] != 1; "s"
-		--
-		".\w8\w8 "
-	}
+	_s = ""; if tempurature[0] != 1; _s = "s"
+	"It's %(tempurature[0]) degree%(_s) there."
+	"It's %(tempurature[0]) degree%(_s) out."
+	"It's %(tempurature[0]) degree%(_s)."
+	"It's %(tempurature[0]) degree%(_s) out there,\w4 apparently."
+	"Looks like it's %(tempurature[0]) degree%(_s) there."
+	"Looks like it's %(tempurature[0]) degree%(_s) out."
+	"Looks like it's %(tempurature[0]) degree%(_s)."
+	--
+	"\w8\w8 "
 	--
 	if temp == "Below 0" //0F and below, 
 	{
@@ -4163,6 +4247,7 @@ OnMoonFound
 		"\s[107]Yeesh,\w4 pretty hot out."
 		"\s[107]Ugh,\w4 starting to get hot out."
 		"\s[107]Bad day for long sleeves."
+		"\s[107]You should definitely wear short sleeves if you can."
 	}
 	elseif temp == "Boiling" //96+F, 36+C
 	{
@@ -4186,21 +4271,25 @@ OnMoonFound
 			"\s[104]At least it's not too humid."
 			"\s[0]It's not too humid out,\w4 so that's nice."
 		}
+		--
+		"\w8\w8"
 	}
 	--
-	"\w8\w8\n\n"
+	"\n\n"
 	--
-	if weather == "Clear" || weather == "Mostly Clear" || weather == "Sunny" || weather == "Mostly Sunny" || weather == "Fair" //Clear/Sunny
+	if weather_clear //Clear/Sunny
 	{
 		if hour >= 8 && hour <= 18
 		{
 			"\s[104]The sun is shining,\w8\s[0] are you glad to see it?"
 			"\s[104]It's good to see the sun,\w4 isn't it?"
+			"\s[104]It's bright and sunny out."
 			--
-			if temp == "Boiling" || "temp" == "Hot"
+			if temp == "Boiling" || temp == "Hot"
 			{
 				"\w8\w8\s[107] Though,\w4 it'd be nice if there were some clouds to keep away the heat..."
 				"\w8\w8\s[106] Though,\w4 maybe it's not so nice on such a hot day..."
+				"\w8\w8\s[106] Maybe a few clouds would be helpful to keep the heat away,\w4 though..."
 			}
 			elseif temp == "Below 0" || temp == "Freezing" || temp == "Cold"
 			{
@@ -4213,11 +4302,18 @@ OnMoonFound
 			"\s[104]It's pretty clear out there,\w4 you might be able to see the stars."
 			"\s[103]There aren't many clouds out there,\w4 you might be able to see some stars."
 			"\s[104]There aren't a lot of clouds,\w4 it might be a good night to see the stars."
+			"\s[104]You might be able to see some stars tonight,\w4 you should take a look."
+			"\s[103]If you like looking at the stars,\w4 this might be a good night for it."
 		}
 		--
 		if phase == "New Moon"
 		{
-			"\w8\w8\s[104] There's also a new moon tonight,\w4 maybe you'll have a chance to see it."
+			"\w8\w8\s[104] There's also a new moon tonight,\w8\s[107] though I guess that means it'll be pretty dark..."
+			--
+			if weather == "Clear" || weather == "Mostly Clear" || weather == "Sunny" || weather == "Mostly Sunny" || weather == "Fair"
+			{
+				"\w8\w8\s[0] Still,\w4 you might be able to see the stars better."
+			}
 		}
 		if phase == "First Quarter" || phase == "Last Quarter" //Half moon
 		{
@@ -4228,7 +4324,7 @@ OnMoonFound
 			"\w8\w8\s[104] There's also a full moon tonight,\w4 maybe you'll have a chance to see it."
 		}
 	}
-	elseif weather == "Partly Cloudy" || weather == "Mostly Cloudy" || weather == "Cloudy" //Cloudy
+	elseif weather_cloudy //Cloudy
 	{
 		"\s[104]There are a few clouds out there,\w4 that's nice."
 		"\s[104]It's cloudy out,\w4 what kind of clouds are out there?"
@@ -4240,13 +4336,13 @@ OnMoonFound
 			"\w8\w8\s[107] That helps with the heat,\w4 at least."
 		}
 	}
-	elseif weather == "Showers in the Vicinity" || weather == "Few Showers" || weather == "Showers" //Might shower
+	elseif weather_mightrain //Might shower
 	{
 		"\s[102]Looks like it might rain soon,\w4 if it's not already."
 		"\s[102]Looks like it might rain,\w4 if it isn't already."
 		"\s[0]It might rain there soon,\w4 if it's not already."
 	}
-	elseif weather == "Rain Shower" || weather == "Light Rain" || weather == "Rain" || weather == "Heavy Rain" //Raining
+	elseif weather_raining //Raining
 	{
 		"\s[102]It's raining out,\w4 or it will be soon."
 		"\s[205]It's raining,\w4 too."
@@ -4258,7 +4354,7 @@ OnMoonFound
 			"\w8\w8\s[107] That explains the humidity."
 		}
 	}
-	elseif weather == "Rain and Snow" || weather == "Snow Shower" //Snowing -- This one is probably missing a lot atm, gotta wait til winter to gather data
+	elseif weather_snowing //Snowing -- This one is probably missing a lot atm, gotta wait til winter to gather data
 	{
 		"\s[104]It's snowing out!\w8\w8\s[104] I'm always glad to see that."
 		"\s[104]It's snowing!"
@@ -4280,13 +4376,13 @@ OnMoonFound
 			"\w8\w8\s[104] It's about the right temperature for packing,\w4 too."
 		}
 	}
-	elseif weather == "Isolated Thunderstorms" || weather == "Scattered Thunderstorms" || weather == "Thunderstorm" || weather == "Heavy Thunderstorm"
+	elseif weather_thunderstorm
 	{
 		"\s[110]Take care if you head out,\w4\s[106] I don't like the sound of that thunder."
 		"\s[110]Be careful,\w4 with all that thunder out there."
 		"\s[200]I wouldn't head out if you don't have to;\w8 I don't like the sound of that thunder."
 	}
-	elseif weather == "Fog" || weather == "Haze" //Limited visibility
+	elseif weather_foghaze
 	{
 		_lower = TOLOWER(weather)
 		"\s[206]It's a bit hard to see out there,\w4 take care if you're heading out,\w4\s[108] ok?"
@@ -4294,7 +4390,7 @@ OnMoonFound
 		"\s[206]It's too quiet with this %(_lower) out..."
 	}
 	--
-	if pollen == "Local Pollen Alert"
+	if pollen_alert
 	{
 		"\n\n\s[110]There's also a pollen alert out,\w4\s[106] take care if that's something you're sensitive to."
 		"\n\n\s[110]If you're sensitive to pollen,\w4 there's a lot of that out today,\w4 so take care."
@@ -4307,8 +4403,6 @@ OnMoonFound
 	{
 		"\n\![*]\q[Back to functions,Onbacktofunctions]"
 	}
-	--
-	"\n\![*]\q[I'm done,cancelnodialogue]\e"
 }
 
 //==================Calendar functions==================
@@ -4361,4 +4455,10 @@ On_getaistate //I dont have anything super useful to track with this right now X
 OnNotifyOSInfo
 {
 	NotifyOS = reference0
+}
+
+OnNetworkStatusChange
+{
+	IP = IARRAY
+	IP = reference1
 }

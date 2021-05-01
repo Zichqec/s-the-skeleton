@@ -5,6 +5,9 @@ OnTranslate
 	_talk = reference0
 	CurrentTalk = reference0
 	
+	_talk = REPLACE(_talk, "anZichqec", "\_a[https://zichqec.github.io/s-the-skeleton/index.html]Zichqec\_a")
+	//_talk = REPLACE(_talk, "* (", "\__v[disable]*\__v (")
+	
 	//Proper names
 	_talk = REPLACE(_talk, "anWD", "\_a[FAwd]WD\_a")
 	_talk = REPLACE(_talk, "anDings", "\_a[FAdings]Dings\_a")
@@ -116,6 +119,25 @@ OnTranslate
 	else
 	{
 		_talk = REPLACE(_talk, "\RYS", "\p2")
+	}
+	
+	if reference2 == "OnCommunicate" //If this is a commu message
+	{
+		_references = reference3
+		_ghost = references[0]
+		/*if "Facing:right" _in_ _references[1] //If the other ghost is facing right
+		{
+			_talk = REPLACE(_talk,"\S[","\s[3")
+		}
+		elseif "Facing:left" _in_ _references[1] //If the other ghost is facing left
+		{
+			_talk = REPLACE(_talk,"\S[","\s[4")
+		}
+		else //If no facing direction is given
+		{
+			_talk = REPLACE(_talk,"\S[","\s[")
+		}*/
+		_talk = REPLACE(_talk,"\S[","\s[") //Until I add the facing frames
 	}
 	--
 	
@@ -308,7 +330,7 @@ OnAnchorSelect //[Zi] Alright so... I decided to rewrite this. I didn't see a re
 			}
 			else
 			{
-			"my mom"
+				"my mom"
 			}
 			--
 			" and "
@@ -319,7 +341,7 @@ OnAnchorSelect //[Zi] Alright so... I decided to rewrite this. I didn't see a re
 			}
 			else
 			{
-			"my aunt" 
+				"my aunt" 
 			}
 			--
 			" are here,\w4 they've been able to help him with regular healing sessions.\w8\w8\n\n\s[1010]He's been getting more and more confident,\w4 and I'm glad to see it."
@@ -469,14 +491,14 @@ OnAnchorSelect //[Zi] Alright so... I decided to rewrite this. I didn't see a re
 			"\![*]\q[Ask about someone else,OnFamilyMenu]\n"
 		}
 		--
-		"\![*]\q[I'm done,cancelnodialogue]" //Either way, here's a cancel button that leads to nothing. This is also here to prevent anchor text from being overwritten by random text... I may or may not make it so that this doesn't time out.
+		"\![*]\q[I'm done,cancelnodialogue]\e" //Either way, here's a cancel button that leads to nothing. This is also here to prevent anchor text from being overwritten by random text... I may or may not make it so that this doesn't time out.
 		
 	}
 	else
 	{
 		if "talktome" _in_ reference0
 		{
-			AiTalk
+			"\![raise,OnAiTalk,userprompted]"
 		}
 		elseif "talktoother" _in_ reference0
 		{
@@ -491,7 +513,7 @@ OnAnchorSelect //[Zi] Alright so... I decided to rewrite this. I didn't see a re
 		}
 		elseif reference0 == "smol"
 		{
-			"\0\b[4]\_b[img\TP02Smol.png,centerx,12,--option=use_self_alpha,--option=fixed]\s[0]Ah,\w4 that one?\w8\w8\s[205] Well,\w4 from what I could gather,\w4 that timeline was a sort of...\w8\w8 swap\w4 of mine.\w8\w8\s[0] I took the place of my %(red)first son%(default),\w4 and anAbbi took the place of my %(teal)partner%(default).\w8\w8\s[200]\n\nBut ah,\w4 since the timelines changed,\w4\s[204] it's just the two of them now.\w8\w8\s[108] It's very clear that he misses his brother and"
+			"\0\b[4]\_b[img\TP02Smol.png,centerx,12,--option=use_self_alpha,--option=fixed]\s[0]Ah,\w4 that one?\w8\w8\s[205] Well,\w4 from what I could gather,\w4 that timeline was a sort of...\w8\w8 swap\w4 of mine.\w8\w8\s[0] I took the place of my %(red('first son')),\w4 and anAbbi took the place of my %(teal('partner')).\w8\w8\s[200]\n\nBut ah,\w4 since the timelines changed,\w4\s[204] it's just the two of them now.\w8\w8\s[108] It's very clear that he misses his brother and"
 			--
 			if staysafe == 0
 			{
@@ -503,7 +525,7 @@ OnAnchorSelect //[Zi] Alright so... I decided to rewrite this. I didn't see a re
 		}
 		elseif reference0 == "birdy"
 		{
-			"\0\b[4]\_b[img\TP03Birdy.png,centerx,12,--option=use_self_alpha,--option=fixed]\s[206]That timeline was actually a pretty sad one...\w8\w8\s[201] I found him alone in a forest,\w4 desperately defending a nest of eggs.\w8\w8\s[108] I had no way to communicate with him,\w4 but it was pretty clear from how upset he was that his %(orange)partner%(default) was gone,\w4\s[109] and almost certainly some eggs,\w4 too.\w8\w8\n\n\s[200]It took a while to convince him that I wasn't going to hurt him or his eggs,\w4 but eventually he calmed down and I waited with him until my andad found me.\w8\w8\n\n\s[106]I brought him home with me,\w4 and we found a less dangerous place for him to raise his brood.%(timelinequestions)"
+			"\0\b[4]\_b[img\TP03Birdy.png,centerx,12,--option=use_self_alpha,--option=fixed]\s[206]That timeline was actually a pretty sad one...\w8\w8\s[201] I found him alone in a forest,\w4 desperately defending a nest of eggs.\w8\w8\s[108] I had no way to communicate with him,\w4 but it was pretty clear from how upset he was that his %(orange('partner')) was gone,\w4\s[109] and almost certainly some eggs,\w4 too.\w8\w8\n\n\s[200]It took a while to convince him that I wasn't going to hurt him or his eggs,\w4 but eventually he calmed down and I waited with him until my andad found me.\w8\w8\n\n\s[106]I brought him home with me,\w4 and we found a less dangerous place for him to raise his brood.%(timelinequestions)"
 			knowaboutbirdy = 2
 		}
 		elseif reference0 == "sorrel"
@@ -523,7 +545,7 @@ OnAnchorSelect //[Zi] Alright so... I decided to rewrite this. I didn't see a re
 		}
 		elseif reference0 == "nine"
 		{
-			"\0\b[4]\_b[img\TP07Nine.png,centerx,12,--option=use_self_alpha,--option=fixed]\![raise,OnDialogueVariables,suppressCoordsOn]\s[109]* (He sighs deeply.)\w8\w8\n\nHow do I even begin to explain this one...?\w8\w8\s[200] I guess to understand,\w4 you'd need to know my own origin.\w8\w8\n\n\s[201]I was made in a lab,\w4 I told you that much already.\w8\w8\s[109] But it's uh...\w8\w8 more complicated than just that.\w8\w8\s[204] I'm...\w8\w8 sort of the remnant of someone who died,\w4 a very long time ago.\w8\w8\n\n\s[200]He was killed by the %(yellow)scientist%(default) who made me,\w4 and I was constructed out of the pieces that remained.\w8\w8 \s[108]I'm made of that kid's body and soul,\w4 put back together.\x\c\0\b[4]\_b[img\TP07Nine.png,centerx,12,--option=use_self_alpha,--option=fixed]\s[303]When you put a soul back together that had already shattered into pieces,\w4 it doesn't really...\w8\w8\s[302] go back the same way.\w8\w8\s[303] I'm not the same person as Sans was.\w8\w8\s[300] I don't have any of his memories,\w4 we have different interests,\w4 different world views.\w8\w8\s[204] We're two very different people.\x\c\0\b[4]\_b[img\TP07Nine.png,centerx,12,--option=use_self_alpha,--option=fixed]\s[108]Anyways.\w8\w8 Nine,\w4 as he called himself,\w4 is what happens when that same process happens a second time.\w8\w8\s[200] Something happened to the version of me in that timeline,\w4 and he was killed and put back together again.\w8\w8\s[204] But...\w8\w8\s[109]\n\nIt seems each time you do this,\w4 a little more is lost.\w8\w8\s[108] I ended up ok,\w4 but Nine is severely impaired,\w4 to the point they can't even get him to start calling himself by a real name.\w8\w8\s[200] 9 is part of the designation the Doctor gave him.\w8\w8\w8\x\c\0\b[4]\_b[img\TP07Nine.png,centerx,12,--option=use_self_alpha,--option=fixed]\s[206]I don't really know the exact details of what happened to him.\w8\w8\s[108] He and his anAbbi were taken in by the Toriel in their timeline after they were freed.\w8\w8\s[106] It seems like she's doing a good job of caring for them,\w4 so that's good at least.\![raise,OnDialogueVariables,suppressCoordsOff]%(timelinequestions)"
+			"\0\b[4]\_b[img\TP07Nine.png,centerx,12,--option=use_self_alpha,--option=fixed]\![raise,OnDialogueVariables,suppressCoordsOn]\s[109]* (He sighs deeply.)\w8\w8\n\nHow do I even begin to explain this one...?\w8\w8\s[200] I guess to understand,\w4 you'd need to know my own origin.\w8\w8\n\n\s[201]I was made in a lab,\w4 I told you that much already.\w8\w8\s[109] But it's uh...\w8\w8 more complicated than just that.\w8\w8\s[204] I'm...\w8\w8 sort of the remnant of someone who died,\w4 a very long time ago.\w8\w8\n\n\s[200]He was killed by the %(yellow('scientist')) who made me,\w4 and I was constructed out of the pieces that remained.\w8\w8 \s[108]I'm made of that kid's body and soul,\w4 put back together.\x\c\0\b[4]\_b[img\TP07Nine.png,centerx,12,--option=use_self_alpha,--option=fixed]\s[303]When you put a soul back together that had already shattered into pieces,\w4 it doesn't really...\w8\w8\s[302] go back the same way.\w8\w8\s[303] I'm not the same person as Sans was.\w8\w8\s[300] I don't have any of his memories,\w4 we have different interests,\w4 different world views.\w8\w8\s[204] We're two very different people.\x\c\0\b[4]\_b[img\TP07Nine.png,centerx,12,--option=use_self_alpha,--option=fixed]\s[108]Anyways.\w8\w8 Nine,\w4 as he called himself,\w4 is what happens when that same process happens a second time.\w8\w8\s[200] Something happened to the version of me in that timeline,\w4 and he was killed and put back together again.\w8\w8\s[204] But...\w8\w8\s[109]\n\nIt seems each time you do this,\w4 a little more is lost.\w8\w8\s[108] I ended up ok,\w4 but Nine is severely impaired,\w4 to the point they can't even get him to start calling himself by a real name.\w8\w8\s[200] 9 is part of the designation the Doctor gave him.\w8\w8\w8\x\c\0\b[4]\_b[img\TP07Nine.png,centerx,12,--option=use_self_alpha,--option=fixed]\s[206]I don't really know the exact details of what happened to him.\w8\w8\s[108] He and his anAbbi were taken in by the Toriel in their timeline after they were freed.\w8\w8\s[106] It seems like she's doing a good job of caring for them,\w4 so that's good at least.\![raise,OnDialogueVariables,suppressCoordsOff]%(timelinequestions)"
 			knowaboutnine = 2
 		}
 		elseif reference0 == "serif"
@@ -533,15 +555,15 @@ OnAnchorSelect //[Zi] Alright so... I decided to rewrite this. I didn't see a re
 		}
 		elseif reference0 == "echo" //note to self, NOT the same Echo as the pencil doodle I made ages ago... I just decided they were similar enough to carry the name over. Wings is sad ok
 		{
-			"\0\b[4]\_b[img\TP09Echo.png,centerx,12,--option=use_self_alpha,--option=fixed]\s[208]That's honestly got to be one of the happiest timelines I've seen.\w8\w8\s[106] Echo,\w4 as they called him,\w4 fell out of his original timeline before anything bad ever happened to him in the labs.\w8\w8\s[107]\n\nHe doesn't even remember them.\w8\w8\s[205] Instead,\w4 he grew up with a similar version of my first %(StSfhusband),\w4 raised by my aunt anWings and the %(green)skeleton%(default) she'd married.\w8\w8\n\n\s[206]Though,\w4 as per the usual,\w4 my %(orange)first %(StSfhusband)%(default) is gone now...\w8\w8\s[201] And so is the %(green)skeleton%(default) anWings married,\w4 though I don't think I've seen %(green)him%(default) in any timeline other than this one.%(timelinequestions)"
+			"\0\b[4]\_b[img\TP09Echo.png,centerx,12,--option=use_self_alpha,--option=fixed]\s[208]That's honestly got to be one of the happiest timelines I've seen.\w8\w8\s[106] Echo,\w4 as they called him,\w4 fell out of his original timeline before anything bad ever happened to him in the labs.\w8\w8\s[107]\n\nHe doesn't even remember them.\w8\w8\s[205] Instead,\w4 he grew up with a similar version of my first %(StSfhusband),\w4 raised by my aunt anWings and the %(green('skeleton')) she'd married.\w8\w8\n\n\s[206]Though,\w4 as per the usual,\w4 my %(orange('first ',StSfhusband)) is gone now...\w8\w8\s[201] And so is the %(green('skeleton')) anWings married,\w4 though I don't think I've seen %(green('him')) in any timeline other than this one.%(timelinequestions)"
 			knowaboutecho = 2
 		}
 		elseif reference0 == "ice"
 		{
-			"\0\b[4]\_b[img\TP10Ice.png,centerx,12,--option=use_self_alpha,--option=fixed]\![raise,OnDialogueVariables,suppressCoordsOn]\s[200]That one was...\w8\w8 pretty far removed from my timeline.\w8\w8 He called himself Ice.\w8\w8\n\n\s[108]He'd met my %(orange)first %(StSfhusband)%(default) the way I did,\w4\s[109] but things didn't go so well.\w8\w8\s[300] They grew close,\w4 but...\w8\w8 before they could escape that lab,\w4 the %(green)doctor%(default) there put them in situations specifically to strain their friendship,\w4\s[302] and eventually succeeded in driving a wedge between them.\w8\w8\s[200]\n\nMy %(orange)first %(StSfhusband)%(default)...\w8\w8 could be stubborn,\w4\s[201] excessively so.\w8\w8\s[108] Trying to get %(orange)%(StSfhim)%(default) to stop being angry about what %(orange)%(StSfHe)%(default) thought would've been a way to escape,\w4\s[109] especially in that situation and under that much stress...\w8\w8\s[204] It was an impossible task.\x\c\0\b[4]\_b[img\TP10Ice.png,centerx,12,--option=use_self_alpha,--option=fixed]\s[108]They did eventually escape,\w4 but Ice had given up on all hope and desire to live,\w4 after all that time without anyone else to lean on.\w8\w8\s[204] The version of my %(orange)first %(StSfhusband)%(default) there insisted on keeping him alive,\w4 maybe out of spite,\w4 maybe because %(orange)%(StSfHe)%(default) didn't want to be alone,\w4 I don't know.\w8\w8 \s[200]But things were...\w8\w8 bad.\w8\w8\n\n\s[201]Ice was eventually rescued by another version of myself and my %(orange)first %(StSfhusband)%(default) who happened along,\w4 and helped him to recover and see the joy in living again.\w8\w8\s[302] They showed him the love he'd been starved of for so long...\w8\w8\s[303] Unfortunately,\w4 the multiverse had other plans.\x\c\0\b[4]\_b[img\TP10Ice.png,centerx,12,--option=use_self_alpha,--option=fixed]\s[204]Ice fell back into the timeline he'd been in,\w4 where that version of my %(orange)first %(StSfhusband)%(default) had...\w8\w8\n\n\s[515].\w8.\w8.\w8%(orange)%(StSfCHe)%(default) had gone back into the labs,\w4 and...\w8\w8 started doing what the %(green)doctor%(default) had done to them,\w4 but to innocent people...\w8\w8\s[514] %(orange)%(StSfCHe)%(default) was...\w8\w8 not all there.\w8\w8\s[512] And things just got worse...\w8\w8\n\n\s[109]It's...\w8\w8\s[108] hard for me to talk about %(orange)%(StSfhim)%(default) that way,\w4 maybe we'll just gloss over that part.\x\c\0\b[4]\_b[img\TP10Ice.png,centerx,12,--option=use_self_alpha,--option=fixed]\s[200]Anyways,\w4 Ice got lucky enough to fall out of the timeline again,\w4 into a completely foreign place this time...\w8\w8\s[201] A place I'll freely admit that I don't understand at all.\w8\w8\s[206] Apparently they have these things called planets that they can fly between?\w8\w8\s[204] It's all a little over my head.\w8\w8\s[108]\n\nHe spent a long while there,\w4 broken in more ways than one,\w4 but eventually being nursed back to health once more...\w8\w8 %(brown)Another%(default)  %(brown)skeleton%(default) there helped to bring him around.\w8\w8 He'd found a close friend that he could rely on,\w4 and things were sort of looking up.\w8\w8\s[109]\n\nBut...\w8\w8\s[204] as soon as Ice had recovered and they struck out together,\w4 %(brown)his 'friend'%(default) decided to go his own way and leave him on his own.\w8\w8\x\c\0\b[4]\_b[img\TP10Ice.png,centerx,12,--option=use_self_alpha,--option=fixed]\s[108]I couldn't tell you if %(brown)that skeleton%(default) really abandoned Ice or if Ice's mind was just so twisted up and broken that he thought they were closer than they actually were,\w4 but either way that was it.\w8\w8\s[109]\n\nHe gave up on other people,\w4 he didn't even really want to talk to me at first.\w8\w8\s[200] He felt like everyone he'd ever been close to had betrayed him,\w4 even my %(teal)first partner%(default),\w4 who really didn't...\w8\w8\s[204]\n\nI don't think he'll ever trust anyone ever again.\![raise,OnDialogueVariables,suppressCoordsOff]%(timelinequestions)"
+			"\0\b[4]\_b[img\TP10Ice.png,centerx,12,--option=use_self_alpha,--option=fixed]\![raise,OnDialogueVariables,suppressCoordsOn]\s[200]That one was...\w8\w8 pretty far removed from my timeline.\w8\w8 He called himself Ice.\w8\w8\n\n\s[108]He'd met my %(orange('first ',StSfhusband)) the way I did,\w4\s[109] but things didn't go so well.\w8\w8\s[300] They grew close,\w4 but...\w8\w8 before they could escape that lab,\w4 the %(green('doctor')) there put them in situations specifically to strain their friendship,\w4\s[302] and eventually succeeded in driving a wedge between them.\w8\w8\s[200]\n\nMy %(orange('first ',StSfhusband))...\w8\w8 could be stubborn,\w4\s[201] excessively so.\w8\w8\s[108] Trying to get %(orange)%(StSfhim)%(default) to stop being angry about what %(orange)%(StSfHe)%(default) thought would've been a way to escape,\w4\s[109] especially in that situation and under that much stress...\w8\w8\s[204] It was an impossible task.\x\c\0\b[4]\_b[img\TP10Ice.png,centerx,12,--option=use_self_alpha,--option=fixed]\s[108]They did eventually escape,\w4 but Ice had given up on all hope and desire to live,\w4 after all that time without anyone else to lean on.\w8\w8\s[204] The version of my %(orange('first ',StSfhusband)) there insisted on keeping him alive,\w4 maybe out of spite,\w4 maybe because %(orange)%(StSfHe)%(default) didn't want to be alone,\w4 I don't know.\w8\w8 \s[200]But things were...\w8\w8 bad.\w8\w8\n\n\s[201]Ice was eventually rescued by another version of myself and my %(orange('first ',StSfhusband)) who happened along,\w4 and helped him to recover and see the joy in living again.\w8\w8\s[302] They showed him the love he'd been starved of for so long...\w8\w8\s[303] Unfortunately,\w4 the multiverse had other plans.\x\c\0\b[4]\_b[img\TP10Ice.png,centerx,12,--option=use_self_alpha,--option=fixed]\s[204]Ice fell back into the timeline he'd been in,\w4 where that version of my %(orange('first ',StSfhusband)) had...\w8\w8\n\n\s[515].\w8.\w8.\w8%(orange(StSfCHe)) had gone back into the labs,\w4 and...\w8\w8 started doing what the %(green('doctor')) had done to them,\w4 but to innocent people...\w8\w8\s[514] %(orange(StSfCHe)) was...\w8\w8 not all there.\w8\w8\s[512] And things just got worse...\w8\w8\n\n\s[109]It's...\w8\w8\s[108] hard for me to talk about %(orange(StSfhim)) that way,\w4 maybe we'll just gloss over that part.\x\c\0\b[4]\_b[img\TP10Ice.png,centerx,12,--option=use_self_alpha,--option=fixed]\s[200]Anyways,\w4 Ice got lucky enough to fall out of the timeline again,\w4 into a completely foreign place this time...\w8\w8\s[201] A place I'll freely admit that I don't understand at all.\w8\w8\s[206] Apparently they have these things called planets that they can fly between?\w8\w8\s[204] It's all a little over my head.\w8\w8\s[108]\n\nHe spent a long while there,\w4 broken in more ways than one,\w4 but eventually being nursed back to health once more...\w8\w8 %(brown('Another')) %(brown('skeleton')) there helped to bring him around.\w8\w8 He'd found a close friend that he could rely on,\w4 and things were sort of looking up.\w8\w8\s[109]\n\nBut...\w8\w8\s[204] as soon as Ice had recovered and they struck out together,\w4 his '%(brown('friend'))' decided to go his own way and leave him on his own.\w8\w8\x\c\0\b[4]\_b[img\TP10Ice.png,centerx,12,--option=use_self_alpha,--option=fixed]\s[108]I couldn't tell you if %(brown('that skeleton')) really abandoned Ice or if Ice's mind was just so twisted up and broken that he thought they were closer than they actually were,\w4 but either way that was it.\w8\w8\s[109]\n\nHe gave up on other people,\w4 he didn't even really want to talk to me at first.\w8\w8\s[200] He felt like everyone he'd ever been close to had betrayed him,\w4 even my %(teal('first partner')),\w4 who really didn't...\w8\w8\s[204]\n\nI don't think he'll ever trust anyone ever again.\![raise,OnDialogueVariables,suppressCoordsOff]%(timelinequestions)"
 			knowaboutice = 2
 		}
-		elseif reference0 == "omega"
+		elseif reference0 == "omega" //TODO might need to edit this a bit since this info has changed?
 		{
 			"\0\b[4]\_b[img\TP11Omega.png,centerx,12,--option=use_self_alpha,--option=fixed]\s[106]Ah,\w4 I'm not really sure if it's right to call Omega an elemental or not,\w4\s[206] but he's not really a skeleton,\w4 either.\w8\w8\s[108]\n\nI don't know exactly what happened to him,\w4 just that his body was destroyed at some point,\w4 but his soul was also strengthened enough for him to exist in a form of pure magic.\w8\w8\s[110] Thanks to that,\w4 he's actually able to slip between timelines.\w8\w8\s[205]\n\nHe's decided to use this ability to rescue various versions of myself and my family from bad situations.\w8\w8 He's even built a shelter for them to recover in a quiet timeline.\w8\w8\s[206]\n\nIt's uh...\w8\w8\s[201] kinda concerning and sad that such a place even has to exist,\w4\s[104] but I'm glad he's out there helping them.%(timelinequestions)"
 			knowaboutomega = 2
