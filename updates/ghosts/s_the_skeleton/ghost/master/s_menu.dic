@@ -39,7 +39,7 @@
 		\![*]\q[Maybe later,updatelater]\n\n/
 		\![*]\q[Turn off auto updates,nomoreupdatesplease]\e:chain=end"
 	}
-	elseif lastinteracted > 6
+	elseif lastinteracted >= 6
 	{
 		if LV == 0
 		{
@@ -349,7 +349,7 @@ MenuRun
 		}
 	}
 	--
- 	"\![*]To talk MToYou or to MAnotherGhost\n" //MToYou and MAnotherGhost are both anchors. Originally I had these just highlighted in purple, but it looked funky with other balloons... so now they're anchors instead so they're highlighted in whatever color is appropriate for the balloon you're using.
+ 	"\![*]To talk \_a[OnAiTalk,userprompted]to you\_a or to \_a[OnStartTalking]another ghost\_a\n" //Anchors so they're highlighted
 	--
 	"\![*]\q[Some questions,ihavequestions]\n/
 	\![*]\q[To do something for you,functionmenu]\n\n/
@@ -3057,7 +3057,7 @@ Select.yourfeetarelikeice
 		{
 			"\0* (You offer him a pair of %(colormod)%(colors) fuzzy socks%(pattern).)\w8\w8\n\n\s[1010]Aw,\w4 these are really nice.\w8\w8\n\n\s[0]* (He takes them and puts them in his pocket.)\w8\w8\n\n\s[104]Thanks,\w4 %(username).\![raise,OnDialogueVariables,givesocks]%(itemreturn)"
 			"\0* (You offer him a fluffy %(colors) blanket%(pattern).)\w8\w8\n\n\s[1010]Aw,\w4 that's sweet of you,\w4 %(username).\w8\w8\s[104] Thanks.\w8\w8\n\n* (He folds it neatly and tucks it into his ribcage.\![raise,OnDialogueVariables,giveblanket])%(itemreturn)"
-			"\0* (You offer him a pair of soft %(colors) mittens%(pattern).\w8\w8\n\n\s[104]Aw,\w4 thanks %(username),\w4 I really appreciate it.\w8\w8\n\n* (He takes the mittens and puts them in his pocket.)\![raise,OnDialogueVariables,givemittens]%(itemreturn)"
+			"\0* (You offer him a pair of soft %(colors) mittens%(pattern).)\w8\w8\n\n\s[104]Aw,\w4 thanks %(username),\w4 I really appreciate it.\w8\w8\n\n* (He takes the mittens and puts them in his pocket.)\![raise,OnDialogueVariables,givemittens]%(itemreturn)"
 		}
 		else //I changed when this appears, so you'll never get these ones now..... maybe I'll eventually tweak it some more.
 		{

@@ -2,7 +2,7 @@
 
 OnFileDrop2
 {
-	if lastinteracted > 6
+	if lastinteracted >= 6
 	{
 		CameBack += 1
 	}
@@ -360,7 +360,7 @@ Select.SetWallpaper_Cancel
  
 OnInstallBegin
 {
-	if lastinteracted > 6
+	if lastinteracted >= 6
 	{
 		CameBack += 1
 	}
@@ -1031,7 +1031,7 @@ OnVanished
 //[Zi] Note to self, at some point I mixed up the breaking and broken dialogue, I think I fixed all the numbers so that it picks the correct one now, but if it acts weird then maybe double check that... 
 OnBIFFBegin
 {
-	if lastinteracted > 6
+	if lastinteracted >= 6
 	{
 		CameBack += 1
 	}
@@ -1573,7 +1573,7 @@ OnUpdateCheckComplete
  
 OnUpdateBegin
 {
-	if lastinteracted > 6
+	if lastinteracted >= 6
 	{
 		CameBack += 1
 	}
@@ -2045,24 +2045,14 @@ Select.nochangelog
 
 ghostver //S's current version, so I don't have to remember to update it on every menu
 {
-	"1.4.0"
+	"1.4.1"
 }
 
 LatestUpdate
 {
-	"\_l[84]-Version 1.4.0-\n\n\n[half]/
-	-Added a bunch of new random dialogues, and some extra dialogues in other places.\n\n/
-	-Added a new daily dialogues system. S has at least 1 dialogue for every day of the year while on the positive route, and if you haven't seen that day's dialogue he'll have a 5% chance of saying it instead of his normal dialogues.\n\n/
-	-Restructured all of S's random dialogues, nearly all probability issues have been eliminated! His random dialogues should be much more varied now.\n\n/
-	-S will no longer fall asleep randomly if you're the one prompting him to speak. He also won't wake up randomly if you're the one prompting him to speak, unless you get him into a chain nightmare. This should allow you to explore more of his dialogues without him randomly changing modes on you.\n\n/
-	-If S just fell asleep, you now have around 30 seconds to double click him and wake him back up before he's fully asleep.\n\n/
-	-Made the changelog nicer!\n\n/
-	-You can now boop S's secret mode character!\n\n/
-	-Fixed a bug where S would never stop drinking on some operating systems (hopefully)\n\n/
-	-Fixed it so S's best dreams are actually available if you pet him enough while he's sleeping.\n\n/
-	-S can actually recognize his own birthday now! Somehow I had completely screwed up those checks.\n\n/
-	-Fixed a lot of misc bugs, as well as stray pixels, typos, incorrect dialogue formatting,%(br)and word wrap issues.\n\n/
-	-Lots of under the hood changes to make developing easier. Plenty more to come in the future as well. They're my gift to me./
+	"\_l[84]-Version 1.4.1-\n\n\n[half]/
+	-Fixed an issue where asking S to talk to other ghosts from his menu wasn't working. As a note, you can also now press Y to make him talk to a random open ghost!\n\n/
+	-Fixed some typos./
 	\n\n\n"
 }
 
@@ -2163,7 +2153,7 @@ OnUpdate.OnMD5CompareFailure
  
 OnHeadlinesenseBegin
 {
-	if lastinteracted > 6
+	if lastinteracted >= 6
 	{
 		CameBack += 1
 	}
@@ -2656,7 +2646,7 @@ OnNarLocation
  
 OnSNTPBegin
 {
-	if lastinteracted > 6
+	if lastinteracted >= 6
 	{
 		CameBack += 1
 	}
@@ -3129,7 +3119,7 @@ OnSysResourceLow
 
 OnShellScaling
 {
-	if lastinteracted > 6
+	if lastinteracted >= 6
 	{
 		CameBack += 1
 	}
@@ -3501,7 +3491,7 @@ OnBalloonBreak //This is so dumb XD do I keep this? I don't know -- Update, I'm 
 	--
 	if poppable == "ON"
 	{
-		if lastinteracted > 6; CameBack += 1
+		if lastinteracted >= 6; CameBack += 1
 		lastinteracted = 0
 		if nowmode == "RYS"
 		{

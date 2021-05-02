@@ -1344,7 +1344,7 @@ Pool_Friday : array //wd == "Fri"
 Pool_Saturday : array //wd == "Sat"
 {
 	"\0\s[103]Got any plans for the weekend?\w8\w8\s[205] I'm hoping to spend some time with %(familytime),\w4 personally.\e"
-	if season != "Summer"; "\0\s[104]It's the weekend.\w8\w8\s[106] Unfortunately that doesn't mean a lot to me,\w4 since I don't work a 9-5 job and I don't go to school...\w8\w8\s[104] But it does mean the kids will be around more.\e"
+	if season != "Summer"; "\0\s[104]It's the weekend.\w8\w8\s[106] Unfortunately that doesn't%(br)mean a lot to me,\w4 since I don't work a 9-5 job and I don't go to school...\w8\w8\s[104] But it does mean the kids will be around more.\e"
 }
 
 Pool_Midnight : array //timeslot == "midnight" //1am-4am
@@ -1771,7 +1771,7 @@ Pool_Mutterings : array //Always available. These ones are about specific things
 	"\0\s[206]...Wonder what he's up to,\w4 I should check in on him...\e"
 	"\0\s[206]...Oh,\w4 right,\w4 getting low on cat food too...\e"
 	"\0\s[1070]...Probably need to get more food for Obsidian...\e"
-	if !DustyPresent; "\0\s[1070]...I should being him something nice...\e"
+	if !DustyPresent; "\0\s[1070]...I should bring him something nice...\e"
 	"\0\s[1070]...It'd make a good birthday present...\e"
 	"\0\s[1070]...I need to find another journal before I run out of room...\e"
 	"\0\s[1070]...I wonder if they have washable paints...\e"
@@ -1792,7 +1792,7 @@ Pool_Mutterings : array //Always available. These ones are about specific things
 	"\0\s[1070]...anWings is gonna need another pair of running shoes soon,\w4 no matter how much she says otherwise...\w8\w8\s[208] Maybe the shoe store has gift cards..?\e"
 	"\0\s[1070]...anDings is always so busy...\w8\w8\s[206] Maybe I can get anWings to talk to him about it...\e"
 	if month == 12; "\0\s[1070]...Maybe I can get anRosie to help me make some holiday cookies,\w4 I'm sure she'll jump at the chance...\e"
-	if !CambriaPresent; "\0\s[1070]...Elko will be over for dinner,\w4 too...\e"
+	if !CambriaPresent; "\0\s[1070]...anElko will be over for dinner,\w4 too...\e"
 	"\0\s[1070]...anRoman will want to join in,\w4 too...\e"
 	"\0\s[208]...anBlue will be busy %(nowday(weekday + 2)),\w4 maybe we can clear some time on %(nowday(weekday + 4)) instead...\e"
 	"\0\s[1070]...anDad will be making dinner on %(nowday(weekday + 2)), so maybe I'll have a chance to get over there...\e"
@@ -1808,7 +1808,7 @@ Pool_Mutterings : array //Always available. These ones are about specific things
 	"\0\s[208]...I need to take anCambria with me next time,\w4 make sure she has a chance to look around...\e"
 	"\0\s[1070]...Just waiting on him to get back to me...\e"
 	"\0\s[1070]...Maybe we can spar again on %(nowday(weekday + 2))...\e"
-	"\0\s[206]...anRosie is looking forward to it,w4 I don't want to let her down...\e"
+	"\0\s[206]...anRosie is looking forward to it,\w4 I don't want to let her down...\e"
 	if wd == "Thu"; "\0\s[1070]...%(tagcolor) tags should be on sale this week,\w4 I'll have to keep an eye out for them tomorrow...\e"
 	if wd == "Fri"; "\0\s[1070]...Most of the %(tagcolor) tagged ones were picked over by the time I got there,\w4 though.\w8\w8 I should head out earlier next time...\e"
 	

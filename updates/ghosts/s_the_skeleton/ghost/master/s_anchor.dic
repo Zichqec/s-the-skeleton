@@ -97,10 +97,6 @@ OnTranslate
 	_talk = REPLACE(_talk, "anMIce", "\_a[ice]The bitter one\_a")
 	_talk = REPLACE(_talk, "anMOmega", "\_a[omega]The elemental\_a")
 	
-	//Menu options. I've put these here so that they get highlighted in the balloon's color rather than being always purple
-	_talk = REPLACE(_talk, "MToYou", "\_a[talktome]to you\_a")
-	_talk = REPLACE(_talk, "MAnotherGhost", "\_a[talktoother]another ghost\_a")
-	
 	//Moon phases
 	_talk = REPLACE(_talk, "anMoon01", "\_a[CheckWeather]\_b[img\Moon01,inline,--option=use_self_alpha]\_a")
 	_talk = REPLACE(_talk, "anMoon02", "\_a[CheckWeather]\_b[img\Moon02,inline,--option=use_self_alpha]\_a")
@@ -495,18 +491,9 @@ OnAnchorSelect //[Zi] Alright so... I decided to rewrite this. I didn't see a re
 		
 	}
 	else
-	{
-		if "talktome" _in_ reference0
-		{
-			"\![raise,OnAiTalk,userprompted]"
-		}
-		elseif "talktoother" _in_ reference0
-		{
-			OnStartTalking
-		}
-		
+	{	
 		//-----Timeline menu-----
-		elseif reference0 == "kit"
+		if reference0 == "kit"
 		{
 			"\0\b[4]\_b[img\TP01Kit.png,centerx,12,--option=use_self_alpha,--option=fixed]\s[102]His name is Kit,\w4\s[0] short for Kitkat,\w4 I believe.\w8\w8 \s[208]His timeline is pretty different compared to mine.\w8\w8\s[106] Monsters don't even exist in the same way,\w4\s[0] instead it's humans on the surface and mers in the water.\w8\w8\n\n\s[208]It seems as though mers have only recently really been discovered,\w4\s[206] and ah...\w8\w8\s[201] humankind hasn't treated them well,\w4 for the most part.\w8\w8\s[104]\n\nBut,\w4 thanks to the efforts of a few humans who love marine life,\w4 things have started to change for the better.\w8\w8\s[0] They've built a rehabilitation center to help injured mers recover and release them back into the ocean.\w8\w8\s[104] That's where Kit lived when I met him.%(timelinequestions)"
 			knowaboutkit = 2
