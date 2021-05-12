@@ -1,0 +1,398 @@
+//Written by Zichqec https://zichqec.github.io/s-the-skeleton/index.html
+
+//If you're reading this file, I assume you're interested in making a shell for FLUX. Awesome! This file will mostly focus on FLUX's system for custom shell dialogue, but I will include some basics about shell making here as well, in case you're totally new to this. I highly recommend giving Zarla's ghost walkthrough a read if you're totally new to making shells, at least the shell section! You can find that here: http://ashido.com/ukagaka/
+//If you already have experience making shells and just want to know how to set up custom stuff with FLUX, you can skip ahead to section 3.
+//If you're converting an existing FLELE shell to a FLUX shell, you'll also want to skip ahead to section 3.
+
+//If you're not a part of the Ukagaka Dream Team Discord server, and you need some help setting up your shell, do feel free to join us! I'd be glad to clarify things if anything here doesn't make sense to you. https://ukagakadreamteam.tumblr.com/discord
+
+//(Also, I've written all these as comments because my brain likes the green text. Open this in notepad++ and set the language to C if you want to read it in green.)
+
+
+
+///============Sections=============
+//0 - What are FLUX and FLELE shells?
+//1 - Basic shell making
+//2 - Dressup items
+//3 - Custom dialogue
+//4 - Network updates & Publishing
+
+
+
+
+//==============================================================================================
+//=========================Section 0 - What are FLUX and FLELE shells?==========================
+//==============================================================================================
+
+//You can think of FLUX, or any ghost, as a sort of base program. Shells are the skins that they use, and they're interchangeable. This is usually only an aesthetic change, but for some ghosts, they're coded to have different behaviors in different shells.
+
+//FLELE is an old Japanese ghost that plays music. Shells made for it need at least 4 images, or as they're called, surfaces. surface0 is the basic standing pose, surface1 is used when you pet it, surface6 is used when the user uses a function in the right click menu, like checking email or fixing the system clock, and surface25 is the singing animation. Your shell can be as simple as that if you like!
+
+//FLUX shells are set up much the same as FLELE, to maintain backwards compatibility. You can add in new surfaces, but you always need those 4 main surfaces. The user has the option to toggle off special functions, and if they do so, it will default to those 4 main surfaces.
+
+//The main benefit of FLUX shells is that you can include a dialogue file with them, and FLUX will automatically detect and use it when your shell is being used! You can also include a homeurl, and users will be able to check for updates to your shell.
+//There are other small features too, like being able to set a custom tray icon, being able to set up multiple characters, and having your name/URL automatically appear in the right click menu while your shell is in use.
+
+
+
+
+//==============================================================================================
+//================================Section 1 - Basic shell making================================
+//==============================================================================================
+
+//The walkthrough linked above will have more in-depth info about this. Here are the basic things you need to do, for the most basic shell.
+
+//In install.txt, you need to set the name of your shell, and the folder name it'll be installed with. Try to pick something unique for the folder name, so it doesn't get overwritten by another shell!
+//Note: If you're converting a FLELE shell to a FLUX shell, make sure you erase the part that says 'accept,flele'. That makes it so that only FLELE can install your shell. I set up FLUX with a workaround, but it's better to just take that part out.
+
+//In descript.txt, you'll need to set the name of the shell, as well as add in your own name and URL so that you're credited. FLUX will automatically put your name and URL into the right click menu when your shell is being used, and this is where it gets that info from! descript.txt is also where you'll have to set up dressups, if you choose to add any. Also, make sure you set a homeurl where your shell will get updates! I'll go into more detail at the bottom of this document.
+
+//readme.txt is where you can put any information the user needs to know, such as what the hotspots are for your shell. This pops up automatically when a shell is installed.
+
+//surfaces.txt is the main part of your shell, and is where all the code that assembles the images and animations goes. This file can be extremely simple, or it can be super complicated if you want a really detailed shell. If you're interested in something more complicated, you should read the documentation about making shells here: http://ssp.shillest.net/ukadoc/manual/descript_shell_surfaces.html
+
+//surfacetable.txt is a file that organizes/names the surfaces in the surfacetest window, which you can open by clicking FLUX and pressing Ctrl-T. You don't need to edit this file if you don't want to.
+
+//You may notice surface10 is blank. surface10 is the default surface for the secondary(kero) character. If you only want a single character, leave that file be.
+
+
+//Again, you should read Zarla's tutorial if you've never made a shell before, but here's the very basic things you need. (The basics are already set up in surfaces.txt, too, so you can see how this all goes together!)
+//Do note that the template shell I've provided is written in the "New Definition", while Zarla's guide is in the "Old Definition". You can choose whichever one you want to work with, they're both perfectly valid. They're not too different from each other, but the new definiton allows you a little more finesse.
+
+//A word of advice before you start, SERIKO will ONLY handle comments that are on their own line! DO NOT PUT COMMENTS ON THE SAME LINE AS CODE, it will create errors! This will save you SO much headache later.
+
+//First of all, you need to draw a couple of poses for your character. Try to keep the images all the same size, it'll save you a ton of hassle. Go wild here, make them as big or as small as you like, in whatever style you like. FLUX is set up to use transparent pixels as transparency, so you don't need to make extra files(pna files) for that. Try not to use pure white, though, since it may cause issues.
+
+//Now then, If you're just using the template as is, you could simply overwrite the existing images.
+//surface0.png is for the idle standing pose
+//surface1.png is for when it's been pet by the user
+//surface6.png is for when the user is using one of the functions in the right click menu
+//surface25.png is for while singing
+//surface100.png is the first blink frame, with the eyes completely closed
+//surface101.png is the second blink frame, with the eyes half closed
+
+//In surfaces.txt, you'll see some blocks of code set up like this:
+
+//surface1 //Petting
+//{
+	//element0,overlay,surface1.png,0,0
+//}
+
+//The little label above the brackets tells it what surface this is, and inside the brackets is all the code for that surface.
+
+//This surface is just a single image, so it only has a single element. You can think of elements like layers.
+//If you exported your character as separate pieces, you could assemble each of those pieces as elements, and the finished surface will be treated as a single image. This is very helpful for things like different expressions. Since I exported these poses as one complete image, I only need a single element.
+//If you add more elements, just increment the number as you go. element0, then element1, then element2, etc. elements with higher numbers are higher layers.
+
+//After that, you'll see it says overlay. That's the drawing method. Most of the time, you'll only need overlay, but there are more available. You should look for drawing methods on Ukadoc (http://ssp.shillest.net/ukadoc/manual/descript_shell_surfaces.html) if you want to learn about more of them.
+
+//overlay simply lays an image overtop of anything that's already there.
+//overlayfast is like a clipping layer - It applies the image ONLY onto pixels that already exist.
+//reduce is like a mask - it cuts away pixels underneath based on the opacity of the image you're using.
+//replace replaces anything underneath it. You'll often have to make smaller images for this and align them carefully with coordinates.
+//interpolate adds the new image underneath the base image. Good for things like tails.
+
+//After the drawing method, you'll see a file name. You can name your surfaces whatever you like, so long as you make sure to write the filename in your surfaces. surface0 and surface10 are exceptions, I believe. Those are the default surfaces and SSP might throw a fit if they aren't there.
+//You can write subfolders here, too. If your shell is super complicated, you can tuck certain parts away into subfolders. You can see this in the main FLUX shell, where I've put the colors for the synthesizers into a separate colors folder.
+
+//After that, you can see 0,0. Those are actually X and Y coordinates. This is why I said to make all your surfaces the same size, otherwise you'd have to fiddle about with these values to get it to look right!
+//If you end up using replace, you might need to tinker with these, but otherwise you should be able to just leave them as 0,0 if your frames are all the same size.
+
+
+//Alright, so that's how the basic surfaces are set up! Now, what about the singing surface? Most FLUX/FLELE shells have an animated singing animation, how do we do that?
+
+//It really varies a lot depending on how your shell is set up. Here's a basic blink animation, to give you an idea how this works:
+
+//Blink
+//animation0.interval,random,4
+//animation0.pattern0,overlay,-1,100,0,0
+//animation0.pattern1,overlay,100,50,0,0
+//animation0.pattern2,overlay,101,100,0,0
+//animation0.pattern3,overlay,-1,30,0,0
+
+//The top line is how this animation is called. In this case, since this is a blink, it's called every once in a while with a random function. The 4 means it's got a 1/4 chance of being called every second. You can change that to any number you like.
+//Every line under that is a frame of animation. You'll see the pattern number increments with each frame, then after that is the drawing method. This is a very simple animation, so it's fine to use overlay.
+
+//After that, there's a series of numbers. The first number is the surface number to call. You might remember from above that surface100 is the first frame of the blink animation, and surface101 is the second frame. -1 will erase whatever currently exists in the animation. So, this starts out blank, animates the two blinking frames, then disappears again to go back to the normal eyes.
+
+//The second number is the milliseconds BEFORE this frame is called, NOT how long it lasts. So pattern1 will play 50ms AFTER pattern0. You can also put number ranges here. For example, you could put 100-200, and it would choose a number in that range randomly.
+
+//After that, you guessed it, it's X and Y coordinates. Again, if all your frames are the same size, you don't need to worry about these at all! Just make them 0,0.
+
+//Now, I will note again that this differs from Zarla's tutorial a bit. In the old definition, the order of this information is slightly different, and the milliseconds use smaller numbers. Otherwise, it's the same concepts!
+
+
+//Ok, so what about singing animations? Well, one of the easiest ways to set up a simple mouth animation would be to call it with always. Animations called with always will always run, and will repeat themselves when they reach the end. So you can set it up just like a blink animation, except with mouth frames.
+
+//You can set up multiple animations this way, too! Say you wanted to animate little notes around the character, or sparkles, or you wanted their arms to move. You can write as many animations as you want, really.
+
+//There are so many different ways to set this up that it's hard to give you more than that. You may wish to study the files of the master FLUX shell, and some other existing FLUX/FLELE shells.
+//FLUX has a set of intervals that run immediately when the singing surface is called, and they put the arms and head into the starting position by calling animations for them. When those animations finish, they use a method called alternativestart to randomly select another arm/expression animation, so that it's a seamless loop of random arm positions/expressions.
+
+
+//Ok, so that's animations. Now, what about hotspots? Those are essential for FLELE shells, though technically optional for FLUX shells.
+
+//For the sake of compatibility, FLUX has the same hotspots as FLELE. (You can add your own if you like, though! More on that later.) They are as follows:
+
+//play_button - Double clicking this will play a song if none is playing. In FLELE, if a song is already playing, I believe it picks another at random. In FLUX, if a song is already playing, it goes to the next song.
+//stop_button1 - Double clicking this will stop the currently playing song.
+//k_window - In FLELE, double clicking this opens the music bar. FLUX doesn't have a music bar, so double clicking will open the music menu.
+//menu - Double clicking this opens the main menu. In FLELE, this is the ONLY way to open the main menu. YOU HAVE TO HAVE THIS! In FLUX, any area of the ghost that is NOT a hotspot will also act as the menu, so this isn't strictly necessary. Still, compatibility with FLELE is encouraged. (Also note that in FLELE, if you right click this hotspot, it will pop up a special menu. You probably shouldn't make this hotspot cover the whole shell!)
+//clear_button - Double clicking this will offer to clear the current playlist.
+//stroke_p - Moving your mouse back and forth over this will pet the character! Usually goes on the top of the head.
+
+//In the template file I've provided, all of the poses are in roughly the same spot. So, to save on code, I used surface.append to append the collisions to every surface. If your surfaces are pretty distinct from each other, you'll want to define the collisions separately in each surface.
+
+//Here's the syntax for collisions:
+
+//collision0,92,31,142,54,stroke_p
+
+//You'll have to increment the collision number as you add more collisions to your surface. Unlike with elements, the ID number doesn't determine the sort order unless you add an option for that (which you can find on Ukadoc). So whatever collisions come first in your code, those will be on top.
+//After that, there are 4 numbers. Those are the coordinates for a box collision. First, it's the X and Y for the top left corner, and then the X and Y for the bottom right corner.
+//I included Coordin.zip with this template. If you want to automate the coordinate process, unzip that, run coordin.exe, drag and drop your surface into it, then click and drag on the surface to create a box. Coordinates will automatically be copied into your clipboard, so once you're happy with your box, just paste it directly into your code.
+
+//After the coordinates is the name of the collision, the same names as what I gave you above. Note that you can set up multiple collisions with the same name! So if you wanted the clear button to be on the shoes like I did with FLUX, for example, instead of making one big box across the bottom, you could make one collision box on each foot and give them both the name clear_button.
+
+//It IS possible to set up polygon collisions, if you really need to, but they're a bit of a hassle because there's no simple program for them. MSPaint is ok for getting coordinate positions, but it still takes quite a bit longer. Here's the format just in case, though.
+
+//collisionex6,stop_button1,polygon,36,137,93,137,106,175,48,175
+
+//First, you write collisionex# instead of just collision#. Then the name of the collision, then polygon, and then you write pairs of numbers. Each pair is an X coordinate, then a Y coordinate. You can add as many pairs as you need, but it does get really messy really fast haha.
+
+//Actually, I lied about there being no simple way to get polygon coords. Someone I know was a real sweetheart and whipped up this little web app that you can try https://jcmiller11.github.io/diceSim/coords.html
+
+
+//One more thing. There are a couple extra little details your shell needs, and those are the right click menu and thumbnail. You CAN just delete the thumbnail if you don't want one, but I included a little template .psd you can use. All you have to do is paste one of your surfaces into it, and choose if you want it to be FLUX only, or FLUX + FLELE (Most shells will be FLUX + FLELE, but if you ditch the hotspots or something, I would mark it as FLUX only). The .pna file is there so the corners can be transparent. If you want, you can make your own thumbnail from scratch, too. In that case you'll probably want to delete the .pna file, or make your own. Zarla's tutorial covers how to do that.
+//You can do whatever you like with the right click menu images, or just leave it as is if you want. I think it adds some personality to your shell to have a special one. If you want to edit the text colors for the right click menu, you can do so in your shell's descript.txt.
+//You can also make a tray icon if you like, and implement it with one of the functions I'll explain in section 3.
+
+//And that's it for simple shell making! Haha that was a lot. But really, unless you're planning to do something super complicated, it shouldn't be too hard to just follow what the template already has.
+
+
+
+
+//==============================================================================================
+//===================================Section 2 - Dressup items==================================
+//==============================================================================================
+
+//Dressups are a special type of animation. They're generally little doodads you can stick on the character, like hairbands, glasses, hats, etc. In the case of the FLUX shell, he uses them for the colors of his synthesizers.
+
+//FLUX automatically constructs a dressup menu in the ghost for you as you add dressups, so you don't need to worry about adding them in the ghost's code at all. It also allows the user to randomize the dressups!
+
+//First of all, you have to define every dressup item as a surface, the same as we did for the base surfaces above. So that could look something like this:
+
+//surface800 //Red hairband
+//{
+//	element0,overlay,surface800.png,0,0
+//}
+
+//Note, if your dressup has to change based on the pose (like if it's a hairband and the character turns their head) you'll have to make different surfaces for each different image.
+
+//After that, you'll have to add a bind animation to the surface the dressup will be on. If all your poses are roughly the same, you might be able to put this in the surface.append, too. Here's the basic syntax:
+
+//Red hairband
+//animation800.interval,bind
+//animation800.pattern0,overlay,800,-1,0,0
+
+//I usually make mine just match the surface number I picked, it keeps it simple. If you have the same dressup with multiple frames (again, like if they have a hairband and turn their head), you'll have to give each surface the same animation number, but direct it to pick a different dressup frame. So for example, another surface might have this code instead...
+
+//Red hairband
+//animation800.interval,bind
+//animation800.pattern0,overlay,802,-1,0,0
+
+//bind is a unique animation call specifically for dressups.
+//Think of it this way: Each dressup has a unique animation number. Different surfaces use that animation number if the dressup is set to on, but the exact image that it calls may be different between surfaces.
+
+//Where do you decide those animation numbers? Well, the last thing you need for dressups is in descript.txt. Over there, you need to add code like this:
+
+//sakura.bindgroup800.name,Hairband,Red
+
+//sakura means it's for the main character, the bindgroup number is the same as the animation numbers from before. .name is because we're also using this to set up the name of the dressup. After that you write the category name, then the name of this particular dressup.
+//Note: since FLUX automatically puts together a menu for you, users will see the category names and item names you write! Make sure they're easy to understand.
+
+//If you want to know a bit more about making dressups, you can read that section of Zarla's tutorial here: http://ashido.com/ukagaka/clothing.html
+
+//That's really all there is to it for simple dressups, though.
+
+
+
+
+//==============================================================================================
+//==================================Section 3 - Custom dialogue=================================
+//==============================================================================================
+
+//Now for the fun part! And the part you probably skipped to if you've already made a shell before, or are converting a shell. Hi!
+
+//First of all, if you're converting a shell, you should do a couple of things. First, in install.txt, there might be a line that says 'accept,flele'. Remove that. That makes it so that ONLY FLELE can install your shell. FLUX does have a workaround for that, but it's better to just remove the restriction!
+//Next, make sure you add a homeurl to your shell! FLELE doesn't have a button for updating shells, but FLUX does, so you can continue to update your shells in the future.
+//If you already have existing dialogue, or any extras like a tray icon, keep reading for how to set those things up in FLUX. For the most part you can just copy and paste your dialogue over! If you have any instances of %(○サーフェス) in your dialogue, you'll want to erase that. It's not necessary anymore.
+
+
+//Ok, here's the deal. THIS IS KINDA DANGEROUS. Let me explain haha. When you change shells with FLUX, FLUX will check to see if your shell has a file called dialogue.dic in its folder. If that file exists, it copies all the contents into its own files, then reloads itself so the changes take effect. So you can write any YAYA code you like, and it'll be automatically added in to FLUX! Great!
+
+//But you have to be CAREFUL with this. It's not going to harm any files or anything, but if you put out a shell and the dialogue file is missing a bracket or has a duplicated function name, any users who load up your shell will have FLUX refuse to load and will have to fix it manually. That's a huge pain, especially for folks who aren't also programmers! PLEASE ensure your shell doesn't cause a communication error when loaded before you release it!
+
+//The other thing is, uh, please don't be malicious with this. Don't edit any of the variables that FLUX uses. You can add new variables if you want, but try to give them unique names so they don't overlap with anyone else's. Same goes with adding new functions, try to make them at least a bit unique.
+
+//Side note: If you want to add simple flags for things in your shell, I've implemented my own little flag system you can use instead of making new variables. It's easier to give them unique names, too.
+
+//To add a flag, write this:
+//MiscFlags ,= "Your flag name here, it can be any string"
+
+//To check if a flag is on, you can write this:
+//if Flag("Your flag name here, it can be any string") == 1
+
+//And to erase a flag, write this:
+//RemoveFlag("Your flag name here, it can be any string")
+
+//This will help keep down the amount of variables that users end up with, and since flags can be any string, you can give them really unique names to ensure no overlap happens!
+
+//Also, I do ask that you not add in any of the base SHIORI functions found on Ukadoc! I may update FLUX in the future, and if your shell has a function that I add later, your shell will cause FLUX to be unable to load. If you really need a particular function, let me know and I may add it to the FLUX base! And if you're doing really complicated stuff, you might just want to make your own ghost at that point. If you want a music player in your own ghost, you can have a look at FLUX's code for that, I don't mind. If you use it as is, I do ask that you add a credit to me and link back to my website (https://zichqec.github.io/s-the-skeleton/index.html), but otherwise go wild.
+
+//Anyways! With that all out of the way, lets get into it!
+
+//So here's the deal: Anywhere that I thought you might want to add some custom dialogue/functionality, I added a function for it. The functions are detailed over in dialogue.dic in this template folder, but here's a basic rundown of what's available.
+
+
+//shellver  -  If you fill this in with a version number, FLUX will display it on the main menu. Helps users ensure they're up to date!
+//OnCustom_trayicon  -  This is called any time the shell or ghost is changed/reloaded. Put a trayicon command here, and you can have a custom tray icon that automatically changes!
+
+//OnCustom_OnBoot  -  When FLUX boots normally.
+//OnCustom_OnClose  -  When FLUX closes normally.
+//OnCustom_OnGhostChanging  -  Called when the user is changing away from the FLUX ghost.
+//OnCustom_OnGhostChanged  -  Called when the user changed to the FLUX ghost.
+//OnCustom_OnShellChanging  -  Called when the user is changing away from this shell.
+//OnCustom_OnShellChanged  -  Called when the user just changed to this shell.
+
+//OnCustom_RandomTalk  -  If you have this function, your shell will be able to say random dialogue, and buttons will appear for that in the menu!
+//OnCustom_Menu - If you want to add a button or two in the main menu, for asking some simple questions or something, you can do that with this function. You can go crazy with this, but at that point you might as well just make a whole ghost haha.
+//OnCustom_Petting  -  Custom dialogue pool for being pet!
+
+//OnCustom_MouseMoveSakura  -  You can add your own stroking hotspots for the sakura here.
+//OnCustom_MouseMoveExtra  -  You can add your own stroking hotspots for the kero or any extra characters here.
+//OnCustom_MouseDoubleClickSakura  -  You can add your own double click hotspots for the sakura here.
+//OnCustom_MouseDoubleClickExtra  -  You can add your own double click hotspots for the kero or any extra characters here.
+//OnCustom_Overlap  -  Called any time the Sakura and Kero start overlapping. You can put overlap dialogue here if you have more than 1 character!
+//OnCustom_OverlapExtra  -  Called any time the OnOverlap function occurs and it's not the start of the Sakura and Kero overlapping. This uses the references from OnOverlap, so you could use it for the Sakura and Kero no longer overlapping, or extra characters overlapping, or anything really.
+
+//OnCustom_IdleSurfaces  -  If you want to have more than one idle pose, you can put them in here. Called in multiple places, including OnSurfaceRestore, any time the balloon is closed, and when you stop/pause your music.
+//OnCustom_SingingSurfaces  -  If you want more than one singing pose, you can put them in here. Called in multiple places, including OnSurfaceRestore, any time the balloon is closed, and when you start playing music.
+//OnCustom_ActionSurfaces  -  If you want more than one surface for the right click functions, you can add them here. reference0 contains what kind of message it is; there are more details in dialogue.dic.
+
+//OnCustom_Commu  -  Custom responses to commu messages.
+//OnCustom_CommuStats  -  If you want your shell to send extra stats to other ghosts, you can do that with this function. Please read the instructions carefully, and ask me if you have any questions!
+
+//OnCustom_BirthdaySet - If the user sets their birthday, and their birthday is today, this will be called.
+//OnCustom_NewYear  -  This is called when the year rolls over at midnight.
+//OnCustom_OnVanished  -  Called when another ghost is uninstalled, and FLUX is open, or is switched to since no other ghosts are open.
+
+//OnCustom_TestFunc  -  If you need a dummy function to test stuff in, you can put it here. Put %(debug = 1) in script input (opened with Ctrl-S) to make this option show up on the main menu.
+
+
+//Some of these functions you probably don't need, but they're there just in case. Only add the functions you're planning to use; if you leave blank functions FLUX will still see them and attempt to use custom behavior, even when none exists! Then it'll just kinda be silent, and it'll be weird.
+
+
+//There are a couple more things to mention. I've left lots of notes in dialogue.dic with details about these functions, but I want to go over a few other things here.
+//First of all, when you make changes in dialogue.dic, you can't just reload it through the dev pallete(opened with Ctrl-Shift-D). You can reload it by clicking on your shell in the shell change menu (FLUX will mention that it's reloading the shell, that'll let you know you've done it right!), or, if you change the debug variable to 1 by putting %(debug = 1) in script input (opened with Ctrl-S), you'll get an option on the main menu to reload custom shell functions/dialogue.
+//You can also directly call the function to reload the custom shell functions, by putting %(OnGetCustomShellDialogue) in script input.
+
+//It's also possible to turn off custom functions in the config menu! This is mostly as a failsafe in case a shell is released that is broken. If you toggle off the custom functions, the shell will behave like a FLELE shell. This is why it's important to still fill in those 4 basic surfaces!
+
+//If you want to have specific poses or dialogues for when music is/isn't playing, you can use a special function I set up called Singing. You use it like this:
+
+//if Singing
+//{
+	//Stuff while singing
+//}
+//else
+//{
+	//Stuff while not singing
+//}
+
+//Singing will return 1 if FLUX is singing, and because of how YAYA works, you don't actually need to add the == 1 here. You can if you want, though. 
+
+//If you want to display music notes in dialogue like the main FLUX shell does, you can use a couple of envelopes I set up. They display the music notes in arial, because not all fonts have these characters. You can use %(n1) for ♪, %(n2) for ♫, or %(n) to pick between them randomly. You can also use the choice marker, but beware, some users will likely switch to a different balloon!
+
+//Speaking of the balloon, if you need a big balloon, use %(bb) to call it. This ensures that it picks the correct balloon for light/dark mode. If you need an EXTRA big balloon, use %(bbb). And %(b) is for the regular balloon. I added a %(b) before most of the custom functions, so you don't need to worry about it unless you're specifically trying to change the balloon for some reason, or if you're adding something new like functions in the menu.
+
+//There are some other variables/functions it will be handy to know about, too. First of all, because FLUX supports multiple languages, I had to change the pronoun and birthday systems a lot to accomodate them. heshe, hisher, himher, and hesshes are all functions you can use to put pronouns in your dialogue, but beware, if you don't specify the language then it will default to whatever language the user is currently using! You'll want to add the language the shell is in as an argument. For example, here's a line of dialogue written for an English shell:
+
+//"%(heshe('English')) went to the store to buy some milk for %(hisher('English')) cat."
+
+//Again, you could just write these as %(heshe) or %(hisher), etc, but they will change based on the language the user set FLUX to. If that's something you want, go for it, but if you think it'd look a bit weird then go ahead and add a specific language.
+
+//As for the birthday system... Honestly, it's a mess. If you need to run checks on what the user's birthday is, check birthday[1]. It's formatted MM/DD. If you really want to check DD/MM, you can use birthday[6]. You can use birthday[4] if you need just the month number, and birthday[5] if you need just the day number. Don't use the ones stored as words, because uh, they're saved weirdly because of the multiple language support.
+
+//Here are some misc functions and variables that you might find helpful:
+
+//leapyear - This function returns 1 if it's a leapyear, and 0 if it is not a leapyear.
+//Capitalize - This function will capitalize the first letter of any envelope you give it. So if you put %(Capitalize(heshe('English'))) and the user had their pronouns set as he/him, it would say He.
+//MonthName - Send it a month number and a language to get that language's name for the month. If no language is given, it will use the current language. For example, %(MonthName(11,'Polski')) would return Listopad
+//nowshell - the name of the current shell
+//nowballoon[0] - the name of the current balloon
+//CurrentSong - Name of the currently playing song. Note, this will show the name of paused songs, too! If you need to check if it's currently playing a song, you can use the Singing function to check.
+//ARRAYSIZE(CurrentPlaylist) - This will tell you how many songs the user currently has in their playlist!
+//ARRAYSIZE(ShellList) - This will tell you how many shells the user has installed. The ShellList array will contain all the shells the user has installed, if you want to use ASEARCH to search for specific ones!
+//gender - Because of how I had to set up the pronoun system, I opted to create a variable that stores the user's gender choice. It'll be 'masc' for masculine, 'fem' for feminine, or 'undef' for neutral.
+
+
+//There's also my Pool function for dialogues. You can use it to create dialogue pools that have the same probability as normal dialogues. You put this in your OnCustom_RandomTalk (or whatever function you want it in)
+
+//parallel Pool("Pool_NameOfYourPool","%(somecondition = 'true')")
+
+//The first argument is the name of the pool function you want to call, and the second function is the if check you want it to depend on. You can put any if check into the envelope there.
+//And then elsewhere in your file, you add an array function with the dialogues
+
+// Pool_NameOfYourPool : array //somecondition = 'true'
+// {
+	// "Dialogue 1\e"
+	// "Dialogue 2\e"
+	// "Dialogue 3\e"
+	// "Dialogue 4\e"
+	// "Dialogue 5\e"
+// }
+
+//If you need more explanation, check out X. Template or find the Pool function on my website.
+
+
+//When FLUX copies your code into its own files, you can find it in fx_shelldialogue.dic. DO NOT EDIT THIS FILE!! I set it up to fill in any blank lines with comments reminding you not to edit that file. IF YOU EDIT THAT FILE, YOUR CHANGES WILL BE LOST WHENEVER IT NEXT LOADS/RELOADS THE SHELL. DON'T EVEN OPEN THAT FILE, YOU DON'T NEED TO BE IN THERE. Seriously, I mistakenly edited that file like 4 times just setting up some of the basic functions...
+//It's worth noting, though, that if you have custom functions turned off, but there are custom functions available, it will have a comment saying so. If no custom functions are available, it will have a comment telling you how you can add custom functions.
+
+//If you end up loading your shell and the ghost keeps complaining of a communication error, you'll need to fix the issue in your dialogue.dic first. Tama is really good for tracking down these errors; if you don't already have it, unzip the file tamadebugger.zip included in this folder and read the instructions.
+//Once you've found and fixed the problem, you'll need to reset the fx_shelldialogue.dic file. You can reset it by pressing Ctrl-A to select everything in the file, then backspace to erase the contents, then save it and reload FLUX. If all went well, FLUX should be running again but without any custom dialogue. Then you can just click the button to reload your custom shell functions, and it should be working again if you fixed the issue in your file!
+//Make sure you're erasing the correct file! Don't erase your master copy of dialogue.dic, erase the version that FLUX copied into it's own files. It should be very obvious which is which, the version FLUX copied should be littered with comments telling you not to edit that file.
+
+//One last thing. FLUX is set up for multiple different languages. If you want to use that language system for your shell (if you know another language or someone is willing to translate) you can add if checks like these:
+
+//if language == "Some language" //Note that languages here will be written as they are in the given language. So you wouldn't write "Japanese", you'd write "日本語"
+//{
+	//Stuff in that language
+//}
+//else //English - The else will always be english
+//{
+	//Stuff in english
+//}
+
+//You probably shouldn't add languages that the FLUX base doesn't support, because there'll be no way for the user to switch to it. If you know a language that FLUX doesn't have and are willing to translate FLUX, please check out the documentation for that in the main folder for the FLUX ghost!
+
+//And if you don't want to bother with languages, that's fine too. The user should still be able to navigate through the music menu and such, even if they can't understand your shell's custom dialogue.
+
+
+
+//==============================================================================================
+//============================Section 4 - Network updates & Publishing==========================
+//==============================================================================================
+
+//If you've made shells or ghosts before, you probably don't need to read this. But, I will remind you to add a homeurl to your shell! One of the main reasons I made FLUX is that it includes a button that lets the user check for network updates for the shell, as well as an auto update check feature. Even if you don't THINK you'll be putting up updates, I still recommend setting up a homeurl just in case! If you don't have anywhere to host files, I have a guide on how you can host them for free on github: https://zichqec.github.io/s-the-skeleton/github.html
+
+//Seriously, it's better to take a few minutes to set up a URL now than regret not doing so later.
+
+//I recommend reading Zarla's guide to network updates, she covers it pretty well. Basically, you need to put a mirror of your shell's files in a place like Github, then put the url for that folder as the homeurl in descript.txt. Then, if you ever update the files online, the user can use FLUX to check for updates, and it will download any new/updated files it finds. As of SSP 2.4.92, auto update checks are available for shells and balloons! If the user leaves auto updates on, and they are running your shell, FLUX will automatically check for updates once a day (sometimes more depending on how often the user opens/closes it and how often they change shells).
+
+//When you've got your shell completely ready to be published, drag and drop the whole folder onto FLUX, and click the option to create a .nar. Save your .nar file somewhere, and when it's done creating, that .nar file can now be dragged and dropped onto FLUX or FLELE to install it as a shell! You can distribute that .nar file however you please.
+
+//Just one more thing if you've reached this point: Please tell me! I would love to see any shells that are made for FLUX! I would also be glad to link to them on my own website, so other people can find your shell too. https://zichqec.github.io/s-the-skeleton/flux.html
+
+//Have fun making shells, and please do let me know if you have any questions! You can find me on the Ukagaka Dream Team Discord server linked at the top, or on any of my socials linked on my website.
+
+//♫♪~

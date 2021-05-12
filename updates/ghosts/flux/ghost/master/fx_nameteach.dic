@@ -127,7 +127,7 @@ OnPronouns
 	}
 	elseif language == "Polski"
 	{
-		"\0%(b)[%(heshe)), %(himher), i %(hisher) będą używane.]"
+		"\0%(b)[%(heshe), %(himher), i %(hisher) będą używane.]"
 		--
 		"\n\n\![*]\q[Powrót do konfiguracji,OnConfigMenu]\n\![*]\q[Zamknij,OnCancel]\e"
 	}
@@ -239,7 +239,7 @@ OnUserBornMonth
 		{
 			
 		}
-		elseif language == "Polski" //TRANSLATORS: If the user inputs an invalid month for their birthday
+		elseif language == "Polski"
 		{
 			"[Nieprawidłowy miesiąc.\w8\w8 Proszę spróbować ponownie.]"
 		}

@@ -4,9 +4,17 @@
 //reference0 is the file path, which is split up amongst the local variables below
 OnFileDrop2
 {
+	reference0 = OnJustMakeThemADamnArrayInTheFirstPlace(reference0)
+	//reference0 = OnJustMakeThemADamnArrayInTheFirstPlaceEX(reference0)
+	//reference0 = OnFindSongs(reference0)
+	//"%(GETTYPE(reference0))\n\n\_q\_?%(reference0[2])\_?"
+	//"\b4\_q%(GETTYPE(reference0))    %(ARRAYSIZE(reference0))\n\n\_?%(reference0)\_?\x"
+	--
 	_filepath = SPLITPATH(reference0)
 	_filename = _filepath[2]
 	_fileext = TOLOWER(_filepath[3])
+	
+	//"\_q%(ARRAYSIZE(reference0))\n\n%(GETTYPE(reference0))\n\n%(reference0[1])\e"
 	if ARRAYSIZE(reference0) == 1 //If it's a single file
 	{
 		case _fileext
@@ -17,7 +25,7 @@ OnFileDrop2
 				{
 					
 				}
-				elseif language == "Polski" //TRANSLATORS: If the user drags an image file onto FLUX. _filename is the file name, and _fileext is the extension
+				elseif language == "Polski"
 				{
 					if "]" _in_ reference0 //If the file name contains a character that would break the wallpaper command
 					{
@@ -87,6 +95,7 @@ OnFileDrop2
 				CurrentPlaylist ,= reference0
 				ShuffledPlaylist = ShufflePlaylist(NowPlaying[1],CurrentPlaylist)
 				
+				_filename = REPLACE(_filename,"||",",")
 				"\0%(b)"
 				--
 				if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
@@ -96,7 +105,7 @@ OnFileDrop2
 				{
 					
 				}
-				elseif language == "Polski" //TRANSLATORS: When the user drags a single compatible music file onto FLUX
+				elseif language == "Polski"
 				{
 					
 					"[Dodano '%(_filename)' do playlisty.]"
@@ -122,7 +131,7 @@ OnFileDrop2
 				{
 					
 				}
-				elseif language == "Polski" //TRANSLATORS: When the user drags a single incompatible music file onto FLUX
+				elseif language == "Polski"
 				{
 					"[Ten plik jest nie kompatybilny.\w8 Kompatybilne są rozszerzenia .mp3, .wav, .wma, or .mid.]\e"
 				}
@@ -171,8 +180,13 @@ OnFileDrop2
 			{
 				if _fileext == "" //If it's a folder
 				{
-					_files = FENUM(reference0) //Gets all the files in the folder
-					_musicfiles = OnFindSongs(_files,reference0)
+					_files = FENUM(reference0,'|') //Gets all the files in the folder
+					_orig = _files
+					//_files = SPLIT(_files,",")
+					
+					//"\b4\_q%(GETTYPE(_files))  %(ARRAYSIZE(_files))\n\n\_?%(_files)\_?\n\n\nOrig:\n\_?%(_orig)\_?\x"
+					//--
+					_musicfiles = OnFindSongs(reference0,_files)
 					
 					_path = _filepath[1]
 					SETDELIM(_path,"\")
@@ -221,8 +235,8 @@ OnFileDrop2
 						}
 						else //English
 						{
-							
-							"[Added %(_num) songs from %(_folder).]"
+							_s = ""; if _num != 1; _s = "s"
+							"[Added %(_num) song%(_s) from %(_folder).]"
 							--
 							"\n\n\_q\![*]\q[Open music player,OnMusicMenu]\n\![*]\q[Close,OnCancel]\e"
 						}
@@ -253,8 +267,9 @@ OnFileDrop2
 	}
 	else //More than 1 file
 	{
-		_musicfiles = OnFindSongs(reference0)
-		
+		_musicfiles = OnFindSongs(,reference0)
+		//"\b4\_q%(GETTYPE(_musicfiles))    %(ARRAYSIZE(_musicfiles))\n\n\_?%(_musicfiles)\_?\x"
+		//--
 		"\0%(b)"
 		--
 		if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Refuse]"
@@ -266,7 +281,7 @@ OnFileDrop2
 			{
 				
 			}
-			elseif language == "Polski" //TRANSLATORS: If the user dragged and dropped multiple files on FLUX, but none of them were compatible music files
+			elseif language == "Polski"
 			{
 				"[Żaden z tych plików jest kompatybilny z FLUX player.]\e"
 			}
@@ -296,14 +311,68 @@ OnFileDrop2
 			}
 			else //English
 			{
-				
-				"[%(_num) compatible songs added to the playlist.]"
+				_s = ""; if _num != 1; _s = "s"
+				"[%(_num) compatible song%(_s) added to the playlist.]"
 				--
 				"\n\n\_q\![*]\q[Open music player,OnMusicMenu]\n\![*]\q[Close,OnCancel]\e"
 			}
 		}
 	}
 }
+
+OnJustMakeThemADamnArrayInTheFirstPlace
+{
+	_input = SPLIT(_argv,",") //Take in the input, make sure it's a general array
+	//_input = REPLACE(_input,"\","/")
+	_outputarray = IARRAY //Create an empty output array
+	_toadd = "" //Define an empty string to store pieces
+	_needscomma = 0
+	
+	foreach _input; _element //Run through every section in the array
+	{
+		if ":" _in_ _element //If it has a :, it must be the start of a new file. You can't put a : in a file name; instead they're just after the drive names, which every file path has to have AFAIK.
+		{
+			if _toadd != "" //If it's empty, skip it so we don't add an empty element. If it's _not_ empty, add the piece from the last loop to the output
+			{
+				_outputarray ,= _toadd
+			}
+			_toadd = "" //Clear the piece from last loop so we can start over
+		}
+		else //If it's a particle
+		{
+			if _needscomma == 1; _toadd += "||" //The | is here in place of an escape character. If I make it just a \, then it gets picked up by SPLITPATH :deargodhelpme:
+		}
+		_toadd += _element //Add the piece from this loop, and continue to the next
+		_needscomma = 0 //Reset this flag every time
+		if !RE_SEARCH(TOLOWER(_element),"\.[\w|\d][\w|\d][\w|\d]?[\w|\d]?$"); _needscomma = 1 //If there's no file name, this is either a folder or a particle. We'll check on the next loop and add one if needed.
+	}
+	_outputarray ,= _toadd //Add the last piece
+	_outputarray
+}
+
+/*OnJustMakeThemADamnArrayInTheFirstPlaceEX
+{
+	_input = SPLIT(FENUM(_argv),",")
+	_outputarray = IARRAY
+	_toadd = ""
+	
+	foreach _input; _element
+	{
+		if "\" _in_ _element; continue
+		if RE_SEARCH(TOLOWER(_element),"\.[\w|\d][\w|\d][\w|\d]?[\w|\d]?$") //If there is a file extension
+		{
+			if _toadd == ""; _outputarray ,= _element
+			else; _outputarray ,= _toadd
+			_toadd = ""
+		}
+		else; _toadd += "|,"
+		{
+			if _needscomma == 1; 
+		}
+		_toadd += _element
+	}
+	_argv
+}*/
 
 OnPlaylistCopy
 {
@@ -324,7 +393,7 @@ OnPlaylistCopy
 		{
 			
 		}
-		elseif language == "Polski" //TRANSLATORS: When the user decides not to overwrite the playlist the ghost already has
+		elseif language == "Polski"
 		{
 			"[Zmień nazwe playlisty,\w4 wtedy przeciągni i puść ją ponownie.]\e"
 		}
@@ -681,7 +750,7 @@ OnInstallRefuse
 			{
 				
 			}
-			elseif language == "Polski" //TRANSLATORS: If the user tries to install a FLELE only shell, and it fails for some reason
+			elseif language == "Polski"
 			{
 				"[Nie można zainstalować skorupy.\w8 Proszę rozpakować archiwum,\w4 przejdź do pliku install.txt,\w4 i usuń linię 'accept,flele'.\w8 Następnie zapakuj je ponownie\w4 i spróbuj jeszcze raz.]\e"
 			}
@@ -969,11 +1038,11 @@ OnBIFFBegin
 //reference0 is the number of emails found
 OnBIFFComplete
 {
+	headers = ""
 	if reference7 != "" && reference0 < 100 //Reference7 is the headers. If it's empty(if the user has headers off), no need to run this loop. I STRONGLY ENCOURAGE YOU not to run this loop for more than 100 headers, as it may cause severe amounts of lag/freezing. Also, that's a lot to scroll through.
 	{
 		_buff = reference7
 		_len = ARRAYSIZE(_buff)
-		headers = ""
 		_i = 0
 		while _i < _len //Runs through all the elements of the array
 		{
@@ -1016,7 +1085,7 @@ OnBIFFComplete
 		{
 			"[%(reference0) nowy%(_c) email%(_s).]"
 			--
-			if reference7 != "" && reference0 < 100 //If it's less than 100 emails and there are headers
+			if headers != "" //If there are headers
 			{
 				"\n\n\w8\w8[Czy chcesz zobaczyć nagłów%(_ki)?]"
 				--
@@ -1038,7 +1107,7 @@ OnBIFFComplete
 		{
 			"[%(reference0) new email%(_s).]"
 			--
-			if reference7 != "" && reference0 < 100 //If it's less than 100 emails and there are headers
+			if headers != "" //If there are headers
 			{
 				"\n\n\w8\w8[Do you want to see the header%(_s)?]"
 				--
@@ -1143,19 +1212,51 @@ OnBIFFFailure
 
 //----Network update---
 
+OnStartUpdates
+{
+	_cmd = ""
+	if AutoUpdates[3] == 1; _cmd += "ghost+"
+	if AutoUpdates[4] == 1; _cmd += "shell+"
+	if AutoUpdates[5] == 1; _cmd += "balloon+"
+	_cmd = ERASE(_cmd,(STRLEN(_cmd) - 1),1)
+	"\![update,%(_cmd)]"
+}
+
 //When the ghost finishes checking for updates
 //reference0 is 'none' if there are no new files, and 'changed' if there are new files. reference1 is a list of the changed files, separated by commas
-OnUpdateCheckComplete 
+OnUpdateCheckComplete
 {
+	AutoUpdates[1] = 1 //Sets it so it won't check again until at least midnight
 	if reference0 == "none" //If there are no new files
 	{
-		if AutoUpdates[1] == 1 //Sets it so it won't check again until at least midnight
+		if reference3 == "ghost"; AutoUpdates[3] = 0
+		elseif reference3 == "shell"; AutoUpdates[4] = 0
+		elseif reference3 == "balloon"; AutoUpdates[5] = 0
 	}
 	else
 	{
-		AutoUpdates[1] = 2 //This makes it so the ghost will tell the user there's a new update next time they open their menu
+		if reference3 == "ghost"; AutoUpdates[3] = 1
+		elseif reference3 == "shell"; AutoUpdates[4] = 1
+		elseif reference3 == "balloon"; AutoUpdates[5] = 1
 	}
+	--
+	if reference3 == "ghost"; "\![update,shell,checkonly]"
+	elseif reference3 == "shell"; "\![update,balloon,checkonly]"
+	else; "\e Update Check Complete"
 }
+
+OnUpdateCheckFailure
+{
+	AutoUpdates[1] = 1 //Sets it so it won't check again until at least midnight
+	if reference3 == "ghost"; AutoUpdates[3] = 0
+	elseif reference3 == "shell"; AutoUpdates[4] = 0
+	elseif reference3 == "balloon"; AutoUpdates[5] = 0
+	--
+	if reference3 == "ghost"; "\![update,shell,checkonly]"
+	elseif reference3 == "shell"; "\![update,balloon,checkonly]"
+	else; "\e Update Check Complete"
+}
+
 
 //Starting to actually update
 OnUpdateBegin
@@ -1171,11 +1272,11 @@ OnUpdateBegin
 	}
 	elseif language == "Polski"
 	{
-		"[Zaczynam aktualizacjie...]\e"
+		"[Zaczynam aktualizacjie...]\w8\e"
 	}
 	else //English
 	{
-		"[Beginning update...]\e"
+		"[Beginning update...]\w8\e"
 	}
 }
 
@@ -1201,7 +1302,7 @@ OnUpdateReady
 	}
 	else //English
 	{
-		_s = ""; _is = "is"; if reference0 != 1; _s = "s"; _is = "are" //plural checks, adds an s and changes is to are if there's more than 1 file
+		_s = ""; _is = "is"; if reference0 != 1; {_s = "s"; _is = "are"} //plural checks, adds an s and changes is to are if there's more than 1 file
 
 		"[There %(_is) %(reference0) new file%(_s).]\w8\w8\e"
 	}
@@ -1227,30 +1328,30 @@ OnUpdateComplete
 	{
 		if reference0 == "none"
 		{
-			"[FLUX jest aktualny.\w8\w8 Aby sprawdzić dostępność aktualizacji skorupy,\w4 kliknij opcję aktualizacji skorupy w menu głównym.]\e"
+			"[FLUX jest aktualny.\w8\w8 Aby sprawdzić dostępność aktualizacji skorupy,\w4 kliknij opcję aktualizacji skorupy w ustawieniach.]\e"
 		}
 		else
 		{
 			UpdateVars //Sets new variables upon a successful update. See the end of Bootend for an explanation on this.
 			
-			"[Aktualizacja zakończona.\w8\w8 Czy chcesz zobaczyć liste zmian??]"
+			"[FLUX został zaktualizowany]"
 			--
-			"\n\n\![*]\q[Tak,OnChangeLog]\n\![*]\q[Nie,OnCancel]\e"
+			"\w8\e"
 		}
 	}
-	else //English
+	else //English - TODO NOTE TO SELF MAKE SURE THIS SAYS CONFIG MENU
 	{
 		if reference0 == "none"
 		{
-			"[FLUX is up to date.\w8\w8 To check for shell updates,\w4 click the update shell option on the main menu.]\e"
+			"[FLUX is up to date.\w8\w8 To check for shell updates,\w4 click the update shell option in the config menu.]\e"
 		}
 		else
 		{
 			UpdateVars //Sets new variables upon a successful update. See the end of Bootend for an explanation on this.
 			
-			"[Update complete.\w8\w8 Do you want to see the changelog?]"
+			"[FLUX Update complete.]"
 			--
-			"\n\n\![*]\q[Yes,OnChangeLog]\n\![*]\q[No,OnCancel]\e"
+			"\w8\e"
 		}
 	}
 }
@@ -1346,28 +1447,28 @@ OnUpdate.OnDownloadBegin
 } 
 
 //_remaining should be the number of the file that's giving the error, in the order they're being downloaded. currentfile will be the file path.
-OnUpdate.OnMD5CompareFailure
-{
-	_currentfile = SPLITPATH(reference0)[2] + SPLITPATH(reference0)[3]
+// OnUpdate.OnMD5CompareFailure
+// {
+	// _currentfile = SPLITPATH(reference0)[2] + SPLITPATH(reference0)[3]
 	
-	"\0%(b)"
-	--
-	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Error]"
-	else; "\s[6]"
-	--
-	if language == "Placeholder" //TRANSLATORS: If one of the files has an MD5 error. _currentfile is the name of the file
-	{
+	// "\0%(b)"
+	// --
+	// if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Error]"
+	// else; "\s[6]"
+	// --
+	// if language == "Placeholder" //TRANSLATORS: If one of the files has an MD5 error. _currentfile is the name of the file
+	// {
 		
-	}
-	elseif language == "Polski"
-	{
-		"\0%(b)\s[6][Wartości MD5 nie zgadzają się dla '%(_currentfile)'.]\w8\w8\e"
-	}
-	else //English
-	{
-		"[The MD5 values don't match for '%(_currentfile)'.]\w8\w8\e"
-	}
-}
+	// }
+	// elseif language == "Polski"
+	// {
+		// "\0%(b)\s[6][Wartości MD5 nie zgadzają się dla '%(_currentfile)'.]\w8\w8\e"
+	// }
+	// else //English
+	// {
+		// "[The MD5 values don't match for '%(_currentfile)'.]\w8\w8\e"
+	// }
+// }
 
 //reference0 is the reason the update failed
 OnUpdateFailure //If the update fails
@@ -1376,7 +1477,6 @@ OnUpdateFailure //If the update fails
 	--
 	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Error]"
 	else; "\s[6]"
-	--
 	--
 	if language == "Placeholder" //TRANSLATORS: If the update fails for some reason. For the md5 miss one, _currentfile is the name of the file that had the error
 	{
@@ -1424,7 +1524,223 @@ OnUpdateFailure //If the update fails
 			"[Couldn't update: '%(reference0)'.]\e"
 		}
 	}
+}
+
+OnUpdateOtherBegin
+{
+	_target = ""
 	
+	"\0%(b)"
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+	else; "\s[6]"
+	--
+	if language == "Placeholder" //TRANSLATORS: Beginning an update for a shell/balloon. reference3 will have either shell or balloon, depending on what is being updated. You can use _target like Polski does to change the label appropriately
+	{
+		
+	}
+	elseif language == "Polski"
+	{
+		if reference3 == "shell"; _target = "skorupy"
+		elseif reference3 == "balloon"; _target = "balona"
+		
+		"[Zaczynam aktualizacje %(_target)...]"
+	}
+	else //English
+	{
+		"[Beginning %(reference3) update...]"
+	}
+	--
+	"\w8\e"
+}
+
+OnUpdateOtherReady
+{
+	reference0++ //Number of files starts from 0, so this displays the correct amount
+	
+	"\0%(b)"
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+	else; "\s[6]"
+	--
+	if language == "Placeholder" //TRANSLATORS: If update files were found for a shell/balloon. reference0 is the number of files
+	{
+		
+	}
+	elseif language == "Polski"
+	{
+		_s = ""; if reference0 != 1; _s = "ów"; //plural checks, adds an s and changes is to are if there's more than 1 file
+
+		"[Znalezłem %(reference0) nowych plik%(_s).]\w8\w8\e"
+	}
+	else //English
+	{
+		_s = ""; _is = "is"; if reference0 != 1; {_s = "s"; _is = "are"} //plural checks, adds an s and changes 'is' to 'are' if there's more than 1 file
+
+		"[There %(_is) %(reference0) new file%(_s).]\w8\w8\e"
+	}
+}
+
+OnUpdateOtherComplete
+{
+	UpdateVars
+	AutoUpdates[1] = 0
+	
+	_target = ""
+	if reference3 == "shell"; _target = nowshell
+	elseif reference3 == "balloon"; _target = SHIORI3FW.BalloonName
+	
+	"\0%(b)"
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+	else; "\s[6]"
+	--
+	if reference3 == "shell"; OnGetCustomShellDialogue
+	--
+	if language == "Placeholder" //TRANSLATORS: If there are no new files, or an update completed successfully
+	{
+		if reference0 == "none" //If whatever was updated is up to date
+		{
+			
+		}
+		else //If an update completed successfully
+		{
+			
+		}
+	}
+	elseif language == "Polski"
+	{
+		if reference0 == "none"
+		{
+			"[%(_target) jest aktualny.]\e"
+		}
+		else
+		{
+			"[Aktualizacje %(reference3) zakończona.]\e"
+		}
+	}
+	else //English
+	{
+		if reference0 == "none"
+		{
+			"[%(_target) is up to date.]\e"
+		}
+		else
+		{
+			"[%(Capitalize(reference3)) update complete.]\e"
+		}
+	}
+	
+}
+
+OnUpdateOther.OnDownloadBegin
+{
+	"\0%(b)\_q"
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+	else; "\s[6]"
+	--
+	if language == "Placeholder" //TRANSLATORS: While files are downloading
+	{
+		
+	}
+	elseif language == "Polski"
+	{
+		"[Pobieram %(reference0)...]\n\n"
+	}
+	else //English
+	{
+		"[Downloading %(reference0)...]\n\n"
+	}
+	--
+	_Update_Progress = TOINT(reference1) + 1
+	_Update_Total = TOINT(reference2) + 1
+	Update_Remaining = _Update_Total - _Update_Progress
+	
+
+	//defining starting points
+	_PointA = 1
+	_PointB = 1
+
+	//defining text buffers beforehand, otherwise they don't display right
+	_filled = ""
+	_empty = ""
+
+	//loop calculates how many check boxes to display based on the variables above
+
+	while _PointA <= _Update_Progress
+	{
+		_filled += "♪"
+		_PointA++
+	}
+	//see above except for blank boxes
+	while _PointB <= Update_Remaining
+	{
+		_empty += "♪"
+		_PointB++
+	}
+	--
+	"\f[name,arial]\f[height,+4]%(_filled)\f[color,120,120,120]%(_empty)\f[default]"
+	--
+	"\n\n%(_Update_Progress)/%(_Update_Total)\e"
+}
+
+OnUpdateOtherFailure
+{
+	_target = ""
+	_author = shellauthor[0]
+	_authorurl = shellauthor[2]
+	_currentfile = SPLITPATH(reference1)[2] + SPLITPATH(reference1)[3]
+	"\0%(b)"
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Error]"
+	else; "\s[6]"
+	--
+	if language == "Placeholder" //TRANSLATORS: If the shell/balloon update fails for some reason. For the md5 miss one, _currentfile is the name of the file that had the error, _author is the name of the shell/balloon author, and _authorurl is their url which you can put into the anchor. reference3 will be either shell or ghost, depending on what type of update this is. You can use _target like Polski does to set up labels for shell/balloon specifically for your language
+	{
+		
+	}
+	elseif language == "Polski"
+	{
+		if reference3 == "shell"; _target = "skorupy"
+		elseif reference3 == "balloon"; _target = "balona"
+		
+		if reference0 == "timeout" //If it timed out
+		{
+			"[Połączenie zostało przerwane..]\e"
+		}
+		elseif reference0 == "md5 miss" //If the update files have not been uploaded correctly and don't match the updates2.dau
+		{
+			"[Wartości MD5 nie zgadzają się na '%(_currentfile)'.\w8\w8 Powinieneś skontaktować się z \_a[https://zichqec.github.io/s-the-skeleton/index.html]Zichqec\_a i dać jej znać.]\e"
+		}
+		elseif reference0 == "artificial" //If the user cancels the update by double clicking the balloon
+		{
+			"[Aktualizacja anulowana.]\e"
+		}
+		else //Any other errors
+		{
+			"[Nie udało się zaktualizoswać %(_target): '%(reference0)'.]\e"
+		}	
+	}
+	else //English
+	{
+		if reference0 == "timeout" //If it timed out
+		{
+			"[The connection has timed out.]\e"
+		}
+		elseif reference0 == "md5 miss" //If the update files have not been uploaded correctly and don't match the updates2.dau
+		{
+			"[The MD5 values don't match on '%(_currentfile)'.\w8\w8 You should contact \_a[%(_authorurl)]%(_author)\_a.]\e"
+		}
+		elseif reference0 == "artificial" //If the user cancels the update by double clicking the balloon
+		{
+			"[%(Capitalize(reference3)) update cancelled.]\e"
+		}
+		else //Any other errors
+		{
+			"[Couldn't update %(reference3): '%(reference0)'.]\e"
+		}
+	}
 }
 
 //reference0 is the name of the site, reference1 is the url
@@ -1852,17 +2168,17 @@ OnKeyPress
 
 OnBalloonBreak
 {
-	OnSurfaceRestore
+	//OnSurfaceRestore
 }
 
 OnBalloonTimeout
 {
-	OnSurfaceRestore
+	//OnSurfaceRestore
 }
 
 OnBalloonClose
 {
-	OnSurfaceRestore
+	//OnSurfaceRestore
 }
 
 OnCancel

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zi's Ukagaka Hub</title>
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="Zi's Ukagaka Hub"/>
+    <meta property="og:description" content="Zi's hub for all her Ukagakas and related things"/>
+    <meta property="og:url" content="https://zichqec.github.io/s-the-skeleton/index.html"/>
+    <meta property="og:image" content="https://zichqec.github.io/s-the-skeleton/img/AllTogether.png"/>
+</head>
+
+<body>
+    <nav>
+        <div class="navbar">
+            <a href="index.html" class="navlink">Home</a>
+			<!---->
+			<div class="dropdown">
+				<button class="dropbtn">Ghosts
+				  <i class="fa fa-caret-down"></i>
+				</button>
+				<div class="dropdown-content">
+					<p class="navdivider">--Main ghosts--</p>
+					<a href="s_the_skeleton.html">S the Skeleton</a>
+					<a href="dusty.html">Dusty and Obsidian</a>
+					<p class="navdivider">--Side ghosts--</p>
+					<a href="flux.html">FLUX</a>
+					<a href="warrior_generator.html">Warrior Generator</a>
+					<a href="guard.html">Skyrim Guard</a>
+					<p class="navdivider">--Collab ghosts--</p>
+					<a href="hydrate.html">Hydrate</a>
+					<a href="ct_epoch_jam.html">CT Epoch Jam</a>
+					<a href="iea.html">Iea</a>
+				</div>
+			</div>
+			<!---->
+			<a href="xtemplate.html" class="navlink">X. Template</a>
+			<!---->
+			<a href="balloons.html" class="navlink">Balloons</a>
+			<!---->
+			<div class="dropdown">
+				<button class="dropbtn">Guides
+				  <i class="fa fa-caret-down"></i>
+				</button>
+				<div class="dropdown-content">
+				  <a href="github.html">Network updates with Github</a>
+				  <a href="saori_basic.html">Creating SAORI-Basic</a>
+					<a href="loops_and_arrays.html">Loops and Arrays (AYA/YAYA)</a>
+				</div>
+			</div>
+			<!---->
+			<div class="dropdown">
+				<button class="dropbtn">Other
+				  <i class="fa fa-caret-down"></i>
+				</button>
+				<div class="dropdown-content">
+				  <a href="functions.html">Functions</a>
+				  <a href="minigames.html">Minigames</a>
+				  <a href="calendarskins.html">Calendar Skins</a>
+				  <a href="resources.html">Resources</a>
+				</div>
+			</div>
+			<!---->
+		</div>
+    </nav>
+	
+    <article>
+        <h1>FLUX</h1>
+		<!-- Tab links -->
+		<div class="tab">
+			<div class="centerreg">
+			  <button class="tablinks" onclick="pickLang(event, 'English')" id="defaultOpen">English</button>
+			  <!--<button class="tablinks" onclick="pickLang(event, '日本語')">日本語</button>-->
+			  <button class="tablinks" onclick="pickLang(event, 'Polski')">Polski</button>
+			</div>
+		</div>
+		<br>
+        <img src="img/flux_00.png" alt="Hydrate" width="200" height="200" class="center">
+        <br>
+		<!-- Tab content -->
+		<div id="English" class="tabcontent">
+			<div class="cntr"><a href="https://www.mediafire.com/file/hlykyzwfau5d3kt/hydrate_v1.1.0.nar/file">Download the latest .nar file here!</a></div>
+			<p>FLUX is a spiritual successor to an old Japanese ghost called <a href="http://navy.nm.land.to/ukgk/flele/beginner.html">FLELE</a>. FLELE is a simple music player which many people have created unique shells for! <a href="https://www.deviantart.com/shell-collectors">Here's</a> a collection of FLELE shells, though there are many more besides this. You can also find an English patch of FLELE by Zarla on <a href="http://www.ashido.com/huntersmoker/flele.html">this page</a>.</p>
+			<p>So why FLUX? FLUX offers many improvements, including:</p>
+			<ul>
+				<li>Multiple language support.</li>
+				<li>Offers network updates for shells, and even checks for updates automatically.</li>
+				<li>Makes it very easy to add in custom dialogue, without users ever needing to change the ghost's files.</li>
+				<li>Uses a different system for the music player, allowing you to change volume, speed, and balance.</li>
+				<li>Also supports more mp3 files and wav files than FLELE does, thanks to recent SSP updates.</li>
+				<li>The singing animation is no longer restricted to surface25, so more complex animations are possible.</li>
+				<li>Default balloon 'Notes' has both dark and light mode.</li>
+				<li>'Stop after current song' option.</li>
+				<li>Dynamic shell and dressup menus within the ghost, including the option to pick shells and dressups at random.</li>
+				<li>Uses m3u playlists like FLELE does, so your existing playlists should still work.</li>
+				<li>Backwards compatible with most existing FLELE shells.</li>
+				<li>And many more small tweaks!</li>
+			</ul>
+			<p>There are some differences from FLELE, some of which might feel odd if you've used FLELE a lot. FLUX does not have the same right click menu that FLELE does, because I haven't used the SAORI that creates it. There also is no song bar, for the same reason. Instead, if you double click the hotspot that would normally open the song bar, it will open the music menu. It's also possible that some FLELE shells will behave oddly; if you find any like this please let me know!</p>
+			<p>If you're interested in making a shell for FLUX, there is documentation included in the files. If you're interested in translating FLUX to another language, there is also documentation for that. If you make anything for FLUX, do let me know and I'd be glad to link your work on this page!</p>
+			<p>An important note for users: if you change shells and the new shell causes an error, you'll have to fix it manually. This <i>shouldn't</i> happen, but if it ever does, go into SSP/ghost/flux/ghost/master/, and open the file fx_shelldialogue.dic. Erase absolutely everything in that file and save it (don't worry, you're not erasing any data! This file is written when changing shells), then reload FLUX. FLUX should be responding again if you've done it correctly. You can switch away to another shell, or you can go into the config menu and toggle the Custom Shell Functions/Dialogue option off. With the custom funcitons and dialogue off, any special functions and dialogue will no longer be available, but it will prevent any errors from the custom shell code.</p>
+		</div>
+
+		<div id="日本語" class="tabcontent">
+			<div class="cntr"><a href="https://www.mediafire.com/file/yrwx8lisx5iac79/flux_v1.0.0.nar/file">Download the latest .nar file here!</a></div>
+			<p>Something in Japanese.</p>
+		</div>
+
+		<div id="Polski" class="tabcontent"> <!--this is where it needs translated-->
+			<div class="cntr"><a href="https://www.mediafire.com/file/yrwx8lisx5iac79/flux_v1.0.0.nar/file">Pobierz najnowszy plik .nar!</a></div>
+			<p>FLUX jest duchowym następcą starego japońskiego ducha o nazwie <a href="http://navy.nm.land.to/ukgk/flele/beginner.html">FLELE</a>. FLELE to prosty odtwarzacz muzyczny, dla którego wiele osób stworzyło unikalne skorupy! <a href="https://www.deviantart.com/shell-collectors">Tu znajdziesz</a> kolekcję skorup FLELE, choć oprócz tego jest jeszcze wiele innych. Można też znaleźć angielską łatkę FLELE autorstwa Zarli <a href="http://www.ashido.com/huntersmoker/flele.html">na tej stronie</a>.</p>
+			<p>Dlaczego więc FLUX? FLUX oferuje wiele ulepszeń, w tym:</p>
+			<ul>
+				<li>Wsparcie dla wielu języków.</li>
+				<li>Oferuje aktualizacje sieciowe dla skorup, a nawet sprawdza aktualizacje automatycznie.</li>
+				<li>Ułatwia dodawanie niestandardowych dialogów, bez konieczności zmiany plików ducha.</li>
+				<li>Używa innego systemu dla odtwarzacza muzycznego, pozwalając na zmianę głośności, prędkości i balansu.</li>
+				<li>Obsługuje również więcej plików mp3 i wav niż FLELE, dzięki ostatnim aktualizacjom SSP.</li>
+				<li>Animacja śpiewu nie jest już ograniczona do surface25, więc bardziej złożone animacje są możliwe.</li>
+				<li>Domyślny dymek 'Notes' ma zarówno tryb ciemny jak i jasny.</li>
+				<li>Opcja 'Zatrzymaj po bieżącej piosence'.</li>
+				<li>Dynamiczne menu dla skorup i strojów w duchu, w tym możliwość losowego wyboru skorup i strojów.</li>
+				<li>Używa list odtwarzania m3u jak FLELE, więc twoje istniejące listy odtwarzania powinny nadal działać.</li>
+				<li>Kompatybilny wstecz z większością istniejących muszli FLELE.</li>
+				<li>I wiele więcej małych poprawek! </li>
+			</ul>
+			<p>Istnieją pewne różnice w stosunku do FLELE, niektóre z nich mogą wydawać się dziwne, jeśli używałeś FLELE dużo. FLUX nie posiada takiego samego menu prawego przycisku myszy jak FLELE, ponieważ nie używałam SAORI, które je tworzy. Nie ma też paska piosenek, z tego samego powodu. Zamiast tego, jeśli dwukrotnie klikniesz na hotspot, który normalnie otworzyłby pasek piosenek, otworzy się menu muzyczne. Jest również możliwe, że niektóre skorupy FLELE będą się dziwnie zachowywać; jeśli znajdziesz takie, proszę daj mi znać!
+			<p>Jeżeli jesteś zainteresowany stworzeniem skorupy dla FLUXa, dokumentacja jest dołączona do plików. Jeśli jesteś zainteresowany tłumaczeniem FLUXa na inny język, jest tam również dokumentacja do tego. Jeśli stworzysz coś dla FLUXa, daj mi znać, a z przyjemnością umieszczę link do twojej pracy na tej stronie!</p> <p>
+			<p>Ważna uwaga dla użytkowników: jeśli zmienisz skorupę i nowa skorupa spowoduje błąd, będziesz musiał naprawić go ręcznie. To <i>nie powinno się zdarzyć</i>, ale jeśli tak się stanie, wejdź do SSP/ghost/flux/ghost/master/, i otwórz plik fx_shelldialogue.dic. Wymaż absolutnie wszystko w tym pliku i zapisz go (nie martw się, nie wymazujesz żadnych danych! Ten plik jest zapisywany podczas zmiany powłoki), a następnie przeładuj FLUXa. FLUX powinien znowu odpowiadać, jeśli zrobiłeś to poprawnie. Możesz przełączyć się do innej skorupy, lub wejść do ustawień i wyłączyć opcję Specjalne funkcje/dialogi skorupy. Z wyłączonymi funkcjami niestandardowymi i dialogiem, wszelkie funkcje specjalne i dialog nie będą już dostępne, ale zapobiegnie to wszelkim błędom niestandardowego kodu skorupy.</p>
+			<br><p>Ta strona i odtwarzacz FLUX zostały przetłumaczone na Polski przez <a href="https://zdzisiu.github.io/Ukagaka/">Zdzicha</a></p>
+		</div>
+		
+		
+        
+		<br>
+        <webring-banner>
+			<p>Member of the <a href="https://ukagakawebring.netlify.com/">Ukagaka/Ghost Development and Download</a> webring</p>
+			<a href="https://ukagakawebring.netlify.com//prev">Previous</a>
+			<a href="https://ukagakawebring.netlify.com//random">Random</a>
+			<a href="https://ukagakawebring.netlify.com//next">Next</a>
+		</webring-banner>
+		<script async src="https://ukagakawebring.netlify.com//embed.js" charset="utf-8"></script>
+    </article>
+	<article>
+		<h1>Shells</h1>
+		<br>
+		<div class="floatBG"><div class="cntr"><img src="img/flux_master.gif" alt="master shell" class="flelefloatLeft" width="235" height="275"></div>
+        <h1>FLUX</h1>
+        <p style="text-align: center">The shell FLUX comes with by default. Comes with a small amount of custom dialogue, which is all music notes. Synthesizer colors can be changed with dressups!</p>
+		<br class="flelefloatClear"></div>
+		<br>
+		<div class="floatBG"><div class="cntr"><img src="img/flux_cibus.gif" alt="cibus shell" class="flelefloatRight" width="235" height="235"></div>
+        <h1>Cibus</h1>
+        <div class="cntr"><a href="https://www.mediafire.com/file/h985pm693slaqn3/cibus_v2.0.0.nar/file">Download it here!</a></div>
+        <p style="text-align: center">An updated version of my Cibus FLELE shell! She's been shrunk a little to her intended size. She also comes with more dressups; you can change her hair, hairband, earrings, and add janky looking music notes.</p>
+		<p style="text-align: center">She also comes with a good bit of custom dialogue, to show off the custom dialogue functions!</p>
+		<br class="flelefloatClear"></div>
+	</article>
+    <article>
+        <h1>Version history</h1>
+		<label class="collapsible">Version 1.0.x - Initial Release</label>
+		<div class="collapsible-content">
+			<div class="ver">
+				<div class="centerhead"><b>=====1.0.0=====</b>
+					<div class="ctr">(5/12/21)</div></div>
+				<ul>
+					<li>Initial release</li>
+				</ul>
+				<br>
+			</div>
+		</div>
+        
+        
+    </article>
+
+    <footer>
+        More from Zichqec<br>
+        <a href="https://www.deviantart.com/zichqec"class="footlink">Deviantart</a> | 
+        <a href="https://zichqec.tumblr.com/" class="footlink">Tumblr</a> | 
+        <a href="https://twitter.com/Zichqec" class="footlink">Twitter</a> | 
+        <a href="https://toyhou.se/Zichqec" class="footlink">Toyhouse</a> |
+        <a href="https://www.youtube.com/channel/UC_9BGh45mIL3b3riZ4aTRIA" class="footlink">Youtube</a>
+    </footer>
+
+
+
+<script>
+function pickLang(evt, langName) {
+  // Declare all variables
+  var i, tabcontent, tablinks;
+
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+  // Show the current tab, and add an "active" class to the button that opened the tab
+  document.getElementById(langName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+
+//Collapsible
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++)
+{
+	coll[i].addEventListener("click", function()
+	{
+		this.classList.toggle("active");
+		var content = this.nextElementSibling;
+		if (content.style.display === "block")
+		{
+			content.style.display = "none";
+		}
+		else
+		{
+			content.style.display = "block";
+		}
+	}
+  );
+}
+</script>
+
+
+
+</body>
+
+</html>

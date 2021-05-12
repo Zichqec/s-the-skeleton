@@ -2,7 +2,7 @@ OnFirstBoot //Dialogue when you first open the ghost
 {
 	FirstBootVars //Initialize all your variables at the very bottom!
 	
-	"\0\*\t%(bb)\_q\![enter,passivemode][Please choose a language for FLUX player. This can be changed at any time in the config menu.]\n\n"
+	"\0\1\s[-1]\0\s[50]\w6\*\t%(bb)\_q\![enter,passivemode][Please choose a language for FLUX player. This can be changed at any time in the config menu.]\n\n"
 	--
 	//TRANSLATORS: Add a menu option for your language here. The second argument is what the language variable will be set to, make sure you spell it exactly the same as your if checks!
 	"\![*]\q[English,OnLanguageChosen,English]\n/
@@ -24,19 +24,11 @@ OnLanguageChosen
 	}
 	elseif language == "Polski"
 	{
-		hemiphere[1] = "Północna"
-		talkoption[1] = "dowolny moment" //"Talk any time"
-		
-		
 		"\0\s[0]%(bb)[Zakończono instalację odtwarzacza FLUX.]\n\n\w8\w8[By dodać piosenki,\w4 przeciągnij i upuść je na FLUX.\w8\w8 Możesz również przeciągnąć i upuścić playliste .m3u.]\n\n\w8\w8[Jeśli chcesz zmienić wygląd FLUXa,\w4 sprawdź menu Skorupa i Ubrania.]\n\n\w8\w8[Dla innych opcji,\w4 w tym zmiana języków,\w4 sprawdź menu Konfiguracja.]"
 
 	}
 	else //English
 	{
-		hemiphere[1] = "Northern"
-		talkoption[1] = "any time" //"Talk any time"
-		
-		
 		"\0\s[0]%(bb)[Finished installing FLUX player.]\n\n\w8\w8[To add songs,\w4 drag and drop them onto FLUX.\w8\w8 You can also drag and drop a .m3u playlist.]\n\n\w8\w8[If you want to change the look of FLUX,\w4 check the Shell and Dressup menus.]\n\n\w8\w8[For other options,\w4 including changing languages,\w4 check the Config menu.]"
 	}
 	--
@@ -222,6 +214,7 @@ OnShellChanged //After the shell has changed
 	shellchange[7] = reference0
 	shellchange[8] = reference1
 	shellchange[9] = reference2
+	AutoUpdates[4] = 0
 	
 	"\s[-1]\![get,property,OnGetCoords2,currentghost.scope(0).rect]"
 	
@@ -241,7 +234,7 @@ OnGetCoords2 //This gets the x and y coordinates when changing shells
 	shellchange[5] = TOINT(reference0[3]) - TOINT(reference0[1]) //Frame height
 	shellchange[6] = TOINT(shellchange[1]) - TOINT(shellchange[5]) //Should be the feet height of the before shell, and then the height of the after shell added to it...
 	--
-	"\0\![move,--X=%(shellchange[0]),--Y=%(TOINT(shellchange[6])),--base=primaryscreen]\s[0]"
+	"\0\![move,--X=%(shellchange[0]),--Y=%(TOINT(shellchange[6])),--base=primaryscreen]"
 	--
 	OnGetCustomShellDialogue
 	lastTalk = ""
@@ -254,9 +247,9 @@ OnGetCoords2 //This gets the x and y coordinates when changing shells
 		if ISFUNC("OnCustom_trayicon"); OnCustom_trayicon
 		else; "\![set,tasktrayicon,flux.ico]"
 		--
-		"\0%(b)"
+		"\0%(b)\s[0]"
 		--
-		if language == "Placeholder" //TRANSLATORS: When finished reloading a shell. %(shellchance[7]) is the name of the shell they reloaded
+		if language == "Placeholder" //TRANSLATORS: When finished reloading a shell. %(shellchange[7]) is the name of the shell they reloaded
 		{
 			
 		}
@@ -289,6 +282,8 @@ OnChangedShell //I have this here because it takes a moment for it to read the d
 	if ISFUNC("OnCustom_OnShellChanged") && CustomFuncs[0] == 1; OnCustom_OnShellChanged
 	else
 	{
+		"\s[0]"
+		--
 		if language == "Placeholder" //TRANSLATORS: This dialogue is for changing to a shell with no custom dialogue. reference0 is the name of the shell
 		{
 			
@@ -310,9 +305,18 @@ OnChangedShell //I have this here because it takes a moment for it to read the d
 	"\e"
 }
 
-OnBalloonChanged
+OnBalloonChange
 {
-	nowballoon = reference0
+	nowballoon[0] = reference0
+	_b = BalloonCheck
+	if _b == 1; "\C"
+	--
+	"%(bbb)\![get,property,OnBalloonLines,currentghost.balloon.scope(0).lines.initial]"
+}
+
+OnBalloonLines
+{
+	nowballoon[1] = TOINT(reference0)
 }
 
 OnShellAuthor
@@ -423,17 +427,17 @@ FirstBootVars
 	totalpets = 0		//The total times the ghost has been pet
 	//---
 	deleteshitai = (0,"Off")
-	AutoUpdates = (1,0,"On")
+	AutoUpdates = (1,0,"On",0,0,0)
 	//nowmode = "Default" //Uncomment if you plan to add more modes
 	installdate = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)","%(ghostver)") //This tracks the exact day and time the ghost was installed, in case you want to mess around with that later. It also tracks what version the user installed, which may be helpful for debugging!
 	//booting = 1 //This will be set to 0 after firstboot is complete
 	waitingcommuS = IARRAY //These two arrays handle the non-interrupt system for communication. They're for storing messages from other ghosts when your ghost is busy talking.
 	waitingcommuM = IARRAY
-	nowballoon = "Notes"
+	nowballoon = ("Notes",26)
 	
 	NowPlaying = ("",-1,"")
 	MusicSettings = (100,100,0,0,"")
-	talkoption = (0,"any time")
+	talkoption = 0
 	InstalledShellName = ""
 	shellauthor = ("Zichqec","Zichqec","https://zichqec.github.io/s-the-skeleton/index.html")
 	CurrentPlaylist = IARRAY
@@ -441,6 +445,6 @@ FirstBootVars
 	DraggedFile = ""
 	Hotkeys = IARRAY
 	balloonmode = 0 //Dark mode
-	hemisphere = (0,"Northern")
+	hemisphere = 0
 	CustomFuncs = (1,"On")
 }

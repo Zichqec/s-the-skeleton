@@ -130,7 +130,7 @@ surface25 //Singing
 	
 	
 	//---Back synths---
-	//{
+	
 	//Red
 	animation2000.interval,bind
 	animation2000.pattern0,interpolate,2000,0,0,0
@@ -162,95 +162,71 @@ surface25 //Singing
 	//Magenta
 	animation2007.interval,bind
 	animation2007.pattern0,interpolate,2007,0,0,0
-	//}
+	
 	
 	//---Head + Front left arm---
 	animation2500.interval,never
-	animation2500.pattern0,overlay,4000,0,0,0 //Top
-	animation2500.pattern1,overlay,-1,500-600,0,0
-	animation2500.pattern2,overlay,4000,0,-1,1 //Mid
-	animation2500.pattern3,overlay,-1,30,0,0
-	animation2500.pattern4,overlay,4000,0,-1,2 //Bottom
-	animation2500.pattern5,overlay,-1,75,0,0
-	animation2500.pattern6,overlay,4000,0,-1,1 //Mid
-	animation2500.pattern7,overlay,-1,50,0,0
-	animation2500.pattern8,alternativestart,(1300,2500,2500,2500)
+	animation2500.pattern0,overlay,4000,-1,0,0 //Top
+	animation2500.pattern1,overlay,4000,500-600,-1,1 //Mid
+	animation2500.pattern2,overlay,4000,30,-1,2 //Bottom
+	animation2500.pattern3,overlay,4000,75,-1,1 //Mid
+	animation2500.pattern4,overlay,-1,50,0,0
+	animation2500.pattern5,alternativestart,(1300,2500,2500,2500)
 	
 	animation2501.interval,never
-	animation2501.pattern0,overlay,4001,0,0,0 //Top
-	animation2501.pattern1,overlay,-1,500-600,0,0
-	animation2501.pattern2,overlay,4001,0,-1,1 //Mid
-	animation2501.pattern3,overlay,-1,30,0,0
-	animation2501.pattern4,overlay,4001,0,-1,2 //Bottom
-	animation2501.pattern5,overlay,-1,75,0,0
-	animation2501.pattern6,overlay,4001,0,-1,1 //Mid
-	animation2501.pattern7,overlay,-1,50,0,0
+	animation2501.pattern0,overlay,4001,-1,0,0 //Top
+	animation2501.pattern1,overlay,4001,500-600,-1,1 //Mid
+	animation2501.pattern2,overlay,4001,30,-1,2 //Bottom
+	animation2501.pattern3,overlay,4001,75,-1,1 //Mid
+	animation2501.pattern4,overlay,-1,50,0,0
 	animation2501.pattern8,alternativestart,(1300,2501,2501,2501)
 	
 	animation2502.interval,never
-	animation2502.pattern0,overlay,4002,0,0,0 //Top
-	animation2502.pattern1,overlay,-1,500-600,0,0
-	animation2502.pattern2,overlay,4002,0,-1,1 //Mid
-	animation2502.pattern3,overlay,-1,30,0,0
-	animation2502.pattern4,overlay,4002,0,-1,2 //Bottom
-	animation2502.pattern5,overlay,-1,75,0,0
-	animation2502.pattern6,overlay,4002,0,-1,1 //Mid
-	animation2502.pattern7,overlay,-1,50,0,0
+	animation2502.pattern0,overlay,4002,-1,0,0 //Top
+	animation2502.pattern1,overlay,4002,500-600,-1,1 //Mid
+	animation2502.pattern2,overlay,4002,30,-1,2 //Bottom
+	animation2502.pattern3,overlay,4002,75,-1,1 //Mid
+	animation2502.pattern4,overlay,-1,50,0,0
 	animation2502.pattern8,alternativestart,(1300,2502,2502,2502)
 	
 	animation2503.interval,never
-	animation2503.pattern0,overlay,4003,0,0,0 //Top
-	animation2503.pattern1,overlay,-1,500-600,0,0
-	animation2503.pattern2,overlay,4003,0,-1,1 //Mid
-	animation2503.pattern3,overlay,-1,30,0,0
-	animation2503.pattern4,overlay,4003,0,-1,2 //Bottom
-	animation2503.pattern5,overlay,-1,75,0,0
-	animation2503.pattern6,overlay,4003,0,-1,1 //Mid
-	animation2503.pattern7,overlay,-1,50,0,0
+	animation2503.pattern0,overlay,4003,-1,0,0 //Top
+	animation2503.pattern1,overlay,4003,500-600,-1,1 //Mid
+	animation2503.pattern2,overlay,4003,30,-1,2 //Bottom
+	animation2503.pattern3,overlay,4003,75,-1,1 //Mid
+	animation2503.pattern4,overlay,-1,50,0,0
 	animation2503.pattern8,alternativestart,(1300,2503,2503,2503)
 	
 	animation2504.interval,never
-	animation2504.pattern0,overlay,4050,0,0,0 //Top
-	animation2504.pattern1,overlay,-1,500-600,0,0
-	animation2504.pattern2,overlay,4050,0,-1,1 //Mid
-	animation2504.pattern3,overlay,-1,30,0,0
-	animation2504.pattern4,overlay,4050,0,-1,2 //Bottom
-	animation2504.pattern5,overlay,-1,75,0,0
-	animation2504.pattern6,overlay,4050,0,-1,1 //Mid
-	animation2504.pattern7,overlay,-1,50,0,0
+	animation2504.pattern0,overlay,4050,-1,0,0 //Top
+	animation2504.pattern1,overlay,4050,500-600,-1,1 //Mid
+	animation2504.pattern2,overlay,4050,30,-1,2 //Bottom
+	animation2504.pattern3,overlay,4050,75,-1,1 //Mid
+	animation2504.pattern4,overlay,-1,50,0,0
 	animation2504.pattern8,alternativestart,(1300,2504,2504,2504)
 	
 	animation2505.interval,never
-	animation2505.pattern0,overlay,4051,0,0,0 //Top
-	animation2505.pattern1,overlay,-1,500-600,0,0
-	animation2505.pattern2,overlay,4051,0,-1,1 //Mid
-	animation2505.pattern3,overlay,-1,30,0,0
-	animation2505.pattern4,overlay,4051,0,-1,2 //Bottom
-	animation2505.pattern5,overlay,-1,75,0,0
-	animation2505.pattern6,overlay,4051,0,-1,1 //Mid
-	animation2505.pattern7,overlay,-1,50,0,0
+	animation2505.pattern0,overlay,4051,-1,0,0 //Top
+	animation2505.pattern1,overlay,4051,500-600,-1,1 //Mid
+	animation2505.pattern2,overlay,4051,30,-1,2 //Bottom
+	animation2505.pattern3,overlay,4051,75,-1,1 //Mid
+	animation2505.pattern4,overlay,-1,50,0,0
 	animation2505.pattern8,alternativestart,(1300,2505,2505,2505)
 	
 	animation2506.interval,never
-	animation2506.pattern0,overlay,4052,0,0,0 //Top
-	animation2506.pattern1,overlay,-1,500-600,0,0
-	animation2506.pattern2,overlay,4052,0,-1,1 //Mid
-	animation2506.pattern3,overlay,-1,30,0,0
-	animation2506.pattern4,overlay,4052,0,-1,2 //Bottom
-	animation2506.pattern5,overlay,-1,75,0,0
-	animation2506.pattern6,overlay,4052,0,-1,1 //Mid
-	animation2506.pattern7,overlay,-1,50,0,0
+	animation2506.pattern0,overlay,4052,-1,0,0 //Top
+	animation2506.pattern1,overlay,4052,500-600,-1,1 //Mid
+	animation2506.pattern2,overlay,4052,30,-1,2 //Bottom
+	animation2506.pattern3,overlay,4052,75,-1,1 //Mid
+	animation2506.pattern4,overlay,-1,50,0,0
 	animation2506.pattern8,alternativestart,(1300,2506,2506,2506)
 	
 	animation2507.interval,never
-	animation2507.pattern0,overlay,4053,0,0,0 //Top
-	animation2507.pattern1,overlay,-1,500-600,0,0
-	animation2507.pattern2,overlay,4053,0,-1,1 //Mid
-	animation2507.pattern3,overlay,-1,30,0,0
-	animation2507.pattern4,overlay,4053,0,-1,2 //Bottom
-	animation2507.pattern5,overlay,-1,75,0,0
-	animation2507.pattern6,overlay,4053,0,-1,1 //Mid
-	animation2507.pattern7,overlay,-1,50,0,0
+	animation2507.pattern0,overlay,4053,-1,0,0 //Top
+	animation2507.pattern1,overlay,4053,500-600,-1,1 //Mid
+	animation2507.pattern2,overlay,4053,30,-1,2 //Bottom
+	animation2507.pattern3,overlay,4053,75,-1,1 //Mid
+	animation2507.pattern4,overlay,-1,50,0,0
 	animation2507.pattern8,alternativestart,(1300,2507,2507,2507)
 	
 	
@@ -284,7 +260,7 @@ surface25 //Singing
 	
 	
 	//---Front Synths---
-	//{
+	
 	//Red
 	animation3000.interval,bind
 	animation3000.pattern0,overlay,3000,0,0,0
@@ -316,7 +292,16 @@ surface25 //Singing
 	//Magenta
 	animation3007.interval,bind
 	animation3007.pattern0,overlay,3007,0,0,0
-	//}
+	
+}
+
+surface50
+{
+	element0,overlay,surface50.png,0,0
+	animation0.interval,runonce
+	animation0.pattern0,replace,51,100,0,0
+	animation0.pattern1,replace,52,100,0,0
+	animation0.pattern2,replace,0,130,0,0
 }
 
 

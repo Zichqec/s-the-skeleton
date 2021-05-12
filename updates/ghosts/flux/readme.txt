@@ -1,4 +1,4 @@
-Languages: English - 日本語 - Français - Polski
+Languages: English - Polski
 
 
 English:
@@ -15,22 +15,11 @@ If you want to make your own shell for FLUX, check out the documentation in the 
 If you ever load a shell and FLUX gives an error and won't respond, go into the file SSP/ghost/flux/ghost/master/fx_shelldialogue.dic, erase all the contents and save, then reload FLUX. Then, go into the config menu and disable custom shell dialogue. That will make the shell act like a plain shell, and prevent the error from coming up again. You can turn it back on again if you switch to another (working) shell. Do let the shell author know their shell isn't working! You should be able to find their URL in the right click menu.
 
 Many thanks to the folks who have translated FLUX!
-Japanese translation: Nekori https://mangaka-nekori.github.io/Ukagaka/eng/index.html
 Polish translation: Zdzisiu https://zdzisiu.github.io/Ukagaka/index.html
-French translation: Levidre https://azura-levidre.000webhostapp.com/
--------------------------------------------------------------
-
-日本語:
-
-
 
 -------------------------------------------------------------
 
-Français:
 
-
-
--------------------------------------------------------------
 Polski:
 Dziękuję za instalacje Odtwarzacza FLUX! Ten duch jest następcą dla ducha FLELE, którego możesz znaleźć tu:
 http://navy.nm.land.to/ukgk/flele/beginner.html
@@ -46,9 +35,6 @@ Jeśli chcesz stworzyć swoją własną skorupę dla FLUXa, sprawdź dokumentacj
 Jeśli kiedykolwiek załadujesz skorupę, a FLUX wyświetli błąd i nie będzie odpowiadał, wejdź do pliku SSP/ghost/flux/ghost/master/fx_shelldialogue.dic, wymaż całą zawartość i zapisz, a następnie załaduj FLUXa ponownie. Następnie wejdź w menu konfiguracji i wyłącz niestandardowe dialogi skorupy. To sprawi, że skorupa będzie działać jak zwykła skorupa i zapobiegnie ponownemu pojawieniu się błędu. Możesz włączyć je ponownie, jeśli przełączysz się na inną (działającą) skorupę. Poinformuj autora skorupy, że ich skorupa nie działa! Powinieneś być w stanie znaleźć ich adres URL w menu prawego przycisku myszy.
 
 Wielkie podziękowania dla ludzi, którzy przetłumaczyli FLUX!
-Japońskie tłumaczenie: Nekori https://mangaka-nekori.github.io/Ukagaka/eng/index.html
 Polskie tłumaczenie: Zdzisiu https://zdzisiu.github.io/Ukagaka/index.html
-Francuskie tłumaczenie: Levidre https://azura-levidre.000webhostapp.com/
-
 
 -------------------------------------------------------------

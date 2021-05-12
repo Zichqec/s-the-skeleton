@@ -58,6 +58,22 @@ BalloonCheck
     }
 }
 
+Pool
+{
+    _output = IARRAY
+	_amt = 1; if _argv[2] != ""; _amt = TOINT(_argv[2])
+    if TOINT(_argv[1])
+    {
+		_targetarray = IARRAY
+        EVAL("_targetarray = %(_argv[0])")
+        foreach _targetarray; _dialogue
+        {
+			for _i = 0; _i < _amt; _i++; {_output ,= _dialogue}
+        }
+    }
+    _output
+}
+
 MenuCheck
 {
 	if ASEARCH("Status",var.req.key) != -1

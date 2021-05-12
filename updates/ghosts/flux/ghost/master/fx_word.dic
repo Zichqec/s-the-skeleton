@@ -156,7 +156,7 @@ Capitalize
 //-----Menu stuff-----
 season //Current season
 {
-	if hemisphere[0] == 1 //Southern hemisphere
+	if hemisphere == 1 //Southern hemisphere
 	{
 		if month > 2 && month < 6; "Autumn"
 		elseif month > 5 && month < 9; "Winter"
@@ -223,6 +223,36 @@ ranoorsmth //Translator note from Zdzisiu: This is an envelope for Polish time t
 	}
 }
 
+nowhemisphere //TRANSLATORS: labels for hemispheres, for the config menu
+{
+	if language == "Placeholder" //TRANSLATORS: Fill in the _northern and _southern local variables with your language's equivalent for the hemispheres
+	{
+		
+	}
+	elseif language == "Polski"
+	{
+		if hemisphere == 1 //Southern Hemisphere
+		{
+			"Południowa"
+		}
+		else //Northern hemisphere
+		{
+			"Północna"
+		}
+	}
+	else //English
+	{
+		if hemisphere == 1 //Southern Hemisphere
+		{
+			"Southern"
+		}
+		else //Northern hemisphere
+		{
+			"Northern"
+		}
+	}
+}
+
 wd //Abbreviated week day
 {
 	if weekday == 0; "Sun"
@@ -240,12 +270,12 @@ nowday //Full week day
 	if _argv[0] == "next"
 	{
 		_day++
-		if _day > 6; _day = 1
+		if _day > 6; _day = 0
 	}
 	if _argv[0] == "last"
 	{
 		_day--
-		if _day < 1; _day = 6
+		if _day < 0; _day = 6
 	}
 	
 	if _day == 0; "Sunday"
@@ -425,6 +455,13 @@ Singing //Returns 1 if singing, 0 if not
 	{
 		1
 	}
+}
+
+CurrentSong
+{
+	_currentsong = SPLITPATH(NowPlaying[0])[2]
+	_currentsong = REPLACE(_currentsong,"||",",")
+	_currentsong
 }
 
 n

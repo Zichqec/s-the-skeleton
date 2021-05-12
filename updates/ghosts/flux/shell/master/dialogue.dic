@@ -1,21 +1,31 @@
-// shellver
+// shellver //Commented out because it looks awkward on the main menu...
 // {
-	
+	// "1.0.0"
 // }
 
-// FX_Note
-// {
-	// // if _argv[0] == ""
-	// // {
-		// // _rand = RAND(4)
-		// // "\f[height,+%(_rand)]"
-		// // "\f[height,-%(_rand)]"
-		// // "\f[default]"
-	// // }
-	// // --
-	// "\f[name,arial]♪\f[default]"
-	// "\f[name,arial]♫\f[default]"
-// }
+OnCustom_OnBoot
+{
+	"\1\s[-1]\0\s[50]\w6%(FluxBoot)"
+}
+
+OnCustom_OnGhostChanged
+{
+	"\1\s[-1]\0\s[50]\w6%(FluxBoot)"
+}
+
+OnCustom_OnShellChanged
+{
+	"\1\s[-1]\0\s[50]\w6"
+	--
+	"\s[0]"
+	"\s[1]"
+	--
+	"%(n)\w2%(n)\w2~"
+	"%(n)\w2%(n)\w2%(n)\w2!"
+	"%(n)\w2%(n)\w2%(n)\w2%(n)\w2~!"
+	--
+	"\w8\w8"
+}
 
 FX_Notes
 {
