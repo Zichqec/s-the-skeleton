@@ -107,7 +107,7 @@ CibusIdleDialogue : nonoverlap
 	"\0\s[6]\i[10](She's humming to herself.)\e"
 	"\0\s[6]\i[10](She's humming a harmony to herself.)\e"
 	"\0\s[6]\i[10](She seems content to wait.)\e"
-	"\0\s[7]Sometimes I wonder what it's like to be a bird;\w8 to fly so high up and see so far...\e"
+	"\0\s[7]Sometimes I wonder what it's like to be a bird,\w4 to fly so high up and see so far...\e"
 	"\0\s[2]Sometimes there are fireflies in the courtyard.\w8\w8\s[4] I love watching them glow,\w4 it's very peaceful.\e"
 	"\0\s[7]I should have brought my hair brush with me...\w8\w8\s[2] It takes a lot of work to keep my hair so soft.\w8\w8\s[4] Hehe,\w4 it's worth it,\w4 though.\e"
 	"\0\s[9]This place is so strange.\w8\w8\s[7] It's not at all like our home...\e"
@@ -185,20 +185,11 @@ CibusIdleDialogue : nonoverlap
 		".\w8\w8\s[4] I hope there's a good time to light it soon.\e"
 	}
 	
-	//Day
-	if hour >= 7 && hour <= 18; "\0\s[6](She seems a little sleepy...)\e"
-	if hour >= 7 && hour <= 18; "\0\s[4]The sun feels so nice today...\e"
-	if hour >= 7 && hour <= 18; "\0\s[7]I don't usually see so much of the sun...\w8\w8\s[4] It's kinda nice.\e"
-	if hour >= 7 && hour <= 18; "\0\s[7]We always stay inside after dawn,\w4 so I'm not used to seeing the sun get so high...\e"
 	
-	//Night
-	if hour <= 6 && hour >= 19; "\0\s[0](Despite the late hour,\w4 she seems wide awake.)\e"
-	if hour <= 6 && hour >= 19; "\0\s[2]Can you see the stars tonight?\w8\w8\s[4] I love to look at them when I have the chance.\e"
-	if hour <= 6 && hour >= 19; "\0\s[7]So many sounds come from the forest at night.\w8\w8\s[6] Sometimes I sit in the courtyard just to listen.\e"
+	parallel Pool("Pool_DayTime","%(hour >= 7 && hour <= 18)")
+	parallel Pool("Pool_NightTime","%(hour <= 6 && hour >= 19)")
+	parallel Pool("Pool_Timeslot_Earlymorning","%(timeslot == 'earlymorning')")
 	
-	if timeslot == "earlymorning"; "\0\s[4](She's humming a lullaby.)\e"
-	if timeslot == "earlymorning"; "\0\s[6]I love listening to the birds when the sun comes up.\w8\w8\s[2] It's very soothing to fall asleep to.\e"
-	if timeslot == "earlymorning"; "\0\s[9]Oh,\w4 the night is nearly over already?\w8\w8\s[7] Some days it seems to pass so quickly...\e"
 	
 	if season == "Summer"; "\0\s[6]Summer is the best time of year.\w8\w8\s[7] It gets so cold in the castle during the winter...\w8\w8\s[2] But the summer nights are perfect.\e"
 	if season == "Spring"; "\0\s[4]The weather is starting to get warm again,\w4 soon we'll have little seedlings coming up.\e"
@@ -212,6 +203,28 @@ CibusIdleDialogue : nonoverlap
 	if ASEARCH("0|Hair|Down",currentdressups) != -1; "\0\s[7]I should trim my hair soon,\s[11] the ends are starting to get a little messy...\e"
 	if ASEARCH("0|Hair|Braid",currentdressups) != -1; "\0\s[2]It takes a while to braid all my hair,\w4 but it helps keep it out of the way while I'm working.\w8\w8\s[4] And it gets all wavy when I take it down later.\e"
 	if ASEARCH("0|Hair|Ponytail",currentdressups) != -1; "\0\s[7]Putting my hair up in a ponytail doesn't take too long,\w4\s[11] I just wish it was better at keeping knots out of it...\e"
+}
+
+Pool_DayTime : array //hour >= 7 && hour <= 18
+{
+	"\0\s[6](She seems a little sleepy...)\e"
+	"\0\s[4]The sun feels so nice today...\e"
+	"\0\s[7]I don't usually see so much of the sun...\w8\w8\s[4] It's kinda nice.\e"
+	"\0\s[7]We always stay inside after dawn,\w4 so I'm not used to seeing the sun get so high...\e"
+}
+
+Pool_NightTime : array //hour <= 6 && hour >= 19
+{
+	"\0\s[0](Despite the late hour,\w4 she seems wide awake.)\e"
+	"\0\s[2]Can you see the stars tonight?\w8\w8\s[4] I love to look at them when I have the chance.\e"
+	"\0\s[7]So many sounds come from the forest at night.\w8\w8\s[6] Sometimes I sit in the courtyard just to listen.\e"
+}
+
+Pool_Timeslot_Earlymorning : array //timeslot == 'earlymorning'
+{
+	"\0\s[4](She's humming a lullaby.)\e"
+	"\0\s[6]I love listening to the birds when the sun comes up.\w8\w8\s[2] It's very soothing to fall asleep to.\e"
+	"\0\s[9]Oh,\w4 the night is nearly over already?\w8\w8\s[7] Some days it seems to pass so quickly...\e"
 }
 
 CibusSingingDialogue : nonoverlap
@@ -400,6 +413,12 @@ CibusSingingDialogue : nonoverlap
 	"\0%(n) In my mind,\w4 endless sea,\w4 calling from the bottom but you don't hear me~ %(n)\w8\w8\n\n%(n) Send your line down to me,\w4 meet me on the surface I will never leave~ %(n)\e"
 	"\0%(n) Wake me when the new day comes,\w4 together we will ride the sun~ %(n)\w8\w8\n\n%(n) The future is an empty gun,\w4 we ride on to them one-by-one~ %(n)\e"
 	
+	//Infected
+	"\0%(n) I think we did it this time,\w4 there's something in the air inside the star shine~ %(n)\n\n%(n) There's something in the air we'll never know,\w4 I can feel it take me~ %(n)\e"
+	"\0%(n) We do it one by one,\w4 put your hands up and run,\w4 we're addicted to the panic~ %(n)\n\n%(n) And we hate the way this world has become,\w4 but there ain't no cure for it~ %(n)\e"
+	"\0%(n) One if by land and two if by sea,\w4 maybe it's both and we'll all get lucky~ %(n)\e"
+	"\0%(n) The warning lights are burning all aglow,\w4 now we reap what we sow~ %(n)\e"
+	
 	//iGhost
 	"\0%(n) All I am is your Van Gogh,\w4 I paint our dreams on the golden coast~ %(n)\w8\w8\n\n%(n) I stay up high flying solo,\w4 don't come to close,\w4 I just ghost~ %(n)\e"
 	
@@ -482,7 +501,7 @@ CibusSingingDialogue : nonoverlap
 	
 	//Rollerbladin'
 	"\0%(n) I've been skating all my life~ %(n)\w8\w8\n\n%(n) Rollerblading all my life~ %(n)\e"
-	"\0%(n) Woaaaaah,\w4 rollerblading! %(n)\w8\w8\n\n%(n) Woaaaaah,\w4 just love skating! %(n)\e"
+	"\0%(n) Whoa,\w4 rollerblading! %(n)\w8\w8\n\n%(n) Whoa,\w4 just love skating! %(n)\e"
 	
 	//Things To Do
 	"\0%(n) I've got things to do,\w4 I've got errands to run,\w4 how 'bout you? %(n)\e"
@@ -505,8 +524,8 @@ CibusSingingDialogue : nonoverlap
 	"\0%(n) I'm gonna climb this mountain,\w4 I'm gonna scale this cliff~ %(n)\w8\w8\n\n%(n) I'm gonna drink that fountain,\w4 I'm too legit to quit~ %(n)\e"
 	
 	//Valerie
-	"\0%(n) Woaah,\w4 can't you see? %(n)\w8\w8\n\n%(n) Woaah,\w4 you've broken me~ %(n)\e"
-	"\0%(n) Ohh Valerie,\w4 this isn't how our story had to be~ %(n)\w8\w8\n\n Ohh Valerie,\w4 I thought you'd always be a part of me~ %(n)\e"
+	"\0%(n) Whoa,\w4 can't you see? %(n)\w8\w8\n\n%(n) Whoa,\w4 you've broken me~ %(n)\e"
+	"\0%(n) Ohh Valerie,\w4 this isn't how our story had to be~ %(n)\w8\w8\n\n%(n) Ohh Valerie,\w4 I thought you'd always be a part of me~ %(n)\e"
 	"\0%(n) I don't know if you know;\w4 I still think about you oh~ %(n)\w8\w8\n\n%(n) If you're ever coming home,\w4 oh,\w4 oh,\w4 I miss you so~ %(n)\e"
 	"\0%(n) It can't be,\w4 somebody tell me this is all a dream~ %(n)\w8\w8\n\n%(n) Left your rings,\w4 like the life we had didn't mean a thing~ %(n)\e"
 	
@@ -576,5 +595,12 @@ CibusSingingDialogue : nonoverlap
 	//Czar (Same as the above if that gives you a hint)
 	"\0%(n) Get out of my way,\w4 cause I'm having a bad day! %(n)\w8\w8\n\n%(n) The car's in the driveway,\w4 but I'm walking sideways! %(n)\e"
 	"\0%(n) I'm here,\w4 I'm there,\w4 I'm everywhere! %(n)\w8\w8\n\n%(n) I'm on the ground and in the air! %(n)\e"
+	
+	//Liftoff
+	"\0%(n) Symphony of starlight,\w4 the moon has come alive~ %(n)\w8\w8\n\n%(n) Uncharted constellations,\w4 call on me to find~ %(n)"
+	"\0%(n) I'm gonna raze the sky,\w4 gonna be out of sight~ %(n)\w8\w8\n\n%(n) I'm bending space and time,\w4 I'm stepping out tonight,\w4 oh yeah~ %(n)\e"
+	"\0%(n) Deeper than an ocean,\w4 abyss to the divine~ %(n)\w8\w8\n\n%(n) The ground so far below me,\w4 a cloud of smoke behind~ %(n)\e"
+	"\0%(n) I'm leaving all of it behind,\w4 I'm reaching up to the divine~ %(n)\w8\w8\n\n%(n) I know it's fated,\w4 I just need to make it~ %(n)\e"
+	"\0%(n) Are you ready for liftoff? %(n)\e"
 }
 
