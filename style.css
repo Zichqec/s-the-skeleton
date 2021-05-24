@@ -12,8 +12,6 @@ body
     margin-right: 8%;
 }
 
-/*body is an element that woud be affected*/
-
 p
 {
 	text-align: left;
@@ -66,13 +64,15 @@ pre
 }
 
 /* Navbar container */
-.navbar {
+.navbar
+{
   overflow: hidden;
   background-color: #ebebeb;
 }
 
 /* Links inside the navbar */
-.navbar a {
+.navbar a
+{
   float: left;
   font-size: 15px;
   color: #222020;
@@ -82,13 +82,15 @@ pre
 }
 
 /* The dropdown container */
-.dropdown {
+.dropdown
+{
   float: left;
   overflow: hidden;
 }
 
 /* Dropdown button */
-.dropdown .dropbtn {
+.dropdown .dropbtn
+{
   font-size: 15px;
   border: none;
   outline: none;
@@ -100,12 +102,14 @@ pre
 }
 
 /* Add a red background color to navbar links on hover */
-.navbar a:hover, .dropdown:hover .dropbtn {
+.navbar a:hover, .dropdown:hover .dropbtn
+{
   background-color: #b6b5b6;
 }
 
 /* Dropdown content (hidden by default) */
-.dropdown-content {
+.dropdown-content
+{
   display: none;
   position: absolute;
   background-color: #ebebeb;
@@ -116,7 +120,8 @@ pre
 }
 
 /* Links inside the dropdown */
-.dropdown-content a {
+.dropdown-content a
+{
   float: none;
   color: black;
   padding-left: 10px;
@@ -127,12 +132,14 @@ pre
 }
 
 /* Add a grey background color to dropdown links on hover */
-.dropdown-content a:hover {
+.dropdown-content a:hover
+{
   background-color: #b6b5b6;
 }
 
 /* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {
+.dropdown:hover .dropdown-content
+{
   display: block;
 }
 
