@@ -1,0 +1,1972 @@
+version,1
+
+surface0
+{
+	//Base, head forward
+	element0,overlay,0_tail_0,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_l-arm_0,0,0
+	element3,overlay,0_r-arm_0,0,0
+	element4,overlay,0_head_0,0,0
+	element5,overlay,0_0_cracks,0,0
+	
+	element6,overlay,0_0_eyes_0,0,0
+	element7,overlay,0_0_eyebrows_0,0,0
+	element8,overlay,0_0_mouth_0,0,0
+}
+
+surface101
+{
+	//Base, head forward
+	element0,overlay,0_tail_0,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_l-arm_0,0,0
+	element3,overlay,0_r-arm_0,0,0
+	element4,overlay,0_head_0,0,0
+	element5,overlay,0_0_cracks,0,0
+	
+	element6,overlay,0_0_eyes_1,0,0
+	element7,overlay,0_0_eyebrows_1,0,0
+	element8,overlay,0_0_mouth_1,0,0
+}
+
+surface102
+{
+	//Base, head forward
+	element0,overlay,0_tail_0,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_l-arm_0,0,0
+	element3,overlay,0_r-arm_0,0,0
+	element4,overlay,0_head_0,0,0
+	element5,overlay,0_0_cracks,0,0
+	
+	element6,overlay,0_0_eyes_2,0,0
+	element7,overlay,0_0_eyebrows_0,0,0
+	element8,overlay,0_0_mouth_0,0,0
+}
+
+surface103
+{
+	//Base, head forward
+	element0,overlay,0_tail_1,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_l-arm_0,0,0
+	element3,overlay,0_r-arm_0,0,0
+	element4,overlay,0_head_0,0,0
+	element5,overlay,0_0_cracks,0,0
+	
+	element6,overlay,0_0_eyes_3,0,0
+	element7,overlay,0_0_eyebrows_2,0,0
+	element8,overlay,0_0_mouth_2,0,0
+}
+
+surface104
+{
+	//Base, head forward
+	element0,overlay,0_tail_1,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_l-arm_0,0,0
+	element3,overlay,0_r-arm_0,0,0
+	element4,overlay,0_head_0,0,0
+	element5,overlay,0_0_cracks,0,0
+	
+	element6,overlay,0_0_eyes_4,0,0
+	element7,overlay,0_0_eyebrows_2,0,0
+	element8,overlay,0_0_mouth_2,0,0
+}
+
+surface105
+{
+	//Base, head forward
+	element0,overlay,0_tail_1,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_l-arm_0,0,0
+	element3,overlay,0_r-arm_0,0,0
+	element4,overlay,0_head_0,0,0
+	element5,overlay,0_0_cracks,0,0
+	
+	element6,overlay,0_0_eyes_4,0,0
+	element7,overlay,0_0_eyebrows_2,0,0
+	element8,overlay,0_0_mouth_3,0,0
+}
+
+surface106
+{
+	//Base, head forward
+	element0,overlay,0_tail_2,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_l-arm_0,0,0
+	element3,overlay,0_r-arm_0,0,0
+	element4,overlay,0_head_0,0,0
+	element5,overlay,0_0_cracks,0,0
+	
+	element6,overlay,0_0_eyes_5,0,0
+	element7,overlay,0_0_eyebrows_3,0,0
+	element8,overlay,0_0_mouth_4,0,0
+	element9,overlay,0_extras_0,0,0
+}
+
+surface107
+{
+	//Base, head forward
+	element0,overlay,0_tail_2,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_l-arm_0,0,0
+	element3,overlay,0_r-arm_0,0,0
+	element4,overlay,0_head_0,0,0
+	element5,overlay,0_0_cracks,0,0
+	
+	element6,overlay,0_0_eyes_6,0,0
+	element7,overlay,0_0_eyebrows_3,0,0
+	element8,overlay,0_0_mouth_4,0,0
+	element9,overlay,0_extras_0,0,0
+}
+
+surface108
+{
+	//Base, head forward
+	element0,overlay,0_tail_3,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_l-arm_0,0,0
+	element3,overlay,0_r-arm_0,0,0
+	element4,overlay,0_head_0,0,0
+	element5,overlay,0_0_cracks,0,0
+	
+	element6,overlay,0_0_eyes_5,0,0
+	element7,overlay,0_0_eyebrows_3,0,0
+	element8,overlay,0_0_mouth_5,0,0
+}
+
+surface109
+{
+	//Base, head forward
+	element0,overlay,0_tail_3,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_l-arm_0,0,0
+	element3,overlay,0_r-arm_0,0,0
+	element4,overlay,0_head_0,0,0
+	element5,overlay,0_0_cracks,0,0
+	
+	element6,overlay,0_0_eyes_7,0,0
+	element7,overlay,0_0_eyebrows_4,0,0
+	element8,overlay,0_0_mouth_5,0,0
+}
+
+surface110
+{
+	//Base, head forward
+	element0,overlay,0_tail_0,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_l-arm_0,0,0
+	element3,overlay,0_r-arm_0,0,0
+	element4,overlay,0_head_0,0,0
+	element5,overlay,0_0_cracks,0,0
+	
+	element6,overlay,0_0_eyes_0,0,0
+	element7,overlay,0_0_eyebrows_5,0,0
+	element8,overlay,0_0_mouth_6,0,0
+}
+
+surface111
+{
+	//Base, head forward
+	element0,overlay,0_tail_1,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_l-arm_0,0,0
+	element3,overlay,0_r-arm_0,0,0
+	element4,overlay,0_head_0,0,0
+	element5,overlay,0_0_cracks,0,0
+	
+	element6,overlay,0_0_eyes_0,0,0
+	element7,overlay,0_0_eyebrows_6,0,0
+	element8,overlay,0_0_mouth_0,0,0
+}
+
+//Blink head 0 face 0 frame 0
+surface100000
+{
+	element0,overlay,0_0_blink_0,0,0
+	element1,overlayfast,0_0_cracks,0,0
+}
+
+//Blink head 0 face 0 frame 1
+surface100001
+{
+	element0,overlay,0_0_blink_1,0,0
+	element1,overlayfast,0_0_cracks,0,0
+}
+
+
+
+
+surface200
+{
+	//Base, head forward
+	element0,overlay,0_tail_3,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_l-arm_0,0,0
+	element3,overlay,0_r-arm_0,0,0
+	element4,overlay,0_head_1,0,0
+	element5,overlay,0_1_cracks,0,0
+	
+	element6,overlay,0_1_eyes_0,0,0
+	element7,overlay,0_1_eyebrows_0,0,0
+	element8,overlay,0_1_mouth_0,0,0
+}
+
+surface201
+{
+	//Base, head forward
+	element0,overlay,0_tail_3,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_l-arm_0,0,0
+	element3,overlay,0_r-arm_0,0,0
+	element4,overlay,0_head_1,0,0
+	element5,overlay,0_1_cracks,0,0
+	
+	element6,overlay,0_1_eyes_1,0,0
+	element7,overlay,0_1_eyebrows_0,0,0
+	element8,overlay,0_1_mouth_0,0,0
+}
+
+surface202
+{
+	//Base, head forward
+	element0,overlay,0_tail_2,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_l-arm_0,0,0
+	element3,overlay,0_r-arm_0,0,0
+	element4,overlay,0_head_1,0,0
+	element5,overlay,0_1_cracks,0,0
+	
+	element6,overlay,0_1_eyes_1,0,0
+	element7,overlay,0_1_eyebrows_0,0,0
+	element8,overlay,0_1_mouth_1,0,0
+}
+
+surface203
+{
+	//Base, head forward
+	element0,overlay,0_tail_3,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_l-arm_0,0,0
+	element3,overlay,0_r-arm_0,0,0
+	element4,overlay,0_head_1,0,0
+	element5,overlay,0_1_cracks,0,0
+	
+	element6,overlay,0_1_eyes_2,0,0
+	element7,overlay,0_1_eyebrows_1,0,0
+	element8,overlay,0_1_mouth_2,0,0
+}
+
+surface204
+{
+	//Base, head forward
+	element0,overlay,0_tail_3,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_l-arm_0,0,0
+	element3,overlay,0_r-arm_0,0,0
+	element4,overlay,0_head_1,0,0
+	element5,overlay,0_1_cracks,0,0
+	
+	element6,overlay,0_1_eyes_3,0,0
+	element7,overlay,0_1_eyebrows_0,0,0
+	element8,overlay,0_1_mouth_0,0,0
+}
+
+surface205
+{
+	//Base, head forward
+	element0,overlay,0_tail_0,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_l-arm_0,0,0
+	element3,overlay,0_r-arm_0,0,0
+	element4,overlay,0_head_1,0,0
+	element5,overlay,0_1_cracks,0,0
+	
+	element6,overlay,0_1_eyes_4,0,0
+	element7,overlay,0_1_eyebrows_3,0,0
+	element8,overlay,0_1_mouth_1,0,0
+}
+
+surface206
+{
+	//Base, head forward
+	element0,overlay,0_tail_3,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_head_1,0,0
+	element3,overlay,0_l-arm_1,0,0
+	element4,overlay,0_r-arm_0,0,0
+	element5,overlay,0_1_cracks,0,0
+	
+	element6,overlay,0_1_eyes_0,0,0
+	element7,overlay,0_1_eyebrows_0,0,0
+	element8,overlay,0_1_mouth_0,0,0
+}
+
+surface207
+{
+	//Base, head forward
+	element0,overlay,0_tail_1,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_head_1,0,0
+	element3,overlay,0_l-arm_1,0,0
+	element4,overlay,0_r-arm_0,0,0
+	element5,overlay,0_1_cracks,0,0
+	
+	element6,overlay,0_1_eyes_6,0,0
+	element7,overlay,0_1_eyebrows_4,0,0
+	element8,overlay,0_1_mouth_3,0,0
+}
+
+surface208
+{
+	//Base, head forward
+	element0,overlay,0_tail_0,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_head_1,0,0
+	element3,overlay,0_l-arm_1,0,0
+	element4,overlay,0_r-arm_0,0,0
+	element5,overlay,0_1_cracks,0,0
+	
+	element6,overlay,0_1_eyes_5,0,0
+	element7,overlay,0_1_eyebrows_3,0,0
+	element8,overlay,0_1_mouth_0,0,0
+}
+
+surface102000
+{
+	element0,overlay,0_1_blink_0,0,0
+	element1,overlayfast,0_1_cracks,0,0
+	element2,overlayfast,0_1_eyebrows_0,0,0
+}
+
+surface102001
+{
+	element0,overlay,0_1_blink_1,0,0
+	element1,overlayfast,0_1_cracks,0,0
+	element2,overlayfast,0_1_eyebrows_0,0,0
+}
+
+surface102002
+{
+	element0,overlay,0_1_blink_0,0,0
+	element1,overlayfast,0_1_cracks,0,0
+}
+
+surface102003
+{
+	element0,overlay,0_1_blink_1,0,0
+	element1,overlayfast,0_1_cracks,0,0
+}
+
+
+surface300
+{
+	//Base, head forward
+	element0,overlay,0_tail_3,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_head_2,0,0
+	element3,overlay,0_l-arm_0,0,0
+	element4,overlay,0_r-arm_0,0,0
+	element5,overlay,0_2_cracks,0,0
+	
+	element6,overlay,0_2_eyes_0,0,0
+	element7,overlay,0_2_eyebrows_0,0,0
+	element8,overlay,0_2_mouth_0,0,0
+}
+
+surface301
+{
+	//Base, head forward
+	element0,overlay,0_tail_0,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_head_2,0,0
+	element3,overlay,0_l-arm_0,0,0
+	element4,overlay,0_r-arm_0,0,0
+	element5,overlay,0_2_cracks,0,0
+	
+	element6,overlay,0_2_eyes_1,0,0
+	element7,overlay,0_2_eyebrows_1,0,0
+	element8,overlay,0_2_mouth_1,0,0
+}
+
+surface302
+{
+	//Base, head forward
+	element0,overlay,0_tail_3,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_head_2,0,0
+	element3,overlay,0_l-arm_0,0,0
+	element4,overlay,0_r-arm_0,0,0
+	element5,overlay,0_2_cracks,0,0
+	
+	element6,overlay,0_2_eyes_2,0,0
+	element7,overlay,0_2_eyebrows_2,0,0
+	element8,overlay,0_2_mouth_0,0,0
+}
+
+surface303
+{
+	//Base, head forward
+	element0,overlay,0_tail_3,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_head_2,0,0
+	element3,overlay,0_l-arm_0,0,0
+	element4,overlay,0_r-arm_0,0,0
+	element5,overlay,0_2_cracks,0,0
+	
+	element6,overlay,0_2_eyes_3,0,0
+	element7,overlay,0_2_eyebrows_0,0,0
+	element8,overlay,0_2_mouth_0,0,0
+}
+
+surface103000
+{
+	element0,overlay,0_2_blink_0,0,0
+	element1,overlayfast,0_2_cracks,0,0
+}
+
+surface103001
+{
+	element0,overlay,0_2_blink_1,0,0
+	element1,overlayfast,0_2_cracks,0,0
+}
+
+
+surface.append300,303
+{
+	animation0.interval,random,4
+	animation0.pattern0,overlay,103000,50,0,0
+	animation0.pattern1,overlay,103001,100,0,0
+	animation0.pattern2,overlay,-1,30,0,0
+}
+
+
+
+surface400
+{
+	//Base, head forward
+	element0,overlay,0_tail_3,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_b-arm_6,0,0
+	element3,overlay,0_head_1,0,0
+	element4,overlay,0_1_cracks,0,0
+	
+	element5,overlay,0_1_eyes_7,0,0
+	element6,overlay,0_1_eyebrows_1,0,0
+	element7,overlay,0_1_mouth_0,0,0
+}
+
+
+surface401
+{
+	//Base, head forward
+	element0,overlay,0_tail_3,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_b-arm_6,0,0
+	element3,overlay,0_head_1,0,0
+	element4,overlay,0_1_cracks,0,0
+	
+	element5,overlay,0_1_eyes_7,0,0
+	element6,overlay,0_1_eyebrows_1,0,0
+	element7,overlay,0_1_mouth_4,0,0
+}
+
+surface402
+{
+	//Base, head forward
+	element0,overlay,0_tail_3,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_b-arm_6,0,0
+	element3,overlay,0_head_1,0,0
+	element4,overlay,0_1_cracks,0,0
+	
+	element5,overlay,0_1_eyes_8,0,0
+	element6,overlay,0_1_eyebrows_1,0,0
+	element7,overlay,0_1_mouth_0,0,0
+}
+
+surface403
+{
+	//Base, head forward
+	element0,overlay,0_tail_3,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_b-arm_6,0,0
+	element3,overlay,0_head_1,0,0
+	element4,overlay,0_1_cracks,0,0
+	
+	element5,overlay,0_1_eyes_8,0,0
+	element6,overlay,0_1_eyebrows_1,0,0
+	element7,overlay,0_1_mouth_4,0,0
+}
+
+surface404
+{
+	//Base, head forward
+	element0,overlay,0_tail_3,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_b-arm_6,0,0
+	element3,overlay,0_head_1,0,0
+	element4,overlay,0_1_cracks,0,0
+	
+	element5,overlay,0_1_eyes_9,0,0
+	element6,overlay,0_1_eyebrows_1,0,0
+	element7,overlay,0_1_mouth_0,0,0
+}
+
+surface405
+{
+	//Base, head forward
+	element0,overlay,0_tail_3,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_b-arm_6,0,0
+	element3,overlay,0_head_1,0,0
+	element4,overlay,0_1_cracks,0,0
+	
+	element5,overlay,0_1_eyes_9,0,0
+	element6,overlay,0_1_eyebrows_1,0,0
+	element7,overlay,0_1_mouth_4,0,0
+}
+
+surface104000
+{
+	element0,overlay,0_1_blink_0,0,0
+	element1,overlayfast,0_1_cracks,0,0
+	element2,overlayfast,0_1_eyebrows_1,0,0
+}
+
+surface104001
+{
+	element0,overlay,0_1_blink_1,0,0
+	element1,overlayfast,0_1_cracks,0,0
+	element2,overlayfast,0_1_eyebrows_1,0,0
+}
+
+
+
+
+
+
+surface410
+{
+	//Base, head forward
+	element0,overlay,0_tail_3,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_b-arm_6,0,0
+	element3,overlay,0_head_3,0,0
+	element4,overlay,0_3_cracks,0,0
+	
+	element5,overlay,0_3_eyes_2,0,0
+	element6,overlay,0_3_eyebrows_0,0,0
+	element7,overlay,0_3_mouth_0,0,0
+}
+
+
+surface411
+{
+	//Base, head forward
+	element0,overlay,0_tail_3,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_b-arm_6,0,0
+	element3,overlay,0_head_3,0,0
+	element4,overlay,0_3_cracks,0,0
+	
+	element5,overlay,0_3_eyes_2,0,0
+	element6,overlay,0_3_eyebrows_0,0,0
+	element7,overlay,0_3_mouth_1,0,0
+}
+
+surface412
+{
+	//Base, head forward
+	element0,overlay,0_tail_3,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_b-arm_6,0,0
+	element3,overlay,0_head_3,0,0
+	element4,overlay,0_3_cracks,0,0
+	
+	element5,overlay,0_3_eyes_0,0,0
+	element6,overlay,0_3_eyebrows_0,0,0
+	element7,overlay,0_3_mouth_0,0,0
+}
+
+surface413
+{
+	//Base, head forward
+	element0,overlay,0_tail_3,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_b-arm_6,0,0
+	element3,overlay,0_head_3,0,0
+	element4,overlay,0_3_cracks,0,0
+	
+	element5,overlay,0_3_eyes_0,0,0
+	element6,overlay,0_3_eyebrows_0,0,0
+	element7,overlay,0_3_mouth_1,0,0
+}
+
+surface414
+{
+	//Base, head forward
+	element0,overlay,0_tail_3,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_b-arm_6,0,0
+	element3,overlay,0_head_3,0,0
+	element4,overlay,0_3_cracks,0,0
+	
+	element5,overlay,0_3_eyes_1,0,0
+	element6,overlay,0_3_eyebrows_0,0,0
+	element7,overlay,0_3_mouth_0,0,0
+}
+
+surface415
+{
+	//Base, head forward
+	element0,overlay,0_tail_3,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_b-arm_6,0,0
+	element3,overlay,0_head_3,0,0
+	element4,overlay,0_3_cracks,0,0
+	
+	element5,overlay,0_3_eyes_1,0,0
+	element6,overlay,0_3_eyebrows_0,0,0
+	element7,overlay,0_3_mouth_1,0,0
+}
+
+surface104100
+{
+	element0,overlay,0_3_blink_0,0,0
+	element1,overlayfast,0_3_cracks,0,0
+	element2,overlayfast,0_3_eyebrows_0,0,0
+}
+
+surface104101
+{
+	element0,overlay,0_3_blink_1,0,0
+	element1,overlayfast,0_3_cracks,0,0
+	element2,overlayfast,0_3_eyebrows_0,0,0
+}
+
+
+
+
+
+surface500
+{
+	//Base, head forward
+	element0,overlay,1_tail_0,0,0
+	element1,overlay,1_base,0,0
+	element2,overlay,1_b-arm_0,0,0
+	element3,overlay,1_head_0,0,0
+	element4,overlay,1_0_cracks,0,0
+	
+	element5,overlay,1_0_eyes_0,0,0
+	element6,overlay,1_0_eyebrows_0,0,0
+	element7,overlay,1_0_mouth_0,0,0
+}
+
+surface501
+{
+	//Base, head forward
+	element0,overlay,1_tail_0,0,0
+	element1,overlay,1_base,0,0
+	element2,overlay,1_b-arm_0,0,0
+	element3,overlay,1_head_0,0,0
+	element4,overlay,1_0_cracks,0,0
+	
+	element5,overlay,1_0_eyes_1,0,0
+	element6,overlay,1_0_eyebrows_1,0,0
+	element7,overlay,1_0_mouth_1,0,0
+}
+
+surface502
+{
+	//Base, head forward
+	element0,overlay,1_tail_0,0,0
+	element1,overlay,1_base,0,0
+	element2,overlay,1_b-arm_0,0,0
+	element3,overlay,1_head_0,0,0
+	element4,overlay,1_0_cracks,0,0
+	
+	element5,overlay,1_0_eyes_2,0,0
+	element6,overlay,1_0_eyebrows_1,0,0
+	element7,overlay,1_0_mouth_0,0,0
+}
+
+surface503
+{
+	//Base, head forward
+	element0,overlay,1_tail_0,0,0
+	element1,overlay,1_base,0,0
+	element2,overlay,1_b-arm_0,0,0
+	element3,overlay,1_head_0,0,0
+	element4,overlay,1_0_cracks,0,0
+	
+	element5,overlay,1_0_eyes_3,0,0
+	element6,overlay,1_0_eyebrows_1,0,0
+	element7,overlay,1_0_mouth_0,0,0
+}
+
+surface105000
+{
+	element0,overlay,1_0_blink_0,0,0
+	element1,overlayfast,1_0_cracks,0,0
+}
+
+surface105001
+{
+	element0,overlay,1_0_blink_1,0,0
+	element1,overlayfast,1_0_cracks,0,0
+}
+
+surface.append501-503
+{
+	animation1.interval,random,4
+	animation1.pattern0,overlay,105000,50,0,0
+	animation1.pattern1,overlay,105001,100,0,0
+	animation1.pattern2,overlay,-1,30,0,0
+}
+
+surface510
+{
+	//Base, head forward
+	element0,overlay,1_tail_0,0,0
+	element1,overlay,1_base,0,0
+	element2,overlay,1_b-arm_0,0,0
+	element3,overlay,1_head_1,0,0
+	element4,overlay,1_1_cracks,0,0
+	
+	element5,overlay,1_1_eyes_0,0,0
+	element6,overlay,1_1_eyebrows_0,0,0
+	element7,overlay,1_1_mouth_0,0,0
+}
+
+surface511
+{
+	//Base, head forward
+	element0,overlay,1_tail_0,0,0
+	element1,overlay,1_base,0,0
+	element2,overlay,1_b-arm_0,0,0
+	element3,overlay,1_head_1,0,0
+	element4,overlay,1_1_cracks,0,0
+	
+	element5,overlay,1_1_eyes_1,0,0
+	element6,overlay,1_1_eyebrows_1,0,0
+	element7,overlay,1_1_mouth_1,0,0
+}
+
+surface512
+{
+	//Base, head forward
+	element0,overlay,1_tail_0,0,0
+	element1,overlay,1_base,0,0
+	element2,overlay,1_b-arm_0,0,0
+	element3,overlay,1_head_1,0,0
+	element4,overlay,1_1_cracks,0,0
+	
+	element5,overlay,1_1_eyes_2,0,0
+	element6,overlay,1_1_eyebrows_1,0,0
+	element7,overlay,1_1_mouth_0,0,0
+}
+
+surface513
+{
+	//Base, head forward
+	element0,overlay,1_tail_0,0,0
+	element1,overlay,1_base,0,0
+	element2,overlay,1_b-arm_0,0,0
+	element3,overlay,1_head_1,0,0
+	element4,overlay,1_1_cracks,0,0
+	
+	element5,overlay,1_1_eyes_3,0,0
+	element6,overlay,1_1_eyebrows_1,0,0
+	element7,overlay,1_1_mouth_0,0,0
+}
+
+surface514
+{
+	//Base, head forward
+	element0,overlay,1_tail_0,0,0
+	element1,overlay,1_base,0,0
+	element2,overlay,1_b-arm_0,0,0
+	element3,overlay,1_head_1,0,0
+	element4,overlay,1_1_cracks,0,0
+	
+	element5,overlay,1_1_eyes_4,0,0
+	element6,overlay,1_1_eyebrows_1,0,0
+	element7,overlay,1_1_mouth_0,0,0
+}
+
+surface515
+{
+	//Base, head forward
+	element0,overlay,1_tail_0,0,0
+	element1,overlay,1_base,0,0
+	element2,overlay,1_b-arm_0,0,0
+	element3,overlay,1_head_1,0,0
+	element4,overlay,1_1_cracks,0,0
+	
+	element5,overlay,1_1_eyes_5,0,0
+	element6,overlay,1_1_eyebrows_0,0,0
+	element7,overlay,1_1_mouth_0,0,0
+}
+
+surface516
+{
+	//Base, head forward
+	element0,overlay,1_tail_0,0,0
+	element1,overlay,1_base,0,0
+	element2,overlay,1_b-arm_0,0,0
+	element3,overlay,1_head_1,0,0
+	element4,overlay,1_1_cracks,0,0
+	
+	element5,overlay,1_1_eyes_1,0,0
+	element6,overlay,1_1_eyebrows_1,0,0
+	element7,overlay,1_1_mouth_1,0,0
+}
+
+surface105100
+{
+	element0,overlay,1_1_blink_0,0,0
+	element1,overlayfast,1_1_cracks,0,0
+}
+
+surface105101
+{
+	element0,overlay,1_1_blink_1,0,0
+	element1,overlayfast,1_1_cracks,0,0
+}
+
+surface.append511-516,!515
+{
+	animation1.interval,random,4
+	animation1.pattern0,overlay,105100,50,0,0
+	animation1.pattern1,overlay,105101,100,0,0
+	animation1.pattern2,overlay,-1,30,0,0
+}
+
+//Forward
+surface1010
+{
+	//Base, head forward
+	element0,overlay,2_tail_0,0,0
+	element1,overlay,2_base,0,0
+	element2,overlay,2_l-arm_0,0,0
+	element3,overlay,2_r-arm_0,0,0
+	element4,overlay,2_head_0,0,0
+	element5,overlay,2_0_cracks,0,0
+	
+	element6,overlay,2_0_eyes_0,0,0
+	element7,overlay,2_0_eyebrows_0,0,0
+	element8,overlay,2_0_mouth_0,0,0
+}
+
+surface1020
+{
+	//Base, head forward
+	element0,overlay,2_tail_0,0,0
+	element1,overlay,2_base,0,0
+	element2,overlay,2_l-arm_0,0,0
+	element3,overlay,2_r-arm_2,0,0
+	element4,overlay,2_head_0,0,0
+	element5,overlay,2_0_cracks,0,0
+	
+	element6,overlay,2_0_eyes_1,0,0
+	element7,overlay,2_0_eyebrows_1,0,0
+	element8,overlay,2_0_mouth_0,0,0
+}
+
+surface1030
+{
+	//Base, head forward
+	element0,overlay,2_tail_0,0,0
+	element1,overlay,2_base,0,0
+	element2,overlay,2_l-arm_0,0,0
+	element3,overlay,2_r-arm_2,0,0
+	element4,overlay,2_head_0,0,0
+	element5,overlay,2_extras_0,0,0
+	element6,overlay,2_0_cracks,0,0
+	
+	element7,overlay,2_0_eyes_1,0,0
+	element8,overlay,2_0_eyebrows_1,0,0
+	element9,overlay,2_0_mouth_0,0,0
+}
+
+surface110000
+{
+	element0,overlay,2_0_blink_0,0,0
+}
+
+surface110001
+{
+	element0,overlay,2_0_blink_1,0,0
+}
+
+surface110002
+{
+	element0,overlay,2_0_blink_0,0,0
+	element1,overlayfast,2_extras_0,0,0
+}
+
+surface110003
+{
+	element0,overlay,2_0_blink_1,0,0
+	element1,overlayfast,2_extras_0,0,0
+}
+
+surface.append1020
+{
+	animation0.interval,random,4
+	animation0.pattern0,overlay,110000,50,0,0
+	animation0.pattern1,overlay,110001,100,0,0
+	animation0.pattern2,overlay,-1,30,0,0
+}
+
+surface.append1030
+{
+	animation0.interval,random,4
+	animation0.pattern0,overlay,110002,50,0,0
+	animation0.pattern1,overlay,110003,100,0,0
+	animation0.pattern2,overlay,-1,30,0,0
+}
+
+
+//Water
+surface1040
+{
+	//Base, head forward
+	element0,overlay,0_tail_0,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_head_0,0,0
+	element3,overlay,0_0_cracks,0,0
+	
+	element4,overlay,0_0_eyes_2,0,0
+	element5,overlay,0_0_eyebrows_0,0,0
+	element6,overlay,0_0_mouth_0,0,0
+	
+	animation0.interval,always
+	animation0.pattern0,overlay,1041,0,0,0
+	animation0.pattern1,overlay,1042,1000-8000,0,0
+	animation0.pattern2,overlay,1041,500-2500,0,0
+}
+
+surface1041
+{
+	element0,overlay,0_b-arm_0,0,0
+}
+
+surface1042
+{
+	element0,overlay,0_b-arm_1,0,0
+}
+
+
+//Juice
+surface1050
+{
+	//Base, head forward
+	element0,overlay,0_tail_0,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_head_0,0,0
+	element3,overlay,0_0_cracks,0,0
+	
+	element4,overlay,0_0_eyes_2,0,0
+	element5,overlay,0_0_eyebrows_0,0,0
+	element6,overlay,0_0_mouth_0,0,0
+	
+	animation0.interval,always
+	animation0.pattern0,overlay,1051,0,0,0
+	animation0.pattern1,overlay,1052,1000-8000,0,0
+	animation0.pattern2,overlay,1051,500-2500,0,0
+}
+
+surface1051
+{
+	element0,overlay,0_b-arm_2,0,0
+}
+
+surface1052
+{
+	element0,overlay,0_b-arm_3,0,0
+}
+
+//Book
+surface1060
+{
+	//Base, head forward
+	element0,overlay,0_tail_0,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_head_0,0,0
+	element3,overlay,0_b-arm_4,0,0
+	element4,overlay,0_0_cracks,0,0
+	
+	animation100.interval,runonce
+	animation100.pattern0,parallelstop,(1000,1001,1002,1003)
+	animation100.pattern1,alternativestart,(1000,1001,1002,1003)
+	
+	animation1000.interval,never
+	animation1000.pattern0,overlay,1061,0,0,0
+	animation1000.pattern1,overlay,1061,1000-8000,0,0
+	animation1000.pattern2,alternativestart,(100,10000)
+	
+		animation10000.interval,never
+		animation10000.pattern0,overlay,100000,50,0,0
+		animation10000.pattern1,overlay,100001,100,0,0
+		animation10000.pattern2,overlay,-1,30,0,0
+		animation10000.pattern3,alternativestart,(100,1000)
+	
+	animation1001.interval,never
+	animation1001.pattern0,overlay,1062,0,0,0
+	animation1001.pattern1,overlay,1062,1000-8000,0,0
+	animation1001.pattern2,alternativestart,(100,10001)
+	
+		animation10001.interval,never
+		animation10001.pattern0,overlay,100000,50,0,0
+		animation10001.pattern1,overlay,100001,100,0,0
+		animation10001.pattern2,overlay,-1,30,0,0
+		animation10001.pattern3,alternativestart,(100,1001)
+	
+	//Closed eyes
+	animation1002.interval,never
+	animation1002.pattern0,overlay,1063,0,0,0
+	animation1002.pattern1,overlay,1063,1000-4000,0,0
+	animation1002.pattern2,start,100
+	
+	animation1003.interval,never
+	animation1003.pattern0,overlay,1064,0,0,0
+	animation1003.pattern1,overlay,1064,1000-8000,0,0
+	animation1003.pattern2,alternativestart,(100,10003)
+	
+		animation10003.interval,never
+		animation10003.pattern0,overlay,100000,50,0,0
+		animation10003.pattern1,overlay,100001,100,0,0
+		animation10003.pattern2,overlay,-1,30,0,0
+		animation10003.pattern3,alternativestart,(100,1003)
+}
+
+surface1061
+{
+	element0,overlay,0_0_face_0,0,0
+}
+
+surface1062
+{
+	element0,overlay,0_0_face_1,0,0
+}
+
+//Closed eyes
+surface1063
+{
+	element0,overlay,0_0_face_2,0,0
+}
+
+surface1064
+{
+	element0,overlay,0_0_face_3,0,0
+}
+
+surface1070
+{
+	//Base, head forward
+	element0,overlay,0_tail_0,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_r-arm_0,0,0
+	element3,overlay,0_head_4,0,0
+	element4,overlay,0_l-arm_2,0,0
+	element5,overlay,0_4_cracks,0,0
+	
+	element6,overlay,0_4_eyes_0,0,0
+	element7,overlay,0_4_eyebrows_0,0,0
+}
+
+surface1071
+{
+	//Base, head forward
+	element0,overlay,0_tail_0,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_r-arm_0,0,0
+	element3,overlay,0_head_4,0,0
+	element4,overlay,0_l-arm_2,0,0
+	element5,overlay,0_4_cracks,0,0
+	
+	element6,overlay,0_4_eyes_1,0,0
+	element7,overlay,0_4_eyebrows_1,0,0
+}
+
+surface110700
+{
+	element0,overlay,0_4_blink_0,0,0
+	element1,overlayfast,0_4_cracks,0,0
+	element2,overlayfast,0_4_eyebrows_0,0,0
+}
+
+surface110701
+{
+	element0,overlay,0_4_blink_1,0,0
+	element1,overlayfast,0_4_cracks,0,0
+	element2,overlayfast,0_4_eyebrows_0,0,0
+}
+
+surface110702
+{
+	element0,overlay,0_4_blink_0,0,0
+	element1,overlayfast,0_4_cracks,0,0
+}
+
+surface110703
+{
+	element0,overlay,0_4_blink_1,0,0
+	element1,overlayfast,0_4_cracks,0,0
+}
+
+surface.append1070
+{
+	animation0.interval,random,4
+	animation0.pattern0,overlay,110700,50,0,0
+	animation0.pattern1,overlay,110701,100,0,0
+	animation0.pattern2,overlay,-1,30,0,0
+}
+
+surface.append1071
+{
+	animation0.interval,random,4
+	animation0.pattern0,overlay,110702,50,0,0
+	animation0.pattern1,overlay,110703,100,0,0
+	animation0.pattern2,overlay,-1,30,0,0
+}
+
+
+surface1080
+{
+	//Base, head forward
+	element0,overlay,2_tail_0,0,0
+	element1,overlay,2_base,0,0
+	element2,overlay,2_l-arm_1,0,0
+	element3,overlay,2_r-arm_1,0,0
+	element4,overlay,2_head_0,0,0
+	element5,overlay,2_0_cracks,0,0
+	
+	element6,overlay,2_0_eyes_0,0,0
+	element7,overlay,2_0_eyebrows_0,0,0
+	element8,overlay,2_0_mouth_0,0,0
+}
+
+surface1090
+{
+	//Base, head forward
+	element0,overlay,0_tail_0,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_l-arm_0,0,0
+	element3,overlay,0_r-arm_1,0,0
+	element4,overlay,0_head_5,0,0
+	element5,overlay,0_5_cracks_0,0,0
+	element6,overlay,0_5_cracks_1,0,0
+	
+	animation100.interval,runonce
+	animation100.pattern0,parallelstop,(1000,1001,1002,1003,1004,1005,1006)
+	animation100.pattern1,alternativestart,(1000,1001,1002,1003,1004,1005,1006)
+	
+	animation1000.interval,never
+	animation1000.pattern0,overlay,1092,0,0,0
+	animation1000.pattern1,overlay,1092,1000-8000,0,0
+	animation1000.pattern2,alternativestart,(100,10000)
+	
+		animation10000.interval,never
+		animation10000.pattern0,overlay,110900,50,0,0
+		animation10000.pattern1,overlay,110901,100,0,0
+		animation10000.pattern2,overlay,-1,30,0,0
+		animation10000.pattern3,alternativestart,(100,1000)
+	
+	//Closed eyes one
+	animation1001.interval,never
+	animation1001.pattern0,overlay,1093,0,0,0
+	animation1001.pattern1,overlay,1093,1000-8000,0,0
+	animation1001.pattern2,start,100
+	
+	animation1002.interval,never
+	animation1002.pattern0,overlay,1094,0,0,0
+	animation1002.pattern1,overlay,1094,1000-8000,0,0
+	animation1002.pattern2,alternativestart,(100,10002)
+	
+		animation10002.interval,never
+		animation10002.pattern0,overlay,110900,50,0,0
+		animation10002.pattern1,overlay,110901,100,0,0
+		animation10002.pattern2,overlay,-1,30,0,0
+		animation10002.pattern3,alternativestart,(100,1002)
+	
+	animation1003.interval,never
+	animation1003.pattern0,overlay,1095,0,0,0
+	animation1003.pattern1,overlay,1095,1000-8000,0,0
+	animation1003.pattern2,alternativestart,(100,10003)
+	
+		animation10003.interval,never
+		animation10003.pattern0,overlay,110900,50,0,0
+		animation10003.pattern1,overlay,110901,100,0,0
+		animation10003.pattern2,overlay,-1,30,0,0
+		animation10003.pattern3,alternativestart,(100,1003)
+	
+	animation1004.interval,never
+	animation1004.pattern0,overlay,1096,0,0,0
+	animation1004.pattern1,overlay,1096,1000-8000,0,0
+	animation1004.pattern2,alternativestart,(100,10004)
+	
+		animation10004.interval,never
+		animation10004.pattern0,overlay,110900,50,0,0
+		animation10004.pattern1,overlay,110901,100,0,0
+		animation10004.pattern2,overlay,-1,30,0,0
+		animation10004.pattern3,alternativestart,(100,1004)
+	
+	animation1005.interval,never
+	animation1005.pattern0,overlay,1097,0,0,0
+	animation1005.pattern1,overlay,1097,1000-8000,0,0
+	animation1005.pattern2,alternativestart,(100,10005)
+	
+		animation10005.interval,never
+		animation10005.pattern0,overlay,110900,50,0,0
+		animation10005.pattern1,overlay,110901,100,0,0
+		animation10005.pattern2,overlay,-1,30,0,0
+		animation10005.pattern3,alternativestart,(100,1005)
+	
+	animation1006.interval,never
+	animation1006.pattern0,overlay,1098,0,0,0
+	animation1006.pattern1,overlay,1098,1000-8000,0,0
+	animation1006.pattern2,alternativestart,(100,10006)
+	
+		animation10006.interval,never
+		animation10006.pattern0,overlay,110900,50,0,0
+		animation10006.pattern1,overlay,110901,100,0,0
+		animation10006.pattern2,overlay,-1,30,0,0
+		animation10006.pattern3,alternativestart,(100,1006)
+	
+	
+	
+	//Phone up and down
+	animation50.interval,always
+	animation50.pattern0,overlay,1091,0,0,0
+	animation50.pattern1,overlay,1091,50-500,0,1
+	animation50.pattern2,overlay,1091,50-500,0,0
+}
+
+surface1091
+{
+	element0,overlay,0_extras_1,0,0
+}
+
+surface1092
+{
+	element0,overlay,0_5_face_0,0,0
+}
+
+//Closed eyes one
+surface1093
+{
+	element0,overlay,0_5_face_1,0,0
+}
+
+surface1094
+{
+	element0,overlay,0_5_face_2,0,0
+}
+
+surface1095
+{
+	element0,overlay,0_5_face_3,0,0
+}
+
+surface1096
+{
+	element0,overlay,0_5_face_4,0,0
+}
+
+surface1097
+{
+	element0,overlay,0_5_face_5,0,0
+}
+
+surface1098
+{
+	element0,overlay,0_5_face_6,0,0
+}
+
+surface110900
+{
+	element0,overlay,0_5_blink_0,0,0
+	element1,overlayfast,0_5_cracks_0,0,0
+}
+
+surface110901
+{
+	element0,overlay,0_5_blink_1,0,0
+	element1,overlayfast,0_5_cracks_0,0,0
+}
+
+surface1100
+{
+	//Base, head forward
+	element0,overlay,3_base,0,0
+	element1,overlay,3_head,0,0
+	element2,overlay,3_cracks,0,0
+	
+	element3,overlay,3_eyes_0,0,0
+	element4,overlay,3_eyebrows_0,0,0
+	element5,overlay,3_mouth_0,0,0
+	
+	animation0.interval,random,2
+	animation0.pattern0,overlay,111000,50,0,0
+	animation0.pattern1,overlay,111001,100,0,0
+	animation0.pattern2,overlay,-1,30,0,0
+}
+
+surface111000
+{
+	element0,overlay,3_blink_0,0,0
+	element1,overlayfast,3_cracks,0,0
+}
+
+surface111001
+{
+	element0,overlay,3_blink_1,0,0
+	element1,overlayfast,3_cracks,0,0
+}
+
+//Blip in firstboot/facing left
+surface1110
+{
+	animation0.interval,runonce
+	animation0.pattern0,overlay,1001110,0,0,0
+	animation0.pattern1,overlay,1001111,100,0,0
+	animation0.pattern2,overlay,1001112,100,0,0
+	animation0.pattern3,overlay,208,130,0,0
+	animation0.option,exclusive
+	
+	animation2.interval,random,2
+	animation2.pattern0,overlay,102002,30,0,0
+	animation2.pattern1,overlay,102003,80,0,0
+	animation2.pattern2,overlay,-1,10,0,0
+	animation2.pattern3,overlay,102002,30,0,0
+	animation2.pattern4,overlay,102003,80,0,0
+	animation2.pattern5,overlay,-1,10,0,0
+}
+
+//Blip in forward
+surface1122
+{
+	animation0.interval,runonce
+	animation0.pattern0,overlay,1001110,0,0,0
+	animation0.pattern1,overlay,1001111,100,0,0
+	animation0.pattern2,overlay,1001113,100,0,0
+	animation0.pattern3,overlay,0,130,0,0
+	animation0.option,exclusive
+}
+
+//Blip in mad left
+surface1123
+{
+	animation0.interval,runonce
+	animation0.pattern0,overlay,1001110,0,0,0
+	animation0.pattern1,overlay,1001111,100,0,0
+	animation0.pattern2,overlay,1001114,100,0,0
+	animation0.pattern3,overlay,402,130,0,0
+	animation0.option,exclusive
+}
+
+//Blip in mad forward
+surface1124
+{
+	animation0.interval,runonce
+	animation0.pattern0,overlay,1001110,0,0,0
+	animation0.pattern1,overlay,1001111,100,0,0
+	animation0.pattern2,overlay,1001115,100,0,0
+	animation0.pattern3,overlay,412,130,0,0
+	animation0.option,exclusive
+}
+
+//Blip in sad left
+surface1125
+{
+	animation0.interval,runonce
+	animation0.pattern0,overlay,1001110,0,0,0
+	animation0.pattern1,overlay,1001111,100,0,0
+	animation0.pattern2,overlay,1001116,100,0,0
+	animation0.pattern3,overlay,510,130,0,0
+	animation0.option,exclusive
+}
+
+//Blip in sad forward
+surface1126
+{
+	animation0.interval,runonce
+	animation0.pattern0,overlay,1001110,0,0,0
+	animation0.pattern1,overlay,1001111,100,0,0
+	animation0.pattern2,overlay,1001117,100,0,0
+	animation0.pattern3,overlay,500,130,0,0
+	animation0.option,exclusive
+}
+
+//Blip in sleep
+surface1127
+{
+	animation0.interval,runonce
+	animation0.pattern0,overlay,1001110,0,0,0
+	animation0.pattern1,overlay,1001111,100,0,0
+	animation0.pattern2,overlay,1001118,100,0,0
+	animation0.pattern3,overlay,1300,130,0,0
+	animation0.option,exclusive
+	
+	animation1.interval,always
+	animation1.pattern0,overlay,1320,0,-2,3
+	animation1.pattern1,overlay,1320,2000-3000,-1,1
+	animation1.pattern2,overlay,1320,200,0,0
+	animation1.pattern3,overlay,1320,1000-3000,-1,1
+	animation1.pattern4,overlay,-1,200,-1,1
+}
+
+surface1001110
+{
+	element0,overlay,_blips_0,0,0
+}
+
+surface1001111
+{
+	element0,overlay,_blips_1,0,0
+}
+
+surface1001112
+{
+	element0,overlay,0_blips_0,0,0
+}
+
+surface1001113
+{
+	element0,overlay,0_blips_1,0,0
+}
+
+surface1001114
+{
+	element0,overlay,0_blips_2,0,0
+}
+
+surface1001115
+{
+	element0,overlay,0_blips_3,0,0
+}
+
+surface1001116
+{
+	element0,overlay,1_blips_0,0,0
+}
+
+surface1001117
+{
+	element0,overlay,1_blips_1,0,0
+}
+
+surface1001118
+{
+	element0,overlay,0_blips_4,0,0
+}
+
+//Obsidian
+surface1200
+{
+	//Base, head forward
+	element0,overlay,0_tail_0,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_head_0,0,0
+	element3,overlay,0_b-arm_5,0,0
+	element4,overlay,0_0_cracks,0,0
+	
+	element5,overlay,0_0_eyes_0,0,0
+	element6,overlay,0_0_eyebrows_0,0,0
+	element7,overlay,0_0_mouth_0,0,0
+}
+
+surface1201
+{
+	//Base, head forward
+	element0,overlay,0_tail_0,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_head_0,0,0
+	element3,overlay,0_b-arm_5,0,0
+	element4,overlay,0_0_cracks,0,0
+	
+	element5,overlay,0_0_eyes_8,0,0
+	element6,overlay,0_0_eyebrows_0,0,0
+	element7,overlay,0_0_mouth_0,0,0
+}
+
+surface1204
+{
+	//Base, head forward
+	element0,overlay,0_tail_1,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_head_0,0,0
+	element3,overlay,0_b-arm_5,0,0
+	element4,overlay,0_0_cracks,0,0
+	
+	element5,overlay,0_0_eyes_4,0,0
+	element6,overlay,0_0_eyebrows_2,0,0
+	element7,overlay,0_0_mouth_2,0,0
+}
+
+surface1206
+{
+	//Base, head forward
+	element0,overlay,0_tail_2,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_head_0,0,0
+	element3,overlay,0_b-arm_5,0,0
+	element4,overlay,0_0_cracks,0,0
+	
+	element5,overlay,0_0_eyes_5,0,0
+	element6,overlay,0_0_eyebrows_3,0,0
+	element7,overlay,0_0_mouth_4,0,0
+	element8,overlay,0_extras_0,0,0
+}
+
+surface1207
+{
+	//Base, head forward
+	element0,overlay,0_tail_2,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_head_0,0,0
+	element3,overlay,0_b-arm_5,0,0
+	element4,overlay,0_0_cracks,0,0
+	
+	element5,overlay,0_0_eyes_6,0,0
+	element6,overlay,0_0_eyebrows_3,0,0
+	element7,overlay,0_0_mouth_4,0,0
+	element8,overlay,0_extras_0,0,0
+}
+
+
+surface1210
+{
+	//Base, head forward
+	element0,overlay,0_tail_0,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_head_0,0,0
+	element3,overlay,0_b-arm_5,0,0
+	element4,overlay,0_0_cracks,0,0
+	
+	element5,overlay,0_0_eyes_0,0,0
+	element6,overlay,0_0_eyebrows_5,0,0
+	element7,overlay,0_0_mouth_6,0,0
+}
+
+surface.append0,101,103,106,108,110,111,1200,1201,1206,1210
+{
+	animation1.interval,random,4
+	animation1.pattern0,overlay,100000,50,0,0
+	animation1.pattern1,overlay,100001,100,0,0
+	animation1.pattern2,overlay,-1,30,0,0
+}
+
+surface1220
+{
+	//Base, head forward
+	element0,overlay,0_tail_3,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_head_1,0,0
+	element3,overlay,0_b-arm_5,0,0
+	element4,overlay,0_1_cracks,0,0
+	
+	element5,overlay,0_1_eyes_0,0,0
+	element6,overlay,0_1_eyebrows_0,0,0
+	element7,overlay,0_1_mouth_0,0,0
+}
+
+surface1225
+{
+	//Base, head forward
+	element0,overlay,0_tail_0,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_head_1,0,0
+	element3,overlay,0_b-arm_5,0,0
+	element4,overlay,0_1_cracks,0,0
+	
+	element5,overlay,0_1_eyes_4,0,0
+	element6,overlay,0_1_eyebrows_3,0,0
+	element7,overlay,0_1_mouth_1,0,0
+}
+
+surface.append200,201,202,206,1220
+{
+	animation0.interval,random,4
+	animation0.pattern0,overlay,102000,50,0,0
+	animation0.pattern1,overlay,102001,100,0,0
+	animation0.pattern2,overlay,-1,30,0,0
+}
+
+surface.append205,208,1225,1110
+{
+	animation1.interval,random,4
+	animation1.pattern0,overlay,102002,50,0,0
+	animation1.pattern1,overlay,102003,100,0,0
+	animation1.pattern2,overlay,-1,30,0,0
+}
+
+
+//Tail anims
+surface.append1200-1225
+{
+	animation100.interval,runonce
+	animation100.pattern0,parallelstop,(1000,1001,1002,1003)
+	animation100.pattern1,alternativestart,(1000,1001,1002,1003)
+	
+	//Fast
+	animation1000.interval,never
+	animation1000.pattern0,overlay,1250,0,0,0
+	animation1000.pattern1,overlay,1251,300-5000,0,0
+	animation1000.pattern2,overlay,1252,60,0,0
+	animation1000.pattern3,overlay,1253,30,0,0
+	animation1000.pattern4,overlay,1254,60,0,0
+	animation1000.pattern5,overlay,1253,100,0,0
+	animation1000.pattern6,overlay,1252,60,0,0
+	animation1000.pattern7,overlay,1251,30,0,0
+	animation1000.pattern8,overlay,1251,60,0,0
+	animation1000.pattern9,start,100
+	
+	//Slower
+	animation1001.interval,never
+	animation1001.pattern0,overlay,1250,0,0,0
+	animation1001.pattern1,overlay,1251,300-5000,0,0
+	animation1001.pattern2,overlay,1252,80,0,0
+	animation1001.pattern3,overlay,1253,30,0,0
+	animation1001.pattern4,overlay,1254,80,0,0
+	animation1001.pattern5,overlay,1253,300,0,0
+	animation1001.pattern6,overlay,1252,80,0,0
+	animation1001.pattern7,overlay,1251,30,0,0
+	animation1001.pattern8,overlay,1251,80,0,0
+	animation1001.pattern9,start,100
+	
+	//Drop
+	animation1002.interval,never
+	animation1002.pattern0,overlay,1250,0,0,0
+	animation1002.pattern1,overlay,1251,300-5000,0,0
+	animation1002.pattern2,overlay,1252,80,0,0
+	animation1002.pattern3,overlay,1253,100,0,0
+	animation1002.pattern4,overlay,1252,100,0,0
+	animation1002.pattern5,overlay,1251,100,0,0
+	animation1002.pattern6,overlay,1252,200,0,0
+	animation1002.pattern7,overlay,1251,2000,0,0
+	animation1002.pattern8,overlay,1252,200,0,0
+	animation1002.pattern9,overlay,1253,100,0,0
+	animation1002.pattern10,overlay,1254,100,0,0
+	animation1002.pattern11,overlay,1253,100,0,0
+	animation1002.pattern12,overlay,1252,100,0,0
+	animation1002.pattern13,overlay,1251,100,0,0
+	animation1002.pattern14,start,100
+	
+	//Hang
+	animation1003.interval,never
+	animation1003.pattern0,overlay,1250,0,0,0
+	animation1003.pattern1,overlay,1251,300-5000,0,0
+	animation1003.pattern2,overlay,1252,100,0,0
+	animation1003.pattern3,overlay,1251,500-2000,0,0
+	animation1003.pattern4,overlay,1251,100,0,0
+	animation1003.pattern5,start,100
+}
+
+surface1250
+{
+	element0,overlay,0_extras_2,0,0
+}
+
+surface1251
+{
+	element0,overlay,0_extras_3,0,0
+}
+
+surface1252
+{
+	element0,overlay,0_extras_4,0,0
+}
+
+surface1253
+{
+	element0,overlay,0_extras_5,0,0
+}
+
+surface1254
+{
+	element0,overlay,0_extras_6,0,0
+}
+
+surface1298
+{
+	//Base, head forward
+	element0,overlay,0_tail_0,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_l-arm_0,0,0
+	element3,overlay,0_r-arm_0,0,0
+	element4,overlay,0_head_0,0,0
+	element5,overlay,0_0_cracks,0,0
+	
+	element6,overlay,0_0_eyes_2,0,0
+	element7,overlay,0_0_eyebrows_0,0,0
+	element8,overlay,0_0_mouth_0,0,0
+	
+	animation0.interval,runonce
+	animation0.pattern0,overlay,1299,0,50,50
+	animation0.pattern1,overlay,1299,75,25,115
+	animation0.pattern2,base,102,100,0,0
+}
+
+surface1299
+{
+	element0,overlay,0_extras_7,0,0
+}
+
+
+//Sleep Neutral
+surface1300
+{
+	//Base, head forward
+	element0,overlay,0_tail_3,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_l-arm_0,0,0
+	element3,overlay,0_r-arm_0,0,0
+
+	animation0.interval,always
+	animation0.pattern0,overlay,1320,0,-2,3
+	animation0.pattern1,overlay,1320,2000-3000,-1,1
+	animation0.pattern2,overlay,1320,200,0,0
+	animation0.pattern3,overlay,1320,1000-3000,-1,1
+	animation0.pattern4,overlay,-1,200,-1,1
+}
+
+surface1320
+{
+	element0,overlay,4_head_0,0,0
+}
+
+//Sleep Worry
+surface1301
+{
+	//Base, head forward
+	element0,overlay,0_tail_3,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_l-arm_0,0,0
+	element3,overlay,0_r-arm_0,0,0
+
+	animation0.interval,always
+	animation0.pattern0,overlay,1321,0,-2,3
+	animation0.pattern1,overlay,1321,2000-3000,-1,1
+	animation0.pattern2,overlay,1321,200,0,0
+	animation0.pattern3,overlay,1321,1000-3000,-1,1
+	animation0.pattern4,overlay,-1,200,-1,1
+}
+
+surface1321
+{
+	element0,overlay,4_head_1,0,0
+}
+
+//Sleep Fear
+surface1302
+{
+	//Base, head forward
+	element0,overlay,0_tail_3,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_l-arm_0,0,0
+	element3,overlay,0_r-arm_0,0,0
+
+	animation0.interval,always
+	animation0.pattern0,overlay,1322,0,-2,3
+	animation0.pattern1,overlay,1322,2000-3000,-1,1
+	animation0.pattern2,overlay,1322,200,0,0
+	animation0.pattern3,overlay,1322,1000-3000,-1,1
+	animation0.pattern4,overlay,-1,200,-1,1
+}
+
+surface1322
+{
+	element0,overlay,4_head_2,0,0
+}
+
+//Sleep Smile
+surface1303
+{
+	//Base, head forward
+	element0,overlay,0_tail_3,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_l-arm_0,0,0
+	element3,overlay,0_r-arm_0,0,0
+
+	animation0.interval,always
+	animation0.pattern0,overlay,1323,0,-2,3
+	animation0.pattern1,overlay,1323,2000-3000,-1,1
+	animation0.pattern2,overlay,1323,200,0,0
+	animation0.pattern3,overlay,1323,1000-3000,-1,1
+	animation0.pattern4,overlay,-1,200,-1,1
+}
+
+surface1323
+{
+	element0,overlay,4_head_3,0,0
+}
+
+//Sleep Worry Smile
+surface1304
+{
+	//Base, head forward
+	element0,overlay,0_tail_3,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_l-arm_0,0,0
+	element3,overlay,0_r-arm_0,0,0
+
+	animation0.interval,always
+	animation0.pattern0,overlay,1324,0,-2,3
+	animation0.pattern1,overlay,1324,2000-3000,-1,1
+	animation0.pattern2,overlay,1324,200,0,0
+	animation0.pattern3,overlay,1324,1000-3000,-1,1
+	animation0.pattern4,overlay,-1,200,-1,1
+}
+
+surface1324
+{
+	element0,overlay,4_head_4,0,0
+}
+
+//Punch
+surface1550
+{
+	element0,overlay,4_base_0,0,0
+
+	animation0.interval,runonce
+	animation0.pattern0,base,1551,150,0,0
+
+	collisionex0,Head,polygon,89,54,81,55,78,58,80,62,80,75,78,81,102,75,97,67,95,57
+	collisionex1,Dent,polygon,97,55,95,57,97,67,102,75,106,74,108,68,106,66,105,63,102,63,
+	collisionex2,Cracks,polygon,78,58,72,62,70,67,72,77,76,81,77,86,79,86,78,81,80,75,80,62
+	collisionex3,Cracks,polygon,97,82,96,84,98,90,101,94,104,95,107,90,107,84
+	collisionex4,Face,polygon,89,54,81,55,72,62,67,72,68,82,72,89,72,94,76,99,84,102,96,101,104,95,107,90,107,84,109,80,109,74,108,68,106,66,105,63,102,63,97,55
+}
+
+surface1551
+{
+	element0,overlay,4_base_1,0,0
+}
+
+surface.append402-405,203,1123
+{
+	animation1.interval,random,4
+	animation1.pattern0,overlay,104000,50,0,0
+	animation1.pattern1,overlay,104001,100,0,0
+	animation1.pattern2,overlay,-1,30,0,0
+}
+
+surface.append412-415,1124
+{
+	animation1.interval,random,4
+	animation1.pattern0,overlay,104100,50,0,0
+	animation1.pattern1,overlay,104101,100,0,0
+	animation1.pattern2,overlay,-1,30,0,0
+}
+
+//-----Collisions-----
+
+surface.append0,101-111,1040,1050,1060,1122,1200-1207,1298
+{
+	collisionex0,Head,polygon,114,48,103,50,105,52,105,61,104,63,102,65,102,68,124,68,124,53,119,48
+	collisionex1,Dent,polygon,125,51,124,53,124,68,127,72,129,72,131,71,133,68,130,66,130,62,127,61,127,53
+	collisionex2,Cracks,Polygon,103,51,95,56,99,65,99,78,101,78,102,68,102,65,104,63,105,61,105,52
+	collisionex3,Cracks,Polygon,119,78,119,86,123,92,126,89,127,83
+	collisionex4,Face,polygon,114,48,103,50,95,56,90,68,92,76,91,82,92,89,100,94,118,94,126,89,127,83,133,76,133,68,130,66,130,62,127,61,127,53,119,48
+}
+
+surface.append200-208,1110,1210,1220,1225
+{
+	collisionex0,Head,polygon,111,50,98,53,93,68,114,68,117,51,126,61,125,67,129,70,132,70,132,61,121,50
+	collisionex1,Dent,polygon,117,51,114,70,121,73,121,79,126,76,129,70,125,67,125,61
+	collisionex2,Cracks,polygon,109,79,108,83,114,93,120,91,120,85
+	collisionex3,Face,polygon,111,50,98,53,93,68,94,72,90,76,93,80,93,89,98,93,114,93,120,91,112,84,130,81,133,70,132,62,121,51
+}
+
+surface.append300-303
+{
+	collisionex0,Head,polygon,112,50,112,61,109,66,110,71,130,71,130,58,123,51,117,50
+	collisionex1,Cracks,polygon,105,50,97,55,99,58,100,61,102,63,107,67,107,82,110,82,110,70,109,66,112,61,112,50
+	collisionex2,Cracks,polygon,126,83,123,90,127,95,130,91,131,89
+	collisionex3,Face,polygon,105,51,97,55,92,63,91,68,91,76,93,83,95,85,95,89,100,94,107,97,122,97,127,95,130,91,132,88,133,79,133,71,130,71,130,58,123,51,117,50
+}
+
+surface.append400-405,1123
+{
+	collisionex0,Head,polygon,111,50,98,53,93,68,114,68,117,51,126,61,125,67,129,70,132,70,132,61,129,55,121,50
+	collisionex1,Dent,polygon,117,51,114,70,121,73,121,79,126,76,129,70,125,67,125,61
+	collisionex2,Cracks,polygon,109,79,108,83,114,93,120,91,120,85
+	collisionex3,Face,polygon,111,50,98,53,93,68,94,72,90,76,93,80,93,89,98,93,114,93,120,91,112,84,130,81,133,70,132,62,121,51
+}
+
+surface.append410-415,1124
+{
+	collisionex0,Head,polygon,108,49,108,58,102,70,102,72,123,72,123,51,121,50,114,48
+	collisionex1,Dent,polygon,123,50,123,72,128,71,131,68,131,64,129,63,129,59,127,58,126,53
+	collisionex2,Cracks,polygon,102,49,95,57,94,61,100,70,100,79,102,78,102,70,108,58,108,49
+	collisionex3,Cracks,polygon,120,79,116,81,119,94,124,91,127,83
+	collisionex4,Face,polygon,114,48,102,49,95,57,92,66,92,74,94,77,92,83,93,89,101,95,117,95,125,91,127,83,132,71,132,68,131,64,129,63,129,59,127,58,126,52,121,49
+}
+
+surface.append500-503,1126
+{
+	collisionex0,Head,polygon,113,53,102,55,98,60,100,62,102,70,101,74,123,74,119,71,116,65,118,54
+	collisionex1,Dent,polygon,118,54,116,65,119,71,123,74,127,71,130,70,124,61,121,61,
+	collisionex2,Cracks,polygon,98,60,94,63,91,73,99,83,99,85,101,84,99,78,101,74,102,70,100,62
+	collisionex3,Cracks,polygon,115,81,117,90,122,94,123,97,127,94,129,90,127,84
+	collisionex4,Face,polygon,113,53,102,55,94,63,91,73,93,83,96,87,97,94,101,98,108,99,116,99,123,97,127,94,129,90,128,84,130,80,130,70,124,61,121,61,118,54
+}
+
+surface.append510-516,1125
+{
+	collisionex0,Head,polygon,116,51,107,52,100,57,95,64,95,74,97,75,119,75,114,72,116,51,127,61,128,67,131,68,131,74,129,77,132,81,134,74,134,63,129,56,122,52
+	collisionex1,,Dent,polygon,116,51,114,72,119,75,123,75,124,81,129,77,131,74,131,68,128,67,127,61
+	collisionex2,Cracks,polygon,112,81,110,86,116,97,121,95,125,91,125,86
+	collisionex3,Face,polygon,116,51,107,52,100,57,95,64,95,74,96,77,93,81,96,84,96,90,100,95,104,97,116,97,121,95,125,91,125,86,132,81,134,74,134,63,129,56,122,52
+}
+
+surface.append1010,1020,1030,1080
+{
+	collisionex0,Head,polygon,126,52,119,49,110,50,111,56,109,62,106,67,106,71,109,74,113,73,117,73,124,70,126,70
+	collisionex1,Dent,polygon,126,53,125,69,128,71,133,71,132,68,131,63,129,61
+	collisionex2,Cracks,polygon,109,51,106,52,101,55,101,59,103,63,104,68,104,72,105,74,105,72,106,67,109,62,111,56
+	collisionex3,Cracks,polygon,123,74,121,74,123,76,122,78,124,82,124,86,125,89,129,88,132,83,131,79
+	collisionex4,Face,polygon,126,52,121,48,110,48,103,51,97,57,93,63,93,72,94,77,94,80,94,85,97,89,100,91,107,93,112,93,121,92,127,90,132,85,132,82,132,79,133,75,135,70,134,69,132,63,130,60,129,56,129,56
+}
+
+surface.append1070-1071
+{
+	collisionex0,Head,polygon,112,49,109,50,106,57,105,66,101,70,125,70,123,66,123,54,121,50
+	collisionex1,Dent,polygon,123,54,123,66,125,70,131,70,131,66,129,64,128,61,126,59,125,54
+	collisionex2,Cracks,polygon,109,50,100,52,97,56,97,63,99,66,99,71,97,75,100,75,101,70,105,67,106,56
+	collisionex3,Cracks,polygon,120,81,117,83,119,92,122,91,127,88,127,83
+	collisionex4,Face,polygon,112,49,100,52,93,59,90,68,90,75,91,77,90,80,90,86,94,91,98,89,102,87,104,92,106,94,114,94,122,92,127,88,127,83,131,78,131,65,129,63,128,62,126,60,125,54,121,50
+}
+
+surface.append1090
+{
+	collisionex0,Head,polygon,113,48,107,49,106,63,104,68,104,71,125,71,122,54,123,50
+	collisionex1,Dent,polygon,123,50,122,53,125,71,129,72,132,70,130,68,130,62,127,61,126,59,126,53
+	collisionex2,Cracks,polygon,107,49,102,50,97,56,98,64,102,68,102,75,104,75,104,68,106,63
+	collisionex3,Cracks,polygon,123,75,119,77,122,93,126,92,130,87,130,82
+	collisionex4,Face,polygon,113,48,102,50,95,57,91,65,91,74,93,78,93,86,97,92,105,95,118,95,126,92,130,87,130,79,132,75,132,70,130,68,130,62,127,61,126,59,126,53,123,51
+}
+
+surface.append1100
+{
+	collisionex0,Head,polygon,113,49,106,50,105,60,103,65,102,68,123,68,123,55,121,50
+	collisionex1,Dent,polygon,126,53,123,54,123,68,127,72,131,70,129,68,129,65,126,62
+	collisionex2,Cracks,polygon,106,50,101,51,97,56,97,59,99,63,100,66,100,73,103,72,102,65,105,60,
+	collisionex3,Cracks,polygon,122,80,119,81,118,91,120,93,125,91,129,86,129,81
+	collisionex4,Face,polygon,113,49,101,51,93,59,91,67,91,75,92,77,91,80,92,86,96,90,103,93,111,94,120,93,125,91,129,86,129,82,128,79,131,76,131,70,129,68,129,65,126,63,126,53,121,50
+}
+
+surface.append1300-1304,1127
+{
+	collisionex0,Head,Polygon,108,53,101,54,96,67,95,78,96,87,115,86,122,86,125,76,118,71,116,63,116,56
+	collisionex1,Dent,Polygon,116,56,116,63,118,71,125,76,126,68,122,63
+	collisionex2,Cracks,Polygon,101,54,92,60,88,67,91,76,94,85,96,85,95,78,96,67
+	collisionex3,Cracks,Polygon,115,86,111,89,115,99,121,95,122,86
+	collisionex4,Face,Polygon,108,53,101,54,92,60,87,66,85,75,87,85,86,92,93,100,115,99,121,95,124,86,125,76,126,68,122,63,116,56
+}

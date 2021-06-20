@@ -1246,7 +1246,9 @@ collision5,100,95,140,130,Obsidian
 1interval,always //Initial frame
 1pattern0,3053,1,overlay,85,144
 
-2interval,random,3 //This decides which animation to play so they dont overlap
+//This decides which animation to play so they dont overlap
+
+2interval,random,3
 2pattern0,0,0,alternativestart,[3.4.5.6]
 
 //Fast
@@ -1301,7 +1303,7 @@ surface1300 //Sleep Neutral
 element0,overlay,surface1300.png,0,0
 
 0interval,always
-0pattern0,1320,-1,overlay,-2,3
+0pattern0,1320,0,overlay,-2,3
 0pattern1,1320,200,overlay,-1,1
 0pattern2,1320,20,overlay,0,0
 0pattern3,1320,100,overlay,-1,1

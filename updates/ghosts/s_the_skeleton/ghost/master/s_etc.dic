@@ -24,16 +24,16 @@ OnFileDrop2
 					"\RYS\s[2007]...Do you want this as your wallpaper..?"
 					--
 					"\n\n/
-					\![*]\q[Centered,SetWallpaper_0]\n/
-					\![*]\q[Tiled,SetWallpaper_1]\n/
-					\![*]\q[Stretched,SetWallpaper_2]\n"
+					\![*]\q[Centered,OnWallpaper,center,centered]\n/
+					\![*]\q[Tiled,OnWallpaper,tile,tiled]\n/
+					\![*]\q[Stretched,OnWallpaper,stretch,stretched]\n"
 					--
 					if "Windows 10" _in_ NotifyOS
 					{
-						"\![*]\q[Spanned,SetWallpaper_3]\n"
+						"\![*]\q[Spanned,OnWallpaper,span,spanned]\n"
 					}
 					--
-					"\n\n\![*]\q[No thanks,SetWallpaper_Cancel]\e"
+					"\n\n\![*]\q[No thanks,OnWallpaperCancel]\e"
 				}
 				others
 				{
@@ -63,25 +63,26 @@ OnFileDrop2
 						"\0\s[110]Oh,\w4\s[104] this is neat.\w8\w8\s[0] Do you want me to set it as your wallpaper?"
 						"\0\s[110]Oh,\w4 a picture?\w8\w8\s[1020] Uh,\w4 sure,\w4 I think I could set that as your wallpaper.\w8\w8\s[208] How do you want it?"
 						"\0\s[110]Oh,\w4\s[104] This is cool.\w8\w8\s[111] Did you want it as your wallpaper?"
+						"\0\s[110]Oh,\w4\s[111] did you want me to change your wallpaper?\w8\w8\s[0] How do you want it?"
 						--
 						"\n\n/
-						\![*]\q[Centered,SetWallpaper_0]\n/
-						\![*]\q[Tiled,SetWallpaper_1]\n/
-						\![*]\q[Stretched,SetWallpaper_2]\n"
+						\![*]\q[Centered,OnWallpaper,center,centered]\n/
+						\![*]\q[Tiled,OnWallpaper,tile,tiled]\n/
+						\![*]\q[Stretched,OnWallpaper,stretch,stretched]\n"
 						--
-						_osver = TOINT(os_version)
-						if "Windows" _in_ os_name && _osver >= 10
+						if "Windows 10" _in_ NotifyOS
 						{
-							"\![*]\q[Span,SetWallpaper_3]\n"
+							"\![*]\q[Spanned,OnWallpaper,span,spanned]\n"
 						}
 						--
-						"\n\n\![*]\q[No thanks,SetWallpaper_Cancel]\e"
+						"\n\n\![*]\q[No thanks,OnWallpaperCancel]\e"
 					}
 					when ".mid", ".wav", ".mp3", ".wma", ".au", ".flac", ".m4a" //Music files
 					{
-						"\s[103]Oh hey,\w4 is this music?\w8\w8\s[106] Unfortunately,\w4 I don't uh...\w8\w8\s[107] know how to read a file like this.\w8\w8\s[0] "
+						"\0\s[103]Oh hey,\w4 is this music?\w8\w8\s[106] Unfortunately,\w4 I don't uh...\w8\w8\s[107] know how to read a file like this.\w8\w8\s[0] "
 						"\0\s[1070]A %(_fileext),\w4 huh?\w8\w8\s[106] Sorry,\w4 I can't play this for you.\w8\w8\s[0] "
 						"\0\s[1071]'%(_filename)',\w4 huh?\w8\w8\s[106] Sorry,\w4 I can't play this.\w8\w8\s[0] "
+						"\0\s[110]Oh,\w4 a song?\w8\w8\s[1070] Hm,\w4 I don't know how to get it onto my phone to play it,\w4 though,\w8\s[107] sorry.\w8\w8\s[0] "
 						--
 						if "Azura" _in_ ghostexlist
 						{
@@ -105,6 +106,7 @@ OnFileDrop2
 						"\0\s[110]Oh,\w4 is this a drawing?\w8\w8\s[104] That's really cool,\w4 %(username)!\e"
 						"\0\s[111]Oh,\w4 are you an artist,\w4 %(username)?\w8\w8\s[104] This is really neat.\e"
 						"\0\s[111]Oh,\w4 did you draw this %(username)?\w8\w8 It looks really good!\e"
+						"\0\s[111]Ooh,\w4 a drawing?\w8\w8\s[104] That's so cool.\e"
 					}
 					others //Any other file format. As a note here, if you drop something ghost-related on them that does not have an install.txt, then they won't install it and will just say this response. If you are testing your balloon or nar files and you get this response instead of a proper installation, you should check and make sure you have an install.txt in the file!
 					{
@@ -112,6 +114,7 @@ OnFileDrop2
 						"\0\s[106]Sorry,\w4 I'm not sure what to do with a %(_fileext).\e"
 						"\0\s[107]...Yep,\w4 that's a %(_fileext).\e"
 						"\0\s[106]Sorry kiddo,\w4 I'm not sure what to do with that.\e"
+						"\0\s[106]Sorry kiddo,\w4 got no idea what to do with that.\e"
 					}		
 				}
 			}
@@ -123,18 +126,19 @@ OnFileDrop2
 					{
 						Wallpaperfile = reference0
 						
-						"\0\s[510]...How do you want your wallpaper set?\n\n/
-						\![*]\q[Centered,SetWallpaper_0]\n/
-						\![*]\q[Tiled,SetWallpaper_1]\n/
-						\![*]\q[Stretched,SetWallpaper_2]\n"
+						"\0\s[510]...How do you want your wallpaper set?"
 						--
-						_osver = TOINT(os_version)
-						if "Windows" _in_ os_name && _osver >= 10
+						"\n\n/
+						\![*]\q[Centered,OnWallpaper,center,centered]\n/
+						\![*]\q[Tiled,OnWallpaper,tile,tiled]\n/
+						\![*]\q[Stretched,OnWallpaper,stretch,stretched]\n"
+						--
+						if "Windows 10" _in_ NotifyOS
 						{
-							"\![*]\q[Span,SetWallpaper_3]\n"
+							"\![*]\q[Spanned,OnWallpaper,span,spanned]\n"
 						}
 						--
-						"\n\n\![*]\q[No thanks,SetWallpaper_Cancel]\e"
+						"\n\n\![*]\q[No thanks,OnWallpaperCancel]\e"
 					}
 					others
 					{
@@ -144,8 +148,8 @@ OnFileDrop2
 			}
 			else
 			{
-					"\s[400]Hmph.\w8 I'm not doing anything with it.\e"
-					"\s[400]Keep your files to yourself,\w4 I don't want them.\e"
+				"\s[400]Hmph.\w8\w8 I'm not doing anything with it.\e"
+				"\s[400]Keep your files to yourself,\w4 I don't want them.\e"
 			}
 		}
 	}
@@ -159,13 +163,20 @@ OnFileDrop2
 		{
 			"\0\s[1207]Sorry %(username),\w4 my hands are kinda full.\e"
 		}
+		elseif nowmode == "Asleep"
+		{
+			"\0* (He's sound asleep,\w4 maybe you should ask him later.)\e"
+		}
 		else
 		{
 			if LV == 0
 			{
+				_num = ARRAYSIZE(FENUM(reference0))
 				"\0\s[0]This is %(_fileslash).\w8\w8\s[106] Sorry kiddo,\w8\s[106] I'm not sure what to do with that.\e"
 				"\0\s[110]A whole folder?\w8\w8\s[106] Uh,\w4 I'm not sure what to do with that,\w4 sorry kiddo.\e"
 				"\0\s[107]That sure is a folder.\w8\w8\s[106] I can't do anything with it,\w4 though.\e"
+				if _num >= 10; "\0\s[1070]Hm,\w4 let me see...\w8\w8 Looks like there's...\w8\w8\s[107] %(_num) files in there.\w8\w8\s[106] Not sure what you want me to do with em,\w4 though.\e"
+				if _num >= 100; "\0\s[202]Wow,\w4 there's a lot of files in there.\w8\w8\s[107] Uh,\w4 if there's any pictures in there,\w4 I could set one as your wallpaper?\w8\w8\s[106] Otherwise I'm really not sure what you want me to do,\w4 here...\e"
 			}
 			else
 			{
@@ -184,156 +195,92 @@ OnFileDrop2
 
 //This set of options sets the wallpaper up. You can replace the dialogue, but make sure to leave the \![set,wallpaper, etc.] tag at the beginning.
 
-Select.SetWallpaper_0
+OnWallpaper
 {
+	"\![set,wallpaper,%(Wallpaperfile),%(reference0)]"
+	--
 	if nowmode == "RYS"
 	{
-		"\![set,wallpaper,%(Wallpaperfile),center]\RYS%(RYSIdle)"
+		"\RYS%(RYSIdle)"
 		--
-		"...It's centered.\e"
+		if reference0 == "center"; "...It's centered."
+		elseif reference0 == "tile"; "...It's tiled."
+		elseif reference0 == "stretch"; "...It's stretched."
+		elseif reference0 == "span"; "...It's spanned across."
+		else; "...It's set."
 	}
 	else
 	{
 		if LV == 0
 		{
-			"\![set,wallpaper,%(Wallpaperfile),center]\0"
+			"\0"
 			--
+			"\s[0]"
+			"\s[102]"
+			"\s[103]"
 			"\s[104]"
 			"\s[111]"
-			"\s[103]"
-			"\s[102]"
 			"\s[205]"
-			"\s[0]"
 			--
-			"Ok,\w4 I've centered it for you.\w8\w8"
+			if reference0 == "center"; "Ok,\w4 I've centered it for you.\w8\w8"
+			if reference0 == "tile"; "Ok,\w4 I've tiled it for you.\w8\w8"
+			if reference0 == "stretch"; "Ok,\w4 I've stretched it across.\w8\w8"
+			if reference0 == "span"; "Ok,\w4 I've fit it onto both monitors.\w8\w8"
+			
+			"Ok,\w4 I've %(reference1) it for you.\w8\w8"
 			"There you go.\w8\w8"
 			"Done.\w8\w8"
 			"It's set.\w8\w8"
 			"There.\w8\w8"
 			--
-			"\s[106] Is it straight?\w8\w8 It's hard to tell from here.\e"
-			"\s[103] How does it look?\e"
-			" Is that alright?\e"
+			" "
+			--
+			if reference0 == "center"
+			{
+				"\s[106]Is it straight?\w8\w8 It's hard to tell from here."
+				"\s[103]How does it look?"
+				"Is that alright?"
+				"What do you think,\w4 is it set right?"
+			}
+			if reference0 == "tile"
+			{
+				"\s[101]Funky."
+				"\s[101]Kinda weird that way,\w4 isn't it?"
+				"\s[101]Whatever floats your boat,\w4 I guess."
+				"\s[106]It looks a bit crowded,\w4 doesn't it?"
+				"\s[107]To each their own,\w4 I suppose..."
+			}
+			if reference0 == "stretch"
+			{
+				"\s[106]Does it look ok?"
+				"\s[106]Is that alright?"
+				"\s[110]Isn't it a bit skewed this way?"
+				"\s[106]Hm,\w4 does it seem a little off to you?"
+			}
+			if reference0 == "span"
+			{
+				"How does that look?"
+				"\s[110]Got a lot of space,\w4 huh?"
+				"Did that work alright?"
+				"\s[101]Fancy."
+			}
 		}
 		else
 		{
-			"\![set,wallpaper,%(Wallpaperfile),center]\0\s[510]...Ok,\w4 I've centered it.\e"
+			"\0\s[510]"
+			--
+			if reference0 == "center"; "...Ok,\w4 I've centered it."
+			elseif reference0 == "tile"; "...Ok,\w4 I've tiled it."
+			elseif reference0 == "stretch"; "...Ok,\w4 I've stretched it."
+			elseif reference0 == "span"; "...Ok,\w4 I've spanned it across."
+			else; "...Ok,\w4 I've set it."
 		}
 	}
+	--
+	"\e"
 }
-Select.SetWallpaper_1
-{
-	if nowmode == "RYS"
-	{
-		"\![set,wallpaper,%(Wallpaperfile),tile]\RYS%(RYSIdle)"
-		--
-		"...It's tiled.\e"
-	}
-	else
-	{
-		if LV == 0
-		{
-			"\![set,wallpaper,%(Wallpaperfile),tile]\0"
-			--
-			"\s[104]"
-			"\s[111]"
-			"\s[103]"
-			"\s[102]"
-			"\s[205]"
-			"\s[0]"
-			--
-			"Ok,\w4 I've tiled it for you.\w8\w8"
-			"There you go.\w8\w8"
-			"Done.\w8\w8"
-			"It's set.\w8\w8"
-			"There.\w8\w8"
-			--
-			"\s[101] Funky.\e"
-			"\s[101] Kinda weird that way,\w4 isn't it?\e"
-			"\s[101] Whatever floats your boat,\w4 I guess.\e"
-			"\s[106] It looks a bit crowded,\w4 doesn't it?\e"
-		}
-		else
-		{
-			"\![set,wallpaper,%(Wallpaperfile),tile]\0\s[510]...Ok,\w4 I've tiled it.\e"
-		}
-	}
-}
-Select.SetWallpaper_2
-{
-	if nowmode == "RYS"
-	{
-		"\![set,wallpaper,%(Wallpaperfile),stretch]\RYS%(RYSIdle)"
-		--
-		"...It's stretched.\e"
-	}
-	else
-	{
-		if LV == 0
-		{
-			"\![set,wallpaper,%(Wallpaperfile),stretch]\0"
-			--
-			"\s[104]"
-			"\s[111]"
-			"\s[103]"
-			"\s[102]"
-			"\s[205]"
-			"\s[0]"
-			--
-			"Ok,\w4 I've stretched it across.\w8\w8"
-			"There you go.\w8\w8"
-			"Done.\w8\w8"
-			"It's set.\w8\w8"
-			"There.\w8\w8"
-			--
-			"\s[106] Does it look ok?\e"
-			"\s[106] Is that alright?\e"
-			"\s[110] Isn't it a bit skewed this way?\e"
-		}
-		else
-		{
-			"\![set,wallpaper,%(Wallpaperfile),stretch]\0\s[510]...Ok,\w4 I've stretched it.\e"
-		}
-	}
-}
-Select.SetWallpaper_3
-{
-	if nowmode == "RYS"
-	{
-		"\![set,wallpaper,%(Wallpaperfile),span]\RYS%(RYSIdle)"
-		--
-		"...It's spanned across.\e"
-	}
-	else
-	{
-		if LV == 0
-		{
-			"\![set,wallpaper,%(Wallpaperfile),span]\0"
-			--
-			"\s[104]"
-			"\s[111]"
-			"\s[103]"
-			"\s[102]"
-			"\s[205]"
-			"\s[0]"
-			--
-			"Ok,\w4 I've fit it onto both monitors.\w8\w8"
-			"There you go.\w8\w8"
-			"Done.\w8\w8"
-			"It's set.\w8\w8"
-			"There.\w8\w8"
-			--
-			" How does that look?\e"
-			"\s[110] Got a lot of space,\w4 huh?\e"
-			" Did that work alright?\e"
-		}
-		else
-		{
-			"\![set,wallpaper,%(Wallpaperfile),span]\0\s[510]...Ok,\w4 I've spanned it across.\e"
-		}
-	}
-}
-Select.SetWallpaper_Cancel
+
+OnWallpaperCancel
 {
 	if nowmode == "RYS"
 	{
@@ -346,6 +293,7 @@ Select.SetWallpaper_Cancel
 			"\0\s[0]Alrighty then,\w4 just let me know if you change your mind.\e"
 			"\0\s[104]Ok,\w4 let me know if you change your mind.\e"
 			"\0\s[111]Ok,\w4 if you change your mind let me know.\e"
+			"\0\s[104]Ok,\w4 just let me know if you want a new wallpaper.\w8\w8\w8\s[101] Desktoppaper?\w8\w8\s[107] Wallpaper.\e"
 		}
 		else
 		{
@@ -387,6 +335,7 @@ OnInstallBegin
 			"\0\s[0]Oh,\w4 you need something installed?\w8\w8\s[1070] Uh,\w4 let me see...\e"
 			"\0\s[110]Oh sure,\w4\s[1070] let me see here...\e"
 			"\0\s[111]You need this installed?\w8\w8\s[104] Sure,\w4 just a sec.\e"
+			"\0\s[1070]Oh,\w4 something to install?\w8\w8 Let me see...\e"
 		}
 		elseif LVCheck == 1
 		{
@@ -425,6 +374,7 @@ OnInstallComplete
 			if LV == 0
 			{
 				"\0\s[110]A new outfit?\w8\w8\s[104] Aw,\w4 thanks %(username).\e"
+				"\0\s[110]A new look?\w8\w8\s[101] Sure,\w4 why not I guess.\e"
 			}
 			else
 			{
@@ -459,6 +409,8 @@ OnInstallComplete
 			{
 				"\0\s[1070]Oh,\w4 someone else..?\w8\w8\s[101] Is this how I ended up here?"
 				"\0\s[1070]Another person..?\w8\w8\s[101] You sure do like having friends in your computer,\w4 I guess."
+				if ghostexcount >= 5; "\0\s[1070]Someone else..?\w8\w8\s[106] Aren't there enough people here already?"
+				if ghostexcount >= 5; "\0\s[1070]Another person..?\w8\w8\s[106] Isn't %(ghostexcount) people in your computer enough?"
 			}
 			else
 			{
@@ -496,6 +448,7 @@ OnInstallComplete
 			if LV == 0
 			{
 				"\0\s[1070]Oh,\w4 it's a...\w8 balloon?\w8\w8\s[205] ...Doesn't look like any balloon I've ever seen,\w4 but ok.\e"
+				"\0\s[1070]A balloon?\w8\w8\s[101] Were you planning to have a party?\w8\w8\s[104] That sounds fun,\w4 I'm in.\e"
 			}
 			else
 			{
@@ -529,6 +482,7 @@ OnInstallComplete
 			if LV == 0
 			{
 				"\0\s[1070]Oh,\w4 it's a...\w8 'plugin'?\w8\w8\s[1020] Sorry kiddo,\w4 got no idea what that is.\w8\s[0] But it's installed now,\w4 so it should work for you.\e"
+				"\0\s[1070]A...\w8\w8 'plugin'?\w8\w8\s[106] What's a plugin?\e"
 			}
 			else
 			{
@@ -562,6 +516,7 @@ OnInstallComplete
 			if LV == 0
 			{
 				"\0\s[110]Oh,\w4 it's a calendar?\w8\w8\s[104] That's pretty neat,\w4 you like to be organized huh?\e"
+				"\0\s[1070]A new calendar?\w8\w8\s[103] That's cool,\w4 you planning to save some events?\e"
 			}
 			else
 			{
@@ -595,6 +550,7 @@ OnInstallComplete
 			if LV == 0
 			{
 				"\0\s[106]I'm uh,\w4 not really sure what that is,\w4 but I've installed it I guess.\e"
+				"\0\s[106]Well,\w4 whatever that is,\w4 it's installed now.\w8\w8\s[107] Computers...\e"
 			}
 			else
 			{
@@ -630,6 +586,7 @@ Select.callghost
 		if LV == 0
 		{
 			"\0\s[0]Alright,\w4\s[1070] just a moment..."
+			"\0\s[104]Ok.\w8\w8\s[1070] Let me see..."
 		}
 		else
 		{
@@ -659,6 +616,7 @@ Select.changeghost
 		if LV == 0
 		{
 			"\0\s[0]Alright,\w4\s[104] I'll see you later then,\w4 %(username)."
+			"\0\s[104]Alright then,\w4 have fun with your new friend,\w4 %(username)."
 		}
 		else
 		{
@@ -688,6 +646,7 @@ Select.changenothanks
 		if LV == 0
 		{
 			"\0\s[0]Alright,\w4 let me know if you change your mind.\e"
+			"\0\s[101]Oh,\w4 you're not going to bring them here?\w8\w8\s[107] Alright,\w4 I guess.\e"
 		}
 		else
 		{
@@ -745,18 +704,22 @@ OnInstallFailure
 		if LV == 0
 		{
 			"\0\s[200]Ah,\w4 sorry %(username),\w4 something went wrong.\w8\w8 "
+			"\0\s[107]Oops,\w4 looks like something went wrong.\w8\w8 "
 			--
 			if reference0 == "unsupported" //If the file is unsupported
 			{
 				"\s[201]I don't think that file is supported.\e"
+				"\s[206]That file type isn't supported,\w4 apparently.\e"
 			}	
 			elseif reference0 == "extraction" //This checks if the file didn't extract properly.
 			{
 				"\s[300]I couldn't get it to extract.\e"
+				"\s[107]It won't extract.\e"
 			}
 			else
 			{
 				"\s[106]I'm not sure why.\e"
+				"\s[106]I don't know why.\e"
 			}
 		}
 		else
@@ -820,6 +783,7 @@ OnInstallRefuse
 		if LV == 0
 		{
 			"\0\s[106]Sorry kiddo,\w4 I can't install this.\w8\w8\s[1070] Looks like it's meant for someone else,\w4 it says %(reference0)?\e"
+			"\0\s[107]Can't do that,\w4 sorry.\w8\w8\s[106] This file says it's for %(reference0) only.\e"
 		}
 		else
 		{
@@ -856,6 +820,7 @@ OnVanishSelecting
 		if LV == 0
 		{
 			"\0\s[205]* (Is it time to say goodbye..?)\e"
+			"\0\s[102]* (Do you want to say goodbye to S?)\e"
 		}
 		else
 		{
@@ -926,6 +891,7 @@ OnVanishCancel
 		if LV == 0
 		{
 			"\0\s[0]* (You decide to keep him a while longer.)\e"
+			"\0\s[102]* (Of course not,\w4 why would you ever get rid of him?)\e"
 		}
 		else
 		{
@@ -967,6 +933,7 @@ OnVanishButtonHold
 		if LV == 0
 		{
 			"\0\s[106]Oh,\w4 changed your mind?\w8\w8\s[107] Don't scare me like that,\w4 kiddo.\e"
+			"\0\s[110]Oh,\w4 you changed your mind?\w8\w8\s[106] I'm glad,\w4 I like getting to hang out with you now and then.\e"
 		}
 		else
 		{
@@ -981,10 +948,6 @@ OnVanishButtonHold
 		}
 	}
 }
-
-
- //---- OnVanished -----------------------------------------
- //OnVanished is a weird little function. Basically, if you uninstall a ghost, it'll automatically go back to the last ghost you were using. They'll then say this line of dialogue about the ghost you just uninstalled. This is very annoying to test as you can imagine! But unlikely to come up super often, I bet. You might as well be thorough and fill this out as well. Make sure to set up both their poses immediately so they both appear when it switches back to them.
  
 OnVanished
 {
@@ -1013,6 +976,7 @@ OnVanished
 		if LV == 0
 		{
 			"\0\s[206]Oh,\w4 is %(reference0) gone..?\w8\w8\s[204]\n\n...I hope they're alright...\e"
+			"\0\s[206]Oh...\w8\w8\s[109] I hope %(reference0) will be alright...\e"
 		}
 		else
 		{
@@ -1053,6 +1017,7 @@ OnBIFFBegin
 			if LV == 0
 			{
 				"\0\s[101]Uh,\w4 alright,\w4 sure.\w8\w8\s[1070] Give me just a moment...\e"
+				"\0\s[104]Sure,\w8\s[1070] let me check...\e"
 			}
 			else
 			{
@@ -1088,6 +1053,7 @@ OnBIFFBegin
 			if LV == 0
 			{
 				"\0\s[1070]Looking for new emails,\w4 huh..?\w8\w8 Give me just a moment...\e"
+				"\0\s[1070]Hm,\w4 let me see...\w8\w8 New emails...\e"
 			}
 			else
 			{
@@ -1103,10 +1069,6 @@ OnBIFFBegin
 		}
 	}
 }
-
- 
- //---- OnBIFFComplete ---------------------------------------------------------------
- //After they've succeeded in checking your mail, they'll report back with how many new emails you have. Replace the dialogue with whatever would be character appropriate.
  
 OnBIFFComplete
 {
@@ -1135,6 +1097,7 @@ OnBIFFComplete
 			if LV == 0
 			{
 				"\0\s[106]Nope,\w4 looks like there's nothing new.\e"
+				"\0\s[0]You're all caught up.\e"
 			}
 			else
 			{
@@ -1168,6 +1131,7 @@ OnBIFFComplete
 			if LV == 0
 			{
 				"\0\s[0]You've got 1 new email."
+				"\0\s[104]1 new email."
 			}
 			else
 			{
@@ -1201,6 +1165,7 @@ OnBIFFComplete
 			if LV == 0
 			{
 				"\0\s[0]You've got %(reference0) new emails.\w8\s[103] Probably shouldn't let those pile up too much,\w4 huh?"
+				"\0\s[0]%(reference0) new emails.\w8\w8\s[107] Hopefully they're not spam,\w4 huh?"
 			}
 			else
 			{
@@ -1210,7 +1175,7 @@ OnBIFFComplete
 				}
 				else
 				{
-					"\0\s[410]%(reference0) new emails.\e"
+					"\0\s[410]%(reference0) new emails."
 				}
 			}
 		}
@@ -1227,13 +1192,14 @@ OnBIFFComplete
 		}
 		elseif nowmode == "Asleep"
 		{
-			"\0\s[109]Over 100 new..."
+			"\0\s[109]Over 100 new...\e"
 		}
 		else
 		{
 			if LV == 0
 			{
 				"\0\s[106]You've uh...\w8\s[107] got a lot of new emails,\w4 kiddo.\w8\w8\s[208] I'd say more than 100,\w4 at least.\e"
+				"\0\s[107]...That's a lot of emails,\w4 over 100.\w8\w8\s[106] Might want to take care of those at some point.\e"
 			}
 			else
 			{
@@ -1267,6 +1233,7 @@ OnBIFFComplete
 			if LV == 0
 			{
 				"\0\s[0]You've got %(reference0) new emails."
+				"\0\s[104]%(reference0) new emails."
 			}
 			else
 			{
@@ -1303,6 +1270,7 @@ OnBIFFComplete
 			{
 				"\w8\w8 Do you want to see the header%(_s)?"
 				"\w8\w8 Would you like to see the header%(_s)?"
+				"\w8\w8 Would the header%(_s) be of any interest to you?"
 			}
 			else //Mad route will never ask you about headers.
 			{
@@ -1346,7 +1314,7 @@ Select.seeheaders
 	--
 	"\b2\_q%(headers)\*\n\n\![*]\q[I'm done,cancelnodialogue]"
 	--
-	headers = NULL
+	ERASEVAR("headers")
 }
 
 OnGetHeaders
@@ -1372,8 +1340,8 @@ OnGetHeaders
 	_display
 }
 
- //---- OnBIFFFailure ---------------------------------------------------------------
- //Various error messages that can happen when your ghost tries to connect to an email account. Replace the dialogue as appropriate.
+//---- OnBIFFFailure ---------------------------------------------------------------
+//Various error messages that can happen when your ghost tries to connect to an email account. Replace the dialogue as appropriate.
  
 OnBIFFFailure
  {
@@ -1398,6 +1366,7 @@ OnBIFFFailure
 				"\0\s[106]Sorry,\w4 looks like the connection timed out.\w8\w8\s[0] Maybe try again later?\e"
 				"\0\s[106]Sorry,\w4 the connection timed out.\w8\w8\s[0] I can try again if you ask me later.\e"
 				"\0\s[106]The connection timed out,\w4 sorry.\w8\w8\s[0] Maybe you should try again later?\e"
+				"\0\s[107]Oops,\w4 the connection died.\w8\w8\s[106] Maybe it'll work if you try again later.\e"
 			}
 			else
 			{
@@ -1433,6 +1402,7 @@ OnBIFFFailure
 				"\0\s[106]Sorry,\w4 it won't let me in.\w8\w8 Maybe double check your email settings?\e"
 				"\0\s[106]It's not letting me in.\w8\w8 You should double check the settings of your email.\e"
 				"\0\s[110]It's not letting me in.\w8\w8\s[106] Sorry kiddo,\w4 you'll have to check your email's settings.\e"
+				"\0\s[106]Looks like your email settings aren't right,\w4 I can't get into the account.\w8\w8 Sorry.\e"
 			}
 			else
 			{
@@ -1451,29 +1421,30 @@ OnBIFFFailure
 	{
 		if nowmode == "RYS"
 		{
-			"\RYS\s[2006]Sorry,\w4 it looks um...\w8\w8\s[2007] Like your POP settings are wrong...\![open,configurationdialog]\e"
+			"\RYS\s[2006]Sorry,\w4 it looks um...\w8\w8\s[2007] Like your POP settings are wrong..."
 		}
 		elseif holdingObsidian == 1
 		{
-			"\0\s[1206]Sorry,\w4 the POP settings are wrong.\![open,configurationdialog]\e"
+			"\0\s[1206]Sorry,\w4 the POP settings are wrong."
 		}
 		elseif nowmode == "Asleep"
 		{
-			"\0\s[109]Mm,\w4 POP settings are wrong...\w8\w8\s[1300] %(mumb)...\![open,configurationdialog]\e"
+			"\0\s[109]Mm,\w4 POP settings are wrong...\w8\w8\s[1300] %(mumb)..."
 		}
 		else
 		{
 			if LV == 0
 			{
-				"\0\s[106]Sorry,\w4 looks like something isn't set up quite right.\w8\w8\s[206] Maybe double check your POP settings?\![open,configurationdialog]\e"
-				"\0\s[106]Sorry,\w4 your settings aren't right.\w8\w8\s[0] You should double check them.\![open,configurationdialog]\e"
-				"\0\s[110]Your POP settings aren't right.\w8\w8\s[0] Double check those,\w4 then ask me again.\![open,configurationdialog]\e"
+				"\0\s[106]Sorry,\w4 looks like something isn't set up quite right.\w8\w8\s[206] Maybe double check your POP settings?"
+				"\0\s[106]Sorry,\w4 your settings aren't right.\w8\w8\s[0] You should double check them."
+				"\0\s[110]Your POP settings aren't right.\w8\w8\s[0] Double check those,\w4 then ask me again."
+				
 			}
 			else
 			{
 				if LVCheck == 1
 				{
-					"\0\s[510]...Sorry,\w4 the POP settings aren't right.\![open,configurationdialog]\e"
+					"\0\s[510]...Sorry,\w4 the POP settings aren't right."
 				}
 				else //Doesn't give the pop settings on purpose
 				{
@@ -1481,6 +1452,8 @@ OnBIFFFailure
 				}
 			}
 		}
+		--
+		"\![open,configurationdialog,BIFF]\e"
 	}
 	elseif reference0 == "artificial" //The user has interrupted/cancelled the check
 	{
@@ -1539,6 +1512,7 @@ OnBIFFFailure
 				"\0\s[106]Sorry,\w4 all I've got is some kind of error message.\w8\w8 '%(reference0)'.\e"
 				"\0\s[106]Sorry,\w4 all it says is '%(reference0)'.\e"
 				"\0\s[110]Ah,\w4 I got an error.\w8\w8 It says '%(reference0)'.\e"
+				"\0\s[107]...Welp.\w8\w8\s[106] It gave me an error that says '%(reference0)'.\w8\w8\s[107] That's all.\e"
 			}
 			else
 			{
@@ -1552,7 +1526,6 @@ OnBIFFFailure
 				}
 			}
 		}
-		//reference0 here stores the error message the email server would have given the ghost, hopefully.
 	}
 }
 
@@ -1603,6 +1576,7 @@ OnUpdateBegin
 			"\0\s[104]Sure,\w4 I can check for updates.\w8\w8\s[1070] Just a moment..."
 			"\0\s[0]Yeah,\w4 I can check for updates.\w8\w8\s[1070] Hold on a moment..."
 			"\0\s[104]Sure,\w4 just a moment.\w8\w8\s[1070] Lets see,\w4 anything new..?"
+			"\0\s[110]New content?\w8\w8\s[1070] I guess I can check..."
 		}
 		else
 		{
@@ -1651,6 +1625,7 @@ OnUpdateReady
 			"\0\s[103]There's something new,\w4 %(reference0) new file%(_s) to download."
 			"\0\s[104]There's %(reference0) new file%(_s) ready to go."
 			"\0\s[111]Oh nice,\w4 there's %(reference0) new file%(_s) to download."
+			"\0\s[111]Ooh,\w4 %(reference0) new file%(_s).\w8\w8\s[104] Wonder what's changed?"
 			--
 			"\w8\w8\s[1070]\e"
 		}
@@ -1697,6 +1672,7 @@ OnUpdateComplete
 				"\0\s[106]Sorry kiddo,\w4 looks like there are no new files.\e"
 				"\0\s[107]Nope,\w4 nothing new after all.\e"
 				"\0\s[107]Nothing new,\w4\s[106] sorry kiddo.\e"
+				"\0\s[107]Nope,\w4 nothing new.\w8\w8\s[103] Maybe another time,\w4 huh?\e"
 			}
 			else
 			{
@@ -1757,6 +1733,7 @@ OnAskChangelog
 		if LV == 0
 		{
 			"\0\s[1010]Update complete!\w8\w8\s[0] Do you want to see the changelog?"
+			"\0\s[104]Done!\w8\w8\s[103] Want to see the changelog?"
 		}
 		else
 		{
@@ -1801,6 +1778,7 @@ OnUpdateFailure
 				"\0\s[107]Ah,\w4 the connection timed out.\w8\w8\s[106] Sorry,\w4 maybe we can try again later?\e"
 				"\0\s[107]Oh,\w4 the connection timed out.\w8\w8\s[106] Too bad,\w4 maybe it'll work if we try again later.\e"
 				"\0\s[106]The connection timed out,\w4 you'll have to try again later.\w8\w8\s[107] Sorry about that.\e"
+				"\0\s[107]Connection timed out,\w4 sorry.\w8\w8\s[104] Maybe we can try later.\e"
 			}
 			else
 			{
@@ -1836,6 +1814,7 @@ OnUpdateFailure
 				"\0\s[107]Sorry kiddo,\w4 something went wrong.\w8\w8\s[106] The MD5 values don't match.\w8\w8\s[0] You should let anZichqec know so she can fix it.\e"
 				"\0\s[107]The MD5 values don't match,\w4 I can't finish the update.\w8\w8\s[106] That's on anZichqec's end,\w4 you should let her know so she can fix it.\e"
 				"\0\s[107]The files aren't set up correctly,\w4 I got an MD5 error.\w8\w8\s[106] You should let anZichqec know so she can fix the update files.\e"
+				"\0\s[101]Whoops,\w4 looks like the dev made a mistake.\w8\w8 Let anZichqec know,\w4 will you?\e"
 			}
 			else
 			{
@@ -1873,13 +1852,15 @@ OnUpdateFailure
 					"\0\s[101]Careful there,\w4 dev.\e"
 					"\0\s[101]Oop,\w4 that could've been bad,\w4 huh?\e"
 					"\0\s[101]Shouldn't you turn on that 'Update Check Only' option in the dev palette if you're going to be messing with update stuff?\w8\w8\s[107] Or like,\w4 try that 'Update Full Check' thing?\e"
+					"\0\s[101]Aren't you supposed to be pretty good at this whole update thing by now?\e"
 				}
 				else
 				{
 					"\0\s[110]Oh,\w4 you've changed your mind?\e"
 					"\0\s[110]Oh,\w4 uh,\w4\s[106] alright then.\w8\w8\s[0] Let me know if you change your mind.\e"
 					"\0\s[110]Oh,\w4 did you change your mind?\e"
-					"\0\s[110]Oh,\w4\8\s[106] you don't want to update after all?\w8\w8\s[107] Alright then,\w4 I guess.\w8\w8\s[0] Let me know if you change your mind.\e"
+					"\0\s[110]Oh,\w8\s[106] you don't want to update after all?\w8\w8\s[107] Alright then,\w4 I guess.\w8\w8\s[0] Let me know if you change your mind.\e"
+					"\0\s[110]Oh,\w8\s[106] you don't want to see the new content?\w8\w8\s[107] Well,\w4 your loss,\w4 I guess...\e"
 				}
 			}
 			else
@@ -1916,6 +1897,7 @@ OnUpdateFailure
 				"\0\s[106]Sorry kiddo,\w4 something went wrong.\w8\w8\s[1070] All it says is '%(reference0)'.\w8\w8\s[106] Maybe you should let anZichqec know about that?\e"
 				"\0\s[110]Ah,\w4 sorry,\w4 something went wrong.\w8\w8\s[106] Something about '%(reference0)'?\w8\w8 You should let anZichqec know about that.\e"
 				"\0\s[106]Looks like something went wrong,\w4 sorry.\w8\w8\s[110] It says '%(reference0)'.\w8\w8\s[106] Maybe you should ask anZichqec about that?\e"
+				"\0\s[107]Hmm,\w4 no can do.\w8\w8 Got some kind of error that says '%(reference0)'.\w8\w8 anZichqec might be able to help you out with that.\e"
 			}
 			else
 			{
@@ -2034,25 +2016,37 @@ Select.nochangelog
 	{
 		if LV == 0
 		{
-			"\s[104]Ok,\w4 if you change your mind just let me know.\e"
+			"\0\s[104]Ok,\w4 if you change your mind just let me know.\e"
+			"\0\s[102]Alright,\w4 let me know if you want to check it later.\e"
 		}
 		else
 		{
-			"\s[510]...Ok.\w8\w8 Just tell me if you want to see it later.\e"
+			"\0\s[510]...Ok.\w8\w8 Just tell me if you want to see it later.\e"
 		}
 	}
 }
 
 ghostver //S's current version, so I don't have to remember to update it on every menu
 {
-	"1.4.1"
+	"1.4.2"
 }
 
 LatestUpdate
 {
-	"\_l[84]-Version 1.4.1-\n\n\n[half]/
-	-Fixed an issue where asking S to talk to other ghosts from his menu wasn't working. As a note, you can also now press Y to make him talk to a random open ghost!\n\n/
-	-Fixed some typos./
+	"\_l[84]-Version 1.4.2-\n\n\n[half]/
+	-Added a new shell for summer!\n\n/
+	-Added a ton of new menu dialogues! ~5 for each family member, ~5 for each timeline.\n\n/
+	-Added a new option in the timeline menu if you have all of them unlocked!\n\n/
+	-Added a bunch of new boot/close dialogues!\n\n/
+	-Added some new dialogues for him to say randomly.\n\n/
+	-Added some new dialogues for stuff in the right click menu, if you're in default mode.\n\n/
+	-Fixed RYS's menu and commu dialogues.\n\n/
+	-Added a check to see if surfaces are valid before they're called. If not, he should appear with his default surface instead of disappearing now.\n\n/
+	-Reworked the setup for booting, eliminated the bug where sometimes S would change into sleep mode even if he looked like he was awake when he booted.\n\n/
+	-Made it so that if you boot S a few times, you should get past the first friendship stage. This is a bandaid patch, I want to rework the early stages at a later date.\n\n/
+	-Streamlined more of his inner workings.\n\n/
+	-Removed a bunch of test code that was left in by mistake.\n\n/
+	-Fixed some typos and word wrap issues./
 	\n\n\n"
 }
 
@@ -2181,6 +2175,7 @@ OnHeadlinesenseBegin
 			"\0\s[0]Sure,\w4 I'll pull up %(reference0) for you.\e"
 			"\0\s[1070]%(reference0),\w4 huh..?\e"
 			"\0\s[0]Checking for something new?\w8\w8\s[1070] Let me see what they've got...\e"
+			"\0\s[104]I wonder if there's anything new?\w8\w8\s[1070] Lets see...\e"
 		}
 		else
 		{
@@ -2196,9 +2191,7 @@ OnHeadlinesenseBegin
 	}
 }
 
- //---- OnHeadlinesense.OnFind --------------------------------------------------------
- //This actually displays the feed. My set-up for it is pretty simple but gets the job done, it just has the name of the feed, a line space, then a list of links. You shouldn't have to edit any of these and I probably wouldn't honestly.
- 
+
 OnHeadlinesense.OnFind
 {
 	if nowmode == "RYS"
@@ -2210,38 +2203,16 @@ OnHeadlinesense.OnFind
 		"\0"
 	}
 	--
-	//----  What page You're on
-	if reference2 == "First" || reference2 == "First and Last"
-	{
-		//---- First page
-		"\b2%(reference0):"
-	}
-	elseif reference2 == "Next"
-	{
-		//---- Second page
-		"\b2%(reference0):"
-	}
-	elseif reference2 == "Last"
-	{
-		//---- Last page
-		"\b2%(reference0):"
-	}
+	"\n\n%(reference3)\n"
 	--
-	//---- Headlines
-	"\n\n%reference3\n"
-	--
-	//---- Pages
-	if reference2 == "First" || reference2 == "Next"
-	{
-		//---- Bottom buttons
-		"\![*]\q[Next,] - \![*]\q[Stop,Headline_Cancel]\e"
-	}
-	else
-	{
-		//---- Bottom buttons
-		"\![*]\q[Stop,Headline_Cancel]\e"
-	}
-	
+	// if reference2 == "First" || reference2 == "Next"
+	// {
+		// "\![*]\q[Next,] - \![*]\q[Stop,Headline_Cancel]\e"
+	// }
+	// else
+	// {
+		// "\![*]\q[Stop,Headline_Cancel]\e"
+	// }	
 }
 
 Select.Headline_Cancel
@@ -2266,6 +2237,7 @@ Select.Headline_Cancel
 			"\0\s[104]Alright,\w4 let me know when you want to see that again.\e"
 			"\0\s[0]Done for now?\w8\w8\s[104] Ok.\e"
 			"\0\s[102]Alright,\w4 I'll just put this away.\w8\w8\s[0] Let me know if you want to check it again.\e"
+			"\0\s[104]Ok,\w4 if you want to see it again just let me know.\e"
 		}
 		else
 		{
@@ -2375,6 +2347,7 @@ OnHeadlinesenseFailure
 			"Sorry,\w4 something went wrong with the feed."
 			"Sorry,\w4 I can't seem to get the feed."
 			"Something went wrong,\w4 sorry."
+			"Sorry,\w4 I can't get this to work."
 			--
 			"\w8\w8 "
 			--
@@ -2468,6 +2441,7 @@ OnUpdatedataCreating
 			"Sure,\w4 creating an update file.\e"
 			"Making an update file.\e"
 			"Sure,\w4 getting an update file ready.\e"
+			"Getting ready to release an update?\w8\s[101] Here goes,\w4 then.\e"
 		}
 		else
 		{
@@ -2515,6 +2489,7 @@ OnUpdatedataCreated
 			"Done,\w4 the updates file is ready.\e"
 			"Finished making the file for you.\e"
 			"It's ready to go.\e"
+			"All done,\w4 good luck.\e"
 		}
 		else
 		{
@@ -2563,6 +2538,7 @@ OnNarCreating
 			"Ok,\w4 creating a .nar file.\e"
 			"Sure,\w4 putting together a .nar file.\e"
 			"Getting a .nar file ready.\e"
+			"Sure,\w4 just a moment."
 		}
 		else
 		{
@@ -2583,17 +2559,18 @@ OnNarCreating
  
 OnNarCreated
 {
+	_nar = "\_a[OnNarLocation,%(reference1)]%(reference0)\_a"
 	if nowmode == "RYS"
 	{
-		"\RYS\s[2006]Successfully created \_a[OnNarLocation,%(reference1)]%(reference0)\_a.\e"
+		"\RYS\s[2006]Successfully created %(_nar).\e"
 	}
 	elseif holdingObsidian == 1
 	{
-		"\0\s[1200]Successfully created \_a[OnNarLocation,%(reference1)]%(reference0)\_a.\e"
+		"\0\s[1200]Successfully created %(_nar).\e"
 	}
 	elseif nowmode == "Asleep"
 	{
-		"\0* (Successfully created \_a[OnNarLocation,%(reference1)]%(reference0)\_a.)\e"
+		"\0* (Successfully created %(_nar).)\e"
 	}
 	else
 	{
@@ -2605,16 +2582,17 @@ OnNarCreated
 			"\0\s[111]"
 			"\0\s[0]"
 			--
-			"Successfully created \_a[OnNarLocation,%(reference1)]%(reference0)\_a.\e"
-			"Done creating the .nar for \_a[OnNarLocation,%(reference1)]%(reference0)\_a.\e"
-			"\_a[OnNarLocation,%(reference1)]%(reference0)\_a is ready to go.\e"
-			"Finished making \_a[OnNarLocation,%(reference1)]%(reference0)\_a.\e"
+			"Successfully created %(_nar).\e"
+			"Done creating the .nar for %(_nar).\e"
+			"%(_nar) is ready to go.\e"
+			"Finished making %(_nar).\e"
+			"There,\w4 %(_nar) is ready to go.\e"
 		}
 		else
 		{
 			if LVCheck == 1
 			{
-				"\0\s[510]Successfully created \_a[OnNarLocation,%(reference1)]%(reference0)\_a.\e"
+				"\0\s[510]Successfully created %(_nar).\e"
 			}
 			else
 			{
@@ -2675,6 +2653,7 @@ OnSNTPBegin
 			"\0\s[110]Oh,\w4 sure,\w4 I can check if your clock is synced.\w8\w8\s[1070] Hold on a moment..."
 			"\0\s[107]Aren't computers supposed to be really good at time?\w8\w8\s[1070] Just a moment,\w4 I'll check..."
 			"\0\s[106]If your computer can't keep the time accurately,\w4 how is checking with another computer more reliable..?\w8\w8\s[107] Anyways,\w4\s[1070]just a moment..."
+			"\0\s[101]Computers are supposed to be good at time,\w4 aren't they?\w8\w8\s[107] I guess I can check anyways,\w4 though...\w8\w8\s[1070] Let's see..."
 			--
 			"\w8\e"
 		}
@@ -2747,6 +2726,7 @@ OnSNTPCompare
 				"Your clock is correct.\e"
 				"Looks like your clock is already correct.\e"
 				"Your clock doesn't need changed.\e"
+				"Your clock's good,\w4 no need to worry about that.\e"
 			}
 			else
 			{
@@ -2760,8 +2740,6 @@ OnSNTPCompare
 				}
 			}
 		}
-			
-		//"\0\s[0]Your clock is accurate.\e" //replace this with whatever message you like.
 	}
 	else //if your clock doesn't match
 	{
@@ -2781,10 +2759,18 @@ OnSNTPCompare
 		{
 			if LV == 0
 			{
-				"\s[106]Your clock doesn't match.\w8\w8\s[0] Should I fix it?"
-				"\s[107]I guess your clock is off.\w8\w8\s[0] Do you want me to fix it?"
-				"\s[107]Huh,\w4 your clock is off.\w8\w8\s[0] Should I fix it for you?"
-				"\s[107]Your clock's time is off.\w8\w8\s[0] Do you want me to fix it for you?"
+				"\s[106]Your clock doesn't match."
+				"\s[107]I guess your clock is off."
+				"\s[107]Huh,\w4 your clock is off."
+				"\s[107]Your clock's time is off."
+				"\s[101]Huh,\w4 it's not correct."
+				--
+				"\w8\w8\s[0] "
+				--
+				"Do you want me to fix it?"
+				"Do you want me to fix it for you?"
+				"Should I fix it?"
+				"Should I fix it for you?"
 			}
 			else
 			{
@@ -2841,6 +2827,7 @@ OnSNTPEXECUTE
 			"There you go,\w4 all good.\w8\w8\s[106] Aren't computers supposed to take care of all this for you?\e"
 			"All good now.\e"
 			"There,\w4 fixed.\e"
+			"Ok,\w4 there you go.\w8\w8\s[101] If it's off after this,\w4 I don't know what to tell you.\e"
 		}
 		else
 		{
@@ -2881,6 +2868,7 @@ OnSNTPCANCEL
 			"\0\s[106]Uh...\w8\w8\s[107] Well,\w4 I'm sure you've got your reasons.\e"
 			"\0\s[106]Alright then,\w4\s[107] if you change your mind just let me know.\e"
 			"\0\s[107]...Ok.\w4 then.\w8\w8\s[106] If you want it fixed later,\w4 just let me know.\e"
+			"\0\s[107].\w8.\w8.\w8\w8\s[106]If you weren't going to have me change it,\w4 why did you have me check..?\e"
 		}
 		else
 		{
@@ -2921,6 +2909,7 @@ OnSNTPFailure
 			"\0\s[107]Something went wrong,\w4 sorry.\w8\w8\s[208] Maybe you can try again later?\e"
 			"\0\s[110]Ah,\w4 looks like something went wrong.\w8\w8\s[107] Maybe it'll work if you try again later?\e"
 			"\0\s[106]Sorry,\w4 I can't get through.\w8\w8 Maybe try again later?\w8\w8 Or you could try changing your settings in the preferences menu.\e"
+			"\0\s[107]Sorry,\w4 looks like it's not working.\w8\w8\s[106] If it's giving you trouble,\w4 it says here that you can change the SNTP server in the SSP preferences menu.\w8\w8\s[107] Whatever that means.\e"
 		}
 		else
 		{
@@ -2996,6 +2985,7 @@ OnScreenSaverEnd
 			"\0\s[1100]...Um.\w8 That was uh.\w8\s[515] Quite the experience.\e"
 			"\0\s[301].\w8.\w8.\w8\s[300]Oh,\w8\s[200] is it over..?\e"
 			"\0\s[301]Hhh...\w8\w8\s[300] Oh,\w8\s[206] it's gone...\e"
+			"\0\s[1100]...Uh.\w8\w8 Um.\w8\w8\s[106] That was.\w8\w8 Strange???\e"
 		}
 		else
 		{
@@ -3040,6 +3030,7 @@ OnBatteryLow
 			"\0\s[206]Your battery is getting pretty low.\w8\w8\s[107] You should probably plug your computer in.\e"
 			"\0\s[107]Your battery is pretty low,\w4 kiddo.\w8\w8\s[106] Keep a close eye on it.\e"
 			"\0\s[107]Keep a close eye on that battery,\w4 kiddo.\w8\w8\s[106] I don't want to be here if your computer shuts down,\w4 I'm not sure what would happen to me.\e"
+			"\0\s[110]Your battery's looking a little low,\w4 there.\w8\w8\s[106] Might want to plug your computer in.\e"
 		}
 	}
 	//reference0 here is the amount of battery power. Replace as you like.
@@ -3071,6 +3062,7 @@ OnBatteryCritical
 			"\0\s[108]Hey uh,\w4 your battery is REALLY low.\w8\w8 If you don't have a charger handy,\w4 could you send me home at least?\w8\w8\s[200] I don't want to find out what happens if I'm still here when this thing shuts down...\e"
 			"\0\s[109]Your battery is almost dead,\w4 kiddo.\w8\w8\s[108] Could you send me home if you don't have a charger,\w4 at least?\w8\w8\s[301] I don't want to be here when the power dies.\e"
 			"\0\s[107]Not to alarm you,\w4 but your battery is REALLY low.\w8\w8\s[206] You should probably go find a charger,\w4 like right now.\e"
+			"\0\s[106]Uh,\w4 your battery is REALLY low.\w8\w8 You've got a charger,\w4 right?\w8\w8\w8\n\n\s[202]If not,\w4 could you let me go home?\w8\w8 I don't want to get stuck here or anything when your computer shuts off...\e"
 		}
 	}
 }
@@ -3226,19 +3218,21 @@ OnShellScaling
 				{
 					"\0\s[1100]Whoa.\w8\w8\s[106] Uh,\w4 I'm starting to feel a little fuzzy,\w4 kiddo.\e" //cause his art gets fuzzy... unless you're like me and you turn that off so that he looks crisp at 200% and 300%. RIP my clever dialogue. Ah well, I still think it's funny
 					"\0\s[107]Even bigger..?\w8\w8\s[106] Is there a reason for this?\w8\w8 Are you trying to tell me I'm short?\e"
+					"\0\s[106]Um,\w4 kiddo,\w4 I'm gonna hit my head if you keep this up...\e"
 				}
 				elseif reference1 < 100 //You had him under 100%, and now you've made him very large
 				{
 					if reference0 > 100 //He's now above normal height
 					{
+						changedscaling += 3
 						"\0\s[1100]Ah-\w8\w8\s[107] That's kinda disorienting,\w4 kiddo.\e"
 						"\0\s[1100]Whoa-\w8\w8\s[107] Geez,\w4 do you have to change my size so suddenly like that?\e"
-						changedscaling += 3
 					}
 					else //Otherwise, he's still under normal height
 					{
 						"\0\s[106]That's uh,\w4 a little better?\e"
 						"\0\s[107]Well,\w4 that's part of the way back to normal...\w8\w8 Just %(100 - reference0)% to go.\e"
+						"\0\s[107]So close,\w4 and yet,\w4 so far...\e"
 					}
 				}
 				elseif reference1 == 100 //He was originally normal size
@@ -3251,22 +3245,25 @@ OnShellScaling
 				if reference1 < 100 //If it's smaller than 100, you already had him small and then you made him smaller again
 				{
 					"\0\s[106]Uh...\w8\w8\s[107] Alright,\w4 I guess.\w8\w8\s[202] Careful with that cursor,\w4 yeah..?\e"
+					"\0\s[107]I wonder how small I can get...\w8\w8\s[106] I'm not going to disappear completely,\w4 right?\w8\w8\s[206] I hope not...\e"
 				}
 				elseif reference1 > 100 //You had him over 100%, and now you've made him very small
 				{
 					if reference0 < 100 //He's under normal height
 					{
-						"\0\s[1100]Whoa-\w8\w8\s[106] Kiddo,\w4 can you at least give me a little warning?\w8\w8\s[107] That's really dizzying.\e"
 						changedscaling += 3
+						"\0\s[1100]Whoa-\w8\w8\s[106] Kiddo,\w4 can you at least give me a little warning?\w8\w8\s[107] That's really dizzying.\e"
 					}
 					else //He's still over normal height
 					{
 						"\0\s[106]Uh,\w4 that's a bit better I guess.\e"
+						"\0\s[106]Normal size would be preferred...\e"
 					}
 				}
 				elseif reference1 == 100 //He was originally normal size
 				{
 					"\0\s[106]...Uh,\w4 hey,\w4 aren't I small enough already?\e"
+					"\0\s[107]...Um,\w4 am I in your way or something?\w8\w8\s[106] I'm not that big...\e"
 				}
 			}
 		}
@@ -3358,6 +3355,7 @@ OnDeviceArrival //This will activate any time the user puts a USB into their com
 						DeviceList ,= _device
 						"\0\s[110]Oh,\w4 you've plugged in something new?\w8\w8\s[107] Computers sure do have a lot of little devices,\w4 don't they?\e"
 						"\0\s[110]Oh,\w4 what's this?\w8\w8 Something new?\e"
+						"\0\s[110]Oh,\w4 a new friend?\w8\w8\s[104] Hello little device,\w4 whatever you are.\e"
 					}
 				}
 			}
@@ -3642,6 +3640,7 @@ OnUSALoc
 	"\0\s[0]Alright then,\w4 what's your zipcode?"
 	"\0\s[0]Ok,\w4 what's your zipcode,\w4 then?"
 	"\0\s[0]Alright,\w4 what's your zipcode?"
+	"\0\s[0]Ok.\w8\w8 Zipcode,\w4 please?"
 	--
 	"\![open,inputbox,OnLocCode,-1, ]\![set,balloontimeout,-1]\e"
 }
@@ -3732,10 +3731,11 @@ OnCheckWeatherLocFailure
 	elseif reference4 == "timeout"
 	{
 		"\0\s[106]Sorry,\w4 the connection timed out.\w8\w8 Maybe try again later?\e"
+		"\0\s[206]Sorry,\w4 the connection dropped.\w8\w8\s[106] Maybe you can try another time?\e"
 	}
 	else
 	{
-		"\0\s[106]Sorry,\w4 looks like something went wrong.\w8\w8 The error I got was '%(reference4)'.\w8\w8 You should tell Zichqec about that.\e"
+		"\0\s[106]Sorry,\w4 looks like something went wrong.\w8\w8 The error I got was '%(reference4)'.\w8\w8 You should tell anZichqec about that.\e"
 	}
 	--
 	"Do you want to try again?\n\n\![*]\q[Yes,OnWeatherLocation]\n\![*]\q[No,cancelnodialogue]"
@@ -3802,6 +3802,7 @@ OnCheckWeatherLoc
 	"\0\s[111]So it's %(templocation)?"
 	"\0\s[111]%(templocation),\w4 then?"
 	"\0\s[111]Is it %(templocation)?"
+	"\0\s[111]Is %(templocation) correct?"
 	--
 	"\n\n/
 	\![*]\q[Yes,confirmweather]\n/
@@ -3978,7 +3979,7 @@ OnCurWeatherFound
 		}
 		else
 		{
-			"\0\s[106]Sorry,\w4 looks like something went wrong.\w8\w8\s[107] You should talk to \_a[https://zichqec.github.io/s-the-skeleton/index.html]Zichqec\_a about that.\e"
+			"\0\s[106]Sorry,\w4 looks like something went wrong.\w8\w8\s[107] You should talk to anZichqec about that.\e"
 		}
 	}
 
@@ -4008,7 +4009,7 @@ OnCurWeatherFoundFailure
 	}
 	else
 	{
-		"\0\s[106]Sorry,\w4 looks like something went wrong.\w8\w8 The error I got was '%(reference4)'.\w8\w8 You should tell Zichqec about that.\e"
+		"\0\s[106]Sorry,\w4 looks like something went wrong.\w8\w8 The error I got was '%(reference4)'.\w8\w8 You should tell anZichqec about that.\e"
 	}
 	--
 	"Do you want to try again?\n\n\![*]\q[Yes,OnWeatherLocation]\n\![*]\q[No,cancelnodialogue]"
@@ -4142,7 +4143,7 @@ OnMoonFound
 	}
 	
 	
-	ERASEVAR(regphase)
+	ERASEVAR("regphase")
 	//change the dialogue as you wish
 	//[temp, degrees, feels like temp, humidity, wind, state (cloudy, rainy, etc)]
 	--
@@ -4204,7 +4205,7 @@ OnWeatherFinish
 	--
 	if temp == "Below 0" //0F and below, 
 	{
-		"\s[107]It's freezing out there,\w4 be careful kiddo."
+		"\s[107]It's freezing outside,\w4 be careful kiddo."
 		"\s[107]It's freezing,\w4 take care if you head out,\w4 and dress warmly."
 		"\s[107]Make sure to dress warm if you head out,\w4 it's freezing."
 	}
@@ -4218,13 +4219,13 @@ OnWeatherFinish
 	{
 		"\s[104]Pretty cold out."
 		"\s[104]It's cold out,\w4 but not too cold."
-		"\s[0]It's cold out there,\w4 don't forget a hat if you head out."
+		"\s[0]It's cold outside,\w4 don't forget a hat if you head out."
 	}
 	elseif temp == "Chilly" //41-60F, 5-15C
 	{
 		"\s[103]A little chilly,\w4 huh?"
 		"\s[104]It's pretty chilly out,\w4 don't forget a jacket if you're heading out."
-		"\s[0]It's chilly out there,\w4 stay warm if you head out."
+		"\s[0]It's chilly outside,\w4 stay warm if you head out."
 	}
 	elseif temp == "Pleasant" //61-80, 16-26C
 	{
@@ -4242,7 +4243,7 @@ OnWeatherFinish
 	elseif temp == "Boiling" //96+F, 36+C
 	{
 		"\s[106]Are you doing alright,\w4 %(username)?\w8\w8\s[107] Make sure you stay hydrated."
-		"\s[107]Take some water with you if you head out,\w4 it's way too hot out there."
+		"\s[107]Take some water with you if you head out,\w4 it's way too hot to go without."
 		"\s[107]This would be a good day to go swimming,\w4 if you like that."
 	}
 	--
@@ -4374,17 +4375,19 @@ OnWeatherFinish
 	}
 	elseif weather_foghaze
 	{
-		_lower = TOLOWER(weather)
 		"\s[206]It's a bit hard to see out there,\w4 take care if you're heading out,\w4\s[108] ok?"
 		"\s[108]It might be hard to see out there,\w4 take care if you go out."
-		"\s[206]It's too quiet with this %(_lower) out..."
+		"\s[206]It's too quiet with this %(TOLOWER(weather)) out..."
 	}
 	--
 	if pollen_alert
 	{
-		"\n\n\s[110]There's also a pollen alert out,\w4\s[106] take care if that's something you're sensitive to."
-		"\n\n\s[110]If you're sensitive to pollen,\w4 there's a lot of that out today,\w4 so take care."
-		"\n\n\s[110]There's a lot of pollen today.\w8\w8\s[106] If you're allergic,\w4 take care."
+		"\w8\w8\n\n"
+		--
+		"\s[110]There's also a pollen alert out,\w4\s[106] take care if that's something you're sensitive to."
+		"\s[110]If you're sensitive to pollen,\w4 there's a lot of that out today,\w4 so take care."
+		"\s[110]There's a lot of pollen today.\w8\w8\s[106] If you're allergic,\w4 take care."
+		"\s[106]If you've got allergies to pollen and such,\w4 there's a lot of it today,\w4 so take care."
 	}
 	--
 	"\n"

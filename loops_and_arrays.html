@@ -283,13 +283,13 @@ for _i = 0; _i < 10; _i++
 </pre>
 	<p>That may look a bit confusing, but I'll break it down. A for loop has 4 parts. After the word 'for' are 3 sections separated by semicolons. These are the initialization, the condition, and the incrementor.</p>
 	
-	<p>The initialization in this loop is '_i = 0'. This will run one time before the loop starts, and is generally used to set up a variable to count how many loops have been done. So in this case, we create a new local variable called _i, and set it to 0.</p>
+	<p>The initialization in this loop is _i = 0. This will run one time before the loop starts, and is generally used to set up a variable to count how many loops have been done. So in this case, we create a new local variable called _i, and set it to 0.</p>
 	
 	<p>The condition in this loop is _i < 10. The condition is checked every time the loop ends. In the case of a for loop, if the condition is true, it will run the code in the loop again. So, after the code in the loop runs, if _i is less than 10, the loop will run again.</p>
 	
 	<p>The incrementor in this loop is _i++. The incrementor is run every time the loop ends and the condition is true. So, if _i is less than 10 in this loop, the incrementor will raise the value of _i by 1. The end result is that this loop will run 10 times and then stop!</p>
 	
-	<p>Finally, there's the code inside the brackets. That's the code that will be run over and over until the condition is false!</p>
+	<p>Finally, there's the code inside the brackets. That's the code that will be run over and over until the condition is false.</p>
 	
 	<p>Here's the thing though; all of the stuff I just mentioned is totally flexible. You can get really creative with your loops, you don't have to just do a simple count up like this! Here's an example of a for loop that would read every line in a file:</p>
 <pre>
@@ -315,7 +315,7 @@ for _i = 0; _i < ARRAYSIZE(TodaysItems); _i++ //Loop through every element of th
 	
 	<p>I briefly mentioned before that you can use variables as index numbers for arrays. Loops are where that's extremely useful! Since _i in this loop always has the number of the loop we're currently on, you can use _i to get each element of the array in order as the loop continues to execute.</p>
 	
-	<p>One more thing before we move on. Beware of infinite loops! An infinite loop happens when the condition of the loop is never false. The loop will run forever, and it will crash SSP! Here's an example of an infinite loop:</p>
+	<p>One more thing before we move on. Beware of infinite loops! An infinite loop happens when the condition of the loop is never false. The loop will run forever, and it will crash SSP. Here's an example of an infinite loop:</p>
 <pre>
 for _i = 0; _i > -1; _i++
 {
@@ -336,7 +336,7 @@ foreach ColorArray; _color
 	//Some code
 }
 </pre>
-	<p>This one is simple. There are two parts, the array you want to read, and the variable you want to store the current element in. So this loop means 'for every element in the array ColorArray, run this code, and store the current element in _color'. When the loop runs the first time, _color will be "Red". Then it'll run again, and _color will be "Green". Then it'll run one last time, and _color will be "Blue".</p>
+	<p>This one is simple. There are two parts, the array you want to read, and the variable you want to store the current element in. So this loop means 'for every element in the array ColorArray, store the current element in _color, and run this code'. When the loop runs the first time, _color will be "Red". Then it'll run again, and _color will be "Green". Then it'll run one last time, and _color will be "Blue".</p>
 	
 	<p>foreach loops are a great way to simplify a simple item display like the one we made above! Lets recreate it with a foreach loop.</p>
 <pre>

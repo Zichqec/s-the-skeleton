@@ -52,13 +52,13 @@
 			if ghostexcount == 0; "\s[106]You're back!\w8\w8\s[206] It was getting kinda lonely around here..."
 			"\s[106]Hey %(username),\w4 good to see you back."
 			"\s[106]Hey,\w4 %(username).\w8\w8 It's been like %(lastinteracted) hours,\w4 is everything alright?"
-			"\s[106]There you are,\w4 I was wondering if you'd be coming back..."
+			"\s[106]There you are,\w4 I was wondering if you'd%(br)be coming back..."
 			"\s[106]Hey,\w4 kiddo.\w8\w8 I was getting a bit worried there..."
 			"\s[107]Oh,\w4 it's just you.\w8\w8\s[106] You've been gone a while,\w4 is everything alright?"
 			if lastinteracted >= 20; "\s[110]%(username),\w4 is that you?\w8\w8\s[107] You've been gone for %(lastinteracted) hours,\w4 I was starting to wonder if you'd forgotten about me...\w8\w8\w8\s[106] ...Yeah,\w4 I kept track."
 			if CameBack == 1; "\s[106]You're back again.\w8\w8\s[107] So uh,\w4 are you gonna stay this time?"
 			if ghostexcount == 0; "\s[107]Geez,\w4 there you are.\w8\w8\s[106] I get worried when I'm here on my own,\w4 y'know?"
-			if ghostexcount == 0 && CameBack == 1
+			if ghostexcount == 0 && CameBack
 			{
 				"\s[106]You're back again.\w8\w8\s[107] Um,\w4 if you're gonna leave me here all the time,\w4 could you maybe bring someone else here so I have someone to talk to?"
 				--
@@ -203,13 +203,14 @@ OnWakeMenu
 	{
 		"\s[1100]Hh-!\w8\w8\w8\s[302] Hhh...\w8\w8\n\n* (He takes a deep breath.)\w8\w8\n\n\s[302]Uh,\w4 thanks.\w8\w8\s[300] That was about to get bad...\w8\w8\n\n\s[109]* (He sighs.)\w8\w8\n\n\s[106]Anyways,\w4 ah,\w4"
 		"\s[1100]Hhk-!\w8\w8\w8\s[301] Hhh...\w8\w8\w8\s[204] Mmm.\w8\w8\n\n* (He takes a deep,\w4 shuddering breath.)\w8\w8\w8\n\n\s[200]...Thanks,\w4 I wasn't looking forward to the end of that.\w8\w8\n\n\s[106]Anyways,\w4 ah,\w4"
-		"\s[1100]Hhk-!\w8\w8\w8\s[300] Mhh...\w8\w8\w8\s[302]\n\n* (He sighs,\w4 sounding resigned.)\w8\w8\n\n\s[201]Uh,\w4 thanks,\w4\s[200] I guess that's at least one time I won't have to finish that one...\w8\w8\w8\n\n\s[106]So,\w4 ah,\w4"
+		"\s[1100]Hhk-!\w8\w8\w8\s[300] Mhh...\w8\w8\w8\s[302]\n\n* (He sighs,\w4 sounding resigned.)\w8\w8\n\n\s[201]Uh,\w4 thanks,\w4\s[200] I guess that's at least one time I won't have to finish that one...\w8\w8\w8\n\n\s[106]So,\w4 ah,\w4 "
 		--
-		" did you need something?"
-		" what did you need?"
-		" what's up?"
-		" what did you want?"
-		" hi."
+		"did you need something?"
+		"what did you need?"
+		"what's up?"
+		"what did you want?"
+		"hi."
+		"hey there."
 	}
 	else
 	{
@@ -428,16 +429,28 @@ askquestions //[Zi] Ok time to make my first menu... pls forgive me if this is m
 				"\![*]\q[His family,negfamily]\n"
 			}
 		}
+		else
+		{
+			"\![*]--- ------\n"
+		}
 		--
 
 		if SeenLV == 1 && LVCheck == 0
 		{
 			"\![*]\q[His LV,LoVEcheck]\n"
 		}
+		elseif SeenLV == 0
+		{
+			"\![*]--- --\n"
+		}
 		--
 		if LVCheck == 1
 		{
 			"\![*]\q[His past,bestleftburied]\n"
+		}
+		else
+		{
+			"\![*]--- ----\n"
 		}
 		--
 		if LV == 0
@@ -448,6 +461,10 @@ askquestions //[Zi] Ok time to make my first menu... pls forgive me if this is m
 		if askedabouttimelines == 1 && LV == 0
 		{
 			"\![*]\q[Other timelines,placestobe]\n"
+		}
+		else
+		{
+			"\![*]----- ---------\n"
 		}
 		--
 		if RYSprogress >= 6
@@ -460,6 +477,10 @@ askquestions //[Zi] Ok time to make my first menu... pls forgive me if this is m
 			{
 				"\![*]\q[%(RYS) (RYS-0825),aboutRYS]\n"
 			}
+		}
+		else
+		{
+			"\![*]--- --------\n"
 		}
 		--
 		if LV == 0 && SeePC == "ON" && love >= 75
@@ -622,7 +643,6 @@ Select.aboutyou : nonoverlap //the menu option to ask more questions is taken ca
 			elseif LV >=31 //You've been really mean and he hates you a lot
 			{
 				"\s[400]I'm not talking to you."
-				
 			}
 		}
 	}
@@ -641,139 +661,41 @@ OnFamilyMenu
 {
 	"\_q\b2\0* (Which family member do you want to ask about? To see their original description again, click on the choice markers.)\n\n"
 	--
-	if askedaboutwd == 1
-	{
-		"anIWD\q[WD,infowd]  "  
-	}
-	else
-	{
-		"-- "
-	}
+	if askedaboutwd; "anIWD\q[WD,infowd]  "; else; "-- "
 	--
-	if askedaboutdings == 1
-	{
-		"anIDings\q[Dings,infodings]  "  
-	}
-	else
-	{
-		"----- "
-	}
+	if askedaboutdings; "anIDings\q[Dings,infodings]  "; else; "----- "
 	--
-	if askedaboutwings == 1
-	{
-		"anIWings\q[Wings,infowings]  "  
-	}
-	else
-	{
-		"----- "
-	}
+	if askedaboutwings; "anIWings\q[Wings,infowings]  "; else; "----- "
 	--
-	if askedaboutbarcode == 1
-	{
-		"anIBarcode\q[Barcode,infobarcode]"  
-	}
-	else
-	{
-		"-------"
-	}
+	if askedaboutbarcode; "anIBarcode\q[Barcode,infobarcode]"; else; "-------"
 	--
 	"\n\n[half]"
 	--
-	if askedaboutbluejeans == 1
-	{
-		"anIBluJeans\q[Blue Jeans,infobluejeans]  "  
-	}
-	else
-	{
-		"---- ----- "
-	}
+	if askedaboutbluejeans; "anIBluJeans\q[Blue Jeans,infobluejeans]  "; else; "---- ----- "
 	--
-	if askedaboutabbi == 1
-	{
-		"anIAbbi\q[Abbi,infoabbi]  "  
-	}
-	else
-	{
-		"---- "
-	}
+	if askedaboutabbi; "anIAbbi\q[Abbi,infoabbi]  "; else; "---- "
 	--
-	if askedaboutrosie == 1
-	{
-		"anIRosie\q[Rosie,inforosie]  "  
-	}
-	else
-	{
-		"----- "
-	}
+	if askedaboutrosie; "anIRosie\q[Rosie,inforosie]  "; else; "----- "
 	--
-	if askedaboutroman == 1
-	{
-		"anIRoman\q[Roman,inforoman]"  
-	}
-	else
-	{
-		"-----"
-	}
+	if askedaboutroman; "anIRoman\q[Roman,inforoman]"; else; "-----"
 	--
 	"\n\n[half]"
 	--
-	if askedaboutcambria == 1
-	{
-		"anICambria\q[Cambria,infocambria]  "  
-	}
-	else
-	{
-		"------- "
-	}
+	if askedaboutcambria; "anICambria\q[Cambria,infocambria]  "; else; "------- "
 	--
-	if askedabouttriton == 1
-	{
-		"anITriton\q[Triton,infotriton]  "  
-	}
-	else
-	{
-		"------ "
-	}
+	if askedabouttriton; "anITriton\q[Triton,infotriton]  "; else; "------ "
 	--
-	if askedaboutlulo == 1
-	{
-		"anILulo\q[Lulo,infolulo]  "  
-	}
-	else
-	{
-		"---- "
-	}
+	if askedaboutlulo == 1; "anILulo\q[Lulo,infolulo]  "; else; "---- "
 	--
-	if askedaboutazo == 1
-	{
-		"anIAzo\q[Azo,infoazo]  "  
-	}
-	else
-	{
-		"--- "
-	}
+	if askedaboutazo; "anIAzo\q[Azo,infoazo]  "; else; "--- "
 	--
-	if askedaboutsigil == 1
-	{
-		"anISigil\q[Sigil,infosigil]"
-	}
-	else
-	{
-		"-----"
-	}
+	if askedaboutsigil; "anISigil\q[Sigil,infosigil]"; else; "-----"
 	--
 	"\n\n[half]"
 	--
-	if askedaboutelko == 1
-	{
-		"anIElko\q[Elko,infoelko]"  
-	}
-	else
-	{
-		"----"
-	}
+	if askedaboutelko; "anIElko\q[Elko,infoelko]"; else; "----"
 	--
-	if thesplit == 0 && thatsanoddnumber == 1 && askedaboutwd && askedaboutdings && askedaboutwings && askedaboutbarcode && askedaboutbluejeans && askedaboutabbi && askedaboutrosie && askedaboutroman && askedaboutcambria && askedabouttriton && askedaboutlulo && askedaboutazo && askedaboutsigil	&& askedaboutelko 
+	if thesplit == 0 && thatsanoddnumber && askedaboutwd && askedaboutdings && askedaboutwings && askedaboutbarcode && askedaboutbluejeans && askedaboutabbi && askedaboutrosie && askedaboutroman && askedaboutcambria && askedabouttriton && askedaboutlulo && askedaboutazo && askedaboutsigil && askedaboutelko 
 	{
 		"\n\n[half]* (Seems as though you've unlocked all of them... But wait, didn't he say he had \![*]\q[8 kids?,somethingsoff])"
 	}
@@ -789,9 +711,11 @@ OnFamilyMenu
 Select.infowd : nonoverlap
 {
 	love += 0.1
+	
 	"\0\s[0]He doesn't have the same passion for cooking that I do,\w4 but of the older four he's the best at it.\w8\s[104] Sometimes he helps me out around the kitchen.\w8\s[1010] That's one of my favorite things to do with him;\w4 baking is very relaxing,\w4 especially when you're doing it with someone you love."
 	"\0\s[103]He makes a really good grandfather.\w8\w8\s[104] When he thinks we aren't looking,\w4 he dotes on the little ones and spoils them like crazy."
 	"\0\s[103]I've never seen him as happy as when he holds his grandkids.\w8\w8\s[205] I think he's wanted to be a grandfather for a very long time,\w4\s[104] and he's really cherishing every moment of it."
+	"\0\s[104]He gives really good hugs."
 	
 	{
 		"\0\s[1020]He's always checking up on me to make sure I'm doing ok.\w8\w8 "
@@ -801,8 +725,9 @@ Select.infowd : nonoverlap
 		"\0\s[107]I'm fine though,\w4 really.\w8\w8\s[104] If I ever do need something,\w4 I know I can definitely come to him."
 	}
 	if thesplit; "\0\s[200]He spent a lot of time in the void,\w4 watching over the timeline without being able to affect anything.\w8\w8\s[204] Almost like my memory nightmares,\w4 in a way,\w4 but about the present instead of the past..."
-	if askedaboutdings; "\0\s[200]He and anMDings have always had a rocky relationship.\w8\s[201]  anMWD has been reaching out lately and trying to improve things,\s[204] but it's up to anMDings to accept that and meet him halfway."
-	if askedaboutdings; "\0\s[208]The cracks on his skull are kinda the inverse of mine and anDings's.\w8\w8\s[1020] It's weird."
+	if thesplit; "\0\s[205]We spar sometimes,\w4 to keep our fighting skills sharp.\w8\w8\s[106] You never know when you'll need them,\w4 and it's best to be prepared.\w8\w8\n\n\s[110]He's really good at it,\w8\s[104] and he's good at teaching it too."
+	if askedaboutdings; "\0\s[200]He and anMDings have always had a rocky relationship.\w8\s[201] anMWD has been reaching out lately and trying to improve things,\s[204] but it's up to anMDings to accept that and meet him halfway."
+	if askedaboutdings; "\0\s[208]The cracks on his skull are kinda the inverse of mine and anMDings's.\w8\w8\s[1020] It's weird."
 	if askedaboutbarcode
 	{
 		"\0\s[104]He and anMmom make a really good couple,\w4 they're very supportive of each other and us kids."
@@ -813,9 +738,10 @@ Select.infowd : nonoverlap
 	{
 		"\0\s[205]He's very protective of anMRosie.\w8\w8\s[106] Maybe a little overprotective sometimes."
 		--
-		if knowaboutnine == 2; "\s[204]\n\nThough,\w4 I suppose given past events...\w8\w8\s[109] It's not unreasonable."
+		if knowaboutnine == 2; "\w8\w8\s[204]\n\nThough,\w4 I suppose given past events...\w8\w8\s[109] It's not unreasonable."
 	}
 	if askedabouttriton; "\0\s[102]He really goes out of his way to try and make anMTriton feel like he belongs in the family,\w4 and I appreciate that.\w8\w8\s[208] I'm pretty sure my anMdad's attempts have more weight with him because they work together out on the farm so much."
+	if askedaboutbluejeans; "\0\s[107]I think he has the most chill of anyone in the house.\w8\w8\s[208] Though anBlue comes close..."
 	--
 	"%(familyreturn)"
 }
@@ -824,14 +750,18 @@ Select.infodings : nonoverlap
 {
 	love += 0.1
 	
-	"\0\s[200]It's...\w8 been tricky, trying to find ways to connect with him.\w8\w8\s[204] I'm pretty sure he doesn't really want to interact with me; he wants to ignore his problems and hide from them.\w8\w8\s[200] But we can't just let him keep doing that.\w8\w8\s[204] That's what caused the problem in the first place."
+	"\0\s[200]It's...\w8 been tricky, trying to find ways to connect with him.\w8\w8\s[204] I'm pretty sure he doesn't really want to interact with me;\w4 he wants to ignore his problems and hide from them.\w8\w8\s[200] But we can't just let him keep doing that.\w8\w8\s[204] That's what caused the problem in the first place."
 	"\0\s[109]He's...\w8 difficult.\w8\w8\n\n* (He tries to hide a sigh.)\w8\w8\n\n\s[201]We're doing our best to help him and work with his needs,\w4\s[200] but it's slow going.\w8\w8\s[201] It's hard to help someone who doesn't really want to be helped."
-	"\0\s[106]He actually makes a pretty good beekeeper,\w4\s[107] turns out having floating hands is really useful for that.\w8\w8\s[208] And being made of bone,\w4\s[202] it's much harder to sting than skin,\w4 I imagine."
+	"\0\s[106]He actually makes a pretty good beekeeper,\w4\s[107] turns out having floating hands is really useful for that.\w8\w8\s[208] And being made of bone;\w8\s[202] it's much harder to sting than skin,\w4 I imagine."
 	"\0\s[101]He's always wearing long coats,\w4 even when it's hot out.\w8\w8\s[107] He might be the most stubborn skeleton I've ever met..."
 	"\0\s[202]Don't let his aloof exterior fool you,\w4 when he drinks coffee it's about 60% creamer.\w8\w8\s[107] And 20% espresso..."
 	
 	if love >= 75; "\0\s[206]He doesn't actually have any arms,\w4 apparently he lost them in the war a very long time ago.\w8\w8\s[108] So instead he just uses floating hands.\w8\w8\n\n\s[107]We've tried to convince him to get prosthetics,\w4 but he wont have it.\w8\w8\s[106] Says he's been without them for so long that he's used to not having them.\w8\w8\s[202] Floating hands aren't so great at catching you if you trip,\w4 though."
 	if askedaboutroman; "\0\s[104]The way he carries around anMRoman is adorable.\w8\w8\s[202] Though he gets very flustered if he notices me watching.\w8\w8\s[202] It makes for great pictures that I'm sure he'll thank me for in a few years."
+	if askedaboutwings; "\0\s[107]He's always drinking coffee.\w8\w8\s[106] Always.\w8\w8\s[202] anMWings is trying to get him to switch to decaf,\w4 but he's having none of it."
+	if askedaboutwings; "\0\s[107]anWings is the only person who can really get through to him.\w8\w8\s[202] At least he listens to someone."
+	if askedaboutwings && askedaboutroman; "\0\s[107]He doesn't spend much time with anyone but anMWings and anMRoman.\w8\w8\s[106] At least he socializes with someone..."
+	if askedaboutroman; "\0\s[205]anMRoman is good for him,\w4 I think.\w8\w8\s[104] He seems to enjoy spending time with him,\w4 even if he's not good at showing it."
 	--
 	"%(familyreturn)"
 }
@@ -843,11 +773,15 @@ Select.infowings : nonoverlap
 	"\0\s[200]She's...\w8 actually a very strong person,\w4 emotionally.\w8\w8\s[201] She acts like nothing fazes her,\s[200] but I know that's not true.\w8\w8\s[204] She just puts on a brave face for those that rely on her."
 	"\0\s[103]Her healing magic is second to none.\w8\w8\s[107] But maybe her bedside manner could use a little work."
 	"\0\s[106]She actually wakes up earlier than me most days,\w4\s[107] and I'm a pretty early riser."
+	"\0\s[104]She's very athletic,\w4 she goes out running every morning.\w8\w8\s[107] Even if it's pouring down rain..."
+	"\0\s[107]She's very bold,\w4 and doesn't take no for an answer.\w8\w8\s[202] Sometimes that ends up in arguments,\w4 though."
+	"\0\s[104]She's very productive.\w8\w8\s[101] I'm not sure where she gets all her energy,\w4 but she makes good use of it."
 	
 	if thesplit; "\0\s[208]She was pregnant with anMRoman when the timeline changed.\w8\w8\s[1070] He must've come from another timeline that got merged in with ours...\w8\w8\s[107] I'm not sure why,\w4 but she hid the fact that she was pregnant from us for a long time.\w8\w8\s[106]\n\nShe did a very good job of it,\w4 too,\w4\s[202] good enough that anMDings dragged her home at 5AM one day holding a crying newborn and none of us had any idea what was going on."
 	if askedaboutcambria; "\0\s[205]Whatever trait gives anWings her boundless energy must've been passed on to anMCambria,\w4 too.\w8\w8\s[104] Seriously,\w4 those two are so similar sometimes."
 	if askedaboutroman; "\0\s[206]She doesn't spend all that much time at home,\w4 which leaves anMRoman desperate for her attention when she is.\w8\w8\s[201] She does love him,\w4 very much,\w4 but I don't think she was prepared for motherhood."
 	if askedaboutdings; "\0\s[101]She really likes spicy foods,\w4 much to anMDings's chagrin.\w8\w8\s[202] He can't stand spice at all,\w4 and she never stops teasing him about it."
+	if askedaboutwd && askedaboutdings; "\0\s[107]She's trying to get anMWD and anMDings off of coffee.\w8\w8\s[101] anMDings is having none of it,\w4 but anMWD is at least trying out decaf...\w8\w8\s[107] We'll see if it sticks."
 	--
 	"%(familyreturn)"
 }
@@ -856,14 +790,26 @@ Select.infobarcode : nonoverlap
 {
 	love += 0.1
 	
-	"\0\s[1010]She really loves my cooking.\w8\w8\s[104] I think she's so vocal about it just to try and encourage me,\w4 but I appreciate it either way."
+	"\0\s[104]She really loves my cooking.\w8\w8\s[104] I think she's so vocal about it just to try and encourage me,\w4 but I appreciate it either way."
 	"\0\s[205]I didn't realize I needed a mom in my life until she started taking care of me.\w8\w8\s[104] It's a good feeling to know someone else is there supporting you unconditionally."
+	"\0\s[104]She's very supportive of all her children.\w8\w8\s[101] I'm surprised she doesn't have more kids,\w4 honestly.\w8\w8\s[205] Though I guess she has plenty of time.\w8\w8\s[104] Who knows,\w4 I may have more little siblings eventually."
 	
 	if thesplit; "\0\s[208]I asked about her tattoos once,\w4\s[110] she's absolutely covered in them,\w4 to the point that her bones are almost completely a different color.\w8\w8\n\n\s[206]Apparently they're from the war,\w4 her font is pretty obscure and almost impossible for humans to read,\w4 so they used them to send messages back and forth."
 	if thesplit; "\0\s[206]She doesn't have as strong of healing magic as anMWings,\w4 but she has enough that they sometimes worked together as field medics during the war.\w8\w8\s[200] I think that was actually how they met...\s[201] Not the most pleasant place to find a friend,\w4 but it seems to have forged a very strong bond between them."
 	if thesplit; "\0\s[0]Her name is actually Free 3 of 9,\w4\s[106] but uh,\w4 that's a little unwieldy,\w4\s[104] so she just goes by Barcode instead."
 	
 	if askedaboutabbi; "\0\s[102]She and anMAbbi get along really well.\w8\w8 He came to trust her very quickly,\w4 and she loves to spend time with him.\w8\w8\s[200] I'm glad for that,\w4 he was a bit isolated at first,\w4 after...\s[204]\w8\w8\n\n* (He stops himself.)"
+	
+	if PastUnlocked; "\0\s[109]I've wondered a lot if she and my dad wish they still had Sans,\w4 rather than me...\w8\w8\s[206] Am I really their son..?\w8\w8\w8\s[108] ...They've been very kind to me and accepted me as their own,\w4 despite my uh...\w8\w8\s[109] origins."
+	if thesplit; "\0\s[208]She and my dad are very good for each other.\w8\w8\s[108] They both still have lingering trauma from the war;\w8\s[109] skeleton memories tend to last a very long time...\w8\w8\s[202] But they help each other through it."
+	"\0\s[205]She's very empathetic;\w8 if she sees someone in need she always wants to help.\w8\w8\s[104] It's inspiring,\w4 I guess."
+	if thesplit; "\0\s[205]She doesn't take any days with us for granted.\w8\w8\s[206] I suppose because she was separated from us for so many years...\w8\w8\s[109] If I have any say in it,\w4 she won't be leaving us again for a very long time."
+	"\0\s[104]She likes to do stuff with her hands.\w8\w8\s[205] She's always got some sort of project around the house,\w4 when she's not spending time with the kids.\w8\w8\s[106] I guess she doesn't like to be idle."
+	{
+		"\0\s[104]She has a bit of a sweet tooth,\w8\s[101] though she tries to hide it.\w8\w8 I've caught her snitching desserts before,\w4 when she thinks I'm asleep."
+		--
+		if askedaboutrosie; "\w8\w8\s[202] I think she shares some of it with anMRosie,\w4 too,\w4 which would explain some things..."
+	}
 	--
 	"%(familyreturn)"
 }
@@ -873,13 +819,21 @@ Select.infobluejeans : nonoverlap
 	love += 0.1
 	
 	"\0\s[105]%(StSfCHe)'s such a sweetheart.\w8 %(StSfCHe) made me a wildflower crown out of the blue once.\w8\w8\s[106] It's wilted since then,\w4 of course,\s[104] but I have pictures of it saved."
-	"\0\s[105]%(StSfCHe)'s fairly reserved around people %(StSfHe) doesn't know,\w4 but %(StSfHe)'s really very kindhearted.\w8\w8\s[200] %(StSfCHe) once found two soaked kittens alone in the rain,\w4 and wrapped %(StSfhis) only coat around them while %(StSfHe) ran them home.\w8\w8\s[1010]\n\nThose two have since grown up to be happy,\w4 healthy farm cats."
+	"\0\s[105]%(StSfCHe)'s fairly reserved around people %(StSfHe) doesn't know,\w4 but %(StSfHe)'s really very kindhearted.\w8\w8\s[200] %(StSfCHe) once found two soaked kittens alone in the rain,\w4 and wrapped %(StSfhis) only coat around them while %(StSfHe) ran them home.\w8\w8\s[104]\n\nThose two have since grown up to be happy,\w4 healthy farm cats."
 	"\0\s[208]%(StSfCHe)'s usually pretty busy with work on the farm,\w4\s[105] but %(StSfHe) tries %(StSfhis) best to spend a little time with each of the kids and get to know them better."
+	"\0\s[102]%(StSfCHe) takes very good care of me.\w8\w8\s[106] I try to take care of %(StSfhim) too,\w4 but he doesn't usually need carrying like I do..."
+	
 	
 	if askedaboutsigil; "\0\s[205]%(StSfCHe) and anMSigil have a very strong bond.\w8\s[104] %(StSfCHe) makes a good %(StSffather),\w4 %(StSfHe) absolutely adores %(StSfhis) daughter.\w8\w8\s[202] I just hope we can keep her from becoming too spoiled."
 	if askedaboutsigil; "\0\s[200]%(StSfCHe)'s very protective of anMSigil,\w4 as am I.\w8\w8\s[204] We very nearly didn't have her,\w4 and we'll never forget that."
 
 	if askedaboutbarcode && askedaboutwd; "\0\s[105]%(StSfCHe) gets along really well with my parents,\w4 and I'm always grateful for that."
+	
+	"\0\s[0]We like to go out on walks through the nearby woods.\w8\w8\s[105] It's good to get away from the house sometimes and have some time to ourselves.\w8\w8\s[106] He has to carry me back a lot of the time,\w4 though."
+	"\0\s[205]He's always so gentle with the kids.\w8\w8\s[104] The little ones have really taken to him."
+	"\0\s[105]He loves my cooking,\w4 and that makes me happy.\w8\w8\s[205] It's good to see him smile."
+	if thesplit; "\0\s[206]When he first appeared,\w4 I felt like I already had known him for years,\w4 but also that he was a stranger...\w8\w8\s[109] It took me a while to get my head sorted out;\w8\s[108] I had so many memories from other timelines crowding my mind.\w8\w8\s[106] I did eventually get things figured out,\w4 though,\w8\s[107] and now I'm just so glad he's here.\w8\w8\s[105] I don't know where I'd be without him."
+	"\0\s[104]He really likes plaid,\w4 so I'm always on the lookout for nice plaid shirts for him.\w8\w8\s[101] Thankfully they aren't hard to come by."
 	--
 	"%(familyreturn)"
 }
@@ -898,6 +852,13 @@ Select.infoabbi : nonoverlap
 	if thesplit; "\0\s[204]He really misses my %(teal('first partner')).\w8\w8\s[206] %(teal('He')) was the first one to show him kindness,\w4 so he got very deeply attached...\w8\w8\s[109] But now..."
 	if thesplit; "\0\s[206]I think my %(teal('first partner')) used to call him sunshine...\w8\w8\s[109] %(teal('He')) didn't even know what sunshine was,\w4 just that it was supposed to be warm and bright,\w4 and full of hope.\w8\w8\s[200] I suppose it's fitting that anMAbbi loves the feel of sunlight so much,\w4 now..."
 	if thesplit; "\0\s[204]He's really taken a liking to herbal teas,\w4 recently...\w8\w8\s[200] I think they help him remember my %(teal('first partner'))."
+	
+	"\0\s[103]He's got quite the scarf collection going.\w8\w8\s[104] I try to keep an eye out at the thrift store for any interesting ones,\w4 they make good gifts."
+	"\0\s[106]He's not really a fan of getting wet,\w4 much like me.\w8\w8\s[206] I suppose being in water is probably a bit more scary for him,\w4 though..."
+	"\0\s[104]He's incredibly gentle.\w8\w8 He wouldn't hurt a fly,\w8\s[101] literally."
+	if thesplit; "\0\s[206]My %(teal('first partner')) used to call him sunshine...\w8\w8\s[204] It's a good name for him."
+	"\0\s[205]He's been doing so well on the surface.\w8\w8\s[104] The sun really seems to be giving him a strength he's never had."
+	if askedaboutrosie && askedaboutwd; "\0\s[101]If you mess with anMAbbi,\w4 you bet anMRosie'll be right there to defend him.\w8\w8\s[202] She doesn't tolerate anyone harassing her brother.\w8\w8\s[208] Maybe we got that from my dad..."
 	--
 	"%(familyreturn)"
 }
@@ -912,7 +873,13 @@ Select.inforosie : nonoverlap
 	
 	if askedaboutcambria; "\0\s[0]She's taken an interest in watching anMCambria sew.\w8\s[205] She's not quite old enough to be trusted with her own sewing machine yet,\s[104] but I get the distinct feeling she'll be getting one in the future."
 	if askedaboutbarcode; "\0\s[202]She takes after our anMmom a lot.\w8\w8\s[107] Both of them are troublemakers,\w4 and both of them like hassling their siblings."
-	if askedaboutbarcode && askedaboutwd; "\0\s[107]Sometimes if anMBarcode tells her that she can't do or have something,\w4 she'll run to ask my andad instead.\w8\w8\s[202] But despite his calm and peaceful manner,\w4 he's very firm in sticking by any rules anMBarcode sets."	
+	if askedaboutbarcode && askedaboutwd; "\0\s[107]Sometimes if anMBarcode tells her that she can't do or have something,\w4 she'll run to ask my andad instead.\w8\w8\s[202] But despite his calm and peaceful manner,\w4 he's very firm in sticking by any rules anMBarcode sets."
+	
+	"\0\s[107]She's always catching frogs and bugs and other critters in the area.\w8\w8\s[101] I don't think there'd be any left if I didn't make her let them go."
+	"\0\s[107]She almost never seems to tire.\w8\w8\s[208] I'd love to know how she does it..."
+	"\0\s[101]She likes to play pranks.\w8\w8\s[202] I guess that's alright as long as they're harmless..."
+	"\0\s[0]She likes to be outside.\w8\w8\s[107] Even when it's pouring down rain she doesn't want to be cooped up indoors.\w8\w8\s[205] I think she'll come to appreciate it eventually,\w4 though."
+	"\0\s[106]She's always so restless.\w8\w8\s[107] It takes a lot to wear her out and get her to sleep.\w8\w8\s[101] Good thing that's not my job.\w8\w8\s[202] ...I'm kidding,\w4 I've helped take care of Rosie plenty of times."
 	--
 	"%(familyreturn)"
 }
@@ -931,6 +898,12 @@ Select.inforoman : nonoverlap
 	if askedaboutdings; "\0\s[102]Heh,\w4 anMDings wasn't much for cuddling and physical affection,\w4 until anMRoman was born.\w8\w8\s[202] Even the most grumpy of us has been won over by anMRoman's sweet demeanor.\w8\w8\s[104]\n\nI've caught them snoozing together on the couch more times than I can count now."
 	if askedaboutbarcode && askedaboutwd; "\0\s[104]He really loves his aunt and uncle,\w4 it's so sweet seeing him bring them drawings and things."
 	if askedaboutsigil; "\0\s[0]anMRoman and anMSigil were born within a few weeks of each other.\w8\w8\s[104] The two of them seem to enjoy each other's company pretty well,\w4 I hope it stays that way."
+	
+	"\0\s[205]He loves to watch bugs.\w8\w8\s[0] He's been fascinated with them since he first saw lightning bugs,\w4 and got to hold one.\w8\w8\s[104] He's always really careful not to hurt them,\w4 it's very cute."
+	"\0\s[0]When it's warm out,\w4 he spends a lot of time out in the yard looking for bugs.\w8\w8\s[104] It's good that he's spending so much time in the sun."
+	if askedaboutdings; "\0\s[208]I wonder if he'll help anMDings with the apiary when he's older.\w8\w8\s[111] He has an interest in bugs,\w4 and an interest in whatever anMDings gets up to,\w8\s[102] so it seems like a natural fit for him."
+	"\0\s[104]You really can't help but love him,\w4 he's just so sweet.\w8\w8\s[103] He has a way of charming even the most serious people."
+	if thesplit; "\0\s[208]He has freckles too,\w4 like my kids do.\w8\w8\s[1070] I wonder if that means his %(green('dad')) is the same species of skeleton as my %(orange('first ',StSfhusband))..."
 	--
 	"%(familyreturn)"
 }
@@ -948,6 +921,20 @@ Select.infocambria : nonoverlap
 	if thesplit; "\0\s[200]She still wears her half of the 'best friends' necklace she shared with %(cyan('her twin')).\w8\w8\s[204] I don't think she'll ever take it off,\w4 and I can't blame her."
 	if thesplit; "\0\s[109]Of all my kids,\w4 anMCambria has the most memories of my %(orange('first ',StSfhusband)).\w8\w8\s[200] I was worried that she might not be very accepting of anMBlue as her step %(StSffather) as a result,\w4\s[107] but the two of them actually get on pretty well and I'm grateful for that."
 	if askedaboutelko; "\0\s[104]She and Elko have been best friends since elementary school.\w8\w8\s[206] Both of them got picked on back then,\w4 anMCambria for her 4 arms,\w4 and anMElko for her white fur and red eyes.\w8\w8\s[104] But together they were much more resilient,\w4 and stopped caring so much what anyone else thought.\w8\w8\n\n\s[202]I might have helped a time or two when any particularly cruel children decided to get physical.\w8\w8\s[101] Don't look at me like that,\w4 I didn't hurt them,\w4\s[205] I just...\w8\w8\s[202] gave them a bit of a fright."
+	
+	"\0\s[104]I really think she'll be able to do anything she puts her mind to.\w8\w8\s[103] She's got the drive to get things done and make her dreams come true."
+	{
+		"\0\s[102]She's a very good hugger,\w4 and I'd like to think she got it from me."
+		--
+		if thesplit; "\w8\w8\w8\n\n\s[107]...But the additional arms didn't come from me,\w4 so I guess not."
+	}
+	"\0\s[110]She's going to be an adult in a few years.\w8\w8\s[107] It feels like yesterday that she was just a baby.\w8\w8\s[208] Where did the time go..?"
+	{
+		"\0\s[104]You should've seen her when she was little.\w8\w8\s[107] The terror one can cause around the house with four arms and a lot of energy..."
+		--
+		if thesplit; "\w8\w8\s[206] And,\w4 at the time,\w4 there was also her %(cyan('twin sister'))..."
+	}
+	"\0\s[104]She's going to do great things one day,\w4 mark my word."
 	--
 	"%(familyreturn)"
 }
@@ -963,6 +950,13 @@ Select.infotriton : nonoverlap
 	
 	if askedaboutbluejeans; "\0\s[104]He gave anMBlue some purple flowers to give to me for our anniversary last year.\w8\w8\s[102] He really is a very thoughtful kid,\w4\s[200] but most people don't take the time to get to know him enough to see it."
 	if thesplit; "\0\s[206]He brought anMCambria some small sprouts when the timeline changed...\w8\w8\s[201] Pretty blue and yellow flowers,\w4 to try and cheer her up.\w8\w8\s[204] He really is sweet,\w4 with his chosen few...\w8\w8\n\n\s[206]anMCambria still has those flowers too,\w4 she takes very good care of them."
+	
+	"\0\s[205]He's a very diligent worker,\w4 he never leaves a job half finished.\w8\w8\s[208] Maybe he just likes to be thorough?\w8\w8\s[107] Or maybe he's just a workaholic."
+	"\0\s[106]It seems kinda pointless to have him wash his hands before dinner,\w4 but I still feel weird about him not doing it...\w8\w8\s[106] He mostly doesn't eat what we eat,\w4 though,\w4 so it could be worse..."
+	"\0\s[0]He very much seems to regard plants as his friends.\w8\w8\s[208] I wonder if being made of water gives him some sort of connection with them that I don't have.\w8\w8\s[106] Either way,\w4 it makes dinner tricky because he tries to avoid eating plants..."
+	"\0\s[106]He never comes along with us to the pool,\w4 but I suppose that makes sense.\w8\w8\s[101] I think we'd lose him in there."
+	"\0\s[208]I've done a little research on elementals;\w8 I wanted to try and learn about what Triton might need when we first adopted him.\w8\w8\s[110] It's pretty fascinating stuff, actually."
+	"\0\s[101]Despite being blue,\w4 he's got a very green thumb.\w8\w8\s[110] He always seems to know exactly what his plants need,\w4 and when."
 	--
 	"%(familyreturn)"
 }
@@ -982,6 +976,13 @@ Select.infolulo : nonoverlap
 	if thesplit; "\0\s[109]She used to be really close to my %(orange('first ',StSfhusband))...\w8\w8\s[204] She spends a lot of time in and out of the hospital,\w4\s[108] and he used to be the one to take her there and watch over her.\w8\w8\s[200]\n\nanMWD and I share that responsibility now.\w8\w8\s[204] It helps a lot to have my parents around and able to manage the household so I can actually be there for my daughter."
 
 	if askedaboutrosie; "\0\s[0]She and anMRosie spend a lot of time together,\w4\s[107] and anMRosie's always getting the two of them into trouble.\w8\w8\s[104] Honestly I'm glad to see it,\w4 though.\w8\w8\s[101] Even though it can be a little frustrating sometimes,\w4 anMLulo needs someone to gently pull her out of her shell now and then."
+	
+	"\0\s[206]I can't help but worry over her constantly...\w8\w8\s[109] I think she's noticed."
+	"\0\s[0]I'm always having to buy her more notebooks and more writing supplies.\w8\w8\s[205] She takes so many notes about so many things.\w8\w8\s[106] I've seen in her notebooks a could of times,\w4 too,\w4 and they're really dense.\w8\w8\s[107] I wouldn't have thought she could fit so much on one little page."
+	"\0\s[208]I wonder what all she gets up to in her dreams.\w8\w8 I suppose I'll never really find out...\w8\w8\s[104] But I try to be supportive and interested anyways."
+	"\0\s[205]She likes looking at the moon a lot.\w8\w8\s[106] But,\w4 she also falls asleep easily and usually is in bed not long after the sun sets."
+	if PastUnlocked; "\0\s[206]Even when she's awake,\w4 she spends a lot of time daydreaming...\w8\w8\s[204] Sometimes she seems like she just wants to go back to sleep.\w8\w8\s[108] ...I worry about her a lot,\w4 the waking world must seem so much drearier than her dreams,\w8\s[109] especially since she's so tired all the time..."
+	if askedaboutwd; "\0\s[205]She listens to a lot of music.\w8\w8\s[0] My anMdad got her an mp3 player a few years back,\w4 and now it goes with her everywhere."
 	--
 	"%(familyreturn)"
 }
@@ -996,6 +997,17 @@ Select.infoazo : nonoverlap
 	
 	if askedaboutcambria; "\0\s[200]He and his big sister are the only ones in the family with four arms.\w8\s[201] Sometimes I worry they'll feel out of place,\w4 but anMCambria has dealt with it really well.\w8\s[200] I just hope anMAzo follows her example of confidence."
 	if askedabouttriton; "\0\s[104]He seems to really look up to anMTriton,\w4 we might have two plant-masters on our hands soon."
+	
+	if askedaboutsigil; "\0\s[205]I wonder what he and anMSigil will be like when they grow up.\w8\w8\s[0] anMCambria and anMLulo have ended up completely different from each other,\w4 so who knows what direction the others will go?\w8\w8\s[106] I'm not in any rush for them to grow up,\w4 though;\w8\s[104] every moment is precious when they're still so small."
+	"\0\s[104]He's becoming more and more adventurous by the day.\w8\w8\s[205] Maybe he'll grow up to be some kind of explorer."
+	{
+		"\0\s[104]He loves his big sisters so much,\w4 it's really sweet."
+		--
+		if thesplit; "\w8\w8\s[206] ...They love him,\w4 too.\w8\w8\s[108] He's the last remnant of my %(orange('first ',StSfhusband)) that we have left...\w8\w8\s[109] None of us are taking that for granted.\w8\w8\s[200] We're lucky he's still here at all and didn't vanish with the others."
+	}
+	"\0\s[107]He's always full of energy.\w8\w8\s[205] I'm grateful for it though,\w8\s[106] I would be concerned if he were lethargic."
+	"\0\s[104]Heh,\w4 he's at the perfect age to dress him up in cute outfits.\w8\w8\s[106] Once he gets a little older,\w4 he'll want to pick out his own clothes.\w8\w8\s[205] Still,\w4 we'll have plenty of pictures if we get them now."
+	"\0\s[104]Sometimes he tries to fly by flapping all his arms at once.\w8\w8\s[101] It doesn't work,\w4 of course,\w8\s[104] but it sure is cute."
 	--
 	"%(familyreturn)"
 }
@@ -1010,6 +1022,12 @@ Select.infosigil : nonoverlap
 	"\0\s[206]Sometimes I find her staring off really far into space...\w8\w8\s[201] She seems alright,\w4 but...\w8\w8\s[300] I worry."
 	if askedaboutbluejeans; "\0\s[104]She's very energetic and playful.\w8\s[107] I'm glad that anMBluJeans is around to help tire her out,\w4 I have trouble keeping up with her sometimes."
 	if thesplit; "\0\s[200]She's the only one of the kids who is both mine and anMBlue's.\w8\s[204] She's still too little to understand the concept of half siblings.\w8\s[201] I just hope that when the time comes,\w4 she doesn't take it harshly and feel different from the others."
+	
+	"\0\s[104]She loves crayons.\w8\w8\s[106] So much so that we can't let her have them unless we're certain she isn't hungry.\w8\w8\s[107] At least they aren't toxic..."
+	"\0\s[107]We probably shouldn't have let her try finger paints until she was older,\w4 but it's too late now...\w8\w8\s[106] Oh well,\w4 what's a little carpet cleaning now and then,\w4 right?"
+	"\0\s[205]I think one day she'll be really good at art and make amazing things with a brush.\w8\w8\s[106] I have to think that,\w4 anyways,\w4 while I'm cleaning her art off the walls and floor...\w8\w8\s[107] She'll get more coordinated with time,\w4 right?"
+	"\0\s[104]It makes me smile to see her face so full of excitement and wonder.\w8\w8\s[205] I hope she never loses that sense of wonder."
+	"\0\s[106]She hasn't discovered glitter yet,\w4 and I don't think I want her to until she's older.\w8\w8\s[107] At least stickers you can peel off..."
 	--
 	"%(familyreturn)"
 }
@@ -1026,6 +1044,12 @@ Select.infoelko : nonoverlap
 	if month == 10; "\0\s[102]Heh,\w4 it's her favorite time of year right now.\w8\w8\s[106] You would not believe how much she and her mom decorate their house for halloween.\w8\w8\n\n\s[205]She really gets into character when trick-or-treating starts,\w4 too.\w8\w8\s[104] They have a lot of dedicated human fans who come by every year just get their souls scared out of them.\w8\w8\n\n\s[101]...Halloween is a very strange celebration."
 	if askedaboutcambria; "\0\s[0]I'm really glad that anMCambria has found such a close friend that she can depend on.\w8\s[204] Especially after...\w8\w8\n\n\s[302]* (He stops himself.)"
 	if thesplit; "\0\s[200]anMCambria's %(cyan('twin')) was anMElko's friend too,\w4 the 3 of them used to be really tight.\w8\w8\s[204] They might as well have been sisters...\w8\w8\s[201] But now %(_shes) gone,\w4 and anMCambria and anMElko are both hurting.\w8\w8\n\n\s[109]At least they have each other to lean on..."
+	
+	if askedabouttriton; "\0\s[202]She doesn't eat meat,\w4 and anMTriton doesn't eat anything but meat.\w8\w8\s[107] Family dinners are a challenge,\w8\s[104] but we make it work."
+	"\0\s[0]Sometimes her mom comes over to visit us,\w4 too.\w8\w8\s[104] We're always glad to have them over,\w4 they're good friends of the family."
+	"\0\s[205]She's always got a big umbrella with her to block out the sun.\w8\w8\s[106] I can't imagine how difficult it is having to avoid being in the sunlight;\w8\s[107] I find the sun so comforting and warm."
+	"\0\s[208]Apparently dawn and dusk are the best times of day for her to be out;\w8 when there's still light but the sun isn't too harsh.\w8\w8\s[1070] I suppose if you organize your day right,\w4 you can spend the middle of the day inside.\w8\w8\s[106] ...Honestly,\w4 I'm kinda surprised she isn't a night owl."
+	"\0\s[110]She's always managing a strict schedule for herself.\w8\w8\s[106] Sometimes I wonder how she relaxes,\w8\s[107] but apparently she schedules her relaxing time,\w4 too.\w8\w8\s[202] I guess if it works for her,\w4 more power to her..."
 	--
 	"%(familyreturn)"
 }
@@ -1035,12 +1059,18 @@ Select.thewholefam : nonoverlap
 	love += 0.4
 	if love >= 75
 	{
-		"\0\s[103]I love all of them very much,\w4\s[101] even the troublemakers.\w8\w8\s[104] It'd be kinda boring if we were all the same,\w4 y'know?%(familyreturn)"
-		"\0\s[106]It can be really hectic sometimes,\w4\s[107] and tempers flare now and then,\w4\s[102] but at the end of the day we all love each other dearly,\w4 and we know that even if we clash sometimes.\w8\w8\s[106]\n\nConflict will happen when you have that many people in one place,\w4 it's just a fact of life.%(familyreturn)"
-		"\0\s[104]They make life worth living.\w8\w8\s[205] I'd gladly give my life for any one of them,\w4 and I know they'd do the same for me,\w4\s[101] if I let them.%(familyreturn)"
+		"\0\s[103]I love all of them very much,\w4\s[101] even the troublemakers.\w8\w8\s[104] It'd be kinda boring if we were all the same,\w4 y'know?"
+		"\0\s[106]It can be really hectic sometimes,\w4\s[107] and tempers flare now and then,\w4\s[102] but at the end of the day we all love each other dearly,\w4 and we know that even if we clash sometimes.\w8\w8\s[106]\n\nConflict will happen when you have that many people in one place,\w4 it's just a fact of life."
+		"\0\s[104]They make life worth living.\w8\w8\s[205] I'd gladly give my life for any one of them,\w4 and I know they'd do the same for me,\w4\s[101] if I let them."
+		"\0\s[107]With so many little kids in the house,\w4 I have no shortage of things that need cleaned.\w8\w8\s[106] It's a lot of work staying on top of it all."
+		"\0\s[205]We try to plan day trips now and then,\w4 so we can all get out of the house for a day and have fun with the kids while they're small.\w8\w8\s[106] It's hard to organize everyone,\w4 though.\w8\w8\s[107] Everyone's so busy with work,\w4 the kids have school,\w8\s[202] and when it finally comes time to go it's a nightmare trying to get everyone out the door on time.\w8\w8\s[104] Still,\w4 we usually have a good time once we get where we're going."
+	"\0\s[104]I really don't know what I'd do without them.\w8\w8\s[205] What more is there to life besides caring for the ones I love?"
+	"\0\s[104]They make it worthwhile to get up in the morning.\w8\w8\s[205] There's nothing like a great breakfast to get some early morning smiles.\w8\w8\s[101] From some of us,\w4 anyways."
+	"\0\s[104]It's good when we all get along.\w8\w8\s[205] That's why I like to plan things like picnics.\w8\w8\s[0] It helps us get out of the house,\w4 lets the little ones run around and get out all their energy,\w8\s[101] and there's a lot less complaining when there's good food to be had."
+	"\0\s[106]People seem to get overwhelmed by how many of us there are when we go out as a group.\w8\w8\s[107] It can be a challenge working with a large group size,\w4 and keeping everyone organized.\w8\w8\s[101] Many snacks are packed to keep tempers from flaring."
 		if LVCheck == 1
 		{
-			"\0\s[200]None of them hold my past against me.\w8\w8\s[201] I don't know how I managed to be related to people as good as them,\w4\s[204] but I definitely don't deserve the unconditional love they show me.%(familyreturn)"
+			"\0\s[200]None of them hold my past against me.\w8\w8\s[201] I don't know how I managed to be related to people as good as them,\w4\s[204] but I definitely don't deserve the unconditional love they show me."
 		}
 		if thesplit == 0
 		{
@@ -1264,6 +1294,9 @@ GeneralTimelines : nonoverlap //Asking about other timelines. You'll get this if
 		"\0\s[107]I've been to a lot of really strange places.\w8\w8\s[101] Though I guess to them,\w4 their world is normal and I'm the strange one."
 		"\0\s[200]A lot of timelines are...\w8\w8\s[204] pretty dark.\w8\w8\s[201] I guess I happened to get one of the good ones.\w8\w8\n\n\s[108]I try not to take that for granted,\w4 things could be much,\w4 much worse."
 		"\0\s[205]I've seen a lot of different places,\w4 but nothing beats being at home with my family.\w8\w8\s[104] It's just where I belong."
+		if knowaboutomega == 2; "\0\s[101]The multiverse is a pretty crazy place.\w8\w8\s[106] And I've only seen a tiny sliver of it,\w4 Omega could tell you some wild stories..."
+		"\0\s[106]I'm happy to just stay home most of the time,\w4 really.\w8\w8\s[205] It's kinda neat to see what other worlds are out there,\w8\s[104] but I prefer to stay with my family,\w4 yknow?"
+		
 		if love >= 150
 		{
 			"\0\s[104]I'm glad to be here rather than some other random timeline.\w8\w8\s[0] You've been very kind and welcoming,\w4 and I appreciate it."
@@ -1343,7 +1376,7 @@ GeneralTimelines : nonoverlap //Asking about other timelines. You'll get this if
 	else
 	{
 		"\0\s[1020]Ah,\w4 do you understand the theory of the multiverse?\w8\w8\s[0] There are many other realities besides our own,\w4 the ones nearest to us are generally the same world with small differences.\w8\w8\n\n\s[106]We're uh,\w4 not really supposed to move outside our own timeline,\w4 though.\w8\w8\s[208] Not sure why I have so much trouble staying in my own timeline,\w4\s[206] it's not like I want to leave."
-		"\0\s[208]This is definitely not the strangest world I've%(br)been to.\w8\w8\s[106] Though I guess this could just be a different place in my own timeline.\w8\w8%(br)What're things like out there?" //TODO TEST THIS
+		"\0\s[208]This is definitely not the strangest world I've%(br)been to.\w8\w8\s[106] Though I guess this could just be a different place in my own timeline.\w8\w8%(br)What're things like out there?"
 		"\0\s[107]I'm sure I'll pop out of here soon,\w4\s[106] I'll blink and suddenly be standing in my home as if nothing happened."
 	}
 	--
@@ -1353,7 +1386,13 @@ GeneralTimelines : nonoverlap //Asking about other timelines. You'll get this if
 //Big timeline menu
 TimelineMenu
 {
-	"\0\b2\_q* (Which timeline do you want to ask him about? To see their original description again, click on the choice markers.)\n\n[half]\![*]\q[Timelines in general,TimelinesInGeneral]\n[half]"
+	"\0\b2\_q* (Which timeline do you want to ask him about? To see their original description again, click on the choice markers.)\n\n[half]"
+	--
+	"\![*]\q[Timelines in general,TimelinesInGeneral]"
+	--
+	if knowaboutomega == 2; "   \![*]\q[The shelter,TellMeAboutTheShelter]"; else; "   --- -------"
+	--
+	"\n"
 	//"\![reset,sticky-window]\p2\s[-1]\![move,0,0,0,0]\![set,sticky-window,0,2]\0\b2\_q* (Which timeline do you want to ask him about? To see their original description again, click on the choice markers.)\n\n[half]\![*]\q[Timelines in general,TimelinesInGeneral]\n[half]"
 	-- //the [set,sticky-window] there makes S and the 3rd character stick together. This is key for the timeline menu, because the images that pop up use the 3rd character's balloon. When you enter the timeline menu, it undoes all stickies so that it doesn't keep stacking them and break stuff. Then at the end of the text, it moves the 3rd character invisibly to S's position. Then it stickies them again. I have the 3rd character move to S because mine somehow got way off the screen at one point and I could ONLY get it back with the move command... I dont want that to happen to a user who doesn't know how to fix it.
 	//For some reason, the sticky window only works the second time you click one of the anchors. I dont know why and any attempts I've made to fix it have not worked.
@@ -1382,7 +1421,7 @@ TimelineMenu
 	--
 	if knowaboutbender == 1; "\n\![*]anMBender"; elseif knowaboutbender == 2; "\nanIBender\q[The bender,TellMeAboutBender]"; else; "\n--- ------"
 	--
-	"\n\n\n\![*]\q[Go back,ihavequestions]"
+	"\n\n\![*]\q[Go back,ihavequestions]"
 	--
 	"\n\![*]\q[I'm done,CANCEL]\e"
 }
@@ -1395,6 +1434,7 @@ Select.TimelinesInGeneral
 Select.TellMeAboutKit : nonoverlap
 {
 	love += 0.1
+	_doesnt = "doesn't"
 	"\0\s[104]He can make a sort of purring noise and it's really adorable.\w8\w8\s[208] The staff said something about him being a catfish..?\w8\w8\s[101] Do catfishes purr?"
 	"\0\s[106]It was really strange being greeted by a version of myself with giant whiskers.\w8\w8\s[104] Cute,\w4 though."
 	"\0\s[206]Some of his fins were pretty tattered...\w8\w8\s[400] I'd like to meet the person who did that."
@@ -1408,10 +1448,15 @@ Select.TellMeAboutKit : nonoverlap
 	{
 		"\0\s[104]He's got his own version of Dusty,\w4 a big ghost shark named Ayers.\w8\w8\s[106] Ayers was seriously injured and lives at the center permanently,\w4\s[103] but he also seems to like it there."
 	}
-	if thesplit == 1
+	if thesplit
 	{
 		"\0\s[109]I'm certain that the missing brother and adoptive dad he told me about were versions of my %(teal('first partner')) and %(pink('someone else')) I met a very long time ago...\w8\w8\s[200] He couldn't fully remember them either.\w8\w8\s[206]\n\nHis dad was apparently a very large shark,\w4 and his brother was a very pretty,\w4 very colorful fish...\w8\w8\s[204] I wish there was something I could do for him."
 	}
+	"\0\s[205]I'd like to go visit him sometime.\w8\w8\s[104] Maybe I can help translate more messages for him."
+	"\0\s[206]I hope he gets a friend one day...\w8\w8\s[110] I mean,\w8\s[106] I guess that would probably mean whatever other mer that comes in would probably be hurt somehow,\w4\s[107] and I don't want %(italic('that')),\w4 but...\w8\w8\s[204] He seemed so very lonely.\w8\w8\s[206] I can't imagine how he feels with no one that he can actually talk to..."
+	"\0\s[104]He wanted me to give a special message to each one of the staff members that takes care of him.\w8\w8\s[106] He really does care about them a lot.\w8\w8\s[206] I guess they're the closest thing to family that he has..."
+	"\0\s[103]Heh,\w4 he showed me this neat trick where he lays overtop of the vents that bring fresh water into his tank.\w8\w8\s[104] Apparently it feels good to have moving water over his soul.\w8\w8\s[202] Can't say I'd like the feeling much myself,\w4 though."
+	"\0\s[106]He was fascinated by me having legs and feet.\w8\w8\s[101] He expressed to me multiple times just how strange it was,\w4 but it's even more strange to me that he %(italic(_doesnt)) have legs,\w4 since most versions of myself that I meet aren't half fish..."
 	--
 	"%(timelinequestions)"
 }
@@ -1426,6 +1471,11 @@ Select.TellMeAboutSmol : nonoverlap
 	"\0\s[104]He loves cuddles,\w4 or any affection really.\w8\w8\s[106] But keep in mind,\w4 once you start cuddling him you'll be stuck for a while.\w8\w8 He's \f[italic,true]really\f[italic,false] good at puppy eyes."
 	"\0\s[104]He really likes to draw,\w4\s[103] he drew a picture of me while I was there.\w8\w8\s[104] There were a whole bunch of drawings up on the fridge,\w4 too."
 	"\0\s[107]He doesn't like to cook the way I do.\w8\w8\s[106] I'm not sure if it's because of differences in our personalities,\w4 or if it's just too hard for him to reach the stove."
+	if askedaboutabbi; "\0\s[103]His anAbbi was a real sweetheart.\w8\w8\s[104] I guess anAbbi's always a sweetheart,\w4 wherever he ends up."
+	"\0\s[104]He had tiny little gloves like mine,\w4 they were adorable."
+	"\0\s[208]I wonder what things will be like for him as his timeline keeps going forward...\w8\w8\s[206] He's never going to be able to find work or do much of anything on his own.\w8\w8\s[106] So long as his anAbbi is there to take care of him,\w4 I guess he'll be alright."
+	"\0\s[106]He's apparently very slippery and hard to catch if he doesn't want to be caught.\w8\w8\s[107] I can believe it..."
+	"\0\s[104]He's very huggable,\w8\s[101] it's a good thing he likes hugs so much."
 	--
 	"%(timelinequestions)"
 }
@@ -1437,10 +1487,15 @@ Select.TellMeAboutBirdy : nonoverlap
 	"\0\s[104]I bet his eggs have all hatched by now.\w8\w8\s[208] I'm sure they're all tiny bird versions of my own kids.\w8\w8\s[104] That sounds adorable,\w4 maybe I should visit him."
 	"\0\s[107]The idea of flying actually kinda scares me,\w4 so I don't really envy his wings.\w8\w8\s[104] But it is fun to watch him soar."
 	"\0\s[106]His feet definitely aren't made for walking.\w8\w8\s[107] I imagine it's got to be pretty tiring,\w4 flying around all the time.\w8\w8\s[208] Or I suppose he might be able to hop,\w4 if he wanted."
+	if askedaboutbluejeans; "\0\s[1071].\w8.\w8.\w8\s[105]Heh,\w4 I wonder what kind of bird anBlue would be..."
 	if knowaboutomega == 2
 	{
 		"\0\s[0]The timeline we took him to was actually Omega's shelter.\w8\w8\s[104] They'll take good care of him there and make sure nothing bad happens to his eggs."
 	}
+	"\0\s[106]He's so small I was afraid I might hurt him by holding him.\w8\w8\s[110] He's really light,\w4 too;\w8\s[107] I suppose he has to be in order to fly."
+	"\0\s[208]I think he's a cardinal.\w8\w8\s[104] He's certainly a bright enough red for it."
+	"\0\s[106]I can't imagine what it's like to have a load of feathers attached to your back.\w8\w8\s[107] It sounds itchy,\w4 and too warm.\w8\w8\s[208] I'm sure it's normal to him,\w4 though..."
+	"\0\s[101]He may be little,\w4 but he's fearless when it comes to protecting his eggs.\w8\w8\s[106] He swooped me a number of times before realizing I wasn't a threat."
 	--
 	"%(timelinequestions)"
 }
@@ -1453,10 +1508,15 @@ Select.TellMeAboutSorrel : nonoverlap
 	"\0\s[104]I really shouldn't be surprised that I would be a red cat,\w4\s[103] it just makes sense."
 	"\0\s[0]She didn't let me pet her,\w4\s[104] but she did sniff my hand a little,\w4 and I'll take that as a victory."
 	"\0\s[208]There were a lot of pawprints on the sand...\w8\w8\s[106] there must've been a whole group of cats nearby.\w8\w8\s[107] I'm not sure meeting all of them would've gone well."
-	if thesplit == 1
+	if thesplit
 	{
 		"\0\s[206]When I first spotted her,\w4 she seemed like she was searching for something...\w8\w8\s[109] I've got a pretty good guess who."
 	}
+	"\0\s[208]I wonder if she has kittens.\w8\w8\s[106] I didn't find out,\w4 I never saw where her den was."
+	"\0\s[107]She hissed at me when we first saw each other.\w8\w8\s[106] Which is fair I guess,\w4 maybe I was too close to her home for comfort."
+	"\0\s[208]I wish I'd had some treats or something I could've given to her,\w4 to win her over.\w8\w8\s[1070] Maybe if I ever go there again...\w8\w8\s[106] But that's not likely,\w4 it really wouldn't accomplish much."
+	"\0\s[206]I wonder about her a lot.\w8\w8\s[1070] I'm certain she was a version of me,\w4 but at the same time we're so different.\w8\w8\s[107] Maybe I'm just crazy."
+	"\0\s[208]She looked very lean and fit.\w8\w8\s[106] I guess she must be a wild cat,\w4 and has to hunt her own food.\w8\w8\s[101] It's a shame for her that skeletons aren't edible."
 	--
 	"%(timelinequestions)"
 }
@@ -1471,6 +1531,21 @@ Select.TellMeAboutPMD : nonoverlap
 	"\0\s[0]He took me down to the beach as the sun was setting,\w4 where some other monsters were blowing bubbles the size of my hand.\w8\w8\s[205]\n\nThe sight of the bubbles drifting along,\w4 catching the colors of the sunset,\w4 with the rhythmic sound of lapping waves at the shore...\w8\w8\s[102] It was absolutely magical."
 	"\0\s[208]Apparently monsters there are separated into some sort of types,\w4 I think he said he was a fighting type..?\w8\w8\s[106] Am I the fighting type?\w8\w8\s[107] I try not to be."
 	"\0\s[106]All of my kids were there with him too,\w4 all in different forms.\w8\w8\s[107] I tried to keep track of which was which,\w4 but it was hard,\w4 especially because they spoke a language I couldn't understand.\w8\w8\s[101]\n\nHis version of anBluJeans was some kind of green monster with a leaf on its head,\w4 I remember that much."
+	{
+		"\0\s[208]His hands...\w8\w8\s[106] Or I guess paws?\w8\w8\s[107] Either way,\w8\s[106] they didn't seem very dexterous.\w8\w8\s[202]Not as much as mine,\w4 anyways.\w8\w8\s[208] I wonder how he gets by like that..."
+		--
+		if askedaboutbluejeans; "\w8\w8\s[202] It's even worse for anBlue,\w8\s[106] %(StSfHe) ended up with no hands at all.\w8\w8\s[107] %(StSfCHe) has vines that come out from around %(StSfhis) neck,\w4 though,\w4 which is something I guess."
+	}
+	"\0\s[104]He had a red bandanna that he wore everywhere.\w8\w8\s[208] Maybe it reminds him of my red hoodie?\w8\w8\s[101] He said it's got some sort of special properties,\w4 too.\w8\w8\s[106] Something about boosting attack power?\w8\w8\s[104] Whatever it does, it seems special to him."
+	"\0\s[104]They took me to this cute little cafe to try out some drinks.\w8\w8\s[101] It's kind of a weird place,\w4 you bring in an ingredient and they'll turn it into a drink for you.\w8\w8\s[111] I had a delicious apple tea.\w8\w8\s[106] ...Whatever he had,\w4 though,\w4 didn't seem to go over so well.\w8\w8\s[107] He finished it,\w4 to his credit,\w8\s[106] but I think it's because the cafe owner was watching him eagerly.\w8\w8\s[107] He muttered something about losing braincells after that."
+	"\0\s[0]They brought me in to visit this place they called 'the guild'.\w8\w8\s[110] There were so many monsters there.\w8\w8\s[106] Apparently they train new explorers?\w8\w8\s[101] But I hear they charge crazy fees.\w8\w8\s[104] Still,\w4 they seemed nice."
+	"\0\s[110]He said that the badges they carried were special.\w8\w8 Apparently they can teleport lost monsters back to the town?\w8\w8\s[101] I wish I could use a badge to teleport home."
+	"\0\s[110]He showed me a map of all the places they've explored,\w4 and it's pretty big.\w8\w8\s[208] He must have fallen into that timeline quite a long time ago..."
+	"\0\s[205]His magic was really interesting.\w8\w8\s[0] I'd love to learn more about it,\w4 just out of curiosity.\w8\w8\s[101] It seemed to involve a lot of punching."
+	"\0\s[205]They lived in a little cave,\w4 inside a cliff that overlooked the ocean.\w8\w8\s[104] It seemed like a really nice hideout,\w8\s[106] though I imagine it might get a bit wet if it rains..."
+	"\0\s[101]He gave me what he called a 'perfect' apple at one point.\w8\w8\s[202] I'm not sure what exactly made it 'perfect',\w8\s[104] but it was delicious.\w8\w8\s[106] Too bad I didnt bring any seeds home with me."
+	"\0\s[205]He said the sound of the ocean is really soothing to sleep to.\w8\w8\s[1070] Maybe I should get some ocean ambience.\w8\w8\s[106] I'm not sure if anBlue would like that though..."
+	"\0\s[104]It seems like he's made lots of friends in the town,\w4 they all were pretty happy to see him.\w8\w8\s[0] I'm glad he fits in so well there,\w8\s[106] despite being an outsider."
 	--
 	"%(timelinequestions)"
 }
@@ -1482,8 +1557,13 @@ Select.TellMeAboutBender : nonoverlap
 	"\0\s[208]Apparently water magic there can also be used to heal.\w8\w8\s[104] I suppose it makes sense that that's what his anAbbi would have,\w4 then."
 	"\0\s[110]He told me that some fire benders can also control lightning.\w8\w8\s[107] Apparently it's very difficult though,\w4 and not something he's learned how to do properly.\w8\w8\s[208] He was learning,\w4\s[206] but now he's left his tutors behind,\w4 and it's too dangerous to try and teach yourself."
 	"\0\s[110]I actually found him because he was practicing his bending in the woods where I ended up.\w8\w8\s[109] He knows it may attract attention,\w4 but if he doesn't practice he'll be too rusty to defend himself and his anAbbi if something should happen."
-	"\0\s[206]I wasn't all that surprised that someone like me would end up wielding a dangerous element like fire,\w4 it seems fitting for all the pain I've caused.\w8\w8\s[110]\n\nBut ah,\w4 then his anAbbi caught me off guard.\w8\w8\s[1030] He said that fire is also warm and nurturing,\w4 and fiercely protective.\w8\w8\n\n\s[104]It was really sweet of him."
+	if LVCheck; "\0\s[206]I wasn't all that surprised that someone like me would end up wielding a dangerous element like fire,\w4 it seems fitting for all the pain I've caused.\w8\w8\s[110]\n\nBut ah,\w4 then his anAbbi caught me off guard.\w8\w8\s[1030] He said that fire is also warm and nurturing,\w4 and fiercely protective.\w8\w8\n\n\s[104]It was really sweet of him."
 	"\0\s[0]Fire is actually a pretty useful ability when you're trying to survive outside civilization.\w8\w8\s[104] Helps a lot with being able to cook food and keep yourself warm when the weather is bad."
+	"\0\s[106]At least he doesn't seem afraid of fire.\w8\w8\s[107] I wouldn't want to have fire magic,\w4 I'd be too scared to use it,\w4 or sleep near anything even remotely flammable."
+	"\0\s[208]I'm kind of curious which of the 4 types of magic the rest of my family members would have if they were in that timeline.\w8\w8\s[102] I think anBlue would have earth magic,\w4 it seems right for him."
+	if abbiblind; "\0\s[206]I hope they eventually find somewhere safe to stay.\w8\w8\s[109] It can't be easy,\w4 always on the move with no place to settle...\w8\w8\s[108] Doesn't help when one of your party members is blind,\w4 as well..."
+	"\0\s[206]He seemed so lost...\w8\w8\s[108] I think they must have escaped whatever was in their past rather recently,\w4 and he hasn't quite figured out a plan for the future yet.\w8\w8\s[109] Right now they're just trying to survive."
+	"\0\s[208]His magic seemed so elegant.\w8\w8\s[0] Almost like a dance of some kind.\w8\w8\s[107] My magic is pretty plain by comparison."
 	--
 	"%(timelinequestions)"
 }
@@ -1498,6 +1578,11 @@ Select.TellMeAboutNine : nonoverlap
 	"\0\s[0]Toriel made him the poncho that he's always wearing.\w8\w8\s[103] It's really perfect for him,\w4\s[104] kinda like a wearable blanket."
 	"\0\s[200]He can't see very well.\w8\w8\s[206] Not only is one of his eyelights busted,\w4 the light streaming in from the hole in his skull makes it hard to see out of the socket that's still working.\w8\w8\s[108]\n\nApparently attempts to cover the hole have caused him distress,\w4 but I think Toriel's still planning to try a few other ways to do it.\w8\w8\s[200] Hopefully they can figure out something..."
 	"\0\s[200]His anAbbi is...\w8\w8 very different from mine.\w8\w8\s[206] His head is shaped more like a blaster,\w4 and he seems part way between a quadruped and a biped...\w8\w8\s[109] I have a bad feeling about how that happened.\w8\w8\s[110] Though,\w4 apparently his sense of smell is a lot keener now,\w4 which helps him get around easier."
+	"\0\s[206]He's very skittish;\w8 moreso than I was when I was young,\w4 even...\w8\w8\s[109] Toriel's trying to help him through it,\w4 but apparently progress is slow and easily undone."
+	"\0\s[0]Apparently he likes hugs,\w4 from the right people.\w8\w8\s[107] I was not the right people while I was there."
+	"\0\s[106]He's not very talkative,\w4\s[107] or at least he wasn't talkative with me."
+	"\0\s[206]Apparently his soul is fractured into several different pieces.\w8\w8\s[109] Stuck together,\w4 but not quite whole.\w8\w8\s[200] It explains a lot,\w4 really..."
+	"\0\s[104]I'm told he likes to help Toriel with chores around the house,\w4 especially baking.\w8\w8\s[106] I'm not sure it's for the same reasons as me,\w8\s[104] but I'm glad he's found something he likes to do."
 	--
 	"%(timelinequestions)"
 }
@@ -1511,6 +1596,11 @@ Select.TellMeAboutSerif : nonoverlap
 	"\0\s[200]He always looks so conflicted...\w8\w8 he never has opinions of his own.\w8\w8\s[204] I think he's still deeply afraid of messing up and getting in trouble...\w8\w8\s[206]\n\nI guess killing the guy responsible for my suffering was pretty empowering,\w4 but Serif never did that..."
 	"\0\s[108]He's never the one to choose his own name,\w4 at least in any timelines I've seen him.\w8\w8\s[109] It's always the same story;\w4 he didn't know what sorts of names there were,\w4 so they listed some off to give him an idea,\w4 and he just went along with one of the choices."
 	"\0\s[204]It's really hard to get him to talk.\w8\w8\s[106] The people who take him in are usually pretty good at it though,\w4 I'm glad he always ends up with someone kind."
+	"\0\s[206]I have yet to meet a Serif that has grown up and fully adjusted to life outside the labs.\w8\w8\s[109] I wonder what his life will be like at that point..."
+	"\0\s[108]His soul isn't usually uh...\w8\w8\s[109] as damaged as mine is.\w8\w8\s[206] That's a very good thing,\w4 I hope he never goes through what I did.\w8\w8\s[204] Bonus points if he can keep his skull from getting cracked,\w4 too."
+	"\0\s[206]I worry about him sometimes.\w8\w8\s[109] He hasn't yet had the realizations that I did about being a person,\w4 and right and wrong...\w8\w8\s[108] So if something came up,\w4 he might default to his old behaviors.\w8\w8\s[204] Hopefully with time,\w4 that will no longer be an issue..."
+	"\0\s[200]He doesn't usually want to talk with me much.\w8\w8\s[1070] He seems curious about our differences,\w8\s[109] and maybe scared of the possibility that he could end up in worse shape than he is,\w8\s[108] but he's too afraid to ask.\w8\w8\s[206] Maybe I should just talk to him about it anyways..."
+	"\0\s[202]It's kinda funny to me that even when he didn't pick his own name,\w4 he still ended up with one that starts with S.\w8\w8\s[107] Maybe it's not a coincidence,\w4 I'm not sure."
 	--
 	"%(timelinequestions)"
 }
@@ -1523,6 +1613,11 @@ Select.TellMeAboutEcho : nonoverlap
 	"\0\s[110]They actually had a version of Serif in that timeline,\w4 too.\w8\w8\s[106] I guess because Echo fell in from an outside timeline?\w8\w8\s[107] I didn't ask too much about the specifics.\w8\w8\s[202] I think anWings was just glad that she didn't have to take care of a third version of me."
 	"\0\s[208]His version of anWings didn't say it,\w4 but I'm pretty sure she was pregnant with anRoman while I was there.\w8\w8\s[108] I guess his father must be the %(green('skeleton')) she was married to in that timeline?\w8\w8\s[1070] It would explain some things,\w4 I guess..."
 	"\0\s[1030]He was fascinated by my tail.\w8\w8\s[107] I explained to him why I have it,\w4 and then he was just really confused why I have so many kids."
+	"\0\s[208]He still lives underground.\w8\w8\s[206] I wonder if he'll ever see the surface?\w8\w8\s[106] I never got to the surface in my original timeline."
+	"\0\s[208]I think he'll be alright with time.\w8\w8\s[106] He's got almost the best possible start."
+	"\0\s[208]He'll have the chance for a semi-normal childhood,\w4 like I never had.\w8\w8\s[102] I'm grateful for that."
+	"\0\s[208]I wonder what it'll be like with him to grow up with an alternate timeline version of himself for a brother...\w8\w8\s[107] I hope they don't fight.\w8\w8\s[106] They are very different..."
+	"\0\s[208]I should go back and check on him when he's a little older.\w8\w8\s[106] I just want to see him happy and living a good life,\w4 I guess."
 	--
 	"%(timelinequestions)"
 }
@@ -1536,6 +1631,11 @@ Select.TellMeAboutIce : nonoverlap
 	"\0\s[108]He absolutely would not let me touch him.\w8\w8\s[109] I'm not fond of physical affection myself unless it's coming from close friends or family members,\w4 but he was having absolutely none of it."
 	"\0\s[204]I just wish I could have helped him somehow...\w8\w8\s[201] but others have tried,\w4 and things have still gone so wrong for him.\w8\w8\s[108] In a way,\w4 their help just ended up making things even harder for him.\w8\w8\s[109] I hope one day that will change..."
 	"\0\s[206]I don't think he'd like anBluJeans.\w8\w8\s[201] He'd never trust anBlue not to betray him."
+	"\0\s[108]I really don't want to go back to that timeline.\w8\w8\s[109] I don't think there's anything I could do to help him.\w8\w8\s[206] Maybe if I stayed there long term,\w8\s[204] but that isn't a guarantee,\w4 and he wouldn't want me around anyways..."
+	"\0\s[204]I think he's in a lot more pain than he's willing to admit.\w8\w8\s[109] He doesn't want anyone to see his weaknesses,\w4 I suppose..."
+	"\0\s[206]The timeline he's in is really doing him no favors.\w8\w8\s[109] It seems life isn't valued very much there,\w4 so he's often fighting for survival."
+	"\0\s[206]I don't know how much longer he can keep going on his own.\w8\w8\s[109] He's already struggling so much,\w4 in so many ways,\w4 and it's only getting worse..."
+	"\0\s[206]I got him to tell me a little bit about his ice magic,\w4 and I think it's slowly overwhelming him.\w8\w8\s[108] Apparently he has to use it regularly just to keep it from taking over his own magic completely.\w8\w8\s[109] It's almost like a disease for him...\w8\w8\s[204] It's terrifying."
 	--
 	"%(timelinequestions)"
 }
@@ -1549,13 +1649,30 @@ Select.TellMeAboutOmega : nonoverlap
 	"\0\s[208]Apparently the 'flames' on top of his head are actually excess magic venting out.\w8\w8\s[106] If all of that magic is going to waste,\w4 I don't want to see what he's like in a fight..."
 	"\0\s[102]He's always so gentle,\w4 especially with the little kids.\w8\w8\s[200] I guess he's seen all kinds of hell out there,\w4 so he knows how much they really need it."
 	"\0\s[208]Despite being one of the founders of the shelter,\w4 he actually spends very little time there.\w8\w8\s[110] He's usually out looking for timelines that he can help,\w4 or running other errands.\w8\w8\s[107] He's definitely the busiest person I know."
+	"\0\s[109]He's in a lot more pain than he lets on,\w4 I'm sure of it.\w8\w8\s[200] I wish I could do more for him."
+	"\0\s[208]Evidently it took a lot of work to get his appearance like it is now.\w8\w8\s[206] I suppose he still wanted to look like he used to be.\w8\w8\s[1070] It must be easier to move around in a more familiar body,\w4 too."
+	"\0\s[107]He's always got something going on.\w8\w8\s[106] I suppose I'm lucky I get to talk to him now and then,\w8\s[101] I like to think I help give him a bit of a break.\w8\w8\s[202] It's not healthy to do nothing but work."
+	"\0\s[102]He's always so laidback,\w4 not much seems to bother him.\w8\w8\s[106] I'm not sure how he manages to worry less than I do,\w4 when he has so much more responsibility."
+	"\0\s[208]It's pretty impressive what he's built.\w8\w8\s[101] Not alone,\w4 of course,\w8\s[106] but the shelter could not run without him.\w8\w8\s[205] They're doing a lot of good work there."
+	--
+	"%(timelinequestions)"
+}
+
+Select.TellMeAboutTheShelter : nonoverlap
+{
+	"\0\s[110]It's more than just one building,\w4 they've actually got several.\w8\w8\s[108] There's uh,\w4 a few cases where certain family members can't be around other family members,\w4 for various reasons...\w8\w8\s[200] So they offer separate housing for some folks,\w4 so they can heal more easily.\w8\w8\s[106] They've really thought it through very well."
+	"\0\s[208]Omega helped to found it,\w4 but there's another S there called Alpha that he founded it with.\w8\w8\s[0] He stays there to oversee things.\w8\w8\n\n\s[101]Or so I'm told,\w4 I haven't had a chance to meet him yet.\w8\w8\s[107] Apparently he's often buried under paperwork."
+	"\0\s[107]A lot of them seem to have this sense of awe around me.\w8\w8\s[106] I'm told that my timeline is one of the strongest ones with us in it?\w8\w8\s[202] There are a lot of branches from mine,\w4 apparently.\w8\w8\s[107] So,\w4 a lot of the folks there are curious about what might have been.\w8\w8\n\n\s[206]I don't know,\w4 I feel kind of weird about it."
+	"\0\s[101]They call me 'Prime' there.\w8\w8\s[106] I didn't pick it,\w4 but I couldn't think of anything better,\w4 so it stuck.\w8\w8\s[107] I guess my timeline is sort of seen as the 'normal' one?\w8\w8 It's strange."
+	"\0\s[208]There are a lot of people living there.\w8\w8\s[0] Many of them are only there temporarily;\w8 they come,\w4 stay for a few weeks or a few months to heal,\w4 and then they're relocated to another timeline.\w8\w8\n\n\s[206]There are some who have to stay for years,\w4 though,\w4 and some who will never leave at all because their circumstances are so bad.\w8\w8\s[106] There are also those who stay because they want to work as staff members for a while and repay some of what was given to them,\w4 so it's not all bad,\w4 but..."
+	"\0\s[107]I've uh,\w4 actually met some folks there who are apparently my children in other timelines.\w8\w8\s[106] I guess,\w4 depending on the circumstances,\w4 I don't always end up with the same kids I've got now.\w8\w8\s[202] It's a bit weird,\w8\s[104] but the ones I've met so far have all been nice.\w8\w8\s[103] I'm glad to know them."
 	--
 	"%(timelinequestions)"
 }
 
 timelinequestions
 {
-	if knowaboutkit == 0 && knowaboutsmol == 0 && knowaboutbirdy == 0 && knowaboutsorrel == 0 && knowaboutpmd == 0 && knowaboutbender == 0 && knowaboutnine == 0 && knowaboutserif == 0 && knowaboutecho  == 0 && knowaboutice == 0 && knowaboutomega == 0
+	if knowaboutkit == 0 && knowaboutsmol == 0 && knowaboutbirdy == 0 && knowaboutsorrel == 0 && knowaboutpmd == 0 && knowaboutbender == 0 && knowaboutnine == 0 && knowaboutserif == 0 && knowaboutecho == 0 && knowaboutice == 0 && knowaboutomega == 0
 	{
 		"\n\n\![*]\q[Ask something else,ihavequestions]"
 		--
@@ -1776,6 +1893,7 @@ Select.CALENDAR
 			"\0\s[0]Sure,\w4 just a moment."
 			"\0\s[104]Sure,\w4 here you go."
 			"\0\s[0]Keeping organized,\w4 huh?"
+			"\0\s[101]How does this digital calendar thing work,\w4 anyways?\w8\w8 Do you know?\w8\w8\s[107] I know \_a[https://zichqec.github.io/s-the-skeleton/index.html]someone\_a who would appreciate that info..."
 		}
 		else //Negative routes -- Bad routes not included here because you can't reach this menu anyways
 		{
@@ -1813,7 +1931,8 @@ Select.sspconfig
 		{
 			"\0\s[101]Preferences?\w8\w8 Uh,\w4 is that this thing here..?"
 			"\0\s[1070]Preferences...\w8\w8\s[106] Is this it?"
-			"\0\s[1070]Sure,\w4 lets see...\w8\w8\s[0] Here it is."
+			"\0\s[1070]Sure,\w4 letss see...\w8\w8\s[0] Here it is."
+			"\0\s[101]Changing some settings?\w8\w8\s[1070] Let's see...\w8\w8\s[104] There you go."
 		}
 		else //Negative routes -- again, if he's mad at you, you wont even have this option
 		{
@@ -1994,6 +2113,7 @@ Select.balloonupdate
 			"\0\s[1070]Ok,\w4 let me see here..."
 			"\0\s[1070]Hm,\w4 balloon updates..?"
 			"\0\s[1070]I can try,\w4 just a second..."
+			"\0\s[1070]An update for the balloon,\w4 huh..?"
 		}
 		else
 		{
@@ -3893,6 +4013,40 @@ OnOthertest
 
 OnTestVariable  //For my own testing purposes. Be careful here.
 {
+	_food1 = bakedgoods
+	_food2 = bakedgoods
+	_food3 = bakedgoods
+	while _food1 == _food2; {_food2 = bakedgoods}
+	while _food3 == _food1 || _food3 == _food2; {_food3 = bakedgoods}
+	
+	_fruveg1 = fruveg
+	_fruveg2 = fruveg
+	while _fruveg1 == _fruveg2; {_fruveg2 = fruveg}
+	
+	_ingredients1 = ingredients
+	_ingredients2 = ingredients
+	while _ingredients1 == _ingredients2; {_ingredients2 = ingredients}
+	
+	"\0\s[1301]%(dreammumb)...No no no,\w4 if you're making %(_fruveg1) %(_food1),\w4 you have to add %(_ingredients1) and %(_ingredients2) or "
+		--
+		"it won't taste right"
+		"the texture will be off"
+		"it'll be too spicy"
+		"it'll separate"
+		"it'll just feel wrong"
+		"it will come out lopsided"
+		"the color won't be right"
+		--
+		"...\w8\w8 "
+		--
+		"Trust me on this one,\w4 I've done this a million times before,\w4 the %(_ingredients2) is really important"
+		"I know it sounds crazy,\w4 but the %(_ingredients1) makes such a difference"
+		"No,\w4 really,\w4 just try it"
+		"You see?\w8\w8 Way better already"
+		"There,\w4 that's better,\w4 isn't it?\w8\w8 The %(_ingredients1) makes all the difference"
+		"There,\w4 now that's what I call %(_fruveg1) %(_food1)...\w8\w8 He'll love it"
+		--
+		"...%(dreammumb2)"
 	//"\![open,inputbox,OnUrlTest,-1]URL input\e"
 	//OnWander("0")
 	//"%(CHR(1))"
@@ -3909,16 +4063,16 @@ OnTestVariable  //For my own testing purposes. Be careful here.
 	
 	//"\![get,property,OnPositionTest,currentghost.scope(0).rect]\![embed,OnSayPosition]\e"
 	
-	_i = FUNCTIONEX("window_info.dll")
-	//"\b2\_q%(_i)\n\n%(valueex)\x"
+	// _i = FUNCTIONEX("window_info.dll")
+	// //"\b2\_q%(_i)\n\n%(valueex)\x"
 
-	_display = ""
-	foreach valueex; _program
-	{
-		_program = REPLACE(_program,"\","\\")
-		_display += "\![*]%(_program)\n\n[half]"
-	}
-	"\_q\b4\![set,autoscroll,disable]%(_display)\x"
+	// _display = ""
+	// foreach valueex; _program
+	// {
+		// _program = REPLACE(_program,"\","\\")
+		// _display += "\![*]%(_program)\n\n[half]"
+	// }
+	// "\_q\b4\![set,autoscroll,disable]%(_display)\x"
 
 	//OnMenuExamples
 }
@@ -4122,7 +4276,7 @@ OnTestREG
 	humidity = "Unknown"
 	wind = "Unknown"
 	weather = "Unknown"
-	pollen = ""
+	pollen = "Unknown"
 	sunrise = "Unknown"
 	sunset = "Unknown"
 
@@ -4418,7 +4572,7 @@ OnDebugMenu
 	--
 	"/
 	\![*]\q[Commu Ping Menu,OnCommuMenu]   \![*]\q[Weather Menu,OnWeatherMenu]\n\n/
-	love: \_a[OnChangeLove,Love]%(love)\_a\n/
+	love: \_a[OnChangeLove,Love]%(love)\_a                         \![*]\q[Daily Dialogue,OnDebugDaily]\n/
 	LV: \_a[OnChangeLove,LV]%(LV)\_a\n\n/
 	Mode:\n"
 	--
@@ -4536,10 +4690,10 @@ OnWeatherMenu
 	Weather: \_a[OnEditWeather,weather]%(weather)\_a\n\n/
 	Pollen: \_a[OnEditWeather,pollen]"
 	--
-	if pollen == ""; "None"
-	else; "Pollen Alert"
+	if pollen == "Local Pollen Alert"; "Pollen Alert"
+	else; "None"
 	--
-	"\_a\n\n\![*]\q[Test weather dialogue,OnWeatherMenu,testdialogue]"
+	"\n\n\![*]\q[Test weather dialogue,OnWeatherMenu,testdialogue]"
 	--
 	"\n\n\![*]\q[Back to Debug,OnDebugMenu]\e"
 }
@@ -4633,6 +4787,13 @@ OnLVEdit
 {
 	LV = TOINT(reference0)
 	OnDebugMenu
+}
+
+OnDebugDaily
+{
+	REPLACE(DailyDialogues,"\e","")
+	--
+	"\x%(OnDebugMenu)"
 }
 
 OnDebugModeToggle
@@ -4970,162 +5131,6 @@ OnGroupEvent
 	// "%(FUNCTIONEX('gomi.dll', '-n'))\_w[1000]\![raise,OnGomiTest]"
 // }
 
-
-
-OnStartRPS
-{
-	"\0\s[0]Alright,\w4 here we go."
-	"\0\s[0]You're on!"
-	--
-	"\w8\w8 Rock,\w4 paper,\w4 scissors..."
-	--
-	"\_q\n\n/
-	\![*]\q[Rock,OnRPS,rock]\n/
-	\![*]\q[Paper,OnRPS,paper]\n/
-	\![*]\q[Scissors,OnRPS,scissors]\n\n/
-	\![*]\q[Nevermind,cancelnodialogue]\e"
-}
-
-OnRPS
-{
-	_userthrow = reference0 //Gets the user's pick
-	_ghostthrow = ANY("rock,paper,scissors") //Gets the ghost's pick. ANY chooses randomly from the comma-separated list
-	
-	//Figures out who won
-	_winlose = ""
-	if _userthrow == _ghostthrow; _winlose = "tie"
-	elseif _userthrow == "rock" && _ghostthrow == "scissors"; _winlose = "win"
-	elseif _userthrow == "paper" && _ghostthrow == "rock"; _winlose = "win"
-	elseif _userthrow == "scissors" && _ghostthrow == "paper"; _winlose = "win"
-	else; _winlose = "lose"
-	
-	//Figures out what surface the ghost should be using. Put your surfaces in here.
-	_pose = ""
-	if _winlose == "lose" //If the ghost won
-	{
-		if _ghostthrow == "rock"; _pose = "\s[0]"
-		elseif _ghostthrow == "paper"; _pose = "\s[0]"
-		else; _pose = "\s[0]"
-	}
-	else //If the user won or it's a tie. You can make another elseif if you want these to be different.
-	{
-		if _ghostthrow == "rock"; _pose = "\s[0]"
-		elseif _ghostthrow == "paper"; _pose = "\s[0]"
-		else; _pose = "\s[0]"
-	}
-	
-	//Gets the throw that won. If it's a draw, it'll default to the ghost, but that won't matter because it won't be called.
-	_winthrow = _ghostthrow
-	if _winlose == "win"; _winthrow = _userthrow
-	
-	//Phrases to add extra spice to dialogue
-	_winreason = ""
-	if _winthrow == "rock"; _winreason = "rock smashes scissors"
-	elseif _winthrow == "paper"; _winreason = "paper covers rock"
-	else; _winreason = "scissors cuts up paper"
-	
-	//Note - If you want to have the winreason or the throws be capitalized, you can use my capitalize function like so: %(Capitalize(_winreason))
-	"\0%(_pose)" //Sets up the appropriate pose
-	--
-	if _winlose == "win" //If the user won
-	{
-		"%(_userthrow) beats %(_ghostthrow),\w4 you got me!"
-		"Oh,\w4 %(_winreason),\w4 I lost!"
-	}
-	elseif _winlose == "tie" //If it was a tie
-	{
-		"Oh,\w4 we both picked %(_userthrow).\w8\w8 It's a draw."
-		"Oh,\w4 we picked the same thing,\w4 it's a draw."
-	}
-	else //If the ghost won
-	{
-		"%(_ghostthrow) beats %(_userthrow)!\w8\w8 I win!"
-		"Got you!\w8\w8 %(_winreason)!"
-	}
-	--
-	"\w8\w8 " //A pause and space between the dialogues. Remove or change if you like.
-	--
-	//You can use _winlose to make special comments for specific outcomes, if you want. It's 'win' if the user won, 'lose' if the ghost won, and 'tie' if it was a draw
-	"\s[0]Lets go again!"
-	"\s[0]Want to try again?"
-	if _winlose == "win"; "\s[0]Let's do another round,\w4 I want to beat you!"
-	--
-	"\_q\n\n/
-	\![*]\q[Another round!,OnStartRPS]\n"
-	--
-	"\![*]\q[I'm done,cancelnodialogue]\e"
-}
-
-
-//Written by Zichqec https://zichqec.github.io/s-the-skeleton/index.html
-
-//Put this in a menu somewhere (the ',,new' is important):
-//\![*]\q[Play Junior Jumble,OnJuniorJumble,,new]
-
-OnJuniorJumble
-{
-	if reference1 == "new" //reference1 so the user can't impact this with the input box
-	{
-		JumbleWord = TOLOWER(JumbleWords)
-		_jumbled = Shuffle(JumbleWord)
-	
-		"\*\![close,inputbox,OnJuniorJumble,-1]\![open,inputbox,OnJuniorJumble,-1]"
-		--
-		"Unscramble the word:"
-		--
-		"\n\n\f[height,+4]%(_jumbled)\f[default]"
-		--
-		"\_q\n\n\![*]\q[Give up,OnJuniorJumbleQuit]\e"
-	}
-	else //If the user put in a guess
-	{
-		if TOLOWER(reference0) == JumbleWord //Win
-		{
-			"That's correct! The word was %(JumbleWord)."
-		}
-		else //Lose
-		{
-			"Nope,\w4 not quite.\w8\w8 You put in %(reference0),\w4 the word was %(JumbleWord)."
-		}
-		--
-		"\_q\n\n\![*]\q[Another word,OnJuniorJumble,,new]\n\![*]\q[I'm done,cancelnodialogue]\e"
-		--
-		ERASEVAR("JumbleWord")
-	}
-}
-
-OnJuniorJumbleQuit
-{
-	"\![close,inputbox,OnJuniorJumble,-1]"
-	--
-	"Aw,\w4 ok.\w8\w8 The word was %(JumbleWord)."
-	--
-	"\_q\n\n\![*]\q[Another word,OnJuniorJumble,,new]\n\![*]\q[I'm done,cancelnodialogue]\e"
-	--
-	ERASEVAR("JumbleWord")
-}
-
-//Fill with words you want it to use - the more the better! Words themed around your ghost can be especially fun. If you also have my hangman game, you could change it so that they share the same pool of words.
-JumbleWords
-{
-	"Example"
-	"Nitroglycerin"
-	"Nyctophobia"
-	"Particular"
-	"Agriculture"
-	"Illustrate"
-	"Breakdown"
-	"Bulletin"
-	"Attention"
-	"Chemistry"
-	"Guarantee"
-	"Temperature"
-	"Diagram"
-	"Exploration"
-}
-
-//For this game to work, you'll also need the Shuffle function I wrote. If you already have it, then don't include this next bit of code. If not, you'll need this too. (You can use it for things besides Junior Jumble, just give it a word or array to scramble!)
-
 Shuffle
 {
 	_output = IARRAY
@@ -5151,171 +5156,6 @@ Shuffle
 	_output
 }
 
-
-TestOutput : nonoverlap
-{
-	parallel PoolA
-	if love > 100; parallel PoolB
-}
-
-PoolA : array
-{
-	"0 Coffee"
-	"1 Tea"
-	"2 Juice"
-	//parallel GetDialogue("PoolAA","%(thesplit == 1)")
-}
-
-PoolAA : array
-{
-	"00 Creamer"
-	"11 Sugar"
-	"22 Tasty"
-}
-
-PoolB : array
-{
-	"3 Rugs"
-	"4 Carpet"
-	"5 Fish"
-}
-
-PoolC : array
-{
-	"6 Brains"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"7 Zombies"
-	"8 Cartoons"
-}
-
-TestTalk : nonoverlap
-{
-    // parallel GetDialogue("PoolA","%(booting == 0)")
-    // parallel GetDialogue("PoolB","%(SHIORI3FW.BalloonName == 'Purple Soul')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-    // parallel GetDialogue("PoolC","%(username == 'Zi')")
-}
-
 Pool
 {
     _output = IARRAY
@@ -5332,16 +5172,18 @@ Pool
     _output
 }
 
-On2dTest
-{
-	somearray = ("Something,Somethingelse,Blah","Another thing!!,Red,Blue,Whatever")
-	2D_ASSIGN("Only positivity here!!!","somearray[1]","[3]")
-	LOGGING(somearray)
-}
+// On2dTest
+// {
+	// somearray = ("Something,Somethingelse,Blah","Another thing!!,Red,Blue,Whatever")
+	// 2D_ASSIGN("Only positivity here!!!","somearray[1]","[3]")
+	// LOGGING(somearray)
+// }
 
-2D_ASSIGN //No local arrays, global only!
-{
-    EVAL("_array = %(_argv[1])")
-    EVAL("_array%(_argv[2]) = '%(_argv[0])'")
-    EVAL("%(_argv[1]) = _array")
-}
+// 2D_ASSIGN //No local arrays, global only!
+// {
+    // EVAL("_array = %(_argv[1])")
+    // EVAL("_array%(_argv[2]) = '%(_argv[0])'")
+    // EVAL("%(_argv[1]) = _array")
+// }
+
+

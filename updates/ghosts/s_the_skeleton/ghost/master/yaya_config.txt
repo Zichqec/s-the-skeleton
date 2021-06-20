@@ -12,6 +12,7 @@
 //------------------------------------------------------------------------------
 //TALK_INTERVAL　AIトーク間隔の初期値[秒]
 //------------------------------------------------------------------------------
+//I think this is the default value for the talk interval. If it loads up the ghost and that variable doesn't exist, it sets it to the value you put here
 #globaldefine	TALK_INTERVAL	180
 
 
@@ -27,6 +28,7 @@
 //	0だとファイル走査にて構築します。
 //	インストール済みゴーストが多いと時間がかかります。
 //------------------------------------------------------------------------------
+//"Accelerate installed ghost list" is how I interpret this. Basically, instead of scanning your files to check for ghosts, it uses a SHIORI event instead which speeds things up. 0 is off, 1 is on.
 #globaldefine	SHIORI3FW.IGLIST_ACCEL	1
 
 //------------------------------------------------------------------------------
@@ -35,6 +37,7 @@
 //	数の上限を指定します。-1で制限なし（すべて取得）です。
 //	0とすると取得しません。
 //------------------------------------------------------------------------------
+//Installed Ghost List Max. If you set it to -1, it will scan through all of the folders in the ghost folder to try and find installed ghosts. If you set it to 0, it won't scan at all. Set it to any other number, and it'll use that as a limit. May cause lag, so I've often seen it recommended to limit this to 30 or so. I believe if you do let it do this, you get a nice list of the sakura and kero names for each ghost? Potentially useful, but the lag is probably not worth it.
 #globaldefine	SHIORI3FW.IGLIST_MAX	0
 
 
@@ -49,6 +52,7 @@
 //	済のゴーストリストを取れなくなったりします。
 //	0ですべての行を取得します。
 //------------------------------------------------------------------------------
+//I don't actually know what this one does. The comments say something about the ghost list of complete installations? I'm not really sure.
 #globaldefine	SHIORI3FW.REQUEST_LINES_LIMIT	0
 
 
@@ -56,6 +60,7 @@
 //SHIORI3FW.RES_REF_MAX
 //	res_referenceの上限
 //------------------------------------------------------------------------------
+//Apparently a limit on res_reference... Does that mean you can have res_references higher than 0? Another page on AYAYA seems to support that, by writing it as res_reference*... may be worth investigating.
 #globaldefine	SHIORI3FW.RES_REF_MAX			32
 
 //------------------------------------------------------------------------------
@@ -65,6 +70,7 @@
 //	処理が入ります。
 //	0にするとそれらの処理を行いません。
 //------------------------------------------------------------------------------
+//Auto conversion of variables. AYA5 didn't do this, which is why you have to use TOINT and TOSTR in some places in AYA5 where you don't in YAYA. This screws up some things, like email headers, because the 'one byte chars' that separate the headers are automatically converted to commas.
 #globaldefine	SHIORI3FW.AUTO_DATA_CONVERT		1
 //Note to self: this here is why you can't put a 0 at the start of a name that has only ints
 
@@ -75,4 +81,5 @@
 //	アクセスするようになります。若干のスピードアップが見込めます。
 //	0にすると、reference0 といった変数を作成します（過去互換処理）
 //------------------------------------------------------------------------------
+//Turn this on, and you'll have to use reference[0] instead of reference0. But, it will be faster.
 #globaldefine	SHIORI3FW.REF_ACCEL				0

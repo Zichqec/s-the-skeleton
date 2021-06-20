@@ -1397,7 +1397,7 @@ collision5,100,95,140,130,Obsidian
 
 //Tail twitch
 1interval,runonce //Initial frame
-1pattern0,3053,-1,overlay,85,144
+1pattern0,3053,0,overlay,85,144
 
 2interval,random,3 //This decides which animation to play so they dont overlap
 2pattern0,0,0,alternativestart,[3.4.5.6]

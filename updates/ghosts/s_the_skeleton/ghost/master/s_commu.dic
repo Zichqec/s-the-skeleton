@@ -19,6 +19,7 @@ OnCommunicate
 	}
 	elseif nowmode == "RYS"
 	{
+		//Why is this here??? idk, investigate later. Duped it down below so it works...
 		res_reference0 = ""
 		if ghostexcount > 0 //Checking to see if there's another ghost
 		{
@@ -87,88 +88,108 @@ OnCommunicate
 
 OnStartTalking //Starting conversations
 {
-	if ghostexcount > 0 //Checking to see if there's another ghost
+	_ghost = ANY(ghostexlist)
+	if reference0 != ""; _ghost = reference0 //If this was a manual ping
+	
+	if nowmode == "RYS"
 	{
-		_ghost = ANY(ghostexlist)
-		if reference0 != ""; _ghost = reference0 //If this was a manual ping
-		--
-		case _ghost
+		//Why is this here??? idk, investigate later. Duped it down below so it works...
+		res_reference0 = ""
+		if ghostexcount > 0 //Checking to see if there's another ghost
 		{
-			when "Dusty"
+			if ASEARCH(reference0,RYSMetGhosts) == -1
 			{
-				if talkedtoDusty == 0 //if they haven't seen each other before
-				{
-					res_reference0 = "Dusty"
-					talkedtoDusty = 1
-					"\0\s[110]Oh!\w8\w8 Dusty,\w4 is that you?\w8\w8\s[101] I didn't realize you could survive in a place like this.\w8\w8\e SFirstHelloS01"
-				}
-				else //After they've seen each other
-				{
-					"\0\s[104]It's pretty nice that you can exist here,\w4 huh?\w8\w8\s[101] It's got to be better than the void,\w4 anyways.\w8\w8\e NicerThanVoidS01"
-					res_reference0 = "Dusty"
-				}
+				RYSMetGhosts ,= reference0
 			}
-			when "Azura" //=======Azura========
-			{
-				res_reference0 = "Azura"
-				talkedtoAzura = 1
-				
-				"\s[103]Hey %(res_reference0),\w4\s[0] what are you doing?\e"
-			}
-			when "Gaster" //=========Zarla's Gaster=======
-			{
-				res_reference0 = ""
-				"\0\s[200].\w4.\w4.\w8\w8\n\n* (Doesn't seem like he wants to talk to %(_ghost).)\e"
-			}
-			when "Temmie"
-			{
-				res_reference0 = "Temmie"
-				"\0\s[104]Hello Temmie!\w8\w8\e"
-			}
-			when "MiniDev"
-			{
-				//S will check MiniDev's outfit, if S is in the correct shell and hasn't already done this
-				if MiniDevSOutf != 1 && (nowshell == "red_hoodie" || nowshell == "pink_apron")
-				{
-					res_reference0 = "MiniDev"
-					"\e GetMiniDevStats01"
-				}
-				else
-				{
-					res_reference0 = "MiniDev"
-					"\0\s[104]Hey,\w4 MiniDev.\e"
-				}
-			}
-			when "Hydrate"
-			{
-				"\0\s[110]* (He's staring at Hydrate...)\w8\w8\n\n* (Maybe you should give him some water.)\e"
-			}
-			when "Lulo"
-			{
-				res_reference0 = "Lulo"
-				
-				"\e GetLuloStats"
-			}
-			when "Dusty"
-			{
-				res_reference0 = "Dusty"
-				
-				"\e GetDustyStats"
-			}
-			others //======Any ghost he doesn't know========
-			{
-				//SHIORI3FW.SetDelayEvent('LoopPrevention',5)
-				commuTimer = 10
-				AlreadyResponded = 1
-				res_reference0 = _ghost
-				
-				"\0\s[104]Hey,\w4 %(res_reference0).\w8\w8\e"
-			}
+			"\RYS\s[2007]* (He seems afraid of %(_ghost).)\e"
+		}
+		else
+		{
+			"\RYS\s[2007]* (He fidgets.)\w8\w8\n\n\s[2006]Um,\w4 nobody else is here...\e"
 		}
 	}
-	else //If there is no other ghost
+	else
 	{
-		"\0\s[106]Ah,\w4 I don't think anyone else is here,\w4 kiddo.\e"
+		if ghostexcount > 0 //Checking to see if there's another ghost
+		{
+			case _ghost
+			{
+				when "Dusty"
+				{
+					if talkedtoDusty == 0 //if they haven't seen each other before
+					{
+						res_reference0 = "Dusty"
+						talkedtoDusty = 1
+						"\0\s[110]Oh!\w8\w8 Dusty,\w4 is that you?\w8\w8\s[101] I didn't realize you could survive in a place like this.\w8\w8\e SFirstHelloS01"
+					}
+					else //After they've seen each other
+					{
+						"\0\s[104]It's pretty nice that you can exist here,\w4 huh?\w8\w8\s[101] It's got to be better than the void,\w4 anyways.\w8\w8\e NicerThanVoidS01"
+						res_reference0 = "Dusty"
+					}
+				}
+				when "Azura" //=======Azura========
+				{
+					res_reference0 = "Azura"
+					talkedtoAzura = 1
+					
+					"\s[103]Hey %(res_reference0),\w4\s[0] what are you doing?\e"
+				}
+				when "Gaster" //=========Zarla's Gaster=======
+				{
+					res_reference0 = ""
+					"\0\s[200].\w4.\w4.\w8\w8\n\n* (Doesn't seem like he wants to talk to %(_ghost).)\e"
+				}
+				when "Temmie"
+				{
+					res_reference0 = "Temmie"
+					"\0\s[104]Hello Temmie!\w8\w8\e"
+				}
+				when "MiniDev"
+				{
+					//S will check MiniDev's outfit, if S is in the correct shell and hasn't already done this
+					if MiniDevSOutf != 1 && (nowshell == "red_hoodie" || nowshell == "pink_apron")
+					{
+						res_reference0 = "MiniDev"
+						"\e GetMiniDevStats01"
+					}
+					else
+					{
+						res_reference0 = "MiniDev"
+						"\0\s[104]Hey,\w4 MiniDev.\e"
+					}
+				}
+				when "Hydrate"
+				{
+					"\0\s[110]* (He's staring at Hydrate...)\w8\w8\n\n* (Maybe you should give him some water.)\e"
+				}
+				when "Lulo"
+				{
+					res_reference0 = "Lulo"
+					
+					"\e GetLuloStats"
+				}
+				when "Dusty"
+				{
+					res_reference0 = "Dusty"
+					
+					"\e GetDustyStats"
+				}
+				others //======Any ghost he doesn't know========
+				{
+					//SHIORI3FW.SetDelayEvent('LoopPrevention',5)
+					commuTimer = 10
+					AlreadyResponded = 1
+					res_reference0 = _ghost
+					
+					"\0\s[104]Hey,\w4 %(res_reference0).\w8\w8\e"
+				}
+			}
+		}
+		else //If there is no other ghost
+		{
+			"\0\s[106]Ah,\w4 I don't think anyone else is here,\w4 kiddo.\e"
+		}
 	}
 }
 

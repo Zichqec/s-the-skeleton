@@ -110,7 +110,7 @@ OnRYSMenu
 		}
 	}
 	--
- 	"\![*]To talk MToYou or to MAnotherGhost\n" //MToYou and MAnotherGhost are both anchors
+ 	"\![*]To talk \_a[OnAiTalk,userprompted]to you\_a or to \_a[OnStartTalking]another ghost\_a\n" //Anchors so they're highlighted
 	--
 	"\![*]\q[Some questions,OnQuestionsRYS]\n/
 	\![*]\q[To do something for you,OnFunctionRYS]\n\n/

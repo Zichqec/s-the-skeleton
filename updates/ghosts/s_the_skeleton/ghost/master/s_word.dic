@@ -25,7 +25,7 @@ ingredients
 	"nutmeg"
 	"ginger"
 	"mustard"
-	"tumeric"
+	"turmeric"
 	"thyme"
 	"rosemary"
 	"allspice"
@@ -113,6 +113,7 @@ bakedgoods
 	"pumpkin bread"
 	"banana bread"
 	"monkey bread"
+	"potato bread"
 	"pumpkin roll"
 	"buckeyes"
 	"oreo balls"
@@ -535,7 +536,7 @@ mumble
 	"%(mumble2)%(mumble2)%(mumble2)"
 }
 
-mumble2
+mumble2 : nonoverlap
 {
 	"zz"
 	"mmf"
@@ -569,7 +570,7 @@ mumble2
 	"mnn...\w8\w8 %(mumb)"
 }
 
-mumb
+mumb : nonoverlap
 {
 	"zkm"
 	"frm"
@@ -862,7 +863,9 @@ lm : sequential //Changed the loadingmoon thing to just use sequential, it's les
 
 
 
-/*Types I've gathered are as follows(please let me know if you find more that aren't included here!):
+/*
+	Types I've gathered are as follows(please let me know if you find more that aren't included here!):
+
 	Clear			Partly Cloudy	Showers in the Vicinity
 	Mostly Clear	Mostly Cloudy	Few Showers
 	Sunny			Cloudy			Showers
@@ -1407,7 +1410,11 @@ ChangeLog : array
 	-Fixed it so S's best dreams are actually available if you pet him enough while he's sleeping.\n\n/
 	-S can actually recognize his own birthday now! Somehow I had completely screwed up those checks.\n\n/
 	-Fixed a lot of misc bugs, as well as stray pixels, typos, incorrect dialogue formatting,%(br)and word wrap issues.\n\n/
-	-Lots of under the hood changes to make developing easier. Plenty more to come in the future as well. They're my gift to me.\n\n"
+	-Lots of under the hood changes to make developing easier. Plenty more to come in the future as well. They're my gift to me.\n\n\n/
+	\_l[84]-Version 1.4.1-\n\n\n[half]/
+	-Fixed an issue where asking S to talk to other ghosts from his menu wasn't working. As a note, you can also now press Y to make him talk to a random open ghost!\n\n/
+	-Fixed some typos./
+	\n\n\n"
 	
 	
 	//------1.3.0------

@@ -2,8 +2,24 @@
 
 OnTranslate
 {
-	_talk = reference0
+	// LOGGING("======Normal OnTranslate==========")
+	// LOGGING(reference0)
+	// LOGGING()
 	CurrentTalk = reference0
+	
+	_talk = reference0
+	
+	if debug != 1
+	{
+		_checksurfaces = SPLIT(_talk,"\s[")
+		_checksurfaces[0] = IARRAY
+		foreach _checksurfaces; _element
+		{
+			_surface = TOSTR(SPLIT(_element,"]")[0])
+			_isvalid = ASEARCH(_surface,ValidSurfaces)
+			if _isvalid == -1 && TOINT(_surface) >= 0; _talk = REPLACE(_talk,"\s[%(_surface)]","\s[0]")//; LOGGING("===========Converted: _element: %(_element) _surface: %(_surface) _isvalid: %(_isvalid) ValidSurfaces: %(ValidSurfaces)=================")}
+		}
+	}
 	
 	_talk = REPLACE(_talk, "anZichqec", "\_a[https://zichqec.github.io/s-the-skeleton/index.html]Zichqec\_a")
 	//_talk = REPLACE(_talk, "* (", "\__v[disable]*\__v (")
@@ -137,7 +153,7 @@ OnTranslate
 	}
 	--
 	
-		if reference1 == "" && reference2 == "" { //send input box : no event (ref2) , no special flag (ref1)
+		if reference1 == "" && reference2 == "" || reference2 == "OnTextDrop" { //send input box : no event (ref2) , no special flag (ref1)
             EVAL('"' + REPLACE(_talk,'"','" + CHR(0x22) + "') + '"')
         }
         else { //event result from ghost
