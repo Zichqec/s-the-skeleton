@@ -2028,12 +2028,15 @@ Select.nochangelog
 
 ghostver //S's current version, so I don't have to remember to update it on every menu
 {
-	"1.4.2"
+	"1.4.3"
 }
 
 LatestUpdate
 {
-	"\_l[84]-Version 1.4.2-\n\n\n[half]/
+	"\_l[84]-Version 1.4.3-\n\n\n[half]/
+	-Fixed the broken updates by changing two file names, hopefully.\n\n/
+	-Changed the line of dialogue for when you boot S on your birthday.\n\n\n/
+	\_l[84]-Version 1.4.2-\n\n\n[half]/
 	-Added a new shell for summer!\n\n/
 	-Added a ton of new menu dialogues! ~5 for each family member, ~5 for each timeline.\n\n/
 	-Added a new option in the timeline menu if you have all of them unlocked!\n\n/

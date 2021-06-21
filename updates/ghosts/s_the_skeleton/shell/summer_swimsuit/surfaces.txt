@@ -1423,12 +1423,12 @@ surface1127
 
 surface1001110
 {
-	element0,overlay,_blips_0,0,0
+	element0,overlay,x_blips_0,0,0
 }
 
 surface1001111
 {
-	element0,overlay,_blips_1,0,0
+	element0,overlay,x_blips_1,0,0
 }
 
 surface1001112
