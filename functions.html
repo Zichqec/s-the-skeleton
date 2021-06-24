@@ -42,6 +42,17 @@
 			<!---->
 			<a href="xtemplate.html" class="navlink">X. Template</a>
 			<!---->
+			<div class="dropdown">
+				<button class="dropbtn">Code
+					<i class="fa fa-caret-down"></i>
+				</button>
+				<div class="dropdown-content">
+					<a href="saoris_plugins_tools.html">SAORIs/Plugins/Tools</a>
+					<a href="functions.html">Functions</a>
+					<a href="minigames.html">Minigames</a>
+				</div>
+			</div>
+			<!---->
 			<a href="balloons.html" class="navlink">Balloons</a>
 			<!---->
 			<div class="dropdown">
@@ -49,9 +60,11 @@
 				  <i class="fa fa-caret-down"></i>
 				</button>
 				<div class="dropdown-content">
-				  <a href="github.html">Network updates with Github</a>
-				  <a href="saori_basic.html">Creating SAORI-Basic</a>
+					<a href="github.html">Network updates with Github</a>
+					<a href="saori_basic.html">Creating SAORI-Basic</a>
 					<a href="loops_and_arrays.html">Loops and Arrays (AYA/YAYA)</a>
+					<a href="olddef_vs_newdef.html">Old Definition Vs New Definition (SERIKO)</a>
+					<a href="ping_pong_loops.html">Ping Pong Loops (SERIKO)</a>
 				</div>
 			</div>
 			<!---->
@@ -60,11 +73,8 @@
 				  <i class="fa fa-caret-down"></i>
 				</button>
 				<div class="dropdown-content">
-				  <a href="functions.html">Functions</a>
-				  <a href="minigames.html">Minigames</a>
 				  <a href="calendarskins.html">Calendar Skins</a>
 				  <a href="resources.html">Resources</a>
-				  <!--<a href="warrior_generator.html">Warrior Generator</a>-->
 				</div>
 			</div>
 			<!---->
@@ -77,7 +87,7 @@
     </article>
 	
     <article>
-		<h1>Holding Obsidian</h1>
+		<h1 id="holdingobsidian">Holding Obsidian</h1>
 		<p class="centerreg">Do you want YOUR GHOST to be able to pick up <a href="dusty.html">Dusty's cat, Obsidian?</a> Great! Me too! Here's a video showing what it looks like, and a .zip download with instructions and examples. If you want to set up special commu dialogue between your ghost and Dusty, please let me know and I'd be glad to collaborate!</p>
 		<p class="centerreg">Demo video includes <a href="https://zdzisiu.github.io/Ukagaka/md.html">MiniDev</a> by Zdzisiu.</p>
 		<div class="cntr"><a href="http://www.mediafire.com/file/b9a2k87ikhwxdyr/How_To_Make_Your_Ghost_Hold_Obsidian_v1.0.1.zip/file">Download the latest .zip file here!</a></div>
@@ -88,7 +98,7 @@
     </article>
 
 	<article>
-        <h1>Interval Stacker</h1>
+        <h1 id="intervalstacker">Interval Stacker</h1>
         <p class="centerreg">Do you use lots of intervals to create poses in your shell, and need an easier way to set up poses? Here's a .dic file and Saori that you can add to your ghost! Demonstrated with <a href="http://www.drdowasure.com/gaster/">Zarla's Gaster</a> because I haven't made any ghosts with lots of intervals.</p>
 		<div class="cntr"><a href="https://www.mediafire.com/file/pv3n99i7v8ervov/IntervalStacker_v2.0.5.zip/file">Download the latest .dic file here!</a></div>
 		<br>
@@ -98,7 +108,7 @@
 	</article>
 	
 	<article>
-		<h1>Simple Flags</h1>
+		<h1 id="flags">Simple Flags</h1>
 		<p class="centerreg">If you have a lot of variables that only need to be set to 1 or 0, this set of functions can help you do that without needing lots of global variables! It also makes your flags easier to read.</p>
 		<br>
 		<label class="collapsible">See the code here</label>
@@ -158,7 +168,7 @@ RemoveFlag //Removes all instances of a flag in the array.
 	</article>
 	
 	<article>
-		<h1>Parallel</h1>
+		<h1 id="parallel">Parallel</h1>
 		<p class="centerreg">Parallel is a function written to replace an old SAORI(?) that I couldn't get working. It lets multiple characters say different dialogues at the same time!</p>
 		<div class="cntr"><img src="img/function_parallel.gif" alt="Parallel Demonstrated" width="876" height="547" class="center"></div>
 		<br>
@@ -222,7 +232,7 @@ Parallel
 	</article>
 	
 	<article>
-	  <h1>Wobble</h1>
+	  <h1 id="wobble">Wobble</h1>
         <p class="centerreg">Want to write weird, wobbly text? Here's a little function!</p>
         <div class="cntr"><img src="img/function_wobble.gif" alt="Wobble Demonstrated" width="571" height="397" class="center"></div>
 		<br>
@@ -297,7 +307,7 @@ Wobble
 	</article>
 	
 	<article>
-	  <h1>Capitalize</h1>
+	  <h1 id="capitalize">Capitalize</h1>
         <p class="centerreg">This function will capitalize the first letter of whatever word/phrase you run through it. Most useful for envelopes when you need them to only be capitalized at the start of a sentence!</p>
         <div class="cntr"><img src="img/function_capitalize.png" alt="Capitalize Demonstrated" width="571" height="397" class="center"></div>
 		<br>
@@ -323,7 +333,7 @@ Capitalize
 	</article>
 	
 	<article>
-	  <h1>Fast</h1>
+	  <h1 id="fast">Fast</h1>
         <p class="centerreg">Want your ghost to speak some dialogue really quickly? Here's a simple function for that!</p>
         <div class="cntr"><img src="img/function_fast.gif" alt="Fast Demonstrated" width="571" height="397" class="center"></div>
        <br>
@@ -358,7 +368,7 @@ Fast
 	</article>
 	
 	<article>
-	  <h1>Slow</h1>
+	  <h1 id="slow">Slow</h1>
         <p class="centerreg">Want your ghost to speak some dialogue really slowly without writing all those \w tags by hand? Here's a simple function for that!</p>
         <div class="cntr"><img src="img/function_slow.gif" alt="Slow Demonstrated" width="571" height="397" class="center"></div>
 		<br>
@@ -402,7 +412,7 @@ Slow
 	</article>
 	
 	<article>
-	  <h1>Mock</h1>
+	  <h1 id="mock">Mock</h1>
         <p class="centerreg">Want some dialogue displayed in mock case? Here's a little function for that!</p>
         <div class="cntr"><img src="img/function_mock.gif" alt="Mock Demonstrated" width="571" height="397" class="center"></div>
 		<br>
@@ -467,7 +477,7 @@ Mock
 	</article>
 	
 	<article>
-		<h1>Shuffle</h1>
+		<h1 id="shuffle">Shuffle</h1>
         <p class="centerreg">Need to shuffle an array or a string? This function will do that automatically for you!</p>
         <div class="cntr"><img src="img/function_shuffle.gif" alt="Shuffle Demonstrated" width="470" height="418" class="center"></div>
 		<br>
@@ -512,7 +522,7 @@ Shuffle
 	</article>
 
 	<article>
-        <h1>CreepyText</h1>
+        <h1 id="creepytext">CreepyText</h1>
         <p class="centerreg">Want to be able to write text in a really creepy and nonsensical way? Here's a simple function:</p>
         <div class="cntr"><img src="img/function_creepytext.gif" alt="CreepyText Demonstrated" width="571" height="397" class="center"></div>
 		<br>
@@ -549,7 +559,7 @@ CreepyText
     </article>
 	
     <article>
-        <h1>OnWander</h1>
+        <h1 id="onwander">OnWander</h1>
         <p class="centerreg">I've set up a simple function that allows your ghost to move randomly around the monitor, while staying within the boundaries. See it here:</p>
         <div class="resp-container">
             <iframe class="resp-iframe" src="https://www.youtube.com/embed/DoatrYUIzuw" gesture="media"  allow="encrypted-media" allow="accelerometer" allowfullscreen></iframe>

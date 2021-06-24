@@ -17,7 +17,7 @@
 </head>
 
 <body>
-   <nav>
+    <nav>
         <div class="navbar">
             <a href="index.html" class="navlink">Home</a>
 			<!---->
@@ -81,50 +81,35 @@
 		</div>
     </nav>
 	
-    <article>
-        <h1>Skyrim Guard</h1>
-        <img src="img/guard_00.png" alt="Skyrim Guard" width="400" height="300" class="center">
-        <br>
-        <div class="cntr"><a href="https://www.mediafire.com/file/w039ic7cdw0k5ir/skyrim_guard_v1.0.1.nar/file">Download his latest .nar file here!</a></div>
-        <p>The Skyrim Guard is... well, a Skyrim Guard! He doesn't have most of the usual ghost functionality, all he really does is sit on your desktop and spout random lines of guard dialogue at you. But, he does have different shells for every hold, and dynamic dialogue based on which hold you're in! He also has a proof of concept quest you can play if you're in Whiterun hold. I hope to flesh it out and make a large quest system in the future!</p>
-        <img src="img/guard_01.png" alt="Welcome to Riften" width="390" height="300" class="center">
-        <br>
-        <img src="img/guard_02.png" alt="Bleak Falls Barrow" width="380" height="580" class="center">
-        <br>
-        <webring-banner>
-			<p>Member of the <a href="https://ukagakawebring.netlify.com/">Ukagaka/Ghost Development and Download</a> webring</p>
-			<a href="https://ukagakawebring.netlify.com//prev">Previous</a>
-			<a href="https://ukagakawebring.netlify.com//random">Random</a>
-			<a href="https://ukagakawebring.netlify.com//next">Next</a>
-		</webring-banner>
-		<script async src="https://ukagakawebring.netlify.com//embed.js" charset="utf-8"></script>
-    </article>
-    <article>
-        <h1 id="history">Version history</h1>
-		<label class="collapsible">Version 1.0.x - Initial Release</label>
-		<div class="collapsible-content">
-			<div class="ver">
-					<div class="centerhead"><b>=====1.0=====</b>
-					<div class="ctr">(6/13/20)</div></div>
-					<ul>
-						<li>Initial release on 6/13/20</li>
-					</ul>
-				<br>
-			</div>
-			<div class="ver">
-				<div class="centerheadsm"><b>---1.0.1---</b>
-				<div class="ctr">(6/14/20)</div></div>
-				<ul>
-					<li>Added auto update check feature</li>
-				</ul>
-			
-			</div>
+	<article>
+		<h1 id="saoris">SAORIs</h1>
+		<p>SAORI are programs that extend the functionality of ghosts! You can include these files in your ghost, and call them from the ghost's code to do things that the ghost's coding language can't do on its own. There are two types of SAORI: SAORI-Basic, and SAORI-Universal. SAORI-Basic are .exe files, and must be called using a <a href="https://github.com/ponapalt/csaori/releases/tag/saori_proxy_ex_v1.0.2">proxy SAORI</a> if you're writing in AYA/YAYA. SAORI-Universal are .dll files, and can be called without needing the proxy.</p>
 		<br>
+		<div class="floatBG">
+        <h1 id="imagecompositor">ImageCompositor</h1>
+		<img src="img/saori_imagecompositor.png" alt="Example of ImageCompositor output" class="center" width="600" height="250">
+        <div class="cntr"><a href="https://www.mediafire.com/file/k0i2bx5plcqntgn/ImageCompositor_v1.0.0.zip/file">Download it here!</a></div>
+        <p style="text-align: center">This SAORI can be used to take multiple images and composite them together. It was created for Warrior Generator, in order to export generated designs with a transparent background, but it may be useful for other things if you need some simple image compositing!</p>
 		</div>
-        
-        
-    </article>
-
+	</article>
+	
+	<article>
+		<h1 id="plugins">Plugins</h1>
+		<p>Plugins are like SAORI, but for SSP instead of individual ghosts! They extend the functionality of SSP, and can do all kinds of things. I haven't actually released any plugins yet, but I do have one in the works!</p>
+	</article>
+	
+	<article>
+		<h1 id="tools">Tools</h1>
+		<p>I'm considering Tools to be any external programs that I create to aid ghost dev. This is a broad category, so be sure to read the readmes carefully!</p>
+		<br>
+		<div class="floatBG">
+        <h1 id="olddef2newdef">olddef2newdef</h1>
+		<img src="img/tool_olddef2newdef.png" alt="Example of olddef2newdef output" class="center" width="830" height="340">
+        <div class="cntr"><a href="https://www.mediafire.com/file/i9ocxm18sy56d9t/olddef2newdef_v1.0.0.zip/file">Download it here!</a></div>
+        <p style="text-align: center">Want to change over to the New Definition of SERIKO to get the fancy new options, but don't want to spend hours reorganizing your shell code? This little program has you covered! Simply drag and drop your surfaces.txt file onto the executable, and it will convert your code for you! It will also save a backup of the original code, in case anything should go wrong.</p>
+		</div>
+	</article>
+	
     <footer>
         More from Zichqec<br>
         <a href="https://www.deviantart.com/zichqec"class="footlink">Deviantart</a> | 
@@ -133,30 +118,8 @@
         <a href="https://toyhou.se/Zichqec" class="footlink">Toyhouse</a> |
         <a href="https://www.youtube.com/channel/UC_9BGh45mIL3b3riZ4aTRIA" class="footlink">Youtube</a>
     </footer>
-	
-<script> <!--For the collapsible-->
-var coll = document.getElementsByClassName("collapsible");
-var i;
 
-for (i = 0; i < coll.length; i++)
-{
-	coll[i].addEventListener("click", function()
-	{
-		this.classList.toggle("active");
-		var content = this.nextElementSibling;
-		if (content.style.display === "block")
-		{
-			content.style.display = "none";
-		}
-		else
-		{
-			content.style.display = "block";
-		}
-	}
-  );
-}
-</script>
-
+    
 </body>
 
 </html>

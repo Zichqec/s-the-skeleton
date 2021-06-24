@@ -42,6 +42,17 @@
 			<!---->
 			<a href="xtemplate.html" class="navlink">X. Template</a>
 			<!---->
+			<div class="dropdown">
+				<button class="dropbtn">Code
+					<i class="fa fa-caret-down"></i>
+				</button>
+				<div class="dropdown-content">
+					<a href="saoris_plugins_tools.html">SAORIs/Plugins/Tools</a>
+					<a href="functions.html">Functions</a>
+					<a href="minigames.html">Minigames</a>
+				</div>
+			</div>
+			<!---->
 			<a href="balloons.html" class="navlink">Balloons</a>
 			<!---->
 			<div class="dropdown">
@@ -49,9 +60,11 @@
 				  <i class="fa fa-caret-down"></i>
 				</button>
 				<div class="dropdown-content">
-				  <a href="github.html">Network updates with Github</a>
-				  <a href="saori_basic.html">Creating SAORI-Basic</a>
+					<a href="github.html">Network updates with Github</a>
+					<a href="saori_basic.html">Creating SAORI-Basic</a>
 					<a href="loops_and_arrays.html">Loops and Arrays (AYA/YAYA)</a>
+					<a href="olddef_vs_newdef.html">Old Definition Vs New Definition (SERIKO)</a>
+					<a href="ping_pong_loops.html">Ping Pong Loops (SERIKO)</a>
 				</div>
 			</div>
 			<!---->
@@ -60,11 +73,8 @@
 				  <i class="fa fa-caret-down"></i>
 				</button>
 				<div class="dropdown-content">
-				  <a href="functions.html">Functions</a>
-				  <a href="minigames.html">Minigames</a>
 				  <a href="calendarskins.html">Calendar Skins</a>
 				  <a href="resources.html">Resources</a>
-				  <!--<a href="warrior_generator.html">Warrior Generator</a>-->
 				</div>
 			</div>
 			<!---->
@@ -77,7 +87,7 @@
     </article>
 
     <article>
-        <h1>Hangman</h1>
+        <h1 id="hangman">Hangman</h1>
         <p class="centerreg">A simple hangman game! Give it a big list of words, and have fun guessing them! You can try to guess the whole word at once, but if you get it wrong, you instantly lose.</p>
         <!--<iframe width="560" height="315" class="centervd" src="https://www.youtube.com/embed/oLq3xPsQ9D8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>-->
         <div class="resp-container">
@@ -280,7 +290,7 @@ hangmanwords : nonoverlap //Words it can choose - add lots of these!
     </article>
 
 	<article>
-        <h1>Word Search</h1>
+        <h1 id="wordsearch">Word Search</h1>
         <p class="centerreg">This game is a bit complicated, but it's pretty fun! You make a list of words, and it will randomly generate word searches that you can solve! There's a lot of messy code, you can just ignore most of it. All the dialogue is consolidated into a single function for you, and there's also some settings you should adjust to your liking. Works best on a balloon that has an anchor color that stands out!</p>
        <img src="img/minigame_wordsearch.gif" alt="Demo of the Rock Paper Scissors minigame with Dusty and Obsidian" width="549" height="670" class="center">
         <br>
@@ -981,7 +991,7 @@ CreateWordSearch //:deargodhelpme:
     </article>
 	
 	<article>
-        <h1>Rock Paper Scissors</h1>
+        <h1 id="rockpaperscissors">Rock Paper Scissors</h1>
         <p class="centerreg">A simple rock paper scissors game, which keeps track of how many matches you've played in your current streak, as well as how many you've won/lost/tied! With this setup, all of the dialogue is handled in a single function. You can write dialogues for winning, losing, and ties, and have it change dynamically based on who picked what. You can set this up with surfaces for the ghost throwing rock, paper, or scissors, but I'm lazy, so this demo does not include that. The code is set up for it, though!</p>
         <img src="img/minigame_rps.gif" alt="Demo of the Rock Paper Scissors minigame with Dusty and Obsidian" width="549" height="551" class="center">
         <br>
@@ -1089,7 +1099,7 @@ OnRPS
     </article>
 	
 	<article>
-        <h1>Junior Jumble</h1>
+        <h1 id="juniorjumble">Junior Jumble</h1>
         <p class="centerreg">A simple word scramble game! Exactly what it says on the tin.</p>
         <img src="img/minigame_jumble.gif" alt="Demo of the jumble minigame with Dusty and Obsidian" width="549" height="551" class="center">
         <br>
@@ -1177,7 +1187,7 @@ JumbleWords
     </article>
 
    <article>
-        <h1>Continuous Petting</h1>
+        <h1 id="continuouspetting">Continuous Petting</h1>
         <p class="centerreg">I've set up a system for continuous petting and tracking high scores! See it here:</p>
         <div class="resp-container">
             <iframe class="resp-iframe" src="https://www.youtube.com/embed/ev6VMp5lSsw" gesture="media"  allow="encrypted-media" allow="accelerometer" allowfullscreen></iframe>
