@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html>
 		<div class="navbar">	
 			<a href="index.html" class="navlink">Home</a>
 			<!---->
@@ -59,11 +61,4 @@
 			</div>
 			<!---->
 		</div>
-		<script>
-		var xhr = new XMLHttpRequest();
-		xhr.addEventListener("load", function() {
-			document.getElementById("navbar").innerHTML = this.responseText;
-		});
-		xhr.open("GET", "/navbar.html", true);
-		xhr.send();
-		</script>
+		</html>
