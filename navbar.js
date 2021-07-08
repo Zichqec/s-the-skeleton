@@ -1,3 +1,5 @@
+//Many thanks to andrews05 in the EV Nova Discord for helping me set this up!! And by help me set this up, I mean he wrote the skeleton of it because I have no idea what I'm doing with JavaScript yet, and I filled in my pages and stuff. I didn't think this was possible on a static website, thanks for opening my eyes to new possibilities!
+
 let links = [
 	{ path: 'index.html', title: 'Home' },
 	{ title: 'Ghosts', sublinks: [
