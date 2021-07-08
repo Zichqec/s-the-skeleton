@@ -17,69 +17,7 @@
 </head>
 
 <body>
-    <nav>
-        <div class="navbar">
-            <a href="index.html" class="navlink">Home</a>
-			<!---->
-			<div class="dropdown">
-				<button class="dropbtn">Ghosts
-				  <i class="fa fa-caret-down"></i>
-				</button>
-				<div class="dropdown-content">
-					<p class="navdivider">—Main—</p>
-					<a href="s_the_skeleton.html">S the Skeleton</a>
-					<a href="dusty.html">Dusty and Obsidian</a>
-					<p class="navdivider">—Side—</p>
-					<a href="flux.html">FLUX</a>
-					<a href="warrior_generator.html">Warrior Generator</a>
-					<a href="guard.html">Skyrim Guard</a>
-					<p class="navdivider">—Collabs—</p>
-					<a href="hydrate.html">Hydrate</a>
-					<a href="ct_epoch_jam.html">CT Epoch Jam</a>
-					<a href="iea.html">Iea</a>
-				</div>
-			</div>
-			<!---->
-			<a href="xtemplate.html" class="navlink">X. Template</a>
-			<!---->
-			<div class="dropdown">
-				<button class="dropbtn">Code
-					<i class="fa fa-caret-down"></i>
-				</button>
-				<div class="dropdown-content">
-					<a href="saoris_plugins_tools.html">SAORIs/Plugins/Tools</a>
-					<a href="functions.html">Functions</a>
-					<a href="minigames.html">Minigames</a>
-				</div>
-			</div>
-			<!---->
-			<a href="balloons.html" class="navlink">Balloons</a>
-			<!---->
-			<div class="dropdown">
-				<button class="dropbtn">Guides
-				  <i class="fa fa-caret-down"></i>
-				</button>
-				<div class="dropdown-content">
-					<a href="github.html">Network updates with Github</a>
-					<a href="saori_basic.html">Creating SAORI-Basic</a>
-					<a href="loops_and_arrays.html">Loops and Arrays (AYA/YAYA)</a>
-					<a href="olddef_vs_newdef.html">Old Definition Vs New Definition (SERIKO)</a>
-					<a href="ping_pong_loops.html">Ping Pong Loops (SERIKO)</a>
-				</div>
-			</div>
-			<!---->
-			<div class="dropdown">
-				<button class="dropbtn">Other
-				  <i class="fa fa-caret-down"></i>
-				</button>
-				<div class="dropdown-content">
-				  <a href="calendarskins.html">Calendar Skins</a>
-				  <a href="resources.html">Resources</a>
-				</div>
-			</div>
-			<!---->
-		</div>
-    </nav>
+    <nav><div id="navbar" class="navbar"></div></nav>
 	
     <article>
         <h1>S the Skeleton</h1>
@@ -358,49 +296,50 @@
         <a href="https://www.youtube.com/channel/UC_9BGh45mIL3b3riZ4aTRIA" class="footlink">Youtube</a>
     </footer>
 	
-<script> <!--For the collapsible-->
-var coll = document.getElementsByClassName("collapsible");
-var i;
+	<script> <!--For the collapsible-->
+	var coll = document.getElementsByClassName("collapsible");
+	var i;
 
-for (i = 0; i < coll.length; i++)
-{
-	coll[i].addEventListener("click", function()
+	for (i = 0; i < coll.length; i++)
 	{
-		this.classList.toggle("active");
-		var content = this.nextElementSibling;
-		if (content.style.display === "block")
+		coll[i].addEventListener("click", function()
 		{
-			content.style.display = "none";
+			this.classList.toggle("active");
+			var content = this.nextElementSibling;
+			if (content.style.display === "block")
+			{
+				content.style.display = "none";
+			}
+			else
+			{
+				content.style.display = "block";
+			}
 		}
-		else
-		{
-			content.style.display = "block";
-		}
+	  );
 	}
-  );
-}
 
-var coll = document.getElementsByClassName("invis-collapsible");
-var i;
+	var coll = document.getElementsByClassName("invis-collapsible");
+	var i;
 
-for (i = 0; i < coll.length; i++)
-{
-	coll[i].addEventListener("click", function()
+	for (i = 0; i < coll.length; i++)
 	{
-		this.classList.toggle("active");
-		var content = this.nextElementSibling;
-		if (content.style.display === "block")
+		coll[i].addEventListener("click", function()
 		{
-			content.style.display = "none";
+			this.classList.toggle("active");
+			var content = this.nextElementSibling;
+			if (content.style.display === "block")
+			{
+				content.style.display = "none";
+			}
+			else
+			{
+				content.style.display = "block";
+			}
 		}
-		else
-		{
-			content.style.display = "block";
-		}
+	  );
 	}
-  );
-}
-</script>
+	</script>
 
+	<script src="navbar.js"></script>
 </body>
 </html>

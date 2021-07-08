@@ -1,0 +1,70 @@
+let links = [
+	{ path: 'index.html', title: 'Home' },
+	{ title: 'Ghosts', sublinks: [
+		{ title: '—Main—' },
+		{ path: 's_the_skeleton.html', title: 'S the Skeleton' },
+		{ path: 'dusty.html', title: 'Dusty and Obsidian' },
+		{ title: '—Side—' },
+		{ path: 'flux.html', title: 'FLUX' },
+		{ path: 'warrior_generator.html', title: 'Warrior Generator' },
+		{ path: 'guard.html', title: 'Skyrim Guard' },
+		{ title: '—Collabs—' },
+		{ path: 'hydrate.html', title: 'Hydrate' },
+		{ path: 'ct_epoch_jam.html', title: 'CT Epoch Jam' },
+		{ path: 'iea.html', title: 'Iea' },
+	] },
+	{ path: 'xtemplate.html', title: 'X. Template' },
+	{ title: 'Code', sublinks: [
+		{ path: 'saoris_plugins_tools.html', title: 'SAORIs/Plugins/Tools' },
+		{ path: 'functions.html', title: 'Functions' },
+		{ path: 'minigames.html', title: 'Minigames' },
+	] },
+	{ path: 'balloons.html', title: 'Balloons' },
+	{ title: 'Guides', sublinks: [
+		{ path: 'github.html', title: 'SAORIs/Plugins/Tools' },
+		{ path: 'saori_basic.html', title: 'Creating SAORI-Basic' },
+		{ path: 'loops_and_arrays.html', title: 'Loops and Arrays (AYA/YAYA)' },
+		{ path: 'olddef_vs_newdef.html', title: 'Old Definition Vs New Definition (SERIKO)' },
+		{ path: 'ping_pong_loops.html', title: 'Ping Pong Loops (SERIKO)' },
+	] },
+	{ title: 'Other', sublinks: [
+		{ path: 'calendarskins.html', title: 'SAORIs/Plugins/Tools' },
+		{ path: 'resources.html', title: 'Calendar Skins' },
+	] },
+];
+
+let basepath = '';
+let active = null;
+
+function findActive(links) {
+	for (let link of links) {
+		if (link.path && location.pathname.endsWith(link.path)) {
+			active = link;
+			basepath = location.pathname.substring(0, location.pathname.length-link.path.length);
+		}
+		if (link.sublinks) {
+			findActive(link.sublinks);
+		}
+	}
+}
+function linkHTML(link) {
+	if (link.path) {
+		let className = link == active ? 'active' : '';
+		return `<a href="${basepath}${link.path}" class="${className}">${link.title}</a>`;
+	} else if (link.sublinks) {
+		return `
+			<div class="dropdown">
+				<button class="dropbtn">${link.title}
+				  <i class="fa fa-caret-down"></i>
+				</button>
+				<div class="dropdown-content">
+				${link.sublinks.map(linkHTML).join('')}
+				</div>
+			</div>`;
+	} else {
+		return `<p class="navdivider">${link.title}</p>`;
+	}
+}
+
+findActive(links);
+document.getElementById('navbar').innerHTML = links.map(linkHTML).join('');
