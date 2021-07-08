@@ -321,6 +321,12 @@ h6
     line-height: 50px;
 }
 
+.resp-margin
+{
+	margin-left: 20%;
+	margin-right: 20%;
+}
+
 .resp-container {
     position: relative;
     overflow: hidden;
