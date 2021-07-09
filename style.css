@@ -21,7 +21,7 @@ p
 ps
 { 
     font-size: 15px;
-} /* I don't think this is in use anymore but I'll leave it for the moment*/
+} /* I don't think this is in use anymore but I'll leave it for the moment */
 
 nav
 {
@@ -413,7 +413,12 @@ pre
 	border-radius: 25px;
 }
 
-.active, .collapsible:hover {
+.active
+{
+	background: #CFCFCF;
+}
+.collapsible:hover
+{
 	background: #b6b5b6;
 }
 

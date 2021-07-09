@@ -51,8 +51,9 @@ function findActive(links) {
 }
 function linkHTML(link) {
 	if (link.path) {
-		let className = link == active ? 'active' : '';
-		return `<a href="${basepath}${link.path}" class="${className}">${link.title}</a>`;
+		//Edited this slightly so that the 'class=' bit is part of the variable. Otherwise there was just the word 'class' sitting on its own in the divs, and that seemed weird and like something I don't want. (Not sure why/how it didn't have an '=""' part... perhaps a side effect of inspect element or something?)
+		let className = link == active ? 'class="active"' : '';
+		return `<a href="${basepath}${link.path}" ${className}>${link.title}</a>`;
 	} else if (link.sublinks) {
 		return `
 			<div class="dropdown">
