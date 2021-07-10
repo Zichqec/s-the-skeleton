@@ -30,8 +30,8 @@ let links = [
 		{ path: 'ping_pong_loops.html', title: 'Ping Pong Loops (SERIKO)' },
 	] },
 	{ title: 'Other', sublinks: [
-		{ path: 'calendarskins.html', title: 'SAORIs/Plugins/Tools' },
-		{ path: 'resources.html', title: 'Calendar Skins' },
+		{ path: 'calendarskins.html', title: 'Calendar Skins' },
+		{ path: 'resources.html', title: 'Resources' },
 	] },
 ];
 
