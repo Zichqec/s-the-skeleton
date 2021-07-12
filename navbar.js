@@ -23,7 +23,7 @@ let links = [
 	] },
 	{ path: 'balloons.html', title: 'Balloons' },
 	{ title: 'Guides', sublinks: [
-		{ path: 'github.html', title: 'SAORIs/Plugins/Tools' },
+		{ path: 'github.html', title: 'Network updates with Github' },
 		{ path: 'saori_basic.html', title: 'Creating SAORI-Basic' },
 		{ path: 'loops_and_arrays.html', title: 'Loops and Arrays (AYA/YAYA)' },
 		{ path: 'olddef_vs_newdef.html', title: 'Old Definition Vs New Definition (SERIKO)' },
