@@ -1,5 +1,7 @@
 //Many thanks to andrews05 in the EV Nova Discord for helping me set this up!! And by help me set this up, I mean he wrote the skeleton of it because I have no idea what I'm doing with JavaScript yet, and I filled in my pages and stuff. I didn't think this was possible on a static website, thanks for opening my eyes to new possibilities!
 
+let islocal = window.location.href.search("C:/") == -1 ? '' : '.html';
+
 let links = [
 	{ path: 'index', title: 'Home' },
 	{ title: 'Ghosts', sublinks: [
@@ -49,11 +51,12 @@ function findActive(links) {
 		}
 	}
 }
+
 function linkHTML(link) {
 	if (link.path) {
 		//Edited this slightly so that the 'class=' bit is part of the variable. Otherwise there was just the word 'class' sitting on its own in the divs, and that seemed weird and like something I don't want. (Not sure why/how it didn't have an '=""' part... perhaps a side effect of inspect element or something?)
 		let className = link == active ? 'class="active"' : '';
-		return `<a href="${basepath}${link.path}" ${className}>${link.title}</a>`;
+		return `<a href="${basepath}${link.path}${islocal}" ${className}>${link.title}</a>`;
 	} else if (link.sublinks) {
 		return `
 			<div class="dropdown">
