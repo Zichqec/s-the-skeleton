@@ -2,7 +2,7 @@
 
 let islocal = location.protocol == "https:" ? '' : '.html';
 
-console.log('test')
+console.log('document.referrer')
 
 let links = [
 	{ path: 'index', title: 'Home' },
