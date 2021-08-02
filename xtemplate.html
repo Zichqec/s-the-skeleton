@@ -23,48 +23,18 @@
         <h1>X. Template</h1>
         <img src="img/xtemplate_00.png" alt="X. Template" width="280" height="250" class="center">
         <br>
-        <div class="cntr"><a href="https://www.mediafire.com/file/ydd86xncq4pbb6l/x_template_yaya_v1.0.8.nar/file">Download the latest .nar file here!</a></div>
-        <p>X. Template is a template ghost I made! It's intended for ghost developers who already know how ghosts work, generally. If you're new to making ghosts, I suggest <a href="http://ashido.com/ukagaka/">Zarla's GT Template</a> instead; it includes a walkthrough to get you started!</p>
-        <p>So, if you're not a new ghost dev, why should you use X. Template? Well, for one I'm sure you've noticed that once you don't need the walkthrough comments anymore, they're a hassle to get rid of. Haven't we all had the experience of trying to remove Triangle but he keeps popping up in unexpected places? X. Template starts you without those things. Here are some differences with X. Template.</p>
+        <div class="cntr"><a href="https://www.mediafire.com/file/618ghirv6jem0c1/x_template_yaya_v1.0.9.nar/file">Download the latest .nar file here!</a></div>
+        <p>X. Template is a template ghost I made! It's mostly for myself, since I make a lot of ghosts, but other devs are welcome to use it. It has some advanced features and not a lot of tutorial comments, so if you're new to ghost dev I suggest <a href="http://ashido.com/ukagaka/">Zarla's GT Template</a> instead; it includes a walkthrough to get you started!</p>
         <br>
-        <h3>Differences users will see</h3>
-        <div class="ver">
-            <ul>
-                <li>When installing a ghost with X. Template, you'll be offered the options to call or change to them in dialogue.</li>
-                <li>When checking emails, the ghost will offer to display the headers.</li>
-                <li>Automatic update checks are built in, and will notify the user if a new update is available.</li>
-                <li>The ghost will track when they were last closed, and comment if it's been a long time when you open them.</li>
-                <li>The ghost will say 'happy new year' as the year rolls over.</li>
-                <li>When changing shells, the ghost will stay in the same position on screen.</li>
-                <li>Right clicking the ghost will not cause their personal menu to open.</li>
-                <li>Changing name/birthday/pronouns will lead back to the config menu.</li>
-                <li>Offers a changelog after updating!</li>
-                <li>Hitting the ghost for the first time will pop up a confirmation dialogue, to prevent accidental punches.</li>
-                <li>You can type in the name of the month you were born instead of just the number.</li>
-                <li>Petting ghosts repeatedly without taking your mouse off of them will have special dialogue.</li>
-                <li>Config menu has toggle buttons, and also has options for hemisphere, and to opt in to beta updates.</li>
-                <li>There is no title system, since I never include it in my ghosts.</li>
-                <li>You can press Y to start commu dialogue with a random ghost.</li>
-            </ul>
-        </div>
-        <br>
-        <h3>Differences devs will see</h3>
-        <div class="ver"> 
-            <ul>
-                <li>Very few tutorial comments, all code is formatted consistently and has been cleaned up where possible.</li>
-                <li>A Kero is not present unless you add them in.</li>
-                <li>Uses the new seriko definition.</li>
-                <li>The test variable will only show up if the variable 'debug' is set to 1, hiding it from the user.</li>
-                <li>When 'debug' is set to 1, you can use the test variable by pressing V when the ghost is the active window.</li>
-                <li>When 'debug' is set to 1, you can press C to get a window for testing communication dialogues.</li>
-                <li>Sakurascript commands, such as those to open the calendar or set a wallpaper, have been separated from dialogue with --s. This makes it a bit easier to create ghosts with multiple modes, as you won't need to copy the commands into each line of dialogue.</li>
-                <li>All menu related envelopes are optimized and have been moved to word.dic.</li>
-                <li>Anchor.dic has been updated to allow https links as well as http.</li>
-                <li>Much fewer global variables, some variables have been changed to arrays, notably the birthday variables (bithday[0] to see the written birthday and birthday[1] to see it written DD/MM) and the passhour/min/sec variables (are now runtime[0], [1], and [2]).</li>
-                <li>Commu.dic should be ready to use, and offers a method of doing commu dialogue that is much more readable. From 1.0.3 onward, there is also a non-interrupting system so that the ghost will wait to respond to commu dialogues until it's not doing anything else, and a better loop prevention system that is less awkward!</li>
-                <li>You can have the template ghost check if there is a new version of the template.</li>
-            </ul>
-        </div>
+        <h3>Notable Features</h3>
+		<ul>
+			<li>A lot of small QoL tweaks, like offering to open a new ghost you've just installed, displaying email headers, offering a changelog after updating, and much more.</li>
+			<li>Automatic update checks are built in, and will notify the user if an update is available.
+			<li>By default, double clicking on the face will pop up an 'are you sure' box if you've never hit the ghost before, to ensure the user doesn't accidentally punch the ghost.</li>
+			<li>Mostly consistent code formatting, minimal comments unless it's a new feature that I wrote. Optimized for ghosts that have multiple modes, so that they're easier to add in.</li>
+			<li>A kero is not present unless you choose to add them in.</li>
+			<li>It can check for template updates, so that when you start a new ghost you can always be sure you have the latest version.</li>
+		</ul>
 		<br>
         <webring-banner>
 			<p>Member of the <a href="https://ukagakawebring.netlify.com/">Ukagaka/Ghost Development and Download</a> webring</p>
@@ -201,6 +171,30 @@
 						<li>Removed the booting variable, and replaced it with a system that checks for certain tags during the firstboot dialogues. Please let me know if you have any issues using this! This also means I've introduced the OnUserInputCancel function, which I stuck in etc.dic for now.</li>
 						<li>Updated the OnOffscreen function, made it a little better and easier to understand.</li>
 						<li>Added some new functionality to nowday and nowmonth; you can now send them integers to get days even further in the future/past. The randomtalk has an example of how this is used.</li>
+					</ul>
+				<br>
+			</div>
+			
+			<div class="ver">
+					<div class="centerheadsm"><b>---1.0.9---</b>
+					<div class="ctr">(8/2/21)</div></div>
+					<ul>
+						<li>Updated to YAYA tc559-1.</li>
+						<li>Added emergency mode files; if the ghost fails to load it will now direct you to the error log, where the current error should display. If there are too many errors, it won't be able to display them all! You can use Tama to see them all in that case.</li>
+						<li>Overhauled the Todo list. The code is much cleaner now!</li>
+						<li>Changed randomtalk to use Pools by default, instead of normal if checks.</li>
+						<li>Updated wallpaper function; it can now accept files with brackets in the name, and if you're on windows 7 or 10 it will offer you the 'Fill' and 'Fit' options.</li>
+						<li>Added SNTP option to the functions menu.</li>
+						<li>Added an option in the config menu to turn off top of the hour notifications.</li>
+						<li>Changed name teaching to use reference.raw, so that auto type convert doesn't mess with the user's input. Also made it cut out spaces on the left and right.</li>
+						<li>Changed email headers to use reference.raw, so that getting the headers no longer requires a loop! It should be much better now.</li>
+						<li>Added OnUserInputCancel in xt_etc.dic, to prevent the user from accidentally closing the input box in OnFirstBoot and locking themselves out of the ghost. Updated that whole system in general to work better.</li>
+						<li>Moved Capitalize function to xt_anchor.dic, to make it more clear how it's meant to be used.</li>
+						<li>Removed some of the extra documentation files; a lot of the concepts covered in them are now on my website, or eventually will be.</li>
+						<li>Moved SAORIs and SAORI readmes into a saori folder, to keep things clean.</li>
+						<li>Removed an unneccessary function in xt_string.dic, which would create a list of installed ghosts. Such a list already exists as a part of the normal system files.</li>
+						<li>Fixed the pronoun variables not being initialized in OnFirstBoot.</li>
+						<li>Fixed a few typos and missing tags.</li>
 					</ul>
 				<br>
 			</div>
