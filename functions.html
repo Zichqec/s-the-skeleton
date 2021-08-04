@@ -242,7 +242,7 @@ RemoveFlag //Removes all instances of a flag in the array.
 	
 	<article>
 		<h1 id="onrandomdressup">OnRandomDressup</h1>
-		<p class="centerreg">Have a lot of dressups, and want to offer your ghosts a way to pick a random set of dressups with a single click of a button? This set of functions can do that! Read the notes carefully, as this contains two other functions you may already have. (Currently does not work on AYA, maybe some day. If you have an AYA ghost and want to use this, let me know!)</p>
+		<p class="centerreg">Have a lot of dressups, and want to offer your ghosts a way to pick a random set of dressups with a single click of a button? This set of functions can do that! Read the notes carefully, as this contains two other functions you may already have. (If you're using AYA, follow the instructions in the OnNotifyDressupInfo function or this won't work!)</p>
 		<div class="cntr"><img src="img/function_onrandomdressup.gif" alt="OnRandomDressup Demonstrated" width="300" height="250" class="center"></div>
 		<br>
 		<label class="collapsible">See the code here</label>
@@ -252,7 +252,7 @@ RemoveFlag //Removes all instances of a flag in the array.
 //IMPORTANT NOTE: This also contains two functions you might already have - The built in SHIORI event OnNotifyDressupInfo, and my function ASUB. If you already have ASUB, just don't include this ASUB. They're the same. If you already have OnNotifyDressupInfo, you might have to modify it so that they don't conflict!
 
 //This function will remove all the current dressups from a character, then pick random ones based on what categories of dressup are available. If the category is mustselect, it will always pick one. If it's multiple, it has a chance to pick multiple. And any categories that are not mustselect may be skipped over entirely, to increase variety.
-//Note: You have to send it the number of the character you want to be dressed up as reference0! If you're just using this for a sakura, just always send it 0. 1 if you want the kero, 2 \p[2], etc.
+//Note: You have to send it the number of the character you want to be dressed up as reference0! If you're just using this for a sakura, just always send it 0. 1 if you want the kero, 2 for \p[2], etc.
 OnRandomDressup
 {
 	_command = ""
@@ -263,7 +263,7 @@ OnRandomDressup
 		_name = _dressup[2,"|"]
 		_command += "\![bind,%(_category),%(_name),0]"
 	}
-	"\p[%(reference0)]%(_command)\![done    removing]" //removes all current dressups - fake sakurascript tag here makes it easier to spot in the changelog, for debugging purposes
+	"\p[%(reference0)]%(_command)\![done    removing]" //removes all current dressups - fake sakurascript tag here makes it easier to spot in the script log, for debugging purposes
 	--
 	_currentcategories = IARRAY
 	foreach availabledressups; _dressup //For every dressup that the ghost has - This breaks up the big list of all the dressups into categories
@@ -343,10 +343,14 @@ OnRandomDressup
 
 OnNotifyDressupInfo
 {
+	_reference = reference
+	//IF YOU'RE USING AYA: uncomment the next line and uncomment the MakeReferenceArray function
+	//_reference = MakeReferenceArray
+	
 	availabledressups = IARRAY //This one is to display the dressup menu
 	currentdressups = IARRAY //This one is so we can display which dressups are currently in use
 	
-	foreach reference; _dressup //if you just write reference, you get all the references, apparently? Which is super useful
+	foreach _reference; _dressup
 	{
 		//Ok, so here's the deal. When it lists the dressups, the amount of options that can be specified _varies._ It can be empty, 1, 2, or 3. To the best of my knowledge. SO. This inner loop starts at 3 (because elements 0 1 and 2 are static), checks to see if the next element has a keyword, and skips it if it does. Then when it finds the on/off indicator, it breaks the loop. IT DIDNT HAVE TO BE THIS WAY.
 		_onoff = 0
@@ -355,15 +359,16 @@ OnNotifyDressupInfo
 		for _i = 3; _i < ARRAYSIZE(_dressup); _i++
 		{
 			if _dressup[_i] == "default" || _dressup[_i] == ""; continue
-			elseif _dressup[_i] == "mustselect" {_must = 1; continue}
-			elseif _dressup[_i] == "multiple" {_mult = 1; continue}
-			else; _onoff = _dressup[_i]; break
+			
+			if _dressup[_i] == "mustselect"; _must = 1
+			elseif _dressup[_i] == "multiple"; _mult = 1
+			else; {_onoff = TOINT(_dressup[_i]); break}
 		}
 		_toadd = _dressup[0] + "|" + _dressup[1] + "|" + _dressup[2]
 		if _must == 1; _toadd += "|mustselect"
 		if _mult == 1; _toadd += "|multiple"
 		availabledressups ,= _toadd
-		if _onoff == 1; currentdressups ,= _dressup[0] + "|" + _dressup[1] + "|" + _dressup[2]
+		if _onoff == 1; currentdressups ,= _toadd
 	}
 }
 
@@ -381,6 +386,21 @@ ASUB //ASEARCH but for substrings
 	}
 	-1
 }
+
+/*
+//IF YOU'RE USING AYA, UNCOMMENT THIS FUNCTION. If not, you can omit this!
+MakeReferenceArray
+{
+	_output = IARRAY
+	_i = 0
+	while ISVAR("reference%(_i)") == 1
+	{
+		_output ,= NAMETOVALUE("reference%(_i)")
+		_i++
+	}
+	_output
+}
+*/
 		</pre>
 	</article>
 	
