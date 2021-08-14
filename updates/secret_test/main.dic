@@ -1,0 +1,138 @@
+// **** usage ****
+// 
+// The function name is the same as the event name; there is no On_ prefix when getting a string, as in the SHIORI/3.0 template.
+// 
+// If it returns a value, it will be executed as SakuraScript
+// You can control the behavior by assigning the following variables.
+// res_event
+// res_event , res_reference[0]... [n].
+// The specified event will be fired with reference. reference is optional.
+//
+// res_target
+// Specifies to which ghost the script or event should be sent.
+// Specify the Sakura name. Also, __SYSTEM_ALL_GHOST__ will notify all running ghosts.
+// If omitted, it will be sent to the ghost that executed the plugin menu.
+//
+// res_marker
+// You can specify the text to be displayed on the balloon's marker (the small status indicator at the bottom).
+// res_event_option
+// res_event_option / res_script_option
+// Set the EventOption / ScriptOption header, respectively.
+//
+// See the plugin specification for details.
+// http://emily.shillest.net/specwiki/index.php?PLUGIN%2F2.0%2F%E4%BB%95%E6%A7%98%E6%9B%B8
+
+//I'm not sure if I'm using this how I'm meant to
+version
+{
+	'Weather Station v0.0.1'
+}
+
+
+//I think this happens any time the plugin is loaded, as the name would imply. Probably when SSP starts?
+PluginLoad
+{
+	
+}
+
+CanGetWeather
+{
+	if Plugin.CurrentLocation != ""; 1
+	else; 0
+}
+
+//I think this happens any time the plugin is unloaded, as the name would imply. Probably when SSP closes?
+PluginUnload
+{
+
+}
+
+//This function is called when the user clicks on the plugin through the right click menu
+OnMenuExec
+{
+	_location = "(Not set)"
+	if Plugin.CurrentLocation != ""; _location = Plugin.CurrentLocation
+	
+	"Location: \__q[OnChangeLocation]%(_location)\__q\n\n"
+	--
+	"\q[test,OnTest]\n\n"
+	--
+	"\![*]\q[Cancel,OnCancel]\e"
+}
+
+OnTest //Can apparently also run this without arguments to test if an internet connection is available. Very useful! ...If I'm moving my website, I need to keep this in mind...
+{
+	_saori = FUNCTIONEX("saori/httpc.dll","https://zichqec.github.io/s-the-skeleton/weatherregex.html")
+	"\b2\_q%(_saori)\x"
+}
+
+OnNonFunction
+{
+	"Did the thing"
+}
+
+OnChangeLocation
+{
+	"\_q\*\![open,inputbox,OnWeatherLocation,-1]"
+	--
+	"Go to your city on weather.com and input the url" //probly need to do zip code idk
+}
+
+/*
+What all does this plugin need to do... plans.
+
+Main idea is to handle the weather checks with a single plugin instead of the user needing to put in their zip code for every ghost, and potentially have someone swipe those details... This plugin will not reveal that information to any ghosts. Though, in theory, they could scrape it out of the variable file anyways. Something to consider.
+
+I can use the httpc saori instead of the http-get commands, though I should definitely test more and see if it gives me any issues. Need to figure out how it handles newlines, because the current scraping loops will not work...
+
+Anyways! The user first needs to input their location, via weather.com. If at all possible, I will remove the zipcode thing, and just make it so you put in the URL. It needs to check that the url is valid (returns a page), and then set that as your location.
+
+It also needs to let you toggle between F and C. Will do this by getting the canadian page, that's smart.
+
+Once that's handled, information is ready to be passed to ghosts. The plugin should update the weather... eh, every 15 minutes? Half hour? Maybe allow the user to decide.
+
+Ghosts should be allowed to request information at any time, and can either take the already existing information, or request that the information be fetched fresh. It should also notify all running ghosts any time the weather is updated, but with NOTIFY and not GET.
+
+Weather info needs to be stored in some variables, possibly could encrypt the files... but, I want users to be able to see all the code that goes into this and that it's not malicious, as well.
+
+Oh yes, it also needs to gather the moon phase. That's easier though, really.
+
+Not all ghosts will support this, obviously, so to make this plugin useful for everyone it should have a little weather display of its own. I should also include the moon phase icon, maybe with a stroke around the art so it's visible on all balloons.
+
+I would like to also include information like sunrise and set, anything that would be useful. Maybe some other stuff too, in that case. Just get it all.
+
+Needs proper error codes to tell ghosts if it was unable to get information. Also, apparently with the saori it can tell if it does not have an internet connection, so I should add that too.
+
+Definitely need to let the user expunge all their info at any time should they want to.
+
+If possible, would love to eventually add support for more weather sites than just weather.com, but................ gonna be difficult, really. So long as this continues to work.
+
+If I plan to move my site, I'm going to have to keep the weatherregex file up to date. Mm. Wonder if I should set up this plugin to notify the user of updates the way X. Template does... could be helpful.
+
+Anyways, I think that's all. I think this is doable! When my head isn't hurting.
+*/
+
+
+
+OnCancel
+{
+	"\0\b[-1]\e"
+}
+
+// OnGhostBoot
+// {
+	// "\_q"
+	// --
+	// "r0: %(reference[0])\n/
+	// r1: %(reference[1])\n/
+	// r2: %(reference[2])\n/
+	// r3: %(reference[3])\n/
+	// r4: %(reference[4])\n/
+	// "
+	// res_target = "Dusty"
+	// res_reference[0] = Plugin.CurrentGroupEvent
+	// if Plugin.CurrentGroupEvent != "None"; res_reference[1] = "Ongoing"
+	// res_marker = version
+	// //"%(reference[1])"
+	// res_script_option = "nobreak"
+// }
