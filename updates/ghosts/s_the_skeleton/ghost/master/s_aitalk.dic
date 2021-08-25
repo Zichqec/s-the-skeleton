@@ -425,7 +425,7 @@ Pool_Sleep_NeutralDreams : array //dreams >= 1 && dreams <= 3 - Neutral dreams
 	"\0\s[1300]%(dreammumb)...%(Capitalize(_food1)) and %(_food2) with %(fruveg)..?\w8\w8 Ok...%(dreammumb2)"
 	"\0\s[1300]%(dreammumb)...Sure,\w4 I can make %(_food1) and %(_food2)...%(dreammumb2)"
 	"\0\s[1300]%(dreammumb)...%(Capitalize(_food1)) with %(ingredients),\w4 and maybe %(_food2) on the side...%(dreammumb2)"
-	"\0\s[1300]%(dreammumb)...%(_family) wants %(_food1),\w4 I guess that will go with the %(_food2)...\w8\w8 I'll add a little %(ingredients) to pull it together...%(dreammumb2)"
+	"\0\s[1300]%(dreammumb)...%(Capitalize(_family)) wants %(_food1),\w4 I guess that will go with the %(_food2)...\w8\w8 I'll add a little %(ingredients) to pull it together...%(dreammumb2)"
 	"\0\s[1300]%(dreammumb)...Pounds and pounds of %(bakedgoods)...%(dreammumb2)"
 	"\0\s[1300]%(dreammumb)...%(ANY('Two,Three,Four,Five,Six,Seven,Eight,Nine')) dozen orders of %(bakedgoods)...\w8\w8 do you want that to go..?%(dreammumb2)"
 	"\0\s[1300]%(dreammumb)...Cookies..?\w8\w8 For me..?\w8\w8 Why sure,\w4 back up the truck...%(dreammumb2)"
@@ -479,7 +479,7 @@ Pool_Sleep_BadDreams : array //dreams <= 1 - Bad dreams
 	"\0\s[1304]%(dreammumb)...They're beautiful...\w8\w8\s[1301] But...\e:chain=dreamb9"
 }
 
-Pool_Sleep_WorstDreams : array //dreams == 0 - Words dreams
+Pool_Sleep_WorstDreams : array //dreams == 0 - Worst dreams
 {
 	_family = REPLACE(family,"an","",1)
 	//if _family == "Rom"; _family = "Roman"
@@ -613,6 +613,7 @@ MainTalk : nonoverlap
 	"\0\s[101]I found a really weird file the other day.\w8\w8 It was full of words,\w4 but it was structured really strangely.\w8\w8\s[202] The words 'else' and 'if' showed up a lot,\w4 and there were lots of symbols in weird combinations.\w8\w8\n\n\s[106]Any idea what that's about?\e"
 	"\0\s[208]I try to remember to look up whenever I'm out for a walk.\w8\w8\s[111] There's always something to see,\w4 whether it's some clouds,\w4 or just the sun shining brightly.\w8\w8\s[104] They're all beautiful.\e"
 	"\0\s[208]I find cleaning very satisfying;\w8\s[104] you put in a little effort and something you care about becomes clean and nice again.\e"
+	"\0\s[205]I wonder how your timeline differs from mine.\w8\w8\s[0] Some timelines are almost exactly like my own,\w4 while others look about the same but have huge changes just under the surface.\w8\w8\s[106] You never know what might be different until you run right into it...\e"
 	
 	
 	parallel Pool_LowTrust //No if needed here
@@ -681,6 +682,60 @@ MainTalk : nonoverlap
 	parallel Pool("Pool_November","%(month == 11)")
 	parallel Pool("Pool_December","%(month == 12)")
 	
+	parallel Pool("Pool_week_1","%(yearweek == 1)")
+	parallel Pool("Pool_week_2","%(yearweek == 2)")
+	parallel Pool("Pool_week_3","%(yearweek == 3)")
+	parallel Pool("Pool_week_4","%(yearweek == 4)")
+	parallel Pool("Pool_week_5","%(yearweek == 5)")
+	parallel Pool("Pool_week_6","%(yearweek == 6)")
+	parallel Pool("Pool_week_7","%(yearweek == 7)")
+	parallel Pool("Pool_week_8","%(yearweek == 8)")
+	parallel Pool("Pool_week_9","%(yearweek == 9)")
+	parallel Pool("Pool_week_10","%(yearweek == 10)")
+	parallel Pool("Pool_week_11","%(yearweek == 11)")
+	parallel Pool("Pool_week_12","%(yearweek == 12)")
+	parallel Pool("Pool_week_13","%(yearweek == 13)")
+	parallel Pool("Pool_week_14","%(yearweek == 14)")
+	parallel Pool("Pool_week_15","%(yearweek == 15)")
+	parallel Pool("Pool_week_16","%(yearweek == 16)")
+	parallel Pool("Pool_week_17","%(yearweek == 17)")
+	parallel Pool("Pool_week_18","%(yearweek == 18)")
+	parallel Pool("Pool_week_19","%(yearweek == 19)")
+	parallel Pool("Pool_week_20","%(yearweek == 20)")
+	parallel Pool("Pool_week_21","%(yearweek == 21)")
+	parallel Pool("Pool_week_22","%(yearweek == 22)")
+	parallel Pool("Pool_week_23","%(yearweek == 23)")
+	parallel Pool("Pool_week_24","%(yearweek == 24)")
+	parallel Pool("Pool_week_25","%(yearweek == 25)")
+	parallel Pool("Pool_week_26","%(yearweek == 26)")
+	parallel Pool("Pool_week_27","%(yearweek == 27)")
+	parallel Pool("Pool_week_28","%(yearweek == 28)")
+	parallel Pool("Pool_week_29","%(yearweek == 29)")
+	parallel Pool("Pool_week_30","%(yearweek == 30)")
+	parallel Pool("Pool_week_31","%(yearweek == 31)")
+	parallel Pool("Pool_week_32","%(yearweek == 32)")
+	parallel Pool("Pool_week_33","%(yearweek == 33)")
+	parallel Pool("Pool_week_34","%(yearweek == 34)")
+	parallel Pool("Pool_week_35","%(yearweek == 35)")
+	parallel Pool("Pool_week_36","%(yearweek == 36)")
+	parallel Pool("Pool_week_37","%(yearweek == 37)")
+	parallel Pool("Pool_week_38","%(yearweek == 38)")
+	parallel Pool("Pool_week_39","%(yearweek == 39)")
+	parallel Pool("Pool_week_40","%(yearweek == 40)")
+	parallel Pool("Pool_week_41","%(yearweek == 41)")
+	parallel Pool("Pool_week_42","%(yearweek == 42)")
+	parallel Pool("Pool_week_43","%(yearweek == 43)")
+	parallel Pool("Pool_week_44","%(yearweek == 44)")
+	parallel Pool("Pool_week_45","%(yearweek == 45)")
+	parallel Pool("Pool_week_46","%(yearweek == 46)")
+	parallel Pool("Pool_week_47","%(yearweek == 47)")
+	parallel Pool("Pool_week_48","%(yearweek == 48)")
+	parallel Pool("Pool_week_49","%(yearweek == 49)")
+	parallel Pool("Pool_week_50","%(yearweek == 50)")
+	parallel Pool("Pool_week_51","%(yearweek == 51)")
+	parallel Pool("Pool_week_52","%(yearweek == 52)")
+	parallel Pool("Pool_week_53","%(yearweek == 53)")
+	
 	parallel Pool("Pool_Sunday","%(wd == 'Sun')")
 	parallel Pool("Pool_Monday","%(wd == 'Mon')")
 	parallel Pool("Pool_Tuesday","%(wd == 'Tue')")
@@ -737,6 +792,8 @@ MainTalk : nonoverlap
 	
 	parallel Pool("Pool_BootedMultiple","%(Sboots > 3)")
 	
+	parallel Pool("Pool_HSInstalled","%(ASEARCH('Hunter and Smoker',installedghostlist) != -1)")
+	
 	if "Sanguine" _in_ ghostexlist; "\0\s[106]Is uh...\w8\w8\s[202] Is that me..?\e" //S wasn't my first attempt to make a ghost...
 	
 	if "RYS" _in_ ghostexlist;"\0\s[206]Ah...\w8\w8 That's...\e" //Or the second attempt...
@@ -751,10 +808,18 @@ MainTalk : nonoverlap
 	
 	if slept > 0; "\0\s[208]Sleeping here probably isn't as good for me as sleeping in a proper bed,\w4 or even on the couch;\w8\s[106] but at the same time it's nice to have some peace and quiet while I%(br)nap...\e"
 	
+	if reset > 0; "\0\s[107]You ever just...\w8\w8\s[106] get the feeling you're forgetting something?\w8\w8\s[206] I'm kinda feeling like that right now...\e"
+	if reset > 0
+	{
+		"\0\s[108]I get this weird feeling when I'm here sometimes.\w8\w8\s[206] Like I should be remembering something,\w4 but I just...\w8\w8\s[204]\ can't.\w8\w8\s[109] Not quite."
+		--
+		if thesplit; "\w8\w8\w8\n\n\s[200]...I guess I should be used to that by now,\w4 though...\e"
+	}
+	
 	//===Dialogue with random elements=== I don't want to have too much of this, I find that in order to make random dialogue work, you have to make your dialogue vague so that it works. But when it's so vague, it feels really inconsequential... there's no real info in it. I definitely want a little bit, but I have to be very careful how I use it. One of the advantages it does have is that it means S will slowly trickle out the names of random family members, making it take at least some time to unlock everything he has to say. ...Sorry to anyone who the RNG gods look upon unfavorably. I may possibly make some alternate way to unlock them. Perhaps through an input box? Or some other convoluted series of events if you're determined. (1 YEAR LATER EDIT: lol I'm totally gonna add a bunch of this)
 	
-	parallel Pool("Pool_RandomElements","1",3)
-	parallel Pool("Pool_Mutterings","1")
+	parallel Pool_RandomElements
+	parallel Pool_Mutterings
 	
 	//Random phone convos start
 	if lookingatphone == 0 && passhour > 2
@@ -796,11 +861,13 @@ MainTalk : nonoverlap
 
 Pool_HighTrust : array //love >= 150
 {
+	_bakedgoods = bakedgoods
 	"\0\s[102]* (Shaped like a friend.)\e"
 	"\0\s[102]* (He hums a quiet tune.)\e"
 	"\0\s[208]I suppose once you get used to this place,\w4%(br)it's not so weird.\w8\w8\w8\n\n\s[107]...Well,\w4 no,\w4 it's still \f[italic,1]weird,\f[default]\w8\s[205] but it's not a bad place to be.\e"
 	"\0\s[104]I hope you're having a good day,\w4 %(username).\w8\w8\s[106] And if not,\w4 let me know what I can do to help,\w4 huh?\e"
 	"\0\s[208]There's always so much to do at home...\w8\w8\s[205]%(br)It's kinda nice to get away from it for a bit.\w8\w8\s[202] It does mean the others have to pick up my chores,\w4 though.\e"
+	"\0\s[110]I found a folder called %(TOLOWER(REPLACE(_bakedgoods,' ','_')))...\w8\w8\s[101] There were a bunch of %(filetype)s in it with names based on %(_bakedgoods).\w8\w8 How strange.\e" //TODO move this??? idk it was in the wrong spot before, in with the random ingredients
 }
 
 Pool_KnowFamily : array //knowaboutfamily == 1
@@ -947,6 +1014,8 @@ Pool_OpenLongTime : array //passhour >= 12
 	"\0\s[206]I hope they're getting on alright without me...\e"
 	"\0\s[206]I hope they're not too worried about me...\w8\w8\s[1090]\i[4] Mm,\w4 I should check in...\i[4]\![raise,OnDialogueVariables,getonphone]\e"
 	"\0\s[206]* (He's mumbling to himself.)\w8\w8\n\n%(passhour) hours...\e"
+	"\0\s[106]You wouldn't think standing around would be tiring,\w4 but after %(passhour) hours it starts to get to you...\e"
+	"\0\s[110]Ah!\w8\w8\s[206] What was that..?\w8\w8\w8\n\n\s[200]...\w8\w8\w8\n\n\s[300]...Hm,\w4 maybe it's just my imagination...\e"
 	
 	parallel Pool("Pool_OpenLongTime_KnowFamily","%(knowaboutfamily == 1)")
 }
@@ -1032,7 +1101,7 @@ Pool_TalkAboutDusty : array //talkedtoDusty == 1 && "Dusty" !_in_ ghostexlist
 {
 	"\0\s[208]I wonder how Dusty is doing...\e"
 	"\0\s[206]I should visit Dusty soon...\e"
-	if "Dusty and Obsidian" _in_ installedlist; "\0\s[102]I'm glad you bring Dusty here.\w8\w8\s[107] He uh,\w4 doesn't exactly get out much.\w8\w8\n\n\s[104]It's good to see him outside his void though,\w4 he seems to really enjoy it.\e"
+	if ASEARCH("Dusty and Obsidian",installedghostlist) != -1; "\0\s[102]I'm glad you bring Dusty here.\w8\w8\s[107] He uh,\w4 doesn't exactly get out much.\w8\w8\n\n\s[104]It's good to see him outside his void though,\w4 he seems to really enjoy it.\e"
 }
 
 Pool_TalkAboutWD : array //askedaboutwd == 1
@@ -1092,11 +1161,11 @@ Pool_TalkAboutLulo : array //askedaboutlulo == 1
 	{
 		"\0\s[200]anLulo's been sleeping longer the past few days...\w8\s[300] It's probably nothing,\w4 but...\w8\w8\n\n\s[302]* (He tries to hide a shiver,\s[200] but you catch it anyways.)\e"
 	}
-	if talkedtoLulo == 0 && "Lulo" !_in_ installedlist //:3c
+	if talkedtoLulo == 0 && ASEARCH("Lulo",installedghostlist) == -1 //:3c
 	{
 		"\0\s[208]anLulo has been asking me about this place,\w4%(br)lately.\w8\w8\s[104] I think the idea of exploring the inside of a computer has captured her imagination a bit.\w8\w8\s[107] Though,\w4 I'm not sure it's as interesting in person as she thinks it'll be...\e"
 	}
-	if talkedtoLulo == 1 && "Lulo" _in_ installedlist && "Lulo" !_in_ ghostexlist
+	if talkedtoLulo == 1 && ASEARCH("Lulo",installedghostlist) != -1 && "Lulo" !_in_ ghostexlist
 	{
 		
 	}
@@ -1132,6 +1201,7 @@ Pool_UpHigh : array //YCoord < (displayheight / 2) && FromDragging != 2
 	"\0\s[107]It's a good thing heights don't bother me that much...\e"
 }
 
+//Same note as the dizzy pools... you basically never see this
 Pool_RecentNightmare : array //recentnightmare == 1
 {
 	"\0\s[204]* (He shudders quietly.)\w8\w8\n\n* (Maybe he's still shaken up from his nightmare...)\e"
@@ -1280,7 +1350,7 @@ Pool_July : array //month == 7
 {
 	"\0\s[106]This time of year makes me really appreciate clouds.\e"
 	"\0\s[208]I never expected the surface to be so green.\w8\w8\s[0] I grew up underground,\w4 where there were a lot of grays,\w4 browns,\w4 and blues.\w8\w8\s[1071]\n\nIt also didn't change much year round,\w4\s[104] but up here the colors change drastically with every season.\e"
-	"\0\s[107]The weather at this time of year is always kind of miserable if there isn't a good breeze going...\w8\w8\s[106] Or at least,\w4 that's how I feel about it.\w8\w8\s[202]\n\nI'll never understand how some humans can take the heat so well.\e"
+	"\0\s[107]The weather at this time of year is always kind of miserable if there isn't a good breeze going...\w8\w8\s[106] Or at least,\w4 that's how I feel about it.\w8\w8\s[202]\n\nI'll never understand how some people can take the heat so well.\e"
 	if day < 5; "\0\s[106]I think this is my least favorite time of year,\w4 fireworks are pretty and all,\w4 but the loud noises have a tendency to catch me off guard.\w8\w8\s[107] Pair that with my preferring cold weather,\w4 and...\w8\w8\s[106]\n\nWell,\w4 on the plus side there's a lot of nice summer foods.\e"
 	
 	parallel Pool("Pool_July_Twelve","%(day == 12 && PastUnlocked)")
@@ -1337,7 +1407,7 @@ Pool_November_KnowFamily  : array //knowaboutfamily == 1
 	"\0\s[205]It's been very brisk out,\w4 but I don't mind.\w8\w8\s[102] The littler kids look adorable in their tiny jackets.\e"
 }
 
-Pool_December
+Pool_December : array //month == 12
 {
 	"\0\s[106]Holiday season is upon us.\w8\w8\s[107] Honestly I find the human traditions a bit too pushy for my tastes,\w4\s[104] but I do really love the lights and sharing a simple Gyftmas with my family.\e"
 	"\0\s[205]I remember Gyftmas time back in Snowdin town...\w8\w8\s[104] It was really a sight to see.\w8\w8\s[102] All the lights strung up,\w4 illuminating the dark,\w4 light reflecting off the snow...\e"
@@ -1356,6 +1426,339 @@ Pool_December
 		}
 	}
 	if day < 5; "\0\s[104]Winter's finally here!\w8\w8\s[0] I dunno about you,\w4\s[103] but I'm pretty excited.\e"
+}
+
+Pool_week_1 : array //yearweek == 1
+{
+	"\0\s[1070]...It can't be that hard to find a match...\e"
+	"\0\s[1070]...Need to cut out those coupons that came in...\e"
+	"\0\s[1070]...I've never seen it get so high...\e"
+}
+
+Pool_week_2 : array //yearweek == 2
+{
+	"\0\s[1070]...Need to check over her homework,\w4 too...\e"
+	"\0\s[1070]...I can go over it with her again and make sure she remembers...\e"
+	if !CambriaPresent; "\0\s[1070]...I need to ask anCambria if she can patch that jacket for me...\e"
+}
+
+Pool_week_3 : array //yearweek == 3
+{
+	"\0\s[1070]...I'll find another one that fits her better...\e"
+	"\0\s[1070]...Ah,\w4 but it's just about out of fuel now...\e"
+	"\0\s[1070]...Have to keep that in mind this time...\e"
+}
+
+Pool_week_4 : array //yearweek == 4
+{
+	"\0\s[1070]...Maybe I can finish getting it cleaned up tonight,\w4 if I get home early enough...\e"
+	"\0\s[1070]...I'll have to get another ladle...\w8\w8\s[208] Maybe a single piece one this time...\e"
+	if thesplit; "\0\s[206]...He liked running around...\w8\w8 Making noise...\e"
+}
+
+Pool_week_5 : array //yearweek == 5
+{
+	"\0\s[1070]...Maybe I can convince %(ANY('him,her,them')) to go with me...\e"
+	"\0\s[1070]...I think I have a coupon for frames,\w4 just gotta try to get one in the right size...\e"
+	if thesplit; "\0\s[206]...Wonder what they've done with that house,\w4 since we're not there...\e"
+}
+
+Pool_week_6 : array //yearweek == 6
+{
+	"\0\s[1070]...I should check if we're getting low...\e"
+	"\0\s[1070]...That blanket still needs cleaned,\w4 too...\e"
+	if thesplit; "\0\s[206]...They were always asking him to fix stuff...\e"
+}
+
+Pool_week_7 : array //yearweek == 7
+{
+	"\0\s[1070]...I'll check with %(ANY('him,her,them')) later,\w4 can't be too careful...\e"
+	"\0\s[1070]...Where did I lose those sponges...\e"
+	if thesplit; "\0\s[206]...Strings,\w4 he had strings,\w4 but why...\e"
+}
+
+Pool_week_8 : array //yearweek == 8
+{
+	"\0\s[1070]...Those gloves are starting to get a bit thin...\e"
+	"\0\s[1070]...Gotta ask someone to replace that lightbulb...\w8\w8\s[208] Maybe anDings,\w4 he won't need a ladder to reach it...\e"
+	if thesplit; "\0\s[206]...Would he be upset..?\w8\w8\w8\n\n\s[109]...\e"
+}
+
+Pool_week_9 : array //yearweek == 9
+{
+	"\0\s[1070]...I think they sent me an email...\w8\w8 Hmm...\e"
+	"\0\s[1070]...Been a while since we cleaned out that vent...\e"
+	if thesplit; "\0\s[206]...I hope they're ok somewhere...\e"
+}
+
+Pool_week_10 : array //yearweek == 10
+{
+	"\0\s[1070]...It's not like it could just grow legs and walk away...\w8\w8\s[206] Well,\w4 then again,\w4 maybe it did...\e"
+	"\0\s[1070]...Maybe he knows how to do it...\e"
+	"\0\s[1070]...It said it should be good until %(nowday(weekday + 3)),\w4 but I'm not so sure...\e"
+}
+
+Pool_week_11 : array //yearweek == 11
+{
+	"\0\s[1070]...anBlue would know,\w4 I'm sure of it...\e"
+	"\0\s[1070]...Probably need to get the sheets washed,\w4 while I'm at it...\e"
+	"\0\s[1070]...I guess we'll see what happens on %(nowday(weekday + 4))...\e"
+}
+
+Pool_week_12 : array //yearweek == 12
+{
+	"\0\s[1070]...I'll have to check the dates,\w4 but I think they're still good...\e"
+	"\0\s[1070]...They were getting a little soft when I checked yesterday,\w4 maybe I should use them for something else...\e"
+	"\0\s[1070]...I need to get caught back up on that,\w4 before it piles up too much...\e"
+}
+
+Pool_week_13 : array //yearweek == 13
+{
+	"\0\s[1070]...I think I added too much sugar last time...\e"
+	"\0\s[1070]...Gotta see if I can find something the same color...\e"
+	"\0\s[1070]...I asked about it on %(nowday(weekday - 3)), I need to follow up with them...\e"
+}
+
+Pool_week_14 : array //yearweek == 14
+{
+	"\0\s[1070]...Maybe %(ANY('andad,anmom,anWings,anDings,anTriton,anBlue,anCambria')) will help,\w4 we'd get it done faster that way...\e"
+	"\0\s[1070]...I'll believe it when I see it...\e"
+	"\0\s[1070]...I'll talk with her tonight, see how she's feeling...\e"
+}
+
+Pool_week_15 : array //yearweek == 15
+{
+	"\0\s[1070]...It'll need patched,\w4 hopefully soon...\e"
+	"\0\s[1070]...If it's really a coincidence,\w4 that's incredible...\e"
+}
+
+Pool_week_16 : array //yearweek == 16
+{
+	"\0\s[1070]...Maybe I can get it done for him...\e"
+	"\0\s[1070]...I should recycle some of those boxes...\e"
+}
+
+Pool_week_17 : array //yearweek == 17
+{
+	"\0\s[1070]...I think I saved that,\w4 I just need to find where I put it...\e"
+	"\0\s[1070]...New shoes already,\w4 where is the time going...\e"
+}
+
+Pool_week_18 : array //yearweek == 18
+{
+	"\0\s[1070]...If that works,\w4 it would be really convenient...\e"
+	"\0\s[1070]...Missed the healing session yesterday,\w4 I'll have to make sure I don't miss it tonight or she'll be upset...\e"
+}
+
+Pool_week_19 : array //yearweek == 19
+{
+	"\0\s[1070]...Kinda tasted like soap,\w4 though...\w8\w8 Maybe I didn't rinse out the container enough..?\e"
+	"\0\s[1070]...I still need to straighten up that drawer...\e"
+}
+
+Pool_week_20 : array //yearweek == 20
+{
+	"\0\s[1070]...Have to make sure all that sugar got cleaned up,\w4 last thing we need is ants...\e"
+	"\0\s[1070]...I didn't see them there last time,\w4 maybe I should ask andad to check when he goes...\e"
+	if !CambriaPresent; "\0\s[1070]...Running out of space again,\w4 I'll need to get anCambria to clear it off...\e"
+}
+
+Pool_week_21 : array //yearweek == 21
+{
+	"\0\s[1070]...I think I should have enough bird seed for a little while,\w4 but I'll check again to be sure...\e"
+	"\0\s[1070]...Maybe I can glue it back together...\e"
+}
+
+Pool_week_22 : array //yearweek == 22
+{
+	"\0\s[1070]...Maybe anmom can fix it again...\e"
+	"\0\s[1070]...Yeah,\w4 that should work,\w4 actually...\w8\w8 I can play around with it a bit and adjust it until it's good...\e"
+}
+
+Pool_week_23 : array //yearweek == 23
+{
+	"\0\s[1070]...Can't hurt anything I suppose;\w4 they might learn if it goes wrong,\w4 really...\e"
+	"\0\s[1070]...He said we should have it by %(nowday(weekday + 2))...\e"
+}
+
+Pool_week_24 : array //yearweek == 24
+{
+	"\0\s[1070]...I wonder if they've got any more of those scrapbooks...\e"
+	"\0\s[1070]...Well...\w8\w8 I suppose that would work,\w4 if we leave a little extra time...\e"
+}
+
+Pool_week_25 : array //yearweek == 25
+{
+	"\0\s[1070]...Ah,\w4 they're still little,\w4 I can't be too hard on 'em...\e"
+	"\0\s[1070]...I think I've got another box of pencils stashed somewhere...\e"
+}
+
+Pool_week_26 : array //yearweek == 26
+{
+	"\0\s[1070]...I think it has a lower volume setting,\w4 I should try that...\e"
+	"\0\s[1070]...Maybe I can get her to take it,\w4 since she's heading out anyways...\e"
+}
+
+Pool_week_27 : array //yearweek == 27
+{
+	"\0\s[1070]...Did I get that laundry done..?\w8\w8\s[208] Well,\w4 I'm sure it'll be there when I get back...\e"
+	"\0\s[1070]...Wish they would get those sidewalks fixed already...\e"
+}
+
+Pool_week_28 : array //yearweek == 28
+{
+	"\0\s[1070]...Maybe I can pick up some more candles,\w4 too...\e"
+	"\0\s[1070]...I can't believe how fast they're growing out of their clothes...\e"
+}
+
+Pool_week_29 : array //yearweek == 29
+{
+	"\0\s[1070]...He's going to need another sweater...\e"
+	"\0\s[1070]...Still gotta scrub that skillet...\e"
+}
+
+Pool_week_30 : array //yearweek == 30
+{
+	"\0\s[1070]...Plenty of detergent left,\w4 I'll keep an eye out for more coupons though...\e"
+	"\0\s[1070]...I'll have to thank her for washing those dishes when I see her...\e"
+}
+
+Pool_week_31 : array //yearweek == 31
+{
+	"\0\s[1070]...Surely they'll be back in stock by now...\e"
+	"\0\s[1070]...I can catch up on my sleep tomorrow...\e"
+}
+
+Pool_week_32 : array //yearweek == 32
+{
+	"\0\s[1070]...Maybe I'll surprise %(ANY('him,her,them')) with it...\e"
+	"\0\s[1070]...They're all out of the blue ones,\w4 as usual...\e"
+}
+
+Pool_week_33 : array //yearweek == 33
+{
+	"\0\s[1070]...Did I clean behind the couch..?\e"
+	"\0\s[1070]...I need to make sure she actually did it this time...\e"
+}
+
+Pool_week_34 : array //yearweek == 34
+{
+	"\0\s[1070]...I'll catch up with him tonight...\e"
+	"\0\s[1070]...He's probably got it taken care of...\e"
+}
+
+Pool_week_35 : array //yearweek == 35
+{
+	"\0\s[1070]...I'll find it one of these days...\e"
+	"\0\s[1070]...Just as long as they don't expect %(italic('me')) to wear them...\e"
+}
+
+Pool_week_36 : array //yearweek == 36
+{
+	"\0\s[1070]...I should ask,\w4 I suppose...\w8\w8 Can't hurt anything...\e"
+	"\0\s[1070]...Still want to try something with the griddle...\e"
+}
+
+Pool_week_37 : array //yearweek == 37
+{
+	"\0\s[1070]...The closet definitely needs cleaned out by now,\w4 it's been a long while...\e"
+	"\0\s[1070]...Well,\w4 I suppose it doesn't really matter either way...\e"
+}
+
+Pool_week_38 : array //yearweek == 38
+{
+	"\0\s[1070]...Still can't find it anywhere,\w4 wonder where it got to...\e"
+	"\0\s[1070]...Gotta see what he's up to these days...\e"
+}
+
+Pool_week_39 : array //yearweek == 39
+{
+	"\0\s[1070]...The windows still need to be cleaned...\e"
+	"\0\s[1070]...I'm sure he'll let me know if he wants my help...\e"
+}
+
+Pool_week_40 : array //yearweek == 40
+{
+	"\0\s[1070]...I suppose I can always check on them later...\e"
+	"\0\s[1070]...It would be a lot easier to do it that way...\e"
+}
+
+Pool_week_41 : array //yearweek == 41
+{
+	"\0\s[1070]...anTriton's got it taken care of,\w4 I'm pretty sure...\e"
+	"\0\s[1070]...Gotta make sure he's getting rest too...\e"
+}
+
+Pool_week_42 : array //yearweek == 42
+{
+	"\0\s[1070]...I'll have to ask %(ANY('him,her,them')) to be more careful,\w4 I don't want to clean that up again if I don't have to...\e"
+	"\0\s[1070]...Going to have to check them soon,\w4 make sure they're still working...\e"
+}
+
+Pool_week_43 : array //yearweek == 43
+{
+	"\0\s[1070]...They never have it in stock...\w8\w8 Maybe I can get some online..?\e"
+	"\0\s[1070]...Could stand to donate some of those old toys that they're not playing with anymore...\e"
+}
+
+Pool_week_44 : array //yearweek == 44
+{
+	"\0\s[1070]...I should be able to get it off,\w4 it'll just take a little work...\e"
+	"\0\s[1070]...They've started to fade,\w4 maybe I should get them out of the sun...\e"
+}
+
+Pool_week_45 : array //yearweek == 45
+{
+	"\0\s[1070]...Should be good for years,\w4 I don't think I need to worry about it too much...\e"
+	"\0\s[1070]...It's not holding a charge anymore,\w4 I should ask anDings to have a look at it...\e"
+}
+
+Pool_week_46 : array //yearweek == 46
+{
+	"\0\s[1070]...It's starting to look a little frayed,\w4 it might be time to get a new one...\e"
+	"\0\s[1070]...If I could just find the right batteries for it...\e"
+}
+
+Pool_week_47 : array //yearweek == 47
+{
+	"\0\s[1070]...Can't believe those shoes didn't fit,\w4 I suppose I can donate them back...\e"
+	"\0\s[1070]...I'll have to see if they're still open by the time I get there...\e"
+}
+
+Pool_week_48 : array //yearweek == 48
+{
+	"\0\s[1070]...It won't be much trouble to swing by,\w4 since I'll be out there anyways...\e"
+	"\0\s[1070]...I can get it done on time,\w4 shouldn't be a problem...\e"
+}
+
+Pool_week_49 : array //yearweek == 49
+{
+	"\0\s[1070]...I do have a couple of coupons I could use...\e"
+	"\0\s[1070]...Someone took the blanket again,\w4 I need to remember to get one before I sit down...\e"
+}
+
+Pool_week_50 : array //yearweek == 50
+{
+	"\0\s[1070]...It just takes so long,\w4 surely there must be a better way...\e"
+	"\0\s[1070]...If all goes well it shouldn't be an issue...\e"
+}
+
+Pool_week_51 : array //yearweek == 51
+{
+	"\0\s[1070]...I can't believe it costs that much for that little...\e"
+	"\0\s[1070]...You never know what you'll find,\w4 I guess...\w8\w8\s[208] It's worth a shot...\e"
+}
+
+Pool_week_52 : array //yearweek == 52
+{
+	"\0\s[1070]...Might as well be thorough,\w4 I'll ask him to check...\e"
+	"\0\s[1070]...I can't believe that spoiled so fast,\w4 I wonder if they'll refund it...\e"
+}
+
+Pool_week_53 : array //yearweek == 53
+{
+	"\0\s[1070]...Hopefully it won't be cloudy that night...\e"
+	"\0\s[1070]...That wasn't the right flavor,\w4 I'll have to look more carefully next time...\e"
 }
 
 Pool_Sunday : array //wd == "Sun"
@@ -1564,6 +1967,7 @@ Pool_ThunderstormWeather : array //weather_thunderstorm
 	"\0\s[205]I like rain,\w4 but I'm not really fond of thunderstorms.\w8\w8\s[106] All that loud crashing freaks me out,\w4 y'know?\w8\w8\s[109] And I hate it when the lights go out all of a sudden.\e"
 	"\0\s[206]* (He looks worried about the thunder.)\e"
 	"\0\s[108]Uh,\w4 if it looks like the power is gonna go out,\w4 could you do me a favor and close me?\w8\w8\s[107] I don't really want to know what happens if I'm still here when your computer shuts off...\w8\w8\s[204] The dark and I don't get on too well.\e"
+	"\0\s[106]The sky sure sounds angry today,\w4 huh?\w8\w8\s[206] I hope it calms down soon.\e"
 }
 
 Pool_LowVisWeather : array //weather_foghaze
@@ -1611,6 +2015,7 @@ Pool_HotTemp : array //temp == "Hot" //81-95F, 27-35C
 	"\0\s[107]It's sure hot out,\w4 huh?\w8\w8\s[106] Make sure you stay hydrated,\w4 kiddo.\e"
 	"\0\s[107]Egh,\w4 I'm not really a fan of this heat.\w8\w8\s[106] Let's just hope it doesn't get worse,\w4 huh?\e"
 	"\0\s[107]Phew,\w4 it's really warming up out there...\e"
+	"\0\s[106]Aren't computers supposed to have fans?\w8\w8 I feel like I heard computers have fans.\w8\w8\s[107] If there %(italic('are')) fans I can't tell from in here;\w8 it's kinda stuffy...\e"
 }
 
 Pool_BoilingTemp : array //temp == "Boiling" //96+F, 36+C
@@ -1638,6 +2043,7 @@ Pool_SoupHumidity : array //humid == "Soup" && (temp == "Hot" || temp == "Boilin
 	"\0\s[109]Ugh,\w4 all this humidity is making me feel sticky...\e"
 	"\0\s[109]On days like this I'm glad I don't have hair...\e"
 	"\0\s[108]What a miserable day to be outside...\e"
+	"\0\s[106]I've never really understood humidity.\w8\w8 If it's 100% humid out,\w4 wouldn't the air just be water?\w8\w8\s[107] ...Feels like it,\w4 to be honest.\e"
 }
 
 Pool_HighPollen : array //pollen == "Local Pollen Alert"
@@ -1713,14 +2119,15 @@ Pool_RandomElements : array //Always
 		"Maybe I can get %(family) to try it if I add %(_ingredient1)...\e"
 		"I still have a little extra %(_ingredient1),\w4 I should use that up...\e"
 		"Gonna save that %(_ingredient1) for %(nowday('next'))...\e"
-		"Hm,\w4 I used the %(_ingredient1) up on %(nowday(day - 2))...\e"
+		"Hm,\w4 I used the %(_ingredient1) up on %(nowday(weekday - 2))...\e"
 		"If we run out of %(_ingredient1) that'll throw a wrench in things...\e"
 		"Maybe I could use %(_ingredient1) as a substitute...\e"
 		"I suppose it could work if I used some %(_ingredient1) too...\e"
 		"The %(_ingredient1) might stand out,\w4 though...\e"
 		"It just seems like so much %(_ingredient1)...\e"
 		"Y'know,\w4 I didn't think of that,\w4 it might clash with the %(_ingredient1)...\e"
-		"He said %(_ingredients1),\w4 but I don't think %(_ingredients1) would go well with it..."
+		"He said %(_ingredients1),\w4 but I don't think %(_ingredients1) would go well with it...\e"
+		"There's not going to be much %(_ingredient1) left,\w4 I'll have to add that to the list...\e"
 		
 		"Hmm...\w8\w8 maybe andad was right about the %(_ingredient1),\w4 but definitely not the %(_ingredient2)...\e"
 
@@ -1754,6 +2161,22 @@ Pool_RandomElements : array //Always
 			}
 		}
 	}
+	{
+		_food = ANY(fruveg,ingredients)
+		"\0\s[208]* (Looks like he's daydreaming.)\w8\w8\n\n..."
+		--
+		//bunch of food related dialogues
+		"Hm,\w4 I could try it with the %(_food) instead,\w4 but it might not come out right"
+		"%(Capitalize(_food)) would be fun to pair with it,\w4 I think"
+		"Would %(_food) go better with it..?\w8\w8\s[1070] Maybe"
+		"You can't really go wrong with %(_food)"
+		"Might as well try the %(_food),\w4 it can't hurt"
+		"I suppose if I did %(_food) with it"
+		"I don't think %(ANY('he,she,they'))'d mind if I made it with %(_food) instead"
+		"%(ANY('He,She,They')) wanted to try it with %(_food) at some point,\w4 I could do that"
+		--
+		"...\w8\w8\n\n* (.\w4.\w4.\w4Of course.)\e"
+	}
 	
 	//These are about various foods, for now I've lumped together baked goods/fruits/vegetables. Might add more later.
 	{
@@ -1782,7 +2205,6 @@ Pool_RandomElements : array //Always
 		"I know %(family) wanted to try %(bakedgoods)...\e"
 		"Hm,\w4 it wouldn't go well with the %(bakedgoods),\w4 though...\e"
 		"Can't believe they ran out of %(fruveg),\w4 I'll have to stop by tomorrow...\e"
-		"\0\s[110]I found a folder called %(TOLOWER(REPLACE(_bakedgoods1,' ','_')))...\w8\w8\s[101] There were a bunch of %(filetype)s in it with names based on %(_bakedgoods1).\w8\w8 How strange.\e"
 	}
 	//These are about random family members	
 	{
@@ -1810,8 +2232,8 @@ Pool_RandomElements : array //Always
 Pool_Mutterings : array //Always available. These ones are about specific things, mostly.
 {
 	"\0\s[1070]...I'll stop by the store on %(nowday('next')),\w4 while I'm on the way back...\e"
-	"\0\s[1070]...It should be good until %(nowday(day + 3))...\e"
-	"\0\s[1070]...I'll have to check,\w4 but I think I picked up more last %(nowday(day - 3))...\e"
+	"\0\s[1070]...It should be good until %(nowday(weekday + 3))...\e"
+	"\0\s[1070]...I'll have to check,\w4 but I think I picked up more last %(nowday(weekday - 3))...\e"
 	"\0\s[1070]...I bought that back in %(nowmonth(month - 2)),\w4 it's probably not good anymore...\e"
 	"\0\s[1070]...It should last us until %(nowmonth('next'))...\e"
 	"\0\s[1070]...Gotta grab it while it's in season...\e"
@@ -1871,10 +2293,8 @@ Pool_Mutterings : array //Always available. These ones are about specific things
 	"\0\s[1070]...Just waiting on him to get back to me...\e"
 	"\0\s[1070]...Maybe we can spar again on %(nowday(weekday + 2))...\e"
 	"\0\s[206]...anRosie is looking forward to it,\w4 I don't want to let her down...\e"
-	if wd == "Thu"; "\0\s[1070]...%(tagcolor) tags should be on sale this week,\w4 I'll have to keep an eye out for them tomorrow...\e"
+	if wd == "Thu"; "\0\s[1070]...%(Capitalize(tagcolor)) tags should be on sale this week,\w4 I'll have to keep an eye out for them tomorrow...\e"
 	if wd == "Fri"; "\0\s[1070]...Most of the %(tagcolor) tagged ones were picked over by the time I got there,\w4 though.\w8\w8 I should head out earlier next time...\e"
-	
-	
 	// "...I'll ask %(family) if %(familypronoun) saw it..."
 }
 
@@ -1885,6 +2305,10 @@ Pool_BootedMultiple : array //Sboots > 3
 	if givenbooks == 0; "\0\s[208]Hmm,\w4 I should bring a book with me next time you bring me here...\w8\w8\s[107] It's kinda hard to guess when it'll happen,\w4 though.\e"
 }
 
+Pool_HSInstalled : array //ASEARCH('Hunter and Smoker',installedghostlist) != -1
+{
+	"\0\s[101]I keep finding stashes of food in your %(usersfolder).\w8\w8\s[202] I wonder who puts it there?\w8\w8\s[208] But I guess it's good to have just in case...\e"
+}
 
 LowTrustTalk : nonoverlap
 {
@@ -1906,7 +2330,7 @@ Pool_LowTrust : array //Dialogues he says when he's starting to trust you a litt
 	"\0\s[208]%(displaywidth)x%(displayheight)...\w8\w8\s[202] It sounds like a lot,\w4 but at this size I can see every individual pixel.\e"
 	"\0\s[110]Someone told me there's another kind of computer,\w4\s[106] named after apples or something?\w8\w8\w8\s[208]\n\nIs this one of those?\w8\w8 I'm not sure how to tell the difference...\e"
 	"\0\s[202]Hey uh... So long as I'm here,\w4 you wouldn't mind if I tidied up your %(usersfolder), would you?\e"
-	"\0\s[1070]...I have %(nowday(day + 2))'s dinner planned,\w4 just gotta think of something for %(nowday(day + 3))...\e"
+	"\0\s[1070]...I have %(nowday(weekday + 2))'s dinner planned,\w4 just gotta think of something for %(nowday(weekday + 3))...\e"
 	"\0\s[107]I must look so tiny to you out there...\w8\w8\s[104] You look like a giant to me.\e"
 	if AutoWeather != "ON"; "\0\s[106]So what's the weather like there?\w8\w8\s[102] I like it when it's cold,\w8\s[202] but skeletons don't have to worry about the temperature as much as humans.\e"
 	"\0\s[208]Does this count as being inside or outside?\w8\w8\s[1070]%(br)It's temperate,\w4 there's no weather...\w8\w8\s[107] But it's also very large and doesn't really have rooms.\w8\w8\s[106] It's a strange place,\w4 that's for sure...\e"
@@ -2347,7 +2771,9 @@ OnNowPlaying
 		WhatSong = TOLOWER(WhatSong)
 		if "starset" _in_ WhatSong
 		{
-			"\0\s[208]Starset,\w4 huh?\w8\w8\s[106] I'm not really a fan of screaming,\w4\s[104] but their softer songs are really pretty.\e"
+			"\0\s[208]Starset,\w4 huh?\w8\w8\s[106] I'm not really a fan of screaming in my music,\w4\s[104] but their softer songs are really pretty.\e"
+			if !LuloPresent; "\0\s[110]Ah,\w4 I know this band.\w8\w8\s[104] anLulo listens to 'em a lot.\w8\w8\s[205] She gets really excited when they put out new songs.\e"
+			if !LuloPresent; "\0\s[104]anLulo really loves this band.\w8\w8\s[103] It's so good to see her light up when they put out new songs,\w8\s[104] I love to see my kids happy.\e"
 		}
 		elseif "laura shigihara" _in_ WhatSong
 		{
@@ -2643,6 +3069,12 @@ dreamb10
 OnMinuteChange
 {
 	Hourcheck
+	// if AutoWeather == "ON" && debug //TODO REMOVE THIS CODE
+	// {
+		// weatherquiet = 1
+		// "\![raise,OnDownloadCurWeather]"
+	// }
+	--
 	timeslot = GetTimeSlot //this tells the ghost what time it is so the time related conversations above will work.
 	_b = BalloonCheck
 	if _b == 0 && AutoWeather == "ON" && weatherquiet == 2
@@ -3936,7 +4368,7 @@ DailyDialogues
 		//July End
 		//August Start
 		{ //1
-			"\0\s[107]I wasn't able to make dinner last night because I woke up from my nap to find anRoman and anSigil napping on top of me.\w8\w8\s[106] They looked so peaceful,\w4 I didn't want to wake them...\w8\w8\s[104] It's a good problem to have,\w4 though.\e"
+			"\0\s[107]I wasn't able to make dinner last night because I woke up from my nap to find%(br)anRoman and anSigil napping on top of me.\w8\w8\s[106] They looked so peaceful,\w4 I didn't want to wake them...\w8\w8\s[104] It's a good problem to have,\w4 though.\e"
 		}
 		{ //2
 			"\0\s[205]Summer's passing us by so fast.\w8\w8\s[104] We'd better get out and have a few more picnics before the kids have to go back to school.\e"
@@ -4472,5 +4904,15 @@ OnKeyPress
 	elseif reference0 == "f7" && debug == 1
 	{
 		"\![reload,balloon]"
+	}
+	elseif reference0 == "e" && debug
+	{
+		_output = "\b2\_q"
+		foreach GETERRORLOG; _error
+		{
+			_output += "-%(REPLACE(_error,'\','\\'))\n\n[half]"
+		}
+		_output += "\x"
+		_output
 	}
 }

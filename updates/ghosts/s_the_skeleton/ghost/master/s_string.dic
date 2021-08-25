@@ -246,7 +246,7 @@ On_otherghostname
 	ghostexcount = ARRAYSIZE(ghostexlist)
 }
 
-OnCheckInstalledGhosts //TODO uh, make sure this isnt being weird in script log..?
+OnCheckInstalledGhosts //TODO uh, make sure this isnt being weird in script log..? //THINK I GOT RID OF THIS... UM, NEED TO SEE IF THAT CAUSES ANY ISSUES. Think I got em all...
 {
 	installedlist = ""
 	_i = 0

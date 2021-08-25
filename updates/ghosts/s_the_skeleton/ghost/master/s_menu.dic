@@ -379,7 +379,7 @@ MenuRun
 		"  \![*]\q[Debug,OnDebugMenu]  \![*]\q[Test Variable,OnTestVariable]"
 	}
 	--
-	"\n\n[half]\f[height,12]%(wd) %(displayhour):%(nowmin) %(ap), %(month)/%(day)/%(year)  -  %(season)"
+	"\n\n[half]\f[height,-1]%(wd) %(displayhour):%(nowmin) %(ap), %(month)/%(day)/%(year)  -  %(season)"
 	--
 	if AutoWeather == "ON" //If the user has weather updates on, this will display the current moon phase. Clicking on the moon will perform a weather check.
 	{
@@ -389,7 +389,7 @@ MenuRun
 		}
 		else; ", ??%(Degrees[1])" //weird wrapping issuessss
 		--
-		" %(moonphase) Runtime: %(passhour):%(displaymin)                          Version %(ghostver)"
+		" %(moonphase)%(rb)Runtime: %(passhour):%(displaymin)                          Version %(ghostver)"
 	}
 	else //If you have weather off, he displays the runtime and version slightly different (difference in spacing and linebreak)
 	{
@@ -416,7 +416,8 @@ Select.ihavequestions
 askquestions //[Zi] Ok time to make my first menu... pls forgive me if this is messy :'D I'm sorry future me who's probably fixing this
 {
  		"\0\b2\_q* (You ask him about...)\n\n/
-		\![*]\q[Himself,aboutyou]\n"
+		\![*]\q[Himself,aboutyou]\n/
+		"
 		--
 		if knowaboutfamily == 1
 		{
@@ -429,59 +430,28 @@ askquestions //[Zi] Ok time to make my first menu... pls forgive me if this is m
 				"\![*]\q[His family,negfamily]\n"
 			}
 		}
-		else
+		else; "\![*]--- ------\n"
 		{
-			"\![*]--- ------\n"
+			
 		}
 		--
-
-		if SeenLV == 1 && LVCheck == 0
-		{
-			"\![*]\q[His LV,LoVEcheck]\n"
-		}
-		elseif SeenLV == 0
-		{
-			"\![*]--- --\n"
-		}
+		if SeenLV == 1 && LVCheck == 0; "\![*]\q[His LV,LoVEcheck]\n"
+		elseif SeenLV == 0; "\![*]--- --\n"
 		--
-		if LVCheck == 1
-		{
-			"\![*]\q[His past,bestleftburied]\n"
-		}
-		else
-		{
-			"\![*]--- ----\n"
-		}
+		if LVCheck == 1; "\![*]\q[His past,bestleftburied]\n"
+		else; "\![*]--- ----\n"
 		--
-		if LV == 0
-		{
-			"\![*]\q[Skeletons,spookyscary]\n"
-		}
+		if LV == 0; "\![*]\q[Skeletons,spookyscary]\n"
 		--
-		if askedabouttimelines == 1 && LV == 0
-		{
-			"\![*]\q[Other timelines,placestobe]\n"
-		}
-		else
-		{
-			"\![*]----- ---------\n"
-		}
+		if askedabouttimelines == 1 && LV == 0; "\![*]\q[Other timelines,placestobe]\n"
+		else; "\![*]----- ---------\n"
 		--
 		if RYSprogress >= 6
 		{
-			if RYSprogress == 6
-			{
-				"\![*]\q[%(RYS) (RYS-0825),whoisRYS]\n"
-			}
-			else
-			{
-				"\![*]\q[%(RYS) (RYS-0825),aboutRYS]\n"
-			}
+			if RYSprogress == 6; "\![*]\q[%(RYS) (RYS-0825),whoisRYS]\n"
+			else; "\![*]\q[%(RYS) (RYS-0825),aboutRYS]\n"
 		}
-		else
-		{
-			"\![*]--- --------\n"
-		}
+		else; "\![*]--- --------\n"
 		--
 		if LV == 0 && SeePC == "ON" && love >= 75
 		{
@@ -507,9 +477,8 @@ askquestions //[Zi] Ok time to make my first menu... pls forgive me if this is m
 		}
 		--
  		"\n[half]\![*]\q[Go back,BACKTOMENU]\e"
-
-
 }
+
 
 
 Select.aboutyou : nonoverlap //the menu option to ask more questions is taken care of at the end
@@ -978,7 +947,7 @@ Select.infolulo : nonoverlap
 	if askedaboutrosie; "\0\s[0]She and anMRosie spend a lot of time together,\w4\s[107] and anMRosie's always getting the two of them into trouble.\w8\w8\s[104] Honestly I'm glad to see it,\w4 though.\w8\w8\s[101] Even though it can be a little frustrating sometimes,\w4 anMLulo needs someone to gently pull her out of her shell now and then."
 	
 	"\0\s[206]I can't help but worry over her constantly...\w8\w8\s[109] I think she's noticed."
-	"\0\s[0]I'm always having to buy her more notebooks and more writing supplies.\w8\w8\s[205] She takes so many notes about so many things.\w8\w8\s[106] I've seen in her notebooks a could of times,\w4 too,\w4 and they're really dense.\w8\w8\s[107] I wouldn't have thought she could fit so much on one little page."
+	"\0\s[0]I'm always having to buy her more notebooks and more writing supplies.\w8\w8\s[205] She takes so many notes about so many things.\w8\w8\s[106] I've seen in her notebooks a couple of times,\w4 too,\w4 and they're really dense.\w8\w8\s[107] I wouldn't have thought she could fit so much on one little page."
 	"\0\s[208]I wonder what all she gets up to in her dreams.\w8\w8 I suppose I'll never really find out...\w8\w8\s[104] But I try to be supportive and interested anyways."
 	"\0\s[205]She likes looking at the moon a lot.\w8\w8\s[106] But,\w4 she also falls asleep easily and usually is in bed not long after the sun sets."
 	if PastUnlocked; "\0\s[206]Even when she's awake,\w4 she spends a lot of time daydreaming...\w8\w8\s[204] Sometimes she seems like she just wants to go back to sleep.\w8\w8\s[108] ...I worry about her a lot,\w4 the waking world must seem so much drearier than her dreams,\w8\s[109] especially since she's so tired all the time..."
@@ -1660,6 +1629,8 @@ Select.TellMeAboutOmega : nonoverlap
 
 Select.TellMeAboutTheShelter : nonoverlap
 {
+	if !Flag("Asked about the shelter"); MiscFlags ,= "Asked about the shelter"
+	
 	"\0\s[110]It's more than just one building,\w4 they've actually got several.\w8\w8\s[108] There's uh,\w4 a few cases where certain family members can't be around other family members,\w4 for various reasons...\w8\w8\s[200] So they offer separate housing for some folks,\w4 so they can heal more easily.\w8\w8\s[106] They've really thought it through very well."
 	"\0\s[208]Omega helped to found it,\w4 but there's another S there called Alpha that he founded it with.\w8\w8\s[0] He stays there to oversee things.\w8\w8\n\n\s[101]Or so I'm told,\w4 I haven't had a chance to meet him yet.\w8\w8\s[107] Apparently he's often buried under paperwork."
 	"\0\s[107]A lot of them seem to have this sense of awe around me.\w8\w8\s[106] I'm told that my timeline is one of the strongest ones with us in it?\w8\w8\s[202] There are a lot of branches from mine,\w4 apparently.\w8\w8\s[107] So,\w4 a lot of the folks there are curious about what might have been.\w8\w8\n\n\s[206]I don't know,\w4 I feel kind of weird about it."
@@ -2732,7 +2703,7 @@ Select.youredoingagoodjob //I wasn't really intending this, but it's ended up th
 		if nowshell == "red_hoodie"
 		{
 			love += 1
-			"\0* (You tell S that he looks very dashing in his red hoodie.)\w8\w8\n\n\s[1030]Ah-\w4 uh,\w8\s[104] thanks.\w8\w8\s[1030] It's actually starting to wear out a little,\w4 I'm gonna have to replace it soon...%(actreturn)"
+			"\0* (You tell S that he looks very dashing in his red hoodie.)\w8\w8\n\n\s[1030]Ah-\w4 uh,\w8\s[104] thanks.\w8\w8\s[1030] It's actually starting to wear out a little,\w4 I'm gonna have to replace it soon..."
 		}
 		if nowshell == "pink_apron"
 		{
@@ -2740,21 +2711,21 @@ Select.youredoingagoodjob //I wasn't really intending this, but it's ended up th
 			--
 			if thesplit == 1
 			{
-				"\s[206]My %(teal('first partner')) actually made me one like this,\w4 a very long time ago...%(actreturn)"
+				"\s[206]My %(teal('first partner')) actually made me one like this,\w4 a very long time ago..."
 			}
-			"\s[107]I'm not really trying to be cute,\w4\s[104] but uh,\w4 it is a nice apron,\w4 isn't it?%(actreturn)"
+			"\s[107]I'm not really trying to be cute,\w4\s[104] but uh,\w4 it is a nice apron,\w4 isn't it?"
 		}
 		if askedaboutwd == 1 && askedaboutbarcode == 1
 		{
-			"\0* (You tell S that he's a good son and his parents must be proud of him.)\w8\w8\n\n\s[110]Um,\w8 uh,\w8\s[1030] Well I-I mean-\w4 ...They're very kind to me...%(actreturn)"
+			"\0* (You tell S that he's a good son and his parents must be proud of him.)\w8\w8\n\n\s[110]Um,\w8 uh,\w8\s[1030] Well I-I mean-\w4 ...They're very kind to me..."
 		}
 		if askedaboutbluejeans == 1
 		{
-			"\0* (You tell S that he's a good husband,\w4 and anBluJeans is lucky to have someone so loyal and attentive.)\w8\w8\n\n\s[1100]Ah-!\w8\s[1030] Uh,\w4 thanks?\w8\w8\s[1010] Really,\w4 I'm the one who's lucky to have %(StSfhim).\w8\w8\s[200] %(StSfCHe) didn't have to stick with me and put up with all my problems,\w4\s[105] but %(StSfHe) did,\w4 and I'm so grateful to have %(StSfhim) every single day.%(actreturn)"
+			"\0* (You tell S that he's a good husband,\w4 and anBluJeans is lucky to have someone so loyal and attentive.)\w8\w8\n\n\s[1100]Ah-!\w8\s[1030] Uh,\w4 thanks?\w8\w8\s[1010] Really,\w4 I'm the one who's lucky to have %(StSfhim).\w8\w8\s[200] %(StSfCHe) didn't have to stick with me and put up with all my problems,\w4\s[105] but %(StSfHe) did,\w4 and I'm so grateful to have %(StSfhim) every single day."
 		}
 		if thesplit == 1 && LVCheck == 1
 		{
-			"\0* (You tell S that you appreciate his sincerity.)\w8\w8\n\n\s[202]Ah,\w4 uh,\w4 thank you.\w8\w8\s[200] But uh,\w4 \s[107]I usually keep my secrets under wraps better.\w8\w8\s[200] I try to be honest with people,\s[201] but I don't think that means they need to know all the intricate details about my past,\w4 y'know?%(actreturn)"
+			"\0* (You tell S that you appreciate his sincerity.)\w8\w8\n\n\s[202]Ah,\w4 uh,\w4 thank you.\w8\w8\s[200] But uh,\w4 \s[107]I usually keep my secrets under wraps better.\w8\w8\s[200] I try to be honest with people,\s[201] but I don't think that means they need to know all the intricate details about my past,\w4 y'know?"
 		}
 		if talkedtoDusty == 1
 		{
@@ -2764,15 +2735,18 @@ Select.youredoingagoodjob //I wasn't really intending this, but it's ended up th
 			}
 			else
 			{
-				"\0* (You tell S that he's a good friend and Dusty is lucky to have him.)\w8\w8\n\n\s[202]Ah,\w4 I try my best.\w8\w8\s[200] He really deserves better,\w4 y'know?\w8\w8\s[109] If I can help brighten his day a little,\w4 then I want to.%(actreturn)"
+				"\0* (You tell S that he's a good friend and Dusty is lucky to have him.)\w8\w8\n\n\s[202]Ah,\w4 I try my best.\w8\w8\s[200] He really deserves better,\w4 y'know?\w8\w8\s[109] If I can help brighten his day a little,\w4 then I want to."
 			}
 		}
-		//"\0* (You tell S that his beaming smile is very encouraging.)\w8\w8\n\n\s[1030]Aw,\w4 thanks %(username).\w8\w8\s[104] I'm glad you think so.%(actreturn)"
+		//This was commented....... but I need it because there is no else. I want to redo this whole function later... this whole menu
+		"\0* (You tell S that his beaming smile is very encouraging.)\w8\w8\n\n\s[1030]Aw,\w4 thanks %(username).\w8\w8\s[104] I'm glad if it helps."
 	}
 	else
 	{
-		"\0\s[1030]C'mon,\w4 %(username),\w4 that's enough.%(actreturn)"
+		"\0\s[1030]C'mon,\w4 %(username),\w4 that's enough."
 	}
+	--
+	"%(actreturn)"
 }
 
 //Flattering him
@@ -5158,18 +5132,7 @@ Shuffle
 
 Pool
 {
-    _output = IARRAY
-	_amt = 1; if _argv[2] != ""; _amt = TOINT(_argv[2])
-    if TOINT(_argv[1])
-    {
-		_targetarray = IARRAY
-        EVAL("_targetarray = %(_argv[0])")
-        foreach _targetarray; _dialogue
-        {
-			for _i = 0; _i < _amt; _i++; {_output ,= _dialogue}
-        }
-    }
-    _output
+    if TOINT(_argv[1]); EVAL("%(_argv[0])")
 }
 
 // On2dTest
@@ -5186,4 +5149,49 @@ Pool
     // EVAL("%(_argv[1]) = _array")
 // }
 
+// Vertical
+// {
+	// _argv[0] = TOSTR(_argv[0])
+	// _output = ""
+	// _y = _argv[1]; if GETTYPE(_y) != 1; _y = 0
+	// _x = _argv[2]; if GETTYPE(_x) != 1; _x = 0
+	// for _i = 0; _i < STRLEN(_argv[0]); _i++
+	// {
+		// _output += "\_l[%(_x),@%(_y)]%(SUBSTR(_argv[0],_i,1))"
+	// }
+	// _output
+// }
 
+// Drippy
+// {
+	// _argv[0] = TOSTR(_argv[0])
+	// _array = SPLIT(_argv[0]," ")
+	// _output = ""
+
+	// _y = _argv[1]; if GETTYPE(_y) != 1; _y = 0
+	// for _i = 0; _i < ARRAYSIZE(_array); _i++
+	// {
+		// _skew = 0
+		// _x = RAND(TOINT(_argv[2]))
+		// _diag = RAND(TOINT(_argv[3]))
+		// for _ii = 0; _ii < STRLEN(_array[_i]); _ii++
+		// {
+			// _output += "\_l[%(_x + _skew),@%(_y)]%(SUBSTR(_array[_i],_ii,1))"
+			// _skew += _diag
+		// }
+		
+		// _output += "\_l[,%(RAND(TOINT(_argv[2])))]"
+	// }
+	// _output
+// }
+
+// Test
+// {
+	
+// ;;;;if somet/
+// hing;;
+// ;;;;"S/
+// ome dialogu/
+// e";
+
+// }

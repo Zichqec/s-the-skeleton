@@ -242,6 +242,62 @@ OnTranslate
 		}*/
 }
 
+// OnHereDoc
+// {
+	// <<"
+	// \0Hello world!
+	// \1Hello.
+	// \0Look, automatic pauses!
+	// \1Weird, huh?
+	// \0..Yeah, a bit, huh..?
+	// \1Oh well.
+	// \0....Ok then.
+	// ">>
+// }
+
+// OnTranslateInternal.HereDocuments
+// {
+	// _talk = _argv[0]
+	
+	// if C_CRLF _in_ _talk
+	// {
+		// _br = "\n\n"
+		// _talk = REPLACE(_talk,C_CRLF,_br)
+		
+		// if RE_MATCH(_talk,"^'(.*)'$"); _talk = RE_GETSTR[1]
+		// elseif RE_MATCH(_talk,'^"(.*)"$'); _talk = RE_GETSTR[1]
+		
+		// _talk = REPLACE(_talk,"....","[:HEREDOC_ELLIPSESNOPAUSE:]")
+		// _talk = REPLACE(_talk,"...","[:HEREDOC_ELLIPSES:]")
+		// _talk = REPLACE(_talk,"..?","[:HEREDOC_QUESTIONELLIPSES:]")
+		// _talk = REPLACE(_talk,"..!","[:HEREDOC_EXCLAMATIONELLIPSES:]")
+		// _talk = REPLACE(_talk,"..","[:HEREDOC_LONGELLIPSES:]")
+		// _talk = REPLACE(_talk,".","[:HEREDOC_FULLSTOP:]")
+		
+		// _talk = REPLACE(_talk,"[:HEREDOC_ELLIPSESNOPAUSE:]","...")
+		// _talk = REPLACE(_talk,"[:HEREDOC_ELLIPSES:]","...\w8\w8")
+		// _talk = REPLACE(_talk,"[:HEREDOC_LONGELLIPSES:]",".\w8.\w8.\w8\w8")
+		// _talk = REPLACE(_talk,"[:HEREDOC_FULLSTOP:]",".\w8\w8")
+		// _talk = REPLACE(_talk,"[:HEREDOC_QUESTIONELLIPSES:]","..?\w8\w8")
+		// _talk = REPLACE(_talk,"[:HEREDOC_EXCLAMATIONELLIPSES:]","..!\w8\w8")
+		
+		// _talk = REPLACE(_talk,",",",\w4")
+		// _talk = REPLACE(_talk,";",";\w4")
+		// _talk = REPLACE(_talk,"-","-\w4")
+		
+		// _talk = REPLACE(_talk,"! ","!\w8\w8")
+		// _talk = REPLACE(_talk,"!%(_br)","!\w8\w8%(_br)")
+		// _talk = REPLACE(_talk,"? ","?\w8\w8")
+		// _talk = REPLACE(_talk,"?%(_br)","?\w8\w8%(_br)")
+	// }
+	
+	// _talk
+// }
+
+OnEval
+{
+	EVAL("%(reference0)")
+}
 	
 //--OnAnchorSelect
 //OnAnchorSelect runs whenever someone clicks one of the links as specified above, or a link that begins with http://.

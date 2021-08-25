@@ -1,52 +1,58 @@
 ﻿//---------------------------The User's Name--------------------------
 //So I've updated this file. S's menu was getting super messy and I wanted to clean it up, and MAN the birthday teaching was long (I have since cleaned it up a bit so it's not as bad now). So I've moved everything to do with the user as a person here: name, birthday, pronouns. Maybe I'll eventually add other stuff but idk.
 
-OnTeachName	
+OnTeachName
 {
 	"\![raise,OnDialogueVariables,suppressCoordsOn]"
 	--
 	if nowmode == "RYS"
 	{
-		"\RYS\s[2006]Oh...\w8\w8 Um,\w4 what's your name,\w4 then..?\![open,inputbox,OnNameTeach,-1]\![set,balloontimeout,-1]\e"
+		"\RYS\s[2006]Oh...\w8\w8 Um,\w4 what's your name,\w4 then..?"
 	}
 	else
 	{
 		if LV == 0
 		{
-			"\0\s[110]Oh,\w4 you want to change your name?\w8\w8\s[1010] Ok,\w4 what should I call you then?\![open,inputbox,OnNameTeach,-1]\![set,balloontimeout,-1]\e"
+			"\0\s[110]Oh,\w4 you want to change your name?\w8\w8\s[1010] Ok,\w4 what should I call you then?"
 		}
 		else
 		{
-			"\0\s[510]...What should I call you?\![open,inputbox,OnNameTeach,-1]\![set,balloontimeout,-1]\e"
+			"\0\s[510]...What should I call you?"
 		}
 	}
+	--
+	"\![open,inputbox,OnNameTeach,-1]\![set,balloontimeout,-1]\e"
 }
 
 
 OnNameTeach
 {
-	reference0 = TOSTR(reference0)
-	tempname = reference0 //this stores the name value temporarily in reference0
-	reference0 = TOLOWER(reference0) //changes it to lowercase
-	reference0 = REPLACE(reference0," ","") //removes spaces
-	reference0 = REPLACE(reference0,".","") //removes periods
-	reference0 = REPLACE(reference0,"-","") //removes dashes [Zi] I thought I was going to be clever and grab the lowercase thing from Gaster's input box, but then I went to check his nameteach and lo and behold, Zarla beat me to it and also added more... welp, might as well use it I guess
+	_input = CUTSPACE(reference.raw[0])
+	LOGGING("====================================================================")
+	LOGGING(reference.raw[0])
+	LOGGING(_input)
+	_tempname = _input
+	
+	_input = TOLOWER(_input) //changes it to lowercase
+	_input = REPLACE(_input," ","") //removes spaces
+	_input = REPLACE(_input,".","") //removes periods
+	_input = REPLACE(_input,"-","") //removes dashes [Zi] I thought I was going to be clever and grab the lowercase thing from Gaster's input box, but then I went to check his nameteach and lo and behold, Zarla beat me to it and also added more... welp, might as well use it I guess
 	
 	if nowmode == "RYS"
 	{
-		if tempname == username
+		if _tempname == username
 		{
 			"\RYS\s[2007].\w8.\w8.\w8\w8\n\n* (He looks confused.)\x\![raise,OnConfigRYS]\e"
 		}
-		elseif "gaster" _in_ reference0 || "wingding" _in_ reference0 || reference0 == "dw"
+		elseif "gaster" _in_ _input || "wingding" _in_ _input || _input == "dw"
 		{
 			"\RYS\s[2013]* (He shivers.)\w8\w8\n\n...Ok.\x"
 		}
-		elseif reference0 == "rys0825" || reference0 == "825" || reference0 == "rys"
+		elseif _input == "rys0825" || _input == "0825" || _input == "rys"
 		{
 			"\RYS\s[2012]...Um.\w8\w8\s[2013] Alright...\x"
 		}
-		elseif tempname == RYS
+		elseif _tempname == RYS
 		{
 			"\RYS\s[2006]Um...\w8\w8\s[2007] Isn't that what you call me..?\x"
 		}
@@ -55,35 +61,35 @@ OnNameTeach
 			"\RYS\s[2007]...Ok.\x"
 		}
 		--
-		username = tempname
+		username = _tempname
 		OnConfigRYS
 	}
 	else
 	{
 		if LV == 0
 		{
-			if tempname == username
+			if _tempname == username
 			{
 				"\0\s[106]That's uh...\w8\w8 the name you gave me before,\w4 kiddo.\w8\w8\s[202] You change your mind,\w4 or something?\e"
 			}
-			elseif reference0 == "s"
+			elseif _input == "s"
 			{
 				"\0\s[107]C'mon,\w4 kid,\w4 you can't just tell me my own name.\w8\w8\s[106] Try again.\![open,inputbox,OnNameTeach,-1]"
 			}
-			elseif reference0 == ""
+			elseif _input == ""
 			{
 				username = "kid"
 			
 				"\0\s[106]Oh,\w4 uh...\w8\w8\s[107] I guess I'll just call you kid,\w4 then,\w4 if that's alright.\w8\w8\s[202] Let me know if you want to change it.\e"
 			//You can change this snip to whatever.
 			}
-			elseif reference0 == "wd" || reference0 == "dings" || reference0 == "wings" || reference0 == "barcode" || reference0 == "blue jeans" || reference0 == "abbi" || reference0 == "rosie" || reference0 == "rosella" || reference0 == "roman" || reference0 == "cambria" || reference0 == "triton" || reference0 == "lulo" || reference0 == "azo" ||reference0 == "sigil" || reference0 == "elko"
+			elseif _input == "wd" || _input == "dings" || _input == "wings" || _input == "barcode" || _input == "blue jeans" || _input == "abbi" || _input == "rosie" || _input == "rosella" || _input == "roman" || _input == "cambria" || _input == "triton" || _input == "lulo" || _input == "azo" ||_input == "sigil" || _input == "elko"
 			{
 				"\0\s[110]Oh,\w4 uh...\w8\w8\s[104] Huh.\w8\w8 How about that.\w8\w8\n\n"
 				--
-				NameDone
+				NameDone(_tempname)
 			}
-			elseif reference0 == "rys0825" || reference0 == "825" || reference0 == "abi0219" || reference0 == "219" || reference0 == "dw" || reference0 == "rys" || reference0 == "abi"
+			elseif _input == "rys0825" || _input == "0825" || _input == "abi0219" || _input == "0219" || _input == "dw" || _input == "rys" || _input == "abi"
 			{
 				if RYSprogress == 7
 				{
@@ -95,43 +101,43 @@ OnNameTeach
 					"\0\s[204]...No.\w8\w8 Give me something else.\![open,inputbox,OnNameTeach,-1]"
 				}
 			}
-			elseif reference0 == "zichqec"
+			elseif _input == "zichqec"
 			{
 				"\0\s[1070]Huh...\w8\w8 Strange.\w8\w8\s[106] How exactly do you pronounce that?\w8\w8 Anyways...\w8\w8\n\n"
 				--
-				NameDone
+				NameDone(_tempname)
 			}
-			elseif reference0 == "zi"
+			elseif _input == "zi"
 			{
 				"\0\s[1070]Huh...\w8\w8 That's familiar somehow.\w8\w8 Anyways...\w8\w8\n\n"
 				--
-				NameDone
+				NameDone(_tempname)
 			}
-			elseif tempname == RYS
+			elseif _tempname == RYS
 			{
 				"\0* (You should probably pick something else,\w4 that might get confusing...)\![open,inputbox,OnNameTeach,-1]"
 			}
-			elseif STRLEN(tempname) == 1
+			elseif STRLEN(_tempname) == 1
 			{
 				"\0\s[110]Oh,\w4 huh.\w8\w8\s[104] Your name's like mine.\w8\w8\n\n"
 				--
-				NameDone
+				NameDone(_tempname)
 			}
 			else
 			{
-				NameDone
+				NameDone(_tempname)
 			}
 		}
 		else //[Zi] I'm going to be honest with you, I don't really see much point in the title system. If the user wants a title, they can just.... type in what they want. So I've erased that entirely. ALSO, this should be set so that if you've broken him, he'll call you anything, even his own name. Not that he'll actually ever call you by name at that point... but he'll just accept anything you put in.
 		{
-			NameDone
+			NameDone(_tempname)
 		}
 	}
 }
 
 NameDone
 {
-	username = tempname
+	username = _argv[0]
 	if LV == 0
 	{
 		"\0\s[104]Ok,\w4 I'll call you %(username) then."

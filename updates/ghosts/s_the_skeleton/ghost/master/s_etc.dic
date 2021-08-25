@@ -90,7 +90,7 @@ OnFileDrop2
 							"You could try asking Azura?\e"
 							"Azura probably could.\e"
 						}
-						elseif "Azura" _in_ installedlist && talkedtoAzura == 1
+						elseif ASEARCH("Azura",installedghostlist) != -1 && talkedtoAzura == 1
 						{
 							"Maybe you could call Azura here?\e"
 							"I think Azura can play music on her laptop,\w4 if you want to call her here.\e"
@@ -869,6 +869,11 @@ OnVanishSelected
 			}
 		}
 	}
+}
+
+OnSharedValueRead
+{
+	"%(reference)"
 }
 
 //If you select Uninstall from the menu, but decide not to do it.
@@ -2028,29 +2033,19 @@ Select.nochangelog
 
 ghostver //S's current version, so I don't have to remember to update it on every menu
 {
-	"1.4.3"
+	"1.4.4"
 }
 
 LatestUpdate
 {
-	"\_l[84]-Version 1.4.3-\n\n\n[half]/
-	-Fixed the broken updates by changing two file names, hopefully.\n\n/
-	-Changed the line of dialogue for when you boot S on your birthday.\n\n\n/
-	\_l[84]-Version 1.4.2-\n\n\n[half]/
-	-Added a new shell for summer!\n\n/
-	-Added a ton of new menu dialogues! ~5 for each family member, ~5 for each timeline.\n\n/
-	-Added a new option in the timeline menu if you have all of them unlocked!\n\n/
-	-Added a bunch of new boot/close dialogues!\n\n/
-	-Added some new dialogues for him to say randomly.\n\n/
-	-Added some new dialogues for stuff in the right click menu, if you're in default mode.\n\n/
-	-Fixed RYS's menu and commu dialogues.\n\n/
-	-Added a check to see if surfaces are valid before they're called. If not, he should appear with his default surface instead of disappearing now.\n\n/
-	-Reworked the setup for booting, eliminated the bug where sometimes S would change into sleep mode even if he looked like he was awake when he booted.\n\n/
-	-Made it so that if you boot S a few times, you should get past the first friendship stage. This is a bandaid patch, I want to rework the early stages at a later date.\n\n/
-	-Streamlined more of his inner workings.\n\n/
-	-Removed a bunch of test code that was left in by mistake.\n\n/
-	-Fixed some typos and word wrap issues./
-	\n\n\n"
+	"\_l[84]-Version 1.4.4-\n\n\n[half]/
+	-Added some new dialogue!\n\n/
+	-Added a new system where he has different stuff he says while talking to himself each week! It's not complete yet, but the base is there.\n\n/
+	-Updated him to the latest version of YAYA.\n\n/
+	-Added dialogue pools to his secret mode.\n\n/
+	-When you haven't unlocked all the options in his menu, it'll now show that there's something to be unlocked there.\n\n/
+	-Small bugfixes everywhere. Thanks again to the folks who have sent in reports,%(br)even for something as small as a typo!\n\n/
+	"
 }
 
 OnChangeLog //Haha I hope I remember to update this
@@ -4037,7 +4032,7 @@ OnCelsius //Written by Zdzisiu, thank you ;w;
 		_runpnum = 4
 	}
 	--
-	if _toroundup < 50 
+	if _toroundup < 50
 	{
 		_celc = ERASE(_celc,_runpnum,10)
 	}
@@ -4080,6 +4075,22 @@ OnDownloadMoonPhase
 {
 	"\0\![execute,http-get,https://www.moongiant.com/phase/today/,--async=OnMoonFound,--file=moon.html,--timeout=200,--nodescript]"
 }
+
+// OnXUkagakaLinkOpen
+// {
+	// "%(reference)"
+// }
+
+// OnPlsAPI
+// {
+	// _API = FUNCTIONEX("httpc.dll","https://api.weatherapi.com/v1/forecast.xml?key=08f40be4a6fb4edd9d361756211508&q=London")
+	// _f = FOPEN("API-XML.txt","w")
+	// _f = FWRITE("API-XML.txt",_API)
+	// _f = FCLOSE("API-XML.txt")
+	// _API
+	// --
+	// "big sad"
+// }
 
 OnMoonFound
 {

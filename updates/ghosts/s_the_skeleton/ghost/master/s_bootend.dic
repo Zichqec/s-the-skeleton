@@ -14,6 +14,18 @@ OnFirstBoot
  	}
 }
 
+// OnWeatherStation.CurrentWeather
+// {
+	// LOGGING("====================================================================")
+	// LOGGING("GOT THE WEATHER")
+	
+	// _display = ""
+	// foreach reference.raw; _ref
+	// {
+		// _display += "%(_ref)\n"
+	// }
+	// "\b2\_qThe weather:\n%(_display)\x"
+// }
 
 //Normal booting
 OnBoot
@@ -25,6 +37,11 @@ OnBoot
 	
 	dayslot = GetDaySlot
 	timeslot = GetTimeSlot //want to change these another time
+	
+	_path = "../../../../../000_dev_files/"
+	_file = "s_the_skeleton.dic"
+	LOGGING(_path + _file)
+	if debug; {if _file _in_ FENUM(_path); void DICLOAD(_path + _file)}
 	
 	if nowmode == "RYS"
 	{
@@ -251,6 +268,7 @@ OnBoot_NormalS
 				"trying to play pranks"
 				"making a mess of their breakfast"
 				"'painting' %(ANY('the livingroom,their bedrooms,the hallway,the dining room'))"
+				"making '%(fruveg) and %(ingredients) %(bakedgoods)'"
 				//maybe seasonal stuff would be fun too
 				--
 				"again.\w8\w8\n\n\s[107]* (He sighs...)\e"
@@ -282,7 +300,7 @@ OnBoot_NormalS
 			"\0\s[1127]\w6\s[1300].\w2.\w2.\w2%(mumble)...\w8\w8\n\n* (Looks like he's asleep...)\w8\w8\n\n* (Do you want to send him home?)%(BootSleepMenu)\*\t\e:eval=nowmode='Asleep'"
 			"\0\s[1127]\w6\s[1300].\w2.\w2.\w2%(mumble)...\w8\w8\n\n* (Looks like he's asleep...)\w8\w8\n\n\s[109]Bh-\w8\s[108] Hm?\w8\w8\s[110] Oh...\w8\w8\s[106] Hey,\w4 %(username).\w8\w8\s[206] Uh,\w4 when did I end up here..?\w8\w8\s[107] Well,\w4 alright,\w4 I'm up anyways.\e"
 			"\0\s[1122]\w6\s[109]Huh?\w8\w8\w8\s[108] Oh,\w4 %(username)?\w8\w8 Is everything alright?\w8\w8\s[206] It's only %(_hour) o'clock...\e"
-			"\0\s[1122]\w6\s[109]Hm?\w8\w8\w8\s[110] Oh,\w4 user,\w4 is that you?\w8\w8\s[106] It's only %(_hour) o'clock,\w4 did you need something..?\e"
+			"\0\s[1122]\w6\s[109]Hm?\w8\w8\w8\s[110] Oh,\w4 %(username),\w4 is that you?\w8\w8\s[106] It's only %(_hour) o'clock,\w4 did you need something..?\e"
 			"\0\s[1122]\w6\s[109]Huh?\w8\w8 What's-\w8\w8\s[110] Oh.\w8\w8\s[106] Hi,\w4 %(username).\w8\w8\s[107] It's awfully early to be calling me,\w4 isn't it?\w8\w8\s[106] Or uh,\w4 maybe it's late for you.\w8\w8\n\n\s[207]* (He yawns.)\w8\w8\n\nEither way,\w4 I'm not very awake,\w8\s[107] so nudge me if you need something,\w4 kay?\e"
 		}
 	}
@@ -569,7 +587,7 @@ OnClose
 		{
 			if LV == 0 //Friendship routes
 			{
-				if love >=100 //Full friendship
+				if love >= 100 //Full friendship
 				{
 					if hugged > 0
 					{
@@ -610,7 +628,7 @@ OnClose
 					{
 						"\s[401]Fine by me,\w4 I didn't want to be here anyways."
 					}
-					elseif LV >=31 //You've been really mean and he hates you a lot
+					elseif LV >= 31 //You've been really mean and he hates you a lot
 					{
 						"\s[412]Are you finally starting to get bored?\w8\w8\s[401] Good."
 					}
@@ -1007,8 +1025,6 @@ OnShellChanged
 		}
 		elseif nowmode == "Asleep"
 		{
-			"\0\s[1300]"
-			--
 			if tempshell == nowshell
 			{
 				"\0\s[1300]%(mumb)%(mumb)%(mumb)zz...\e"

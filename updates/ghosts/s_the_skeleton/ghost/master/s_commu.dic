@@ -1,5 +1,6 @@
 OnCommunicate
 {
+	LOGGING("From %(reference0)!")
 	if reference0 == "user" || reference0 == "User"
  	{
 		//Deprecated function I think? Either way, I'm not using ReplyToUser so I got rid of it
