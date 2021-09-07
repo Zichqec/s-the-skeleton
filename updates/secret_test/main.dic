@@ -1,7 +1,7 @@
 // **** usage ****
-// 
+//
 // The function name is the same as the event name; there is no On_ prefix when getting a string, as in the SHIORI/3.0 template.
-// 
+//
 // If it returns a value, it will be executed as SakuraScript
 // You can control the behavior by assigning the following variables.
 // res_event
@@ -22,60 +22,525 @@
 // See the plugin specification for details.
 // http://emily.shillest.net/specwiki/index.php?PLUGIN%2F2.0%2F%E4%BB%95%E6%A7%98%E6%9B%B8
 
-//I'm not sure if I'm using this how I'm meant to
-version
-{
-	'Weather Station v0.0.1'
-}
-
-
 //I think this happens any time the plugin is loaded, as the name would imply. Probably when SSP starts?
 PluginLoad
 {
-	
-}
-
-CanGetWeather
-{
-	if Plugin.CurrentLocation != ""; 1
-	else; 0
+	Info.update_available = 0
+	//Don't forget to add OnGhostBoot as well...
+	Info.error_code = ""
+	Info.error_message = ""
+	Info.Send_Weather_Now = 0
+	foreach CurrentWeatherTags; _var
+	{
+		EVAL("Weather.%(REPLACE(_var,'-','_')) = ''")
+	}
+	OnGetCurrentWeather
+	CheckForUpdates
 }
 
 //I think this happens any time the plugin is unloaded, as the name would imply. Probably when SSP closes?
 PluginUnload
 {
+	Info.update_available = 0
+	Info.Send_Weather_Now = 0
+	ClearWeatherData
+	ClearErrors
+}
 
+CheckForUpdates
+{
+	Info.update_available = 0
+	_t = FUNCTIONEX("saori/httpc.dll","https://zichqec.github.io/s-the-skeleton/weatherregex")
+	_ver = SPLIT(_t,"WEATHER_STATION_VER--")[1]
+	_ver = SPLIT(_ver,"--WEATHER_STATION_VER")[0]
+	if _ver != version_num; Info.update_available = 1
+}
+
+ClearWeatherData
+{
+	ERASEVAR("Weather.condition")
+	ERASEVAR("Weather.condition_icon")
+	ERASEVAR("Weather.condition_code")
+	Info.Send_Weather_Now = 0
+	foreach CurrentWeatherTags; _var
+	{
+		LOGGING("VAR IS: ","Weather.%(REPLACE(_var,'-','_'))")
+		ERASEVAR("Weather.%(REPLACE(_var,'-','_'))")
+		LOGGING("DID IT WORK? IDK IT DOESNT RETURN ANYTHING")
+	}
+}
+
+ClearErrors
+{
+	ERASEVAR("Info.error_code")
+	ERASEVAR("Info.error_message")
 }
 
 //This function is called when the user clicks on the plugin through the right click menu
 OnMenuExec
 {
+	res_marker = version
+
 	_location = "(Not set)"
-	if Plugin.CurrentLocation != ""; _location = Plugin.CurrentLocation
+	if UserInfo.location != ""; _location = UserInfo.location
 	
-	"Location: \__q[OnChangeLocation]%(_location)\__q\n\n"
+	if Settings.share_location == ""; Settings.share_location = "Off"
+	if Settings.units == ""; Settings.units = "Imperial"
+	_units = Settings.units
+
+	if Settings.weather_interval == ""; Settings.weather_interval = 60
+
+	"\0\b2\_q\*\![set,autoscroll,disable]\![close,inputbox,OnWeatherLocation]"
 	--
-	"\q[test,OnTest]\n\n"
+	if Info.update_available; "\_a[OnWeatherStationUpdate]An update is available!\_a\n\n[half]" //TODO IF SAKURASCRIPT IS NOT ADDED, MAKE THIS A LINK TO THE SITE
 	--
-	"\![*]\q[Cancel,OnCancel]\e"
+	//"Send: %(Info.Send_Weather_Now)\n"
+	--; "Location: \![*]\_a[OnChangeLocation]%(_location)\_a"
+	--
+	if _location != "(Not set)"; " \__q[OnExpungeLocationData](Remove)\__q"
+	--; "\nLet ghosts see location data: \_a[OnToggleLocationData]%(Settings.share_location)\_a\n"
+	--; "Units: \![*]\_a[OnUnitsToggle]%(Settings.units)\_a\n"
+	//--; "Update every \![*]\_a[OnWeatherInterval,%(Settings.weather_interval)]%(Settings.weather_interval)\_a  minutes\n"
+	--
+	//"\n\n\q[Display All Vars,OnVarDisplay]\n\n"
+	--
+	LOGGING("MOON ICON: ",MoonIcon)
+	if HasWeatherData || Info.error_code != ""
+	{
+		"Last updated \f[anchorstyle,none]\_a[OnBlank]"
+		--
+		if Settings.units == "Metric"; "%(Info.last_update[0])"
+		else; "%(Info.last_update[1])"
+		--
+		":%(Info.last_update[2]):%(Info.last_update[3]) "
+		--
+		if Settings.units != "Metric"; "%(Info.last_update[4])" //am/pm
+		--
+		"\_a\f[anchorstyle,default]\n:%(MoonIcon):\n"
+	}
+	--; if _location != "(Not set)"; "\n\![*]\__q[OnCurrentWeather_ForceUpdate]Refresh weather data\__q"
+	--
+	"\n\n"
+	--
+	//"Lat: %(UserInfo.latitude)  Lon: %(UserInfo.longitude)\n%(GETTYPE(UserInfo.latitude))"
+	if !(Info.error_code == "" || Info.error_code == "1003")
+	{
+		"Error: %(Info.error_code)\n%(Info.error_message)\n\n"
+	}
+	elseif HasWeatherData
+	{
+		"Current weather:\n\n[half]\f[anchorstyle,none]"
+		--
+		"%(Weather.condition)\n"
+		--
+		if Settings.units == "Metric"; "Temperature: \_a[OnBlank]%(Weather.temp_c)°C\_a (Feels like: \_a[OnBlank]%(Weather.feelslike_c)°C\_a)\n"
+		else; "Temperature: \_a[OnBlank]%(Weather.temp_f)°F\_a (Feels like: \_a[OnBlank]%(Weather.feelslike_f)°F\_a)\n"
+		--
+		"Humidity: \_a[OnBlank]%(Weather.humidity)%\_a\n"
+		--
+		if Settings.units == "Metric"; "Wind speed: \_a[OnBlank]%(Weather.wind_kph)kph\_a, \_a[OnBlank]%(Weather.wind_dir)\_a (\_a[OnBlank]%(Weather.wind_degree)°\_a)\n"
+		else; "Wind speed: \_a[OnBlank]%(Weather.wind_mph)mph\_a, \_a[OnBlank]%(Weather.wind_dir)\_a (\_a[OnBlank]%(Weather.wind_degree)°\_a)\n"
+		--
+		if Settings.units == "Metric"; "Gusts: \_a[OnBlank]%(Weather.gust_kph)\_a\n"
+		else; "Gusts: \_a[OnBlank]%(Weather.gust_mph)mph\_a\n"
+		--
+		if Settings.units == "Metric"; "Visibility: \_a[OnBlank]%(Weather.vis_km) km\_a\n"
+		else; "Visibility: \_a[OnBlank]%(Weather.vis_miles) miles\_a\n"
+		--
+		"Cloud Cover: \_a[OnBlank]%(Weather.cloud)%\_a\n"
+		--
+		if Settings.units == "Metric"; "Precipitation: \_a[OnBlank]%(Weather.precip_mm) mm\_a\n"
+		else; "Precipitation: \_a[OnBlank]%(Weather.precip_in) inches\_a\n"
+		--
+		"UV Index: \_a[OnBlank]%(Weather.uv)\_a\n"
+		--
+		if Settings.units == "Metric"; "Pressure: \_a[OnBlank]%(Weather.pressure_mb) mb\_a\n"
+		else; "Pressure: \_a[OnBlank]%(Weather.pressure_in) inches\_a\n"
+		--
+		"\nAir quality:\n\n[half]"
+		--; "Carbon Monoxide: \_a[OnBlank]%(Weather.co)\_a\n"
+		--; "Ozone: \_a[OnBlank]%(Weather.o3)\_a\n"
+		--; "Nitrogen Dioxide: \_a[OnBlank]%(Weather.no2)\_a\n"
+		--; "Sulphur Dioxide: \_a[OnBlank]%(Weather.so2)\_a\n"
+		--; "PM2.5: \_a[OnBlank]%(Weather.pm2_5)\_a\n"
+		--; "PM10: \_a[OnBlank]%(Weather.pm10)\_a\n"
+		--; "US EPA standard: \_a[OnBlank]%(Weather.us_epa_index)\_a\n"
+		--; "UK Defra Index: \_a[OnBlank]%(Weather.gb_defra_index)\_a\n"
+		//"Pollen: " //no pollen for now :( if someone knows of a good (free) pollen API please tell me!!
+	}
+	--
+	"\n\![*]\q[Cancel,OnCancel]\n\n"
+	--
+	"\f[height,-2]\f[anchorstyle,default]\![*]Powered by \_a[https://www.weatherapi.com/]WeatherAPI.com\_a\e"
 }
 
-OnTest //Can apparently also run this without arguments to test if an internet connection is available. Very useful! ...If I'm moving my website, I need to keep this in mind...
+OnWeatherStationUpdate
 {
-	_saori = FUNCTIONEX("saori/httpc.dll","https://zichqec.github.io/s-the-skeleton/weatherregex.html")
-	"\b2\_q%(_saori)\x"
+	"\0\b2\_qWeather station will attempt to update. Most ghosts do not have dialogue for plugin updates; please run the plugin again once the update is complete. You can update manually by opening the Ghost Explorer with Ctrl + E, changing the Type tab to Plugin, and right clicking on Weather Station. The Network Update option will update the plugin.\x\![updateother,--plugin=Weather Station]Updating...\e"
 }
 
-OnNonFunction
+OnTest_httpc
 {
-	"Did the thing"
+	_api = FUNCTIONEX("saori/httpc.dll","https://api.weatherapi.com/v1/current.xml?key=08f40be4a6fb4edd9d361756211508&q=%(UserInfo.location_url)")
+	_api
+}
+
+OnVarDisplay
+{
+	_list = GETVARLIST("Forecast")
+	// foreach _list; _item
+	// {
+		// ERASEVAR(_item)
+	// }
+	// GETVARLIST("Forecast")
+	
+	
+	_display = ""
+	foreach _list; _item
+	{
+		_display += "%(_item): " + EVAL("%(_item)") + "\n"
+	}
+	"\![set,autoscroll,0]\b[2]\_q%(ARRAYSIZE(_list))\n\n%(_display)\x"
+}
+
+OnExpungeLocationData
+{
+	ClearWeatherData
+	ClearErrors
+	ERASEVAR("UserInfo.location")
+	ERASEVAR("UserInfo.location_url")
+	ERASEVAR("UserInfo.latitude")
+	ERASEVAR("UserInfo.longitude")
+	--
+	"\![raiseplugin,Weather Station,OnMenuExec]"
+}
+
+OnUnitsToggle
+{
+	if Settings.units != "Imperial"; Settings.units = "Imperial"
+	else; Settings.units = "Metric"
+	OnMenuExec
+}
+
+OnToggleLocationData
+{
+	if Settings.share_location != "Off"; Settings.units = "Off"
+	else; Settings.share_location = "On"
+}
+
+//Change how often the weather auto-updates
+OnWeatherInterval
+{
+	_interval = 60
+
+	if reference[0] == "60"; _interval = 30
+	elseif reference[0] == "30"; _interval = 15
+	elseif reference[0] == "15"; _interval = 10
+	//If it's 10/none of those, make it 60
+
+	Settings.weather_interval = _interval
+	OnMenuExec
+}
+
+//Weather check from the plugin's menu, activated by user
+OnCurrentWeather_ForceUpdate
+{
+	OnGetCurrentWeather
+	--
+	//"\C\_w[1]"
+
+	"\![raiseplugin,Weather Station,OnMenuExec]"
+}
+
+//For ghosts to request the current weather if they don't have it for some reason
+OnGetExistingWeather
+{
+	//res_event_option = "notify"
+
+	res_target = "__SYSTEM_ALL_GHOST__" //Sends this to all open ghosts
+	res_event = "OnWeatherStation.CurrentWeather" //Calls this event in the ghost if it exists
+	//res_marker = version //Send the little text on the bottom of the balloon that says it's from this plugin
+
+	res_reference[0] = Info.error_code
+	res_reference[1] = Info.error_message
+	res_reference[2] = Settings.units
+	res_reference[3] = Weather.condition
+	res_reference[4] = Weather.condition_icon
+	res_reference[5] = Weather.condition_code
+	res_reference[6] = Weather.is_day
+	res_reference[7] = Weather.temp_f
+	res_reference[8] = Weather.temp_c
+	res_reference[9] = Weather.feelslike_f
+	res_reference[10] = Weather.feelslike_c
+	res_reference[11] = Weather.humidity
+	res_reference[12] = Weather.wind_mph
+	res_reference[13] = Weather.wind_kph
+	res_reference[14] = Weather.wind_dir
+	res_reference[15] = Weather.wind_degree
+	res_reference[16] = Weather.gust_mph
+	res_reference[17] = Weather.gust_kph
+	res_reference[18] = Weather.vis_miles
+	res_reference[19] = Weather.vis_km
+	res_reference[20] = Weather.cloud
+	res_reference[21] = Weather.precip_in
+	res_reference[22] = Weather.precip_mm
+	res_reference[23] = Weather.uv
+	res_reference[24] = Weather.pressure_in
+	res_reference[25] = Weather.condition
+	res_reference[26] = Weather.pressure_mb
+	
+	//Air quality
+	res_reference[27] = Weather.co
+	res_reference[28] = Weather.no2
+	res_reference[29] = Weather.o3
+	res_reference[30] = Weather.so2
+	res_reference[31] = Weather.pm2_5
+	res_reference[32] = Weather.pm10
+	res_reference[33] = Weather.us-epa-index
+	res_reference[34] = Weather.gb-defra-index
+	
+	res_reference[35] = Settings.weather_interval
+	
+	if Settings.share_location == "On"
+	{
+		res_reference[36] = UserInfo.location
+		res_reference[37] = UserInfo.location_url
+		res_reference[38] = UserInfo.latitude
+		res_reference[39] = UserInfo.longitude
+	}
+}
+
+OnGetCurrentWeather //Can apparently also run this without arguments to test if an internet connection is available. Very useful! ...If I'm moving my website, I need to keep this in mind... | think this was for the httpc saori...
+{
+	Info.error_code = ""
+	Info.error_message = ""
+	//_api = FUNCTIONEX("saori/httpc.dll","https://api.weatherapi.com/v1/current.xml?key=08f40be4a6fb4edd9d361756211508&q=%(UserInfo.location_url)&aqi=yes")
+	_api = FUNCTIONEX("saori/httpc.dll","http://api.weatherapi.com/v1/forecast.xml?key=08f40be4a6fb4edd9d361756211508&q=%(UserInfo.location_url)&aqi=yes&days=3&alerts=yes")
+	//LOGGING(_api)
+	LOGGING("====================================================================")
+	LOGGING("API RESULT")
+	Info.last_update[0] = hour
+	Info.last_update[1] = nowhour
+	Info.last_update[2] = nowmin
+	Info.last_update[3] = nowsec
+	if ampm == 1; Info.last_update[4] = "pm"
+	else; Info.last_update[4] = "am"
+	
+	if "<error>" _in_ _api
+	{
+		Info.error_code = ExtractXML(_api,"code")
+		Info.error_message = ExtractXML(_api,"message")
+		ClearWeatherData
+		LOGGING(Info.error_code)
+		LOGGING(Info.error_message)
+		CheckForUpdates //If there's an error, check for an update because an update might fix it...
+	}
+	else
+	{
+		//================CURRENT WEATHER================
+		_current = ExtractXML(_api,"current")
+		
+		foreach CurrentWeatherTags; _tag
+		{
+			_getinfo = TOSTR(SPLIT(_current,"<%(_tag)>")[1])
+			_getinfo = TOSTR(SPLIT(_getinfo,"</%(_tag)>")[0])
+			//LOGGING("TAG: ",_tag)
+			//LOGGING("GET INFO: ",_getinfo)
+			EVAL("Weather.%(REPLACE(_tag,'-','_')) = '%(_getinfo)'")
+		}
+
+		_condition = ExtractXML(_current,"condition")
+		//LOGGING("CONDITION: %(_condition)")
+
+		Weather.condition = ExtractXML(_condition,"text")
+		Weather.condition_icon = ExtractXML(_condition,"icon")
+		Weather.condition_code = ExtractXML(_condition,"code")
+		
+		//================FORECAST================
+
+		_forecastdays = ExtractXML(_api,"forecastday")
+		
+		for _i = 0; _i < 3; _i++
+		{
+			//-----------Day-----------
+			_day = ExtractXML(_forecastdays[_i],"day")
+			
+			foreach ForecastDayTags; _tag
+			{
+				_getinfo = TOSTR(SPLIT(_day,"<%(_tag)>")[1])
+				_getinfo = TOSTR(SPLIT(_getinfo,"</%(_tag)>")[0])
+				//LOGGING("TAG: ",_tag)
+				//LOGGING("GET INFO: ",_getinfo)
+				EVAL("Forecast.%(_i).Day.%(REPLACE(_tag,'-','_')) = '%(_getinfo)'")
+			}
+			
+			//-----------Astro-----------
+			
+			_astro = ExtractXML(_forecastdays[_i],"astro")
+			
+			foreach ForecastAstroTags; _tag
+			{
+				_getinfo = TOSTR(SPLIT(_astro,"<%(_tag)>")[1])
+				_getinfo = TOSTR(SPLIT(_getinfo,"</%(_tag)>")[0])
+				//LOGGING("TAG: ",_tag)
+				//LOGGING("GET INFO: ",_getinfo)
+				EVAL("Forecast.%(_i).Astro.%(REPLACE(_tag,'-','_')) = '%(_getinfo)'")
+			}
+			
+			//-----------Hour-----------
+			
+			_hours = ExtractXML(_forecastdays[_i],"hour")
+			
+			_ii = 0
+			foreach _hours; _hour
+			{
+				// LOGGING("====================================================================")
+				// LOGGING("Forecast.%(_i).Hour.%(_ii)")
+				EVAL("Forecast.%(_i).Hour.%(_ii) = IARRAY")
+				_temp = IARRAY
+				foreach ForecastHourTags; _tag
+				{
+					_getinfo = TOSTR(SPLIT(_hour,"<%(_tag)>")[1])
+					_getinfo = TOSTR(SPLIT(_getinfo,"</%(_tag)>")[0])
+					//LOGGING("TAG: ",_tag)
+					//LOGGING("GET INFO: ",_getinfo)
+					EVAL("_temp ,= '%(_getinfo)'")
+					
+				}
+				//LOGGING("RESULT: ",_temp)
+				EVAL("Forecast.%(_i).Hour.%(_ii) = '%(_temp)'")
+				_ii++
+			}
+		}
+	}
+	Info.Send_Weather_Now = 1
+}
+
+OnGetAstro
+{
+	LOGGING("====================================================================")
+	LOGGING("SEND ASTRO %(reference[0])")
+	res_target = "__SYSTEM_ALL_GHOST__" //Sends this to all open ghosts
+	res_event = "OnWeatherStation.Astro"
+	
+	if !(reference[0] == "0" || reference[0] == "1" || reference[0] == "2"); reference[0] = "0"
+	
+	res_reference[0] = Info.error_code
+	res_reference[1] = Info.error_message
+	res_reference[2] = Settings.units
+	res_reference[3] = reference[0]
+	
+	_ref = 4
+	for _i = 0; _i < ARRAYSIZE(ForecastAstroTags); _i++
+	{
+		_tag = ForecastAstroTags[_i]
+		EVAL("res_reference[%(_ref)] = %(CHR(34))%(CHR(37))(Forecast.%(reference[0]).Astro.%(_tag))%(CHR(34))")
+		_ref++
+	}
+	LOGGING(res_reference)
+}
+
+OnGetForecast.Day
+{
+	if !(reference[0] == "0" || reference[0] == "1" || reference[0] == "2"); reference[0] = "0"
+	
+	LOGGING("====================================================================")
+	LOGGING("SEND FORECAST DAY %(reference[0])")
+	res_target = "__SYSTEM_ALL_GHOST__" //Sends this to all open ghosts
+	res_event = "OnWeatherStation.Forecast.Day"
+	
+	res_reference[0] = Info.error_code
+	res_reference[1] = Info.error_message
+	res_reference[2] = Settings.units
+	res_reference[3] = reference[0]
+	
+	_ref = 4
+	for _i = 0; _i < ARRAYSIZE(ForecastDayTags); _i++
+	{
+		_tag = ForecastDayTags[_i]
+		EVAL("res_reference[%(_ref)] = %(CHR(34))%(CHR(37))(Forecast.%(reference[0]).Day.%(_tag))%(CHR(34))")
+		_ref++
+	}
+	LOGGING(GETVARLIST("res_"))
+	LOGGING(res_reference)
+}
+
+OnGetForecast.Hourly
+{
+	if !(reference[0] == "0" || reference[0] == "1" || reference[0] == "2"); reference[0] = "0"
+	
+	LOGGING("====================================================================")
+	LOGGING("SEND FORECAST HOURS %(reference[0])")
+	res_target = "__SYSTEM_ALL_GHOST__" //Sends this to all open ghosts
+	res_event = "OnWeatherStation.Forecast.Hourly"
+	
+	_ref = 0
+	for _i = 0; _i < 24; _i++
+	{
+		EVAL("res_reference[%(_ref)] = %(CHR(34))%(CHR(37))(Forecast.%(reference[0]).Hour.%(_i))%(CHR(34))")
+		_ref++
+	}
+	
+	res_reference[24] = reference[0]
+	res_reference[25] = Info.error_code
+	res_reference[26] = Info.error_message
+	res_reference[27] = Settings.units
 }
 
 OnChangeLocation
 {
 	"\_q\*\![open,inputbox,OnWeatherLocation,-1]"
 	--
-	"Go to your city on weather.com and input the url" //probly need to do zip code idk
+	"Write the name or lat and long of your city to search for it. If in the US, you can use a zip code. If in the UK, you can use a postcode. If in Canada, you can use a postal code.\n\n\![*]\q[Back to Menu,OnMenuExec]\e"
+}
+
+OnWeatherLocation
+{
+	_api = FUNCTIONEX("saori/httpc.dll","https://api.weatherapi.com/v1/search.xml?key=08f40be4a6fb4edd9d361756211508&q=%(reference[0])")
+	_display = ""
+
+	_results = ExtractXML(_api,"geo")
+	if ARRAYSIZE(_api) <= 1
+	{
+		"\_qNo results, please try again.\n\n\_q"
+		--
+		OnChangeLocation
+	}
+	else
+	{
+		foreach _results; _location
+		{
+			_name = ExtractXML(_location,"name")
+			_url = ExtractXML(_location,"url")
+			_lat = ExtractXML(_location,"lat")
+			_lon = ExtractXML(_location,"lon")
+
+			if _name == "" || _url == ""; continue
+
+			_nocomma = REPLACE(_name,",","|-|")
+
+			_display += "\![*]\__q[OnWeatherLocationChosen,%(_url),%(_nocomma), %(_lat), %(_lon)]%(_name)\__q\n\n[half]"
+		}
+	}
+
+	"\*\_q\b2\![set,autoscroll,disable]"
+	--
+	"\![*]\q[Back to Menu,OnMenuExec]\n\n"
+	--
+	"%(_display)"
+	--
+	"\n\n\![*]\q[Back to Menu,OnMenuExec]\e"
+}
+
+
+OnWeatherLocationChosen
+{
+	UserInfo.location_url = reference[0]
+	UserInfo.location = REPLACE(reference[1],"|-|",",")
+	UserInfo.latitude = CUTSPACE(reference[2])
+	UserInfo.longitude = CUTSPACE(reference[3])
+	OnGetCurrentWeather //notifying everyone right now... not good
+	OnMenuExec
 }
 
 /*
@@ -110,6 +575,8 @@ If possible, would love to eventually add support for more weather sites than ju
 If I plan to move my site, I'm going to have to keep the weatherregex file up to date. Mm. Wonder if I should set up this plugin to notify the user of updates the way X. Template does... could be helpful.
 
 Anyways, I think that's all. I think this is doable! When my head isn't hurting.
+
+Later addition: Would be good to have the hourly and 10 day forecasts too
 */
 
 
@@ -136,3 +603,29 @@ OnCancel
 	// //"%(reference[1])"
 	// res_script_option = "nobreak"
 // }
+
+OnSecondChange
+{
+	// LOGGING("====================================================================")
+	// LOGGING("SECOND CHANGE")
+	// LOGGING("minute: ",minute)
+	// LOGGING("Settings.weather_interval: ",Settings.weather_interval)
+	// LOGGING(minute % Settings.weather_interval)
+	// LOGGING(Settings.weather_interval % minute)
+	// LOGGING("SEND: ",Info.Send_Weather_Now)
+	
+	if Info.Send_Weather_Now
+	{
+		LOGGING("SENDING WEATHER")
+		LOGGING("SEND:",Info.Send_Weather_Now)
+		Info.Send_Weather_Now = 0
+		OnGetExistingWeather
+	}
+	elseif second == 0 && minute % Settings.weather_interval == 0
+	{
+		//LOGGING("DO THE CHECK")
+		//res_target = "RYS-0825"
+		//"Check for weather! minute: %(minute) Settings.weather_interval: %(Settings.weather_interval) Together: %(minute % Settings.weather_interval)"
+		OnGetCurrentWeather
+	}
+}

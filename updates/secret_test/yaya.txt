@@ -24,6 +24,7 @@ charset.extension, UTF-8
 
 dic, yaya_plugin2.dic
 dic, main.dic
+dic, envelopes.dic
 
 //------------------------------------------------------------------------------
 //実行ログ
@@ -39,5 +40,9 @@ dic, main.dic
 // 【注意】一度onにするとoffにしてもセーブファイルを削除するまで
 // 暗号化のままになります！
 //------------------------------------------------------------------------------
-//save.encode,on
+save.encode,off
 msglang,english
+messagetxt,messagetxt/english.txt
+
+iolog.filter.mode,whitelist
+iolog.filter.keyword,pluginpathlist

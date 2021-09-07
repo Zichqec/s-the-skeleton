@@ -266,11 +266,21 @@ request
 				var.req.value ,= REPLACE(_value, C_BYTE1, ",")	// バイト値1はカンマ化してしまう
 		}
 		else {
-			var.req.value ,= TOAUTO(_value)
+			var.req.value ,= TOAUTOEX(_value)
 		}
 	}
 	
 	OnRequest
+}
+
+TOAUTOEX
+{
+	_v = _argv[0]
+	if TOSTR(TOAUTO(_v)) == _v {
+		TOAUTO(_v)
+		return
+	}
+	_v
 }
 
 //------------------------------------------------------------------------------
