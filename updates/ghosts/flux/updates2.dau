@@ -1,4 +1,4 @@
-changelog.txt3dc344aa8a86e03869743cec49d18705size=2483date=2021-09-28T19:50:23charset=OSNative
+changelog.txt993174ad539d8e81c79a04b2136a187esize=2589date=2021-10-01T12:33:54charset=OSNative
 developer_options.txte64b602073a6e6c30f8b080fed5f9562size=198date=2021-07-30T00:15:55
 ghost/master/descript.txtb73e1e476fba5dc30eb1946c774c75d3size=315date=2021-07-26T18:38:11
 ghost/master/flux.ico4511ed801d96e347bdedc86ffed57a3asize=103522date=2021-02-23T20:37:10
@@ -6,7 +6,7 @@ ghost/master/fx_aitalk.dicb52acef8b407d1fe6eb3edd4b4ce5ee4size=9898date=2021-
 ghost/master/fx_anchor.dicfc6e9d8ca5fec94a605b4f878954413bsize=2973date=2021-08-03T18:16:13
 ghost/master/fx_bootend.dic217433dce3dba37e9ba139c03950e670size=20748date=2021-09-24T22:44:29
 ghost/master/fx_commu.dicea5519d4674c0a4ae24bf05c2eb9acb0size=7977date=2021-09-10T04:49:02
-ghost/master/fx_etc.dica87f7a633b0c2aefac1eec3fcccb9e09size=109145date=2021-09-29T15:38:17
+ghost/master/fx_etc.dic7bef6f3814341ef017adacc1f910d293size=109145date=2021-10-01T12:34:46
 ghost/master/fx_menu.dic7cf13055230528f0056e41e53cf581f9size=65886date=2021-09-28T04:56:32
 ghost/master/fx_mouse.dic5e04a01fa9fbffbfd9cc1980e16e430dsize=3619date=2021-06-29T01:26:55
 ghost/master/fx_music.dic1170f049c5873cc18a44e2f6971bfba4size=74541date=2021-09-23T03:31:34
@@ -32,6 +32,7 @@ ghost/master/yaya_config.txtd24c3af5aaee35ada18240031790c28fsize=3876date=202
 ghost/master/yaya_emerg.txtab1b507aea40b40976312e86900d7cc6size=408date=2021-07-17T02:06:56
 ghost/master/zarc.dll00309778b69b5b32263e97d52ce48bdesize=159744date=2005-04-27T23:20:50
 install.txta8d8c9ac7f552ee6a78bed34dca306dbsize=288date=2021-02-16T00:54:10
+make_your_own_shell/0_how_to_make_a_shell.txtdcd02f9f7349992bd90c277ea8ff6db9size=42265date=2021-09-09T05:30:00
 make_your_own_shell/Coordin.zip7c660e8fd0ed41acd6deee19093ab218size=87559date=2021-02-24T03:47:18
 make_your_own_shell/descript.txtf937c4167c0304b2edb27b030173d19csize=1821date=2021-02-24T04:45:15
 make_your_own_shell/dialogue.dic1cb87eff2d371ba7832a98ab3a328672size=11479date=2021-08-01T02:35:34
@@ -53,7 +54,6 @@ make_your_own_shell/tamadebugger.zip83f95546f4576874d7df8ec94dafec5bsize=40974
 make_your_own_shell/thumbnail.pnac29d1a96c3cab49bac25363969547033size=307date=2021-02-24T01:38:05
 make_your_own_shell/thumbnail.png0ff74e6845dd5a95bf2ab36662f0e517size=9133date=2021-02-24T01:55:59
 make_your_own_shell/ThumbnailTemplate.psd7977f49e6a5d0521a73a1bb401766b93size=27803date=2021-02-24T03:09:55
-make_your_own_shell/_how_to_make_a_shell.txtdcd02f9f7349992bd90c277ea8ff6db9size=42265date=2021-09-09T05:30:00
 readme.txtd44f5aa5c1d16a2eae8978258108bfb1size=12094date=2021-09-09T22:30:47
 shell/master/colors/00_red.png9c75d2e603523a5ad9aa30fcee2ef357size=975date=2021-02-23T06:15:14
 shell/master/colors/01_orange.png7e7906755c40179149b6c292408ac745size=976date=2021-02-23T06:15:24
