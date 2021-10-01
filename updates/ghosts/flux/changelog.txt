@@ -1,0 +1,21 @@
+-v1.1.0-
+
+-Added French translation by Levidre! https://levidre.github.io/
+-Added Russian translation by Smoky! https://smokycinnamon.github.io/indifferentsorrel/
+-Added German translation by Koguri3108! https://koguri3108.tumblr.com
+-Added support for many audio file types, including .flacs, .oggs, and .m4as, which should work if you have LAV Filters installed! https://github.com/Nevcairiel/LAVFilters/releases
+-Fixed a bug in the shell template code that would mess up any shells that didn't uncomment the rest of that function. Sorry about that, completely my fault!
+-Added support for dragging and dropping multiple music folders onto FLUX. This will search up to ~500 directories deep, so be wary if you have large subfolders. If you have more folders/subfolders than that, you'll have to do them in batches, as it will ignore any folders past the limit. Please note, with the limit set at 500, I have not had SSP crash on me. I can't say how it will behave for slower computers, though.
+-Updated the yaya.dll, allowing for a new Emergency Mode! Now, if you load a shell with an error in its custom functions, FLUX will reload itself without the custom functions, allowing you to continue using it seamlessly!
+-Changed how the music player reads file names, issues with escape characters should be a thing of the past! IF YOU HAVE SONGS SAVED IN PLAYLIST FILES WITH COMMAS IN THEIR NAMES, please go into those files and change the || that replaced each comma to a normal comma! Also, if you had set up communication features for your ghost with FLUX, please check the updated information in FLUX's commu file!
+-Fixed an issue with installing FLELE shells if the files inside the zipped folder were nested in another directory.
+-Changed the menu for moving songs to be a lot nicer. Also, fixed a bug that would allow you to move songs off the top or bottom of the list.
+-Changed how the pronoun functions work- if you're a developer making a shell in a language other than english, please check the new pronoun functions for your language! I've included notes in the documentation about this.
+-Updated the how to make a shell guide with updated and corrected information.
+-The update dialogue will no longer call the singing animation repeatedly, unless you're in the master FLUX shell.
+-The dressup menu will now redisplay the last surface when called, to allow for complex dressup systems using OnTranslateInternal or MAKOTO.
+
+
+-v1.0.0-
+
+-Initial release

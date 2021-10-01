@@ -2,11 +2,6 @@ OnTranslate
 {
 	_talk = reference0
 	
-	//---Anchors---
-	//_talk = REPLACE(_talk, "Example Anchor", "\_a[exampleanchor]Example Anchor\_a")
-	//_talk = REPLACE(_talk, "Example word swap", "You don't have to make anchors into links, you can put images and stuff too")
-	
-	
 	//---Important other stuff, written by Ponapalt---
 	if reference1 == "" && reference2 == ""
 	{ //send input box : no event (ref2) , no special flag (ref1)
@@ -36,7 +31,27 @@ OnAnchorSelect
 	}
 }
 
-
+LanguageMenuDisplay
+{
+	//TRANSLATORS: Add the name of your language to this list! However you type it here is how you should also type your if checks. Once you add your language here, it should automatically appear in the first boot language menu and config menu. Double check to make sure the spacing is ok! If it doesn't work for some reason, let me know.
+	_languages = "English,Polski,Français,Русский,Deutsch"
+	
+	_function = _argv[0]
+	
+	_display = ""
+	_i = 0
+	foreach _languages; _language
+	{
+		//Max length for the notes balloon: ~30 comfortably. Doesn't account for alternate text sizes, but there's not really a way to handle that... perhaps a feature to request.
+		if _i >= 3; _i = 0
+		if _i == 1; {_display += "\_l[100]"}
+		elseif _i == 2; {_display += "\_l[200]"}
+		else; {_display += "\n"}
+		_i++
+		_display += "\![*]\q[%(_language),%(_function),%(_language)]"
+	}
+	_display
+}
 
 //As the name implies, this checks if the balloon is currently open or not. This was written by Levidre!
 //To use it I would do this, so you don't have to copy this whole chunk of code:
@@ -47,31 +62,29 @@ BalloonCheck
 	if ASEARCH("Status",var.req.key) != -1
     {
         _currentstatus = var.req.value[ASEARCH("Status",var.req.key)]
-        if "balloon" _in_ _currentstatus
-        {
-            1
-        }
-        else
-        {
-            0
-        }
+        if "balloon" _in_ _currentstatus; 1
+        else; 0
     }
+	else; 0
+}
+
+OnTestPool : nonoverlap
+{
+	parallel Pool("Pool_Test",hour == 17)
+}
+
+Pool_Test : array
+{
+	"Dialogue 1"
+	"Dialogue 2"
+	"Dialogue 3"
+	"Dialogue 4"
+	"Dialogue 5"
 }
 
 Pool
 {
-    _output = IARRAY
-	_amt = 1; if _argv[2] != ""; _amt = TOINT(_argv[2])
-    if TOINT(_argv[1])
-    {
-		_targetarray = IARRAY
-        EVAL("_targetarray = %(_argv[0])")
-        foreach _targetarray; _dialogue
-        {
-			for _i = 0; _i < _amt; _i++; {_output ,= _dialogue}
-        }
-    }
-    _output
+    if TOINT(_argv[1]); EVAL("%(_argv[0])")
 }
 
 MenuCheck

@@ -2,13 +2,53 @@ OnFirstBoot //Dialogue when you first open the ghost
 {
 	FirstBootVars //Initialize all your variables at the very bottom!
 	
-	"\0\1\s[-1]\0\s[50]\w6\*\t%(bb)\_q\![enter,passivemode][Please choose a language for FLUX player. This can be changed at any time in the config menu.]\n\n"
+	"\1\s[-1]\0\s[50]\w6\*\t\![enter,passivemode]\![raise,OnFirstLangMenu,English]"
+}
+
+OnFirstLangMenu
+{
+	_lang = reference0
+	
+	"\0\*\t%(bb)\_q\![enter,passivemode]"
 	--
-	//TRANSLATORS: Add a menu option for your language here. The second argument is what the language variable will be set to, make sure you spell it exactly the same as your if checks!
-	"\![*]\q[English,OnLanguageChosen,English]\n/
-	\![*]\q[Polski,OnLanguageChosen,Polski]\n"
+	if _lang == "Placeholder" //TRANSLATORS: Firstboot language select dialogue. When the user hovers over a language, this text will change to that language. If this text is very long for your language, such that it overlaps the language options, let me know and I can adjust it. It's very important that the buttons not jump around when hovered over.
+	{
+		
+	}
+	elseif _lang == "Polski"
+	{
+		"[Wybierz język dla odtwarzacza FLUX. Możesz go w każdej chwili zmienić w ustawieniach.]"
+	}
+	elseif _lang == "Français"
+	{
+		"[Choisis un langage pour le lecteur FLUX. Il peut être changé n'importe quand dans le menu config.]"
+	}
+	elseif _lang == "Русский"
+	{
+		"[Пожалуйста, выбирать язык для плеер FLUX. Ты можешь изменить это в любой момент, в меню конфигурации.]" 
+	}
+	elseif _lang == "Deutsch"
+	{
+		"[Bitte wähle eine Sprache für FLUX-Player. Sie kann jederzeit in den Einstellungen geändert werden.]"
+	}
+	else //English
+	{
+		"[Please choose a language for FLUX player. This can be changed at any time in the config menu.]"
+	}
 	--
-	"\e" 
+	"\_l[0,60]"
+	--
+	LanguageMenuDisplay("OnLanguageChosen")
+	--
+	"\e"
+}
+
+OnChoiceHover
+{
+	if reference1 == "OnLanguageChosen"
+	{
+		"\C\![raise,OnFirstLangMenu,%(reference0),%(reference1)]"
+	}
 }
 
 OnLanguageChosen
@@ -17,19 +57,34 @@ OnLanguageChosen
 	deleteshitai[1] = onoff[1]
 	AutoUpdates[2] = onoff[0]
 	CustomFuncs[1] = onoff[0]
+	username = DefaultUsername
 	
-	if language == "Placeholder" //TRANSLATORS: This is the introduction dialogue, once a language has been chosen. You also need to set a couple variables here! They're the labels for the toggles that appear in the config menu.
+	"\0\s[0]%(bb)"
+	--
+	if language == "Placeholder" //TRANSLATORS: This is the introduction dialogue, once a language has been chosen.
 	{
 		
 	}
+	elseif language == "Deutsch"
+	{	
+		"[Installation von FLUX-Player wurde abgeschlossen.]\n\n\w8\w8[Um Lieder hinzuzufügen,\w4 zieh sie aus einem Ordner auf FLUX.\w8\w8 Du kannst so auch .m3u Playlisten verwenden.]\n\n\w8\w8[Wenn du das aussehen von FLUX verändern möchtest,\w4 sieh dir das Shell und Dressup Menü an.]\n\n\w8\w8[Für weitere Optionen,\w4 wie das Ändern der Sprache,\w4 schau in den Einstellungen nach.]"
+	}
+	elseif language == "Русский"
+	{
+		"[Плеер FLUX теперь установлен.]\n\n\w8\w8[Чтобы добавить песни,\w4 перетаскивать их на FLUX.\w8\w8 Тебе тоже можешь перетаскивать плейлист .m3u.]\n\n\w8\w8[Если хочешь изменить вид FLUX,\w4 получай поглядеть на меню Внешного Вида и Одежда.]\n\n\w8\w8[Для другие настройки,\w4 так как изменение языка,\w4 перейти на меню Конфигурация.]"
+	}
+	elseif language == "Français"
+	{
+		"[Installation du lecteur FLUX finie.]\n\n\w8\w8[Pour ajouter des musiques,\w4 glisse-dépose les sur FLUX.\w8\w8 Tu peux aussi glisser-déposer une playlist .m3u.]\n\n\w8\w8[Si tu veux changer l'apprence de FLUX,\w4 va dans les menus Shell et Dressup.]\n\n\w8\w8[Pour d'autres options,\w4 changement de langue inclu,\w4 va dans le menu Config.]"
+	}
 	elseif language == "Polski"
 	{
-		"\0\s[0]%(bb)[Zakończono instalację odtwarzacza FLUX.]\n\n\w8\w8[By dodać piosenki,\w4 przeciągnij i upuść je na FLUX.\w8\w8 Możesz również przeciągnąć i upuścić playliste .m3u.]\n\n\w8\w8[Jeśli chcesz zmienić wygląd FLUXa,\w4 sprawdź menu Skorupa i Ubrania.]\n\n\w8\w8[Dla innych opcji,\w4 w tym zmiana języków,\w4 sprawdź menu Konfiguracja.]"
+		"[Zakończono instalację odtwarzacza FLUX.]\n\n\w8\w8[By dodać piosenki,\w4 przeciągnij i upuść je na FLUX.\w8\w8 Możesz również przeciągnąć i upuścić playliste .m3u.]\n\n\w8\w8[Jeśli chcesz zmienić wygląd FLUXa,\w4 sprawdź menu Skorupa i Ubrania.]\n\n\w8\w8[Dla innych opcji,\w4 w tym zmiana języków,\w4 sprawdź menu Konfiguracja.]"
 
 	}
 	else //English
 	{
-		"\0\s[0]%(bb)[Finished installing FLUX player.]\n\n\w8\w8[To add songs,\w4 drag and drop them onto FLUX.\w8\w8 You can also drag and drop a .m3u playlist.]\n\n\w8\w8[If you want to change the look of FLUX,\w4 check the Shell and Dressup menus.]\n\n\w8\w8[For other options,\w4 including changing languages,\w4 check the Config menu.]"
+		"[Finished installing FLUX player.]\n\n\w8\w8[To add songs,\w4 drag and drop them onto FLUX.\w8\w8 You can also drag and drop a .m3u playlist.]\n\n\w8\w8[If you want to change the look of FLUX,\w4 check the Shell and Dressup menus.]\n\n\w8\w8[For other options,\w4 including changing languages,\w4 check the Config menu.]"
 	}
 	--
 	"\![leave,passivemode]\e"
@@ -57,6 +112,18 @@ FluxBoot
 	{
 		
 	}
+	elseif language == "Deutsch"
+	{
+		"[FLUX-Player wird gestartet...]\n\n\w8\w8[Bereit zum Musikspielen.]\e"
+	}	
+	elseif language == "Русский"
+	{
+		"[Начинает плеер FLUX...]\n\n\w8\w8[Готов для игрование музыка.]\e"
+	}
+	elseif language == "Français"
+	{
+		"[Démarrage du lecteur FLUX...]\n\n\w8\w8[Près à jouer de la musique.]\e"
+	}
 	elseif language == "Polski"
 	{
 		"[Uruchomienie odtwarzacza FLUX...]\n\n\w8\w8[Gotowy do odtwarzania muzyki.]\e"
@@ -77,7 +144,7 @@ OnClose
 	
 	"\![sound,stop]%(OnNotifySongInfo)"
 	--
-	if ISFUNC("OnCustom_OnClose") && CustomFuncs[0] == 1; OnCustom_OnClose
+	if ISFUNC("OnCustom_OnClose") && CustomFuncs[0] == 1; REPLACE(OnCustom_OnClose,"\e","")
 	else; FluxClose
 	--
 	"\w8\w8\-\e"
@@ -91,9 +158,21 @@ FluxClose
 	{
 		
 	}
+	elseif language == "Deutsch"
+	{
+		"[FLUX-Player wird geschlossen.]\n\n\w8\w8[Bis bald!]"
+	}	
+	elseif language == "Русский"
+	{
+		"[Закрывает плеер FLUX.]\n\n\w8\w8[Хорошего дня!]"
+	}
+	elseif language == "Français"
+	{
+		"[Fermeture du lecteur FLUX.]\n\n\w8\w8[Passe une bonne journée!]"
+	}
 	elseif language == "Polski"
 	{
-		"\0%(b)[Zamykanie odtwarzacza FLUX.]\n\n\w8\w8[Życzę miłego dnia!]"
+		"[Zamykanie odtwarzacza FLUX.]\n\n\w8\w8[Życzę miłego dnia!]"
 	}
 	else //English
 	{
@@ -110,6 +189,18 @@ OnGhostChanging //Changing to another ghost. This is the internal name of your g
 		if language == "Placeholder" //TRANSLATORS: Reloading the ghost
 		{
 			
+		}
+		elseif language == "Deutsch"
+		{
+			"[Wird neu geladen...]"
+		}	
+		elseif language == "Русский"
+		{
+			"[Перезагрузивает...]"
+		}
+		elseif language == "Français"
+		{
+			"[Rechargement...]"
 		}
 		elseif language == "Polski"
 		{
@@ -154,6 +245,18 @@ OnGhostChanged //After switching.
 		{
 			
 		}
+		elseif language == "Deutsch"
+		{
+			"[Neu-Laden abgeschlossen.]\e"
+		}
+		elseif language == "Русский"
+		{
+			"[Перезагрузил.]\e"
+		}
+		elseif language == "Français"
+		{
+			"[Rechargement fini.]\e"
+		}
 		elseif language == "Polski"
 		{
 			"[Przeładowanie zakończone.]\e"
@@ -190,6 +293,18 @@ OnShellChanging //Starting to change the shell
 		if language == "Placeholder" //TRANSLATORS: Dialogue for switching to the same shell again, effectively reloading it
 		{
 			
+		}
+		elseif language == "Deutsch"
+		{
+			"[Shell wird neu geladen.]"
+		}
+		elseif language == "Русский"
+		{
+			"[Перезагрузивает Внешний Вид.]"
+		}
+		elseif language == "Français"
+		{
+			"[Rechargement du shell.]"
 		}
 		elseif language == "Polski"
 		{
@@ -244,22 +359,42 @@ OnGetCoords2 //This gets the x and y coordinates when changing shells
 	--
 	if shellchange[7] == nowshell //If the user switches to the shell they're already using
 	{
+		_shell = shellchange[7]
 		if ISFUNC("OnCustom_trayicon"); OnCustom_trayicon
 		else; "\![set,tasktrayicon,flux.ico]"
 		--
 		"\0%(b)\s[0]"
 		--
-		if language == "Placeholder" //TRANSLATORS: When finished reloading a shell. %(shellchange[7]) is the name of the shell they reloaded
+		if IsEmergencyMode
 		{
-			
+			"\![raise,OnExplainShellError]"
 		}
-		elseif language == "Polski"
+		else //If the shell reloaded normally
 		{
-			"[Przeładowano '%(shellchange[7])'.]\e"
-		}
-		else //English
-		{
-			"[Reloaded '%(shellchange[7])'.]\e"
+			if language == "Placeholder" //TRANSLATORS: When finished reloading a shell. %(_shell) is the name of the shell they reloaded
+			{
+				
+			}
+			elseif language == "Deutsch"
+			{
+				"['%(_shell)' wurde neu geladen.]\e"
+			}	
+			elseif language == "Русский"
+			{
+				"[Перезагрузил '%(_shell)'.]\e"
+			}
+			elseif language == "Français"
+			{
+				"['%(_shell)' rechargé.]\e"
+			}
+			elseif language == "Polski"
+			{
+				"[Przeładowano '%(_shell)'.]\e"
+			}
+			else //English
+			{
+				"[Reloaded '%(_shell)'.]\e"
+			}
 		}
 	}
 	else
@@ -280,6 +415,10 @@ OnChangedShell //I have this here because it takes a moment for it to read the d
 	else; "\![set,tasktrayicon,flux.ico]"
 	--
 	if ISFUNC("OnCustom_OnShellChanged") && CustomFuncs[0] == 1; OnCustom_OnShellChanged
+	elseif IsEmergencyMode
+	{
+		"\![raise,OnExplainShellError]"
+	}
 	else
 	{
 		"\s[0]"
@@ -287,6 +426,18 @@ OnChangedShell //I have this here because it takes a moment for it to read the d
 		if language == "Placeholder" //TRANSLATORS: This dialogue is for changing to a shell with no custom dialogue. reference0 is the name of the shell
 		{
 			
+		}
+		elseif language == "Deutsch"
+		{
+			"[Es wurde zu '%(reference0)' gewechselt.]"
+		}	
+		elseif language == "Русский"
+		{
+			"[Сменил к '%(reference0)'.]"
+		}
+		elseif language == "Français"
+		{
+			"[Changé pour '%(reference0)'.]"
 		}
 		elseif language == "Polski"
 		{
@@ -298,7 +449,7 @@ OnChangedShell //I have this here because it takes a moment for it to read the d
 		}
 	}
 	--
-	if NowPlaying[0] != "" && NowPlaying[2] == ""; "%(SingingSurfaces)"
+	if Singing; "\s[25]" //Note to self: this was %(SingingSurfaces) before, but the variable to tell what surface they were last in seems like it doesn't carry across shells? Perhaps warrants further testing, but I think this will fix the issue where they don't go back to the singing pose after changing shells while singing...
 	--
 	//"\_q%(bb)\n\nPrevious shell's Y value: %(shellchange[0])\nPrevious shell's feet level: %(shellchange[1])\nPrevious shell's height: %(shellchange[2])\n\n%(nowshell)'s Y value before moving: %(shellchange[3])\n%(nowshell)'s feet level before moving: %(shellchange[4])\n%(nowshell)'s height: %(shellchange[5])\n%(nowshell)'s new Y value: %(shellchange[6])\x"
 	--
@@ -333,10 +484,10 @@ OnGetCustomShellDialogue
 	lastTalk = ""
 	_f = FENUM(SHIORI3FW.ShellPath)
 	_files = SPLIT(_f,",")
+	_pathW = "fx_shelldialogue.dic"
 	if ASEARCH("dialogue.dic",_files) != -1 && CustomFuncs[0] == 1
 	{
 		_pathR = "%(SHIORI3FW.ShellPath)dialogue.dic"
-		_pathW = "fx_shelldialogue.dic"
 		_oR = FOPEN(_pathR,"r")
 		_oW = FOPEN(_pathW,"w")
 		--
@@ -351,12 +502,9 @@ OnGetCustomShellDialogue
 		--
 		_f = FCLOSE(_pathR)
 		_f = FCLOSE(_pathW)
-		--
-		"\![reload,shiori]"
 	}
 	else
 	{
-		_pathW = "fx_shelldialogue.dic"
 		_oW = FOPEN(_pathW,"w")
 		if CustomFuncs[0] == 1
 		{
@@ -372,9 +520,18 @@ OnGetCustomShellDialogue
 			_f = FWRITE(_pathW,"//This option exists in case there are any shells whose dialogue files are broken/break the ghost, or if you just don't like a shell's custom functions and want to use it like a generic shell!")
 		}
 		_f = FCLOSE(_pathW)
-		--
-		"\![reload,shiori]"
 	}
+	--
+	"\![reload,shiori]"
+}
+
+//Unminimizing
+OnWindowStateRestore
+{
+	if Singing; SingingSurfaces //If a song is playing
+	else; NonSingingSurfaces //If no song is playing
+	--
+	"\e"
 }
 
 //These are all the variables you want to set during a normal boot. So every time the ghost opens, we reset the timekeeping, whether the ghost has checked for updates, and if they've said anything yet.
@@ -399,6 +556,18 @@ BootVars
 UpdateVars
 {
 	//if ISVAR("examplevariable") == 0; examplevariable = 0
+	if GETTYPE(playtime[0]) == 3; playtime[0] == STRLEN(playtime[0])
+	if GETTYPE(playtime[1]) == 3; playtime[1] == STRLEN(playtime[1])
+	if GETTYPE(playtime[2]) == 3; playtime[2] == STRLEN(playtime[2])
+	
+	if !Flag("SYSTEM UPDATE||| CONVERT || IN PLAYLISTS TO COMMAS |||SYSTEM UPDATE")
+	{
+		MiscFlags ,= "FLUX MASTER SYSTEM UPDATE||| CONVERT || IN PLAYLISTS TO COMMAS |||FLUX MASTER SYSTEM UPDATE"
+		for _i = 0; _i < ARRAYSIZE(CurrentPlaylist); _i++
+		{
+			CurrentPlaylist[_i] = REPLACE(CurrentPlaylist[_i],"||",",")
+		}
+	}
 }
 
 //These are all the variables that need to be initialized when the user first installs the ghost.
@@ -412,6 +581,7 @@ FirstBootVars
 	nowshell = "FLUX"
 	nowscale = 100
 	username = "User"
+	gender = "undef"
 	birthday = IARRAY
 	birthday[0] = "???"	//The user's birthday, written out with words
 	birthday[1] = "???"	//The user's birthday, written in DD/MM format
@@ -447,4 +617,8 @@ FirstBootVars
 	balloonmode = 0 //Dark mode
 	hemisphere = 0
 	CustomFuncs = (1,"On")
+	
+	playtime = (0,0,0)
+	_path = "../../playlists/"
+	if FENUM(_path) == ""; void MKDIR(_path)
 }

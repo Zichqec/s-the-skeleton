@@ -39,109 +39,238 @@ bbb //Extra large balloon
 	}
 }
 
-//TRANSLATORS: The next 4 functions deal with pronouns. I don't want to add the same translator note to each of them, so please go through each one and add your language, following the format given. IF THIS DOES NOT WORK FOR YOUR LANGUAGE, let me know! We can add more functions, or change how the config menu is set up, or any number of things to get this working. It's important that the pronouns be possible to change, though, so that shells that depend on them for dialogue can have them!
+//TRANSLATORS: Right, so here's the deal. Pronouns between languages... are complicated. So I've decided that each language gets its own pronoun functions! I'll leave the english functions at the top as an example, you can copy that format if you want, or you can set them up however you need. If you're not sure what to do, talk with me and I can help you with this! The english pronoun functions are heshe, himher, hisher, and hishers. You could also call them something like they, them, their, theirs, if you wanted, if it makes it shorter. Whatever you think will be intuitive for shell developers, as those are the people who will be using these!
+
+
+//English
 heshe
 {
-	_lang = ""
-	if _argv[0] == "Placeholder"; _lang = "Placeholder"
-	elseif _argv[0] == "Polski"; _lang = "Polski"
-	else; _lang = language
-	--
-	if _lang == "Placeholder"
-	{
-		
-	}
-	elseif _lang == "Polski"
-	{
-		if gender == "masc"; "on"
-		elseif gender == "fem"; "ona"
-		else; "oni" //Neutral
-	}
-	else //English
-	{
-		if gender == "masc"; "he"
-		elseif gender == "fem"; "she"
-		else; "they" //Neutral
-	}
+	if gender == "masc"; "he"
+	elseif gender == "fem"; "she"
+	else; "they" //Neutral
 }
 
 himher
 {
-	_lang = ""
-	if _argv[0] == "Placeholder"; _lang = "Placeholder"
-	elseif _argv[0] == "Polski"; _lang = "Polski"
-	else; _lang = language
-	--
-	if _lang == "Placeholder"
-	{
-		
-	}
-	elseif _lang == "Polski"
-	{
-		if gender == "masc"; "jemu"
-		elseif gender == "fem"; "jej"
-		else; "im" //Neutral
-	}
-	else //English
-	{
-		if gender == "masc"; "him"
-		elseif gender == "fem"; "her"
-		else; "them" //Neutral
-	}
+	if gender == "masc"; "him"
+	elseif gender == "fem"; "her"
+	else; "them" //Neutral
 }
 
 hisher
 {
-	_lang = ""
-	if _argv[0] == "Placeholder"; _lang = "Placeholder"
-	elseif _argv[0] == "Polski"; _lang = "Polski"
-	else; _lang = language
-	--
-	if _lang == "Placeholder"
-	{
-		
-	}
-	elseif _lang == "Polski"
-	{
-		if gender == "masc"; "jego"
-		elseif gender == "fem"; "jej"
-		else; "ich" //Neutral
-	}
-	else //English
-	{
-		if gender == "masc"; "his"
-		elseif gender == "fem"; "her"
-		else;"their" //Neutral
-	}
+	if gender == "masc"; "his"
+	elseif gender == "fem"; "her"
+	else; "their" //Neutral
 }
 
 hesshes
 {
-	_lang = ""
-	if _argv[0] == "Placeholder"; _lang = "Placeholder"
-	elseif _argv[0] == "Polski"; _lang = "Polski"
-	else; _lang = language
-	--
-	if _lang == "Placeholder"
-	{
-		
-	}
-	elseif _lang == "Polski"
-	{
-		if gender == "masc"; "on jest"
-		elseif gender == "fem"; "ona jest"
-		else; "oni są" //Neutral
-	}
-	else //English
-	{
-		if gender == "masc"; "he's"
-		elseif gender == "fem"; "she's"
-		else; "they're" //Neutral
-	}
+	if gender == "masc"; "he's"
+	elseif gender == "fem"; "she's"
+	else; "they're" //Neutral
 }
+
+//German
+ersie
+{
+	if gender == "masc"; "er"
+	elseif gender == "fem"; "sie"
+	else; "dey" //the neutral ones are neopronouns because german doesn't really have a neutral form for people, I hope that's ok -Koguri3108
+}
+
+ihnsie
+{
+	if gender == "masc"; "ihn"
+	elseif gender == "fem"; "sie"
+	else; "demm"
+}
+
+ihmihr
+{
+	if gender == "masc"; "ihm"
+	elseif gender == "fem"; "ihr"
+	else; "denen"
+}
+
+seinihr
+{
+	if gender == "masc"; "sein"
+	elseif gender == "fem"; "ihr"
+	else; "deren"
+}
+
+seineihre
+{
+	if gender == "masc"; "seine"
+	elseif gender == "fem"; "ihre"
+	else; "deren"
+}
+
+seinerihrer
+{
+	if gender == "masc"; "seiner"
+	elseif gender == "fem"; "ihrer"
+	else; "derer"
+}
+
+//Russian
+онона
+{
+	if gender == "masc"; "он"
+	elseif gender == "fem"; "она"
+	else; "они" //Neutral
+}
+
+егоее
+{
+	if gender == "masc"; "его"
+	elseif gender == "fem"; "ее"
+	else; "их" //Neutral
+}
+
+негонее
+{
+	if gender == "masc"; "него"
+	elseif gender == "fem"; "неё"
+	else; "них" //Neutral
+}
+
+негонеё {негонее}
+
+емуей
+{
+	if gender == "masc"; "ему"
+	elseif gender == "fem"; "ей"
+	else; "им" //Neutral
+}
+
+имей
+{
+	if gender == "masc"; "им"
+	elseif gender == "fem"; "ей"
+	else; "ими" //Neutral
+}
+
+нимней
+{
+	if gender == "masc"; "ним"
+	elseif gender == "fem"; "ней"
+	else; "ними" //Neutral
+}
+
+немней
+{
+	if gender == "masc"; "нём"
+	elseif gender == "fem"; "ней"
+	else; "них" //Neutral
+}
+
+нёмней {немней}
+
+лла
+{
+	if gender == "masc"; "л"
+	elseif gender == "fem"; "ла"
+	else; "ли" //Neutral
+}
+
+лсялась
+{
+	if gender == "masc"; "лся"
+	elseif gender == "fem"; "лась"
+	else; "лись" //Neutral
+}
+
+ойая
+{
+	if gender == "masc"; "ой"
+	elseif gender == "fem"; "ая"
+	else; "ой" //Neutral
+}
+
+ийая
+{
+	if gender == "masc"; "ий"
+	elseif gender == "fem"; "ая"
+	else; "ие" //Neutral
+}
+
+ыйая
+{
+	if gender == "masc"; "ый"
+	elseif gender == "fem"; "ая"
+	else; "ые" //Neutral
+}
+
+//French
+ilelle
+{
+	if gender == "masc"; "il"
+	elseif gender == "fem"; "elle"
+	elseif gender == "undef-fem"; "elle"
+	else; "il" //Undef (masc)
+}
+
+luielle
+{
+	if gender == "masc"; "lui"
+	elseif gender == "fem"; "elle"
+	elseif gender == "undef-fem"; "elle"
+	else; "lui" //Undef (masc)
+}
+
+celuicelle
+{
+	if gender == "masc"; "celui"
+	elseif gender == "fem"; "celle"
+	elseif gender == "undef-fem"; "celle"
+	else; "celui" //Undef (masc)
+}
+
+
+
+
+//Polish
+onona
+{
+	if gender == "masc"; "on"
+	elseif gender == "fem"; "ona"
+	else; "oni" //Neutral
+}
+
+jejjemu
+{
+	if gender == "masc"; "jemu"
+	elseif gender == "fem"; "jej"
+	else; "im" //Neutral
+}
+
+jejjego
+{
+	if gender == "masc"; "jego"
+	elseif gender == "fem"; "jej"
+	else; "ich" //Neutral
+}
+
+jestsa
+{
+	if gender == "masc"; "on jest"
+	elseif gender == "fem"; "ona jest"
+	else; "oni są" //Neutral
+}
+
+
+
+
 //---End of the pronoun functions---
 
-
+//Check if the ghost is in emergency mode
+IsEmergencyMode
+{
+	if GETSETTING('coreinfo.mode') == "emergency"; 1
+	else; 0
+}
 
 //If you write all your envelopes as lowercase, you can send them through this function whenever you need the first letter capitalized! It'd look something like this: "%(Capitalize(exampleenvelope))"
 Capitalize
@@ -223,11 +352,44 @@ ranoorsmth //Translator note from Zdzisiu: This is an envelope for Polish time t
 	}
 }
 
-nowhemisphere //TRANSLATORS: labels for hemispheres, for the config menu
+nowhemisphere
 {
-	if language == "Placeholder" //TRANSLATORS: Fill in the _northern and _southern local variables with your language's equivalent for the hemispheres
+	if language == "Placeholder" //TRANSLATORS: labels for hemispheres, for the config menu
 	{
 		
+	}
+	elseif language == "Deutsch"
+	{
+		if hemisphere == 1 //Southern Hemisphere
+		{
+			"Südlich"
+		}
+		else //Northern hemisphere
+		{
+			"Nördlich"
+		}
+	}
+	elseif language == "Русский"
+	{
+		if hemisphere == 1 //Southern Hemisphere
+		{
+			"Южном"
+		}
+		else //Northern hemisphere
+		{
+			"Северном" //так как песня северная лень, помни? каждый раз...
+		}
+	}
+	elseif language == "Français"
+	{
+		if hemisphere == 1 //Southern Hemisphere
+		{
+			"Sud"
+		}
+		else //Northern hemisphere
+		{
+			"Nord"
+		}
 	}
 	elseif language == "Polski"
 	{
@@ -335,6 +497,18 @@ MonthName
 	{
 		
 	}
+	elseif _argv[1] == "Deutsch"
+	{
+		_lang = "Deutsch"
+	}
+	elseif _argv[1] == "Русский"
+	{
+		_lang = "Русский"
+	}
+	elseif _argv[1] == "French"
+	{
+		_lang = "French"
+	}
 	elseif _argv[1] == "Polski"
 	{
 		_lang = "Polski"
@@ -347,6 +521,51 @@ MonthName
 	if _lang == "Placeholder" //TRANSLATORS: Copy the set of local variables, and fill in the month names for each one.
 	{
 		
+	}
+	elseif _lang == "Deutsch"
+	{
+		_1 = "Januar" //January
+		_2 = "Februar" //February
+		_3 = "März" //March
+		_4 = "April" //April
+		_5 = "Mai" //May
+		_6 = "Juni" //June
+		_7 = "Juli" //July
+		_8 = "August" //August
+		_9 = "September" //September
+		_10 = "Oktober" //October
+		_11 = "November" //November
+		_12 = "Dezember" //December
+	}
+	elseif _lang == "Русский"
+	{
+		_1 = "Январь" //January
+		_2 = "Февраль" //February
+		_3 = "Марта" //March
+		_4 = "Апрель" //April
+		_5 = "Май" //May
+		_6 = "Июнь" //June
+		_7 = "Июль" //July
+		_8 = "Августь" //August
+		_9 = "Сентябрь" //September
+		_10 = "Октябрь" //October
+		_11 = "Ноябрь" //November
+		_12 = "Декабрь" //December
+	}
+	elseif _lang == "French"
+	{
+		_1 = "Janvier" //January
+		_2 = "Février" //February
+		_3 = "Mars" //March
+		_4 = "Avril" //April
+		_5 = "Mai" //May
+		_6 = "Juin" //June
+		_7 = "Juillet" //July
+		_8 = "Août" //August
+		_9 = "Septembre" //September
+		_10 = "Octobre" //October
+		_11 = "Novembre" //November
+		_12 = "Décembre" //December
 	}
 	elseif _lang == "Polski"
 	{
@@ -393,15 +612,19 @@ MonthName
 	elseif _argv[0] == 12; _12
 }
 
-timeslot //From the GT template. Breaking down the day into a few distinct chunks so you dont have to add checks for every hour.
+//From the GT template. Breaking down the day into a few distinct chunks so you dont have to add checks for every hour.
+timeslot
 {
-	if hour >= 5 && hour <= 8; "earlymorning" //5-8am
-	elseif hour >= 9 && hour <= 11; "morning" //9-11am
-	elseif hour >= 12 && hour <= 14; "lunch" //12-2pm
-	elseif hour >= 15 && hour <= 17; "afternoon" //3-5pm
-	elseif hour >= 18 && hour <= 20; "evening" //6-8pm
-	elseif hour >= 21 && hour <= 24; "latenight" //9pm-12am
-	else; "midnight" //1-4am
+	case hour
+	{
+		when 5-8; "earlymorning" //5-8am
+		when 9-11; "morning" //9-11am
+		when 12-14; "lunch" //12-2pm
+		when 15-17; "afternoon" //3-5pm
+		when 18-20; "evening" //6-8pm
+		when 21-24; "latenight" //9pm-12am
+		others; "midnight" //1-4am
+	}
 }
 
 leapyear //Checks if this is a leap year
@@ -411,6 +634,8 @@ leapyear //Checks if this is a leap year
     elseif year % 400 != 0; 0
     else; 1
 }
+
+
 
 //---Flag---
 //Checks to see if a flag exists (is "set") in the MiscFlags array.
@@ -460,7 +685,8 @@ Singing //Returns 1 if singing, 0 if not
 CurrentSong
 {
 	_currentsong = SPLITPATH(NowPlaying[0])[2]
-	_currentsong = REPLACE(_currentsong,"||",",")
+	_currentsong = REPLACE(_currentsong,"%(C_BYTE1)",",")
+	_currentsong = REPLACE(_currentsong,"]","\]")
 	_currentsong
 }
 

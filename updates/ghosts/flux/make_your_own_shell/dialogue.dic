@@ -1,6 +1,6 @@
 //Everything in this file is commented out on purpose. Only uncomment functions that you're planning to use! FLUX checks for the EXISTENCE of a function, and if the function exists, it executes it rather than doing the default behavior. It does not check if there's actually anything IN the function. So if you're not using one of these functions, comment it out or erase it!
 
-//Also, I will reiterate again: PLEASE DON'T USE ANY OF THE BASE SHIORI FUNCTIONS IN HERE! I may update FLUX in the future to have that same function, and then your shell wouldn't work anymore until you update it! If you really need one, ask me about it and I can consider adding the function to FLUX so you can use it. And if you're doing really complex stuff, you might just want to make your own ghost haha.
+//Also, I will reiterate again: Try not to use the base SHIORI functions found on Ukadoc here! I may update FLUX in the future to have that same function, and then your shell's custom code wouldn't work anymore until you update it! If you really need one, ask me about it and I can consider adding the function to FLUX so you can use it. And if you're doing really complex stuff, you might just want to make your own ghost lol
 
 //For the same reason, if you're adding new custom functions, try to give them fairly unique names! Same with variables, especially. More notes about this in the documentation file.
 
@@ -11,7 +11,7 @@
 	//"1.0.0"
 //}
 
-//Set up the path to your tray icon here, and it'll automatically change to it whenever your shell is loaded.
+//Set up the path to your tray icon here, and it'll automatically change to it whenever your shell is loaded. Note that you'll need to keep the /../../shell/ part as it is, just edit the path after that
 //OnCustom_trayicon
 //{
 	//"\![set,tasktrayicon,/../../shell/your_shell/your_shells_icon.ico]"
@@ -53,7 +53,7 @@
 	
 //}
 
-//Custom dialogue for the randomtalk function. Having this function in your file will enable the 'say something' option on the main menu! I included an example if/else for splitting up your dialogue into singing vs idle dialogue, but you can ignore that if you want. 
+//Custom dialogue for the randomtalk function. Having this function in your file will enable the 'say something' option on the main menu! I included an example if/else for splitting up your dialogue into singing vs idle dialogue, but you can ignore that if you want. If you want to use it, you'll need to create the Custom_SingingDialogue and Custom_IdleDialogue functions!
 //Note, the Singing function returns 1 if FLUX is playing music, and 0 if it's not.
 //OnCustom_RandomTalk
 //{
@@ -67,7 +67,7 @@
 	
 //}
 
-//Custom dialogue pool for being pet! This function is specifically called when the player moves their mouse over the or "stroke_p" hitboxe for a short while. FLUX uses the variable totalpets to track the total number of times FLUX has been pet, if you want to track this for your shell you'll need to add a custom variable! Make sure the name is very definitely unique, though. sanspets would be too generic, but zichqec_sanspets would be unique enough that it should never overlap with anyone else's. Uses the same references as OnMouseMove.
+//Custom dialogue pool for being pet! This function is specifically called when the player moves their mouse over the "stroke_p" hitbox for a short while, which is usually the head. FLUX uses the variable totalpets to track the total number of times FLUX has been pet; if you want to track this for your shell specifically you'll need to add a custom variable! Make sure the name is very definitely unique, though. sanspets would be too generic, but zichqec_sanspets would be unique enough that it should never overlap with anyone else's. Uses the same references as OnMouseMove.
 //OnCustom_Petting
 //{
 	
@@ -119,7 +119,7 @@
 //OnCustom_SingingSurfaces
 //{
 	//if SHIORI3FW.LastSurface[0] != 25 //You can erase this if you want. If you set it up like this, your ghost won't change surfaces if it's already in the singing pose, and that way it won't be interrupted. You can also add more surface numbers here if you have multiple singing poses!
-	{
+	//{
 		//"\s[25]"
 	//}
 //}
@@ -160,7 +160,7 @@
 	
 //}
 
-//Custom dialogue for when the year rolls over at midnight! References are the same as OnSecondChange
+//Custom dialogue for when the year rolls over at midnight! References are the same as OnSecondChange.
 //OnCustom_NewYear
 //{
 	

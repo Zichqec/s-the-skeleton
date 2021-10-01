@@ -37,66 +37,141 @@ RandomTalk
 
 OnMinuteChange
 {
-	if minute == 0 //Top of the hour notifications
+	if hour == 0 && minute == 0 //Resetting auto updates
 	{
-		if language == "Placeholder" //TRANSLATORS: Top of the hour notifications
+		AutoUpdates[1] = 0
+		AutoUpdates[3] = 0
+		AutoUpdates[4] = 0
+		AutoUpdates[5] = 0
+	}
+	
+	if HourNotifs[0] == 0 && minute == 0 && hour == 0 && day == 1 && month == 1 //Even if you've got hour notifs off, if there's custom dialogue for the new year it'll display
+	{
+		if ISFUNC("OnCustom_NewYear") && CustomFuncs[0] == 1; OnCustom_NewYear 
+	}
+	elseif minute == 0 && HourNotifs[0] == 1 //Top of the hour notifications
+	{
+		
+		
+		"\0%(b)"
+		--
+		if language == "Placeholder" //TRANSLATORS: Top of the hour notifications, as well as a new years message
 		{
 			
+		}
+		elseif language == "Deutsch"
+		{
+			if hour == 0
+			{
+				if day == 1 && month == 1
+				{
+					if ISFUNC("OnCustom_NewYear") && CustomFuncs[0] == 1; OnCustom_NewYear
+					else; "[Frohes neues Jahr!]\e"
+				}
+				else
+				{
+					"[Es ist Mitternacht.]\e"
+				}
+			}
+			elseif hour == 12
+			{
+				"[Es ist Mittag.]\e"
+			}
+			else
+			{
+				"[Es ist %(hour12) Uhr.]\e"
+			}
+		}
+		elseif language == "Русский"
+		{
+			if hour == 0
+			{
+				if day == 1 && month == 1
+				{
+					if ISFUNC("OnCustom_NewYear") && CustomFuncs[0] == 1; OnCustom_NewYear
+					else; "[С новым годом!]\e"
+				}
+				else
+				{
+					"[Это полночь.]\e"
+				}
+			}
+			elseif hour == 12
+			{
+				"[Это полдень.]\e" //я не знаю если это ж слов или нет
+			}
+			else
+			{
+				"[Это %(hour12) часов.]\e" //? часы?
+			}
+		}
+		elseif language == "Français"
+		{
+			if hour == 0
+			{
+				if day == 1 && month == 1
+				{
+					if ISFUNC("OnCustom_NewYear") && CustomFuncs[0] == 1; OnCustom_NewYear
+					else; "[Bonne année !]\e"
+				}
+				else
+				{
+					"[Il est minuit.]\e"
+				}
+			}
+			elseif hour == 12
+			{
+				"[Il est midi.]\e"
+			}
+			else
+			{
+				"[Il est %(hour12) heure.]\e"
+			}
 		}
 		elseif language == "Polski"
 		{
 			if hour == 0
 			{
-				AutoUpdates[1] = 0
-				AutoUpdates[3] = 0
-				AutoUpdates[4] = 0
-				AutoUpdates[5] = 0
 				if day == 1 && month == 1
 				{
-					if ISFUNC("OnCustom_NewYear"); OnCustom_NewYear
-					else; "\0%(b)[Szczęśliwego nowego roku!]\e"
+					if ISFUNC("OnCustom_NewYear") && CustomFuncs[0] == 1; OnCustom_NewYear
+					else; "[Szczęśliwego nowego roku!]\e"
 				}
 				else
 				{
-					"\0%(b)[Jest północ.]\e"
+					"[Jest północ.]\e"
 				}
 			}
 			elseif hour == 12
 			{
-				"\0%(b)[Jest połódnie.]\e"
+				"[Jest połódnie.]\e"
 			}
 			else
 			{
-				"\0%(b)[jest %(hour12) %(ranoorsmth).]\e"
+				"[jest %(hour12) %(ranoorsmth).]\e"
 			}
 		}
 		else //English
 		{
 			if hour == 0
 			{
-				AutoUpdates[1] = 0
-				AutoUpdates[3] = 0
-				AutoUpdates[4] = 0
-				AutoUpdates[5] = 0
 				if day == 1 && month == 1
 				{
-					"\0%(b)"
-					--
 					if ISFUNC("OnCustom_NewYear") && CustomFuncs[0] == 1; OnCustom_NewYear
-					else; "\0%(b)[Happy new year!]\e"
+					else; "[Happy new year!]\e"
 				}
 				else
 				{
-					"\0%(b)[It's midnight.]\e"
+					"[It's midnight.]\e"
 				}
 			}
 			elseif hour == 12
 			{
-				"\0%(b)[It's noon.]\e"
+				"[It's noon.]\e"
 			}
 			else
 			{
-				"\0%(b)[It's %(hour12) o'clock.]\e"
+				"[It's %(hour12) o'clock.]\e"
 			}
 		}
 	}
@@ -162,26 +237,51 @@ OnSecondChange
 	}
 	if InstalledShellName != "" //If the user installed a shell that's supposed to be only FLELE compatible
 	{
+		void OnEmptyTempFolder
+		
 		"\0\s[0]%(b)\*"
 		--
-		if language == "Placeholder" //TRANSLATORS: After installing a new shell. This one happens when FLUX uses my workaround to install FLELE shells that are set up to only be installed by FLELE
+		if language == "Placeholder" //TRANSLATORS: After installing a new shell. This one happens when FLUX uses my workaround to install FLELE shells that are set up to only be installed by FLELE. It should match the normal shell installed dialogue, except for the envelope used. InstalledShellName will be the name of the shell.
 		{
 			
 		}
+		elseif language == "Deutsch"
+		{
+			"['%(InstalledShellName)' erfolgreich installiert.]\n\n"
+			--
+			"\![*]\q[Zu %(InstalledShellName) wechseln,OnChangeToShell,%(InstalledShellName)]\n\n/
+			\![*]\q[Schließen,OnCancel]"
+		}
+		elseif language == "Русский"
+		{
+			"[Удалось Установить '%(InstalledShellName)'.]\n\n"
+			--
+			"\![*]\q[Сменить в %(InstalledShellName),OnChangeToShell,%(InstalledShellName)]\n\n/
+			\![*]\q[Закрыть,OnCancel]"
+		}
+		elseif language == "Français"
+		{
+			"\0\s[0]\*['%(InstalledShellName)' installé avec succès.]\n\n"
+			--
+			"\![*]\q[Changer pour %(InstalledShellName),OnChangeToShell,%(InstalledShellName)]\n\n/
+			\![*]\q[Fermer,OnCancel]"
+		}
 		elseif language == "Polski"
 		{
-			"[Zainstalowałem '%(reference1)'.]\n\n"
+			"[Zainstalowałem '%(InstalledShellName)'.]\n\n"
 			--
-			"\![*]\q[Zmień na %(reference1),OnChangeToShell]\n\n/
-			\![*]\q[Zamknij,OnCancel]\e"
+			"\![*]\q[Zmień na %(InstalledShellName),OnChangeToShell,%(InstalledShellName)]\n\n/
+			\![*]\q[Zamknij,OnCancel]"
 		}
 		else //English
 		{
 			"[Successfully installed '%(InstalledShellName)'.]\n\n"
 			--
 			"\![*]\q[Change to %(InstalledShellName),OnChangeToShell,%(InstalledShellName)]\n\n/
-			\![*]\q[Close,OnCancel]\![raise,OnDialogueVars,InstalledNewShell]\e"
+			\![*]\q[Close,OnCancel]"
 		}
+		--
+		"\![raise,OnDialogueVars,InstalledNewShell]\e"
 		ERASEVAR("DraggedFile")
 	}
 	elseif mikireflag == 0 && reference1 == 1 //Dialogue for putting them off the screen. You could make this a unique line if you wanted, and have MikireTalk be for if they continue to be offscreen
@@ -204,9 +304,21 @@ MikireTalk //Off the screen dialogue. Ctrl Shift F12 will bring characters back 
 {
 	"\0%(b)"
 	--
-	if language == "Placeholder" //TRANSLATORS: If FLUX is off screen
+	if language == "Placeholder" //TRANSLATORS: If FLUX is off screen. Ctrl-Shift-F12 is the key combination to bring it back
 	{
 		
+	}
+	elseif language == "Deutsch"
+	{
+		"[FLUX-Player ist außerhalb des Bildschirms.\w8\w8 Du kannst ihn zurückholen indem du Ctrl-Shift-F12 drückst.]\e"
+	}	
+	elseif language == "Русский"
+	{
+		"[Плеер FLUX не на экране.\w8\w8 Ты можешь его вернуть с Ctrl-Shift-F12.]\e"
+	}
+	elseif language == "Français"
+	{
+		"[Le lecteur FLUX est hors de l'écran.\w8\w8 Tu peux le ramener avec Ctrl-Shift-F12.]\e"
 	}
 	elseif language == "Polski"
 	{
@@ -225,6 +337,18 @@ EndMikireTalk //Being brought back on the screen.
 	if language == "Placeholder" //TRANSLATORS: Bringing FLUX back on screen
 	{
 		
+	}
+	elseif language == "Deutsch"
+	{
+		"[FLUX-Player ist wieder auf dem Bildschirm.]\e"
+	}	
+	elseif language == "Русский"
+	{
+		"[Плеер FLUX вернулась к экране.]\e"
+	}
+	elseif language == "Français"
+	{
+		"[Le lecteur FLUX est de retour sur l'écran.]\e"
 	}
 	elseif language == "Polski"
 	{
@@ -258,22 +382,22 @@ OnSurfaceRestore //OnSurfaceRestore happens around 30 seconds after the ghost's 
 
 NonSingingSurfaces
 {
-	if ISFUNC("OnCustom_IdleSurfaces") && CustomFuncs[0] == 1; OnCustom_IdleSurfaces
+	if ISFUNC("OnCustom_IdleSurfaces") && CustomFuncs[0] == 1; REPLACE(OnCustom_IdleSurfaces,"\e","")
 	else
 	{
 		if SHIORI3FW.IsVisible[1] != 0; "\1\s[-1]"
 		--
-		if SHIORI3FW.LastSurface[0] != 0; "\0\s[0]"
+		if SHIORI3FW.LastSurface[0] != 0 || SHIORI3FW.Eventid == "OnWindowStateRestore"; "\0\s[0]"
 	}
 }
 
 SingingSurfaces
 {
-	if ISFUNC("OnCustom_SingingSurfaces") && CustomFuncs[0] == 1; OnCustom_SingingSurfaces
+	if ISFUNC("OnCustom_SingingSurfaces") && CustomFuncs[0] == 1; REPLACE(OnCustom_SingingSurfaces,"\e","")
 	else
 	{
 		if SHIORI3FW.IsVisible[1] != 0; "\1\s[-1]"
 		--
-		if SHIORI3FW.LastSurface[0] != 25; "\0\s[25]"
+		if SHIORI3FW.LastSurface[0] != 25 || SHIORI3FW.Eventid == "OnWindowStateRestore"; "\0\s[25]"
 	}
 }

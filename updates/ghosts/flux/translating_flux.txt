@@ -8,8 +8,8 @@
 
 //Third, not a huge point, but if your language requires you to pick a masculine or feminine form for FLUX and you're not certain which to pick, pick masculine. The character the ghost name comes from is male, so I think that makes the most sense.
 
-//You'll probably want to start by setting FLUX's language variable to the language you're going to be adding. To do this, you'll want to open script input with Ctrl-S, and put in this: %(language = 'your language')
-//In place of 'your language', put in your language as you want the label to appear in the menu. So for example, instead of writing language = 'Japanese', you'd want to put language = '日本語'
+//You'll probably want to start by setting FLUX's language variable to the language you're going to be adding. To do this, you'll want to open script input with Ctrl-S (this requires you to have SSP's developer mode on, which you can find in the preferences), and put in this: %(language = 'your language')
+//In place of 'your language', put in your language's name as you want the label to appear in the menu. So for example, instead of writing language = 'Japanese', you'd want to put language = '日本語'
 //Nothing will change yet (unless you didn't have FLUX in english), but you'll see why this is important in a moment.
 
 //FLUX has its language checks set up like this:
@@ -27,13 +27,13 @@
 	//Stuff in English
 //}
 
-//What this means is that, any dialogues you haven't translated yet will show up in English! As you go through the code and add in your translations, you'll see those buttons/dialogues change to your translations. It always defaults to English if it doesn't find a check for your language.
+//What this means is that, any dialogues you haven't translated yet will show up in English! As you go through the code and add in your translations, you'll see those buttons/dialogues change to your translations. It always defaults to English if it doesn't find a check for your language, in case anything should ever get messed up or a check is missing.
 
-//Alright, so where do you need to translate? Thankfully, not everywhere! I've put notes everywhere that needs translated, with an explanation of what that dialogue is for. Search FLUX's files for this: //TRANSLATORS:
+//Alright, so where do you need to translate? Thankfully, not everywhere! I've put notes everywhere that a translation is needed, with an explanation of what that dialogue is for. Search FLUX's files for this: //TRANSLATORS:
 //You'll see an if/else stack like the one shown above. Add in an elseif for your language, copy the code from the english block, and translate any dialogue/labels to your language! Make sure you're translating JUST the labels unless the notes tell you otherwise!
 
-//You should also add a translation to FLUX's readme, which you can find at the top level of FLUX's folder. Though uh, it seems that the readme display will garble the text unless you're in the right locale... Let me know if it looks correct on your end? if not, we can work something out.
-//You may also consider translating the _how_to_make_a_shell.txt file in the make_your_own_shell folder, if you want to be extra. That file is instructions on how to make custom shells. Not necessary, but if you're interested you can do that too!
+//You should also add a translation to FLUX's readme, which you can find at the top level of FLUX's folder. I believe I have it set up so that all languages will display correctly in it, but double check it and tell me if the text is messed up. This may depend on your locale.
+//You may also consider translating the _how_to_make_a_shell.txt file in the make_your_own_shell folder, if you want to be extra. That file is instructions on how to make custom shells. This isn't necessary, but if you're interested you can do that too!
 
 //That's all there is to it, really! Once you've completed your translation, get in touch with me and send me the files, and I'll add them to FLUX in an update! I'll also add a credit for your translation on my website, and in FLUX's readme.
 

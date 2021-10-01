@@ -9,10 +9,9 @@ surface0 //Idle
 	
 	//Blink
 	animation0.interval,random,4
-	animation0.pattern0,overlay,-1,100,0,0
-	animation0.pattern1,overlay,100,50,0,0
-	animation0.pattern2,overlay,101,100,0,0
-	animation0.pattern3,overlay,-1,30,0,0
+	animation0.pattern0,overlay,100,50,0,0
+	animation0.pattern1,overlay,101,100,0,0
+	animation0.pattern2,overlay,-1,30,0,0
 }
 
 surface1 //Petting

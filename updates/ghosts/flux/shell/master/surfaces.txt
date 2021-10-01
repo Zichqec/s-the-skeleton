@@ -1,37 +1,36 @@
 version,1 //This is using the new seriko definition. If you want to use the old one, change the version to 0
 
-//Sakura surfaces
-
-
 surface0
 {
 	element0,overlay,surface0.png,0,0
-	//As a note, you can put your images in subfolders! I'd be careful doing it, but it could be very helpful! It would look something like this
-	//element0,overlay,yourfolder/surface0.png,0,0
-	//Any images in subfolders HAVE to be defined in a surface before you can use them in animations, though.
 }
 
-surface1 //Petting
+//Petting
+surface1
 {
 	element0,overlay,surface1.png,0,0
 }
 
-surface6 //Action
+//Action
+surface6
 {
 	element0,overlay,surface6.png,0,0
 }
 
-surface7 //Error
+//Error
+surface7 
 {
 	element0,overlay,surface7.png,0,0
 }
 
-surface8 //Refuse
+//Refuse
+surface8
 {
 	element0,overlay,surface8.png,0,0
 }
 
-surface25 //Singing
+//Singing
+surface25
 {
 	element0,overlay,surface25.png,0,0
 	
@@ -43,90 +42,97 @@ surface25 //Singing
 	
 	//Anim#.Pattern#,Type,Method,Surface#,Weight,X,Y
 	
-	
 	//---Control Anims---
-	animation50.interval,never //Petting while singing
-	animation50.pattern0,stop,103
+	//Petting while singing
+	animation50.interval,never
+	animation50.pattern0,stop,1300
 	animation50.pattern1,overlay,4550,0,0,0
-	animation50.pattern2,overlay,-1,2000,0,0
+	animation50.pattern2,overlay,4550,2000,0,0
 	animation50.pattern3,start,1300
 	
-	animation51.interval,never //Error while singing
-	animation51.pattern0,stop,103
+	//Error while singing
+	animation51.interval,never
+	animation51.pattern0,stop,1300
 	animation51.pattern1,overlay,4551,0,0,0
-	animation51.pattern2,overlay,-1,2000,0,0
+	animation51.pattern2,overlay,4551,2000,0,0
 	animation51.pattern3,start,1300
 	
-	animation100.interval,runonce //Starts Top right
-	animation100.pattern0,alternativestart,(1000)
 	
-	animation101.interval,runonce //Starts back right
-	animation101.pattern0,alternativestart,(1100)
+	//Top right arm
+	animation1000.interval,runonce
+	animation1000.pattern0,parallelstop,(2700,2701,2702,2703)
+	animation1000.pattern1,alternativestart,(2700,2701,2702,2703)
 	
-	animation102.interval,runonce //Starts back left
-	animation102.pattern0,alternativestart,(1200)
+	//Back right arm
+	animation1100.interval,runonce
+	animation1100.pattern0,parallelstop,(1101,1102,1103,1104)
+	animation1100.pattern1,alternativestart,(1101,1102,1103,1104)
 	
-	animation103.interval,runonce //Starts head
-	animation103.pattern0,alternativestart,(1300)
+	//Back left arm
+	animation1200.interval,runonce
+	animation1200.pattern0,parallelstop,(1201,1202,1203,1204)
+	animation1200.pattern1,alternativestart,(1201,1202,1203,1204)
 	
-	
-	
-	animation1000.interval,never //Top right arm
-	animation1000.pattern0,alternativestart,(2700,2701,2702,2703)
-	
-	animation1100.interval,never //Back right arm
-	animation1100.pattern0,alternativestart,(1101,1102,1103,1104)
-	
-	animation1200.interval,never //Back left arm
-	animation1200.pattern0,alternativestart,(1201,1202,1203,1204)
-	
-	animation1300.interval,never //Head
-	animation1300.pattern0,alternativestart,(2500,2501,2502,2503,2504,2505,2506,2507)
+	//Head
+	animation1300.interval,runonce
+	animation1300.pattern0,parallelstop,(50,51,2500,2501,2502,2503,2504,2505,2506,2507)
+	animation1300.pattern1,alternativestart,(2500,2501,2502,2503,2504,2505,2506,2507)
 	
 	
 	
 	//---Back right arm---
 	animation1101.interval,never
-	animation1101.pattern0,interpolate,1100,0,0,0
-	animation1101.pattern1,interpolate,-1,1000-5000,0,0
+	animation1101.pattern0,overlay,1100,0,0,0
+	animation1101.pattern1,overlay,1100,1000-5000,0,0
 	animation1101.pattern2,start,1100
+	animation1101.option,background
 	
 	animation1102.interval,never
-	animation1102.pattern0,interpolate,1101,0,0,0
-	animation1102.pattern1,interpolate,-1,1000-5000,0,0
+	animation1102.pattern0,overlay,1101,0,0,0
+	animation1102.pattern1,overlay,1101,1000-5000,0,0
 	animation1102.pattern2,start,1100
+	animation1102.option,background
 	
 	animation1103.interval,never
-	animation1103.pattern0,interpolate,1102,0,0,0
-	animation1103.pattern1,interpolate,-1,1000-5000,0,0
+	animation1103.pattern0,overlay,1102,0,0,0
+	animation1103.pattern1,overlay,1102,1000-5000,0,0
 	animation1103.pattern2,start,1100
+	animation1103.option,background
 	
 	animation1104.interval,never
-	animation1104.pattern0,interpolate,1103,0,0,0
-	animation1104.pattern1,interpolate,-1,1000-5000,0,0
+	animation1104.pattern0,overlay,1103,0,0,0
+	animation1104.pattern1,overlay,1103,1000-5000,0,0
 	animation1104.pattern2,start,1100
+	animation1104.option,background
+	
+	
+	
 	
 	
 	//---Back left arm---
 	animation1201.interval,never
-	animation1201.pattern0,interpolate,1200,0,0,0
-	animation1201.pattern1,interpolate,-1,1000-5000,0,0
+	animation1201.pattern0,overlay,1200,0,0,0
+	animation1201.pattern1,overlay,1200,1000-5000,0,0
 	animation1201.pattern2,start,1200
-	
+	animation1201.option,background
+
 	animation1202.interval,never
-	animation1202.pattern0,interpolate,1201,0,0,0
-	animation1202.pattern1,interpolate,-1,1000-5000,0,0
+	animation1202.pattern0,overlay,1201,0,0,0
+	animation1202.pattern1,overlay,1201,1000-5000,0,0
 	animation1202.pattern2,start,1200
-	
+	animation1202.option,background
+
 	animation1203.interval,never
-	animation1203.pattern0,interpolate,1202,0,0,0
-	animation1203.pattern1,interpolate,-1,1000-5000,0,0
+	animation1203.pattern0,overlay,1202,0,0,0
+	animation1203.pattern1,overlay,1202,1000-5000,0,0
 	animation1203.pattern2,start,1200
-	
+	animation1203.option,background
+
 	animation1204.interval,never
-	animation1204.pattern0,interpolate,1203,0,0,0
-	animation1204.pattern1,interpolate,-1,1000-5000,0,0
+	animation1204.pattern0,overlay,1203,0,0,0
+	animation1204.pattern1,overlay,1203,1000-5000,0,0
 	animation1204.pattern2,start,1200
+	animation1204.option,background
 	
 	
 	//---Back synths---
@@ -166,94 +172,98 @@ surface25 //Singing
 	
 	//---Head + Front left arm---
 	animation2500.interval,never
-	animation2500.pattern0,overlay,4000,-1,0,0 //Top
-	animation2500.pattern1,overlay,4000,500-600,-1,1 //Mid
-	animation2500.pattern2,overlay,4000,30,-1,2 //Bottom
-	animation2500.pattern3,overlay,4000,75,-1,1 //Mid
-	animation2500.pattern4,overlay,-1,50,0,0
-	animation2500.pattern5,alternativestart,(1300,2500,2500,2500)
+	animation2500.pattern0,overlay,4000,0,0,0
+	animation2500.pattern1,overlay,4000,500-600,-1,1
+	animation2500.pattern2,overlay,4000,30,-1,2
+	animation2500.pattern3,overlay,4000,75,-1,1
+	animation2500.pattern4,overlay,4000,50,0,0
+	animation2500.pattern5,alternativestart,(1300,2500)
 	
 	animation2501.interval,never
-	animation2501.pattern0,overlay,4001,-1,0,0 //Top
-	animation2501.pattern1,overlay,4001,500-600,-1,1 //Mid
-	animation2501.pattern2,overlay,4001,30,-1,2 //Bottom
-	animation2501.pattern3,overlay,4001,75,-1,1 //Mid
-	animation2501.pattern4,overlay,-1,50,0,0
-	animation2501.pattern8,alternativestart,(1300,2501,2501,2501)
+	animation2501.pattern0,overlay,4001,0,0,0
+	animation2501.pattern1,overlay,4001,500-600,-1,1
+	animation2501.pattern2,overlay,4001,30,-1,2
+	animation2501.pattern3,overlay,4001,75,-1,1
+	animation2501.pattern4,overlay,4001,50,0,0
+	animation2501.pattern8,alternativestart,(1300,2501)
 	
 	animation2502.interval,never
-	animation2502.pattern0,overlay,4002,-1,0,0 //Top
-	animation2502.pattern1,overlay,4002,500-600,-1,1 //Mid
-	animation2502.pattern2,overlay,4002,30,-1,2 //Bottom
-	animation2502.pattern3,overlay,4002,75,-1,1 //Mid
-	animation2502.pattern4,overlay,-1,50,0,0
-	animation2502.pattern8,alternativestart,(1300,2502,2502,2502)
+	animation2502.pattern0,overlay,4002,0,0,0
+	animation2502.pattern1,overlay,4002,500-600,-1,1
+	animation2502.pattern2,overlay,4002,30,-1,2
+	animation2502.pattern3,overlay,4002,75,-1,1
+	animation2502.pattern4,overlay,4002,50,0,0
+	animation2502.pattern8,alternativestart,(1300,2502)
 	
 	animation2503.interval,never
-	animation2503.pattern0,overlay,4003,-1,0,0 //Top
-	animation2503.pattern1,overlay,4003,500-600,-1,1 //Mid
-	animation2503.pattern2,overlay,4003,30,-1,2 //Bottom
-	animation2503.pattern3,overlay,4003,75,-1,1 //Mid
-	animation2503.pattern4,overlay,-1,50,0,0
-	animation2503.pattern8,alternativestart,(1300,2503,2503,2503)
+	animation2503.pattern0,overlay,4003,0,0,0
+	animation2503.pattern1,overlay,4003,500-600,-1,1
+	animation2503.pattern2,overlay,4003,30,-1,2
+	animation2503.pattern3,overlay,4003,75,-1,1
+	animation2503.pattern4,overlay,4003,50,0,0
+	animation2503.pattern8,alternativestart,(1300,2503)
 	
 	animation2504.interval,never
-	animation2504.pattern0,overlay,4050,-1,0,0 //Top
-	animation2504.pattern1,overlay,4050,500-600,-1,1 //Mid
-	animation2504.pattern2,overlay,4050,30,-1,2 //Bottom
-	animation2504.pattern3,overlay,4050,75,-1,1 //Mid
-	animation2504.pattern4,overlay,-1,50,0,0
-	animation2504.pattern8,alternativestart,(1300,2504,2504,2504)
+	animation2504.pattern0,overlay,4050,0,0,0
+	animation2504.pattern1,overlay,4050,500-600,-1,1
+	animation2504.pattern2,overlay,4050,30,-1,2
+	animation2504.pattern3,overlay,4050,75,-1,1
+	animation2504.pattern4,overlay,4050,50,0,0
+	animation2504.pattern8,alternativestart,(1300,2504)
 	
 	animation2505.interval,never
-	animation2505.pattern0,overlay,4051,-1,0,0 //Top
-	animation2505.pattern1,overlay,4051,500-600,-1,1 //Mid
-	animation2505.pattern2,overlay,4051,30,-1,2 //Bottom
-	animation2505.pattern3,overlay,4051,75,-1,1 //Mid
-	animation2505.pattern4,overlay,-1,50,0,0
-	animation2505.pattern8,alternativestart,(1300,2505,2505,2505)
+	animation2505.pattern0,overlay,4051,0,0,0
+	animation2505.pattern1,overlay,4051,500-600,-1,1
+	animation2505.pattern2,overlay,4051,30,-1,2
+	animation2505.pattern3,overlay,4051,75,-1,1
+	animation2505.pattern4,overlay,4051,50,0,0
+	animation2505.pattern8,alternativestart,(1300,2505)
 	
 	animation2506.interval,never
-	animation2506.pattern0,overlay,4052,-1,0,0 //Top
-	animation2506.pattern1,overlay,4052,500-600,-1,1 //Mid
-	animation2506.pattern2,overlay,4052,30,-1,2 //Bottom
-	animation2506.pattern3,overlay,4052,75,-1,1 //Mid
-	animation2506.pattern4,overlay,-1,50,0,0
-	animation2506.pattern8,alternativestart,(1300,2506,2506,2506)
+	animation2506.pattern0,overlay,4052,0,0,0
+	animation2506.pattern1,overlay,4052,500-600,-1,1
+	animation2506.pattern2,overlay,4052,30,-1,2
+	animation2506.pattern3,overlay,4052,75,-1,1
+	animation2506.pattern4,overlay,4052,50,0,0
+	animation2506.pattern8,alternativestart,(1300,2506)
 	
 	animation2507.interval,never
-	animation2507.pattern0,overlay,4053,-1,0,0 //Top
-	animation2507.pattern1,overlay,4053,500-600,-1,1 //Mid
-	animation2507.pattern2,overlay,4053,30,-1,2 //Bottom
-	animation2507.pattern3,overlay,4053,75,-1,1 //Mid
-	animation2507.pattern4,overlay,-1,50,0,0
-	animation2507.pattern8,alternativestart,(1300,2507,2507,2507)
+	animation2507.pattern0,overlay,4053,0,0,0
+	animation2507.pattern1,overlay,4053,500-600,-1,1
+	animation2507.pattern2,overlay,4053,30,-1,2
+	animation2507.pattern3,overlay,4053,75,-1,1
+	animation2507.pattern4,overlay,4053,50,0,0
+	animation2507.pattern8,alternativestart,(1300,2507)
 	
 	
 	
 	
 	//---Front right arm---
-	animation2700.interval,never //Main
+	//Main
+	animation2700.interval,never
 	animation2700.pattern0,overlay,1000,0,0,0
-	animation2700.pattern1,overlay,-1,400-2500,0,0
+	animation2700.pattern1,overlay,100,400-2500,0,0
 	animation2700.pattern2,start,1000
 	
-	animation2701.interval,never //Turn knob
+	//Turn knob
+	animation2701.interval,never
 	animation2701.pattern0,overlay,1001,0,0,0
 	animation2701.pattern2,overlay,1002,300-2000,0,0
 	animation2701.pattern3,overlay,1001,300-800,0,0
 	animation2701.pattern4,overlay,1002,200-500,0,0
-	animation2701.pattern5,overlay,-1,200-500,0,0
+	animation2701.pattern5,overlay,1002,200-500,0,0
 	animation2701.pattern6,alternativestart,(1000,2701)
 	
-	animation2702.interval,never //Main
+	//Main
+	animation2702.interval,never
 	animation2702.pattern0,overlay,1003,0,0,0
-	animation2702.pattern1,overlay,-1,400-2500,0,0
+	animation2702.pattern1,overlay,1003,400-2500,0,0
 	animation2702.pattern2,start,1000
 	
-	animation2703.interval,never //Main
+	//Main
+	animation2703.interval,never
 	animation2703.pattern0,overlay,1004,0,0,0
-	animation2703.pattern1,overlay,-1,400-2500,0,0
+	animation2703.pattern1,overlay,1004,400-2500,0,0
 	animation2703.pattern2,start,1000
 	
 	

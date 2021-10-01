@@ -22,7 +22,7 @@ MouseMoveSakura
 			totalpets++
 
 			if ISFUNC("OnCustom_Petting") && CustomFuncs[0] == 1; OnCustom_Petting
-			else; "\0\s[1].\w5 .\w5 .\w5\e"
+			else; "\0\s[1].\w5 .\w5 .\w5\_w[4000]\![raise,OnSurfaceRestore]\e"
 		}
 	}
 	elseif ISFUNC("OnCustom_MouseMoveSakura") && CustomFuncs[0] == 1; OnCustom_MouseMoveSakura

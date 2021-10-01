@@ -7,6 +7,9 @@ On_homeurl
 On_recommendrootbutton.caption //Change this to your username, or change the whole caption to whatever you want. This is the top list of websites
 {
 	if language == "Placeholder"; {} //TRANSLATORS: The label for the top set of websites
+	elseif language == "Deutsch"; {"Mehr von den Entwicklern"}
+	elseif language == "Русский"; {"Больше от Авторы"}
+	elseif language == "Français"; {"Plus des devs"}
 	elseif language == "Polski"; {"Więcej od deweloperów"}
 	else; {"More from the devs"}
 }
@@ -16,6 +19,18 @@ On_sakura.recommendsites //Websites under the top dropdown menu, make em whateve
 	if language == "Placeholder" //TRANSLATORS: This directs to the links for the devs. Make sure to copy this format carefully, you'll need to make an array function for your language below
 	{
 		FormatLinks(recommendsites_sakura_placeholder)
+	}
+	elseif language == "Deutsch"
+	{
+		FormatLinks(recommendsites_sakura_deutsch)
+	}
+	elseif language == "Русский"
+	{
+		FormatLinks(recommendsites_sakura_русский)
+	}
+	elseif language == "Français"
+	{
+		FormatLinks(recommendsites_sakura_french)
 	}
 	elseif language == "Polski"
 	{
@@ -27,9 +42,30 @@ On_sakura.recommendsites //Websites under the top dropdown menu, make em whateve
 	}
 }
 
-recommendsites_sakura_placeholder : array //TRANSLATORS: This is where the actual links go, observe the ones below for how to set this up. Make sure there's always a space before and after the | ! Also, be sure to add your name and link here for your translation!  And all of my thanks for bringing FLUX to a wider audience <3 Also note, %(shellauthor[0]) will be the name of the dev for the current shell, and shellauthor[2] is their craftmanurl
+recommendsites_sakura_placeholder : array //TRANSLATORS: This is where the actual links go, observe the ones below for how to set this up. Make sure there's always a space before and after the | ! Also, be sure to add your name and link here for your translation! And all of my thanks for bringing FLUX to a wider audience <3 Also note, shellauthor[0] will be the name of the dev for the current shell, and shellauthor[2] is their craftmanurl
 {
 	
+}
+
+recommendsites_sakura_deutsch : array
+{
+	"FLUX-Player von Zichqec                  | https://zichqec.github.io/s-the-skeleton/index.html"
+	"%(language)e Übersetzung von Koguri3108  | https://koguri3108.tumblr.com"
+	"%(nowshell) Shell von %(shellauthor[0])  | %(shellauthor[2])"
+}
+
+recommendsites_sakura_русский : array
+{
+	"Плеер FLUX от Zichqec                        | https://zichqec.github.io/s-the-skeleton/index.html"
+	"Русский перевод от Смоукы                    | https://smokycinnamon.github.io/indifferentsorrel/index.html"
+	"Внешний Вид %(nowshell) от %(shellauthor[0]) | %(shellauthor[2])"
+}
+
+recommendsites_sakura_french : array
+{
+	"Lecteur FLUX par Zichqec                | https://zichqec.github.io/s-the-skeleton/index.html"
+	"Traduction française par Levidre        | https://azura-levidre.tumblr.com/"
+	"Shell %(nowshell) par %(shellauthor[0]) | %(shellauthor[2])"
 }
 
 recommendsites_sakura_polski : array
@@ -49,6 +85,9 @@ recommendsites_sakura_english : array
 On_portalrootbutton.caption //Caption for the second list of websites
 {
 	if language == "Placeholder"; {} //TRANSLATORS: The label for the second set of links in the right click menu
+	elseif language == "Deutsch"; {"Bezugs-Webseiten"}
+	elseif language == "Русский";  {"Справочные Сайти"}
+	elseif language == "Français"; {"Sites Références"}
 	elseif language == "Polski";  {"Strony źródłowe"}
 	else; {"Reference Sites"} //English
 }
@@ -59,6 +98,18 @@ On_sakura.portalsites
 	if language == "Placeholder" //TRANSLATORS: This directs to the resource links, same deal as above
 	{
 		FormatLinks(portalsites_sakura_placeholder)
+	}
+	elseif language == "Deutsch"
+	{
+		FormatLinks(portalsites_sakura_deutsch)
+	}
+	elseif language == "Русский"
+	{
+		FormatLinks(portalsites_sakura_русский)
+	}
+	elseif language == "Français"
+	{
+		FormatLinks(portalsites_sakura_french)
 	}
 	elseif language == "Polski"
 	{
@@ -75,6 +126,45 @@ portalsites_sakura_placeholder : array //TRANSLATORS: The actual list of links
 	
 }
 
+portalsites_sakura_deutsch : array 
+{
+	"Gebaut mit X. Template YAYA - v.1.0.4 | https://zichqec.github.io/s-the-skeleton/xtemplate.html"
+	"Zarla's Ghost-Vorlage Walkthrough     | http://www.ashido.com/ukagaka/walkthrough.html"
+	"Wie man Updates mit Github aufsetzt   | https://zichqec.github.io/s-the-skeleton/github.html"
+	"Ukagaka Dream Team Discord            | https://ukagakadreamteam.tumblr.com/discord"
+	"SSP (J)                               | http://ssp.shillest.net/"
+	"Ukadoc (J)                            | http://ssp.shillest.net/ukadoc/manual/list_shiori_event.html"
+	"YAYA Wiki (J)                         | http://emily.shillest.net/ayaya/index.php?"
+	"Crow + SSP Reference (J)              | http://crow.aqrs.jp/reference/all/index.html"
+	"Ghost Dokumentation (J)               | http://usada.sakura.vg/contents/specification.html"
+}
+
+portalsites_sakura_русский : array
+{
+	"Настроено от X. Template YAYA - v.1.0.4 | https://zichqec.github.io/s-the-skeleton/xtemplate.html"
+	"Укагакский Образец у Zarla              | http://www.ashido.com/ukagaka/walkthrough.html"
+	"Как настроить обновление с Github       | https://zichqec.github.io/s-the-skeleton/github.html"
+	"Дискорд Ukagaka Dream Team              | https://ukagakadreamteam.tumblr.com/discord"
+	"SSP (J)                                 | http://ssp.shillest.net/"
+	"Укадок (J)                              | http://ssp.shillest.net/ukadoc/manual/list_shiori_event.html"
+	"Вики YAYA (J)                           | http://emily.shillest.net/ayaya/index.php?"
+	"Справочные Crow + SSP (J)               | http://crow.aqrs.jp/reference/all/index.html"
+	"Документация Укагакы (J)                | http://usada.sakura.vg/contents/specification.html"
+}
+
+portalsites_sakura_french : array 
+{
+	"Créé à partir de X. Template YAYA - v.1.0.4 | https://zichqec.github.io/s-the-skeleton/xtemplate.html"
+	"Le tutoriel de Zarla sur les ghosts         | http://www.ashido.com/ukagaka/walkthrough.html"
+	"Comment créer des mise à jour avec github   | https://zichqec.github.io/s-the-skeleton/github.html"
+	"Discord de l'Ukagaka Dream Team             | https://ukagakadreamteam.tumblr.com/discord"
+	"SSP (J)                                     | http://ssp.shillest.net/"
+	"Ukadoc (J)                                  | http://ssp.shillest.net/ukadoc/manual/list_shiori_event.html"
+	"Wiki du YAYA (J)                            | http://emily.shillest.net/ayaya/index.php?"
+	"Crow + Reference de SSP (J)                 | http://crow.aqrs.jp/reference/all/index.html"
+	"Documentation sur les Ghosts (J)            | http://usada.sakura.vg/contents/specification.html"
+}
+
 portalsites_sakura_polski : array 
 {
 	"Zbudowany na X. Template YAYA - v.1.0.4   | https://zichqec.github.io/s-the-skeleton/xtemplate.html"
@@ -89,7 +179,7 @@ portalsites_sakura_polski : array
 }
 
 //Same deal as above with the formatting. //I'd appreciate it if you left the X. Template link in your ghost so that other people can find the source <3
-portalsites_sakura_eng : array 
+portalsites_sakura_english : array 
 {
 	"Built on X. Template YAYA - v.1.0.4 | https://zichqec.github.io/s-the-skeleton/xtemplate.html"
 	"Zarla's Ghost Template Walkthrough  | http://www.ashido.com/ukagaka/walkthrough.html"
@@ -172,24 +262,29 @@ On_callghostrootbutton.caption //Caption for the call ghost button
 	//"Call Ghost"
 }
 
-On_hidebutton.caption //Caption for the minimize/iconify button
-{
-	if lanugage == "Placeholder"; {} //TRANSLATORS: The minimize button
-	elseif lanugage == "Placeholder"; {"Zminimalizuj"}
-	else; {"Minimize"}
-}
+// On_hidebutton.caption //Caption for the minimize/iconify button
+// {
+	// if lanugage == "Placeholder"; {} //Old translator note: The minimize button
+	// elseif language == "Deutsch"; {"Minimieren"}
+	// elseif language == "Русский"; {"Свернуть"}
+	// elseif lanugage == "Polski"; {"Zminimalizuj"}
+	// else; {"Minimize"}
+// }
 
 On_quitbutton.caption //Caption for the quit button
 {
 	//"Quit"
 }
 
-On_calendarbutton.caption //The default right click menu has this typoed as 'Calender'
-{
-	if language == "Placeholder"; {} //TRANSLATORS: The calendar button. The english version is typoed, or this wouldn't be necessary...
-	elseif language == "Polski"; {"Kalendarz"}
-	else; {"Calendar"}
-}
+// On_calendarbutton.caption //The default right click menu has this typoed as 'Calender'
+// {
+	// if language == "Placeholder"; {} //Old translator note, can be ignored now: The calendar button. The english version is typoed, or this wouldn't be necessary...
+	//elseif language == "Deutsch"; {"Kalender"}
+	//elseif language == "Русский"; {"Календрь"}
+	// elseif language == "Français"; {}
+	// elseif language == "Polski"; {"Kalendarz"}
+	// else; {"Calendar"}
+// }
 
 
 
