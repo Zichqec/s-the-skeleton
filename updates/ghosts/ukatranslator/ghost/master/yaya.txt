@@ -1,0 +1,19 @@
+charset, UTF-8
+charset.dic, UTF-8
+charset.output, UTF-8
+charset.file, UTF-8
+charset.save, UTF-8
+charset.extension, UTF-8
+
+include, system_config.txt
+dic, ut_main.dic
+dic, ut_string.dic
+dic, ut_menu.dic
+
+//If you're a translator, copy this line and change it to the name of your new language file!
+dic, ut_lang_en.dic
+dic, ut_lang_de.dic
+
+
+//log, ayame.log
+msglang,english

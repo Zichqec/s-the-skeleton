@@ -1,0 +1,8 @@
+version,1
+surface0
+{
+	element0,overlay,surface0.png,0,0
+	
+	animation1.interval,bind
+	animation1.pattern0,replace,10,0,0,0
+}

@@ -18,6 +18,7 @@ let links = [
 		{ path: 'iea', title: 'Iea' },
 	] },
 	{ path: 'xtemplate', title: 'X. Template' },
+	{ path: 'ukatranslator', title: 'Ukatranslator' },
 	{ title: 'Code', sublinks: [
 		{ path: 'saoris_plugins_tools', title: 'SAORIs/Plugins/Tools' },
 		{ path: 'functions', title: 'Functions' },

@@ -1,0 +1,658 @@
+OnStartUpdate
+{
+	"\![updatebymyself]"
+}
+
+OnMouseDoubleClick {if !("\e vErY_fIrSt_BoOt" _in_ SHIORI3FW.LastTalk) && reference5 == 0; OnMenuRun}
+
+// Select.UpdateLater //If the user decides to update later
+// {
+	// AutoUpdates[1] = 1
+// }
+
+// Select.UpdateOff //If the user no longer wants to be notified about updates
+// {
+	// AutoUpdates[0] = 0
+	// AutoUpdates[1] = 1
+// }
+
+OnOpenTargetGhost
+{
+	Listening = 1
+	"\![set,otherghosttalk,%(listenopt)]\![call,ghost,%(ListeningTo)]"
+}
+
+OnGhostCalling
+{
+	if reference0 == ListeningTo; Listening = 1
+	"\![set,otherghosttalk,%(listenopt)]"
+}
+
+OnListeningToggle
+{
+	if listenopt == ""; listenopt = "before"
+	
+	if reference0 == "On"
+	{
+		Listening = 1
+		"\![set,otherghosttalk,%(listenopt)]"
+	}
+	else
+	{
+		Listening = 0
+		"\![set,otherghosttalk,false]"
+	}
+	--
+	OnMenuRun
+}
+
+OnGhostPicked
+{
+	//Listening = 1
+	ListeningTo = reference0
+	//"\![set,otherghosttalk,%(listenopt)]"
+	OnPickGhost
+}
+
+OnProfileNewNickname
+{
+	_tochange = ""
+	_ghost = reference2
+	_char = reference3
+	_index = ASEARCH(_ghost,GhostProfiles.GhostName)
+	
+	
+	EVAL("GhostProfiles.%(_char)Nickname[_index] = '%(CUTSPACE(reference0))'")
+	
+	"\![raise,OnGhostProfile,%(Sanitize(reference2)),%(Sanitize(reference3))]"
+}
+
+OnNewCharacterName
+{
+	LOGGING("====================================================================")
+	LOGGING(GhostProfiles.ExtraNums)
+	LOGGING(GhostProfiles.ExtraNicknames)
+	_ghost = reference2
+	_index = ASEARCH(_ghost,GhostProfiles.GhostName)
+	_extranums = GhostProfiles.ExtraNums[_index]
+	_extranicknames = GhostProfiles.ExtraNicknames[_index]
+	
+	if _extranums != ""; _extranums += C_BYTE1
+	if _extranicknames != ""; _extranicknames += C_BYTE1
+	
+	_extranums += reference3
+	_extranicknames += CUTSPACE(reference0)
+
+	GhostProfiles.ExtraNums[_index] = _extranums
+	GhostProfiles.ExtraNicknames[_index] = _extranicknames
+	
+	
+	"\![raise,OnGhostProfile,%(Sanitize(reference2))]"
+}
+
+OnRemoveExtraCharNickname
+{
+	_ghost = reference0
+	_index = ASEARCH(_ghost,GhostProfiles.GhostName)
+	_extranums = SPLIT(GhostProfiles.ExtraNums[_index],C_BYTE1)
+	_extranicknames = SPLIT(GhostProfiles.ExtraNicknames[_index],C_BYTE1)
+	
+	_extranums[reference1] = IARRAY
+	_extranicknames[reference1] = IARRAY
+	
+	_extranum_out = ""
+	_extranick_out = ""
+	for _i = 0; _i < ARRAYSIZE(_extranums); _i++
+	{
+		if _i != 0
+		{
+			_extranum_out += C_BYTE1
+			_extranick_out += C_BYTE1
+		}
+		_extranum_out += _extranums[_i]
+		_extranick_out += _extranicknames[_i]
+	}
+	GhostProfiles.ExtraNums[_index] = _extranum_out
+	GhostProfiles.ExtraNicknames[_index] = _extranick_out
+	"\![raise,OnGhostProfile,%(Sanitize(reference0))]"
+}
+
+OnEditedExtraCharName
+{
+	_ghost = reference2
+	_index = ASEARCH(_ghost,GhostProfiles.GhostName)
+	_extranums = SPLIT(GhostProfiles.ExtraNums[_index],C_BYTE1)
+	_extranicknames = GhostProfiles.ExtraNicknames[_index]
+	_charnum = reference3
+	
+	_extranicknames[_charnum,C_BYTE1] = reference0
+	GhostProfiles.ExtraNicknames[_index] = _extranicknames
+	"\![raise,OnGhostProfile,%(Sanitize(_ghost))]"
+}
+
+OnManualScriptInput
+{
+	"\![raise,OnOtherGhostTalk,,%(ListeningTo),,,%(Sanitize(reference0)),,manual]"
+	
+	// OtherGhostTranslate = ChangeCharacterTags(reference0)
+	// OtherGhostTranslate = RemoveSakuraScript(OtherGhostTranslate)
+	
+	// if SUBSTR(OtherGhostTranslate,0,4) == "\n\n"; OtherGhostTranslate = ERASE(OtherGhostTranslate,0,4) //Remove extra \n\n if it's present. This is added by the ChangeCharacterTags function, so this should be safe to do
+	
+	// OnTranslateAutoOpen
+}
+
+//debug
+ResetProfiles
+{
+	GhostProfiles.GhostNickname = IARRAY
+	GhostProfiles.SakuraNickname = IARRAY
+	GhostProfiles.KeroNickname = IARRAY
+	GhostProfiles.ExtraNums = IARRAY
+	GhostProfiles.ExtraNicknames = IARRAY
+}
+
+Sanitize
+{
+	"%(CHR(34))%(_argv)%(CHR(34))"
+}
+
+MenuTag
+{
+	if _argv[0]; "\_a"
+	else; "\__q"
+}
+
+
+
+
+
+OnTranslateMode
+{
+	TranslateMode = TOINT(reference0)
+	OnSettingsMenu
+}
+
+OnTranslateFrom
+{
+	TranslateFrom = reference0
+	OnSettingsMenu
+}
+
+OnTranslateTo
+{
+	TranslateTo = reference0
+	OnSettingsMenu
+}
+
+OnCustomLanguageInput
+{
+	if reference2 == "from"
+	{
+		CustomLanguageFrom = reference0
+	}
+	else //to
+	{
+		CustomLanguageTo = reference0
+	}
+	OnSettingsMenu
+}
+
+OnTranslator
+{
+	Translator = reference0
+	OnSettingsMenu
+}
+
+OnOpenTranslator
+{
+	if reference0 == "google"
+	{
+		"\j[https://translate.google.com/]"
+	}
+	else //DeepL
+	{
+		"\j[https://www.deepl.com/translator]"
+	}
+}
+
+OnOtherGhostTalk
+{
+	OtherGhostTranslate = ""
+	LOGGING("==================Recieved==================")
+	LOGGING("From: %(reference1)")
+	LOGGING("Listening for: %(ListeningTo)")
+	
+	_index = ASEARCH(ListeningTo,GhostProfiles.GhostName)
+	_nickname = GhostProfiles.GhostNickname[_index]
+	if _nickname == ""; _nickname = ListeningTo
+				
+	_name = "%(_nickname)'s "
+	if reference6 == "manual"; _name = ""
+	
+	if reference1 == ListeningTo
+	{
+		
+		
+		_translate = 1
+		LOGGING("============================")
+		LOGGING(reference3)
+		//if reference3 == "OnSurfaceRestore" //Happens in stuff like aitalk too, with Emily...
+		//{
+			LOGGING("Got inside the if")
+			_check = RemoveCharacterTags(reference4)
+			_check = RemoveSakuraScript(_check)
+			if STRLEN(_check) == 0; _translate = 0
+			LOGGING("Len: %(STRLEN(_check))")
+			LOGGING(_check)
+			LOGGING(_translate)
+		//}
+		
+		if _translate == 1
+		{
+			
+		
+			OtherGhostTranslate = ChangeCharacterTags(reference4)
+			OtherGhostTranslate = RemoveSakuraScript(OtherGhostTranslate)
+			
+			if SUBSTR(OtherGhostTranslate,0,4) == "\n\n"; OtherGhostTranslate = ERASE(OtherGhostTranslate,0,4) //Remove extra \n\n if it's present. This is added by the ChangeCharacterTags function, so this should be safe to do
+			
+			if OtherGhostTranslate == ""; return //This might be redundant... oh well.
+			
+			TotalTranslations++
+			TodaysTranslations++
+			TodaysTranslatedChars += STRLEN(OtherGhostTranslate)
+			
+			if TranslateMode == 2
+			{
+				LOGGING("OPEN TRANSLATOR")
+				LOGGING("============================")
+				OnTranslateAutoOpen
+			}
+			else
+			{
+				"\0\_q\![set,autoscroll,disable]"
+				--
+				LOGGING("====================================================================")
+				LOGGING(_nickname)
+				if ISFUNC("OnTranslateAskForInput.%(language)"); EVAL("OnTranslateAskForInput.%(language)(_nickname)")
+				else; OnTranslateAskForInput.English(_nickname)
+			}
+		}
+	}
+}
+
+OnOtherGhostClosed
+{
+	if reference0 == ListeningTo
+	{
+		Listening = 0
+		"\![set,otherghosttalk,false]"
+	}
+}
+
+OnTranslateCopy
+{
+	_i = FUNCTIONEX("clipcopy.dll",OtherGhostTranslate)
+}
+
+OnTranslateAutoOpen
+{
+	_lengthcap = 5000 //Limit of DeepL
+	_buffer = 500 //Buffer for the text saying (cont) or whatever
+	
+	_translate = STRENCODE(REPLACE(OtherGhostTranslate,"\n","%(CHR(13,10))"),1,'url')
+	
+	OtherGhostTranslate = IARRAY
+	
+	if STRLEN(_translate) > _lengthcap
+	{
+		for _i = 0; _i < STRLEN(_translate); _i += _lengthcap
+		{
+			_toadd = ""
+			if STRLEN(_translate) - _i > _lengthcap
+			{
+				if ISFUNC("too_long_start.%(language)"); EVAL("_toadd += too_long_start.%(language) + '[UKATRANSLATOR_CRLF_MARKER]'")
+				else; _toadd += too_long_start.English
+			}
+			
+			_toadd += SUBSTR(_translate,_i,_lengthcap - _buffer)
+			
+			if STRLEN(_translate) - _i > _lengthcap
+			{
+				if ISFUNC("too_long_end.%(language)"); EVAL("_toadd += '...[UKATRANSLATOR_CRLF_MARKER]' + too_long_end.%(language)")
+				else; _toadd += too_long_end.English
+			}
+			
+			OtherGhostTranslate ,= _toadd
+		}
+	}
+	else
+	{
+		OtherGhostTranslate = _translate
+	}
+	
+	"\![raise,OnOpenBrowserTranslate,0]"
+}
+
+OnOpenBrowserTranslate
+{
+	_text = REPLACE(OtherGhostTranslate[reference0],"[UKATRANSLATOR_CRLF_MARKER]",STRENCODE("%(CHR(13,10))"))
+	
+	if Translator == "Google"
+	{
+		"\j[https://translate.google.com/?sl=%(TranslateFrom)&tl=%(TranslateTo)&text=%(Sanitize(_text))]"
+	}
+	else //DeepL
+	{
+		LOGGING("?????????????????????????????????????")
+		"\j[https://www.deepl.com/translator#%(TranslateFrom)/%(TranslateTo)/%(Sanitize(_text))]"
+	}
+	--
+	if ARRAYSIZE(OtherGhostTranslate) > 1 && reference0 < ARRAYSIZE(OtherGhostTranslate) - 1
+	{
+		"\0\s[0]\*\_q\b2\![set,autoscroll,disable]"
+		--
+		if ISFUNC("too_long_menu.%(language)"); EVAL("too_long_menu.%(language)")
+		else; too_long_menu.English
+	}
+}
+
+//probably not needed cause it auto-escapes these characters? Hm... May need to convert \n tho
+UrlTags
+{
+	_argv[0] = REPLACE(_argv[0]," ","%20")
+	_argv[0] = REPLACE(_argv[0],"\n","%0A")
+	_argv[0] = REPLACE(_argv[0],":","%3A")
+	_argv[0]
+}
+
+RemoveCharacterTags
+{
+	_argv[0] = REPLACE(_argv[0],"\n","")
+	_argv[0] = RE_REPLACE(_argv[0],'\\p\[\d*\]',"")
+	_argv[0] = REPLACE(_argv[0],'\h',"")
+	_argv[0] = REPLACE(_argv[0],'\0',"")
+	_argv[0] = REPLACE(_argv[0],'\u',"")
+	_argv[0] = REPLACE(_argv[0],'\1',"")
+	_argv[0] = RE_REPLACE(_argv[0],'\\p\d',"")
+	_argv[0]
+}
+
+ChangeCharacterTags
+{
+	_index = ASEARCH(ListeningTo,GhostProfiles.GhostName)
+	_nickname = GhostProfiles.GhostNickname[_index]
+	_sakuranickname = GhostProfiles.SakuraNickname[_index]
+	_keronickname = GhostProfiles.KeroNickname[_index]
+	_extranums = SPLIT(GhostProfiles.ExtraNums[_index],C_BYTE1)
+	_extranicknames = SPLIT(GhostProfiles.ExtraNicknames[_index],C_BYTE1)
+	LOGGING("====================================================================")
+	LOGGING("_index: ",_index)
+	LOGGING("_nickname: ",_nickname)
+	LOGGING("_sakuranickname: ",_sakuranickname)
+	LOGGING("_keronickname: ",_keronickname)
+	LOGGING("_extranums: ",_extranums)
+	LOGGING("_extranicknames: ",_extranicknames)
+	
+	
+	//SAKURA
+	if CUTSPACE(_sakuranickname) != ""
+	{
+		//Can't put groups in groups...
+		//_argv[0] = RE_REPLACE(_argv[0],'(\\n)*\\[h0(p0)(p\[0\])](\\n)*',"\n\nSAKURA:  ") //%(_sakuranickname):  ")
+		_argv[0] = RE_REPLACE(_argv[0],'(\\n)*\\h(\\n)*',"\n\n%(_sakuranickname):  ")
+		_argv[0] = RE_REPLACE(_argv[0],'(\\n)*\\0(\\n)*',"\n\n%(_sakuranickname):  ")
+		_argv[0] = RE_REPLACE(_argv[0],'(\\n)*\\p0(\\n)*',"\n\n%(_sakuranickname):  ")
+		_argv[0] = RE_REPLACE(_argv[0],'(\\n)*\\p\[0\](\\n)*',"\n\n%(_sakuranickname):  ")
+	}
+	else
+	{
+		_argv[0] = RE_REPLACE(_argv[0],'(\\n)*\\h(\\n)*',"\n\nMain Character:  ")
+		_argv[0] = RE_REPLACE(_argv[0],'(\\n)*\\0(\\n)*',"\n\nMain Character:  ")
+		_argv[0] = RE_REPLACE(_argv[0],'(\\n)*\\p0(\\n)*',"\n\nMain Character:  ")
+		_argv[0] = RE_REPLACE(_argv[0],'(\\n)*\\p\[0\](\\n)*',"\n\nMain Character:  ")
+	}
+	
+	//KERO
+	if CUTSPACE(_keronickname) != ""
+	{
+		_argv[0] = RE_REPLACE(_argv[0],'(\\n)*\\u(\\n)*',"\n\n%(_keronickname):  ")
+		_argv[0] = RE_REPLACE(_argv[0],'(\\n)*\\1(\\n)*',"\n\n%(_keronickname):  ")
+		_argv[0] = RE_REPLACE(_argv[0],'(\\n)*\\p1(\\n)*',"\n\n%(_keronickname):  ")
+		_argv[0] = RE_REPLACE(_argv[0],'(\\n)*\\p\[1\](\\n)*',"\n\n%(_keronickname):  ")
+	}
+	else
+	{
+		_argv[0] = RE_REPLACE(_argv[0],'(\\n)*\\u(\\n)*',"\n\nSide Character:  ")
+		_argv[0] = RE_REPLACE(_argv[0],'(\\n)*\\1(\\n)*',"\n\nSide Character:  ")
+		_argv[0] = RE_REPLACE(_argv[0],'(\\n)*\\p1(\\n)*',"\n\nSide Character:  ")
+		_argv[0] = RE_REPLACE(_argv[0],'(\\n)*\\p\[1\](\\n)*',"\n\nSide Character:  ")
+	}
+	
+	//if RE_SEARCH(_argv[0],'\\p\[(\d*)\]')
+	if RE_GREP(_argv[0],'\\p\[(\d*)\]') > 0
+	{
+		LOGGING("Into the regex loop")
+		_found = RE_GETSTR
+		LOGGING("_found: ",_found)
+		//_found[0] = IARRAY
+		LOGGING("_found: ",_found)
+		
+		foreach _found; _instance
+		{
+			_instance = REPLACE(_instance,"\p[","")
+			_instance = REPLACE(_instance,"]","")
+			LOGGING("_instance: ",_instance)
+			_char = ASEARCH(_instance,_extranums)
+			LOGGING("_char: ",_char)
+			if _char != -1
+			{
+				LOGGING("CHAR FOUND")
+				//_argv[0] = REPLACE(_argv[0],"\p[%(_instance)]","\n\n%(_extranicknames[_char]):  ")
+				_argv[0] = RE_REPLACE(_argv[0],"(\\n)*\\p\[%(_instance)\](\\n)*","\n\n%(_extranicknames[_char]):  ")
+			}
+			else
+			{
+				LOGGING("CHAR NOT FOUND")
+				//_argv[0] = REPLACE(_argv[0],"\p[%(_instance)]","\n\nCharacter %(_instance):  ")
+				_argv[0] = RE_REPLACE(_argv[0],"(\\n)*\\p\[%(_instance)\](\\n)*","\n\nCharacter %(_instance):  ")
+			}
+		}
+	}
+	
+	for _i = 0; _i < 9; _i++
+	{
+		_char = ASEARCH("%(_i)",_extranums)
+		LOGGING("_char: ",_char)
+		LOGGING("_extranicknames[_char]: ",_extranicknames[_char])
+		if _extranicknames[_char] != ""
+		{
+			_argv[0] = RE_REPLACE(_argv[0],"(\\n)*\\p%(_i)(\\n)*","\n\n%(_extranicknames[_char]):  ")
+		}
+		else
+		{
+			_argv[0] = RE_REPLACE(_argv[0],"(\\n)*\\p%(_i)(\\n)*","\n\nCharacter %(_i):  ")
+		}
+	}
+	
+	_argv[0]
+}
+
+RemoveSakuraScript
+{
+	_argv[0] = RE_REPLACE(_argv[0],'\\_*[!|s|i|w|b|n|c|l|?|v|f|x|s|a|j|u|m|&]\[[^\]]*\]',"")
+	_argv[0] = RE_REPLACE(_argv[0],'\\b\d',"")
+	_argv[0] = REPLACE(_argv[0],"\4","")
+	_argv[0] = REPLACE(_argv[0],"\5","")
+	_argv[0] = RE_REPLACE(_argv[0],'\\b\d',"")
+	//_argv[0] = REPLACE(_argv[0],"\n","")
+	_argv[0] = REPLACE(_argv[0],"\n[half]","\n") //This was commented, don't know why
+	_argv[0] = REPLACE(_argv[0],"\c","")
+	_argv[0] = REPLACE(_argv[0],"\C","")
+	_argv[0] = REPLACE(_argv[0],"\_!","")
+	_argv[0] = REPLACE(_argv[0],"\_?","")
+	_argv[0] = RE_REPLACE(_argv[0],'\\w\d',"")
+	_argv[0] = REPLACE(_argv[0],"\x","")
+	_argv[0] = REPLACE(_argv[0],"\t","")
+	_argv[0] = REPLACE(_argv[0],"\_q","")
+	_argv[0] = REPLACE(_argv[0],"\_s","") //May cause issues with \_s[stuff]
+	_argv[0] = REPLACE(_argv[0],"\z","")
+	_argv[0] = REPLACE(_argv[0],"\*","")
+	//_argv[0] = REPLACE(_argv[0],"\_a","") //May cause issues but is needed for closing tags
+	_argv[0] = REPLACE(_argv[0],"\e","")
+	_argv[0] = REPLACE(_argv[0],"\-","")
+	_argv[0] = REPLACE(_argv[0],"\6","")
+	_argv[0] = REPLACE(_argv[0],"\7","")
+	_argv[0] = REPLACE(_argv[0],"\+","")
+	_argv[0] = REPLACE(_argv[0],"\_+","")
+	_argv[0] = REPLACE(_argv[0],"\v","")
+	_argv[0] = REPLACE(_argv[0],"\_V","")
+	_argv[0] = REPLACE(_argv[0],"\__t","")
+	_argv[0] = REPLACE(_argv[0],"\__c","")
+	if SUBSTR(_argv[0],0,4) == "\n\n"; ERASE(_argv[0],0,4)
+	_argv[0]
+}
+
+OnTranslate
+{
+	_talk = reference0
+	//---Important other stuff, written by Ponapalt---
+	if reference1 == "" && reference2 == ""
+	{ //send input box : no event (ref2) , no special flag (ref1)
+		EVAL('"' + REPLACE(_talk,'"','" + CHR(0x22) + "') + '"')
+	}
+    else
+	{ //event result from ghost
+		TOSTR(_talk)
+	}
+}
+
+OnMinuteChange
+{
+	if minute == 0 && hour == 0; AutoUpdates[1] = 0
+	if AutoUpdates[0] == 1 && AutoUpdates[1] == 0; {AutoUpdates[1] = 1; "\![updatebymyself,checkonly]"}
+}
+
+OnSurfaceRestore; {if SHIORI3FW.LastSurface[0] != 0; "\0\s[0]\e"}
+
+loremipsum
+{
+	"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+}
+
+OnStatsRequested
+{
+	if reference0 == ""; reference0 = "__SYSTEM_ALL_GHOST__"
+	"\![notifyother,%(reference0),OnStatsGiven,Ukatranslator,%(ghostver),%(language),%(ListeningTo),%(Listening),%(TranslateFrom),%(TranslateTo),%(TranslateMode),%(Translator),%(TranslatorHidden)]"
+	
+	//References:
+	//0 - Contains the string 'Ukatranslator'
+	//1 - Version number
+	//2 - Language that the menus are set to
+	//3 - Name of the target ghost
+	//4 - 1 if currently listening, 0 if not
+	//5 - Language of the target ghost (en, jp, xh, etc; might be set to autodetect)
+	//6 - Language the user wants the target translated to (en, jp, xh, etc)
+	//7 - 0 if the user has Ukatranslator set to ask for input, 1 for auto copy, 2 for opening the translator automatically
+	//8 - Which translator is being used
+	//9 - 1 if Ukatranslator is hidden, 0 if not
+}
+
+OnKeyPress
+{
+	case reference0
+	{
+		when "f1"
+		{
+			"\![open,readme]"
+		}
+		when "v"
+		{
+			if debug == 1
+			{
+				OnTestVar
+			}
+		}
+	}
+}
+
+OnClose
+{
+	UsageLog.Dates ,= "%(year)-%(month)-%(day)"
+	UsageLog.TranslationCount ,= "%(TodaysTranslations)"
+	UsageLog.TranslationCharCount ,= "%(TodaysTranslatedChars)"
+	
+	"\-\e"
+}
+
+DisplayUsageStats
+{
+	"\0\b4\_q\![set,autoscroll,disable]\*"
+	--
+	_display = ""
+	for _i = 0; _i < ARRAYSIZE(UsageLog.Dates); _i++
+	{
+		_display += "%(UsageLog.Dates[_i]): %(UsageLog.TranslationCount[_i]) (%(UsageLog.TranslationCharCount[_i]))\n"
+	}
+	_display
+	--
+	"\n\![*]\q[Close Window,OnBlank]\e"
+}
+
+//These are all the variables you want to set during a normal boot. So every time the ghost opens, we reset the timekeeping, whether the ghost has checked for updates, and if they've said anything yet.
+BootVars
+{
+	AutoUpdates[1] = 0
+	TodaysTranslations = 0
+	TodaysTranslatedChars = 0
+}
+
+UpdateVars
+{
+	//if !ISVAR("examplevariable"); examplevariable = 0
+	if !ISVAR("UsageLog.TranslationCharCount")
+	{
+		UsageLog.TranslationCharCount = IARRAY
+		foreach UsageLog.Dates; _day
+		{
+			UsageLog.TranslationCharCount ,= "Unknown"
+		}
+	}
+}
+
+//These are all the variables that need to be initialized when the user first installs the ghost.
+FirstBootVars
+{
+	//totalhours = 0		//Total number of hours the ghost has been run
+	aitalkinterval = 0
+	
+	AutoUpdates = (1,0)
+	//nowmode = "Default" //Uncomment if you plan to add more modes
+	installdate = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)","%(ghostver)") //This tracks the exact day and time the ghost was installed, in case you want to mess around with that later. It also tracks what version the user installed, which may be helpful for debugging!
+	
+	TotalTranslations = 0
+	TodaysTranslations = 0
+	TodaysTranslatedChars = 0
+	
+	GhostProfiles.GhostNickname = IARRAY
+	GhostProfiles.SakuraNickname = IARRAY
+	GhostProfiles.KeroNickname = IARRAY
+	GhostProfiles.ExtraNums = IARRAY
+	GhostProfiles.ExtraNicknames = IARRAY
+	
+	//This stuff's just here so that I can ask folks for their usage logs if they're willing to share them. Then I can track how much usage it really gets and see if an API is feasible...
+	UsageLog.Dates = IARRAY
+	UsageLog.TranslationCount = IARRAY
+	UsageLog.TranslationCharCount = IARRAY
+	
+	TranslateFrom = "autodetect"
+	TranslateTo = "en"
+	
+	TranslateMode = 0
+	
+	CustomLanguageFrom = ""
+	CustomLanguageTo = ""
+	
+	Translator = "DeepL"
+}

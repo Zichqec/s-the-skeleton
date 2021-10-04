@@ -1,0 +1,645 @@
+OnFirstBoot
+{
+	FirstBootVars
+	
+	"\![enter,passivemode]"
+	--
+	OnFirstLangMenu
+}
+
+OnBoot
+{
+	OpeningTargetGhost = 0
+	Listening = 0
+	BootVars
+	
+	"\0\_q\s[0]"
+	--
+	if TranslatorHidden
+	{
+		"\![bind,Hide,Hide,0]"
+	}
+}
+
+OnWindowStateMinimize
+{
+	"\0"
+	--
+	if ISFUNC("OnMinimizeMessage.%(language)"); EVAL("OnMinimizeMessage.%(language)")
+	else; OnMinimizeMessage.English
+	--
+	"\_w[1000]\e"
+}
+
+OnWindowStateRestore
+{
+	"\0\_q\s[0]"
+	--
+	if TranslatorHidden
+	{
+		"\![bind,Hide,Hide,0]"
+	}
+}
+
+OnFirstLangMenu
+{
+	_list = GETFUNCLIST("language")
+	
+	_display = ""
+	_i = 0
+	foreach _list; _lang
+	{
+		_lang = SPLIT(_lang,".")[1]
+		_display += "\__q[OnFirstLangPicked,%(_lang)]%(_lang)\__q"
+		
+		if _i >= 3; {_display += "\n"; _i = 0}
+		else; {_display += "  "; _i++}
+	}
+	
+	LOGGING(_list)
+	
+	"\0\![enter,passivemode]\b2\*\_q\![set,autoscroll,disable]"
+	--
+	if ISFUNC("OnFirstBoot.%(reference0)"); EVAL("OnFirstBoot.%(reference0)")
+	else; OnFirstBoot.English
+	--
+	"\_l[0,80]"
+	--
+	_display
+	--
+	"\e vErY_fIrSt_BoOt"
+}
+
+OnChoiceHover
+{
+	if reference1 == "OnFirstLangPicked"
+	{
+		"\C\![raise,OnFirstLangMenu,%(reference0),%(reference1)]"
+	}
+}
+
+OnFirstLangPicked
+{
+	language = reference0
+	"\![leave,passivemode]\![raise,OnMenuRun]"
+}
+
+OnMenuRun
+{
+	_s = "\f[strike,1]"
+	_d = "\f[default]"
+	
+	_index = ASEARCH(ListeningTo,GhostProfiles.GhostName)
+	_nickname = GhostProfiles.GhostNickname[_index]
+	_disp = _nickname
+	if _disp == ""; _disp = ListeningTo
+	
+	"\0\b2\*\_q\![close,inputbox,__SYSTEM_ALL_INPUT__]"
+	--
+	if ISFUNC("OnMenuRun.%(language)"); EVAL("OnMenuRun.%(language)(_disp,_s,_d)")
+	else; OnMenuRun.English(_disp,_s,_d)
+}
+
+OnPickGhost
+{
+	"\0\b2\_q\*\![set,autoscroll,disable]"
+	--
+	_display = ""
+	_ghosts = SPLIT(ghostexlist,",")
+	foreach _ghosts; _ghost
+	{
+		_index = ASEARCH(_ghost,GhostProfiles.GhostName)
+
+		_ghostdisp = ""
+		if _index != -1; _ghostdisp = GhostProfiles.GhostNickname[_index]
+		if CUTSPACE(_ghostdisp) == ""; _ghostdisp = _ghost
+		if _ghost == ListeningTo; _display += "\![*]"
+		_display += "\q[%(_ghostdisp),OnGhostPicked,%(_ghost)]\n \n[-100]\f[align,right]\__q[OnGhostProfile,%(_ghost)](CUSTOMIZE_BUTTON)\__q\n\f[align,default]"
+	}
+	
+	if ISFUNC("OnPickGhost.%(language)"); EVAL("OnPickGhost.%(language)(_display)")
+	else; OnPickGhost.English(_display)
+}
+
+OnGhostProfile
+{
+	LOGGING("Reg",reference,_argv)
+	_ghost = reference0
+	_nickname = ""
+	_sakuranickname = ""
+	_keronickname = ""
+	_extranums = IARRAY
+	_extranicknames = IARRAY
+	_charlist = ""
+	
+	_index = ASEARCH(_ghost,GhostProfiles.GhostName)
+	if _index == -1; GhostProfiles.GhostName ,= _ghost
+	else
+	{
+		_nickname = GhostProfiles.GhostNickname[_index]
+		_sakuranickname = GhostProfiles.SakuraNickname[_index]
+		_keronickname = GhostProfiles.KeroNickname[_index]
+		_extranums = SPLIT(GhostProfiles.ExtraNums[_index],C_BYTE1)
+		_extranicknames = SPLIT(GhostProfiles.ExtraNicknames[_index],C_BYTE1)
+		LOGGING("====================================================================")
+		LOGGING(_extranums)
+		LOGGING(_extranicknames)
+		
+		if CUTSPACE(_extranicknames) != ""
+		{
+			_i = 0
+			foreach _extranicknames; _char
+			{
+				_charlist += "\q[(x),OnRemoveExtraCharNickname,%(reference0),%(_i)] "
+				_charlist += "%(_extranums[_i]): \_a[OnEditExtraCharNickname,%(reference0),%(_extranums[_i]),%(_i)]%(_char)\_a\n"
+				_i++
+			}
+		}
+	}
+	
+	"\0\b2\*\_q\![set,autoscroll,disable]"
+	--
+	"\![close,inputbox,__SYSTEM_ALL_INPUT__]"
+	--
+	if ISFUNC("OnGhostProfile.%(language)"); EVAL("OnGhostProfile.%(language)(_ghost,_nickname,_sakuranickname,_keronickname,_charlist)")
+	else; OnGhostProfile.English(_ghost,_nickname,_sakuranickname,_keronickname,_charlist)
+}
+
+OnProfileChangeNickname
+{
+	"\0\b2\*\_q\![open,inputbox,OnProfileNewNickname,-1,,--reference=%(Sanitize(reference0)),--reference=%(Sanitize(reference1))]"
+	--
+	if ISFUNC("OnProfileChangeNickname.%(language)"); EVAL("OnProfileChangeNickname.%(language)")
+	else; OnProfileChangeNickname.English
+}
+
+OnNewCharacterNickname
+{
+	//AddingNewCharacter[0] = reference0
+	"\0\b2\*\_q\![open,inputbox,OnNewCharacterNum,-1,--reference=%(Sanitize(reference0))]"
+	--
+	if ISFUNC("OnNewCharacterNickname.%(language)"); EVAL("OnNewCharacterNickname.%(language)")
+	else; OnNewCharacterNickname.English
+}
+
+OnNewCharacterNum
+{
+	"\0\b2\*\_q\![set,autoscroll,disable]"
+	--
+	_ghost = reference2
+	_index = ASEARCH(_ghost,GhostProfiles.GhostName)
+	_extranums = SPLIT(GhostProfiles.ExtraNums[_index],C_BYTE1)
+	_exists = ASEARCH(reference0,_extranums)
+	if reference0 == 0 || reference0 == 1; reference0 = "INVALID_INPUT"
+	--
+	if ISFUNC("OnNewCharacterNum.%(language)"); EVAL("OnNewCharacterNum.%(language)(_exists)")
+	else; OnNewCharacterNum.English(_exists)	
+}
+
+OnEditExtraCharNickname
+{
+	_ghost = reference0
+	_index = ASEARCH(_ghost,GhostProfiles.GhostName)
+	_extranums = SPLIT(GhostProfiles.ExtraNums[_index],C_BYTE1)
+	_extranicknames = SPLIT(GhostProfiles.ExtraNicknames[_index],C_BYTE1)
+	_charnum = reference1
+	_oldname = _extranicknames[reference2]
+	LOGGING("====================================================================")
+	LOGGING(_extranicknames,_extranicknames[_charnum],_oldname)
+	
+	"\0\b2\_q\*\![set,autoscroll,disable]\![open,inputbox,OnEditedExtraCharName,-1,--reference=%(Sanitize(_ghost)),--reference=%(Sanitize(reference2))]"
+	--
+	if ISFUNC("OnEditExtraCharNickname.%(language)"); EVAL("OnEditExtraCharNickname.%(language)(_charnum,_oldname)")
+	else; OnEditExtraCharNickname.English(_charnum,_oldname)
+}
+
+OnSettingsMenu
+{
+	_breakpoint = langmenu_breakpoint.English
+	if ISFUNC("langmenu_breakpoint.%(language)"); EVAL("_breakpoint = langmenu_breakpoint.%(language)")
+	
+	_customfrom = REPLACE(CustomLanguageFrom,"\","\\")
+	_customto = REPLACE(CustomLanguageTo,"\","\\")
+	if _customfrom == ""; _customfrom = "NONE_MARKER"
+	if _customto == ""; _customto = "NONE_MARKER"
+	
+	_display = ""
+	_i = 1
+	_languages = IARRAY
+	_languages = EVAL("menu_languages.%(language)")
+	if ARRAYSIZE(_languages) < 1; _languages = menu_languages.English
+	
+	foreach _languages; _language
+	{
+		_disabled = C_BYTE1 _in_ _language
+		_tag = "%(MenuTag(TranslateTo == _language[0]))"
+		if _disabled; _tag = "\f[strike,1]"
+		
+		_display += _tag
+		if !_disabled; _display += "[OnTranslateTo,%(REPLACE(_language[0],C_BYTE1,''))]"
+		_display += "%(_language[1])"
+		if !_disabled; _display += _tag
+		else; _display += "\f[strike,default]"
+		
+		if _i >= _breakpoint; {_display += "\n"; _i = 1}
+		else; {_display += "  "; _i++}
+	}
+	
+
+	"\0\b2\_q\*\![set,autoscroll,disable]\![close,inputbox,__SYSTEM_ALL_INPUT__]"
+	--
+	if ISFUNC("OnSettingsMenu.%(language)"); EVAL("OnSettingsMenu.%(language)(_customfrom,_customto,_display)")
+	else; OnSettingsMenu.English(_customfrom,_customto,_display)
+}
+
+OnChangeCustomLanguage
+{	
+	"\0\_q\b2\*\![set,autoscroll,disable]\![open,inputbox,OnCustomLanguageInput,-1,--reference=%(reference0)]"
+	--
+	if ISFUNC("OnChangeCustomLanguage.%(language)"); EVAL("OnChangeCustomLanguage.%(language)")
+	else; OnChangeCustomLanguage.English
+}
+
+OnManualScript
+{
+	"\0\b2\*\_q\![set,autoscroll,disable]\![open,inputbox,OnManualScriptInput,-1]"
+	--
+	if ISFUNC("OnManualScript.%(language)"); EVAL("OnManualScript.%(language)")
+	else; OnManualScript.English
+}
+
+OnConfigMenu
+{
+	if language == ""; language = "English"
+	if AutoUpdates[0] == ""; AutoUpdates = (1,0)
+	
+	"\0\b2\*\_q\![set,autoscroll,disable]"
+	--
+	if ISFUNC("OnConfigMenu.%(language)"); EVAL("OnConfigMenu.%(language)")
+	else; OnConfigMenu.English
+}
+
+OnChangeMenuLanguage
+{
+	_list = GETFUNCLIST("language")
+	
+	_display = ""
+	_i = ""
+	foreach _list; _lang
+	{
+		_lang = SPLIT(_lang,".")[1]
+		_display += "\__q[OnMenuLanguagePicked,%(_lang)]%(_lang)\__q"
+		
+		if _i >= 3; {_display += "\n"; _i = 0}
+		else; {_display += "  "; _i++}
+	}
+	
+	LOGGING(_list)
+	
+	"\0\b2\*\_q\![set,autoscroll,disable]"
+	--
+	if ISFUNC("OnChangeMenuLanguage.%(language)"); EVAL("OnChangeMenuLanguage.%(language)(_display)")
+	else; OnChangeMenuLanguage.English(_display)
+}
+
+OnMenuLanguagePicked
+{
+	language = reference0
+	OnConfigMenu
+}
+
+OnAutoUpdatesToggle
+{
+	if AutoUpdates[0] != 1; {AutoUpdates[0] = 1; AutoUpdates[1] = 0}
+	else; AutoUpdates[0] = 0
+	OnConfigMenu
+}
+
+OnHideTranslatorToggle
+{
+	"\b2\_q\![bind,Hide,Hide]"
+	--
+	if reference0 == "menu"; " \![raise,OnConfigMenu]\e"
+}
+
+OnNotifyDressupInfo
+{
+	_hide = SPLIT(reference.raw[0],C_BYTE1)
+	if _hide[0] == "0" && _hide[1] == "Hide" && _hide[2] == "Hide"; TranslatorHidden = TOINT(_hide[4])
+}
+
+OnUpdateBegin
+{
+	"\0\b2\_q"
+	--
+	if ISFUNC("OnUpdateBegin.%(language)"); EVAL("OnUpdateBegin.%(language)")
+	else; OnUpdateBegin.English
+	--
+	"\_w[1000]\e"
+}
+
+OnUpdateReady
+{
+	reference0++ //Correct the number of files...
+	
+	"\0\b2\_q"
+	--
+	if ISFUNC("OnUpdateReady.%(language)"); EVAL("OnUpdateReady.%(language)")
+	else; OnUpdateReady.English
+	--
+	"\_w[1000]\e"
+}
+
+OnUpdateComplete
+{
+	if reference0 != "none"; UpdateVars
+	AutoUpdates[1] = 0
+	
+	"\0\b2\_q\*"
+	--
+	if ISFUNC("OnUpdateComplete.%(language)"); EVAL("OnUpdateComplete.%(language)")
+	else; OnUpdateComplete.English
+	--
+	"\e"
+}
+
+OnUpdateFailure
+{
+	"\0\b2\_q\*"
+	--
+	if ISFUNC("OnUpdateFailure.%(language)"); EVAL("OnUpdateFailure.%(language)")
+	else; OnUpdateFailure.English
+	--
+	"\e"
+}
+
+OnUpdate.OnDownloadBegin
+{
+	_progress = TOINT(reference1) + 1
+	_total = TOINT(reference2) + 1
+	_remaining = _total - _progress
+	
+
+	_display = "\f[name,courier new]"
+	_w = 0
+	for _i = 0; _i < _total; _i++
+	{
+		if _i > 0 && _i % 20 == 0; {_display += "\n"; _w = 0}
+		_display += "\_l[%(_w)0]"
+		
+		if _i < _progress; _display += "A"
+		else; _display += "あ"
+		//For some reason, displaying this kana adds a bunch of lag if there are a lot of them... Maybe something to report to Ponapalt later? I have no idea why this is actually happening though, maybe I'm doing something wrong.
+		_w++
+	}
+	_display += "\f[default]"
+	
+	"\0\b2\_q\![set,autoscroll,disable]"
+	--
+	if ISFUNC("OnUpdate.OnDownloadBegin.%(language)"); EVAL("OnUpdate.OnDownloadBegin.%(language)")
+	else; OnUpdate.OnDownloadBegin.English
+	--
+	"\n\n"
+	--
+	_display
+	--
+	"\n\n%(_progress)/%(_total)\e"
+}
+
+OnChangeLog
+{
+	"\![open,file,changelog.txt]\e"
+}
+
+OnInstallBegin
+{
+	"\0\s[0]\_q\![set,autoscroll,disable]"
+	--
+	if ISFUNC("OnInstallBegin.%(language)"); EVAL("OnInstallBegin.%(language)")
+	else; OnInstallBegin.English
+}
+
+OnInstallComplete
+{
+	"\0\s[0]\_q\![set,autoscroll,disable]"
+	--
+	if ISFUNC("OnInstallComplete.%(language)"); EVAL("OnInstallComplete.%(language)")
+	else; OnInstallComplete.English
+}
+
+Select.CallGhost
+{
+	"\![call,ghost,lastinstalled]\e"
+}
+
+//Opening the ghost that was just installed.
+Select.ChangeToGhost
+{
+	"\![change,ghost,lastinstalled]\e"
+}
+
+OnInstallFailure
+{
+	"\0\s[0]\_q\![set,autoscroll,disable]"
+	--
+	if ISFUNC("OnInstallFailure.%(language)"); EVAL("OnInstallFailure.%(language)")
+	else; OnInstallFailure.English
+}
+
+OnInstallRefuse
+{
+	"\0\s[0]\_q\![set,autoscroll,disable]"
+	--
+	if ISFUNC("OnInstallRefuse.%(language)"); EVAL("OnInstallRefuse.%(language)")
+	else; OnInstallRefuse.English
+}
+
+OnUpdatedataCreating
+{
+	"\0\s[0]\_q\![set,autoscroll,disable]"
+	--
+	if ISFUNC("OnUpdatedataCreating.%(language)"); EVAL("OnUpdatedataCreating.%(language)")
+	else; OnUpdatedataCreating.English
+}
+
+OnUpdatedataCreated
+{
+	"\0\s[0]\_q\![set,autoscroll,disable]"
+	--
+	if ISFUNC("OnUpdatedataCreated.%(language)"); EVAL("OnUpdatedataCreated.%(language)")
+	else; OnUpdatedataCreated.English
+}
+
+OnNarCreating
+{
+	"\0\s[0]\_q\![set,autoscroll,disable]"
+	--
+	if ISFUNC("OnNarCreating.%(language)"); EVAL("OnNarCreating.%(language)")
+	else; OnNarCreating.English
+}
+
+OnNarCreated
+{
+	"\0\s[0]\_q\![set,autoscroll,disable]"
+	--
+	if ISFUNC("OnNarCreated.%(language)"); EVAL("OnNarCreated.%(language)")
+	else; OnNarCreated.English
+}
+
+//When you click on the anchor in the OnNarCreated dialogue, this function will open the folder you created the .nar in
+OnNarLocation
+{
+	_path = SPLITPATH(reference0)[0] + SPLITPATH(reference0)[1]
+	
+	"\C\![open,file,%(_path)]\e"
+}
+
+//Bringing up the uninstall option
+OnVanishSelecting
+{
+	"\0\s[0]\![set,autoscroll,disable]"
+	--
+	if ISFUNC("OnVanishSelecting.%(language)"); EVAL("OnVanishSelecting.%(language)")
+	else; OnVanishSelecting.English
+}
+
+//Deciding to uninstall
+OnVanishSelected
+{
+	"\0\s[0]\![set,autoscroll,disable]"
+	--
+	if ISFUNC("OnVanishSelected.%(language)"); EVAL("OnVanishSelected.%(language)")
+	else; OnVanishSelected.English
+	--
+	"\w8\w8\w8\w8\e"
+}
+
+//Changing your mind
+OnVanishCancel 
+{
+	"\0\s[0]\![set,autoscroll,disable]"
+	--
+	if ISFUNC("OnVanishCancel.%(language)"); EVAL("OnVanishCancel.%(language)")
+	else; OnVanishCancel.English
+}
+
+//Canceling uninstallation by double clicking the balloon - redirects to OnVanishCancel in this case since it's very generic
+OnVanishButtonHold
+{
+	"\0\s[0]\![set,autoscroll,disable]"
+	--
+	if ISFUNC("OnVanishCancel.%(language)"); EVAL("OnVanishCancel.%(language)")
+	else; OnVanishCancel.English
+}
+
+OnSNTPBegin
+{
+	"\0\s[0]\_q\![set,autoscroll,disable]"
+	--
+	if ISFUNC("OnSNTPBegin.%(language)"); EVAL("OnSNTPBegin.%(language)")
+	else; OnSNTPBegin.English
+}
+
+OnSNTPCompare
+{
+	"\0\s[0]\_q\![set,autoscroll,disable]"
+	--
+	if ISFUNC("OnSNTPCompare.%(language)"); EVAL("OnSNTPCompare.%(language)")
+	else; OnSNTPCompare.English
+}
+
+OnSNTPCorrect
+{
+	"\0\s[0]\_q\![set,autoscroll,disable]"
+	--
+	if ISFUNC("OnSNTPCorrect.%(language)"); EVAL("OnSNTPCorrect.%(language)")
+	else; OnSNTPCorrect.English
+}
+
+OnSNTPFailure
+{
+	"\0\s[0]\_q\![set,autoscroll,disable]"
+	--
+	if ISFUNC("OnSNTPFailure.%(language)"); EVAL("OnSNTPFailure.%(language)")
+	else; OnSNTPFailure.English
+}
+
+OnBIFFBegin
+{
+	"\0\s[0]\_q\![set,autoscroll,disable]"
+	--
+	if ISFUNC("OnBIFFBegin.%(language)"); EVAL("OnBIFFBegin.%(language)")
+	else; OnBIFFBegin.English
+}
+
+OnBIFFComplete
+{
+	if reference7 != "" && reference0 < 100
+	{
+		headers = SPLIT(reference.raw[7],C_BYTE1)
+	}
+		
+	"\0\s[0]\_q\![set,autoscroll,disable]"
+	--
+	if ISFUNC("OnBIFFComplete.%(language)"); EVAL("OnBIFFComplete.%(language)")
+	else; OnBIFFComplete.English
+}
+
+OnSeeHeaders
+{
+	if reference0 == "yes" //It's set up this way so that the headers variable will still be erased if the user says no. If they say no, it'll just erase the headers and say nothing
+	{
+		_display = ""
+		foreach headers; _header
+		{
+			_display += "\![*]"
+			_display += SHIORI3FW.EscapeAllTags(_header)
+			_display += "\n\n"
+		}
+		"\0\s[0]\![set,autoscroll,disable]\b2\_q%(_display)\*\n\n"
+		--
+		if ISFUNC("OnSeeHeaders.%(language)"); EVAL("OnSeeHeaders.%(language)")
+		else; OnSeeHeaders.English
+	}
+	ERASEVAR("headers")
+}
+
+OnBIFFFailure
+{
+	"\0\s[0]\_q\![set,autoscroll,disable]"
+	--
+	if ISFUNC("OnBIFFFailure.%(language)"); EVAL("OnBIFFFailure.%(language)")
+	else; OnBIFFFailure.English
+}
+
+OnHeadlinesenseBegin
+{
+	"\0\s[0]\_q\![set,autoscroll,disable]"
+	--
+	if ISFUNC("OnHeadlinesenseBegin.%(language)"); EVAL("OnHeadlinesenseBegin.%(language)")
+	else; OnHeadlinesenseBegin.English
+}
+
+OnHeadlinesense.OnFind
+{
+	"\0\s[0]\_q\![set,autoscroll,disable]"
+	--
+	if ISFUNC("OnHeadlinesense.OnFind.%(language)"); EVAL("OnHeadlinesense.OnFind.%(language)")
+	else; OnHeadlinesense.OnFind.English
+}
+
+OnHeadlinesenseComplete
+{
+	"\0\s[0]\_q\![set,autoscroll,disable]"
+	--
+	if ISFUNC("OnHeadlinesenseComplete.%(language)"); EVAL("OnHeadlinesenseComplete.%(language)")
+	else; OnHeadlinesenseComplete.English
+}
+
+OnHeadlinesenseFailure
+{
+	"\0\s[0]\_q\![set,autoscroll,disable]"
+	--
+	if ISFUNC("OnHeadlinesenseFailure.%(language)"); EVAL("OnHeadlinesenseFailure.%(language)")
+	else; OnHeadlinesenseFailure.English
+}

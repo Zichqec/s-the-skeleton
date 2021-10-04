@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zi's Ukagaka Hub</title>
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="Zi's Ukagaka Hub"/>
+    <meta property="og:description" content="Zi's hub for all her Ukagakas and related things"/>
+    <meta property="og:url" content="https://zichqec.github.io/s-the-skeleton/index.html"/>
+    <meta property="og:image" content="https://zichqec.github.io/s-the-skeleton/img/AllTogether.png"/>
+</head>
+
+<body>
+    <nav><div id="navbar" class="navbar"></div></nav>
+	
+    <article>
+        <h1>Ukatranslator</h1>
+		<!-- Tab links -->
+		<div class="tab">
+			<div class="centerreg">
+			  <button class="tablinks" onclick="pickLang(event, 'English')" id="defaultOpen">English</button>
+			  <button class="tablinks" onclick="pickLang(event, 'Deutsch')">Deutsch</button>
+			</div>
+		</div>
+		<br>
+        <img src="img/ukatranslator_00.png" alt="Ukatranslator logo" width="160" height="160" class="center">
+        <br>
+		<!-- Tab content -->
+		<div id="English" class="tabcontent">
+			<div class="cntr"><a href="https://www.mediafire.com/file/rdo6brpo8m01f7s/ukatranslator_v1.0.0.nar/file">Download the latest .nar file here!</a></div>
+			<p>Ukatranslator is a ghost that helps you run other ghosts through machine translation! It does this by listening for the other ghost's dialogue, then removing the sakurascript tags, and allowing you to copy the results or automatically open them in the online versions of DeepL Translator or Google Translate! The translations are nowhere near as good as a real ghost translation, of course, but it can give you a general idea of what the ghost is saying!</p>
+			<img src="img/ukatranslator_01.gif" alt="Example of Ukatranslator translating some of Emily/Phase 4.5's dialogue" width="991" height="934" class="center">
+			<p>There are a few customization options, such as nicknames for ghosts/characters so you always know who is talking, and which language you want it to translate to if you're using the auto translate option. You can also hide the translator completely from the config menu if you want it out of the way.</p>
+			<p>If you would like to translate Ukatranslator's menus into another language, please check the information in the readme! My hope is that this ghost will help bring Ukagaka to people all over the world, so every translation is greatly appreciated!</p>
+		</div>
+
+		
+		<div id="Deutsch" class="tabcontent">
+			<div class="cntr"><a href="https://www.mediafire.com/file/rdo6brpo8m01f7s/ukatranslator_v1.0.0.nar/file">Lade die neueste .nar Datei hier herunter!</a></div>
+            <p>Ukatranslator ist ein Ghost, der dabei hilft andere Ghosts mit maschineller Übersetzung zu übersetzen! Er tut das indem er anderen Ghosts zuhört, die Sakuraskript-Tags entfernt und es dann möglich macht den Dialog zu kopieren oder automatisch im Online-Übersetzer von DeepL oder Google Translate zu öffnen! Die Übersetzungen reichen natürlich keineswegs an menschliche Übersetzung heran aber man kann so zumindest einen generellen Eindruck davon bekommen was ein Ghost sagt!</p>
+            <img src="img/ukatranslator_01.gif" alt="Ein Beispiel davon wie Ukatranslator einige von Emily/Phase 4.5's Dialogen übersetzt" width="991" height="934" class="center">
+            <p>Es gibt einige Personalisierungseinstellungen wie zum Beispiel Spitznamen für Ghosts/Charaktere, damit man immer genau weiß wer gerade spricht, und in welche Sprache übersetzt werden soll, wenn die Option "Automatisch in Übersetzer öffnen" eingeschaltet ist. Man kann Ukatranslator über die Einstellungen auch komplett verstecken, falls man ihn aus dem Weg haben möchte.</p>
+            <pWenn du Ukatranslator's Menus in andere Sprachen übersetzen möchtest sieh dir bitte die Informationen dazu in der Readme an! Meine Hoffnung ist, dass dieser Ghost dabei helfen wird Ukagaka Leuten auf der ganzen Welt näher zu bringen, deshalb schätze ich alle Übersetzungen sehr!</p>
+		</div>
+        
+		<br>
+        <webring-banner>
+			<p>Member of the <a href="https://ukagakawebring.netlify.com/">Ukagaka/Ghost Development and Download</a> webring</p>
+			<a href="https://ukagakawebring.netlify.com//prev">Previous</a>
+			<a href="https://ukagakawebring.netlify.com//random">Random</a>
+			<a href="https://ukagakawebring.netlify.com//next">Next</a>
+		</webring-banner>
+		<script async src="https://ukagakawebring.netlify.com//embed.js" charset="utf-8"></script>
+    </article>
+	
+    <article>
+        <h1 id="history">Version history</h1>
+		
+		<label class="collapsible">Version 1.0.x - Initial Release</label>
+		<div class="collapsible-content">
+			<div class="ver">
+				<div class="centerhead"><b>=====1.0.0=====</b>
+					<div class="ctr">(10/4/21)</div></div>
+				<ul>
+					<li>Initial release</li>
+				</ul>
+				<br>
+			</div>
+		</div>
+        
+        
+    </article>
+
+    <footer>
+        More from Zichqec<br>
+        <a href="https://www.deviantart.com/zichqec"class="footlink">Deviantart</a> | 
+        <a href="https://zichqec.tumblr.com/" class="footlink">Tumblr</a> | 
+        <a href="https://twitter.com/Zichqec" class="footlink">Twitter</a> | 
+        <a href="https://toyhou.se/Zichqec" class="footlink">Toyhouse</a> |
+        <a href="https://www.youtube.com/channel/UC_9BGh45mIL3b3riZ4aTRIA" class="footlink">Youtube</a>
+    </footer>
+
+	<script src="navbar.js"></script>
+
+	<script>
+	function pickLang(evt, langName) {
+	  // Declare all variables
+	  var i, tabcontent, tablinks;
+
+	  // Get all elements with class="tabcontent" and hide them
+	  tabcontent = document.getElementsByClassName("tabcontent");
+	  for (i = 0; i < tabcontent.length; i++) {
+		tabcontent[i].style.display = "none";
+	  }
+
+	  // Get all elements with class="tablinks" and remove the class "active"
+	  tablinks = document.getElementsByClassName("tablinks");
+	  for (i = 0; i < tablinks.length; i++) {
+		tablinks[i].className = tablinks[i].className.replace(" active", "");
+	  }
+
+	  // Show the current tab, and add an "active" class to the button that opened the tab
+	  document.getElementById(langName).style.display = "block";
+	  evt.currentTarget.className += " active";
+	}
+
+	// Get the element with id="defaultOpen" and click on it
+	document.getElementById("defaultOpen").click();
+
+	//Collapsible
+	var coll = document.getElementsByClassName("collapsible");
+	var i;
+
+	for (i = 0; i < coll.length; i++)
+	{
+		coll[i].addEventListener("click", function()
+		{
+			this.classList.toggle("active");
+			var content = this.nextElementSibling;
+			if (content.style.display === "block")
+			{
+				content.style.display = "none";
+			}
+			else
+			{
+				content.style.display = "block";
+			}
+		}
+	  );
+	}
+	</script>
+
+	
+</body>
+
+</html>

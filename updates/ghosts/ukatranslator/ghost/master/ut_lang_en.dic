@@ -1,0 +1,596 @@
+//To any translators looking at this file: hello! I've left comments that explain what each of these functions are for, and what needs edited. You'll be changing the word English on the end of the function name to the name of your language, as written in that language! So if you were making a German translation, you'd change the language.English function to language.Deutsch
+//If any of this is confusing I am glad to work with you one on one! I will note again that Zarla's guide on how to translate a ghost is a good place to start if you have never translated a ghost before: http://ashido.com/ukagaka/translation.html
+//Please also add a translation to the readme! I will also need a translation for Ukatranslator's page on my website here: https://zichqec.github.io/s-the-skeleton/ukatranslator (I can send you the html for this, or you can download it from that page and edit the english version!)
+//Thank you so so much for helping bring Ukatranslator to more people! I seriously cannot express my gratitude for translators enough
+
+//This is the information for the language you're adding - do not skip this!
+language.English : array
+{
+	"English" //Language name as written in that language
+	"Zichqec" //Your username
+	"English translation by Zichqec" //A credit to you in the right click menu
+	"https://zichqec.github.io/s-the-skeleton/" //Your url which the right click menu will link to
+}
+
+//Caption for the button at the top of the right click menu
+On_recommendrootbutton.caption.English
+{
+	"More from the Dev"
+}
+
+//The button in the right click menu that will lead to my website
+dev.English
+{
+	"Made by Zichqec"
+}
+
+//Credit for which version of X. Template this was built on
+template.English
+{
+	"Built on X. Template YAYA - v.1.0.8"
+}
+
+//Dialogue that will display when Ukatranslator first boots. The display of languages is taken care of elsewhere so that it is always consistent. If your dialogue here is too long and overlaps with the options, let me know and I can adjust it!
+OnFirstBoot.English
+{
+	"Please choose a language for Ukatranslator's menus. This can be changed at any time in the config menu."
+}
+
+//The main menu! Make sure to only translate the labels for the buttons; all the rest of the arguments need to be left exactly as they are.
+OnMenuRun.English
+{
+	//_disp is the nickname of the ghost that is selected, _s makes text struck out, and _d makes the text default again
+	_disp = _argv[0]
+	_s = _argv[1]
+	_d = _argv[2]
+	
+	if !(ListeningTo == "")
+	{	
+		if Listening
+		{
+			"Listening to \_a[OnGhostProfile,%(Sanitize(ListeningTo))]%(_disp)\_a.\n\n"
+		}
+		else
+		{
+			if ListeningTo _in_ ghostexlist; "Ready to listen to \_a[OnGhostProfile,%(Sanitize(ListeningTo))]%(_disp)\_a.\n\n"
+			else; "\_a[OnOpenTargetGhost]%(_disp)\_a is not open.\n\n"
+		}
+	}
+	--
+	if Listening; "\![*]\q[Stop listening,OnListeningToggle,Off]\n"
+	elseif ListeningTo == "" || ListeningTo !_in_ ghostexlist; "\![*]%(_s)Start listening%(_d)\n"
+	else; "\![*]\q[Start listening,OnListeningToggle,On]\n"
+	--
+	if AutoUpdates[1] == 2; "\n\![*]\_a[OnStartUpdate]An update is available!\_a\n\n"
+	--
+	--; "\![*]\q[Choose a Ghost,OnPickGhost]\n"
+	--; "\![*]\q[Translation Settings,OnSettingsMenu]\n\n"
+	--; "\![*]\q[Enter a Script Manually,OnManualScript]\n\n"
+	--; "\![*]\q[Open Script Log,script:\![open,scriptlog\]]\n"
+	--; "\![*]\q[Open DeepL,OnOpenTranslator,deepl]\n"
+	--; "\![*]\q[Open Google Translate,OnOpenTranslator,google]\n\n"
+	--; "\![*]\q[Config,OnConfigMenu]\n\n"
+	--; "\![*]\q[Close Window,OnBlank]\n\n"
+	--; "\f[height,-2]Version %(ghostver)\e"
+}
+
+//The menu for picking which ghost to listen to. Make sure to replace the word Customize in _display at the top of the function!
+OnPickGhost.English
+{
+	//_display is the list of ghosts - Make sure to change the word Customize in the REPLACE command here!
+	_display = REPLACE(_argv[0],"CUSTOMIZE_BUTTON","Customize")
+	
+	"Pick a ghost for Ukatranslator to listen to.\n\n"
+	--
+	_display
+	--
+	"\n\n\![*]\q[Back to Menu,OnMenuRun]  \![*]\q[Close Window,OnBlank]\e"
+}
+
+//The menu for looking at a ghost's profile, which allows you to set nicknames. Make sure to replace the text in the local variable _none at the top of the function!
+OnGhostProfile.English
+{
+	_none = "(None)" //Replace with the word for None in your language! This is for if a nickname slot is empty
+	
+	_ghost = _argv[0] //Ghost's actual name
+	_nickname = _argv[1] //Nickname of the ghost
+	_sakuranickname = _argv[2] //Nickname of the sakura
+	_keronickname = _argv[3] //Nickname of the kero
+	_charlist = _argv[4] //A menu display containing all extra chars that have been added
+	
+	if CUTSPACE(_nickname) == ""; _nickname = _none
+	if CUTSPACE(_sakuranickname) == ""; _sakuranickname = _none
+	if CUTSPACE(_keronickname) == ""; _keronickname = _none
+	
+	--; "Ghost: %(_ghost)\n\n"
+	--; "Nickname: \_a[OnProfileChangeNickname,%(_ghost),Ghost,%(_none),%(_nickname)]%(_nickname)\_a\n"
+	--; "Sakura Nickname: \_a[OnProfileChangeNickname,%(_ghost),Sakura,%(_none),%(_nickname)]%(_sakuranickname)\_a\n"
+	--; "Kero Nickname: \_a[OnProfileChangeNickname,%(_ghost),Kero,%(_none),%(_nickname)]%(_keronickname)\_a\n\n"
+	--; "\![*]\__q[OnNewCharacterNickname,%(_ghost)]Add an extra character\__q\n\n"
+	--; "%(_charlist)"
+	--; "\n\![*]\q[Back,OnPickGhost]  \![*]\q[Close Window,OnBlank]"
+}
+
+//Dialogue for changing the nickname of the ghost, sakura, or kero
+OnProfileChangeNickname.English
+{
+	//The name of the ghost will be stored as reference0 here. It'll be the nickname if you're changing the sakura or kero name, or the proper ghost name if you're changing the ghost's nickname.
+	//Reference1 is "Sakura" if they're changing the sakura name, "Kero" if they're changing the kero name, and "Ghost" if they're changing the ghost name. You don't have to set it up like I did!
+	
+	if reference3 == reference2; reference3	= reference0 //If the nickname shows up as empty, this will change it to the ghost's actual name
+	
+	"Enter a new nickname for %(reference3)"
+	--
+	if reference1 == "Sakura"; "'s sakura"
+	elseif reference1 == "Kero"; "'s kero"
+	--
+	"."
+	--
+	"\n\n\![*]\q[Back,OnGhostProfile,%(Sanitize(reference0))]"
+}
+
+//Dialogue for adding a new extra character to nickname, starting with the character number. The \_? tags around the \p[] ensure that it displays in the balloon instead of being used as a tag
+OnNewCharacterNickname.English
+{
+	"Write the number of the character to nickname. The number can be found in the \_?\p[]\_? tags of the ghost in question."
+	--
+	"\n\n\![*]\q[Cancel,OnGhostProfile,%(Sanitize(reference0))]"
+}
+
+//Continuation of the above, checks to see if the number is valid, and if so lets you give them a name
+OnNewCharacterNum.English
+{
+	//reference0 will contain the character number the user put in, _exists will be -1 if the character doesn't exist yet
+	_exists = _argv[0]
+	
+	if GETTYPE(reference0) == 1 && _exists == -1
+	{
+		//This is for valid input
+		"\![open,inputbox,OnNewCharacterName,-1,--reference=%(Sanitize(reference2)),--reference=%(Sanitize(TOSTR(reference0)))]"
+		--
+		"Please enter a name for character %(reference0)."
+		--
+		"\n\n\![*]\q[Cancel,OnGhostProfile,%(Sanitize(reference0))]"
+	}
+	elseif _exists != -1
+	{
+		//This is for a character that already has a nickname
+		
+		"That character already has a nickname."
+		--
+		"\x\![raise,OnGhostProfile,%(Sanitize(reference0))]"
+	}
+	else
+	{
+		//This is for non-integer input, or if the user puts in the sakura or kero numbers
+		"Invalid input, please try again."
+		--
+		"\x\![raise,OnNewCharacterNickname,%(Sanitize(reference2))]"
+	}
+}
+
+//Dialogue for editing the nickname of an existing extra character
+OnEditExtraCharNickname.English
+{
+	_charnum = _argv[0] //Number of the character being edited
+	_oldname = _argv[1] //Previous nickname of the character being edited
+	
+	"Enter a new name for character %(_charnum), previously listed as %(_oldname)."
+	--
+	"\n\n\![*]\q[Cancel,OnGhostProfile,%(Sanitize(reference0))]"
+}
+
+//List of default languages that Ukatranslator can send to the online translators!
+//Leave the language codes and C_BYTE1 parts alone, just edit the language names
+menu_languages.English : array
+{
+	"en,English"
+	"ja,Japanese"
+	"xh,Chinese"
+	{
+		if Translator != "Google"; C_BYTE1
+		--
+		"ko,Korean"
+	}
+	"de,German"
+	"fr,French"
+	"ru,Russian"
+	"es,Spanish"
+}
+
+//The number of languages that should be displayed per line. 4 is the default, but you can adjust it if the text gets cut strangely for your language. If this doesn't work out, let me know and I can set up something else!
+langmenu_breakpoint.English
+{
+	4
+}
+
+//The translation settings menu. This might look complicated but I swear it's not. You don't need to translate the stuff inside [square brackets]. The %(_tag) bits are taking place of a \__q or \_a here. Make sure to change the text in the _none local variable at the top of the function!
+OnSettingsMenu.English
+{
+	//Marker for if custom languages are empty. Make sure to fill this in
+	_none = "None"
+	_customfrom = REPLACE(_argv[0],"NONE_MARKER",_none)
+	_customto = REPLACE(_argv[1],"NONE_MARKER",_none)
+	//_display holds a display of the languages that can be selected
+	_display = _argv[2]
+	
+	"When target ghost talks:\n"
+	--
+	_tag = "%(MenuTag(TranslateMode == 2))"
+	
+	"%(_tag)[OnTranslateMode,2]Auto open translator%(_tag)  "
+	--
+	_tag = "%(MenuTag(TranslateMode == 0))"
+	
+	"%(_tag)[OnTranslateMode,0]Ask for input%(_tag)  "
+	--
+	_tag = "%(MenuTag(TranslateMode == 1))"
+	
+	"\n%(_tag)[OnTranslateMode,1]Auto copy to clipboard%(_tag)\n\n"
+	--
+	"Translate from:\n"
+	--
+	_tag = "%(MenuTag(TranslateFrom == 'autodetect'))"
+	
+	"%(_tag)[OnTranslateFrom,autodetect]Auto-Detect%(_tag)  "
+	--
+	_tag = "%(MenuTag(TranslateFrom == CustomLanguageFrom))"
+	
+	"\![*]%(_tag)[OnTranslateFrom,%(Sanitize(CustomLanguageFrom))]Custom%(_tag) %(_tag)[OnChangeCustomLanguage,from](%(_customfrom))%(_tag)"
+	--
+	"\n\n"
+	--
+	"Translate to:\n"
+	--
+	_display
+	--
+	_tag = "%(MenuTag(TranslateTo == CustomLanguageTo))"
+	
+	"\n%(_tag)[OnTranslateTo,%(Sanitize(CustomLanguageTo))]Custom%(_tag) \![*]%(_tag)[OnChangeCustomLanguage,to](%(_customto))%(_tag)"
+	--
+	"\n\n"
+	--
+	"Translator:\n"
+	--
+	_tag = "%(MenuTag(Translator == 'DeepL'))"
+	
+	"%(_tag)[OnTranslator,DeepL]DeepL%(_tag)  "
+	--
+	_tag = "%(MenuTag(Translator == 'Google'))"
+	
+	"%(_tag)[OnTranslator,Google]Google%(_tag)  "
+	--
+	"\n\n\n\![*]\q[Back to Menu,OnMenuRun]  \![*]\q[Close Window,OnBlank]\e"
+}
+
+//Dialogue for changing the custom language
+OnChangeCustomLanguage.English
+{
+	"Input the language code for the language of your choice. To see the language code, open your translator of choice, and look at the url. The language you want to translate \_a[OnBlank]from\_a will be listed first, and the language you are translating \_a[OnBlank]to\_a will be listed second.\nPlease note available languages will differ between translators.\n\n"
+	--
+	"These examples translate from Japanese to English:\n\nwww.deepl.com/translator#\_a[OnBlank]ja\_a/\_a[OnBlank]en\_a/DialogueHere\n\n[half]translate.google.com/?sl=\_a[OnBlank]ja\_a&tl=\_a[OnBlank]en\_a&text=DialogueHere"
+	--
+	"\n\n\![*]\q[Cancel,OnSettingsMenu]\e"
+}
+
+//Dialogue for manually pasting in dialogue to be translated
+OnManualScript.English
+{
+	"Paste in a script to run it through Ukatranslator."
+	--
+	"\n\n\![*]\q[Cancel,OnMenuRun]\e"
+}
+
+//If the user has Ukatranslator set up to ask for input before doing anything, this is the menu they'll get
+OnTranslateAskForInput.English
+{
+	LOGGING(_argv[0])
+	_nickname = _argv[0]
+	_name = "%(_nickname)'s"
+	if reference6 == "manual"; _name = "\c[char,1]" //This removes the extra space if the user manually pasted in a dialogue
+	
+	--; "\![*]\__q[OnTranslateCopy]Copy %(_name) dialogue\__q\n"
+	--; "\![*]\__q[OnTranslateAutoOpen]Open in Translator\__q\n"
+	--; "\![*]\q[Close Window,OnBlank]\e"
+}
+
+//When a dialogue is too long to be opened in a browser, the dialogue will be broken into smaller pieces and sent one at a time by the user. These next 3 functions deal with that.
+
+//This is appended to the top of the translated message
+too_long_start.English
+{
+	"(Ukatranslator note: Dialogue too long, sending in smaller pieces...)"
+}
+
+//This is appended to the bottom of the translated message
+too_long_end.English
+{
+	"(Ukatranslator note: Please check Ukatranslator to translate the next section of dialogue.)"
+}
+
+//This is displayed in Ukatranslator's balloon
+too_long_menu.English
+{
+	"This dialogue is too long to open in a browser all at once. Please indicate when you're ready for the next section to be translated."
+	--
+	"\n\n(%(reference0 + 1)/%(ARRAYSIZE(OtherGhostTranslate)))" //Display of how many messages are left to translate
+	--
+	"\n\n\![*]\q[Send Next Dialogue,OnOpenBrowserTranslate,%(TOINT(reference0) + 1)]  \![*]\q[Cancel,OnBlank]\e"
+}
+
+OnConfigMenu.English
+{
+	//Replace these too
+	_onoff = "Off,On"
+	_updates = AutoUpdates[0]
+	
+	--; "Menu Language: \_a[OnChangeMenuLanguage]%(language)\_a\n\n"
+	--; "Auto Updates: \_a[OnAutoUpdatesToggle]%(_onoff[_updates])\_a\n\n"
+	--; "Hide Translator: \_a[OnHideTranslatorToggle,menu]%(_onoff[TranslatorHidden])\_a\n"
+	--; "\f[height,-2](Ukatranslator can be unhidden at any time by right clicking the tray icon and removing the 'Hide' dressup)"
+	--; "\n\n\n\![*]\q[Back to Menu,OnMenuRun]  \![*]\q[Close Window,OnBlank]\e"
+}
+
+OnChangeMenuLanguage.English
+{
+	//_display will be a display of all the available languages
+	_display = _argv[0]
+	
+	"Pick a language for Ukatranslator's menus. This will not affect the languages used for translations.\n\n"
+	--
+	_display
+	--
+	"\n\n\n\![*]\q[Back to Config,OnConfigMenu]\e"
+}
+
+//A message that pops up if you minimize the translator, to help avoid confusion (especially if it's invisible)
+OnMinimizeMessage.English
+{
+	"Minimizing Ukatranslator.\w8 Translation will continue when Ukatranslator is restored.\w8 You can restore Ukatranslator at any time by double clicking the tray icon."
+}
+
+//Checking for updates
+OnUpdateBegin.English
+{
+	"Checking for updates..."
+}
+
+OnUpdateReady.English
+{
+	_s = ""; if reference0 != 1; _s = "s"
+	"Found %(reference0) new file%(_s)."
+}
+
+//Message during updates
+OnUpdate.OnDownloadBegin.English
+{
+	//reference0 here is the file in question
+	"Downloading %(reference0)..."
+}
+
+//Finishing an update successfully
+OnUpdateComplete.English
+{
+	if reference0 == "none"
+	{
+		"Ukatranslator is up to date."
+	}
+	else
+	{
+		"Update complete. Open the changelog?"
+		--
+		"\n\n\![*]\q[Yes,OnChangeLog]  \![*]\q[No,OnBlank]"
+	}
+}
+
+//If the update fails
+OnUpdateFailure.English
+{
+	_currentfile = SPLITPATH(reference1)[2] + SPLITPATH(reference1)[3]
+	
+	//Top option here is if the user cancels by double clicking the balloon
+	if reference0 == "artificial"; "Update cancelled.\e"
+	else
+	{
+		"Could not complete the update: "
+		--
+		if reference0 == "timeout" //If it timed out
+		{
+			"connection timed out."
+		}
+		elseif reference0 == "md5 miss" //If the update files have not been uploaded correctly and don't match the updates2.dau. _currentfile is the name and path of the file that failed.
+		{	
+			"MD5 mismatch on file '%(_currentfile)'. Please contact \_a[https://zichqec.github.io/s-the-skeleton/]Zichqec\_a to correct the error."
+		}
+		else //Any other errors
+		{
+			"'%(reference0)'."
+		}
+		--
+		"\n\n\![*]\q[Close Window,OnBlank]\e"
+	}
+}
+
+//Dialogue for installing something
+OnInstallBegin.English
+{
+	"Installing..."
+}
+
+//If it installs successfully - there's a little menu that pops up if the user installed a ghost.
+OnInstallComplete.English
+{
+	"Finished installing %(reference1)."
+	--
+	if reference0 == "ghost"
+	{
+		--; "\n\n"
+		--; "\![*]\q[Call %(reference1),CallGhost]\n"
+		--; "\![*]\q[Change to %(reference1),ChangeToGhost]\n\n"
+		--; "\![*]\q[Close Window,OnBlank]"
+	}
+	--
+	"\e"
+}
+
+//If the installation is cancelled or fails for some reason. reference0 is the error.
+OnInstallFailure.English
+{
+	if reference0 == "artificial"
+	{
+		//If the user cancelled.
+		"Cancelled installation.\e"
+	}
+	else
+	{
+		"Installation error: %(reference0).\e"
+	}
+}
+
+//If the thing the user tried to install is only compatible with a different ghost.
+OnInstallRefuse.English
+{
+	"Can't install this %(reference1), it's made for %(reference0)."
+}
+
+OnUpdatedataCreating.English
+{
+	"Creating update data...\e"
+}
+
+//Finished making an update file
+OnUpdatedataCreated.English
+{
+	"Finished creating update data.\e"
+}
+
+//Creating a nar file
+OnNarCreating.English
+{
+	"Creating a .nar file...\e"
+}
+
+//Finished making a nar file
+OnNarCreated.English
+{
+	"Finished making a .nar for \_a[OnNarLocation,%(reference1)]%(reference0)\_a.\e"
+}
+
+//Asking if you want to uninstall
+OnVanishSelecting.English
+{
+	"Are you sure you want to uninstall? You will lose any saved ghost profiles.\e"
+}
+
+//Uninstalling
+OnVanishSelected.English
+{
+	"Uninstalling Ukatranslator."
+}
+
+//Cancelling the uninstall before or after it started
+OnVanishCancel.English
+{
+	"Cancelled uninstall.\e"
+}
+
+//Starting an SNTP check
+OnSNTPBegin.English
+{
+	"Checking the clock with %(reference0).\e"
+}
+
+//Finished checking
+OnSNTPCompare.English
+{
+	if reference3 == 0; "The clock is accurate.\e"
+	else; "\6\e"
+}
+
+//Fixed the clock
+OnSNTPCorrect.English
+{
+	"The clock has been corrected.\e"
+}
+
+//Can't fix the clock.
+OnSNTPFailure.English
+{
+	"Could not fix the clock.\e"
+}
+
+//Starting an email check
+OnBIFFBegin.English
+{
+	"Checking for emails...\e"
+}
+
+//Successfully got emails
+OnBIFFComplete.English
+{
+	if reference0 == 0; "No new emails.\e"
+	else
+	{
+		_s = ""; if reference0 != 1; _s = "s"
+			
+		"%(reference0) new email%(_s)."
+		--
+		if reference7 != "" && reference0 < 100 //Headers are available and there are less than 100 of them
+		{
+			" View the headers?"
+			--
+			"\n\n\![*]\q[Yes,OnSeeHeaders,yes]  \![*]\q[No,OnSeeHeaders]"
+		}
+		--
+		"\e"
+	}
+}
+
+//Back button on the headers display
+OnSeeHeaders.English
+{
+	"\![*]\q[Close Window,OnBlank]"
+}
+
+//Email check failed - reference0 is the error message
+OnBIFFFailure.English
+{
+	if reference0 == "artificial"; "Cancelled email check.\e"
+	else; "Could not get emails: %(reference0).\e"
+}
+
+//Starting headlines/RSS. reference0 is the name of the feed
+OnHeadlinesenseBegin.English
+{
+	"Opening feed for %(reference0).\e"
+}
+
+//The feed display
+OnHeadlinesense.OnFind.English
+{
+	_display = REPLACE(reference3,"\_a[","\![*]\_a[")
+	
+	"\0\b2%(reference0):\n\n%(_display)\n"
+ 	--
+ 	if reference2 == "First" || reference2 == "Next"
+	{
+		"\![*]\q[Next,] - \![*]\q[Close Window,OnBlank]\e"
+ 	}
+	else
+ 	{
+ 		"\![*]\q[Close Window,OnBlank]\e"
+ 	}
+}
+
+//If there's no update. Never seen this happen but might as well cover all the bases...
+OnHeadlinesenseComplete.English
+{
+	"No update.\e"
+}
+
+//If the headlines/RSS fail to update. reference0 is the error message
+OnHeadlinesenseFailure.English
+{
+	if reference0 == "artificial"; "Cancelled feed update.\e"
+	else; "Could not update feed: %(reference0).\e"
+}
