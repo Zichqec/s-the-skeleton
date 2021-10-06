@@ -23,7 +23,7 @@
         <h1>X. Template</h1>
         <img src="img/xtemplate_00.png" alt="X. Template" width="280" height="250" class="center">
         <br>
-        <div class="cntr"><a href="https://www.mediafire.com/file/618ghirv6jem0c1/x_template_yaya_v1.0.9.nar/file">Download the latest .nar file here!</a></div>
+        <div class="cntr"><a href="https://www.mediafire.com/file/wvntpvuk2xsxobz/x_template_yaya_v1.1.0.nar/file">Download the latest .nar file here!</a></div>
         <p>X. Template is a template ghost I made! It's mostly for myself, since I make a lot of ghosts, but other devs are welcome to use it. It has some advanced features and not a lot of tutorial comments, so if you're new to ghost dev I suggest <a href="http://ashido.com/ukagaka/">Zarla's GT Template</a> instead; it includes a walkthrough to get you started!</p>
         <br>
         <h3>Notable Features</h3>
@@ -195,6 +195,41 @@
 						<li>Removed an unneccessary function in xt_string.dic, which would create a list of installed ghosts. Such a list already exists as a part of the normal system files.</li>
 						<li>Fixed the pronoun variables not being initialized in OnFirstBoot.</li>
 						<li>Fixed a few typos and missing tags.</li>
+					</ul>
+				<br>
+			</div>
+			
+			<div class="ver">
+					<div class="centerheadsm"><b>---1.0.10---</b>
+					<div class="ctr">(10/6/21)</div></div>
+					<ul>
+						<li>Tweaked BalloonCheck function and fixed it.</li>
+						<li>Updated the pool function to be simpler and more efficient.</li>
+						<li>Changed the label of the dressup button back to default.</li>
+						<li>Improved RemovePauses function (now erases more variants of quicksection tags, \_q tags, and \_w[] tags).</li>
+						<li>Removed the bit in string.dic that fixed the 'calendar' typo, since it's been fixed in SSP now.</li>
+						<li>Added center align tag to the config menu, and center and right align tags to the todo list!</li>
+						<li>Added newline function to help with align tags.</li>
+						<li>Removed OnUpdate.OnMD5CompareFailure event since my use of it was redundant.</li>
+						<li>Revamped the code for the update progress bar.</li>
+						<li>Added loremipsum function.</li>
+						<li>Removed beta tester toggle since I never ended up using it like I meant to.</li>
+						<li>Shuffled stuff around in the config menu a bit.</li>
+						<li>Changed the formatting of the code in the menus. Maybe I'll change it back later, we'll see!</li>
+						<li>Improved the readability of the system info and config menus by using anchors to highlight information.</li>
+						<li>Added Sanitize function.</li>
+						<li>Made name changing escape sakurascript tags.</li>
+						<li>Changed ghostexlist to use C_BYTE1 as a delimiter.</li>
+						<li>Added protection to email headers so that sakurascript tags cannot be executed from displaying headers.</li>
+						<li>Shell scaling function can now check for Y scaling as well. nowscale has been updated to an array, where element 0 is the X scaling and element 1 is the Y scaling.</li>
+						<li>Changed runtime array to a function rather than a variable. It will also reset if you reload the ghost now, because of the system it's using. No more clutter in OnSecondChange related to this, though!</li>
+						<li>Removed non<li>interrupt system in the commu file, and replaced it with a new timerraise system where if the ghost can't talk, it will attempt to receive the communication a second time after 5 seconds. If that also fails, it will give up on it.</li>
+						<li>Added dialogue for minimizing the ghost.</li>
+						<li>Added Flag functions for easy flags.</li>
+						<li>Removed system for moving shells to the same position when changing to them, since I don't think I'll make much use of this system in the future and it was causing some issues.</li>
+						<li>Added OnOtherGhostVanished, so that you can now have different dialogues based on whether the ghost was open when another ghost was uninstalled or not.</li>
+						<li>Added OnStatsRequested in commu.dic, a function for sending your ghost's stats to other ghosts who ask for them. The details of this will vary from ghost to ghost, but the structure is there now.</li>
+						<li>Added X. Template Balloon, a simple and rough balloon that can be used as a template for a balloon if you want.</li>
 					</ul>
 				<br>
 			</div>
