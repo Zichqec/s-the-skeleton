@@ -249,6 +249,14 @@ for _buff = FREAD(_file); _buff != -1; _buff = FREAD(_file)
 </pre>
 	<p>I won't go into the specifics of reading files here, but for this loop, the initializer reads the first line of the file, the condition checks to make sure the end of the file has <b>not</b> been reached (FREAD will return -1 if the end of the file is reached), and the incrementor reads the next line of the file. You can do all kinds of creative loops like this!</p>
 	
+	<p>You can also put multiple statements into the initializer and incrementor! You just need to separate them by commas. So you could set up a loop like this that creates and increments 3 variables:</p>
+<pre>
+for _i = 0, _j = 0, _k = 0; _i < 10; _i++, _j++, _k++
+{
+	//Some code
+}
+</pre>
+	
 	<p>Alright, so why do we need a loop like this, anyways? Well, lets go back to arrays for a moment. Lets say we have an array that contains items the user has given their ghost today, and you want to display those items in a list when the user opens a certain menu. Here's a really simple setup for that:</p>
 <pre>
 _display = "" //Initialize a local variable to hold the display
