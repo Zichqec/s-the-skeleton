@@ -650,6 +650,12 @@ SHIORI3FW.PushAdditionalReturn : void
 	SHIORI3FW.AdditionalReturn.String += _key+TOSTR(_argv)+C_CRLF
 }
 
+//Added by Zichqec, with help from steve02081504. Send an argument to this function to send it with ValueNotify. This can be used even while the ghost is minimized to run tags like the sound command.
+SHIORI3FW.MakeValueNotify : void
+{
+    SHIORI3FW.PushAdditionalReturn('ValueNotify',_argv)
+}
+
 //------------------------------------------------------------------------------
 //関数名：SHIORI3FW.ClearAdditionalReturnVariable
 //機能　：追加ヘッダ用変数を削除します

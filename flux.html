@@ -52,6 +52,8 @@
 				<li>Dynamic shell and dressup menus within the ghost, including the option to pick shells and dressups at random.</li>
 				<li>Uses m3u playlists like FLELE does, so your existing playlists should still work.</li>
 				<li>Backwards compatible with most existing FLELE shells.</li>
+				<li>If a song gives an error, FLUX will attempt to play the next song instead of just stopping.</li>
+				<li>Can display your current shell and song in your Discord status if you have the <a href="http://ssp.shillest.net/plugin/discord.nar">Discord Rich Presence</a> plugin!</li>
 				<li>And many more small tweaks!</li>
 			</ul>
 			<p>There are some differences from FLELE, some of which might feel odd if you've used FLELE a lot. FLUX does not have the same right click menu that FLELE does, because I haven't used the SAORI that creates it. There also is no song bar, for the same reason. Instead, if you double click the hotspot that would normally open the song bar, it will open the music menu. It's also possible that some FLELE shells will behave oddly; if you find any like this please let me know!</p>
@@ -80,6 +82,8 @@
 				<li>Dynamiczne menu dla skorup i strojów w duchu, w tym możliwość losowego wyboru skorup i strojów.</li>
 				<li>Używa list odtwarzania m3u jak FLELE, więc twoje istniejące listy odtwarzania powinny nadal działać.</li>
 				<li>Kompatybilny wstecz z większością istniejących muszli FLELE.</li>
+				<li>Jeśli w utworze wystąpi błąd, FLUX podejmie próbę odtworzenia następnego utworu, zamiast zatrzymywania odtwarzania.</li>
+				<li>Może wyświetlać bieżącą skorupę i piosenkę w statusie Discorda, jeśli masz wtyczkę <a href="http://ssp.shillest.net/plugin/discord.nar">Discord Rich Presence</a>!</li>
 				<li>I wiele więcej małych poprawek! </li>
 			</ul>
 			<p>Istnieją pewne różnice w stosunku do FLELE, niektóre z nich mogą wydawać się dziwne, jeśli używałeś FLELE dużo. FLUX nie posiada takiego samego menu prawego przycisku myszy jak FLELE, ponieważ nie używałam SAORI, które je tworzy. Nie ma też paska piosenek, z tego samego powodu. Zamiast tego, jeśli dwukrotnie klikniesz na hotspot, który normalnie otworzyłby pasek piosenek, otworzy się menu muzyczne. Jest również możliwe, że niektóre skorupy FLELE będą się dziwnie zachowywać; jeśli znajdziesz takie, proszę daj mi znać!
@@ -109,6 +113,8 @@
 				<li>Динамичный меню внеших видов и одежду внутри привидение, например настроек случайно выбирать их.</li>
 				<li>Использует плейлисти m3u, так как FLELE, поэтому твоими плейлисти, который уже существуют должен работать как норм.</li>
 				<li>Есть обратной совместимостью с большинство внешние вид у FLELE.</li>
+				<li>Если песня даёт ощибку, FLUX попытается играть следущую песню, вместо перестание.</li>
+				<li>Может показать свой текущий песня и внешний вид в статус Дискорд, если у тебя есть модуль <a href="http://ssp.shillest.net/plugin/discord.nar">Discord Rich Presence</a>!</li>
 				<li>И много еще!</li>
 			</ul>
 			<p>Есть немного различие, и некоторые из них наверное будет чуть-чуть странный, если много использовал_а FLELE. У FLUX нет один и тот же меню правой кнопки мышей у FLELE, потому что я не использовала SAORI, который создать его. Также нет панель песен, и причин -- один и то же. Вместо этого, если ты выполнить двойной щелчок на очагов, который обычно открывет его, он будет открыть меню музыки. А еще возможно, что некоторые внешие види FLELE не работает как норм; если бы найдешь какие-нибудь, пожалуйста, сообщите меня!</p>
@@ -134,6 +140,8 @@
 				<li>Dynamische Shell und Dressup Menüs innherhalb des Ghosts, darunter die Option Shells und Dressups zufällig auszuwählen.</li>
 				<li>Benutzt m3u Playlisten so wie FLELE, sodass deine existierenden Playlisten noch funktionieren sollten.</li>
 				<li>Rückwärtskompatibel mit den meisten FLELE Shells.</li>
+				<li>Falls ein Lied einen Fehler erzeugt wird FLUX versuchen das nächste Lied abzuspielen anstatt ganz aufzuhören.</li>
+				<li>Kann das derzeitige Lied und die derzeitige Shell in deinem Discord-Status anzeigen, wenn das <a href="http://ssp.shillest.net/plugin/discord.nar">Discord Rich Presence</a> Plugin installiert ist!</li>
 				<li>Und viele andere kleinere Änderungen!</li>
 			</ul>
 			<p>Es gibt ein paar Unterschiede zu FLELE, welche dir merkwürdig vorkommen könnten wenn du FLELE vorher viel benutzt hast. FLUX hat nicht das selbe Rechts-Klick-Menü das FLELE hat weil ich nicht dieselbe SAORI benutzt habe, die dieses erzeugt. Aus dem gleichen Grund gibt es auch keine Anzeigeleiste. Stattdessen öffnet sich das Musik-Menü wenn du auf den Bereich klickst der normalerweise die Anzeigeleiste öffnen würde. Es kann auch vorkommen dass einige FLELE Shells sich komisch verhalten; wenn du solche findest, lass es mich bitte wissen!</p>
@@ -189,6 +197,32 @@
 	</article>
     <article>
         <h1 id="history">Version history</h1>
+		<label class="collapsible">Version 1.2.x - Discord, Error handling, Music while minimized</label>
+		<div class="collapsible-content">
+			<div class="ver">
+				<div class="centerhead"><b>=====1.2.0=====</b>
+					<div class="ctr">(12/2/21)</div></div>
+				<ul>
+					<li>Some of the new features require SSP to be up to date! At the time of posting, the current version of SSP is 2.5.50. This SSP version also fixes a bug that prevents FLUX from switching shells properly, so it's an important one!</li>
+					<li>FLUX can now continue playing music while minimized!</li>
+					<li>If a song gives an error, FLUX now has a message about it. In addition, if you're not on the 'play one song' option, FLUX will start the next song automatically for you.</li>
+					<li>FLUX can now display your current shell and song in your Discord status if you have the new version of the Discord Rich Presence plugin! (https://ssp.shillest.net/plugin/discord.nar) This can be toggled off at any time in the config menu.</li>
+					<li>Added tooltips for hotspots! Turn on this option in the config menu, and FLUX will display tooltips when you mouse over hotspots (except the pettable area).</li>
+					<li>Added 4 new optional hotspots: pause/resume, next song, previous song, and stop after current song.</li>
+					<li>Added support for 3 other hotspots from FLELE: minimize, close, and a second stop button that is identical to the original.</li>
+					<li>Updated yaya.dll to tc564-2. This version adds new function modifiers to make creating dialogue pools easier!</li>
+					<li>Slightly rearranged main menu if you have debug mode on.</li>
+					<li>Updated music player menus to be slightly nicer when changing songs via the hotkeys/hotspots.</li>
+					<li>Slightly changed how surfaces are called when singing. Hopefully this will smooth out issues where the singing animation would stop when changing shells.</li>
+					<li>Fixed an issue where the music would stop if you changed shells right as it ended. There's a tiny window where this may still happen, but I don't think it's something I can change!</li>
+					<li>Hopefully fixed an issue where if you closed the balloon while a song was waiting to play, it would not play the next song.</li>
+					<li>Fixed an issue where FLUX would not reset its variables when booting because another ghost was uninstalled. There is also now an option for shell devs to determine if the OnCustom_OnVanished event triggered while FLUX was already open, or if it just booted.</li>
+				</ul>
+				<br>
+			</div>
+		</div>
+		<br>
+		
 		<label class="collapsible">Version 1.1.x - More translations, support for most audio file types, and emergency mode!</label>
 		<div class="collapsible-content">
 			<div class="ver">

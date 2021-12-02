@@ -118,7 +118,7 @@
 //Sister to the above, but this is for if FLUX is currently playing music. If this function does not exist, FLUX will set the Sakura to surface25, and the Kero to surface -1 by default. You need to keep at least one singing animation on surface25! Otherwise, go wild and add any additional surfaces you want here! Note that this function is called in several places, so it does not have a consistent set of reference values. Instead, you can use one of YAYA's built-in arrays to determine which surfaces your shell is in. SHIORI3FW.LastSurface[0] would be the current surface number of the Sakura, SHIORI3FW.LastSurface[1] would be the current surface number of the Kero, etc. Note that these are stored as integers.
 //OnCustom_SingingSurfaces
 //{
-	//if SHIORI3FW.LastSurface[0] != 25 //You can erase this if you want. If you set it up like this, your ghost won't change surfaces if it's already in the singing pose, and that way it won't be interrupted. You can also add more surface numbers here if you have multiple singing poses!
+	//if SHIORI3FW.LastSurface[0] != 25 || SHIORI3FW.Eventid == "OnWindowStateRestore" || SHIORI3FW.Eventid == "OnShellChanged" || SHIORI3FW.Eventid == "OnGetCoords2" //You can erase this if you want. If you set it up like this, your ghost won't change surfaces if it's already in the singing pose, and that way it won't be interrupted. You can also add more surface numbers here if you have multiple singing poses! The event ids here are to cover edge cases, don't get rid of those.
 	//{
 		//"\s[25]"
 	//}
@@ -167,6 +167,7 @@
 //}
 
 //Custom dialogue for if another ghost has been uninstalled. This will be called if FLUX is switched to when another ghost was running alone and was uninstalled, or if FLUX is open when another ghost is uninstalled. Uses the same references as OnVanished.
+//There is a possible additional argument here. If the other ghost that was uninstalled was open alone, and it switched to FLUX after it finished, _argv[0] will contain 'boot'. Otherwise, it will be empty. You can use this to determine if FLUX just booted or not.
 //OnCustom_OnVanished
 //{
 	

@@ -4,6 +4,9 @@ OnMusicMenu //Main music menu display; this displays the list of songs and the c
 	if MusicSettings[1] == ""; MusicSettings[1] = 100 //Speed
 	if MusicSettings[2] == ""; MusicSettings[2] = 0 //Balance
 	if MusicSettings[3] == ""; MusicSettings[3] = 0 //Play mode - 0 for loop playlist, 1 for shuffle playlist, 2 for loop song, 3 for play one song
+	
+	if BalloonCheck; "\C" //only working for hotkeys atm but that's worth it... will try to deal with this later. Ugh.
+	--
 	//MusicSettings[4] is the 'stop after current' option
 	_display = "" //Initialize variables
 	//_balloonlines = nowballoon[1] / 2 //This gets what the middle line of the balloon is
@@ -63,7 +66,7 @@ OnMusicMenu //Main music menu display; this displays the list of songs and the c
 	if ARRAYSIZE(CurrentPlaylist) > 12; "\0%(bbb)"
 	else; "\0%(bb)"
 	--
-	"\_q\*\![set,autoscroll,disable]"
+	"\_q\*\![set,autoscroll,disable]\c"
 	--
 	//TRANSLATORS: These are the buttons at the top of the music player menu. There are also some buttons at the bottom
 	if language == "Placeholder"
@@ -250,6 +253,12 @@ OnPlaySong //Function that actually plays the songs, nothing needs translated in
 	if MusicSettings[3] == ""; MusicSettings[3] = 0 //Play mode
 	if MusicSettings[4] != ""; MusicSettings[4] = "" //Reset 'stop after current' setting
 	
+	if IsMinimized //If it's minimized, set the reference values needed to the info sent from the arguments
+	{
+		reference0 = _argv[0]
+		reference1 = _argv[1]
+	}
+	
 	if ARRAYSIZE(CurrentPlaylist) > 0
 	{
 		if NowPlaying[0] == "" && (reference2 == "hotspot" || reference2 == "hotkey" || reference2 == "playbutton") //If no song was playing and this is coming from the hotspot or hotkey or menu
@@ -273,6 +282,7 @@ OnPlaySong //Function that actually plays the songs, nothing needs translated in
 		NowPlaying[0] = reference0 //Name of the current song
 		if reference1 == "justadded"; NowPlaying[1] = ARRAYSIZE(CurrentPlaylist) - 1 //Position of the current song
 		else; NowPlaying[1] = TOINT(reference1) //Position of the current song
+		
 		if reference2 == "frommenu" //If the user started a new song manually, shuffle the shuffled playlist again
 		{
 			ShuffledPlaylist = ShufflePlaylist(NowPlaying[1],CurrentPlaylist)
@@ -280,29 +290,50 @@ OnPlaySong //Function that actually plays the songs, nothing needs translated in
 		
 		if TOSTR(reference3) == "1"; "\C\_l[0,0]" //If the balloon is currently open, keep it open
 		--
-		if _old[0] == "" || _old[2] != ""; "%(SingingSurfaces)"
+		UpdateTooltips
 		--
-		"%(OnNotifySongInfo)" //Start the singing animations if they weren't already started
+		//if _old[0] == "" || _old[2] != ""; "%(SingingSurfaces)" //TODO this is where that bug with the next/prev buttons starting music not playing singing animations probably is. Maybe want to fix by not letting next/prev start a song??? Dunno, that feels wrong
+		//????? They??? Already can't start a song???? I have........ no idea. Really weird. Marking this as fixed but I will keep an eye out in case it comes up again.
+		"%(SingingSurfaces)" //Idk why I was using the other system... This works fine????? Maybe I added stuff to it idk
 		--
-		"\![sound,stop]" //Stop anything that might be playing
+		_send = ""
+		_send += "%(OnNotifySongInfo)" //Start the singing animations if they weren't already started
+		--
+		_send += "\![sound,stop]" //Stop anything that might be playing
 		--
 		_path = reference0
 		//_path = REPLACE(reference0,"%(C_BYTE1)","\,")
 		//_path = REPLACE(_path,"]","\]")
 		
-		"\![sound,play,%(CHR(34))%(_path)%(CHR(34)),--volume=%(MusicSettings[0]),--rate=%(MusicSettings[1]),--balance=%(MusicSettings[2]),--sound-only=true]" //Play new song
+		_send += "\![sound,play,%(CHR(34))%(_path)%(CHR(34)),--volume=%(MusicSettings[0]),--rate=%(MusicSettings[1]),--balance=%(MusicSettings[2]),--sound-only=true]" //Play new song
+		
+		LOGGING("====================================================================")
+		LOGGING("====================================================================")
+		LOGGING("====================================================================")
+		if IsMinimized
+		{
+			LOGGING("Sent with ValueNotify")
+			SHIORI3FW.MakeValueNotify(_send)
+		}
+		else
+		{
+			LOGGING("Sent normally")
+			_send
+		}
 	}
 	else
 	{
 		_menu = ""
 		if "music player main menu" _in_ SHIORI3FW.LastTalk; _menu = "music player main menu"
 		elseif "FLUX main menu" _in_ SHIORI3FW.LastTalk; _menu = "FLUX main menu"
+		elseif "__Music_Settings_Menu__" _in_ SHIORI3FW.LastTalk; _menu = "settingsmenu"
 		
 		"\![raise,OnStopSong,nosong,%(_menu)]\e"
 	}
 	--
 	if reference2 == "frommenu" || reference2 == "nextprev" || reference4 == "menuopen" || reference2 == "playbutton"; "\![raise,OnMusicMenu]" //If music menu is already open, reopen it so that it highlights the correct song properly
 	elseif reference4 == "mainmenu"; "\![raise,OnMenuRun]"
+	elseif reference4 == "settingsmenu"; "\![raise,OnMusicSettings]"
 	--
 	"\e"
 }
@@ -318,7 +349,7 @@ OnStopSong //Stopping a song
 	if _m == 1 && _b == 1; "\C\![sound,stop]"
 	else; "\![sound,stop]"
 	--
-	"%(NonSingingSurfaces)%(OnNotifySongInfo)" //Stop the singing animations
+	"%(NonSingingSurfaces)%(OnNotifySongInfo)%(UpdateTooltips)" //Stop the singing animations
 	--
 	if reference0 == "reload"
 	{
@@ -332,6 +363,10 @@ OnStopSong //Stopping a song
 	{
 		"\![raise,OnMenuRun]"
 	}
+	elseif "__Music_Settings_Menu__" _in_ SHIORI3FW.LastTalk || reference1 == "settingsmenu"
+	{
+		"\![raise,OnMusicSettings]"
+	}
 	else
 	{
 		"\e"
@@ -340,26 +375,27 @@ OnStopSong //Stopping a song
 
 OnPauseSong //Pausing or unpausing a song
 {
-	if (reference2 == "hotkey" || reference2 == "hotspot") && TOSTR(reference3) == "1"; "\C" //If this was from the hotkey and the balloon is open, keep it open
+	if (reference2 == "hotkey" || reference2 == "hotspot") && TOSTR(reference3) == "1" || reference1 == "menu"; "\C" //If this was from the hotkey and the balloon is open, keep it open
 	--
 	if reference0 == "resume" //Unpausing
 	{
 		//_resume = REPLACE(NowPlaying[2],"%(C_BYTE1)","\,")
 		//_resume = REPLACE(_resume,"]","\]")
 		NowPlaying[2] = ""
-		"%(SingingSurfaces)\![sound,resume,%(CHR(34))%(_resume)%(CHR(34))]"
+		"%(SingingSurfaces)\![sound,resume]" //,%(CHR(34))%(_resume)%(CHR(34))]"
+		//Poor translation on Ukadoc, don't need song name here
 	}
 	else //Pausing
 	{
 		NowPlaying[2] = NowPlaying[0] //Store the song in NowPlaying[2] to show it's paused
 		//_pause = REPLACE(NowPlaying[2],"%(C_BYTE1)","\,")
 		//_pause = REPLACE(_pause,"]","\]")
-		"%(NonSingingSurfaces)\![sound,pause,%(CHR(34))%(_pause)%(CHR(34))]"
+		"%(NonSingingSurfaces)\![sound,pause]" //",%(CHR(34))%(_pause)%(CHR(34))]"
 	}
 	--
-	"%(OnNotifySongInfo)"
+	"%(OnNotifySongInfo)%(UpdateTooltips)"
 	--
-	if reference2 == "hotkey" //If this was done via the hotkey
+	if reference2 == "hotkey" || reference2 == "hotspot" //If this was done via the hotkey
 	{
 		if reference4 == "menuopen" //If the music menu was open, call it again so it updates
 		{
@@ -386,6 +422,7 @@ OnNextSong //The user pressed a hotkey or menu option to go to the next song
 	if reference2 == "hotkey" {_from = "hotkey"; if _m == 1; {"\C"}}
 	elseif reference2 == "hotspot" {_from = "hotspot"; if _m == 1; {"\C"}}
 	_b = BalloonCheck
+	--
 	_next = 0
 	--
 	"\![sound,stop]"
@@ -420,9 +457,12 @@ OnNextSong //The user pressed a hotkey or menu option to go to the next song
 		_menu = ""
 		if "music player main menu" _in_ SHIORI3FW.LastTalk; _menu = "music player main menu"
 		elseif "FLUX main menu" _in_ SHIORI3FW.LastTalk; _menu = "FLUX main menu"
+		elseif "__Music_Settings_Menu__" _in_ SHIORI3FW.LastTalk; _menu = "settingsmenu"
 		
 		"\![raise,OnStopSong,nosong,%(_menu)]\e"
 	}
+	--
+	"%(_flickerprevention)"
 }
 
 OnPrevSong //The user pressed a hotkey or menu option to go to the previous song
@@ -432,6 +472,8 @@ OnPrevSong //The user pressed a hotkey or menu option to go to the previous song
 	_from = "nextprev" //Sent to OnPlaySong
 	if reference2 == "hotkey" {_from = "hotkey"; "\C"}
 	_b = BalloonCheck
+	--
+	
 	_next = 0
 	--
 	"\![sound,stop]"
@@ -457,16 +499,19 @@ OnPrevSong //The user pressed a hotkey or menu option to go to the previous song
 		NowPlaying[0] = CurrentPlaylist[_next] //song name
 		NowPlaying[1] = TOINT(_next) //song position
 		--
-		"\![raise,OnPlaySong,%(CHR(34))%(CurrentPlaylist[_next])%(CHR(34)),%(_next),%(_from),%(_b),%(_inmenu)]"
+		"\![raise,OnPlaySong,%(CHR(34))%(CurrentPlaylist[_next])%(CHR(34)),%(_next),%(_from),%(_b),%(_inmenu)]\e"
 	}
 	else
 	{
 		_menu = ""
 		if "music player main menu" _in_ SHIORI3FW.LastTalk; _menu = "music player main menu"
 		elseif "FLUX main menu" _in_ SHIORI3FW.LastTalk; _menu = "FLUX main menu"
+		elseif "__Music_Settings_Menu__" _in_ SHIORI3FW.LastTalk; _menu = "settingsmenu"
 		
 		"\![raise,OnStopSong,nosong,%(_menu)]\e"
 	}
+	--
+	"%(_flickerprevention)"
 }
 
 OnRemoveSong //Removing a song from the current playlist
@@ -636,9 +681,16 @@ OnSoundStop //When a song ends on its own
 {
 	LOGGING("====================================================================")
 	LOGGING("OnSoundStop")
+	if MusicSettings[5] == 1
+	{
+		LOGGING("===============SHELL IS BEING CHANGED, RESUMING AFTERWARDS...")
+		MusicSettings[5] = 2
+		return
+	}
 	_inmenu = ""
 	if "music player main menu" _in_ SHIORI3FW.LastTalk; _inmenu = "menuopen" //Check if menu is open
 	elseif "FLUX main menu" _in_ SHIORI3FW.LastTalk; _inmenu = "mainmenu"
+	elseif "__Music_Settings_Menu__" _in_ SHIORI3FW.LastTalk; _inmenu = "settingsmenu"
 	NowPlaying[2] = "" //Clear paused song if there somehow was one
 	_b = BalloonCheck; if _b == 1; "\C\_l[0,0]"
 	--
@@ -683,13 +735,89 @@ OnSoundStop //When a song ends on its own
 			NowPlaying[0] = "" //song name
 			MusicSettings[4] = IARRAY
 			--
+			"%(UpdateTooltips)"
+			--
 			"%(NonSingingSurfaces)"
 			--
 			if _inmenu == "menuopen"; "\![raise,OnMusicMenu]"
 			elseif _inmenu == "mainmenu"; "\![raise,OnMenuRun]"
+			elseif _inmenu == "settingsmenu"; "\![raise,OnMusicSettings]"
 			else; "\e"
 		}
-		else; "\![raise,OnPlaySong,%(CurrentPlaylist[_next]),%(_next),,%(_b),%(_inmenu)]"
+		else
+		{
+			if IsMinimized
+			{
+				OnPlaySong(CurrentPlaylist[_next],_next)
+			}
+			else
+			{
+				"%(SingingSurfaces)\![raise,OnPlaySong,%(CHR(34))%(CurrentPlaylist[_next])%(CHR(34)),%(_next),,%(_b),%(_inmenu)]"
+			}
+		}
+	}
+}
+
+OnSoundError
+{
+	_playnext = 0
+	if !(MusicSettings[3] == 2 || MusicSettings[3] == 3 || MusicSettings[4] == "stop after playback" || ARRAYSIZE(CurrentPlaylist) <= 1); _playnext = 1 //If it IS able to play another song
+	
+	"\0%(b)\f[anchorstyle,none]"
+	--
+	if _playnext == 0
+	{
+		NowPlaying[0] = "" //song name
+		//NowPlaying[1] = -1 //song position
+		NowPlaying[2] = "" //Clearing paused song
+	}
+	if IsMinimized && !_playnext; SHIORI3FW.MakeValueNotify("%(OnNotifySongInfo)")
+	else; "%(OnNotifySongInfo)"
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Error]"
+	else; "\s[6]"
+	--
+	if language == "Placeholder" //TRANSLATORS: If a song gives an error, this is the message that will display. I don't know what all the possible error messages can be, and it says it's determined by the sound playback engine, so I'm not going to ask for those to be translated. reference2 here is the file that gave the error, and reference3 is the error message
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"[Die Datei \_a[OnBlank]\_?%(reference2)\_?\_a konnte nicht abgespielt werden; '%(reference3)']"
+		--
+		//If it's able to play another song
+		if _playnext; "\n\n\w8\w8[Nächstes Lied wird gestartet...]"
+	}
+	elseif language == "Русский"
+	{
+		"[Не могу играть файл \_a[OnBlank]\_?%(reference2)\_?\_a; '%(reference3)']"
+		--
+		//If it's able to play another song
+		if _playnext; "\n\n\w8\w8[Начинает следущую песню...]"
+	}
+	//TODO FRENCH
+	elseif language == "Polski"
+	{
+		"[Nie można odtworzyć pliku \_a[OnBlank]\_?%(reference2)\_?\_a; '%(reference3)']"
+		--
+		//If it's able to play another song
+		if _playnext; "\n\n\w8\w8[Rozpoczynanie następnego utworu...]"
+	}
+	else //English
+	{
+		"[Cannot play file \_a[OnBlank]\_?%(reference2)\_?\_a; '%(reference3)']"
+		--
+		//If it's able to play another song
+		if _playnext; "\n\n\w8\w8[Starting next song...]"
+	}
+	--
+	LOGGING("====================================================================")
+	LOGGING("_playnext: ",_playnext)
+	if _playnext
+	{
+		"\_w[1000]"
+		--
+		"\![raise,OnSoundStop]"
 	}
 }
 
@@ -845,7 +973,7 @@ OnMusicSettings //Settings menu
 		\![*]\q[Why do some songs give an error?,OnMusicInfo,error]\n/
 		\![*]\q[Where are playlists saved?,OnMusicInfo,playlistsave]"
 		--
-		"\n\n\![*]\q[Back to music menu,OnMusicMenu]\e"
+		"\n\n\![*]\q[Back to music menu,OnMusicMenu]\e __Music_Settings_Menu__"
 	}
 }
 

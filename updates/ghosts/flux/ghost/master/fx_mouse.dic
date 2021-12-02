@@ -50,21 +50,23 @@ OnMouseDoubleClick
 
 MouseDoubleClickSakura
 {
+	_inmenu = ""
+	if "music player main menu" _in_ SHIORI3FW.LastTalk; _inmenu = "menuopen"
+	elseif "FLUX main menu" _in_ SHIORI3FW.LastTalk; _inmenu = "mainmenu"
+	elseif "__Music_Settings_Menu__" _in_ SHIORI3FW.LastTalk; _inmenu = "settingsmenu"
+	_b = BalloonCheck
+	_m = MenuCheck
+		
 	if reference4 == "menu" || reference4 == "" //Menu open
 	{
 		OpenSakuraMenu
 	}
-	elseif reference4 == "stop_button1" //Stopping the music
+	elseif reference4 == "stop_button1" || reference4 == "stop_button2" //Stopping the music
 	{
 		OnStopSong
 	}
 	elseif reference4 == "play_button" //Playing a song. This should always start the next one, probably? If none is playing, it should either start at 0 or a random position... If something is playing, it should skip to the next, I think.
 	{
-		_inmenu = ""
-		if "music player main menu" _in_ SHIORI3FW.LastTalk; _inmenu = "menuopen"
-		elseif "FLUX main menu" _in_ SHIORI3FW.LastTalk; _inmenu = "mainmenu"
-		_b = BalloonCheck
-		_m = MenuCheck
 		if _m == 1 && _b == 1; "\C"
 		--
 		if NowPlaying[0] == "" //If no song is playing
@@ -86,6 +88,54 @@ MouseDoubleClickSakura
 		//elseif NowPlaying[2] != ""; "\![raise,OnPauseSong,resume,,hotspot,%(_b),%(_inmenu)]"
 		//else; "\![raise,OnPauseSong,pause,,hotspot,%(_b),%(_inmenu)]"
 	}
+	elseif reference4 == "pause_button"
+	{
+		if _m == 1 && _b == 1; "\C"
+		--
+		if NowPlaying[2] != ""; "\![raise,OnPauseSong,resume,,hotspot,%(_b),%(_inmenu)]"
+		else; "\![raise,OnPauseSong,pause,,hotspot,%(_b),%(_inmenu)]"
+	}
+	//Note to future self: copied these directly from the hotkeys code. Could probably make this into its own function or something...
+	elseif reference4 == "next_button"
+	{
+		_inmenu = ""
+		if "music player main menu" _in_ SHIORI3FW.LastTalk; _inmenu = "menuopen"
+		elseif "FLUX main menu" _in_ SHIORI3FW.LastTalk; _inmenu = "mainmenu"
+		elseif "__Music_Settings_Menu__" _in_ SHIORI3FW.LastTalk; _inmenu = "settingsmenu"
+		if NowPlaying[0] != ""
+		{
+			_b = BalloonCheck
+			_m = MenuCheck
+			if _m == 1 && _b == 1; "\C\![raise,OnNextSong,,,hotkey,,%(_inmenu)]"
+			else; "\![raise,OnNextSong,,,hotkey,,%(_inmenu)]\e"
+		}
+	}
+	elseif reference4 == "previous_button"
+	{
+		_inmenu = ""
+		if "music player main menu" _in_ SHIORI3FW.LastTalk; _inmenu = "menuopen"
+		elseif "FLUX main menu" _in_ SHIORI3FW.LastTalk; _inmenu = "mainmenu"
+		elseif "__Music_Settings_Menu__" _in_ SHIORI3FW.LastTalk; _inmenu = "settingsmenu"
+		if NowPlaying[0] != ""
+		{
+			_b = BalloonCheck
+			_m = MenuCheck
+			if _m == 1 && _b == 1; "\C\![raise,OnPrevSong,,,hotkey,,%(_inmenu)]"
+			else; "\![raise,OnPrevSong,,,hotkey,,%(_inmenu)]\e"
+		}
+	}
+	elseif reference4 == "stop_after_current"
+	{
+		if MusicSettings[4] != "stop after playback"
+		{
+			MusicSettings[4] = "stop after playback"
+		}
+		else
+		{
+			MusicSettings[4] = IARRAY
+		}
+		if "__Music_Settings_Menu__" _in_ SHIORI3FW.LastTalk; "\C\![raise,OnMusicSettings]"
+	}
 	elseif reference4 == "k_window" //I think this is the song bar... I'm going to make it open the music menu
 	{
 		OnMusicMenu
@@ -93,6 +143,14 @@ MouseDoubleClickSakura
 	elseif reference4 == "clear_button" //Clearing the current playlist
 	{
 		OnClearPlaylist("Hotspot")
+	}
+	elseif reference4 == "minimize"
+	{
+		"\![set,windowstate,minimize]"
+	}
+	elseif reference4 == "end_sect"
+	{
+		"\![raise,OnClose]"
 	}
 	elseif ISFUNC("OnCustom_MouseDoubleClickSakura") && CustomFuncs[0] == 1; OnCustom_MouseDoubleClickSakura
 }

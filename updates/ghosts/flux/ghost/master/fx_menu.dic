@@ -199,20 +199,22 @@ OnMenuRun //Main menu
 		--
 		if ISFUNC("OnCustom_Menu") && CustomFuncs[0] == 1; "\n%(OnCustom_Menu)\n"
 		--
-		"\n\![*]\q[Einstellungen,OnConfigMenu]\n\n\![*]\q[Schließen,OnCancel]"
+		"\n\![*]\q[Einstellungen,OnConfigMenu]"
+		--
+		if debug > 0 //%(debug = 1) in script input to show the debug options
+		{
+			if CustomFuncs[0] == 1; "\n\n\![*]\q[Shell-Funktionen neu laden,OnReloadShellFuncs]"
+			else; "\n\n[100][Shell-Spezifische Funktionen/Dialoge sind ausgeschaltet]"
+			--
+			if ISFUNC("OnCustom_TestFunc") && CustomFuncs[0] == 1; "  \![*]\q[Benutzerdefinierte Test-Funktion,OnCustom_TestFunc]"
+		}
 		--
 		if debug > 1
 		{
 			"  \![*]\q[Test Variable,OnTestVar]"
 		}
 		--
-		if debug > 0 //%(debug = 1) in script input to show the debug options
-		{
-			if CustomFuncs[0] == 1; "\n\n\![*]\q[Shell-Funktionen neu laden,OnReloadShellFuncs]"
-			else; "\n\n[][Shell-Spezifische Funktionen/Dialoge sind ausgeschaltet]"
-			--
-			if ISFUNC("OnCustom_TestFunc") && CustomFuncs[0] == 1; "  \![*]\q[Benutzerdefinierte Test-Funktion,OnCustom_TestFunc]"
-		}
+		"\n\n\![*]\q[Schließen,OnCancel]"
 		--
 		"\n\n\n[half]\f[height,-2]"
 		--
@@ -254,20 +256,22 @@ OnMenuRun //Main menu
 		--
 		if ISFUNC("OnCustom_Menu") && CustomFuncs[0] == 1; "\n%(OnCustom_Menu)\n"
 		--
-		"\n\![*]\q[Конфигурация,OnConfigMenu]\n\n\![*]\q[Закрыть,OnCancel]"
-		--
-		if debug > 1
-		{
-			"  \![*]\q[Параметер тесты,OnTestVar]"
-		}
+		"\n\![*]\q[Конфигурация,OnConfigMenu]"
 		--
 		if debug > 0 //%(debug = 1) in script input to show the debug options
 		{
 			if CustomFuncs[0] == 1; "\n\n\![*]\q[Перезагрузить функции вида,OnReloadShellFuncs]"
-			else; "\n\n[][Особенные функции/разговоры выключен]"
+			else; "\n\n[100][Особенные функции/разговоры выключен]"
 			--
 			if ISFUNC("OnCustom_TestFunc") && CustomFuncs[0] == 1; "  \![*]\q[Специальная Тест Функция,OnCustom_TestFunc]"
 		}
+		--
+		if debug > 1
+		{
+			"\n\![*]\q[Параметер тесты,OnTestVar]"
+		}
+		--
+		"\n\n\![*]\q[Закрыть,OnCancel]"
 		--
 		"\n\n\n[half]\f[height,-2]"
 		--
@@ -307,15 +311,22 @@ OnMenuRun //Main menu
 		--
 		if ARRAYSIZE(availabledressups) > 0; "\![*]\q[Habits,OnDressupMenu]\n"
 		--
-		"\n\![*]\q[Config,OnConfigMenu]\n\n\![*]\q[Fermer,OnCancel]"
+		"\n\![*]\q[Config,OnConfigMenu]"
 		--
-		if debug == 1 //%(debug = 1) in script input to show the debug options
+		if debug > 0 //%(debug = 1) in script input to show the debug options
 		{
 			if CustomFuncs[0] == 1; "\n\n\![*]\q[Recharger les Fonctions du Shell,OnReloadShellFuncs]"
-			else; "\n\n[][Les fonctions/dialogues personnalisés du shell sont désactivés]"
+			else; "\n\n[100][Les fonctions/dialogues personnalisés du shell sont désactivés]"
 			--
 			if ISFUNC("OnCustom_TestFunc") && CustomFuncs[0] == 1; "  \![*]\q[Fonction de Test Personnalisée,OnCustom_TestFunc]"
 		}
+		--
+		if debug > 1 //%(debug = 1) in script input to show the debug options
+		{
+			"    \![*]\q[Test Variable,OnTestVar]"
+		}
+		--
+		"\n\n\![*]\q[Fermer,OnCancel]"
 		--
 		"\n\n\n[half]\f[height,-2]"
 		--
@@ -357,20 +368,22 @@ OnMenuRun //Main menu
 		--
 		if ISFUNC("OnCustom_Menu") && CustomFuncs[0] == 1; "\n%(OnCustom_Menu)\n"
 		--
-		"\n\![*]\q[Ustawienia,OnConfigMenu]\n\n\![*]\q[Zamknij,OnCancel]"
+		"\n\![*]\q[Ustawienia,OnConfigMenu]"
+		--
+		if debug > 0 //%(debug = 1) in script input to show the debug options
+		{
+			if CustomFuncs[0] == 1; "\n\n\![*]\q[Przeładuj funkcje skorupy,OnReloadShellFuncs]"
+			else; "\n\n[100][Specjalne funkcje/dialogi skorupy są wyłączone]"
+			--
+			if ISFUNC("OnCustom_TestFunc") && CustomFuncs[0] == 1; "  \![*]\q[Test funkcji specjalnych,OnCustom_TestFunc]"
+		}
 		--
 		if debug > 1 //%(debug = 1) in script input to show the debug options
 		{
 			"     \![*]\q[Test Variable,OnTestVar]"
 		}
 		--
-		if debug > 0 //%(debug = 1) in script input to show the debug options
-		{
-			if CustomFuncs[0] == 1; "\n\n\![*]\q[Przeładuj funkcje skorupy,OnReloadShellFuncs]"
-			else; "\n\n[][Specjalne funkcje/dialogi skorupy są wyłączone]"
-			--
-			if ISFUNC("OnCustom_TestFunc") && CustomFuncs[0] == 1; "  \![*]\q[Test funkcji specjalnych,OnCustom_TestFunc]"
-		}
+		"\n\n\![*]\q[Zamknij,OnCancel]"
 		--
 		"\n\n\n[half]\f[height,-2]"
 		--
@@ -412,20 +425,22 @@ OnMenuRun //Main menu
 		--
 		if ISFUNC("OnCustom_Menu") && CustomFuncs[0] == 1; "\n%(OnCustom_Menu)\n"
 		--
-		"\n\![*]\q[Config,OnConfigMenu]\n\n\![*]\q[Close,OnCancel]"
+		"\n\![*]\q[Config,OnConfigMenu]"
+		--
+		if debug > 0 //%(debug = 1) in script input to show the debug options
+		{
+			if CustomFuncs[0] == 1; "\n\n\![*]\q[Reload Shell Functions,OnReloadShellFuncs]"
+			else; "\n\n[100][Custom shell functions/dialogue are disabled]"
+			--
+			if ISFUNC("OnCustom_TestFunc") && CustomFuncs[0] == 1; "  \![*]\q[Custom Test Function,OnCustom_TestFunc]"
+		}
 		--
 		if debug > 1
 		{
 			"  \![*]\q[Test Variable,OnTestVar]"
 		}
 		--
-		if debug > 0 //%(debug = 1) in script input to show the debug options
-		{
-			if CustomFuncs[0] == 1; "\n\n\![*]\q[Reload Shell Functions,OnReloadShellFuncs]"
-			else; "\n\n[][Custom shell functions/dialogue are disabled]"
-			--
-			if ISFUNC("OnCustom_TestFunc") && CustomFuncs[0] == 1; "  \![*]\q[Custom Test Function,OnCustom_TestFunc]"
-		}
+		"\n\n\![*]\q[Close,OnCancel]"
 		--
 		"\n\n\n[half]\f[height,-2]"
 		--
@@ -453,6 +468,9 @@ OnConfigMenu //I moved changing name/pronouns/birthday over to Nameteach, becaus
 	if AutoUpdates[2] == ""; {AutoUpdates[0] = 1; AutoUpdates[2] = onoff[0]}
 	if CustomFuncs[1] == ""; {CustomFuncs[0] = 1; CustomFuncs[1] = onoff[0]}
 	if HourNotifs[1] == ""; {HourNotifs[0] = 0; HourNotifs[1] = onoff[1]}
+	if DiscordDisplay[0] == ""; {DiscordDisplay[0] = 1}
+	if TooltipDisplay == ""; {TooltipDisplay = 1}
+	
 	if birthday[0] == "" || birthday[2] == ""; {birthday = IARRAY; birthday[0] = "???"}
 	if gender == ""; gender = "undef"
 	if username == ""; username = DefaultUsername
@@ -461,6 +479,8 @@ OnConfigMenu //I moved changing name/pronouns/birthday over to Nameteach, becaus
 	_cstfncbtn = ""; if CustomFuncs[0] == 1; _cstfncbtn = onoff[0]; else; _cstfncbtn = onoff[1]
 	_atoupdbtn = ""; if AutoUpdates[0] == 1; _atoupdbtn = onoff[0]; else; _atoupdbtn = onoff[1]
 	_hnotifbtn = ""; if HourNotifs[0] == 1; _hnotifbtn = onoff[0]; else; _hnotifbtn = onoff[1]
+	_discordbtn = ""; if DiscordDisplay[0] == 1; _discordbtn = onoff[0]; else; _discordbtn = onoff[1]
+	_tooltipbtn = ""; if TooltipDisplay == 1; _tooltipbtn = onoff[0]; else; _tooltipbtn = onoff[1]
 	
 	
 	"\0\![close,inputbox,OnNameTeach]\![close,inputbox,OnUserBornMonth]\![close,inputbox,OnUserBornDay]\![set,autoscroll,disable]\_q%(bbb)"
@@ -513,6 +533,10 @@ OnConfigMenu //I moved changing name/pronouns/birthday over to Nameteach, becaus
 		if IsEmergencyMode; "\_a[OnExplainShellError,config][SHELL-FEHLER: SHELL-SPEZIFISCHE FUNKTIONEN AUSGESCHALTET]\_a\n";
 		else; "\n"
 		--
+		"Derzeitiges Lied und derzeitige Shell auf Discord anzeigen? \_a[OnToggleDiscordPlugin]%(_discordbtn)\_a \q[(Info),DiscordPluginInfo]\n"
+		--
+		"Kurzinfo für interaktive Bereiche anzeigen? \_a[OnToggleTooltips]%(_tooltipbtn)\_a\n\n"
+		--
 		"\![*]\q[Bug melden,BugReport]\n\n/
 		Deinstallieren freischalten? \_a[OnToggleUninstall]%(_uninstbtn)\_a\n\n/
 		\![*]\q[Zurück zum Hauptmenü,OnMenuRun]\e"
@@ -559,8 +583,12 @@ OnConfigMenu //I moved changing name/pronouns/birthday over to Nameteach, becaus
 		if IsEmergencyMode; "\_a[OnExplainShellError,config][ОШИБКА С ВНЕШНОГО ВИДА: ПОЛЬЗОВАТЕЛЬСКИЕ ФУНКЦИЯ ВЫКЛЮЧЕН]\_a\n";
 		else; "\n"
 		--
+		"Показать текущий песня и внешний вид в Дискорд? \_a[OnToggleDiscordPlugin]%(_discordbtn)\_a \q[(Info),DiscordPluginInfo]\n"
+		--
+		"Использовать подсказки для горячие точки? \_a[OnToggleTooltips]%(_tooltipbtn)\_a\n\n"
+		--
 		"\![*]\q[Сообщить о ошибке,BugReport]\n\n/
-		Включить Удаление? \_a[OnToggleUninstall]%(_uninstbtn)\_a\n\n/
+		Включить Удаление? \_a[OnToggleUninstall]%(_uninstbtn)\_a\n\n[70]/
 		\![*]\q[Назад в Меню,OnMenuRun]\e"
 	}
 	elseif language == "Français"
@@ -606,6 +634,10 @@ OnConfigMenu //I moved changing name/pronouns/birthday over to Nameteach, becaus
 		--
 		if IsEmergencyMode; "\_a[OnExplainShellError,config][ERREUR DE SHELL: FONCTIONS PERSONALISÉES DÉSACTIVÉES]\_a\n"
 		else; "\n"
+		--
+		"Display current song and shell in Discord? \_a[OnToggleDiscordPlugin]%(_discordbtn)\_a \q[(Info),DiscordPluginInfo]\n"
+		--
+		"Use tooltips for hotspots? \_a[OnToggleTooltips]%(_tooltipbtn)\_a\n\n"
 		--
 		"\![*]\q[Reporter un bug,BugReport]\n\n/
 		Activer la désinstallation ? \_a[OnToggleUninstall](%(_uninstbtn))\_a\n\n/
@@ -654,6 +686,10 @@ OnConfigMenu //I moved changing name/pronouns/birthday over to Nameteach, becaus
 		if IsEmergencyMode; "\_a[OnExplainShellError,config][BŁĄD SKORUPY: NIESTANDARDOWE FUNKCJE WYŁĄCZONE]\_a\n";
 		else; "\n"
 		--
+		"Wyświetlaj bieżący utwór i skorupę na Discordzie?%(br)\_a[OnToggleDiscordPlugin]%(_discordbtn)\_a \q[(Info),DiscordPluginInfo]\n"
+		--
+		"Używać etykiet narzędzi dla hotspotów? \_a[OnToggleTooltips]%(_tooltipbtn)\_a\n\n"
+		--
 		"\![*]\q[Zgłoś błąd,BugReport]\n\n/
 		Włącz odinstalowywanie? \_a[OnToggleUninstall]%(_uninstbtn)\_a\n\n/
 		\![*]\q[Powrót do menu,OnMenuRun]\e"
@@ -701,6 +737,10 @@ OnConfigMenu //I moved changing name/pronouns/birthday over to Nameteach, becaus
 		--
 		if IsEmergencyMode; "\_a[OnExplainShellError,config][SHELL ERROR: CUSTOM FUNCTIONS DISABLED]\_a\n";
 		else; "\n"
+		--
+		"Display current song and shell in Discord? \_a[OnToggleDiscordPlugin]%(_discordbtn)\_a \q[(Info),DiscordPluginInfo]\n"
+		--
+		"Use tooltips for hotspots? \_a[OnToggleTooltips]%(_tooltipbtn)\_a\n\n"
 		--
 		"\![*]\q[Report a bug,BugReport]\n\n/
 		Enable Uninstall? \_a[OnToggleUninstall]%(_uninstbtn)\_a\n\n/
@@ -789,6 +829,9 @@ OnLanguageMenu
 OnLanguage
 {
 	language = reference0
+	
+	UpdateTooltips
+	--
 	OnConfigMenu
 }
 
@@ -1151,6 +1194,74 @@ OnBalloonModeToggle
 	else
 	{
 		balloonmode = 0
+	}
+	--
+	OnConfigMenu
+}
+
+OnToggleDiscordPlugin
+{
+	if DiscordDisplay[0] != 1
+	{
+		if Singing; _song = "♫ %(CHR(34))%(SPLITPATH(NowPlaying[0])[2])%(CHR(34)) ♫"
+
+		DiscordDisplay[0] = 1
+		"\![raiseplugin,Discord Rich Presence,OnDiscordPluginCustomDetail,Shell: %(CHR(34))%(nowshell)%(CHR(34))]"
+		--
+		"\![raiseplugin,Discord Rich Presence,OnDiscordPluginCustomState,%(_song)]"
+	}
+	else
+	{
+		DiscordDisplay[0] = 0
+		"\![raiseplugin,Discord Rich Presence,OnDiscordPluginCustomDetail, ]"
+		--
+		"\![raiseplugin,Discord Rich Presence,OnDiscordPluginCustomState, ]"
+	}
+	--
+	OnConfigMenu
+}
+
+OnToggleTooltips
+{
+	if TooltipDisplay != 1
+	{
+
+		TooltipDisplay = 1
+	}
+	else
+	{
+		TooltipDisplay = 0
+	}
+	--
+	UpdateTooltips
+	--
+	OnConfigMenu
+}
+
+Select.DiscordPluginInfo
+{
+	"\0%(b)"
+	--
+	if language == "Placeholder" //TRANSLATORS: Information about where to get the discord plugin and how to use it
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"[FLUX kann das derzeitige Lied und die derzeitige Shell in deinem Discord-Status anzeigen, wenn das \_a[https://ssp.shillest.net/plugin/discord.nar]Discord Rich Presence\_a Plugin für SSP installiert wurde.]\n\n\w8\w8[Nachdem das Plugin installiert wurde\w4 kann man FLUX rechts-klicken,\w4 zur \_a[OnBlank]Plugins\_a-Option gehen\w4 und dann auf \_a[OnBlank]Discord Rich Presence\_a klicken\w4 um in diesem Menü FLUX als den aktiven Ghost auszuwählen.\w8\w8 Nach dem Schließen dieses Menüs sollte die Information dann in Discord auftauchen.]\x"
+	}
+	elseif language == "Русский"
+	{
+		"[FLUX может показать твой текущий песня и внешний вид в статусе Дискорд, если ты установишь модуль \_a[https://ssp.shillest.net/plugin/discord.nar]Discord Rich Presence\_a для SSP.]\n\n\w8\w8[После установки модуля,\w4 щелкни правой кнопкой мышей на FLUX,\w4 иди в настроек \_a[OnBlank]Модули\_a,\w4 и нажми \_a[OnBlank]Discord Rich Presence\_a.\w8\w8 Выбирать FLUX как активное привидение в меню, который пуьунлун,\w4 и после закрытие меню,информация должно быть видно в Дискорд.]\x"
+	}
+	//TODO FRENCH
+	elseif language == "Polski"
+	{
+		"[FLUX może wyświetlać bieżący utwór i skorupę w statusie Discorda, jeśli zainstalujesz wtyczkę \_a[https://ssp.shillest.net/plugin/discord.nar]Discord Rich Presence\_a dla SSP.]\n\n\w8\w8[Po zainstalowaniu wtyczki,\w4 kliknij prawym przyciskiem myszy na FLUX,\w4 przejdź do opcji \_a[OnBlank]Plugins\_a\w4 i kliknij na \_a[OnBlank]Discord Rich Presence\_a.\w8\w8 W menu, które się pojawi,\w4 wybierz FLUX jako aktywnego ducha, a po zamknięciu menu w Discordzie powinny pojawić się informacje.]\x"
+	}
+	else //English
+	{
+		"[FLUX can display your current song and shell in your Discord status if you install the \_a[https://ssp.shillest.net/plugin/discord.nar]Discord Rich Presence\_a plugin for SSP.]\n\n\w8\w8[After installing the plugin,\w4 right click FLUX,\w4 go to the \_a[OnBlank]Plugins\_a option,\w4 and click on \_a[OnBlank]Discord Rich Presence\_a.\w8\w8 Select FLUX as your active ghost in the menu that comes up,\w4 and you should see the info appear in Discord after you close the menu.]\x"
 	}
 	--
 	OnConfigMenu

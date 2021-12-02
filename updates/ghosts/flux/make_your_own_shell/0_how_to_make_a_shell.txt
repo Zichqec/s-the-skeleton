@@ -135,11 +135,19 @@ animation0.pattern2,overlay,-1,30,0,0
 //For the sake of compatibility, FLUX has the same hotspots as FLELE. (You can add your own if you like, though! More on that later.) They are as follows:
 
 play_button //Double clicking this will play a song if none is playing. In FLELE, if a song is already playing, I believe it picks another at random. In FLUX, if a song is already playing, it goes to the next song.
-stop_button1 //Double clicking this will stop the currently playing song.
+stop_button1 or stop_button2//Double clicking this will stop the currently playing song.
 k_window //In FLELE, double clicking this opens the music bar. FLUX doesn't have a music bar, so double clicking will open the music menu.
 menu //Double clicking this opens the main menu. In FLELE, this is the ONLY way to open the main menu. YOU HAVE TO HAVE THIS! In FLUX, any area of the ghost that is NOT a hotspot will also act as the menu, so this isn't strictly necessary. Still, compatibility with FLELE is encouraged. (Also note that in FLELE, if you right click this hotspot, it will pop up a special menu. You probably shouldn't make this hotspot cover the whole shell!)
 clear_button //Double clicking this will offer to clear the current playlist.
 stroke_p //Moving your mouse back and forth over this will pet the character! Usually goes on the top of the head.
+minimize //Minimizes the ghost.
+end_sect //Closes the ghost.
+
+//Additionally, I've added a few new hotspots that you can make use of. These will be ignored by FLELE!
+pause_button //Pauses/resumes the current song.
+next_button //Goes to the next song.
+previous_button //Goes to the previous song.
+stop_after_current //Stops playback after the current song finishes.
 
 //In the template file I've provided, all of the poses are in roughly the same spot. So, to save on code, I used surface.append to append the collisions to every surface. If your surfaces are pretty distinct from each other, you'll want to define the collisions separately in each surface.
 

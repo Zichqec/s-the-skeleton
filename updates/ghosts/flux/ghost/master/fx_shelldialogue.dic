@@ -95,7 +95,8 @@ OnCustom_IdleSurfaces
 //###############################################################This is the code the ghost has copied into its own files, don't edit this one or your changes will be overwritten!###############################################################
 OnCustom_SingingSurfaces
 {
-	if SHIORI3FW.LastSurface[0] != 25 || SHIORI3FW.Eventid == "OnWindowStateRestore"
+	LOGGING("==========CUSTOM EVENT ID %(SHIORI3FW.Eventid)")
+	if SHIORI3FW.LastSurface[0] != 25 || SHIORI3FW.Eventid == "OnWindowStateRestore" || SHIORI3FW.Eventid == "OnShellChanged" || SHIORI3FW.Eventid == "OnGetCoords2"
 	{
 		"\s[25]"
 	}

@@ -227,6 +227,14 @@ OnSecondChange
 			playtime[2]++
 		}
 	}
+	if DiscordDisplay[1] == 2 && SHIORI3FW.CanTalk //If FLUX was chosen on the Discord plugin and that hasn't been handled yet
+	{
+		DiscordDisplay[1] = 1
+		if BalloonCheck; "\C"
+		--
+		"\![raise,OnDiscordPluginBoot]"
+	}
+	--
 	if SHIORI3FW.CanTalk //If not talking
 	{
 		SinceTalk++
@@ -398,6 +406,6 @@ SingingSurfaces
 	{
 		if SHIORI3FW.IsVisible[1] != 0; "\1\s[-1]"
 		--
-		if SHIORI3FW.LastSurface[0] != 25 || SHIORI3FW.Eventid == "OnWindowStateRestore"; "\0\s[25]"
+		if SHIORI3FW.LastSurface[0] != 25 || SHIORI3FW.Eventid == "OnWindowStateRestore" || SHIORI3FW.Eventid == "OnShellChanged" || SHIORI3FW.Eventid == "OnGetCoords2"; "\0\s[25]"
 	}
 }

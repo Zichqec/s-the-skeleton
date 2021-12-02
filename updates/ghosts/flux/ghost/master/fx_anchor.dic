@@ -2,6 +2,7 @@ OnTranslate
 {
 	_talk = reference0
 	
+	
 	//---Important other stuff, written by Ponapalt---
 	if reference1 == "" && reference2 == ""
 	{ //send input box : no event (ref2) , no special flag (ref1)
@@ -11,6 +12,129 @@ OnTranslate
 	{ //event result from ghost
 		TOSTR(_talk)
 	}
+}
+
+OnDiscordPluginCustom
+{
+	DiscordDisplay[1] = 2
+}
+
+OnDiscordPluginCustomEnd
+{
+	DiscordDisplay[1] = 0
+}
+
+OnDiscordPluginBoot
+{
+	if Singing; _song = "♫ %(CHR(34))%(SPLITPATH(NowPlaying[0])[2])%(CHR(34)) ♫"
+	
+	"\![raiseplugin,Discord Rich Presence,OnDiscordPluginCustomALL,903843216200179753,,,thumbnail,https://zichqec.github.io/s-the-skeleton/flux,]"
+	--
+	if DiscordDisplay[0]
+	{
+		"\![raiseplugin,Discord Rich Presence,OnDiscordPluginCustomDetail,Shell: %(CHR(34))%(nowshell)%(CHR(34))]"
+		--
+		"\![raiseplugin,Discord Rich Presence,OnDiscordPluginCustomState,%(_song)]"
+	}
+	--
+	if debug
+	{
+		"\![raiseplugin,Discord Rich Presence,OnDiscordPluginCustomSmallImageKey,dev]"
+		--
+		"\![raiseplugin,Discord Rich Presence,OnDiscordPluginCustomSmallImageText,Shell dev]"
+	}
+}
+
+TooltipLabels
+{
+	//Play,Stop,Pause,Resume,Next,Previous,Menu,Music Controls,Clear Playlist,Stop after current song,Minimize,Close FLUX
+	if language == "Placeholder" //TRANSLATORS: A list of the labels needed for hotspot tool tips
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"Start,Stop,Pause,Fortsetzen,Nächstes Lied,Vorheriges Lied,Menü,Musik-Bedienung,Playlist leeren,Nach derzeitigem Lied stoppen,Minimieren,FLUX schließen"
+	}
+	elseif language == "Русский"
+	{
+		//TODO Russian need the last couple tooltips
+		"Играть,Остановить,Пауза,Продолжить,Следующий,Предыдущий,Меню,Управления Музыка,Отчистить Плейлист"
+	}
+	//TODO French
+	elseif language == "Polski"
+	{
+		"Odtwórz,Zatrzymaj,Wstrzymaj,Wznów,Następny,Poprzedni,Menu,Sterowanie muzyką,Wyczyść listę odtwarzania,Zatrzymaj po zakończeniu utworu,Minimalizuj,Zamknij FLUX"
+	}
+	else //English
+	{
+		"Play,Stop,Pause,Resume,Next,Previous,Menu,Music Controls,Clear Playlist,Stop after current song,Minimize,Close FLUX" //Stop after current song,Minimize,Close FLUX
+	}
+}
+
+UpdateTooltips
+{
+	_p = "currentghost.seriko.tooltip.scope(0).textlist"
+	
+	_play_button = ""
+	_stop_button = ""
+	_k_window = ""
+	_clear_button = ""
+	_menu = ""
+	_pause_button = ""
+	_next_button = ""
+	_previous_button = ""
+	_stop_after_current = ""
+	_minimize = ""
+	_end_sect = ""
+	
+	if TooltipDisplay == 1
+	{
+		if Singing
+		{
+			_play_button = TooltipLabels[4]
+			_pause_button = TooltipLabels[2]
+		}
+		else
+		{
+			_play_button = TooltipLabels[0]
+			_pause_button = TooltipLabels[3]
+		}
+		_stop_button = TooltipLabels[1]
+		_next_button = TooltipLabels[4]
+		_previous_button = TooltipLabels[5]
+		_menu = TooltipLabels[6]
+		_k_window = TooltipLabels[7]
+		_clear_button = TooltipLabels[8]
+		_stop_after_current = TooltipLabels[9]
+		_minimize = TooltipLabels[10]
+		_end_sect = TooltipLabels[11]
+	}
+	
+	//\![set,property,currentghost.seriko.tooltip.scope(0).textlist(play_button).text,play music]
+	"\![set,property,%(_p)(play_button).text,%(_play_button)]"
+	--
+	"\![set,property,%(_p)(pause_button).text,%(_pause_button)]"
+	--
+	"\![set,property,%(_p)(stop_button1).text,%(_stop_button)]"
+	--
+	"\![set,property,%(_p)(stop_button2).text,%(_stop_button)]"
+	--
+	"\![set,property,%(_p)(k_window).text,%(_k_window)]"
+	--
+	"\![set,property,%(_p)(menu).text,%(_menu)]"
+	--
+	"\![set,property,%(_p)(clear_button).text,%(_clear_button)]"
+	--
+	"\![set,property,%(_p)(next_button).text,%(_next_button)]"
+	--
+	"\![set,property,%(_p)(previous_button).text,%(_previous_button)]"
+	--
+	"\![set,property,%(_p)(stop_after_current).text,%(_stop_after_current)]"
+	--
+	"\![set,property,%(_p)(minimize).text,%(_minimize)]"
+	--
+	"\![set,property,%(_p)(end_sect).text,%(_end_sect)]"
 }
 
 OnAnchorSelect
@@ -68,25 +192,6 @@ BalloonCheck
 	else; 0
 }
 
-OnTestPool : nonoverlap
-{
-	parallel Pool("Pool_Test",hour == 17)
-}
-
-Pool_Test : array
-{
-	"Dialogue 1"
-	"Dialogue 2"
-	"Dialogue 3"
-	"Dialogue 4"
-	"Dialogue 5"
-}
-
-Pool
-{
-    if TOINT(_argv[1]); EVAL("%(_argv[0])")
-}
-
 MenuCheck
 {
 	if ASEARCH("Status",var.req.key) != -1
@@ -101,6 +206,33 @@ MenuCheck
 			0
         }
     }
+	else; 0
+}
+
+IsMinimized
+{
+	if ASEARCH("Status",var.req.key) != -1
+    {
+        _currentstatus = var.req.value[ASEARCH("Status",var.req.key)]
+        if "minimizing" _in_ _currentstatus
+        {
+			1
+        }
+        else
+        {
+			0
+        }
+    }
+	else
+	{
+		0
+	}
+}
+
+br
+{
+	if SHIORI3FW.BalloonName == "Notes"; "\n"
+	else; " "
 }
 
 //Setting variables in random dialogue

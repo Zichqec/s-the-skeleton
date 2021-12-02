@@ -1,6 +1,9 @@
-version,1 //This is using the new seriko definition. If you want to use the old one, change the version to 0
+version,1
+//This is using the new seriko definition. If you want to use the old one, change the version to 0
+//As a note, comments in seriko should all be on their own lines. Otherwise, you might get weird errors in your shell.
 
-surface0 //Idle
+//Idle
+surface0
 {
 	element0,overlay,surface0.png,0,0
 	//As a note, you can put your images in subfolders! I'd be careful doing it, but it could be very helpful! It would look something like this
@@ -14,34 +17,51 @@ surface0 //Idle
 	animation0.pattern2,overlay,-1,30,0,0
 }
 
-surface1 //Petting
+//Petting
+surface1
 {
 	element0,overlay,surface1.png,0,0
 }
 
-surface6 //Action
+//Action
+surface6
 {
 	element0,overlay,surface6.png,0,0
 }
 
-surface25 //Singing
+//Singing
+surface25
 {
 	element0,overlay,surface25.png,0,0
 	
+	//These collisions only show up on the singing surface, since for this shell the buttons to stop only appear while it is singing. They're also polygon collisions because I didn't want them to be square, but you don't need to do that if you don't want to. You could make these use the same format as the rest of the collisions below and that would work fine.
 	collisionex6,stop_button1,polygon,36,137,93,137,106,175,48,175
 	collisionex7,stop_button1,polygon,139,137,197,137,184,175,126,175
 	collisionex8,stop_button1,polygon,25,86,55,86,61,124,32,124
 }
 
-
-surface.append0-25,!10 //These collisions are appended to surfaces 0 through 25, except surface10 because that's the default Kero surface (which this shell isn't using)
+//These collisions are appended to surfaces 0 through 25, except surface10 because that's the default Kero surface (which this shell isn't using)
+surface.append0-25,!10
 {
+	//The only collision that is strictly mandatory for FLELE compatibility is the one labelled 'menu'. All the others are optional, but you can add them if you like.
+	//menu == main menu (Any areas of the shell that do NOT have a hotspot will also act as the main menu in FLUX. In FLELE, ONLY this hotspot will let the user access the main menu.)
+	
+	//These ones are standard for most FLELE shells:
 	//stroke_p == pettable area
-	//play_button == play/next song if already playing
-	//stop_button1 == stop
+	//play_button == play song, next song if already playing music, resume if a song is paused
+	//stop_button1 or stop_button2 == stop song
 	//k_window == music panel (music bar in FLELE)
-	//menu == main menu (Any areas of the shell that do NOT have a hotspot will also act as the main menu, but you should keep this for compatibility with FLELE!)
 	//clear_button == Clear the playlist
+	
+	//These are additional ones that you can use if you like:
+	//minimize == minimizes the ghost
+	//end_sect == closes the ghost
+	
+	//And these four you can use if you want, but they will not work with FLELE!
+	//next_button == next song
+	//previous_button == previous song
+	//pause_button == pause/resume button
+	//stop_after_current == sets the music to stop after the current song finishes playing
 	
 	collision0,92,31,142,54,stroke_p
 	collision1,97,56,131,86,play_button

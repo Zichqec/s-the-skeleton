@@ -1083,6 +1083,7 @@ OnInstallRefuse
 		{
 			//_del = RMDIREX(_dir)
 			"\![raise,OnShellInstallFailure,can't find install.txt,%(_del)]" //THIS ISN'T DONE, HAVE TO FIGURE OUT HOW TO DELETE THE DIRECTORY. TODO FINISH THIS - want to maybe make it use a temp folder instead
+			//Did I finish this???? Idk man
 			return
 		}
 		else //If the proper directory was found
@@ -1702,7 +1703,27 @@ OnVanishButtonHold
 //reference0 is the name of the uninstalled ghost
 OnVanished
 {
+	if ISFUNC("OnCustom_OnVanished") && CustomFuncs[0] == 1
+	{
+		BootVars
+		"%(OnNotifySongInfo)%(OnDiscordPluginBoot)%(UpdateTooltips)\![get,property,OnShellAuthor,currentghost.shelllist.current.craftman,currentghost.shelllist.current.craftmanw,currentghost.shelllist.current.craftmanurl]"
+		--
+		if ISFUNC("OnCustom_trayicon"); OnCustom_trayicon
+		else; "\![set,tasktrayicon,flux.ico]"
+		--
+		EVAL("OnCustom_OnVanished('boot')")
+	}
+}
+
+OnOtherGhostVanished
+{
 	if ISFUNC("OnCustom_OnVanished") && CustomFuncs[0] == 1; OnCustom_OnVanished
+	else
+	{
+		if BalloonCheck; "\C"
+		--
+		"\![this-is-just-to-stop-it-from-running-the-boot-dialogue-please-let-this-work]"
+	}
 }
 
 //----Mail checking----
@@ -2299,7 +2320,7 @@ OnChangeLog
 //I've put this here so it's easier to remember to update the version number while you're updating the changelog. This will display on the ghost's menu. I made it an envelope so you can have it be the same across multiple menus for multiple modes, if you want.
 ghostver
 {
-	"1.1.1"
+	"1.2.0"
 }
 
 //Taken from the GT template because I see no reason to redo this and probably break it
@@ -3488,6 +3509,7 @@ OnKeyPress
 			_inmenu = ""
 			if "music player main menu" _in_ SHIORI3FW.LastTalk; _inmenu = "menuopen"
 			elseif "FLUX main menu" _in_ SHIORI3FW.LastTalk; _inmenu = "mainmenu"
+			elseif "__Music_Settings_Menu__" _in_ SHIORI3FW.LastTalk; _inmenu = "settingsmenu"
 			_b = BalloonCheck
 			_m = MenuCheck
 			if _m == 1 && _b == 1; "\C"
@@ -3501,6 +3523,7 @@ OnKeyPress
 			_inmenu = ""
 			if "music player main menu" _in_ SHIORI3FW.LastTalk; _inmenu = "menuopen"
 			elseif "FLUX main menu" _in_ SHIORI3FW.LastTalk; _inmenu = "mainmenu"
+			elseif "__Music_Settings_Menu__" _in_ SHIORI3FW.LastTalk; _inmenu = "settingsmenu"
 			if NowPlaying[0] != ""
 			{
 				_b = BalloonCheck
@@ -3514,6 +3537,7 @@ OnKeyPress
 			_inmenu = ""
 			if "music player main menu" _in_ SHIORI3FW.LastTalk; _inmenu = "menuopen"
 			elseif "FLUX main menu" _in_ SHIORI3FW.LastTalk; _inmenu = "mainmenu"
+			elseif "__Music_Settings_Menu__" _in_ SHIORI3FW.LastTalk; _inmenu = "settingsmenu"
 			if NowPlaying[0] != ""
 			{
 				_b = BalloonCheck
@@ -3531,6 +3555,12 @@ OnKeyPress
 			OnMusicMenu
 		}
 	}
+}
+
+OnBalloonBreak
+{
+	//Should make it so that if the user closes the balloon while the song is waiting to repeat, it repeats properly
+	if "\![raise,OnSoundStop]" _in_ SHIORI3FW.LastTalk; "\![raise,OnSoundStop]"
 }
 
 // OnBalloonBreak

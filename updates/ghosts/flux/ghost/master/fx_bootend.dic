@@ -95,7 +95,10 @@ OnBoot //Normal booting
 	BootVars //This sets variables you want to be set on a normal boot, like resetting the runtime. Again, make sure you set these up at the bottom.
 	_timesince = FUNCTIONEX("time_check.dll","how_many_days",lastclosed[0],lastclosed[1],lastclosed[2],0,0,0) * -1
 	
-	"%(OnNotifySongInfo)\![get,property,OnShellAuthor,currentghost.shelllist.current.craftman,currentghost.shelllist.current.craftmanw,currentghost.shelllist.current.craftmanurl]"
+	"%(OnNotifySongInfo)%(OnDiscordPluginBoot)%(UpdateTooltips)\![get,property,OnShellAuthor,currentghost.shelllist.current.craftman,currentghost.shelllist.current.craftmanw,currentghost.shelllist.current.craftmanurl]"
+	--
+	if ISFUNC("OnCustom_trayicon"); OnCustom_trayicon
+	else; "\![set,tasktrayicon,flux.ico]"
 	--
 	if ISFUNC("OnCustom_OnBoot") && CustomFuncs[0] == 1; OnCustom_OnBoot
 	else; FluxBoot
@@ -104,9 +107,6 @@ OnBoot //Normal booting
 FluxBoot
 {	
 	"\0\s[0]%(b)"
-	--
-	if ISFUNC("OnCustom_trayicon"); OnCustom_trayicon
-	else; "\![set,tasktrayicon,flux.ico]"
 	--
 	if language == "Placeholder" //TRANSLATORS: This is for booting the ghost, both regular booting and changing to FLUX from another ghost
 	{
@@ -234,6 +234,10 @@ OnGhostChanging //Changing to another ghost. This is the internal name of your g
 
 OnGhostChanged //After switching.
 {
+	BootVars
+	--
+	UpdateTooltips
+	--
 	if ISFUNC("OnCustom_trayicon"); OnCustom_trayicon
 	else; "\![set,tasktrayicon,flux.ico]"
 	--
@@ -268,10 +272,9 @@ OnGhostChanged //After switching.
 	}
 	else
 	{
-		BootVars
 		_timesince = FUNCTIONEX("time_check.dll","how_many_days",lastclosed[0],lastclosed[1],lastclosed[2],0,0,0) * -1
 		
-		"%(OnNotifySongInfo)\![get,property,OnShellAuthor,currentghost.shelllist.current.craftman,currentghost.shelllist.current.craftmanw,currentghost.shelllist.current.craftmanurl]"
+		"%(OnNotifySongInfo)%(OnDiscordPluginBoot)\![get,property,OnShellAuthor,currentghost.shelllist.current.craftman,currentghost.shelllist.current.craftmanw,currentghost.shelllist.current.craftmanurl]"
 		--
 		if ISFUNC("OnCustom_OnGhostChanged") && CustomFuncs[0] == 1; OnCustom_OnGhostChanged
 		else
@@ -283,6 +286,9 @@ OnGhostChanged //After switching.
 
 OnShellChanging //Starting to change the shell
 {
+	LOGGING("MusicSettings[5]: ",MusicSettings[5])
+	MusicSettings[5] = 1
+	MusicSettings[6] = SHIORI3FW.LastSurface[0]
 	shellchange = IARRAY
 	"\1\s[-1]\0\![get,property,OnGetCoords,currentghost.scope(0).rect]" //This gets the current ghost coordinates so that they don't jump around the screen when they change shells
 	--
@@ -331,7 +337,7 @@ OnShellChanged //After the shell has changed
 	shellchange[9] = reference2
 	AutoUpdates[4] = 0
 	
-	"\s[-1]\![get,property,OnGetCoords2,currentghost.scope(0).rect]"
+	"\s[-1]\![get,property,OnGetCoords2,currentghost.scope(0).rect]\e"
 	
 }
 
@@ -344,6 +350,7 @@ OnGetCoords //This gets the x and y coordinates when changing shells
 
 OnGetCoords2 //This gets the x and y coordinates when changing shells
 {
+	LOGGING("MusicSettings[5]: ",MusicSettings[5])
 	shellchange[3] = reference0[0] //Head height
 	shellchange[4] = reference0[3] //Feet height
 	shellchange[5] = TOINT(reference0[3]) - TOINT(reference0[1]) //Frame height
@@ -351,11 +358,15 @@ OnGetCoords2 //This gets the x and y coordinates when changing shells
 	--
 	"\0\![move,--X=%(shellchange[0]),--Y=%(TOINT(shellchange[6])),--base=primaryscreen]"
 	--
+	UpdateTooltips
+	--
 	OnGetCustomShellDialogue
 	lastTalk = ""
 	--
 	"\![get,property,OnShellAuthor,currentghost.shelllist.current.craftman,currentghost.shelllist.current.craftmanw,currentghost.shelllist.current.craftmanurl]" //Moves the ghost to where they were on the previous shell, and gathers the craftman info for the shell
 	//ERASEVAR("shellchange")
+	--
+	if DiscordDisplay[0]; "\![raiseplugin,Discord Rich Presence,OnDiscordPluginCustomDetail,Shell: %(CHR(34))%(shellchange[7])%(CHR(34))]"
 	--
 	if shellchange[7] == nowshell //If the user switches to the shell they're already using
 	{
@@ -377,29 +388,33 @@ OnGetCoords2 //This gets the x and y coordinates when changing shells
 			}
 			elseif language == "Deutsch"
 			{
-				"['%(_shell)' wurde neu geladen.]\e"
+				"['%(_shell)' wurde neu geladen.]"
 			}	
 			elseif language == "Русский"
 			{
-				"[Перезагрузил '%(_shell)'.]\e"
+				"[Перезагрузил '%(_shell)'.]"
 			}
 			elseif language == "Français"
 			{
-				"['%(_shell)' rechargé.]\e"
+				"['%(_shell)' rechargé.]"
 			}
 			elseif language == "Polski"
 			{
-				"[Przeładowano '%(_shell)'.]\e"
+				"[Przeładowano '%(_shell)'.]"
 			}
 			else //English
 			{
-				"[Reloaded '%(_shell)'.]\e"
+				"[Reloaded '%(_shell)'.]"
 			}
+			--
+			RestartSinging
+			--
+			"\e"
 		}
 	}
 	else
 	{
-		"\![raise,OnChangedShell,%(shellchange[7])]"
+		"\![raise,OnChangedShell,%(shellchange[7])]\e"
 	}
 	nowshell = shellchange[7]
 }
@@ -414,7 +429,7 @@ OnChangedShell //I have this here because it takes a moment for it to read the d
 	if ISFUNC("OnCustom_trayicon"); OnCustom_trayicon
 	else; "\![set,tasktrayicon,flux.ico]"
 	--
-	if ISFUNC("OnCustom_OnShellChanged") && CustomFuncs[0] == 1; OnCustom_OnShellChanged
+	if ISFUNC("OnCustom_OnShellChanged") && CustomFuncs[0] == 1; REPLACE(OnCustom_OnShellChanged,"\e","")
 	elseif IsEmergencyMode
 	{
 		"\![raise,OnExplainShellError]"
@@ -449,11 +464,29 @@ OnChangedShell //I have this here because it takes a moment for it to read the d
 		}
 	}
 	--
-	if Singing; "\s[25]" //Note to self: this was %(SingingSurfaces) before, but the variable to tell what surface they were last in seems like it doesn't carry across shells? Perhaps warrants further testing, but I think this will fix the issue where they don't go back to the singing pose after changing shells while singing...
+	RestartSinging
 	--
 	//"\_q%(bb)\n\nPrevious shell's Y value: %(shellchange[0])\nPrevious shell's feet level: %(shellchange[1])\nPrevious shell's height: %(shellchange[2])\n\n%(nowshell)'s Y value before moving: %(shellchange[3])\n%(nowshell)'s feet level before moving: %(shellchange[4])\n%(nowshell)'s height: %(shellchange[5])\n%(nowshell)'s new Y value: %(shellchange[6])\x"
 	--
 	"\e"
+}
+
+RestartSinging
+{
+	LOGGING("RESTART SINGING")
+	LOGGING("MusicSettings[5]: ",MusicSettings[5])
+	if MusicSettings[5] == 2
+	{
+		LOGGING("===RAISING ONSOUNDSTOP AGAIN===")
+		
+		"\![raise,OnSoundStop]"
+	}
+	
+	--
+	SHIORI3FW.LastSurface[0] = MusicSettings[6]
+	MusicSettings[6] = IARRAY
+	if Singing || MusicSettings[5] == 2; "%(SingingSurfaces)" //Note to self: this was %(SingingSurfaces) before, but the variable to tell what surface they were last in seems like it doesn't carry across shells? Perhaps warrants further testing, but I think this will fix the issue where they don't go back to the singing pose after changing shells while singing...
+	MusicSettings[5] = 0
 }
 
 OnBalloonChange
@@ -548,9 +581,9 @@ BootVars
 	NowPlaying[0] = ""
 	NowPlaying[2] = ""
 	MusicSettings[4] = ""
+	MusicSettings[5] = 0
 	InstalledShellName = ""
 }
-
 //These are new variables to initialize after an update. By checking if the variable doesn't exist before initializing it, we prevent variables already in use from being overwritten. This is VERY IMPORTANT, or you risk resetting the user's progress on your new variables every time they update.
 //ISVAR is a built in YAYA function that checks if a variable exists(is initialized) or not. It returns 0 if the variable doesn't exist, and 1 if it does.
 UpdateVars
@@ -606,7 +639,7 @@ FirstBootVars
 	nowballoon = ("Notes",26)
 	
 	NowPlaying = ("",-1,"")
-	MusicSettings = (100,100,0,0,"")
+	MusicSettings = (100,100,0,0,"",0)
 	talkoption = 0
 	InstalledShellName = ""
 	shellauthor = ("Zichqec","Zichqec","https://zichqec.github.io/s-the-skeleton/index.html")
