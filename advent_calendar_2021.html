@@ -67,7 +67,7 @@ RandomTalk : nonoverlap
 
 		<p>Yes, you read that right. A <i>single</i> output candidate. So that RandomTalk above? Thanks to the nonoverlap modifier, which outputs one of each output candidate before repeating any, I was seeing the dialogue "* (Shaped like a friend.)" every 4 dialogues. That was my first sign that something had gone terribly wrong.</p>
 
-		<p>Let's do some math. We know now that when this function is run, each dialogue that stands on it's own and each set of braces has an equal chance of being chosen. So the check for friendship >= 150 has a 1/4 chance of being called, the check for friendship >= 75 has a 1/4 chance of being called, and the two dialogues outside of if checks each have a 1/4 chance of being called. A bit weird, but nothing too crazy. The madness starts when you go into that set of braces for friendship >= 75, though.</p>
+		<p>Let's do some math. We know now that when this function is run, each dialogue that stands on its own and each set of braces has an equal chance of being chosen. So the check for friendship >= 150 has a 1/4 chance of being called, the check for friendship >= 75 has a 1/4 chance of being called, and the two dialogues outside of if checks each have a 1/4 chance of being called. A bit weird, but nothing too crazy. The madness starts when you go into that set of braces for friendship >= 75, though.</p>
 
 		<p>So since we're in a set of braces, we know that YAYA will pick randomly from the candidates in there. First, there's one dialogue on its own, and then... oh no! Another set of braces! This time, it's a check for passhour >= 20. So, the dialogue on its own has a 1/2 chance of being picked, and this new set of braces has a 1/2 chance of being picked.</p>
 
