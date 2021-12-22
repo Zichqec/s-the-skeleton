@@ -15,13 +15,12 @@ dic, fx_menu.dic
 dic, fx_mouse.dic
 dic, fx_music.dic
 dic, fx_nameteach.dic
-dic, fx_shelldialogue.dic
 dic, fx_string.dic
 dic, fx_word.dic
+dic, fx_shelldialogue.dic
 
 
 //log, ayame.log
-msglang,english
 
 fncdepth,500
 messagetxt,system/messagetxt/english.txt

@@ -5,7 +5,7 @@ OnMusicMenu //Main music menu display; this displays the list of songs and the c
 	if MusicSettings[2] == ""; MusicSettings[2] = 0 //Balance
 	if MusicSettings[3] == ""; MusicSettings[3] = 0 //Play mode - 0 for loop playlist, 1 for shuffle playlist, 2 for loop song, 3 for play one song
 	
-	if BalloonCheck; "\C" //only working for hotkeys atm but that's worth it... will try to deal with this later. Ugh.
+	if _argv[0] != "manual" && BalloonCheck; "\C" //only working for hotkeys atm but that's worth it... will try to deal with this later. Ugh.
 	--
 	//MusicSettings[4] is the 'stop after current' option
 	_display = "" //Initialize variables

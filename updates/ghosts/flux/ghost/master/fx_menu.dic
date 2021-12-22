@@ -624,7 +624,7 @@ OnConfigMenu //I moved changing name/pronouns/birthday over to Nameteach, becaus
 			"\f[default]\n"
 		}
 		--
-		"\nFréquence des dialogues : \_a[OnChangetalk]%(nowtalkrate)\_a\n/
+		"\nFréquence des dialogues : \_a[OnChangeTalk]%(nowtalkrate)\_a\n/
 		Parle \_a[OnToggleTalkOption]%(nowtalkopt)\_a\n\n/
 		Notifications chaque heure : \_a[OnToggleHourNotifs]%(_hnotifbtn)\_a\n\n/
 		Vérification auto des mises à jour \_a[OnToggleUpdate]%(_atoupdbtn)\_a\n/
@@ -918,78 +918,12 @@ OnTalkRate
 	{
 		talkrate = "every 5 minutes"
 	}
+	else
+	{
+		talkrate = "never"
+	}
 	
-	"\0%(bb)"
-	--
-	if language == "Placeholder" //TRANSLATORS: This function actually sets the dialogue rate. Set up nowtalkrate below, and you can use that to display which option was chosen.
-	{
-		
-	}
-	elseif language == "Deutsch"
-	{
-		if reference0 == "None"
-		{
-			"[Es wird nicht gesprochen werden.]"
-		}
-		else
-		{
-			"[Es wird %(nowtalkrate) gesprochen werden.]"
-		}
-		--
-		"\n\n\![*]\q[Zurück zu Einstellungen,OnConfigMenu]\n\![*]\q[Close,OnCancel]\e"
-	}
-	elseif language == "Русский"
-	{
-		if reference0 == "None"
-		{
-			"[Ничего не будет сказано.]"
-		}
-		else
-		{
-			"[Разговоры будет %(nowtalkrate).]"
-		}
-		--
-		"\n\n\![*]\q[Назад в конфигурации,OnConfigMenu]\n\![*]\q[Закрыть,OnCancel]\e"
-	}
-	elseif language == "Français"
-	{
-		if reference0 == "None"
-		{
-			"[Aucun dialogue ne sera dit.]"
-		}
-		else
-		{
-			"[Un dialogue sera dit %(nowtalkrate).]"
-		}
-		--
-		"\n\n\![*]\q[Retour à config,OnConfigMenu]\n\![*]\q[Fermer,OnCancel]\e"
-	}
-	elseif language == "Polski"
-	{
-		if reference0 == "None"
-		{
-			"[Nie będzie żadnych dialogów.]"
-		}
-		else
-		{
-			"[Dialog będzie wypowiadany %(nowtalkrate).]"
-		}
-		--
-		"\n\n\![*]\q[Powrót do ustawień,OnConfigMenu]\n\![*]\q[Close,OnCancel]\e"
-	}
-	else //English
-	{
-		if reference0 == "None"
-		{
-			"[No dialogue will be said.]"
-		}
-		else
-		{
-			"[Dialogue will be said %(nowtalkrate).]"
-		}
-		--
-		"\n\n\![*]\q[Back to config,OnConfigMenu]\n\![*]\q[Close,OnCancel]\e"
-	}
+	OnConfigMenu
 }
 
 nowtalkrate
@@ -1240,7 +1174,7 @@ OnToggleTooltips
 
 Select.DiscordPluginInfo
 {
-	"\0%(b)"
+	"\0%(bb)\_q"
 	--
 	if language == "Placeholder" //TRANSLATORS: Information about where to get the discord plugin and how to use it
 	{
@@ -1248,23 +1182,23 @@ Select.DiscordPluginInfo
 	}
 	elseif language == "Deutsch"
 	{
-		"[FLUX kann das derzeitige Lied und die derzeitige Shell in deinem Discord-Status anzeigen, wenn das \_a[https://ssp.shillest.net/plugin/discord.nar]Discord Rich Presence\_a Plugin für SSP installiert wurde.]\n\n\w8\w8[Nachdem das Plugin installiert wurde\w4 kann man FLUX rechts-klicken,\w4 zur \_a[OnBlank]Plugins\_a-Option gehen\w4 und dann auf \_a[OnBlank]Discord Rich Presence\_a klicken\w4 um in diesem Menü FLUX als den aktiven Ghost auszuwählen.\w8\w8 Nach dem Schließen dieses Menüs sollte die Information dann in Discord auftauchen.]\x"
+		"[FLUX kann das derzeitige Lied und die derzeitige Shell in deinem Discord-Status anzeigen, wenn das \_a[https://ssp.shillest.net/plugin/discord.nar]Discord Rich Presence\_a Plugin für SSP installiert wurde.]\n\n[100][Nachdem das Plugin installiert wurde kann man FLUX rechts-klicken, zur \_a[OnBlank]Plugins\_a-Option gehen und dann auf \_a[OnBlank]Discord Rich Presence\_a klicken um in diesem Menü FLUX als den aktiven Ghost auszuwählen. Nach dem Schließen dieses Menüs sollte die Information dann in Discord auftauchen.]\x"
 	}
 	elseif language == "Русский"
 	{
-		"[FLUX может показать твой текущий песня и внешний вид в статусе Дискорд, если ты установишь модуль \_a[https://ssp.shillest.net/plugin/discord.nar]Discord Rich Presence\_a для SSP.]\n\n\w8\w8[После установки модуля,\w4 щелкни правой кнопкой мышей на FLUX,\w4 иди в настроек \_a[OnBlank]Модули\_a,\w4 и нажми \_a[OnBlank]Discord Rich Presence\_a.\w8\w8 Выбирать FLUX как активное привидение в меню, который пуьунлун,\w4 и после закрытие меню,информация должно быть видно в Дискорд.]\x"
+		"[FLUX может показать твой текущий песня и внешний вид в статусе Дискорд, если ты установишь модуль \_a[https://ssp.shillest.net/plugin/discord.nar]Discord Rich Presence\_a для SSP.]\n\n[100][После установки модуля, щелкни правой кнопкой мышей на FLUX, иди в настроек \_a[OnBlank]Модули\_a, и нажми \_a[OnBlank]Discord Rich Presence\_a. Выбирать FLUX как активное привидение в меню, который пуьунлун, и после закрытие меню,информация должно быть видно в Дискорд.]\x"
 	}
 	//TODO FRENCH
 	elseif language == "Polski"
 	{
-		"[FLUX może wyświetlać bieżący utwór i skorupę w statusie Discorda, jeśli zainstalujesz wtyczkę \_a[https://ssp.shillest.net/plugin/discord.nar]Discord Rich Presence\_a dla SSP.]\n\n\w8\w8[Po zainstalowaniu wtyczki,\w4 kliknij prawym przyciskiem myszy na FLUX,\w4 przejdź do opcji \_a[OnBlank]Plugins\_a\w4 i kliknij na \_a[OnBlank]Discord Rich Presence\_a.\w8\w8 W menu, które się pojawi,\w4 wybierz FLUX jako aktywnego ducha, a po zamknięciu menu w Discordzie powinny pojawić się informacje.]\x"
+		"[FLUX może wyświetlać bieżący utwór i skorupę w statusie Discorda, jeśli zainstalujesz wtyczkę \_a[https://ssp.shillest.net/plugin/discord.nar]Discord Rich Presence\_a dla SSP.]\n\n[100][Po zainstalowaniu wtyczki, kliknij prawym przyciskiem myszy na FLUX, przejdź do opcji \_a[OnBlank]Plugins\_a i kliknij na \_a[OnBlank]Discord Rich Presence\_a. W menu, które się pojawi, wybierz FLUX jako aktywnego ducha, a po zamknięciu menu w Discordzie powinny pojawić się informacje.]\x"
 	}
 	else //English
 	{
-		"[FLUX can display your current song and shell in your Discord status if you install the \_a[https://ssp.shillest.net/plugin/discord.nar]Discord Rich Presence\_a plugin for SSP.]\n\n\w8\w8[After installing the plugin,\w4 right click FLUX,\w4 go to the \_a[OnBlank]Plugins\_a option,\w4 and click on \_a[OnBlank]Discord Rich Presence\_a.\w8\w8 Select FLUX as your active ghost in the menu that comes up,\w4 and you should see the info appear in Discord after you close the menu.]\x"
+		"[FLUX can display your current song and shell in your Discord status if you install the \_a[https://ssp.shillest.net/plugin/discord.nar]Discord Rich Presence\_a plugin for SSP.]\n\n[100][After installing the plugin, right click FLUX, go to the \_a[OnBlank]Plugins\_a option, and click on \_a[OnBlank]Discord Rich Presence\_a. Select FLUX as your active ghost in the menu that comes up, and you should see the info appear in Discord after you close the menu.]\x"
 	}
 	--
-	OnConfigMenu
+	"\![raise,OnConfigMenu]"
 }
 
 OnToggleUninstall

@@ -1,6 +1,10 @@
-AiTalk
+OnAiTalk
 {
-	if talkoption == 0 || (talkoption == 1 && NowPlaying[0] != "") || (talkoption == 2 && NowPlaying[0] == "") || reference0 == "Hotkey" || reference0 == "Menu"
+	LOGGING("====================================================================")
+	LOGGING("aitalk")
+	LOGGING("talkoption: ",talkoption)
+	LOGGING("Singing: ",Singing)
+	if talkoption == 0 || (talkoption == 1 && Singing) || (talkoption == 2 && !Singing) || reference0 == "Hotkey" || reference0 == "Menu"
 	{
 		if mikireflag == 0
 		{
@@ -20,7 +24,9 @@ AiTalk
 		--
 		lastTalk
 	}
+	else; "\e This prevents aitalk from breaking until this issue is fixed" //TODO if this gets patched, remove this bit
 }
+
 
 //nonoverlap means that all possible dialogue candidates will be chosen at least once before any dialogues are repeated. Note that anything within brackets counts as a single dialogue candidate! This causes the probability issues mentioned in the YAYA tips file, and also, if you separate your RandomTalk into different modes or something, you'll have to make them separate functions if you still want to use nonoverlap!
 RandomTalk
