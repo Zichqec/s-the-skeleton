@@ -182,10 +182,10 @@ FluxClose
 
 OnGhostChanging //Changing to another ghost. This is the internal name of your ghost, as written in descript.txt
 {
+	"\0%(b)"
+	--
 	if reference0 == sakuraname //If reloading.
 	{
-		"\0%(b)"
-		--
 		if language == "Placeholder" //TRANSLATORS: Reloading the ghost
 		{
 			
@@ -292,10 +292,10 @@ OnShellChanging //Starting to change the shell
 	shellchange = IARRAY
 	"\1\s[-1]\0\![get,property,OnGetCoords,currentghost.scope(0).rect]" //This gets the current ghost coordinates so that they don't jump around the screen when they change shells
 	--
+	"%(b)"
+		--
 	if reference0 == nowshell
 	{
-		"\0%(b)"
-		--
 		if language == "Placeholder" //TRANSLATORS: Dialogue for switching to the same shell again, effectively reloading it
 		{
 			

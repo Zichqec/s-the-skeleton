@@ -114,23 +114,23 @@ OnMusicMenu //Main music menu display; this displays the list of songs and the c
 		}
 		elseif language == "Deutsch"
 		{
-			"%(_g)<<<   \![*]Pause       %(_d)\![*]\q[Start,OnPlaySong,,,playbutton]    %(_g)>>>%(_d)\n\n[half]"
+			"%(_g)<<<   \![*]Pause       %(_d)\![*]\q[Start,OnPlaySong,,,playbutton,1]    %(_g)>>>%(_d)\n\n[half]"
 		}
 		elseif language == "Русский"
 		{
-			"%(_g)<<<   \![*]Пауза       %(_d)\![*]\q[Играть,OnPlaySong,,,playbutton]    %(_g)>>>%(_d)\n\n[half]"
+			"%(_g)<<<   \![*]Пауза       %(_d)\![*]\q[Играть,OnPlaySong,,,playbutton,1]    %(_g)>>>%(_d)\n\n[half]"
 		}
 		elseif language == "Français"
 		{
-			"%(_g)<<<   \![*]Pause       %(_d)\![*]\q[Lire,OnPlaySong,,,playbutton]    %(_g)>>>%(_d)\n\n[half]"
+			"%(_g)<<<   \![*]Pause       %(_d)\![*]\q[Lire,OnPlaySong,,,playbutton,1]    %(_g)>>>%(_d)\n\n[half]"
 		}
 		elseif language == "Polski"
 		{
-			"%(_g)<<<   \![*]Pauza       %(_d)\![*]\q[Graj,OnPlaySong,,,playbutton]    %(_g)>>>%(_d)\n\n[half]"
+			"%(_g)<<<   \![*]Pauza       %(_d)\![*]\q[Graj,OnPlaySong,,,playbutton,1]    %(_g)>>>%(_d)\n\n[half]"
 		}
 		else //English
 		{
-			"%(_g)<<<   \![*]Pause       %(_d)\![*]\q[Play,OnPlaySong,,,playbutton]    %(_g)>>>%(_d)\n\n[half]"
+			"%(_g)<<<   \![*]Pause       %(_d)\![*]\q[Play,OnPlaySong,,,playbutton,1]    %(_g)>>>%(_d)\n\n[half]"
 		}
 	}
 	else //TRANSLATORS: This else is if a song is loaded. The pause button will change to say resume if a song is currently paused.
@@ -287,8 +287,8 @@ OnPlaySong //Function that actually plays the songs, nothing needs translated in
 		{
 			ShuffledPlaylist = ShufflePlaylist(NowPlaying[1],CurrentPlaylist)
 		}
-		
-		if TOSTR(reference3) == "1"; "\C\_l[0,0]" //If the balloon is currently open, keep it open
+		//if TOSTR(reference3) == "1"; 
+		"\C\_l[0,0]" //If the balloon is currently open, keep it open
 		--
 		UpdateTooltips
 		--
@@ -419,8 +419,9 @@ OnNextSong //The user pressed a hotkey or menu option to go to the next song
 	_inmenu = reference4 //If the music menu was open
 	_from = "nextprev" //Sent to OnPlaySong
 	_m = MenuCheck
-	if reference2 == "hotkey" {_from = "hotkey"; if _m == 1; {"\C"}}
-	elseif reference2 == "hotspot" {_from = "hotspot"; if _m == 1; {"\C"}}
+	if _m; "\C"
+	//if reference2 == "hotkey" {_from = "hotkey"; if _m == 1; {"\C"}}
+	//elseif reference2 == "hotspot" {_from = "hotspot"; if _m == 1; {"\C"}}
 	_b = BalloonCheck
 	--
 	_next = 0
@@ -470,7 +471,8 @@ OnPrevSong //The user pressed a hotkey or menu option to go to the previous song
 	NowPlaying[2] = ""
 	_inmenu = reference4 //If the music menu was open
 	_from = "nextprev" //Sent to OnPlaySong
-	if reference2 == "hotkey" {_from = "hotkey"; "\C"}
+	if MenuCheck; "\C"
+	//if reference2 == "hotkey" {_from = "hotkey"; "\C"}
 	_b = BalloonCheck
 	--
 	
@@ -580,6 +582,7 @@ OnScootSongMenu
 			_display += "%(_d)"
 		}
 	}
+	if reference0 == "moved"; "\C\![lock,balloonrepaint]\c"
 	--
 	if ARRAYSIZE(CurrentPlaylist) > 12; "\0%(bbb)"
 	else; "\0%(bb)"
@@ -598,7 +601,7 @@ OnScootSongMenu
 	--
 	"%(_display)\n\n"
 	--
-	"\![*]\q[%(_button),OnMusicMenu]"
+	"\![*]\q[%(_button),OnMusicMenu]\![unlock,balloonrepaint]\e"
 }
 
 OnMoveSong
@@ -638,7 +641,7 @@ OnMoveSong
 	}
 	ShuffledPlaylist = ShufflePlaylist(NowPlaying[1],CurrentPlaylist)
 	--
-	"\![raise,OnScootSongMenu]"
+	"\C\![raise,OnScootSongMenu,moved]"
 }
 
 OnScootSong //Moving a song in the playlist
@@ -666,7 +669,7 @@ OnScootSong //Moving a song in the playlist
 	
 	ShuffledPlaylist = ShufflePlaylist(NowPlaying[1],CurrentPlaylist)
 	--
-	"\C\![raise,OnScootSongMenu]"
+	"\C\![raise,OnScootSongMenu,moved]"
 }
 
 OnSongLocation
@@ -827,7 +830,7 @@ OnMusicSettings //Settings menu
 	_vol = MusicSettings[0]
 	_speed = MusicSettings[1]
 	_bal = MusicSettings[2]
-	"\0\_q\*%(bb)"
+	"\C\![lock,balloonrepaint]\c\0\_q\*%(bb)"
 	--
 	if language == "Placeholder" //TRANSLATORS: this is the settings menu. I'll put notes for each individual block of the english version, for what parts you need to translate
 	{
@@ -859,7 +862,7 @@ OnMusicSettings //Settings menu
 		\![*]\q[Warum erzeugen manche Lieder einen Fehler?,OnMusicInfo,error]\n/
 		\![*]\q[Wo werden meine Playlisten gespeichert?,OnMusicInfo,playlistsave]"
 		--
-		"\n\n\![*]\q[Zurück zum Musikmenü,OnMusicMenu]\e"
+		"\n\n\![*]\q[Zurück zum Musikmenü,OnMusicMenu]"
 	}
 	elseif language == "Русский"
 	{
@@ -887,7 +890,7 @@ OnMusicSettings //Settings menu
 		\![*]\q[Почему какие-то песни отдают мне ошибка?,OnMusicInfo,error]\n/
 		\![*]\q[Где сохраненно плейлисты?,OnMusicInfo,playlistsave]"
 		--
-		"\n\n\![*]\q[Назад в меню музыкы,OnMusicMenu]\e"
+		"\n\n\![*]\q[Назад в меню музыкы,OnMusicMenu]"
 	}
 	elseif language == "Français"
 	{
@@ -915,7 +918,7 @@ OnMusicSettings //Settings menu
 		\![*]\q[Pourquoi certaines musiques donnent une erreur ?,OnMusicInfo,error]\n/
 		\![*]\q[Où sont sauvegardées les playlists ?,OnMusicInfo,playlistsave]"
 		--
-		"\n\n\![*]\q[Retour au menu des musiques,OnMusicMenu]\e"
+		"\n\n\![*]\q[Retour au menu des musiques,OnMusicMenu]"
 	}
 	elseif language == "Polski"
 	{
@@ -943,7 +946,7 @@ OnMusicSettings //Settings menu
 		\![*]\q[Dlaczego w niektórych utworach pojawia się error?,OnMusicInfo,error]\n/
 		\![*]\q[Gdzie są zapisywane playlisty?,OnMusicInfo,playlistsave]"
 		--
-		"\n\n\![*]\q[Powrót do menu muzycznego,OnMusicMenu]\e"
+		"\n\n\![*]\q[Powrót do menu muzycznego,OnMusicMenu]"
 	}
 	else //English
 	{
@@ -973,8 +976,10 @@ OnMusicSettings //Settings menu
 		\![*]\q[Why do some songs give an error?,OnMusicInfo,error]\n/
 		\![*]\q[Where are playlists saved?,OnMusicInfo,playlistsave]"
 		--
-		"\n\n\![*]\q[Back to music menu,OnMusicMenu]\e __Music_Settings_Menu__"
+		"\n\n\![*]\q[Back to music menu,OnMusicMenu]"
 	}
+	--
+	"\![unlock,balloonrepaint]\e __Music_Settings_Menu__"
 }
 
 OnPlaybackType //Changing the playback type
@@ -1056,6 +1061,10 @@ OnMusicSet //Bringing up input boxes
 {
 	"\0%(bb)\_q"
 	--
+	if reference0 == "Balance"; "\![open,inputbox,OnMusicBalance,-1]"
+	elseif reference0 == "Speed"; "\![open,sliderinput,OnMusicSpeed,-1,100,1,300]"
+	else; "\![open,sliderinput,OnMusicVolume,-1,100,1,100]"
+	--
 	if language == "Placeholder" //TRANSLATORS: Leave the reference0 parts alone, just translate the dialogues. These are for changing the options like volume, balance, and speed
 	{
 		
@@ -1064,21 +1073,15 @@ OnMusicSet //Bringing up input boxes
 	{
 		if reference0 == "Balance"
 		{
-			"\![open,inputbox,OnMusicBalance,-1]"
-			--
-			"[Gib einen Balance-Wert ein. 0 ist mittig, -100 ist ganz auf der linken Seite, 100 ist ganz auf der rechten Seite der Lautsprecher. Die Balance wird aktualisiert wenn das nächste Lied beginnt.]"
+			"[Gib einen Balance-Wert ein. 0 ist mittig, -100 ist ganz auf der linken Seite, 100 ist ganz auf der rechten Seite der Lautsprecher.]"
 		}
 		elseif reference0 == "Speed"
 		{
-			"\![open,sliderinput,OnMusicSpeed,-1,100,1,300]"
-			--
-			"[Wähle eine Geschwindigkeit. 100 ist normal. Die Geschwindigkeit wird aktualisiert wenn das nächste Lied beginnt.]"
+			"[Wähle eine Geschwindigkeit. 100 ist normal.]"
 		}
 		else //volume
 		{
-			"\![open,sliderinput,OnMusicVolume,-1,100,1,100]"
-			--
-			"[Wähle eine Lautstärke. 100 ist der Standardwert. Die Lautstärke wird aktualisiert wenn das nächste Lied beginnt.]"
+			"[Wähle eine Lautstärke. 100 ist der Standardwert.]"
 		}
 		--
 		"\n\n\![*]\q[Abbrechen,OnCloseMusicSet,%(reference0)]\e"
@@ -1087,44 +1090,33 @@ OnMusicSet //Bringing up input boxes
 	{
 		if reference0 == "Balance"
 		{
-			"\![open,inputbox,OnMusicBalance,-1]"
-			--
-			"[Напиши номер равновесие. 0 - в центре, -100 - в самой левой стороне, 100 в самой справой стороне. Равновесие будет измененно когда начинается следующая песня.]"
+			"[Напиши номер равновесие. 0 - в центре, -100 - в самой левой стороне, 100 в самой справой стороне.]"
 		}
 		elseif reference0 == "Speed"
 		{
-			"\![open,sliderinput,OnMusicSpeed,-1,100,1,300]"
-			--
-			"[Выбирать скорость. 100 - обычный. Скорость будет измененно когда начинается следующая песня.]."
+			"[Выбирать скорость. 100 - обычный.]"
 		}
 		else //volume
 		{
-			"\![open,sliderinput,OnMusicVolume,-1,100,1,100]"
-			--
-			"[Выбирать громкость. 100 - обычный. Громкость будет измененно когда начинается следующая песня.]"
+			"[Выбирать громкость. 100 - обычный.]"
 		}
 		--
 		"\n\n\![*]\q[Отменить,OnCloseMusicSet,%(reference0)]\e"
 	}
-	elseif language == "Français"
+	elseif language == "Français" //TODO FRENCH I adjusted this and I hope it's correct lol
 	{
 		if reference0 == "Balance"
 		{
-			"\![open,inputbox,OnMusicBalance,-1]"
-			--
-			"[Entre une valeur de balance. 0 est le centre, -100 est tout à gauche, 100 est tout à droite. La balance sera mise à jour dès que la prochaine musique commencera.]"
+			"[Entre une valeur de balance. 0 est le centre, -100 est tout à gauche, 100 est tout à droite.]" //La balance sera mise à jour dès que la prochaine musique commencera.
 		}
 		elseif reference0 == "Speed"
 		{
-			"\![open,sliderinput,OnMusicSpeed,-1,100,1,300]"
-			--
-			"[Choisis une vitesse. 100 est normale. La vitesse sera mise à jour dès que la prochaine musique commencera.]."
+			"[Choisis une vitesse. 100 est normale.]" //La vitesse sera mise à jour dès que la prochaine musique commencera.
 		}
 		else //volume
 		{
-			"\![open,sliderinput,OnMusicVolume,-1,100,1,100]"
-			--
-			"[Choisis un volume. 100 is the default. Le volume sera mise à jour dès que la prochaine musique commencera.]"
+			//TODO FRENCH is this correct? Doesn't match the above...
+			"[Choisis un volume. 100 is the default.]" //Le volume sera mise à jour dès que la prochaine musique commencera.
 		}
 		--
 		"\n\n\![*]\q[Annuler,OnCloseMusicSet,%(reference0)]\e"
@@ -1133,21 +1125,15 @@ OnMusicSet //Bringing up input boxes
 	{
 		if reference0 == "Balance"
 		{
-			"\![open,inputbox,OnMusicBalance,-1]"
-			--
-			"[Wprowadzić wartość balansu. 0 oznacza środek, -100 oznacza skrajnie w lewo, 100 oznacza skrajnie w prawo. Balans zostanie zaktualizowany po rozpoczęciu następnego utworu..]"
+			"[Wprowadzić wartość balansu. 0 oznacza środek, -100 oznacza skrajnie w lewo, 100 oznacza skrajnie w prawo.]"
 		}
 		elseif reference0 == "Speed"
 		{
-			"\![open,sliderinput,OnMusicSpeed,-1,100,1,300]"
-			--
-			"[Wybierz prędkość. 100 to prędkość normalna. Prędkość będzie aktualizowana po rozpoczęciu następnego utworu.]."
+			"[Wybierz prędkość. 100 to prędkość normalna.]"
 		}
 		else //volume
 		{
-			"\![open,sliderinput,OnMusicVolume,-1,100,1,100]"
-			--
-			"[Wybierz głośność. 100 jest wartością domyślną. Głośność zmieni się, gdy rozpocznie się następny utwór.]"
+			"[Wybierz głośność. 100 jest wartością domyślną.]"
 		}
 		--
 		"\n\n\![*]\q[Anuluj,OnCloseMusicSet,%(reference0)]\e"
@@ -1156,21 +1142,15 @@ OnMusicSet //Bringing up input boxes
 	{
 		if reference0 == "Balance"
 		{
-			"\![open,inputbox,OnMusicBalance,-1]"
-			--
-			"[Type a balance value. 0 is center, -100 is all the way to the left, 100 is all the way to the right. Balance will update when the next song starts.]"
+			"[Type a balance value. 0 is center, -100 is all the way to the left, 100 is all the way to the right.]"
 		}
 		elseif reference0 == "Speed"
 		{
-			"\![open,sliderinput,OnMusicSpeed,-1,100,1,300]"
-			--
-			"[Pick a speed. 100 is normal. Speed will update when the next song starts.]."
+			"[Pick a speed. 100 is normal.]"
 		}
 		else //volume
 		{
-			"\![open,sliderinput,OnMusicVolume,-1,100,1,100]"
-			--
-			"[Pick a volume. 100 is the default. Volume will change when the next song starts.]"
+			"[Pick a volume. 100 is the default.]"
 		}
 		--
 		"\n\n\![*]\q[Cancel,OnCloseMusicSet,%(reference0)]\e"
@@ -1182,24 +1162,30 @@ OnMusicBalance
 	MusicSettings[2] = TOINT(reference0)
 	if TOINT(reference0) > 100; MusicSettings[2] = 100
 	if TOINT(reference0) < -100; MusicSettings[2] = -100
+	if Singing; "\![sound,option,%(CHR(34))%(NowPlaying[0])%(CHR(34)),--balance=%(MusicSettings[2])]"
+	--
 	OnMusicSettings
 }
 
 OnMusicSpeed
 {
 	MusicSettings[1] = reference0
+	if Singing; "\![sound,option,%(CHR(34))%(NowPlaying[0])%(CHR(34)),--rate=%(MusicSettings[1])]"
+	--
 	OnMusicSettings
 }
 
 OnMusicVolume
 {
 	MusicSettings[0] = reference0
+	if Singing; "\![sound,option,%(CHR(34))%(NowPlaying[0])%(CHR(34)),--volume=%(MusicSettings[0])]"
+	--
 	OnMusicSettings
 }
 
 OnCloseMusicSet //If the user cancels the changes, this'll close the input boxes
 {
-	"\![close,inputbox,OnMusic%(reference0)]"
+	"\C\![close,inputbox,OnMusic%(reference0)]"
 	--
 	OnMusicSettings
 }
@@ -1575,7 +1561,7 @@ OnSavePlaylist //Saving a playlist
 		_display += "\q[%(_playlist),OnPlaylistOverwrite,%(_playlist)]\n"
 	}
 	--
-	"\0%(bb)\*\_q\![set,autoscroll,disable]\![open,inputbox,OnPlaylistName,-1]"
+	"\C\![lock,balloonrepaint]\c\0%(bb)\*\_q\![set,autoscroll,disable]\![open,inputbox,OnPlaylistName,-1]"
 	--
 	if language == "Placeholder" //TRANSLATORS: This is saving a playlist. It'll present a list of playlists that already exist, in case the user wants to update an old playlist by overwriting it
 	{
@@ -1612,12 +1598,12 @@ OnSavePlaylist //Saving a playlist
 		"\n\n\![*]\q[Cancel,PlaylistSaveCancel]"
 	}
 	--
-	"\n\n%(_display)\e"
+	"\n\n%(_display)\![unlock,balloonrepaint]\e"
 }
 
 Select.PlaylistSaveCancel //Closing the input box if the user chooses to cancel
 {
-	"\![close,inputbox,OnPlaylistName]\![raise,OnMusicSettings]"
+	"\C\![close,inputbox,OnPlaylistName]\![raise,OnMusicSettings]"
 }
 
 OnPlaylistName //After the user types a name
@@ -1790,7 +1776,7 @@ OnLoadPlaylist //Menu for loading playlists
 		_display += "\q[(x),OnDeletePlaylist,%(_playlist)] \q[%(_playlist),OnSelectPlaylist,%(_playlist)]\n"
 	}
 	--
-	"\0\_q%(bb)\*\![set,autoscroll,disable]"
+	"\C\![lock,balloonrepaint]\c\0\_q%(bb)\*\![set,autoscroll,disable]"
 	--
 	if language == "Placeholder" //TRANSLATORS: Loading a playlist, needs a note that if your current playlist is not saved it will be lost
 	{
@@ -1827,7 +1813,7 @@ OnLoadPlaylist //Menu for loading playlists
 		"\n\n\![*]\q[Back to Music Settings,OnMusicSettings]"
 	}
 	--
-	"\n\n%(_display)\e"
+	"\n\n%(_display)\![unlock,balloonrepaint]\e"
 }
 
 OnSelectPlaylist //Loading the playlist

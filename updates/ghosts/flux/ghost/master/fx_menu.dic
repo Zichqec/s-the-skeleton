@@ -1607,7 +1607,7 @@ OnDressupMenu //Menu for dressups
 		}
 	}
 	--
-	"%(_surfaces)\*\_q\![set,autoscroll,0]"
+	"\C\![lock,balloonrepaint]%(_surfaces)\c\*\_q\![set,autoscroll,0]"
 	--
 	if language == "Placeholder" //TRANSLATORS: This is the top of the dressup menu. It looks a bit complicated, but most of it is just back buttons tbh.
 	{
@@ -1814,97 +1814,99 @@ OnDressupMenu //Menu for dressups
 	{
 		if reference0 == ""
 		{
-			"\![*]\q[Zurück zum Hauptmenü,OnMenuRun]\n\![*]\q[Schließen,Cancel]\e"
+			"\![*]\q[Zurück zum Hauptmenü,OnMenuRun]\n\![*]\q[Schließen,Cancel]"
 		}
 		elseif reference1 == ""
 		{
 			if ARRAYSIZE(dressupcharacters) == 1; "\![*]\q[Zurück zum Hauptmenü,OnMenuRun]"
 			else; "\![*]\q[Zurück,OnDressupMenu]"
 			--
-			"\n\![*]\q[Schließen,Cancel]\e"
+			"\n\![*]\q[Schließen,Cancel]"
 		}
 		else
 		{
-			"\![*]\q[Zurück,OnDressupMenu,%(reference0)]\n\![*]\q[Schließen,Cancel]\e"
+			"\![*]\q[Zurück,OnDressupMenu,%(reference0)]\n\![*]\q[Schließen,Cancel]"
 		}
 	}
 	elseif language == "Русский"
 	{
 		if reference0 == ""
 		{
-			"\![*]\q[Назад в Меню,OnMenuRun]\n\![*]\q[Закрыть,Cancel]\e"
+			"\![*]\q[Назад в Меню,OnMenuRun]\n\![*]\q[Закрыть,Cancel]"
 		}
 		elseif reference1 == ""
 		{
 			if ARRAYSIZE(dressupcharacters) == 1; "\![*]\q[Назад в Меню,OnMenuRun]"
 			else; "\![*]\q[Назад,OnDressupMenu]"
 			--
-			"\n\![*]\q[Закрыть,Cancel]\e"
+			"\n\![*]\q[Закрыть,Cancel]"
 		}
 		else
 		{
-			"\![*]\q[Назад,OnDressupMenu,%(reference0)]\n\![*]\q[Закрыть,Cancel]\e"
+			"\![*]\q[Назад,OnDressupMenu,%(reference0)]\n\![*]\q[Закрыть,Cancel]"
 		}
 	}
 	elseif language == "Français"
 	{
 		if reference0 == ""
 		{
-			"\![*]\q[Retour au Menu,OnMenuRun]\n\![*]\q[Fermer,Cancel]\e"
+			"\![*]\q[Retour au Menu,OnMenuRun]\n\![*]\q[Fermer,Cancel]"
 		}
 		elseif reference1 == ""
 		{
 			if ARRAYSIZE(dressupcharacters) == 1; "\![*]\q[Retour au Menu,OnMenuRun]"
 			else; "\![*]\q[Retour,OnDressupMenu]"
 			--
-			"\n\![*]\q[Fermer,Cancel]\e"
+			"\n\![*]\q[Fermer,Cancel]"
 		}
 		else
 		{
-			"\![*]\q[Retour,OnDressupMenu,%(reference0)]\n\![*]\q[Fermer,Cancel]\e"
+			"\![*]\q[Retour,OnDressupMenu,%(reference0)]\n\![*]\q[Fermer,Cancel]"
 		}
 	}
 	elseif language == "Polski"
 	{
 		if reference0 == ""
 		{
-			"\![*]\q[Powrót do menu,OnMenuRun]\n\![*]\q[Close,Cancel]\e"
+			"\![*]\q[Powrót do menu,OnMenuRun]\n\![*]\q[Close,Cancel]"
 		}
 		elseif reference1 == ""
 		{
 			if ARRAYSIZE(dressupcharacters) == 1; "\![*]\q[Powrót do menu,OnMenuRun]"
 			else; "\![*]\q[Powrót,OnDressupMenu]"
 			--
-			"\n\![*]\q[Zamknij,Cancel]\e"
+			"\n\![*]\q[Zamknij,Cancel]"
 		}
 		else
 		{
-			"\![*]\q[Powrót,OnDressupMenu,%(reference0)]\n\![*]\q[Zamknij,Cancel]\e"
+			"\![*]\q[Powrót,OnDressupMenu,%(reference0)]\n\![*]\q[Zamknij,Cancel]"
 		}
 	}
 	else //English
 	{
 		if reference0 == ""
 		{
-			"\![*]\q[Back to Menu,OnMenuRun]\n\![*]\q[Close,Cancel]\e"
+			"\![*]\q[Back to Menu,OnMenuRun]\n\![*]\q[Close,Cancel]"
 		}
 		elseif reference1 == ""
 		{
 			if ARRAYSIZE(dressupcharacters) == 1; "\![*]\q[Back to Menu,OnMenuRun]"
 			else; "\![*]\q[Back,OnDressupMenu]"
 			--
-			"\n\![*]\q[Close,Cancel]\e"
+			"\n\![*]\q[Close,Cancel]"
 		}
 		else
 		{
-			"\![*]\q[Back,OnDressupMenu,%(reference0)]\n\![*]\q[Close,Cancel]\e"
+			"\![*]\q[Back,OnDressupMenu,%(reference0)]\n\![*]\q[Close,Cancel]"
 		}
 	}
+	--
+	"\![unlock,balloonrepaint]\e"
 }
 
 OnChangeDesign
 {
-	"\0\_q\![bind,%(reference1),%(reference2)] \![raise,OnDressupMenu,%(reference0),%(reference1)]"
+	"\C\![set,autoscroll,disable]\0\_q\![bind,%(reference1),%(reference2)] \![raise,OnDressupMenu,%(reference0),%(reference1)]"
 }
 
 OnRandomDressup
@@ -1917,7 +1919,7 @@ OnRandomDressup
 		_name = _dressup[2,"|"]
 		_command += "\![bind,%(_category),%(_name),0]"
 	}
-	"\p[%(reference0)]%(_command)\![done    removing]" //removes all current dressups
+	"\C\p[%(reference0)]%(_command)\![done    removing]" //removes all current dressups
 	--
 	_currentcategories = IARRAY
 	foreach availabledressups; _dressup //For every dressup that the ghost has - This breaks up the big list of all the dressups into categories

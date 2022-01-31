@@ -1,6 +1,14 @@
+-v1.2.2-
+
+• Updated YAYA version to Tc569-4.
+• Changing the volume, playback speed, and balance from the music settings menu will now immediately take effect.
+• Made several menus, including the music menu, move songs menu, and dressup menu, less flickery.
+• Fixed a small issue where FLUX may not have recognized that it was in the settings menu when changing songs unless the language was set as English.
+
+
 -v1.2.1-
 
-• Updated YAYA version to Tc568-1
+• Updated YAYA version to Tc568-1.
 • Fixed an issue where the setting for when FLUX should speak did not work as intended.
 • Fixed an issue where aitalk would stop working if the option to speak was set to something other than 'any time'. This is a bandaid patch until the issue is fixed at the source.
 • Fixed an issue where the talk rate would not display properly in the menu if it was set to never.
