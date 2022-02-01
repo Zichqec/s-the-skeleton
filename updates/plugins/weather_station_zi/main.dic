@@ -82,8 +82,10 @@ PluginLoad
 
 OnTestThing
 {
-	UserInfo.location = "a place"
-	UserInfo.location_url = "sdkjfhsdkjfhskfdj"
+	//UserInfo.location = "a place"
+	//UserInfo.location_url = "sdkjfhsdkjfhskfdj"
+	"\![open,readme,Weather Station]"
+	--
 	OnMenuExec
 }
 
@@ -264,7 +266,7 @@ OnMenuExec : all
 			}
 		}
 		
-		"\nAir quality:  \f[anchorstyle,default](\_a[OnShortNumbersToggle]Short Numbers %(Settings.short_numbers)\_a)\f[anchorstyle,none]\n\n[half]"
+		"\nAir quality:  \f[anchorstyle,default](\![*]\_a[OnShortNumbersToggle]Short Numbers %(Settings.short_numbers)\_a)\f[anchorstyle,none]\n\n[half]"
 		"Carbon Monoxide: \_a[-]%(_co)\_a\n"
 		"Ozone: \_a[-]%(_o3)\_a\n"
 		"Nitrogen Dioxide: \_a[-]%(_no2)\_a\n"
@@ -287,7 +289,7 @@ OnMenuExec : all
 
 OnWeatherStationUpdate
 {
-	"\0\b2\_q\![set,autoscroll,disable]\f[anchorstyle,none]Weather Station will attempt to update. Most ghosts do not have dialogue for plugin updates; please run the plugin again once the update is complete. You can update manually by opening the Ghost Explorer with \_a[-]Ctrl + E\_a, changing the \_a[-]Type\_a tab to \_a[-]Plugin\_a, and right clicking on \_a[-]Weather Station\_a. The \_a[-]Network Update\_a option will update the plugin.\n\nThe latest vresion of Weather Station can always be downloaded from \_a[https://zichqec.github.io/s-the-skeleton/]Zichqec's website\_a.\n\nClick to continue...\x\![updateother,--plugin=Weather Station]Updating...\e"
+	"\0\b2\_q\![set,autoscroll,disable]\f[anchorstyle,none]Weather Station will attempt to update. Most ghosts do not have dialogue for plugin updates; please run the plugin again once the update is complete. You can update manually by opening the Ghost Explorer with \_a[-]Ctrl + E\_a, changing the \_a[-]Type\_a tab to \_a[-]Plugin\_a, and right clicking on \_a[-]Weather Station\_a. The \_a[-]Network Update\_a option will update the plugin.\n\nThe latest version of Weather Station can always be downloaded from \_a[https://zichqec.github.io/s-the-skeleton/]Zichqec's website\_a.\n\nClick to continue...\x\![updateother,--plugin=Weather Station]Updating...\e"
 }
 
 //Menu for location, units, and if you want to let ghosts see your location data
@@ -297,6 +299,7 @@ OnSettingsMenu : all
 	if UserInfo.location != ""; _location = UserInfo.location
 	
 	"\0\*\_q\b2\![set,autoscroll,disable]"
+	"\f[align,center]—Settings—\n \f[align,default]\n"
 	//"Send: %(Info.Send_Weather_Now)\n"
 	"Location: \![*]\_a[OnChangeLocation]%(_location)\_a"
 
@@ -649,6 +652,7 @@ TwentyFour_to_12
 OnAstronomyMenu : all
 {
 	"\0\b2\*\![set,autoscroll,disable]\_q\f[anchorstyle,none]"
+	"\f[align,center]—Astronomy—\n \f[align,default]\n"
 	AstronomyDisplay(0)
 	"\n\n\![*]\q[Back,OnMenuExec]"
 }
@@ -727,11 +731,21 @@ OnGetCurrentWeather //Can apparently also run this without arguments to test if 
 	Info.last_update[3] = nowsec
 	if ampm == 1; Info.last_update[4] = "pm"
 	else; Info.last_update[4] = "am"
+	Info.last_update[5] = GETSECCOUNT
 	
 	if "<error>" _in_ _api //If there's an error, let the user know and clear the weather info
 	{
 		Info.error_code = TOSTR(ExtractXML(_api,"code"))
 		Info.error_message = ExtractXML(_api,"message")
+		ClearWeatherData
+		LOGGING(Info.error_code)
+		LOGGING(Info.error_message)
+		CheckForUpdates //If there's an error, check for an update because an update might fix it...
+	}
+	elseif _api == ""
+	{
+		Info.error_code = "99999"
+		Info.error_message = "No API response"
 		ClearWeatherData
 		LOGGING(Info.error_code)
 		LOGGING(Info.error_message)
@@ -893,20 +907,22 @@ OnWeatherStation.Weather
 	
 	
 	res_reference[35] = Settings.units
+	res_reference[36] = Info.last_update[5]
+	res_reference[37] = version_num
 	//res_reference[36] = Settings.weather_interval //Currently not in use
 
 	if Settings.share_location == "On"
 	{
-		res_reference[36] = UserInfo.location
-		res_reference[37] = UserInfo.location_url
-		res_reference[38] = UserInfo.latitude
-		res_reference[39] = UserInfo.longitude
+		res_reference[38] = UserInfo.location
+		res_reference[39] = UserInfo.location_url
+		res_reference[40] = UserInfo.latitude
+		res_reference[41] = UserInfo.longitude
 	}
 }
 
 //For ghosts requesting the current astronomy data
 //reference0 is the current day
-OnWeatherStation.Astro //TODO redo these refs to match documentation
+OnWeatherStation.Astro
 {
 	if Info.error_code != ""; {OnWeatherStation.Error; return}
 	elseif !CanGetWeather; {OnWeatherStation.Error("no_location"); return}
@@ -1035,6 +1051,7 @@ OnWeatherStation.Error
 	elseif Info.error_code == "2007"; _short = "api_quota_exceeded"
 	elseif Info.error_code == "2008"; _short = "api_key_disabled"
 	elseif Info.error_code == "9999"; _short = "api_internal_error"
+	elseif Info.error_code == "99999"; _short = "no_api_response"
 	else; _short = "other"
 	
 	if _argv[0] == "no_location"
@@ -1047,6 +1064,9 @@ OnWeatherStation.Error
 	res_reference[0] = _short
 	res_reference[1] = _msg
 	res_reference[2] = _code
+	
+	res_reference[3] = Info.last_update[5]
+	res_reference[4] = version_num
 }
 
 //Changing locations
