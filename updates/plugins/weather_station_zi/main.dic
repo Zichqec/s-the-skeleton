@@ -289,12 +289,16 @@ OnMenuExec : all
 
 OnWeatherStationUpdate
 {
+	res_marker = version
+	
 	"\0\b2\_q\![set,autoscroll,disable]\f[anchorstyle,none]Weather Station will attempt to update. Most ghosts do not have dialogue for plugin updates; please run the plugin again once the update is complete. You can update manually by opening the Ghost Explorer with \_a[-]Ctrl + E\_a, changing the \_a[-]Type\_a tab to \_a[-]Plugin\_a, and right clicking on \_a[-]Weather Station\_a. The \_a[-]Network Update\_a option will update the plugin.\n\nThe latest version of Weather Station can always be downloaded from \_a[https://zichqec.github.io/s-the-skeleton/]Zichqec's website\_a.\n\nClick to continue...\x\![updateother,--plugin=Weather Station]Updating...\e"
 }
 
 //Menu for location, units, and if you want to let ghosts see your location data
 OnSettingsMenu : all
 {
+	res_marker = version
+	
 	_location = "(Not set)"
 	if UserInfo.location != ""; _location = UserInfo.location
 	
@@ -399,6 +403,7 @@ OnCurrentWeather_ForceUpdate
 //Daily forecast menu, lets the user go back and forth between days and also switch to the hourly menu
 OnForecastMenu.Daily : all
 {
+	res_marker = version
 	_day = reference[0]
 	if _day == ""; _day = 0
 	_metric = Settings.units == "Metric"
@@ -459,6 +464,8 @@ OnNextForecastDay
 //Similar to the above, but handling the hour-by-hour.
 OnForecastMenu.Hourly : all
 {
+	res_marker = version
+	
 	_day = reference[0]
 	if _day == ""; _day = 0
 	
@@ -651,6 +658,8 @@ TwentyFour_to_12
 //Astronomy menu display
 OnAstronomyMenu : all
 {
+	res_marker = version
+	
 	"\0\b2\*\![set,autoscroll,disable]\_q\f[anchorstyle,none]"
 	"\f[align,center]—Astronomy—\n \f[align,default]\n"
 	AstronomyDisplay(0)
@@ -663,7 +672,7 @@ OnWeatherAlertMenu : all
 {
 	_alert = reference[0]
 	_info = SPLIT(Weather.alerts[_alert],C_BYTE1)
-	
+	res_marker = version
 	
 	"\0\b2\*\![set,autoscroll,disable]\_q\f[anchorstyle,none]"
 	
@@ -1072,6 +1081,7 @@ OnWeatherStation.Error
 //Changing locations
 OnChangeLocation
 {
+	res_marker = version
 	"\![quicksection,true]\*\![open,inputbox,OnWeatherLocation,-1]"
 	--
 	"Write the name or latitude and longitude of your city to search for it. If in the US, you can use a zip code. If in the UK, you can use a postcode. If in Canada, you can use a postal code.\n\n\![*]\q[Back,OnSettingsMenu]\e"
@@ -1080,6 +1090,7 @@ OnChangeLocation
 //Parse the location stuff sent back by the API, call OnChangeLocation again if there were no results
 OnWeatherLocation
 {
+	res_marker = version
 	_api = FUNCTIONEX("saori/httpc.dll","https://api.weatherapi.com/v1/search.xml?key=__API_KEY__&q=%(reference[0])")
 	_display = ""
 
