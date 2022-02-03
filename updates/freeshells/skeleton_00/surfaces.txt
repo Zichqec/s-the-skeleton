@@ -1,0 +1,721 @@
+//IMPORTANT NOTE ABOUT SERIKO! You CANNOT have mid-line comments! SERIKO errors don't prevent you from loading your ghost, but it will still give annoying errors and cause unexpected behaviors! Put ALL COMMENTS ON THEIR OWN LINES. This will save you a lot of headache, trust me!
+
+version,1
+//This is using the new seriko definition. If you want to use the old one, change the version to 0
+
+//Sakura surfaces
+
+surface0
+{
+	element0,overlay,surface10.png,0,0
+	// //As a note, you can put your images in subfolders! I'd be careful doing it, but it could be very helpful! It would look something like this
+	// //element0,overlay,yourfolder/surface0.png,0,0
+	// //Any images in subfolders HAVE to be defined in a surface before you can use them in animations, though.
+	
+	// //Collisions
+	// collision0,50,8,95,27,Head
+	// collision1,47,4,102,60,Face
+	
+	//Blink
+	animation10000.interval,random,4
+	animation10000.pattern0,overlay,-1,100,0,0
+	animation10000.pattern1,overlay,10000,50,0,0
+	animation10000.pattern2,overlay,10001,100,0,0
+	animation10000.pattern3,overlay,-1,30,0,0
+	
+	
+	
+	//Talk
+	animation10010.interval,talk,6
+	animation10010.pattern0,alternativestart,(10011,10012,10013)
+	
+	animation10011.interval,never
+	animation10011.pattern0,overlay,10010,0,0,0
+	animation10011.pattern1,overlay,-1,100,0,0
+
+	animation10012.interval,never
+	animation10012.pattern0,overlay,10011,0,0,0
+	animation10012.pattern1,overlay,-1,150,0,0
+
+	animation10013.interval,never
+	animation10013.pattern0,overlay,10012,0,0,0
+	animation10013.pattern1,overlay,-1,100,0,0
+	animation10013.pattern2,overlay,10010,80,0,0
+	animation10013.pattern3,overlay,-1,100,0,0
+	
+	animation5.interval,never
+	animation5.pattern0,parallelstop,(10010,10011,10012,10013)
+	
+	//Eyes
+	//Forward
+	animation10.interval,runonce
+	animation10.pattern0,overlay,10100,0,0,0
+	
+	//Left
+	animation11.interval,never
+	animation11.pattern0,stop,10
+	animation11.pattern1,overlay,10110,0,0,0
+	
+	//Right
+	animation12.interval,never
+	animation12.pattern0,stop,10
+	animation12.pattern1,overlay,10120,0,0,0
+	
+	//Down
+	animation13.interval,never
+	animation13.pattern0,stop,10
+	animation13.pattern1,overlay,10130,0,0,0
+	
+	//Rolling
+	animation14.interval,never
+	animation14.pattern0,stop,10
+	animation14.pattern1,overlay,10140,0,0,0
+	
+	//Closed, up
+	animation15.interval,never
+	animation15.pattern0,parallelstop,(10,10000)
+	animation15.pattern1,overlay,10150,0,0,0
+	
+	//Closed, down
+	animation16.interval,never
+	animation16.pattern0,parallelstop,(10,10000)
+	animation16.pattern1,overlay,10160,0,0,0
+	
+	
+	//Eyebrows
+	//Annoyed
+	animation20.interval,runonce
+	animation20.pattern0,overlay,10200,0,0,0
+	
+	//Angry
+	animation21.interval,never
+	animation21.pattern0,stop,20
+	animation21.pattern1,overlay,10210,0,0,0
+	
+	//Neutral
+	animation22.interval,never
+	animation22.pattern0,stop,20
+	animation22.pattern1,overlay,10220,0,0,0
+	
+	//Confused
+	animation23.interval,never
+	animation23.pattern0,stop,20
+	animation23.pattern1,overlay,10230,0,0,0
+	
+	//Mild
+	animation24.interval,never
+	animation24.pattern0,stop,20
+	animation24.pattern1,overlay,10240,0,0,0
+	
+	//Sad
+	animation25.interval,never
+	animation25.pattern0,stop,20
+	animation25.pattern1,overlay,10250,0,0,0
+	
+	
+	//Mouths
+	//Normal
+	animation30.interval,runonce
+	animation30.pattern0,overlay,10300,0,0,0
+	
+	//Frown
+	animation31.interval,never
+	animation31.pattern0,stop,30
+	animation31.pattern1,overlay,10310,0,0,0
+	
+	//Snarl
+	animation32.interval,never
+	animation32.pattern0,stop,30
+	animation32.pattern1,overlay,10320,0,0,0
+	
+	//Pouty
+	animation33.interval,never
+	animation33.pattern0,stop,30
+	animation33.pattern1,overlay,10330,0,0,0
+	
+	
+	
+	//Left arms
+	//Down
+	animation40.interval,runonce
+	animation40.pattern0,parallelstart,(400,401,402)
+	
+		animation400.interval,never
+		animation400.pattern0,overlay,10400,0,0,0
+		
+		animation401.interval,never
+		animation401.pattern0,overlay,10401,0,0,0
+		
+		animation402.interval,never
+		animation402.pattern0,overlay,10402,0,0,0
+	
+	//Hip
+	animation41.interval,never
+	animation41.pattern0,parallelstart,(410,411,412)
+	animation41.pattern1,parallelstop,(40,400,401,402)
+	
+		animation410.interval,never
+		animation410.pattern0,overlay,10410,0,0,0
+		
+		animation411.interval,never
+		animation411.pattern0,overlay,10411,0,0,0
+		
+		animation412.interval,never
+		animation412.pattern0,overlay,10412,0,0,0
+	
+	//Gesticulate
+	animation42.interval,never
+	animation42.pattern0,parallelstart,(420,421,422)
+	animation42.pattern1,parallelstop,(40,400,401,402)
+	
+		animation420.interval,never
+		animation420.pattern0,overlay,10420,0,0,0
+		
+		animation421.interval,never
+		animation421.pattern0,overlay,10421,0,0,0
+		
+		animation422.interval,never
+		animation422.pattern0,overlay,10422,0,0,0
+	
+	//Think
+	animation43.interval,never
+	animation43.pattern0,parallelstart,(430,431,432)
+	animation43.pattern1,parallelstop,(40,400,401,402)
+	
+		animation430.interval,never
+		animation430.pattern0,overlay,10430,0,0,0
+		
+		animation431.interval,never
+		animation431.pattern0,overlay,10431,0,0,0
+		
+		animation432.interval,never
+		animation432.pattern0,overlay,10432,0,0,0
+	
+	
+	//Right arms
+	//Hip
+	animation50.interval,runonce
+	animation50.pattern0,parallelstart,(500,501,502)
+	
+		animation500.interval,never
+		animation500.pattern0,overlay,10500,0,0,0
+	
+		animation501.interval,never
+		animation501.pattern0,overlay,10501,0,0,0
+		
+		animation502.interval,never
+		animation502.pattern0,overlay,10502,0,0,0
+	
+	animation90.interval,runonce
+	animation90.pattern0,overlay,100,0,0,0
+	animation90.option,background
+	
+	animation91.interval,runonce
+	animation91.pattern0,overlay,101,0,0,0
+	animation91.option,background
+	
+	animation92.interval,runonce
+	animation92.pattern0,overlay,102,0,0,0
+	animation92.option,background
+	
+	animation93.interval,runonce
+	animation93.pattern0,overlay,103,0,0,0
+	animation93.option,background
+	
+	animation94.interval,runonce
+	animation94.pattern0,overlay,104,0,0,0
+	animation94.option,background
+	
+	animation95.interval,runonce
+	animation95.pattern0,overlay,105,0,0,0
+	animation95.option,background
+	
+	animation96.interval,runonce
+	animation96.pattern0,overlay,106,0,0,0
+	animation96.option,background
+	
+	animation97.interval,runonce
+	animation97.pattern0,overlay,107,0,0,0
+	animation97.option,background
+	
+	animation98.interval,runonce
+	animation98.pattern0,overlay,108,0,0,0
+	animation98.option,background
+}
+
+
+
+surface1
+{
+	element0,overlay,surface10.png,0,0
+	// //As a note, you can put your images in subfolders! I'd be careful doing it, but it could be very helpful! It would look something like this
+	// //element0,overlay,yourfolder/surface0.png,0,0
+	// //Any images in subfolders HAVE to be defined in a surface before you can use them in animations, though.
+	
+	// //Collisions
+	// collision0,50,8,95,27,Head
+	// collision1,47,4,102,60,Face
+	
+	//Blink
+	animation10000.interval,random,4
+	animation10000.pattern0,overlay,-1,100,0,0
+	animation10000.pattern1,overlay,11000,50,0,0
+	animation10000.pattern2,overlay,11001,100,0,0
+	animation10000.pattern3,overlay,-1,30,0,0
+	
+	//Talk
+	animation10010.interval,talk,6
+	animation10010.pattern0,alternativestart,(10011,10012,10013)
+	
+	animation10011.interval,never
+	animation10011.pattern0,overlay,11012,0,0,0
+	animation10011.pattern1,overlay,-1,100,0,0
+
+	animation10012.interval,never
+	animation10012.pattern0,overlay,11011,0,0,0
+	animation10012.pattern1,overlay,-1,150,0,0
+
+	animation10013.interval,never
+	animation10013.pattern0,overlay,11010,0,0,0
+	animation10013.pattern1,overlay,-1,100,0,0
+	animation10013.pattern2,overlay,11012,80,0,0
+	animation10013.pattern3,overlay,-1,100,0,0
+	
+	animation5.interval,never
+	animation5.pattern0,parallelstop,(10010,10011,10012,10013)
+	
+	//Eyes
+	//Forward
+	animation10.interval,runonce
+	animation10.pattern0,overlay,11100,0,0,0
+	
+	//Left
+	animation11.interval,never
+	animation11.pattern0,stop,10
+	animation11.pattern1,overlay,11110,0,0,0
+	
+	//Right
+	animation12.interval,never
+	animation12.pattern0,stop,10
+	animation12.pattern1,overlay,11120,0,0,0
+	
+	//Down
+	animation13.interval,never
+	animation13.pattern0,stop,10
+	animation13.pattern1,overlay,11130,0,0,0
+	
+	//Up
+	animation14.interval,never
+	animation14.pattern0,stop,10
+	animation14.pattern1,overlay,11140,0,0,0
+	
+	//Rolling
+	animation15.interval,never
+	animation15.pattern0,parallelstop,(10,10000)
+	animation15.pattern1,overlay,11150,0,0,0
+	
+	//Closed
+	animation16.interval,never
+	animation16.pattern0,parallelstop,(10,10000)
+	animation16.pattern1,overlay,11160,0,0,0
+	
+	
+	//Eyebrows
+	//Skipping 20 to make the numbers match surface0...
+	//Angry
+	animation21.interval,runonce
+	animation21.pattern1,overlay,11210,0,0,0
+	
+	//Neutral
+	animation22.interval,never
+	animation22.pattern0,stop,21
+	animation22.pattern1,overlay,11220,0,0,0
+	
+	//Confused
+	animation23.interval,never
+	animation23.pattern0,stop,21
+	animation23.pattern1,overlay,11230,0,0,0
+	
+	//Mild
+	animation24.interval,never
+	animation24.pattern0,stop,21
+	animation24.pattern1,overlay,11240,0,0,0
+	
+	//Sad
+	animation25.interval,never
+	animation25.pattern0,stop,21
+	animation25.pattern1,overlay,11250,0,0,0
+	
+	
+	//Mouths
+	//Normal
+	animation30.interval,runonce
+	animation30.pattern0,overlay,11300,0,0,0
+	
+	//Frown
+	animation31.interval,never
+	animation31.pattern0,stop,30
+	animation31.pattern1,overlay,11310,0,0,0
+	
+	//Snarl
+	animation32.interval,never
+	animation32.pattern0,stop,30
+	animation32.pattern1,overlay,11320,0,0,0
+	
+	//Pouty
+	animation33.interval,never
+	animation33.pattern0,stop,30
+	animation33.pattern1,overlay,11330,0,0,0
+	
+	
+	
+	//Left arms
+	//Hip
+	animation40.interval,runonce
+	animation40.pattern0,parallelstart,(400,401,402)
+	
+		animation400.interval,never
+		animation400.pattern0,overlay,11400,0,0,0
+		
+		animation401.interval,never
+		animation401.pattern0,overlay,11401,0,0,0
+		
+		animation402.interval,never
+		animation402.pattern0,overlay,11402,0,0,0
+	
+	//Frustration
+	animation41.interval,never
+	animation41.pattern0,parallelstart,(410,411,412)
+	animation41.pattern1,parallelstop,(40,400,401,402)
+	
+		animation410.interval,never
+		animation410.pattern0,overlay,11410,0,0,0
+		
+		animation411.interval,never
+		animation411.pattern0,overlay,11411,0,0,0
+		
+		animation412.interval,never
+		animation412.pattern0,overlay,11412,0,0,0
+	
+	//Exasperation
+	animation42.interval,never
+	animation42.pattern0,parallelstart,(420,421,422)
+	animation42.pattern1,parallelstop,(40,400,401,402)
+	
+		animation420.interval,never
+		animation420.pattern0,overlay,11420,0,0,0
+		
+		animation421.interval,never
+		animation421.pattern0,overlay,11421,0,0,0
+		
+		animation422.interval,never
+		animation422.pattern0,overlay,11422,0,0,0
+	
+	//Point
+	animation43.interval,never
+	animation43.pattern0,parallelstart,(430,431,432)
+	animation43.pattern1,parallelstop,(40,400,401,402)
+	
+		animation430.interval,never
+		animation430.pattern0,overlay,11430,0,0,0
+		
+		animation431.interval,never
+		animation431.pattern0,overlay,11431,0,0,0
+		
+		animation432.interval,never
+		animation432.pattern0,overlay,11432,0,0,0
+	
+	
+	//Right arms
+	//Hip
+	animation50.interval,runonce
+	animation50.pattern0,parallelstart,(500,501,502)
+	
+		animation500.interval,never
+		animation500.pattern0,overlay,11500,0,0,0
+	
+		animation501.interval,never
+		animation501.pattern0,overlay,11501,0,0,0
+		
+		animation502.interval,never
+		animation502.pattern0,overlay,11502,0,0,0
+	
+	//Frustration
+	animation51.interval,never
+	animation51.pattern0,parallelstart,(510,511,512)
+	animation51.pattern1,parallelstop,(50,500,501,502)
+	
+		animation510.interval,never
+		animation510.pattern0,overlay,11510,0,0,0
+		
+		animation511.interval,never
+		animation511.pattern0,overlay,11511,0,0,0
+		
+		animation512.interval,never
+		animation512.pattern0,overlay,11512,0,0,0
+		
+	//Frustration
+	animation52.interval,never
+	animation52.pattern0,parallelstart,(520,521,522)
+	animation52.pattern1,parallelstop,(50,500,501,502)
+	
+		animation520.interval,never
+		animation520.pattern0,overlay,11520,0,0,0
+		
+		animation521.interval,never
+		animation521.pattern0,overlay,11521,0,0,0
+		
+		animation522.interval,never
+		animation522.pattern0,overlay,11522,0,0,0
+		
+	//Crossed arms
+	animation60.interval,never
+	animation60.pattern0,parallelstart,(600,601,602)
+	animation60.pattern1,parallelstop,(40,400,401,402,50,500,501,502)
+	
+		animation600.interval,never
+		animation600.pattern0,overlay,11600,0,0,0
+		
+		animation601.interval,never
+		animation601.pattern0,overlay,11601,0,0,0
+		
+		animation602.interval,never
+		animation602.pattern0,overlay,11602,0,0,0
+	
+	
+	
+	animation90.interval,runonce
+	animation90.pattern0,overlay,110,0,0,0
+	animation90.option,background
+	
+	animation91.interval,runonce
+	animation91.pattern0,overlay,111,0,0,0
+	animation91.option,background
+	
+	animation92.interval,runonce
+	animation92.pattern0,overlay,112,0,0,0
+	animation92.option,background
+	
+	animation93.interval,runonce
+	animation93.pattern0,overlay,113,0,0,0
+	animation93.option,background
+	
+	animation94.interval,runonce
+	animation94.pattern0,overlay,114,0,0,0
+	animation94.option,background
+	
+	animation95.interval,runonce
+	animation95.pattern0,overlay,115,0,0,0
+	animation95.option,background
+	
+	animation96.interval,runonce
+	animation96.pattern0,overlay,116,0,0,0
+	animation96.option,background
+	
+	animation97.interval,runonce
+	animation97.pattern0,overlay,117,0,0,0
+	animation97.option,background
+	
+	animation98.interval,runonce
+	animation98.pattern0,overlay,118,0,0,0
+	animation98.option,background
+}
+
+
+
+
+surface2
+{
+	element0,overlay,surface10.png,0,0
+	// //As a note, you can put your images in subfolders! I'd be careful doing it, but it could be very helpful! It would look something like this
+	// //element0,overlay,yourfolder/surface0.png,0,0
+	// //Any images in subfolders HAVE to be defined in a surface before you can use them in animations, though.
+	
+	// //Collisions
+	// collision0,50,8,95,27,Head
+	// collision1,47,4,102,60,Face
+	
+	//Blink
+	animation10000.interval,random,4
+	animation10000.pattern0,overlay,-1,100,0,0
+	animation10000.pattern1,overlay,12000,50,0,0
+	animation10000.pattern2,overlay,12001,100,0,0
+	animation10000.pattern3,overlay,-1,30,0,0
+	
+	//Talk
+	animation10010.interval,talk,6
+	animation10010.pattern0,alternativestart,(10011,10012,10013)
+	
+	animation10011.interval,never
+	animation10011.pattern0,overlay,12010,0,0,0
+	animation10011.pattern1,overlay,-1,100,0,0
+
+	animation10012.interval,never
+	animation10012.pattern0,overlay,12011,0,0,0
+	animation10012.pattern1,overlay,-1,150,0,0
+
+	animation10013.interval,never
+	animation10013.pattern0,overlay,12012,0,0,0
+	animation10013.pattern1,overlay,-1,100,0,0
+	animation10013.pattern2,overlay,12010,80,0,0
+	animation10013.pattern3,overlay,-1,100,0,0
+	
+	animation5.interval,never
+	animation5.pattern0,parallelstop,(10010,10011,10012,10013)
+	
+	//Eyes
+	//Forward
+	animation10.interval,runonce
+	animation10.pattern0,overlay,12100,0,0,0
+	
+	//Back
+	animation11.interval,never
+	animation11.pattern0,stop,10
+	animation11.pattern1,overlay,12110,0,0,0
+	
+	//Down
+	animation12.interval,never
+	animation12.pattern0,stop,10
+	animation12.pattern1,overlay,12120,0,0,0
+	
+	//Up
+	animation13.interval,never
+	animation13.pattern0,stop,10
+	animation13.pattern1,overlay,12130,0,0,0
+	
+	//Rolling
+	animation14.interval,never
+	animation14.pattern0,stop,10
+	animation14.pattern1,overlay,12140,0,0,0
+	
+	//Closed
+	animation15.interval,never
+	animation15.pattern0,parallelstop,(10,10000)
+	animation15.pattern1,overlay,12150,0,0,0
+	
+	
+	
+	//Eyebrows
+	//Annoyed
+	animation20.interval,runonce
+	animation20.pattern0,overlay,12200,0,0,0
+	
+	//Angry
+	animation21.interval,never
+	animation21.pattern0,stop,20
+	animation21.pattern1,overlay,12210,0,0,0
+	
+	//Worried
+	animation22.interval,never
+	animation22.pattern0,stop,20
+	animation22.pattern1,overlay,12220,0,0,0
+	
+	//Mild
+	animation23.interval,never
+	animation23.pattern0,stop,20
+	animation23.pattern1,overlay,12230,0,0,0
+	
+	//Sad
+	animation24.interval,never
+	animation24.pattern0,stop,20
+	animation24.pattern1,overlay,12240,0,0,0
+	
+	
+	//Mouths
+	//Normal
+	animation30.interval,runonce
+	animation30.pattern0,overlay,12300,0,0,0
+	
+	//Frown
+	animation31.interval,never
+	animation31.pattern0,stop,30
+	animation31.pattern1,overlay,12310,0,0,0
+	
+	//Snarl
+	animation32.interval,never
+	animation32.pattern0,stop,30
+	animation32.pattern1,overlay,12320,0,0,0
+	
+	
+	
+	//Left arms
+	//Crossed
+	animation40.interval,runonce
+	animation40.pattern0,parallelstart,(400,401)
+	
+		animation400.interval,never
+		animation400.pattern0,overlay,12400,0,0,0
+		
+		animation401.interval,never
+		animation401.pattern0,overlay,12401,0,0,0
+	
+	//Out
+	animation41.interval,never
+	animation41.pattern0,parallelstart,(410,411,412)
+	animation41.pattern1,parallelstop,(40,400,401)
+	
+		animation410.interval,never
+		animation410.pattern0,overlay,12410,0,0,0
+		animation410.option,background
+		
+		animation411.interval,never
+		animation411.pattern0,interpolate,12411,0,0,0
+		animation411.option,background
+		
+		animation412.interval,never
+		animation412.pattern0,overlay,12412,0,0,0
+		animation412.option,background
+	
+	
+	//Right arms
+	//Crossed
+	animation50.interval,runonce
+	animation50.pattern0,parallelstart,(500,501)
+	
+		animation500.interval,never
+		animation500.pattern0,overlay,12500,0,0,0
+		animation500.option,background
+	
+		animation501.interval,never
+		animation501.pattern0,overlay,12501,0,0,0
+		animation501.option,background
+	
+	
+	
+	
+	animation90.interval,runonce
+	animation90.pattern0,overlay,120,0,0,0
+	animation90.option,background
+	
+	animation91.interval,runonce
+	animation91.pattern0,overlay,121,0,0,0
+	animation91.option,background
+	
+	animation92.interval,runonce
+	animation92.pattern0,overlay,122,0,0,0
+	animation92.option,background
+	
+	animation93.interval,runonce
+	animation93.pattern0,overlay,123,0,0,0
+	animation93.option,background
+	
+	animation94.interval,runonce
+	animation94.pattern0,overlay,124,0,0,0
+	animation94.option,background
+	
+	animation95.interval,runonce
+	animation95.pattern0,overlay,125,0,0,0
+	animation95.option,background
+	
+	animation96.interval,runonce
+	animation96.pattern0,overlay,126,0,0,0
+	animation96.option,background
+	
+	animation97.interval,runonce
+	animation97.pattern0,overlay,127,0,0,0
+	animation97.option,background
+	
+	animation98.interval,runonce
+	animation98.pattern0,overlay,128,0,0,0
+	animation98.option,background
+}

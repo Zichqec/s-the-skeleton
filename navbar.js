@@ -35,6 +35,7 @@ let links = [
 	] },
 	{ title: 'Other', sublinks: [
 		{ path: 'calendarskins', title: 'Calendar Skins' },
+		{ path: 'freeshells', title: 'Freeshells' },
 		{ path: 'resources', title: 'Resources' },
 		{ path: 'advent_calendar_2021', title: 'Advent Calendar 2021' },
 	] },

@@ -1,0 +1,906 @@
+//Surfaces for each individual piece so that I can have em in subfolders.
+
+//Example of numbering system
+//1 - needs to be there to make these all in the 10000 range
+//0 - surface 0
+//2 - Left arms
+//3 - Third left arm
+//0 - Which color
+
+//Main body
+surface100
+{
+	element0,overlay,surface0/base_color_hoodie.png,0,0
+	element1,overlayfast,color_hoodie.png,0,0
+}
+
+surface101
+{
+	element0,overlay,surface0/base_color_pocket.png,0,0
+	element1,overlayfast,color_pocket.png,0,0
+}
+
+surface102
+{
+	element0,overlay,surface0/base_color_hood.png,0,0
+	element1,overlayfast,color_hood.png,0,0
+}
+
+surface103
+{
+	element0,overlay,surface0/base_color_drawstrings.png,0,0
+	element1,overlayfast,color_drawstrings.png,0,0
+}
+
+surface104
+{
+	element0,overlay,surface0/base_color_shorts.png,0,0
+	element1,overlayfast,color_shorts.png,0,0
+}
+
+surface105
+{
+	element0,overlay,surface0/base_color_boots.png,0,0
+	element1,overlayfast,color_boots.png,0,0
+}
+
+surface106
+{
+	element0,overlay,surface0/base_color_boots_trim.png,0,0
+	element1,overlayfast,color_boots_trim.png,0,0
+}
+
+surface107
+{
+	element0,overlay,surface0/base_color_bones.png,0,0
+	element1,overlayfast,color_bones.png,0,0
+}
+
+surface108
+{
+	element0,overlay,surface0/base_lineart.png,0,0
+}
+
+
+//Blinks
+surface10000
+{
+	element0,overlay,surface0/0_blink_full_color.png,0,0
+	element1,overlayfast,color_bones.png,0,0
+	element2,overlay,surface0/1_9.png,0,0
+}
+
+surface10001
+{
+	element0,overlay,surface0/0_blink_half_color.png,0,0
+	element1,overlayfast,color_bones.png,0,0
+	element2,overlay,surface0/0_blink_half_lineart.png,0,0
+}
+
+//Talks
+surface10010
+{
+	element0,overlay,surface0/0_talk_backplate.png,0,0
+	element1,overlayfast,color_bones.png,0,0
+	element2,overlay,surface0/0_talk_lines_0.png,0,0
+}
+
+surface10011
+{
+	element0,overlay,surface0/0_talk_backplate.png,0,0
+	element1,overlayfast,color_bones.png,0,0
+	element2,overlay,surface0/0_talk_lines_1.png,0,0
+}
+
+surface10012
+{
+	element0,overlay,surface0/0_talk_backplate.png,0,0
+	element1,overlayfast,color_bones.png,0,0
+	element2,overlay,surface0/0_talk_lines_2.png,0,0
+}
+
+//Eyes
+//Forward
+surface10100
+{
+	element0,overlay,surface0/1_0.png,0,0
+}
+
+//Left
+surface10110
+{
+	element0,overlay,surface0/1_1.png,0,0
+}
+
+//Right
+surface10120
+{
+	element0,overlay,surface0/1_2.png,0,0
+}
+
+//Down
+surface10130
+{
+	element0,overlay,surface0/1_3.png,0,0
+}
+
+//Rolling
+surface10140
+{
+	element0,overlay,surface0/1_4.png,0,0
+}
+
+//Closed, up
+surface10150
+{
+	element0,overlay,surface0/1_8.png,0,0
+}
+
+//Closed, down
+surface10160
+{
+	element0,overlay,surface0/1_9.png,0,0
+}
+
+
+//Eyebrows
+//Annoyed
+surface10200
+{
+	element0,overlay,surface0/2_0.png,0,0
+}
+
+//Angry
+surface10210
+{
+	element0,overlay,surface0/2_1.png,0,0
+}
+
+//Neutral
+surface10220
+{
+	element0,overlay,surface0/2_2.png,0,0
+}
+
+//Confused
+surface10230
+{
+	element0,overlay,surface0/2_3.png,0,0
+}
+
+//Mild
+surface10240
+{
+	element0,overlay,surface0/2_4.png,0,0
+}
+
+//Sad
+surface10250
+{
+	element0,overlay,surface0/2_5.png,0,0
+}
+
+
+//Mouths
+//Normal
+surface10300
+{
+	element0,overlay,surface0/3_0.png,0,0
+}
+
+//Frown
+surface10310
+{
+	element0,overlay,surface0/3_1.png,0,0
+}
+
+//Snarl
+surface10320
+{
+	element0,overlay,surface0/3_2.png,0,0
+}
+
+//Pouty
+surface10330
+{
+	element0,overlay,surface0/3_3.png,0,0
+}
+
+
+
+//Left arms
+//Down
+surface10400
+{
+	element0,overlay,surface0/4_0_color_hand.png,0,0
+	element1,overlayfast,color_bones.png,0,0
+}
+
+surface10401
+{
+	element0,overlay,surface0/4_0_color_sleeve.png,0,0
+	element1,overlayfast,color_left_sleeve.png,0,0
+}
+
+surface10402
+{
+	element0,overlay,surface0/4_0_lineart.png,0,0
+}
+
+//Hip
+surface10410
+{
+	element0,overlay,surface0/4_1_color_hand.png,0,0
+	element1,overlayfast,color_bones.png,0,0
+}
+
+surface10411
+{
+	element0,overlay,surface0/4_1_color_sleeve.png,0,0
+	element1,overlayfast,color_left_sleeve.png,0,0
+}
+
+surface10412
+{
+	element0,overlay,surface0/4_1_lineart.png,0,0
+}
+
+//Gesticulate
+surface10420
+{
+	element0,overlay,surface0/4_2_color_hand.png,0,0
+	element1,overlayfast,color_bones.png,0,0
+}
+
+surface10421
+{
+	element0,overlay,surface0/4_2_color_sleeve.png,0,0
+	element1,overlayfast,color_left_sleeve.png,0,0
+}
+
+surface10422
+{
+	element0,overlay,surface0/4_2_lineart.png,0,0
+}
+
+//Think
+surface10430
+{
+	element0,overlay,surface0/4_3_color_hand.png,0,0
+	element1,overlayfast,color_bones.png,0,0
+}
+
+surface10431
+{
+	element0,overlay,surface0/4_3_color_sleeve.png,0,0
+	element1,overlayfast,color_left_sleeve.png,0,0
+}
+
+surface10432
+{
+	element0,overlay,surface0/4_3_lineart.png,0,0
+}
+
+
+
+//Right arms
+//Hip
+surface10500
+{
+	element0,overlay,surface0/5_0_color_hand.png,0,0
+	element1,overlayfast,color_bones.png,0,0
+}
+
+surface10501
+{
+	element0,overlay,surface0/5_0_color_sleeve.png,0,0
+	element1,overlayfast,color_right_sleeve.png,0,0
+}
+
+surface10502
+{
+	element0,overlay,surface0/5_0_lineart.png,0,0
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Main body
+surface110
+{
+	element0,overlay,surface1/base_color_hoodie.png,0,0
+	element1,overlayfast,color_hoodie.png,0,0
+}
+
+surface111
+{
+	element0,overlay,surface1/base_color_pocket.png,0,0
+	element1,overlayfast,color_pocket.png,0,0
+}
+
+surface112
+{
+	element0,overlay,surface1/base_color_hood.png,0,0
+	element1,overlayfast,color_hood.png,0,0
+}
+
+surface113
+{
+	element0,overlay,surface1/base_color_drawstrings.png,0,0
+	element1,overlayfast,color_drawstrings.png,0,0
+}
+
+surface114
+{
+	element0,overlay,surface1/base_color_shorts.png,0,0
+	element1,overlayfast,color_shorts.png,0,0
+}
+
+surface115
+{
+	element0,overlay,surface1/base_color_boots.png,0,0
+	element1,overlayfast,color_boots.png,0,0
+}
+
+surface116
+{
+	element0,overlay,surface1/base_color_boots_trim.png,0,0
+	element1,overlayfast,color_boots_trim.png,0,0
+}
+
+surface117
+{
+	element0,overlay,surface1/base_color_bones.png,0,0
+	element1,overlayfast,color_bones.png,0,0
+}
+
+surface118
+{
+	element0,overlay,surface1/base_lineart.png,0,0
+}
+
+
+//Blinks
+surface11000
+{
+	element0,overlay,surface1/0_blink_full_color.png,0,0
+	element1,overlayfast,color_bones.png,0,0
+	element2,overlay,surface1/1_9.png,0,0
+}
+
+surface11001
+{
+	element0,overlay,surface1/0_blink_half_color.png,0,0
+	element1,overlayfast,color_bones.png,0,0
+	element2,overlay,surface1/0_blink_half_lineart.png,0,0
+}
+
+//Talks
+surface11010
+{
+	element0,overlay,surface1/0_talk_backplate.png,0,0
+	element1,overlayfast,color_bones.png,0,0
+	element2,overlay,surface1/0_talk_lines_0.png,0,0
+}
+
+surface11011
+{
+	element0,overlay,surface1/0_talk_backplate.png,0,0
+	element1,overlayfast,color_bones.png,0,0
+	element2,overlay,surface1/0_talk_lines_1.png,0,0
+}
+
+surface11012
+{
+	element0,overlay,surface1/0_talk_backplate.png,0,0
+	element1,overlayfast,color_bones.png,0,0
+	element2,overlay,surface1/0_talk_lines_2.png,0,0
+}
+
+//Eyes
+//Forward
+surface11100
+{
+	element0,overlay,surface1/1_0.png,0,0
+}
+
+//Left
+surface11110
+{
+	element0,overlay,surface1/1_1.png,0,0
+}
+
+//Right
+surface11120
+{
+	element0,overlay,surface1/1_2.png,0,0
+}
+
+//Down
+surface11130
+{
+	element0,overlay,surface1/1_3.png,0,0
+}
+
+//Up
+surface11140
+{
+	element0,overlay,surface1/1_4.png,0,0
+}
+
+//Rolling
+surface11150
+{
+	element0,overlay,surface1/1_5.png,0,0
+}
+
+//Closed
+surface11160
+{
+	element0,overlay,surface1/1_9.png,0,0
+}
+
+
+//Eyebrows
+//Angry
+surface11210
+{
+	element0,overlay,surface1/2_1.png,0,0
+}
+
+//Neutral
+surface11220
+{
+	element0,overlay,surface1/2_2.png,0,0
+}
+
+//Confused
+surface11230
+{
+	element0,overlay,surface1/2_3.png,0,0
+}
+
+//Mild
+surface11240
+{
+	element0,overlay,surface1/2_4.png,0,0
+}
+
+//Sad
+surface11250
+{
+	element0,overlay,surface1/2_5.png,0,0
+}
+
+//Mouths
+//Normal
+surface11300
+{
+	element0,overlay,surface1/3_0.png,0,0
+}
+
+//Frown
+surface11310
+{
+	element0,overlay,surface1/3_1.png,0,0
+}
+
+//Snarl
+surface11320
+{
+	element0,overlay,surface1/3_2.png,0,0
+}
+
+//Pouty
+surface11330
+{
+	element0,overlay,surface1/3_3.png,0,0
+}
+
+
+
+//Left arms
+//Hip
+surface11400
+{
+	element0,overlay,surface1/4_0_color_hand.png,0,0
+	element1,overlayfast,color_bones.png,0,0
+}
+
+surface11401
+{
+	element0,overlay,surface1/4_0_color_sleeve.png,0,0
+	element1,overlayfast,color_left_sleeve.png,0,0
+}
+
+surface11402
+{
+	element0,overlay,surface1/4_0_lineart.png,0,0
+}
+
+//Frustration
+surface11410
+{
+	element0,overlay,surface1/4_1_color_hand.png,0,0
+	element1,overlayfast,color_bones.png,0,0
+}
+
+surface11411
+{
+	element0,overlay,surface1/4_1_color_sleeve.png,0,0
+	element1,overlayfast,color_left_sleeve.png,0,0
+}
+
+surface11412
+{
+	element0,overlay,surface1/4_1_lineart.png,0,0
+}
+
+//Exasperation
+surface11420
+{
+	element0,overlay,surface1/4_2_color_hand.png,0,0
+	element1,overlayfast,color_bones.png,0,0
+}
+
+surface11421
+{
+	element0,overlay,surface1/4_2_color_sleeve.png,0,0
+	element1,overlayfast,color_left_sleeve.png,0,0
+}
+
+surface11422
+{
+	element0,overlay,surface1/4_2_lineart.png,0,0
+}
+
+//Point
+surface11430
+{
+	element0,overlay,surface1/4_3_color_hand.png,0,0
+	element1,overlayfast,color_bones.png,0,0
+}
+
+surface11431
+{
+	element0,overlay,surface1/4_3_color_sleeve.png,0,0
+	element1,overlayfast,color_left_sleeve.png,0,0
+}
+
+surface11432
+{
+	element0,overlay,surface1/4_3_lineart.png,0,0
+}
+
+
+
+//Right arms
+//Hip
+surface11500
+{
+	element0,overlay,surface1/5_0_color_hand.png,0,0
+	element1,overlayfast,color_bones.png,0,0
+}
+
+surface11501
+{
+	element0,overlay,surface1/5_0_color_sleeve.png,0,0
+	element1,overlayfast,color_right_sleeve.png,0,0
+}
+
+surface11502
+{
+	element0,overlay,surface1/5_0_lineart.png,0,0
+}
+
+//Frustration
+surface11510
+{
+	element0,overlay,surface1/5_1_color_hand.png,0,0
+	element1,overlayfast,color_bones.png,0,0
+}
+
+surface11511
+{
+	element0,overlay,surface1/5_1_color_sleeve.png,0,0
+	element1,overlayfast,color_right_sleeve.png,0,0
+}
+
+surface11512
+{
+	element0,overlay,surface1/5_1_lineart.png,0,0
+}
+
+//Exasperation
+surface11520
+{
+	element0,overlay,surface1/5_2_color_hand.png,0,0
+	element1,overlayfast,color_bones.png,0,0
+}
+
+surface11521
+{
+	element0,overlay,surface1/5_2_color_sleeve.png,0,0
+	element1,overlayfast,color_right_sleeve.png,0,0
+}
+
+surface11522
+{
+	element0,overlay,surface1/5_2_lineart.png,0,0
+}
+
+
+//Crossed arms
+surface11600
+{
+	element0,overlay,surface1/6_0_color_left_sleeve.png,0,0
+	element1,overlayfast,color_left_sleeve.png,0,0
+}
+
+surface11601
+{
+	element0,overlay,surface1/6_0_color_right_sleeve.png,0,0
+	element1,overlayfast,color_right_sleeve.png,0,0
+}
+
+surface11602
+{
+	element0,overlay,surface1/6_0_lineart.png,0,0
+}
+
+
+
+
+
+
+
+
+
+//Main body
+surface120
+{
+	element0,overlay,surface2/base_color_hoodie.png,0,0
+	element1,overlayfast,color_hoodie.png,0,0
+}
+
+surface121
+{
+	element0,overlay,surface2/base_color_pocket.png,0,0
+	element1,overlayfast,color_pocket.png,0,0
+}
+
+surface122
+{
+	element0,overlay,surface2/base_color_hood.png,0,0
+	element1,overlayfast,color_hood.png,0,0
+}
+
+surface123
+{
+	element0,overlay,surface2/base_color_drawstrings.png,0,0
+	element1,overlayfast,color_drawstrings.png,0,0
+}
+
+surface124
+{
+	element0,overlay,surface2/base_color_shorts.png,0,0
+	element1,overlayfast,color_shorts.png,0,0
+}
+
+surface125
+{
+	element0,overlay,surface2/base_color_boots.png,0,0
+	element1,overlayfast,color_boots.png,0,0
+}
+
+surface126
+{
+	element0,overlay,surface2/base_color_boots_trim.png,0,0
+	element1,overlayfast,color_boots_trim.png,0,0
+}
+
+surface127
+{
+	element0,overlay,surface2/base_color_bones.png,0,0
+	element1,overlayfast,color_bones.png,0,0
+}
+
+surface128
+{
+	element0,overlay,surface2/base_lineart.png,0,0
+}
+
+
+//Blinks
+surface12000
+{
+	element0,overlay,surface2/0_blink_full_color.png,0,0
+	element1,overlayfast,color_bones.png,0,0
+	element2,overlay,surface2/1_9.png,0,0
+}
+
+surface12001
+{
+	element0,overlay,surface2/0_blink_half_color.png,0,0
+	element1,overlayfast,color_bones.png,0,0
+	element2,overlay,surface2/0_blink_half_lineart.png,0,0
+}
+
+//Talks
+surface12010
+{
+	element0,overlay,surface2/0_talk_backplate.png,0,0
+	element1,overlayfast,color_bones.png,0,0
+	element2,overlay,surface2/0_talk_lines_0.png,0,0
+}
+
+surface12011
+{
+	element0,overlay,surface2/0_talk_backplate.png,0,0
+	element1,overlayfast,color_bones.png,0,0
+	element2,overlay,surface2/0_talk_lines_1.png,0,0
+}
+
+surface12012
+{
+	element0,overlay,surface2/0_talk_backplate.png,0,0
+	element1,overlayfast,color_bones.png,0,0
+	element2,overlay,surface2/0_talk_lines_2.png,0,0
+}
+
+
+//Eyes
+//Forward
+surface12100
+{
+	element0,overlay,surface2/1_0.png,0,0
+}
+
+//Back
+surface12110
+{
+	element0,overlay,surface2/1_1.png,0,0
+}
+
+//Down
+surface12120
+{
+	element0,overlay,surface2/1_2.png,0,0
+}
+
+//Up
+surface12130
+{
+	element0,overlay,surface2/1_3.png,0,0
+}
+
+//Rolling
+surface12140
+{
+	element0,overlay,surface2/1_4.png,0,0
+}
+
+//Closed
+surface12150
+{
+	element0,overlay,surface2/1_9.png,0,0
+}
+
+
+//Eyebrows
+//Annoyed
+surface12200
+{
+	element0,overlay,surface2/2_0.png,0,0
+}
+
+//Angry
+surface12210
+{
+	element0,overlay,surface2/2_1.png,0,0
+}
+
+//Worried
+surface12220
+{
+	element0,overlay,surface2/2_2.png,0,0
+}
+
+//Mild
+surface12230
+{
+	element0,overlay,surface2/2_3.png,0,0
+}
+
+//Sad
+surface12240
+{
+	element0,overlay,surface2/2_4.png,0,0
+}
+
+//Mouths
+//Normal
+surface12300
+{
+	element0,overlay,surface2/3_0.png,0,0
+}
+
+//Frown
+surface12310
+{
+	element0,overlay,surface2/3_1.png,0,0
+}
+
+//Snarl
+surface12320
+{
+	element0,overlay,surface2/3_2.png,0,0
+}
+
+
+
+//Left arms
+//Crossed
+surface12400
+{
+	element0,overlay,surface2/4_0_color_sleeve.png,0,0
+	element1,overlayfast,color_left_sleeve.png,0,0
+}
+
+surface12401
+{
+	element0,overlay,surface2/4_0_lineart.png,0,0
+}
+
+//Out
+surface12410
+{
+	element0,overlay,surface2/4_1_color_hand.png,0,0
+	element1,overlayfast,color_bones.png,0,0
+}
+
+surface12411
+{
+	element0,overlay,surface2/4_1_color_sleeve.png,0,0
+	element1,overlayfast,color_left_sleeve.png,0,0
+}
+
+surface12412
+{
+	element0,overlay,surface2/4_1_lineart.png,0,0
+}
+
+
+
+//Right arms
+//Crossed
+surface12500
+{
+	element0,overlay,surface2/5_0_color_sleeve.png,0,0
+	element1,overlayfast,color_right_sleeve.png,0,0
+}
+
+surface12501
+{
+	element0,overlay,surface2/5_0_lineart.png,0,0
+}
