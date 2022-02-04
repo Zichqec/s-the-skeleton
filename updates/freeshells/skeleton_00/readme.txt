@@ -1,10 +1,11 @@
 —————————— Terms ——————————
 
 This shell is free for you to modify and use to create your own ghosts with.
-You may redistribute it as the shell bundled with a ghost, but you may not redistribute any version of the shell on its own.
-Please keep this credit in the readme file.
+You may redistribute it as part of a ghost, but you may not redistribute any version of the shell on its own.
+You may not use this shell to create commercial work. Don't profit off of my work, please!
+Please keep the below credit in the readme file.
 
-Please let me know if you find any issues!
+Let me know if you find any issues/questions!
 
 Skeleton 00 Freeshell v1.0.0
 Created by Zichqec https://zichqec.github.io/s-the-skeleton/
