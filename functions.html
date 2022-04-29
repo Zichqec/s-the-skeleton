@@ -737,8 +737,8 @@ CreepyText
 OnWander
 {
 	wanderChar = TOINT(_argv)
-	if wanderLeft[wanderChar] == NULL; wanderLeft[wanderChar] = 0 //If somehow these are undefined, define them so the ghost doesn't go to the moon
-	if wanderRight[wanderChar] == NULL; wanderRight[wanderChar] = 500
+	if wanderLeft[wanderChar] == ""; wanderLeft[wanderChar] = 0 //If somehow these are undefined, define them so the ghost doesn't go to the moon
+	if wanderRight[wanderChar] == ""; wanderRight[wanderChar] = 500
 	"\![get,property,OnWanderCalc,currentghost.scope(%(_argv)).rect]"
 }
 
