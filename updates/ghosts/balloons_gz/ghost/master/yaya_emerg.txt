@@ -1,0 +1,14 @@
+﻿charset, UTF-8
+charset.dic, UTF-8
+charset.output, UTF-8
+charset.file, UTF-8
+charset.save, UTF-8
+charset.extension, UTF-8
+
+include, system_config.txt
+dic, b_emerg.dic
+
+
+//log, ayame.log
+msglang,english
+messagetxt,system/messagetxt/english.txt

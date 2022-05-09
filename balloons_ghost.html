@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zi's Ukagaka Hub</title>
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="Zi's Ukagaka Hub"/>
+    <meta property="og:description" content="Zi's hub for Ukagakas and related things"/>
+    <meta property="og:url" content="https://zichqec.github.io/s-the-skeleton/index.html"/>
+    <meta property="og:image" content="https://zichqec.github.io/s-the-skeleton/img/AllTogether.png"/>
+</head>
+
+<body>
+    <nav><div id="navbar" class="navbar"></div></nav>
+	
+    <article>
+        <!--<h1>Zi's Ukagaka Hub</h1>-->
+        <h1>Balloons</h1>
+        <img src="img/balloons_00.png" alt="Iea" width="200" height="200" class="centersq">
+        <br>
+        <div class="cntr"><a href="https://www.mediafire.com/file/let8gtssn4jgcnv/balloons_v1.0.0.nar/file">Download the latest .nar file here!</a></div>
+        <p>Balloons is a ghost by myself and Galla! A friendly bundle to hang out on your desktop and bob up and down soothingly! Truly, it works wonders as a stress reliever.</p>
+		<p>Balloons was made as a part of Ghost Jam 2022, and took on the challenge of being both made in 72 hours, and made with all new assets.</p>
+        <br>
+        <webring-banner>
+			<p>Member of the <a href="https://ukagakawebring.netlify.com/">Ukagaka/Ghost Development and Download</a> webring</p>
+			<a href="https://ukagakawebring.netlify.com//prev">Previous</a>
+			<a href="https://ukagakawebring.netlify.com//random">Random</a>
+			<a href="https://ukagakawebring.netlify.com//next">Next</a>
+		</webring-banner>
+		<script async src="https://ukagakawebring.netlify.com//embed.js" charset="utf-8"></script>
+    </article>
+    <article>
+        <h1 id="history">Version history</h1>
+		<label class="collapsible">Version 1.0 - Initial Release</label>
+		<div class="collapsible-content">
+			<div class="ver">
+				<div class="centerhead"><b>=====1.0=====</b>
+					<div class="ctr">(4/25/20)</div></div>
+				<ul>
+					<li>Initial release for Ghost Jam 2022</li>
+				</ul>
+				<br>
+			</div>
+		</div>
+        
+    </article>
+
+    <footer>
+        More from Zichqec<br>
+        <a href="https://www.deviantart.com/zichqec"class="footlink">Deviantart</a> | 
+        <a href="https://zichqec.tumblr.com/" class="footlink">Tumblr</a> | 
+        <a href="https://twitter.com/Zichqec" class="footlink">Twitter</a> | 
+        <a href="https://toyhou.se/Zichqec" class="footlink">Toyhouse</a> |
+        <a href="https://www.youtube.com/channel/UC_9BGh45mIL3b3riZ4aTRIA" class="footlink">Youtube</a>
+    </footer>
+	
+	<script> <!--For the collapsible-->
+	var coll = document.getElementsByClassName("collapsible");
+	var i;
+
+	for (i = 0; i < coll.length; i++)
+	{
+		coll[i].addEventListener("click", function()
+		{
+			this.classList.toggle("active");
+			var content = this.nextElementSibling;
+			if (content.style.display === "block")
+			{
+				content.style.display = "none";
+			}
+			else
+			{
+				content.style.display = "block";
+			}
+		}
+	  );
+	}
+	</script>
+
+	<script src="navbar.js"></script>
+
+</body>
+
+</html>

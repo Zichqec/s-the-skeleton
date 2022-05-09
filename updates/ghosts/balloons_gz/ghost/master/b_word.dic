@@ -1,0 +1,773 @@
+//-----Envelopes-----
+
+exampleenvelope
+{
+	"result 1"
+	"result 2"
+	"result 3"
+}
+
+usersfolder
+{
+	"start bar"
+	"Documents folder"
+	"Pictures folder"
+	"Music folder"
+	"Games folder"
+}
+
+filetype
+{
+	".txt"
+	".dic"
+	".png"
+	".jpg"
+	".jpeg"
+	".mp3"
+	".exe"
+	".bat"
+	".cfg"
+	".wav"
+	".pdf"
+	".dat"
+	".gif"
+	".tiff"
+	".dll"
+	".pna"
+	".ico"
+	".dau"
+	".zip"
+	".nar"
+	".html"
+	".psd"
+	".mp4"
+	".ttf"
+	".rar"
+}
+
+
+//---Emotions---
+shy : all
+{
+	"\f[color,default]"
+	if !ShyIsPopped; "\![embed,OnShyTalk]"
+	else; "\i[2002]"
+}
+
+shyoff : all
+{
+	if !ShyIsPopped; "\i[2002]"
+}
+
+unamused : all
+{
+	"\f[color,default]"
+	if !UnamusedIsPopped; "\![embed,OnUnamusedTalk]"
+	else; "\i[2102]"
+}
+
+unamusedoff : all
+{
+	if !UnamusedIsPopped; "\i[2102]"
+}
+
+scared : all
+{
+	"\f[color,disable]"
+	if !ScaredIsPopped; "\![embed,OnScaredTalk]"
+	else; "\i[2202]"
+}
+
+scaredoff : all
+{
+	"\f[color,default]"
+	if !ScaredIsPopped; "\i[2202]"
+}
+
+sad : all
+{
+	"\f[color,default]"
+	if !SadIsPopped; "\![embed,OnSadTalk]"
+	else; "\i[2302]"
+}
+
+sadoff : all
+{
+	if !SadIsPopped; "\i[2302]"
+}
+
+confused : all
+{
+	"\f[color,default]"
+	if !ConfusedIsPopped; "\![embed,OnConfusedTalk]"
+	else; "\i[2402]"
+}
+
+confusedoff : all
+{
+	if !ConfusedIsPopped; "\i[2402]"
+}
+
+happy : all
+{
+	//"\![set,balloonwait,0.8]"
+	"\f[color,default]"
+	if !HappyIsPopped; "\![embed,OnHappyTalk]"
+	else; "\i[2502]"
+}
+
+happyoff : all
+{
+	if !HappyIsPopped; "\i[2502]"
+}
+
+angry : all
+{
+	"\f[color,default]"
+	if !AngryIsPopped; "\![embed,OnAngryTalk]"
+	else; "\i[2602]"
+}
+
+angryoff : all
+{
+	if !AngryIsPopped; "\i[2602]"
+}
+
+think : all
+{
+	"\f[color,default]"
+	if !ThinkIsPopped; "\![embed,OnThinkTalk]"
+	else; "\i[2702]"
+}
+
+thinkoff : all
+{
+	if !ThinkIsPopped; "\i[2702]"
+}
+
+OnShyTalk : all
+{	
+	if UnamusedIsTalking && !UnamusedIsPopped; "\i[2102]"
+	if ScaredIsTalking && !ScaredIsPopped; "\i[2202]"
+	if SadIsTalking && !SadIsPopped; "\i[2302]"
+	if ConfusedIsTalking && !ConfusedIsPopped; "\i[2402]"
+	if HappyIsTalking && !HappyIsPopped; "\i[2502]"
+	if AngryIsTalking && !AngryIsPopped; "\i[2602]"
+	if ThinkIsTalking && !ThinkIsPopped; "\i[2702]"
+
+	ShyIsTalking = 0
+	UnamusedIsTalking = 0
+	ScaredIsTalking = 0
+	SadIsTalking = 0
+	ConfusedIsTalking = 0
+	HappyIsTalking = 0
+	AngryIsTalking = 0
+	ThinkIsTalking = 0
+
+	if !ShyIsPopped
+	{
+		ShyIsTalking = 1
+		"\i[2001]"
+	}
+}
+
+OnUnamusedTalk : all
+{
+	if ShyIsTalking && !ShyIsPopped; "\i[2002]"
+
+	if ScaredIsTalking && !ScaredIsPopped; "\i[2202]"
+	if SadIsTalking && !SadIsPopped; "\i[2302]"
+	if ConfusedIsTalking && !ConfusedIsPopped; "\i[2402]"
+	if HappyIsTalking && !HappyIsPopped; "\i[2502]"
+	if AngryIsTalking && !AngryIsPopped; "\i[2602]"
+	if ThinkIsTalking && !ThinkIsPopped; "\i[2702]"
+	
+	ShyIsTalking = 0
+	UnamusedIsTalking = 0
+	ScaredIsTalking = 0
+	SadIsTalking = 0
+	ConfusedIsTalking = 0
+	HappyIsTalking = 0
+	AngryIsTalking = 0
+	ThinkIsTalking = 0
+	
+	if !UnamusedIsPopped
+	{
+		UnamusedIsTalking = 1
+		"\i[2101]"
+	}
+}
+
+OnScaredTalk : all
+{
+	if ShyIsTalking && !ShyIsPopped; "\i[2002]"
+	if UnamusedIsTalking && !UnamusedIsPopped; "\i[2102]"
+	
+	if SadIsTalking && !SadIsPopped; "\i[2302]"
+	if ConfusedIsTalking && !ConfusedIsPopped; "\i[2402]"
+	if HappyIsTalking && !HappyIsPopped; "\i[2502]"
+	if AngryIsTalking && !AngryIsPopped; "\i[2602]"
+	if ThinkIsTalking && !ThinkIsPopped; "\i[2702]"
+	
+	ShyIsTalking = 0
+	UnamusedIsTalking = 0
+	ScaredIsTalking = 0
+	SadIsTalking = 0
+	ConfusedIsTalking = 0
+	HappyIsTalking = 0
+	AngryIsTalking = 0
+	ThinkIsTalking = 0
+	
+	if !ScaredIsPopped
+	{
+		ScaredIsTalking = 1
+		"\i[2201]"
+	}
+}
+
+OnSadTalk : all
+{
+	if ShyIsTalking && !ShyIsPopped; "\i[2002]"
+	if UnamusedIsTalking && !UnamusedIsPopped; "\i[2102]"
+	if ScaredIsTalking && !ScaredIsPopped; "\i[2202]"
+
+	if ConfusedIsTalking && !ConfusedIsPopped; "\i[2402]"
+	if HappyIsTalking && !HappyIsPopped; "\i[2502]"
+	if AngryIsTalking && !AngryIsPopped; "\i[2602]"
+	if ThinkIsTalking && !ThinkIsPopped; "\i[2702]"
+	
+	ShyIsTalking = 0
+	UnamusedIsTalking = 0
+	ScaredIsTalking = 0
+	SadIsTalking = 0
+	ConfusedIsTalking = 0
+	HappyIsTalking = 0
+	AngryIsTalking = 0
+	ThinkIsTalking = 0
+	
+	if !SadIsPopped
+	{
+		SadIsTalking = 1
+		"\i[2301]"
+	}
+}
+
+OnConfusedTalk : all
+{
+	if ShyIsTalking && !ShyIsPopped; "\i[2002]"
+	if UnamusedIsTalking && !UnamusedIsPopped; "\i[2102]"
+	if ScaredIsTalking && !ScaredIsPopped; "\i[2202]"
+	if SadIsTalking && !SadIsPopped; "\i[2302]"
+
+	if HappyIsTalking && !HappyIsPopped; "\i[2502]"
+	if AngryIsTalking && !AngryIsPopped; "\i[2602]"
+	if ThinkIsTalking && !ThinkIsPopped; "\i[2702]"
+	
+	ShyIsTalking = 0
+	UnamusedIsTalking = 0
+	ScaredIsTalking = 0
+	SadIsTalking = 0
+	ConfusedIsTalking = 0
+	HappyIsTalking = 0
+	AngryIsTalking = 0
+	ThinkIsTalking = 0
+	
+	if !ConfusedIsPopped
+	{
+		ConfusedIsTalking = 1
+		"\i[2401]"
+	}
+}
+
+OnHappyTalk : all
+{
+	if ShyIsTalking && !ShyIsPopped; "\i[2002]"
+	if UnamusedIsTalking && !UnamusedIsPopped; "\i[2102]"
+	if ScaredIsTalking && !ScaredIsPopped; "\i[2202]"
+	if SadIsTalking && !SadIsPopped; "\i[2302]"
+	if ConfusedIsTalking && !ConfusedIsPopped; "\i[2402]"
+	
+	if AngryIsTalking && !AngryIsPopped; "\i[2602]"
+	if ThinkIsTalking && !ThinkIsPopped; "\i[2702]"
+	
+	ShyIsTalking = 0
+	UnamusedIsTalking = 0
+	ScaredIsTalking = 0
+	SadIsTalking = 0
+	ConfusedIsTalking = 0
+	HappyIsTalking = 0
+	AngryIsTalking = 0
+	ThinkIsTalking = 0
+	
+	if !HappyIsPopped
+	{
+		HappyIsTalking = 1
+		"\i[2501]"
+	}
+}
+
+OnAngryTalk : all
+{
+	if ShyIsTalking && !ShyIsPopped; "\i[2002]"
+	if UnamusedIsTalking && !UnamusedIsPopped; "\i[2102]"
+	if ScaredIsTalking && !ScaredIsPopped; "\i[2202]"
+	if SadIsTalking && !SadIsPopped; "\i[2302]"
+	if ConfusedIsTalking && !ConfusedIsPopped; "\i[2402]"
+	if HappyIsTalking && !HappyIsPopped; "\i[2502]"
+
+	if ThinkIsTalking && !ThinkIsPopped; "\i[2702]"
+	
+	ShyIsTalking = 0
+	UnamusedIsTalking = 0
+	ScaredIsTalking = 0
+	SadIsTalking = 0
+	ConfusedIsTalking = 0
+	HappyIsTalking = 0
+	AngryIsTalking = 0
+	ThinkIsTalking = 0
+	
+	if !AngryIsPopped
+	{
+		AngryIsTalking = 1
+		"\i[2601]"
+	}
+}
+
+OnThinkTalk : all
+{
+	if ShyIsTalking && !ShyIsPopped; "\i[2002]"
+	if UnamusedIsTalking && !UnamusedIsPopped; "\i[2102]"
+	if ScaredIsTalking && !ScaredIsPopped; "\i[2202]"
+	if SadIsTalking && !SadIsPopped; "\i[2302]"
+	if ConfusedIsTalking && !ConfusedIsPopped; "\i[2402]"
+	if HappyIsTalking && !HappyIsPopped; "\i[2502]"
+	if AngryIsTalking && !AngryIsPopped; "\i[2602]"
+
+	ShyIsTalking = 0
+	UnamusedIsTalking = 0
+	ScaredIsTalking = 0
+	SadIsTalking = 0
+	ConfusedIsTalking = 0
+	HappyIsTalking = 0
+	AngryIsTalking = 0
+	ThinkIsTalking = 0
+	
+	
+	if !ThinkIsPopped
+	{
+		ThinkIsTalking = 1
+		"\i[2701]"
+	}
+}
+
+alltalk : all
+{
+	"\f[color,default]"
+	if !ShyIsPopped; "\i[2001]"
+	if !UnamusedIsPopped; "\i[2101]"
+	if !ScaredIsPopped; "\i[2201]"
+	if !SadIsPopped; "\i[2301]"
+	if !ConfusedIsPopped; "\i[2401]"
+	if !HappyIsPopped; "\i[2501]"
+	if !AngryIsPopped; "\i[2601]"
+	if !ThinkIsPopped; "\i[2701]"
+}
+
+notalk : all
+{
+	"\f[color,default]"
+	if !ShyIsPopped; "\i[2002]"
+	if !UnamusedIsPopped; "\i[2102]"
+	if !ScaredIsPopped; "\i[2202]"
+	if !SadIsPopped; "\i[2302]"
+	if !ConfusedIsPopped; "\i[2402]"
+	if !HappyIsPopped; "\i[2502]"
+	if !AngryIsPopped; "\i[2602]"
+	if !ThinkIsPopped; "\i[2702]"
+}
+
+//Makes any that are currently talking stop
+untalk : all
+{
+	"\![embed,OnUntalk]"
+}
+
+OnUntalk : all
+{
+	if ShyIsTalking && !ShyIsPopped; "\i[2002]"
+	if UnamusedIsTalking && !UnamusedIsPopped; "\i[2102]"
+	if ScaredIsTalking && !ScaredIsPopped; "\i[2202]"
+	if SadIsTalking && !SadIsPopped; "\i[2302]"
+	if ConfusedIsTalking && !ConfusedIsPopped; "\i[2402]"
+	if HappyIsTalking && !HappyIsPopped; "\i[2502]"
+	if AngryIsTalking && !AngryIsPopped; "\i[2602]"
+	if ThinkIsTalking && !ThinkIsPopped; "\i[2602]"
+
+	ShyIsTalking = 0
+	UnamusedIsTalking = 0
+	ScaredIsTalking = 0
+	SadIsTalking = 0
+	ConfusedIsTalking = 0
+	HappyIsTalking = 0
+	AngryIsTalking = 0
+	ThinkIsTalking = 0
+}
+
+//Resets text effects but does not reset talk intervals
+narrator
+{
+	"\f[default]"
+}
+
+emdash
+{
+	"\f[name,calibri]—\f[name,default]"
+}
+
+AllArePopped
+{
+	ShyIsPopped && UnamusedIsPopped && ScaredIsPopped && SadIsPopped && ConfusedIsPopped && HappyIsPopped && AngryIsPopped && ThinkIsPopped
+}
+
+SomeArePopped
+{
+	ShyIsPopped || UnamusedIsPopped || ScaredIsPopped || SadIsPopped || ConfusedIsPopped || HappyIsPopped || AngryIsPopped || ThinkIsPopped
+}
+
+AreThesePopped
+{
+	if _argc == 0; {0; return}
+	foreach _argv; _emotion
+	{
+		if EVAL("%(_emotion)IsPopped") == 0; {0; return}
+	}
+	1
+}
+
+WhichArePopped
+{
+	_array = IARRAY
+	if ShyIsPopped; _array ,= "Shy"
+	if UnamusedIsPopped; _array ,= "Unamused"
+	if ScaredIsPopped; _array ,= "Scared"
+	if SadIsPopped; _array ,= "Sad"
+	if ConfusedIsPopped; _array ,= "Confused"
+	if HappyIsPopped; _array ,= "Happy"
+	if AngryIsPopped; _array ,= "Angry"
+	if ThinkIsPopped; _array ,= "Think"
+	_array
+}
+
+WhichArentPopped
+{
+	_array = IARRAY
+	if !ShyIsPopped; _array ,= "Shy"
+	if !UnamusedIsPopped; _array ,= "Unamused"
+	if !ScaredIsPopped; _array ,= "Scared"
+	if !SadIsPopped; _array ,= "Sad"
+	if !ConfusedIsPopped; _array ,= "Confused"
+	if !HappyIsPopped; _array ,= "Happy"
+	if !AngryIsPopped; _array ,= "Angry"
+	if !ThinkIsPopped; _array ,= "Think"
+	_array
+}
+
+TAMA
+{
+	LOGGING("%(_argv[0]): %(EVAL(_argv[0]))")
+}
+
+UnpopAll
+{
+	ShyIsPopped = 0
+	UnamusedIsPopped = 0
+	ScaredIsPopped = 0
+	SadIsPopped = 0
+	ConfusedIsPopped = 0
+	HappyIsPopped = 0
+	AngryIsPopped = 0
+	ThinkIsPopped = 0
+}
+
+FadeIn : all
+{
+	_amt = 5
+	if _argv[0] > 0; _amt = _argv[0]
+	
+	for _i = 0; _i < 100; _i += _amt
+	{
+		"\![set,alpha,%(_i)]\w1"
+	}
+	"\![set,alpha,100]"
+}
+
+FadeOut : all
+{
+	_amt = 5
+	if _argv[0] > 0; _amt = _argv[0]
+	
+	for _i = 100; _i >= 0; _i -= _amt
+	{
+		"\![set,alpha,%(_i)]\w1"
+	}
+	"\![set,alpha,0]"
+}
+
+
+//Pops
+OnPopShy
+{
+	ShyIsPopped = 1
+	"\i[2050]\i[1010]"
+}
+
+OnPopUnamused
+{
+	UnamusedIsPopped = 1
+	"\i[2150]\i[1110]"
+}
+
+OnPopScared
+{
+	ScaredIsPopped = 1
+	"\i[2250]\i[1210]"
+}
+
+OnPopSad
+{
+	SadIsPopped = 1
+	"\i[2350]\i[1310]"
+}
+
+OnPopConfused
+{
+	ConfusedIsPopped = 1
+	"\i[2450]\i[1410]"
+}
+
+OnPopHappy
+{
+	HappyIsPopped = 1
+	"\i[2550]\i[1510]"
+}
+
+OnPopAngry
+{
+	AngryIsPopped = 1
+	"\i[2650]\i[1610]"
+}
+
+OnPopThink
+{
+	ThinkIsPopped = 1
+	"\i[2750]\i[1710]"
+}
+
+
+//Unpops
+OnUnpopShy
+{
+	ShyIsPopped = 0
+	"\i[2051]\i[1011]"
+}
+
+OnUnpopUnamused
+{
+	UnamusedIsPopped = 0
+	"\i[2151]\i[1111]"
+}
+
+OnUnpopScared
+{
+	ScaredIsPopped = 0
+	"\i[2251]\i[1211]"
+}
+
+OnUnpopSad
+{
+	SadIsPopped = 0
+	"\i[2351]\i[1311]"
+}
+
+OnUnpopConfused
+{
+	ConfusedIsPopped = 0
+	"\i[2451]\i[1411]"
+}
+
+OnUnpopHappy
+{
+	HappyIsPopped = 0
+	"\i[2551]\i[1511]"
+}
+
+OnUnpopAngry
+{
+	AngryIsPopped = 0
+	"\i[2651]\i[1611]"
+}
+
+OnUnpopThink
+{
+	ThinkIsPopped = 0
+	"\i[2751]\i[1711]"
+}
+
+
+
+
+
+
+PoppedDialogue : nonoverlap_pool
+{
+	"\n\n%(untalk)"
+	--
+	if _argv[0] == "Shy"
+	{
+		"(Some of the strings bend away.)"
+		"(A wavering voice, just out of reach.)"
+		"(It's getting warm.)"
+	}
+	if _argv[0] == "Unamused"
+	{
+		"(There's a sag to its strings.)"
+		"(It feels like someone rolled their eyes, but there aren't any eyes around to be rolled.)"
+		"(Static fills the air.)"
+	}
+	if _argv[0] == "Scared"
+	{
+		"(There's muttering, but the words are too faint to make out.)"
+		"(It's like the strings are trying to hide.)"
+		"(Shadows lurk out of sight.)"
+	}
+	if _argv[0] == "Sad"
+	{
+		"(Is that... whimpering?)"
+		"(It sounds like muffled sobbing.)"
+		"(The strings are quivering.)"
+	}
+	if _argv[0] == "Confused"
+	{
+		"(They seem unable to focus.)"
+		"(It seems to have questions, but can't figure out how to ask them.)"
+		"(The room is spinning.)"
+	}
+	if _argv[0] == "Happy"
+	{
+		"(There's distant laughter.)"
+		"(A squeak of rubber like a giggle.)"
+		"(There's no music, but the strings seem to be dancing.)"
+	}
+	if _argv[0] == "Angry"
+	{
+		"(It seems frustrated, but doesn't appear to have the words.)"
+		"(The strings are thrumming fiercely.)"
+		"(Nearly audible yelling.)"
+	}
+	if _argv[0] == "Think"
+	{
+		"(The strings are tense.)"
+		"(Sounds like someone is hemming and hawing.)"
+		"(They're gathering their thoughts... It doesn't seem to be going well.)"
+	}
+	--
+	"\w8"
+	--
+	"\n\n\![end-of-linebreaks-flag]"
+}
+
+AllPoppedDialogue : nonoverlap_pool
+{
+	"%(untalk)"
+	--
+	"(There's a silence in the air that turns pointed... until it passes.)"
+	"(...?)"
+	"(... Probably nothing.)"
+	"(It moves, just a little.)"
+	"(There are an enormous number of crafts that can be done with some string and a little glue.)"
+	"(Where does the rubber come from, anyway?)"
+	"(The strings are endless.)"
+	"(How much goes unsaid?)"
+	"(Time for woolgathering, it seems.)"
+	"(Could it be asleep? ... Unlikely.)"
+	"(Resignation.)"
+	"(A silent sigh.)"
+	"(They're used to this.)"
+	"(Familiar limitations, but no less constricting.)"
+	"(It's like a conversation is happening a room away.)"
+	"(The energy spikes, but all is quiet.)"
+	"(A ruptured soul.)" //this line courtesy of galla's nana
+	"(Something's sucked the air out of the room.)"
+	"(It's peaceful, aside from the whispers.)"
+	"(Their thoughts are left hanging.)"
+}
+
+seticon
+{
+	"\![set,tasktrayicon,icon00.ico,Balloons,--duration=100ms]"
+}
+
+
+
+bloonbe
+{
+	"a witch"
+	"a vampire"
+	"a sorcerer"
+	"string"
+	"friend"
+	"a werewolf"
+	"a cat"
+	"a lawyer"
+	"a therapy pet"
+	"a familiar"
+	"ruler of the world"
+	"a bodyguard"
+	"a prima ballerina"
+	"a dragon"
+	"a pillow"
+	"one-thousand ants"
+	"digitized goods"
+	"elegant"
+	"punk rock"
+	"ancient forgotten lore"
+	"fashion"
+	"a household name and film sensation"
+}
+
+bloonshape
+{
+	"eggs"
+	"light bulbs"
+	"stars"
+	"hearts"
+	"noodles"
+	"snakes"
+	"balls"
+	"cubes"
+	"dogs"
+	"giraffes"
+	"oranges"
+	"flowers"
+	"swords"
+	"unicorns"
+	"the sun"
+	"the moon"
+	"dinosaurs"
+	"butterflies"
+	"candy"
+	"birthday cake"
+}
+
+pot
+{
+	if !ShyIsPopped; "%(shy)T-tomato Soup.\w8%(shyoff) "
+	if !UnamusedIsPopped; "%(unamused)anti-itch ointment\w8%(unamusedoff) "
+	if !ScaredIsPopped; "%(scared)Wait,\w4 am I supposed to know what's in the pot?\w8 That can't be right,\w4 this has to be a trick...\w4 but...\w4 It would be mean to accuse...\w8%(scaredoff) "
+	if !SadIsPopped; "%(sad)... chicken 'n' toad noodle soup...\w8%(sadoff) "
+	if !ConfusedIsPopped; "%(confused)Something liquid?\w8 Probably???\w8%(confusedoff) "
+	if !HappyIsPopped; "%(happy)A Warm Fuzzy Feelings Potion!!\w8%(happyoff) "
+	if !AngryIsPopped; "%(angry)RAT TAIL STEW\w8%(angryoff) "
+	if !ThinkIsPopped; "%(think)Technically speaking,\w4 the best guess would be water.\w8 Water is,\w4 after all,\w4 the most common base for either potions or stews.\w8%(thinkoff) "
+	"(There aren't any pots around right now.)\w8"
+}

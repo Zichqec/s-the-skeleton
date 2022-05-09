@@ -1,0 +1,213 @@
+//Network Update URL. I recommend using Github Pages to set up a site and store their files! It's free and reliable. I've written up a guide on how to do this here https://zichqec.github.io/s-the-skeleton/github.html
+On_homeurl
+{
+	"https://YourGhostDirectoryHere.com/YourGhost/"
+}
+
+//Change [Your Username] to your username, or change the whole caption to whatever you want. This is the top list of websites in the right click menu.
+On_recommendrootbutton.caption
+{
+	"More from Galla and Zichqec"
+}
+
+On_sakura.recommendsites
+{
+	FormatLinks(recommendsites_sakura)
+}
+
+//These are the websites linked in the top option of the right click menu. Add your websites here! Follow the format carefully here, on the left is the name you want to display, on the right is the url you want it to link to. You could make this a single list as well, as long as it alternates between name, url, name, url...
+recommendsites_sakura : array
+{
+	"Zi's Ukagaka Hub";				"https://zichqec.github.io/s-the-skeleton/"
+}
+
+//Caption for the second list of websites
+On_portalrootbutton.caption
+{
+	"Reference Sites"
+}
+
+//You can make these anything you like. I've set them to link to my template, Zarla's template, and anything else helpful for making ghosts.
+On_sakura.portalsites 
+{
+	FormatLinks(portalsites_sakura)
+}
+
+//Same deal as above with the formatting.
+portalsites_sakura : array
+{
+	//I'd appreciate it if you left the X. Template link in your ghost so that other people can find the source <3
+	"Built on X. Template YAYA - v1.1.5";	"https://zichqec.github.io/s-the-skeleton/xtemplate.html"
+	"Zarla's Ghost Template Walkthrough";	"http://www.ashido.com/ukagaka/walkthrough.html"
+	"How to set up updates with Github";	"https://zichqec.github.io/s-the-skeleton/github.html"
+	"Ukagaka Dream Team Discord";			"https://ukagakadreamteam.tumblr.com/discord"
+	"SSP (J)"; 								"http://ssp.shillest.net/"
+	"Ukadoc (J)"; 							"http://ssp.shillest.net/ukadoc/manual/list_shiori_event.html"
+	"YAYA Wiki (J)"; 						"http://emily.shillest.net/ayaya/index.php?"
+	"Crow + SSP Reference (J)"; 			"http://crow.aqrs.jp/reference/all/index.html"
+	"Ghost Documentation (J)"; 				"http://usada.sakura.vg/contents/specification.html"
+}
+ 
+ //Caption for the Kero's website list
+On_kero.recommendbuttoncaption
+{
+	"More websites"
+}
+
+On_kero.recommendsites
+{
+	FormatLinks(recommendsites_kero)
+}
+
+//Put any websites you want here, I just included some stuff that was helpful to me when making my website.
+recommendsites_kero : array
+{
+	"Github Pages"; "https://pages.github.com/"
+	"w3 schools"; 	"https://www.w3schools.com/"
+}
+
+//Takes an array of alternating names and urls, and formats them for use with the right click menu
+FormatLinks : all
+{
+	for _i = 0; _i < ARRAYSIZE(_argv); _i++
+	{
+		_argv[_i] //Add the link/title
+		//Alternate between adding %ASC(1) or %ASC(2)
+		if _i % 2 == 1; "%ASC(2)"
+		else; "%ASC(1)"
+	}
+}
+
+//Caption for the update button
+On_updatebutton.caption
+{
+	"Check for updates"
+}
+
+//Caption for the RSS/Headlines button
+On_headlinesenserootbutton.caption
+{
+	"Headlines and RSS"
+}
+
+//Caption for the Readme button
+On_readmebutton.caption
+{
+	"Readme"
+}
+
+//Caption for the uninstall button
+On_vanishbutton.caption
+{
+	"Uninstall"
+}
+
+//Caption for the change shell button
+On_shellrootbutton.caption
+{
+	"Change Shell"
+}
+
+//Caption for the change ghost button
+On_ghostrootbutton.caption
+{
+	"Change Ghost"
+}
+
+//Caption for the call ghost button
+On_callghostrootbutton.caption
+{
+	"Call Ghost"
+}
+
+//Caption for the minimize/iconify button
+On_hidebutton.caption
+{
+	"Minimize"
+}
+
+//Caption for the quit button
+On_quitbutton.caption
+{
+	"Quit"
+}
+
+
+
+
+//-----Don't touch these-----
+//This stuff is, I believe, written by Umeici.
+//What you need to know is this: ghostexlist is a list of the names of ghosts that are currently open, going by the name of the sakura. ghostexcount is the number of opened ghosts. balloonlist and ballooncount are the same thing but with balloons. I might've added that one but I'm not sure? I can't remember anymore
+
+//Switches the Uninstall button on and off in the right click menu, so you don't accidentally click it
+On_vanishbutton.visible
+ {
+ 	if deletebutton == "On"; "1"
+	else; "0"
+}
+
+//Gets other ghost names and saves them to a list
+On_otherghostname
+{
+	//Rewrote this... because I wanted to split it up by C_BYTE1 and I figured this is probably more efficient
+	ghostexlist = ""
+	foreach reference; _ghost
+	{
+		if ghostexlist != ""; ghostexlist += C_BYTE1
+		ghostexlist += _ghost[0]
+	}
+	ghostexcount = ARRAYSIZE(SPLIT(ghostexlist,C_BYTE1))
+}
+
+//Gets the names of all installed balloons and saves them to a list
+On_installedballoonname
+{
+	balloonlist = ""
+	foreach reference; _balloon
+	{
+		if balloonlist != ""; balloonlist += C_BYTE1
+		balloonlist += _balloon[0]
+	}
+	ballooncount = ARRAYSIZE(SPLIT(balloonlist,C_BYTE1))
+}
+
+//SHIORI related information
+On_version
+{
+	GETSETTING(AYAINFO_VERSION)
+}
+
+On_craftman
+{
+	"umeici"
+}
+
+On_craftmanw
+{
+	"梅市"
+}
+
+On_name
+{
+	"AYA"
+}
+
+//Get uniqueid for Owned SSTP
+On_uniqueid
+{
+	uniqueid = reference0
+}
+
+//Get hwnd
+On_hwnd
+{
+	sakurahwnd = reference0[0]
+	kerohwnd = reference0[1]
+	sakurablnhwnd = reference1[0]
+	keroblnhwnd = reference1[1]
+}
+
+On_username
+{
+	username
+}

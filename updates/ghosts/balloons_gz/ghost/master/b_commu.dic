@@ -1,0 +1,185 @@
+//Function for other ghosts to request the stats of your ghost! Fill this in with any stats you think could be helpful, like total pets, current mode, current shell, etc. If a lot of ghosts do this, more ghosts can comment on each other and have little interactions! You can add as much detail as you like, just please document it well
+/*
+OnStatsRequested
+{
+	if reference0 == ""; reference0 = "__SYSTEM_ALL_GHOST__" //If the ghost requesting stats doesn't send their name, just send it to all ghosts
+	
+	"\![notifyother,%(reference0),OnStatsGiven,%(sakuraname)]"
+	
+	//Add a list of what stats you include here and which references they'll be sent as!
+	//reference0 - Sakura name of this ghost (so that it can be identified - don't remove this)
+}
+
+OnCommunicate
+{
+	if TOLOWER(reference0) == "user"
+ 	{
+		//Answering the user - I've removed the function that goes along with this because it doesn't link to anything.
+	}
+ 	else
+	{
+		if SHIORI3FW.CanTalk //If the ghost can talk - isn't currently typing and isn't in a menu
+		{
+			ReplyToGhost
+		}
+		elseif reference2 != "timerraise" //If it's already triggered the timerraise once, it won't do it again
+		{
+			//If the ghost is in a menu or the middle of talking, it'll run this timerraise command and try again in 5 seconds. If the second attempt fails, it will give up.
+			"\C\![timerraise,5000,1,OnCommunicate,""%(reference0)"",""%(reference1)"",timerraise]"
+		}
+ 	}
+}
+
+//This is your ghost starting a conversation with another ghost. It will choose a random one from the currently open ghosts.
+OnStartTalking
+{
+	AlreadyResponded = 1
+	if ghostexcount > 0
+	{
+		_ghost = ANY(REPLACE(ghostexlist,C_BYTE1,","))
+		if reference0 != ""; _ghost = reference0 //If this was a manual ping
+		"\![commu-%(_ghost)]" //This isn't a real sakurascript tag, but structuring it like one means it wont show in dialogue. This is for loop prevention.
+		--
+		//Checks for the Sakura name
+		case _ghost
+		{
+			when "Girl" //Known ghosts, add as many whens as needed.
+			{
+				res_reference0 = "Girl"
+				
+				"\0%(s0)Hello Girl!\w8\w8 Hello Triangle!\w8\w8\e GirlTriangleHello01"
+				"\0%(s0)Hi Girl!\w8\w8 How are you,\w4 Triangle?\w8\w8\e GirlTriangleHello03"
+			}
+			others //Ghosts there is no specific response to.
+			{
+				res_reference0 = _ghost
+				
+				"\0%(s0)Hello %(_ghost)!\w8\w8\e"
+			}
+		}
+	}
+	else //If no ghosts are open.
+	{
+		"\0%(s0)Nobody else is here.\e"
+	}
+}
+
+//This is your ghost receiving a communication
+ReplyToGhost
+{
+	_speech = SPLIT(reference1,"\e")[0] //Everything the ghost said that the user can see
+	ConvoTag = SPLIT(reference1,"\e")[1] //Everything after the \e, which will be the invisible tags that track the conversation
+	_last = SPLIT(reference1,"::")[1] //Ghosts using the reflect system send "::%(_speech)" at the end of every communication, so _last is what THIS ghost last said. See below.
+	
+	_last = RemovePauses(_last) //Removes pauses and quicksection tags so it can display properly
+	"\![commu-%(reference0)]" //This isn't a real sakurascript tag, but structuring it like one means it wont show in dialogue. This is for loop prevention.
+	--
+	case reference0
+	{
+		when "Girl"
+		{
+			"\![quicksection,true]%(_last)\![quicksection,false]" //Only add this for ghosts that use the reflect system
+			--
+			"%(TalkToGirl)"
+			--
+			"::%(_speech)" //Reflects back what the other ghost said, only put it here if you're talking to a ghost that uses the same system or things may break
+		}
+		others //Responses to unknown ghosts. AlreadyResponded keeps them from getting stuck in a loop.
+		{
+			if "\![commu-%(reference0)]" !_in_ SHIORI3FW.LastTalk //This checks for that commu tag up above! So, if the last dialogue was NOT a response to the ghost that just pinged us, give a normal response
+			{
+				res_reference0 = reference0
+				
+				"\0%(s0)Hey there %(reference0)!\w8\w8\e"
+			}
+			else //If this IS a response to a ghost we already spoke to, say the alternate response and end the conversation
+			{
+				res_reference0 = ""
+				
+				"Hope you're doing well.\e"
+			}
+		}
+	}
+	
+}
+
+//All responses to Girl would be here. Make one of these for each ghost they talk to so you can keep them separate easily! Or you can put it all in the function above, whatever works for you
+TalkToGirl
+{
+	if "GirlTriangleHello02" _in_ ConvoTag
+	{
+		res_reference0 = "Girl"
+		
+		"\0%(s0)We'll never see this dialogue.\w8\w8 Oh well,\w4 it's here for example!\w8\w8\e"
+	}
+	elseif "GirlTriangleHello04" _in_ ConvoTag
+	{
+		res_reference0 = ""
+		
+		"\0%(s0)Another example response!\e"
+	}
+	else //You should have an else just in case the other ghost isn't updated with responses
+	{
+		res_reference0 = ""
+		
+		"\0%(s0)Hi Girl!\e"
+	}
+}
+*/
+//Removes pauses and quicksections
+RemovePauses
+{
+	_argv[0] = RE_REPLACE(_argv[0],"\\!\[quicksection,(true|false|1|0)\]","")
+	_argv[0] = REPLACE(_argv[0],"\_q","")
+	_argv[0] = RE_REPLACE(_argv[0],"\\w\d","") //\w
+	_argv[0] = RE_REPLACE(_argv[0],"\\_w\[\d+\]","") //\_w[]
+	_argv[0]
+}
+
+//You don't need to edit anything here! This menu is for you only. If you have the debug variable set to 1, you can press C to access this little menu, which lets you send test commu messages to other ghosts!
+OnCommuPingMenu
+{
+	_display = ""
+	foreach REPLACE(ghostexlist,C_BYTE1,","); _ghost
+	{
+		_display += "\![*]\q[%(_ghost),OnStartTalking,%(_ghost)]\n"
+	}
+	_display += "\n\![*]\q[Custom ping,OnCustomPing]"
+	_display
+}
+
+OnCustomPing
+{
+	"What do you want to send?\![open,inputbox,OnCustomCommu,-1]"
+}
+
+OnCustomCommu
+{
+	_display = ""
+	foreach REPLACE(ghostexlist,C_BYTE1,","); _ghost
+	{
+		_display += "\![*]\q[%(_ghost),OnCustomPingSend,%(_ghost),""%(reference0)""]\n"
+	}
+	"Send to which ghost?\n\n"
+	--
+	_display
+}
+
+OnCustomPingSend
+{
+	res_reference0 = reference0
+	"%(reference1)"
+}
+
+
+
+OnNeedlePoke
+{
+	_which = WhichArentPopped
+	_pop = ANY(_which)
+	
+	EVAL("%(_pop)IsPopped = 1")
+	
+	--
+	"%(PopSound)\![embed,OnPop%(_pop)]"
+}

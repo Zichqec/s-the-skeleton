@@ -1,0 +1,1237 @@
+//----Drag and Drop----
+
+//When you drop a file on the ghost that isn't something it can install
+//reference0 is the file path, which is split up amongst the local variables below
+OnFileDrop2
+{
+	_filepath = SPLITPATH(reference0)
+	_filename = _filepath[2]
+	_fileext = TOLOWER(_filepath[3])
+	case _fileext
+	{
+		when ".jpg", ".jpeg", ".bmp", ".png" //These are pictures that they can set to wallpapers. Png works for me, but if it doesn't work for you let us know please, I'm curious about this.
+		{
+			_file = REPLACE(reference0,"]","\]")
+			
+			
+			//O-oh... An image..?
+			//Huh? An image???
+			//Aah! What's this..? Oh... Oh, it's an image... I guess I should offer...
+			
+			//Would you want this set as your wallpaper?
+			//WHAT, YOU WANT THIS AS YOUR WALLPAPER?
+			
+			
+			//I can set it up any way you like!
+			//i guess i can set it for you, or whatever
+			
+			if !AreThesePopped("Shy","Unamused","Scared","Confused","Happy","Angry","Think")
+			{
+				if !ShyIsPopped; "%(shy)O-oh...\w8 An image..?\w8%(shyoff) "
+				else; PoppedDialogue("Shy")
+				
+				if !ConfusedIsPopped; "%(confused)Huh?\w8 An image???\w8%(confusedoff) "
+				else; PoppedDialogue("Confused")
+				
+				if !ScaredIsPopped; "%(scared)Aah!\w8 What's this..?\w8 Oh...\w8 Oh,\w4 it's an image...\w8 I guess I should offer...\w8%(scaredoff) "
+				else; PoppedDialogue("Scared")
+				--
+				if !ThinkIsPopped; "%(think)Would you want this set as your wallpaper?\w8%(thinkoff) "
+				else; PoppedDialogue("Think")
+				
+				if !AngryIsPopped; "%(angry)WHAT,\w4 YOU WANT THIS AS YOUR WALLPAPER?\w8%(angryoff) "
+				else; PoppedDialogue("Angry")
+				--
+				if !HappyIsPopped; "%(happy)I can set it up any way you like!\w8%(happyoff)"
+				else; PoppedDialogue("Happy")
+				
+				if !UnamusedIsPopped; "%(unamused)i guess i can set it for you, or whatever\w8%(unamusedoff)"
+				else; PoppedDialogue("Unamused")
+			}
+			else
+			{
+				AllPoppedDialogue
+				--
+				"\n\n(How should the wallpaper be set?)"
+			}
+			--
+			all:/
+			{
+				"\n\n\_q"
+				"\![*]\q[Centered,OnWallpaper,%(_file),center]  "
+				"\![*]\q[Tiled,OnWallpaper,%(_file),tile]  "
+				"\![*]\q[Stretched,OnWallpaper,%(_file),stretch]"
+				if "Windows 7" || "Windows 10" _in_ NotifyOS //These are the 'fit' and 'fill' options available from win 7 on. NotifyOS is set just below, to check what OS you're on
+				{
+					"\n\![*]\q[Fill,OnWallpaper,%(_file),stretch-x]"
+					"  \![*]\q[Fit,OnWallpaper,%(_file),stretch-y]"
+				}
+				if "Windows 10" _in_ NotifyOS; "  \![*]\q[Spanned,OnWallpaper,%(_file),span]" //Same as above, but for the span option since that's win10 and above
+				
+				"\n\n\![*]\q[No thanks,WallpaperCancel]\e"
+			}
+		}
+		when ".mid", ".wav", ".mp3", ".wma", ".au", ".ogg", ".flac", ".m4a"
+		{
+			if !AreThesePopped("Shy","Unamused","Sad","Confused","Happy","Angry","Think")
+			{
+				 if !HappyIsPopped; "%(happy)Oh!\w8 This is music!!\w8%(happyoff) "
+				else; PoppedDialogue("Happy")
+				
+				if !ConfusedIsPopped; "%(confused)Oh??\w8 Is this music???\w8%(confusedoff) "
+				else; PoppedDialogue("Confused")
+				--
+				if !AngryIsPopped; "%(angry)I CAN'T PLAY MUSIC FILES!\w8%(angryoff) "
+				else; PoppedDialogue("Angry")
+				
+				if !ShyIsPopped; "%(shy)Um,\w4 I c-can't...\w8 Can't play music...\w8%(shyoff) "
+				else; PoppedDialogue("Shy")
+				
+				if !UnamusedIsPopped; "%(unamused)yeah,\w4 i can't play this,\w4 sorry.\w8%(unamusedoff) "
+				else; PoppedDialogue("Unamused")
+				--
+				if !SadIsPopped; "%(sad)...maybe someone else could...\w8%(sadoff)"
+				else; PoppedDialogue("Sad")
+				
+				if !ThinkIsPopped; "%(think)Perhaps someone else would be more suited...\w8%(thinkoff)"
+				else; PoppedDialogue("Think")
+			}
+			else; AllPoppedDialogue
+		}
+		others
+		{
+			/*
+			
+			Huh? What's this thing???
+			what even is this
+			Hmm, %(_filename)%(_fileext)...? Interesting...
+			...dunno what this is, sorry...
+			Oh!! This is neat!! Whatever it is!!
+			I DON'T WANT THIS.
+			O-oh, um... Thanks...?
+			...Um, what do I say, what even is a %(_filename)%(_fileext)... (It continues muttering. Seems it's not sure what to make of that file.)
+			
+			
+			*/
+			nonoverlap:/
+			{
+				if !ShyIsPopped; "%(shy)O-oh,\w4 um...\w8 Thanks..?\w8%(shyoff)"
+				
+				if !UnamusedIsPopped; "%(unamused)what even is this\w8%(unamusedoff)"
+				
+				if !ScaredIsPopped
+				{
+					"%(scared)...Um,\w4 what do I say,\w4 what even is a "
+					--
+					if _fileext == ""; "\_?%(_filepath[1])\_?"
+					else; "%(_filename)%(_fileext)"
+					--
+					"...\w8\w8%(narrator)\n\n(It continues muttering.\w8 Seems it's not sure what to make of that file.)\w8%(scaredoff)"
+				}
+				
+				if !SadIsPopped; "%(sad)...dunno what this is,\w4 sorry...\w8%(sadoff)"
+				
+				if !ConfusedIsPopped; "%(confused)Huh? What's this thing???\w8%(confusedoff)"
+				
+				if !HappyIsPopped; "%(happy)Oh!!\w8 This is neat!!\w8 Whatever it is!!\w8%(happyoff)"
+				
+				if !AngryIsPopped; "%(angry)I DON'T WANT THIS.\w8%(angryoff)"
+				
+				if !ThinkIsPopped
+				{
+					"%(think)Hmm,\w4 "
+					--
+					if _fileext == ""; "\_?%(_filepath[1])\_?"
+					else; "%(_filename)%(_fileext)"
+					--
+					"...?\w8 Interesting...\w8%(thinkoff)"
+				}
+			}
+			--
+			"\e"
+		}
+	}		
+}
+
+//You can get other information about the OS here, it's in the other references. Reference0 includes the OS system, version, and display name
+OnNotifyOSInfo
+{
+	NotifyOS = reference0
+}
+
+OnWallpaper
+{
+	"\0\![set,wallpaper,%(REPLACE(reference0,']','\]')),%(reference1)]"
+	--
+	/*
+	
+	There, it's all set!!
+	How does that look? Is it ok??
+	Uhh, ah, I wonder if it looks ok... It's fine, right...?
+		Does that look alright to you, %(username)?
+			...if it's not i can do it again...
+	
+	*/
+	
+	if !AreThesePopped("Scared","Confused","Happy")
+	{
+		if !HappyIsPopped; "%(happy)There,\w4 it's all set!!\w8%(happyoff)"
+		if !ConfusedIsPopped; "%(confused)How does that look?\w8 Is it ok??\w8%(confusedoff)"
+		if !ScaredIsPopped
+		{
+			"%(scared)Uhh,\w4 ah,\w4 I wonder if it looks ok...\w8 It's fine,\w4 right...?\w8%(scaredoff) "
+			--
+			if !ThinkIsPopped; "%(think)Does that look alright to you, %(username)?\w8%(thinkoff) "
+			else; PoppedDialogue("Think")
+			--
+			if !SadIsPopped; "%(sad)...if it's not i can do it again...\w8%(sadoff)"
+			else; PoppedDialogue("Sad")
+		}
+	}
+	else; AllPoppedDialogue
+}
+
+Select.WallpaperCancel
+{
+	//"\0%(s0)Ok,\w4 let me know if you change your mind!\e"
+}
+
+OnInstallBegin
+{
+	if !AreThesePopped("Shy","Happy","Angry","Think")
+	{
+		if !ShyIsPopped; "%(shy)O-oh,\w4 you want us to install this...?\w8%(shyoff) "
+		else; PoppedDialogue("Shy")
+		--
+		if !ThinkIsPopped; "%(think)Let me see, what have we got here...\w8%(thinkoff) "
+		else; PoppedDialogue("Think")
+		--
+		if !AngryIsPopped; "%(angry)IT HAD BETTER BE SOMETHING GOOD.\w8%(angryoff) "
+		else; PoppedDialogue("Angry")
+		--
+		if !HappyIsPopped; "%(happy)Is it a new friend? That would be great!!\w8%(happyoff)"
+		else; PoppedDialogue("Happy")
+	}
+	else
+	{
+		AllPoppedDialogue
+		--
+		"(Looks like it's trying to install it.)"
+	}
+	--
+	"\w8\w8\e"
+}
+
+//Finished installing something ghost related. You can remove any of the ifs here if you like, and just have it go to the else.
+//reference0 is the type of installed item, reference1 is the name.
+OnInstallComplete
+{
+	/*
+	
+	Done with the installation!! 
+		Looks like it's a %(reference0)? 
+			Ghost: Yay!! New friend new friend!!
+			
+			Shell: A n-new look...?
+			
+			Plugin: Fascinating...
+			
+			Calendar Skin/rss/headline: cool, or whatever
+			
+			Other: Whatever that is???
+	
+	*/
+	
+	
+	if !AreThesePopped("Happy","Think")
+	{
+		if !HappyIsPopped; "%(happy)Done with the installation!!\w8%(happyoff) "
+		else; PoppedDialogue("Happy")
+		--
+		_a = "a"
+		_x = ""
+		if reference0 == "rss"; {_a = "an"; _x = " feed"}
+		elseif reference0 == "language"; _x = " pack"
+		if !ThinkIsPopped; "%(think)Hmm,\w4 looks like it's %(_a) %(reference0)%(_x)?\w8%(thinkoff) "
+		else; PoppedDialogue("Think")
+		--
+		if reference0 == "ghost"
+		{
+			if !HappyIsPopped; "%(happy)Yay!!\w8 New friend new friend!!\w8%(happyoff)"
+			else; PoppedDialogue("Happy")
+		}
+		elseif reference0 == "shell"
+		{
+			if !ShyIsPopped; "%(shy)A n-new look...?\w8%(shyoff)"
+			else; PoppedDialogue("Shy")
+		}
+		elseif reference0 == "balloon"
+		{
+			if !AngryIsPopped; "%(angry)WHY DO YOU NEED ANOTHER BALLOON!?\w8 YOU HAVE US!!\w8%(angryoff)"
+			else; PoppedDialogue("Angry")
+		}
+		elseif reference0 == "plugin" || reference0 == "language"
+		{
+			if !ThinkIsPopped; "%(think)Fascinating...\w8%(thinkoff) "
+			else; PoppedDialogue("Think")
+		}
+		elseif reference0 == "calendar skin" || reference0 == "headline" || reference0 == "rss"
+		{
+			if !UnamusedIsPopped; "%(unamused)cool, or whatever\w8%(unamusedoff)"
+			else; PoppedDialogue("Unamused")
+		}
+		else //Even if you get rid of some of the ifs above, you should keep this else as a catch-all.
+		{
+			if !ConfusedIsPopped; "%(confused)Whatever that is???\w8%(confusedoff)"
+			else; PoppedDialogue("Confused")
+		}
+	}
+	else
+	{
+		AllPoppedDialogue
+		--
+		"(Looks like it's finished installing the %(reference0).)"
+	}
+	--
+	if reference0 == "ghost"
+	{
+		all:/
+		{
+			"\n\n\_q"
+			"\![*]\q[Call %(reference1),CallGhost]\n"
+			"\![*]\q[Change to %(reference1),ChangeToGhost]\n\n"
+			"\![*]\q[No thanks,cancelnodialogue]\e"
+		}
+	}
+	--
+	"\e"
+	
+	
+}
+
+//Calling the ghost that was just installed. Add dialogues to these if you like.
+Select.CallGhost
+{
+	"\![call,ghost,lastinstalled]\e"
+}
+
+//Opening the ghost that was just installed.
+Select.ChangeToGhost
+{
+	"\![change,ghost,lastinstalled]\e"
+}
+
+//If the install fails
+//reference0 is the reason the install failed
+OnInstallFailure
+{
+	/*
+	
+	Cancel: OK FINE, I WON'T INSTALL THIS! see if i care
+	
+	Aah, uh, oh no... U-um, the installation failed...
+		...this type isn't supported...
+		
+		Hmm, something is wrong with this install.txt file...
+		
+		i couldn't extract it
+		
+		I got an error?? '%(reference0)'
+	
+	*/
+	
+	
+	if reference0 == "artificial" //If the user cancels by double clicking the balloon
+	{
+		if !AreThesePopped("Shy","Unamused","Scared","Sad","Confused","Happy","Angry","Think")
+		{
+			if !AngryIsPopped; "%(angry)OK FINE,\w4 I WON'T INSTALL THIS!\w8%(angryoff) "
+			else; PoppedDialogue("Angry")
+			--
+			if !UnamusedIsPopped; "%(unamused)see if i care\w8%(unamusedoff)"
+			else; PoppedDialogue("Unamused")
+			--
+			"\e"
+		}
+		else; AllPoppedDialogue
+	}
+	else
+	{
+		if !AreThesePopped("Scared","Think","Sad","Unamused","Confused","Shy")
+		{
+			if !ScaredIsPopped; "%(scared)Aah,\w4 uh,\w4 oh no...\w8\w8%(scaredoff) "
+			else; PoppedDialogue("Scared")
+			--
+			if !ShyIsPopped; "%(shy)U-um,\w4 the installation failed...\w8%(shyoff) "
+			else; PoppedDialogue("Shy")
+			--
+			if reference0 == "unsupported" //File is not supported
+			{
+				if !SadIsPopped; "%(sad)...this type isn't supported...\w8%(sadoff) "
+				else; PoppedDialogue("Sad")
+			}
+			elseif reference0 == "extraction" //Couldn't extract
+			{
+				if !UnamusedIsPopped; "%(unamused)i couldn't extract it\w8%(unamusedoff) "
+				else; PoppedDialogue("Unamused")
+			}
+			elseif reference0 == "invalid type" //install.txt isn't set up properly
+			{
+				if !ThinkIsPopped; "%(think)Hmm, something is wrong with this install.txt file...\w8%(thinkoff) "
+				else; PoppedDialogue("Think")
+			}
+			else
+			{
+				if !ThinkIsPopped; "%(think)I got an error?? '%(reference0)'\w8%(thinkoff) "
+				else; PoppedDialogue("Think")
+			}
+		}
+		else; "(Installation failed: %(reference0).)"
+	}
+}
+
+//reference0 is the Sakura name of the ghost the item was meant for, reference1 (since SSP 2.4.85) is the type of item you tried to install
+OnInstallRefuse
+{
+	//I CAN'T INSTALL THIS, IT'S FOR %(TOUPPER(reference0))!
+	
+	if !AngryIsPopped; "%(angry)I CAN'T INSTALL THIS,\w4 IT'S FOR %(TOUPPER(reference0))! %(angryoff)"
+	else
+	{
+		PoppedDialogue("Angry")
+		--
+		"(This can't be installed,\w4 it's made for %(reference0) only.)"
+	}
+	--
+	"\e"
+}
+
+//Creating an updates2.dau
+OnUpdatedataCreating
+{
+	//Making an updates2.dau!
+	if !HappyIsPopped; "%(happy)Making an updates2.dau!\w8%(happyoff) "
+	else; PoppedDialogue("Happy")
+}
+
+//Finished creating
+OnUpdatedataCreated
+{
+	//Ready to go!!
+	if !HappyIsPopped; "%(happy)Ready to go!!\w8%(happyoff) "
+	else; PoppedDialogue("Happy")
+}
+
+//Creating a .nar
+//reference0 is the name of what you're making a nar for, reference2 is what you're making (balloon/ghost/etc)
+OnNarCreating
+{
+	//Oh? Alright, creating a .nar file.
+	if !ThinkIsPopped; "%(think)Oh?\w8 Alright,\w4 creating a .nar file.\w8%(thinkoff)\e"
+	else; PoppedDialogue("Think")
+}
+
+//Finished creating
+//reference0 is the name of what you're making a nar for, reference2 is what you're making (balloon/ghost/etc)
+OnNarCreated
+{
+	//Finished!! You can find it \_a[OnNarLocation,%(reference1)]here\_a!
+	if !HappyIsPopped; "%(happy)Finished!! You can find it \_a[OnNarLocation,%(reference1)]here\_a!\w8%(happyoff)\e"
+	else; PoppedDialogue("Happy")
+}
+
+//When you click on the anchor in the OnNarCreated dialogue, this function will open the folder you created the .nar in
+OnNarLocation
+{
+	_path = SPLITPATH(reference0)[0] + SPLITPATH(reference0)[1]
+	
+	"\C\![open,file,%(_path)]"
+}
+
+//----Uninstalling----
+
+//Bringing up the uninstall option
+OnVanishSelecting
+{
+	/*
+	
+	WHAT? YOU'RE GOING TO UNINSTALL US!?
+
+	*/
+	if !AngryIsPopped; "%(angry)WHAT? YOU'RE GOING TO UNINSTALL US!?\w8%(angryoff)"
+	else; PoppedDialogue("Angry")
+}
+
+//Deciding to uninstall
+OnVanishSelected
+{
+	/*
+	fine, whatever.
+		What did I do...? Did I mess up?
+				HARRUMPH. BYE.
+	*/
+	
+	if !AreThesePopped("Unamused","Scared","Angry")
+	{
+		if !UnamusedIsPopped; "%(unamused)fine,\w4 whatever.\w8%(unamusedoff) "
+		else; PoppedDialogue("Unamused")
+		--
+		if !ScaredIsPopped; "%(scared)What did I do...? Did I mess up?\w8%(scaredoff) "
+		else; PoppedDialogue("Scared")
+		--
+		if !AngryIsPopped; "%(angry)HARRUMPH.\w8 BYE.\w8%(angryoff) "
+		else; PoppedDialogue("Angry")
+	}
+	else
+	{
+		"(Uninstalling.)"
+	}
+	--
+	"\w8\w8\w8\w8\e"
+}
+
+//Changing your mind
+OnVanishCancel 
+{
+	//GOOD.
+	if !AngryIsPopped; "%(angry)GOOD.\w8%(angryoff) "
+	else; PoppedDialogue("Angry")
+}
+
+//Canceling uninstallation by double clicking the balloon
+OnVanishButtonHold
+{
+	//Oh!! Oh, it was a mistake...?
+		//don't say goodbye if you don't mean it
+	if !AreThesePopped("Scared","Unamused")
+	{
+		if !ScaredIsPopped; "%(scared)Oh!! Oh, it was a mistake...?\w8%(scaredoff) "
+		else; PoppedDialogue("Scared")
+		--
+		if !UnamusedIsPopped; "%(unamused)don't say goodbye if you don't mean it\w8%(unamusedoff) "
+		else; PoppedDialogue("Unamused")
+	}
+	else; AllPoppedDialogue
+}
+
+//When another ghost has been uninstalled and it switches to this ghost
+//reference0 is the name of the uninstalled ghost
+// OnVanished
+// {
+	
+	// "\0%(s0)You uninstalled %(reference0).\e"
+// }
+
+//When you uninstall another ghost while this ghost is open. If you remove this event, it will just use OnVanished instead.
+//reference0 is the name of the uninstalled ghost
+// OnOtherGhostVanished
+// {
+	// "\0%(s0)Farewell,\w4 %(reference0).\e"
+// }
+
+//----Mail checking----
+
+//reference2 is the email address it's checking? Wiki says mail server.
+OnBIFFBegin
+{
+	/*
+	
+	emails, huh?
+		Sure, I can check for emails!!
+	
+	*/
+	if !AreThesePopped("")
+	{
+		if !UnamusedIsPopped; "%(unamused)emails,\w4 huh?\w8%(unamusedoff) "
+		else; PoppedDialogue("Unamused")
+		--
+		if !HappyIsPopped; "%(happy)Sure,\w4 I can check for emails!!\w8%(happyoff)"
+		else; PoppedDialogue("Happy")
+	}
+	else; AllPoppedDialogue
+}
+
+//reference0 is the number of emails found
+OnBIFFComplete
+{
+	/*
+	
+	...nothing new...
+	
+	%(reference0) new emails!! Wow!!
+		Would you like to see the headers?
+	
+	
+	*/
+	
+	if reference0 == 0 //No new emails
+	{
+		if !SadIsPopped; "%(sad)...nothing new...\w8%(sadoff) "
+		else
+		{
+			PoppedDialogue("Sad")
+			--
+			"(Seems there's nothing new.)"
+		}
+	}
+	elseif reference0 <= 500 //less than 100 new emails
+	{
+		
+		headers = ""
+		if reference7 != "" && reference0 <= 500 //AHAHAHA I FINALLY FIGURED OUT HOW TO GET AN ARRAY OF THE HEADERS WITH AUTO TYPE CONVERT ON. They're normally in reference7, but since auto type convert changes the C_BYTE1 characters to commas, any headers with commas screw things up badly. But you can get the nonconverted values! Still need a loop to add menu markers and stuff to the display, but that can happen in the other function...
+		{
+			headers = SPLIT(reference.raw[7],C_BYTE1)
+		}
+		--
+		_s = ""; if reference0 != 1; _s = "s" //Plural check, adds an s if the number of emails is not 1
+		
+			if !AreThesePopped("Happy","Think")
+			{
+				if !HappyIsPopped; "%(happy)%(reference0) new email%(_s)!!\w8 Wow!!\w8%(happyoff) "
+				else
+				{
+					PoppedDialogue("Happy")
+					--
+					"(%(reference0) new emails.)\n\n"
+				}
+				--
+				if reference7 != ""//Same as above, no need to ask if there are no headers
+				{
+					if !ThinkIsPopped; "%(think)Would you like to see the headers?\w8%(thinkoff) "
+					else; PoppedDialogue("Think")
+					--
+					"\n\n\![*]\q[View headers,OnSeeHeaders,yes]  \*\![*]\q[No thanks,OnSeeHeaders,no]"
+				}
+			}
+			else; AllPoppedDialogue
+	}
+	else //more than 500 new emails
+	{
+		if !HappyIsPopped; "%(happy)%(reference0) new emails!!\w8 Wow!!\w8%(happyoff) "
+		else
+		{
+			PoppedDialogue("Happy")
+			--
+			"(%(reference0) new emails.)"
+		}
+	}
+	--
+	"\e"
+}
+
+//Displaying the headers. No need to touch this other than changing the surface, or if you want to make the buttons different or something. Reference0 is the list of headers
+OnSeeHeaders
+{
+	if reference0 == "yes" //It's set up this way so that the headers variable will still be erased if the user says no. If they say no, it'll just erase the headers and say nothing
+	{
+		_display = ""
+		foreach headers; _header
+		{
+			_display += "\![*]"
+			_display += SHIORI3FW.EscapeAllTags(_header)
+			_display += "\n\n[half]"
+		}
+		"\0%(s0)\b2\![set,autoscroll,disable]\*\_q"
+		--
+		"\![*]\q[Done,cancelnodialogue]\n\n"
+		--
+		"%(_display)"
+		--
+		"\n\n\![*]\q[Done,cancelnodialogue]"
+	}
+	--
+	ERASEVAR("headers") //This erases the variable so you're not storing all those headers and bloating your save. Also, privacy reasons.
+}
+
+//Email checking failed
+//reference0 is the error returned
+OnBIFFFailure
+{
+	/*
+	
+	YOU CHANGED YOUR MIND? FINE.
+	
+	
+	
+	Uh, it? Failed??
+		GREAT, WHAT'S WRONG WITH IT?
+			Hmm... Looks like the connection timed out.
+			
+			looks like you messed up your email settings, i can't get in
+			
+			The POP settings are wrong??
+			
+			...i don't know what's wrong with it, it just says '%(reference0)'...
+	
+	*/
+	
+	if reference0 == "artificial" //As far as I can tell, artificial is if the user double clicks on the balloon to stop it
+	{
+		if !AngryIsPopped; "%(angry)YOU CHANGED YOUR MIND? FINE.\w8%(angryoff) "
+		else; PoppedDialogue("Angry")
+	}
+	else
+	{
+		if !AreThesePopped("Confused","Angry","Think","Unamused","Sad")
+		{
+			if reference0 == "timeout" //If the connection times out
+			{
+				if !ThinkIsPopped; "%(think)Hmm...\w8 Looks like the connection timed out.\w8%(thinkoff) "
+				else; PoppedDialogue("Think")
+			}
+			elseif reference0 == "kick" //if the ghost can't get into the account. Gmail requires an app specific password to get in
+			{
+				if !UnamusedIsPopped; "%(unamused)looks like you messed up your email's settings,\w4 i can't get into the account\w8%(unamusedoff) "
+				else; PoppedDialogue("Unamused")
+			}
+			elseif reference0 == "defect" //If info in the POP menu is wrong
+			{
+				if !ConfusedIsPopped; "%(confused)The POP settings are wrong??\w8%(confusedoff) "
+				else; PoppedDialogue("Confused")
+				--
+				"\![open,configurationdialog,biff]\e"
+			}
+			else //Some other kind of error.
+			{
+				if !SadIsPopped; "%(sad)...i don't know what's wrong with it,\w4 it just says '%(reference0)'...\w8%(sadoff) "
+				else; PoppedDialogue("Sad")
+			}
+		}
+		else; "(Email check failed: %(reference0))"
+	}
+}
+
+//----Network update---
+
+//When the ghost finishes checking for updates
+//reference0 is 'none' if there are no new files, and 'changed' if there are new files. reference1 is a list of the changed files, separated by commas
+OnUpdateCheckComplete 
+{
+	if reference0 == "none" //If there are no new files
+	{
+		AutoUpdates[1] = 1 //Sets it so it won't check again until at least midnight
+	}
+	else
+	{
+		AutoUpdates[1] = 2 //This makes it so the ghost will tell the user there's a new update next time they open their menu
+	}
+}
+
+//Starting to actually update
+OnUpdateBegin
+{
+	/*
+	
+	Ooh, maybe there'll be new content!!
+		or maybe there won't be
+	
+	*/
+	
+	if !AreThesePopped("Happy","Unamused")
+	{
+		if !HappyIsPopped; "%(happy)Ooh,\w4 maybe there'll be new content!!\w8%(happyoff) "
+		else; PoppedDialogue("Happy")
+		--
+		if !UnamusedIsPopped; "%(unamused)or maybe there won't be\w8%(unamusedoff) "
+		else; PoppedDialogue("Unamused")
+	}
+	else; AllPoppedDialogue
+}
+
+//reference0 is the number of new files, starting from 0
+OnUpdateReady
+{
+	reference0++ //Number of files starts from 0, so this displays the correct amount
+	_s = ""; _is = "is"; if reference0 != 1; _s = "s"; _is = "are" //plural checks, adds an s and changes is to are if there's more than 1 file
+	
+	/*
+		%(reference0) new files!!
+			is that all
+	*/
+	
+	if !AreThesePopped("Happy","Unamused")
+	{
+		if !HappyIsPopped; "%(happy)%(reference0) new file%(_s)!!\w8%(happyoff) "
+		else; PoppedDialogue("Happy")
+		--
+		if !UnamusedIsPopped; "%(unamused)is that all\w8%(unamusedoff) "
+		else; PoppedDialogue("Unamused")
+	}
+	else; AllPoppedDialogue
+}
+
+//When the update finishes. Don't forget to initialize any new variables you've created, more on that in Bootend.
+//reference0 is 'none' if there were no new files to update with, reference1 is a list of new file names, separated by commas
+OnUpdateComplete
+{
+	/*
+	
+	nothing new, what'd i tell ya
+	
+	...nothing new after all...
+	
+	
+	Update complete!! Wanna see what's new? You should look!!
+	
+	*/
+	
+	UpdateVars
+	AutoUpdates[1] = 0
+	if reference0 == "none"
+	{
+		if !AreThesePopped("Sad","Unamused")
+		{
+			if !UnamusedIsPopped; "%(unamused)nothing new,\w4 what'd i tell ya\w8%(unamusedoff) "
+			if !SadIsPopped; "%(sad)...nothing new after all...\w8%(sadoff) "
+		}
+		else; AllPoppedDialogue
+	}
+	else
+	{
+		UpdateVars //Sets new variables upon a successful update. See the end of Bootend for an explanation on this.
+		
+		if !HappyIsPopped; "%(happy)Update complete!!\w8 Wanna see what's new?\w8 You should look!!\w8%(happyoff) "
+		else; PoppedDialogue("Happy")
+		--
+		"\n\n\![*]\q[View changelog,OnChangeLog]  \![*]\q[No thanks,NoChangelog]\e"
+	}
+}
+
+//I've put this here so it's easier to remember to update the version number while you're updating the changelog. This will display on the ghost's menu. I made it an envelope so you can have it be the same across multiple menus for multiple modes, if you want.
+ghostver
+{
+	"1.0.0"
+}
+
+//the autoscroll tag here means the user will see the changelog starting from the top. I recommend putting the new versions on top, and old versions under that.
+OnChangeLog
+{
+	"\![set,autoscroll,disable]\_q\b2\_l[90]-Version 1.0.0-\n\n/
+	-Initial release\n\n\n"
+	--
+	if reference0 == "FromMenu" //Checks to see if the user came here from the functions menu
+	{
+		"\![*]\q[Back to functions,OnFunctionMenu]\n"
+	}
+	--
+	"\![*]\q[Done,cancelnodialogue]\e"
+}
+
+Select.NoChangelog
+{
+	//...aw... i wanted to see what was new...
+	
+	if !SadIsPopped; "%(sad)...aw... i wanted to see what was new...\w8%(sadoff) "
+	else; PoppedDialogue("Sad")
+}
+
+//Revamped this code! It's a lot more concise now
+//reference0 is the name of the file currently being downloaded
+OnUpdate.OnDownloadBegin
+{
+	_progress = TOINT(reference1) + 1
+	_total = TOINT(reference2) + 1
+
+	"\0\b2\_qDownloading %(reference0)...\_l[0,0]\n\n\n\n\f[name,courier new]"
+	--
+	_display = ""
+	for _i = 0; _i < _total; _i++
+	{
+		//Loading bar display - customize with text or images or whatever
+		_filled = "\_b[img/update1.png,inline,--option=use_self_alpha]" //Files that have already been downloaded
+		_empty = "\_b[img/update0.png,inline,--option=use_self_alpha]" //Files that have not been downloaded yet
+
+		//This is a bit like a ternary operator, for anyone familiar with those... It's just an array with the symbols/images/text specified above, and then the index it picks is based on whether _i < _progress is true or not. Ha, take that, languages like Python that use True/False (but have actual ternary operators)!
+		_display += (_empty,_filled)[_i < _progress]
+	}
+	--
+	"%(_display)\n\n%(_progress)/%(_total)\e"
+}
+
+//reference0 is the reason the update failed
+OnUpdateFailure //If the update fails
+{
+	/*
+	FINE, I GUESS YOU DON'T WANT TO SEE WHAT'S NEW.
+	
+	
+	O-oh no! It failed! Uhhh... I have to... Explain...
+		Um, it- the update failed...
+			IT'S NOT MY FAULT.
+				Looks like the connection timed out.
+				
+				TELL ZICHQEC THERE'S AN MD5 ERROR AND IT NEEDS FIXED RIGHT AWAY!
+				
+				I'm not sure?? What went wrong??? It just says '%(reference0)'...
+	
+	*/
+	
+	if reference0 == "artificial" //If the user cancels the update by double clicking the balloon
+	{
+		if !AngryIsPopped; "%(angry)FINE, I GUESS YOU DON'T WANT TO SEE WHAT'S NEW.\w8%(angryoff) "
+		else; PoppedDialogue("Angry")
+	}
+	else
+	{
+		if !AreThesePopped("")
+		{
+			if !ScaredIsPopped; "%(scared)O-oh no!\w8 It failed!\w8 Uhhh...\w8 I have to...\w8 Explain...\w8%(scaredoff) "
+			else; PoppedDialogue("Scared")
+			--
+			if !ShyIsPopped; "%(shy)Um,\w4 it-\w4 the update failed...\w8%(shyoff) "
+			else; PoppedDialogue("Shy")
+			--
+			if !AngryIsPopped; "%(angry)IT'S NOT MY FAULT.\w8%(angryoff) "
+			else; PoppedDialogue("Angry")
+			--
+			if reference0 == "timeout" //If it timed out
+			{
+				if !ThinkIsPopped; "%(think)Looks like the connection timed out.\w8%(thinkoff) "
+				else
+				{
+					PoppedDialogue("Think")
+					--
+					"(Connection timed out.)"
+				}
+			}
+			elseif reference0 == "md5 miss" //If the update files have not been uploaded correctly and don't match the updates2.dau
+			{
+				_file = SPLITPATH(reference1)[2] + SPLITPATH(reference1)[3] //This gets the name and extension of the offending file
+				if !AngryIsPopped; "%(angry)TELL ZICHQEC THERE'S AN MD5 ERROR AND IT NEEDS FIXED RIGHT AWAY!\w8%(angryoff) "
+				else
+				{
+					PoppedDialogue("Angry")
+					--
+					"(MD5 error on file \_?%(_file)\_?.)"
+				}
+			}
+			else //Any other errors
+			{
+				if !ConfusedIsPopped; "%(confused)I'm not sure?? What went wrong??? It just says '%(reference0)'...\w8%(confusedoff) "
+				else
+				{
+					PoppedDialogue("Confused")
+					--
+					"(Error %(reference0))"
+				}
+			}
+		}
+	}
+}
+
+//reference0 is the name of the site, reference1 is the url
+OnHeadlinesenseBegin
+{
+	//Opening the feed for %(reference0)...
+	
+	if !ThinkIsPopped; "%(think)Opening the feed for %(reference0)...\w8%(thinkoff) "
+	else; PoppedDialogue("Think")
+}
+
+//Menu layout from Zarla's GT Template, but at this point the code is pretty different
+//reference0 is the site name, reference1 is the url, reference3 is the headlines
+OnHeadlinesense.OnFind
+{
+	_display = REPLACE(reference3,"\_a[","\![*]\_a[")
+	"\0\b2%(reference0):\n\n%(_display)\n"
+ 	--
+ 	if reference2 == "First" || reference2 == "Next"
+	{
+		"\![*]\q[Next,] - "
+ 	}
+	--
+	"\![*]\q[Stop,Headline_Cancel]\e"
+}
+
+Select.Headline_Cancel
+{
+	//Done with RSS!!
+	if !HappyIsPopped; "%(happy)Done with RSS!!\w8%(happyoff) "
+	else; PoppedDialogue("Happy")
+}
+
+//Looks like this happens if you view a headline and nothing has changed. I can only get RSS to work, so... I'll leave it here just in case.
+OnHeadlinesenseComplete 
+{
+	//No update.
+	if !ThinkIsPopped; "%(think)No update\w8%(thinkoff) "
+	else; PoppedDialogue("Think")
+}
+
+//reference0 is the reason it failed
+OnHeadlinesenseFailure
+{
+	/*
+	
+	...i can't update the feed, sorry...
+		IT WON'T DOWNLOAD.
+		
+		I can't seem to analyze it.
+		
+		I'm?? Not sure why?? It just says %(reference0)...
+	
+	*/
+	
+	if !AreThesePopped("Sad","Angry","Confused","Think")
+	{
+		if !SadIsPopped; "%(sad)...i can't update the feed, sorry...\w8%(sadoff) "
+		else; PoppedDialogue("Sad")
+		--
+		if reference0 == "can't download"
+		{
+			if !AngryIsPopped; "%(angry)IT WON'T DOWNLOAD.\w8%(angryoff) "
+			else; PoppedDialogue("Angry")
+		}
+		elseif reference0 == "can't analyze"
+		{
+			if !ThinkIsPopped; "%(think)I can't seem to analyze it.\w8%(thinkoff) "
+			else; PoppedDialogue("Think")
+		}
+		else
+		{
+			if !ConfusedIsPopped; "%(confused)I'm?? Not sure why?? It just says %(reference0)...\w8%(confusedoff) "
+			else; PoppedDialogue("Confused")
+		}
+	}
+	else
+	{
+		AllPoppedDialogue
+		--
+		"(Can't update the feed: %(reference0))"
+	}
+}
+
+//----Misc----
+
+//reference0 is the name of the server it's connecting to
+OnSNTPBegin
+{
+	//Sure! I can check the time!
+	if !HappyIsPopped; "%(happy)Sure!\w8 I can check the time!\w8%(happyoff) "
+	else; PoppedDialogue("Happy")
+}
+
+//Grabbed this from the GT template, don't see a reason to redo this
+//**** 미카 (http://homepage2.nifty.com/ko-ki/)의 사전을 참고했습니다．감사＞こ 나무 성
+//Above comment from the person who originally coded these functions
+//reference0 is the name of the server it's connecting to, reference1 is the server's time, reference2 is the computer's time, reference3 is the difference (in seconds)
+OnSNTPCompare
+{
+	/*
+	
+	Hmm, your clock doesn't match the server's clock.
+		U-um, should I fix it..?
+		
+		
+	Your clock is just fine!
+		what a waste of time
+	*/
+	
+ 	"Retrieved Time: %reference1[1]/%reference1[2]/%reference1[0] %reference1[3]:%reference1[4]:%reference1[5]\w2\n"
+	--
+	"Your Time: %reference2[1]/%reference2[2]/%reference2[0] %reference2[3]:%reference2[4]:%reference2[5]\w2\n\n"
+	--
+ 	if reference3 == 0 //if your clock is already accurate.
+	{
+		if !AreThesePopped("Happy","Unamused")
+		{
+			if !HappyIsPopped; "%(happy)Your clock is just fine!\w8%(happyoff) "
+			else; PoppedDialogue("Happy")
+			--
+			if !UnamusedIsPopped; "%(unamused)what a waste of time\w8%(unamusedoff) "
+			else; PoppedDialogue("Unamused")
+		}
+		else; AllPoppedDialogue
+	}
+ 	else //if your clock doesn't match
+	{
+		if !AreThesePopped("Think","Shy")
+		{
+			if !ThinkIsPopped; "%(think)Hmm,\w4 your clock doesn't match the server's clock.\w8%(thinkoff) "
+			else; PoppedDialogue("Think")
+			--
+			if !ShyIsPopped; "%(shy)U-um,\w4 should I fix it..?\w8%(shyoff) "
+			else; PoppedDialogue("Shy")
+		}
+		else; AllPoppedDialogue
+		--
+		all:/
+		{
+			"\n\n"
+			"\![*]\q[Fix it,OnSNTPExecute]  "
+			"\![*]\q[Leave it alone,OnSNTPCancel]\e"
+		}
+	}
+}
+
+//The \6 is what actually changes the clock
+OnSNTPExecute
+{
+	//Fixed it! Good as new!!
+	"\6"
+	--
+	if !HappyIsPopped; "%(happy)Fixed it! Good as new!!\w8%(happyoff) "
+	else; PoppedDialogue("Happy")
+}
+
+OnSNTPCancel
+{
+	//WHAT WAS EVEN THE POINT OF CHECKING IF YOU WEREN'T GOING TO HAVE ME FIX IT!
+	
+	if !AngryIsPopped; "%(angry)WHAT WAS EVEN THE POINT OF CHECKING IF YOU WEREN'T GOING TO HAVE ME FIX IT!\w8%(angryoff) "
+	else; PoppedDialogue("Angry")
+}
+
+//reference0 is the name of the SNTP server - Note that this may happen before any other STNP dialogue is said! Keep in mind when writing your dialogue that the user will not necessarily have clicked the yes button.
+OnSNTPFailure
+{
+	//Hmmm, something went wrong.
+		//sorry about that...
+	
+	if !AreThesePopped("Think","Sad")
+	{
+		if !ThinkIsPopped; "%(think)Hmmm,\w4 something went wrong.\w8%(thinkoff) "
+		else; PoppedDialogue("Think")
+		--
+		if !SadIsPopped; "%(sad)sorry about that...\w8%(sadoff) "
+		else; PoppedDialogue("Sad")
+	}
+	else
+	{
+		AllPoppedDialogue
+		--
+		"(Something went wrong.)"
+	}
+}
+
+OnDisplayChange
+{
+	displaybpp = reference0
+ 	displaywidth = reference1
+	displayheight = reference2
+}
+
+//I've never gotten this to work but you can add it if you like
+// OnScreenSaverEnd
+// {
+	// "\0%(s0)The screensaver is gone.\e"
+// }
+
+//Usually at 20% battery or less
+//reference0 should be the exact percentage left
+OnBatteryLow
+{
+	/*
+	
+	Oh... That's... That isn't good...
+		Your battery appears to be low, perhaps you should find a charger?
+	
+	*/
+	if !AreThesePopped("Scared","Think")
+	{
+		if !ScaredIsPopped; "%(scared)Oh...\w8 That's...\w8 That isn't good...\w8%(scaredoff) "
+		else; PoppedDialogue("Scared")
+		--
+		if !ThinkIsPopped; "%(think)Your battery appears to be low,\w4 perhaps you should find a charger?\w8%(thinkoff) "
+		else; PoppedDialogue("Think")
+	}
+	else
+	{
+		AllPoppedDialogue
+		--
+		"(The battery is low.)"
+	}
+}
+
+//Usually at 5% battery or less
+//reference0 should be the exact percentage left
+OnBatteryCritical
+{
+	/*
+	
+		Uhh! Ah, um... Have to... Say something... Oh no...
+			U-um, %(username)?
+				YOUR BATTERY IS SUPER LOW! GET TO A CHARGER!!
+					or don't
+	*/
+	if !AreThesePopped("Scared","Shy","Angry","Unamused")
+	{
+		if !ScaredIsPopped; "%(scared)Uhh!\w8 Ah,\w4 um...\w8 Have to...\w8 Say something...\w8 Oh no...\w8%(scaredoff) "
+		else; PoppedDialogue("Scared")
+		--
+		if !ShyIsPopped; "%(shy)U-um,\w4 %(username)?\w8%(shyoff) "
+		else; PoppedDialogue("Shy")
+		--
+		if !AngryIsPopped; "%(angry)YOUR BATTERY IS SUPER LOW!\w8 GET TO A CHARGER!!\w8%(angryoff) "
+		else; PoppedDialogue("Angry")
+		--
+		if !UnamusedIsPopped; "%(unamused)or don't\w8%(unamusedoff) "
+		else; PoppedDialogue("Unamused")
+	}
+	else
+	{
+		AllPoppedDialogue
+		--
+		"(The battery is critically low.)"
+	}
+}
+
+//reference0 is the new size, reference1 is the previous size. Sadly, you can't check for the Y scale.
+// OnShellScaling
+// {
+	// nowscale[0] = reference0 //X
+	// nowscale[1] = reference2 //Y
+	
+	// if reference0 == 100
+	// {
+		// "\0%(s0)I'm back to normal size.\e"
+	// }
+	// elseif reference0 < 0 //If it's backwards
+	// {
+		// "\0%(s0)Backwards"
+		// --
+		// if reference2 < 0 //If it's also upside down
+		// {
+			// " and upside down"
+		// }
+		// --
+		// "!\e"
+	// }
+	// elseif reference2 < 2 //Upside down but not backwards
+	// {
+		// "Upside down!\e"
+	// }
+	// elseif reference0 > reference1
+	// {
+		// "\0%(s0)Getting bigger!\e"
+	// }
+	// elseif reference0 < reference1
+	// {
+		// "\0%(s0)Getting smaller!\e"
+	// }
+// }
+
+//Hotkeys. reference0 is the name of the key as displayed on the keycap. reference4, for SSP only, will have things like ctrl and alt, separated by commas.
+OnKeyPress
+{
+	case reference0
+	{
+		when "t"; OnAiTalk
+		when "r"; OnLastTalk
+		when "y"; "\![raise,OnStartTalking]" //Starts a commu dialogue with a random ghost
+		when "f1"; "\![open,readme]"
+		when "f5"; {if debug; "\![reload,ghost]"}
+		when "f6"; {if debug; "\![reload,shiori]"}
+		when "f7"; {if debug; "\![reload,shell]"}
+		when "f8"; {if debug; "\![reload,balloon]"}
+		when "v"; {if debug; OnTestVar}
+		when "c"; {if debug; OnCommuPingMenu}
+	}
+}
+
+//When the user closes an input box. I've only put this here so that the user can't accidentally close it during the first boot, you don't need to mess with it if you don't want to.
+//reference0 here is the event that the input box was going to lead to, and reference1 is either timeout or close based on if it timed out or was closed by the user
+OnUserInputCancel
+{
+	if reference0 == "OnFirstNameTeach"; "\C\![open,inputbox,%(reference0)]\_l[-10000,-10000]\*\t\q[ ,__VERY_FIRST_BOOT__]"
+}

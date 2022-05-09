@@ -1,0 +1,104 @@
+OnTranslate
+{
+	_talk = reference0
+	LOGGING("====================================================================")
+	TAMA("_talk")
+	
+	if StartsWith(_talk,"\n\n")
+	_talk = REPLACE(_talk,"\n\n","",1)
+	
+	if BalloonMode == "Slim"
+	{
+		if StartsWith(_talk,"\C"); _talk = REPLACE(_talk,"\C","\C\b[4]")
+		else; _talk = "\b[4]" + _talk
+		_talk = REPLACE(_talk,"\b[0]","\b[4]")
+		_talk = REPLACE(_talk,"\b[2]","\b[6]")
+		_talk = REPLACE(_talk,"\b2","\b[6]")
+	}
+	
+	//---Auto Anchors---
+	//Add as many names as you want to this list
+	_namelist = "Name 1,Name 2,Name 3"
+	
+	//Names written here should be written in dialogue as @Name 1, @Name 2, etc... So if I added Lulo, I would write @Lulo in dialogue to call the anchor. If I wanted to write the name Lulo without it being an anchor, I would just write it as Lulo
+	//When these anchors are clicked, they will direct to an Anchor.function. So for Name 1 it would be Anchor.Name_1 and for Lulo it would be Anchor.Lulo
+	//Invalid characters will be converted to underscores. You can see a list of invalid characters below. Names are case sensitive as well!
+
+	//Loops through every name on the list and checks for them in dialogue
+	foreach _namelist; _name
+	{
+		//List of characters that are invalid for function names
+		_invalidcharacters = (" ",'"',"#","$","%","&","(",")","*","+","-","/",":",";","<","=",">","?","@","[","]","`","{","|","}",",")
+		_funcname = _name
+		foreach _invalidcharacters; _char //Loop through each invalid character and replace them with _ if they exist
+		{
+			if _char _in_ _funcname; _funcname = REPLACE(_funcname,_char,"_")
+		}
+		_talk = REPLACE(_talk,"@%(_name)","\_a[AUTO_ANCHOR:%(_funcname)]%(_name)\_a") //Replace the @name in the script with an anchor. Since the auto anchor tag uses a :, and : is already cleaned out of the anchor name, you should never be able to interfere with that tag.
+	}
+	
+	
+	//---Manual Anchors---
+	_talk = REPLACE(_talk,"Example Anchor","\_a[exampleanchor]Example Anchor\_a")
+
+	_talk = REPLACE(_talk,"\n\n\![end-of-linebreaks-flag]\n\n","\n\n") //Fixes narration adding too many linebreaks!
+	
+	
+	//---Important other stuff, written by Ponapalt and modified by me---
+	if reference1 == "" && reference2 == ""
+	{ //send input box : no event (ref2) , no special flag (ref1)
+		EVAL('"' + REPLACE(_talk,'"','""') + '"')
+	}
+    else
+	{ //event result from ghost
+		TOSTR(_talk)
+	}
+}
+
+//This bit of code is what makes menu options that don't start with On direct to Select.options instead. Remove or comment it if you prefer!
+OnChoiceSelect
+{
+	EVAL("Select.%(reference0)")
+}
+
+OnAnchorSelect
+{
+	if "http://" _in_ reference0 || "https://" _in_ reference0 //checking to see if the link is a web address
+	{
+		"\j[%(reference0)]\e"
+	}
+	elseif StartsWith(reference0,"AUTO_ANCHOR:") //Checks for the Auto Anchor tag. If it exists, runs a function starting with 'Anchor.' The name of the function, as set up above, will be appended to the end. Example: Anchor.Name_1 or Anchor.Lulo
+	{
+		EVAL("Anchor.%(SPLIT(reference0,'AUTO_ANCHOR:')[1])")
+	}
+	else
+	{
+		case reference0
+		{
+			when "exampleanchor"
+			{
+				"\0%(s0)You clicked the example!\e"
+			}
+		}
+	}
+}
+
+Anchor.Name_1
+{
+	"Dialogue about Name 1!\e"
+}
+
+//Setting variables in random dialogue
+//You can use this to do detailed variable changes and such in dialogue. If you only need to set one variable, I recommend using EVAL in the line of dialogue, like so:
+//"Some dialogue that changes a variable.\e:eval=somevar='some value'"
+//Otherwise, you can use this system like so: "Some dialogue\![raise,OnDialogueVars,example]", changing the word example to whatever reference you want to send to OnDialogueVars
+OnDialogueVars
+{
+	case reference0
+	{
+		when "example"
+		{
+			_example += 1
+		}
+	}
+}
