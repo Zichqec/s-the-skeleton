@@ -1,0 +1,520 @@
+OnSurfaceRestore
+{
+	if !(SHIORI3FW.LastSurface[1] == -1); "\1\s[-1]"
+	--
+	if !(SHIORI3FW.LastSurface[0] == 0); "\0\s[0]"
+}
+
+OnBoot
+{
+	if mysterynum == ""; mysterynum = RAND(10)
+	mysterynum += RAND(10) + 1
+	_newname = NameMangler(username)
+	nicknames ,= _newname
+	
+	"\1\s[-1]"
+	--
+	"\0\s[0]"
+	--
+	"Hello,\w4 %(_newname)"
+	"Hi,\w4 %(_newname)"
+	"Greetings,\w4 %(_newname)"
+	"G'day,\w4 %(_newname)"
+	"Needly day to you,\w4 %(_newname)"
+}
+
+OnClose
+{
+	"kicks you out"
+	"%(laugh)"
+	"See you tonight"
+	"%(poke) for the road"
+	"Takes your %(bodypart) with me"
+	--
+	"\w8\w8\-\e"
+}
+
+OnFirstBoot
+{
+	mysterynum = RAND(10)
+	truename = maketruename
+	nicknames = IARRAY
+	
+	_rand = RAND(30) + 1
+	
+	"\0\s[0]\t\_w[%(_rand * 1000)]"
+	--
+	"NEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE\1EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE\p[2]EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEDLE"
+}
+
+OnTranslate
+{
+	_input = reference0
+	//_input = "\n\n\n" + _input
+	
+	if reference2 == "OnName"
+	{
+		_input = REPLACE(_input,"%(truename)","\_a[OnNewName,%(truename)]%(truename)\_a")
+	}
+	elseif !(reference2 == "OnTrueNameAcceptance" || reference2 == "OnTrueNameDenial" || reference2 == "OnNewName")
+	{
+		_input = REPLACE(_input,"%(truename)","\_a[OnName,True]%(truename)\_a")
+	}
+	
+	if !(reference2 == "OnName" || reference2 == "OnNewName")
+	{
+		foreach nicknames; _name
+		{
+			_input = REPLACE(_input,"%(_name)","\_a[OnName,Nick,""%(_name)""]%(_name)\_a")
+		}
+		_input = REPLACE(_input,"%(username)","\_a[OnName,User]%(username)\_a")
+	}
+	
+	if reference1 == "" && reference2 == ""
+	{
+		_replace = REPLACE(_input,'"','""')
+		EVAL('"' + _replace + '"')
+	}
+	else
+	{
+		TOSTR(_input)
+	}
+}
+
+OnName
+{
+	//"wut u wont ur name of lies 2 b, %(truename)"
+	"\*\t"
+	--
+	if NicknameSet
+	{
+		"%(truename).\w8 %(bold)%(big)gIVE mE yOUR nAME.%(small)%(boldoff)"
+		"Are you ready to accept your true identity as %(truename) yet,\w4 or should we keep playing this little game?"
+		"%(nickname).\w8 %(username).\w8 %(italics)%(truename)%(italicsoff).\w8 Don't tell me that you're reconsidering who you are now,\w4 after all of the titles I've given you?"
+		"rips off ur %(username) nametag to reveal another, smaller %(truename) nametag underneath"
+	}
+	else
+	{
+		if reference0 == "Rejection"
+		{
+			"%(italics)Fine.%(italicsoff)\w8\w8 What is your name then,\w4 if it isn't %(truename)?"
+		}
+		else
+		{
+			"\*\tAh?\w8 What is it,\w4 %(truename)?\w8 Is something the matter?"
+			--
+			"\n\n\_q"
+			--
+			"\![*]\q[Not a thing,OnTrueNameAcceptance]\n"
+			--
+			"\![*]\q[That's not my name,OnTrueNameDenial]\e"
+		}
+	}
+	--
+	NameInput //I'm not sure I like the structure of all of this but my brain is very scrambled lol
+}
+
+NameInput
+{
+	"\![open,inputbox,OnNewName,-1,(Write your lies here)]\_l[-10000,-10000]\q[,timeoutprevention]"
+}
+
+OnTrueNameAcceptance
+{
+	"Good.\w8 I know you better than anyone else,\w4 I hope you know.\w8 That means I care about you.\w8 And your happiness."
+}
+
+OnTrueNameDenial : all
+{
+	"What are you talking about? Of course it is. I know everyone's names! Even people that don't know their own names yet. It's my super special magical power. Don't you believe me, %(truename)?"
+	
+	"\n\n\_q"
+	"\![*]\q[Of course I do,OnTrueNameAcceptance]\n"
+	"\![*]\q[That really isn't my name,OnName,Rejection]"
+}
+
+/*
+
+paper cut font
+jo wrote a lovesong
+3 prong tree
+2 prong tree
+free 3 of 9
+metal mania
+to the point
+
+*/
+
+OnUserInputCancel
+{
+	"\C\![open,inputbox,%(reference0),-1]"
+}
+
+OnNewName
+{
+	"\![close,inputbox,OnNewName]"
+	--
+	if reference0 == "(Write your lies here)" || reference0 == ""
+	{
+		//"yeah uh huh sure"
+		"%(laugh) very well then.\w8 stay silent.\w8 your name will remain engraved on your %(bodypart)."
+		"%(gray)%(slower)empty %(slow)empty %(regspeed)empty %(fast)empty %(faster)empty%(regspeed)\w8\w8\w8\w8\w8\w8\n\n\n\n\n\n\n\n\n\nit's empty%(grayoff)"
+		"Leaving it up to the universe to decide?\w8 I'll stand in for now."
+		"yes yes yes yes yes destroy me"
+	}
+	elseif reference0 == truename
+	{
+		username = ""
+		nicknames = IARRAY
+		
+		//"HA, YOU SEE, I WAS RIGHT ABOUT YOU"
+		"Finally.\w8\w8\w8 Welcome home."
+		"%(truename) %(truename) %(truename) %(truename) %(truename) %(truename) %(truename)"
+		"I see you've accepted the truth.\w8 Let's hope this isn't a lesson that needs to be learned again."
+		"Good.\w8 I've never forgotten who you are,\w4 %(truename)."
+	}
+	elseif TOLOWER(reference0) == "needle"
+	{
+		username = reference0
+		nicknames = IARRAY
+		_newname = NameMangler(username)
+		nicknames ,= _newname
+		
+		_display = ""
+		for _i = 0; _i < 50; _i++
+		{
+			_display += "%(needle)"
+		}
+		_display
+	}
+	elseif TOLOWER(reference0) == "balloons"
+	{
+		username = reference0
+		nicknames = IARRAY
+		_newname = NameMangler(username)
+		nicknames ,= _newname
+		
+		_display = ""
+		for _i = 0; _i < 10; _i++
+		{
+			_display += "%(poke) "
+		}
+		_display
+	}
+	elseif reference0 == username
+	{
+		nicknames = IARRAY
+		_newname = NameMangler(username)
+		nicknames ,= _newname
+		
+		//"FINE i'll come up with MORE NICKNAMES FOR YOU, like %(_newname)"
+		"Sure,\w4 sure.\w8 I remember.\w8 %(username).\w8 %(_newname) for short."
+		"Oh,\w4 wow,\w4 how could I forget!?\w8 %(username)!\w8 You told me that before!\w8 Don't worry,\w4 %(_newname),\w4 I'll remember it for sure this time."
+		"%(username) %(username) %(username) %(_newname) %(_newname) %(screamrand)"
+		"covers ur %(username) nametag with %(_newname)"
+	}
+	else
+	{
+		username = reference0
+		nicknames = IARRAY
+		_newname = NameMangler(username)
+		nicknames ,= _newname
+		
+		//"don't like it.\w8\w8 your name is %(_newname) now."
+		"Whatever you say,\w4 %(_newname)."
+		"writes %(_newname) on your %(bodypart) in permanent marker"
+		"no no no no no bad choice,\w4 i'll call you %(_newname) instead"
+		"Okay I love you %(_newname) I'll get you a new collar tomorrow."
+	}
+}
+
+On_installedshellname
+{
+	InstalledShells = reference
+}
+
+OnKeyPress
+{
+	if reference0 == "t" && debug == 1; OnAiTalk
+}
+
+OnOtherOverlap : all
+{
+	_ghosts = SPLIT(reference.raw[0],C_BYTE1)
+	_command = ""
+
+	foreach _ghosts; _ghost
+	{
+		if "Needle" _in_ _ghost
+		{
+			_char = _ghost[0,"-"]
+			if "Needle" _in_ _char; _char = _ghost[1,"-"]
+			
+			_char = SPLIT(_char,"/")
+			_final = ""
+			for _i = 0; _i < ARRAYSIZE(_char); _i++
+			{
+				if _i == (ARRAYSIZE(_char) - 1); break
+				
+				if _i != 0; _final += "/"
+				_final += _char[_i]
+			}
+			
+			
+			
+			_command += "\![raiseother,%(_final),OnNeedlePoke]"
+		}
+	}
+
+	if _command != ""
+	{
+		"%(_command)"
+		"%(poke)"
+	}
+}
+
+//I remembered it this time lol
+On_homeurl
+{
+	"https://zichqec.github.io/s-the-skeleton/updates/ghosts/needle_gz/"
+}
+
+OnMouseDoubleClick
+{
+	poke
+}
+
+
+
+NameMangler
+{
+	_input = _argv[0]
+	_already_used_mangles = IARRAY
+	
+	_rand = RAND(5) + 1
+	for _i = 0; _i < _rand || _input == _argv[0]; _i++
+	{
+		_list = GETFUNCLIST("Mangler.")
+		
+		foreach _already_used_mangles; _used
+		{
+			_list[ASEARCH(_used,_list)] = IARRAY
+		}
+		if ARRAYSIZE(_list) == 0; break
+		
+		_rand = RAND(ARRAYSIZE(_list))
+		_func = _list[_rand]
+		_already_used_mangles ,= _func
+		
+		_input = EVAL("%(_func)(_input)")
+	}
+	_input
+}
+
+Mangler.Upper
+{
+	_input = _argv[0]
+	
+	for _i = 0; _i < STRLEN(_input); _i++
+	{
+		if RAND(3) == 0
+		{
+			_input = SUBSTR(_input,0,_i) + TOUPPER(SUBSTR(_input,_i,1)) + SUBSTR(_input,_i + 1,STRLEN(_input) - _i)
+		}
+	}
+	_input
+}
+
+Mangler.Lower
+{
+	_input = _argv[0]
+	
+	for _i = 0; _i < STRLEN(_input); _i++
+	{
+		if RAND(3) == 0
+		{
+			_input = SUBSTR(_input,0,_i) + TOLOWER(SUBSTR(_input,_i,1)) + SUBSTR(_input,_i + 1,STRLEN(_input) - _i)
+		}
+	}
+	_input
+}
+
+Mangler.1337
+{
+	if RAND(2) == 0; {_argv[0]; return}
+	_input = _argv[0]
+	
+	_input = REPLACE(_input,"A","4",1)
+	_input = REPLACE(_input,"a","4",1)
+	_input = REPLACE(_input,"B","8",1)
+	_input = REPLACE(_input,"b","8",1)
+	_input = REPLACE(_input,"E","3",1)
+	_input = REPLACE(_input,"e","3",1)
+	_input = REPLACE(_input,"G","6",1)
+	_input = REPLACE(_input,"g","9",1)
+	_input = REPLACE(_input,"H","#",1)
+	_input = REPLACE(_input,"I","1",1)
+	_input = REPLACE(_input,"i","1",1)
+	_input = REPLACE(_input,"L","1",1)
+	_input = REPLACE(_input,"l","1",1)
+	_input = REPLACE(_input,"O","0",1)
+	_input = REPLACE(_input,"o","0",1)
+	_input = REPLACE(_input,"S","5",1)
+	_input = REPLACE(_input,"s","5",1)
+	_input = REPLACE(_input,"T","7",1)
+	_input = REPLACE(_input,"t","7",1)
+	_input = REPLACE(_input,"Z","2",1)
+	_input = REPLACE(_input,"z","2",1)
+	
+	_input
+}
+
+Mangler.uwu
+{
+	_input = _argv[0]
+	
+	_input = REPLACE(_input,"R","W")
+	_input = REPLACE(_input,"r","w")
+	_input = REPLACE(_input,"L","W")
+	_input = REPLACE(_input,"l","w")
+	_input = REPLACE(_input,"you","uwu")
+	
+	_input
+}
+
+Mangler.Reverse
+{
+	if RAND(4) != 0; {_argv[0]; return}
+	_input = _argv[0]
+	_output = ""
+	
+	for _i = STRLEN(_input); _i >= 0; _i--
+	{
+		_output += SUBSTR(_input,_i,1)
+	}
+	
+	_output
+}
+
+Mangler.Title
+{
+	Title + " " + _argv[0]
+}
+
+Mangler.Suffix
+{
+	_argv[0] + " " + Suffix
+}
+
+Mangler.Repeat
+{
+	_input = _argv[0]
+	_output = ""
+	
+	
+	_maxamt = RAND(5) + 1
+	_amt = 0
+	for _i = 0; _i < STRLEN(_input); _i++
+	{
+		_output += SUBSTR(_input,_i,1)
+		if RAND(8) == 0 && _amt <= _maxamt
+		{
+			_rand = RAND(5)
+			for _ii = 0; _ii < _rand; _ii++
+			{
+				_output += SUBSTR(_input,_i,1)
+			}
+			_amt++
+		}
+	}
+	_output
+}
+
+Mangler.RepeatParticle
+{
+	_input = _argv[0]
+	_chunk = SUBSTR(_input,RAND(STRLEN(_input)),RAND(STRLEN(_input) / 2) + 1)
+	
+	_rand = RAND(5) + 2
+	_output = ""
+	for _i = 0; _i < _rand; _i++
+	{
+		_output += _chunk
+	}
+	
+	
+	REPLACE(_input,_chunk,_output)
+}
+
+
+//Thanks to https://www.industrian.net/tutorials/converting-numbers-to-roman-numerals/ for helping me figure out the logic for this
+IntToNumeral
+{
+	//This generator only handles from 1-3999, so if it's outside that range, return a 0
+	_input = TOINT(_argv[0])
+	if _input <= 0 || _input >= 4000; {0; return}
+	
+	_thousands = ",M,MM,MMM"
+	_hundreds = ",C,CC,CCC,CD,D,DC,DCC,DCCC,CM"
+	_tens = ",X,XX,XXX,XL,L,LX,LXX,LXXX,XC"
+	_ones = ",I,II,III,IV,V,VI,VII,VIII,IX"
+	
+	//Do math to get which number is in each column
+	_thousands_digit = (_input / 1000)
+	_hundreds_digit = (_input / 100) % 10
+	_tens_digit = (_input / 10) % 10
+	_ones_digit = _input % 10
+	
+	//Add numerals based on which digits they correspond to
+	_output = ""
+	_output += _thousands[_thousands_digit]
+	_output += _hundreds[_hundreds_digit]
+	_output += _tens[_tens_digit]
+	_output += _ones[_ones_digit]
+	_output
+}
+
+TestNumeral
+{
+	_rand = RAND(4000)
+	"\_q%(_rand)\n%(IntToNumeral(_rand))"
+}
+
+RomanNumeral
+{
+	_small = RAND(10) + 1
+	_big = RAND(3999) + 1
+	_use = _small
+	if RAND(5) == 0; _use = _big
+	IntToNumeral(_use)
+}
+
+
+
+OnUpdate.OnDownloadBegin : all
+{
+	"\_q"
+	"NE"
+	for _i = 0; _i < reference2 + 1; _i++
+	{
+		if _i == reference1 + 1; gray
+		"E"
+	}
+	"DLE\e"
+}
+
+OnTest
+{
+	{
+		_bodypart = bodypart
+		"do u like ur %(_bodypart)"
+		--
+		""
+		{
+			"\w8\w8\n\ni like ur %(_bodypart)"
+			--
+			""
+			"\w8\w8\n\nwill u sell me ur %(_bodypart)"
+		}
+	}
+}

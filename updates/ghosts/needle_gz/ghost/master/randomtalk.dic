@@ -1,0 +1,1010 @@
+OnAiTalk : nonoverlap_pool
+{
+	_importantitem = importantitem
+	
+	aitalkinterval = (RAND(100) + 1) * 10
+	if RAND(1000) == 0; aitalkinterval = 3600 //rare chance for an hour lol rip you
+	LOGGING("NEW INTERVAL: %(aitalkinterval)")
+	
+	"the %(_importantitem) is gone,\w4 where did it go?\w8 WHERE DID IT GO,\w4 COME BACK %(TOUPPER(_importantitem))\e"
+	"YOU CAN'T HAVE MY %(TOUPPER(_importantitem)),\w4 GIVE IT BACK\n\n\n\n\_w[10000]or dont\e"
+	"who asked you who asked you WHO ASKED YOU ANYWAY, %(bold)NOT ME %(laugh)%(boldoff)\e"
+	"SCREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE\e"
+	"YOU TRIED,\w4 YOU TRIED,\w4 BUT DID IT WORK?\w8 HOW WOULD YOU KNOW IF IT DID?\e"
+	"THEY CAN'T WIN,\w4 THEY NEVER COULD\e"
+	"WHY EVEN ASK,\w4 THE ONLY ANSWER YOU'LL GET HAS UNDEFINED EDGES\e"
+	"COLLAPSE\e"
+	"SHUDDER\e"
+	"..................................................................\n\n\_w[2000]%(importantitem)\e"
+	"I WANT TO-\w4 I WANT TO-\w4 I WANT TO-\e"
+	"go ahead,\w4 try and stop me"
+	"IF YOU WOULD HAVE ASKED\w8\n\n[30]DID YOU THINK OF THAT\e"
+	"around and around and around and around and around,\w4 but when does it stop?\n\n\n\n\ndoes it stop?\e"
+	"get get get get get back,\w4 Get Back,\w4 GET %(bold)BACK!!!\e"
+	"I'LL SHOW THEM ALL,\w4 I'LL SHOW THEM THAT-\e"
+	"EVER EVER EVER EVER EVER EVER EVER EVER EVER EVER EVER\e"
+	"JUST HOLD STILL,\w4 HOLD STILL,\w4 DON'T MOVE YOU HAVE TO STOP MOVING\e"
+	"SQUIRM SHUDDER WRITHE\e"
+	"%(laugh)\w8\w8\n\n%(laugh)\w8\w8\n\n%(laugh)\e"
+	"IT'S JUST ME,\w4 AND ME,\w4 AND ME\e"
+	"Did you notice?\e"
+	"Lurking.\e"
+	"They watch.\e"
+	"YEAH well you didn't ASK ME THAT,\w4 %(bold)DID%(boldoff) YOU!?\e"
+	"%(screamrand(1000))"
+	"do you tire\e"
+	"the eyes,\w4 watch the eyes,\w4 wATCH THE E%(bold)YES\e"
+	"\f[height,+100]😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎"
+	"one time i got in \_a[OnDollTrouble]trouble\_a for poking the yarn basket, even though it's way more dangerous to keep a yarn basket next to a \_a[OnDollFireplace]fireplace\_a than it is for yarn to get the %(poke) from me. the worst i could do is make it \_a[OnDollBleed]bleed\_a, and anything you could make from yarn could do with more color in it anyway\w8\w8"
+	"Ah,\w4 to sprout\w4\nTo grow\w4\nTo bloom\w4\nTo wither\w4\nTo rot\w4\nTo nourish\w4\nTo feed,\w4 to grow\w4\nTo feed,\w4 to grow\w4\nTo feed,\w4 to grow\w4\nAnd let it be that which we repeat that brings us to completion\w4\nTo make us whole not in the fulfillment of purpose,\w4 but in the knowledge that we have done what comes to us so naturally\w4\nThat we have done good in our end,\w4 no matter the harm done in the journey\w4\nThat all we are and all we have to be\w4\nIs to grow.\w4 To rot.\w4 To feed.\w4\nAnd not to think more of it.\w8\w8\w8\w8\w8"
+	"WHERE DID THE HEARTS COME FROM, THOSE DON'T BELONG TO YOU, RETURN THE HEARTS\w8\w8"
+	"Can you hear them?\w8 Outside,\w4 can you hear them,\w4 %(nickname)?\w8 Don't let them know you're here.\w8 They'll leave on their own.\w8 Trust me.\w8 You don't want them to come in here.\w8\w8"
+	"Do you ever think about %(thinkabout)?\w8\w8"
+	"%(italics)scoop the button out with a spoon%(italicsoff) hum dee hum\w8\w8"
+	"pokes ur %(bodypart) %(uwu)\w8\w8"
+	"%(uwu) i am a menace and a terror\w8\w8"
+	"Grinding teeth to bake into bread.\w8\w8"
+	"bones bones bones bones bones\w8\w8"
+	"Buying a fast food meal to eat the plastic cutlery.\w8\w8"
+	"He's at the door.\w8 Can't you hear him?\w8 He's screaming at you.\w8 He's screaming!\w4 HE'S SCREAMING, AREN'T YOU GOING TO DO SOMETHING ABOUT IT?\w8\w8"
+	"%(italics)I think I saw something move.\w8\w8\w8\w8\w8\n\nYes,\w4 I know,\w4 Oh Mighty Huntress.\w8 If something had gotten into the hut,\w4 you'd notice.\w8\w8\w8\w8\w8\n\nI'm serious!\w8 I saw something %(italicsoff)move%(italics)!\w8\w8\w8\w8\w8\n\nNo,\w4 it was there,\w4 on the floor!\w8\w8\w8\w8\w8\n\nI swear it.\w8\w8\w8\w8\w8\n\nDo you see%(emdash) %(italicsoff)There!%(italics) There, did you see it!?\w8\w8\w8\w8\w8\n\nIs that...?%(italicsoff)\w8\w8\n\n%(needle)\w8\w8"
+	"u want a swag bag?\w8\w8"
+	"Once I met a %(killer) Hunter.\w8\w8\n\nI stabbed their %(bodypart) off.\w8\w8"
+	"Crashing through the window to eat you alive.\w8\w8"
+	"If you hang a chandelier with a piece of twine and throw darts at it,\w4 how long until it comes crashing down,\w4 instantly destroying everything you cared about that you tried to illuminate with an excessively fancy lamp?\w8\w8"
+	"I sense.\w4.\w4.\w4 potential.\w8\w8"
+	"frogs\w8\w8"
+	"the piano's on fire\w8\w8"
+	"stick a fork in the outlet.\w8\w8\n\nDo Not Stick A Fork In The Outlet.\w8\w8\n\nstick a knife in the outlet.\w8\w8"
+	"If you want to brew a potion,\w4 you have to begin with a proper potion base.\w8 What is a proper potion base?\w8 .\w4.\w4.\w4 How am I supposed to know!\w8 Try water!\w4 Try soup! Try blood! Try apple juice! Try milk!\w8\w8"
+	"\f[align,right]did you check\w8\w8     maybe check again\w8\w8         just to be sure"
+	"\f[align,center]hey\w8\w8\nis anybody in here\n\w8\w8no?\w8 i'll see myself out,\w4 thanks"
+	"%(slow)d d d d d i d you really think things would go that w a y y y y y y y y y y"
+	"they'll %(DoAThing)\w8\w8\n\ni'm not even joking\w8\w8\n\nstop laughing stop laughing %(slow)s t o p   l a u g h i n g"
+	"take care,\w4 and don't %(DoAThing)"
+	"%(gray)are they watching%(grayoff)\w8\w8\n\nI DON'T CARE"
+	"it's splattered on the walls.\w8 the ceiling.\w8 the lamps,\w4 the plants,\w4 even the pots.\w8\w8 it's dripping down,\w4 %(slow)slowly.%(regspeed)\w8\w8 none have escaped its touch.\w8\w8\w8\w8\n\nwhat is it?\w8\w8\w8\w8\w8\w8\w8\n\nit's %(red)."
+	"organic chemistry"
+	"Become Ungovernable."
+	"girls good"
+	"Dracula uses crutches to fly."
+	"If you're larger than a house,\w4 you have to leave."
+	"video games video games video games"
+	"Circle the rocks 7 times.\w8 Don't look back.\w8 Don't look to the sky.\w8 Step back.\w8 Back.\w8 Back.\w8 She's here.\w8 Dig her up.\w8\w8"
+	"beep beep i'm driving a car beep beep %(screamrand)"
+	"This many flashing lights can only mean one thing.\w8 Teen heroes in colorful costumes doing their transformation sequences.\w8\w8"
+	"red cloaks black robes red cloaks black shoes red cloaks"
+	"sharks in the bathtub"
+	"rats in the walls.\w8 RATS IN THE WALLS!\w8"
+	"Every time you blink,\w4 another eye forms.\w8 Watching."
+	"scratch scratch scratch.\w8\w8 you can't stop it can you.\w8\w8 scratch scratch scratch.\w8\w8 but the more you do it the closer you get to your demise.\w8\w8%(slow) scratch scratch scratch.\w8\w8 the walls are crumbling around you,\w4 there's nowhere left to hide.\w8\w8%(slower) scratch scratch scratch.\w8\w8 never could escape the eyes.\w8\w8\w8\w8\w8\w8" //pauses at the end for galla
+	"stop ASKING for DISCOUNTS,\w4 it is the %(bold)PRICE ON THE TAG!!!"
+	"%(bodypart) or %(bodypart),\w4 your choice"
+	"Do you know where the emergency escapes are?"
+	"Next week,\w4 I'm posing on the cover of %(italics)Saturday Sewing Story%(italicsoff)."
+	"Burn down the library, but spare the books"
+	"Where's the witch?"
+	"but i don't wanna go to school"
+	"He put the bags in the basement."
+	"Dancing in a faerie ring"
+	"They'll take you away.\w4 Feed you well.\w8 Hold your hand while you cry at night.\w8\w8"
+	"What's the matter?\w8 Don't like the way the curtains move?"
+	"Crabs crabs CRABS crabs %(bold)crabs%(boldoff) craBs on the beach Beach beacH %(italics)beach%(italicsoff) crawling into the sea SEA sEA %(strike)sea%(strikeoff)"
+	"%(big)%(big)%(big)A\nN\nS\nW\nE\nR%(regsize)"
+	"Have you checked your %(bodypart) lately?\w8 I hear screaming"
+	"Do you still have your %(bodypart)?\w8 I can cut you a good deal."
+	"Make sure nobody steals your %(bodypart),\w4 it would be such a waste of perfectly good material."
+	"%(bodypart) to sell?\w8 I know a good buyer."
+	"Always with the %(bodypart),\w4 they never have the %(bodypart)..."
+	"%(poke) %(poke) %(needle)"
+	"%(poke) the %(creature),\w4 get its %(bodypart)..."
+	"yelling"
+	"skritch skritch\w8\w8\w8\w8\w8\w8\n\n\n\n%(sound)"
+	"%(nickname).\w8\8\w8 I don't like it.\w8\w8"
+	"%(nickname), would you like to swim in the creek?\w8 That's where the Lost Ones collect their coins.\w8"
+	"%(nickname)\w8\w8\w8\n\nI'm going to %(poke) your genetic code\w8\w8"
+	"Do you remember\w8\nhow it feels\w8\w8\nto be created?"
+	"Scoop up the %(bodypart),\w4 drop 'em in the bin."
+	"Do your homework."
+	"Don't forget to moisturize."
+	"Making a wig from plasic bags."
+	"brush\w4 brush\w4 brush\w4 until you bleed"
+	"As we toil on our knees,\w4 scraping away the art of olde with our nails,\w4 heedless of artists long passed and the work they put in\n\w8toiling\n\w8on their knees\n\w8scraping away the dirt with their souls\n\w8\n\w8heedless of worms\n\w8\n\w8struggling to survive\w8\w8"
+	"cosmic glitter"
+	"reflections may be %(small)closer%(big) than they appear"
+	"It's okay.\w8 It's alright.\w8 You're not perfect.\w8 Neither am I.\w8 We may not have forever,\w4 but we have now.\w8 Now,\w4 we're together.\w8 Stay with me.\w8 It doesn't have to be forever.\w8 Stay for now,\w4 and let yourself breathe.\w8\w8"
+	"Could an unfinished creation do this?\w8\n%(screamrand)"
+	"don't look at me with your eyes???"
+	"i'm going to SEND YOU to the HOSPITAL for those TINY ICE CREAMS with the WOODEN SPOONS bring back 20"
+	"hey %(nickname) i need a favor from you\n\n\![*]\q[What,OnFavor]"
+	"%(three)Turn around"
+	"just gonna %(poke)...\w8\w8 just as soon as he's not looking...\w8\w8 then he gets the %(needle)"
+	"\0red \1red \p[2]red \0red \1red \p[2]red \0red \1red \p[2]red \0red \1red \p[2]red \0red \1red \p[2]red \0red \1red \p[2]red \0red \1red \p[2]red \0red \1red \p[2]red \0red \1red \p[2]red \0red \1red \p[2]red \0red \1red \p[2]red \0red \1red \p[2]red "
+	"\0I can't\n\1believe\n\p[2]you'd say\n\0such a thing\n\1about me\n\p[2]you liar\0\w8\w8\n\nbut,\w4 then again it %(italics)is%(italicsoff) true %(uwu)"
+	"\f[height,+20]%(emoji)"
+	"did you hear a %(creature) just now\w8\w8\w8\w8\n\nme neither"
+	"i wanna go i wanna go i wanna go i wanna go\n\n\w8%(needle)"
+	"wiggle wiggle\n\n\w8%(sound)\w8\w8\n%(poke)"
+	"\f[align,right]%(sound)\w8\w8 %(sound)\w8\w8 %(sound)\w8\w8 %(sound)\w8\w8 %(sound)\w8\w8"
+	"careful,\w4 there might be a %(creature) sniffing around here,\w4 looking for your %(bodypart).\w8\w8\n\nyou never know,\w4 ok?"
+	"%(nickname) would you want to be %(importantitem)"
+	"%(emoji) %(emoji) %(nickname) %(emoji) %(emoji)"
+	"Would you consider %(thinkabout) if I asked?"
+	"imagine this.\w8\w8 %(nickname),\w8 but %(element)."
+	"%(uwu) wouldn't it be cute if %(uwu) a %(creature) came and ate your %(bodypart)?\w8 what do you think,\w4 %(nickname)?\w8 sounds good,\w4 right?"
+	"the next time you need to reset your brain,\w4 ruminate on %(thinkabout)"
+	"%(importantitem) to %(DoAThing)"
+	"hold my hand                     i don't have hands"
+	"Would you notice if I %(poke) %(sound) %(sound)\n%(screamrand)"
+	"i'm gonna roll around on the floor"
+	"\_l[-10].                                cheese"
+	"\_l[-10000]x\_l[0,0]     \w8\w8\w8\w8\w8\w8\w8\w8\w8\w8\w8\w8\w8made you look"
+	"roll roll roll roll roll roll\1roll roll roll roll roll roll roll roll\_s roll roll roll roll roll roll roll roll roll\_s"
+	"%(three)%(laugh) %(needle)"
+	"\f[align,center]so THEN i said you have to wait until you hear a %(TOUPPER(sound)),\w4 and then go for the %(needle)"
+	"look look look look at me\n\n\w8\w8no not you go away"
+	"%(slower)N%(big) E%(big) E%(big) D%(big) L%(big) E"
+	"\_q\f[name,courier new]\f[height,2]%(needleascii)"
+	"needle needle needle NEEDLE %(needle) %(italics)%(needle) %(bold)%(needle) %(big)%(needle) %(slow)%(big)%(needle)"
+	"do you love me"
+	"i am...\w8\w8 thinking...\w8\w8 about...\w8\w8 %(thinkabout).\w8\w8 you should think about %(thinkabout)."
+	"choo choo now arriving at %(name2) station,\w4 please consider %(thinkabout) as you depart for your destination.\w8 have a %(needle) day."
+	"you should find yourself a nice %(creature) for dinner"
+	"blood"
+	"feed me"
+	"take me to your leader"
+	"lolololololololol betchu didn't think a needle could be so wise"
+	"put me on top of the %(object)"
+	"Stick me into the %(object) like it's a pincushion"
+	"Thread the %(object) through my eye"
+	"Give me the %(object)"
+	"I dread the day you dig through your drawers and find the %(object) I've been stashing away"
+	"My %(object),\w4 stay away.\w8 %(poke) %(needle)"
+	"would u exchange ur %(bodypart) for this %(object)"
+	"My head buzzes every hour of every day.\w8 I'm in control of myself,\w4 but I feel out of control.\w8 Like my thinking is flawed.\w8 Like I can't trust my own choices.\w8 Am I alone here?\w8 Do others struggle like I do?\w8 Or is it because\w4 I'm not quite\w4 human?"
+	"Be kind to me,\w4 like you're kind to yourself.\w8\w8 Does the thought make you uncomfortable?\w8 Should you be kinder, then?"
+	"Hold my hand and I'll hold yours.\w8 We'll jump into the fire together,\w4 and together we'll return,\w4 tempered by the heat."
+	"there's too much of me to breathe"
+	"hold your nose, curl your toes, don't forget to add the bows"
+	"Holding You Accountable."
+	"%(slower)O U T%(regspeed)"
+	"it feels like there are little knives in my %(bodypart)"
+	"ooh ow i forgot to check my %(bodypart) for staples before leaving the house again"
+	"next time i'll show him the %(object),\w4 see what kind of a price he'll give me."
+	"bet u wish u had this %(object) right now,\w4 but it's mine."
+	"all aboard the %(bodypart) train;\w4 next stop: the butcher."
+	"can u hear me"
+	"8  6   0        1 5    7      2     8 8   2"
+	"does ur head feel like stew\w8\w8\w8\n\noh good the spell is working"
+	"gonna gonna gonna gonna gonna eat the %(object)"
+	"pure terror"
+	"objective taste"
+	"objectionable taste"
+	"you ever wonder what your %(bodypart) tastes like?\w8 me too!\w8 let me %(poke) and i'll let you know what the experience is like"
+	"%(nickname),\w4 %(nickname),\w4 %(nickname).\w8 You should reconsider."
+	"What is the flavor of that %(object) in the window?"
+	"Look.\w8 Not with your eyes,\w4 but with your soul.\w8 What do you see?\w8 A glowing light,\w4 a mass of flesh,\w8 a field of static?\w8 Or a void where nothing escapes?\w8\n\nDo not reach out,\w4 for if you do it is likely %(italics)they%(italicsoff) will see,\w4 and your soul will be no more."
+	"What is existence"
+	"fruit flies"
+	"%(three)%(slow)The walls are screaming,\w4 don't listen"
+	"%(small)can anybody hear me,\w4 is any of it real"
+	"What do the lights on the ceiling mean?"
+	"%(laugh)\w8 don't be scared of the dark\n\n\n\w8\w8you should be much more afraid of the lights"
+	"My %(bodypart) sings, does yours"
+	"Can you hear the scratching\w8\w8\n\n\f[align,right]it's getting closer"
+	"%(TOLOWER(needle))"
+	"look at how much fur is coming out of you"
+	"don't listen don't listen don't listen don't listen"
+	"Drip drip drip\w8\w8\nDown the walls and into the floor\w8\w8\nDrip drip drip\w8\w8\nOozing its way down through the ground\w8\w8\nDrip drip drip\w8\w8\nInto the foundation,\w4 seeping into the roots\w8\w8\nDrip drip drip\w8\w8\nIt will never scrub clean"
+	"Hydrogen peroxide is good for getting the stains out"
+	"the earth is soaked.\w8\n don't ask with what."
+	"you should check on the pot before it burns"
+	"pesky pesky pesky strings"
+	"another loose whisker"
+	"i hope you didn't need your %(bodypart)"
+	"%(poke) %(bodypart)"
+	"make sure to check your water for ants"
+	"Scrape scrape %(poke)\w8\n\f[align,center]Scrape scrape %(poke)\w8\n\f[align,right]Scrape scrape %(poke)"
+	"oops"
+	"\f[height,+20]N%(small)\w2 E%(small)\w2 E%(small)\w2 E%(small)\w2 E%(small)\w2 E%(small)\w2 E%(small)\w2 E%(small)\w2 E%(small)\w2 D%(small)\w2 L%(small)\w2 E"
+	"make sure to check your hair,\w4 if your hands come away %(red) that's a good sign"
+	"does ur %(bodypart) look like ur %(bodypart)\w8\w8\n\nvaluable stuff,\w4 u know\n%(uwu)"
+	"i already checked the mail you don't need to do it again"
+	"don't step on their toes,\w4 they bite back"
+	"n-n-n-n-n-n-...\w8\w8\nn-n-n-n-n-n-n-n-n-n-...\w8\w8\w8\w8\w8\w8\w8\w8\n\n%(TOLOWER(needle)) %(Capital(TOLOWER(needle))) %(needle) %(bold)%(needle) %(italics)%(needle) %(big)%(big)%(needle) %(big)%(big)%(slow)%(needle) %(big)%(big)%(slower)%(needle)"
+	"put ur %(bodypart) in the microwave %(uwu)"
+	"%(nickname).\w8\w8 You're better than that."
+	"i wonder if %(creature) steak smells like %(red)."
+	"k"
+	"so i tried to make some waffles the other day and you would not BELIEVE what happened,\w4 right,\w4 so first of all there were a bunch of %(red) ants crawling around in the waffle mix,\w4 so i had to roll my way out to the store to get some more. on the way there i had to run away from a horde of %(creature)s,\w4 horrible things,\w4 and then the store didn't even HAVE waffle mix,\w4 i had to go all the way home and make it myself by crushing up the %(object) I had laying around. and then i had %(italics)too many%(italicsoff) waffles%(emdash)like,\w4 who ends up with too many, seriously%(emdash)and I had to offload them somewhere.\w8 so i thought and i thought and i thought and after a lot of thinking i decided to put them on top of the ant colony in the hopes that they'd suffocate under there and leave my new waffle mix alone. but no,\w4 oh no,\w4 the next day they came back with a VENGEANCE,\w4 there were at least twenty times as many ants,\w4 crawling,\w4 climbing,\w4 %(poke)ing their way around.\w8 nobody was happy about that. so then i had ant duty,\w4 and got to %(poke) %(needle) each one of those miserable things,\w4 because how else was i to get rid of them?\w8 do you know how many ants there are in one colony?\w8 %(bold)do you?%(boldoff) IT'S A LOT OK,\w4 %(needle)!\w8\w8\w8 anyways so it was a good day,\w4 had a lot of fun.\w8 and now i've got all these dead ants to do something with.\w8 maybe i can %(poke) them until they are suitable to add to the next brew.\w8 probably won't taste too good but i'm sure it'll have some kind of effect,\w4 right?\w8 in high enough quantities it's gotta do something.\w8 i guess i have some experimentation to do,\w4 hopefully it'll be as good as that time i used ground up %(bodypart).\w8 now THAT was a fun time,\w4 let me tell you...\w8\w8 i was stuck to the ceiling for 3 days,\w4 no amount of %(poke) %(poke) %(needle) could get me free.\w8 how did i get free eventually?\w8 that's not important,\w4 what's important is that i'm here now,\w4 waffle-less.\w8 do you like waffles?\w8 i could make you some waffles.\w8 but this time if there are ants crawling around the waffle mix i'm just gonna use it as is,\w4 i'm tired from all the running around.\w8 %(poke) %(poke) %(poke) unless you want your ants to be alive,\w4 do you think they give better nutrients when they're alive?\w8 what kind of nutrients do ants give anyways?\w8 will %(poke)ing them crush the nutrients inside?\w8 can you crush a nutrient?\w8 what even is a nutrient,\w4 really?\w8 do you have them?\w8 do i have them?\w8 does ANYBODY have them?\w8 WHY DOES NOBODY KNOW WHAT A NUTRIENT IS!?\w8\w8 Do you think the ant legs are better or worse for you than the shells?\w8 Maybe I should de-shell them. %(poke) %(poke) that sounds fun.\w8 I can do that.\w8 i'm GREAT at that.\w8 do you know anyone who is a good as me at %(poke)ing?\w8 no you don't.\w8 don't lie to yourself.\w8 I'm the greatest %(poke) master there ever was.\w8 just ask those ants.\w8 those delicious,\w4 delicious ants.\w8 i saved a cup of them in the fridge for you.\w8 they're still writhing,\w4 so they stay fresh.\w8 nobody wants stale ants.\w8 did you know that ants think they're dead if they smell a certain way?\w8 you can get em to walk themselves to the ant graveyard.\w8 and then give them the %(needle) so they stay permanently.\w8 why do all that work to make them walk over themselves in the first place then?\w8 fun.\w8 do you think if you smelled bad enough you'd think you were dead?\w8 maybe if i find the right mix of chemicals we can make it happen.\w8 and then i get to %(poke) %(poke) take that %(needle) %(bodypart) of yours.\w8 say how would you describe your blood,\w4 is it more %(red) or %(red)?\w8 i'm looking for something nice to paint the ceiling with.\w8 something that i can layer to get a nice effect.\w8 maybe sprinkle some ants into and have them stay put.\w8 do you think that'd work?\w8 i figure i can try it anyways.\w8 how much blood you got swimming around in there anyways?\w8 if i take it a bit at a time can you keep producing more?\w8 i bet you could get a gig doing that.\w8 i wish i could get a gig doing that,\w4 would you pay me to take your blood?\w8 you should pay me to take your blood,\w4 i'd do a really good job.\w8 i mean the alternative is i take your blood and you DON'T pay me,\w4 so really this is a great deal i'm offering you. just a little %(poke) %(poke) %(needle) and we'll have lots of %(red) to make beautiful murals with.\w8 it'll be lots of fun,\w4 lots and lots of fun.\w8 %(laugh)\w8\w8\nSo anyway,\w4 that's how my day went.\w8 you were paying attention to all that,\w4 right?\w8 weren't you,\w4 %(nickname)?\w8 ugh don't tell me i have to repeat myself,\w4 no way.\w8 not happening.\w8 %(needle)"
+	"have you considered crushing cans as a job?"
+	"two.\w8 just two.\w8 no more than that.\w8 i mean it,\w4 don't even consider more."
+	"%(poke) hey is this thing on %(poke)"
+	"n-n-n-n-n-n-n-...\w8\w8\n\nnot today"
+	"turn it off and on again"
+	"i can't believe that worked"
+	"what a shame,\w4 what a shame..."
+	"spin me like a top\w8\nwith cheese and eggs on top\w8\nturn it all %(red)\w8\nbet you can't balance me on my edge"
+	"hey %(nickname) hey %(nickname) hey %(nickname)\w8\w8\w8\w8\n\n\n\nlol"
+	"it's all going according to plan"
+	"%(laugh)\w8\nyou wouldn't get it"
+	"this isn't what i ordered\n%(bold)where is my %(food)"
+	"%(food) time"
+	"Don't tell anyone,\w4 but I'm going to give %(nickname).\w4.\w4.\w4 1 (one) %(food)."
+	"Check the %(food) bucket."
+	"%(sound) %(sound) %(food) %(sound)"
+	"Have you fed the %(creature)?\w8 Its favorite is %(food),\w4 but it'll settle for %(food) in a pinch."
+	"Now on sale: %(poke),\w4 available in tropical,\w4 %(red),\w4 and %(food) flavors."
+	"Consider this:\w4 %(element) %(food)."
+	"You ever wonder what %(element) needles would be like?\w8\w8\n\nme neither"
+	"look what can i say i had inspiration while i was at work"
+	"i'm suffering so much rn"
+	"oh look it's shiny\w8 %(needle) %(poke)"
+	"there should be some %(food) left in the fridge"
+	"eenie meenie miney my\w8\ncatch a needle by its eye\w8\nif it hollers let it fly\w8\nor get the %(poke) %(needle)"
+	"%(uwu) %(uwu) %(uwu) %(big)%(big)%(big)%(big)%(emoji)"
+	"i want to flyyyyyyyyyyyyyyyyyyyyyyy no i don't that's a lie"
+	"gosh can you believe this all took place in just 72 hours"
+	"i                                  i                             i                                 %(RomanNumeral)"
+	"a little %(poke) here,\w4 a little %(poke) there,\w4 and now the ritual is almost complete...\w8 just need a little %(red) for the %(needle)"
+	"Smells like %(creature) in here."
+	"I like my murder %(flavor) flavored."
+	"%(small)%(small)%(small)put me in your pocket%(regsize)"
+	"I've never actually killed anyone before."
+	"\f[align,center]Doctors Hate Her!\w4\nImmortal With One Simple Irreversible Trick!\n\f[align,default]"
+	"Would you like to meet %(name1)?\w8 She's my pet %(element) %(creature)."
+	"How to fix %(bodypart) rot???"
+	"dancing mice"
+	"%(italics))It's a troublemaker.\w8\w8\w8\w8\n\nNo,\w4 I'm not saying I want to get rid of it.\w8\w8\w8\w8\n\nIt's just a lot sometimes,\w4 you know?\w8 A toad or a crow I wouldn't think twice about.\w8 I'm used to taking care of those,\w4 even when it's unexpected.\w8 But this...\w8\w8\w8\w8\n\nYeah,\w4 I think it'll take some getting used to.\w8 This isn't like a pet.\w8 It's like... is this weird to say?\w8 That it's sort of like a child?\w8 It's not like I've had one before to compare,\w4 and I know it's just a%(italicsoff)\n\n\n\n%(needle)%(needle)%(needle)\w8\w8"
+	"Snapping rubber bands... Snap!\w4 Snap!\w4 Snap!\w4 ... Out of rubber bands."
+	"I need new shoes."
+	"hiding in the clean sock drawer"
+	"lint traps lint traps lint traps\w8\w8\n\nhave you emptied yours?"
+	"pointy pointy"
+	"i want some %(food)\w8\w8\nyou can have some too\w8\w8\nit's made with %(creature) %(bodypart)"
+	"39 to go"
+	"i counted %(mysterynum) of them the other day"
+	"could you eat %(mysterynum) sandwiches in one go"
+	"hey %(nickname)\w8\w8\n\n%(mysterynum)\w8\w8\n\ndon't question it"
+	"yo %(nickname) what you got against %(food) anyways"
+	"do you like %(food) %(nickname)\w8\w8\n\ni have some for breakfast every morning\w8\w8\n\nexcept the mornings i don't"
+	"i wonder what you'd think if you knew"
+	"you're weird"
+	"does your home get sad when you leave it?"
+	"Did you know?\w8 Since we first met?\w8 I've given %(mysterynum) new people the %(poke)."
+	"Let's read a book together."
+	"Don't even %(bold)think%(boldoff) about putting me in the sewing machine, %(nickname).\w8 I'll %(poke) %(poke) you good if you try."
+	"Freeze me and put me in your mouth like a bee."
+	"look i'll get back to you in another %(mysterynum) hours,\w4 ok?\w8 i promise"
+	"lets have a staring contest"
+	"do you have that %(object) i gave you last week,\w4 i need it back,\w4 stat"
+	"%(laugh)\w8\w8\n\n%(mysterynum) times\w8\w8\n\n%(laugh)"
+	"hey hey hey %(nickname),\w4 give me a good %(laugh)"
+	"didn't anyone tell you %(three)staring is rude"
+	"%(three)just a little pinch,\w4 just a little %(poke)"
+	"\f[align,right]%(two)i don't know what you're talking about"
+	"vinyl scratch sound"
+	"%(sound)\w8\n%(laugh)\w8\n%(needle)"
+	"I'm writing an essay about you, %(nickname)."
+	"oh what fun we have\w8\nwhat games we play\w8\nwhat songs we sing\w8\nand memories we make\w8\ni hope you'll take\w8\nthis time to rejoice\w8\nand enjoy the fact\w8\nthat you still have your voice"
+	"someone stepped in my bucket of %(red) %(food) %(uwu)"
+	"hee\w8\nhee\w8\nhee\w8\nhee"
+	"%(slower)%(three)%(big)%(big)%(big)%(big)%(big)watch out"
+	"i hope you have a bunker to hide in.\w8 i suppose a cellar will do in a pinch."
+	"make sure you're not taking on water"
+	"don't sink"
+	"How long until we're done?"
+	"Hold my %(food),\w4 I need to go on holiday."
+	"tiny slippers made of needles"
+	"I'm trying on human names for myself.\w8 What do you think about %(maketruename)?\w8 A little weird,\w4 right?\w8\w8 I'll put a pin in it."
+	"madness?\w8 this\w4 is\w4 %(needle) %(needle) %(needle)"
+	"i wonder what you'd be like as a needle,\w4 %(username)"
+	"%(mysterynum) little needles in the ceiling,\w4 %(mysterynum) little needles...\w8\w8\ntake one down,\w4 pass it around,\w4 %(mysterynum + 1) little needles in the ceiling\e:eval=mysterynum += 1"
+	"I Am Never Going To Let You Forget Our Conversations."
+
+
+	
+	
+	{
+		"g...\w8\w8\n\ng...\w8\w8\n\ng...\w8\w8\n\n"
+		--
+		"girls"
+		"good gravy"
+		"GREAT"
+		"garlic"
+		"GROOVY"
+		"gosh"
+	}
+	
+	{
+		_creature1 = creature
+		_creature2 = creature
+		
+		"so hey %(nickname),\w4 if you were writing a story about some poor sap,\w4 what kind of creature would you pick to %(poke)?\w8\w8 i'm thinking a \_a[OnCreature.Creature1,%(_creature1)]%(_creature1)\_a or \_a[OnCreature.Creature2,%(_creature2)]%(_creature2)\_a."
+	}
+
+	
+	{
+		_bodypart = bodypart
+		"do u like ur %(_bodypart)"
+		--
+		""
+		{
+			"\w8\w8\n\ni like ur %(_bodypart)"
+			--
+			""
+			"\w8\w8\n\nwill u sell me ur %(_bodypart)"
+		}
+	}
+	
+		
+	
+	_rand_num = RAND(11)
+	_big_rand_num = RAND(1000)
+	if RAND(8) == 0; _rand_num += _big_rand_num
+	if RAND(7) == 0; _rand_num -= (_rand_num + _rand_num)
+	"%(_rand_num)/10"
+	
+	
+	
+	{
+		"\Did you look?\w8 Did you see?\w8 "
+		--
+		{
+			"YOU MUST,\w4 YOU CAN'T NOT,\w4 YOU MUST!!! "
+			--
+			{
+				"DON'T YOU SEE?\w8 DON'T YOU SEE!?!?\w8 "
+				--
+				{
+					"NO,\w4 YOU DIDN'T LOOK!\w8 FOOLISH!\w8 "
+					--
+					{
+						"WOE BE TO YOU WHO DID NOT BEHOLD IT!!!\w8 "
+						--
+						{
+							"A CURSE UPON YOUR HOUSE,\w4 AND ALL THAT YOU HOLD DEAR,\w4 IF YOU HOLD ANYTHING DEAR AT ALL!!\w8 "
+							--
+							"ONE DOUBTS IT CONSIDERING WHAT YOU HAVE DONE!!!!!\e"
+							"I AM NOT CONVINCED!!!\e"
+							"DO YOU?\w8 DO YOU?\w8 DO YOU REALLY?\w8 DO YOU?\e"
+							"CONFESS!!!"
+							"NEXT TIME,\w4 LOOK\e"
+							"\n\npray there is a next time\e"
+							"IT IS BETTER THAN YOU DESERVE\e"
+						}
+						{
+							"DID YOU EVEN THINK ABOUT THE CONSEQUENCES OF YOUR ACTIONS?\w8 "
+							--
+							"NO!!!\w8 OF COURSE ONE SUCH AS YOURSELF WOULD NOT!!!\e"
+							"PLEASE TELL ME YOU DID\e"
+							"YEAH RIGHT\e"
+							"DID YOU NOT REALIZE?\e"
+							"OR YOUR INACTIONS?\e"
+						}
+						{
+							"SUCH A SHAME,\w4 WHAT A WASTE!\w8 WHAT A WASTE!\w8 %(laugh)\w8\n\n"
+							--
+							"ME?\w8 MY EYE DOES NOT SEE\e"
+							"try harder\e"
+							"NEXT TIME I WON'T WARN YOU\e"
+							"CONSIDER PAYING ATTENTION\e"
+							"THERE IS DANGER HERE\e"
+						}
+					}
+					{
+						"I SUPPOSE IT CANNOT BE HELPED,\w4 ALAS!\w8 "
+						--
+						"THERE IS NOTHING FOR YOU HERE\e"
+						"IT IS WHAT IT IS!\w8 IT CANNOT BE CHANGED NOW!\w8 %(laugh)\e"
+						"IT COULD HAVE BEEN HELPED,\w4 BUT NOW IT IS TOO LATE\w8\n\n%(laugh)\e"
+						"%(laugh)\w8\w8\w8\w8\n\nnext time you'll watch\e"
+					}
+					{
+						"OR WOE TO ME?\w8 WOE TO ALL,\w4 DOOM APPROACHES!\w8 "
+						--
+						"%(laugh)\e"
+						"DOOM FOR ALL!\e"
+						"IT IS INEVITABLE!\e"
+						"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\e"
+					}
+				}
+				{
+					"YOU LOOKED!\w8 YOU DID LOOK!\w8 "
+					--
+					"AMAZING,\w4 INCREDIBLE,\w4 YOU ARE ONE-OF-A-KIND\e"
+					"IT IS FORTUNATE THAT YOU CAN FOLLOW INSTRUCTIONS\e"
+					"WE ARE SAVED!\w8 HUZZAH!\e"
+					"WHAT DID IT LOOK LIKE?\e"
+					"DID IT TASTE GOOD?\e"
+				}
+			}
+			{
+				"MUST I DO IT MYSELF?\w8 "
+				--
+				{
+					"I ALWAYS HAVE TO DO THESE THINGS MYSELF.\w8 "
+					--
+					"YOU KNOW NOT WHAT YOU TRIFLE WITH!\e"
+					"Perhaps it is for the best.\e"
+				}
+				{
+					"IF IT IS UP TO ME THAN SO BE IT,\w4 "
+					--
+					"THE UNIVERSE WILL THANK ME FOR MY DEEDS TODAY,\e"
+					"BUT DO NOT SAY I DIDN'T WARN YOU.\e"
+					"BUT KNOW THAT IT WILL BE DONE MY WAY.\e"
+					"BUT YOU WILL GET NO CREDIT.\e"
+					"BUT YOU MAY SUFFER FOR YOUR INACTION.\e"
+				}
+			}
+			{
+				"CAN ONLY I SEE?\w8 "
+				--
+				"Of course,\w4 a burden I must bear alone.\e"
+				"Maybe one day your eye will open too.\e"
+				"Try harder,\w4 then.\w8 Before they get you.\e"
+			}
+		}
+		{
+			"Avoid it at all costs.\w8 "
+			--
+			{
+				"The demons will haunt your waking dreams forever.\w8 "
+				--
+				"Ask me how I know.\e"
+				"Don't ask me how I know.\e"
+				"They don't like you to see.\e"
+				"It is meant to be hidden.\e"
+				"It is not meant to be seen.\e"
+				"Eyes that have seen it are cursed.\e"
+			}
+			{
+				"If you look,\w4 you cannot un-look.\w8 "
+				--
+				"That is the price to pay for your insolence.\e"
+				"It is unfair,\w4 but what can one do.\e"
+				"That is the way of things.\e"
+				"As it goes.\e"
+				"Obviously.\e"
+				"As you should have known.\e"
+			}
+		}
+		{
+			"I recommend against it.\w8 "
+			--
+			"They'll take your eyes.\e"
+			"For your safety.\e"
+			"As a general rule of thumb.\e"
+			"Since you are a creature of flesh.\e"
+			"Generally speaking.\e"
+			{
+				"But oh,\w4 don't listen to me,\w4 why would you do that?\w8 "
+				--
+				"No, you'll take your chances with the wolves instead,\w4 they all do.\e"
+				"NOBODY LISTENS,\w4 THAT'S HOW THINGS END UP THIS WAY.\e"
+				"WHO CARES,\w4 what a little NEEDLE has to SAY.\e"
+				"JUST CAST MY ADVICE ASIDE WHY DON'T YOU.\e"
+			}
+		}
+	}
+	
+	
+	
+	
+}
+
+
+
+OnDollTrouble
+{
+	"i get in trouble all the time for things i did, and things i \_a[OnDollDidnt]didn't do\_a, and things i thought about doing, and things i did in my \_a[OnDollSleep]sleep\_a, and things i said i did but didn't remember if i did them or not. trouble is how we show \_a[OnDollAffection]affection\_a.\w8\w8"
+}
+
+OnDollDidnt
+{
+	"why would i get in trouble for things i didn't do?\w8\w8\n\nbecause i did them.\w8 it's called lying.\w8 you should try it out sometime.\w8\w8"
+}
+
+OnDollSleep
+{
+	"of course i sleep. i have an eye, don't i? everything with eyes needs to get shut-eye. what, you don't think needle eyes count? you some kind of eye expert? got an encyclopedic knowledge of what is and isn't an eye? show me your \_a[OnDollDegree]degree\_a then, nerd. you eye nerd. nerd about eyes, no one's nerdy about eyes.\w8\w8"
+}
+
+OnDollDegree
+{
+	"Oh. Alright, Doctor Professor Eye Expert. I guess I don't sleep.\w8\w8"
+}
+
+OnDollAffection
+{
+	"what what what %(poke) what, don't think i know about affection? or are you confused about the 'we'? huh? is that it? scared there's a swarm of me out there? i'll give you something to be scared of if you don't watch your filthy little mouth\w8\w8\xI have a family, you know. They all feel varying degrees of tolerance to love about me. Is that something you're familiar with? Someone that loves you?\w8\w8\w8\w8\w8\n\n\![*]\q[Yes,OnDollYes]\n\![*]\q[No,OnDollNo]\w8\w8\t\*"
+}
+
+OnDollYes
+{
+	"Good. grEAT. now SHUT your MOUTH and ENJOY IT before you get the %(needle)\w8\w8"
+}
+
+OnDollNo
+{
+	".\w4.\w4.\w4 I hope you find it.\w8\w8 I'm lucky.\w8 I always had it.\w8 I just had to learn how to return it.\w8\w8\w8\n\nand no i'm not telling you what it's like so don't even ask\w8"
+}
+
+OnDollFireplace
+{
+	"the fireplace is the best place to burn things. especially \_a[OnDollPaper]paper\_a. and especially when you want \_a[OnDollWitnesses]witnesses\_a to your crimes.\w8"
+}
+
+OnDollPaper
+{
+	"we have more paper in the house than we're supposed to. no idea where it comes from. you'll think it's gone, then BAM! right there on the kitchen table sitting with its little coffee cup stain like it's been there all day when \_a[OnDollKnow]you know full well\_a that it just got there because that table was clean 5 minutes ago and suddenly it's got paper on it.\w8"
+}
+
+OnDollKnow
+{
+	"i %(bold)know%(boldoff) because it's the same paper that i have poked and pierced and nudged into the fire and knocked water on and ruined more times than i can count, and it always \_a[OnDollRemembers]remembers\_a what i did to it, so i know it's the same one.\w8"
+}
+
+OnDollRemembers
+{
+	"Yeah.\w4 It remembers.\w4 And it tells me about it.\w8"
+}
+
+OnDollWitnesses
+{
+	"%(laugh) yeah,\w4 witnesses.\w8 they make everything more fun.\w8 everything's more fun when it's loud,\w4 and the quickest way to make it loud is to let people see what you're doing.\w8 if you're doing something good,\w4 you get told how good you are.\w8 if you're doing something bad,\w4 you get to make them be louder than normal.\w8\w8\w8\w8\w8\n\nreally,\w4 you should have witnesses for everything you do.\w8 it's win-win.\w8"
+}
+
+OnDollBleed
+{
+	"everything is better with more color, and %(bold)RED%(boldoff) is the \_a[OnDollColor]best color\_a of them all. even the sound of it is good.\w8\n\nred\w8 Red\w8 rEd\w8 RED\w8\w8\n\nred red red red red red red red red red red red red red red red red red red red red red red red red red red red red red red red red red red red red red red red red red red red red red red red"
+}
+
+OnDollColor
+{
+	"red is the color of blood,\w4 obviously.\w8 i see a lot of blood.\w8\w8\w8\n\nIt's also the color of sacrificial spellwork.\w8 Of the comfortable scarf \_a[OnDollShe]she\_a likes.\w8 Of fruit peels lost on the hardwood floor and kicked by bare feet to someplace beneath the cabinets,\w4 never to be found again.\w8\w8\w8\w8\w8\n\nRed is a good color.\w8"
+}
+
+OnDollShe
+{
+	"Which one,\w4 I wonder?\w8 The mud guzzler?\w8 The bird cracker?\w8 %(italics)The Story We Hide From?%(italicsoff)\w8 I wonder,\w4 i wonder\w4, i wonder i wonder i wonder\w8\w8"
+}
+
+OnFavor
+{
+	"%(needle) %(needle) %(needle) %(needle) %(needle)\_w[3000]\cah that was fun"
+}
+
+OnCreature.Creature1
+{
+	_creature = reference0
+	_bodypart1 = bodypart
+	_bodypart2 = bodypart
+	
+	"%(_creature),\w4 eh? Not my first choice,\w4 except it literally was.\w8\w8 Anyway,\w4 what kind of %(_creature) are you thinking,\w4 more of a focus on the \_a[OnCreature.Creature1.Bodypart1,%(_creature),%(_bodypart1)]%(_bodypart1)\_a or \_a[OnCreature.Creature1.Bodypart2,%(_creature),%(_bodypart2)]%(_bodypart2)\_a?\w8\w8"
+}
+
+OnCreature.Creature1.Bodypart1
+{
+	_creature = reference0
+	_bodypart = reference1
+	_red1 = red
+	_red2 = red
+	_red3 = red
+	
+	"Sure,\w4 sure,\w4 I like %(_bodypart) too.\w8\w8 Adds a real nice touch,\w4 fun to %(poke).\w8\w8 Say,\w4 when this thing gets the %(needle),\w4 do you think what comes out is \_a[OnCreature.Creature1.Bodypart1.Red1,%(_creature),%(_bodypart),%(_red1)]%(_red1)\_a or \_a[OnCreature.Creature1.Bodypart1.Red2,%(_creature),%(_bodypart),%(_red2)]%(_red2)\_a?\w8 Or maybe the elusive \_a[OnCreature.Creature1.Bodypart1.Red3,%(_creature),%(_bodypart),%(_red3)]%(_red3)\_a?"
+}
+
+OnCreature.Creature1.Bodypart1.Red1
+{
+	_creature = reference0
+	_bodypart = reference1
+	_red = reference2
+	_importantitem1 = importantitem
+	_importantitem2 = importantitem
+	
+	"%(Capital(_red)).\w8 A good choice.\w8 A strong choice.\w8 A choice that demands answers,\w4 and demands them now.\w8\w8\n\nHmm ok,\w4 right now we've got a %(_creature) that bleeds %(_red) from its %(_bodypart).\w8\w8 What do you think is its favorite item?\w8 I was thinking either \_a[OnCreature.Creature1.Bodypart1.Red1.Item,%(_creature),%(_bodypart),%(_red),%(_importantitem1)]%(_importantitem1)\_a or \_a[OnCreature.Creature1.Bodypart1.Red1.Item,%(_creature),%(_bodypart),%(_red),%(_importantitem2)]%(_importantitem2)\_a.\w8 Preference?"
+}
+
+OnCreature.Creature1.Bodypart1.Red1.Item
+{
+	_creature = reference0
+	_bodypart = reference1
+	_red = reference2
+	_importantitem = reference3
+	
+	"Ok,\w4 sure,\w4 we'll go with that one.\w8\w8 Now give me a name for it or get the %(poke) %(needle)"
+	--
+	OnCreature.NameInput(_creature,_bodypart,_red,_importantitem)
+}
+
+OnCreature.Creature1.Bodypart1.Red2
+{
+	_creature = reference0
+	_bodypart = reference1
+	_red = reference2
+	_importantitem1 = importantitem
+	_importantitem2 = importantitem
+	
+	"%(_red).\w8\w8 I knew you'd pick %(_red),\w4 %(poke).\w8\w8 that's just like you,\w4 %(nickname).\w8 So what kind of possesion do you think it's likes the best,\w4 \_a[OnCreature.Creature1.Bodypart1.Red2.Item,%(_creature),%(_bodypart),%(_red),%(_importantitem1)]%(_importantitem1)\_a or \_a[OnCreature.Creature1.Bodypart1.Red2.Item,%(_creature),%(_bodypart),%(_red),%(_importantitem2)]%(_importantitem2)\_a?"
+}
+
+OnCreature.Creature1.Bodypart1.Red2.Item
+{
+	_creature = reference0
+	_bodypart = reference1
+	_red = reference2
+	_importantitem = reference3
+	
+	"A good choice.\w8 A great choice.\w8 My favorite too.\w8 Now for your favorite choice;\w4 naming."
+	--
+	OnCreature.NameInput(_creature,_bodypart,_red,_importantitem)
+}
+
+OnCreature.Creature1.Bodypart1.Red3
+{
+	_creature = reference0
+	_bodypart = reference1
+	_red = reference2
+	_importantitem1 = importantitem
+	_importantitem2 = importantitem
+	
+	"%(_red).\w8 Ever so interesting.\w8 Dripping from the walls and soaking into the floor and spilling over everything you love.\w8 %(_red).\w8\w8\n\n Should it splatter onto a \_a[OnCreature.Creature1.Bodypart1.Red3.Item,%(_creature),%(_bodypart),%(_red),%(_importantitem1)]%(_importantitem1)\_a or \_a[OnCreature.Creature1.Bodypart1.Red3.Item,%(_creature),%(_bodypart),%(_red),%(_importantitem2)]%(_importantitem2)\_a?"
+}
+
+OnCreature.Creature1.Bodypart1.Red3.Item
+{
+	_creature = reference0
+	_bodypart = reference1
+	_red = reference2
+	_importantitem = reference3
+	
+	"Most excellent.\w8 Now it needs only a name to be complete."
+	--
+	OnCreature.NameInput(_creature,_bodypart,_red,_importantitem)
+}
+
+
+OnCreature.Creature1.Bodypart2
+{
+	_creature = reference0
+	_bodypart = reference1
+	_red1 = red
+	_red2 = red
+	
+	"%(Capital(_bodypart)) is a fun one.\w8\w8 Can get real good sounds.\w8 %(sound) %(sound) %(sound).\w8 Good stuff.\w8\w8 Makes me want to %(poke).\w8 What kind of color do you think would come out of a %(_creature) if i gave it the %(needle)?\w8 \_a[OnCreature.Creature1.Bodypart2.Red1,%(_creature),%(_bodypart),%(_red1)]%(_red1)\_a is a favorite of mine,\w4 or might I interest you in a nice \_a[OnCreature.Creature1.Bodypart2.Red2,%(_creature),%(_bodypart),%(_red2)]%(_red2)\_a?"
+}
+
+OnCreature.Creature1.Bodypart2.Red1
+{
+	_creature = reference0
+	_bodypart = reference1
+	_red = reference2
+	_importantitem1 = importantitem
+	_importantitem2 = importantitem
+	
+	"%(Capital(_red)).\w8 Ahhhh yes.\w8 Delightful,\w4 simply wonderful.\w8\w8 Do you think %(_red) would be better suited on a \_a[OnCreature.Creature1.Bodypart2.Red1.Item,%(_creature),%(_bodypart),%(_red),%(_importantitem1)]%(_importantitem1)\_a,\w4 or \_a[OnCreature.Creature1.Bodypart2.Red1.Item,%(_creature),%(_bodypart),%(_red),%(_importantitem2)]%(_importantitem2)\_a?"
+}
+
+OnCreature.Creature1.Bodypart2.Red1.Item
+{
+	_creature = reference0
+	_bodypart = reference1
+	_red = reference2
+	_importantitem = reference3
+	
+	"That was my thought too,\w4 you're a natural at this.\w8 Now give me a name,\w4 oh wise one."
+	--
+	OnCreature.NameInput(_creature,_bodypart,_red,_importantitem)
+}
+
+OnCreature.Creature1.Bodypart2.Red2
+{
+	_creature = reference0
+	_bodypart = reference1
+	_red = reference2
+	_importantitem1 = importantitem
+	_importantitem2 = importantitem
+	
+	"Ah,\w4 a lovely hue.\w8 Really sparks the imagination.\w8 The amount of things I feel inspired to %(poke) when I think about %(_red), it's just too many to ever %(poke) them all.\w8\w8 If you had to choose,\w4 which would you pick? \_a[OnCreature.Creature1.Bodypart2.Red2.Item,%(_creature),%(_bodypart),%(_red),%(_importantitem1)]%(_importantitem1)\_a or \_a[OnCreature.Creature1.Bodypart2.Red2.Item,%(_creature),%(_bodypart),%(_red),%(_importantitem2)]%(_importantitem2)\_a?"
+}
+
+OnCreature.Creature1.Bodypart2.Red2.Item
+{
+	_creature = reference0
+	_bodypart = reference1
+	_red = reference2
+	_importantitem = reference3
+	
+	"So would I.\w8 What a lovely thing you have crafted here.\w8 All it needs now is a name. Give me one."
+	--
+	OnCreature.NameInput(_creature,_bodypart,_red,_importantitem)
+}
+
+OnCreature.Creature2
+{
+	_creature = reference0
+	_red1 = red
+	_red2 = red
+	_red3 = red
+	
+	"%(laugh),\w4 that's hilarious.\w8 %(_creature)?\w8\w8 %(italics)really?%(italicsoff)\w8\w8\w8\w8 alright,\w4 if you say so.\w8\w8\n\nlet's say,\w4 hypothetically,\w4 this... %(_creature)... accidentally jumps into a pit of maybe-paint-maybe-\_a[OnCreature.Creature2.Acid]acid\_a.\w8\w8 what color paint do you think's at the bottom?\w8 \_a[OnCreature.Creature2.Red1,%(_creature),%(_red1)]%(_red1)\_a?\w8\w8 wait actually,\w4 maybe it's not paint.\w8 paint would probably be bad for you,\w4 and probably definitely kill our hypothetical %(_creature).\w8 let's say it's \_a[OnCreature.Creature2.Red2,%(_creature),%(_red2)]%(_red2)\_a food dye instead.\w8\w8\w8 how about,\w4 all natural,\w4 hypoallergenic \_a[OnCreature.Creature2.Red3,%(_creature),%(_red3)]%(_red3)\_a makeup that conveniently covers its whole body."
+}
+
+OnCreature.Creature2.Acid
+{
+	"%(laugh) %(bold)R.I.P.%(boldoff)"
+}
+
+OnCreature.Creature2.Red1
+{
+	_creature = reference0
+	_red = reference1
+	_bodypart1 = bodypart
+	_bodypart2 = bodypart
+	
+	"so,\w4 a %(_creature) absolutely covered in %(_red) paint is stuck in this pit,\w4 and somehow,\w4 it has to dig its way out.\w8 what's it have to use?\w8 its \_a[OnCreature.Creature2.Red1.BodyPart1,%(_creature),%(_red),%(_bodypart1)]%(_bodypart1)\_a?\w8 or maybe its \_a[OnCreature.Creature2.Red1.BodyPart2,%(_creature),%(_red),%(_bodypart2)]%(_bodypart2)\_a would be the safer bet?"
+}
+
+OnCreature.Creature2.Red1.BodyPart1
+{
+	_creature = reference0
+	_red = reference1
+	_bodypart = reference2
+	_importantitem1 = importantitem
+	_importantitem2 = importantitem
+	
+	"%(_bodypart)!\w8 genius!\w8 our %(_creature) friend digs with its %(_bodypart),\w4 digging and digging and digging a tunnel to get itself out of the pit.\w8 it's a difficult thing,\w4 digging with its %(_bodypart),\w4 especially when all that %(_red) paint makes the dirt all slick and muddy.\w8 but it makes it up and out!\w8 and at the very top!\w8 it finds.\w4.\w4.\w4 uhhh.\w4.\w4.\w4 what did it find, its \_a[OnCreature.Creature2.Red1.BodyPart1.ImportantItem1,%(_creature),%(_red),%(_bodypart),%(_importantitem1)]%(_importantitem1)\_a or its \_a[OnCreature.Creature2.Red1.BodyPart1.ImportantItem2,%(_creature),%(_red),%(_bodypart),%(_importantitem2)]%(_importantitem2)\_a?"
+}
+
+OnCreature.Creature2.Red1.BodyPart1.ImportantItem1
+{
+	_creature = reference0
+	_red = reference1
+	_bodypart = reference2
+	_importantitem = reference3
+	
+	"at last.\w8 a beautiful %(_importantitem) for a beautiful,\w4 slippery, %(_red) paint covered %(_creature) with its beautiful,\w4 expert digger %(_bodypart).\w8 a well-earned treasure.\w8\w8\w8\w8 now,\w4 tell me this creature's name so i can tell you a completely unrelated story about it,\w4 please and thank you."
+	--
+	OnCreature.NameInput(_creature,_bodypart,_red,_importantitem)
+}
+
+OnCreature.Creature2.Red1.BodyPart1.ImportantItem2
+{
+	_creature = reference0
+	_red = reference1
+	_bodypart = reference2
+	_importantitem = reference3
+	
+	"... wait,\w4 all this for %(_importantitem)?\w8 it got itself covered in %(_red) paint and spent,\w4 like,\w4 16 hours digging its way out for %(_importantitem)?\w8 couldn't be me,\w4 but it's not my %(_creature) to torment.\w8\w8\w8\w8 now,\w4 tell me this creature's name so i can tell you a completely unrelated story about it,\w4 please and thank you."
+	--
+	OnCreature.NameInput(_creature,_bodypart,_red,_importantitem)
+}
+
+OnCreature.Creature2.Red1.BodyPart2
+{
+	_creature = reference0
+	_red = reference1
+	_bodypart = reference2
+	_importantitem1 = importantitem
+	_importantitem2 = importantitem
+	
+	"%(_bodypart)...?\w8 well,\w4 i guess that works.\w8 in a pinch,\w4 anyway.\w8 our %(_creature) friend digs with its %(_bodypart),\w4 digging and digging and digging a tunnel to get itself out of the pit.\w8 it's a difficult thing,\w4 digging with its %(_bodypart),\w4 especially when all that %(_red) paint makes the dirt all slick and muddy.\w8 but it makes it up and out!\w8 and at the very top!\w8 it finds.\w4.\w4.\w4 uhhh.\w4.\w4.\w4 what did it find, its \_a[OnCreature.Creature2.Red1.BodyPart2.ImportantItem1,%(_creature),%(_red),%(_bodypart),%(_importantitem1)]%(_importantitem1)\_a or its \_a[OnCreature.Creature2.Red1.BodyPart2.ImportantItem2,%(_creature),%(_red),%(_bodypart),%(_importantitem2)]%(_importantitem2)\_a?"
+}
+
+OnCreature.Creature2.Red1.BodyPart2.ImportantItem1
+{
+	_creature = reference0
+	_red = reference1
+	_bodypart = reference2
+	_importantitem = reference3
+	
+	"at last.\w8 a beautiful %(_importantitem) for a beautiful,\w4 slippery, %(_red) paint covered %(_creature) with its beautiful,\w4 mediocre digger %(_bodypart).\w8 a well-earned treasure.\w8\w8\w8\w8 now,\w4 tell me this creature's name so i can tell you a completely unrelated story about it,\w4 please and thank you."
+	--
+	OnCreature.NameInput(_creature,_bodypart,_red,_importantitem)
+}
+
+OnCreature.Creature2.Red1.BodyPart2.ImportantItem2
+{
+	_creature = reference0
+	_red = reference1
+	_bodypart = reference2
+	_importantitem = reference3
+	
+	"... wait,\w4 all this for %(_importantitem)?\w8 it got itself covered in %(_red) paint and spent,\w4 like,\w4 5 hours digging its way out for %(_importantitem)?\w8 couldn't be me,\w4 but it's not my %(_creature) to torment.\w8\w8\w8\w8 now,\w4 tell me this creature's name so i can tell you a completely unrelated story about it,\w4 please and thank you."
+	--
+	OnCreature.NameInput(_creature,_bodypart,_red,_importantitem)
+}
+
+OnCreature.Creature2.Red2
+{
+	_creature = reference0
+	_red = reference1
+	_bodypart1 = bodypart
+	_bodypart2 = bodypart
+	
+	"so,\w4 a %(_creature) dyed %(_red) down to its very bones is stuck in this pit,\w4 and somehow,\w4 it has to dig its way out.\w8 what's it have to use?\w8 its \_a[OnCreature.Creature2.Red2.BodyPart1,%(_creature),%(_red),%(_bodypart1)]%(_bodypart1)\_a?\w8 or maybe its \_a[OnCreature.Creature2.Red2.BodyPart2,%(_creature),%(_red),%(_bodypart2)]%(_bodypart2)\_a would be the safer bet?"
+}
+
+OnCreature.Creature2.Red2.BodyPart1
+{
+	_creature = reference0
+	_red = reference1
+	_bodypart = reference2
+	_importantitem1 = importantitem
+	_importantitem2 = importantitem
+	
+	"%(_bodypart)!\w8 genius!\w8 our %(_creature) friend digs with its %(_bodypart),\w4 digging and digging and digging a tunnel to get itself out of the pit.\w8 it's not too hard,\w4 digging with its %(_bodypart),\w4 especially after the %(_red) dye helped dry out its skin and give it more friction for %(bold)the dig%(boldoff).\w8 soon,\w4 it makes it up and out!\w8 and at the very top!\w8 it finds.\w4.\w4.\w4 uhhh.\w4.\w4.\w4 what did it find, its \_a[OnCreature.Creature2.Red2.BodyPart1.ImportantItem1,%(_creature),%(_red),%(_bodypart),%(_importantitem1)]%(_importantitem1)\_a or its \_a[OnCreature.Creature2.Red2.BodyPart1.ImportantItem2,%(_creature),%(_red),%(_bodypart),%(_importantitem2)]%(_importantitem2)\_a?"
+}
+
+OnCreature.Creature2.Red2.BodyPart1.ImportantItem1
+{
+	_creature = reference0
+	_red = reference1
+	_bodypart = reference2
+	_importantitem = reference3
+	
+	"at last.\w8 a beautiful %(_importantitem) for a beautiful,\w4 %(_red) boned %(_creature) with its beautiful,\w4 expert digger %(_bodypart).\w8 a well-earned treasure.\w8\w8\w8\w8 now,\w4 tell me this creature's name so i can tell you a completely unrelated story about it,\w4 please and thank you."
+	--
+	OnCreature.NameInput(_creature,_bodypart,_red,_importantitem)
+}
+
+OnCreature.Creature2.Red2.BodyPart1.ImportantItem2
+{
+	_creature = reference0
+	_red = reference1
+	_bodypart = reference2
+	_importantitem = reference3
+	
+	"... wait,\w4 all this for %(_importantitem)?\w8 it got itself permanently dyed %(_red) and spent,\w4 like,\w4 16 hours digging its way out for %(_importantitem)?\w8 couldn't be me,\w4 but it's not my %(_creature) to torment.\w8\w8\w8\w8 now,\w4 tell me this creature's name so i can tell you a completely unrelated story about it,\w4 please and thank you."
+	--
+	OnCreature.NameInput(_creature,_bodypart,_red,_importantitem)
+}
+
+OnCreature.Creature2.Red2.BodyPart2
+{
+	_creature = reference0
+	_red = reference1
+	_bodypart = reference2
+	_importantitem1 = importantitem
+	_importantitem2 = importantitem
+	
+	"%(_bodypart)...?\w8 well,\w4 i guess that works.\w8 in a pinch,\w4 anyway.\w8 our %(_creature) friend digs with its %(_bodypart),\w4 digging and digging and digging a tunnel to get itself out of the pit.\w8 it's not too hard,\w4 digging with its %(_bodypart),\w4 especially after the %(_red) dye helped dry out its skin and give it more friction for %(bold)the dig%(boldoff).\w8 soon,\w4 it makes it up and out!\w8 and at the very top!\w8 it finds.\w4.\w4.\w4 uhhh.\w4.\w4.\w4 what did it find, its \_a[OnCreature.Creature2.Red2.BodyPart2.ImportantItem1,%(_creature),%(_red),%(_bodypart),%(_importantitem1)]%(_importantitem1)\_a or its \_a[OnCreature.Creature2.Red2.BodyPart2.ImportantItem2,%(_creature),%(_red),%(_bodypart),%(_importantitem2)]%(_importantitem2)\_a?"
+}
+
+OnCreature.Creature2.Red2.BodyPart2.ImportantItem1
+{
+	_creature = reference0
+	_red = reference1
+	_bodypart = reference2
+	_importantitem = reference3
+	
+	"at last.\w8 a beautiful %(_importantitem) for a beautiful,\w4 %(_red) boned %(_creature) with its beautiful,\w4 mediocre digger %(_bodypart).\w8 a well-earned treasure.\w8\w8\w8\w8 now,\w4 tell me this creature's name so i can tell you a completely unrelated story about it,\w4 please and thank you."
+	--
+	OnCreature.NameInput(_creature,_bodypart,_red,_importantitem)
+}
+
+OnCreature.Creature2.Red2.BodyPart2.ImportantItem2
+{
+	_creature = reference0
+	_red = reference1
+	_bodypart = reference2
+	_importantitem = reference3
+	
+	"... wait,\w4 all this for %(_importantitem)?\w8 it got itself permanently dyed %(_red) and spent,\w4 like,\w4 5 hours digging its way out for %(_importantitem)?\w8 couldn't be me,\w4 but it's not my %(_creature) to torment.\w8\w8\w8\w8 now,\w4 tell me this creature's name so i can tell you a completely unrelated story about it,\w4 please and thank you."
+	--
+	OnCreature.NameInput(_creature,_bodypart,_red,_importantitem)
+}
+
+OnCreature.Creature2.Red3
+{
+	_creature = reference0
+	_red = reference1
+	_bodypart1 = bodypart
+	_bodypart2 = bodypart
+	
+	"so,\w4 a %(_creature) caked in %(_red) eyeshadow or lipgloss or whatever is stuck in this pit,\w4 and somehow,\w4 it has to dig its way out.\w8 what's it have to use?\w8 its \_a[OnCreature.Creature2.Red3.BodyPart1,%(_creature),%(_red),%(_bodypart1)]%(_bodypart1)\_a?\w8 or maybe its \_a[OnCreature.Creature2.Red3.BodyPart2,%(_creature),%(_red),%(_bodypart2)]%(_bodypart2)\_a would be the safer bet?"
+}
+
+OnCreature.Creature2.Red3.BodyPart1
+{
+	_creature = reference0
+	_red = reference1
+	_bodypart = reference2
+	
+	_importantitem1 = importantitem
+	_importantitem2 = importantitem
+	
+	"%(_bodypart)!\w8 genius!\w8 our %(_creature) friend digs with its %(_bodypart),\w4 digging and digging and digging a tunnel to get itself out of the pit.\w8 all of that %(_red) makeup makes the dirt and bugs and roots stick to its %(_bodypart),\w4 but honestly,\w4 that's called fashion.\w8 eventually,\w4 it makes it up and out!\w8 and at the very top!\w8 it finds.\w4.\w4.\w4 uhhh.\w4.\w4.\w4 what did it find, its \_a[OnCreature.Creature2.Red3.BodyPart1.ImportantItem1,%(_creature),%(_red),%(_bodypart),%(_importantitem1)]%(_importantitem1)\_a or its \_a[OnCreature.Creature2.Red3.BodyPart1.ImportantItem2,%(_creature),%(_red),%(_bodypart),%(_importantitem2)]%(_importantitem2)\_a?"
+}
+
+OnCreature.Creature2.Red3.BodyPart1.ImportantItem1
+{
+	_creature = reference0
+	_red = reference1
+	_bodypart = reference2
+	_importantitem = reference3
+	
+	"at last.\w8 a beautiful %(_importantitem) for a beautiful,\w4 dirt caked %(_red) %(_creature) with its beautiful,\w4 expert digger %(_bodypart).\w8 a well-earned treasure.\w8\w8\w8\w8 now,\w4 tell me this creature's name so i can tell you a completely unrelated story about it,\w4 please and thank you."
+	--
+	OnCreature.NameInput(_creature,_bodypart,_red,_importantitem)
+}
+
+OnCreature.Creature2.Red3.BodyPart1.ImportantItem2
+{
+	_creature = reference0
+	_red = reference1
+	_bodypart = reference2
+	_importantitem = reference3
+	
+	"... wait,\w4 all this for %(_importantitem)?\w8 it got worms and %(_red) lipstick in its orifices and spent,\w4 like,\w4 16 hours digging its way out for %(_importantitem)?\w8 couldn't be me,\w4 but it's not my %(_creature) to torment.\w8\w8\w8\w8 now,\w4 tell me this creature's name so i can tell you a completely unrelated story about it,\w4 please and thank you."
+	--
+	OnCreature.NameInput(_creature,_bodypart,_red,_importantitem)
+}
+
+OnCreature.Creature2.Red3.BodyPart2
+{
+	_creature = reference0
+	_red = reference1
+	_bodypart = reference2
+	
+	_importantitem1 = importantitem
+	_importantitem2 = importantitem
+	
+	"%(_bodypart)...?\w8 well,\w4 i guess that works.\w8 in a pinch,\w4 anyway.\w8 our %(_creature) friend digs with its %(_bodypart),\w4 digging and digging and digging a tunnel to get itself out of the pit.\w8 all of that %(_red) makeup makes the dirt and bugs and roots stick to its %(_bodypart),\w4 but honestly,\w4 that's called fashion.\w8 eventually,\w4 it makes it up and out!\w8 and at the very top!\w8 it finds.\w4.\w4.\w4 uhhh.\w4.\w4.\w4 what did it find, its \_a[OnCreature.Creature2.Red3.BodyPart2.ImportantItem1,%(_creature),%(_red),%(_bodypart),%(_importantitem1)]%(_importantitem1)\_a or its \_a[OnCreature.Creature2.Red3.BodyPart2.ImportantItem2,%(_creature),%(_red),%(_bodypart),%(_importantitem2)]%(_importantitem2)\_a?"
+}
+
+OnCreature.Creature2.Red3.BodyPart2.ImportantItem1
+{
+	_creature = reference0
+	_red = reference1
+	_bodypart = reference2
+	_importantitem = reference3
+	
+	"at last.\w8 a beautiful %(_importantitem) for a beautiful,\w4 dirt caked %(_red) %(_creature) with its beautiful,\w4 mediocre digger %(_bodypart).\w8 a well-earned treasure.\w8\w8\w8\w8 now,\w4 tell me this creature's name so i can tell you a completely unrelated story about it,\w4 please and thank you."
+	--
+	OnCreature.NameInput(_creature,_bodypart,_red,_importantitem)
+}
+
+OnCreature.Creature2.Red3.BodyPart2.ImportantItem2
+{
+	_creature = reference0
+	_red = reference1
+	_bodypart = reference2
+	_importantitem = reference3
+	
+	"... wait,\w4 all this for %(_importantitem)?\w8 it got worms and %(_red) lipstick in its orifices and spent,\w4 like,\w4 5 hours digging its way out for %(_importantitem)?\w8 couldn't be me,\w4 but it's not my %(_creature) to torment.\w8\w8\w8\w8 now,\w4 tell me this creature's name so i can tell you a completely unrelated story about it,\w4 please and thank you."
+	--
+	OnCreature.NameInput(_creature,_bodypart,_red,_importantitem)
+}
+
+OnCreature.NameInput
+{
+	"\![open,inputbox,OnCreature.Complete,-1,--reference=%(_argv[0]),--reference=%(_argv[1]),--reference=%(_argv[2]),--reference=%(_argv[3])]"
+}
+
+OnCreature.Complete : nonoverlap
+{
+	_name = reference0
+	_creature = reference2
+	_bodypart = reference3
+	_red = reference4
+	_importantitem = reference5
+	
+	"Once upon a time there was a %(_creature) called %(_name) with a %(_red) %(_bodypart).\w8\w8 One day,\w4 someone stole its %(_importantitem).\w8\w8 So it went on an angry quest to %(poke) %(poke) the thief and retrieve its %(_importantitem).\w8\w8 And then it died the end."
+	
+	"Once upon a time,\w4 there was a little baby %(_creature) named %(_name).\w8%(_name) didn't like being a %(_creature) very much because what it really wanted a purple %(_importantitem), but it could only get a purple %(_importantitem) if it showed off its %(_red) %(_bodypart) in the state faire.\w8 %(_name) was a very,\w4 very shy %(_creature),\w4 so it didn't do that and settled for a yellow %(_importantitem) instead.\w8\w8\nThe End."
+	
+	"One time I got into a fist fight with a %(_creature) over this %(_importantitem) I found behind a dumpster,\w4 but instead of fighting fair it fought with its %(_bodypart) and totally tried to %(poke) me before I could get a hit in.\w8 Don't worry,\w4 I'm super duper mega fast,\w4 and my %(poke) is way more %(poke)y,\w4 so that thing was a smear of %(_red) before any serious damage was done.\w8 It told me in its dying breath that it's name is %(_name) and it was going to share the %(_importantitem) with me anyway,\w4 OOPS!\w8\w8"
+	
+	//"Once upon a time "
+}
+
+OnCreature.Test
+{
+	_creature1 = creature
+	_creature2 = creature
+	
+	"so hey %(nickname),\w4 if you were writing a story about some poor sap,\w4 what kind of creature would you pick to %(poke)?\w8\w8 i'm thinking a \_a[OnCreature.Creature1,%(_creature1)]%(_creature1)\_a or \_a[OnCreature.Creature2,%(_creature2)]%(_creature2)\_a."
+}

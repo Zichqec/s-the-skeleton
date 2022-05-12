@@ -1,0 +1,128 @@
+nickname
+{
+	_tempnames = (nicknames,username,truename)
+	_names = IARRAY
+	foreach _tempnames; _name
+	{
+		if _name != ""; _names ,= _name
+	}
+	
+	ANY(_names)
+}
+
+bold
+{
+	"\f[bold,1]"
+}
+
+boldoff
+{
+	"\f[bold,default]"
+}
+
+italics
+{
+	"\f[italic,1]"
+}
+
+italicsoff
+{
+	"\f[italic,default]"
+}
+
+strike
+{
+	"\f[strike,1]"
+}
+
+strikeoff
+{
+	"\f[strike,default]"
+}
+
+gray
+{
+	"\f[color,disable]"
+}
+
+grayoff
+{
+	"\f[color,default]"
+}
+
+fast
+{
+	"\![set,balloonwait,0.5]"
+}
+
+slow
+{
+	"\![set,balloonwait,2]"
+}
+
+faster
+{
+	"\![set,balloonwait,0.2]"
+}
+
+slower
+{
+	"\![set,balloonwait,4]"
+}
+
+regspeed
+{
+	"\![set,balloonwait,1]"
+}
+
+big
+{
+	"\f[height,+2]"
+}
+
+small
+{
+	"\f[height,-2]"
+}
+
+regsize
+{
+	"\f[height,default]"
+}
+
+NicknameSet
+{
+	username != ""
+}
+
+Capital
+{
+	_firstletter = TOUPPER(SUBSTR(_argv[0],0,1))
+	_rest_of_word = ERASE(_argv[0],0,1)
+	_firstletter + _rest_of_word
+}
+
+two
+{
+	"\_s"
+}
+
+twooff
+{
+	"\_s"
+}
+
+three
+{
+	"\_s[0,1,2]"
+}
+
+threeoff
+{
+	"\_s"
+}
+
+emdash
+{
+	"\f[name,calibri]—\f[name,default]"
+}
