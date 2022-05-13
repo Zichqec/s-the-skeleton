@@ -1,0 +1,39 @@
+descript
+{
+	version,1
+}
+
+surface0
+{
+	//Word Search
+	animation100.interval,never
+	animation100.pattern0,overlay,100,0,0,0
+	
+	//Hangman
+	animation101.interval,never
+	animation101.pattern0,overlay,101,0,0,0
+	
+	//Jumble
+	animation102.interval,never
+	animation102.pattern0,overlay,102,0,0,0
+	
+	//Rock Paper Scissors
+	animation103.interval,never
+	animation103.pattern0,overlay,103,0,0,0
+	
+	//Rock
+	animation104.interval,never
+	animation104.pattern0,overlay,104,0,0,0
+	
+	//Paper
+	animation105.interval,never
+	animation105.pattern0,overlay,105,0,0,0
+	
+	//Scissors
+	animation106.interval,never
+	animation106.pattern0,overlay,106,0,0,0
+	
+	//Paperclips dressup
+	animation1000.interval,bind
+	animation1000.pattern0,overlay,1000,0,0,0
+}

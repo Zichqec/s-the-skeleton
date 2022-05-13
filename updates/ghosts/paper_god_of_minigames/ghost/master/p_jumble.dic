@@ -1,0 +1,91 @@
+//Written by Zichqec https://zichqec.github.io/s-the-skeleton/
+
+//Main game window
+OnJuniorJumble
+{
+	_word = GameWords
+	
+	//Scramble the word
+	_temp = TOLOWER(_word)
+	_jumbled = ""
+	while STRLEN(_temp) > 0
+	{
+		_rand = RAND(STRLEN(_temp))
+		_jumbled += SUBSTR(_temp,_rand,1)
+		_temp = ERASE(_temp,_rand,1)
+	}
+
+	"\0\s[0]\i[102]\*\![close,inputbox,OnJuniorJumbleGuess,-1]\![open,inputbox,OnJuniorJumbleGuess,-1,--reference=%(_word)]"
+	--
+	"Unscramble the word:"
+	--
+	"\n\n\f[height,+4]%(_jumbled)\f[default]"
+	--
+	"\_q\n\n\![*]\q[Give up,OnJuniorJumbleQuit,%(_word)]\e"
+}
+
+//After the user puts in a guess
+OnJuniorJumbleGuess
+{
+	_word = reference2
+	
+	if reference0 == ""; "\![raise,OnJuniorJumbleQuit,%(_word)]"
+	elseif TOLOWER(reference0) == TOLOWER(_word) //Win
+	{
+		Wins.Jumble++
+		if IsFirstBoot
+		{
+			"An instinct for order,\w4 I see.\w8 You are interesting.\w8"
+			--
+			FinishFirstBoot
+		}
+		else
+		{
+			"%(_word) is exactly correct.\w8 Well done."
+			"%(_word) is what I was looking for.\w8 Congratulations."
+			"%(_word) is right.\w8 Nicely guessed."
+		}
+	}
+	else //Lose
+	{
+		Losses.Jumble++
+		if IsFirstBoot
+		{
+			"Worry not.\w8 Repetition and familiarity may yet improve your skill."
+			--
+			FinishFirstBoot
+		}
+		else
+		{
+		
+			//The \_? around the %(reference0) prevents the user from running any sakurascript tags here. Make sure you keep those.
+			"\_?%(reference0)\_? is incorrect.\w8 I was looking for %(_word)."
+			"\_?%(reference0)\_? is wrong.\w8 %(_word) was the answer.\w8 Your loss."
+			"\_?%(reference0)\_? isn't it,\w4 it was %(_word).\w8 Better luck next time."
+
+		}
+	}
+	--
+	"\_q\n\n\![*]\q[Play Again,OnJuniorJumble]  \![*]\q[Enough,OnGenericQuit]\*\e"
+}
+
+//If the user quits or puts in nothing
+OnJuniorJumbleQuit
+{
+	_word = reference0
+	
+	"\![close,inputbox,OnJuniorJumbleGuess,-1]"
+	--
+	if IsFirstBoot
+	{
+		FirstBootUninstall
+	}
+	else
+	{
+		Quits.Jumble++
+		
+		"Not playing?\w8 A shame.\w8 It was %(_word),\w4 for the record."
+		"Disappointing.\w8 The answer was %(_word)."
+		".\w4.\w4.\w4 I see.\w8 It was %(_word)."
+	}
+}

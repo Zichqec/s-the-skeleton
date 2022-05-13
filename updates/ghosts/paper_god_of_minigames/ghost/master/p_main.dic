@@ -1,0 +1,365 @@
+OnFirstBoot
+{
+	stroke = 0
+	RandomTalkInterval = "Off"
+	IsFirstBoot = 1
+	
+	Wins.Hangman = 0
+	Wins.Jumble = 0
+	Wins.Wordsearch = 0
+	Wins.RPS = 0
+	
+	Losses.Hangman = 0
+	Losses.Jumble = 0
+	//Losses.Wordsearch = 0
+	Losses.RPS = 0
+	
+	Quits.Hangman = 0
+	Quits.Jumble = 0
+	Quits.Wordsearch = 0
+	Quits.RPS = 0
+	
+	Ties.RPS = 0
+	
+	
+	OnRandomMinigame("firstboot")
+}
+
+OnBoot
+{
+	IsFirstBoot = 0
+}
+
+OnClose
+{
+	
+}
+
+FinishFirstBoot
+{
+	IsFirstBoot = 0
+	"\n\nThank you for an entertaining game.\w8 I think I'll stay around for a while,\w4 in case you'd care for another.\e"
+}
+
+FirstBootUninstall
+{
+	"\tNo games,\w4 no ghost.\w8\w8\![vanishbymyself]"
+}
+
+OnUpdate.OnDownloadBegin
+{
+	_progress = TOINT(reference1) + 1
+	_total = TOINT(reference2) + 1
+
+	"\0\s[0]\_qDownloading %(reference0)...\_l[0,0]\n\n\n\n\n"
+	--
+	_display = ""
+	_display += "\f[name,courier new]"
+	for _i = 0; _i < _total; _i++
+	{
+	//Loading bar display - customize with text or images or whatever
+	if _i < _progress; _display += "■" //Files that have already been downloaded
+	else; _display += "□" //Files that have not been downloaded yet
+	}
+	--
+	"%(_display)\n\n%(_progress)/%(_total)\e"
+}
+
+OnMouseDoubleClick
+{
+	if !MenuIsOpen; OnRandomMinigame
+}
+
+OnAiTalk
+{
+	if RandomTalkInterval == "On"; RandomizeTalkInterval
+	if !MenuIsOpen; OnRandomMinigame
+}
+
+OnRandomMinigame : nonoverlap
+{
+	"\![raise,OnStartWordSearch,%(_argv[0])]"
+	"\![raise,OnStartHangman,%(_argv[0])]"
+	"\![raise,OnJuniorJumble,%(_argv[0])]"
+	"\![raise,OnStartRPS,%(_argv[0])]"
+}
+
+OnMouseMove
+{
+	if reference3 == 0
+	{
+		if stroke == ""; stroke = 0
+		stroke++
+		if stroke >= 50 && !MenuIsOpen
+		{
+			stroke = 0
+			OnMiniGameMenu
+		}
+	}
+}
+
+OnMouseLeaveAll
+{
+	stroke = 0
+}
+
+OnChoiceSelect
+{
+	EVAL("Select.%(reference0)")
+}
+
+OnSurfaceRestore
+{
+	"\1\s[-1]\0\s[0]"
+}
+
+OnTranslate
+{
+	_talk = reference0
+	//---Important other stuff, written by Ponapalt and modified by me---
+	if reference1 == "" && reference2 == ""
+	{ //send input box : no event (ref2) , no special flag (ref1)
+		EVAL('"' + REPLACE(_talk,'"','""') + '"')
+	}
+    else
+	{ //event result from ghost
+		TOSTR(_talk)
+	}
+}
+
+OnMiniGameMenu : all
+{
+	"\0\_q\s[0]"
+	"\![*]\q[Word Search,OnStartWordSearch]\n"
+	"\![*]\q[Hangman,OnStartHangman]\n"
+	"\![*]\q[Jumble,OnJuniorJumble]\n"
+	"\![*]\q[Rock Paper Scissors,OnStartRPS]\n"
+	"\n"
+	"\![*]\q[Adjust Minigame Frequency,OnTalkInterval]\n"
+	"\![*]\q[Stats,OnGameStats]\n"
+	"\n\![*]\q[Nevermind,blank]"
+}
+
+OnTalkInterval : all
+{
+	"\0\_qTime between games:\n\n"
+	"\![*]\q[1 minute,OnNewInterval,60]\n"
+	"\![*]\q[5 minutes,OnNewInterval,300]\n"
+	"\![*]\q[10 minutes,OnNewInterval,600]\n"
+	"\![*]\q[15 minutes,OnNewInterval,900]\n"
+	"\![*]\q[30 minutes,OnNewInterval,1800]\n"
+	"\![*]\q[1 hour,OnNewInterval,3600]\n"
+	"\![*]\q[Random,OnNewInterval,Random]\n"
+	"\n\![*]\q[Cancel,OnMiniGameMenu]\e"
+}
+
+OnNewInterval
+{
+	if reference0 == "Random"
+	{
+		RandomTalkInterval = "On"
+		RandomizeTalkInterval
+	}
+	else
+	{
+		RandomTalkInterval = "Off"
+		aitalkinterval = TOINT(reference0)
+	}
+	
+}
+
+OnGameStats : all
+{
+	if Wins.Hangman == ""; Wins.Hangman = 0
+	if Wins.Jumble == ""; Wins.Jumble = 0
+	if Wins.Wordsearch == ""; Wins.Wordsearch = 0
+	if Wins.RPS == ""; Wins.RPS = 0
+
+	if Losses.Hangman == ""; Losses.Hangman = 0
+	if Losses.Jumble == ""; Losses.Jumble = 0
+	if Losses.Wordsearch == ""; Losses.Wordsearch = 0
+	if Losses.RPS == ""; Losses.RPS = 0
+
+	if Ties.RPS == ""; Ties.RPS = 0
+
+	if Quits.Hangman == ""; Quits.Hangman = 0
+	if Quits.Jumble == ""; Quits.Jumble = 0
+	if Quits.Wordsearch == ""; Quits.Wordsearch = 0
+	if Quits.RPS == ""; Quits.RPS = 0
+	
+	"\0\_q\b2\f[align,center]\![set,autoscroll,disable]\*"
+	
+	"%(emdash) Word Search %(emdash)\n\n"
+	"Wins: %(Wins.Wordsearch)  Quits: %(Quits.Wordsearch)\n\n\n"
+	
+	"%(emdash) Hangman %(emdash)\n\n"
+	"Wins: %(Wins.Hangman)  Losses: %(Losses.Hangman)  Quits: %(Quits.Hangman)\n\n\n"
+	
+	"%(emdash) Jumble %(emdash)\n\n"
+	"Wins: %(Wins.Jumble)  Losses: %(Losses.Jumble)  Quits: %(Quits.Jumble)\n\n\n"
+	
+	"%(emdash) Rock Paper Scissors %(emdash)\n\n"
+	"Wins: %(Wins.RPS)  Losses: %(Losses.RPS)  Ties: %(Ties.RPS)  Quits: %(Quits.RPS)\n\n\n"
+	
+	"\![*]\q[Back,OnMiniGameMenu]  \![*]\q[Done,cancelnodialogue]\e"
+	
+}
+
+//For other ghosts to request stats from paper! Please send the name of your ghost as reference0!
+OnPaperGameStats
+{
+	if reference0 == ""; reference0 == "__SYSTEM_ALL_GHOST__"
+	if !MenuIsOpen; "\![raiseother,%(reference0),OnPaperGameStats,%(Wins.Wordsearch),%(Wins.Hangman),%(Losses.Hangman),%(Quits.Hangman),%(Wins.Jumble),%(Losses.Jumble),%(Quits.Jumble),%(Wins.RPS),%(Losses.RPS),%(Ties.RPS),%(Quits.RPS)]"
+}
+
+RandomizeTalkInterval
+{
+	aitalkinterval = (RAND(360) * 10) + 60
+}
+
+GameQuitGeneric
+{
+	"\s[0]"
+	--
+	".\w4.\w4.\w4 Hm.\w8\w8 Your choice."
+	"How dull."
+	"Have you had your fill already?"
+	"Disappointing."
+	"Fine."
+	"You don't want to play?"
+	"A lamentable outcome."
+	"Are you not a fan of fun?"
+	"Sigh.\w4.\w4.\w4 Another time,\w4 perhaps."
+}
+
+//From X. Template
+MenuIsOpen
+{
+	"choosing" _in_ var.req.value[ASEARCH("Status",var.req.key)]
+}
+
+OnUserInputCancel
+{
+	"\C\![open,inputbox,%(reference0),-1]\*"
+}
+
+//From X. Template
+Capitalize
+{
+	_first = SUBSTR(_argv[0],0,1)
+	_rest = ERASE(_argv[0],0,1) //Erase the first character and store everything else in _rest
+	TOUPPER(_first) + _rest
+}
+
+emdash
+{
+	"\f[name,calibri]—\f[name,default]"
+}
+
+
+//Current season
+season
+{
+	if hemisphere == "Southern"
+	{
+		case month
+		{
+			when 3-5; "Autumn"
+			when 6-8; "Winter"
+			when 9-11; "Spring"
+			others; "Summer"
+		}
+	}
+	else
+	{
+		case month
+		{
+			when 3-5; "Spring"
+			when 6-8; "Summer"
+			when 9-11; "Autumn"
+			others; "Winter"
+		}
+	}
+}
+
+//Abbreviated week day
+wd
+{
+	switch weekday
+	{
+		"Sun" //weekday starts at 0 for some reason
+		"Mon"
+		"Tue"
+		"Wed"
+		"Thu"
+		"Fri"
+		"Sat"
+	}
+}
+
+//Gets the day of the year it currently is, starting from 1 because starting from 0 here is silly
+yearday
+{
+	GETTIME[7] + 1
+}
+
+leapyear
+{
+	_year = year; if _argv[0] != ""; _year = _argv[0]
+	if _year % 4 != 0; 0
+	elseif _year % 100 != 0; 1
+	elseif _year % 400 != 0; 0
+	else; 1
+}
+
+//Current week in the year, 1-53
+yearweek
+{
+	//Get the current day of the year
+	_days = yearday
+
+	//Get the number of days into the current week that we are
+	_trailingdays = 0
+	while weekday - _trailingdays >= 0
+	{
+		_trailingdays++
+	}
+
+	//Get the number of weeks minus leading and trailing days
+	_days -= _trailingdays
+	_weeks = _days / 7
+	_leadingdays = _days % 7
+
+	//Add in the trailing weeks
+	if _leadingdays > 0; _weeks++
+	if _trailingdays > 0; _weeks++
+
+	//Handles week 53
+	if _weeks == 53
+	{
+		_daysleft = 31 - day
+		if _daysleft + _trailingdays < 7; _weeks = 1
+	}
+	_weeks
+}
+
+timeslot
+{
+	case hour
+	{
+		when 5-10; "breakfast" //5-10am
+		when 11-16; "lunch" //11-4pm
+		when 17-22; "dinner" //5-10pm
+		others; "snacks" //11-4am
+	}
+}
+
+OnGenericQuit
+{
+	"\s[0]"
+}
+
+On_homeurl
+{
+	"https://zichqec.github.io/s-the-skeleton/updates/ghosts/paper_god_of_minigames/"
+}

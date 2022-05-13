@@ -1,0 +1,143 @@
+//Written by Zichqec https://zichqec.github.io/s-the-skeleton/
+
+OnStartRPS
+{
+	"\0\s[0]\i[103]\*"
+	--
+	"Delightful."
+	"Thrilling."
+	"Here we go."
+	--
+	"\w8 Rock,\w4 Paper,\w4 Scissors.\w4.\w4.\w4"
+	--
+	"\_q\n\n/
+	\![*]\q[Rock,OnRPS,rock,%(reference1),%(reference2),%(reference3),%(reference4)]\n/
+	\![*]\q[Paper,OnRPS,paper,%(reference1),%(reference2),%(reference3),%(reference4)]\n/
+	\![*]\q[Scissors,OnRPS,scissors,%(reference1),%(reference2),%(reference3),%(reference4)]\n\n/
+	\![*]\q[Nevermind,OnRPSQuit]\e"
+}
+
+OnRPS
+{
+	//If these values are empty, set them to 0. These count the number of matches, number of wins, number of losses, and number of draws, respectively
+	if reference1 == ""; reference1 = 0
+	if reference2 == ""; reference2 = 0
+	if reference3 == ""; reference3 = 0
+	if reference4 == ""; reference4 = 0
+	
+	_userthrow = reference0 //Gets the user's pick
+	_ghostthrow = ANY("rock,paper,scissors") //Gets the ghost's pick. ANY chooses randomly from the comma-separated list
+	
+	//Figures out who won
+	_winlose = ""
+	if _userthrow == _ghostthrow; _winlose = "tie"
+	elseif _userthrow == "rock" && _ghostthrow == "scissors"; _winlose = "win"
+	elseif _userthrow == "paper" && _ghostthrow == "rock"; _winlose = "win"
+	elseif _userthrow == "scissors" && _ghostthrow == "paper"; _winlose = "win"
+	else; _winlose = "lose"
+	
+	//Figures out what surface the ghost should be using. Put your surfaces in here.
+	_pose = ""
+	"\s[0]\i[103]"
+	--
+	if _ghostthrow == "rock"; _pose = "\i[104]"
+	elseif _ghostthrow == "paper"; _pose = "\i[105]"
+	else; _pose = "\i[106]" //Scissors
+	
+	//Gets the throw that won. If it's a draw, it'll default to the ghost, but that won't matter because it won't be called.
+	_winthrow = _ghostthrow
+	if _winlose == "win"; _winthrow = _userthrow
+	
+	//Phrases to add extra spice to dialogue
+	_winreason = ""
+	if _winthrow == "rock"; _winreason = "Rock smashes scissors"
+	elseif _winthrow == "paper"; _winreason = "Paper covers rock"
+	else; _winreason = "Scissors cuts up paper"
+	
+	if _winlose == "tie"; _winreason = "%(Capitalize(_userthrow)) and %(_ghostthrow)"
+	
+	//Note - If you want to have the winreason or the throws be capitalized, you can use my capitalize function like so: %(Capitalize(_winreason))
+	"\0%(_pose)" //Sets up the appropriate pose
+	--
+	"%(_winreason).\w8 "
+	--
+	if IsFirstBoot
+	{
+		if _winlose == "win"
+		{
+			Wins.RPS++
+			
+			"Interesting move.\w8 Luck,\w4 or merely a guess?\w8 Time may tell.\w8"
+		}
+		elseif _winlose == "tie"
+		{
+			Ties.RPS++
+			
+			".\w4.\w4.\w4 Fascinating.\w8"
+		}
+		else //paper won
+		{
+			Losses.RPS++
+			
+			"An expected result.\w8 Try not to feel too badly about this loss."
+		}
+		--
+		FinishFirstBoot
+	}
+	else
+	{
+		reference1++ //Count of matches
+		if _winlose == "win" //If the user won
+		{
+			reference2++ //Count of wins
+			Wins.RPS++
+			
+			"Your win."
+			"My loss."
+			"Nicely done."
+
+		}
+		elseif _winlose == "tie" //If it was a tie
+		{
+			reference4++ //Count of ties
+			Ties.RPS++
+			
+			"A tie,\w4 how exciting."
+			"A tie,\w4 well played."
+			"A tie.\w8 I'm at the edge of my seat."
+
+		}
+		else //If the ghost won
+		{
+			reference3++ //Count of losses
+			Losses.RPS++
+			
+			"Your loss."
+			"My win."
+			"Better luck next time."
+		}
+		--
+		"\w8\w8 " //A pause and space between the dialogues. Remove or change if you like.
+		--
+		//You can use _winlose to make special comments for specific outcomes, if you want. It's 'win' if the user won, 'lose' if the ghost won, and 'tie' if it was a draw
+		--
+		"\_q\n\n"
+		--
+		"Matches: %(reference1)  Won: %(reference2)  Lost: %(reference3)  Ties: %(reference4)\n"
+		--
+		"\![*]\q[Play Again,OnStartRPS,Dummy value,%(reference1),%(reference2),%(reference3),%(reference4)]  \![*]\q[Enough,OnGenericQuit]\*\e"
+	}
+}
+
+OnRPSQuit
+{
+	Quits.RPS++
+	if IsFirstBoot
+	{
+		FirstBootUninstall
+	}
+	else
+	{
+		GameQuitGeneric
+	}
+}
