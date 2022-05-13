@@ -14,6 +14,7 @@ let links = [
 		{ path: 'guard', title: 'Skyrim Guard' },
 		{ title: '—Collabs—' },
 		{ path: 'hydrate', title: 'Hydrate' },
+		{ path: 'paper', title: 'Paper' },
 		{ path: 'needle', title: 'Needle' },
 		{ path: 'balloons_ghost', title: 'Balloons' },
 		{ path: 'ct_epoch_jam', title: 'CT Epoch Jam' },
