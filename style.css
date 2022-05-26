@@ -240,6 +240,20 @@ h6
 	margin: 0, 0, 0, 15px;
 }
 
+.floatLeftSq
+{
+	float: left;
+	border-radius: 0px;
+	margin-right: 15px;
+}
+
+.floatRightSq
+{
+	float: right;
+	border-radius: 0px;
+	margin: 0, 0, 0, 15px;
+}
+
 .flelefloatClear
 {
 	clear: both;
