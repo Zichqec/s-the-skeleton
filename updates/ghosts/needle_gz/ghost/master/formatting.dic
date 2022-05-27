@@ -1,5 +1,7 @@
 nickname
 {
+	if !NicknameSet {truename; return}
+	
 	_tempnames = (nicknames,username,truename)
 	_names = IARRAY
 	foreach _tempnames; _name

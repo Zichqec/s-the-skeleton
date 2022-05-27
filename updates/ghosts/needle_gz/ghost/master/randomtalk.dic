@@ -255,7 +255,7 @@ OnAiTalk : nonoverlap_pool
 	"Would you like to meet %(name1)?\w8 She's my pet %(element) %(creature)."
 	"How to fix %(bodypart) rot???"
 	"dancing mice"
-	"%(italics))It's a troublemaker.\w8\w8\w8\w8\n\nNo,\w4 I'm not saying I want to get rid of it.\w8\w8\w8\w8\n\nIt's just a lot sometimes,\w4 you know?\w8 A toad or a crow I wouldn't think twice about.\w8 I'm used to taking care of those,\w4 even when it's unexpected.\w8 But this...\w8\w8\w8\w8\n\nYeah,\w4 I think it'll take some getting used to.\w8 This isn't like a pet.\w8 It's like... is this weird to say?\w8 That it's sort of like a child?\w8 It's not like I've had one before to compare,\w4 and I know it's just a%(italicsoff)\n\n\n\n%(needle)%(needle)%(needle)\w8\w8"
+	"%(italics)It's a troublemaker.\w8\w8\w8\w8\n\nNo,\w4 I'm not saying I want to get rid of it.\w8\w8\w8\w8\n\nIt's just a lot sometimes,\w4 you know?\w8 A toad or a crow I wouldn't think twice about.\w8 I'm used to taking care of those,\w4 even when it's unexpected.\w8 But this...\w8\w8\w8\w8\n\nYeah,\w4 I think it'll take some getting used to.\w8 This isn't like a pet.\w8 It's like... is this weird to say?\w8 That it's sort of like a child?\w8 It's not like I've had one before to compare,\w4 and I know it's just a%(italicsoff)\n\n\n\n%(needle)%(needle)%(needle)\w8\w8"
 	"Snapping rubber bands... Snap!\w4 Snap!\w4 Snap!\w4 ... Out of rubber bands."
 	"I need new shoes."
 	"hiding in the clean sock drawer"
@@ -301,6 +301,8 @@ OnAiTalk : nonoverlap_pool
 	"i wonder what you'd be like as a needle,\w4 %(username)"
 	"%(mysterynum) little needles in the ceiling,\w4 %(mysterynum) little needles...\w8\w8\ntake one down,\w4 pass it around,\w4 %(mysterynum + 1) little needles in the ceiling\e:eval=mysterynum += 1"
 	"I Am Never Going To Let You Forget Our Conversations."
+	
+	
 
 
 	
@@ -491,8 +493,40 @@ OnAiTalk : nonoverlap_pool
 	
 	
 	
+	//1.0.2
+	"can you believe they charged me $%(mysterynum) for a pound of %(creature) %(cuts)"
+	{
+		"would you like some %(processed) %(creature) %(cuts)?\w8 "
+		--
+		"still fresh"
+		"still warm"
+		"fresh from the oven"
+		"straight out of the frying pan and into the fire"
+		"only one day old"
+		"a little stale but still tasty"
+		"more for me if not"
+	}
 	
+	"i got popcorn and tried to salt it a little, as a treat for doing so well all week, but the salt shaker was moist and clumpy inside and i tried to clear it out but i got simultaneously too much and not enough salt on my popcorn"
+	"what do needles taste like?\w8 i'll never tell"
+	"now and then i get a surprise bowl............ of skins"
+	"......i didn't realize these were liquid inside. the bubble moves"
+	"%(processed) %(food) %(ANY('with,or,and')) %(flavor) %(creature) %(cuts).\w8 %(poke)"
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	"Version 1.0.2" //If you're peeking in this file - yes, this is the version number of your current needle. No, there is no easier way to find this information. :)
 }
+
+
 
 
 

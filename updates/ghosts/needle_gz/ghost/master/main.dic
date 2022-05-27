@@ -1,18 +1,37 @@
 OnSurfaceRestore
 {
-	if !(SHIORI3FW.LastSurface[1] == -1); "\1\s[-1]"
+	// if !(SHIORI3FW.LastSurface[1] == -1); "\1\s[-1]"
+	// --
+	// if !(SHIORI3FW.LastSurface[0] == 0); "\0\s[0]"
+	"\p[2]\s[-1]"
 	--
-	if !(SHIORI3FW.LastSurface[0] == 0); "\0\s[0]"
+	"\1\s[-1]"
+	--
+	"\0\s[0]"
 }
 
 OnBoot
 {
 	if mysterynum == ""; mysterynum = RAND(10)
 	mysterynum += RAND(10) + 1
-	_newname = NameMangler(username)
-	nicknames ,= _newname
 	
-	"\1\s[-1]"
+	_newname = ""
+	if NicknameSet
+	{
+		_newname = NameMangler(username)
+		_i = 0
+		while ASEARCH(_newname,nicknames) != -1 && _i < 9999 //10000 is the default loop limit. Sooo... exit the loop just before it if we somehow get this high (which, realistically, we never should). In that case you might get a dupe name. Um, oh well. That's a lot of names lol.
+		{
+			_newname = NameMangler(username)
+			_i++
+		}
+		nicknames ,= _newname
+	}
+	else; _newname = truename
+	
+	"\p[2]\s[-1]\![move,--x=0,--y=0,--base=0,--option=ignore-sticky-window]"
+	--
+	"\1\s[-1]\![move,--x=0,--y=0,--base=0,--option=ignore-sticky-window]"
 	--
 	"\0\s[0]"
 	--
@@ -21,6 +40,24 @@ OnBoot
 	"Greetings,\w4 %(_newname)"
 	"G'day,\w4 %(_newname)"
 	"Needly day to you,\w4 %(_newname)"
+}
+
+OnShellChanged
+{
+	"\p[2]\s[-1]\![move,--x=0,--y=0,--base=0,--option=ignore-sticky-window]"
+	--
+	"\1\s[-1]\![move,--x=0,--y=0,--base=0,--option=ignore-sticky-window]"
+	--
+	"\0\s[0]"
+	--
+	"%(poke) %(reference0)"
+	"new shell,\w4 new %(poke)"
+	"Deadly Precision"
+}
+
+OnShellRandom
+{
+	"\![change,shell,random]"
 }
 
 OnClose
@@ -42,7 +79,7 @@ OnFirstBoot
 	
 	_rand = RAND(30) + 1
 	
-	"\0\s[0]\t\_w[%(_rand * 1000)]"
+	"\1\s[-1]\![move,--x=0,--y=0,--base=0,--option=ignore-sticky-window]\p[2]\s[-1]\![move,--x=0,--y=0,--base=0,--option=ignore-sticky-window]\0\s[0]\t\_w[%(_rand * 1000)]"
 	--
 	"NEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE\1EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE\p[2]EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEDLE"
 }
@@ -51,6 +88,34 @@ OnTranslate
 {
 	_input = reference0
 	//_input = "\n\n\n" + _input
+	
+	_nicknamelist = ASORT("string,descending,length",nicknames)
+	if !(reference2 == "OnName" || reference2 == "OnNewName")
+	{
+		for _i = 0; _i < ARRAYSIZE(_nicknamelist); _i++
+		{
+			_name = _nicknamelist[_i]
+			//_input = REPLACE(_input,"%(_name)","\_a[OnName,Nick,""%(_name)""]%(_name)\_a")
+			_input = REPLACE(_input,"%(_name)",";REGEX_NICKNAME" + _i + "_REGEX;")
+		}
+		_num = RE_GREP(_input,";REGEX_NICKNAME(\d+)_REGEX;")
+		_found = RE_GETSTR
+		
+		_input = REPLACE(_input,"%(username)","\_a[OnName,User]%(username)\_a") //take care of normal username
+		
+		if _num > 0
+		{
+			while ARRAYSIZE(_found) > 0
+			{
+				_str = _found[0]
+				_str = REPLACE(_str,";REGEX_NICKNAME","")
+				_str = REPLACE(_str,"_REGEX;","")
+				_str = TOINT(_str)
+				_input = REPLACE(_input,";REGEX_NICKNAME%(_str)_REGEX;","\_a[OnName,Nick,""%(_nicknamelist[_str])""]%(_nicknamelist[_str])\_a")
+				_found[0] = IARRAY
+			}
+		}
+	}
 	
 	if reference2 == "OnName"
 	{
@@ -61,14 +126,7 @@ OnTranslate
 		_input = REPLACE(_input,"%(truename)","\_a[OnName,True]%(truename)\_a")
 	}
 	
-	if !(reference2 == "OnName" || reference2 == "OnNewName")
-	{
-		foreach nicknames; _name
-		{
-			_input = REPLACE(_input,"%(_name)","\_a[OnName,Nick,""%(_name)""]%(_name)\_a")
-		}
-		_input = REPLACE(_input,"%(username)","\_a[OnName,User]%(username)\_a")
-	}
+	
 	
 	if reference1 == "" && reference2 == ""
 	{
@@ -80,6 +138,10 @@ OnTranslate
 		TOSTR(_input)
 	}
 }
+
+
+
+
 
 OnName
 {
@@ -228,44 +290,76 @@ OnNewName
 	}
 }
 
-On_installedshellname
-{
-	InstalledShells = reference
-}
-
 OnKeyPress
 {
 	if reference0 == "t" && debug == 1; OnAiTalk
 }
 
+
+/*
+
+TO IMPLEMENT NEEDLE POKING YOUR GHOST:
+
+When needle pokes a ghost (overlaps it, when it previously was not overlapping it) it sends the OnNeedlePoke event. It also sends which character it's poking, as a number. So 0 for sakura, 1 for kero, etc.
+
+At the moment, this just sends the events one after the other... so if you've got more than one character that might get complicated. Uh. Hm... I miiiight update this later to send an array or something, but that might be very complicated. So! For now it's gonna be one at a time, sorry.
+
+But yeah basically it'd look like this:
+
+OnNeedlePoke
+{
+	if reference0 == 0 //Sakura
+	{
+		"\0Ow!"
+	}
+	elseif reference0 == 1 //Kero
+	{
+		"\1Ow!"
+	}
+	elseif reference0 == 2 //Third char
+	{
+		"\p[2]Ow!"
+	}
+	//etc...
+}
+
+*/
+
 OnOtherOverlap : all
 {
-	_ghosts = SPLIT(reference.raw[0],C_BYTE1)
+	_pokepoke = SPLIT(reference.raw[0],C_BYTE1)
+	_unpokeunpoke = SPLIT(reference.raw[1],C_BYTE1)
+	_newpoke = IARRAY
 	_command = ""
-
-	foreach _ghosts; _ghost
+	
+	foreach _pokepoke; _poke
 	{
-		if "Needle" _in_ _ghost
+		if "Needle/0" _in_ _poke && ASEARCH(_poke,_unpokeunpoke) == -1 //If needle is poking, AND this is not in the unpoke array
 		{
-			_char = _ghost[0,"-"]
-			if "Needle" _in_ _char; _char = _ghost[1,"-"]
+			//Figure out which side needle is on and get the other side as the ghost name
+			_char = ""
+			if "-Needle" _in_ _poke; _char = REPLACE(_poke,"-Needle/0","")
+			else; _char = REPLACE(_poke,"Needle/0-","")
 			
+			//Some ghost names may have slashes, so make _sure_ we've got the full ghost name. And also, grab the final number
 			_char = SPLIT(_char,"/")
+			_num = ""
 			_final = ""
 			for _i = 0; _i < ARRAYSIZE(_char); _i++
 			{
-				if _i == (ARRAYSIZE(_char) - 1); break
+				if _i == (ARRAYSIZE(_char) - 1)
+				{
+					_num = _char[_i]
+					break
+				}
 				
 				if _i != 0; _final += "/"
 				_final += _char[_i]
 			}
 			
-			
-			
-			_command += "\![raiseother,%(_final),OnNeedlePoke]"
+			_command += "\![raiseother,%(_final),OnNeedlePoke,%(_num)]"
 		}
 	}
-
 	if _command != ""
 	{
 		"%(_command)"
@@ -505,16 +599,25 @@ OnUpdate.OnDownloadBegin : all
 
 OnTest
 {
-	{
-		_bodypart = bodypart
-		"do u like ur %(_bodypart)"
-		--
-		""
-		{
-			"\w8\w8\n\ni like ur %(_bodypart)"
-			--
-			""
-			"\w8\w8\n\nwill u sell me ur %(_bodypart)"
-		}
-	}
+	//"%(nickname)"
+	"\_q%(nickname)\n\n[half]%(nickname)\n\n[half]%(nickname)\n\n[half]%(nickname)\n\n[half]%(nickname)\n\n[half]%(nickname)\n\n[half]%(nickname)\n\n[half]%(nickname)\n\n[half]%(nickname)\n\n[half]%(nickname)"
+}
+
+
+On_tamaOpen
+{
+	SETTAMAHWND(reference[0])
+	SHIORI3FW.Push_X_SSTP_PassThru('Tittle',"%(ANY(poke,needle,poke + ' ' + needle))") //These settings are all optional
+	SHIORI3FW.Push_X_SSTP_PassThru('border.color','999999')
+	SHIORI3FW.Push_X_SSTP_PassThru('background.color','707070')
+	SHIORI3FW.Push_X_SSTP_PassThru('default.color','e5e5e5') //and any other settings you can find in tama.txt
+	SHIORI3FW.Push_X_SSTP_PassThru('fatal.color','f23e3e')
+	SHIORI3FW.Push_X_SSTP_PassThru('error.color','f23e3e')
+	SHIORI3FW.Push_X_SSTP_PassThru('warning.color','ff972d')
+	"%(poke) Tama"
+}
+On_tamaExit
+{
+	SETTAMAHWND(0)
+	"Tama %(poke)d"
 }
