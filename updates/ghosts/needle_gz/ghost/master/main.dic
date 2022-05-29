@@ -237,10 +237,10 @@ OnNewName
 	}
 	elseif TOLOWER(reference0) == "needle"
 	{
-		username = reference0
-		nicknames = IARRAY
-		_newname = NameMangler(username)
-		nicknames ,= _newname
+		// username = reference0
+		// nicknames = IARRAY
+		// _newname = NameMangler(username)
+		// nicknames ,= _newname
 		
 		_display = ""
 		for _i = 0; _i < 50; _i++
@@ -251,10 +251,10 @@ OnNewName
 	}
 	elseif TOLOWER(reference0) == "balloons"
 	{
-		username = reference0
-		nicknames = IARRAY
-		_newname = NameMangler(username)
-		nicknames ,= _newname
+		// username = reference0
+		// nicknames = IARRAY
+		// _newname = NameMangler(username)
+		// nicknames ,= _newname
 		
 		_display = ""
 		for _i = 0; _i < 10; _i++
