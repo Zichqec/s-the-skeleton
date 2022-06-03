@@ -1,0 +1,4031 @@
+GameWords : nonoverlap
+{
+	parallel ARRAYDEDUP(AllWords)
+}
+
+AllWords : array_pool
+{
+	"Disaster"
+	
+	
+	if season == "Spring"
+	{
+		"Spring"
+		"Thaw"
+		"Flower"
+		"Pollen"
+		"Growth"
+		"Green"
+		"Pastel"
+		"Sapling"
+		"New"
+		"Bee"
+		"Blossom"
+		"Petal"
+		"Hail"
+		"Storm"
+		"Thunderstorm"
+		"Windy"
+		"Gardening"
+		"Showers"
+		"Sprout"
+		"Picnic"
+	}
+	if season == "Summer"
+	{
+		"Summer"
+		"Heat"
+		"Hot"
+		"Swimming"
+		"Swim"
+		"Pool"
+		"Butterfly"
+		"Daylight"
+		"Sun"
+		"Heatstroke"
+		"Beetle"
+		"Firefly"
+		"Barbeque"
+		"Grill"
+		"Outdoors"
+		"Hiking"
+		"Sunscreen"
+		"Sunblock"
+		"Beach"
+		"Sand"
+		"Surf"
+		"Crickets"
+		"Cicada"
+		"Mosquito"
+		"Citronella"
+		"Repellant"
+		"Campfire"
+		"Charcoal"
+		"Buzzing"
+		"Bites"
+		"Itchy"
+		"Scratch"
+		"Proboscis"
+		"Gnat"
+		"Mayfly"
+		"Smoky"
+		"Insect"
+		"Bugs"
+	}
+	if season == "Autumn"
+	{
+		"Autumn"
+		"Fall"
+		"Apple"
+		"Harvest"
+		"Pumpkin"
+		"Leaf"
+		"Plaid"
+		"Cozy"
+		"Spice"
+		"Breezy"
+		"Windy"
+		"Windbreaker"
+		"Jacket"
+		"Chilly"
+		"Pile"
+		"Scarf"
+	}
+	if season == "Winter"
+	{
+		"Winter"
+		"Snow"
+		"Snowing"
+		"Freeze"
+		"Freezing"
+		"Ice"
+		"Slush"
+		"Sleet"
+		"Snowball"
+		"Snowboard"
+		"Skiing"
+		"Cold"
+		"Frosty"
+		"Snowman"
+		"Snowmobile"
+		"Shovel"
+		"Packing"
+		"Fort"
+		"Quiet"
+		"Sled"
+		"Sledding"
+		"Powder"
+		"Gloves"
+		"Boots"
+		"Scarf"
+		"Scarves"
+		"Heater"
+		"Blankets"
+		"Tracks"
+		"Alone"
+		"Sparkly"
+		"Glittery"
+		"Mittens"
+		"Permafrost"
+	}
+	
+	if month == 1
+	{
+		"January"
+		"Icicles"
+		"Drift"
+		"Crystals"
+		"Frozen"
+		"Heavy"
+		"Thick"
+		"Fractal"
+	}
+	if month == 2
+	{
+		"February"
+		"Leap"
+		"Chilled"
+		"Cocoa"
+		"Marshmallows"
+		"Thermos"
+		"Sleds"
+		"Freezing"
+	}
+	if month == 3
+	{
+		"March"
+		"Slush"
+		"Plow"
+		"Plough"
+		"Salt"
+		"Mud"
+		"Slushy"
+		"Muddy"
+		"Snowmelt"
+	}
+	if month == 4
+	{
+		"April"
+		"Shower"
+		"Showers"
+		"Rain"
+		"Wet"
+		"Droplets"
+		"Cold"
+		"Pranks"
+		"Prankster"
+	}
+	if month == 5
+	{
+		"May"
+		"Flowers"
+		"Mayflower"
+		"Blooming"
+		"Blossoms"
+		"Buds"
+		"Beetles"
+		"Flies"
+		"Chirping"
+	}
+	if month == 6
+	{
+		"June"
+		"Worst"
+		"Miserable"
+		"Hot"
+		"Sweaty"
+		"Solstice"
+		"Extra"
+		"Lies"
+		"Bikes"
+		"Rails"
+		"Trails"
+	}
+	if month == 7
+	{
+		"July"
+		"Horses"
+		"Pony"
+		"Fireworks"
+		"Rocket"
+		"Celebratory"
+		"Boom"
+		"Partying"
+		"Picnic"
+	}
+	if month == 8
+	{
+		"August"
+		"Hike"
+		"Kayak"
+		"Kayaking"
+		"Canoeing"
+		"Amusement"
+		"Park"
+		"Basket"
+		"Clear"
+		"Skies"
+	}
+	if month == 9
+	{
+		"September"
+		"Hurricane"
+		"School"
+		"Equinox"
+		"Teachers"
+		"Labor"
+		"Tourist"
+		"Denim"
+		"Coat"
+		"Falling"
+	}
+	if month == 10
+	{
+		"October"
+		"Pumpkin"
+		"Spiders"
+		"Skeleton"
+		"Remembrance"
+		"Child"
+		"Spirit"
+		"Spice"
+		"Scarecrow"
+		"Spooky"
+	}
+	if month == 11
+	{
+		"November"
+		"Leaves"
+		"Shopping"
+		"Family"
+		"Wreath"
+		"Acorn"
+		"Thankful"
+		"Gratitude"
+		"Presents"
+		"Greed"
+		"Shoving"
+		"Empty"
+		"Online"
+	}
+	if month == 12
+	{
+		"December"
+		"Bustle"
+		"Holiday"
+		"Obnoxious"
+		"Catchy"
+		"Flakes"
+		"Drifting"
+		"Rush"
+		"Panic"
+		"Cheery"
+		"Dreary"
+		"Hats"
+		"Nemesis"
+		"Hide"
+	}
+	
+	if wd == "Sun"
+	{
+		"Sunday"
+		"Weekend"
+		"Doodling"
+		"Lazy"
+		"Diagram"
+		"Racecar"
+		"Sports"
+		"Comics"
+		"Newspaper"
+		"Visiting"
+		"Polka"
+		"Radio"
+		"Candy"
+	}	
+	if wd == "Mon"
+	{
+		"Monday"
+		"Weekday"
+		"Length"
+		"Long"
+		"Tiring"
+		"Starting"
+		"Drag"
+		"Dragging"
+		"Learning"
+		"Earning"
+	}
+	if wd == "Tue"
+	{
+		"Tuesday"
+		"Taco"
+		"Errands"
+		"Laundry"
+		"Sale"
+		"Discount"
+		"Bargain"
+		"Cheap"
+		"Loyalty"
+		"Regular"
+		"Shopping"
+		"Allergies"
+	}
+	if wd == "Wed"
+	{
+		"Wednesday"
+		"Lessons"
+		"Piano"
+		"Coop"
+		"Meetup"
+		"Sheet"
+		"Music"
+		"Unreadable"
+		"Mistake"
+		"Defeat"
+		"Keyboard"
+		"Stickers"
+		"Teacher"
+	}
+	if wd == "Thu"
+	{
+		"Thursday"
+		"Nearly"
+		"Inching"
+		"Crawling"
+		"Squirming"
+		"Fidgeting"
+		"Spin"
+		"Exceed"
+		"Excel"
+		"Surprise"
+		"Melancholy"
+		"Victory"
+		"Success"
+		"Excellent"
+	}
+	if wd == "Fri"
+	{
+		"Friday"
+		"Fry"
+		"Fries"
+		"Fish"
+		"Station"
+		"Fundraiser"
+		"Filet"
+		"Sandwich"
+		"Last"
+		"Final"
+		"Tantalizing"
+		"Achingly"
+		"Plead"
+		"Celebrate"
+	}
+	if wd == "Sat"
+	{
+		"Saturday"
+		"Party"
+		"Rest"
+		"Enjoy"
+		"Savor"
+		"Squander"
+		"Frolick"
+		"Canter"
+		"Cheer"
+		"Pajamas"
+		"Sleepover"
+		"Cuddle"
+		"Toasty"
+	}
+	
+	if hour == 0
+	{
+		"Midnight"
+		"Dark"
+		"Stars"
+		"Comet"
+	}
+	if hour == 1
+	{
+		"Silence"
+		"Sleeping"
+		"Dreams"
+		"Starry"
+	}
+	if hour == 2
+	{
+		"Skitter"
+		"Crash"
+		"Nap"
+		"Constellation"
+	}
+	if hour == 3
+	{
+		"Cold"
+		"Tired"
+		"Sleepy"
+		"Waning"
+	}
+	if hour == 4
+	{
+		"Dim"
+		"Focus"
+		"Lamp"
+	}
+	if hour == 5
+	{
+		"Soon"
+		"Birds"
+		"Chirping"
+		"Twilight"
+	}
+	if hour == 6
+	{
+		"Sunrise"
+		"Dawn"
+		"New"
+		"Astroa"
+	}
+	if hour == 7
+	{
+		"Vibrant"
+		"Bright"
+		"Soft"
+	}
+	if hour == 8
+	{
+		"Cartoons"
+		"Awake"
+		"Breakfast"
+	}
+	if hour == 9
+	{
+		"Start"
+		"School"
+		"Work"
+	}
+	if hour == 10
+	{
+		"Buzzing"
+		"Foggy"
+		"Unalert"
+	}
+	if hour == 11
+	{
+		"Crisp"
+		"Lively"
+		"Alert"
+	}
+	if hour == 12
+	{
+		"Lunch"
+		"Midday"
+		"Noon"
+	}
+	if hour == 13
+	{
+		"Afternoon"
+		"Sun"
+		"Energized"
+	}
+	if hour == 14
+	{
+		"Ordinary"
+		"Sleepy"
+		"Playground"
+	}
+	if hour == 15
+	{
+		"Snooze"
+		"Break"
+		"Tea"
+	}
+	if hour == 16
+	{
+		"Couch"
+		"Nap"
+		"Almost"
+	}
+	if hour == 17
+	{
+		"Setting"
+		"Traffic"
+		"Home"
+	}
+	if hour == 18
+	{
+		"Dinner"
+		"Supper"
+		"Sunset"
+	}
+	if hour == 19
+	{
+		"Evening"
+		"Relax"
+		"Nap"
+		"Dusk"
+	}
+	if hour == 20
+	{
+		"Snack"
+		"Games"
+		"Night"
+		"Fireplace"
+	}
+	if hour == 21
+	{
+		"Twilight"
+		"Nocturnal"
+		"Moonlight"
+		"Flashlight"
+		"Lantern"
+	}
+	if hour == 22
+	{
+		"Owl"
+		"Hoot"
+		"Starlit"
+		"Telescope"
+		"Nighttime"
+		"Waxing"
+	}
+	if hour == 23
+	{
+		"Umbra"
+		"Penumbra"
+		"Starlight"
+		"Planet"
+	}
+	
+	if timeslot == "breakfast"
+	{
+		"Breakfast"
+		"Brunch"
+		"Pancakes"
+		"Cereal"
+		"Oatmeal"
+		"Waffles"
+		"Bacon"
+		"Eggs"
+		"Hashbrown"
+		"Apple"
+		"Banana"
+		"Orange"
+		"Milk"
+		"Croissant"
+		"Sausage"
+		"Granola"
+		"Coffee"
+		"Latte"
+		"Toast"
+		"Jam"
+		"Bagel"
+		"Beans"
+		"Porridge"
+		"Brioche"
+		"Tomato"
+		"Mushrooms"
+		"Chilaquiles"
+		"Scones"
+		"Torrijas"
+		"Muffin"
+		"Quiche"
+		"Natto"
+	}
+	if timeslot == "lunch"
+	{
+		"Lunch"
+		"Sandwich"
+		"Tuna"
+		"Soup"
+		"Tea"
+		"Smoothie"
+		"Fritters"
+		"Salad"
+		"Dip"
+		"Quesadilla"
+		"Sushi"
+		"Hummus"
+		"Yogurt"
+		"Chickpeas"
+		"Panzanella"
+		"Taco"
+		"Enchilada"
+		"Potpie"
+		"Celery"
+		"Leftovers"
+		"Crackers"
+		"Potato"
+		"Hotdog"
+	}
+	if timeslot == "dinner"
+	{
+		"Dinner"
+		"Supper"
+		"Roast"
+		"Lasagna"
+		"Ramen"
+		"Casserole"
+		"Meatloaf"
+		"Paprikash"
+		"Chicken"
+		"Chowder"
+		"Kabobs"
+		"Meatball"
+		"Spaghetti"
+		"Chili"
+		"Stroganoff"
+		"Zucchini"
+		"Eggplant"
+		"Peas"
+		"Jambalaya"
+		"Stuffing"
+		"Dumplings"
+		"Cabbage"
+		"Rice"
+		"Bolognese"
+		"Pomodoro"
+		"Falafel"
+		"Soba"
+		"Stew"
+		"Curry"
+		"Pho"
+		"Squash"
+		"Couscous"
+		"Lentils"
+		"Bibimbap"
+	}
+	if timeslot == "snacks"
+	{
+		"Snack"
+		"Munchies"
+		"Chips"
+		"Cucumber"
+		"Popcorn"
+		"Crepe"
+		"Hotteok"
+		"Cookies"
+		"Pretzel"
+		"Milkshake"
+		"Nuts"
+		"Crisps"
+		"Fries"
+		"Pickle"
+		"Namkeen"
+		"Croquette"
+		"Fudge"
+		"Doughnut"
+		"Marshmallow"
+		"Pizza"
+		"Pudding"
+		"Custard"
+		"Honeydew"
+		"Tempura"
+		"Lavash"
+		"Cheese"
+		"Squid"
+	}
+
+	
+	if yearweek == 1 //Flowers
+	{
+		"Anemone"
+		"Bluebell"
+		"Bougainvillea"
+		"Buttercup"
+		"Carmellia"
+		"Carnation"
+		"Chrysanthemum"
+		"Cyclamen"
+		"Daffodil"
+		"Daisy"
+		"Dandelion"
+		"Gladiolus"
+		"Hyacinth"
+		"Iris"
+		"Lily"
+		"Mimosa"
+		"Narcissus"
+		"Orchid"
+		"Pansy"
+		"Poppy"
+		"Rose"
+		"Sunflower"
+		"Tulip"
+		"Violet"
+	}
+	if yearweek == 2 //Trees
+	{
+		"Ash"
+		"Aspen"
+		"Beech"
+		"Birch"
+		"Butternut"
+		"Chestnut"
+		"Cedar"
+		"Cottonwood"
+		"Elm"
+		"Fir"
+		"Hemlock"
+		"Hazelnut"
+		"Juniper"
+		"Larch"
+		"Locust"
+		"Maple"
+		"Oak"
+		"Pine"
+		"Sassafras"
+		"Spruce"
+		"Sycamore"
+		"Walnut"
+		"Wisteria"
+		"Yucca"
+	}
+	if yearweek == 3 //Cats
+	{
+		"Abyssinian"
+		"Aegean"
+		"Angora"
+		"Asian"
+		"Balinese"
+		"Bambino"
+		"Bengal"
+		"Birman"
+		"Bobtail"
+		"Bombay"
+		"Burmese"
+		"Burmilla"
+		"Chantilly"
+		"Chartreux"
+		"Chausie"
+		"Cheetoh"
+		"Chocolate"
+		"Cymric"
+		"Cyprus"
+		"Donskoy"
+		"Dwelf"
+		"Fold"
+		"Forest"
+		"Himalayan"
+		"Javanese"
+		"Korat"
+		"LaPerm"
+		"Levkoy"
+		"Longhair"
+		"Lykoi"
+		"Manx"
+		"Mau"
+		"Minskin"
+		"Mist"
+		"Munchkin"
+		"Napoleon"
+		"Nebelung"
+		"Ocicat"
+		"Persian"
+		"Peterbald"
+		"PixieBob"
+		"Polydactyl"
+		"Ragamuffin"
+		"Ragdoll"
+		"Rex"
+		"Savannah"
+		"Serengeti"
+		"Shorthair"
+		"Siamese"
+		"Siberian"
+		"Singapura"
+		"Snowshoe"
+		"Sokoke"
+		"Somali"
+		"Spangled"
+		"Sphynx"
+		"Thai"
+		"Tonkinese"
+		"Van"
+		"Wiretail"
+	}
+	if yearweek == 4 //Ice cream
+	{
+		"Amaretto"
+		"Banana"
+		"Blackberry"
+		"Blueberry"
+		"Brownie"
+		"Bubblegum"
+		"Butterscotch"
+		"Cake"
+		"Caramel"
+		"Cheesecake"
+		"Cherry"
+		"Chocolate"
+		"Cinnamon"
+		"Coconut"
+		"Candyfloss"
+		"Eggnog"
+		"Fudge"
+		"Grape"
+		"Huckleberry"
+		"Lemon"
+		"Lime"
+		"Malt"
+		"Maple"
+		"Marshmallow"
+		"Mint"
+		"Mocha"
+		"Orange"
+		"Peach"
+		"Peanut"
+		"Pineapple"
+		"Pistachio"
+		"Pumpkin"
+		"Raspberry"
+		"Strawberry"
+		"Vanilla"
+		"Watermelon"
+	}
+	if yearweek == 5 //Words that mean nothing
+	{
+		"Absence"
+		"Bare"
+		"Barren"
+		"Blank"
+		"Clear"
+		"Desolate"
+		"Empty"
+		"Free"
+		"Naught"
+		"Nihility"
+		"Nonbeing"
+		"None"
+		"Nonexistence"
+		"Nothing"
+		"Nowt"
+		"Null"
+		"Oblivion"
+		"Spotless"
+		"Sterile"
+		"Vacant"
+		"Vacuum"
+		"Valueless"
+		"Void"
+		"Without"
+		"Zero"
+		"Zilch"
+	}
+	if yearweek == 6 //Words that mean sad
+	{
+		"Blue"
+		"Crestfallen"
+		"Dejected"
+		"Depressed"
+		"Desolate"
+		"Despairing"
+		"Despondent"
+		"Disconsolate"
+		"Disheartened"
+		"Dismal"
+		"Doleful"
+		"Downcast"
+		"Droopy"
+		"Forlorn"
+		"Gloomy"
+		"Glum"
+		"Inconsolable"
+		"Low"
+		"Melancholic"
+		"Mournful"
+		"Sorrowful"
+		"Unhappy"
+		"Woeful"
+		"Wretched"
+	}
+	if yearweek == 7 //Words that mean tired
+	{
+		"Benumbed"
+		"Blunted"
+		"Breathless"
+		"Debilitated"
+		"Depleted"
+		"Drained"
+		"Dulled"
+		"Enervated"
+		"Enfeebled"
+		"Eroded"
+		"Exhausted"
+		"Fatigued"
+		"Incapacitated"
+		"Jaded"
+		"Pooped"
+		"Reduced"
+		"Sapped"
+		"Spent"
+		"Toilworn"
+		"Wasted"
+		"Weak"
+		"Weary"
+		"Withered"
+		"Worn"
+	}
+	if yearweek == 8 //Words that mean confused
+	{
+		"Astonished"
+		"Astounded"
+		"Baffled"
+		"Befuddled"
+		"Bemused"
+		"Bewildered"
+		"Dazed"
+		"Discomfited"
+		"Disconcerted"
+		"Disoriented"
+		"Dumbfounded"
+		"Foggy"
+		"Hazy"
+		"Lost"
+		"Mazed"
+		"Nonplussed"
+		"Perplexed"
+		"Puzzled"
+		"Senile"
+		"Shaken"
+		"Stumped"
+		"Stunned"
+		"Stupefied"
+		"Unsure"
+	}
+	if yearweek == 9 //Words that mean loud
+	{
+		"Audible"
+		"Blaring"
+		"Blasting"
+		"Blusterous"
+		"Booming"
+		"Cacophonous"
+		"Cantankerous"
+		"Clamorous"
+		"Deafening"
+		"Earsplitting"
+		"Forte"
+		"Loud"
+		"Noisy"
+		"Raucous"
+		"Resounding"
+		"Reverberating"
+		"Ringing"
+		"Roaring"
+		"Rowdy"
+		"Sonorous"
+		"Stentorian"
+		"Strident"
+		"Thunderous"
+		"Tumultuous"
+	}
+	if yearweek == 10 //Words that mean angry
+	{
+		"Acrimonious"
+		"Aggrieved"
+		"Bitter"
+		"Choleric"
+		"Cross"
+		"Dyspeptic"
+		"Enraged"
+		"Exasperated"
+		"Fuming"
+		"Furious"
+		"Galled"
+		"Hostile"
+		"Incensed"
+		"Indignant"
+		"Infuriated"
+		"Irascible"
+		"Irate"
+		"Irked"
+		"Livid"
+		"Outraged"
+		"Piqued"
+		"Provoked"
+		"Raving"
+		"Splenetic"
+		"Tetchy"
+		"Vexed"
+		"Waspish"
+		"Wrathful"
+		"Wroth"
+	}
+	if yearweek == 11 //Appliances
+	{
+		"Fridge"
+		"Freezer"
+		"Washer"
+		"Dryer"
+		"Microwave"
+		"Stove"
+		"Dishwasher"
+		"Furnace"
+		"Kettle"
+		"Toaster"
+		"Vacuum"
+		"Heater"
+		"Fan"
+		"Coffeemaker"
+		"Fryer"
+		"Griddle"
+		"Lamp"
+		"Blender"
+		"Processor"
+		"Mixer"
+		"Juicer"
+		"Iron"
+		"Disposal"
+		"Purifier"
+		"Steamer"
+		"Humidifier"
+		"Dehumidifier"
+		"Generator"
+	}
+	if yearweek == 12 //Words that mean stressed
+	{
+		"Agitated"
+		"Anxious"
+		"Bothered"
+		"Burdened"
+		"Concerned"
+		"Distressed"
+		"Disturbed"
+		"Flurried"
+		"Flustered"
+		"Fretful"
+		"Harassed"
+		"Hectic"
+		"Jumpy"
+		"Nervous"
+		"Overstretched"
+		"Overstrung"
+		"Overtaxed"
+		"Overwrought"
+		"Pressured"
+		"Tense"
+		"Troubled"
+		"Uneasy"
+		"Upset"
+		"Worried"
+	}
+	if yearweek == 13 //Words that mean wrong
+	{
+		"Condemnable"
+		"Corrupt"
+		"Erroneous"
+		"Errored"
+		"Fallacious"
+		"False"
+		"Faulty"
+		"Fictitious"
+		"Flawed"
+		"Foul"
+		"Illogical"
+		"Imprecise"
+		"Inaccurate"
+		"Incorrect"
+		"Inexact"
+		"Invalid"
+		"Misguided"
+		"Misinformed"
+		"Misleading"
+		"Mistaken"
+		"Unfounded"
+		"Unsound"
+		"Untrue"
+	}
+	if yearweek == 14 //Words that mean okay
+	{
+		"Acceptable"
+		"Adequate"
+		"Alright"
+		"Ample"
+		"Average"
+		"Competent"
+		"Decent"
+		"Enough"
+		"Fair"
+		"Fine"
+		"Goodish"
+		"Mediocre"
+		"Middling"
+		"Moderate"
+		"Passable"
+		"Reasonable"
+		"Requisite"
+		"Satisfactory"
+		"Standard"
+		"Sufficient"
+		"Suitable"
+		"Tolerable"
+		"Unexceptional"
+		"Unremarkable"
+	}
+	if yearweek == 15 //Words that mean content
+	{
+		"Appeased"
+		"Assuaged"
+		"Carefree"
+		"Cheerful"
+		"Comfortable"
+		"Complacent"
+		"Delighted"
+		"Eased"
+		"Fulfilled"
+		"Glad"
+		"Gratified"
+		"Gruntled"
+		"Happy"
+		"Lax"
+		"Peaceful"
+		"Placid"
+		"Pleased"
+		"Satiated"
+		"Satisfied"
+		"Serene"
+		"Slack"
+		"Smug"
+		"Tranquil"
+		"Untroubled"
+	}
+	if yearweek == 16 //Words that mean party
+	{
+		"Ball"
+		"Bash"
+		"Carousal"
+		"Carouse"
+		"Ceilidh"
+		"Celebration"
+		"Corroboree"
+		"Dance"
+		"Festivity"
+		"Fiesta"
+		"Frolic"
+		"Function"
+		"Gathering"
+		"Group"
+		"Hoedown"
+		"Jamboree"
+		"Levee"
+		"Luau"
+		"Meetup"
+		"Reception"
+		"Social"
+		"Soiree"
+		"Squash"
+		"Tertulia"
+	}
+	if yearweek == 17 //Words that mean suspicious
+	{
+		"Ambiguous"
+		"Corrupt"
+		"Debatable"
+		"Dishonest"
+		"Disreputable"
+		"Doubtful"
+		"Dubious"
+		"Enigmatic"
+		"Equivocal"
+		"Hazy"
+		"Hesitant"
+		"Irregular"
+		"Murky"
+		"Mysterious"
+		"Odd"
+		"Questionable"
+		"Slippery"
+		"Suspect"
+		"Uncertain"
+		"Unreliable"
+		"Unsavory"
+		"Untrustworthy"
+		"Vague"
+	}
+	if yearweek == 18 //Words that mean small
+	{
+		"Baby"
+		"Bantam"
+		"Bijou"
+		"Compact"
+		"Diminutive"
+		"Elfin"
+		//"Funsized"
+		"Homuncular"
+		"Little"
+		"Meager"
+		"Mini"
+		"Miniature"
+		"Miniscule"
+		"Minute"
+		"Petite"
+		"Pocket"
+		"Poky"
+		"Puny"
+		"Short"
+		"Shrimpy"
+		"Small"
+		"Squat"
+		"Stubby"
+		"Undersized"
+	}
+	if yearweek == 19 //Major stars
+	{
+		"Achernar"
+		"Acrux"
+		"Adhara"
+		"Aldebaran"
+		"Altair"
+		"Antares"
+		"Arcturus"
+		"Betelgeuse"
+		"Canopus"
+		"Capella"
+		"Castor"
+		"Deneb"
+		"Fomalhaut"
+		"Gacrux"
+		"Hadar"
+		"Mimosa"
+		"Pollux"
+		"Procyon"
+		"Regulus"
+		"Rigel"
+		"Shaula"
+		"Sirius"
+		"Spica"
+		"Vega"
+	}
+	if yearweek == 20 //Birthstones
+	{
+		"Alexandrite"
+		"Amethyst"
+		"Aquamarine"
+		"Carnelian"
+		"Citrine"
+		"Diamond"
+		"Emerald"
+		"Garnet"
+		"Moonstone"
+		"Onyx"
+		"Opal"
+		"Pearl"
+		"Peridot"
+		"Quartz"
+		"Ruby"
+		"Sapphire"
+		"Sardonyx"
+		"Spinel"
+		"Tanzanite"
+		"Topaz"
+		"Tourmaline"
+		"Tsavorite"
+		"Turquoise"
+		"Zircon"
+	}
+	if yearweek == 21 //Dragons
+	{
+		//"African"
+		"Amphiptere"
+		"Ancient"
+		"AyidaWeddo"
+		"Chinese"
+		"Crysopel"
+		"Dragonnet"
+		"Drake"
+		"Dratile"
+		"Druk"
+		"Druk"
+		"Eastern"
+		"Fafnir"
+		"Fucanglong"
+		"Gaasyendietha"
+		"Hydra"
+		"Jawzahr"
+		"Kirin"
+		"Krak"
+		"Kukulkan"
+		"Kur"
+		"Ladon"
+		"Lernaean"
+		"Leviathan"
+		"Lindworm"
+		"Long"
+		"Pakhangba"
+		"Quetzalcoatl"
+		"Ryujin"
+		"Tiamat"
+		"Vishap"
+		"Vritra"
+		"Western"
+		"Wyrm"
+		"Wyvern"
+	}
+	if yearweek == 22 //Zodiacs
+	{
+		"Aquarius"
+		"Aries"
+		"Cancer"
+		"Capricorn"
+		"Dog"
+		"Dragon"
+		"Gemini"
+		"Goat"
+		"Horse"
+		"Leo"
+		"Libra"
+		"Monkey"
+		"Ox"
+		"Pig"
+		"Pisces"
+		"Rabbit"
+		"Rat"
+		"Rooster"
+		"Sagittarius"
+		"Scorpio"
+		"Snake"
+		"Taurus"
+		"Tiger"
+		"Virgo"
+	}
+	if yearweek == 23 //Book genres
+	{
+		"Adventure"
+		"Art"
+		"Contemporary"
+		"Cooking"
+		"Development"
+		"Dystopian"
+		"Fantasy"
+		"Fiction"
+		"Guide"
+		"Health"
+		"Historic"
+		"Horror"
+		"Humor"
+		"Memoir"
+		"Motivational"
+		"Mystery"
+		"Nonfiction"
+		"Paranormal"
+		"Romance"
+		"SciFi"
+		"Thriller"
+		"Travel"
+		"Western"
+		"Youth"
+	}
+	if yearweek == 24 //Worms
+	{
+		"Brandling"
+		"Cankerworm"
+		"Compost"
+		"Earthworker"
+		"Earthworm"
+		"Eiseniella"
+		"Flatworm"
+		"Fluke"
+		"Gippsland"
+		"Gray"
+		"Green"
+		"Guinea"
+		"Hookworm"
+		"Inchworm"
+		"Looper"
+		"Mealworm"
+		"Nightcrawler"
+		"Pinworm"
+		"Red"
+		"Redhead"
+		"Rootdwelling"
+		"Roundworm"
+		"Tapeworm"
+		"Wigglers"
+	}
+	if yearweek == 25 //Jewelery
+	{
+		"Amulet"
+		"Anklet"
+		"Armlet"
+		"Band"
+		"Bandeau"
+		"Bangle"
+		"Bead"
+		"Bracelet"
+		"Brooch"
+		"Cameo"
+		"Chain"
+		"Charm"
+		"Chatelaine"
+		"Choker"
+		"Circlet"
+		"Clip"
+		"Coronet"
+		"Crown"
+		"Cufflink"
+		"Earring"
+		"Hairpin"
+		"Hathphool"
+		"Hatpin"
+		"Jadanagam"
+		"Kamarband"
+		"Kokoshnik"
+		"Locket"
+		"Necklace"
+		"Pendant"
+		"Pin"
+		"Ring"
+		"Rosary"
+		"Sarpanch"
+		"Shinka"
+		"Signet"
+		"Tag"
+		"Tiara"
+		"Torc"
+		"Watch"
+	}
+	if yearweek == 26 //Types of blankets
+	{
+		"Acrylic"
+		"Afghan"
+		"Chenille"
+		"Comforter"
+		"Cotton"
+		"Down"
+		"Duvet"
+		"Electric"
+		"Faux"
+		"Flannel"
+		"Fleece"
+		"Fur"
+		"Knit"
+		"Linen"
+		"Polyester"
+		"Quilt"
+		"Sherpa"
+		"Space"
+		"Throw"
+		"Twill"
+		"Vellux"
+		"Waffle"
+		"Weighted"
+		"Wool"
+		"Woven"
+	}
+	if yearweek == 27 //Types of dishes
+	{
+		"Baster"
+		"Board"
+		"Bowl"
+		"Brush"
+		"Cup"
+		"Cutter"
+		"Fork"
+		"Grater"
+		"Juicer"
+		"Knife"
+		"Ladle"
+		"Mallet"
+		"Masher"
+		"Mortar"
+		"Peeler"
+		"Pestle"
+		"Plate"
+		"Press"
+		"Rollerpin"
+		"Scissors"
+		"Scoop"
+		"Sharpener"
+		"Slicer"
+		"Spatula"
+		"Spoon"
+		"Tongs"
+		"Whisk"
+	}
+	if yearweek == 28 //Common metals
+	{
+		"Adamantium"
+		"Aluminum"
+		"Brass"
+		"Bronze"
+		"Calcium"
+		"Chromate"
+		"Cobalt"
+		"Copper"
+		"Germanium"
+		"Gold"
+		"Iron"
+		"Lead"
+		"Magnesium"
+		"Nickel"
+		"Platinum"
+		"Potassium"
+		"Silicon"
+		"Silver"
+		"Sodium"
+		"Steel"
+		"Tin"
+		"Titanium"
+		"Tungsten"
+		"Zinc"
+	}
+	if yearweek == 29 //Cousins of the bucket
+	{
+		"Barrel"
+		"Basin"
+		"Bin"
+		"Bowl"
+		"Can"
+		"Carafe"
+		"Carrier"
+		"Case"
+		"Cask"
+		"Container"
+		"Decanter"
+		"Drum"
+		"Jar"
+		"Jug"
+		"Pail"
+		"Pitcher"
+		"Pot"
+		"Receptacle"
+		"Scuttle"
+		"Tank"
+		"Tub"
+		"Urn"
+		"Vat"
+		"Vessel"
+	}
+	if yearweek == 30 //Types of noodles
+	{
+		"Agnolotti"
+		"Bigoli"
+		"Bucatini"
+		"Calamarata"
+		"Campanella"
+		"Cannelloni"
+		"Capellini"
+		"Cappelletti"
+		"Casarecci"
+		"Cavatappi"
+		"Cavatelli"
+		"Conchiglie"
+		"Couscous"
+		"Farfalle"
+		"Fettuccine"
+		"Fregula"
+		"Fusilli"
+		"Garganelli"
+		"Gemelli"
+		"Lasagne"
+		"Linguini"
+		"Macaroni"
+		"Mafaldine"
+		"Manicotti"
+		"Maultaschen"
+		"Mezzelune"
+		"Mostaccioli"
+		"Orecchiette"
+		"Orzo"
+		"Paccheri"
+		"Pappardelle"
+		"Penne"
+		"Pici"
+		"Pizzoccheri"
+		"Ravioli"
+		"Rigatoni"
+		"Rotini"
+		"Scialatielli"
+		"Spaetzle"
+		"Spaghetti"
+		"Strozzapreti"
+		"Tagliatelle"
+		"Tagliolini"
+		"Tortellini"
+		"Tortelloni"
+		"Tortiglioni"
+		"Trofie"
+		"Vermicelli"
+		"Ziti"
+	}
+	if yearweek == 31 //Music genres
+	{
+		"Alternative"
+		"Baroque"
+		"Blues"
+		"Chiptune"
+		"Classical"
+		"Contemporary"
+		"Country"
+		"Dubstep"
+		"Electro"
+		"Folk"
+		"Funk"
+		"Gospel"
+		"Grunge"
+		"House"
+		"Indie"
+		"Jazz"
+		"Metal"
+		"Pop"
+		"Progressive"
+		"Punk"
+		"Reggae"
+		"Rock"
+		"Soul"
+		"Swing"
+	}
+	if yearweek == 32 //Orchestra instruments
+	{
+		"Accordion"
+		"Banjo"
+		"Bass"
+		"Bongo"
+		"Cello"
+		"Clarinet"
+		"Cymbal"
+		"Drum"
+		"Dulcimer"
+		"Euphonium"
+		"Flute"
+		"Gong"
+		"Guitar"
+		"Harmonica"
+		"Harmonica"
+		"Lute"
+		"Lyre"
+		"Mandolin"
+		"Marimba"
+		"Piano"
+		"Piccolo"
+		"Saxophone"
+		"Tambourine"
+		"Trumpet"
+		"Tuba"
+		"Ukulele"
+		"Viola"
+		"Violin"
+		"Xylophone"
+	}
+	if yearweek == 33 //Fabrics
+	{
+		"Canvas"
+		"Cashmere"
+		"Chenille"
+		"Chiffon"
+		"Cotton"
+		"Crepe"
+		"Damask"
+		"Faux"
+		"Fur"
+		"Georgette"
+		"Gingham"
+		"Jersey"
+		"Lace"
+		"Leather"
+		"Linen"
+		"Modal"
+		"Muslin"
+		"Nylon"
+		"Organza"
+		"Polyester"
+		"Satin"
+		"Silk"
+		"Spandex"
+		"Suede"
+		"Taffeta"
+		"Toile"
+		"Tweed"
+		"Twill"
+		"Velvet"
+		"Viscose"
+		"Wool"
+	}
+	if yearweek == 34 //Pastries
+	{
+		"Baklava"
+		"Beignet"
+		"Cake"
+		"Cannoli"
+		"Choux"
+		"Churro"
+		"Crepe"
+		"Croissant"
+		"Cronut"
+		"Danish"
+		"Doughnut"
+		"Eclair"
+		"Filo"
+		"Flaky"
+		"Macaron"
+		"Pie"
+		"Pretzel"
+		"Puff"
+		"Roll"
+		"Shortcrust"
+		"Sopapilla"
+		"Strudel"
+		"Tart"
+		"Wafer"
+	}
+	if yearweek == 35 //Cheeses
+	{
+		"Blue"
+		"Brie"
+		"Camembert"
+		"Cheddar"
+		"Chevre"
+		"Colby"
+		"Cotija"
+		"Cottage"
+		"Cream"
+		"Emmental"
+		"Feta"
+		"Fontina"
+		"Gorgonzola"
+		"Gouda"
+		"Gruyere"
+		"Havarti"
+		"Jack"
+		"Jarlsberg"
+		"Manchego"
+		"Mascarpone"
+		"Monterey"
+		"Mozzarella"
+		"Muenster"
+		"Parmesan"
+		"Ricotta"
+		"Roquefort"
+		"Stilton"
+		"String"
+		"Swiss"
+		"Taleggio"
+		"Wensleydale"
+	}
+	if yearweek == 36 //Paint
+	{
+		"Flat"
+		"Highgloss"
+		"Latex"
+		"Matte"
+		"Oil"
+		"Primer"
+		"Satin"
+		"Semigloss"
+		"Watercolor"
+	}
+	if yearweek == 37 //Fashion eras
+	{
+		"Aesthetics"
+		"Bustle"
+		"Classic"
+		"Deco"
+		"Disco"
+		"Edwardian"
+		"Epoque"
+		"Etruscan"
+		"Folkloric"
+		"Georgian"
+		"Glamour"
+		"Gothic"
+		"Greek"
+		"Grunge"
+		"Nineties"
+		"Nouveau"
+		"Ornament"
+		"Regency"
+		"Rock"
+		"Romantic"
+		"Swinging"
+		"Utility"
+		"Victorian"
+		"Yuppie"
+	}
+	if yearweek == 38 //Bodies of water
+	{
+		"Bay"
+		"Bayou"
+		"Cenote"
+		"Creek"
+		"Glacier"
+		"Gulf"
+		"Lagoon"
+		"Lake"
+		"Loch"
+		"Mere"
+		"Moana"
+		"Ocean"
+		"Pond"
+		"Pool"
+		"Puddle"
+		"Reservoir"
+		"River"
+		"Salina"
+		"Sea"
+		"Stream"
+		"Tarn"
+		"Tributary"
+		"Waterhole"
+	}
+	if yearweek == 39 //Pink
+	{
+		"Ruby"
+		"Fuschia"
+		"Punch"
+		"Blush"
+		"Watermelon"
+		"Flamingo"
+		"Rouge"
+		"Salmon"
+		"Coral"
+		"Peach"
+		"Strawberry"
+		"Rosewood"
+		"Lemonade"
+		"Taffy"
+		"Bubblegum"
+		"Crepe"
+		"Magenta"
+		"Pink"
+		"Ballerina"
+	}
+	if yearweek == 40 //Red
+	{
+		"Cherry"
+		"Jam"
+		"Merlot"
+		"Garnet"
+		"Crimson"
+		"Rose"
+		"Scarlet"
+		"Wine"
+		"Brick"
+		"Apple"
+		"Mahogany"
+		"Sangria"
+		"Berry"
+		"Currant"
+		"Lipstick"
+		"Blood"
+		"Candy"
+		"Maroon"
+		"Red"
+	}
+	if yearweek == 41 //Orange
+	{
+		"Mango"
+		"Tangerine"
+		"Merigold"
+		"Cider"
+		"Rust"
+		"Ginger"
+		"Tiger"
+		"Fire"
+		"Bronze"
+		"Apricot"
+		"Clay"
+		"Honey"
+		"Carrot"
+		"Squash"
+		"Marmalade"
+		"Amber"
+		"Sandstone"
+		"Yam"
+		"Orange"
+	}
+	if yearweek == 42 //Yellow
+	{
+		"Yellow"
+		"Sunflower"
+		"Lemon"
+		"Goldenrod"
+		"Gold"
+		"Canary"
+		"Straw"
+		"Sunglow"
+		"Flax"
+		"Saffron"
+		"Amber"
+		"Mustard"
+		"Ochre"
+	}
+	if yearweek == 43 //Green
+	{
+		"Green"
+		"Forest"
+		"Lime"
+		"Emerald"
+		"Avocado"
+		"Mantis"
+		"Fern"
+		"Jade"
+		"Shamrock"
+		"Asparagus"
+		"Hunter"
+		"Pistachio"
+		"Sage"
+		"Olive"
+		"Spring"
+		"Chartreuse"
+		"Pine"
+	}
+	if yearweek == 44 //Cyan
+	{
+		"Cyan"
+		"Aqua"
+		"Teal"
+		"Turquoise"
+		"Aquamarine"
+		"Cerulean"
+		"Mint"
+	}
+	if yearweek == 45 //Blue
+	{
+		"Blue"
+		"Navy"
+		"Denim"
+		"Indigo"
+		"Cornflower"
+		"Ice"
+		"Azure"
+		"Midnight"
+		"Aero"
+		"Cobalt"
+		"Royal"
+		"Ultramarine"
+		"Sky"
+		"Sapphire"
+		"Phthalo"
+	}
+	if yearweek == 46 //Purple
+	{
+		"Violet"
+		"Purple"
+		"Amethyst"
+		"Orchid"
+		"Wisteria"
+		"Grape"
+		"Lilac"
+		"Eggplant"
+		"Thistle"
+		"Puce"
+		"Iris"
+		"Lavender"
+		"Mauve"
+		"Plum"
+		"Heliotrope"
+		"Mulberry"
+	}
+	if yearweek == 47 //Brown
+	{
+		"Brown"
+		"Coffee"
+		"Walnut"
+		"Liver"
+		"Bronze"
+		"Almond"
+		"Rust"
+		"Sepia"
+		"Sienna"
+		"Chocolate"
+		"Chestnut"
+		"Copper"
+		"Mahogany"
+		"Russet"
+		"Earth"
+		"Fallow"
+		"Fawn"
+	}
+	if yearweek == 48 //Black
+	{
+		"Black"
+		"Ink"
+		"Oil"
+		"Charcoal"
+		"Midnight"
+		"Shadow"
+		"Onyx"
+		"Licorice"
+		"Jet"
+		"Pitch"
+	}
+	if yearweek == 49 //White
+	{
+		"White"
+		"Eggshell"
+		"Seasalt"
+		"Snow"
+		"Bone"
+		"Alabaster"
+		"Ivory"
+		"Vanilla"
+		"Powder"
+		"Ghost"
+		"Seashell"
+		"Pearl"
+		"Nacre"
+	}
+	if yearweek == 50 //Gray
+	{
+		"Grey"
+		"Slate"
+		"Silver"
+		"Platinum"
+		"Ash"
+		"Gunmetal"
+		"Steel"
+		"Timberwolf"
+		"Battleship"
+		"Smoke"
+	}
+	if yearweek == 51 //Birds
+	{
+		"Bird"
+		"Beak"
+		"Feather"
+		"Wing"
+		"Plumage"
+		"Fly"
+		"Flight"
+		"Preen"
+		"Nest"
+		"Chicken"
+		"Rooster"
+		"Duck"
+		"Parrot"
+		"Swan"
+		"Goose"
+		"Ostrich"
+		"Hen"
+		"Cardinal"
+		"Hummingbird"
+		"Eagle"
+		"Falcon"
+		"Kestrel"
+		"Sparrow"
+		"Crow"
+		"Raven"
+		"Grouse"
+		"Cuckoo"
+		"Flamingo"
+		"Crane"
+		"Penguin"
+		"Vulture"
+		"Heron"
+		"Pelican"
+		"Puffin"
+		"Stork"
+	}
+	if yearweek == 52 //Reptiles
+	{
+		"Scales"
+		"Lizard"
+		"Tortoise"
+		"Turtle"
+		"Snake"
+		"Crocodile"
+		"Alligator"
+		"Constrictor"
+		"Boas"
+		"Python"
+		"Viper"
+		"Gecko"
+		"Chameleon"
+		"Iguana"
+		"Anole"
+	}
+	if yearweek == 53 //Words that mean stupid
+	{
+		"Ignorant"
+		"Dense"
+		"Brainless"
+		"Foolish"
+		"Mindless"
+		"Dull"
+		"Witless"
+		"Vacuous"
+		"Vapid"
+		"Idiotic"
+		"Moronic"
+		"Imbecilic"
+		"Obtuse"
+		"Doltish"
+		"Silly"
+		"Scatterbrained"
+		"Asinine"
+		"Inept"
+		"Inane"
+		"Stupid"
+		"Senseless"
+		"Fatuous"
+		"Nonsensical"
+		"Ridiculous"
+		"Gibby"
+	}
+	
+	if minute == 0
+	{
+		"Foggy"
+	}
+	if minute == 1
+	{
+		"Bookshelf"
+	}
+	if minute == 2
+	{
+		"Stool"
+	}
+	if minute == 3
+	{
+		"Pencil"
+	}
+	if minute == 4
+	{
+		"Envelope"
+	}
+	if minute == 5
+	{
+		"Shouting"
+	}
+	if minute == 6
+	{
+		"Dishwasher"
+	}
+	if minute == 7
+	{
+		"Mistral"
+	}
+	if minute == 8
+	{
+		"Complimentary"
+	}
+	if minute == 9
+	{
+		"Knuckle"
+	}
+	if minute == 10
+	{
+		"Plaid"
+	}
+	if minute == 11
+	{
+		"Tentacle"
+	}
+	if minute == 12
+	{
+		"Tweed"
+	}
+	if minute == 13
+	{
+		"Shelf"
+	}
+	if minute == 14
+	{
+		"Backpack"
+	}
+	if minute == 15
+	{
+		"Hat"
+	}
+	if minute == 16
+	{
+		"Page"
+	}
+	if minute == 17
+	{
+		"Scrap"
+	}
+	if minute == 18
+	{
+		"Metal"
+	}
+	if minute == 19
+	{
+		"Bottle"
+	}
+	if minute == 20
+	{
+		"Torn"
+	}
+	if minute == 21
+	{
+		"Hubris"
+	}
+	if minute == 22
+	{
+		"Shower"
+	}
+	if minute == 23
+	{
+		"Foreground"
+	}
+	if minute == 24
+	{
+		"Spry"
+	}
+	if minute == 25
+	{
+		"Purse"
+	}
+	if minute == 26
+	{
+		"Spine"
+	}
+	if minute == 27
+	{
+		"Cloud"
+	}
+	if minute == 28
+	{
+		"Thumbnail"
+	}
+	if minute == 29
+	{
+		"Theme"
+	}
+	if minute == 30
+	{
+		"Liar"
+	}
+	if minute == 31
+	{
+		"Book"
+	}
+	if minute == 32
+	{
+		"Finesse"
+	}
+	if minute == 33
+	{
+		"Skirt"
+	}
+	if minute == 34
+	{
+		"Misty"
+	}
+	if minute == 35
+	{
+		"Lipstick"
+	}
+	if minute == 36
+	{
+		"Yelling"
+	}
+	if minute == 37
+	{
+		"Tower"
+	}
+	if minute == 38
+	{
+		"Dress"
+	}
+	if minute == 39
+	{
+		"Suit"
+	}
+	if minute == 40
+	{
+		"Stamp"
+	}
+	if minute == 41
+	{
+		"Rubber"
+	}
+	if minute == 42
+	{
+		"Pants"
+	}
+	if minute == 43
+	{
+		"Squeegee"
+	}
+	if minute == 44
+	{
+		"Wallet"
+	}
+	if minute == 45
+	{
+		"Bundle"
+	}
+	if minute == 46
+	{
+		"Satire"
+	}
+	if minute == 47
+	{
+		"Table"
+	}
+	if minute == 48
+	{
+		"Arrow"
+	}
+	if minute == 49
+	{
+		"Ink"
+	}
+	if minute == 50
+	{
+		"Stand"
+	}
+	if minute == 51
+	{
+		"Balloon"
+	}
+	if minute == 52
+	{
+		"Trivial"
+	}
+	if minute == 53
+	{
+		"Raffle"
+	}
+	if minute == 54
+	{
+		"Hoodie"
+	}
+	if minute == 55
+	{
+		"Letter"
+	}
+	if minute == 56
+	{
+		"Steam"
+	}
+	if minute == 57
+	{
+		"Background"
+	}
+	if minute == 58
+	{
+		"Clips"
+	}
+	if minute == 59
+	{
+		"Vacuum"
+	}
+	
+	
+	
+	if day == 1
+	{
+		"Cave"
+		"Update"
+		"Ore"
+		"Arrogance"
+	}
+	if day == 2
+	{
+		"Depths"
+		"Stride"
+		"Yard"
+		"Signal"
+	}
+	if day == 3
+	{
+		"Group"
+		"Cord"
+		"Shade"
+		"Transmit"
+	}
+	if day == 4
+	{
+		"Reflect"
+		"Snake"
+		"Sword"
+		"Shield"
+	}
+	if day == 5
+	{
+		"Ruby"
+		"Sapphire"
+		"Emerald"
+	}
+	if day == 6
+	{
+		"Ransom"
+		"Bubble"
+		"Annoyance"
+		"Fragile"
+	}
+	if day == 7
+	{
+		"Private"
+		"Delivery"
+		"Thief"
+		"Welcome"
+	}
+	if day == 8
+	{
+		"Idle"
+		"Question"
+		"Answer"
+		"Trivia"
+	}
+	if day == 9
+	{
+		"Sale"
+		"Palette"
+		"Pallet"
+		"Container"
+	}
+	if day == 10
+	{
+		"Tackle"
+		"Hanger"
+		"Hangar"
+		"Rack"
+	}
+	if day == 11
+	{
+		"Humane"
+		"Bin"
+		"Case"
+		"Counter"
+	}
+	if day == 12
+	{
+		"Quintessential"
+		"Till"
+		"Register"
+		"Drawer"
+	}
+	if day == 13
+	{
+		"Cash"
+		"Credit"
+		"Card"
+	}
+	if day == 14
+	{
+		"Bills"
+		"Plastic"
+		"Swipe"
+	}
+	if day == 15
+	{
+		"Chip"
+		"Declined"
+		"Accepted"
+	}
+	if day == 16
+	{
+		"Buttons"
+		"Squishy"
+		"Firm"
+	}
+	if day == 17
+	{
+		"Sheer"
+		"Shear"
+		"Shorn"
+	}
+	if day == 18
+	{
+		"Weight"
+		"Texture"
+		"Thickness"
+	}
+	if day == 19
+	{
+		"Heavy"
+		"Light"
+		"Medium"
+	}
+	if day == 20
+	{
+		"Silky"
+		"Smooth"
+		"Rough"
+	}
+	if day == 21
+	{
+		"Bark"
+		"Meow"
+		"Chirp"
+	}
+	if day == 22
+	{
+		"Soar"
+		"Dive"
+		"Flap"
+	}
+	if day == 23
+	{
+		"Deep"
+		"Pressure"
+		"Breath"
+	}
+	if day == 24
+	{
+		"Pile"
+		"Clothes"
+		"Bale"
+	}
+	if day == 25
+	{
+		"Moveable"
+		"Immovable"
+		"Contradiction"
+	}
+	if day == 26
+	{
+		"Hamlet"
+		"Town"
+		"Village"
+	}
+	if day == 27
+	{
+		"City"
+		"Metropolis"
+		"Homestead"
+	}
+	if day == 28
+	{
+		"River"
+		"Creek"
+		"Crick"
+	}
+	if day == 29
+	{
+		"Trout"
+		"Bass"
+		"Scales"
+	}
+	if day == 30
+	{
+		"Calendar"
+		"Checklist"
+		"Journal"
+	}
+	if day == 31
+	{
+		"Repeat"
+		"Cycle"
+		"Again"
+	}
+	
+	if yearday == 1
+	{
+		"Holophrase"
+	}
+	if yearday == 2
+	{
+		"Dusted"
+	}
+	if yearday == 3
+	{
+		"Reticence"
+	}
+	if yearday == 4
+	{
+		"Bald"
+	}
+	if yearday == 5
+	{
+		"Fidgeting"
+	}
+	if yearday == 6
+	{
+		"Scratching"
+	}
+	if yearday == 7
+	{
+		"Honcho"
+	}
+	if yearday == 8
+	{
+		"Learning"
+	}
+	if yearday == 9
+	{
+		"Fletcherize"
+	}
+	if yearday == 10
+	{
+		"Literal"
+	}
+	if yearday == 11
+	{
+		"Dissilent"
+	}
+	if yearday == 12
+	{
+		"Hydra"
+	}
+	if yearday == 13
+	{
+		"Trim"
+	}
+	if yearday == 14
+	{
+		"Fuselage"
+	}
+	if yearday == 15
+	{
+		"Dialtone"
+	}
+	if yearday == 16
+	{
+		"Incivility"
+	}
+	if yearday == 17
+	{
+		"Fetching"
+	}
+	if yearday == 18
+	{
+		"Friend"
+	}
+	if yearday == 19
+	{
+		"Leaky"
+	}
+	if yearday == 20
+	{
+		"Furlong"
+	}
+	if yearday == 21
+	{
+		"Solar"
+	}
+	if yearday == 22
+	{
+		"Plashy"
+	}
+	if yearday == 23
+	{
+		"Confabulate"
+	}
+	if yearday == 24
+	{
+		"Tampering"
+	}
+	if yearday == 25
+	{
+		"Natant"
+	}
+	if yearday == 26
+	{
+		"Ambisinister"
+	}
+	if yearday == 27
+	{
+		"Oligopoly"
+	}
+	if yearday == 28
+	{
+		"Estivate"
+	}
+	if yearday == 29
+	{
+		"Aphorism"
+	}
+	if yearday == 30
+	{
+		"Escalate"
+	}
+	if yearday == 31
+	{
+		"Ammonia"
+	}
+	if yearday == 32
+	{
+		"Tornado"
+	}
+	if yearday == 33
+	{
+		"Abecedarian"
+	}
+	if yearday == 34
+	{
+		"Onomatopoeia"
+	}
+	if yearday == 35
+	{
+		"Farraginous"
+	}
+	if yearday == 36
+	{
+		"Beamish"
+	}
+	if yearday == 37
+	{
+		"Flummoxed"
+	}
+	if yearday == 38
+	{
+		"Putative"
+	}
+	if yearday == 39
+	{
+		"Scribbling"
+	}
+	if yearday == 40
+	{
+		"Integument"
+	}
+	if yearday == 41
+	{
+		"Mandrake"
+	}
+	if yearday == 42
+	{
+		"Napsack"
+	}
+	if yearday == 43
+	{
+		"Smoothing"
+	}
+	if yearday == 44
+	{
+		"Brazen"
+	}
+	if yearday == 45
+	{
+		"Lilt"
+	}
+	if yearday == 46
+	{
+		"Yadda"
+	}
+	if yearday == 47
+	{
+		"Healing"
+	}
+	if yearday == 48
+	{
+		"Picaresque"
+	}
+	if yearday == 49
+	{
+		"Emulous"
+	}
+	if yearday == 50
+	{
+		"Inaugurate"
+	}
+	if yearday == 51
+	{
+		"Pecuniary"
+	}
+	if yearday == 52
+	{
+		"Sneezy"
+	}
+	if yearday == 53
+	{
+		"Foofaraw"
+	}
+	if yearday == 54
+	{
+		"Tripe"
+	}
+	if yearday == 55
+	{
+		"Defenestrate"
+	}
+	if yearday == 56
+	{
+		"Cackleberry"
+	}
+	if yearday == 57
+	{
+		"Knitting"
+	}
+	if yearday == 58
+	{
+		"Prosopopoeia"
+	}
+	if yearday == 59
+	{
+		"Itching"
+	}
+	if yearday == 60
+	{
+		"Remembrancer"
+	}
+	if yearday == 61
+	{
+		"Grubstake"
+	}
+	if yearday == 62
+	{
+		"Cities"
+	}
+	if yearday == 63
+	{
+		"Point"
+	}
+	if yearday == 64
+	{
+		"Espionage"
+	}
+	if yearday == 65
+	{
+		"Fervor"
+	}
+	if yearday == 66
+	{
+		"Dentrifice"
+	}
+	if yearday == 67
+	{
+		"Sweeping"
+	}
+	if yearday == 68
+	{
+		"Modern"
+	}
+	if yearday == 69
+	{
+		"Saudade"
+	}
+	if yearday == 70
+	{
+		"Masticate"
+	}
+	if yearday == 71
+	{
+		"Interlard"
+	}
+	if yearday == 72
+	{
+		"Liked"
+	}
+	if yearday == 73
+	{
+		"Reaching"
+	}
+	if yearday == 74
+	{
+		"Sleezy"
+	}
+	if yearday == 75
+	{
+		"Masquerade"
+	}
+	if yearday == 76
+	{
+		"Farewell"
+	}
+	if yearday == 77
+	{
+		"Mammonism"
+	}
+	if yearday == 78
+	{
+		"Wampish"
+	}
+	if yearday == 79
+	{
+		"Panorama"
+	}
+	if yearday == 80
+	{
+		"Skylark"
+	}
+	if yearday == 81
+	{
+		"Ascend"
+	}
+	if yearday == 82
+	{
+		"Skerrick"
+	}
+	if yearday == 83
+	{
+		"Boat"
+	}
+	if yearday == 84
+	{
+		"Promiscuous"
+	}
+	if yearday == 85
+	{
+		"Font"
+	}
+	if yearday == 86
+	{
+		"Helping"
+	}
+	if yearday == 87
+	{
+		"Trimming"
+	}
+	if yearday == 88
+	{
+		"Darg"
+	}
+	if yearday == 89
+	{
+		"Beignet"
+	}
+	if yearday == 90
+	{
+		"Forlorn"
+	}
+	if yearday == 91
+	{
+		"Droke"
+	}
+	if yearday == 92
+	{
+		"Sterile"
+	}
+	if yearday == 93
+	{
+		"Tamping"
+	}
+	if yearday == 94
+	{
+		"Cooking"
+	}
+	if yearday == 95
+	{
+		"Shady"
+	}
+	if yearday == 96
+	{
+		"Apron"
+	}
+	if yearday == 97
+	{
+		"Vendetta"
+	}
+	if yearday == 98
+	{
+		"Dust"
+	}
+	if yearday == 99
+	{
+		"Twist"
+	}
+	if yearday == 100
+	{
+		"Leaking"
+	}
+	if yearday == 101
+	{
+		"Hollow"
+	}
+	if yearday == 102
+	{
+		"Junction"
+	}
+	if yearday == 103
+	{
+		"Curling"
+	}
+	if yearday == 104
+	{
+		"Penduncle"
+	}
+	if yearday == 105
+	{
+		"Ennui"
+	}
+	if yearday == 106
+	{
+		"Finality"
+	}
+	if yearday == 107
+	{
+		"Spaces"
+	}
+	if yearday == 108
+	{
+		"Turning"
+	}
+	if yearday == 109
+	{
+		"Sensing"
+	}
+	if yearday == 110
+	{
+		"Gasconade"
+	}
+	if yearday == 111
+	{
+		"Machinate"
+	}
+	if yearday == 112
+	{
+		"Swing"
+	}
+	if yearday == 113
+	{
+		"Sartorial"
+	}
+	if yearday == 114
+	{
+		"Nescience"
+	}
+	if yearday == 115
+	{
+		"Perambulate"
+	}
+	if yearday == 116
+	{
+		"Superstition"
+	}
+	if yearday == 117
+	{
+		"Flammable"
+	}
+	if yearday == 118
+	{
+		"Full"
+	}
+	if yearday == 119
+	{
+		"Mending"
+	}
+	if yearday == 120
+	{
+		"Banana"
+	}
+	if yearday == 121
+	{
+		"Noetic"
+	}
+	if yearday == 122
+	{
+		"Stultify"
+	}
+	if yearday == 123
+	{
+		"Testing"
+	}
+	if yearday == 124
+	{
+		"Turbulence"
+	}
+	if yearday == 125
+	{
+		"Plenipotent"
+	}
+	if yearday == 126
+	{
+		"Betrayal"
+	}
+	if yearday == 127
+	{
+		"Encomium"
+	}
+	if yearday == 128
+	{
+		"Proclamation"
+	}
+	if yearday == 129
+	{
+		"Velleity"
+	}
+	if yearday == 130
+	{
+		"Wacky"
+	}
+	if yearday == 131
+	{
+		"Propinquity"
+	}
+	if yearday == 132
+	{
+		"Setting"
+	}
+	if yearday == 133
+	{
+		"Apopemtic"
+	}
+	if yearday == 134
+	{
+		"Pandiculation"
+	}
+	if yearday == 135
+	{
+		"Abandon"
+	}
+	if yearday == 136
+	{
+		"Skating"
+	}
+	if yearday == 137
+	{
+		"Stalwart"
+	}
+	if yearday == 138
+	{
+		"Predilection"
+	}
+	if yearday == 139
+	{
+		"Vibrissa"
+	}
+	if yearday == 140
+	{
+		"Rolling"
+	}
+	if yearday == 141
+	{
+		"Rustic"
+	}
+	if yearday == 142
+	{
+		"Deliquesce"
+	}
+	if yearday == 143
+	{
+		"Venerate"
+	}
+	if yearday == 144
+	{
+		"Pointed"
+	}
+	if yearday == 145
+	{
+		"Diegetic"
+	}
+	if yearday == 146
+	{
+		"Brace"
+	}
+	if yearday == 147
+	{
+		"Paterfamilias"
+	}
+	if yearday == 148
+	{
+		"Flying"
+	}
+	if yearday == 149
+	{
+		"Comeuppance"
+	}
+	if yearday == 150
+	{
+		"Avenue"
+	}
+	if yearday == 151
+	{
+		"Emerge"
+	}
+	if yearday == 152
+	{
+		"Cunctation"
+	}
+	if yearday == 153
+	{
+		"Kill"
+	}
+	if yearday == 154
+	{
+		"Transom"
+	}
+	if yearday == 155
+	{
+		"Polyglot"
+	}
+	if yearday == 156
+	{
+		"Canoodle"
+	}
+	if yearday == 157
+	{
+		"Scrap"
+	}
+	if yearday == 158
+	{
+		"Mowing"
+	}
+	if yearday == 159
+	{
+		"Antidisestablishmentarianism"
+	}
+	if yearday == 160
+	{
+		"Color"
+	}
+	if yearday == 161
+	{
+		"Lull"
+	}
+	if yearday == 162
+	{
+		"Wings"
+	}
+	if yearday == 163
+	{
+		"Folds"
+	}
+	if yearday == 164
+	{
+		"Terminal"
+	}
+	if yearday == 165
+	{
+		"Biscayne"
+	}
+	if yearday == 166
+	{
+		"Proud"
+	}
+	if yearday == 167
+	{
+		"Terpsichorean"
+	}
+	if yearday == 168
+	{
+		"Brabble"
+	}
+	if yearday == 169
+	{
+		"Sweet"
+	}
+	if yearday == 170
+	{
+		"Sniffles"
+	}
+	if yearday == 171
+	{
+		"Fantabulous"
+	}
+	if yearday == 172
+	{
+		"Pounding"
+	}
+	if yearday == 173
+	{
+		"Pirate"
+	}
+	if yearday == 174
+	{
+		"Greeting"
+	}
+	if yearday == 175
+	{
+		"Piled"
+	}
+	if yearday == 176
+	{
+		"Corners"
+	}
+	if yearday == 177
+	{
+		"Smooth"
+	}
+	if yearday == 178
+	{
+		"Verklempt"
+	}
+	if yearday == 179
+	{
+		"Feeble"
+	}
+	if yearday == 180
+	{
+		"Uitwaaien"
+	}
+	if yearday == 181
+	{
+		"Fine"
+	}
+	if yearday == 182
+	{
+		"Harbinger"
+	}
+	if yearday == 183
+	{
+		"Ambition"
+	}
+	if yearday == 184
+	{
+		"Palaver"
+	}
+	if yearday == 185
+	{
+		"Treetops"
+	}
+	if yearday == 186
+	{
+		"Fictitious"
+	}
+	if yearday == 187
+	{
+		"Alembic"
+	}
+	if yearday == 188
+	{
+		"Tracing"
+	}
+	if yearday == 189
+	{
+		"Mictrition"
+	}
+	if yearday == 190
+	{
+		"Torrential"
+	}
+	if yearday == 191
+	{
+		"Swinging"
+	}
+	if yearday == 192
+	{
+		"Baking"
+	}
+	if yearday == 193
+	{
+		"Traced"
+	}
+	if yearday == 194
+	{
+		"Calico"
+	}
+	if yearday == 195
+	{
+		"Girandole"
+	}
+	if yearday == 196
+	{
+		"Remote"
+	}
+	if yearday == 197
+	{
+		"Sewing"
+	}
+	if yearday == 198
+	{
+		"Lackidasical"
+	}
+	if yearday == 199
+	{
+		"Exonumia"
+	}
+	if yearday == 200
+	{
+		"Hedging"
+	}
+	if yearday == 201
+	{
+		"Leporine"
+	}
+	if yearday == 202
+	{
+		"Rolled"
+	}
+	if yearday == 203
+	{
+		"Lolling"
+	}
+	if yearday == 204
+	{
+		"Smooths"
+	}
+	if yearday == 205
+	{
+		"Camaraderie"
+	}
+	if yearday == 206
+	{
+		"Polymath"
+	}
+	if yearday == 207
+	{
+		"Fleeting"
+	}
+	if yearday == 208
+	{
+		"Tempering"
+	}
+	if yearday == 209
+	{
+		"Creases"
+	}
+	if yearday == 210
+	{
+		"Escaping"
+	}
+	if yearday == 211
+	{
+		"Swings"
+	}
+	if yearday == 212
+	{
+		"Sumpsimus"
+	}
+	if yearday == 213
+	{
+		"Agglomeration"
+	}
+	if yearday == 214
+	{
+		"Pound"
+	}
+	if yearday == 215
+	{
+		"Sofa"
+	}
+	if yearday == 216
+	{
+		"Organic"
+	}
+	if yearday == 217
+	{
+		"Twisting"
+	}
+	if yearday == 218
+	{
+		"Surreptitious"
+	}
+	if yearday == 219
+	{
+		"Badinage"
+	}
+	if yearday == 220
+	{
+		"Flocculent"
+	}
+	if yearday == 221
+	{
+		"Potent"
+	}
+	if yearday == 222
+	{
+		"Hedges"
+	}
+	if yearday == 223
+	{
+		"Diorama"
+	}
+	if yearday == 224
+	{
+		"Mile"
+	}
+	if yearday == 225
+	{
+		"Foozie"
+	}
+	if yearday == 226
+	{
+		"Lunisolar"
+	}
+	if yearday == 227
+	{
+		"Drowsing"
+	}
+	if yearday == 228
+	{
+		"Dusting"
+	}
+	if yearday == 229
+	{
+		"Apology"
+	}
+	if yearday == 230
+	{
+		"Fixing"
+	}
+	if yearday == 231
+	{
+		"Empathy"
+	}
+	if yearday == 232
+	{
+		"Nonpareil"
+	}
+	if yearday == 233
+	{
+		"Melodic"
+	}
+	if yearday == 234
+	{
+		"Fantast"
+	}
+	if yearday == 235
+	{
+		"Skater"
+	}
+	if yearday == 236
+	{
+		"Sneaking"
+	}
+	if yearday == 237
+	{
+		"Schwa"
+	}
+	if yearday == 238
+	{
+		"Nondiegetic"
+	}
+	if yearday == 239
+	{
+		"Pleonasm"
+	}
+	if yearday == 240
+	{
+		"Hostility"
+	}
+	if yearday == 241
+	{
+		"Bloviate"
+	}
+	if yearday == 242
+	{
+		"Minutiae"
+	}
+	if yearday == 243
+	{
+		"Software"
+	}
+	if yearday == 244
+	{
+		"Potential"
+	}
+	if yearday == 245
+	{
+		"Dyeing"
+	}
+	if yearday == 246
+	{
+		"Lifting"
+	}
+	if yearday == 247
+	{
+		"Illusory"
+	}
+	if yearday == 248
+	{
+		"Haberdashery"
+	}
+	if yearday == 249
+	{
+		"Epilogue"
+	}
+	if yearday == 250
+	{
+		"Edges"
+	}
+	if yearday == 251
+	{
+		"Waesucks"
+	}
+	if yearday == 252
+	{
+		"Pewter"
+	}
+	if yearday == 253
+	{
+		"Perdure"
+	}
+	if yearday == 254
+	{
+		"Meritocracy"
+	}
+	if yearday == 255
+	{
+		"Spangle"
+	}
+	if yearday == 256
+	{
+		"Piles"
+	}
+	if yearday == 257
+	{
+		"Skyline"
+	}
+	if yearday == 258
+	{
+		"Infinitum"
+	}
+	if yearday == 259
+	{
+		"Hamlet"
+	}
+	if yearday == 260
+	{
+		"Fade"
+	}
+	if yearday == 261
+	{
+		"Proceleusmatic"
+	}
+	if yearday == 262
+	{
+		"Better"
+	}
+	if yearday == 263
+	{
+		"Grouse"
+	}
+	if yearday == 264
+	{
+		"Zeitgeist"
+	}
+	if yearday == 265
+	{
+		"Dusty"
+	}
+	if yearday == 266
+	{
+		"Diving"
+	}
+	if yearday == 267
+	{
+		"Exercise"
+	}
+	if yearday == 268
+	{
+		"Macushla"
+	}
+	if yearday == 269
+	{
+		"Darning"
+	}
+	if yearday == 270
+	{
+		"Turned"
+	}
+	if yearday == 271
+	{
+		"Yonder"
+	}
+	if yearday == 272
+	{
+		"Twister"
+	}
+	if yearday == 273
+	{
+		"Smarmy"
+	}
+	if yearday == 274
+	{
+		"Mammock"
+	}
+	if yearday == 275
+	{
+		"Acme"
+	}
+	if yearday == 276
+	{
+		"Lachrymose"
+	}
+	if yearday == 277
+	{
+		"Terrene"
+	}
+	if yearday == 278
+	{
+		"Scaring"
+	}
+	if yearday == 279
+	{
+		"Spinning"
+	}
+	if yearday == 280
+	{
+		"Galimatias"
+	}
+	if yearday == 281
+	{
+		"Sabotage"
+	}
+	if yearday == 282
+	{
+		"Drowsy"
+	}
+	if yearday == 283
+	{
+		"Apothegm"
+	}
+	if yearday == 284
+	{
+		"Bamboozle"
+	}
+	if yearday == 285
+	{
+		"Foible"
+	}
+	if yearday == 286
+	{
+		"Judder"
+	}
+	if yearday == 287
+	{
+		"Curled"
+	}
+	if yearday == 288
+	{
+		"Jumping"
+	}
+	if yearday == 289
+	{
+		"Honeycomb"
+	}
+	if yearday == 290
+	{
+		"Draft"
+	}
+	if yearday == 291
+	{
+		"Condiment"
+	}
+	if yearday == 292
+	{
+		"Cellulose"
+	}
+	if yearday == 293
+	{
+		"Hackery"
+	}
+	if yearday == 294
+	{
+		"Superfluous"
+	}
+	if yearday == 295
+	{
+		"Robustness"
+	}
+	if yearday == 296
+	{
+		"Roll"
+	}
+	if yearday == 297
+	{
+		"Fleeing"
+	}
+	if yearday == 298
+	{
+		"Limerence"
+	}
+	if yearday == 299
+	{
+		"Throwing"
+	}
+	if yearday == 300
+	{
+		"Neophyte"
+	}
+	if yearday == 301
+	{
+		"Apathy"
+	}
+	if yearday == 302
+	{
+		"Thimble"
+	}
+	if yearday == 303
+	{
+		"Zeppelin"
+	}
+	if yearday == 304
+	{
+		"Concatenation"
+	}
+	if yearday == 305
+	{
+		"Boondoggle"
+	}
+	if yearday == 306
+	{
+		"Inimical"
+	}
+	if yearday == 307
+	{
+		"Culinary"
+	}
+	if yearday == 308
+	{
+		"Cheeseparing"
+	}
+	if yearday == 309
+	{
+		"Tantivy"
+	}
+	if yearday == 310
+	{
+		"Doomscrolling"
+	}
+	if yearday == 311
+	{
+		"Arboreal"
+	}
+	if yearday == 312
+	{
+		"Motor"
+	}
+	if yearday == 313
+	{
+		"Veritable"
+	}
+	if yearday == 314
+	{
+		"Brouhaha"
+	}
+	if yearday == 315
+	{
+		"Tocsin"
+	}
+	if yearday == 316
+	{
+		"Marvel"
+	}
+	if yearday == 317
+	{
+		"Tracer"
+	}
+	if yearday == 318
+	{
+		"Valentine"
+	}
+	if yearday == 319
+	{
+		"Cupidity"
+	}
+	if yearday == 320
+	{
+		"Alfresco"
+	}
+	if yearday == 321
+	{
+		"Satori"
+	}
+	if yearday == 322
+	{
+		"Nudnik"
+	}
+	if yearday == 323
+	{
+		"Winding"
+	}
+	if yearday == 324
+	{
+		"Moonshot"
+	}
+	if yearday == 325
+	{
+		"Mandible"
+	}
+	if yearday == 326
+	{
+		"Sour"
+	}
+	if yearday == 327
+	{
+		"Pleats"
+	}
+	if yearday == 328
+	{
+		"Contrariety"
+	}
+	if yearday == 329
+	{
+		"Carousel"
+	}
+	if yearday == 330
+	{
+		"Pointing"
+	}
+	if yearday == 331
+	{
+		"Kite"
+	}
+	if yearday == 332
+	{
+		"Fustian"
+	}
+	if yearday == 333
+	{
+		"Trimmed"
+	}
+	if yearday == 334
+	{
+		"Frightening"
+	}
+	if yearday == 335
+	{
+		"Feeling"
+	}
+	if yearday == 336
+	{
+		"Sweven"
+	}
+	if yearday == 337
+	{
+		"Boredom"
+	}
+	if yearday == 338
+	{
+		"Pyrite"
+	}
+	if yearday == 339
+	{
+		"Behoove"
+	}
+	if yearday == 340
+	{
+		"Wheel"
+	}
+	if yearday == 341
+	{
+		"Sacrilege"
+	}
+	if yearday == 342
+	{
+		"Teaching"
+	}
+	if yearday == 343
+	{
+		"Lustrum"
+	}
+	if yearday == 344
+	{
+		"Aspire"
+	}
+	if yearday == 345
+	{
+		"Snollygoster"
+	}
+	if yearday == 346
+	{
+		"Celerity"
+	}
+	if yearday == 347
+	{
+		"Brotherhood"
+	}
+	if yearday == 348
+	{
+		"Fair"
+	}
+	if yearday == 349
+	{
+		"Thrifting"
+	}
+	if yearday == 350
+	{
+		"Peradventure"
+	}
+	if yearday == 351
+	{
+		"Furphy"
+	}
+	if yearday == 352
+	{
+		"Ecological"
+	}
+	if yearday == 353
+	{
+		"Soaring"
+	}
+	if yearday == 354
+	{
+		"Macaronic"
+	}
+	if yearday == 355
+	{
+		"Intake"
+	}
+	if yearday == 356
+	{
+		"Megillah"
+	}
+	if yearday == 357
+	{
+		"Gooey"
+	}
+	if yearday == 358
+	{
+		"Curing"
+	}
+	if yearday == 359
+	{
+		"Gliding"
+	}
+	if yearday == 360
+	{
+		"Nonesuch"
+	}
+	if yearday == 361
+	{
+		"Inextricably"
+	}
+	if yearday == 362
+	{
+		"Vernal"
+	}
+	if yearday == 363
+	{
+		"Haimish"
+	}
+	if yearday == 364
+	{
+		"Bricolage"
+	}
+	if yearday == 365
+	{
+		"Rowing"
+	}
+	if yearday == 366
+	{
+		"Insofar"
+	}
+}

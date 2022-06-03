@@ -4,14 +4,11 @@ OnChangeName
 {
 	if !AreThesePopped("Scared","Confused","Happy")
 	{
-		if !ScaredIsPopped; "%(scared)Oh no,\w4 we didn't get it wrong,\w4 did we?\w8%(scaredoff) "
-		else; PoppedDialogue("Scared")
+		"%(scared)Oh no,\w4 we didn't get it wrong,\w4 did we?\w 8%(scaredoff)"
 		--
-		if !HappyIsPopped; "%(happy)New names are fun!\w8%(happyoff) "
-		else; PoppedDialogue("Happy")
+		"%(happy)New names are fun!\w8 %(happyoff)"
 		--
-		if !ConfusedIsPopped; "%(confused)What do you want yours to be now?\w8%(confusedoff) "
-		else; PoppedDialogue("Confused")
+		"%(confused)What do you want yours to be now?\w8 %(confusedoff)"
 	}
 	else
 	{
@@ -42,9 +39,7 @@ OnNameTeach //TODO THIS DOESN'T HANDLE IF BALLOONS ARE POPPED BECAUSE I WAS THIN
 	{
 		if _is_first_boot; "\_l[-10000,-10000]\q[ ,__VERY_FIRST_BOOT__]\_l[0,0]\*\t" //Prevents balloon from timing out if this is during first boot. Also prevents the user from closing out the input box
 		
-		if !UnamusedIsPopped; "%(unamused)yeah,\w4 right,\w4 like i wouldn't know my own family\w8%(unamusedoff)"
-		else; PoppedDialogue("Unamused")
-		
+		"%(unamused)yeah,\w4 right,\w4 like i wouldn't know my own family\w8%(unamusedoff)"
 		--
 		EnterNameAgain
 	}
@@ -53,37 +48,32 @@ OnNameTeach //TODO THIS DOESN'T HANDLE IF BALLOONS ARE POPPED BECAUSE I WAS THIN
 		if _is_first_boot; "\_l[-10000,-10000]\q[ ,__VERY_FIRST_BOOT__]\_l[0,0]\*\t" //Prevents balloon from timing out if this is during first boot. Also prevents the user from closing out the input box
 		
 		
-		if !AngryIsPopped; "%(angry)HOW DO YOU KNOW THAT NAME!?\w8 STOP LYING!\w8%(angryoff)"
-		else; PoppedDialogue("Angry")
+		"%(angry)HOW DO YOU KNOW THAT NAME!?\w8 STOP LYING!\w8%(angryoff)"
 		--
 		EnterNameAgain
 	}
 	elseif _name == "orna"
 	{
 		username = _tempname
-		if !ShyIsPopped; "%(shy)Oh,\w4 r-really?\w8 Can you... change your face, too?\w8%(shyoff) "
-		else; PoppedDialogue("Shy")
-		
+		"%(shy)Oh,\w4 r-really?\w8 Can you...\w8 change your face,\w4 too?\w8%(shyoff) "
 	}
 	elseif _name == "zichqec"
 	{
 		username = _tempname
-		if !HappyIsPopped; "%(happy)Oh!\w8 Not just a friend!\w8 A BEST friend!\w8%(happyoff)%(br)"
-		else; PoppedDialogue("Happy")
+		"%(happy)Oh!\w8 Not just a friend!\w8 A BEST friend!\w8%(happyoff)%(br)"
 		
 	}
 	elseif _name == "galla"
 	{
 		username = _tempname
 		
-		if !ThinkIsPopped; "%(think)Ah.\w8 The incorrect choice.\w8%(thinkoff) "
-		else; PoppedDialogue("Think")
+		"%(think)Ah.\w8 The incorrect choice.\w8%(thinkoff) "
 	}
 	elseif _name == "" //If the user doesn't put in anything
 	{
 		if _is_first_boot; "\_l[-10000,-10000]\q[ ,__VERY_FIRST_BOOT__]\_l[0,0]\*\t" //Prevents balloon from timing out if this is during first boot. Also prevents the user from closing out the input box
 		
-		if _is_first_boot; "%(scared)I was too quiet,\w4 wasn't I?\w8 It's alright,\w4 don't worry about it,\w4 just try again...\w8 a little louder this time...\w8%(scaredoff) %(shy)U-uhm...\w8 I-\w4 I-\w4%(shyoff) %(angry)I ASKED YOUR NAME,\w4 SO GIVE IT TO ME!"
+		if _is_first_boot; "%(scared)I was too quiet,\w4 wasn't I?\w8 It's alright,\w4 don't worry about it,\w4 just try again...\w8 a little louder this time...\w8 %(scaredoff)%(shy)U-uhm...\w8 I-\w4 I-\w4 %(shyoff)%(angry)I ASKED YOUR NAME,\w4 SO GIVE IT TO ME!%(angryoff)"
 		else
 		{
 			if !AngryIsPopped && !UnamusedIsPopped; "%(unamused)yeah,\w4 i know you wanted to change your name %(unamusedoff)%(angry)SO TELL ME WHAT YOU WANT ALREADY %(angryoff)%(unamused)and stop wasting everyone's time%(unamusedoff)"
@@ -103,8 +93,7 @@ OnNameTeach //TODO THIS DOESN'T HANDLE IF BALLOONS ARE POPPED BECAUSE I WAS THIN
 	--
 	if !_is_first_boot //If the user was changing their name through the config menu
 	{
-		if !ThinkIsPopped; "%(think)Consider your prior name dead and buried.\w8 It will never be mentioned again.\w8%(thinkoff) "
-		else; PoppedDialogue("Think")
+		"%(think)Consider your prior name dead and buried.\w8 It will never be mentioned again.\w8%(thinkoff)"
 		--
 		"\n\n\![*]\q[Back to config,OnConfigMenu]\n\![*]\q[I'm done,cancelnodialogue]\e"
 	}
@@ -166,10 +155,9 @@ OnChangeBirthday //Pulled a lot of this from the GT template, but I also modifie
 {
 	if !AreThesePopped("Angry","Unamused")
 	{
-		if !AngryIsPopped; "%(angry)WHAT?\w8 BIRTHDAY?\w8%(angryoff) "
-		else; PoppedDialogue("Angry")
+		"%(angry)WHAT?\w8 BIRTHDAY?\w8 %(angryoff)"
 		--
-		if !UnamusedIsPopped; "%(unamused)whatever, what month's your birthday then\w8%(unamusedoff) "
+		if !UnamusedIsPopped; "%(unamused)whatever, what month's your birthday then\w8%(unamusedoff)"
 		else
 		{
 			PoppedDialogue("Unamused")
@@ -212,11 +200,9 @@ OnUserBornMonth
 	{
 		if !AreThesePopped("Shy","Happy")
 		{
-			if !ShyIsPopped; "%(shy)I don't know... w-what... %(_tempmonth) is... uh...\w8%(shyoff) "
-			else; PoppedDialogue("Shy")
+			"%(shy)I don't know... w-what... %(_tempmonth) is... uh...\w8 %(shyoff)"
 			--
-			if !HappyIsPopped; "%(happy)Try again!\w8%(happyoff) "
-			else; PoppedDialogue("Happy")
+			"%(happy)Try again!\w8%(happyoff)"
 		}
 		else
 		{
@@ -259,19 +245,17 @@ OnUserBornDay
 		
 		if birthday[1] == "%(month)/%(day)" //if today is the user's birthday. Don't forget to switch this if you change the format to DD/MM
 		{
-			if !UnamusedIsPopped; "%(unamused)%(username),\w4 you did that on purpose,\w4 didn't you?\w8 yeah,\w4 i'll say it next year.\w8\w8 maybe.\w8%(unamusedoff)"
-			else; PoppedDialogue("Unamused")
+			"%(unamused)%(username),\w4 you did that on purpose,\w4 didn't you?\w8 yeah,\w4 i'll say it next year.\w8\w8 maybe.\w8%(unamusedoff)"
 
 		}
 		else //if the birthday is not listed above.
 		{
-			if !ThinkIsPopped; "%(think)I will remember %(birthday[0]) as your day of birth.\w8 Forever.\w8%(thinkoff) "
-			else; PoppedDialogue("Think")
+			"%(think)I will remember %(birthday[0]) as your day of birth.\w8 Forever.\w8%(thinkoff)"
 		}
 		--
 		"\n\n\![*]\q[Back to config,OnConfigMenu]\n\![*]\q[I'm done,cancelnodialogue]\e"
 	}
-	else //If it isn't a valid day, we open the input box again and have a \e so the dialogue below doesn't play.
+	else //If it isn't a valid day, we open the input box again
 	{
 		if !SadIsPopped; "%(sad)i'm not sure i understand...?\w8 could you tell me one more time?\w8%(sadoff)"
 		else
@@ -283,5 +267,4 @@ OnUserBornDay
 		--
 		"\n\n\![*]\q[Cancel,OnConfigMenu,OnUserBornDay]\![open,inputbox,OnUserBornDay,-1]\*\e"
 	}
-	
 }

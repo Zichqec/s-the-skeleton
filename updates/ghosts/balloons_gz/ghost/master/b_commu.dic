@@ -175,11 +175,21 @@ OnCustomPingSend
 
 OnNeedlePoke
 {
-	_which = WhichArentPopped
-	_pop = ANY(_which)
-	
-	EVAL("%(_pop)IsPopped = 1")
-	
-	--
-	"%(PopSound)\![embed,OnPop%(_pop)]"
+	if reference0 == 0
+	{
+		_which = WhichArentPopped
+		_pop = ANY(_which)
+		
+		EVAL("%(_pop)IsPopped = 1") //TODO probably don't need this? Should be in the embed tag?
+		
+		--
+		"%(PopSound)\![embed,OnPop%(_pop)]"
+		--
+		"\![embed,OnNeedleUnpopCheck]"
+	}
+}
+
+OnNeedleUnpopCheck
+{
+	if AllArePopped; "\w8\w8" + UnpopAllWithEmbeds
 }

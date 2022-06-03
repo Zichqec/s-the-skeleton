@@ -1,0 +1,150 @@
+OnTranslate
+{
+	_talk = reference0
+	//---Important other stuff, written by Ponapalt and modified by me---
+	if reference1 == "" && reference2 == ""
+	{ //send input box : no event (ref2) , no special flag (ref1)
+		EVAL('"' + REPLACE(_talk,'"','""') + '"')
+	}
+    else
+	{ //event result from ghost
+		TOSTR(_talk)
+	}
+}
+
+OnChoiceSelect
+{
+	EVAL("Select.%(reference0)")
+}
+
+//From X. Template
+MenuIsOpen
+{
+	"choosing" _in_ var.req.value[ASEARCH("Status",var.req.key)]
+}
+
+OnUserInputCancel
+{
+	if reference0 == "OnJuniorJumbleGuess"; "\C\![open,inputbox,%(reference0),-1,--reference=%(reference3)]\*"
+	else; "\C\![open,inputbox,%(reference0),-1]\*"
+}
+
+//From X. Template
+Capitalize
+{
+	_first = SUBSTR(_argv[0],0,1)
+	_rest = ERASE(_argv[0],0,1) //Erase the first character and store everything else in _rest
+	TOUPPER(_first) + _rest
+}
+
+emdash
+{
+	"\f[name,calibri]—\f[name,default]"
+}
+
+ul
+{
+	"\f[name,calibri]•\f[name,default]"
+}
+
+newline
+{
+	"\n \n[-100]"
+}
+
+//Current season
+season
+{
+	if hemisphere == "Southern"
+	{
+		case month
+		{
+			when 3-5; "Autumn"
+			when 6-8; "Winter"
+			when 9-11; "Spring"
+			others; "Summer"
+		}
+	}
+	else
+	{
+		case month
+		{
+			when 3-5; "Spring"
+			when 6-8; "Summer"
+			when 9-11; "Autumn"
+			others; "Winter"
+		}
+	}
+}
+
+//Abbreviated week day
+wd
+{
+	switch weekday
+	{
+		"Sun" //weekday starts at 0 for some reason
+		"Mon"
+		"Tue"
+		"Wed"
+		"Thu"
+		"Fri"
+		"Sat"
+	}
+}
+
+//Gets the day of the year it currently is, starting from 1 because starting from 0 here is silly
+yearday
+{
+	GETTIME[7] + 1
+}
+
+leapyear
+{
+	_year = year; if _argv[0] != ""; _year = _argv[0]
+	if _year % 4 != 0; 0
+	elseif _year % 100 != 0; 1
+	elseif _year % 400 != 0; 0
+	else; 1
+}
+
+//Current week in the year, 1-53
+yearweek
+{
+	//Get the current day of the year
+	_days = yearday
+
+	//Get the number of days into the current week that we are
+	_trailingdays = 0
+	while weekday - _trailingdays >= 0
+	{
+		_trailingdays++
+	}
+
+	//Get the number of weeks minus leading and trailing days
+	_days -= _trailingdays
+	_weeks = _days / 7
+	_leadingdays = _days % 7
+
+	//Add in the trailing weeks
+	if _leadingdays > 0; _weeks++
+	if _trailingdays > 0; _weeks++
+
+	//Handles week 53
+	if _weeks == 53
+	{
+		_daysleft = 31 - day
+		if _daysleft + _trailingdays < 7; _weeks = 1
+	}
+	_weeks
+}
+
+timeslot
+{
+	case hour
+	{
+		when 5-10; "breakfast" //5-10am
+		when 11-16; "lunch" //11-4pm
+		when 17-22; "dinner" //5-10pm
+		others; "snacks" //11-4am
+	}
+}

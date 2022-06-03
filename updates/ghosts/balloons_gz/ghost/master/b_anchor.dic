@@ -2,27 +2,15 @@ OnTranslate
 {
 	_talk = reference0
 	LOGGING("====================================================================")
-	TAMA("_talk")
+	LOGGING("_talk: %(_talk)")
 	
-	if StartsWith(_talk,"\n\n")
-	_talk = REPLACE(_talk,"\n\n","",1)
 	
-	if BalloonMode == "Slim"
-	{
-		if StartsWith(_talk,"\C"); _talk = REPLACE(_talk,"\C","\C\b[4]")
-		else; _talk = "\b[4]" + _talk
-		_talk = REPLACE(_talk,"\b[0]","\b[4]")
-		_talk = REPLACE(_talk,"\b[2]","\b[6]")
-		_talk = REPLACE(_talk,"\b2","\b[6]")
-	}
+	
+	
 	
 	//---Auto Anchors---
 	//Add as many names as you want to this list
 	_namelist = "Name 1,Name 2,Name 3"
-	
-	//Names written here should be written in dialogue as @Name 1, @Name 2, etc... So if I added Lulo, I would write @Lulo in dialogue to call the anchor. If I wanted to write the name Lulo without it being an anchor, I would just write it as Lulo
-	//When these anchors are clicked, they will direct to an Anchor.function. So for Name 1 it would be Anchor.Name_1 and for Lulo it would be Anchor.Lulo
-	//Invalid characters will be converted to underscores. You can see a list of invalid characters below. Names are case sensitive as well!
 
 	//Loops through every name on the list and checks for them in dialogue
 	foreach _namelist; _name
@@ -37,12 +25,57 @@ OnTranslate
 		_talk = REPLACE(_talk,"@%(_name)","\_a[AUTO_ANCHOR:%(_funcname)]%(_name)\_a") //Replace the @name in the script with an anchor. Since the auto anchor tag uses a :, and : is already cleaned out of the anchor name, you should never be able to interfere with that tag.
 	}
 	
-	
 	//---Manual Anchors---
 	_talk = REPLACE(_talk,"Example Anchor","\_a[exampleanchor]Example Anchor\_a")
 
-	_talk = REPLACE(_talk,"\n\n\![end-of-linebreaks-flag]\n\n","\n\n") //Fixes narration adding too many linebreaks!
 	
+	_emotions = "Shy,Unamused,Scared,Sad,Confused,Happy,Angry,Think"
+	
+	//wait this won't work because certain etc dialogues require special narration... it's here just in case I change my mind. I have not tested this though
+	// if reference2 != "OnAiTalk"
+	// {
+		// _which_are_used = IARRAY
+		// foreach _emotions; _emotion
+		// {
+			// if "\![%(_emotion)-start]" _in_ _talk; _which_are_used ,= _emotion
+		// }
+		// for _i = 0; _i < ARRAYSIZE(_which_are_used); _i++
+		// {
+			// if EVAL("%(_which_are_used[_i])IsPopped"); _which_are_used[_i] = IARRAY
+		// }
+		
+		// if ARRAYSIZE(_which_are_used) == 0; _talk = AllPoppedDialogue
+	// }
+	
+	
+	foreach _emotions; _emotion
+	{
+		if EVAL("%(_emotion)IsPopped") && "\![%(_emotion)-start]" _in_ _talk
+		{
+			//_talk = RE_REPLACE(_talk,"\\!\[%(_emotion)-start\](.*)\\!\[%(_emotion)-end\]",PoppedDialogue(_emotion)) //← can't handle the same emotion talking more than once
+			
+			_array = SPLIT(_talk,"\![%(_emotion)-start]")
+			_talk = _array[0]
+			_array[0] = IARRAY
+			foreach _array; _section
+			{
+				_talk += PoppedDialogue(_emotion)
+				_talk += _section[1,"\![%(_emotion)-end]"]
+			}
+		}
+	}
+	
+	_talk = REPLACE(_talk,"\n\n\![end-of-linebreaks-flag]\n\n","\n\n") //Fixes narration adding too many linebreaks!
+	if StartsWith(_talk,"\n\n"); _talk = REPLACE(_talk,"\n\n","",1)
+	
+	if BalloonMode == "Slim" && SHIORI3FW.BalloonName == "Balloons Balloon"
+	{
+		//if StartsWith(_talk,"\C"); _talk = REPLACE(_talk,"\C","\C\b[4]")
+		if !StartsWith(_talk,"\C"); _talk = "\b[4]" + _talk
+		_talk = REPLACE(_talk,"\b[0]","\b[4]")
+		_talk = REPLACE(_talk,"\b[2]","\b[6]")
+		_talk = REPLACE(_talk,"\b2","\b[6]")
+	}
 	
 	//---Important other stuff, written by Ponapalt and modified by me---
 	if reference1 == "" && reference2 == ""
@@ -101,4 +134,31 @@ OnDialogueVars
 			_example += 1
 		}
 	}
+}
+
+ShoutName
+{
+	_name = _argv[0]
+	_len = _argv[1]
+	if _len <= 0; _len = 5
+	
+	_vowels = ("a","e","i","o","u") //Can add more vowels here, like accented letters and such
+	
+	for _i = 0; _i < STRLEN(_name); _i++
+	{
+		_letter = SUBSTR(_name,_i,1)
+		if ASEARCH(TOLOWER(_letter),_vowels) != -1
+		{
+			//No string multiplication in YAYA, so we use a loop to create the extra characters
+			_many = ""
+			for _ii = 0; _ii < _len; _ii++
+			{
+				if _ii > 0; _many += TOLOWER(_letter)
+				else; _many += _letter
+			}
+			_name = REPLACE(_name,_letter,_many,1) //Replace the first instance of the vowel with the lengthened string. This does not work well for names like 'Jemima', since the longer string in that case _should_ be the I and not the E
+			break
+		}
+	}
+	_name
 }

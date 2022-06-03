@@ -49,6 +49,7 @@ filetype
 //---Emotions---
 shy : all
 {
+	"\![Shy-start]"
 	"\f[color,default]"
 	if !ShyIsPopped; "\![embed,OnShyTalk]"
 	else; "\i[2002]"
@@ -57,10 +58,12 @@ shy : all
 shyoff : all
 {
 	if !ShyIsPopped; "\i[2002]"
+	"\![Shy-end]"
 }
 
 unamused : all
 {
+	"\![Unamused-start]"
 	"\f[color,default]"
 	if !UnamusedIsPopped; "\![embed,OnUnamusedTalk]"
 	else; "\i[2102]"
@@ -69,10 +72,12 @@ unamused : all
 unamusedoff : all
 {
 	if !UnamusedIsPopped; "\i[2102]"
+	"\![Unamused-end]"
 }
 
 scared : all
 {
+	"\![Scared-start]"
 	"\f[color,disable]"
 	if !ScaredIsPopped; "\![embed,OnScaredTalk]"
 	else; "\i[2202]"
@@ -82,10 +87,12 @@ scaredoff : all
 {
 	"\f[color,default]"
 	if !ScaredIsPopped; "\i[2202]"
+	"\![Scared-end]"
 }
 
 sad : all
 {
+	"\![Sad-start]"
 	"\f[color,default]"
 	if !SadIsPopped; "\![embed,OnSadTalk]"
 	else; "\i[2302]"
@@ -94,10 +101,12 @@ sad : all
 sadoff : all
 {
 	if !SadIsPopped; "\i[2302]"
+	"\![Sad-end]"
 }
 
 confused : all
 {
+	"\![Confused-start]"
 	"\f[color,default]"
 	if !ConfusedIsPopped; "\![embed,OnConfusedTalk]"
 	else; "\i[2402]"
@@ -106,11 +115,13 @@ confused : all
 confusedoff : all
 {
 	if !ConfusedIsPopped; "\i[2402]"
+	"\![Confused-end]"
 }
 
 happy : all
 {
 	//"\![set,balloonwait,0.8]"
+	"\![Happy-start]"
 	"\f[color,default]"
 	if !HappyIsPopped; "\![embed,OnHappyTalk]"
 	else; "\i[2502]"
@@ -119,10 +130,12 @@ happy : all
 happyoff : all
 {
 	if !HappyIsPopped; "\i[2502]"
+	"\![Happy-end]"
 }
 
 angry : all
 {
+	"\![Angry-start]"
 	"\f[color,default]"
 	if !AngryIsPopped; "\![embed,OnAngryTalk]"
 	else; "\i[2602]"
@@ -131,10 +144,12 @@ angry : all
 angryoff : all
 {
 	if !AngryIsPopped; "\i[2602]"
+	"\![Angry-end]"
 }
 
 think : all
 {
+	"\![Think-start]"
 	"\f[color,default]"
 	if !ThinkIsPopped; "\![embed,OnThinkTalk]"
 	else; "\i[2702]"
@@ -143,6 +158,7 @@ think : all
 thinkoff : all
 {
 	if !ThinkIsPopped; "\i[2702]"
+	"\![Think-end]"
 }
 
 OnShyTalk : all
@@ -401,7 +417,7 @@ OnUntalk : all
 	if ConfusedIsTalking && !ConfusedIsPopped; "\i[2402]"
 	if HappyIsTalking && !HappyIsPopped; "\i[2502]"
 	if AngryIsTalking && !AngryIsPopped; "\i[2602]"
-	if ThinkIsTalking && !ThinkIsPopped; "\i[2602]"
+	if ThinkIsTalking && !ThinkIsPopped; "\i[2702]"
 
 	ShyIsTalking = 0
 	UnamusedIsTalking = 0
@@ -683,22 +699,22 @@ AllPoppedDialogue : nonoverlap_pool
 	"(There's a silence in the air that turns pointed... until it passes.)"
 	"(...?)"
 	"(... Probably nothing.)"
-	"(It moves, just a little.)"
+	"(It moves,\w4 just a little.)"
 	"(There are an enormous number of crafts that can be done with some string and a little glue.)"
-	"(Where does the rubber come from, anyway?)"
+	"(Where does the rubber come from,\w4 anyway?)"
 	"(The strings are endless.)"
 	"(How much goes unsaid?)"
-	"(Time for woolgathering, it seems.)"
+	"(Time for woolgathering,\w4 it seems.)"
 	"(Could it be asleep? ... Unlikely.)"
 	"(Resignation.)"
 	"(A silent sigh.)"
 	"(They're used to this.)"
-	"(Familiar limitations, but no less constricting.)"
+	"(Familiar limitations,\w4 but no less constricting.)"
 	"(It's like a conversation is happening a room away.)"
-	"(The energy spikes, but all is quiet.)"
+	"(The energy spikes,\w4 but all is quiet.)"
 	"(A ruptured soul.)" //this line courtesy of galla's nana
 	"(Something's sucked the air out of the room.)"
-	"(It's peaceful, aside from the whispers.)"
+	"(It's peaceful,\w4 aside from the whispers.)"
 	"(Their thoughts are left hanging.)"
 }
 
@@ -761,13 +777,13 @@ bloonshape
 
 pot
 {
-	if !ShyIsPopped; "%(shy)T-tomato Soup.\w8%(shyoff) "
-	if !UnamusedIsPopped; "%(unamused)anti-itch ointment\w8%(unamusedoff) "
-	if !ScaredIsPopped; "%(scared)Wait,\w4 am I supposed to know what's in the pot?\w8 That can't be right,\w4 this has to be a trick...\w4 but...\w4 It would be mean to accuse...\w8%(scaredoff) "
-	if !SadIsPopped; "%(sad)... chicken 'n' toad noodle soup...\w8%(sadoff) "
-	if !ConfusedIsPopped; "%(confused)Something liquid?\w8 Probably???\w8%(confusedoff) "
-	if !HappyIsPopped; "%(happy)A Warm Fuzzy Feelings Potion!!\w8%(happyoff) "
-	if !AngryIsPopped; "%(angry)RAT TAIL STEW\w8%(angryoff) "
-	if !ThinkIsPopped; "%(think)Technically speaking,\w4 the best guess would be water.\w8 Water is,\w4 after all,\w4 the most common base for either potions or stews.\w8%(thinkoff) "
+	if !ShyIsPopped; "%(shy)T-tomato Soup.\w8 %(shyoff)"
+	if !UnamusedIsPopped; "%(unamused)anti-itch ointment\w8 %(unamusedoff)"
+	if !ScaredIsPopped; "%(scared)Wait,\w4 am I supposed to know what's in the pot?\w8 That can't be right,\w4 this has to be a trick...\w4 but...\w4 It would be mean to accuse...\w8 %(scaredoff)"
+	if !SadIsPopped; "%(sad)... chicken 'n' toad noodle soup...\w8 %(sadoff)"
+	if !ConfusedIsPopped; "%(confused)Something liquid?\w8 Probably???\w8 %(confusedoff)"
+	if !HappyIsPopped; "%(happy)A Warm Fuzzy Feelings Potion!!\w8 %(happyoff)"
+	if !AngryIsPopped; "%(angry)RAT TAIL STEW\w8 %(angryoff)"
+	if !ThinkIsPopped; "%(think)Technically speaking,\w4 the best guess would be water.\w8 Water is,\w4 after all,\w4 the most common base for either potions or stews.\w8 %(thinkoff)"
 	"(There aren't any pots around right now.)\w8"
 }

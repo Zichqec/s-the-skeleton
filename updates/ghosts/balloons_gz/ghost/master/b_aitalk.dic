@@ -18,14 +18,8 @@ OnAiTalk
 	// }
 }
 
-//nonoverlap_pool is an amazing modifier added by steve02081504! This makes it so that ALL dialogues you put in the RandomTalk function will have an equal probability of being chosen, no matter how deeply you nest them! Not only that; the nonoverlap part means that it won't repeat itself until it runs out of dialogues, or the number of available dialogues changes. The only exception is if you use a -- to attach two pieces of dialogue together; I'll include an example of what I mean.
-RandomTalk : nonoverlap
+testpool : nonoverlap
 {
-	//"bloons"
-	
-	
-	
-	
 	if !AreThesePopped("Happy","Confused","Shy","Sad")
 	{
 		if !HappyIsPopped; "%(happy)Hum dee dum~\w8%(happyoff) "
@@ -42,68 +36,85 @@ RandomTalk : nonoverlap
 		--
 		"\n\n(They're all humming together.)"
 	}
+}
+
+//nonoverlap_pool is an amazing modifier added by steve02081504! This makes it so that ALL dialogues you put in the RandomTalk function will have an equal probability of being chosen, no matter how deeply you nest them! Not only that; the nonoverlap part means that it won't repeat itself until it runs out of dialogues, or the number of available dialogues changes. The only exception is if you use a -- to attach two pieces of dialogue together; I'll include an example of what I mean.
+RandomTalk : nonoverlap_pool
+{
+	//"bloons"
 	
-	if !AngryIsPopped; "%(angry)DON'T EVEN THINK ABOUT POKING ME!\w8%(angryoff)"
+	//————— Dialogues that will work no matter what balloons are popped —————
+	"%(untalk)(They seem content to float here.)\w8"
+	"%(happy)Bubble,\w4 bubble,\w4 bubble!\w8 %(happyoff)%(confused)What's in the pot??\w8\n\n%(confusedoff)%(pot)"
 	
-	if !UnamusedIsPopped; "%(unamused)wow this is great\w8%(unamusedoff)"
+	//————— Dialogues for individual balloons —————
+	if !ShyIsPopped
+	{
+		"%(shy)Uhm... I... N-nevermind...\w8%(shyoff)"
+		"%(shy)Rub rub...\w8%(shyoff)"
+	}
 	
-	if !ScaredIsPopped; "%(scared)Should we say something about all of these papers everywhere?\w8 No,\w4 no,\w4 stop it,\w4 that isn't any of our business.\w8%(scaredoff)"
+	if !UnamusedIsPopped
+	{
+		"%(unamused)wow this is great\w8%(unamusedoff)"
+		"%(unamused)yawn\w8%(unamusedoff)"
+	}
 	
-	if !ThinkIsPopped; "%(think)I wonder,\w4 what time is it at home?\w8 If it is %(nowhour):%(nowmin) here,\w4 then...\w8%(thinkoff)"
+	if !ScaredIsPopped
+	{
+		"%(scared)Should we say something about all of these papers everywhere?\w8 No,\w4 no,\w4 stop it,\w4 that isn't any of our business.\w8%(scaredoff)"
+		"%(scared)Oh no,\w4 are our strings getting tangled?\w8 Careful,\w4 don't pull too hard...\w8 No,\w4 we're okay.\w8%(scaredoff)"
+		"%(scared)Are we h-h-haunted?\w8%(scaredoff)"
+	}
+	
+	if !SadIsPopped
+	{
+		"%(sad)... squeak...\w8%(sadoff)"
+	}
+	
+	if !ConfusedIsPopped
+	{
+		"%(confused)Did you say something??\w8 No???\w8 Did I?\w8 I can't remember??\w8%(confusedoff)"
+		"%(confused)Did you know?\w8 Balloons?\w8 Can look like %(bloonshape)??\w8%(confusedoff)"
+	}
+	
+	if !HappyIsPopped
+	{
+		"%(happy)Float,\w4 float,\w4 float!\w8%(happyoff)"
+		"%(happy)Hey!!!\w8 Watch my mouth move!\w8 Auuuguuu gobbledygook mucky mook put the duckie in the brook!!\w8%(happyoff)\n\n(It's given itself a case of the giggles.)"
+	}
+	
+	if !AngryIsPopped
+	{
+		"%(angry)DON'T EVEN THINK ABOUT POKING ME!\w8%(angryoff)"
+	}
+	
+	if !ThinkIsPopped
+	{
+		"%(think)I wonder,\w4 what time is it at home?\w8 If it is %(nowhour):%(nowmin) here,\w4 then...\w8%(thinkoff)"
+		"%(think)Bounce and bob.\w8%(thinkoff)"
+		"%(think)How many of us are here?\w8 I wonder.\w8%(thinkoff)"
+		"%(think)Do you believe that a balloon can also be %(bloonbe)?\w8%(thinkoff)"
+	}
+	
+	//————— Dialogues that require groups of balloons —————
+	
+	if !AreThesePopped("Happy","Confused","Shy","Sad")
+	{
+		"%(happy)Hum dee dum~\w8 %(happyoff)%(confused)Hum dee doo??\w8 %(confusedoff)%(shy)H-hum deedle... deedle...\w8 %(shyoff)%(sad)dee...\w8\n\n%(sadoff)(They're all humming together.)"
+	}
 	
 	if !AreThesePopped("Happy","Sad","Unamused")
 	{
-		if !HappyIsPopped; "%(happy)Oh!\w8 We should play a game!!\w8%(happyoff) "
-		else; PoppedDialogue("Happy")
-		--
-		if !SadIsPopped; "%(sad)...\w8 but...\w8 i don't have a pen...\w8 all the games i know need a pen...\w8%(sadoff) "
-		else; PoppedDialogue("Sad")
-		--
-		if !UnamusedIsPopped; "%(unamused)forget it,\w4 i don't like games anyway\w8%(unamusedoff) "
-		else; PoppedDialogue("Unamused")
+		"%(happy)Oh!\w8 We should play a game!!\w8 %(happyoff)%(sad)...\w8 but...\w8 i don't have a pen...\w8 all the games i know need a pen... \w8%(sadoff)%(unamused)forget it,\w4 i don't like games anyway\w8%(unamusedoff)"
 	}
-	
-	"%(untalk)(They seem content to float here.)\w8"
-	
-	if !HappyIsPopped; "%(happy)Float,\w4 float,\w4 float!\w8%(happyoff)"
-	
-	if !ShyIsPopped; "%(shy)Uhm... I... N-nevermind...\w8%(shyoff)"
-	
-	if !SadIsPopped; "%(sad)... squeak...\w8%(sadoff)"
-	
-	if !ConfusedIsPopped; "%(confused)Did you say something??\w8 No???\w8 Did I?\w8 I can't remember??\w8%(confusedoff)"
 	
 	if !AreThesePopped("Sad","Angry","Unamused")
 	{
-		if !SadIsPopped; "%(sad)pop... pop... pop...\w8%(sadoff) "
-		else; PoppedDialogue("Sad")
-		--
-		if !AngryIsPopped; "%(angry)POP!\w8%(angryoff) "
-		else; PoppedDialogue("Angry")
-		--
-		if !UnamusedIsPopped; "\n\n%(unamused)i'm not even popped right now\w8%(unamusedoff)"
-		else; PoppedDialogue("Unamused")
+		"%(sad)pop... pop... pop...\w8 %(sadoff)%(angry)POP!\w8%(angryoff)%(unamused)\n\ni'm not even popped right now%(unamusedoff)"
 	}
 	
-	{
-		if !HappyIsPopped; "%(happy)Bubble,\w4 bubble,\w4 bubble!\w8%(happyoff) "
-		else; PoppedDialogue("Happy")
-		--
-		if !ConfusedIsPopped; "%(confused)What's in the pot??\w8%(confusedoff) "
-		else; PoppedDialogue("Confused")
-		--
-		"\n\n%(pot)"
-	}
-	
-	if !ThinkIsPopped; "%(think)Bounce and bob.\w8%(thinkoff)"
-	if !ScaredIsPopped; "%(scared)Oh no,\w4 are our strings getting tangled?\w8 Careful,\w4 don't pull too hard...\w8 No,\w4 we're okay.\w8%(scaredoff)"
-	if !UnamusedIsPopped; "%(unamused)yawn\w8%(unamusedoff)"
-	if !ShyIsPopped; "%(shy)Rub rub...\w8%(shyoff)"
-	if !HappyIsPopped; "%(happy)Hey!!!\w8 Watch my mouth move!\w8 Auuuguuu gobbledygook mucky mook put the duckie in the brook!!\w8%(happyoff)\n\n(It's given itself a case of the giggles.)\w8"
-	if !ThinkIsPopped; "%(think)How many of us are here?\w8 I wonder.\w8%(thinkoff)"
-	if !ConfusedIsPopped; "%(confused)Did you know?\w8 Balloons?\w8 Can look like %(bloonshape)??\w8%(confusedoff)"
-	if !ThinkIsPopped; "%(think)Do you believe that a balloon can also be %(bloonbe)?\w8%(thinkoff)"
-	if !ScaredIsPopped; "%(scared)Are we h-h-haunted?\w8%(scaredoff)"
+
 	
 	
 	
@@ -258,11 +269,7 @@ RandomTalk : nonoverlap
 	{
 		if "Needle" _in_ ghostexlist
 		{
-			if !UnamusedIsPopped; "%(unamused)don't even think about it, needle\w8%(unamusedoff) "
-			else; PoppedDialogue("Unamused")
-			--
-			if !HappyIsPopped; "%(happy)Oh!\w8 We could play the poke game!\w8%(happyoff) "
-			else; PoppedDialogue("Happy")
+			"%(unamused)don't even think about it, needle\w8 %(unamusedoff)%(happy)Oh!\w8 We could play the poke game!\w8%(happyoff)"
 		}
 	}
 	
@@ -397,11 +404,13 @@ OnSurfaceRestore : all
 	if SHIORI3FW.IsVisible[1]; "\1\s[-1]"
 	
 	if !SHIORI3FW.IsVisible[0]; "\0%(s0)"
+	"\![set,alpha,100]"
 }
 
 s0 : all
 {
 	"\0\s[0]"
+	"\![set,alpha,100]"
 	
 	if ShyIsPopped; "\i[2003]"
 	if UnamusedIsPopped; "\i[2103]"

@@ -5,6 +5,9 @@ descript
 
 surface0
 {
+	//This is here for cursor reasons...
+	collision0,0,0,370,320,Paper
+
 	//Word Search
 	animation100.interval,never
 	animation100.pattern0,overlay,100,0,0,0

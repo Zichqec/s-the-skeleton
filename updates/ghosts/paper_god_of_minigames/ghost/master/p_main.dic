@@ -1,3 +1,4 @@
+//—————————— Boot Events ——————————
 OnFirstBoot
 {
 	stroke = 0
@@ -32,7 +33,7 @@ OnBoot
 
 OnClose
 {
-	
+	"\0\s[0]\-\e"
 }
 
 FinishFirstBoot
@@ -46,43 +47,7 @@ FirstBootUninstall
 	"\tNo games,\w4 no ghost.\w8\w8\![vanishbymyself]"
 }
 
-OnUpdate.OnDownloadBegin
-{
-	_progress = TOINT(reference1) + 1
-	_total = TOINT(reference2) + 1
-
-	"\0\s[0]\_qDownloading %(reference0)...\_l[0,0]\n\n\n\n\n"
-	--
-	_display = ""
-	_display += "\f[name,courier new]"
-	for _i = 0; _i < _total; _i++
-	{
-	//Loading bar display - customize with text or images or whatever
-	if _i < _progress; _display += "■" //Files that have already been downloaded
-	else; _display += "□" //Files that have not been downloaded yet
-	}
-	--
-	"%(_display)\n\n%(_progress)/%(_total)\e"
-}
-
-OnMouseDoubleClick
-{
-	if !MenuIsOpen; OnRandomMinigame
-}
-
-OnAiTalk
-{
-	if RandomTalkInterval == "On"; RandomizeTalkInterval
-	if !MenuIsOpen; OnRandomMinigame
-}
-
-OnRandomMinigame : nonoverlap
-{
-	"\![raise,OnStartWordSearch,%(_argv[0])]"
-	"\![raise,OnStartHangman,%(_argv[0])]"
-	"\![raise,OnJuniorJumble,%(_argv[0])]"
-	"\![raise,OnStartRPS,%(_argv[0])]"
-}
+//—————————— Misc Events ——————————
 
 OnMouseMove
 {
@@ -103,9 +68,20 @@ OnMouseLeaveAll
 	stroke = 0
 }
 
-OnChoiceSelect
+OnMouseDoubleClick
 {
-	EVAL("Select.%(reference0)")
+	if !MenuIsOpen; OnRandomMinigame
+}
+
+OnAiTalk
+{
+	if RandomTalkInterval == "On"; RandomizeTalkInterval
+	if !MenuIsOpen; OnRandomMinigame
+}
+
+RandomizeTalkInterval
+{
+	aitalkinterval = (RAND(360) * 10) + 60
 }
 
 OnSurfaceRestore
@@ -113,18 +89,194 @@ OnSurfaceRestore
 	"\1\s[-1]\0\s[0]"
 }
 
-OnTranslate
+OnGenericQuit
 {
-	_talk = reference0
-	//---Important other stuff, written by Ponapalt and modified by me---
-	if reference1 == "" && reference2 == ""
-	{ //send input box : no event (ref2) , no special flag (ref1)
-		EVAL('"' + REPLACE(_talk,'"','""') + '"')
+	"\s[0]"
+}
+
+On_homeurl
+{
+	"https://zichqec.github.io/s-the-skeleton/updates/ghosts/paper_god_of_minigames/"
+}
+
+OnBalloonBreak
+{
+	if "__WORD_SEARCH_RUNNING__" _in_ reference0; OnWordSearch
+}
+
+
+//—————————— Update Events ——————————
+
+// //Starting to actually update
+// OnUpdateBegin
+// {
+	// "\0\s[0]Ok,\w4 I'll update!\w8\w8\e"
+// }
+
+// //reference0 is the number of new files, starting from 0
+// OnUpdateReady
+// {
+	// reference0++ //Number of files starts from 0, so this displays the correct amount
+	// _s = ""; _is = "is"; if reference0 != 1; _s = "s"; _is = "are" //plural checks, adds an s and changes is to are if there's more than 1 file
+	
+	// "\0\s[0]There %(_is) %(reference0) new file%(_s)!\w8\w8\e"
+// }
+
+// //When the update finishes. Don't forget to initialize any new variables you've created, more on that in Bootend.
+// //reference0 is 'none' if there were no new files to update with, reference1 is a list of new file names, separated by commas
+// OnUpdateComplete
+// {
+	// UpdateVars
+	// AutoUpdates[1] = 0
+	// if reference0 == "none"
+	// {
+		// "\0\s[0]There are no new files.\e"
+	// }
+	// else
+	// {
+		// UpdateVars //Sets new variables upon a successful update. See the end of Bootend for an explanation on this.
+		
+		// "\0\s[0]Update complete!\w8\w8 Do you want to see the changelog?"
+		// --
+		// "\n\n\![*]\q[Yes,OnChangeLog]\n\![*]\q[No,NoChangelog]\e"
+	// }
+// }
+
+//I've put this here so it's easier to remember to update the version number while you're updating the changelog. This will display on the ghost's menu. I made it an envelope so you can have it be the same across multiple menus for multiple modes, if you want.
+ghostver
+{
+	"1.0.1"
+}
+
+//the autoscroll tag here means the user will see the changelog starting from the top. I recommend putting the new versions on top, and old versions under that.
+OnChangeLog : all //Haha I hope I remember to update this
+{
+	_log = ChangeLog[reference0][1,C_BYTE1]
+	_date = ChangeLog[reference0][0,C_BYTE1]
+	
+	
+	"\0\s[0]\_q\![set,autoscroll,disable]\*"
+	"%(_log)"
+	"\![*]\q[Back,OnMiniGameMenu]"
+	
+	"\_l[0,0]"
+
+	if reference0 >= ARRAYSIZE(ChangeLog) - 1; "\f[color,disable]<<\f[color,default]"
+	else; "\q[<<,OnChangeLog,%(ARRAYSIZE(ChangeLog) - 1)]"
+
+	"  "
+
+	if reference0 >= ARRAYSIZE(ChangeLog) - 1; "\f[color,disable]< Prev\f[color,default]"
+	else; "\q[< Prev,OnChangeLog,%(reference0 + 1)]"
+
+	"%(newline)\f[align,right]"
+
+	if reference0 <= 0; "\f[color,disable]Next >\f[color,default]"
+	else; "\q[Next >,OnChangeLog,%(reference0 - 1)]"
+
+	"  "
+
+	if reference0 <= 0; "\f[color,disable]>>\f[color,default]"
+	else; "\q[>>,OnChangeLog,0]"
+
+	"\n%(newline)\f[align,center]\f[height,-1]\f[color,disable]"
+
+	if reference0 == 0; "(Current version - %(_date))"
+	else; "(%(_date))"
+
+	"%(newline)\f[align,left]"
+	
+	"\e"
+	
+}
+
+//Newer changelogs up top //TODO unfinished
+ChangeLog : array
+{	
+	all:/
+	{
+		"6/3/22"; C_BYTE1
+		"\f[align,center]-Version 1.0.1-\n \n\n[half]\f[align,left]"
+		"%(ul) Corrected some entries on the word list.\n\n"
+		"%(ul) Fixed word list being broken thanks to unexpected mechanics.\n\n"
+		"%(ul) Added custom cursor.\n\n"
+		"%(ul) Added dialogue for network updates.\n\n"
+		"%(ul) Updated the Paperboard balloon. You will have to update this separately from the menu or the \_a[OnOpenBalloonExplorer]ghost explorer\_a.\n\n"
+		"%(ul) Fixed a bug where closing the input box in Jumble would make Paper forget what the word was.\n\n"
+		"%(ul) Updated YAYA to Tc570-2.\n\n"
+		"\n"
 	}
-    else
-	{ //event result from ghost
-		TOSTR(_talk)
+	
+	all:/
+	{
+		"5/12/22"; C_BYTE1
+		"\f[align,center]-Version 1.0.0-\n \n\n[half]\f[align,left]"
+		"%(ul) Initial release for Ghost Jam 2022.\n\n"
 	}
+	
+}
+
+OnOpenBalloonExplorer
+{
+	"\C\![open,balloonexplorer]"
+}
+
+//Revamped this code! It's a lot more concise now
+//reference0 is the name of the file currently being downloaded
+OnUpdate.OnDownloadBegin
+{
+	_progress = TOINT(reference1) + 1
+	_total = TOINT(reference2) + 1
+
+	"\0\s[0]\_qDownloading %(reference0)...\_l[0,0]\n\n\n\n\n"
+	--
+	_display = ""
+	_display += "\f[name,courier new]"
+	for _i = 0; _i < _total; _i++
+	{
+		//Loading bar display - customize with text or images or whatever
+		if _i < _progress; _display += "■" //Files that have already been downloaded
+		else; _display += "□" //Files that have not been downloaded yet
+	}
+	--
+	"%(_display)\n\n%(_progress)/%(_total)\e"
+}
+
+// //reference0 is the reason the update failed
+// OnUpdateFailure //If the update fails
+// {
+	// if reference0 == "timeout" //If it timed out
+	// {
+		// "\0\s[0]Sorry,\w4 the connection timed out.\e"
+	// }
+	// elseif reference0 == "md5 miss" //If the update files have not been uploaded correctly and don't match the updates2.dau
+	// {
+		// _file = SPLITPATH(reference1)[2] + SPLITPATH(reference1)[3] //This gets the name and extension of the offending file
+		// "\0\s[0]The MD5 values don't match.\w8\w8 You should contact the ghost author and let them know that '%(_file)' is giving an MD5 error.\e"
+	// }
+	// elseif reference0 == "artificial" //If the user cancels the update by double clicking the balloon
+	// {
+		// "\0\s[0]Oh,\w4 did you change your mind?\e"
+	// }
+	// else //Any other errors
+	// {
+		// "\0\s[0]Sorry,\w4 I got an error:\w4 '%(reference0)'.\e"
+	// }
+// }
+
+OnStartBalloonUpdate
+{
+	"\![update,balloon]"
+}
+
+//—————————— Paper Specific Events ——————————
+
+OnRandomMinigame : nonoverlap
+{
+	"\![raise,OnStartWordSearch,%(_argv[0])]"
+	"\![raise,OnStartHangman,%(_argv[0])]"
+	"\![raise,OnJuniorJumble,%(_argv[0])]"
+	"\![raise,OnStartRPS,%(_argv[0])]"
 }
 
 OnMiniGameMenu : all
@@ -136,8 +288,12 @@ OnMiniGameMenu : all
 	"\![*]\q[Rock Paper Scissors,OnStartRPS]\n"
 	"\n"
 	"\![*]\q[Adjust Minigame Frequency,OnTalkInterval]\n"
+	//"\![*]\q[Config,OnConfigMenu]\n"
 	"\![*]\q[Stats,OnGameStats]\n"
-	"\n\![*]\q[Nevermind,blank]"
+	"\![*]\q[Changelog,OnChangeLog]\n"
+	"\![*]\q[Update Balloon,OnStartBalloonUpdate]\n"
+	"\n"
+	"\![*]\q[Nevermind,blank]"
 }
 
 OnTalkInterval : all
@@ -165,7 +321,39 @@ OnNewInterval
 		RandomTalkInterval = "Off"
 		aitalkinterval = TOINT(reference0)
 	}
+}
+
+OnConfigMenu : all
+{
+	if Cursor == ""; Cursor = "Color"
 	
+	"\0\_q"
+	"Custom Cursor? \f[color,default.anchor]\__q[OnToggleCursor]%(Cursor)\__q"
+}
+
+OnToggleCursor
+{
+	if Cursor == "Color"; Cursor = "Off"
+	elseif Cursor == "Off"; Cursor = "Black & White"
+	else; Cursor = "Color"
+	
+	SetCursor
+	--
+	OnConfigMenu
+}
+
+SetCursor
+{
+	_path = ""
+	if Cursor == "Color"; _path = "cursorcl.cur"
+	elseif Cursor == "Black & White"; _path = "cursorbw.cur"
+	
+	"\![set,property,currentghost.seriko.cursor.scope(0).mouseuplist(Paper).path,%(_path)]"
+}
+
+OnTestCursor
+{
+	"%(reference)"
 }
 
 OnGameStats : all
@@ -205,18 +393,6 @@ OnGameStats : all
 	
 }
 
-//For other ghosts to request stats from paper! Please send the name of your ghost as reference0!
-OnPaperGameStats
-{
-	if reference0 == ""; reference0 == "__SYSTEM_ALL_GHOST__"
-	if !MenuIsOpen; "\![raiseother,%(reference0),OnPaperGameStats,%(Wins.Wordsearch),%(Wins.Hangman),%(Losses.Hangman),%(Quits.Hangman),%(Wins.Jumble),%(Losses.Jumble),%(Quits.Jumble),%(Wins.RPS),%(Losses.RPS),%(Ties.RPS),%(Quits.RPS)]"
-}
-
-RandomizeTalkInterval
-{
-	aitalkinterval = (RAND(360) * 10) + 60
-}
-
 GameQuitGeneric
 {
 	"\s[0]"
@@ -232,134 +408,51 @@ GameQuitGeneric
 	"Sigh.\w4.\w4.\w4 Another time,\w4 perhaps."
 }
 
-//From X. Template
-MenuIsOpen
+//For other ghosts to request stats from paper! Please send the name of your ghost as reference0!
+OnPaperGameStats
 {
-	"choosing" _in_ var.req.value[ASEARCH("Status",var.req.key)]
+	if reference0 == ""; reference0 == "__SYSTEM_ALL_GHOST__"
+	if !MenuIsOpen; "\![raiseother,%(reference0),OnPaperGameStats,%(Wins.Wordsearch),%(Wins.Hangman),%(Losses.Hangman),%(Quits.Hangman),%(Wins.Jumble),%(Losses.Jumble),%(Quits.Jumble),%(Wins.RPS),%(Losses.RPS),%(Ties.RPS),%(Quits.RPS)]"
 }
 
-OnUserInputCancel
+TamaOpenDialogues : nonoverlap
 {
-	"\C\![open,inputbox,%(reference0),-1]\*"
+	"\b4Hm.\w8 It seems you have made a mistake.\w8 At least you admit it."
 }
 
-//From X. Template
-Capitalize
+TamaCloseDialogues : nonoverlap
 {
-	_first = SUBSTR(_argv[0],0,1)
-	_rest = ERASE(_argv[0],0,1) //Erase the first character and store everything else in _rest
-	TOUPPER(_first) + _rest
+	"\b4Rectified your error?\w8 For now,\w4 anyways..."
 }
 
-emdash
+On_tamaOpen
 {
-	"\f[name,calibri]—\f[name,default]"
+	TamaHWND = reference0
+	SETTAMAHWND(TamaHWND)
+	SHIORI3FW.Push_X_SSTP_PassThru('Title',"Paper, God of Minigames") //These settings are all optional
+	SHIORI3FW.Push_X_SSTP_PassThru('border.color','232323')
+	SHIORI3FW.Push_X_SSTP_PassThru('background.color','fffcf4')
+	SHIORI3FW.Push_X_SSTP_PassThru('default.color','000000') //and any other settings you can find in tama.txt
+	SHIORI3FW.Push_X_SSTP_PassThru('fatal.color','f23e3e')
+	SHIORI3FW.Push_X_SSTP_PassThru('error.color','f23e3e')
+	SHIORI3FW.Push_X_SSTP_PassThru('warning.color','ff972d')
+	TamaOpenDialogues
 }
 
-
-//Current season
-season
+On_tamaExit
 {
-	if hemisphere == "Southern"
-	{
-		case month
-		{
-			when 3-5; "Autumn"
-			when 6-8; "Winter"
-			when 9-11; "Spring"
-			others; "Summer"
-		}
-	}
-	else
-	{
-		case month
-		{
-			when 3-5; "Spring"
-			when 6-8; "Summer"
-			when 9-11; "Autumn"
-			others; "Winter"
-		}
-	}
+	SETTAMAHWND(0)
+	TamaCloseDialogues
 }
 
-//Abbreviated week day
-wd
+OnInitialize
 {
-	switch weekday
-	{
-		"Sun" //weekday starts at 0 for some reason
-		"Mon"
-		"Tue"
-		"Wed"
-		"Thu"
-		"Fri"
-		"Sat"
-	}
+	if reference0 == "reload" && TamaHWND != ""; SETTAMAHWND(TamaHWND)
+	else; TamaHWND = ""
 }
 
-//Gets the day of the year it currently is, starting from 1 because starting from 0 here is silly
-yearday
+OnDestroy
 {
-	GETTIME[7] + 1
-}
-
-leapyear
-{
-	_year = year; if _argv[0] != ""; _year = _argv[0]
-	if _year % 4 != 0; 0
-	elseif _year % 100 != 0; 1
-	elseif _year % 400 != 0; 0
-	else; 1
-}
-
-//Current week in the year, 1-53
-yearweek
-{
-	//Get the current day of the year
-	_days = yearday
-
-	//Get the number of days into the current week that we are
-	_trailingdays = 0
-	while weekday - _trailingdays >= 0
-	{
-		_trailingdays++
-	}
-
-	//Get the number of weeks minus leading and trailing days
-	_days -= _trailingdays
-	_weeks = _days / 7
-	_leadingdays = _days % 7
-
-	//Add in the trailing weeks
-	if _leadingdays > 0; _weeks++
-	if _trailingdays > 0; _weeks++
-
-	//Handles week 53
-	if _weeks == 53
-	{
-		_daysleft = 31 - day
-		if _daysleft + _trailingdays < 7; _weeks = 1
-	}
-	_weeks
-}
-
-timeslot
-{
-	case hour
-	{
-		when 5-10; "breakfast" //5-10am
-		when 11-16; "lunch" //11-4pm
-		when 17-22; "dinner" //5-10pm
-		others; "snacks" //11-4am
-	}
-}
-
-OnGenericQuit
-{
-	"\s[0]"
-}
-
-On_homeurl
-{
-	"https://zichqec.github.io/s-the-skeleton/updates/ghosts/paper_god_of_minigames/"
+	if reference0 != "reload"; TamaHWND = ""
+	SETTAMAHWND(0)
 }

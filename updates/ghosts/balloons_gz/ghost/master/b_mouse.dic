@@ -71,7 +71,7 @@ OnMouseDoubleClick
 {
 	if reference5 == 0 && reference3 == 0 //reference5 is the mouse button being clicked, in this case a left click. Also checks to see if this is during the first boot, and if so, prevents the menus from being opened
 	{
-		if reference4 == ""; OpenSakuraMenu
+		if reference4 == "menu"; OpenSakuraMenu
 		elseif ClickMode != "Single" && "Balloon_" _in_ reference4; BalloonPopCheck
 		
 		
@@ -152,26 +152,33 @@ OnMouseUnpopCheck
 	if "Balloon_" _in_ reference0 && AllArePopped
 	{
 		//UnpopAll
-		"\w8\w8"
+		"\t\w8\w8"
 		--
-		"\![embed,OnUnpopShy]\w2"
-		--
-		"\![embed,OnUnpopUnamused]\w2"
-		--
-		"\![embed,OnUnpopScared]\w2"
-		--
-		"\![embed,OnUnpopSad]\w2"
-		--
-		"\![embed,OnUnpopConfused]\w2"
-		--
-		"\![embed,OnUnpopHappy]\w2"
-		--
-		"\![embed,OnUnpopAngry]\w2"
-		--
-		"\![embed,OnUnpopThink]\w2"
+		UnpopAllWithEmbeds
 		//--
 		//"(bloop)"
 	}
+}
+
+UnpopAllWithEmbeds
+{
+	"\t"
+	--
+	"\![embed,OnUnpopShy]\w2"
+	--
+	"\![embed,OnUnpopUnamused]\w2"
+	--
+	"\![embed,OnUnpopScared]\w2"
+	--
+	"\![embed,OnUnpopSad]\w2"
+	--
+	"\![embed,OnUnpopConfused]\w2"
+	--
+	"\![embed,OnUnpopHappy]\w2"
+	--
+	"\![embed,OnUnpopAngry]\w2"
+	--
+	"\![embed,OnUnpopThink]\w2"
 }
 
 pop_sounds : nonoverlap

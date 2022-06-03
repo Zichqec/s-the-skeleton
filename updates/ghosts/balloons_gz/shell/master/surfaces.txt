@@ -11,14 +11,16 @@ descript
 surface0
 {
 	//Collisions
-	collisionex0,Balloon_Shy,polygon,110,95,110,81,102,61,90,47,75,42,60,43,52,49,44,63,42,78,43,95,52,111,69,127,84,132,92,134,93,122,96,108,104,98
-	collisionex1,Balloon_Unamused,polygon,275,94,278,76,276,58,269,45,255,39,241,39,227,47,219,58,216,70,214,81,215,85,223,93,226,107,227,118,227,123,234,125,240,124,244,113,251,102,263,95
-	collisionex2,Balloon_Scared,polygon,192,76,193,59,189,42,180,28,169,22,156,21,145,27,135,36,130,49,129,65,132,82,137,93,145,99,153,108,157,114,161,114,164,101,172,87,182,79
-	collisionex3,Balloon_Sad,polygon,92,136,82,132,66,131,58,134,50,139,46,146,43,163,44,181,54,197,64,208,79,215,95,216,109,211,119,206,122,201,120,191,120,181,112,175,103,166,95,156,94,146
-	collisionex4,Balloon_Confused,polygon,155,181,161,167,163,144,161,127,157,113,147,100,134,93,120,91,106,98,95,112,92,124,92,141,98,160,111,176,127,184,145,189
-	collisionex5,Balloon_Happy,polygon,254,189,274,180,287,168,298,151,305,133,301,110,288,95,278,93,265,95,249,104,243,118,238,130,238,141,246,148,250,159,253,177
-	collisionex6,Balloon_Angry,polygon,178,167,186,166,192,153,201,142,216,137,223,136,226,122,225,104,221,90,211,81,197,76,188,77,178,81,168,91,164,100,160,112,161,129,163,141,167,153,173,162
-	collisionex7,Balloon_Think,polygon,204,237,223,230,238,219,246,204,253,185,250,162,242,146,232,139,218,137,206,141,196,149,189,161,184,179,184,195,188,211,195,226
+	// collisionex0,Balloon_Shy,polygon,110,95,110,81,102,61,90,47,75,42,60,43,52,49,44,63,42,78,43,95,52,111,69,127,84,132,92,134,93,122,96,108,104,98
+	// collisionex1,Balloon_Unamused,polygon,275,94,278,76,276,58,269,45,255,39,241,39,227,47,219,58,216,70,214,81,215,85,223,93,226,107,227,118,227,123,234,125,240,124,244,113,251,102,263,95
+	// collisionex2,Balloon_Scared,polygon,192,76,193,59,189,42,180,28,169,22,156,21,145,27,135,36,130,49,129,65,132,82,137,93,145,99,153,108,157,114,161,114,164,101,172,87,182,79
+	// collisionex3,Balloon_Sad,polygon,92,136,82,132,66,131,58,134,50,139,46,146,43,163,44,181,54,197,64,208,79,215,95,216,109,211,119,206,122,201,120,191,120,181,112,175,103,166,95,156,94,146
+	// collisionex4,Balloon_Confused,polygon,155,181,161,167,163,144,161,127,157,113,147,100,134,93,120,91,106,98,95,112,92,124,92,141,98,160,111,176,127,184,145,189
+	// collisionex5,Balloon_Happy,polygon,254,189,274,180,287,168,298,151,305,133,301,110,288,95,278,93,265,95,249,104,243,118,238,130,238,141,246,148,250,159,253,177
+	// collisionex6,Balloon_Angry,polygon,178,167,186,166,192,153,201,142,216,137,223,136,226,122,225,104,221,90,211,81,197,76,188,77,178,81,168,91,164,100,160,112,161,129,163,141,167,153,173,162
+	// collisionex7,Balloon_Think,polygon,204,237,223,230,238,219,246,204,253,185,250,162,242,146,232,139,218,137,206,141,196,149,189,161,184,179,184,195,188,211,195,226
+	
+	collision0,110,263,201,363,menu
 	
 	// //Blink
 	// animation0.interval,random,4
@@ -178,8 +180,9 @@ surface0
 	animation1011.pattern4,overlay,1012,100,0,0
 	animation1011.pattern5,overlay,1011,100,0,0
 	animation1011.pattern6,overlay,1010,100,0,0
-	animation1011.pattern7,overlay,-1,100,0,0
+	animation1011.pattern7,overlay,1010,100,0,0
 	animation1011.pattern8,start,1000
+	animation1011.pattern9,overlay,-1,0,0,0
 	
 	//Unamused
 	animation1111.interval,never
@@ -190,8 +193,9 @@ surface0
 	animation1111.pattern4,overlay,1112,100,0,0
 	animation1111.pattern5,overlay,1111,100,0,0
 	animation1111.pattern6,overlay,1110,100,0,0
-	animation1111.pattern7,overlay,-1,100,0,0
+	animation1111.pattern7,overlay,1110,100,0,0
 	animation1111.pattern8,start,1100
+	animation1111.pattern9,overlay,-1,0,0,0
 	
 	//Scared
 	animation1211.interval,never
@@ -202,8 +206,9 @@ surface0
 	animation1211.pattern4,overlay,1212,100,0,0
 	animation1211.pattern5,overlay,1211,100,0,0
 	animation1211.pattern6,overlay,1210,100,0,0
-	animation1211.pattern7,overlay,-1,100,0,0
+	animation1211.pattern7,overlay,1210,100,0,0
 	animation1211.pattern8,start,1200
+	animation1211.pattern9,overlay,-1,0,0,0
 	
 	//Sad
 	animation1311.interval,never
@@ -214,8 +219,9 @@ surface0
 	animation1311.pattern4,overlay,1312,100,0,0
 	animation1311.pattern5,overlay,1311,100,0,0
 	animation1311.pattern6,overlay,1310,100,0,0
-	animation1311.pattern7,overlay,-1,100,0,0
+	animation1311.pattern7,overlay,1310,100,0,0
 	animation1311.pattern8,start,1300
+	animation1311.pattern9,overlay,-1,0,0,0
 	
 	//Confused
 	animation1411.interval,never
@@ -226,8 +232,9 @@ surface0
 	animation1411.pattern4,overlay,1412,100,0,0
 	animation1411.pattern5,overlay,1411,100,0,0
 	animation1411.pattern6,overlay,1410,100,0,0
-	animation1411.pattern7,overlay,-1,100,0,0
+	animation1411.pattern7,overlay,1410,100,0,0
 	animation1411.pattern8,start,1400
+	animation1411.pattern9,overlay,-1,0,0,0
 	
 	//Happy
 	animation1511.interval,never
@@ -238,8 +245,9 @@ surface0
 	animation1511.pattern4,overlay,1512,100,0,0
 	animation1511.pattern5,overlay,1511,100,0,0
 	animation1511.pattern6,overlay,1510,100,0,0
-	animation1511.pattern7,overlay,-1,100,0,0
+	animation1511.pattern7,overlay,1510,100,0,0
 	animation1511.pattern8,start,1500
+	animation1511.pattern9,overlay,-1,0,0,0
 	
 	//Angry
 	animation1611.interval,never
@@ -250,8 +258,9 @@ surface0
 	animation1611.pattern4,overlay,1612,100,0,0
 	animation1611.pattern5,overlay,1611,100,0,0
 	animation1611.pattern6,overlay,1610,100,0,0
-	animation1611.pattern7,overlay,-1,100,0,0
+	animation1611.pattern7,overlay,1610,100,0,0
 	animation1611.pattern8,start,1600
+	animation1611.pattern9,overlay,-1,0,0,0
 	
 	//Think
 	animation1711.interval,never
@@ -262,8 +271,9 @@ surface0
 	animation1711.pattern4,overlay,1712,100,0,0
 	animation1711.pattern5,overlay,1711,100,0,0
 	animation1711.pattern6,overlay,1710,100,0,0
-	animation1711.pattern7,overlay,-1,100,0,0
+	animation1711.pattern7,overlay,1710,100,0,0
 	animation1711.pattern8,start,1700
+	animation1711.pattern9,overlay,-1,0,0,0
 	
 	//Knot
 	animation1999.interval,runonce
@@ -284,6 +294,8 @@ surface0
 	animation2000.pattern7,overlay,2000,200-250,0,-5
 	animation2000.pattern8,overlay,2000,300-350,0,-6
 	
+	animation2000.collisionex0,Balloon_Shy,region,collision_0_shy.png,140,000,255
+	
 	animation2100.interval,always
 	animation2100.pattern0,overlay,2100,0,0,0
 	animation2100.pattern1,overlay,2100,600-800,0,-1
@@ -294,6 +306,8 @@ surface0
 	animation2100.pattern6,overlay,2100,400-450,0,-3
 	animation2100.pattern7,overlay,2100,200-250,0,-1
 	animation2100.pattern8,overlay,2100,300-350,0,0
+	
+	animation2100.collisionex1,Balloon_Unamused,region,collision_1_unamused.png,140,000,255
 	
 	animation2200.interval,always
 	animation2200.pattern0,overlay,2200,0,0,-5
@@ -306,6 +320,8 @@ surface0
 	animation2200.pattern7,overlay,2200,400-450,0,-6
 	animation2200.pattern8,overlay,2200,1000-1200,0,-5
 	
+	animation2200.collisionex2,Balloon_Scared,region,collision_2_scared.png,140,000,255
+	
 	animation2300.interval,always
 	animation2300.pattern0,overlay,2300,0,0,-3
 	animation2300.pattern1,overlay,2300,200-250,0,-5
@@ -316,6 +332,8 @@ surface0
 	animation2300.pattern6,overlay,2300,300-350,0,0
 	animation2300.pattern7,overlay,2300,600-800,0,-1
 	animation2300.pattern8,overlay,2300,300-350,0,-3
+	
+	animation2300.collisionex3,Balloon_Sad,region,collision_3_sad.png,140,000,255
 	
 	animation2400.interval,always
 	animation2400.pattern0,overlay,2400,0,0,-1
@@ -328,6 +346,8 @@ surface0
 	animation2400.pattern7,overlay,2400,300-350,0,0
 	animation2400.pattern8,overlay,2400,600-800,0,-1
 	
+	animation2400.collisionex4,Balloon_Confused,region,collision_4_confused.png,140,000,255
+	
 	animation2500.interval,always
 	animation2500.pattern0,overlay,2500,0,0,-6
 	animation2500.pattern1,overlay,2500,1000-1200,0,-5
@@ -338,6 +358,8 @@ surface0
 	animation2500.pattern6,overlay,2500,300-350,0,-3
 	animation2500.pattern7,overlay,2500,200-250,0,-5
 	animation2500.pattern8,overlay,2500,400-450,0,-6
+	
+	animation2500.collisionex5,Balloon_Happy,region,collision_5_happy.png,140,000,255
 	
 	animation2600.interval,always
 	animation2600.pattern0,overlay,2600,0,0,-3
@@ -350,6 +372,8 @@ surface0
 	animation2600.pattern7,overlay,2600,1000-1200,0,-5
 	animation2600.pattern8,overlay,2600,400-450,0,-3
 	
+	animation2600.collisionex6,Balloon_Angry,region,collision_6_angry.png,140,000,255
+	
 	animation2700.interval,always
 	animation2700.pattern0,overlay,2700,0,0,-1
 	animation2700.pattern1,overlay,2700,300-350,0,-3
@@ -360,6 +384,8 @@ surface0
 	animation2700.pattern6,overlay,2700,200-250,0,-1
 	animation2700.pattern7,overlay,2700,300-350,0,0
 	animation2700.pattern8,overlay,2700,600-800,0,-1
+	
+	animation2700.collisionex7,Balloon_Think,region,collision_7_think.png,140,000,255
 	
 	animation2999.interval,always
 	animation2999.pattern0,move,-1,0,0,0
@@ -376,40 +402,56 @@ surface0
 	animation2001.pattern1,stop,2000
 	animation2001.pattern2,start,20200
 	
+	animation2001.collisionex0,Balloon_Shy,region,collision_talk_0_shy.png,140,000,255
+	
 	animation2101.interval,never
 	animation2101.pattern0,overlay,2100,0,0,0
 	animation2101.pattern1,stop,2100
 	animation2101.pattern2,start,21200
+	
+	animation2101.collisionex1,Balloon_Unamused,region,collision_talk_1_unamused.png,140,000,255
 	
 	animation2201.interval,never
 	animation2201.pattern0,overlay,2200,0,0,0
 	animation2201.pattern1,stop,2200
 	animation2201.pattern2,start,22200
 	
+	animation2201.collisionex2,Balloon_Scared,region,collision_talk_2_scared.png,140,000,255
+	
 	animation2301.interval,never
 	animation2301.pattern0,overlay,2300,0,0,0
 	animation2301.pattern1,stop,2300
 	animation2301.pattern2,start,23200
+	
+	animation2301.collisionex3,Balloon_Sad,region,collision_talk_3_sad.png,140,000,255
 	
 	animation2401.interval,never
 	animation2401.pattern0,overlay,2400,0,0,0
 	animation2401.pattern1,stop,2400
 	animation2401.pattern2,start,24200
 	
+	animation2401.collisionex4,Balloon_Confused,region,collision_talk_4_confused.png,140,000,255
+	
 	animation2501.interval,never
 	animation2501.pattern0,overlay,2500,0,0,0
 	animation2501.pattern1,stop,2500
 	animation2501.pattern2,start,25200
+	
+	animation2501.collisionex5,Balloon_Happy,region,collision_talk_5_happy.png,140,000,255
 	
 	animation2601.interval,never
 	animation2601.pattern0,overlay,2600,0,0,0
 	animation2601.pattern1,stop,2600
 	animation2601.pattern2,start,26200
 	
+	animation2601.collisionex6,Balloon_Angry,region,collision_talk_6_angry.png,140,000,255
+	
 	animation2701.interval,never
 	animation2701.pattern0,overlay,2700,0,0,0
 	animation2701.pattern1,stop,2700
 	animation2701.pattern2,start,27200
+	
+	animation2701.collisionex7,Balloon_Think,region,collision_talk_7_think.png,140,000,255
 	
 	
 	
@@ -811,8 +853,9 @@ surface0
 	animation2051.pattern4,overlay,2052,100,0,0
 	animation2051.pattern5,overlay,2051,100,0,0
 	animation2051.pattern6,overlay,2050,100,0,0
-	animation2051.pattern7,overlay,-1,100,0,0
+	animation2051.pattern7,overlay,2050,100,0,0
 	animation2051.pattern8,start,2000
+	animation2051.pattern9,overlay,-1,0,0,0
 	
 	//Unamused
 	animation2151.interval,never
@@ -823,8 +866,9 @@ surface0
 	animation2151.pattern4,overlay,2152,100,0,0
 	animation2151.pattern5,overlay,2151,100,0,0
 	animation2151.pattern6,overlay,2150,100,0,0
-	animation2151.pattern7,overlay,-1,100,0,0
+	animation2151.pattern7,overlay,2150,100,0,0
 	animation2151.pattern8,start,2100
+	animation2151.pattern9,overlay,-1,0,0,0
 	
 	//Scared
 	animation2251.interval,never
@@ -835,8 +879,9 @@ surface0
 	animation2251.pattern4,overlay,2252,100,0,0
 	animation2251.pattern5,overlay,2251,100,0,0
 	animation2251.pattern6,overlay,2250,100,0,0
-	animation2251.pattern7,overlay,-1,100,0,0
+	animation2251.pattern7,overlay,2250,100,0,0
 	animation2251.pattern8,start,2200
+	animation2251.pattern9,overlay,-1,0,0,0
 	
 	//Sad
 	animation2351.interval,never
@@ -847,8 +892,9 @@ surface0
 	animation2351.pattern4,overlay,2352,100,0,0
 	animation2351.pattern5,overlay,2351,100,0,0
 	animation2351.pattern6,overlay,2350,100,0,0
-	animation2351.pattern7,overlay,-1,100,0,0
+	animation2351.pattern7,overlay,2350,100,0,0
 	animation2351.pattern8,start,2300
+	animation2351.pattern9,overlay,-1,0,0,0
 	
 	//Confused
 	animation2451.interval,never
@@ -859,8 +905,9 @@ surface0
 	animation2451.pattern4,overlay,2452,100,0,0
 	animation2451.pattern5,overlay,2451,100,0,0
 	animation2451.pattern6,overlay,2450,100,0,0
-	animation2451.pattern7,overlay,-1,100,0,0
+	animation2451.pattern7,overlay,2450,100,0,0
 	animation2451.pattern8,start,2400
+	animation2451.pattern9,overlay,-1,0,0,0
 	
 	//Happy
 	animation2551.interval,never
@@ -871,8 +918,9 @@ surface0
 	animation2551.pattern4,overlay,2552,100,0,0
 	animation2551.pattern5,overlay,2551,100,0,0
 	animation2551.pattern6,overlay,2550,100,0,0
-	animation2551.pattern7,overlay,-1,100,0,0
+	animation2551.pattern7,overlay,2550,100,0,0
 	animation2551.pattern8,start,2500
+	animation2551.pattern9,overlay,-1,0,0,0
 	
 	//Angry
 	animation2651.interval,never
@@ -883,8 +931,9 @@ surface0
 	animation2651.pattern4,overlay,2652,100,0,0
 	animation2651.pattern5,overlay,2651,100,0,0
 	animation2651.pattern6,overlay,2650,100,0,0
-	animation2651.pattern7,overlay,-1,100,0,0
+	animation2651.pattern7,overlay,2650,100,0,0
 	animation2651.pattern8,start,2600
+	animation2651.pattern9,overlay,-1,0,0,0
 	
 	//Think
 	animation2751.interval,never
@@ -895,8 +944,9 @@ surface0
 	animation2751.pattern4,overlay,2752,100,0,0
 	animation2751.pattern5,overlay,2751,100,0,0
 	animation2751.pattern6,overlay,2750,100,0,0
-	animation2751.pattern7,overlay,-1,100,0,0
+	animation2751.pattern7,overlay,2750,100,0,0
 	animation2751.pattern8,start,2700
+	animation2751.pattern9,overlay,-1,0,0,0
 	
 	
 	

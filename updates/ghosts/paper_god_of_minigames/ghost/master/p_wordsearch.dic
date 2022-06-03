@@ -3,6 +3,58 @@
 //If this all looks scary to you, no worries! All you need to do is set a few options in OnStartWordSearch, set up dialogue in WordSearchDialogue, and then add your own pool of words for it to choose from in WordSearchWords. If it gives you any trouble, let me know!
 
 //Use this to start a new word search game: "\![*]\q[Word Search,OnStartWordSearch]"
+OnStartBigWordSearch
+{
+	_rightadjust = 0 //Don't touch these ones
+	_highlightcolor = ""
+	
+	_defaultballoon = "Paperboard"
+	_debug = 0
+	_gridsize = 20
+	_fontsize = 17
+	_maxwords = 50
+	_attempts_to_place = 15
+	if SHIORI3FW.BalloonName == _defaultballoon; _rightadjust = 7
+	_backwardsallowed = 0
+	_highlightinverted = 0
+	// if SHIORI3FW.BalloonName == _defaultballoon; _highlightcolor = "255,255,255"
+	// else; 
+	_highlightcolor = "default.anchor"
+	
+	//Don't touch these
+	WSOpts = (_fontsize,_rightadjust,_highlightinverted,_highlightcolor)
+	CreateWordSearch(_debug,_gridsize,_maxwords,_attempts_to_place,_backwardsallowed)
+	WordsLeft = WordList
+	OnWordSearch("start new game")
+}
+
+//just to bother galla :relaxed:
+OnStartMassiveWordSearch
+{
+	_rightadjust = 0 //Don't touch these ones
+	_highlightcolor = ""
+	
+	_defaultballoon = "Paperboard"
+	_debug = 0
+	_gridsize = 26
+	_fontsize = 14
+	_maxwords = 70
+	_attempts_to_place = 15
+	if SHIORI3FW.BalloonName == _defaultballoon; _rightadjust = 0
+	_backwardsallowed = 0
+	_highlightinverted = 0
+	// if SHIORI3FW.BalloonName == _defaultballoon; _highlightcolor = "255,255,255"
+	// else; 
+	_highlightcolor = "default.anchor"
+	
+	//Don't touch these
+	WSOpts = (_fontsize,_rightadjust,_highlightinverted,_highlightcolor)
+	CreateWordSearch(_debug,_gridsize,_maxwords,_attempts_to_place,_backwardsallowed)
+	WordsLeft = WordList
+	OnWordSearch("start new game")
+}
+
+
 OnStartWordSearch
 {
 	_rightadjust = 0 //Don't touch these ones
@@ -40,7 +92,7 @@ OnStartWordSearch
 	WSOpts = (_fontsize,_rightadjust,_highlightinverted,_highlightcolor)
 	CreateWordSearch(_debug,_gridsize,_maxwords,_attempts_to_place,_backwardsallowed)
 	WordsLeft = WordList
-	OnWordSearch
+	OnWordSearch("start new game")
 }
 
 
@@ -323,9 +375,8 @@ OnWordSearch
 	_inverthighlight = 0
 	if WSOpts[2] == 1; _inverthighlight = WSOpts[2]
 	
-	
-	_display = "\s[0]\i[100]\f[anchorfontcolor,%(WSOpts[3])]\f[height,%(_fheight)]\f[bold,1]"
-	if reference0 == "Win"; _display += "\f[anchorstyle,none]\f[cursorstyle,none]"
+	_display = "\s[0]\i[100]\f[cursorfontcolor,%(WSOpts[3])]\f[height,%(_fheight)]\f[bold,1]"
+	if reference0 == "Win"; _display += "\f[cursorstyle,none]"
 	for _i = 0; _i < ARRAYSIZE(WordSearch); _i++
 	{
 		_display += "\_l[%(_rightadjust)]"
@@ -336,8 +387,6 @@ OnWordSearch
 			_col = _row[_ii]
 			if reference0 == "Win" //If the user already won, don't display with clickable buttons
 			{
-				
-				
 				_tag1 = ""
 				_tag2 = ""
 				if _highlightarray[_i][_ii] == "1";
@@ -349,14 +398,14 @@ OnWordSearch
 					}
 					else
 					{
-						_tag1 = "\_a[OnBlank]"
-						_tag2 = "\_a"
+						_tag1 = "\f[color,default.anchor]\__q[OnBlank]"
+						_tag2 = "\__q\f[color,default]"
 					}
 				}
 				elseif _inverthighlight == 1 //if this is a random letter but inverted highlighting is on
 				{
-					_tag1 = "\_a[OnBlank]"
-					_tag2 = "\_a"
+					_tag1 = "\f[color,default.anchor]\__q[OnBlank]"
+					_tag2 = "\__q\f[color,default]"
 				}
 				_display += "%(_tag1)%(_col)%(_tag2) "
 			}
@@ -365,27 +414,34 @@ OnWordSearch
 				//IF the user has selected a letter, give it a unique link and highlight it
 				if reference0 == "StartLetter" && _i == _startRow && _ii == _startCol
 				{
-					_tag = "\_a"; if _inverthighlight == 1; _tag = "\__q"
-					_display += "%(_tag)[OnWordSearch,CancelStart,%(_i),%(_ii),%(_startRow),%(_startCol)]%(_col)%(_tag) "
+					_color_start = "\f[color,default.anchor]"
+					_color_end = "\f[color,default]"
+					if _inverthighlight == 1; {_color_start = ""; _color_end = ""}
+					
+					_display += "%(_color_start)\__q[OnWordSearch,CancelStart,%(_i),%(_ii),%(_startRow),%(_startCol)]%(_col)\__q%(_color_end) "
 				}
 				else //Normal display with clickable buttons
 				{
 					_ref = ""
 					if reference0 == "StartLetter"; _ref = "EndLetter"
 					else; _ref = "StartLetter"
-					_tag = ""
+					
+					_color_start = ""
+					_color_end = ""
 					if _inverthighlight == 1
 					{
-						_tag = "\_a"
-						if _highlightarray[_i][_ii] == "1"; _tag = "\__q"
+						_color_start = "\f[color,default.anchor]"
+						_color_end = "\f[color,default]"
+						if _highlightarray[_i][_ii] == "1"; {_color_start = ""; _color_end = ""}
 					}
 					else
 					{
-						_tag = "\__q"
-						if _highlightarray[_i][_ii] == "1"; _tag = "\_a"
+						_color_start = ""
+						_color_end = ""
+						if _highlightarray[_i][_ii] == "1"; {_color_start = "\f[color,default.anchor]"; _color_end = "\f[color,default]"}
 					}
 					
-					_display += "%(_tag)[OnWordSearch,%(_ref),%(_i),%(_ii),%(_startRow),%(_startCol)]%(_col)%(_tag) "
+					_display += "%(_color_start)\__q[OnWordSearch,%(_ref),%(_i),%(_ii),%(_startRow),%(_startCol)]%(_col)\__q%(_color_end) "
 					
 				}
 			}
@@ -403,6 +459,8 @@ OnWordSearch
 		_display += "  "
 	}
 	if ARRAYSIZE(WordsLeft) == 0 && reference0 != "Win"; "\![raise,OnWordSearch,Win,%(_guessedword)]\e" //If the user won, restart this function so that it can remake the board
+	--
+	_display += "\![unlock,balloonrepaint]"
 	--
 	//Dialogues for when you've made a turn. I ended up making a separate function for this because wow this function got long
 	if reference0 == "EndLetter"
@@ -425,7 +483,10 @@ OnWordSearch
 	{
 		_display += "\n\n\_q\f[default]%(WordSearchDialogue('Finished Puzzle',reference1))"
 	}
-	if reference0 != "Win"; _display += "\f[default]%(WordSearchDialogue('Menu During Play'))"
+	if reference0 != "Win"; _display += "\f[default]%(WordSearchDialogue('Menu During Play'))\![__WORD_SEARCH_RUNNING__]"
+	
+	if !(_argv[0] == "start new game"); "\C\![lock,balloonrepaint]\c"
+	--
 	"\b2\f[name,Courier New]\![set,autoscroll,disable]\_q%(_display)\*\_l[-10000,-10000]\q[ ,timeoutprevention]\e" //Actual display
 }
 

@@ -8,10 +8,12 @@ charset.extension, UTF-8
 include, system_config.txt
 
 dic, p_main.dic
+dic, p_misc.dic
+dic, p_words.dic
+
 dic, p_hangman.dic
 dic, p_jumble.dic
 dic, p_wordsearch.dic
 dic, p_rps.dic
-dic, words.dic
 
 messagetxt,messagetxt/english.txt
