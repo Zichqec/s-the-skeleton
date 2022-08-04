@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zi's Ukagaka Hub</title>
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="Zi's Ukagaka Hub"/>
+    <meta property="og:description" content="Zi's hub for Ukagakas and related things"/>
+    <meta property="og:url" content="https://zichqec.github.io/s-the-skeleton/index.html"/>
+    <meta property="og:image" content="https://zichqec.github.io/s-the-skeleton/img/AllTogether.png"/>
+</head>
+
+<body>
+    <nav><div id="navbar" class="navbar"></div></nav>
+
+	<article>
+		<h1>Convert from AYA to YAYA</h1>
+		
+		<p>Based on the <a href="https://emily.shillest.net/ayaya/index.php?StartUp/AYA%E3%81%8B%E3%82%89%E3%81%AE%E7%A7%BB%E8%A1%8C">conversion notes from AYAYA</a>, but modified to suit the new YAYA setup.</p>
+		
+		<ol>
+			<li>In ghost/master/descript.txt, change <b>shiori,aya5.dll</b> to <b>shiori,yaya.dll</b></li>
+			<li>Delete aya5.dll and put yaya.dll in its place. (yaya.dll download <a href="https://github.com/ponapalt/yaya-shiori/releases">here</a> - download the regular yaya.zip of the latest version)</li>
+			<li>Rename <b>aya5.txt</b> to <b>yaya.txt</b></li>
+			<li>Download the system dictionary files <a href="https://github.com/ponapalt/yaya-dic">here</a> (you can click Code>Download Zip), exctract them, and copy the <b>yaya_base</b> folder into your <b>ghost/master/</b> folder. Not the contents of it, the whole folder. <u>You do not need the other files that you downloaded and can ignore them</u></li>
+			<li>In yaya.txt, delete <b>dic, aya_shiori3.dic</b> and replace it with <b>dicdir, yaya_base</b></li>
+			<li>In yaya_base/config.dic, make sure <b>SHIORI3FW.AUTO_DATA_CONVERT</b> is set to <b>1</b>, and <b>SHIORI3FW.REF_ACCEL</b> is set to <b>0</b></li>
+			<li>In your aitalk.dic, run a search for a function called <b>AiTalk</b>. If it is named <b>AiTalk</b>, rename it to <b>OnAiTalk</b></li>
+			<li>Run a search in your ghost's files for a function called <b>OnChoiceSelect</b>. If it does not exist, add this function into a file somewhere:
+<pre>
+//This bit of code is what makes menu options that don't start with On direct to Select.options instead. Remove or comment it if you prefer!
+OnChoiceSelect
+{
+    EVAL("Select.%(reference0)")
+}
+</pre>
+			</li>
+			<li>Note: If your ghost was already released, you will need to add <b>aya5.dll</b> and <b>aya5.txt</b> to <a href="https://ssp-shillest-net.translate.goog/ukadoc/manual/descript_install.html?_x_tr_sl=ja&_x_tr_tl=en&_x_tr_hl=en-US&_x_tr_sch=http#delete.txt">delete.txt</a>, to ensure it'll be deleted on the user's end as well when they update.</li>
+		</ol>
+		
+		<p>To check and make sure this worked, try putting <b>%(LICENSE[0])</b> into a dialogue or menu somewhere. If the update worked correctly, this should display the version number of the YAYA you just installed.</p>
+		
+		<p>If you would like to be able to run envelopes like the above directly in the script input box, there's a guide for that <a href="">here</a></p>
+
+	</article>
+	
+    <footer>
+        More from Zichqec<br>
+        <a href="https://www.deviantart.com/zichqec"class="footlink">Deviantart</a> | 
+        <a href="https://zichqec.tumblr.com/" class="footlink">Tumblr</a> | 
+        <a href="https://twitter.com/Zichqec" class="footlink">Twitter</a> | 
+        <a href="https://toyhou.se/Zichqec" class="footlink">Toyhouse</a> |
+        <a href="https://www.youtube.com/channel/UC_9BGh45mIL3b3riZ4aTRIA" class="footlink">Youtube</a>
+    </footer>
+	
+	<script src="navbar.js"></script>
+</body>
+</html>

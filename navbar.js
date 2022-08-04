@@ -35,6 +35,9 @@ let links = [
 		{ path: 'olddef_vs_newdef', title: 'Old Definition Vs New Definition (SERIKO)' },
 		{ path: 'ping_pong_loops', title: 'Ping Pong Loops (SERIKO)' },
 		{ path: 'negative_coordinates_in_balloons', title: 'Negative Coordinates in Balloons' },
+		{ path: 'aya_conversion', title: 'Convert from AYA to YAYA' },
+		{ path: 'yaya_upgrade', title: 'Upgrade Old Versions of YAYA' },
+		{ path: 'envelopes_script_input', title: 'Run Envelopes Through Script Input' },
 	] },
 	{ title: 'Other', sublinks: [
 		{ path: 'calendarskins', title: 'Calendar Skins' },

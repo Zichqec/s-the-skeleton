@@ -377,6 +377,12 @@ ul
     margin-right: 10%;
 }
 
+ol
+{
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
 pre
 {
     white-space: pre-wrap;
