@@ -1,4 +1,40 @@
+notification_sound : all
+{
+	if !ISVAR("volume"); volume = 50
+	if !ISVAR("notif"); notif = "None"
+	
+	if !(notif == "None" || notif == "")
+	{
+		"\![sound,play,"""
+		
+		if notif == "Bubbles"; "snd/Bubbles.mp3"
+		elseif notif == "Campana"; "snd/Campana.mp3"
+		elseif notif == "Splash"; "snd/Splash.mp3"
+		elseif notif == "Stop"; "snd/Stop.mp3"
+		elseif notif == "Success"; "snd/Success.mp3"
+		elseif notif == "Water Drop"; "snd/Water_Drop.mp3"
+		else; "%(custom_sound_path)"
+		
+		""",--volume=%(volume),--window=false]"
+	}
+}
 
+br
+{
+	if SHIORI3FW.BalloonName == "H2O"; "\n"
+	else; " "
+}
+
+b4
+{
+	if SHIORI3FW.BalloonName == "H2O"; "\b4"
+	else; "\b2"
+}
+
+newline
+{
+	"\n \n[-100]"
+}
 
 OnDialogueVars //Setting variables in random dialogue
 {
@@ -321,4 +357,39 @@ Wobble
 		_word += "\_l[@%(_X),%(_Y)]\f[height,%(_Sz)]" + _let //Add to the display
 	}
 	_word
+}
+
+ASUB //ASEARCH but for substrings
+{
+	_array = _argv //Takes in all the elements of the array
+	_array[0] = IARRAY //erases _argv[0] since that's the string we're searching for
+	for _i = 0; _i < ARRAYSIZE(_array); _i++
+	{
+		if _argv[0] _in_ _array[_i]
+		{
+			_i
+			return
+		}
+	}
+	-1
+}
+
+//This bit of code is what makes menu options that don't start with On direct to Select.options instead. Remove or comment it if you prefer!
+OnChoiceSelect
+{
+    EVAL("Select.%(reference0)")
+}
+
+//Example: ErrorLog("Some debug info","info")
+ErrorLog
+{
+	//Create arrays if none exist
+	if !ISVAR("ErrorsToPush.level"); ErrorsToPush.level = IARRAY
+	if !ISVAR("ErrorsToPush.description"); ErrorsToPush.description = IARRAY
+	
+	_level = "warning" //It defaults to warning if it doesn't recognize what you've put in, so I will too
+	if _argv[1] != ""; _level = _argv[1]
+	
+	ErrorsToPush.level ,= _level
+	ErrorsToPush.description ,= _argv[0]
 }

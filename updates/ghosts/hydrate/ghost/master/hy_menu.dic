@@ -3,12 +3,22 @@ OnMouseDoubleClick
 	if reference5 == 0 && booting != 1 //reference5 is which mouse button is being clicked, in this case 0 is a left click
 	{
 		booting = 0
-		if AutoUpdates[1] == 2
+		if AutoUpdates[1] == "ghost" || AutoUpdates[1] == "shell" || AutoUpdates[1] == "balloon"
 		{
-			"\0\s[0](An update is available!\w8 Do you want to download it?)"
+			if AutoUpdates[1] == "ghost"
+			{
+				"\0\s[0](A Hydrate update is available!\w8 Do you want to download it?)"
+			}
+			elseif AutoUpdates[1] == "shell"
+			{
+				"\0\s[0](An update is available for the %(nowshell) shell!\w8 Do you want to download it?)"
+			}
+			elseif AutoUpdates[1] == "balloon"
+			{
+				"\0\s[0](An update is available for the %(SHIORI3FW.BalloonName) balloon!\w8 Do you want to download it?)"
+			}
 			--
-			//Note: the download it now option will go straight into updating without directing to another function. You can do this with some things using 'script:' in the function name, but it's finicky. If this gives you issues feel free to replace it.
-			"\_q\n\n\![*]\q[Download it now,script:\![updatebymyself\]]\n/
+			"\_q\n\n\![*]\q[Download it now,OnStartUpdate,%(AutoUpdates[1])]\n/
 			\![*]\q[Maybe later,UpdateLater]\n\n/
 			\![*]\q[Turn off auto updates,UpdateOff]\e"
 		}
@@ -34,30 +44,25 @@ Select.UpdateOff //If the user no longer wants to be notified about updates
 	"\0\s[0](Auto Update checks turned off, you can turn them on again in the Config menu.)\e"
 }
 
-OnMenuRun
+OnMenuRun : all
 {
-	"\0\![set,autoscroll,disable]\b2\_q/
-	\![*]\q[I took an extra sip!,OnExtraSip]\n\n[half]/
-	\![*]\q[Change Shell,OnShellMenu]"
-	--
-	if ARRAYSIZE(availabledressups) > 0
-	{
-		"\n\![*]\q[Change Design,OnDressupMenu]"
-	}
-	--
-	"\n\n[half]/
-	\![*]\q[Stats,OnWaterStats]\n/
-	\![*]\q[Config,OnConfigMenu]/
-	\n\n\![*]\q[Nevermind,Cancel]"
-	--
+	"\0\![set,autoscroll,disable]\b2\_q"
+	"\![*]\q[I took an extra sip!,OnExtraSip]\n"
+	"\![*]\q[Pause drink reminders,OnPause]\n\n[half]"
+	"\![*]\q[Change Shell,OnShellMenu]"
+	
+	if ARRAYSIZE(availabledressups) > 0; "\n\![*]\q[Change Design,OnDressupMenu]"
+
+	"\n\n[half]"
+	"\![*]\q[Stats,OnWaterStats]\n"
+	"\![*]\q[Config,OnConfigMenu]"
+	"\n\n\![*]\q[Nevermind,Cancel]"
+	
 	_s = ""; if todayswaters != 1; _s = "s"
-	"\n\n\n\n\n\n[half]%(todayswaters) drink%(_s) taken this session!"
-	--
-	if currentdrinkstreak > 3
-	{
-		"\n%(currentdrinkstreak) drinks in a row!"
-	}
-	--
+	"\n\n\n\n[half]%(todayswaters) drink%(_s) taken this session!"
+	
+	if currentdrinkstreak > 3; "\n%(currentdrinkstreak) drinks in a row!"
+	
 	"\n\f[height,-2]Runtime: %(passhour):%(displaymin)\nVersion %(ghostver)\e"
 }
 
@@ -76,7 +81,81 @@ OnExtraSip
 	"\e"
 }
 
+OnPause : all
+{
+	_hours = TOINT(reference2); if _hours == ""; _hours = 0
+	_minutes = TOINT(reference1); if _minutes == ""; _minutes = 0
+	_seconds = TOINT(reference0); if _seconds == ""; _seconds = 0
+	if _seconds >= 60
+	{
+		_seconds = 0
+		_minutes++
+	}
+	if _minutes >= 60
+	{
+		_minutes = 0
+		_hours++
+	}
+	
+	"\C\![lock,balloonrepaint]\c\0\_q\*\t\b2\![set,autoscroll,disable]"
+	
+	"\f[height,+2]\f[bold,1](Drink reminders are paused!)\f[bold,0]\f[height,default]\n\n"
+	
+	"(Until you close this menu, you will not be given drink reminders, and your streak will not be broken.)\n\n"
+	
+	"\![*]\q[Resume reminders,OnResume]\n\n"
+	
+	"\f[bold,1]Paused for: "
+	if _hours < 10; "0"
+	"%(_hours):"
+	if _minutes < 10; "0"
+	"%(_minutes):"
+	if _seconds < 10; "0"
+	"%(_seconds)"
+	
+	// for _i = 0; _i < 60; _i++
+	// {
+		// if _i < 10; "0"
+		// "%(_i)\_w[1000]"
+		// if _i < 59; "\c[char,2]"
+	// }
+	
+	"\![unlock,balloonrepaint]\![timerraise,1000,1,OnPause,%(_seconds + 1),%(_minutes),%(_hours)]"
+}
+
+OnResume
+{
+	"\![timerraise,0,0,OnPause](Hydration resumed!)"
+}
+
+On_installedshellname
+{
+	ShellList = reference
+}
+
 OnShellMenu
+{
+	_display = ""
+	for _i = 0; _i < ARRAYSIZE(ShellList); _i++
+	{
+		if ShellList[_i] == nowshell; _display += "\![*]"
+		_display += "\q[%(ShellList[_i]),OnSwitchShell,%(ShellList[_i])]\n"
+	}
+	--
+	"\0\*\_q\![set,autoscroll,0]"
+	--
+	"\f[align,center]— Shells —%(newline)\f[align,left]"
+	--
+	if ARRAYSIZE(ShellList) > 16; "\b4\n\n[half]\![*]\q[Back to menu,OnMenuRun]"
+	elseif ARRAYSIZE(ShellList) > 11; "\b4"
+	else; "\b2"
+	--
+	"\n\![*]\q[Download more shells,OnShellUrl]"
+	--
+	"\n\n[half]%(_display)\n\![*]\q[Back to menu,OnMenuRun]\n\![*]\q[Nevermind,Cancel]\e"
+}
+
+/*OnShellMenu
 {
 	shelllist = IARRAY
 	"\![get,property,OnShellCount,currentghost.shelllist.count]" //Gets the count of shells (Starts from 1)
@@ -117,7 +196,7 @@ OnGetShells
 		"\n\n[half]%(_display)\n\n[half]\![*]\q[Back to menu,OnMenuRun]\n\![*]\q[Nevermind,Cancel]\e"
 		shelllist = IARRAY //erase the list since we don't need it anymore
 	}
-}
+}*/
 
 OnShellUrl
 {
@@ -145,8 +224,8 @@ OnDressupMenu
 	
 	foreach availabledressups; _dressup //For every dressup that the ghost has
 	{
-		_category = _dressup[0,"|"] //Gather the name and category of the current dressup
-		_name = _dressup[1,"|"]
+		_category = _dressup[0,C_BYTE1] //Gather the name and category of the current dressup
+		_name = _dressup[1,C_BYTE1]
 		
 		if reference0 == "" && ASEARCH(_category,_currentcategories) == -1 //If the user is not in a submenu AND we haven't logged this category yet
 		{
@@ -156,34 +235,38 @@ OnDressupMenu
 		elseif _category == reference0 //Otherwise, if the user IS in a submenu, AND this item matches the current submenu category
 		{
 			_items++
-			_pos = ASEARCH("%(_category)|%(_name)",currentdressups) //See if the name of this item is in the name of dressups currently being used
+			_pos = ASEARCH("%(_category)%(C_BYTE1)%(_name)",currentdressups) //See if the name of this item is in the name of dressups currently being used
 			if _pos != -1; _display += "\![*]"
 			_display += "\__q[OnChangeDesign,%(_category),%(_name)]%(_name)\__q\n"
 		}
 	}
 	--
-	"\0\*\_q\![set,autoscroll,0]"
+	"\C\![lock,balloonrepaint]\c\0\*\_q\![set,autoscroll,0]"
 	--
 	if reference0 == ""
 	{
-		"\_l[51]---Designs---"
+		"\f[align,center]— Designs —%(newline)\f[align,left]"
 	}
 	else
 	{
-		"\_l[51]---%(reference0)---"
+		"\f[align,center]— %(reference0) —%(newline)\f[align,left]"
 	}
 	--
 	if reference0 == ""
 	{
-		if ARRAYSIZE(_currentcategories) > 18; "\b4\n\n[half]\![*]\q[Back to menu,OnMenuRun]"
-		elseif ARRAYSIZE(_currentcategories) > 11; "\b4"
+		if ARRAYSIZE(_currentcategories) > 18; "%(b4)\n\n[half]\![*]\q[Back to menu,OnMenuRun]"
+		elseif ARRAYSIZE(_currentcategories) > 11; "%(b4)"
 		else; "\b2"
+		--
+		"\n\![*]\q[Randomize all categories,OnRandomDressup]"
 	}
 	elseif reference0 != ""
 	{
-		if _items > 18; "\b4\n\n[half]\![*]\q[Back,OnDressupMenu]"
-		elseif _items > 11; "\b4"
+		if _items > 18; "%(b4)\n\n[half]\![*]\q[Back,OnDressupMenu]"
+		elseif _items > 11; "%(b4)"
 		else; "\b2"
+		--
+		"\n\![*]\q[Random,OnRandomDressup,%(reference0)]"
 	}
 	--
 	"\n\n[half]%(_display)\n[half]"
@@ -196,31 +279,107 @@ OnDressupMenu
 	{
 		"\![*]\q[Back,OnDressupMenu]\n\![*]\q[Nevermind,Cancel]\e"
 	}
+	--
+	"\![unlock,balloonrepaint]"
 }
 
 OnChangeDesign
 {
-	"\0\_q\![bind,%(reference0),%(reference1)] \![raise,OnDressupMenu,%(reference0)]"
+	"\C\![set,autoscroll,disable]\0\_q\![bind,%(reference0),%(reference1)]\![set,balloonwait,0.01] \![raise,OnDressupMenu,%(reference0)]"
+}
+
+OnRandomDressup
+{
+	_command = ""
+	foreach currentdressups; _dressup //Remove all current dressups
+	{
+		if reference0 != "" && _dressup[0,C_BYTE1] != reference0; continue //Skip unless this is for the category we want to randomize
+		
+		_category = _dressup[0,C_BYTE1]
+		_name = _dressup[1,C_BYTE1]
+		_command += "\![bind,%(_category),%(_name),0]"
+	}
+	
+	"\C\![lock,balloonrepaint]\![set,autoscroll,disable]"
+	--
+	"\0%(_command)\![done    removing]"
+	--
+	_availabledressups = ASORT("string,ascending",availabledressups)
+	
+	LOGGING("_availabledressups: %(_availabledressups)")
+	
+	foreach dressupcategories; _category
+	{
+		if reference0 != "" && _category != reference0; continue //Skip unless this is for the category we want to randomize
+		_dressups = IARRAY
+		_options = ""
+		
+		_i = 0
+		foreach _availabledressups; _dressup
+		{
+			if _dressup[0,C_BYTE1] == _category
+			{
+				if _options == ""; _options = _dressup[2,C_BYTE1]
+				_dressups ,= _dressup[1,C_BYTE1]
+				
+				_availabledressups[_i] = IARRAY
+			}
+			else
+			{
+				_i++
+			}
+		}
+		_mustselect = 0; _multiple = 0
+		if "mustselect" _in_ _options; _mustselect = 1
+		if "multiple" _in_ _options; _multiple = 1
+		
+		_skipchance = 3 //1/3 chance
+		if !_mustselect && RAND(_skipchance) == 0; continue
+		
+		if !_multiple
+		{
+			_command += "\![bind,%(_category),%(ANY(_dressups)),1]"
+		}
+		else
+		{
+			while ARRAYSIZE(_dressups) >= 1
+			{
+				_dressup = ANY(_dressups)
+				_dressups[LSO] = IARRAY
+				if RAND(_skipchance) == 0; continue
+				
+				_command += "\![bind,%(_category),%(_dressup),1]"
+			}
+		}
+	}
+	_command
+	--
+	"\![set,balloonwait,0.01] \![raise,OnDressupMenu,%(reference0)]"
 }
 
 OnWaterStats
 {
+	_h = "\f[color,default.anchor]"
+	_d = "\f[color,default]"
+	
 	"\0\*\b2\_q"
 	--
+	"\f[align,center]— Stats —%(newline)\n\n\f[align,left]"
+	--
 	_s = ""; if todayswaters != 1; _s = "s"
-	"%(todayswaters) drink%(_s) taken today\n"
+	"\![*]%(_h)%(todayswaters)%(_d) drink%(_s) taken today\n"
 	--
 	_s = ""; if totalwaters != 1; _s = "s"
-	"%(totalwaters) drink%(_s) taken in total\n"
+	"\![*]%(_h)%(totalwaters)%(_d) drink%(_s) taken in total\n"
 	--
 	_s = ""; if currentdrinkstreak != 1; _s = "s"
-	"Currently on a streak of %(currentdrinkstreak) drink%(_s)!\n"
+	"\![*]Currently on a streak of %(_h)%(currentdrinkstreak)%(_d) drink%(_s)!\n"
 	--
 	_s = ""; if extrasipstoday != 1; _s = "s"
-	"%(extrasipstoday) extra sip%(_s) taken today\n"
+	"\![*]%(_h)%(extrasipstoday)%(_d) extra sip%(_s) taken today\n"
 	--
 	_s = ""; if extrasipstotal != 1; _s = "s"
-	"%(extrasipstotal) extra sip%(_s) taken in total\n\n\n"
+	"\![*]%(_h)%(extrasipstotal)%(_d) extra sip%(_s) taken in total\n\n\n"
 	--
 	"(You're doing awesome, keep it up!)"
 	"(Good job, keep going!)"
@@ -233,30 +392,41 @@ OnWaterStats
 
 
 //----------Config Menu----------
-OnConfigMenu //I moved changing name/pronouns/birthday over to Nameteach, because they're info about the user
+OnConfigMenu : all //I moved changing name/pronouns/birthday over to Nameteach, because they're info about the user
 {
-	if deleteshitai == "" //This is here in case the variables get erased. The uninstall will automatically be set to OFF so the user has something to click.
-	{
-		deleteshitai = "OFF"
-	}
+	//This is here in case the variables get erased. The uninstall will automatically be set to OFF so the user has something to click.
+	if deleteshitai == ""; deleteshitai = "OFF"
 	if talkrate == ""; {talkrate = "every hour"; aitalkinterval = 3600}
 	if AutoUpdates[0] == ""; AutoUpdates[0] = "ON"
-	--
-	"\_q\b2\_l[53]---Config---\n/
-	Reminder rate:\n\![*]\q[%(talkrate),ChangeTalk]\n\n[half]/
-	\![*]\q[Check for ghost updates,OnUpdateCheck,ghost]\n/
-	\![*]Enable auto ghost updates? (Currently: \q[%(AutoUpdates[0]),ToggleAutoUpdates])\n\n[half]/
-	\![*]\q[Check for shell updates,OnUpdateCheck,shell]\n/
-	\![*]\q[Check for balloon updates,OnUpdateCheck,balloon]\n\n[half]/
-	\![*]\q[See the changelog,OnChangeLog,FromMenu]\n\n[half]/
-	\![*]Enable Uninstall?\n(Currently: \q[%(deleteshitai),ToggleUninstall])\n\n/
-	\![*]\q[Back to the menu,OnMenuRun]\e"
+	if notif == ""; notif = "None"
+	if volume == ""; volume = 50
+	if HourNotifs == ""; HourNotifs = "OFF"
+	
+	"\C\![lock,balloonrepaint]\c\![close,inputbox,OnDrinkTime]\_q%(b4)\f[anchorvisitedfontcolor,default.anchor]\![set,autoscroll,disable]"
+	
+	"\f[align,center]— Config —%(newline)\n\n\f[align,default]"
+	
+	"Reminder rate:%(br)\![*]\_a[OnChangeTalk]%(talkrate)\_a\n"
+	"Reminder sound: \_a[OnChangeNotif]%(notif)\_a\n\n"
+	
+	"Auto update checks: \![*]\_a[OnToggleAutoUpdates]%(AutoUpdates[0])\_a\n"
+	"Check for updates to...\n"
+	"\![*]\q[Ghost,OnUpdateCheck,ghost]  \![*]\q[Shell,OnUpdateCheck,shell]  \![*]\q[Balloon,OnUpdateCheck,balloon]\n\n"
+	
+	"\![*]\q[See the changelog,OnChangeLog,FromMenu]\n\n"
+	
+	"Hour notifications: \![*]\_a[OnToggleHourNotifs]%(HourNotifs)\_a\n"
+	"Enable Uninstall? \![*]\_a[OnToggleUninstall]%(deleteshitai)\_a\n\n"
+	"\![*]\q[Back to the menu,OnMenuRun]"
+	"\![unlock,balloonrepaint]"
 }
 
-Select.ChangeTalk
+OnChangeTalk : all
 {
-	"\0\s[0](How many minutes would you like between reminders?\w8 Right now it's %(talkrate).)\![open,sliderinput,OnDrinkTime,-1,,0,300]\![set,balloontimeout,-1]\n\n/
-	\![*]\q[Nevermind,OnConfigMenu]\e"
+	"\0\_q\s[0]\![open,sliderinput,OnDrinkTime,-1,,0,300]\![set,balloontimeout,-1]"
+	"(How many minutes would you like between reminders? Right now it's %(talkrate).)"
+	"\n\n"
+	"\![*]\q[Nevermind,OnConfigMenu]\e"
 }
 
 OnDrinkTime
@@ -315,6 +485,89 @@ OnDrinkTime
 	}
 }
 
+OnChangeNotif : all
+{
+	_opts = ("Water Drop","Bubbles","Splash","Campana","Stop","Success")
+	
+	_g = "\f[color,disable]"
+	_d = "\f[color,default]"
+	
+	_vol_up = "\q[▲,OnQuickVolume,Up]"
+	if volume >= 100; _vol_up = "%(_g)▲%(_d)"
+	_vol_down = "\q[▼,OnQuickVolume,Down]"
+	if volume <= 0; _vol_down = "%(_g)▼%(_d)"
+	
+	"\C\![lock,balloonrepaint]\c\0\b2\_q\![set,autoscroll,disable]\*"
+	"\f[align,center]— Reminder Sound —%(newline)\n\n[half]\f[align,left]"
+	
+	"Volume: %(_vol_up)%(_vol_down) %(volume)\n\n[half]"
+	
+	if notif == "None"; "\![*]"
+	"\__q[OnNotifSet,None]None\__q\n"
+	
+	if notif == "Custom"; "\![*]"
+	"\__q[OnNotifSet,Custom]Custom\__q \__q[OnCustomNotif](Pick sound)\__q\n\n[half]"
+	
+	foreach _opts; _opt
+	{
+		if notif == _opt; "\![*]"
+		"\__q[OnNotifSet,%(_opt)]%(_opt)\__q\n"
+	}
+	
+	"\n[half]\![*]\q[Back,OnConfigMenu]\![unlock,balloonrepaint]"
+}
+
+//Up/Down volume buttons
+OnQuickVolume
+{
+	if reference0 == "Up"
+	{
+		volume += 5
+		if volume > 100; volume = 100
+	}
+	else //Down
+	{
+		volume -= 5
+		if volume < 0; volume = 0
+	}
+	OnChangeNotif
+}
+
+OnNotifSet
+{
+	notif = reference0
+	"\C\![sound,stop]%(notification_sound)\![raise,OnChangeNotif]"
+}
+
+OnCustomNotif : all
+{
+	_h = "\f[color,default.anchor]"
+	_d = "\f[color,default]"
+	
+	"\0\_q\b2\![set,autoscroll,disable]\![open,dialog,open]\*"
+	
+	"(Choose a sound file. Supported types are %(_h).mp3%(_d), %(_h).wav%(_d), %(_h).wma%(_d), and %(_h).mid%(_d).)\n\n"
+	
+	"(If sound files give an error, or you would like access to more file types including %(_h).flac%(_d), %(_h).ogg%(_d), or %(_h).m4a%(_d), please consider installing \_a[https://github.com/Nevcairiel/LAVFilters/releases]LAV Filters\_a.)\n\n"
+	
+	"\![*]\q[Cancel,OnChangeNotif]"
+}
+
+OnSystemDialog
+{
+	if reference0 == "open"
+	{
+		notif = "Custom"
+		custom_sound_path = reference2
+		"\C\![sound,stop]%(notification_sound)\![raise,OnChangeNotif]"
+	}
+}
+
+OnSystemDialogCancel
+{
+	if reference0 == "open"; "\C\![sound,stop]\![raise,OnChangeNotif]"
+}
+
 OnUpdateCheck
 {
 	if reference0 == "ghost"
@@ -331,7 +584,7 @@ OnUpdateCheck
 	}
 }
 
-Select.ToggleAutoUpdates
+OnToggleAutoUpdates
 {
 	if AutoUpdates[0] != "ON"
 	{
@@ -341,11 +594,25 @@ Select.ToggleAutoUpdates
 	{
 		AutoUpdates[0] = "OFF"
 	}
-	--
+	
 	OnConfigMenu
 }
 
-Select.ToggleUninstall
+OnToggleHourNotifs
+{
+	if HourNotifs != "ON"
+	{
+		HourNotifs = "ON"
+	}
+	else
+	{
+		HourNotifs = "OFF"
+	}
+	
+	OnConfigMenu
+}
+
+OnToggleUninstall
 {
 	if deleteshitai != "ON"
 	{
@@ -355,7 +622,7 @@ Select.ToggleUninstall
 	{
 		deleteshitai = "OFF"
 	}
-	--
+	
 	OnConfigMenu
 }
 
@@ -373,20 +640,23 @@ OnChoiceTimeout
 
 //---Stuff from Aitalk---
 
-AiTalk : nonoverlap
+OnAiTalk
 {
-	"\0\s[0]"
-	--
-	if nowshell == "Alkohol"; "%(WobbleTalk)\e"
-	--
+	_talk = ReminderTalk
+	if nowshell == "Alkohol"; _talk = Wobble(_talk,0,0,currentdrinkstreak)
+	_talk = "\0\s[0]%(notification_sound)" + _talk
+	_talk += "\![set,choicetimeout,%(timeouttime)]\n\n\![*]\q[Done,drankwater]\n\n[half]\![*]\q[Dismiss,dismisswater]\e drinknotif"
+	_talk
+}
+
+ReminderTalk : nonoverlap
+{
 	"(It's time to drink some water!)"
 	"(You should take a sip of water.)"
 	"(Stay hydrated! Take a sip of water if you haven't lately.)"
 	"(It's time for a sip of water!)"
 	"(You should get a drink!)"
 	"(Get a drink and move around a little!)"
-	--
-	"\![set,choicetimeout,%(timeouttime)]\n\n\![*]\q[Done,drankwater]\n\n[half]\![*]\q[Dismiss,dismisswater]\e drinknotif"
 }
 
 Select.drankwater : nonoverlap
@@ -395,30 +665,30 @@ Select.drankwater : nonoverlap
 	totalwaters++
 	currentdrinkstreak++
 	
-	"\0\s[0]"
-	--
+	_talk = ""
 	if totalwaters % 100 == 0
 	{
-		MilestoneDrink
+		_talk = MilestoneDrink
 		
 	}
 	elseif currentdrinkstreak == 3
 	{
-		"(You've reached a streak of drinks in a row, good job! Keep it up!)"
-		"(You've started a streak! Keep going!)"
-		"(You're doing really well, you've started a streak!)"
-		"(3 drink combo! Keep going!)"
+		_talk = StreakStartDrink
+
 	}
 	elseif currentdrinkstreak % 5 == 0
 	{
-		StreakDrink
+		_talk = StreakDrink
 	}
 	else
 	{
-		GeneralDrink
+		_talk = GeneralDrink
 	}
-	--
-	"\e"
+	
+	if nowshell == "Alkohol"; _talk = Wobble(_talk,0,0,currentdrinkstreak)
+	_talk = "\0\s[0]" + _talk
+	_talk += "\e"
+	_talk
 }
 
 Select.dismisswater
@@ -426,8 +696,18 @@ Select.dismisswater
 	currentdrinkstreak = 0
 }
 
+StreakStartDrink : nonoverlap
+{
+	"(You've reached a streak of drinks, good job! Keep it up!)"
+	"(You've started a streak! Keep going!)"
+	"(You're doing really well, you've started a streak!)"
+	"(3 drink combo! Keep going!)"
+}
+
 GeneralDrink : nonoverlap
 {
+	
+	
 	"(Good job!)"
 	"(Well done!)"
 	"(Keep it up!)"
@@ -440,6 +720,8 @@ GeneralDrink : nonoverlap
 	"(You're rad!)"
 	"(Fresh!)"
 	"(You did it!)"
+	"(Powerful!)"
+	"(Look at you go!)"
 }
 
 StreakDrink : nonoverlap
@@ -454,58 +736,26 @@ MilestoneDrink : nonoverlap
 {
 	"(You've reached %(totalwaters) total timed drinks, good job!)"
 	"(You've reached %(totalwaters) total timed drinks, you're a hydration pro!)"
-}
-
-
-WobbleTalk : nonoverlap
-{
-	Wobble("(It's time to drink some water!)",0,0,currentdrinkstreak)
-	Wobble("(You should get a sip of water.)",0,0,currentdrinkstreak)
-	Wobble("(Stay hydrated & sip water!)",0,0,currentdrinkstreak)
-	Wobble("(It's time for a sip of water!)",0,0,currentdrinkstreak)
-	Wobble("(You should get a drink!)",0,0,currentdrinkstreak)
-	Wobble("(Get a drink and move around!)",0,0,currentdrinkstreak)
-	--
-	"\![set,choicetimeout,%(timeouttime)]\n\n\![*]\q[Done,drankwobble]\n\n[half]\![*]\q[Dismiss,cancelnodialogue]\e drinknotif"
-}
-
-Select.drankwobble : nonoverlap
-{
-	todayswaters++
-	totalwaters++
-	currentdrinkstreak++
-
-	"\0\s[0]"
-	--
-	Wobble("(Good job!)",0,0,currentdrinkstreak)
-	Wobble("(Well done!)",0,0,currentdrinkstreak)
-	Wobble("(Keep it up!)",0,0,currentdrinkstreak)
-	Wobble("(Excellent!)",0,0,currentdrinkstreak)
-	Wobble("(Great!)",0,0,currentdrinkstreak)
-	Wobble("(Thank you!)",0,0,currentdrinkstreak)
-	Wobble("(Heck yeah,\w4 hydration!)",0,0,currentdrinkstreak)
-	Wobble("(Awesome!)",0,0,currentdrinkstreak)
-	Wobble("(You're great!)",0,0,currentdrinkstreak)
-	Wobble("(You're rad!)",0,0,currentdrinkstreak)
-	Wobble("(Fresh!)",0,0,currentdrinkstreak)
-	Wobble("(You did it!)",0,0,currentdrinkstreak)
-	--
-	"\e"
+	"(You've reached %(totalwaters) total timed drinks, fantastic!)"
+	"(You've reached %(totalwaters) total timed drinks, look at you go!)"
 }
 
 OnHourTalk
 {
-	if hour == 0
+	if HourNotifs == "ON"
 	{
-		"\0\s[0](It's midnight.)"
-	}
-	elseif hour == 12
-	{
-		"\0\s[0](It's noon. If you haven't eaten yet,\w4 you should sip some water first.)"
-	}
-	else
-	{
-		"\0\s[0](It's %(hour12).)"
+		if hour == 0
+		{
+			"\0\s[0](It's midnight.)"
+		}
+		elseif hour == 12
+		{
+			"\0\s[0](It's noon. If you haven't eaten yet,\w4 you should sip some water first.)"
+		}
+		else
+		{
+			"\0\s[0](It's %(hour12).)"
+		}
 	}
 	--
 	_send = "%(currentdressups)"
@@ -563,6 +813,29 @@ OnSecondChange
 	{
 		
 	}*/
+	
+	//Create arrays if none exist
+	if !ISVAR("ErrorsToPush.level"); ErrorsToPush.level = IARRAY
+	if !ISVAR("ErrorsToPush.description"); ErrorsToPush.description = IARRAY
+
+	if ARRAYSIZE(ErrorsToPush.level) > 0 //If there are errors
+	{
+		_levels = ""
+		_descriptions = ""
+		for _i = 0; _i < ARRAYSIZE(ErrorsToPush.level); _i++ //CHR(1) in here is the divider between errors
+		{
+			if _i > 0; {_levels += CHR(1); _descriptions += CHR(1)}
+			_levels += ErrorsToPush.level[_i]
+			_descriptions += ErrorsToPush.description[_i]
+		}
+		//Push the whole list of errors together
+		SHIORI3FW.PushAdditionalReturn('ErrorLevel',_levels)
+		SHIORI3FW.PushAdditionalReturn('ErrorDescription',_descriptions)
+		
+		//Clear the arrays so we don't send any more errors later
+		ErrorsToPush.level = IARRAY
+		ErrorsToPush.description = IARRAY
+	}
 	
 	mikireflag = reference1
 }

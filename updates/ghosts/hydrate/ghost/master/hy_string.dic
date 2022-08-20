@@ -24,6 +24,10 @@ On_recommendrootbutton.caption //Change to your username
 
 On_sakura.recommendsites
 {
+	"'%(nowshell)' shell by %(shellauthor[0])"
+	--
+	"%ASC(1)%(shellauthor[2])%ASC(2)"
+	--
 	"Zi's Ukagaka Hub"
 	--
 	"%ASC(1)https://zichqec.github.io/s-the-skeleton/index.html%ASC(2)"
@@ -125,7 +129,7 @@ On_dressuprootbutton.caption //Encouragement
 
 On_dressuprootbutton.visible
 {
-	"0"
+	1
 }
 
 On_headlinesenserootbutton.visible

@@ -20,6 +20,10 @@ OnFirstBoot //Dialogue when you first open the ghost
 	AutoUpdates = ("ON",0)
 	nowscale = 100
 	
+	notif = "None"
+	volume = 50
+	HourNotifs = "OFF"
+	
 	booting = 0 //This will be set to 0 after firstboot is complete
 	
 	"\0\s[0](Thank you for choosing to hydrate.)\w8\n\n(Reminders will be issued every hour;\w4 double click the bottle if you'd like to change the rate or switch shells!)"
@@ -130,9 +134,38 @@ OnShellChanging //Starting to change the shell
 
 OnShellChanged //After the shell has changed
 {
+	_f = FENUM(SHIORI3FW.ShellPath) //This block of text checks for a file called DressupRules.dic, and if it exists, writes everything in it into its own file and reloads the shiori! That means you can add custom dressup rules to the random dressup generator!!
+	_files = SPLIT(_f,",")
+	if ASEARCH("DressupRules.dic",_files) != -1
+	{
+		_pathR = "%(SHIORI3FW.ShellPath)DressupRules.dic"
+		_pathW = "hy_dressuprules.dic"
+		_oR = FOPEN(_pathR,"r")
+		_oW = FOPEN(_pathW,"w")
+		--
+		for buff = ""; _buff != -1; _buff = FREAD(_pathR)
+		{
+			_f = FWRITE(_pathW,_buff)
+		}
+		--
+		_f = FCLOSE(_pathR)
+		_f = FCLOSE(_pathW)
+		--
+		"\![reload,shiori]"
+	}
+	else
+	{
+		_pathW = "hy_dressuprules.dic"
+		_oW = FOPEN(_pathW,"w")
+		_f = FWRITE(_pathW,"//No dressup rules to copy")
+		_f = FCLOSE(_pathW)
+		--
+		"\![reload,shiori]"
+	}
+	--
 	_last = nowshell
 	nowshell = reference0
-	"\0\![move,--X=%(shellcoord[0]),--Y=fix,--base=primaryscreen]\1\s[-1]\0\s[0]" //Default surfaces, and moves the ghost to where it was before changing shells
+	"\![get,property,OnShellAuthor,currentghost.shelllist.current.craftman,currentghost.shelllist.current.craftmanw,currentghost.shelllist.current.craftmanurl]\0\![move,--X=%(shellcoord[0]),--Y=fix,--base=primaryscreen]\1\s[-1]\0\s[0]" //Default surfaces, and moves the ghost to where it was before changing shells
 	--
 	if reference0 == _last //If the shell they changed to is the same as the last one
 	{
@@ -186,8 +219,25 @@ OnShellChanged //After the shell has changed
 		"(Not a good choice for hydration, but it sure is pretty!)"
 		"(Hydration for your worst enemies!*)\n\n\f[height,-2](*Murder is bad and illegal.)"
 	}
+	elseif reference0 == "Bleach"
+	{
+		"(Not for drinking!)"
+		"(Not safe for consumption!)"
+		"(Probably doesn't taste good,\w4 but don't test that!)"
+		"(Don't try this at home!)"
+		"(Be careful what you mix it with!)"
+	}
 	--
 	"\e"
+}
+
+OnShellAuthor
+{
+	shellauthor = IARRAY
+	shellauthor[0] = reference0 //craftman
+	if shellauthor[0] == ""; shellauthor[0] = reference1 //Craftman is replaced by craftmanw if craftman is empty
+	shellauthor[1] = reference1 //craftmanw
+	shellauthor[2] = reference2 //craftmanurl
 }
 
 OnGetCoords //This gets the x coordinate
@@ -230,8 +280,12 @@ OnUpdateVars
 	if ISVAR('waitingcommuM') == 0; waitingcommuM = IARRAY
 	if ISVAR('AutoUpdates') == 0; AutoUpdates = ("ON",0)
 	if ISVAR('nowscale') == 0; nowscale = 100
+	
+	if !ISVAR("notif"); notif = "None"
+	if !ISVAR("volume"); volume = 50
+	if !ISVAR("HourNotifs"); HourNotifs = "OFF"
 }
-
+/*
 OnNotifyDressupInfo
 {
 	availabledressups = IARRAY //This one is to display the dressup menu
@@ -240,12 +294,42 @@ OnNotifyDressupInfo
 	{
 		//Ok, so here's the deal. When it lists the dressups, the amount of options that can be specified _varies._ It can be empty, 1, 2, or 3. To the best of my knowledge. SO. This inner loop starts at 3 (because elements 0 1 and 2 are static), checks to see if the next element has a keyword, and skips it if it does. Then when it finds the on/off indicator, it breaks the loop. IT DIDNT HAVE TO BE THIS WAY.
 		_onoff = 0
+		_must = 0
+		_mult = 0
 		for _i = 3; _i < ARRAYSIZE(_dressup); _i++
 		{
-			if _dressup[_i] == "default" || _dressup[_i] == "mustselect" || _dressup[_i] == "multiple" || _dressup[_i] == ""; continue
+			if _dressup[_i] == "default" || _dressup[_i] == ""; continue
+			elseif _dressup[_i] == "mustselect" {_must = 1; continue}
+			elseif _dressup[_i] == "multiple" {_mult = 1; continue}
 			else; _onoff = _dressup[_i]; break
 		}
-		availabledressups ,= _dressup[1] + "|" + _dressup[2]
+		_toadd = _dressup[1] + "|" + _dressup[2]
+		if _must == 1; _toadd += "|mustselect"
+		if _mult == 1; _toadd += "|multiple"
+		availabledressups ,= _toadd
 		if _onoff == 1; currentdressups ,= _dressup[1] + "|" + _dressup[2]
+	}
+}
+*/
+
+//Character ID, category name, part name, option, valid / invalid 0, thumbnail path
+OnNotifyDressupInfo
+{
+	availabledressups = IARRAY //This one is to display the dressup menu
+	currentdressups = IARRAY //This one is so we can display which dressups are currently in use
+	dressupcategories = IARRAY
+	
+	//Has to be reference.raw because parts of this are delimited with C_BYTE1
+	foreach reference.raw; _dressup
+	{
+		_dressup = SPLIT(_dressup,C_BYTE1)
+		
+		_toadd = _dressup[1] + C_BYTE1 + _dressup[2]
+		if _dressup[4] == 1; currentdressups ,= _toadd
+		
+		if ASUB(_dressup[1],dressupcategories) == -1; dressupcategories ,= _dressup[1]
+		
+		if _dressup[3] != ""; _toadd += C_BYTE1 + _dressup[3]
+		availabledressups ,= _toadd
 	}
 }

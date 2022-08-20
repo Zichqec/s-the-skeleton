@@ -100,47 +100,51 @@ OnUpdateCheckComplete //When the ghost finishes checking for updates
 {
 	if reference0 == "none" //If there are no new files
 	{
-		if AutoUpdates[1] == 1; "\e" //This if stops the dialogue from displaying if this check was performed automatically.
-		--
-		"\0\s[0](There are no new files.)\e"
+		if AutoUpdates[1] != 1; "\0\s[0](There are no new files.)\e" //This if stops the dialogue from displaying if this check was performed automatically.
 	}
 	else
 	{
-		if AutoUpdates[1] == 1 //If this was an automatic check
+		if AutoUpdates[1] == 1 //If this was an automatic check (always true but shrug)
 		{
-			AutoUpdates[1] = 2 //This makes it so the ghost will tell the user there's a new update next time they open their menu
-			"\e"
+			AutoUpdates[2] = reference3 //This makes it so the ghost will tell the user there's a new update next time they open their menu
+			if reference3 == "ghost"; "\![update,shell,checkonly]"
+			elseif reference3 == "shell"; "\![update,balloon,checkonly]"
+			else; "\e Update Check Complete"
 		}
+		/*
 		--
-		"\0\s[0](An update is available. Do you want to update now?)\n\n\![*]\q[Update now,StartUpdate]\n\![*]\q[No thanks,cancelnodialogue]\e"
+		"\0\s[0](An update is available"
+		--
+		if reference3 == "shell"; "for the %(nowshell) shell"
+		elseif reference3 == "balloon"; "for the %(SHIORI3FW.BalloonName) balloon"
+		--
+		". Do you want to update now?)\n\n\![*]\q[Update now,OnStartUpdate,%(reference3)]\n\![*]\q[No thanks,cancelnodialogue]\e"
+		*/
 	}
 }
 
-Select.StartUpdate
+OnStartUpdate
 {
-	"\![updatebymyself]"
+	if reference0 == "ghost"
+	{
+		"\![updatebymyself]"
+	}
+	else
+	{
+		"\![update,%(reference0)]"
+	}
 }
 
 OnUpdateBegin //Starting to actually update
 {
-	if AutoUpdateCheck != 1 //If the user is checking manually
-	{
-		"\0\s[0](Beginning update.)\w8\w8\e"
-	}
-	
+	"\0\s[0](Beginning update.)\w8\w8\e"
 }
 
 OnUpdateReady
 {
 	reference0++ //Number of files starts from 0, so this displays the correct amount
-	if AutoUpdateCheck != 1
-	{
-		"\0\s[0](There are %(reference0) new files.)\w8\w8\e"
-	}
-	else
-	{
-		"\0\s[0](Found %(reference0) new files to update with,\w4 beginning update.)\w8\w8\w8\e"
-	}
+	
+	"\0\s[0](There are %(reference0) new files.)\w8\w8\e"
 }
 
 //When the update finishes. Don't forget to initialize any new variables you set, I'd recommend making a variable for each version you release, check if that variable is blank, and if it is then initialize variables for that update. That way no matter what version people update from, they get all the necessary variables.
@@ -162,30 +166,47 @@ OnUpdateComplete
 
 ghostver
 {
-	"1.1.0"
+	"1.2.0"
 }
 
-OnChangeLog
+OnChangeLog : all
 {
-	"\![set,autoscroll,disable]\_q\b2\_l[44]-Version 1.1.0-\n\n/
-	-Hydrate will now have special comments based on how many drinks in a row you've hit!\n\n/
-	-Changed the shell menu to dynamically change depending on what shells you have installed. Check the link in it if you want to download more shells!\n\n/
-	-Added a dynamic dressup menu if the current shell has available dressup items!\n\n/
-	-Added a stats menu to track your stats! Please note that most of these will start at 0 since they were just added.\n\n/
-	-Added an option to tell Hydrate you took an extra sip of water! This won't count towards the timed drinks, but you still get some credit!\n\n/
-	-Hydrate will now send your stats to other ghosts when pinged, and will ping them every hour with your stats! If other ghosts are set up to receive and process these stats, you might see your other ghosts comment on them!\n\n/
-	-Added in the auto update system that I had removed for some reason. Hydrate will now check for updates once a day and let you know if there's something new!\n\n/
-	-Unfortunately, it cannot automatically check for balloon and shell updates. There are buttons in the menu to check for updates for balloons and shells, make sure you check now and then for your favorite shells!\n\n/
-	-Please note, if you're using the H2O balloon, that got an update as well. You should see larger balloons in the menus; if not, please ask Hydrate to update the balloon in the Config menu!\n\n/
-	-The reminder balloon will now time out if you don't interact with it for long enough. This is set for 5 minutes by default, but it will be shorter if you set a shorter reminder time!\n\n/
-	-If you're interested in having your ghost receive stats from Hydrate, or you'd like to make a shell for Hydrate, please check in Hydrate's folder for documentation!/
-	\n\n\n"
-	--
-	if reference0 == "FromMenu" //Checks to see if the user came here from the functions menu
-	{
-		"\![*]\q[Back to Config,OnConfigMenu]\n"
-	}
-	--
+	"\![set,autoscroll,disable]\_q\b2"
+	
+	"\f[align,center]— Version 1.2.0 —%(newline)\f[align,left]\n\n"
+	
+	"• You can now choose to have a sound play when a reminder pops up! Choose from 6 defaults, or set your own custom sound.\n\n"
+	"• Added pause mode; pause your drink reminders when you step away from your computer, without losing your drink streak!\n\n"
+	"• Hydrate's auto update checks will now automatically check for updates to the current shell and balloon as well.\n\n"
+	"• Added an option to pick randomly from available designs.\n\n"
+	"• Added an option to toggle off hour notifications.\n\n"
+	"• Added a few new dialogues.\n\n"
+	"• Reorganized the config menu.\n\n"
+	"• Prettied up some of the other menus a little.\n\n"
+	"• Updated to YAYAtc571-3.\n\n"
+	"• Updates to some of the old code."
+	
+	"\n\n\n"
+	
+	
+	"\f[align,center]— Version 1.1.0 —%(newline)\f[align,left]\n\n"
+	
+	"• Hydrate will now have special comments based on how many drinks in a row you've hit!\n\n"
+	"• Changed the shell menu to dynamically change depending on what shells you have installed. Check the link in it if you want to download more shells!\n\n"
+	"• Added a dynamic dressup menu if the current shell has available dressup items!\n\n"
+	"• Added a stats menu to track your stats! Please note that most of these will start at 0 since they were just added.\n\n"
+	"• Added an option to tell Hydrate you took an extra sip of water! This won't count towards the timed drinks, but you still get some credit!\n\n"
+	"• Hydrate will now send your stats to other ghosts when pinged, and will ping them every hour with your stats! If other ghosts are set up to receive and process these stats, you might see your other ghosts comment on them!\n\n"
+	"• Added in the auto update system that I had removed for some reason. Hydrate will now check for updates once a day and let you know if there's something new!\n\n"
+	"• Unfortunately, it cannot automatically check for balloon and shell updates. There are buttons in the menu to check for updates for balloons and shells, make sure you check now and then for your favorite shells!\n\n"
+	"• Please note, if you're using the H2O balloon, that got an update as well. You should see larger balloons in the menus; if not, please ask Hydrate to update the balloon in the Config menu!\n\n"
+	"• The reminder balloon will now time out if you don't interact with it for long enough. This is set for 5 minutes by default, but it will be shorter if you set a shorter reminder time!\n\n"
+	"• If you're interested in having your ghost receive stats from Hydrate, or you'd like to make a shell for Hydrate, please check in Hydrate's folder for documentation!"
+	
+	"\n\n\n"
+	
+	
+	if reference0 == "FromMenu";"\![*]\q[Back to Config,OnConfigMenu]\n" //Checks to see if the user came here from the functions menu
 	"\![*]\q[Done,cancelnodialogue]\e"
 }
 
@@ -193,9 +214,9 @@ OnUpdate.OnDownloadBegin //Taken from the GT template because I see no reason to
 {
 	"\_q(Ghost update: downloading %(reference0)...)\n\n"
 	--
-	Update_Process = TOINT(reference1) + 1
-	Update_Total = TOINT(reference2) + 1
-	Update_Remaining = Update_Total - Update_Process
+	_Update_Process = TOINT(reference1) + 1
+	_Update_Total = TOINT(reference2) + 1
+	_Update_Remaining = _Update_Total - _Update_Process
 
 	//defining starting points
 	_PointA = 1
@@ -206,23 +227,23 @@ OnUpdate.OnDownloadBegin //Taken from the GT template because I see no reason to
 
 	//loop calculates how many check boxes to display based on the variables above
 
-	while _PointA <= Update_Process
+	while _PointA <= _Update_Process
 	{
 		_txt += "O"
 		_PointA++
 	}
 	//see above except for blank boxes
-	while _PointB <= Update_Remaining
+	while _PointB <= _Update_Remaining
 	{
 		_txt += "o"
 		_PointB++
 	}
 	--
 	//using the text buffers to display the correct number of boxes
-	"%(_txt)\n\n(%(Update_Process) of %(Update_Total))"
+	"%(_txt)\n\n(%(_Update_Process) of %(_Update_Total))"
 	--
 	"\e"
-} 
+}
 
 OnUpdate.OnMD5CompareFailure
 {
@@ -276,7 +297,7 @@ OnUpdateOtherBegin
 		"(Beginning %(reference3) update.)"
 	}
 	--
-	"\w8\w8\e"
+	"\w8\e"
 }
 
 OnUpdateOtherReady
@@ -289,11 +310,11 @@ OnUpdateOtherComplete
 {
 	if reference0 == "none"
 	{
-		"\0(No new files for the current %(reference3) to update with.\w8 Make sure you check the others, too!)\e"
+		"\0\s[0](No new files for the current %(reference3) to update with.)\e"
 	}
 	else
 	{
-		"\0(Update complete!)\e"
+		"\0\s[0](Update complete!)\e"
 	}
 	
 }
@@ -302,9 +323,9 @@ OnUpdateOther.OnDownloadBegin
 {
 	"\_q(%(reference3) update: downloading %(reference0)...)\n\n"
 	--
-	Update_Process = TOINT(reference1) + 1
-	Update_Total = TOINT(reference2) + 1
-	Update_Remaining = Update_Total - Update_Process
+	_Update_Process = TOINT(reference1) + 1
+	_Update_Total = TOINT(reference2) + 1
+	_Update_Remaining = _Update_Total - _Update_Process
 
 	//defining starting points
 	_PointA = 1
@@ -315,27 +336,27 @@ OnUpdateOther.OnDownloadBegin
 
 	//loop calculates how many check boxes to display based on the variables above
 
-	while _PointA <= Update_Process
+	while _PointA <= _Update_Process
 	{
 		_txt += "O"
 		_PointA++
 	}
 	//see above except for blank boxes
-	while _PointB <= Update_Remaining
+	while _PointB <= _Update_Remaining
 	{
 		_txt += "o"
 		_PointB++
 	}
 	--
 	//using the text buffers to display the correct number of boxes
-	"%(_txt)\n\n(%(Update_Process) of %(Update_Total))"
+	"%(_txt)\n\n(%(_Update_Process) of %(_Update_Total))"
 	--
 	"\e"
 }
 
 OnUpdateOtherFailure
 {
-	"\0(%(reference3) update failed; '%(reference0)'.)\e"
+	"\0(%(reference3) update failed: '%(reference0)'.)\e"
 }
 
 OnDisplayChange
@@ -350,4 +371,9 @@ OnShellScaling //reference0 is the new size, reference1 is the previous. Sadly, 
 	nowscale = reference0
 	
 	"\0\s[0](%(reference0)% hydration.)\e"
+}
+
+OnSurfaceRestore
+{
+	"\0\s[0]"
 }
