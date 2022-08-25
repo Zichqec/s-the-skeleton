@@ -16,7 +16,7 @@ OnMouseMove
 	}
 }
  
-OnMouseLeave //Thanks to Levidre for reminding me that this exists because I'm an idiot XD this properly resets the variables when the mouse leaves the character, so that continuous stroking doesn't break
+OnMouseLeave //This properly resets the variables when the mouse leaves the character, so that continuous stroking doesn't break
 {
 	if continuousstroke > 160 && continuousstroke > pethighscore //This bit checks to see if you've gotten a high score. The \C in the text displays the previous balloon and then adds onto it. This might not always be perfect, if you let his balloon time out or you make him say something else it might be a little strange, but I think it's good enough to keep this way.
 	{
@@ -44,13 +44,23 @@ OnMouseLeave //Thanks to Levidre for reminding me that this exists because I'm a
  
 MouseMoveSakura
 {
+	PetCheck(40,160)
+}
+
+OnMouseWheel
+{
+	PetCheck(25,100)
+}
+
+PetCheck
+{
 	if reference4 != "" //ignore
  	{
  		stroke++ //if you move the mouse over the right areas, the stroke count will go up.
 		continuousstroke++
-		if continuousstroke > 160
+		if continuousstroke > _argv[1]
 		{
-			if stroke > 160
+			if stroke > _argv[1]
 			{
 				stroke = 0 //resetting the stroke count
 				lastinteracted = 0
@@ -92,7 +102,7 @@ MouseMoveSakura
 				}
 			}
 		}
-		elseif stroke >= 40
+		elseif stroke >= _argv[0]
 		{
  			stroke = 0 //resetting the stroke count
 			lastinteracted = 0
@@ -149,6 +159,7 @@ MouseMoveKero
 {
 	stroke = 0	
 }
+
 
 //---- OnMouseDoubleClick -------------------------------------------------------
 //This is set up much like OnMouseMove above, except this is checking to see if the user is double clicking on the ghost. You also don't need to touch any of this. 
@@ -986,12 +997,6 @@ PetObsi
 	res_reference0 = "Dusty"
 	"\e SObsiPets"
 }
-
-/* //Can't do a dragging position while also talking, but maybe I can at least make the coordinates update more seamlessly? SinceTalk may help here. Oh, but I'll have to put this on mousedragend
-OnMouseDragStart
-{
-	"\C\![get,property,OnUpdateCoords,currentghost.scope(0).rect] "
-}*/
 
 OnMouseDragEnd
 {

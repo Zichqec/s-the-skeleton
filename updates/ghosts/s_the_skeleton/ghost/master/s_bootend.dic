@@ -14,23 +14,11 @@ OnFirstBoot
  	}
 }
 
-// OnWeatherStation.CurrentWeather
-// {
-	// LOGGING("====================================================================")
-	// LOGGING("GOT THE WEATHER")
-	
-	// _display = ""
-	// foreach reference.raw; _ref
-	// {
-		// _display += "%(_ref)\n"
-	// }
-	// "\b2\_qThe weather:\n%(_display)\x"
-// }
-
 //Normal booting
 OnBoot
 {	
 	BootVars
+	
 	_timesince = FUNCTIONEX("time_check.dll","how_many_days",lastclosed[0],lastclosed[1],lastclosed[2],0,0,0)//lastclosed[3],lastclosed[4],lastclosed[5] if you want the hours/minutes/seconds
 	_timesince *= -1 //Multiply it by -1 to get rid of the negative sign, or to add one if the user traveled back in time.
 	//The lastclosed array is set up in OnClose. Basically when you close him, it grabs the current time and saves it so that he can check it when he opens again.
@@ -38,11 +26,8 @@ OnBoot
 	dayslot = GetDaySlot
 	timeslot = GetTimeSlot //want to change these another time
 	
-	_path = "../../../../../000_dev_files/"
-	_file = "s_the_skeleton.dic"
-	LOGGING(_path + _file)
-	if debug; {if _file _in_ FENUM(_path); void DICLOAD(_path + _file)}
-	
+	if WeatherStationInstalled; GetWeatherData
+	--
 	if nowmode == "RYS"
 	{
 		if RYSprogress == 5
@@ -73,6 +58,9 @@ OnBoot
 			elseif dayslot == userbirthday
 			{
 				"\0\s[1122]\w6\s[111]Hey,\w4 %(username).\w8\w8\s[103] It's your birthday,\w4 isn't it?\w8\w8\s[104] Happy birthday,\w4 I hope this year goes well for you.\e"
+				"\0\s[111]Happy birthday,\w4 %(username)!\w8\w8\w8\s[101] What,\w4 did you think I'd forget a thing like that?\w8\w8\s[104] I hope it's been a good one so far.\e" //This would be better with a party hat and noise makers...
+				"\0\s[111]Hey %(username)!\w8\w8\s[103] I was hoping you'd call me here today.\w8\w8\s[104] Happy birthday!\w8\w8\s[106] It's today,\w4 right?\w8\w8 %(bornmonthprint) %(borndayprint)?\w8\w8\n\n\s[1070]* (He checks the date on your clock.)\w8\w8\n\n\s[107]Ah,\w4 good,\w4 I thought I might've missed it.\w8\w8\s[106] Time can be weird between timelines,\w4 and all.\w8\w8\n\n\s[104]Anyways,\w4 I hope you're having a good time today.\e"
+				//would be neat to have these comments only happen the first time you boot him on your birthday... also, special comments if you call him late or early. Also, would be cool for him to call out your birthday when it rolls over at midnight... maybe a flag would be best to handle that.
 			}
 			elseif dayslot == "8month 25day"
 			{
@@ -108,16 +96,12 @@ OnBoot
 			{
 				"\0\s[1122]\w6\s[104]Happy %(nowmonth),\w4 %(username)!\e"
 				"\0\s[1122]\w6\s[103]Hey %(username),\w4\s[104] happy %(nowmonth)!\e"
-			}
-			elseif "Dusty" _in_ ghostexlist && talkedtoDusty == 1
-			{
-				res_reference0 = "Dusty"
-
-				"\0\s[1122]\w6\s[104]Hey there,\w4 %(username).\w8\w8\s[205] Hey,\w4 Dusty.\e SBootDusty1"
+				"\0\s[1122]\w6\s[103]Hey,\w4 %(username).\w8\w8\s[104] Happy first day of %(nowmonth)!\w8\w8\s[205] It always feels good to turn to the next page of my calendar.\e"
 			}
 			//TODO add birthdays for all the family members here
 			else
 			{
+				if "Dusty" _in_ ghostexlist && talkedtoDusty == 1; "\![raise,OnBoot_GreetDusty]"
 				OnBoot_NormalS
 			}
 		}
@@ -135,6 +119,15 @@ OnBoot
 	}
 }
 
+OnBoot_GreetDusty
+{
+	res_reference0 = "Dusty"
+	
+	"\0\s[1122]\w6\s[104]Hey there,\w4 %(username).\w8\w8\s[113] Hey,\w4 Dusty.\e SBootDusty1"
+	"\0\s[1122]\w6\s[104]Hi, kiddo. \s[205]Hi Dusty, hi Obsidian.\e SBootDusty1"
+	"\0\s[1122]\w6\s[110]Oh, hello. \s[113]Good to see you today, kiddo. \s[205]Oh hey, Dusty and Obsidian, too. \s[104]Good to see all of you.\e SBootDusty1"
+}
+
 OnBoot_RYS
 {
 	if RYStrust >= 100 && RYSlearn[1] >= 3
@@ -142,12 +135,16 @@ OnBoot_RYS
 		"\s[2006]* (He doesn't say anything,\w4 but you think you see a slightly hopeful look cross his face.)\e"
 		"\s[2006]* (He gives you the tiniest of waves.)\e"
 		"\s[2006]* (He looks glad to see you,\w4 you think.)\e"
+		"\s[2006]* (He looks slightly hopeful...\w8\w8 Maybe.)\e"
 	}
 	else
 	{
 		"\s[2006]* (He glances at you,\w4 but stays quiet.)\e"
 		"\s[2006]* (He stands meekly,\w4 waiting.)\e"
 		"\s[2007]* (He shifts nervously as he appears.)\e"
+		"\s[2007]* (He stares at you,\w4 unblinking.)\e"
+		"\s[2007]* (He acknowledges your presence silently.)\e"
+		"\s[2009]* (He seems a bit startled,\w8\s[2007] but says nothing.)\e"
 	}
 }
 
@@ -170,56 +167,84 @@ OnBoot_NormalS
 			{
 				"\s[1110]\w6"
 				--
-				"And so-"
-				"That's because-"
-				"Well if we-"
-				"I can't-"
-				"Have you-"
-				"I know-"
-				"Maybe I-"
-				"How about-"
-				"I don't know-"
-				"She was planning to-"
-				"Dad said he would-"
-				"You never know when-"
-				"True,\w4 but-"
-				"I was going to make %(bakedgoods)-"
+				"And so"
+				"That's because"
+				"Well if we"
+				"I can't"
+				"Have you"
+				"I know"
+				"Maybe I"
+				"How about"
+				"I don't know"
+				"She was planning to"
+				"He said he would"
+				"You never know when"
+				"True, but"
+				"I was going to make %(bakedgoods)"
+				"Have you thought about"
+				"I wonder if"
+				"I'll ask them to"
+				"It'll just take a bit"
+				"I can have it done by"
+				"It should be ready"
+				"Keep an eye on it and"
+				"I'll take care of it tomorrow"
+				"Make sure she gets a chance to"
+				"Yeah, I'll"
 				--
-				"\n\n\w8\w8\s[110]"
+				"- \n\n\s[110]"
 				--
-				"Oh,\w8\s[104] hey there %(username)."
-				"Oh,\w8\s[104] hi %(username)."
-				"Oh,\w8\s[104] good to see you %(username)."
+				"Oh,\w8\s[113] hey there %(username)."
+				"Oh,\w8\s[113] hi %(username)."
+				"Oh,\w8\s[113] good to see you %(username)."
 				"Oh,\w8\s[107] uh,\w4 I guess we can talk about that later."
 				"Oh,\w8\s[107] sorry %(username),\w4 you caught me in the middle of something."
+				{
+					"Oh,\w8\s[113] hey kiddo. Sorry, I was just talking with%(br)"
+					--
+					"@Blue"
+					"my @dad"
+					"my @mom"
+					"@Dings"
+					"@Triton"
+					--
+					" about something. We were just finishing up anyways,\w4 though."
+				}
 				--
-				" \w8\w8\s[0]"
-				" \w8\w8\s[111]"
-				" \w8\w8\s[103]"
-				" \w8\w8\s[104]"
+				" \s[0]"
+				" \s[111]"
+				" \s[103]"
+				" \s[104]"
 				--
-				"What's up?\e"
-				"How's it going?\e"
-				"How's your day been?\e"
-				"What did you need?\e"
-				"%(nowday) treating you well?\e"
-				"What did you want me for?\e"
-				"You wanted me for something?\e"
-				"Did you need something?\e"
+				"What's up?"
+				"How's it going?"
+				"How's your day been?"
+				"What did you need?"
+				"%(nowday) treating you well?"
+				"What did you want me for?"
+				"What did you want me for?"
+				"Did you need me?"
+				"What're you up to?"
+				"What's going on?"
+				"What's new?"
+				"Anything new happening?"
+				"Anything interesting going on?"
+				--
+				"\![raise,OnEval,AddFlag('Interrupted Convo Boot')]"
+			}
+			
+			if nowshell == "pink_apron"
+			{
+				"\0\s[1122]\w6\s[102]* (The smell of baked goods heralds his presence.)\w8\w8\n\n\s[110]Oh!\w8\s[104] Hey,\w4 %(username).\w8\w8\s[103] You caught me in the middle of making %(bakedgoods).\e"
 			}
 		}
-		
-		if nowshell == "pink_apron"
-		{
-			"\0\s[1122]\w6\s[102]* (The smell of baked goods heralds his presence.)\w8\w8\n\n\s[110]Oh!\w8\s[104] Hey,\w4 %(username).\w8\w8\s[103] You caught me in the middle of making %(bakedgoods).\e"
-		}
-		
+
 		//---Timeslots---
 		if timeslot == "earlymorning" //5-8
 		{
 			"\0\s[1122]\w6\s[104]Heya,\w4 %(username).\w8 Are you an early waker too?\w8\w8\s[101] Or did you stay up all night?\e"
 			"\0\s[1122]\w6\s[103]Good morning,\w4 %(username)!\w8\w8\w8\w8\n\n\s[104]* (He starts humming a chipper tune.)\w8\w8\n\n* (Yep,\w4 definitely a morning person.)\e"
-			"\0\s[1122]\w6\s[110]Oh,\w8\s[104] good to see you this early,\w4 %(username)!\w8\w8\s[111] I'm used to spending the start of my morning alone.\e"
+			"\0\s[1122]\w6\s[110]Oh,\w8\s[113] good to see you this early,\w4 %(username)!\w8\w8\s[111] I'm used to spending the start of my morning alone.\e"
 			"\0\s[1122]\w6\s[104]Hey,\w4 %(username).\w8\w8\s[103] Got plans for today?\w8\w8\s[104] You must,\w4 if you're getting such an early start.\e"
 			"\0\s[1122]\w6\s[111]Hi,\w4 %(username).\w8\w8\s[0] Ready to go first thing in the morning,\w4 huh?\w8\w8\s[104] You must like working when the sun is out.\e"
 		}
@@ -230,10 +255,10 @@ OnBoot_NormalS
 			"\0\s[1122]\w6\s[103]Good morning,\w4 %(username)!\e"
 			if nowshell == "pink_apron"
 			{
-				"\0\s[1122]\w6\s[102]* (You can smell pancakes and syrup.)\w8\w8\n\n\s[110]Oh!\w8\w8\s[104] Hey there %(username),\w4 we were just finishing up breakfast.\w8\w8\s[0] Have you had anything to eat yet?\e"
+				"\0\s[1122]\w6\s[102]* (You can smell pancakes and syrup.)\w8\w8\n\n\s[110]Oh!\w8\w8\s[113] Hey there %(username),\w4 we were just finishing up breakfast.\w8\w8\s[0] Have you had anything to eat yet?\e"
 			}
-			"\0\s[1122]\w6\s[110]Oh,\w4 hey %(username)!\w8\w8\s[101] Heh,\w4 I guess someone else'll have to clean up breakfast.\w8\w8\s[205] Ah well,\w4 I could use a break once in a while.\w8\w8\s[111] What's up?\e"
-			"\0\s[1122]\w6\s[104]Good morning,\w4 user.\w8\w8\s[111] Have you had breakfast yet?\w8\w8\s[101] Or maybe you skip breakfast,\w8\s[104] that's fine too.\w8\w8\s[111] How about water,\w4 have you had anything to drink yet?\e"
+			"\0\s[1122]\w6\s[110]Oh,\w4\s[113] hey %(username)!\w8\w8\s[101] Heh,\w4 I guess someone else'll have to clean up breakfast.\w8\w8\s[205] Ah well,\w4 I could use a break once in a while.\w8\w8\s[111] What's up?\e"
+			"\0\s[1122]\w6\s[104]Good morning,\w4 %(username).\w8\w8\s[111] Have you had breakfast yet?\w8\w8\s[101] Or maybe you skip breakfast,\w8\s[104] that's fine too.\w8\w8\s[111] How about water,\w4 have you had anything to drink yet?\e"
 			"\0\s[1122]\w6\s[104]Hey %(username),\w4 getting an early start to the day?\w8\w8\s[205] I was going to do some chores,\w8\s[101] but I guess I can slack off here.\w8\w8\s[208] Maybe there's some cleaning to do around your desktop instead...\e"
 		}
 		if timeslot == "lunch" //12-2
@@ -245,16 +270,16 @@ OnBoot_NormalS
 			}
 			if nowshell == "pink_apron"
 			{
-				"\0\s[1122]\w6\s[102]* (The scent of %(ingredients) drifts through your desktop.)\w8\w8\s[110]\n\nOh,\w4\s[104] hey there %(username).\w8\w8\s[0] I was just making lunch,\w4 have you had lunch yet?\e"
+				"\0\s[1122]\w6\s[102]* (The scent of %(ingredients) drifts through your desktop.)\w8\w8\s[110]\n\nOh,\w4\s[113] hey there %(username).\w8\w8\s[0] I was just making lunch,\w4 have you had lunch yet?\e"
 			}
 			"\0\s[1122]\w6\s[104]Heya,\w4 %(username).\w8\w8\s[103] How's your day been going?\w8\w8\s[205] I did some cleaning already,\w4 I'm pretty happy about that.\w8\w8\s[102] It'll be good to take a break,\w4 though.\w8\w8\n\n\s[111]What're you up to?\e"
 			"\0\s[1122]\w6\s[103]Hey,\w4 %(username).\w8\w8\s[111] What're you up to,\w4 anything good?\w8\w8\s[102] This is a good time of the day to take a break and eat,\w4 if you haven't yet.\e"
-			"\0\s[1122]\w6\s[103]Oh,\w4 hey %(username).\w8\w8\s[111] How's it going?\w8\w8\s[107] I just finished lunch,\w4 you'll have to forgive me if I fall asleep on you.\e"
+			"\0\s[1122]\w6\s[103]Oh,\w8\s[113] hey %(username).\w8\w8\s[111] How's it going?\w8\w8\s[107] I just finished lunch,\w4 you'll have to forgive me if I fall asleep on you.\e"
 		}
 		if timeslot == "afternoon" //3-5
 		{
-			"\0\s[1110]\w6\s[207]* (He yawns.)\n\n\w8\w8\s[106]Oh,\w4 hi there %(username).\w8\w8\s[107] Sorry,\w4 I was just about to take a nap.\e"
-			"\0\s[1122]\w6\s[110]Oh,\w4\s[104] afternoon,\w4 %(username).\e"
+			"\0\s[1110]\w6\s[207]* (He yawns.)\n\n\w8\w8\s[106]Oh,\w8\s[114] hi there %(username).\w8\w8\s[107] Sorry,\w4 I was just about to take a nap.\e"
+			"\0\s[1122]\w6\s[110]Oh,\w8\s[113] afternoon,\w4 %(username).\e"
 			"\0\s[1127]\w6\s[1300].\w2.\w2.\w2%(mumble)...\w8\w8\n\n* (Looks like he's taking a nap...)\w8\w8\n\n* (Do you want to send him home?)%(BootSleepMenu)\*\t\e:eval=nowmode='Asleep'"
 			"\0\s[1122]\w6\s[0]Hey,\w4 %(username).\w8\w8\s[205] Starting to get towards the end of the day,\w4 huh?\w8\w8\s[0] Still plenty of time left to get things done,\w4 though.\e"
 			"\0\s[1122]\w6\s[104]Afternoon,\w4 %(username).\w8\w8\s[111] What're you up to today?\w8\w8 Anything fun?\e"
@@ -263,7 +288,7 @@ OnBoot_NormalS
 				--
 				"drawing on the walls"
 				"trying to get into the %(bakedgoods) I made"
-				"bothering %(ANY('anDings,anTriton,anAbbi'))"
+				"bothering %(ANY('@Dings,@Triton,@Abbi'))"
 				"running through the house and screaming"
 				"trying to play pranks"
 				"making a mess of their breakfast"
@@ -271,42 +296,42 @@ OnBoot_NormalS
 				"making '%(fruveg) and %(ingredients) %(bakedgoods)'"
 				//maybe seasonal stuff would be fun too
 				--
-				"again.\w8\w8\n\n\s[107]* (He sighs...)\e"
+				" again.\w8\w8\n\n\s[107]* (He sighs...)\e"
 			}
 		}
 		if timeslot == "evening" //6-8
 		{
-			"\0\s[1110]\w6\s[207]* (He yawns.)\n\n\w8\w8\s[0]Oh,\w4 hey there %(username).\w8\w8 Is it getting late where you're at?\w8\w8\s[107] The sun's already set at home.\e"
+			"\0\s[1110]\w6\s[207]* (He yawns.)\n\n\w8\w8\s[0]Oh,\w8\s[113] hey there %(username).\w8\w8\s[0] Is it getting late where you're at?\w8\w8\s[107] The sun's already set at home.\e"
 			"\0\s[1122]\w6\s[104]Hey,\w4 %(username).\w8\w8\s[0] Spending a relaxing %(nowday) evening at home?\e"
-			"\0\s[1122]\w6\s[104]Oh,\w4 hey %(username).\w8\w8\s[0] Done working for the day?\w8\w8\s[106] Or are you just getting started?\w8\w8\s[102] Either way,\w4 I don't mind hanging out.\e"
+			"\0\s[1122]\w6\s[104]Oh,\w8\s[113] hey %(username).\w8\w8\s[0] Done working for the day?\w8\w8\s[106] Or are you just getting started?\w8\w8\s[102] Either way,\w4 I don't mind hanging out.\e"
 			"\0\s[1122]\w6\s[0]Evening,\w4 %(username).\w8\w8\s[205] The sun just set at home,\w8\s[104] it was lovely.\w8\w8\s[102] Just the right amount of clouds.\e"
 			"\0\s[1122]\w6\s[0]Evening,\w4 %(username).\w8\w8\s[111] How's your day been?\w8\w8\s[205] Mine's been alright,\w8\s[107] but I'm ready to wind down and relax for a while.\e"
 		}
 		if timeslot == "latenight" //9-12
 		{
-			"\0\s[1122]\w6\s[109]* (He seems confused for a moment.)\n\n\w8\w8\s[1100]Oh..!\w8\s[107] Hey,\w4 %(username).\w8\w8\s[101] Isn't it late there..?\w8\w8\n\n\s[207]* (He yawns slowly.)\w8\w8\w8\n\n\s[107]I was just on my way to bed,\s[0] but I'm here if you need me.\e"
-			"\0\s[1122]\w6\s[110]Ah-\w8\w8\s[106] Oh,\w4 hey %(username).\w8\w8\s[104] Planning to stay up a while?\e"
+			"\0\s[1122]\w6\s[109]* (He seems confused for a moment.)\n\n\w8\w8\s[1100]Oh..!\w8\s[114] Hey,\w4 %(username).\w8\w8\s[101] Isn't it late there..?\w8\w8\n\n\s[207]* (He yawns slowly.)\w8\w8\w8\n\n\s[107]I was just on my way to bed,\s[0] but I'm here if you need me.\e"
+			"\0\s[1122]\w6\s[110]Ah-\w8\w8\s[106] Oh,\w8\s[113] hey %(username).\w8\w8\s[104] Planning to stay up a while?\e"
 			"\0\s[1127]\w6\s[1300].\w2.\w2.\w2%(mumble)...\w8\w8\n\n* (Looks like he's already asleep...)\w8\w8\n\n* (Do you want to send him home?)%(BootSleepMenu)\*\t\e:eval=nowmode='Asleep'"
-			"\0\s[1122]\w6\s[110]Oh,\w4 hey %(username).\w8\w8\s[106] It's pretty late there,\w4 isn't it?\w8\w8 Were you planning to stay up much longer?\e"
-			"\0\s[1122]\w6\s[110]Oh,\w4 hey there, %(username).\w8\w8\s[106] It's pretty late to be calling me,\w4 did you need something?\e"
-			"\0\s[1122]\w6\s[110]Oh,\w4 heya,\w4 %(username).\w8\w8\s[108] Is everything alright?\w8\w8\s[206] It's pretty late to be calling me.\w8\w8\s[106] Unless you sleep late,\w4 I guess.\w8\w8\s[107] I'm an early waker,\w4 though,\w4 so you'll have to forgive me if I fall asleep on you.\e"
+			"\0\s[1122]\w6\s[110]Oh,\w8\s[113] hey %(username).\w8\w8\s[106] It's pretty late there,\w4 isn't it?\w8\w8 Were you planning to stay up much longer?\e"
+			"\0\s[1122]\w6\s[110]Oh,\w8\s[113] hey there, %(username).\w8\w8\s[106] It's pretty late to be calling me,\w4 did you need something?\e"
+			"\0\s[1122]\w6\s[110]Oh,\w8\s[114] heya,\w4 %(username).\w8\w8\s[108] Is everything alright?\w8\w8\s[206] It's pretty late to be calling me.\w8\w8\s[106] Unless you sleep late,\w4 I guess.\w8\w8\s[107] I'm an early waker,\w4 though,\w4 so you'll have to forgive me if I fall asleep on you.\e"
 		}
 		if timeslot == "midnight" //1-4
 		{
 			_hour = hour12; if hour12 == 0; _hour = 12
 			"\0\s[1122]\w6\s[108]Ah...\w8\w8 Hey there,\w4 %(username).\w8\w8\s[303] You can't sleep either?\e"
-			"\0\s[1122]\w6\s[109]Hm?\w8\w8\s[110] Ah-\w8\s[104] hey %(username).\w8\w8\s[101] You're up late.\e"
+			"\0\s[1122]\w6\s[109]Hm?\w8\w8\s[110] Ah-\w8\s[114] hey %(username).\w8\w8\s[101] You're up late.\e"
 			"\0\s[1122]\w6\s[109]...Hm?\w8\w8\s[108] Oh-\w8\s[109] Hey %(username).\w8\w8\w8\n\n\s[204]Mmm...\w8\w8\s[202] I'm glad you've brought me here,\w4 because I wasn't getting any sleep at home.\e"
 			"\0\s[1127]\w6\s[1300].\w2.\w2.\w2%(mumble)...\w8\w8\n\n* (Looks like he's asleep...)\w8\w8\n\n* (Do you want to send him home?)%(BootSleepMenu)\*\t\e:eval=nowmode='Asleep'"
 			"\0\s[1127]\w6\s[1300].\w2.\w2.\w2%(mumble)...\w8\w8\n\n* (Looks like he's asleep...)\w8\w8\n\n\s[109]Bh-\w8\s[108] Hm?\w8\w8\s[110] Oh...\w8\w8\s[106] Hey,\w4 %(username).\w8\w8\s[206] Uh,\w4 when did I end up here..?\w8\w8\s[107] Well,\w4 alright,\w4 I'm up anyways.\e"
-			"\0\s[1122]\w6\s[109]Huh?\w8\w8\w8\s[108] Oh,\w4 %(username)?\w8\w8 Is everything alright?\w8\w8\s[206] It's only %(_hour) o'clock...\e"
+			if minute <= 30; "\0\s[1122]\w6\s[109]Huh?\w8\w8\w8\s[108] Oh,\w4 %(username)?\w8\w8 Is everything alright?\w8\w8\s[206] It's only %(_hour) o'clock...\e"
 			"\0\s[1122]\w6\s[109]Hm?\w8\w8\w8\s[110] Oh,\w4 %(username),\w4 is that you?\w8\w8\s[106] It's only %(_hour) o'clock,\w4 did you need something..?\e"
-			"\0\s[1122]\w6\s[109]Huh?\w8\w8 What's-\w8\w8\s[110] Oh.\w8\w8\s[106] Hi,\w4 %(username).\w8\w8\s[107] It's awfully early to be calling me,\w4 isn't it?\w8\w8\s[106] Or uh,\w4 maybe it's late for you.\w8\w8\n\n\s[207]* (He yawns.)\w8\w8\n\nEither way,\w4 I'm not very awake,\w8\s[107] so nudge me if you need something,\w4 kay?\e"
+			"\0\s[1122]\w6\s[109]Huh?\w8\w8 What's-\w8\w8\s[110] Oh.\w8\w8\s[114] Hi,\w4 %(username).\w8\w8\s[107] It's awfully early to be calling me,\w4 isn't it?\w8\w8\s[106] Or uh,\w4 maybe it's late for you.\w8\w8\n\n\s[207]* (He yawns.)\w8\w8\n\nEither way,\w4 I'm not very awake,\w8\s[107] so nudge me if you need something,\w4 'kay?\e"
 		}
 	}
 	else
 	{
-		love += 3
+		love += 5
 		"\0\s[1122]\w6"
 		--
 		"\0\s[110]Oh,\w4 here again?\w8\w8\s[205] Alright then.\e"
@@ -437,21 +462,28 @@ OnClose
 					"\0\s[104]Take care,\w4 %(username)!"
 					"\0\s[102]See you around,\w4 %(username)."
 					
+					//I'll make pools... later.....
+					if love >= 150; "\0\s[102]Alright then,\w4 I'm off.\w8\w8\s[113] See you another time,\w4 %(username)."
+					if love >= 150; "\0\s[205]Alright,\w4 I'll head off then.\w8\w8\s[113] You take care,\w4 ok?"
+					if love >= 150; "\0\s[205]Okay,\w4 I'll get going then.\w8\w8\s[113] Take care of yourself."
+					if love >= 150; "\0\s[208]I suppose it's time for me to head home now.\w8\w8\s[113] Let's do this again soon."
+					
 					if hour <= 18
 					{
-						"\0\s[104]Have a good day,\w4 %(username)!"
+						"\0\s[113]Have a good day,\w4 %(username)!"
 						"\0\s[103]Have a good %(nowday),\w4 %(username)!"
 					}
 					if hour > 18
 					{
-						"\0\s[104]Have a good night,\w4 %(username)!"
+						"\0\s[113]Have a good night,\w4 %(username)!"
 						"\0\s[103]Have a good evening,\w4 %(username)!"
+						"\0\s[103]Sleep well when you do,\w4 %(username)!"
 					}
 				}
 				elseif wd == "Sat" && RAND(100) < 60
 				{
 					"\0\s[1010]Enjoy the weekend,\w4 %(username)!"
-					"\0\s[107]Heh,\w4 back to the weekend chaos for me.\w8\w8\s[103] Have a good day,\w4 %(username)."
+					"\0\s[107]Heh,\w4 back to the weekend chaos for me.\w8\w8\s[113] Have a good day,\w4 %(username)."
 				}
 				else
 				{
@@ -459,30 +491,30 @@ OnClose
 					{
 						if passhour < 3 //Earlymorning is from 5-8, so if it's been less than 3 hours then the user's probably a super early riser. Probably.
 						{
-							"\0\s[0]Off to get breakfast?\w8\s[1010] Fair enough.\w8\w8\s[101] Or maybe you're just going to bed.\w8\w8\s[1010] Either way,\w4 I'll see you later."
-							"\0\s[110]Oh,\w8\s[104] alright then.\w8\w8 Have a good day,\w4 I hope you can get everything done that you need to."
-							"\0\s[104]Heh,\w4 guess I'll be back in time for breakfast.\w8\w8\s[0] I hope the rest of your day goes well,\w4 %(username)."
-							"\0\s[104]See you,\w4 %(username).\w8\w8\s[103] I hope your day goes well."
+							"\0\s[0]Off to get breakfast?\w8\s[1010] Fair enough.\w8\w8\s[101] Or maybe you're just going to bed.\w8\w8\s[113] Either way,\w4 I'll see you later."
+							"\0\s[110]Oh,\w8\s[104] alright then.\w8\w8\s[113] Have a good day,\w4 I hope you can get everything done that you need to."
+							"\0\s[104]Heh,\w4 guess I'll be back in time for breakfast.\w8\w8\s[112] I hope the rest of your day goes well,\w4 %(username)."
+							"\0\s[104]See you,\w4 %(username).\w8\w8\s[113] I hope your day goes well."
 						}
 						else //If it's been more than 3 hours they've been awake since at least the midnight timeslot, so probably haven't been to bed.
 						{
-							"\0\s[106]Finally off to bed,\w4 huh?\w8\w8\s[107] As long as you're taking care of yourself,\w4 I guess.\w8\w8\s[104] Sleep well,\w4%(br)%(username)."
+							"\0\s[106]Finally off to bed,\w4 huh?\w8\w8\s[107] As long as you're taking care of yourself,\w4 I guess.\w8\w8\s[113] Sleep well,\w4%(br)%(username)."
 						}
 					}
 					elseif timeslot == "morning"
 					{
-						"\0\s[1010]There's a lot of the day still left.\w8 Make it a good one,\w4 yeah?"
+						"\0\s[1010]There's a lot of the day still left.\w8\s[113] Make it a good one,\w4 yeah?"
 						"\0\s[104]Alright,\w4 then.\w8\w8\s[0] I hope your day goes well,\w8\s[205] I'm off to see if there's anything left of breakfast."
-						"\0\s[208]Mm,\w4 maybe there's some leftovers from breakfast still...\w8\w8\s[107] Who am I kidding,\w8\s[106] probably not.\w8\w8\s[104] See you,\w4 %(username)."
-						"\0\s[0]Alright then.\w8\w8\s[205] I've got to get breakfast ready anyhow,\w8\s[104] so I'll see you later."
+						"\0\s[208]Mm,\w4 maybe there's some leftovers from breakfast still...\w8\w8\s[107] Who am I kidding,\w8\s[106] probably not.\w8\w8\s[113] See you,\w4 %(username)."
+						"\0\s[0]Alright then.\w8\w8\s[205] I've got to get breakfast ready anyhow,\w8\s[113] so I'll see you later."
 					}
 					elseif timeslot == "lunch"
 					{
 						"\0\s[106]Good timing,\w4 I'm starting to get hungry.\w8\s[1010] Don't forget to eat something yourself,\w4 ok?"
-						"\0\s[0]Off to eat something?\w8\w8\s[104] Me too,\w4 see you later."
-						"\0\s[208]Hm,\w4 I wonder if andad's made lunch...\w8\w8\s[0] Guess I'll find out.\w8\w8\s[104] See you,\w4 %(username)."
+						"\0\s[0]Off to eat something?\w8\w8\s[113] Me too,\w4 see you later."
+						"\0\s[208]Hm,\w4 I wonder if @dad's made lunch...\w8\w8\s[0] Guess I'll find out.\w8\w8\s[113] See you,\w4 %(username)."
 						"\0\s[0]Alright then,\w8\s[104] take care %(username).\w8\w8\s[103] Hope the rest of your day is good."
-						if givenfood > 0; "\0\s[208]Hm,\w4 I guess I should see if lunch needs made at home...\w8\w8\s[106] I'm not too hungry,\w4 but the others might be.\w8\w8\s[104] See you."
+						if givenfood > 0; "\0\s[208]Hm,\w4 I guess I should see if lunch needs made at home...\w8\w8\s[106] I'm not too hungry,\w4 but the others might be.\w8\w8\s[113] See you."
 					}
 					elseif timeslot == "afternoon"
 					{
@@ -494,26 +526,26 @@ OnClose
 					}
 					elseif timeslot == "evening"
 					{
-						"\0\s[0]Alright then,\s[1010] I'm off to see what's for dinner.\w8\s[0] Don't forget to eat something yourself,\w4 too."
-						if askedaboutbluejeans; "\0\s[208]I wonder if there's still time for me and anBlue to go out on a walk...\w8\w8\s[104] I'll see you later,\w4 %(username)."
+						"\0\s[0]Alright then,\s[1010] I'm off to see what's for dinner.\w8\s[112] Don't forget to eat something yourself,\w4 too."
+						if askedaboutbluejeans; "\0\s[208]I wonder if there's still time for me and @Blue to go out on a walk...\w8\w8\s[113] I'll see you later,\w4 %(username)."
 						"\0\s[104]Ok.\w8\w8\s[205] I gotta go check up on the kids,\w8\s[104] it's my turn to read 'em a bedtime story tonight.\w8\w8\s[103] See you, %(username)."
 						"\0\s[104]Ok then,\w4 sleep well if you're off to bed,\w4 %(username).\w8\w8\s[106] ...And if not,\w4 make sure you sleep at some point,\w4 ok?"
 					}
 					elseif timeslot == "latenight"
 					{		
 						"\0\s[1010]Goodnight,\w4 %(username).\w8 Sleep well."
-						"\0\s[207]* (He yawns.)\w8\w8\w8\n\n\s[106]Guess it's time for me to head to bed.\w8\w8\s[104] You make sure you get some sleep too,\w4 ok %(username)?"
-						"\0\s[110]Oh,\w4 time to go?\w8\w8\s[102] Alright,\w4 I'm off to bed then.\w8\w8\s[104] Sleep well when you do,\w4 %(username)."
-						"\0\s[110]Oh,\w4 alright.\w8\w8\s[104] See you around then,\w8\s[107] I'm off to bed."
-						"\0\s[110]Hm?\w8\w8\s[104] Oh,\w4 alright.\w8\w8\s[106] I was getting tired anyhow.\w8\w8\s[103] I'll see you later,\w4 %(username).\w8\w8\s[102] Sleep well when you do."
+						"\0\s[207]* (He yawns.)\w8\w8\w8\n\n\s[106]Guess it's time for me to head to bed.\w8\w8\s[113] You make sure you get some sleep too,\w4 ok %(username)?"
+						"\0\s[110]Oh,\w4 time to go?\w8\w8\s[102] Alright,\w4 I'm off to bed then.\w8\w8\s[113] Sleep well when you do,\w4 %(username)."
+						"\0\s[110]Oh,\w4 alright.\w8\w8\s[113] See you around then,\w8\s[107] I'm off to bed."
+						"\0\s[110]Hm?\w8\w8\s[104] Oh,\w4 alright.\w8\w8\s[106] I was getting tired anyhow.\w8\w8\s[112]%(br)I'll see you later,\w4 %(username).\w8\w8\s[102] Sleep well when you do."
 					}
 					else //Midnight
 					{
 						"\0\s[200]Guess it's time to try and get some sleep.\w8\s[202] I hope you have better luck than me,\w4 %(username)."
-						"\0\s[207]* (He yawns.)\w8\w8\w8\n\n\s[107]I dunno about you,\w4 but I can't wait to crawl under a warm blanket.\w8\w8\s[104] You get some sleep too,\w4 ok %(username)?"
-						"\0\s[109]Mm,\w4 I'm heading straight for bed when I get back.\w8\w8\s[104] See you another time,\w4 %(username)."
-						"\0\s[109]I hope I can stay awake long enough to actually get under the covers.\w8\w8\n\n\s[207]* (He yawns slowly.)\w8\w8\w8\n\n\s[104] See you again sometime,\w4 %(username)."
-						"\0\s[206]Mm,\w4 I don't think I'll be getting much sleep tonight,\w4 but I suppose I should try...\w8\w8\s[104] See you,\w4 %(username).\w8\w8\s[106] I hope you sleep better than I probably will."
+						"\0\s[207]* (He yawns.)\w8\w8\w8\n\n\s[107]I dunno about you,\w4 but I can't wait to crawl under a warm blanket.\w8\w8\s[113] You get some sleep too,\w4 ok %(username)?"
+						"\0\s[109]Mm,\w4 I'm heading straight for bed when I get back.\w8\w8\s[113] See you another time,\w4 %(username)."
+						"\0\s[109]I hope I can stay awake long enough to actually get under the covers.\w8\w8\n\n\s[207]* (He yawns slowly.)\w8\w8\w8\n\n\s[113] See you again sometime,\w4 %(username)."
+						"\0\s[206]Mm,\w4 I don't think I'll be getting much sleep tonight,\w4 but I suppose I should try...\w8\w8\s[113] See you,\w4 %(username).\w8\w8\s[106] I hope you sleep better than I probably will."
 					}
 				}
 			}
@@ -538,16 +570,8 @@ OnClose
 				}
 				else //Just mean for no reason
 				{
-					if LV <= 30 //you've been a bit mean
-					{
-						"\s[400]Good riddance."
-						"\s[400]Finally."
-					}
-					elseif LV >=31 //You've been really mean and he hates you a lot
-					{
-						"\s[400]Good riddance."
-						"\s[400]Finally."
-					}
+					"\s[400]Good riddance."
+					"\s[400]Finally."
 				}
 			}
 			else //Neutral has to be down here and not up with the positive ones, unless I change it so he recognizes the time
@@ -589,13 +613,21 @@ OnClose
 			{
 				if love >= 100 //Full friendship
 				{
-					if hugged > 0
+					if Flag("Interrupted Convo Boot")
+					{
+						"\0\s[110]Oh, ah. \s[113]Alright, maybe I can finish up that conversation. \s[0]Thanks."
+						"\0\s[110]Oh, really? \s[104]Ok, I'll go finish up that conversation, then. Thanks. \s[112]Give me a minute if you want to call me back."
+						"\0\s[110]Oh? \s[104]Oh, alright. \s[205]I'll go finish that conversation then. \s[113]Thanks, see you later, kiddo."
+					}
+					elseif hugged > 0
 					{
 						"\0\s[110]Oh,\w4 just wanted a hug?\w8\w8\s[104] Alright then,\w4 don't be afraid to call me again if you need me."
 					}
 					else
 					{
 						"\0\s[110]Oh,\w4 did you call me here by accident?\w4\w8\s[104] Alright,\w4 well,\w4 have a good day anyways!"
+						"\0\s[106]So soon?\w8\w8\s[107] Alright,\w4 then.\w8\w8\s[104] I'll see you another time."
+						"\0\s[110]Oh,\w4 time to leave already?\w8\w8\s[107] That was awfully quick...\w8\w8\s[104] I guess I'll see you next time."
 					}
 					
 				}
@@ -763,20 +795,24 @@ OnGhostChanging
 		{
 			if LV == 0 //Friendship routes
 			{
-				if love <= 19 //He isn't sure what to make of you yet
-				{
-					"\0\s[0]Ok.\w4\w4 Say hi to %(reference0) for me!"
-				}
+				_text = Changing_S
+				if REPLACE(_text,"\w8\w8\e","") != ""; _text //If there's special flavor text, use it. If not, use these defaults.
 				else
 				{
-					"\0\s[1010]Ok.\w4\w4 Say hi to %(reference0) for me!"
+					if love <= 19 //He isn't sure what to make of you yet
+					{
+						"\0\s[0]Ok.\w4\w4 Say hi to %(reference0) for me!"
+					}
+					else
+					{
+						"\0\s[1010]Ok.\w4\w4 Say hi to %(reference0) for me!"
+					}
 				}
 			}
 			elseif LV > 0 //Negative routes
 			{
 				if LVCheck == 1 //know his secrets
 				{
-
 						if broken == 1 //broken him down all the way
 						{
 							"\s[516]* (You order him to go and fetch %(reference0) for you.)\w8\w8\s[510]\n\n* (He nods and hurries off.)"
@@ -798,13 +834,37 @@ OnGhostChanging
 	}
 }
 
+Changing_S //Flavor text for changing to known ghosts
+{
+	_ghost = reference0
+	
+	if _ghost == "Gaster"
+	{
+		"\0\s[101]You wanna hang out with that guy?\w8\w8\s[107] He gives me bad vibes,\w4\s[202] but alright,\w4 you do you.\w8\w8\s[104] See you around."
+	}
+	elseif _ghost == "Dusty"
+	{
+		"\0\s[111]Oh,\w4 bringing Dusty here?\w8\w8\s[104] Tell him I said hello."
+	}
+	elseif _ghost == "Warrior"
+	{
+		"\0\s[101]A giant...\w8\w8 cat?\w8\w8\s[202] Ok then.\w8\w8\s[104] Have fun with that,\w4 see you around."
+	}
+	elseif _ghost == "Hydrate"
+	{
+		"\0\s[104]Oh,\w4 good on you for hydrating,\w4 %(username).\w8\w8\s[101] You know you could have us both here at the same time though,\w4 right?\w8\w8\n\n\s[104]Heh,\w4 that's ok;\w8\s[103] You have fun,\w4 I'll see you around."
+	}
+	--
+	"\w8\w8\e"
+}
+
 
 //--OnGhostChanged
 
 //A sister to the above, this runs after the ghost has either reloaded itself, or when you switch from another ghost to this ghost.
 
 OnGhostChanged
-{
+{	
 	if nowmode == "RYS"
 	{
 		if RYSprogress == 5
@@ -861,14 +921,7 @@ OnGhostChanged
 			{
 				if LVCheck == 1 //know his secrets
 				{
-					if broken == 1 //broken him down all the way
-					{
-						"\s[510]* (Reload complete.)\e"
-					}
-					else //breaking him, but he's still standing
-					{
-						"\s[510]* (Reload complete.)\e"
-					}
+					"\s[510]* (Reload complete.)\e"
 				}
 				else //Just mean for no reason
 				{
@@ -927,12 +980,12 @@ OnGhostChanged
 
 OnShellChanging
 {
-	"\![get,property,OnGetCoords,currentghost.scope(0).rect]" //This will get his coordinates on the screen and put them into the function below, so that when he changes shells he can move to the same spot... Thanks again to Levidre for helping me with this
+	"\![get,property,OnGetCoords,currentghost.scope(0).rect]" //This will get his coordinates on the screen and put them into the function below, so that when he changes shells he can move to the same spot. Sometimes this is a little broken lol
 	--
 	if nowmode == "RYS"
 	{
 		//TODO THERE WAS A \s[-1] IN THE MIDDLE HERE BUT I HAD TO GET RID OF IT FOR NOW
-		"\RYS\s[2006]* (He shuffles away obediently to change clothing.)\w8\e"
+		"\RYS\s[2006]* (He shuffles aw\s[-1]ay obediently to change clothing.)\w8\e"
 	}
 	elseif holdingObsidian == 1
 	{
@@ -996,6 +1049,7 @@ OnShellChanging
 			}
 			else
 			{
+				//Need to change this so he won't change for you
 				"\0\s[400]Hmph.\w8\w8 Fine."
 			}
 		}
@@ -1007,6 +1061,7 @@ OnShellChanging
 ShellChangingOutOfSeason
 {
 	"\0\s[106]Uh,\w4 alright,\w4 just a moment."
+	"\0\s[106]...That doesn't seem right,\w4 but uh...\w8\w8\s[107] Ok."
 }
 
 OnShellChanged
@@ -1124,7 +1179,7 @@ OnShellChangeDialogue
 			{
 				if season == "Autumn"
 				{
-					"\0\s[104]Heh,\w4 anBlue's the one who introduced me to plaid.\w8\w8\s[205] I'd seen it before,\w4 of course,\w4 but I didn't realize how much I liked it until I tried it on.\e"
+					"\0\s[104]Heh,\w4 @Blue's the one who introduced me to plaid.\w8\w8\s[205] I'd seen it before,\w4 of course,\w4 but I didn't realize how much I liked it until I tried it on.\e"
 				}
 				elseif season == "Winter"
 				{
@@ -1253,14 +1308,14 @@ BootVars
 	RYSrecentBooks = 0
 	Dragged = 0
 	if changedscaling > 0; {changedscaling = 1}
-	tempurature = "Unknown"
-	ForC = "Unknown"
-	feelslike = "Unknown"
-	humidity = "Unknown"
-	wind = "Unknown"
-	weather = "Unknown"
-	pollen = "Unknown"
-	phase = "Unknown"
+	// tempurature = "Unknown"
+	// ForC = "Unknown"
+	// feelslike = "Unknown"
+	// humidity = "Unknown"
+	// wind = "Unknown"
+	// weather = "Unknown"
+	// pollen = "Unknown"
+	// phase = "Unknown"
 	booting = 0
 	AutoUpdateCheck = 0
 	holdingObsidian = 0
@@ -1275,6 +1330,7 @@ BootVars
 	HydrateStats = IARRAY
 	RemoveFlag("Said daily dialogue")
 	RemoveFlag("Day rolled over")
+	currentwaves = 0
 	
 	if nowmode == "RYS"
 	{
@@ -1285,12 +1341,22 @@ BootVars
 		Sboots++
 		if Sboots >= 3 && love < 20 && LV == 0; love = 20 //TODO maybe I should give him a comment for this??
 	}
-	weatherquiet = 2 //setting this so we can check later and if it's 2, do a weather check earlier than an hour...
+	//weatherquiet = 2 //setting this so we can check later and if it's 2, do a weather check earlier than an hour...
+	
+	if WeatherStationInstalled; ClearWeatherData
+	
+	ErrorsToPush.level = IARRAY
+	ErrorsToPush.description = IARRAY
+	
+	RemoveFlag("Interrupted Convo Boot")
 }
 
 //Variables set after updates, because I have no self control
 OnSetUpdateVariables
 {
+	if !ISVAR("currentwaves"); currentwaves = 0
+	if !ISVAR("totalwaves"); totalwaves = 0
+	
 	if UpdatesInstalled[1] != "1.4.0"
 	{
 		UpdatesInstalled[1] = "1.4.0"
@@ -1651,17 +1717,17 @@ FirstVars
 	RYSMetGhosts = IARRAY
 	MiscFlags = IARRAY
 	
+	//---1.5.0---
+	
+	ErrorsToPush.level = IARRAY
+	ErrorsToPush.description = IARRAY
+	
+	currentwaves = 0
+	totalwaves = 0
+	
 	updateavailable = 0
 	booting = 1 //This is here so that when you tell him your name the first time, he'll say the appropriate line.
 }
-
-// OnTranslateInternal
-// {
-	// LOGGING("==========Internal=============")
-	// LOGGING(_argv)
-	// LOGGING()
-// }
-
 
 OnNotifyShellInfo
 {

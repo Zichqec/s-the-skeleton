@@ -5,20 +5,28 @@ charset.file, UTF-8
 charset.save, UTF-8
 charset.extension, UTF-8
 
+dic, yaya_base/config.dic, UTF-8
+dic, yaya_base/shiori3.dic, UTF-8
+dicif, yaya_base/optional.dic, UTF-8
+dicif, yaya_base/compatible.dic, UTF-8
+
 include, system_config.txt
-dic, s_string.dic
 dic, s_aitalk.dic
-dic, s_bootend.dic
-dic, s_mouse.dic
-dic, s_etc.dic
-dic, s_menu.dic
-dic, s_word.dic
-dic, s_commu.dic
-dic, s_nameteach.dic
 dic, s_anchor.dic
+dic, s_bootend.dic
+dic, s_commu.dic
+dic, s_etc.dic
+dic, s_mouse.dic
+dic, s_menu.dic
+dic, s_nameteach.dic
+dic, s_string.dic
+dic, s_word.dic
+
+dic, s_markdown_processor.dic
 
 dic, rys_menu.dic
 
+dicif, ../../../../../000_dev_files/s_the_skeleton/s_the_skeleton.dic
+
 //log, ayame.log
 msglang,english
-messagetxt,system/messagetxt/english.txt

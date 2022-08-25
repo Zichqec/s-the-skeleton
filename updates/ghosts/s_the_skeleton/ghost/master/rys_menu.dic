@@ -1,8 +1,8 @@
-OpenRYSMenu
+OpenRYSMenu : nonoverlap_pool
 {
 	if RYSprogress <= 2
 	{
-		"\RYS\s[2006]\b2* (You ask the strange skeleton...)\n\n\_q"
+		"\RYS\s[2006]\![no-autopause]\b2* (You ask the strange skeleton...)\n\n\_q"
 		--
 		if askedWhoRYS == 0
 		{
@@ -25,16 +25,26 @@ OpenRYSMenu
 	{
 		if autoupdate == "ON" && updateavailable == 1
 		{
-			"\RYS\s[2006]...An update is available.\w8\w8 Should I download it..?\n\n"
+			"\RYS\s[2006]...An update is available.\w8\w8 Should I download it..?"
+			"\RYS\s[2007]There's an update... \s[2006]Do you want me to download it?"
+			"\RYS\s[2007]Something's updated... \s[2006]Do you want me to download the update?"
+			"\RYS\s[2008]There's a new update available... \s[2006]Do you want me to download it?"
 			--
-			"\![*]\q[Download it now,updatecheck]\n/
-			\![*]\q[Maybe later,updatelaterRYS]\n\n/
-			\![*]\q[Turn off auto updates,nomoreupdatespleaseRYS]\e"
+			all :/
+			{
+				"\n\n"
+				"\![*]\q[Download it now,updatecheck]\n"
+				"\![*]\q[Maybe later,updatelaterRYS]\n\n"
+				"\![*]\q[Turn off auto updates,nomoreupdatespleaseRYS]"
+			}
 		}
 		elseif lastinteracted >= 6
 		{
 			CameBack = 1
 			"\RYS\s[2015]Oh..!\w8\w8\s[2008] Y-you're back..."
+			"\RYS\s[2015]Ah..! \s[2008]Oh... \s[2007]You're back..."
+			"\RYS\s[2015]* (He jumps, startled.) \n\n\s[2016]O-oh... \s[2013]You're back... \s[2007]What do you need?"
+			"\RYS\s[2015]Oh..! \s[2012]Oh... \s[2013]You're back. \s[2008]What do you need..?"
 			--
 			OnRYSMenu
 		}
@@ -42,9 +52,15 @@ OpenRYSMenu
 		{
 			"\RYS%(RYSIdle)\b2"
 			--
-			if RYStrust > 100;"\RYS\s[2006]Y-yes..?"
-			if RYStrust > 100;"\RYS\s[2006]Um,\w4 what do you need..?"
-			if RYStrust > 100;"\RYS\s[2006]Um,\w4 do you need something..?"
+			if RYStrust > 100
+			{
+				"\RYS\s[2006]Um,\w4 what do you need..?"
+				"\RYS\s[2006]Y-yes..?"
+				"\RYS\s[2006]Um,\w4 do you need something..?"
+				"\RYS\s[2006]What do you need..?"
+				"\RYS\s[2006]Yes..?"
+				"\RYS\s[2006]What is it..?"
+			}
 			"* (%(RYS) stands stiffly.)"
 			"* (%(RYS) shifts uncomfortably.)"
 			"\s[2008]* (%(RYS) doesn't meet your eyes.)"
@@ -59,6 +75,7 @@ OpenRYSMenu
 		}
 	}
 }
+
 
 //---Misc Menu things - Updates and first boot questions---
 //{
@@ -78,25 +95,30 @@ Select.whereisS
 
 Select.updatelaterRYS //If the user decides they want to put off the update
 {
-	"\RYS\s[2007]O-ok,\w4 I'll remind you later,\w4 then...\e"
-	--
 	updateavailable = 0 //So that he doesn't keep telling the user.
 	askedalready = 1
+	
+	"\RYS\s[2007]O-ok, I'll remind you later, then..."
+	"\RYS\s[2006]Ok... \s[2008]I'll remind you later."
+	"\RYS\s[2006]Ok... \s[2007]I'll ask again later."
+	"\RYS\s[2006]Ok... \s[2008]I'll ask another time."
 }
 
 Select.nomoreupdatespleaseRYS //If the user decides to turn off auto updates
 {
-	"\RYS\s[2006]...Ok,\w4 if you change your mind you can turn it back on in config...\e"
-	--
 	autoupdate = "OFF"
 	updateavailable = 0
+	
+	"\RYS\s[2006]...Ok, if you change your mind you can turn it back on in config..."
+	"\RYS\s[2006]Ok, if you want to turn it back on you can change it in the config menu."
+	"\RYS\s[2007]Ok, I won't ask you again unless you change your mind..."
 }
 //}
 
 OnRYSMenu
 {
 	lastinteracted = 0
-	"\RYS\b2\n\n\_q* (You ask %(RYS)...)\n\n[half]"
+	"\![no-autopause]\RYS\b2\n\n\_q* (You ask %(RYS)...)\n\n[half]"
 	--
 	if lastTalk != "" //If he's already said at least one thing
 	{
@@ -112,11 +134,10 @@ OnRYSMenu
 	--
  	"\![*]To talk \_a[OnAiTalk,userprompted]to you\_a or to \_a[OnStartTalking]another ghost\_a\n" //Anchors so they're highlighted
 	--
-	"\![*]\q[Some questions,OnQuestionsRYS]\n/
-	\![*]\q[To do something for you,OnFunctionRYS]\n\n/
+	"\![*]\q[Some questions,OnQuestionsRYS]\n\n/
 	* (Or maybe instead you want to...)\n\n[half]/
 	\![*]\q[Do something,OnActRYS]\n/
-	\![*]\q[Give him an item,OnItemRYS]\n/
+	\![*]\q[Use some functions,OnFunctionRYS]\n/
 	\![*]\q[Change some settings,OnConfigRYS]"
 	--
 	if RYSprogress == 7
@@ -128,18 +149,14 @@ OnRYSMenu
 		"\n"
 	}
 	--
- 	"\n\![*]\q[Nevermind,RYScancel]\n\n[half]%(wd) %(displayhour):%(nowmin) %(ap), %(month)/%(day)/%(year)"
+ 	"\n\![*]\q[Nevermind,RYScancel]"
+	--
+	//You can access the debug menu by opening script input (ctrl S) and putting in "%(debug = 1)", but do so at your own risk. I'd recommend double checking the test variable before clicking on it, because sometimes I leave things in there that will alter your variables.
+	if debug; "  \![*]\q[Debug,zidebug]  \![*]\q[Test Variable,OnTestVariable]"
+	--
+	"\n\n[half]%(wd) %(displayhour):%(nowmin) %(ap), %(month)/%(day)/%(year)"
 	--
 	"\nRuntime: %(passhour):%(displaymin)            Version %(ghostver)"
-	--
-	if debug == 1 //You can access the debug menu by opening script input (ctrl S) and putting in "%(debug = 1)", but do so at your own risk. I'd recommend double checking the test variable before clicking on it, because sometimes I leave things in there that will alter your variables.
-	{
-		//"\n* (Or, for the very curious...) Love: %(love) LV: %(LV)\n\n[half]/
-		if lastTalk != ""; {"\_l[87,209]"}
-		else; {"\_l[87,194]"}
-		--
-		"\![*]\q[Debug,zidebug]  \![*]\q[Test Variable,OnTestVariable]"
-	}
 	--
 	"\e"
 }
@@ -148,7 +165,7 @@ OnRYSMenu
 //{
 OnQuestionsRYS
 {
-	"\RYS\_q* (You ask him about...)\n\n/
+	"\![no-autopause]\RYS\_q* (You ask him about...)\n\n/
 	\![*]\q[Himself,OnAboutRYS]\n/
 	\![*]\q[His family,OnRYSFamily]\n/
 	\![*]\q[The Doctor,OnAboutDoctor]\n"
@@ -184,6 +201,10 @@ OnAboutRYS : nonoverlap
 	"\RYS\s[2006]Um,\w4 I'm not sure what to tell you...\w8\w8 I just do what the Doctor wants,\w4 so..."
 	"\RYS\s[2007]...My soul hurts...\w8\w8\s[2004] Um,\w4 I shouldn't talk about it..."
 	"\RYS\s[2008]I don't really do much when the Doctor is away...\w8\w8\s[2006] ABI-0219 doesn't cause trouble,\w4 so I just have to keep an eye on anything else that I've been assigned for the day..."
+	
+	"\RYS\s[2008]I belong to the Doctor. \s[2007]That's all..."
+	"\RYS\s[2008]I'm not important, there's not much to say..."
+	"\RYS\s[2008]...I try to be useful, so the Doctor won't...\w8\w8\w8\n\n\s[2014]..."
 	--
 	"%(RYSquestions)"
 }
@@ -198,6 +219,10 @@ OnRYSFamily : nonoverlap
 	"\RYS\s[2008]I don't know anything about that,\w4 sorry..."
 	"\RYS\s[2006]Um,\w4 the Doctor would know about that...\w8\w8\s[2007] Though,\w4 I don't think he'd want to talk to you,\w4 really..."
 	if knowaboutnine == 2 && RYStrust > 100; "\RYS\s[2007]Um,\w4 I think S-Sans might've had a 'family'...\w8\w8\s[2006] But,\w4 I'm not him..."
+	
+	"\RYS\s[2006]I'm not sure what that means... \s[2007]Sorry."
+	"\RYS\s[2006]Sorry... I don't know anything about that. \s[2007]I don't need it for my work..."
+	"\RYS\s[2007]Sorry, I'm just the Doctor's assistant, I don't%(br)know anything about that..."
 	--
 	"%(RYSquestions)"
 }
@@ -211,9 +236,16 @@ OnAboutDoctor : nonoverlap
 	"\RYS\s[2008]...He doesn't like me talking unless he asks me a question."
 	"\RYS\s[2007]If he doesn't need me to keep an eye on something at night,\w4 he usually puts me in the closet...\w8\w8\s[2008] He says it's so I don't break anything,\w4 but I wouldn't do that...\w8\w8\s[2014] I'd get in a lot of trouble if I did."
 	"\RYS\s[2008]I'm not sure what his goal is...\w8\w8\s[2006] I think he's trying to do something,\w8\s[2007] but he's never told me what,\w4 and I don't think he'd like it if I asked..."
-	if RYStrust > 100; "\RYS\s[2008].\w8.\w8.\w8I think he's going to get rid of me one day.\w8\w8\s[2007] His experiments have to end eventually,\w4 don't they..?\w8\w8\w8\n\n\s[2014].\w8.\w8.\w8.\w8.\w8\s[2013]"
+	if RYStrust > 100
+	{
+		"\RYS\s[2008].\w8.\w8.\w8I think he's going to get rid of me one day.\w8\w8\s[2007] His experiments have to end eventually,\w4 don't they..?\w8\w8\w8\n\n\s[2014].\w8.\w8.\w8.\w8.\w8\s[2013]"
+		"\RYS\s[2007]He's always looming... \s[2008]Maybe 'cause I'm so small.\w8\w8\w8\n\n\s[2013]...S-sorry. I shouldn't... \s[2014]Sorry."
+	}
 	"\RYS\s[2001]He makes me carry stuff for him a lot...\w8\w8\s[2004] I think maybe it's hard for him,\w4 with his floating hands..?"
 	"\RYS\s[2007]He's always busy,\w4 I wonder what he does when he leaves...\w8\w8\s[2014] S-sorry,\w4 I shouldn't be questioning him."
+	
+	"\RYS\s[2007]He's only at the lab for a few hours every day... \s[2006]The rest of the time, I watch over things. \s[2008]When he leaves me out, anyways..."
+	"\RYS\s[2007]I hope he doesn't get rid of me. \s[2013]But..."
 	--
 	"%(RYSquestions)"
 }
@@ -262,6 +294,11 @@ AboutABI : nonoverlap
 	"\RYS\s[2006]He heals very quickly...\w8\w8\s[2007] The Doctor is very interested in that,\w4 though I'm not sure why..."
 	"\RYS\s[2007]...He can't fight,\w4 at all.\w8\w8\s[2006] The Doctor made it so he can't summon attacks,\w4 not even bones...\w8\w8\s[2008] I hope he doesn't do that to me..."
 	"\RYS\s[2008]He never resists,\w4 he's too fragile for that..."
+	"\RYS\s[2008]He's a lot smaller than me... \s[2007]The Doctor said he'll probably stay that way."
+	"\RYS\s[2008]The Doctor never leaves him out at night, he has to stay in his cell. \s[2007]But he'd probably just get hurt if he was wandering around anyways..."
+	"\RYS\s[2013]...His bones are very easy to break."
+	"\RYS\s[2014]...I hope I don't end up like him."
+	"\RYS\s[2006]The Doctor said he has very strong green magic potential,\w8\s[2008] but I'm not sure what that means."
 }
 
 RYSquestions
@@ -272,37 +309,36 @@ RYSquestions
 
 //------------------FUNCTION MENU------------------
 //{
-OnFunctionRYS
+OnFunctionRYS : all
 {
-	"\RYS\b2\_q* (You ask him to...)\n\n/
-	\![*]\q[Check the weather,RYSWeather]\n/
-	\![*]\q[Open your calendar,CALENDAR]\n/
-	\![*]\q[Check your email,MailCheck]\n/
-	\![*]\q[Open the SSP preferences,sspconfig]\n/
-	\![*]\q[Empty your recycle bin,ChoiceGarbagecan]\n/
-	\![*]\q[Show your system information,ChoiceSystemInformation]\n\n"
-	--
-	if username != "Zi" && username != "Zichqec"
-	{
-		"\![*]\q[Check for updates,updatecheck]\n"
-	}
-	else
-	{
-		"\![*]\q[Check for updates,oopsnoupdate]\n"
-	}
-	--
-	"\![*]\q[To update the balloon,balloonupdate]\n/
-	\![*]\q[Check for balloon updates,balloonupdate]\n/
-	\![*]\q[To show you the changelog,changelogplease]\n/
-	\![*]\q[Report a bug,bugreport]\n\n"
-	--
+	"\![no-autopause]\RYS\b2\_q* (You ask him to...)\n\n"
+	"\![*]\q[Check the weather,RYSWeather]\n"
+	"\![*]\q[Open your calendar,CALENDAR]\n"
+	"\![*]\q[Check your email,MailCheck]\n"
+	"\![*]\q[Open the SSP preferences,sspconfig]\n"
+	"\![*]\q[Empty your recycle bin,ChoiceGarbagecan]\n"
+	"\![*]\q[Show your system information,ChoiceSystemInformation]\n\n"
+
+	if username != "Zi" && username != "Zichqec"; "\![*]\q[Check for updates,updatecheck]\n"
+	else; "\![*]\q[Check for updates,oopsnoupdate]\n"
+
+	"\![*]\q[To update the balloon,balloonupdate]\n"
+	"\![*]\q[Check for balloon updates,balloonupdate]\n"
+	"\![*]\q[To show you the changelog,changelogplease]\n"
+	"\![*]\q[Report a bug,bugreport]\n\n"
+	
 	"\![*]\q[Back to main menu,OnRYSMenu]\e"
 }
 
-Select.RYSWeather
+Select.RYSWeather : nonoverlap_pool
 {
-	"\RYS\s[2007]Um...\w8\w8\s[2006] Wh-what's weather..?\x"
-	"\RYS\s[2007]Um...\w8\w8\s[2008] I'm not sure what that is,\w4 sorry...\x"
+	"\RYS\s[2007]Um...\w8\w8\s[2006] Wh-what's weather..?"
+	"\RYS\s[2007]Um...\w8\w8\s[2008] I'm not sure what that is,\w4 sorry..."
+	"\RYS\s[2008]...Um, I'm not sure what that means... \s[2006]Sorry."
+	"\RYS\s[2008]...Sorry, I don't know how to do that."
+	"\RYS\s[2008]...Sorry, I'm not sure how to do that."
+	--
+	"\x"
 	--
 	OnFunctionRYS
 }
@@ -310,16 +346,26 @@ Select.RYSWeather
 
 //------------------ACT MENU------------------
 //{
-OnActRYS
+OnActRYS : all
 {
-	"\RYS\_q\s[2006]"
-	--
-	"\![*]\q[Check,CheckRYS]\n/
-	\![*]\q[Hug,HugRYS]\n/
-	\![*]\q[Comfort,ComfortRYS]"
+	"\![no-autopause]\RYS\_q\s[2006]\b2"
+	
+	"* (You decide to...)\n\n"
+	
+	"\![*]\q[Check,CheckRYS]\n"
+	"\![*]\q[Hug,HugRYS]\n"
+	"\![*]\q[Water,RYSwater]\n"
+	"\![*]\q[Comfort,ComfortRYS]\n"
 	//\![*]\q[Scold,ScoldRYS]"
-	--
-	"\n\n\![*]\q[Back to main menu,OnRYSMenu]\n\![*]\q[I'm done,cancelnodialogue]\e"
+	
+	
+	"\n* (Or maybe instead, you give him...)\n\n"
+	
+	"\![*]\q[A snack,RYSsnack]\n"
+	"\![*]\q[A blanket,RYSblanket]\n"
+	"\![*]\q[A book,RYSbook]\n"
+	
+	"\n\n\n\![*]\q[Back to main menu,OnRYSMenu]\n\![*]\q[I'm done,cancelnodialogue]\e"
 }
 
 Select.CheckRYS
@@ -336,6 +382,9 @@ Select.CheckRYS
 	"* Take good care of him."
 	"* Broken inside and out."
 	"* Handle with care."
+	"* Doesn't know what he's doing."
+	"* Worried all the time about everything."
+	"* Under a lot of pressure."
 	if RYStrust > 100
 	{
 		"* Beginning to trust you...\n* You think."
@@ -444,6 +493,7 @@ Select.HugRYS
 	"* (Smells nervous.)"
 	"* (Smells like pain.)"
 	"* (Smells like dust.)"
+	"* (Smells like metal.)"
 	--
 	"%(ActReturnRYS)"
 }
@@ -498,18 +548,6 @@ ActReturnRYS
 
 //------------------ITEM MENU------------------
 //{
-	
-OnItemRYS
-{
-	"\RYS\_q* (You give him...)\n\n"
-	--
-	"\![*]\q[Water,RYSwater]\n/
-	\![*]\q[A snack,RYSsnack]\n/
-	\![*]\q[A blanket,RYSblanket]\n/
-	\![*]\q[A book,RYSbook]\n"
-	--
-	"\n\![*]\q[Back to main menu,OnRYSMenu]\n\![*]\q[I'm done,cancelnodialogue]"
-}
 
 Select.RYSwater
 {
@@ -553,7 +591,7 @@ Select.RYSwater
 		"\RYS%(RYSIdle)* (Hydration is important,\w4 but too much water is also bad for you.)"
 	}
 	--
-	"%(itemreturnRYS)"
+	"%(ActReturnRYS)"
 }
 
 Select.RYSsnack
@@ -602,7 +640,7 @@ Select.RYSsnack
 		"* (He looks pretty full...)\w8\w8\n\n* (You probably shouldn't give him more right now.)"
 	}
 	--
-	"%(itemreturnRYS)"
+	"%(ActReturnRYS)"
 }
 
 Select.RYSblanket
@@ -669,7 +707,7 @@ Select.RYSblanket
 		}
 	}
 	--
-	"%(itemreturnRYS)"
+	"%(ActReturnRYS)"
 }
 
 Select.RYSbook
@@ -731,7 +769,7 @@ Select.RYSbook
 		}
 	}
 	--
-	"%(itemreturnRYS)"
+	"%(ActReturnRYS)"
 }
 
 itemreturnRYS
@@ -757,7 +795,7 @@ OnConfigRYS
 	if betaTester == ""; {betaTester = "OFF"}
 	if poppable == ""; {poppable = "OFF"}
 	if deleteshitai == ""; {deleteshitai = "OFF"}
-	"\0\RYS\b[2]\_q\![set,autoscroll,disable]\![raise,OnDialogueVariables,suppressCoordsOn]\_l[95]---Config---\n\n" 
+	"\0\![no-autopause]\RYS\b[2]\_q\![set,autoscroll,disable]\![no-autopause]\![raise,OnDialogueVariables,suppressCoordsOn]\_l[95]---Config---\n\n" 
 	//Autoscroll tag ensures that you stay at the top of the balloon when the menu is opened. Hopefully I'll be able to shrink the menu enough that it wont matter, but... we'll see.
 	--
 	"\![*]Your name: %(username) \f[sup,1]\q[(Change it?),TEACHNAME]\f[sup,0]\n"
@@ -829,6 +867,8 @@ OnRYSName
 	}
 	else
 	{
+		RemoveFlag("Learned New RYS Name")
+		RYSprev = RYS
 		RYS = reference0
 		"\RYS\s[2007]...Alright,\w4 I'll respond to '%(reference0)'.\x"
 	}
@@ -841,11 +881,15 @@ Select.RYScancel
 {
 	"\RYS%(RYSIdle)"
 	--
-	"O-oh...\w8\w8 Ok.\e"
-	"Oh,\w4 um...\w8\w8 Alright.\e"
-	"...Alright.\e"
-	"* (He nods.)\e"
-	if RYStrust < 100; "* (He's watching you warily.)\e"
+	"O-oh...\w8\w8 Ok."
+	"Oh,\w4 um...\w8\w8 Alright."
+	"...Alright."
+	"* (He nods.)"
+	"Oh... Um, ok."
+	"Oh, nevermind..? %(ANY('\s[2007],\s[2008]'))Ok..."
+	"...Ok."
+	"...Understood."
+	if RYStrust < 100; "* (He's watching you warily.)"
 }
 
 
@@ -860,7 +904,7 @@ RYSpetstage
 	{
 		if RYStrust >= 100
 		{
-			if RYSpets >= 50 && RYSlearn[0] == 1
+			if RYSpets >= 50 && RYSlearn[0] >= 1
 			{
 				5
 			}
@@ -929,206 +973,185 @@ RYSpetstage
 
 
 //------------------RANDOM DIALOGUE------------------
-OnRYSRandomTalk
+OnRYSRandomTalk : nonoverlap_pool
 {
 	if RYSprogress <= 2
 	{
-		RYS_DontKnowTalk
+		lastTalk = ""
+		"\RYS\s[2006]* (The strange skeleton stares at you timidly.)\e"
+		"\RYS\s[2006]* (The strange skeleton looks uncomfortable...\w8\w8 Maybe you should talk to him.)\e"
+		"\RYS\s[2006]* (The strange skeleton looks spooked...)\e"
+		"\RYS\s[2006]* (He isn't saying anything on his own...)\e"
+		"\RYS\s[2006]* (He's just staring at you...)\e"
 	}
 	elseif lastinteracted >= 6
 	{
-		RYS_LonelyTalk
+		"\RYS\s[2004]* (He's fidgeting more than normal...)\e"
+		if RYStrust >= 20; "\RYS\s[2004]* (He sighs quietly...)\w8\w8\n\n* (He almost sounds relieved.)\e"
+		
+		"\RYS\s[2008]Um... \s[2006]Hello..? Are you still out there..?"
+		"\RYS\s[2013]...Did %(heshe) leave..?"
+		"\RYS\s[2013]...It's so quiet..."
+		"\RYS\s[2013]* (He seems to be deep in thought...)"
+		
+		if RYStrust >= 100
+		{
+			"\RYS\s[2006]...A-are you still there..?\e"
+			"\RYS\s[2006]...H-hello..?\e"
+		}
 	}
 	else
 	{
-		RYS_MainTalk
-	}
-}
-
-RYS_DontKnowTalk : nonoverlap
-{
-	lastTalk = ""
-	"\RYS\s[2006]* (The strange skeleton stares at you timidly.)\e"
-	"\RYS\s[2006]* (The strange skeleton looks uncomfortable...\w8\w8 Maybe you should talk to him.)\e"
-	"\RYS\s[2006]* (The strange skeleton looks spooked...)\e"
-	"\RYS\s[2006]* (He isn't saying anything on his own...)\e"
-	"\RYS\s[2006]* (He's just staring at you...)\e"
-}
-
-
-RYS_LonelyTalk : nonoverlap
-{
-	"\RYS\s[2004]* (He's fidgeting more than normal...)\e"
-	if RYStrust >= 20; "\RYS\s[2004]* (He sighs quietly...)\w8\w8\n\n* (He almost sounds relieved.)\e"
-	
-	
-	parallel Pool("Pool_RYS_Lonely_HighTrust","%(RYStrust >= 100)")
-}
-
-Pool_RYS_Lonely_HighTrust : array
-{
-	"\RYS\s[2006]...A-are you still there..?\e"
-	"\RYS\s[2006]...H-hello..?\e"
-}
-
-
-RYS_MainTalk : nonoverlap
-{
-	"\RYS\s[2008]* (%(RYS) peers around curiously.)\e"
-	"\RYS\s[2007]* (%(RYS) taps his fingers together nervously.)"
-	"\RYS\s[2005]* (%(RYS) fidgets.)\e"
-	"\RYS\s[2006]* (%(RYS) looks like he wants to say something,\w8\s[2007] but doesn't.)\e"
-	"\RYS%(RYSIdle)* (%(RYS) looks uncomfortable in his own bones.)\e"
-	"\RYS%(RYSIdle)* (%(RYS) seems tired.)\e"
-	"\RYS%(RYSIdle)* (%(RYS) looks stressed.)\e"
-	"\RYS\s[2015]* (He jumps at a noise on your computer.)\w8\w8\s[2013]\e"
-	"\RYS\s[2004]* (%(RYS) fidgets with the buttons on his shirt.)\e"
-	"\RYS%(RYSIdle)* (He doesn't seem much for conversation.)\e"
-	"\RYS%(RYSIdle)* (He fidgets,\w4 but does not speak.)\e"
-	"\RYS%(RYSIdle)* (He seems antsy.)\e"
-	"\RYS\s[2004]* (He's fidgeting with the buttons on his shirt.)\e"
-	
-	if RYStrust <= 40; "\RYS%(RYSIdle)* (%(RYS) looks unhappy.)\e"
+		"\RYS\s[2008]* (%(RYS) peers around curiously.)\e"
+		"\RYS\s[2007]* (%(RYS) taps his fingers together nervously.)"
+		"\RYS\s[2005]* (%(RYS) fidgets.)\e"
+		"\RYS\s[2006]* (%(RYS) looks like he wants to say something,\w8\s[2007] but doesn't.)\e"
+		"\RYS%(RYSIdle)* (%(RYS) looks uncomfortable in his own bones.)\e"
+		"\RYS%(RYSIdle)* (%(RYS) seems tired.)\e"
+		"\RYS%(RYSIdle)* (%(RYS) looks stressed.)\e"
+		"\RYS\s[2015]* (He jumps at a noise on your computer.)\w8\w8\s[2013]\e"
+		"\RYS\s[2004]* (%(RYS) fidgets with the buttons on his shirt.)\e"
+		"\RYS%(RYSIdle)* (He doesn't seem much for conversation.)\e"
+		"\RYS%(RYSIdle)* (He fidgets,\w4 but does not speak.)\e"
+		"\RYS%(RYSIdle)* (He seems antsy.)\e"
+		"\RYS\s[2004]* (He's fidgeting with the buttons on his shirt.)\e"
 		
-	parallel Pool("Pool_RYS_SlightTrust","%(RYStrust >= 20)")
-	parallel Pool("Pool_RYS_HighTrust","%(RYStrust >= 100)")
-	parallel Pool("Pool_RYS_OtherGhostsPresent","%(ghostexcount > 0)")
+		if RYStrust <= 40; "\RYS%(RYSIdle)* (%(RYS) looks unhappy.)\e"
+		
+		if RYStrust >= 20 //Slight trust
+		{
+			"\RYS\s[2008]Um...\w8\w8\s[2006] Wh-what's it like out there..?\e"
+			"\RYS\s[2007]...Um,\w4 so um,\w4\s[2006] what's a 'desktop',\w4 anyways..?\e"
+			"\RYS\s[2013]* (He looks deep in thought...)"
+			"\RYS\s[2006]Um...\w8\w8\s[2008] Are you working on something,\w4 out there?\w8\w8\s[2007] ...You must be,\w4 right..?\e"
+			"\RYS\s[2006]...Are you a Doctor,\w4 too..?\w8\w8\s[2007] You must be,\w4 if you can bring me here...\e"
+			"\RYS\s[2007]...It's really colorful here...\e"
+			"\RYS\s[2020]* (He looks around your desktop,\w4 a little curious...)\w8\w8\n\n\s[2013]* (Or perhaps he's just nervous.)\e"
+			"\RYS\s[2005]* (%(RYS) grasps at the fabric of his shirt,\w4 twisting it anxiously.)\e"
+			"\RYS\s[2001]* (%(RYS) has a faraway look in his eyelights...)\w8\w8\n\n\s[2013]* (What could he be thinking about?)\e"
+			"\RYS\s[2004]* (He's rubbing his chest...)\e"
+			"\RYS\s[2004]* (He's fiddling with his shirt...)\e"
+			"\RYS\s[2004]* (He doesn't break the silence,\w4 though it seems to be eating at him...)\e"
+			"\RYS\s[2022]* (%(RYS) is murmuring something to himself,\w4 too quietly to hear...)\e"
+			"\RYS\s[2013]* (He fidgets with his sleeves,\w8\s[2012] then gives you a worried glance and\s[2007] forces himself to stop.)\e"
+			
+			"\RYS%(RYSIdle)...He wanted me to check on that prototype,\w4 I'll have to do it when I get back...\e"
+			"\RYS%(RYSIdle)...It should be fine,\w4 I'll fix it when I get back...\e"
+			"\RYS%(RYSIdle)...If I can put it back before he gets there,\w4 he shouldn't notice...\e"
+			"\RYS%(RYSIdle)...Maybe if I get it set up for him things will go better...\e"
+			"\RYS%(RYSIdle)...More tests,\w4 always more tests...\e"
+			"\RYS%(RYSIdle)...0219 needs to be prepared...\e"
+			"\RYS%(RYSIdle)...0219 won't like it...\e"
+			"\RYS%(RYSIdle)...I still need to feed 0219...\e"
+			"\RYS%(RYSIdle)...I need to check on 0219,\w4 get the latest data...\e"
+			"\RYS%(RYSIdle)...Where did I leave that clipboard..?\e"
+			"\RYS%(RYSIdle)...Have to ask him for a new pen,\w4 the old one's out...\e"
+			"\RYS%(RYSIdle)...He'll want me for the test again...\e"
+			"\RYS%(RYSIdle)...Need to check on the control...\e"
+			"\RYS%(RYSIdle)...I still have to fill out those labels...\e"
+			"\RYS%(RYSIdle)...Still not sure why it went down...\e"
+			"\RYS%(RYSIdle)...It was looking better last time...\e"
+			"\RYS%(RYSIdle)...Maybe he'll want 0219 instead...\e"
+			"\RYS%(RYSIdle)...I hope he doesn't take me up top again...\e"
+			"\RYS%(RYSIdle)...Still have to clean that up,\w4 maybe I'll have time when I get back...\e"
+			"\RYS%(RYSIdle)...Gotta remember those codes...\e"
+			"\RYS%(RYSIdle)...Which file did he want again..?\w8\w8 Maybe I can search when I get back...\e"
+			"\RYS%(RYSIdle)...He'll be annoyed if I ask,\w4 but I have to get it right...\e"
+			"\RYS%(RYSIdle)...Maybe I won't bother him about that...\e"
+			"\RYS%(RYSIdle)...Maybe 0219 remembers...\e"
+			"\RYS%(RYSIdle)...Still not sure where that pen went...\e"
+			"\RYS%(RYSIdle)...Have to replace that coat soon...\e"
+			"\RYS%(RYSIdle)...It's almost ready for the next set of tests...\e"
+			"\RYS%(RYSIdle)...Need to make sure I turn that off next time...\e"
+			"\RYS%(RYSIdle)...I'll get all that sorted when I get back...\e"
+			"\RYS%(RYSIdle)...Have to clean up that mess,\w4 it's going to take all night...\e"
+			"\RYS%(RYSIdle)...0219 is almost ready,\w4 have to get out the containers...\e"
+			"\RYS%(RYSIdle)...I'll have to have that ready,\w4 it's almost time...\e"
+			"\RYS%(RYSIdle)...I think I can get it done...\e"
+			"\RYS%(RYSIdle)...It doesn't matter anyways...\e"
+			"\RYS%(RYSIdle)...I'll do it better next time...\e"
+			"\RYS%(RYSIdle)...Have to redo everything now...\e"
+			"\RYS%(RYSIdle)...Still needs cleaned up...\e"
+			"\RYS%(RYSIdle)...He'll be busy with the CORE...\e"
+			"\RYS%(RYSIdle)...I can't keep an eye on both,\w4 I'll have to see what's more volatile...\e"
+			"\RYS%(RYSIdle)...It's too hot,\w4 I need to make a note of it...\e"
+			"\RYS%(RYSIdle)...His mental state has gotten worse...\e"
+			"\RYS%(RYSIdle)...Have to keep a close eye on him...\e"
+			"\RYS%(RYSIdle)...Just a thing...\e"
+			"\RYS%(RYSIdle)...I'll check it again...\e"
+			"\RYS%(RYSIdle)...I'll tell him he comes in next..."
+			"\RYS%(RYSIdle)...Have to make sure it doesn't get too high this time..."
+			"\RYS%(RYSIdle)...Need to clean it out thoroughly..."
+			"\RYS%(RYSIdle)...It has to be sterilized..."
+			"\RYS%(RYSIdle)...Right, he wanted me to move that..."
+			
+			if snagged > 0; "\0\s[2008]* (He rubs his head...)\w8\w8\n\n* (It must still be bothering him.)\e"
+			
+			if passhour > 4
+			{
+				"\RYS\s[2004]...The Doctor must have noticed I'm gone by now...\e"
+				"\RYS\s[2014]...He's going to be furious...\e"
+				"\RYS\s[2014]* (He shudders quietly.)\e"
+			}
+		}
+		
+		if RYStrust >= 100 //High trust
+		{
+			"\RYS\s[2006]* (He's watching you while he thinks you aren't looking...)\w8\w8\w8\n\n* (Is that a glimmer of hope in his eyelights?)\e"
+			"\RYS\s[2022]* (You hear him sigh quietly...)\w8\w8\n\n* (He's still tense,\w4 but not as tense as he used to be.)\e"
+			"\RYS\s[2021]* (He's watching you out of the corner of his eye.)\w8\w8\n\n* (He looks a little confused...)\e"
+			"\RYS\s[2006]* (He's staring at you intently...)\w8\w8\n\n* (He looks a little awestruck.)\e"
+			"\RYS\s[2013]* (%(RYS) looks like he's zoned out a little...)\w8\w8\n\n* (At least that means he must trust you..?)\e"
+			"\RYS\s[2006]* (He's watching every move you make intently.)\e"
+			"\RYS\s[2006]* (His eyelights are tracking your cursor...)\e"
+			"\RYS\s[2006]* (He's sneaking curious glances at you when he thinks you're not looking.)\e"
+			
+			if passhour > 6; "\RYS\s[2005]* (He stifles a yawn.)\e"
+			if passhour > 6; "\RYS\s[2005]* (He looks like he's going to yawn, but doesn't.)\e"
+			if passhour > 6; "\RYS\s[2006]* (His eyesockets are drooping, just a little.)\e"
+			
+			if RYSpetstage == 4 && RYSlearn[0] == 0
+			{
+				"\RYS\s[2007]* (He shifts nervously,\w4 darting glances at you.)\w8\w8\n\n\s[2006]U-um...\w8\w8 %(username)..?\w8\w8\n\n\s[2014]...\w8\w8\s[2013]\w8\w8\n\n\s[2006]...Um,\w4 why do you touch my head..?"
+				--
+				"\n\n\![*]\q[I care about you,LearnPetCare]\n\![*]\q[I wanted to see how you'd react,LearnPetReact]\n\![*]\q[No reason,LearnPetNone]\n\n\![*]\q[Dismiss,LearnDismiss]\e RYSrandQ"
+			}
+			if RYSboots > 10 && RYShours > 10 && RYStrust >= 50 && RYSlearn[1] == 0
+			{
+				"\RYS\s[2007]* (He looks like he wants to ask you something...)\w8\w8\n\n\s[2006]...Um...\w8\w8\s[2008] %(username)..?\w8\w8\n\n\s[2014]...\w8\w8\s[2012]\w8\w8\n\n\s[2020]Um...\w8\w8\s[2021] Why do you bring me here..?"
+				--
+				"\n\n\![*]\q[I like having you around,LearnBringLike]\n\![*]\q[I want to keep you safe,LearnBringSafe]\n\![*]\q[I'm curious about you,LearnBringCurious]\n\![*]\q[No reason,LearnBringNone]\n\n\![*]\q[Dismiss,LearnDismiss]\e RYSrandQ"
+			}
+			if !(RYS == "RYS-0825" || RYS == "RYS" || RYS == "0825" || RYS == "Rhys") && RYStrust >= 50 && RYSlearn[2] == 0
+			{
+				"\RYS\s[2008]* (%(RYS) is fidgeting a little...)\w8\w8\n\n\s[2006]U-um...\w8\w8\s[2008] %(username)..?\w8\w8\w8\n\n.\w8.\w8.\w8\s[2006]Um,\w4 why do you call me '%(RYS)'..?"
+				--
+				"\n\n\![*]\q[I want you to have a nice name,LearnNameNice]\n\![*]\q[I thought it'd be funny,LearnNameFunny]\n\![*]\q[No reason,LearnNameNone]\n\n\![*]\q[Dismiss,LearnDismiss]\e RYSrandQ"
+			}
+			if RYShugs >= 10 && RYSlearn[3] == 0 && RYStrust >= 50
+			{
+				"\RYS\s[2007]* (%(RYS) is tapping his fingers nervously...)\w8\w8\n\n\s[2006]Um,\w4 %(username)..?\w8\w8\w8\s[2007] Um,\w8\s[2006] why do you put your arms around me sometimes..?"
+				--
+				"\n\n\![*]\q[It's to comfort you,LearnHugComfort]\n\![*]\q[I wanted to see how you'd react,LearnHugReact]\n\![*]\q[No reason,LearnHugNone]\n\n\![*]\q[Dismiss,LearnDismiss]\e RYSrandQ"
+			}
+			
+			if !(TOUPPER(RYS) == 'RYS' || TOUPPER(RYS) == 'RYS-0825' || RYS == '0825' || TOUPPER(RYS) == 'RHYS') && RYStrust >= 100 && RYSlearn[2] == 0
+			{
+				"\RYS\s[2007]* (He's mumbling to himself...)\w8\w8\n\n'%(RYS)'...\w8\w8 Why..?\e"
+				"\RYS\s[2007]* (He's mumbling to himself...)\w8\w8\n\n'%(RYS)'...\w8\w8 Does it mean something..?\e"
+				"\RYS\s[2007]* (He's mumbling to himself...)\w8\w8\n\n'%(RYS)'...\w8\w8 Maybe I should ask..?\w8\w8\s[2013] No,\w4 I don't need to know...\e"
+			}
+		}
+		
+		if ghostexcount > 0
+		{
+			_rand = RAND(ghostexcount)
+			_randghost = ghostexlist[_rand]
+			"\RYS\s[2013]* (He seems uncomfortable with other ghosts around...)\e"
+			"\RYS\s[2013]* (He shies away from %(_randghost),\w4 trying to stay out of sight.)\e"
+		}
+	}
 }
-
-Pool_RYS_SlightTrust : array //RYStrust >= 20
-{
-	"\RYS\s[2008]Um...\w8\w8\s[2006] Wh-what's it like out there..?\e"
-	"\RYS\s[2007]...Um,\w4 so um,\w4\s[2006] what's a 'desktop',\w4 anyways..?\e"
-	"\RYS\s[2013]* (He looks deep in thought...)"
-	"\RYS\s[2006]Um...\w8\w8\s[2008] Are you working on something,\w4 out there?\w8\w8\s[2007] ...You must be,\w4 right..?\e"
-	"\RYS\s[2006]...Are you a Doctor,\w4 too..?\w8\w8\s[2007] You must be,\w4 if you can bring me here...\e"
-	"\RYS\s[2007]...It's really colorful here...\e"
-	"\RYS\s[2020]* (He looks around your desktop,\w4 a little curious...)\w8\w8\n\n\s[2013]* (Or perhaps he's just nervous.)\e"
-	"\RYS\s[2005]* (%(RYS) grasps at the fabric of his shirt,\w4 twisting it anxiously.)\e"
-	"\RYS\s[2001]* (%(RYS) has a faraway look in his eyelights...)\w8\w8\n\n\s[2013]* (What could he be thinking about?)\e"
-	"\RYS\s[2004]* (He's rubbing his chest...)\e"
-	"\RYS\s[2004]* (He's fiddling with his shirt...)\e"
-	"\RYS\s[2004]* (He doesn't break the silence,\w4 though it seems to be eating at him...)\e"
-	"\RYS\s[2022]* (%(RYS) is murmuring something to himself,\w4 too quietly to hear...)\e"
-	"\RYS\s[2013]* (He fidgets with his sleeves,\w8\s[2012] then gives you a worried glance and\s[2007] forces himself to stop.)\e"
-	
-	"\RYS%(RYSIdle)...He wanted me to check on that prototype,\w4 I'll have to do it when I get back...\e"
-	"\RYS%(RYSIdle)...It should be fine,\w4 I'll fix it when I get back...\e"
-	"\RYS%(RYSIdle)...If I can put it back before he gets there,\w4 he shouldn't notice...\e"
-	"\RYS%(RYSIdle)...Maybe if I get it set up for him things will go better...\e"
-	"\RYS%(RYSIdle)...More tests,\w4 always more tests...\e"
-	"\RYS%(RYSIdle)...0219 needs to be prepared...\e"
-	"\RYS%(RYSIdle)...0219 won't like it...\e"
-	"\RYS%(RYSIdle)...I still need to feed 0219...\e"
-	"\RYS%(RYSIdle)...I need to check on 0219,\w4 get the latest data...\e"
-	"\RYS%(RYSIdle)...Where did I leave that clipboard..?\e"
-	"\RYS%(RYSIdle)...Have to ask him for a new pen,\w4 the old one's out...\e"
-	"\RYS%(RYSIdle)...He'll want me for the test again...\e"
-	"\RYS%(RYSIdle)...Need to check on the control...\e"
-	"\RYS%(RYSIdle)...I still have to fill out those labels...\e"
-	"\RYS%(RYSIdle)...Still not sure why it went down...\e"
-	"\RYS%(RYSIdle)...It was looking better last time...\e"
-	"\RYS%(RYSIdle)...Maybe he'll ask for 0219 instead...\e"
-	"\RYS%(RYSIdle)...I hope he doesn't take me up top again...\e"
-	"\RYS%(RYSIdle)...Still have to clean that up,\w4 maybe I'll have time when I get back...\e"
-	"\RYS%(RYSIdle)...Gotta remember those codes...\e"
-	"\RYS%(RYSIdle)...Which file did he want again..?\w8\w8 Maybe I can search when I get back...\e"
-	"\RYS%(RYSIdle)...He'll be annoyed if I ask,\w4 but I have to get it right...\e"
-	"\RYS%(RYSIdle)...Maybe I won't bother him about that...\e"
-	"\RYS%(RYSIdle)...Maybe 0219 remembers...\e"
-	"\RYS%(RYSIdle)...Still not sure where that pen went...\e"
-	"\RYS%(RYSIdle)...Have to replace that coat soon...\e"
-	"\RYS%(RYSIdle)...It's almost ready for the next set of tests...\e"
-	"\RYS%(RYSIdle)...Need to make sure I turn that off next time...\e"
-	"\RYS%(RYSIdle)...I'll get all that sorted when I get back...\e"
-	"\RYS%(RYSIdle)...Have to clean up that mess,\w4 it's going to take all night...\e"
-	"\RYS%(RYSIdle)...0219 is almost ready,\w4 have to get out the containers...\e"
-	"\RYS%(RYSIdle)...I'll have to have that ready,\w4 it's almost time...\e"
-	"\RYS%(RYSIdle)...I think I can get it done...\e"
-	"\RYS%(RYSIdle)...It doesn't matter anyways...\e"
-	"\RYS%(RYSIdle)...I'll do it better next time...\e"
-	"\RYS%(RYSIdle)...Have to redo everything now...\e"
-	"\RYS%(RYSIdle)...Still needs cleaned up...\e"
-	"\RYS%(RYSIdle)...He'll be busy with the CORE...\e"
-	"\RYS%(RYSIdle)...I can't keep an eye on both,\w4 I'll have to see what's more volatile...\e"
-	"\RYS%(RYSIdle)...It's too hot,\w4 I need to make a note of it...\e"
-	"\RYS%(RYSIdle)...His mental state has gotten worse...\e"
-	"\RYS%(RYSIdle)...Have to keep a close eye on him...\e"
-	"\RYS%(RYSIdle)...Just a thing...\e"
-	"\RYS%(RYSIdle)...I'll check it again...\e"
-	
-	if snagged > 0; "\0\s[2008]* (He rubs his head...)\w8\w8\n\n* (It must still be bothering him.)\e"
-	
-	parallel Pool("Pool_RYS_SlightTrust_GoneLongTime","%(passhour > 4)")
-}
-
-	Pool_RYS_SlightTrust_GoneLongTime : array //passhour > 4
-	{
-		"\RYS\s[2004]...The Doctor must have noticed I'm gone by now...\e"
-		"\RYS\s[2014]...He's going to be furious...\e"
-		"\RYS\s[2014]* (He shudders quietly.)\e"
-	}
-	
-
-Pool_RYS_HighTrust : array //RYStrust >= 100
-{
-	"\RYS\s[2006]* (He's watching you while he thinks you aren't looking...)\w8\w8\w8\n\n* (Is that a glimmer of hope in his eyelights?)\e"
-	"\RYS\s[2022]* (You hear him sigh quietly...)\w8\w8\n\n* (He's still tense,\w4 but not as tense as he used to be.)\e"
-	"\RYS\s[2021]* (He's watching you out of the corner of his eye.)\w8\w8\n\n* (He looks a little confused...)\e"
-	"\RYS\s[2006]* (He's staring at you intently...)\w8\w8\n\n* (He looks a little awestruck.)\e"
-	"\RYS\s[2013]* (%(RYS) looks like he's zoned out a little...)\w8\w8\n\n* (At least that means he must trust you..?)\e"
-	"\RYS\s[2006]* (He's watching every move you make intently.)\e"
-	"\RYS\s[2006]* (His eyelights are tracking your cursor...)\e"
-	"\RYS\s[2006]* (He's sneaking curious glances at you when he thinks you're not looking.)\e"
-	
-	if passhour > 6; "\RYS\s[2005]* (He stifles a yawn.)\e"
-	if passhour > 6; "\RYS\s[2005]* (He looks like he's going to yawn, but doesn't.)\e"
-	if passhour > 6; "\RYS\s[2006]* (His eyesockets are drooping, just a little.)\e"
-	
-	if RYSpetstage == 4 && RYSlearn[0] == 0
-	{
-		"\RYS\s[2007]* (He shifts nervously,\w4 darting glances at you.)\w8\w8\n\n\s[2006]U-um...\w8\w8 %(username)..?\w8\w8\n\n\s[2014]...\w8\w8\s[2013]\w8\w8\n\n\s[2006]...Um,\w4 why do you touch my head..?"
-		--
-		"\n\n\![*]\q[I care about you,LearnPetCare]\n\![*]\q[I wanted to see how you'd react,LearnPetReact]\n\![*]\q[No reason,LearnPetNone]\n\n\![*]\q[Dismiss,LearnDismiss]\e RYSrandQ"
-	}
-	if RYSboots > 10 && RYShours > 10 && RYStrust >= 50 && RYSlearn[1] == 0
-	{
-		"\RYS\s[2007]* (He looks like he wants to ask you something...)\w8\w8\n\n\s[2006]...Um...\w8\w8\s[2008] %(username)..?\w8\w8\n\n\s[2014]...\w8\w8\s[2012]\w8\w8\n\n\s[2020]Um...\w8\w8\s[2021] Why do you bring me here..?"
-		--
-		"\n\n\![*]\q[I like having you around,LearnBringLike]\n\![*]\q[I want to keep you safe,LearnBringSafe]\n\![*]\q[I'm curious about you,LearnBringCurious]\n\![*]\q[No reason,LearnBringNone]\n\n\![*]\q[Dismiss,LearnDismiss]\e RYSrandQ"
-	}
-	if !(RYS == "RYS-0825" || RYS == "RYS" || RYS == "0825" || RYS == "Rhys") && RYStrust >= 50 && RYSlearn[2] == 0
-	{
-		"\RYS\s[2008]* (%(RYS) is fidgeting a little...)\w8\w8\n\n\s[2006]U-um...\w8\w8\s[2008] %(username)..?\w8\w8\w8\n\n.\w8.\w8.\w8\s[2006]Um,\w4 why do you call me '%(RYS)'..?"
-		--
-		"\n\n\![*]\q[I want you to have a nice name,LearnNameNice]\n\![*]\q[I thought it'd be funny,LearnNameFunny]\n\![*]\q[No reason,LearnNameNone]\n\n\![*]\q[Dismiss,LearnDismiss]\e RYSrandQ"
-	}
-	if RYShugs >= 10 && RYSlearn[3] == 0 && RYStrust >= 50
-	{
-		"\RYS\s[2007]* (%(RYS) is tapping his fingers nervously...)\w8\w8\n\n\s[2006]Um,\w4 %(username)..?\w8\w8\w8\s[2007] Um,\w8\s[2006] why do you put your arms around me sometimes..?"
-		--
-		"\n\n\![*]\q[It's to comfort you,LearnHugComfort]\n\![*]\q[I wanted to see how you'd react,LearnHugReact]\n\![*]\q[No reason,LearnHugNone]\n\n\![*]\q[Dismiss,LearnDismiss]\e RYSrandQ"
-	}
-	
-	parallel Pool("Pool_RYS_HighTrust_DifferentName","%(!(TOUPPER(RYS) == 'RYS' || TOUPPER(RYS) == 'RYS-0825' || RYS == '0825' || TOUPPER(RYS) == 'RHYS') && RYStrust >= 100 && RYSlearn[2] == 0)")
-}
-
-	Pool_RYS_HighTrust_DifferentName : array //TOUPPER(RYS) == 'RYS' || TOUPPER(RYS) == 'RYS-0825' || RYS == '0825' || TOUPPER(RYS) == 'RHYS' && RYStrust >= 100 && RYSlearn[2] == 0
-	{
-		"\RYS\s[2007]* (He's mumbling to himself...)\w8\w8\n\n'%(RYS)'...\w8\w8 Why..?\e"
-		"\RYS\s[2007]* (He's mumbling to himself...)\w8\w8\n\n'%(RYS)'...\w8\w8 Does it mean something..?\e"
-		"\RYS\s[2007]* (He's mumbling to himself...)\w8\w8\n\n'%(RYS)'...\w8\w8 Maybe I should ask..?\w8\w8\s[2013] No,\w4 I don't need to know...\e"
-	}
-
-
-Pool_RYS_OtherGhostsPresent : array //ghostexcount > 0
-{
-	_rand = RAND(ghostexcount)
-	_randghost = ghostexlist[_rand]
-	"\RYS\s[2013]* (He seems uncomfortable with other ghosts around...)\e"
-	"\RYS\s[2013]* (He shies away from %(_randghost),\w4 trying to stay out of sight.)\e"
-}
-
 
 Select.LearnPetCare
 {
