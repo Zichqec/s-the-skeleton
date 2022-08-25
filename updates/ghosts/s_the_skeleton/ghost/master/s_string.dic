@@ -1,13 +1,13 @@
 ﻿On_homeurl
 {
-	if betaTester == "ON"
-	{
-		"https://zichqec.github.io/s-the-skeleton/updates/beta_testing/s_the_skeleton/"
-	}
-	else
-	{
+	// if betaTester == "ON"
+	// {
+		// "https://zichqec.github.io/s-the-skeleton/updates/beta_testing/s_the_skeleton/"
+	// }
+	// else
+	// {
 		"https://zichqec.github.io/s-the-skeleton/updates/ghosts/s_the_skeleton/"
-	}
+	// }
 }
 
 //Note to anyone else reading this: This is a simplified version of this http://emily.shillest.net/ayaya/index.php?Tips/%E3%81%8A%E6%B0%97%E3%81%AB%E5%85%A5%E3%82%8A%E3%82%92%E6%9B%B8%E3%81%8D%E3%82%84%E3%81%99%E3%81%8F%E3%81%99%E3%82%8B
@@ -25,6 +25,18 @@ FormatLinks
 	_output
 }
 
+FormatLinks2
+{
+	_display = ""
+	for _i = 0; _i < ARRAYSIZE(_argv); _i++
+	{
+		_display += _argv[_i]
+		if _i % 2 == 0; _display += "%ASC(1)"
+		else; _display += "%ASC(2)"
+	}
+	_display
+}
+
 On_recommendrootbutton.caption
 {
 	"More from Zichqec"
@@ -32,7 +44,25 @@ On_recommendrootbutton.caption
 
 On_sakura.recommendsites
 {
-	FormatLinks(recommendlinks)
+	FormatLinks2(recommendlinks2)
+}
+
+portallinks2 : array
+{
+	"Ghost Template Walkthrough"; "http://www.ashido.com/ukagaka/walkthrough.html"
+	"SSP"; 						  "http://ssp.shillest.net/"
+	"Crow + SSP Reference (J)";   "http://crow.aqrs.jp/reference/all/index.html"
+	"Ghost Documentation (J)";    "http://usada.sakura.vg/contents/specification.html"
+	"Disc-2 (J)"; 				  "http://disc2.s56.xrea.com/"
+}
+
+recommendlinks2 : array
+{
+	"Zi's Ukagaka Hub"; 	"https://zichqec.github.io/s-the-skeleton/index.html"
+	"S on Toyhouse"; 		"https://toyhou.se/5587195.s"
+	"Zichqec's DA"; 		"https://www.deviantart.com/zichqec"
+	"Zichqec's Tumblr"; 	"https://zichqec.tumblr.com"
+	"Zichqec's Twitter"; 	"https://twitter.com/Zichqec"
 }
 
 recommendlinks : array
@@ -206,8 +236,6 @@ On_hidebutton.caption //default is 'Iconify'
 }
 
 
-
-
 //----------------------------------Stop!------------------------------------
 
 //Don't mess with anything after this point! It's all stuff you don't need to worry about. Just save and move on to the next .dic file.
@@ -221,11 +249,11 @@ On_vanishbutton.visible
 {
  	if deleteshitai == "ON" && holdingObsidian != 1
  	{
-		"1"
+		1
 	}
 	else
 	{
-		"0"
+		0
 	}
 }
 

@@ -182,6 +182,52 @@ surface111
 	element8,overlay,0_0_mouth_0,0,0
 }
 
+surface112
+{
+	//Base, head forward
+	element0,overlay,0_tail_0,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_l-arm_3,0,0
+	element3,overlay,0_r-arm_0,0,0
+	element4,overlay,0_head_0,0,0
+	element5,overlay,0_0_cracks,0,0
+	
+	element6,overlay,0_0_eyes_0,0,0
+	element7,overlay,0_0_eyebrows_0,0,0
+	element8,overlay,0_0_mouth_0,0,0
+}
+
+surface113
+{
+	//Base, head forward
+	element0,overlay,0_tail_1,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_l-arm_3,0,0
+	element3,overlay,0_r-arm_0,0,0
+	element4,overlay,0_head_0,0,0
+	element5,overlay,0_0_cracks,0,0
+	
+	element6,overlay,0_0_eyes_4,0,0
+	element7,overlay,0_0_eyebrows_2,0,0
+	element8,overlay,0_0_mouth_2,0,0
+}
+
+surface114
+{
+	//Base, head forward
+	element0,overlay,0_tail_2,0,0
+	element1,overlay,0_base,0,0
+	element2,overlay,0_l-arm_3,0,0
+	element3,overlay,0_r-arm_0,0,0
+	element4,overlay,0_head_0,0,0
+	element5,overlay,0_0_cracks,0,0
+	
+	element6,overlay,0_0_eyes_5,0,0
+	element7,overlay,0_0_eyebrows_3,0,0
+	element8,overlay,0_0_mouth_4,0,0
+	element9,overlay,0_extras_0,0,0
+}
+
 //Blink head 0 face 0 frame 0
 surface100000
 {
@@ -1554,7 +1600,7 @@ surface1210
 	element7,overlay,0_0_mouth_6,0,0
 }
 
-surface.append0,101,103,106,108,110,111,1200,1201,1206,1210
+surface.append0,101,103,106,108,110,111,112,114,1200,1201,1206,1210
 {
 	animation1.interval,random,4
 	animation1.pattern0,overlay,100000,50,0,0
@@ -1867,7 +1913,7 @@ surface.append412-415,1124
 
 //-----Collisions-----
 
-surface.append0,101-111,1040,1050,1060,1122,1200-1207,1298
+surface.append0,101-114,1040,1050,1060,1122,1200-1207,1298
 {
 	collisionex0,Head,polygon,114,48,103,50,105,52,105,61,104,63,102,65,102,68,124,68,124,53,119,48
 	collisionex1,Dent,polygon,125,51,124,53,124,68,127,72,129,72,131,71,133,68,130,66,130,62,127,61,127,53

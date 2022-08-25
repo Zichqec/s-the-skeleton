@@ -112,7 +112,7 @@ OnFileDrop2
 					{
 						"\0\s[106]Sorry,\w4 I don't recognize that file type.\w8\w8\s[107] I'm not very good with computers,\w4 to be honest with you.\e"
 						"\0\s[106]Sorry,\w4 I'm not sure what to do with a %(_fileext).\e"
-						"\0\s[107]...Yep,\w4 that's a %(_fileext).\e"
+						"\0\s[107]...Yep,\w4 that's a %(_fileext).\w8\w8 Whatever that is.\e"
 						"\0\s[106]Sorry kiddo,\w4 I'm not sure what to do with that.\e"
 						"\0\s[106]Sorry kiddo,\w4 got no idea what to do with that.\e"
 					}		
@@ -303,8 +303,8 @@ OnWallpaperCancel
 }
 
 
- //---- OnInstallBegin -------------------------------------------------------
- //OnInstallBegin is called when a file with an included install.txt is dropped on your ghost. This primarily means things like .nar files for other ghosts or .zip files containing balloons or shells for your ghosts. Primarily ghost-related things. Replace as you want.
+//---- OnInstallBegin -------------------------------------------------------
+//OnInstallBegin is called when a file with an included install.txt is dropped on your ghost. This primarily means things like .nar files for other ghosts or .zip files containing balloons or shells for your ghosts. Primarily ghost-related things. Replace as you want.
  
 OnInstallBegin
 {
@@ -363,7 +363,7 @@ OnInstallComplete
 		}
 		elseif holdingObsidian == 1
 		{
-			"\0\s[1201]It's a new shell.\e"
+			"\0\s[1201]It's a new shell.\e" //TODO lol this is definitely an incomplete line
 		}
 		elseif nowmode == "Asleep"
 		{
@@ -718,6 +718,7 @@ OnInstallFailure
 			}
 			else
 			{
+				//artificial error for cancelled install
 				"\s[106]I'm not sure why.\e"
 				"\s[106]I don't know why.\e"
 			}
@@ -871,11 +872,6 @@ OnVanishSelected
 	}
 }
 
-OnSharedValueRead
-{
-	"%(reference)"
-}
-
 //If you select Uninstall from the menu, but decide not to do it.
 OnVanishCancel
 {
@@ -1013,7 +1009,7 @@ OnBIFFBegin
 		{
 			"\RYS\s[2007]Oh,\w4 um...\w8\w8\s[2006] Alright,\w4 I'll look for emails...\e"
 		}
-		elseif holdingObsidian == 1
+		elseif holdingObsidian == 1 //Don't think I need this??? Cause you can't be in his menu if he has the cat
 		{
 			"\0\s[1206]Uh,\w4 alright,\w4 just a second.\e"
 		}
@@ -1080,7 +1076,7 @@ OnBIFFComplete
 	//"Ref 0: %(reference0)\n\nRef 1: %(reference1)\n\nRef 2: %(reference2)\n\nRef 3: %(reference3)\n\nRef 7: %(headers)\x"
 	if reference7 != "" && reference0 <= 100
 	{
-		headers = OnGetHeaders
+		headers = SPLIT(reference.raw[7],C_BYTE1)
 	}
 	--
 	if reference0 == 0 //If you have no new mail.
@@ -1196,7 +1192,7 @@ OnBIFFComplete
 			"\0\s[1207]Geez,\w4 over 100 new emails.\e"
 		}
 		elseif nowmode == "Asleep"
-		{
+		{ //probably needs to fall back asleep here
 			"\0\s[109]Over 100 new...\e"
 		}
 		else
@@ -1286,13 +1282,21 @@ OnBIFFComplete
 		"\n\n\![*]\q[Yes,seeheaders]\n\![*]\q[No,cancelnodialogue]\e"
 	}
 	else
-	{
+	{ //probably need to add a thing for sleep mode here so he'll go back to sleep if there are no headers... Maybe don't do the one above
 		"\e"
 	}
 }
 
 Select.seeheaders
 {
+	_display = ""
+	foreach headers; _header
+	{
+		_display += "\![*]"
+		_display += SHIORI3FW.EscapeAllTags(_header)
+		_display += "\n\n"
+	}
+	
 	if nowmode == "RYS"
 	{
 		"\RYS\s[2006]"
@@ -1317,11 +1321,12 @@ Select.seeheaders
 		}
 	}
 	--
-	"\b2\_q%(headers)\*\n\n\![*]\q[I'm done,cancelnodialogue]"
+	"\b2\_q\![no-autopause]%(_display)\*\n\n\![*]\q[I'm done,cancelnodialogue]"
 	--
 	ERASEVAR("headers")
 }
 
+/*
 OnGetHeaders
 {
 	_headers = reference7
@@ -1344,6 +1349,7 @@ OnGetHeaders
 	}
 	_display
 }
+*/
 
 //---- OnBIFFFailure ---------------------------------------------------------------
 //Various error messages that can happen when your ghost tries to connect to an email account. Replace the dialogue as appropriate.
@@ -1802,34 +1808,34 @@ OnUpdateFailure
 	{
 		if nowmode == "RYS"
 		{
-			"\RYS\s[2006]Sorry,\w4 the MD5 values don't match...\w8\w8\s[2007] You should let anZichqec know...\e"
+			"\RYS\s[2006]Sorry,\w4 the MD5 values don't match...\w8\w8\s[2007] You should let @Zichqec know...\e"
 		}
 		elseif holdingObsidian == 1
 		{
-			"\0\s[1206]The MD5 values don't match,\w4 you should let anZichqec know.\e"
+			"\0\s[1206]The MD5 values don't match,\w4 you should let @Zichqec know.\e"
 		}
 		elseif nowmode == "Asleep"
 		{
-			"\0\s[109]The MD5 values don't match...\w8\w8 You should tell anZichqec...\w8\w8 \s[1300]%(mumb)...\e"
+			"\0\s[109]The MD5 values don't match...\w8\w8 You should tell @Zichqec...\w8\w8 \s[1300]%(mumb)...\e"
 		}
 		else
 		{
 			if LV == 0
 			{
-				"\0\s[107]Sorry kiddo,\w4 something went wrong.\w8\w8\s[106] The MD5 values don't match.\w8\w8\s[0] You should let anZichqec know so she can fix it.\e"
-				"\0\s[107]The MD5 values don't match,\w4 I can't finish the update.\w8\w8\s[106] That's on anZichqec's end,\w4 you should let her know so she can fix it.\e"
-				"\0\s[107]The files aren't set up correctly,\w4 I got an MD5 error.\w8\w8\s[106] You should let anZichqec know so she can fix the update files.\e"
-				"\0\s[101]Whoops,\w4 looks like the dev made a mistake.\w8\w8 Let anZichqec know,\w4 will you?\e"
+				"\0\s[107]Sorry kiddo,\w4 something went wrong.\w8\w8\s[106] The MD5 values don't match.\w8\w8\s[0] You should let @Zichqec know so she can fix it.\e"
+				"\0\s[107]The MD5 values don't match,\w4 I can't finish the update.\w8\w8\s[106] That's on @Zichqec's end,\w4 you should let her know so she can fix it.\e"
+				"\0\s[107]The files aren't set up correctly,\w4 I got an MD5 error.\w8\w8\s[106] You should let @Zichqec know so she can fix the update files.\e"
+				"\0\s[101]Whoops,\w4 looks like the dev made a mistake.\w8\w8 Let @Zichqec know,\w4 will you?\e"
 			}
 			else
 			{
 				if LVCheck == 1
 				{
-					"\0\s[515]...I'm sorry,\w4 the files don't match.\w8\w8\s[516] You should let anZichqec know so she can fix it.\e"
+					"\0\s[515]...I'm sorry,\w4 the files don't match.\w8\w8\s[516] You should let @Zichqec know so she can fix it.\e"
 				}
 				else
 				{
-					"\0\s[400]The files don't match.\w8\w8\s[402] You'll have to talk to anZichqec about that,\w4 I can't do anything for you."
+					"\0\s[400]The files don't match.\w8\w8\s[402] You'll have to talk to @Zichqec about that,\w4 I can't do anything for you."
 				}
 			}
 		}
@@ -1899,20 +1905,20 @@ OnUpdateFailure
 		{
 			if LV == 0
 			{
-				"\0\s[106]Sorry kiddo,\w4 something went wrong.\w8\w8\s[1070] All it says is '%(reference0)'.\w8\w8\s[106] Maybe you should let anZichqec know about that?\e"
-				"\0\s[110]Ah,\w4 sorry,\w4 something went wrong.\w8\w8\s[106] Something about '%(reference0)'?\w8\w8 You should let anZichqec know about that.\e"
-				"\0\s[106]Looks like something went wrong,\w4 sorry.\w8\w8\s[110] It says '%(reference0)'.\w8\w8\s[106] Maybe you should ask anZichqec about that?\e"
-				"\0\s[107]Hmm,\w4 no can do.\w8\w8 Got some kind of error that says '%(reference0)'.\w8\w8 anZichqec might be able to help you out with that.\e"
+				"\0\s[106]Sorry kiddo,\w4 something went wrong.\w8\w8\s[1070] All it says is '%(reference0)'.\w8\w8\s[106] Maybe you should let @Zichqec know about that?\e"
+				"\0\s[110]Ah,\w4 sorry,\w4 something went wrong.\w8\w8\s[106] Something about '%(reference0)'?\w8\w8 You should let @Zichqec know about that.\e"
+				"\0\s[106]Looks like something went wrong,\w4 sorry.\w8\w8\s[110] It says '%(reference0)'.\w8\w8\s[106] Maybe you should ask @Zichqec about that?\e"
+				"\0\s[107]Hmm,\w4 no can do.\w8\w8 Got some kind of error that says '%(reference0)'.\w8\w8 @Zichqec might be able to help you out with that.\e"
 			}
 			else
 			{
 				if LVCheck == 1
 				{
-					"\0\s[512]...I'm sorry,\w4 something went wrong.\w8\w8 All it says is '%(reference0)'.\w8\w8\s[510] You might try talking to anZichqec about that.\e"
+					"\0\s[512]...I'm sorry,\w4 something went wrong.\w8\w8 All it says is '%(reference0)'.\w8\w8\s[510] You might try talking to @Zichqec about that.\e"
 				}
 				else
 				{
-					"\0\s[410]Something went wrong.\w8\w8 All it says is '%(reference0)'.\w8\w8\s[402] Maybe you should try asking anZichqec about that.\e"
+					"\0\s[410]Something went wrong.\w8\w8 All it says is '%(reference0)'.\w8\w8\s[402] Maybe you should try asking @Zichqec about that.\e"
 				}
 			}
 		}
@@ -1926,7 +1932,7 @@ OnUpdate.OnDownloadBegin
 		"\RYS"
 	}
 	--
-	"\b2\_q* (Downloading %(reference0)...)\n\n"
+	"\b2\![no-autopause]\_q* (Downloading %(reference0)...)\n\n"
 	--
 	_Update_Process = TOINT(reference1) + 1
 	_Update_Total = TOINT(reference2) + 1
@@ -2033,110 +2039,122 @@ Select.nochangelog
 
 ghostver //S's current version, so I don't have to remember to update it on every menu
 {
-	"1.4.4"
+	"1.5.0"
 }
 
 LatestUpdate
 {
-	"\_l[84]-Version 1.4.4-\n\n\n[half]/
-	-Added some new dialogue!\n\n/
-	-Added a new system where he has different stuff he says while talking to himself each week! It's not complete yet, but the base is there.\n\n/
-	-Updated him to the latest version of YAYA.\n\n/
-	-Added dialogue pools to his secret mode.\n\n/
-	-When you haven't unlocked all the options in his menu, it'll now show that there's something to be unlocked there.\n\n/
-	-Small bugfixes everywhere. Thanks again to the folks who have sent in reports,%(br)even for something as small as a typo!\n\n/
-	"
+	<<"
+	%(MenuHeader("Version 1.5.0"))
+	• Rearranged some of his main menu, eliminated a lot of options from the act and item menus and combined what was left into hopefully a better menu.
+	• Expanded the gushing action, added a new confide action and waving action.
+	• Slightly rebalanced how much asking questions progresses you through friendship stages, among other tweaks.
+	• Added more dialogue for waking up, drinking, asking questions in the menu, recognizing some \_a[https://zichqec.github.io/s-the-skeleton/hydrate]Hydrate\_a shells, and more.
+	• Added dialogues for minimizing him, changing to a few specific ghosts, and poking him with \_a[https://zichqec.github.io/s-the-skeleton/needle]Needle\_a.
+	• Updated S's weather system, he now uses the \_a[https://zichqec.github.io/s-the-skeleton/saoris_plugins_tools#weather_station]Weather Station\_a plugin to get weather. This means you will need to download and install the plugin if you don't have it, but the weather should be much more reliable in the long term, and will not cause massive lag spikes anymore.
+	• Unfortunately, this means S can also no longer get pollen data. Perhaps one day I will find a way to incorporate this, but I haven't yet.
+	• This also means that S recognizes a few new weather conditions as well, mostly to do with winter conditions.
+	• S can now optionally be pet with the mouse wheel instead of moving the cursor back and forth.
+	• The weekly dialogue system has been expanded, and S now has ~7-8 different dialogues muttering to himself each week.
+	• Added an easter egg if you flip S around backwards with shell scaling.
+	• Added an easter egg if anyone but me tries to use Tama on S.
+	• Improved internal handling of email headers significantly.
+	• Fixed a bug where you could never reach the final stage of petting in S's secret mode.
+	• Fixed an issue where double clicking S when he was waking up from a nightmare would cause him to not wake up.
+	• Fixed some typos.
+	• Removed the beta tester option since I no longer plan to use it.
+	• Rearranged a lot of code, simplifying S's dialogue pools.
+	• Lots of internal optimizations to make my life easier, including adding markdown processing. Hopefully this hasn't broken any old scripts, let me know if you see anything funky.
+	• Removed a bunch of test code.
+	• Updated YAYA to Tc571-3.
+	">>
 }
 
-OnChangeLog //Haha I hope I remember to update this
+OnChangeLog : all //Haha I hope I remember to update this
 {
-	if nowmode == "RYS"
-	{
-		"\RYS"
-	}
-	--
-	"\![set,autoscroll,disable]\_q\b2"
-	--
-	"%(ChangeLog[reference0])"
-	--
+	_display = BreakLines(ChangeLog[reference0])
+	_g = "\f[color,disable]"
+	_d = "\f[color,default]"
+	
+	
+	if nowmode == "RYS"; "\RYS"
+	
+	"\C\![lock,balloonrepaint]\c\![no-markdown]\_q\![set,autoscroll,disable]\![no-autopause]\b2"
+	
+	"%(_display)\n\n"
+	
 	if reference1 == "frommenu"
 	{
-		if nowmode == "RYS"
-		{
-			"\![*]\q[Back to functions,OnFunctionRYS]\n"
-		}
-		else
-		{
-			"\![*]\q[Back to functions,Onbacktofunctions]\n"
-		}
+		if nowmode == "RYS"; "\![*]\q[Back to functions,OnFunctionRYS]  "
+		else; "\![*]\q[Back to functions,Onbacktofunctions]  "
 	}
-	--
+	
 	"\![*]\q[I'm done,cancelnodialogue]"
-	--
+	
+	
 	"\_l[0,0]"
-	--
-	if reference0 >= ARRAYSIZE(ChangeLog) - 1; "\f[color,150,150,150]<<\f[color,default]"
-	else; "\q[<<,OnChangeLog,%(ARRAYSIZE(ChangeLog) - 1)]"
-	--
+	
+	if reference0 >= ARRAYSIZE(ChangeLog) - 1; "%(_g)<<%(_d)"
+	else; "\q[<<,OnChangeLog,%(ARRAYSIZE(ChangeLog) - 1),%(reference1)]"
+	
 	"  "
-	--
-	if reference0 >= ARRAYSIZE(ChangeLog) - 1; "\f[color,150,150,150]< Prev\f[color,default]"
-	else; "\q[< Prev,OnChangeLog,%(reference0 + 1)]"
-	--
-	//"    |%(ChangeVersion[reference0])|    "
-	"                                             "
-	--
-	if reference0 <= 0; "\f[color,150,150,150]Next >\f[color,default]"
-	else; "\q[Next >,OnChangeLog,%(reference0 - 1)]"
-	--
+	
+	if reference0 >= ARRAYSIZE(ChangeLog) - 1; "%(_g)< Prev%(_d)"
+	else; "\q[< Prev,OnChangeLog,%(reference0 + 1),%(reference1)]"
+	
+	"%(newline)\f[align,right]"
+	
+	if reference0 <= 0; "%(_g)Next >%(_d)"
+	else; "\q[Next >,OnChangeLog,%(reference0 - 1),%(reference1)]"
+	
 	"  "
-	--
-	if reference0 <= 0; "\f[color,150,150,150]>>\f[color,default]"
-	else; "\q[>>,OnChangeLog,0]"
-	--
-	if reference0 == 0; "\n\_l[81]\f[height,-1]\f[color,150,150,150](Current version)"
-	--
-	"\e"
+	
+	if reference0 <= 0; "%(_g)>>%(_d)"
+	else; "\q[>>,OnChangeLog,0,%(reference1)]"
+	
+	if reference0 == 0; "\n\f[align,center]\f[height,-1]%(_g)(Current version)"
+	
+	"\![unlock,balloonrepaint]"
 	
 } //the autoscroll tag at the top there means that it'll display starting from the top. As far as I can tell, that tag is disabled once the balloon changes? Doesn't seem to be causing any problems anyways.
 
 
- //---- OnUpdate.OnMD5CompareFailure ---------------------------------------------------
- //If the MD5 values don't match. If you follow my Network Update directions carefully, this shouldn't come up very often, but don't be surprised if you run into it every now and then by forgetting a file here or there.
+//---- OnUpdate.OnMD5CompareFailure ---------------------------------------------------
+//If the MD5 values don't match. If you follow my Network Update directions carefully, this shouldn't come up very often, but don't be surprised if you run into it every now and then by forgetting a file here or there.
  
-OnUpdate.OnMD5CompareFailure
-{
-	if nowmode == "RYS"
-	{
-		"\RYS\b2\s[2007]The MD5 values don't match...\w8\w8\e"
-	}
-	elseif holdingObsidian == 1
-	{
-		"\0\b2\s[1207]The MD5 values don't match.\w8\w8\e"
-	}
-	elseif nowmode == "Asleep"
-	{
-		"\0\b2\s[109]...The MD5 values don't match...\w8\w8 %(mumb)...\w8\w8\e"
-	}
-	else
-	{
-		if LV == 0
-		{
-			"\0\b2\s[1070]The MD5 values don't match.\w8\w8\e"
-		}
-		else
-		{
-			if LVCheck == 1
-			{
-				"\0\b2\s[510]The MD5 values don't match...\w8\w8\e"
-			}
-			else
-			{
-				"\0\b2\s[410]The MD5 values don't match.\w8\w8\e"
-			}
-		}
-	}
-}
+// OnUpdate.OnMD5CompareFailure
+// {
+	// if nowmode == "RYS"
+	// {
+		// "\RYS\b2\s[2007]The MD5 values don't match...\w8\w8\e"
+	// }
+	// elseif holdingObsidian == 1
+	// {
+		// "\0\b2\s[1207]The MD5 values don't match.\w8\w8\e"
+	// }
+	// elseif nowmode == "Asleep"
+	// {
+		// "\0\b2\s[109]...The MD5 values don't match...\w8\w8 %(mumb)...\w8\w8\e"
+	// }
+	// else
+	// {
+		// if LV == 0
+		// {
+			// "\0\b2\s[1070]The MD5 values don't match.\w8\w8\e"
+		// }
+		// else
+		// {
+			// if LVCheck == 1
+			// {
+				// "\0\b2\s[510]The MD5 values don't match...\w8\w8\e"
+			// }
+			// else
+			// {
+				// "\0\b2\s[410]The MD5 values don't match.\w8\w8\e"
+			// }
+		// }
+	// }
+// }
 
 
 
@@ -2911,7 +2929,14 @@ OnSNTPFailure
 		}
 		else
 		{
-			"\0\s[510]...Sorry,\w4\s[515] something went wrong.\e"
+			if LVCheck == 1
+			{
+				"\0\s[510]...Sorry,\w4\s[515] something went wrong.\e"
+			}
+			else
+			{
+				//TODO needs filled
+			}
 		}
 	}
 }
@@ -2933,7 +2958,6 @@ OnDisplayChange
 //Note: This is a NOTIFY event, so dialogue here is useless and I wont add anymore. Also I can never get it to activate anyways.
 OnScreenSaverStart
 {
-	screensaverstarttest = "yes"
 	if nowmode == "RYS"
 	{
 		"\s[2015]* (He gasps.)\e"
@@ -2950,20 +2974,15 @@ OnScreenSaverStart
 			"\0\s[1100]What the-\e"
 			"\0\s[1100]Is that-\e"
 		}
-		else
-		{
-			""
-		}
-	}
-	//Replace with what you want.
+	}	
 }
+
 
 //---- OnScreenSaverEnd -------------------------------------------------------
 //When you wiggle your mouse and stop your screensaver.
 //I've also never seen this one, but it doesn't say it's a NOTIFY event, so... I'll keep adding
 OnScreenSaverEnd
 {
-	testscreensavervar = "yes"
 	if nowmode == "RYS"
 	{
 		"\RYS\s[2013]* (He's shivering all over...)\e"
@@ -2998,6 +3017,7 @@ OnScreenSaverEnd
 		}
 	}
 }
+
 
 
 
@@ -3064,31 +3084,12 @@ OnBatteryCritical
 		}
 	}
 }
- 
-//--OnBatteryNotify--------------------------------------------------------------------
-//This I believe checks to see if your laptop is plugged in or not. Originally this bit of code was commented out, so I suspect it may not work. It may need a plug-in of some sort. Either way, you can delete it or fill it out as you like.
-//Actually investigating this, leaving this in makes it so the ghost updates you about whether or not your computer is plugged-in constantly, which makes no sense for desktops. No doubt why it was commented out. Just leave it be.
-
-
-//Would be nice to set this up to auto check if you're running on battery power, and if so, use reference0 to check for specific thresholds (75%, 50%, 25%) and notify you when you reach them. But only the first time you reach them, so it's not constant.
-/*
-OnBatteryNotify
-{
-	if reference2 == "online" //If your laptop is plugged in
-	{
-		"\0\s[0]The laptop is plugged in.\e"
-	}
-	elseif reference2 == "offline" //If you unplug your laptop
-	{
-		"\1\s[10]The laptop is not plugged in.\w8\0\s[0]Watch your battery.\e"
-	}
-}
-*/
 
 
 //---- OnSysResourceLow -----------------------------------------------------------
 //A notification for if your system resources are low. I've never seen this happen and my system resources can run pretty low sometimes (woo windows xp woooo), so I suspect this one also may not work without the right plug-in, but I could be wrong. You might as well fill it out.
-/* //This function is a lie! Or perhaps it does require a plugin. I can find no evidence of this event existing on the wiki.
+//This function is a lie! Or perhaps it does require a plugin. I can find no evidence of this event existing on the wiki.
+//Update: it's not a lie, it's on the external SHIORI events page. So... I should update this. ...TODO add other modes here
 OnSysResourceLow
 {
 	if nowmode == "RYS"
@@ -3105,7 +3106,7 @@ OnSysResourceLow
 		}
 	}
 }
-*/
+
 
 OnShellScaling
 {
@@ -3462,8 +3463,7 @@ OnOtherGhostChanged
 	{
 		if reference0 == "Dusty"
 		{
-			holdingObsidian = 0
-			"\0\s[1210]Oh,\w4 wait a momen\s[-1]t-!\w8\w8\w8\n\n.\w8.\w8.\w8\n\n\s[107]Can't leave Obsidian here...\e"
+			GiveCatBack
 		}
 	}
 }
@@ -3474,10 +3474,15 @@ OnOtherGhostClosed
 	{
 		if reference0 == "Dusty"
 		{
-			holdingObsidian = 0
-			"\0\s[1210]Oh,\w4 wait a momen\s[-1]t-!\w8\w8\w8\n\n.\w8.\w8.\w8\n\n\s[107]Can't leave Obsidian here...\e"
+			GiveCatBack
 		}
 	}
+}
+
+GiveCatBack
+{
+	holdingObsidian = 0
+	"\0\s[1210]Oh,\w4 wait a momen\s[-1]t-!\w8\w8\w8\n\n.\w8.\w8.\w8\n\n\s[107]Can't leave Obsidian here...\e"
 }
 
 OnBalloonBreak //This is so dumb XD do I keep this? I don't know -- Update, I'm keeping it but it's going in the config menu lol
@@ -3510,15 +3515,6 @@ OnBalloonBreak //This is so dumb XD do I keep this? I don't know -- Update, I'm 
 		}
 		balloonspopped += 1
 	}
-	else
-	{
-		""
-	}
-	/*--
-	if FromDragging == 2
-	{
-		"\![get,property,OnCheckPosition,currentghost.scope(0).rect]"
-	}*/
 }
 //This is the old way I had him update coordinates if he was talking. Hopefully I won't need this anymore! But I do need to put a thing for the suppression variable
 OnBalloonClose
@@ -3539,40 +3535,15 @@ OnBalloonTimeout
 	suppressCoords = 0
 }
 
-/*OnOtherOverlap
-{
-	if nowmode == "RYS"
-	{
-		
-	}
-	else
-	{
-		if LV == 0
-		{
-			if reference0 == "Dusty/1-RYS-0825/0"
-			{
-				heldObsidian++
-				holdingObsidian = 1
-				lookingatphone = 0
-				currentlydrinking = 0
-				res_reference0 = "Dusty"
-				"\e SPickupObsi01"
-			}
-			//elseif reference1 == "Dusty/1-RYS-0825/0"
-			//{
-			//	"\0\s[0]"
-			//}
-		}
-	}
-}*/
-
 OnWindowStateMinimize
 {
+	"\0\s[-1]* (You stuff him in your taskbar.)\e"
+	--
 	if holdingObsidian == 1
 	{
 		res_reference0 = "Dusty"
 		holdingObsidian = 0
-		"\e SObsiMinimize"
+		" SObsiMinimize"
 	}
 }
 
@@ -3592,609 +3563,10 @@ BalloonCheck
 	}
 }
 
-//Weather Checking -------------------------------------------------------
-//following functions can go in menu dic, or a seperate dic entirely
-//functions for scraping weather.com for weather data.
-//author: vita @yuyudev on twitter
-//referenced zarla's hunter and smoker ghost, and https://forum.rainmeter.net/viewtopic.php?t=34470
-//
-//please add the following variables to your bootend dic in the function OnFirstBoot
-//curlocation = ""
-//locationcode = ""
-//these two I also added to OnBoot
-//intalkconfig = 0
-//weatherquiet = 0
-
-//starting the weather checking
-OnWeatherLocation
-{
-	weatherquiet = 0
-	if Degrees == ""; {Degrees[0] = "Fahrenheit"; Degrees[1] = "°F"}
-	
-	if curlocation != "" && curlocation != "Set a location"
-	{
-		"\b2The last location you gave me was %(curlocation).\n\n"
-	}
-	else
-	{
-		"\b2"
-	}
-	--
-	"\_q\0\s[0]Do you live inside or outside the USA?"
-	--
-	"\n\n/
-	\![*]\q[In the USA,OnUSALoc]\n/
-	\![*]\q[Outside the USA,OnOtherLoc]\n\n/
-	\![*](Current format: \q[%(Degrees[0]),ToggleDegreesLocation])\n\n/
-	\![*]\q[Back to config,toconfig]\e"
-	
-}
-
-
-OnUSALoc
-{
-	templocation = "USA"
-	
-	"\0\s[0]Alright then,\w4 what's your zipcode?"
-	"\0\s[0]Ok,\w4 what's your zipcode,\w4 then?"
-	"\0\s[0]Alright,\w4 what's your zipcode?"
-	"\0\s[0]Ok.\w8\w8 Zipcode,\w4 please?"
-	--
-	"\![open,inputbox,OnLocCode,-1, ]\![set,balloontimeout,-1]\e"
-}
-
-OnOtherLoc
-{
-	templocation = ""
-	
-	"\0\s[0]Ok,\w4 no problem.\w8\w8 Please go to \_a[https://weather.com/]weather.com\_a,\w4 search for your city,\w4 and enter the URL."
-	--
-	"\![open,inputbox,OnLocCode,-1]\![set,balloontimeout,-1]\e"
-}
-
-Select.ToggleDegreesLocation
-{
-	if Degrees != "Fahrenheit,°F"
-	{
-		Degrees = "Fahrenheit,°F"
-		tempurature[0] = tempurature[1]
-	}
-	else
-	{
-		Degrees = "Celsius,°C"
-		tempurature[0] = tempurature[2]
-	}
-	OnWeatherLocation
-}
-
-OnLocCode
-{
-	reference0 = CUTSPACE(TOSTR(reference0))
-	
-	if templocation == "USA"
-	{
-		tempcode = reference0
-	}
-	else
-	{
-		if "/l/" _in_ reference0
-		{
-			tempcode = SPLIT(reference0,"/l/")[1]
-		}
-		else
-		{
-			tempcode = reference0
-		}
-	}
-	--
-	"\![execute,http-get,https://zichqec.github.io/s-the-skeleton/weatherregex.html,--async=OnNonFunction,--file=weatherregex.html,--timeout=300]"
-	--
-	"\![execute,http-get,https://weather.com/weather/today/l/%(tempcode),--async=OnCheckWeatherLoc,--file=weather.html,--timeout=300]%(loadingmoon)"
-}
-
-OnCheckWeatherLocFailure
-{
-	// tempurature = "Unknown"
-	// ForC = "Unknown"
-	// feelslike = "Unknown"
-	// humidity = "Unknown"
-	// wind = "Unknown"
-	// weather = "Unknown"
-	// pollen = "Unknown"
-	// phase = "Unknown"
-	// sunset = "Unknown"
-	// sunrise = "Unknown"
-	if weatherquiet == 1
-	{
-		weatherquiet = 0
-		"\e"
-	}
-	--
-	if reference4 == "404"
-	{
-		if templocation == "USA"
-		{
-			"\0\s[106]Sorry,\w4 something went wrong.\w8\w8 "
-			--
-			if STRLEN(tempcode) != 5
-			{
-				"That's not a valid zipcode.\w8\w8\n\n"
-			}
-		}
-		else
-		{
-			"\0\s[106]Sorry,\w4 something went wrong.\w8\w8 You can enter the whole URL,\w4 or if that doesn't work,\w4 you can enter the long string of letters and numbers at the end of the URL,\w4 after the last /.\w8\w8\n\n"
-		}
-	}
-	elseif reference4 == "timeout"
-	{
-		"\0\s[106]Sorry,\w4 the connection timed out.\w8\w8 Maybe try again later?\e"
-		"\0\s[206]Sorry,\w4 the connection dropped.\w8\w8\s[106] Maybe you can try another time?\e"
-	}
-	else
-	{
-		"\0\s[106]Sorry,\w4 looks like something went wrong.\w8\w8 The error I got was '%(reference4)'.\w8\w8 You should tell anZichqec about that.\e"
-	}
-	--
-	"Do you want to try again?\n\n\![*]\q[Yes,OnWeatherLocation]\n\![*]\q[No,cancelnodialogue]"
-}
-
-OnCheckWeatherLoc
-{
-	templocation = ""
-	_file = "var\\weather.html"
-	_file2 = "var\\weatherregex.html"
-	_buff=""
-	_buff2=""
-	
-	_reg = ''
-	_regloc = '';      _Cregloc = '';      _Fregloc = ''
-	
-	FCHARSET(1)
-	
-	tempurature = "Unknown"
-	ForC = "Unknown"
-	feelslike = "Unknown"
-	humidity = "Unknown"
-	wind = "Unknown"
-	weather = "Unknown"
-	pollen = ""
-	sunrise = "Unknown"
-	sunset = "Unknown"
-	phase = "Unknown"
-
-	--
-	if FOPEN(_file2,'r')
-	{
-		for _buff2 = FREAD(_file2); _buff2 != -1; _buff2 = FREAD(_file2)
-		{
-			if RE_SEARCH (_buff2,'CREG--(.*)--CREG'); {_reg = RE_GETSTR[1]}
-			if RE_SEARCH (_buff2,'CREGLOC--(.*)--CREGLOC'); {_Cregloc = RE_GETSTR[1]}
-			if RE_SEARCH (_buff2,'FREGLOC--(.*)--FREGLOC'); {_Fregloc = RE_GETSTR[1]}
-		}
-	}
-	--
-	FCLOSE(_file2);
-	--
-	if FOPEN(_file,'r') {
-	
-		_buff = FREAD(_file) //get the first line of the HTML to check what type of page we got
-
-		if RE_SEARCH(_buff, _reg) //reg expressions for chrome formatted page
-		{
-			_regloc = _Cregloc
-		}
-		else //reg expressions for firefox formatted page
-		{
-			_regloc = _Fregloc
-		}
-
-		for _buff = FREAD(_file); _buff != -1; _buff = FREAD(_file)
-		{
-			if RE_SEARCH (_buff,_regloc); {templocation = RE_GETSTR[1]} //set location
-		}
-	}
-	--
-	FCLOSE(_file);
-	--
-	"\0\s[111]So it's %(templocation)?"
-	"\0\s[111]%(templocation),\w4 then?"
-	"\0\s[111]Is it %(templocation)?"
-	"\0\s[111]Is %(templocation) correct?"
-	--
-	"\n\n/
-	\![*]\q[Yes,confirmweather]\n/
-	\![*]\q[Enter a different location,OnWeatherLocation]\n/
-	\![*]\q[Cancel,cancelnodialogue]"
-}
-
-Select.confirmweather
-{
-	locationcode = tempcode
-	curlocation = templocation
-	tempurature = "Unknown"
-	ForC = "Unknown"
-	feelslike = "Unknown"
-	humidity = "Unknown"
-	wind = "Unknown"
-	weather = "Unknown"
-	pollen = "Unknown"
-	phase = "Unknown"
-	sunset = "Unknown"
-	sunrise = "Unknown"
-	--
-	if fromfunctionmenu == 1
-	{
-		fromfunctionmenu = 0
-		weatherquiet = 0
-		"\![raise,OnDownloadCurWeather]"
-	}
-	else
-	{
-		TalkConfig
-	}
-}
-
-
-//current weather functions
-OnDownloadCurWeather
-{
-	if weatherquiet == 0
-	{
-		"\0\![execute,http-get,https://zichqec.github.io/s-the-skeleton/weatherregex.html,--async=OnNonFunction,--file=weatherregex.html,--timeout=300]"
-		--
-		"\![execute,http-get,https://weather.com/weather/today/l/%(locationcode),--async=OnCurWeatherFound,--file=weather.html,--timeout=300]%(loadingmoon)"
-	}
-	else
-	{
-		"\0\![execute,http-get,https://zichqec.github.io/s-the-skeleton/weatherregex.html,--async=OnNonFunction,--file=weatherregex.html,--timeout=300,--nodescript]"
-		--
-		"\![execute,http-get,https://weather.com/weather/today/l/%(locationcode),--async=OnCurWeatherFound,--file=weather.html,--timeout=300,--nodescript]\b[-1]\e"
-	}
-}
-
-OnCurWeatherFound
-{ 
-	templocation = ""
-	_file = "var\\weather.html"
-	_file2 = "var\\weatherregex.html"
-	_buff=""
-	_buff2=""
-	
-	_reg = '';         _regsunrise = '';   _regsunset = ''
-	_regtemp = '';     _Cregtemp = '';     _Fregtemp = ''
-	_regdegree = '';   _Cregdegree = '';   _Fregdegree = ''
-	_regfeels = '';    _Cregfeels = '';    _Fregfeels = ''
-	_reghumidity = ''; _Creghumidity = ''; _Freghumidity = ''
-	_regwind = '';     _Cregwind = '';     _Fregwind = ''
-	_regstate = '';    _Cregstate = '';    _Fregstate = ''
-	_regloc = '';      _Cregloc = '';      _Fregloc = ''
-	_regpollen = '';   _Cregpollen = '';   _Fregpollen = ''
-	
-	FCHARSET(1)
-	
-	tempurature = ("Unknown","0","0")
-	ForC = "Unknown"
-	feelslike = ("Unknown","0","0")
-	humidity = "Unknown"
-	wind = "Unknown"
-	weather = "Unknown"
-	pollen = ""
-	sunrise = "Unknown"
-	sunset = "Unknown"
-	phase = "Unknown"
-
-	--
-	if FOPEN(_file2,'r')
-	{
-		for _buff2 = FREAD(_file2); _buff2 != -1; _buff2 = FREAD(_file2) //This loop scrapes the current regex from my website, to apply to the weather.com page
-		{
-			if RE_SEARCH (_buff2,'CREG--(.*)--CREG'); {_reg = RE_GETSTR[1]}
-			if RE_SEARCH (_buff2,'CREGTEMP--(.*)--CREGTEMP'); {_Cregtemp = RE_GETSTR[1]}
-			if RE_SEARCH (_buff2,'CREGDEGREE--(.*)--CREGDEGREE'); {_Cregdegree = RE_GETSTR[1]}
-			if RE_SEARCH (_buff2,'CREGFEELS--(.*)--CREGFEELS'); {_Cregfeels = RE_GETSTR[1]}
-			if RE_SEARCH (_buff2,'CREGHUMIDITY--(.*)--CREGHUMIDITY'); {_Creghumidity = RE_GETSTR[1]}
-			if RE_SEARCH (_buff2,'CREGWIND--(.*)--CREGWIND'); {_Cregwind = RE_GETSTR[1]}
-			if RE_SEARCH (_buff2,'CREGSTATE--(.*)--CREGSTATE'); {_Cregstate = RE_GETSTR[1]}
-			if RE_SEARCH (_buff2,'CREGLOC--(.*)--CREGLOC'); {_Cregloc = RE_GETSTR[1]}
-			if RE_SEARCH (_buff2,'CREGPOLLEN--(.*)--CREGPOLLEN'); {_Cregpollen = RE_GETSTR[1]}
-			//---
-			if RE_SEARCH (_buff2,'FREGTEMP--(.*)--FREGTEMP'); {_Fregtemp = RE_GETSTR[1]}
-			if RE_SEARCH (_buff2,'FREGDEGREE--(.*)--FREGDEGREE'); {_Fregdegree = RE_GETSTR[1]}
-			if RE_SEARCH (_buff2,'FREGFEELS--(.*)--FREGFEELS'); {_Fregfeels = RE_GETSTR[1]}
-			if RE_SEARCH (_buff2,'FREGHUMIDITY--(.*)--FREGHUMIDITY'); {_Freghumidity = RE_GETSTR[1]}
-			if RE_SEARCH (_buff2,'FREGWIND--(.*)--FREGWIND'); {_Fregwind = RE_GETSTR[1]}
-			if RE_SEARCH (_buff2,'FREGSTATE--(.*)--FREGSTATE'); {_Fregstate = RE_GETSTR[1]}
-			if RE_SEARCH (_buff2,'FREGLOC--(.*)--FREGLOC'); {_Fregloc = RE_GETSTR[1]}
-			if RE_SEARCH (_buff2,'FREGPOLLEN--(.*)--FREGPOLLEN'); {_Fregpollen = RE_GETSTR[1]}
-			//---
-			if RE_SEARCH (_buff2,'REGSUNRISE--(.*)--REGSUNRISE'); {_regsunrise = RE_GETSTR[1]}
-			if RE_SEARCH (_buff2,'REGSUNSET--(.*)--REGSUNSET'); {_regsunset = RE_GETSTR[1]}
-			//---
-			if RE_SEARCH (_buff2,'REGPHASE--(.*)--REGPHASE'); {regphase = RE_GETSTR[1]}
-		}
-	}
-	--
-	FCLOSE(_file2);
-	--
-	if FOPEN(_file,'r') {
-	
-		_buff = FREAD(_file) //get the first line of the HTML to check what type of page we got
-
-		if RE_SEARCH(_buff, _reg) //reg expressions for chrome formatted page
-		{
-			_regtemp = _Cregtemp
-			_regdegree = _Cregdegree
-			_regfeels = _Cregfeels
-			_reghumidity = _Creghumidity
-			_regwind = _Cregwind
-			_regstate = _Cregstate
-			_regloc = _Cregloc
-			_regpollen = _Cregpollen
-		}
-		else //reg expressions for firefox formatted page
-		{
-			_regtemp = _Fregtemp
-			_regdegree = _Fregdegree
-			_regfeels = _Fregfeels
-			_reghumidity = _Freghumidity
-			_regwind = _Fregwind
-			_regstate = _Fregstate
-			_regloc = _Fregloc
-			_regpollen = _Fregpollen
-		}
-
-		for _buff = FREAD(_file); _buff != -1; _buff = FREAD(_file)
-		{
-			if RE_SEARCH (_buff,_regtemp); {tempurature[1] = TOINT(RE_GETSTR[1])} //current temp
-			if RE_SEARCH (_buff,_regdegree); {ForC = RE_GETSTR[1]} //degrees (F or C)
-			if RE_SEARCH (_buff,_regfeels); {feelslike[1] = TOINT(RE_GETSTR[1])} //feels like temp
-			if RE_SEARCH (_buff,_reghumidity); {humidity = TOINT(RE_GETSTR[1])} //humidity
-			if RE_SEARCH (_buff,_regwind); {wind = RE_GETSTR[1]} //wind
-			if RE_SEARCH (_buff,_regstate); {weather = RE_GETSTR[1]} //state (cloudy, sunny, etc)
-			if RE_SEARCH (_buff,_regloc); {curlocation = RE_GETSTR[1]} //set location
-			if RE_SEARCH (_buff,_regpollen); {pollen = "Local Pollen Alert"} //search for pollen stuff
-			if RE_SEARCH (_buff,_regsunrise); {sunrise = "%(RE_GETSTR[3]) %(RE_GETSTR[4])m"} //Sunrise time
-			if RE_SEARCH (_buff,_regsunset); {sunset = "%(RE_GETSTR[3]) %(RE_GETSTR[4])m"} //Sunset time
-		}
-	}
-	--
-	FCLOSE(_file);
-	--
-	if weather _in_ weatherlist; ""
-	else; weatherlist += "%(weather)\n-"
-	--
-	if tempurature[1] != ""
-	{
-		"\![raise,OnCelsius]\w4\![raise,OnDownloadMoonPhase]"
-	}
-	else
-	{
-		if weatherquiet == 1
-		{
-			weatherquiet = 0
-			"\e"
-		}
-		else
-		{
-			"\0\s[106]Sorry,\w4 looks like something went wrong.\w8\w8\s[107] You should talk to anZichqec about that.\e"
-		}
-	}
-
-}
-
-OnCurWeatherFoundFailure
-{
-	tempurature = "Unknown"
-	ForC = "Unknown"
-	feelslike = "Unknown"
-	humidity = "Unknown"
-	wind = "Unknown"
-	weather = "Unknown"
-	pollen = "Unknown"
-	phase = "Unknown"
-	sunset = "Unknown"
-	sunrise = "Unknown"
-	if weatherquiet == 1
-	{
-		weatherquiet = 0
-		"\e"
-	}
-	--
-	if reference4 == "timeout"
-	{
-		"\0\s[106]Sorry,\w4 the connection timed out.\w8\w8 Maybe try again later?\e"
-	}
-	else
-	{
-		"\0\s[106]Sorry,\w4 looks like something went wrong.\w8\w8 The error I got was '%(reference4)'.\w8\w8 You should tell anZichqec about that.\e"
-	}
-	--
-	"Do you want to try again?\n\n\![*]\q[Yes,OnWeatherLocation]\n\![*]\q[No,cancelnodialogue]"
-}
-
-OnCelsius //Written by Zdzisiu, thank you ;w;
-{
-	_runpnum = 0
-	_celc = (tempurature[1] - 32)
-	_celc = _celc*(5.0/9.0)
-	_firstnumcelc = TOINT(_celc)
-	_toroundup = ERASE(_celc,0,2)
-	--
-	if (_firstnumcelc[0] < 10 && _firstnumcelc[0] > 0) || (_firstnumcelc[0] > -10 && _firstnumcelc[0] < 0)
-	{
-		_celc = ERASE(_celc,6,10)
-		_runpnum = 3
-	}
-	else
-	{
-		_celc = ERASE(_celc,7,10)
-		_runpnum = 4
-	}
-	--
-	if _toroundup < 50
-	{
-		_celc = ERASE(_celc,_runpnum,10)
-	}
-	else
-	{
-		_celc = TOINT(ERASE(_celc,_runpnum,10)) + 1
-	}
-	tempurature[2] = TOINT(_celc)
-	--
-	_runpnum = 0
-	_celc = (feelslike[1] - 32)
-	_celc = _celc*(5.0/9.0)
-	_firstnumcelc = TOINT(_celc)
-	_toroundup = ERASE(_celc,0,2)
-	--
-	if (_firstnumcelc[0] < 10 && _firstnumcelc[0] > 0) || (_firstnumcelc[0] > -10 && _firstnumcelc[0] < 0)
-	{
-		_celc = ERASE(_celc,4,10)
-		_runpnum = 1
-	}
-	else
-	{
-		_celc = ERASE(_celc,5,10)
-		_runpnum = 2
-	}
-	--
-	if _toroundup < 50 
-	{
-		_celc = ERASE(_celc,_runpnum,10)
-	}
-	else
-	{
-		_celc = TOINT(ERASE(_celc,_runpnum,10)) + 1
-	}
-	feelslike[2] = TOINT(_celc)
-	//ForC = "°C"
-}
-
-OnDownloadMoonPhase
-{
-	"\0\![execute,http-get,https://www.moongiant.com/phase/today/,--async=OnMoonFound,--file=moon.html,--timeout=200,--nodescript]"
-}
-
-// OnXUkagakaLinkOpen
-// {
-	// "%(reference)"
-// }
-
-// OnPlsAPI
-// {
-	// _API = FUNCTIONEX("httpc.dll","https://api.weatherapi.com/v1/forecast.xml?key=08f40be4a6fb4edd9d361756211508&q=London")
-	// _f = FOPEN("API-XML.txt","w")
-	// _f = FWRITE("API-XML.txt",_API)
-	// _f = FCLOSE("API-XML.txt")
-	// _API
-	// --
-	// "big sad"
-// }
-
-OnMoonFound
-{
-	//file to be read
-	_file = "var\\moon.html"
-	//line being read
-	_buff=""
-	//regular expressions to extract data
-	//_regphase=',"Phase: <span>([\w|\s]*)<./span>' //old one, doesn't work anymore
-	//_regphase='\d</b><br>([\w|\s]*)<br>Illumination: <span>\d'
-	_found = 0;
-	//using UTF-8 charset
-	FCHARSET(1)
-	
-	//string for holding phase
-	phase = ""
-	
-
-	
-	--
-	
-	if FOPEN(_file,'r')
-	{
-		for _buff = FREAD(_file); _buff != -1 && !_found; _buff = FREAD(_file)
-		{
-			if RE_SEARCH ( _buff, regphase )
-			{
-				phase = RE_GETSTR[1]
-				_found = 1 //break loop since we dont need to continue parsing
-			}
-		}
-	}
-	--
-	FCLOSE(_file);
-	--
-	if weatherquiet == 1
-	{
-		"\e"
-		weatherquiet = 0
-	}
-	--
-	//Grab the sunrise and sunset in ways we can do math on
-	sunrisearray[2] = SPLIT(sunrise," ")[1] //AM/PM
-	_risetemp = SPLIT(sunrise," ")[0]
-	sunrisearray[0] = TOINT(SPLIT(_risetemp,":")[0]) //Hour
-	sunrisearray[1] = TOINT(SPLIT(_risetemp,":")[1]) //Minute
-	if sunrisearray[2] == "PM"; sunrisearray[0] += 12 //Changing to 24 hour time
-	
-	sunsetarray[2] = SPLIT(sunset," ")[1]
-	_settemp = SPLIT(sunset," ")[0]
-	sunsetarray[0] = TOINT(SPLIT(_settemp,":")[0])
-	sunsetarray[1] = TOINT(SPLIT(_settemp,":")[1])
-	if sunsetarray[2] == "PM"; sunsetarray[0] += 12
-	
-	if Degrees[0] == "Fahrenheit"
-	{
-		tempurature[0] = TOINT(tempurature[1])
-		feelslike[0] = TOINT(feelslike[1])
-	}
-	else
-	{
-		tempurature[0] = TOINT(tempurature[2])
-		feelslike[0] = TOINT(feelslike[2])
-	}
-	
-	
-	ERASEVAR("regphase")
-	//change the dialogue as you wish
-	//[temp, degrees, feels like temp, humidity, wind, state (cloudy, rainy, etc)]
-	--
-	OnWeatherFinish
-	--
-	"\n\![*]\q[I'm done,cancelnodialogue]\e"
-}
-
 OnWeatherFinish
 {
 	//========================Weather Dialogue=============================
 	
-	/*if temp == "Below 0" //0F and below, 
-	{
-		"\0\s[106]"
-	}
-	elseif temp == "Freezing" //0-20F, -16 to -6C
-	{
-		"\0\s[0]"
-	}
-	elseif temp == "Cold" //21-40F, -5 to 4C 
-	{
-		"\0\s[103]"
-	}
-	elseif temp == "Chilly" //41-60F, 5-15C
-	{
-		"\0\s[104]"
-	}
-	elseif temp == "Pleasant" //61-80, 16-26C
-	{
-		"\0\s[0]"
-	}
-	elseif temp == "Hot" //81-95F, 27-35C
-	{
-		"\0\s[106]"
-	}
-	else*/
 	if temp == "Boiling" //96+F, 36+C
 	{
 		"\0\s[110]Wow,\w4 "
@@ -4206,14 +3578,14 @@ OnWeatherFinish
 		"\0\s[0]"
 	}
 	--
-	_s = ""; if tempurature[0] != 1; _s = "s"
-	"It's %(tempurature[0]) degree%(_s) there."
-	"It's %(tempurature[0]) degree%(_s) out."
-	"It's %(tempurature[0]) degree%(_s)."
-	"It's %(tempurature[0]) degree%(_s) out there,\w4 apparently."
-	"Looks like it's %(tempurature[0]) degree%(_s) there."
-	"Looks like it's %(tempurature[0]) degree%(_s) out."
-	"Looks like it's %(tempurature[0]) degree%(_s)."
+	_s = ""; if temperature != 1; _s = "s"
+	"It's %(temperature) degree%(_s) there."
+	"It's %(temperature) degree%(_s) out."
+	"It's %(temperature) degree%(_s)."
+	"It's %(temperature) degree%(_s) out there,\w4 apparently."
+	"Looks like it's %(temperature) degree%(_s) there."
+	"Looks like it's %(temperature) degree%(_s) out."
+	"Looks like it's %(temperature) degree%(_s)."
 	--
 	"\w8\w8 "
 	--
@@ -4244,8 +3616,9 @@ OnWeatherFinish
 	elseif temp == "Pleasant" //61-80, 16-26C
 	{
 		"\s[103]That's pretty good."
-		"\s[104]You probably won't need a jacket as long as it's not too breezy."
+		if !weather_raining; "\s[104]You probably won't need a jacket as long as it's not too breezy."
 		"\s[104]Warm enough for short sleeves,\w4 if you want."
+		"Pretty comfy out."
 	}
 	elseif temp == "Hot" //81-95F, 27-35C
 	{
@@ -4261,34 +3634,32 @@ OnWeatherFinish
 		"\s[107]This would be a good day to go swimming,\w4 if you like that."
 	}
 	--
-	"\w8\w8 "
-	--
-	if (Degrees[0] == "Fahrenheit" && tempurature[0] > 60) || (Degrees[0] == "Celsius" && tempurature[0] > 15)
+	if (weather.units == "Imperial" && temperature > 60) || (weather.units == "Metric" && temperature > 15)
 	{
+		" "
+		--
 		if humidity >= 65
 		{
 			"\s[107]It's also very humid,\w4 unfortunately."
-			"\s[107]A shame it's so muggy out."
-			"\s[107]Sure is muggy out though."
+			"\s[107]A shame it's so muggy."
+			"\s[107]Sure is muggy though."
 		}
 		else
 		{
 			"\s[104]At least it's not too humid."
-			"\s[0]It's not too humid out,\w4 so that's nice."
+			"\s[0]It's not too humid,\w4 so that's nice."
 		}
-		--
-		"\w8\w8"
 	}
 	--
-	"\n\n"
+	" \n\n"
 	--
 	if weather_clear //Clear/Sunny
 	{
-		if hour >= 8 && hour <= 18
+		if daytime
 		{
 			"\s[104]The sun is shining,\w8\s[0] are you glad to see it?"
 			"\s[104]It's good to see the sun,\w4 isn't it?"
-			"\s[104]It's bright and sunny out."
+			"\s[104]It's bright and sunny too."
 			--
 			if temp == "Boiling" || temp == "Hot"
 			{
@@ -4331,8 +3702,9 @@ OnWeatherFinish
 	}
 	elseif weather_cloudy //Cloudy
 	{
-		"\s[104]There are a few clouds out there,\w4 that's nice."
+		"\s[104]There are a few clouds in the sky,\w4 that's nice."
 		"\s[104]It's cloudy out,\w4 what kind of clouds are out there?"
+		"\s[104]Ooh, seems like there are some nice clouds, too."
 		--
 		if temp == "Hot" || temp == "Boiling"
 		{
@@ -4359,33 +3731,70 @@ OnWeatherFinish
 			"\w8\w8\s[107] That explains the humidity."
 		}
 	}
-	elseif weather_snowing //Snowing -- This one is probably missing a lot atm, gotta wait til winter to gather data
+	elseif weather_mightsnow //Maybe snow
+	{
+		"\s[104]Looks like it may snow soon."
+		"\s[104]Hey, looks like it may be snowing soon. That's fun."
+		"\s[104]Seems like there may be snow headed your way."
+	}
+	elseif weather_snowing //Snowing
 	{
 		"\s[104]It's snowing out!\w8\w8\s[104] I'm always glad to see that."
 		"\s[104]It's snowing!"
 		"\s[103]It's snowing out,\w4 that's nice."
 		--
-		if (Degrees[0] == "Fahrenheit" && tempurature[0] > 34) || (Degrees[0] == "Celsius" && tempurature[0] > 1)
+		if (weather.units == "Imperial" && temperature > 34) || (weather.units == "Metric" && temperature > 1)
 		{
 			"\w8\w8\s[106] Probably too warm for it to stick,\w4 though."
 			"\w8\w8\s[106] Probably won't stick around unless it gets colder,\w4 though."
 		}
-		elseif (Degrees[0] == "Fahrenheit" && tempurature[0] > 20) || (Degrees[0] == "Celsius" && tempurature[0] > -6)
-		{
-			"\w8\w8\s[205] It'll probably be powder with how cold it is,\w4\s[104] but I'm sure it'll be very pretty anyways."
-			"\w8\w8\s[205] It's probably too cold to pack,\w4 but it's still pretty."
-		}
-		else
+		elseif (weather.units == "Imperial" && temperature > 20) || (weather.units == "Metric" && temperature > -6)
 		{
 			"\w8\w8\s[104] Might be good snow for packing,\w4 at this temperature."
 			"\w8\w8\s[104] It's about the right temperature for packing,\w4 too."
 		}
+		else
+		{
+			"\w8\w8\s[205] It'll probably be powder with how cold it is,\w4\s[104] but I'm sure it'll be very pretty anyways."
+			"\w8\w8\s[205] It's probably too cold to pack,\w4 but it's still pretty."
+		}
 	}
-	elseif weather_thunderstorm
+	elseif weather_freezingrain
+	{
+		"\s[107]Eesh, freezing rain. \s[108]Take care if you have to head out."
+		"\s[106]Oh great, freezing rain. \s[108]It's sure to be slippery out there, be extra careful if you have to go out, ok?"
+		"\s[109]Freezing rain. Great. \s[108]Be careful not to slip if you have to go out, ok?"
+	}
+	elseif weather_rainsnow
+	{
+		"\s[107]Ah, it's really coming down out there, huh... \s[106]And not even the fun kind of winter weather. \s[107]Wet snow, fun."
+		"\s[107]Ick, rain and snow together. How fun."
+		"\s[107]Bleh, the snow's mixed in with rain."
+		"\s[107]Oh yay, snow and rain at the same time."
+	}
+	elseif weather_ice_pellets
+	{
+		"\s[106]Ice pellets, what fun. Hope anything important is inside so it doesn't get scratched up."
+		"\s[107]Ice pellets... \s[106]That's no fun."
+		"\s[206]There's ice pellets coming down, apparently... \s[106]Or I suppose it's sleet? Something like that."
+	}
+	elseif weather_mightthunder //Maybe thunder
+	{
+		"\s[110]Looks like there might be thunder soon, take care if you're going out."
+		"\s[110]It says there might be thunder soon, be careful."
+		"\s[110]Looks like it might start thundering. Be careful out there, \s[106]maybe stay indoors if you can."
+	}
+	elseif weather_thunderstorm //Rain with thunder
 	{
 		"\s[110]Take care if you head out,\w4\s[106] I don't like the sound of that thunder."
 		"\s[110]Be careful,\w4 with all that thunder out there."
 		"\s[200]I wouldn't head out if you don't have to;\w8 I don't like the sound of that thunder."
+	}
+	elseif weather_thundersnow //Snow with thunder
+	{
+		"\s[110]Snow and thunder together? \s[107]Sounds like it might be a recipe for hail... \s[108]Take care, ok?"
+		"\s[110]Snow and thunder... \s[106]Is it hailing? I can't tell."
+		"\s[108]Snow and thunder... Not really a fan of that."
 	}
 	elseif weather_foghaze
 	{
@@ -4394,70 +3803,15 @@ OnWeatherFinish
 		"\s[206]It's too quiet with this %(TOLOWER(weather)) out..."
 	}
 	--
-	if pollen_alert
-	{
-		"\w8\w8\n\n"
-		--
-		"\s[110]There's also a pollen alert out,\w4\s[106] take care if that's something you're sensitive to."
-		"\s[110]If you're sensitive to pollen,\w4 there's a lot of that out today,\w4 so take care."
-		"\s[110]There's a lot of pollen today.\w8\w8\s[106] If you're allergic,\w4 take care."
-		"\s[106]If you've got allergies to pollen and such,\w4 there's a lot of it today,\w4 so take care."
-	}
-	--
 	"\n"
 	--
 	if fromfunctionmenu == 1
 	{
 		"\n\![*]\q[Back to functions,Onbacktofunctions]"
 	}
+	
+	if AutoWeather == "OFF"; ClearWeatherData //If the user is doing this manually and has weather comments off
 }
-
-//==================Calendar functions==================
-/*
-OnSchedule5MinutesToGo
-{
-	"\05 minutes to go %(reference0) %(reference1) %(reference2) %(reference3)\e"
-}
-
-OnScheduleRead
-{
-	"Read %(reference0) %(reference1) %(reference2) %(reference3)"
-}
-
-OnSchedulesenseBegin
-{
-	"Sense begin %(reference0)"
-}
-
-OnSchedulesensecomplete
-{
-	"Sense complete %(reference0) %(reference1)"
-}
-
-OnSchedulesenseFailure
-{
-	"Sense failure %(reference0)"
-}
-
-OnSchedulepostBegin
-{
-	"Schedule pose %(reference0)"
-}
-
-OnSchedulepostComplete
-{
-	"Post complete %(reference0)"
-}
-*/
-
-
-
-/*
-On_getaistate //I dont have anything super useful to track with this right now XD but perhaps later when I implement sleeping and maybe moods......
-{
-	"%(totalsnags),%(LV),%(love),%(totalhours),%(totalpets),%(pethighscore)%(CHR(1))total snags, LV,love,total hours,total pets,pet high score%(CHR(1))0,0,%(passhour),0,0,0%(CHR(1))1500,1500,1500,1500,1500,1500"
-}
-*/
 
 OnNotifyOSInfo
 {
@@ -4468,4 +3822,71 @@ OnNetworkStatusChange
 {
 	IP = IARRAY
 	IP = reference1
+}
+
+//Gets a list of installed plugins
+On_installedplugin
+{
+    pluginlist = IARRAY
+    foreach reference; _ref
+    {
+        pluginlist ,= _ref[0]
+    }
+}
+
+WeatherStationInstalled
+{
+    if ASEARCH("Weather Station",pluginlist) != -1; 1
+    else; 0
+}
+
+ClearWeatherData
+{
+	weather = ""
+	humidity = ""
+	weather.units = ""
+	is_day = ""
+	temperature = ""
+	feelslike = ""
+	phase = ""
+	weather.error = ""
+}
+
+OnWeatherStation.Weather
+{
+	weather.error = ""
+	weather = reference0
+	humidity = TOINT(reference8)
+	weather.units = reference35
+	is_day = TOINT(reference3)
+	
+	if weather.units == "Metric"
+	{
+		temperature = TOINT(reference5)
+		feelslike = TOINT(reference7)
+	}
+	else //Imperial
+	{
+		temperature = TOINT(reference4)
+		feelslike = TOINT(reference6)
+	}
+}
+
+OnWeatherStation.Astro
+{
+	weather.error = ""
+	phase = reference9
+}
+
+OnWeatherStation.Error
+{
+	ClearWeatherData
+	weather.error = reference0
+}
+
+GetWeatherData
+{
+	"\![raiseplugin,Weather Station,OnWeatherStation.Weather]"
+	--
+	"\![raiseplugin,Weather Station,OnWeatherStation.Astro]"
 }
