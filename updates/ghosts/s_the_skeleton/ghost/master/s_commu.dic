@@ -1,9 +1,11 @@
 OnCommunicate
 {
-	"\![no-autopause]"
-	--
 	LOGGING("From %(reference0)!")
-	if "GetSStats" _in_ reference1 //Generic stat request
+	if reference0 == "user" || reference0 == "User"
+ 	{
+		//Deprecated function I think? Either way, I'm not using ReplyToUser so I got rid of it
+	}
+	elseif "GetSStats" _in_ reference1 //Generic stat request
 	{
 		ConvoTag = SPLIT(reference1,"\e")[1]
 		CurrentPos[4] = reference0 //Ghost that sent the ping
@@ -89,8 +91,7 @@ OnStartTalking //Starting conversations
 {
 	_ghost = ANY(ghostexlist)
 	if reference0 != ""; _ghost = reference0 //If this was a manual ping
-	"\![no-autopause]"
-	--
+	
 	if nowmode == "RYS"
 	{
 		//Why is this here??? idk, investigate later. Duped it down below so it works...
@@ -222,27 +223,26 @@ ReplyToGhost //Replying to conversations
 	}
 	elseif reference0 == "X. Template"
 	{
-		// "\![quicksection,true]%(_Last)\![quicksection,false]"
-		// --
-		// if "Test00" _in_ ConvoTag
-		// {
-			// res_reference0 = "X. Template"
-			// "\n\nResponse 1\e Test01"
-		// }
-		// elseif "Test02" _in_ ConvoTag
-		// {
-			// res_reference0 = "X. Template"
-			// "\n\nResponse 2\e Test03"
-		// }
-		// else
-		// {
-			// res_reference0 = ""
-			// "\n\nElse.\e"
-		// }
-		// --
-		// "::%(speech)"
-		res_reference0 = "X. Template"
-		"Hell yeah it's loop time\e"
+		"\![quicksection,true]%(_Last)\![quicksection,false]"
+		--
+		if "Test00" _in_ ConvoTag
+		{
+			res_reference0 = "X. Template"
+			"\n\nResponse 1\e Test01"
+		}
+		elseif "Test02" _in_ ConvoTag
+		{
+			res_reference0 = "X. Template"
+			"\n\nResponse 2\e Test03"
+		}
+		else
+		{
+			res_reference0 = ""
+			"\n\nElse.\e"
+		}
+		--
+		"::%(speech)"
+		//"Hell yeah it's loop time\e"
 	}
 	elseif reference0 == "Dusty" //=======Conversations with Dusty=========
 	{
@@ -910,12 +910,12 @@ HydrateComments
 	
 	if _HYshell == "Poison"
 	{
-		if ASEARCH("picture|Skull",_HYdressups) != -1; "\0\s[0]...\s[104]Heh,\w4 it's got a skull on it.\e"
+		if ASEARCH("picture|Skull",_HYdressups); "\0\s[0]...\s[104]Heh,\w4 it's got a skull on it.\e"
 		else; "\0\s[101]Dare I ask why you have a giant bottle of poison here..?\e"
 	}
 	elseif _HYshell == "Potion"
 	{
-		if ASEARCH("picture|Health",_HYdressups) != -1; "\0\s[110]I wonder what kind of healing you could do with that much health potion...\e"
+		if ASEARCH("picture|Health",_HYdressups); "\0\s[110]I wonder what kind of healing you could do with that much health potion...\e"
 		else; "\0\s[106]That's a pretty big potion,\w4 are you planning to drink all that..?\e"
 		
 	}
@@ -941,34 +941,6 @@ HydrateComments
 	elseif _HYshell == "Clear"
 	{
 		"\0\s[110]Is...\w8\w8 is that a giant water bottle?\e"
-	}
-	elseif _HYshell == "Fishbowl"
-	{
-		if "straw" _in_ _HYdressups; "\0\s[106]Uh,\w4 so,\w4 why do you have a straw in a fishbowl..?\w8\w8\s[107] Kind of a weird way to get your hydration,\w4 isn't it..?\e"
-		"\0\s[101]...Is that a fish in your water?\w8\w8 That seems...\w8\w8\s[202] not healthy,\w4 for either party.\e"
-	}
-	elseif _HYshell == "Martini Gore"
-	{
-		if "Eyeball" _in_ _HYdressups; "\0\s[202]...Why is there an %(italic('eye'))\w2 in your...\w8\w8\w8\s[107] You know what,\w4 I changed my mind,\w4 I don't want to know.\e"
-		else; "\0\s[202]That is...\w8\w8 definitely not water that you've got there.\w8\w8\s[107] Is there a reason for this??\w8\w8\s[101] You a vampire,\w4 or something?\e"
-	}
-	elseif _HYshell == "Lava in a Cup"
-	{
-		"\0\s[110]Uh,\w4 that seems like a dangerous drink,\w4 doesn't it?\w8\w8\s[107] Don't burn yourself,\w4 %(username).\e"
-		"\0\s[106]...You're not %(italic('drinking')) that lava,\w4 are you..?\e"
-	}
-	elseif _HYshell == "Rilakkuma"
-	{
-		"\0\s[111]Aw,\w4 that's a cute glass.\w8\w8\s[104] Having coffee today?\w8\w8\s[102] Just make sure you have some water too.\e"
-	}
-	elseif _HYshell == "LOL Mug"
-	{
-		"\0\s[101]LOL?\w8\w8 Isn't that one of those computer things?\e"
-	}
-	elseif _HYshell == "Ink"
-	{
-		"\0\s[106]...Don't drink ink, kiddo.\e"
-		"\0\s[106]I uh...\w8\w8 Really hope that ink is just there for decoration,\w4 and you're not drinking it.\e"
 	}
 	else
 	{
@@ -1347,62 +1319,4 @@ OnFLUXSongInfo
 OnApplicationExist
 {
 	"Application:\n%(reference0)\n\n%(reference1)"
-}
-
-OnNeedlePoke
-{
-	lastinteracted = 0
-	//TODO fill out modes here
-	if reference0 == 0 //Sakura being poked
-	{
-		if nowmode == "RYS" //RYS
-		{
-			
-		}
-		elseif holdingObsidian == 1 //Obsidian
-		{
-			
-		}
-		elseif nowmode == "Asleep" //Asleep
-		{
-			
-		}
-		else
-		{
-			if LV == 0 //Normal - friendship stages?
-			{
-				"\0\s[1550]"
-				"\0\s[301]"
-				--
-				"Ow-!"
-				"Ouch-!"
-				"Eep-!"
-				"Ah-!"
-				--
-				"\w8\w8\w8\n\n"
-				--
-				"\s[200]"
-				"\s[201]"
-				"\s[206]"
-				"\s[303]"
-				--
-				"Ouch??"
-				"What was that for?"
-				"Um,\w4 no thanks on the giant needle,\w4 %(username)."
-				"Uh,\w4 I would prefer not to be poked by giant needles,\w4 thanks."
-				"Careful where you're swinging that thing!"
-				"Careful with that!"
-				"Geez,\w4 good thing I'm not terribly fragile,\w4 %(username)."
-				"Geez kiddo,\w4 be careful or someone could get really hurt."
-			}
-			elseif LVCheck == 1 //Sad
-			{
-				
-			}
-			else //Mad
-			{
-				
-			}
-		}
-	}
 }

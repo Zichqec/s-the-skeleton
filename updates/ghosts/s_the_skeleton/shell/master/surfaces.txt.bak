@@ -1,7 +1,3 @@
-//Converted by olddef2newdef, by Zichqec. If there are errors in the conversion, contact Zichqec at https://zichqec.github.io/s-the-skeleton/ for assistance
-
-version,1
-
 //---------------------------Surfaces.txt--------------------------
 
 surface0 //Neutral
@@ -12,11 +8,11 @@ collisionex2,Cracks,Polygon,103,51,95,56,99,65,99,78,101,78,102,68,102,65,104,63
 collisionex3,Cracks,Polygon,119,78,119,86,123,92,126,89,127,83
 collisionex4,Face,polygon,114,48,103,50,95,56,90,68,92,76,91,82,92,89,100,94,118,94,126,89,127,83,133,76,133,68,130,66,130,62,127,61,127,53,119,48
 
-animation0.interval,random,4 //The last number means 1/*. So, in this case, 1/4. The higher the number, the lower the chance of this running.
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,3001,50,0,0
-animation0.pattern2,overlayfast,3002,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,4 //The last number means 1/*. So, in this case, 1/4. The higher the number, the lower the chance of this running.
+0pattern0,-1,10,overlay,0,0
+0pattern1,3001,5,overlayfast,0,0
+0pattern2,3002,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 }
 
 //Questioning/doubtful smile
@@ -30,11 +26,11 @@ collisionex2,Cracks,Polygon,103,51,95,56,99,65,99,78,101,78,102,68,102,65,104,63
 collisionex3,Cracks,Polygon,119,78,119,86,123,92,126,89,127,83
 collisionex4,Face,polygon,114,48,103,50,95,56,90,68,92,76,91,82,92,89,100,94,118,94,126,89,127,83,133,76,133,68,130,66,130,62,127,61,127,53,119,48
 
-animation0.interval,random,4
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,3001,50,0,0
-animation0.pattern2,overlayfast,3002,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,4
+0pattern0,-1,10,overlay,0,0
+0pattern1,3001,5,overlayfast,0,0
+0pattern2,3002,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 }
 
 //Content/eyes closed
@@ -59,11 +55,11 @@ collisionex2,Cracks,Polygon,103,51,95,56,99,65,99,78,101,78,102,68,102,65,104,63
 collisionex3,Cracks,Polygon,119,78,119,86,123,92,126,89,127,83
 collisionex4,Face,polygon,114,48,103,50,95,56,90,68,92,76,91,82,92,89,100,94,118,94,126,89,127,83,133,76,133,68,130,66,130,62,127,61,127,53,119,48
 
-animation0.interval,random,4
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,3001,50,0,0
-animation0.pattern2,overlayfast,3002,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,4
+0pattern0,-1,10,overlay,0,0
+0pattern1,3001,5,overlayfast,0,0
+0pattern2,3002,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 }
 
 surface104 //Closed eyes smiling
@@ -98,11 +94,11 @@ collisionex2,Cracks,Polygon,103,51,95,56,99,65,99,78,101,78,102,68,102,65,104,63
 collisionex3,Cracks,Polygon,119,78,119,86,123,92,126,89,127,83
 collisionex4,Face,polygon,114,48,103,50,95,56,90,68,92,76,91,82,92,89,100,94,118,94,126,89,127,83,133,76,133,68,130,66,130,62,127,61,127,53,119,48
 
-animation0.interval,random,4
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,3001,50,0,0
-animation0.pattern2,overlayfast,3002,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,4
+0pattern0,-1,10,overlay,0,0
+0pattern1,3001,5,overlayfast,0,0
+0pattern2,3002,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 }
 
 surface107 //Eyes closed, sweating
@@ -126,11 +122,11 @@ collisionex2,Cracks,Polygon,103,51,95,56,99,65,99,78,101,78,102,68,102,65,104,63
 collisionex3,Cracks,Polygon,119,78,119,86,123,92,126,89,127,83
 collisionex4,Face,polygon,114,48,103,50,95,56,90,68,92,76,91,82,92,89,100,94,118,94,126,89,127,83,133,76,133,68,130,66,130,62,127,61,127,53,119,48
 
-animation0.interval,random,4
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,3001,50,0,0
-animation0.pattern2,overlayfast,3002,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,4
+0pattern0,-1,10,overlay,0,0
+0pattern1,3001,5,overlayfast,0,0
+0pattern2,3002,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 }
 
 surface109 //Sigh/sleepy
@@ -154,11 +150,11 @@ collisionex2,Cracks,Polygon,103,51,95,56,99,65,99,78,101,78,102,68,102,65,104,63
 collisionex3,Cracks,Polygon,119,78,119,86,123,92,126,89,127,83
 collisionex4,Face,polygon,114,48,103,50,95,56,90,68,92,76,91,82,92,89,100,94,118,94,126,89,127,83,133,76,133,68,130,66,130,62,127,61,127,53,119,48
 
-animation0.interval,random,4
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,3001,50,0,0
-animation0.pattern2,overlayfast,3002,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,4
+0pattern0,-1,10,overlay,0,0
+0pattern1,3001,5,overlayfast,0,0
+0pattern2,3002,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 }
 
 surface111 //Eyebrows Up Smile
@@ -171,11 +167,11 @@ collisionex2,Cracks,Polygon,103,51,95,56,99,65,99,78,101,78,102,68,102,65,104,63
 collisionex3,Cracks,Polygon,119,78,119,86,123,92,126,89,127,83
 collisionex4,Face,polygon,114,48,103,50,95,56,90,68,92,76,91,82,92,89,100,94,118,94,126,89,127,83,133,76,133,68,130,66,130,62,127,61,127,53,119,48
 
-animation0.interval,random,4
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,3001,50,0,0
-animation0.pattern2,overlayfast,3002,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,4
+0pattern0,-1,10,overlay,0,0
+0pattern1,3001,5,overlayfast,0,0
+0pattern2,3002,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 }
 
 
@@ -189,11 +185,11 @@ collisionex1,Dent,polygon,117,51,114,70,121,73,121,79,126,76,129,70,125,67,125,6
 collisionex2,Cracks,polygon,109,79,108,83,114,93,120,91,120,85
 collisionex3,Face,polygon,111,50,98,53,93,68,94,72,90,76,93,80,93,89,98,93,114,93,120,91,112,84,130,81,133,70,132,62,121,51
 
-animation0.interval,random,4
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,3003,50,0,0
-animation0.pattern2,overlayfast,3004,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,4
+0pattern0,-1,10,overlay,0,0
+0pattern1,3003,5,overlayfast,0,0
+0pattern2,3004,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 }
 
 //Head to the left, looking right, sad
@@ -206,11 +202,11 @@ collisionex1,Dent,polygon,117,51,114,70,121,73,121,79,126,76,129,70,125,67,125,6
 collisionex2,Cracks,polygon,109,79,108,83,114,93,120,91,120,85
 collisionex3,Face,polygon,111,50,98,53,93,68,94,72,90,76,93,80,93,89,98,93,114,93,120,91,112,84,130,81,133,70,132,62,121,51
 
-animation0.interval,random,4
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,3003,50,0,0
-animation0.pattern2,overlayfast,3005,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,4
+0pattern0,-1,10,overlay,0,0
+0pattern1,3003,5,overlayfast,0,0
+0pattern2,3005,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 }
 
 //Head to the left, looking back and smiling (worried/nervous)
@@ -223,11 +219,11 @@ collisionex1,Dent,polygon,117,51,114,70,121,73,121,79,126,76,129,70,125,67,125,6
 collisionex2,Cracks,polygon,109,79,108,83,114,93,120,91,120,85
 collisionex3,Face,polygon,111,50,98,53,93,68,94,72,90,76,93,80,93,89,98,93,114,93,120,91,112,84,130,81,133,70,132,62,121,51
 
-animation0.interval,random,4
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,3003,50,0,0
-animation0.pattern2,overlayfast,3005,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,4
+0pattern0,-1,10,overlay,0,0
+0pattern1,3003,5,overlayfast,0,0
+0pattern2,3005,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 }
 
 //Head left, looking right with a snarl
@@ -240,11 +236,11 @@ collisionex1,Dent,polygon,117,51,114,70,121,73,121,79,126,76,129,70,125,67,125,6
 collisionex2,Cracks,polygon,109,79,108,83,114,93,120,91,120,85
 collisionex3,Face,polygon,111,50,98,53,93,68,94,72,90,76,93,80,93,89,98,93,114,93,120,91,112,84,130,81,133,70,132,62,121,51
 
-animation0.interval,random,4
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,3006,50,0,0
-animation0.pattern2,overlayfast,3007,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,4
+0pattern0,-1,10,overlay,0,0
+0pattern1,3006,5,overlayfast,0,0
+0pattern2,3007,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 }
 
 surface204 //Looking left, closed eyes
@@ -267,11 +263,11 @@ collisionex2,Cracks,polygon,109,79,108,83,114,93,120,91,120,85
 collisionex3,Face,polygon,111,50,98,53,93,68,94,72,90,76,93,80,93,89,98,93,114,93,120,91,112,84,130,81,133,70,132,62,121,51
 
 
-animation0.interval,random,4
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,3003,50,0,0
-animation0.pattern2,overlayfast,3004,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,4
+0pattern0,-1,10,overlay,0,0
+0pattern1,3003,5,overlayfast,0,0
+0pattern2,3004,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 }
 
 surface206 //Looking left, thinking
@@ -283,11 +279,11 @@ collisionex1,Dent,polygon,117,51,114,70,121,73,121,79,126,76,129,70,125,67,125,6
 collisionex2,Cracks,polygon,109,79,108,83,114,93,120,91,120,85
 collisionex3,Face,polygon,111,50,98,53,93,68,94,72,90,76,93,80,93,89,98,93,114,93,120,91,112,84,130,81,133,70,132,62,121,51
 
-animation0.interval,random,4
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,3003,50,0,0
-animation0.pattern2,overlayfast,3004,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,4
+0pattern0,-1,10,overlay,0,0
+0pattern1,3003,5,overlayfast,0,0
+0pattern2,3004,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 }
 
 surface207 //Yawn
@@ -309,11 +305,11 @@ collisionex1,Dent,polygon,117,51,114,70,121,73,121,79,126,76,129,70,125,67,125,6
 collisionex2,Cracks,polygon,109,79,108,83,114,93,120,91,120,85
 collisionex3,Face,polygon,111,50,98,53,93,68,94,72,90,76,93,80,93,89,98,93,114,93,120,91,112,84,130,81,133,70,132,62,121,51
 
-animation0.interval,random,4
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,3003,50,0,0
-animation0.pattern2,overlayfast,3004,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,4
+0pattern0,-1,10,overlay,0,0
+0pattern1,3003,5,overlayfast,0,0
+0pattern2,3004,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 }
 
 //Looking to the right, frowning
@@ -326,11 +322,11 @@ collisionex1,Cracks,polygon,105,50,97,55,99,58,100,61,102,63,107,67,107,82,110,8
 collisionex2,Cracks,polygon,126,83,123,90,127,95,130,91,131,89
 collisionex3,Face,polygon,105,51,97,55,92,63,91,68,91,76,93,83,95,85,95,89,100,94,107,97,122,97,127,95,130,91,132,88,133,79,133,71,130,71,130,58,123,51,117,50
 
-animation0.interval,random,4
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,3008,50,0,0
-animation0.pattern2,overlayfast,3009,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,4
+0pattern0,-1,10,overlay,0,0
+0pattern1,3008,5,overlayfast,0,0
+0pattern2,3009,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 }
 
 //Looking to the right, flinch
@@ -363,11 +359,11 @@ collisionex1,Cracks,polygon,105,50,97,55,99,58,100,61,102,63,107,67,107,82,110,8
 collisionex2,Cracks,polygon,126,83,123,90,127,95,130,91,131,89
 collisionex3,Face,polygon,105,51,97,55,92,63,91,68,91,76,93,83,95,85,95,89,100,94,107,97,122,97,127,95,130,91,132,88,133,79,133,71,130,71,130,58,123,51,117,50
 
-animation0.interval,random,4
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,3008,50,0,0
-animation0.pattern2,overlayfast,3011,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,4
+0pattern0,-1,10,overlay,0,0
+0pattern1,3008,5,overlayfast,0,0
+0pattern2,3011,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 }
 
 
@@ -403,11 +399,11 @@ collisionex1,Dent,polygon,117,51,114,70,121,73,121,79,126,76,129,70,125,67,125,6
 collisionex2,Cracks,polygon,109,79,108,83,114,93,120,91,120,85
 collisionex3,Face,polygon,111,50,98,53,93,68,94,72,90,76,93,80,93,89,98,93,114,93,120,91,112,84,130,81,133,70,132,62,121,51
 
-animation0.interval,random,4
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,3006,50,0,0
-animation0.pattern2,overlayfast,3007,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,4
+0pattern0,-1,10,overlay,0,0
+0pattern1,3006,5,overlayfast,0,0
+0pattern2,3007,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 }
 
 surface403
@@ -419,11 +415,11 @@ collisionex1,Dent,polygon,117,51,114,70,121,73,121,79,126,76,129,70,125,67,125,6
 collisionex2,Cracks,polygon,109,79,108,83,114,93,120,91,120,85
 collisionex3,Face,polygon,111,50,98,53,93,68,94,72,90,76,93,80,93,89,98,93,114,93,120,91,112,84,130,81,133,70,132,62,121,51
 
-animation0.interval,random,4
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,3006,50,0,0
-animation0.pattern2,overlayfast,3007,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,4
+0pattern0,-1,10,overlay,0,0
+0pattern1,3006,5,overlayfast,0,0
+0pattern2,3007,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 }
 
 surface404
@@ -435,11 +431,11 @@ collisionex1,Dent,polygon,117,51,114,70,121,73,121,79,126,76,129,70,125,67,125,6
 collisionex2,Cracks,polygon,109,79,108,83,114,93,120,91,120,85
 collisionex3,Face,polygon,111,50,98,53,93,68,94,72,90,76,93,80,93,89,98,93,114,93,120,91,112,84,130,81,133,70,132,62,121,51
 
-animation0.interval,random,4
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,3022,50,0,0
-animation0.pattern2,overlayfast,3023,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,4
+0pattern0,-1,10,overlay,0,0
+0pattern1,3022,5,overlayfast,0,0
+0pattern2,3023,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 }
 
 surface405
@@ -451,11 +447,11 @@ collisionex1,Dent,polygon,117,51,114,70,121,73,121,79,126,76,129,70,125,67,125,6
 collisionex2,Cracks,polygon,109,79,108,83,114,93,120,91,120,85
 collisionex3,Face,polygon,111,50,98,53,93,68,94,72,90,76,93,80,93,89,98,93,114,93,120,91,112,84,130,81,133,70,132,62,121,51
 
-animation0.interval,random,4
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,3022,50,0,0
-animation0.pattern2,overlayfast,3023,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,4
+0pattern0,-1,10,overlay,0,0
+0pattern1,3022,5,overlayfast,0,0
+0pattern2,3023,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 }
 
 surface410 //Facing forward, arms crossed
@@ -490,11 +486,11 @@ collisionex2,Cracks,polygon,102,49,95,57,94,61,100,70,100,79,102,78,102,70,108,5
 collisionex3,Cracks,polygon,120,79,116,81,119,94,124,91,127,83
 collisionex4,Face,polygon,114,48,102,49,95,57,92,66,92,74,94,77,92,83,93,89,101,95,117,95,125,91,127,83,132,71,132,68,131,64,129,63,129,59,127,58,126,52,121,49
 
-animation0.interval,random,4
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,3024,50,0,0
-animation0.pattern2,overlayfast,3025,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,4
+0pattern0,-1,10,overlay,0,0
+0pattern1,3024,5,overlayfast,0,0
+0pattern2,3025,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 }
 
 surface413
@@ -507,11 +503,11 @@ collisionex2,Cracks,polygon,102,49,95,57,94,61,100,70,100,79,102,78,102,70,108,5
 collisionex3,Cracks,polygon,120,79,116,81,119,94,124,91,127,83
 collisionex4,Face,polygon,114,48,102,49,95,57,92,66,92,74,94,77,92,83,93,89,101,95,117,95,125,91,127,83,132,71,132,68,131,64,129,63,129,59,127,58,126,52,121,49
 
-animation0.interval,random,4
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,3024,50,0,0
-animation0.pattern2,overlayfast,3025,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,4
+0pattern0,-1,10,overlay,0,0
+0pattern1,3024,5,overlayfast,0,0
+0pattern2,3025,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 }
 
 surface414
@@ -524,11 +520,11 @@ collisionex2,Cracks,polygon,102,49,95,57,94,61,100,70,100,79,102,78,102,70,108,5
 collisionex3,Cracks,polygon,120,79,116,81,119,94,124,91,127,83
 collisionex4,Face,polygon,114,48,102,49,95,57,92,66,92,74,94,77,92,83,93,89,101,95,117,95,125,91,127,83,132,71,132,68,131,64,129,63,129,59,127,58,126,52,121,49
 
-animation0.interval,random,4
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,3024,50,0,0
-animation0.pattern2,overlayfast,3026,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,4
+0pattern0,-1,10,overlay,0,0
+0pattern1,3024,5,overlayfast,0,0
+0pattern2,3026,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 }
 
 surface415
@@ -541,11 +537,11 @@ collisionex2,Cracks,polygon,102,49,95,57,94,61,100,70,100,79,102,78,102,70,108,5
 collisionex3,Cracks,polygon,120,79,116,81,119,94,124,91,127,83
 collisionex4,Face,polygon,114,48,102,49,95,57,92,66,92,74,94,77,92,83,93,89,101,95,117,95,125,91,127,83,132,71,132,68,131,64,129,63,129,59,127,58,126,52,121,49
 
-animation0.interval,random,4
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,3024,50,0,0
-animation0.pattern2,overlayfast,3026,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,4
+0pattern0,-1,10,overlay,0,0
+0pattern1,3024,5,overlayfast,0,0
+0pattern2,3026,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 }
 
 surface500 //Facing forward, hugging self
@@ -570,11 +566,11 @@ collisionex2,Cracks,polygon,98,60,94,63,91,73,99,83,99,85,101,84,99,78,101,74,10
 collisionex3,Cracks,polygon,115,81,117,90,122,94,123,97,127,94,129,90,127,84
 collisionex4,Face,polygon,113,53,102,55,94,63,91,73,93,83,96,87,97,94,101,98,108,99,116,99,123,97,127,94,129,90,128,84,130,80,130,70,124,61,121,61,118,54	
 
-animation0.interval,random,4
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,3027,50,0,0
-animation0.pattern2,overlayfast,3028,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,4
+0pattern0,-1,10,overlay,0,0
+0pattern1,3027,5,overlayfast,0,0
+0pattern2,3028,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 }
 
 surface502
@@ -587,11 +583,11 @@ collisionex2,Cracks,polygon,98,60,94,63,91,73,99,83,99,85,101,84,99,78,101,74,10
 collisionex3,Cracks,polygon,115,81,117,90,122,94,123,97,127,94,129,90,127,84
 collisionex4,Face,polygon,113,53,102,55,94,63,91,73,93,83,96,87,97,94,101,98,108,99,116,99,123,97,127,94,129,90,128,84,130,80,130,70,124,61,121,61,118,54
 
-animation0.interval,random,4
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,3027,50,0,0
-animation0.pattern2,overlayfast,3029,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,4
+0pattern0,-1,10,overlay,0,0
+0pattern1,3027,5,overlayfast,0,0
+0pattern2,3029,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 }
 
 surface503
@@ -604,11 +600,11 @@ collisionex2,Cracks,polygon,98,60,94,63,91,73,99,83,99,85,101,84,99,78,101,74,10
 collisionex3,Cracks,polygon,115,81,117,90,122,94,123,97,127,94,129,90,127,84
 collisionex4,Face,polygon,113,53,102,55,94,63,91,73,93,83,96,87,97,94,101,98,108,99,116,99,123,97,127,94,129,90,128,84,130,80,130,70,124,61,121,61,118,54
 
-animation0.interval,random,4
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,3027,50,0,0
-animation0.pattern2,overlayfast,3030,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,4
+0pattern0,-1,10,overlay,0,0
+0pattern1,3027,5,overlayfast,0,0
+0pattern2,3030,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 }
 
 surface510 //Facing left, hugging self
@@ -630,11 +626,11 @@ collisionex1,,Dent,polygon,116,51,114,72,119,75,123,75,124,81,129,77,131,74,131,
 collisionex2,Cracks,polygon,112,81,110,86,116,97,121,95,125,91,125,86
 collisionex3,Face,polygon,116,51,107,52,100,57,95,64,95,74,96,77,93,81,96,84,96,90,100,95,104,97,116,97,121,95,125,91,125,86,132,81,134,74,134,63,129,56,122,52
 
-animation0.interval,random,4
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,3031,50,0,0
-animation0.pattern2,overlayfast,3032,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,4
+0pattern0,-1,10,overlay,0,0
+0pattern1,3031,5,overlayfast,0,0
+0pattern2,3032,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 }
 
 surface512
@@ -646,11 +642,11 @@ collisionex1,,Dent,polygon,116,51,114,72,119,75,123,75,124,81,129,77,131,74,131,
 collisionex2,Cracks,polygon,112,81,110,86,116,97,121,95,125,91,125,86
 collisionex3,Face,polygon,116,51,107,52,100,57,95,64,95,74,96,77,93,81,96,84,96,90,100,95,104,97,116,97,121,95,125,91,125,86,132,81,134,74,134,63,129,56,122,52
 
-animation0.interval,random,4
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,3031,50,0,0
-animation0.pattern2,overlayfast,3033,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,4
+0pattern0,-1,10,overlay,0,0
+0pattern1,3031,5,overlayfast,0,0
+0pattern2,3033,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 }
 
 surface513
@@ -662,11 +658,11 @@ collisionex1,,Dent,polygon,116,51,114,72,119,75,123,75,124,81,129,77,131,74,131,
 collisionex2,Cracks,polygon,112,81,110,86,116,97,121,95,125,91,125,86
 collisionex3,Face,polygon,116,51,107,52,100,57,95,64,95,74,96,77,93,81,96,84,96,90,100,95,104,97,116,97,121,95,125,91,125,86,132,81,134,74,134,63,129,56,122,52
 
-animation0.interval,random,4
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,3031,50,0,0
-animation0.pattern2,overlayfast,3034,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,4
+0pattern0,-1,10,overlay,0,0
+0pattern1,3031,5,overlayfast,0,0
+0pattern2,3034,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 }
 
 surface514 //slight visual error on this blink... but I... dont care..... maybe later.
@@ -678,11 +674,11 @@ collisionex1,,Dent,polygon,116,51,114,72,119,75,123,75,124,81,129,77,131,74,131,
 collisionex2,Cracks,polygon,112,81,110,86,116,97,121,95,125,91,125,86
 collisionex3,Face,polygon,116,51,107,52,100,57,95,64,95,74,96,77,93,81,96,84,96,90,100,95,104,97,116,97,121,95,125,91,125,86,132,81,134,74,134,63,129,56,122,52
 
-animation0.interval,random,4
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,3031,50,0,0
-animation0.pattern2,overlayfast,3035,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,4
+0pattern0,-1,10,overlay,0,0
+0pattern1,3031,5,overlayfast,0,0
+0pattern2,3035,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 }
 
 surface515
@@ -704,11 +700,11 @@ collisionex1,,Dent,polygon,116,51,114,72,119,75,123,75,124,81,129,77,131,74,131,
 collisionex2,Cracks,polygon,112,81,110,86,116,97,121,95,125,91,125,86
 collisionex3,Face,polygon,116,51,107,52,100,57,95,64,95,74,96,77,93,81,96,84,96,90,100,95,104,97,116,97,121,95,125,91,125,86,132,81,134,74,134,63,129,56,122,52
 
-animation0.interval,random,4
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,3031,50,0,0
-animation0.pattern2,overlayfast,3032,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,4
+0pattern0,-1,10,overlay,0,0
+0pattern1,3031,5,overlayfast,0,0
+0pattern2,3032,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 }
 
 
@@ -734,11 +730,11 @@ collisionex2,Cracks,polygon,104,51,99,53,93,59,94,66,98,68,98,77,100,77,101,70,1
 collisionex3,Cracks,polygon,120,79,122,91,124,92,128,87,128,81
 collisionex4,Face,polygon,111,49,99,53,91,60,88,70,88,77,89,79,88,84,93,91,99,94,109,96,117,95,124,92,128,87,128,81,130,71,128,70,128,65,126,64,125,59,123,53
 
-animation0.interval,random,4
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,3012,50,0,0
-animation0.pattern2,overlayfast,3013,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,4
+0pattern0,-1,10,overlay,0,0
+0pattern1,3012,5,overlayfast,0,0
+0pattern2,3013,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 }
 
 surface1030 //Blush
@@ -751,11 +747,11 @@ collisionex2,Cracks,polygon,104,51,99,53,93,59,94,66,98,68,98,77,100,77,101,70,1
 collisionex3,Cracks,polygon,120,79,122,91,124,92,128,87,128,81
 collisionex4,Face,polygon,111,49,99,53,91,60,88,70,88,77,89,79,88,84,93,91,99,94,109,96,117,95,124,92,128,87,128,81,130,71,128,70,128,65,126,64,125,59,123,53
 
-animation0.interval,random,4
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,3014,50,0,0
-animation0.pattern2,overlayfast,3015,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,4
+0pattern0,-1,10,overlay,0,0
+0pattern1,3014,5,overlayfast,0,0
+0pattern2,3015,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 }
 
 surface1040 //drinking water
@@ -768,13 +764,13 @@ collisionex2,Cracks,Polygon,103,51,95,56,99,65,99,78,101,78,102,68,102,65,104,63
 collisionex3,Cracks,Polygon,119,78,119,86,123,92,126,89,127,83
 collisionex4,Face,polygon,114,48,103,50,95,56,90,68,92,76,91,82,92,89,100,94,118,94,126,89,127,83,133,76,133,68,130,66,130,62,127,61,127,53,119,48
 
-animation0.interval,random
-animation0.pattern0,replace,1041,2500,0,0
-animation0.pattern1,replace,1040,750,0,0
+0interval,random
+0pattern0,1041,250,replace,0,0
+0pattern1,1040,75,replace,0,0
 
-animation1.interval,random
-animation1.pattern0,replace,1041,2500,0,0
-animation1.pattern1,replace,1040,2450,0,0
+1interval,random
+1pattern0,1041,250,replace,0,0
+1pattern1,1040,245,replace,0,0
 }
 
 surface1050 //drinking juice
@@ -787,13 +783,13 @@ collisionex2,Cracks,Polygon,103,51,95,56,99,65,99,78,101,78,102,68,102,65,104,63
 collisionex3,Cracks,Polygon,119,78,119,86,123,92,126,89,127,83
 collisionex4,Face,polygon,114,48,103,50,95,56,90,68,92,76,91,82,92,89,100,94,118,94,126,89,127,83,133,76,133,68,130,66,130,62,127,61,127,53,119,48
 
-animation0.interval,random
-animation0.pattern0,replace,1051,2500,0,0
-animation0.pattern1,replace,1050,750,0,0
+0interval,random
+0pattern0,1051,250,replace,0,0
+0pattern1,1050,75,replace,0,0
 
-animation1.interval,random
-animation1.pattern0,replace,1051,2500,0,0
-animation1.pattern1,replace,1050,2450,0,0
+1interval,random
+1pattern0,1051,250,replace,0,0
+1pattern1,1050,245,replace,0,0
 }
 
 surface1060 //reading book
@@ -807,48 +803,48 @@ collisionex3,Cracks,Polygon,119,78,119,86,123,92,126,89,127,83
 collisionex4,Face,polygon,114,48,103,50,95,56,90,68,92,76,91,82,92,89,100,94,118,94,126,89,127,83,133,76,133,68,130,66,130,62,127,61,127,53,119,48
 
 
-animation0.interval,random,4
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,3036,50,0,0
-animation0.pattern2,overlayfast,3037,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,4
+0pattern0,-1,10,overlay,0,0
+0pattern1,3036,5,overlayfast,0,0
+0pattern2,3037,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 
-animation1.interval,random,10
-animation1.pattern0,overlay,-1,0,0,0
-animation1.pattern2,overlayfast,1061,0,0,0
-animation1.pattern3,overlayfast,3038,400,0,0
-animation1.pattern4,overlayfast,3039,50,0,0
-animation1.pattern5,overlayfast,1061,50,0,0
-animation1.pattern6,overlay,-1,5000,0,0
+1interval,random,10
+1pattern0,-1,0,overlay,0,0
+1pattern2,1061,0,overlayfast,0,0
+1pattern3,3038,40,overlayfast,0,0
+1pattern4,3039,5,overlayfast,0,0
+1pattern5,1061,5,overlayfast,0,0
+1pattern6,-1,500,overlay,0,0
 
-animation2.interval,random,10
-animation2.pattern0,overlay,-1,0,0,0
-animation2.pattern1,overlayfast,1062,0,0,0
-animation2.pattern2,overlay,-1,5000,0,0
+2interval,random,10
+2pattern0,-1,0,overlay,0,0
+2pattern1,1062,0,overlayfast,0,0
+2pattern2,-1,500,overlay,0,0
 	
-animation3.interval,random,20
-animation3.pattern0,overlay,-1,0,0,0
-animation3.pattern1,overlayfast,1063,0,0,0
-animation3.pattern2,overlayfast,3040,400,0,0
-animation3.pattern3,overlayfast,3041,50,0,0
-animation3.pattern4,overlayfast,1063,50,0,0
-animation3.pattern5,overlay,-1,5000,0,0
+3interval,random,20
+3pattern0,-1,0,overlay,0,0
+3pattern1,1063,0,overlayfast,0,0
+3pattern2,3040,40,overlayfast,0,0
+3pattern3,3041,5,overlayfast,0,0
+3pattern4,1063,5,overlayfast,0,0
+3pattern5,-1,500,overlay,0,0
 
-animation4.interval,random,10 //duplicate of interval 1, with a different wait time before the blink
-animation4.pattern0,overlay,-1,0,0,0
-animation4.pattern1,overlayfast,1061,0,0,0
-animation4.pattern2,overlayfast,3038,3000,0,0
-animation4.pattern3,overlayfast,3039,50,0,0
-animation4.pattern4,overlayfast,1061,50,0,0
-animation4.pattern5,overlay,-1,5000,0,0
+4interval,random,10 //duplicate of interval 1, with a different wait time before the blink
+4pattern0,-1,0,overlay,0,0
+4pattern1,1061,0,overlayfast,0,0
+4pattern2,3038,300,overlayfast,0,0
+4pattern3,3039,5,overlayfast,0,0
+4pattern4,1061,5,overlayfast,0,0
+4pattern5,-1,500,overlay,0,0
 
-animation5.interval,random,20 //duplicate of interval 3, with a different wait time before the blink
-animation5.pattern0,overlay,-1,0,0,0
-animation5.pattern1,overlayfast,1063,0,0,0
-animation5.pattern2,overlayfast,3040,3500,0,0
-animation5.pattern3,overlayfast,3041,50,0,0
-animation5.pattern4,overlayfast,1063,50,0,0
-animation5.pattern5,overlay,-1,5000,0,0
+5interval,random,20 //duplicate of interval 3, with a different wait time before the blink
+5pattern0,-1,0,overlay,0,0
+5pattern1,1063,0,overlayfast,0,0
+5pattern2,3040,350,overlayfast,0,0
+5pattern3,3041,5,overlayfast,0,0
+5pattern4,1063,5,overlayfast,0,0
+5pattern5,-1,500,overlay,0,0
 }
 
 //Thinking
@@ -862,11 +858,11 @@ collisionex2,Cracks,polygon,109,50,100,52,97,56,97,63,99,66,99,71,97,75,100,75,1
 collisionex3,Cracks,polygon,120,81,117,83,119,92,122,91,127,88,127,83
 collisionex4,Face,polygon,112,49,100,52,93,59,90,68,90,75,91,77,90,80,90,86,94,91,98,89,102,87,104,92,106,94,114,94,122,92,127,88,127,83,131,78,131,65,129,63,128,62,126,60,125,54,121,50
 
-animation0.interval,random,4
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,3016,50,0,0
-animation0.pattern2,overlayfast,3017,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,4
+0pattern0,-1,10,overlay,0,0
+0pattern1,3016,5,overlayfast,0,0
+0pattern2,3017,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 }
 
 surface1071 //Nom nom
@@ -879,11 +875,11 @@ collisionex2,Cracks,polygon,109,50,100,52,97,56,97,63,99,66,99,71,97,75,100,75,1
 collisionex3,Cracks,polygon,120,81,117,83,119,92,122,91,127,88,127,83
 collisionex4,Face,polygon,112,49,100,52,93,59,90,68,90,75,91,77,90,80,90,86,94,91,98,89,102,87,104,92,106,94,114,94,122,92,127,88,127,83,131,78,131,65,129,63,128,62,126,60,125,54,121,50
 
-animation0.interval,random,4
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,3018,50,0,0
-animation0.pattern2,overlayfast,3019,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,4
+0pattern0,-1,10,overlay,0,0
+0pattern1,3018,5,overlayfast,0,0
+0pattern2,3019,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 }
 
 surface1080 //hug
@@ -909,100 +905,100 @@ collisionex4,Face,polygon,113,48,102,50,95,57,91,65,91,74,93,78,93,86,97,92,105,
 
 
 
-animation0.interval,always //Phone up and down
-animation0.pattern0,overlay,1091,0,0,0
-animation0.pattern1,overlay,1091,1000,0,0
-animation0.pattern2,overlay,1092,100,0,0
-animation0.pattern3,overlay,1091,2000,0,0
-animation0.pattern4,overlay,1092,100,0,0
-animation0.pattern5,overlay,1091,1500,0,0
-animation0.pattern6,overlay,1092,100,0,0
-animation0.pattern7,overlay,1091,400,0,0
-animation0.pattern8,overlay,1092,100,0,0
+0interval,always //Phone up and down
+0pattern0,1091,0,overlay,0,0
+0pattern1,1091,100,overlay,0,0
+0pattern2,1092,10,overlay,0,0
+0pattern3,1091,200,overlay,0,0
+0pattern4,1092,10,overlay,0,0
+0pattern5,1091,150,overlay,0,0
+0pattern6,1092,10,overlay,0,0
+0pattern7,1091,40,overlay,0,0
+0pattern8,1092,10,overlay,0,0
 
 //[Zi]I tried writing my own bit for these expressions, but it wasn't working right so I just pilfered some from Gaster. And hey, what do you know, worked first try. Thanks Zar for your impeccably made ghosts that I can study
-animation1.interval,random,4 //regular blink
-animation1.pattern0,overlay,-1,100,0,0
-animation1.pattern1,overlayfast,3042,50,0,0
-animation1.pattern2,overlayfast,3043,100,0,0
-animation1.pattern3,overlay,-1,30,0,0
+1interval,random,4 //regular blink
+1pattern0,-1,10,overlay,0,0
+1pattern1,3042,5,overlayfast,0,0
+1pattern2,3043,10,overlayfast,0,0
+1pattern3,-1,3,overlay,0,0
 
-animation2.interval,random,10 //Blush
-animation2.pattern0,overlay,-1,0,0,0
-animation2.pattern1,overlayfast,1094,0,0,0
-animation2.pattern2,overlayfast,3044,400,0,0
-animation2.pattern3,overlayfast,3045,50,0,0
-animation2.pattern4,overlayfast,1094,50,0,0
-animation2.pattern5,overlay,-1,5000,0,0
+2interval,random,10 //Blush
+2pattern0,-1,0,overlay,0,0
+2pattern1,1094,0,overlayfast,0,0
+2pattern2,3044,40,overlayfast,0,0
+2pattern3,3045,5,overlayfast,0,0
+2pattern4,1094,5,overlayfast,0,0
+2pattern5,-1,500,overlay,0,0
 
-animation3.interval,random,10 //Blush - Dupe with different blink time
-animation3.pattern0,overlay,-1,0,0,0
-animation3.pattern1,overlayfast,1094,0,0,0
-animation3.pattern2,overlayfast,3044,2500,0,0
-animation3.pattern3,overlayfast,3045,50,0,0
-animation3.pattern4,overlayfast,3044,100,0,0
-animation3.pattern5,overlayfast,3045,50,0,0
-animation3.pattern6,overlayfast,1094,50,0,0
-animation3.pattern7,overlay,-1,5000,0,0
+3interval,random,10 //Blush - Dupe with different blink time
+3pattern0,-1,0,overlay,0,0
+3pattern1,1094,0,overlayfast,0,0
+3pattern2,3044,250,overlayfast,0,0
+3pattern3,3045,5,overlayfast,0,0
+3pattern4,3044,10,overlayfast,0,0
+3pattern5,3045,5,overlayfast,0,0
+3pattern6,1094,5,overlayfast,0,0
+3pattern7,-1,500,overlay,0,0
 
-animation4.interval,random,30 //Frown
-animation4.pattern0,overlay,-1,0,0,0
-animation4.pattern1,overlayfast,1095,0,0,0
-animation4.pattern2,overlayfast,3046,400,0,0
-animation4.pattern3,overlayfast,3047,50,0,0
-animation4.pattern4,overlayfast,1095,50,0,0
-animation4.pattern5,overlay,-1,5000,0,0
+4interval,random,30 //Frown
+4pattern0,-1,0,overlay,0,0
+4pattern1,1095,0,overlayfast,0,0
+4pattern2,3046,40,overlayfast,0,0
+4pattern3,3047,5,overlayfast,0,0
+4pattern4,1095,5,overlayfast,0,0
+4pattern5,-1,500,overlay,0,0
 
-animation5.interval,random,30 //Frown - Dupe with different blink time
-animation5.pattern0,overlay,-1,0,0,0
-animation5.pattern1,overlayfast,1095,0,0,0
-animation5.pattern2,overlayfast,3046,4000,0,0
-animation5.pattern3,overlayfast,3047,50,0,0
-animation5.pattern4,overlayfast,3046,100,0,0
-animation5.pattern5,overlayfast,3047,50,0,0
-animation5.pattern6,overlayfast,1095,50,0,0
-animation5.pattern7,overlay,-1,5000,0,0
+5interval,random,30 //Frown - Dupe with different blink time
+5pattern0,-1,0,overlay,0,0
+5pattern1,1095,0,overlayfast,0,0
+5pattern2,3046,400,overlayfast,0,0
+5pattern3,3047,5,overlayfast,0,0
+5pattern4,3046,10,overlayfast,0,0
+5pattern5,3047,5,overlayfast,0,0
+5pattern6,1095,5,overlayfast,0,0
+5pattern7,-1,500,overlay,0,0
 
-animation6.interval,random,10 //Closed eyes smile
-animation6.pattern0,overlay,-1,0,0,0
-animation6.pattern2,overlayfast,1093,0,0,0
-animation6.pattern3,overlay,-1,5000,0,0
+6interval,random,10 //Closed eyes smile
+6pattern0,-1,0,overlay,0,0
+6pattern2,1093,0,overlayfast,0,0
+6pattern3,-1,500,overlay,0,0
 
-animation7.interval,random,20 //Srsly
-animation7.pattern0,overlay,-1,0,0,0
-animation7.pattern1,overlayfast,1096,0,0,0
-animation7.pattern2,overlayfast,3048,400,0,0
-animation7.pattern3,overlayfast,3049,50,0,0
-animation7.pattern4,overlayfast,1096,50,0,0
-animation7.pattern5,overlay,-1,5000,0,0
+7interval,random,20 //Srsly
+7pattern0,-1,0,overlay,0,0
+7pattern1,1096,0,overlayfast,0,0
+7pattern2,3048,40,overlayfast,0,0
+7pattern3,3049,5,overlayfast,0,0
+7pattern4,1096,5,overlayfast,0,0
+7pattern5,-1,500,overlay,0,0
 
-animation8.interval,random,20 //Srsly - Dupe with different blink time
-animation8.pattern0,overlay,-1,0,0,0
-animation8.pattern1,overlayfast,1096,0,0,0
-animation8.pattern2,overlayfast,3048,2500,0,0
-animation8.pattern3,overlayfast,3049,50,0,0
-animation8.pattern4,overlayfast,3048,100,0,0
-animation8.pattern5,overlayfast,3049,50,0,0
-animation8.pattern6,overlayfast,1096,50,0,0
-animation8.pattern7,overlay,-1,5000,0,0
+8interval,random,20 //Srsly - Dupe with different blink time
+8pattern0,-1,0,overlay,0,0
+8pattern1,1096,0,overlayfast,0,0
+8pattern2,3048,250,overlayfast,0,0
+8pattern3,3049,5,overlayfast,0,0
+8pattern4,3048,10,overlayfast,0,0
+8pattern5,3049,5,overlayfast,0,0
+8pattern6,1096,5,overlayfast,0,0
+8pattern7,-1,500,overlay,0,0
 
-animation9.interval,random,25 //Sweat smile
-animation9.pattern0,overlay,-1,0,0,0
-animation9.pattern1,overlayfast,1097,0,0,0
-animation9.pattern2,overlayfast,3050,400,0,0
-animation9.pattern3,overlayfast,3051,50,0,0
-animation9.pattern4,overlayfast,1097,50,0,0
-animation9.pattern5,overlay,-1,5000,0,0
+9interval,random,25 //Sweat smile
+9pattern0,-1,0,overlay,0,0
+9pattern1,1097,0,overlayfast,0,0
+9pattern2,3050,40,overlayfast,0,0
+9pattern3,3051,5,overlayfast,0,0
+9pattern4,1097,5,overlayfast,0,0
+9pattern5,-1,500,overlay,0,0
 
-animation10.interval,random,25 //Sweat smile - Dupe with different blink time
-animation10.pattern0,overlay,-1,0,0,0
-animation10.pattern1,overlayfast,1097,0,0,0
-animation10.pattern2,overlayfast,3050,5000,0,0
-animation10.pattern3,overlayfast,3051,50,0,0
-animation10.pattern4,overlayfast,3050,100,0,0
-animation10.pattern5,overlayfast,3051,50,0,0
-animation10.pattern6,overlayfast,1097,50,0,0
-animation10.pattern7,overlay,-1,5000,0,0
+10interval,random,25 //Sweat smile - Dupe with different blink time
+10pattern0,-1,0,overlay,0,0
+10pattern1,1097,0,overlayfast,0,0
+10pattern2,3050,500,overlayfast,0,0
+10pattern3,3051,5,overlayfast,0,0
+10pattern4,3050,10,overlayfast,0,0
+10pattern5,3051,5,overlayfast,0,0
+10pattern6,1097,5,overlayfast,0,0
+10pattern7,-1,500,overlay,0,0
 }
 
 surface1100 //Startled/Alarm
@@ -1015,122 +1011,122 @@ collisionex2,Cracks,polygon,106,50,101,51,97,56,97,59,99,63,100,66,100,73,103,72
 collisionex3,Cracks,polygon,122,80,119,81,118,91,120,93,125,91,129,86,129,81
 collisionex4,Face,polygon,113,49,101,51,93,59,91,67,91,75,92,77,91,80,92,86,96,90,103,93,111,94,120,93,125,91,129,86,129,82,128,79,131,76,131,70,129,68,129,65,126,63,126,53,121,50
 
-animation0.interval,random,2
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,3020,50,0,0
-animation0.pattern2,overlayfast,3021,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,2
+0pattern0,-1,10,overlay,0,0
+0pattern1,3020,5,overlayfast,0,0
+0pattern2,3021,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 }
 
 //Appearing first boot
 surface1110
 {
 element0,overlay,surface1110.png,0,0
-animation0.interval,runonce
-animation0.pattern0,replace,1111,100,0,0
-animation0.pattern1,replace,1112,100,0,0
-animation0.pattern2,replace,208,130,0,0
+0interval,runonce
+0pattern0,1111,10,replace,0,0
+0pattern1,1112,10,replace,0,0
+0pattern2,208,13,replace,0,0
 
-animation1.interval,random,2
-animation1.pattern0,overlay,-1,100,0,0
-animation1.pattern1,overlayfast,3003,50,0,0
-animation1.pattern2,overlayfast,3004,100,0,0
-animation1.pattern3,overlay,-1,30,0,0
+1interval,random,2
+1pattern0,-1,10,overlay,0,0
+1pattern1,3003,5,overlayfast,0,0
+1pattern2,3004,10,overlayfast,0,0
+1pattern3,-1,3,overlay,0,0
 
-animation2.interval,random,4
-animation2.pattern0,overlay,-1,100,0,0
-animation2.pattern1,overlayfast,3003,50,0,0
-animation2.pattern2,overlayfast,3004,100,0,0
-animation2.pattern3,overlayfast,3003,50,0,0
-animation2.pattern4,overlayfast,3004,100,0,0
-animation2.pattern5,overlay,-1,30,0,0
+2interval,random,4
+2pattern0,-1,10,overlay,0,0
+2pattern1,3003,5,overlayfast,0,0
+2pattern2,3004,10,overlayfast,0,0
+2pattern3,3003,5,overlayfast,0,0
+2pattern4,3004,10,overlayfast,0,0
+2pattern5,-1,3,overlay,0,0
 }
 
 surface1122 //Appear normal -- Ok so, I guess with animated ones you can't have the same surface name as the image name? It was never a problem with the others so I just made them without realizing there was an issue... anyhow with this sorted, I can make bloop ins a few others...
 {
 element0,overlay,surface1110.png,0,0
-animation0.interval,runonce
-animation0.pattern0,replace,1111,100,0,0
-animation0.pattern1,replace,1113,100,0,0
-animation0.pattern2,replace,0,130,0,0
+0interval,runonce
+0pattern0,1111,10,replace,0,0
+0pattern1,1113,10,replace,0,0
+0pattern2,0,13,replace,0,0
 
-animation1.interval,random,4
-animation1.pattern0,overlay,-1,100,0,0
-animation1.pattern1,overlayfast,3001,50,0,0
-animation1.pattern2,overlayfast,3002,100,0,0
-animation1.pattern3,overlay,-1,30,0,0
+1interval,random,4
+1pattern0,-1,10,overlay,0,0
+1pattern1,3001,5,overlayfast,0,0
+1pattern2,3002,10,overlayfast,0,0
+1pattern3,-1,3,overlay,0,0
 
 }
 
 surface1123 //Appear Mad Left
 {
 element0,overlay,surface1110.png,0,0
-animation0.interval,runonce
-animation0.pattern0,replace,1111,100,0,0
-animation0.pattern1,replace,1114,100,0,0
-animation0.pattern2,replace,402,130,0,0
+0interval,runonce
+0pattern0,1111,10,replace,0,0
+0pattern1,1114,10,replace,0,0
+0pattern2,402,13,replace,0,0
 
-animation1.interval,random,4
-animation1.pattern0,overlay,-1,100,0,0
-animation1.pattern1,overlayfast,3006,50,0,0
-animation1.pattern2,overlayfast,3007,100,0,0
-animation1.pattern3,overlay,-1,30,0,0
+1interval,random,4
+1pattern0,-1,10,overlay,0,0
+1pattern1,3006,5,overlayfast,0,0
+1pattern2,3007,10,overlayfast,0,0
+1pattern3,-1,3,overlay,0,0
 
 }
 
 surface1124 //Appear Mad Forward
 {
 element0,overlay,surface1110.png,0,0
-animation0.interval,runonce
-animation0.pattern0,replace,1111,100,0,0
-animation0.pattern1,replace,1115,100,0,0
-animation0.pattern2,replace,412,130,0,0
+0interval,runonce
+0pattern0,1111,10,replace,0,0
+0pattern1,1115,10,replace,0,0
+0pattern2,412,13,replace,0,0
 
-animation1.interval,random,4
-animation1.pattern0,overlay,-1,100,0,0
-animation1.pattern1,overlayfast,3024,50,0,0
-animation1.pattern2,overlayfast,3025,100,0,0
-animation1.pattern3,overlay,-1,30,0,0
+1interval,random,4
+1pattern0,-1,10,overlay,0,0
+1pattern1,3024,5,overlayfast,0,0
+1pattern2,3025,10,overlayfast,0,0
+1pattern3,-1,3,overlay,0,0
 
 }
 
 surface1125 //Appear Sad Left
 {
 element0,overlay,surface1110.png,0,0
-animation0.interval,runonce
-animation0.pattern0,replace,1111,100,0,0
-animation0.pattern1,replace,1116,100,0,0
-animation0.pattern2,replace,501,130,0,0
+0interval,runonce
+0pattern0,1111,10,replace,0,0
+0pattern1,1116,10,replace,0,0
+0pattern2,501,13,replace,0,0
 
-animation1.interval,random,4
-animation1.pattern0,overlay,-1,100,0,0
-animation1.pattern1,overlayfast,3027,50,0,0
-animation1.pattern2,overlayfast,3028,100,0,0
-animation1.pattern3,overlay,-1,30,0,0
+1interval,random,4
+1pattern0,-1,10,overlay,0,0
+1pattern1,3027,5,overlayfast,0,0
+1pattern2,3028,10,overlayfast,0,0
+1pattern3,-1,3,overlay,0,0
 }
 
 surface1126 //Appear Sad Forward
 {
 element0,overlay,surface1110.png,0,0
-animation0.interval,runonce
-animation0.pattern0,replace,1111,100,0,0
-animation0.pattern1,replace,1117,100,0,0
-animation0.pattern2,replace,511,130,0,0
+0interval,runonce
+0pattern0,1111,10,replace,0,0
+0pattern1,1117,10,replace,0,0
+0pattern2,511,13,replace,0,0
 
-animation1.interval,random,4
-animation1.pattern0,overlay,-1,100,0,0
-animation1.pattern1,overlayfast,3031,50,0,0
-animation1.pattern2,overlayfast,3032,100,0,0
-animation1.pattern3,overlay,-1,30,0,0
+1interval,random,4
+1pattern0,-1,10,overlay,0,0
+1pattern1,3031,5,overlayfast,0,0
+1pattern2,3032,10,overlayfast,0,0
+1pattern3,-1,3,overlay,0,0
 }
 
 surface1127 //Appear Sleep
 {
 element0,overlay,surface1110.png,0,0
-animation0.interval,runonce
-animation0.pattern0,replace,1111,100,0,0
-animation0.pattern1,replace,1118,100,0,0
-animation0.pattern2,replace,1300,130,0,0
+0interval,runonce
+0pattern0,1111,10,replace,0,0
+0pattern1,1118,10,replace,0,0
+0pattern2,1300,13,replace,0,0
 }
 
 
@@ -1138,8 +1134,8 @@ animation0.pattern2,replace,1300,130,0,0
 surface1550
 {
 element0,overlay,surface1550.png,0,0
-animation0.interval,runonce
-animation0.pattern0,replace,1551,150,0,0
+0interval,runonce
+0pattern0,1551,15,replace,0,0
 
 collisionex0,Head,polygon,89,54,81,55,78,58,80,62,80,75,78,81,102,75,97,67,95,57
 collisionex1,Dent,polygon,97,55,95,57,97,67,102,75,106,74,108,68,106,66,105,63,102,63,
@@ -1157,11 +1153,11 @@ surface1201 //Looking at Obsi
 {
 element0,overlay,surface1201.png,0,0
 
-animation0.interval,random,4 //The last number means 1/*. So, in this case, 1/4. The higher the number, the lower the chance of this running.
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,3001,50,0,0
-animation0.pattern2,overlayfast,3052,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,4 //The last number means 1/*. So, in this case, 1/4. The higher the number, the lower the chance of this running.
+0pattern0,-1,10,overlay,0,0
+0pattern1,3001,5,overlayfast,0,0
+0pattern2,3052,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 }
 
 surface1204 //Smile
@@ -1193,11 +1189,11 @@ collisionex1,Dent,polygon,117,51,114,70,121,73,121,79,126,76,129,70,125,67,125,6
 collisionex2,Cracks,polygon,109,79,108,83,114,93,120,91,120,85
 collisionex3,Face,polygon,111,50,98,53,93,68,94,72,90,76,93,80,93,89,98,93,114,93,120,91,112,84,130,81,133,70,132,62,121,51
 
-animation0.interval,random,4
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,3003,50,0,0
-animation0.pattern2,overlayfast,3004,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,4
+0pattern0,-1,10,overlay,0,0
+0pattern1,3003,5,overlayfast,0,0
+0pattern2,3004,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 }
 
 surface1220 //Sad left
@@ -1209,28 +1205,28 @@ collisionex1,Dent,polygon,117,51,114,70,121,73,121,79,126,76,129,70,125,67,125,6
 collisionex2,Cracks,polygon,109,79,108,83,114,93,120,91,120,85
 collisionex3,Face,polygon,111,50,98,53,93,68,94,72,90,76,93,80,93,89,98,93,114,93,120,91,112,84,130,81,133,70,132,62,121,51
 
-animation0.interval,random,4
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,3003,50,0,0
-animation0.pattern2,overlayfast,3004,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,4
+0pattern0,-1,10,overlay,0,0
+0pattern1,3003,5,overlayfast,0,0
+0pattern2,3004,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 }
 
 surface1298 //Jump down
 {
 element0,overlay,surface1298.png,0,0
-animation0.interval,runonce
-animation0.pattern0,replace,1299,100,0,0
-animation0.pattern1,replace,102,100,0,0
+0interval,runonce
+0pattern0,1299,10,replace,0,0
+0pattern1,102,10,replace,0,0
 }
 
 surface.append1200-1210,!1201,!1204,!1207 //the !1204 excludes 1204 from the blink animation, etc
 {
-animation0.interval,random,4 //The last number means 1/*. So, in this case, 1/4. The higher the number, the lower the chance of this running.
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,3001,50,0,0
-animation0.pattern2,overlayfast,3002,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,4 //The last number means 1/*. So, in this case, 1/4. The higher the number, the lower the chance of this running.
+0pattern0,-1,10,overlay,0,0
+0pattern1,3001,5,overlayfast,0,0
+0pattern2,3002,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 }
 
 surface.append1200-1299,!1220,!1225
@@ -1247,71 +1243,71 @@ surface.append1200-1225 //Obsidian animations and collision
 collision5,100,95,140,130,Obsidian
 
 //Tail twitch
-animation1.interval,always //Initial frame
-animation1.pattern0,overlay,3053,10,85,144
+1interval,always //Initial frame
+1pattern0,3053,1,overlay,85,144
 
 //This decides which animation to play so they dont overlap
 
-animation2.interval,random,3
-animation2.pattern0,alternativestart,[3.4.5.6]
+2interval,random,3
+2pattern0,0,0,alternativestart,[3.4.5.6]
 
 //Fast
-animation3.interval,never
-animation3.pattern0,replace,3054,100,85,144
-animation3.pattern1,replace,3055,60,85,144
-animation3.pattern2,replace,3056,30,85,144
-animation3.pattern3,replace,3057,60,85,144
-animation3.pattern4,replace,3056,100,85,144
-animation3.pattern5,replace,3055,60,85,144
-animation3.pattern6,replace,3054,30,85,144
-animation3.pattern7,replace,-1,60,85,144
+3interval,never
+3pattern0,3054,10,replace,85,144
+3pattern1,3055,6,replace,85,144
+3pattern2,3056,3,replace,85,144
+3pattern3,3057,6,replace,85,144
+3pattern4,3056,10,replace,85,144
+3pattern5,3055,6,replace,85,144
+3pattern6,3054,3,replace,85,144
+3pattern7,-1,6,replace,85,144
 
 //Slower
-animation4.interval,never
-animation4.pattern0,replace,3054,300,85,144
-animation4.pattern1,replace,3055,80,85,144
-animation4.pattern2,replace,3056,30,85,144
-animation4.pattern3,replace,3057,80,85,144
-animation4.pattern4,replace,3056,300,85,144
-animation4.pattern5,replace,3055,80,85,144
-animation4.pattern6,replace,3054,30,85,144
-animation4.pattern7,replace,-1,80,85,144
+4interval,never
+4pattern0,3054,30,replace,85,144
+4pattern1,3055,8,replace,85,144
+4pattern2,3056,3,replace,85,144
+4pattern3,3057,8,replace,85,144
+4pattern4,3056,30,replace,85,144
+4pattern5,3055,8,replace,85,144
+4pattern6,3054,3,replace,85,144
+4pattern7,-1,8,replace,85,144
 
 //Drop
-animation5.interval,never
-animation5.pattern0,replace,3054,300,85,144
-animation5.pattern1,replace,3055,80,85,144
-animation5.pattern2,replace,3056,100,85,144
-animation5.pattern3,replace,3055,100,85,144
-animation5.pattern4,replace,3054,100,85,144
-animation5.pattern5,replace,3055,200,85,144
-animation5.pattern6,replace,3054,2000,85,144
-animation5.pattern7,replace,3055,200,85,144
-animation5.pattern8,replace,3056,100,85,144
-animation5.pattern9,replace,3057,100,85,144
-animation5.pattern10,replace,3056,100,85,144
-animation5.pattern11,replace,3055,100,85,144
-animation5.pattern12,replace,3054,100,85,144
-animation5.pattern13,replace,-1,100,85,144
+5interval,never
+5pattern0,3054,30,replace,85,144
+5pattern1,3055,8,replace,85,144
+5pattern2,3056,10,replace,85,144
+5pattern3,3055,10,replace,85,144
+5pattern4,3054,10,replace,85,144
+5pattern5,3055,20,replace,85,144
+5pattern6,3054,200,replace,85,144
+5pattern7,3055,20,replace,85,144
+5pattern8,3056,10,replace,85,144
+5pattern9,3057,10,replace,85,144
+5pattern10,3056,10,replace,85,144
+5pattern11,3055,10,replace,85,144
+5pattern12,3054,10,replace,85,144
+5pattern13,-1,10,replace,85,144
 
 //Hang
-animation6.interval,never
-animation6.pattern0,replace,3054,100,85,144
-animation6.pattern1,replace,3055,100,85,144
-animation6.pattern2,replace,3054,3000,85,144
-animation6.pattern3,replace,-1,100,85,144
+6interval,never
+6pattern0,3054,10,replace,85,144
+6pattern1,3055,10,replace,85,144
+6pattern2,3054,300,replace,85,144
+6pattern3,-1,10,replace,85,144
 }
 
 surface1300 //Sleep Neutral
 {
 element0,overlay,surface1300.png,0,0
 
-animation0.interval,always
-animation0.pattern0,overlay,1320,0,-2,3
-animation0.pattern1,overlay,1320,2000,-1,1
-animation0.pattern2,overlay,1320,200,0,0
-animation0.pattern3,overlay,1320,1000,-1,1
-animation0.pattern4,overlay,-1,200,-1,1
+0interval,always
+0pattern0,1320,0,overlay,-2,3
+0pattern1,1320,200,overlay,-1,1
+0pattern2,1320,20,overlay,0,0
+0pattern3,1320,100,overlay,-1,1
+0pattern4,-1,20,overlay,-1,1
 
 }
 
@@ -1319,60 +1315,60 @@ surface1301 //Sleep Worry
 {
 element0,overlay,surface1300.png,0,0
 
-animation0.interval,always
-animation0.pattern0,overlay,1321,0,-2,3
-animation0.pattern1,overlay,-1,2000,0,0
-animation0.pattern2,overlay,1321,0,-1,1
-animation0.pattern3,overlay,-1,200,0,0
-animation0.pattern4,overlay,1321,0,0,0
-animation0.pattern5,overlay,-1,1000,0,0
-animation0.pattern6,overlay,1321,0,-1,1
-animation0.pattern7,overlay,-1,200,0,0
+0interval,always
+0pattern0,1321,0,overlay,-2,3
+0pattern1,-1,200,overlay,0,0
+0pattern2,1321,0,overlay,-1,1
+0pattern3,-1,20,overlay,0,0
+0pattern4,1321,0,overlay,0,0
+0pattern5,-1,100,overlay,0,0
+0pattern6,1321,0,overlay,-1,1
+0pattern7,-1,20,overlay,0,0
 }
 
 surface1302 //Sleep Fear
 {
 element0,overlay,surface1300.png,0,0
 
-animation0.interval,always
-animation0.pattern0,overlay,1322,0,-2,3
-animation0.pattern1,overlay,-1,2000,0,0
-animation0.pattern2,overlay,1322,0,-1,1
-animation0.pattern3,overlay,-1,200,0,0
-animation0.pattern4,overlay,1322,0,0,0
-animation0.pattern5,overlay,-1,1000,0,0
-animation0.pattern6,overlay,1322,0,-1,1
-animation0.pattern7,overlay,-1,200,0,0
+0interval,always
+0pattern0,1322,0,overlay,-2,3
+0pattern1,-1,200,overlay,0,0
+0pattern2,1322,0,overlay,-1,1
+0pattern3,-1,20,overlay,0,0
+0pattern4,1322,0,overlay,0,0
+0pattern5,-1,100,overlay,0,0
+0pattern6,1322,0,overlay,-1,1
+0pattern7,-1,20,overlay,0,0
 }
 
 surface1303 //Sleep Smile
 {
 element0,overlay,surface1300.png,0,0
 
-animation0.interval,always
-animation0.pattern0,overlay,1323,0,0,0
-animation0.pattern1,overlay,-1,2000,0,0
-animation0.pattern2,overlay,1323,0,-1,1
-animation0.pattern3,overlay,-1,200,0,0
-animation0.pattern4,overlay,1323,0,-2,3
-animation0.pattern5,overlay,-1,1000,0,0
-animation0.pattern6,overlay,1323,0,-1,1
-animation0.pattern7,overlay,-1,200,0,0
+0interval,always
+0pattern0,1323,0,overlay,0,0
+0pattern1,-1,200,overlay,0,0
+0pattern2,1323,0,overlay,-1,1
+0pattern3,-1,20,overlay,0,0
+0pattern4,1323,0,overlay,-2,3
+0pattern5,-1,100,overlay,0,0
+0pattern6,1323,0,overlay,-1,1
+0pattern7,-1,20,overlay,0,0
 }
 
 surface1304 //Sleep Worry Smile
 {
 element0,overlay,surface1300.png,0,0
 
-animation0.interval,always
-animation0.pattern0,overlay,1324,0,-2,3
-animation0.pattern1,overlay,-1,2000,0,0
-animation0.pattern2,overlay,1324,0,-1,1
-animation0.pattern3,overlay,-1,200,0,0
-animation0.pattern4,overlay,1324,0,0,0
-animation0.pattern5,overlay,-1,1000,0,0
-animation0.pattern6,overlay,1324,0,-1,1
-animation0.pattern7,overlay,-1,200,0,0
+0interval,always
+0pattern0,1324,0,overlay,-2,3
+0pattern1,-1,200,overlay,0,0
+0pattern2,1324,0,overlay,-1,1
+0pattern3,-1,20,overlay,0,0
+0pattern4,1324,0,overlay,0,0
+0pattern5,-1,100,overlay,0,0
+0pattern6,1324,0,overlay,-1,1
+0pattern7,-1,20,overlay,0,0
 }
 
 Surface.append1300-1304
@@ -1446,11 +1442,11 @@ element0,overlay,surface2005.png,0,0
 
 surface.append2000-2005
 {
-animation0.interval,random,4
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,2700,50,0,0
-animation0.pattern2,overlayfast,2701,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,4
+0pattern0,-1,10,overlay,0,0
+0pattern1,2700,5,overlayfast,0,0
+0pattern2,2701,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 
 collision0,91,50,126,71,Head
 collision1,126,50,137,75,Dent
@@ -1494,11 +1490,11 @@ collision2,91,52,141,102,Face
 
 surface.append2006-2009
 {
-animation0.interval,random,4
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,2702,50,0,0
-animation0.pattern2,overlayfast,2703,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,4
+0pattern0,-1,10,overlay,0,0
+0pattern1,2702,5,overlayfast,0,0
+0pattern2,2703,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 
 collision0,97,58,129,81,Head
 collision1,129,58,136,80,Dent
@@ -1529,11 +1525,11 @@ collisionex2,Face,polygon,95,54,113,49,128,57,131,72,129,85,124,95,117,99,104,10
 
 surface.append2012-2013
 {
-animation0.interval,random,4
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,2704,50,0,0
-animation0.pattern2,overlayfast,2705,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,4
+0pattern0,-1,10,overlay,0,0
+0pattern1,2704,5,overlayfast,0,0
+0pattern2,2705,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 
 collisionex0,Head,polygon,105,53,92,60,88,70,88,78,91,83,99,83,106,79,109,73,106,55,117,61,119,67,123,68,124,72,127,72,126,62,115,53,105,53
 collisionex1,Dent,polygon,106,55,109,73,114,75,117,73,119,80,123,74,123,68,120,67,117,61,106,55
@@ -1555,11 +1551,11 @@ element0,overlay,surface2016.png,0,0
 
 surface.append2015-2016
 {
-animation0.interval,random,2
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,2706,50,0,0
-animation0.pattern2,overlayfast,2707,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,2
+0pattern0,-1,10,overlay,0,0
+0pattern1,2706,5,overlayfast,0,0
+0pattern2,2707,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 
 collision0,96,58,128,76,Head
 collision1,127,58,134,79,Dent
@@ -1591,11 +1587,11 @@ collision2,92,49,136,98,Face
 
 surface.append2020-2021
 {
-animation0.interval,random,2
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,2708,50,0,0
-animation0.pattern2,overlayfast,2709,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,2
+0pattern0,-1,10,overlay,0,0
+0pattern1,2708,5,overlayfast,0,0
+0pattern2,2709,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 
 collisionex0,Head,polygon,119,52,105,53,96,62,94,70,95,75,103,79,122,79,112,76,119,76,114,73,114,64,118,54,127,62,127,68,130,72,134,72,133,63,128,56,119,52
 collisionex1,Dent,polygon,118,54,114,64,114,73,119,76,122,76,122,81,128,78,130,72,127,68,127,62,118,54
@@ -1607,41 +1603,41 @@ surface2100 //drinking water
 {
 element0,overlay,surface2100.png,0,0
 
-animation0.interval,random,4
-animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,2702,50,0,0
-animation0.pattern2,overlayfast,2703,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+0interval,random,4
+0pattern0,-1,10,overlay,0,0
+0pattern1,2702,5,overlayfast,0,0
+0pattern2,2703,10,overlayfast,0,0
+0pattern3,-1,3,overlay,0,0
 
 collision0,97,58,129,81,Head
 collision1,129,58,136,80,Dent
 collision2,85,42,140,98,Face
 
-animation1.interval,random
-animation1.pattern0,alternativestart,[2.3]
+1interval,random
+1pattern0,0,0,alternativestart,[2.3]
 
-animation2.interval,never
-animation2.pattern0,replace,2101,2500,0,0
-animation2.pattern1,replace,2100,750,0,0
+2interval,never
+2pattern0,2101,250,replace,0,0
+2pattern1,2100,75,replace,0,0
 
-animation3.interval,never
-animation3.pattern0,replace,2101,2500,0,0
-animation3.pattern1,replace,2100,2450,0,0
+3interval,never
+3pattern0,2101,250,replace,0,0
+3pattern1,2100,245,replace,0,0
 }
 
 surface2790 //Appear RYS
 {
 element0,overlay,surface2790.png,0,0
-animation0.interval,runonce
-animation0.pattern0,replace,2791,100,0,0
-animation0.pattern1,replace,2792,100,0,0
-animation0.pattern2,replace,2006,130,0,0
+0interval,runonce
+0pattern0,2791,10,replace,0,0
+0pattern1,2792,10,replace,0,0
+0pattern2,2006,13,replace,0,0
 
-animation1.interval,random,3
-animation1.pattern0,overlay,-1,100,0,0
-animation1.pattern1,overlayfast,2702,50,0,0
-animation1.pattern2,overlayfast,2703,100,0,0
-animation1.pattern3,overlay,-1,30,0,0
+1interval,random,3
+1pattern0,-1,10,overlay,0,0
+1pattern1,2702,5,overlayfast,0,0
+1pattern2,2703,10,overlayfast,0,0
+1pattern3,-1,3,overlay,0,0
 
 collision0,97,58,129,81,Head
 collision1,129,58,136,80,Dent

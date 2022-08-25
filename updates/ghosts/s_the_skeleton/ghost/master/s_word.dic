@@ -1,6 +1,6 @@
 ﻿//---------------------------Envelopes--------------------------
 
-ingredients : nonoverlap
+ingredients
 {
 	"cilantro"
 	"basil"
@@ -42,7 +42,7 @@ ingredients : nonoverlap
 	"parsley"
 }
 
-fruveg : nonoverlap
+fruveg
 {
 	"grapefruit"
 	"apple"
@@ -55,7 +55,7 @@ fruveg : nonoverlap
 	"avocado"
 	"pickle"
 	"cherry"
-	"broccoli"
+	"brocolli"
 	"lettuce"
 	"celery"
 	"pineapple"
@@ -66,16 +66,9 @@ fruveg : nonoverlap
 	"blueberry"
 	"blackberry"
 	"watermelon"
-	
-	"passionfruit"
-	"dragonfruit"
-	"pea"
-	"green bean"
-	"corn"
-	"pumpkin"
 }
 
-fruvegs : nonoverlap
+fruvegs
 {
 	"grapefruits"
 	"apples"
@@ -88,7 +81,7 @@ fruvegs : nonoverlap
 	"avocados"
 	"pickles"
 	"cherries"
-	"broccoli"
+	"brocolli"
 	"lettuce"
 	"celery stalks"
 	"pineapples"
@@ -101,7 +94,7 @@ fruvegs : nonoverlap
 	"watermelons"
 }
 
-bakedgoods : nonoverlap
+bakedgoods
 {
 	"bread"
 	"cookies"
@@ -131,7 +124,7 @@ bakedgoods : nonoverlap
 	"oreo cheesecake"
 }
 
-condiment : nonoverlap
+condiment
 {
 	"ketchup"
 	"mustard"
@@ -144,30 +137,25 @@ condiment : nonoverlap
 	"fry sauce"
 }
 
-family
+family : nonoverlap
 {
-	"\![embed,OnFamilyEnv]"
+	"anWD"
+	"anDings"
+	"anWings"
+	"anBarcode"
+	"anBlue"
+	"anAbbi"
+	"anRosie"
+	"anRoman"
+	"anCambria"
+	"anTriton"
+	"anLulo"
+	"anAzo"
+	"anSigil"
+	"anElko"
 }
 
-OnFamilyEnv : nonoverlap
-{
-	"@WD"
-	"@Dings"
-	"@Wings"
-	"@Barcode"
-	"@Blue"
-	"@Abbi"
-	"@Rosie"
-	"@Roman"
-	"@Cambria"
-	"@Triton"
-	"@Lulo"
-	"@Azo"
-	"@Sigil"
-	"@Elko"
-}
-
-usersfolder : nonoverlap
+usersfolder
 {
 	"start bar"
 	"Documents folder"
@@ -176,7 +164,7 @@ usersfolder : nonoverlap
 	"Games folder"
 }
 
-filetype : nonoverlap
+filetype
 {
 	".txt"
 	".dic"
@@ -204,7 +192,7 @@ filetype : nonoverlap
 	".ttf"
 }
 
-musicfile : nonoverlap
+musicfile
 {
 	".mp3"
 	".wav"
@@ -273,7 +261,7 @@ colormodC
 	}
 }
 
-colors : nonoverlap
+colors
 {
 	"red"
 	"orange"
@@ -324,7 +312,7 @@ familytime
 	// }
 // }
 
-fcolor : nonoverlap //flower colors
+fcolor //flower colors
 {
 	"red"
 	"orange"
@@ -357,7 +345,7 @@ pattern
 	}
 }
 
-animal : nonoverlap //plushes -- I've excluded some so that I could write specific dialogue about them
+animal //plushes -- I've excluded some so that I could write specific dialogue about them
 {
 	"dog"
 	"elephant"
@@ -658,8 +646,11 @@ LuloPresent
 
 Capitalize
 {
-	//The first part here is getting the first letter and making it capital, and the second just gets everything else as it is. It concatenates those two parts, then returns them.
-	TOUPPER(SUBSTR(_argv[0],0,1)) + SUBSTR(_argv[0],1,STRLEN(_argv[0]))
+	_word = _argv[0] //Sets _word to the word the user sent
+	_buffer = SUBSTR(_word,0,1) //Storing the first character in _buffer
+	_word = ERASE(_word,0,1) //Erasing the first character from _word
+	_word = INSERT(_word,0,TOUPPER(_buffer)) //Making the character in _buffer uppercase and inserting it back into _word
+	_word //Returns the capitalized word
 }
 
 //---Menu Envelopes---
@@ -788,10 +779,6 @@ daytime //Note: S is based in a particular geopraphical location, so FOR HIM, th
 	//Top if is the timeslots that will always be day.
 	//Elseifs are extra timeslots during summer months.
 	//If it's none of those, it's not daytime.
-	if WeatherStationInstalled && is_day != ""
-	{
-		is_day
-	}
 	if timeslot == "morning" || timeslot == "lunch" || timeslot == "afternoon"; 1
 	elseif season == "Summer" && (timeslot == "earlymorning" || timeslot == "evening"); 1
 	else; 0
@@ -811,33 +798,33 @@ GetTimeSlot
 //dayslot
 GetDaySlot
 {
-	"%(month)month %(day)day"
 	//"%(month)/%(day)" I want to change to this but I'll have to deal with people's birthdays being formatted wrong
+	"%(month)month %(day)day"
 }
 
 temp
 {
-	if feelslike == "" || temperature == ""; "Unknown"
-	elseif weather.units == "Imperial"
+	if feelslike[0] == "Unknown" || tempurature[0] == "Unknown"; "Unknown"
+	elseif Degrees[1] == "°F"
 	{
-		if feelslike <= 0; "Below Zero" //Below zero, 0 and below
-		elseif feelslike <= 20; "Freezing" //Freezing, 0-20
-		elseif feelslike <= 40; "Cold" //Cold, 21-40
-		elseif feelslike <= 60; "Chilly" //Chilly, 41-60
-		elseif feelslike <= 80; "Pleasant" //Pleasant, 61-80
-		elseif feelslike <= 95; "Hot" //Hot, 81-95
-		elseif feelslike >= 96; "Boiling"  //Everything is terrible, 96+
+		if feelslike[0] <= 0; "Below Zero" //Below zero, 0 and below
+		elseif feelslike[0] <= 20; "Freezing" //Freezing, 0-20
+		elseif feelslike[0] <= 40; "Cold" //Cold, 21-40
+		elseif feelslike[0] <= 60; "Chilly" //Chilly, 41-60
+		elseif feelslike[0] <= 80; "Pleasant" //Pleasant, 61-80
+		elseif feelslike[0] <= 95; "Hot" //Hot, 81-95
+		elseif feelslike[0] >= 96; "Boiling"  //Everything is terrible, 96+
 		else; "Unknown"
 	}
-	elseif weather.units == "Metric"
+	elseif Degrees[1] == "°C"
 	{
-		if feelslike <= -17; "Below Zero" //Below zero, 0 and below
-		elseif feelslike <= -6; "Freezing" //Freezing, 0-20
-		elseif feelslike <= 4; "Cold" //Cold, 21-40
-		elseif feelslike <= 15; "Chilly" //Chilly, 41-60
-		elseif feelslike <= 26; "Pleasant" //Pleasant, 61-80
-		elseif feelslike <= 35; "Hot" //Hot, 81-95
-		elseif feelslike >= 36; "Boiling" //Everything is terrible, 96+
+		if feelslike[0] <= -17; "Below Zero" //Below zero, 0 and below
+		elseif feelslike[0] <= -6; "Freezing" //Freezing, 0-20
+		elseif feelslike[0] <= 4; "Cold" //Cold, 21-40
+		elseif feelslike[0] <= 15; "Chilly" //Chilly, 41-60
+		elseif feelslike[0] <= 26; "Pleasant" //Pleasant, 61-80
+		elseif feelslike[0] <= 35; "Hot" //Hot, 81-95
+		elseif feelslike[0] >= 36; "Boiling" //Everything is terrible, 96+
 		else; "Unknown"
 	}
 	else
@@ -848,7 +835,7 @@ temp
 
 humid
 {
-	if humidity == ""; "Unknown"
+	if humidity == "Unknown"; "Unknown"
 	elseif humidity <= 30; "Dry" //Dry
 	elseif humidity > 30 && humidity <= 60; "Comfortable" //Comfortable
 	elseif humidity >= 61 && humidity <= 80; "Muggy" //Muggy
@@ -858,19 +845,15 @@ humid
 
 moonphase
 {
-	"\_a[CheckWeather]\_b[img\Moon"
-	--
-	if phase == "New Moon"; "01"
-	elseif phase == "Waxing Crescent"; "02"
-	elseif phase == "First Quarter"; "03"
-	elseif phase == "Waxing Gibbous"; "04"
-	elseif phase == "Full Moon"; "05"
-	elseif phase == "Waning Gibbous"; "06"
-	elseif phase == "Last Quarter"; "07"
-	elseif phase == "Waning Crescent"; "08"
-	else; "09"
-	--
-	",inline,--option=use_self_alpha]\_a"
+	if phase == "New Moon"; "anMoon01"
+	elseif phase == "Waxing Crescent"; "anMoon02"
+	elseif phase == "First Quarter"; "anMoon03"
+	elseif phase == "Waxing Gibbous"; "anMoon04"
+	elseif phase == "Full Moon"; "anMoon05"
+	elseif phase == "Waning Gibbous"; "anMoon06"
+	elseif phase == "Last Quarter"; "anMoon07"
+	elseif phase == "Waning Crescent"; "anMoon08"
+	else; "anMoon09"
 }
 
 loadingmoon
@@ -888,18 +871,14 @@ loadingmoon
 
 lm : sequential //Changed the loadingmoon thing to just use sequential, it's less prone to bugs and means I don't need a variable!
 {
-	"\_b[img\Moon0"
-	--
-	"1"
-	"2"
-	"3"
-	"4"
-	"5"
-	"6"
-	"7"
-	"8"
-	--
-	",inline,--option=use_self_alpha]\w4\c"
+	"\_b[img\Moon01,inline,--option=use_self_alpha]\w4\c"
+	"\_b[img\Moon02,inline,--option=use_self_alpha]\w4\c"
+	"\_b[img\Moon03,inline,--option=use_self_alpha]\w4\c"
+	"\_b[img\Moon04,inline,--option=use_self_alpha]\w4\c"
+	"\_b[img\Moon05,inline,--option=use_self_alpha]\w4\c"
+	"\_b[img\Moon06,inline,--option=use_self_alpha]\w4\c"
+	"\_b[img\Moon07,inline,--option=use_self_alpha]\w4\c"
+	"\_b[img\Moon08,inline,--option=use_self_alpha]\w4\c"
 }
 
 
@@ -922,237 +901,91 @@ lm : sequential //Changed the loadingmoon thing to just use sequential, it's les
 	Wintry Mix
 */
 
-/*
-//clear,cloudy,mightrain,raining,snowing,thunderstorm,foghaze
-
-//—— Sunny ——
-Sunny
-Clear
-
-//—— Cloudy ——
-Partly cloudy
-Cloudy
-Overcast
-
-//—— Limited visibility ——
-Mist
-Fog
-Freezing fog //Cold warn
-
-//—— Might rain ——
-Patchy rain possible
-Moderate rain at times
-Heavy rain at times
-
-//—— Might snow ——
-Patchy snow possible
-Patchy sleet possible
-Patchy freezing drizzle possible
-
-//—— Might thunder ——
-Thundery outbreaks possible
-
-//—— Rain ——
-Patchy light drizzle
-Light drizzle
-Freezing drizzle
-Heavy freezing drizzle
-Patchy light rain
-Light rain
-Moderate rain
-Heavy rain
-Light rain shower
-Moderate or heavy rain shower
-Torrential rain shower
-
-//—— Thunderstorm ——
-Patchy light rain with thunder
-Moderate or heavy rain with thunder
-
-//—— Freezing Rain ——
-Light freezing rain
-Moderate or heavy freezing rain
-
-//—— Sleet ——
-Light sleet
-Moderate or heavy sleet
-Light sleet showers
-Moderate or heavy sleet showers
-
-//—— Hail ——
-Ice pellets
-Light showers of ice pellets
-Moderate or heavy showers of ice pellets
-
-//—— Snow ——
-Blowing snow
-Blizzard
-Patchy light snow
-Light snow
-Patchy moderate snow
-Moderate snow
-Patchy heavy snow
-Heavy snow
-Light snow showers
-Moderate or heavy snow showers
-
-//—— Snow with Thunder ——
-Patchy light snow with thunder
-Moderate or heavy snow with thunder
-
-
-*/
-
-// weather_clear
-// {
-	// if weather == "Clear" || weather == "Mostly Clear" || weather == "Sunny" || weather == "Mostly Sunny" || weather == "Fair"; 1
-	// else; 0
-// }
-
-// weather_cloudy
-// {
-	// if weather == "Partly Cloudy" || weather == "Mostly Cloudy" || weather == "Cloudy"; 1
-	// else; 0
-// }
-
-// weather_mightrain
-// {
-	// if weather == "Showers in the Vicinity" || weather == "Few Showers" || weather == "Showers"; 1
-	// else; 0
-// }
-
-// weather_raining
-// {
-	// if weather == "Rain Shower" || weather == "Light Rain" || weather == "Rain" || weather == "Heavy Rain"; 1
-	// else; 0
-// }
-
-// weather_snowing
-// {
-	// if weather == "Rain and Snow" || weather == "Snow Shower" || weather == "Snow" || weather == "Light Snow" || weather == "Wintry Mix"; 1
-	// else; 0
-// }
-
-// weather_thunderstorm
-// {
-	// if weather == "Light Rain with Thunder" || weather == "Isolated Thunderstorms" || weather == "Scattered Thunderstorms" || weather == "Thunderstorm" || weather == "Heavy Thunderstorm"; 1
-	// else; 0
-// }
-
-// weather_foghaze
-// {
-	// if weather == "Fog" || weather == "Haze"; 1
-	// else; 0
-// }
-
-// pollen_alert
-// {
-	// if pollen == "Local Pollen Alert"; 1
-	// else; 0
-// }
-
 weather_clear
 {
-	weather == "Sunny" || weather == "Clear"
+	if weather == "Clear" || weather == "Mostly Clear" || weather == "Sunny" || weather == "Mostly Sunny" || weather == "Fair"; 1
+	else; 0
 }
 
 weather_cloudy
 {
-	weather == "Partly cloudy" ||/
-	weather == "Cloudy" ||/
-	weather == "Overcast"
+	if weather == "Partly Cloudy" || weather == "Mostly Cloudy" || weather == "Cloudy"; 1
+	else; 0
 }
 
 weather_mightrain
 {
-	weather == "Patchy rain possible" ||/
-	weather == "Moderate rain at times" ||/
-	weather == "Heavy rain at times"
-}
-
-weather_mightsnow
-{
-	weather == "Patchy snow possible" ||/
-	weather == "Patchy sleet possible" ||/
-	weather == "Patchy freezing drizzle possible"
-}
-
-weather_mightthunder
-{
-	weather == "Thundery outbreaks possible"
+	if weather == "Showers in the Vicinity" || weather == "Few Showers" || weather == "Showers"; 1
+	else; 0
 }
 
 weather_raining
 {
-	weather == "Patchy light drizzle" ||/
-	weather == "Light drizzle" ||/
-	weather == "Freezing drizzle" ||/
-	weather == "Heavy freezing drizzle" ||/
-	weather == "Patchy light rain" ||/
-	weather == "Light rain" ||/
-	weather == "Moderate rain" ||/
-	weather == "Heavy rain" ||/
-	weather == "Light rain shower" ||/
-	weather == "Moderate or heavy rain shower" ||/
-	weather == "Torrential rain shower"
+	if weather == "Rain Shower" || weather == "Light Rain" || weather == "Rain" || weather == "Heavy Rain"; 1
+	else; 0
 }
 
 weather_snowing
 {
-	weather == "Blowing snow" ||/
-	weather == "Blizzard" ||/
-	weather == "Patchy light snow" ||/
-	weather == "Light snow" ||/
-	weather == "Patchy moderate snow" ||/
-	weather == "Moderate snow" ||/
-	weather == "Patchy heavy snow" ||/
-	weather == "Heavy snow" ||/
-	weather == "Light snow showers" ||/
-	weather == "Moderate or heavy snow showers"
-}
-
-weather_freezingrain
-{
-	weather == "Light freezing rain" ||/
-	weather == "Moderate or heavy freezing rain"
-}
-
-//yes this is listed as sleet. i know. it's the uk's definition of sleet, apparently, which S would not use as he is not uk based.
-weather_rainsnow
-{
-	weather == "Light sleet" ||/
-	weather == "Moderate or heavy sleet" ||/
-	weather == "Light sleet showers" ||/
-	weather == "Moderate or heavy sleet showers"
-	
-}
-
-//no this is not hail, rip me
-weather_ice_pellets
-{
-	weather == "Ice pellets" ||/
-	weather == "Light showers of ice pellets" ||/
-	weather == "Moderate or heavy showers of ice pellets"
+	if weather == "Rain and Snow" || weather == "Snow Shower" || weather == "Snow" || weather == "Light Snow" || weather == "Wintry Mix"; 1
+	else; 0
 }
 
 weather_thunderstorm
 {
-	weather == "Patchy light rain with thunder" ||/
-	weather == "Moderate or heavy rain with thunder"
-}
-
-weather_thundersnow
-{
-	weather == "Patchy light snow with thunder" ||/
-	weather == "Moderate or heavy snow with thunder"
+	if weather == "Light Rain with Thunder" || weather == "Isolated Thunderstorms" || weather == "Scattered Thunderstorms" || weather == "Thunderstorm" || weather == "Heavy Thunderstorm"; 1
+	else; 0
 }
 
 weather_foghaze
 {
-	weather == "Mist" ||/
-	weather == "Fog" ||/
-	weather == "Freezing fog"
+	if weather == "Fog" || weather == "Haze"; 1
+	else; 0
 }
+
+pollen_alert
+{
+	if pollen == "Local Pollen Alert"; 1
+	else; 0
+}
+
+/*loadingmoon
+{
+	"\_b[img\Moon0%(loadmoonnum),inline,--option=use_self_alpha]\w4\c"
+	--
+	if loadmoonnum < 8
+	{
+		loadmoonnum++
+	}
+	else
+	{
+		loadmoonnum = 1
+	}
+}*/
+
+
+/*OnLoadA
+{
+	"%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)\![raise,OnLoadB]"
+}
+//These make an infinite loop... but I'm pretty sure they'll interrupt whatever is actually loading XD Idk I'll play around with this at some point
+OnLoadB
+{
+	"%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)%(loadingmoon)\![raise,OnLoadA]"
+}*/
+
+
+// km //Kero choice marker. If the balloon being used is the default one, use the special marker, and if not then use the default marker - Don't need this anymore thanks to an SSP update, but I'll leave the code here for posterity
+// {
+	// if nowballoon == "Purple Soul" 
+	// {
+		// "\_b[img/km.png,inline,--option=use_self_alpha] "
+	// }
+	// else
+	// {
+		// "\![*]"
+	// }
+// }
 
 //This handy function is for those lines of dialogue that word wrap awkwardly in your balloon! The problem with those dialogues is that if you manually add a \n, it might look terrible in other balloons. So, instead, if you add a %(br), it will check if the user is using the default balloon and if so, add a \n! If the user is not on the default balloon, this will add a space instead, so be mindful of that when writing dialogue!
 //You'll need to put your balloon's name in here. Also, if you're on AYA, you might need to add a variable for tracking what balloon the user is using, since I don't think it has this variable. You can use OnNotifyBalloonInfo and put 'nowballoon = reference0' in there.
@@ -1241,12 +1074,6 @@ Flag //Checks to see if a flag exists. Returns 1 if yes, returns 0 if no
 	else; 0
 }
 
-//Adds a flag to the array
-AddFlag
-{
-	if !ISVAR("MiscFlags"); MiscFlags = IARRAY
-	if !Flag(_argv); MiscFlags ,= _argv
-}
 
 //---RemoveFlag---
 //Removes all instances of a flag from the MiscFlags array. Returns 0 if there was no flag to erase.
@@ -1309,8 +1136,8 @@ StSfhusband //husband
 
 StSfanhusband //husband but with anchor text...
 {
-	if staysafe == 1; "@wife"
-	else; "@husband"
+	if staysafe == 1; "anwife"
+	else; "anhusband"
 }
 
 StSffather
@@ -1325,6 +1152,20 @@ StSfdad
 	else; "dad"
 }
 
+
+
+//Multiplies a string like Python does
+MLTSTR
+{
+	_output = ""
+	for _i = 0; _i < TOINT(_argv[1]); _i++
+	{
+		_output += TOSTR(_argv[0])
+	}
+	_output
+}
+
+
 OnToggle
 {
 	EVAL("%(reference0) = %(reference1)")
@@ -1332,8 +1173,7 @@ OnToggle
 	"\![raise,%(reference2)]"
 }
 
-//Gets the day of the year that it currently is
-yearday
+yearday //Gets the day of the year that it currently is
 {
 	_output = 0
 	for _i = 1; _i < month; _i++
@@ -1359,29 +1199,23 @@ yearday
 	_output
 }
 
-//Gets what week in the year it currently is
 yearweek
 {
-	//Get the current day of the year
 	_days = yearday
 	
-	//Get the number of days into the current week that we are
 	_trailingdays = 0
 	while weekday - _trailingdays >= 0
 	{
 		_trailingdays++
 	}
 	
-	//Get the number of weeks minus leading and trailing days
 	_days -= _trailingdays
 	_weeks = _days / 7
 	_leadingdays = _days % 7
 	
-	//Add in the trailing weeks
 	if _leadingdays > 0; _weeks++
 	if _trailingdays > 0; _weeks++
 
-	//Handles week 53
 	if _weeks == 53
 	{
 		_daysleft = 31 - day
@@ -1401,32 +1235,27 @@ leapyear //Checks if this is a leap year
 	else; 1
 }
 
-StartsWith
-{
-	SUBSTR(_argv[0],0,STRLEN(_argv[1])) == _argv[1]
-}
 
-EndsWith
-{
-	SUBSTR(_argv[0],STRLEN(_argv[0]) - STRLEN(_argv[1]),STRLEN(_argv[1])) == _argv[1]
-}
 
-ErrorLog
-{
-	//Create arrays if none exist
-	if !ISVAR("ErrorsToPush.level"); ErrorsToPush.level = IARRAY
-	if !ISVAR("ErrorsToPush.description"); ErrorsToPush.description = IARRAY
-	
-	_level = "warning" //It defaults to warning if it doesn't recognize what you've put in, so I will too
-	if _argv[1] != ""; _level = _argv[1]
-	
-	ErrorsToPush.level ,= _level
-	ErrorsToPush.description ,= _argv[0]
-}
+
+// OnTestRSS
+// {
+	// "Done"
+// }
+
+// OnExecuteRSSComplete
+// {
+	// "complete"
+// }
+
+// OnExecuteRSSFailure
+// {
+	// "failure: %(reference4)"
+// }
 
 //Moved this over to word.dic. This isn't an envelope, but this should keep it out of the way but also easy to reach for setting variables...
 
-//Setting variables in dialogue, probably want to change this at some point... OnEval would be easier I feel
+//Thank you again to Levidre for this, this makes my life so much easier. This function can be called with Raise at the end of any random piece of dialogue. \!raise,OnDialogueVariables,value]. The word value there can be replaced with whatever I want, letting me test to see which variable should be set. This solves SO MUCH. I KNEW there had to be a way to make this work easier.
 OnDialogueVariables
 {
 	if reference0 == "8kids"
@@ -1581,171 +1410,150 @@ OnDialogueVariables
 	}
 }
 
+ChangeVersion : array
+{
+	" Latest "
+	"  1.3.0  "
+	"  1.2.0  "
+	"  1.1.0  "
+	"  1.0.0  "
+}
+
 ChangeLog : array
 {
 	LatestUpdate //This is in etc so I remember to update it lol
 	
 	//------1.4.0------
 	
-	<<"
-	%(MenuHeader("Version 1.4.0"))
-	• Added a bunch of new random dialogues, and some extra dialogues in other places.
-	• Added a new daily dialogues system. S has at least 1 dialogue for every day of the year while on the positive route, and if you haven't seen that day's dialogue he'll have a 5% chance of saying it instead of his normal dialogues.
-	• Restructured all of S's random dialogues, nearly all probability issues have been eliminated! His random dialogues should be much more varied now.
-	• S will no longer fall asleep randomly if you're the one prompting him to speak. He also won't wake up randomly if you're the one prompting him to speak, unless you get him into a chain nightmare. This should allow you to explore more of his dialogues without him randomly changing modes on you.
-	• If S just fell asleep, you now have around 30 seconds to double click him and wake him back up before he's fully asleep.
-	• Made the changelog nicer!
-	• You can now boop S's secret mode character!
-	• Fixed a bug where S would never stop drinking on some operating systems (hopefully)
-	• Fixed it so S's best dreams are actually available if you pet him enough while he's sleeping.
-	• S can actually recognize his own birthday now! Somehow I had completely screwed up those checks.
-	• Fixed a lot of misc bugs, as well as stray pixels, typos, incorrect dialogue formatting,%(br)and word wrap issues.
-	• Lots of under the hood changes to make developing easier. Plenty more to come in the future as well. They're my gift to me.
-	
-	%(MenuHeader("Version 1.4.1"))
-	• Fixed an issue where asking S to talk to other ghosts from his menu wasn't working. As a note, you can also now press Y to make him talk to a random open ghost!
-	• Fixed some typos.
-	
-	%(MenuHeader("Version 1.4.2"))
-	• Added a new shell for summer!
-	• Added a ton of new menu dialogues! ~5 for each family member, ~5 for each timeline.
-	• Added a new option in the timeline menu if you have all of them unlocked!
-	• Added a bunch of new boot/close dialogues!
-	• Added some new dialogues for him to say randomly.
-	• Added some new dialogues for stuff in the right click menu, if you're in default mode.
-	• Fixed RYS's menu and commu dialogues.
-	• Added a check to see if surfaces are valid before they're called. If not, he should appear with his default surface instead of disappearing now.
-	• Reworked the setup for booting, eliminated the bug where sometimes S would change into sleep mode even if he looked like he was awake when he booted.
-	• Made it so that if you boot S a few times, you should get past the first friendship stage. This is a bandaid patch, I want to rework the early stages at a later date.
-	• Streamlined more of his inner workings.
-	• Removed a bunch of test code that was left in by mistake.
-	• Fixed some typos and word wrap issues.
-	
-	%(MenuHeader("Version 1.4.3"))
-	• Fixed the broken updates by changing two file names, hopefully.
-	• Changed the line of dialogue for when you boot S on your birthday.
-	
-	%(MenuHeader("Version 1.4.4"))
-	• Added some new dialogue!
-	• Added a new system where he has different stuff he says while talking to himself each week! It's not complete yet, but the base is there.
-	• Updated him to the latest version of YAYA.
-	• Added dialogue pools to his secret mode.
-	• When you haven't unlocked all the options in his menu, it'll now show that there's something to be unlocked there.
-	• Small bugfixes everywhere. Thanks again to the folks who have sent in reports,%(br)even for something as small as a typo!
-	">>
+	"\_l[84]-Version 1.4.0-\n\n\n[half]/
+	-Added a bunch of new random dialogues, and some extra dialogues in other places.\n\n/
+	-Added a new daily dialogues system. S has at least 1 dialogue for every day of the year while on the positive route, and if you haven't seen that day's dialogue he'll have a 5% chance of saying it instead of his normal dialogues.\n\n/
+	-Restructured all of S's random dialogues, nearly all probability issues have been eliminated! His random dialogues should be much more varied now.\n\n/
+	-S will no longer fall asleep randomly if you're the one prompting him to speak. He also won't wake up randomly if you're the one prompting him to speak, unless you get him into a chain nightmare. This should allow you to explore more of his dialogues without him randomly changing modes on you.\n\n/
+	-If S just fell asleep, you now have around 30 seconds to double click him and wake him back up before he's fully asleep.\n\n/
+	-Made the changelog nicer!\n\n/
+	-You can now boop S's secret mode character!\n\n/
+	-Fixed a bug where S would never stop drinking on some operating systems (hopefully)\n\n/
+	-Fixed it so S's best dreams are actually available if you pet him enough while he's sleeping.\n\n/
+	-S can actually recognize his own birthday now! Somehow I had completely screwed up those checks.\n\n/
+	-Fixed a lot of misc bugs, as well as stray pixels, typos, incorrect dialogue formatting,%(br)and word wrap issues.\n\n/
+	-Lots of under the hood changes to make developing easier. Plenty more to come in the future as well. They're my gift to me.\n\n\n/
+	\_l[84]-Version 1.4.1-\n\n\n[half]/
+	-Fixed an issue where asking S to talk to other ghosts from his menu wasn't working. As a note, you can also now press Y to make him talk to a random open ghost!\n\n/
+	-Fixed some typos./
+	\n\n\n/
+	\_l[84]-Version 1.4.2-\n\n\n[half]/
+	-Added a new shell for summer!\n\n/
+	-Added a ton of new menu dialogues! ~5 for each family member, ~5 for each timeline.\n\n/
+	-Added a new option in the timeline menu if you have all of them unlocked!\n\n/
+	-Added a bunch of new boot/close dialogues!\n\n/
+	-Added some new dialogues for him to say randomly.\n\n/
+	-Added some new dialogues for stuff in the right click menu, if you're in default mode.\n\n/
+	-Fixed RYS's menu and commu dialogues.\n\n/
+	-Added a check to see if surfaces are valid before they're called. If not, he should appear with his default surface instead of disappearing now.\n\n/
+	-Reworked the setup for booting, eliminated the bug where sometimes S would change into sleep mode even if he looked like he was awake when he booted.\n\n/
+	-Made it so that if you boot S a few times, you should get past the first friendship stage. This is a bandaid patch, I want to rework the early stages at a later date.\n\n/
+	-Streamlined more of his inner workings.\n\n/
+	-Removed a bunch of test code that was left in by mistake.\n\n/
+	-Fixed some typos and word wrap issues./
+	\n\n\n/
+	\_l[84]-Version 1.4.3-\n\n\n[half]/
+	-Fixed the broken updates by changing two file names, hopefully.\n\n/
+	-Changed the line of dialogue for when you boot S on your birthday.\n\n\n/
+	"
 	
 	
 	//------1.3.0------
 	
-	<<"
-	%(MenuHeader("Version 1.3.0"))
-	• Added an Autumn themed shell! It comes with an accessory you can put on him using the right click menu.
-	• S will now fall asleep randomly! If he's having bad dreams, you can pet him a few times to give him nicer dreams for a little while.
-	• Fixed weather checking, again. From now on I should be able to update it on my end without patching S, hopefully. You might need to enter your weather location again.
-	• If you are outside the US, you should now be able to get the tempuratures in celcius if you use a page in celcius on Weather.com!
-	• S can now hold \_a[https://zichqec.github.io/s-the-skeleton/dusty.html]Obsidian\_a if you drag her onto him! Don't do it until I put up a patch for Dusty, though, or it will behave strangely.
-	• Auto weather checks will no longer open the balloon, and should happen completely silently.
-	• More dialogue and bugfixes all around!
-	
-	%(MenuHeader("Version 1.3.1"))
-	• Fixed weather checking (I swear this is the last time... probably). Non-US urls SHOULDN'T give any more trouble, and if they do, S will direct you to another way of inputting it. \f[bold,1]Please let me know if this gives you any issues!\f[default] As a result of this change...
-	• There is now a toggle in the menu for Celsius vs Fahrenheit! You should be able to switch between them seamlessly.
-	• Changed the date/time/etc on the bottom of S's menu to have a slightly smaller font, to give it more room.
-	• Added a bunch more dialogue for falling asleep and waking up!
-	• Added a few extra lines of dialogue in various places.
-	• Balloon files will now be hosted separately from S's update files, so fresh installs will no longer want to redownload the balloon files.
-	• Fixed some typos, fixed a few small bugs, tightened up some code and made the formatting nicer.
-	
-	%(MenuHeader("Version 1.3.2"))
-	• I've updated the way S holds \_a[https://zichqec.github.io/s-the-skeleton/dusty.html]Obsidian\_a, please make sure you also update Dusty before making him hold her again! Also, if you ever have trouble with S not picking up Obsidian, reloading him seems to help.
-	• Commu dialogue should no longer cause issues when S is in modes other than default.
-	• Fixed the error messages for weather checking.
-	• He has some new dialogue, if you try to get \_a[http://www.drdowasure.com/gaster/]Gaster\_a to talk to him...
-	• A few more misc tweaks, mostly behind the scenes stuff.
-	
-	%(MenuHeader("Version 1.3.3"))
-	• If you boot S and he's asleep, and no other ghosts are present, you should now have an option to switch to another (random) ghost.
-	• Fixed some major issues in his communication dialogues.
-	• Hopefully fixed an issue where, if you booted S while Dusty was also present, he would sometimes go into sleep mode.
-	• Made OS version detection better, for the purposes of setting a wallpaper as Spanned (Windows 10/multi monitor only feature).
-	• Fixed header code and made it a lot lighter.
-	• Cleaned up some more code.
-	• Fixed a small visual issue while S was holding Obsidian.
-	• Added a couple extra dialogues.
-	">>
+	"\_l[84]-Version 1.3.0-\n\n\n[half]/
+	-Added an Autumn themed shell! It comes with an accessory you can put on him using the right click menu.\n\n/
+	-S will now fall asleep randomly! If he's having bad dreams, you can pet him a few times to give him nicer dreams for a little while.\n\n/
+	-Fixed weather checking, again. From now on I should be able to update it on my end without patching S, hopefully. You might need to enter your weather location again.\n\n/
+	-If you are outside the US, you should now be able to get the tempuratures in celcius if you use a page in celcius on Weather.com!\n\n/
+	-S can now hold \_a[https://zichqec.github.io/s-the-skeleton/dusty.html]Obsidian\_a if you drag her onto him! Don't do it until I put up a patch for Dusty, though, or it will behave strangely.\n\n/
+	-Auto weather checks will no longer open the balloon, and should happen completely silently.\n\n/
+	-More dialogue and bugfixes all around!\n\n\n/
+	\_l[84]-Version 1.3.1-\n\n/
+	-Fixed weather checking (I swear this is the last time... probably). Non-US urls SHOULDN'T give any more trouble, and if they do, S will direct you to another way of inputting it. \f[bold,1]Please let me know if this gives you any issues!\f[default] As a result of this change...\n\n/
+	-There is now a toggle in the menu for Celsius vs Fahrenheit! You should be able to switch between them seamlessly.\n\n/
+	-Changed the date/time/etc on the bottom of S's menu to have a slightly smaller font, to give it more room.\n\n/
+	-Added a bunch more dialogue for falling asleep and waking up!\n\n/
+	-Added a few extra lines of dialogue in various places.\n\n/
+	-Balloon files will now be hosted separately from S's update files, so fresh installs will no longer want to redownload the balloon files.\n\n/
+	-Fixed some typos, fixed a few small bugs, tightened up some code and made the formatting nicer.\n\n\n/
+	\_l[84]-Version 1.3.2-\n\n/
+	-I've updated the way S holds \_a[https://zichqec.github.io/s-the-skeleton/dusty.html]Obsidian\_a, please make sure you also update Dusty before making him hold her again! Also, if you ever have trouble with S not picking up Obsidian, reloading him seems to help.\n\n/
+	-Commu dialogue should no longer cause issues when S is in modes other than default.\n\n/
+	-Fixed the error messages for weather checking.\n\n/
+	-He has some new dialogue, if you try to get \_a[http://www.drdowasure.com/gaster/]Gaster\_a to talk to him...\n\n/
+	-A few more misc tweaks, mostly behind the scenes stuff.\n\n\n/
+	\_l[84]-Version 1.3.3-\n\n/
+	-If you boot S and he's asleep, and no other ghosts are present, you should now have an option to switch to another (random) ghost.\n\n/
+	-Fixed some major issues in his communication dialogues.\n\n/
+	-Hopefully fixed an issue where, if you booted S while Dusty was also present, he would sometimes go into sleep mode.\n\n/
+	-Made OS version detection better, for the purposes of setting a wallpaper as Spanned (Windows 10/multi monitor only feature).\n\n/
+	-Fixed header code and made it a lot lighter.\n\n/
+	-Cleaned up some more code.\n\n/
+	-Fixed a small visual issue while S was holding Obsidian.\n\n/
+	-Added a couple extra dialogues.\n\n"
 	
 	//------1.2.0------
 	
-	<<"
-	%(MenuHeader("Version 1.2.0"))
-	• It's S's birthday today (8/25)! So here's an update to celebrate.
-	• Updated the balloon. If the balloon looks strange while using the Timeline menu, you can download the new file \_a[http://www.mediafire.com/file/c25fwju9hsly11k/purple_soul_v1.2.nar/file]here\_a, or change your balloon to Purple Soul and ask S to update from the 'do something for you' menu!
-	• Added a new secret mode! If you don't mind spoilers and want to know how to unlock it, you can find the answer on my website \_a[https://zichqec.github.io/s-the-skeleton/index.html]here\_a.
-	• S can now check the weather! If you've checked the weather recently, or if you have auto weather updates on, he may comment on the weather randomly!
-	• S will now comment if you move him far enough across your screen, or move him onto a secondary monitor.
-	• S can now comment on how much trash you're hoarding in your recycle bin!
-	• He may also comment if you plug in a tablet, if you allow him to see programs on your PC.
-	• S can now display email headers when he checks your email!
-	• You can boop his nose if your friendship is high!
-	• Lots of new dialogue, patched bugs, a few new expressions, and cleaned up code! Drastically less spaghetti.
-	• Balloons and position on screen will now sync across shells.
-	• You can opt in to beta updates! This is intended for folks on the Ukagaka Dream Team Discord server. If you'd like to help me test updates, and see new features before they're live, \_a[https://ukagakadreamteam.tumblr.com/discord]join us\_a! If you're going to opt in, PLEASE BACKUP YOUR SAVE.
-
-	%(MenuHeader("Version 1.2.1"))
-	• Fixed a couple typos.
-	• Fixed a bug where dragging S around sometimes caused an empty balloon to pop up.
-	• Fixed a bug where S would think the humidity was super high if he didn't know it.
-	
-	%(MenuHeader("Version 1.2.2"))
-	• Fixed weather checking. It should no longer break, even if weather.com changes their tags again.
-	">>
+	"\_l[84]-Version 1.2.0-\n\n\n[half]/
+	-It's S's birthday today (8/25)! So here's an update to celebrate.\n\n/
+	-Updated the balloon. If the balloon looks strange while using the Timeline menu, you can download the new file \_a[http://www.mediafire.com/file/c25fwju9hsly11k/purple_soul_v1.2.nar/file]here\_a, or change your balloon to Purple Soul and ask S to update from the 'do something for you' menu!\n\n/
+	-Added a new secret mode! If you don't mind spoilers and want to know how to unlock it, you can find the answer on my website \_a[https://zichqec.github.io/s-the-skeleton/index.html]here\_a.\n\n/
+	-S can now check the weather! If you've checked the weather recently, or if you have auto weather updates on, he may comment on the weather randomly!\n\n/
+	-S will now comment if you move him far enough across your screen, or move him onto a secondary monitor.\n\n/
+	-S can now comment on how much trash you're hoarding in your recycle bin!\n\n/
+	-He may also comment if you plug in a tablet, if you allow him to see programs on your PC.\n\n/
+	-S can now display email headers when he checks your email!\n\n/
+	-You can boop his nose if your friendship is high!\n\n/
+	-Lots of new dialogue, patched bugs, a few new expressions, and cleaned up code! Drastically less spaghetti.\n\n/
+	-Balloons and position on screen will now sync across shells.\n\n/
+	-You can opt in to beta updates! This is intended for folks on the Ukagaka Dream Team Discord server. If you'd like to help me test updates, and see new features before they're live, \_a[https://ukagakadreamteam.tumblr.com/discord]join us\_a! If you're going to opt in, PLEASE BACKUP YOUR SAVE.\n\n\n/
+	\_l[84]-Version 1.2.1-\n\n\n[half]/
+	-Fixed a couple typos.\n\n/
+	-Fixed a bug where dragging S around sometimes caused an empty balloon to pop up.\n\n/
+	-Fixed a bug where S would think the humidity was super high if he didn't know it.\n\n\n/
+	\_l[84]-Version 1.2.2-\n\n\n[half]/
+	-Fixed weather checking. It should no longer break, even if weather.com changes their tags again.\n\n\n"
 	
 	//------1.1.0------
 	
-	<<"
-	%(MenuHeader("Version 1.1.0"))
-	• Added blinking animations!
-	• New shell: Pink Apron!
-	• Added blip in animations!
-	• New timelines menu that can be unlocked by asking him about timelines
-	• Added lots more dialogue to the family menu
-	• You can now ask about skeletons in general
-	• There may be special dialogue if you pet him for a while without stopping...
-	• Head collisions vastly improved
-	• Slight improvements to the balloon
-	• Rebalanced dialogue, dynamic dialogue should appear more often now
-	• Changed the update system, it should be much faster next update!
-	• Added colors when referencing certain characters, to help differentiate them
-	• Various QoL tweaks and bugfixes
-	• Option to ask about your music will only show if you're using a compatible player now (foobar2000, winamp, VLC)
-	
-	%(MenuHeader("Version 1.1.1"))
-	• Fixed a couple typos and formatting issues, if you find any more please do contact me and let me know!
-	
-	%(MenuHeader("Version 1.1.2"))
-	• Fixed a bug where S would stop talking after a few hours if you had a ghost he didn't recognize open
-	• Fixed some more typos
-	• Changed the actual values of the talk rate to match what it says in the config menu. This won't change until you change your talk rate again.
-	• Changed the name of the red_hoodie shell folder to master, to prevent an error message from popping up due to a recent SSP update. If you still have a folder called red_hoodie in your files, you should delete it!
-	• Migrated S to Github! I've also made a website for him which you can check out over \_a[https://zichqec.github.io/s-the-skeleton/s_the_skeleton.html]here!\_a
-	">>
+	"\_l[84]-Version 1.1.0-\n\n\n[half]/ 
+	-Added blinking animations!\n\n/
+	-New shell: Pink Apron!\n\n/
+	-Added blip in animations!\n\n/
+	-New timelines menu that can be unlocked by asking him about timelines\n\n/
+	-Added lots more dialogue to the family menu\n\n/
+	-You can now ask about skeletons in general\n\n/
+	-There may be special dialogue if you pet him for a while without stopping...\n\n/
+	-Head collisions vastly improved\n\n/
+	-Slight improvements to the balloon\n\n/
+	-Rebalanced dialogue, dynamic dialogue should appear more often now\n\n/
+	-Changed the update system, it should be much faster next update!\n\n/
+	-Added colors when referencing certain characters, to help differentiate them\n\n/
+	-Various QoL tweaks and bugfixes\n\n/
+	-Option to ask about your music will only show if you're using a compatible player now (foobar2000, winamp, VLC)\n\n\n/
+	\_l[84]-Version 1.1.1-\n\n\n[half]/
+	-Fixed a couple typos and formatting issues, if you find any more please do contact me and let me know!\n\n\n/
+	\_l[84]-Version 1.1.2-\n\n\n[half]/
+	-Fixed a bug where S would stop talking after a few hours if you had a ghost he didn't recognize open\n\n/
+	-Fixed some more typos\n\n/
+	-Changed the actual values of the talk rate to match what it says in the config menu. This won't change until you change your talk rate again.\n\n/
+	-Changed the name of the red_hoodie shell folder to master, to prevent an error message from popping up due to a recent SSP update. If you still have a folder called red_hoodie in your files, you should delete it!\n\n/
+	-Migrated S to Github! I've also made a website for him which you can check out over \_a[https://zichqec.github.io/s-the-skeleton/s_the_skeleton.html]here!\_a\n\n\n"
 	
 	//------1.0.0------
 	
-	<<"
-	%(MenuHeader("Version 1.0.0"))
-	• Added S
-	• Added Red Hoodie shell
-	• Added Purple Soul Balloon
-	• Added menus
-	• Added sass
-	• Added update functionality
-	• Changed thumbnail picture and right click menu
-	">>
+	"\_l[84]-Version 1.0.0-\n\n\n[half]/
+	-Added S\n\n/
+	-Added Red Hoodie shell\n\n/
+	-Added Purple Soul Balloon\n\n/
+	-Added menus\n\n/
+	-Added sass\n\n/
+	-Added update functionality\n\n/
+	-Changed thumbnail picture and right click menu\n\n\n"
 	
-}
-
-MenuHeader
-{
-	"\f[align,center]— %(_argv[0]) —%(newline)\f[align,left]"
 }

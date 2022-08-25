@@ -1,4 +1,5 @@
 //---------------------------Anchors and OnTranslate--------------------------
+
 OnTranslate
 {
 	// LOGGING("======Normal OnTranslate==========")
@@ -7,13 +8,6 @@ OnTranslate
 	CurrentTalk = reference0
 	
 	_talk = reference0
-	
-	if reference1 == "" && reference2 == "" || reference2 == "OnTextDrop" //If this is from dropped text or the input box
-	{ //send input box : no event (ref2) , no special flag (ref1)
-		_talk = EVAL('"' + REPLACE(_talk,'"','""') + '"')
-		_talk = OnTranslateInternal.AutoPauses(_talk)
-		_talk = OnTranslateInternal.MarkdownProcessor(_talk)
-	}
 	
 	if debug != 1
 	{
@@ -27,73 +21,108 @@ OnTranslate
 		}
 	}
 	
-	_functions = ("") //etc
-	
-	
-	
-	_talk = REPLACE(_talk, "@Zichqec", "\_a[https://zichqec.github.io/s-the-skeleton/index.html]Zichqec\_a")
+	_talk = REPLACE(_talk, "anZichqec", "\_a[https://zichqec.github.io/s-the-skeleton/index.html]Zichqec\_a")
 	//_talk = REPLACE(_talk, "* (", "\__v[disable]*\__v (")
 	
-	// _namelist = "WD,Ding@#s,Wings"
-	// foreach _namelist; _name
-	// {
-		// _invalidcharacters = (" ","%(CHR(34))","#","$","%","&","(",")","*","+","-","/",":",";","<","=",">","?","@","[","]","`","{","|","}",",")
-		// _funcname = _name
-		// foreach _invalidcharacters; _char
-		// {
-			// if _char _in_ _funcname; _funcname = REPLACE(_funcname,_char,"_")
-		// }
-		// _talk = REPLACE(_talk,"@%(_name)","\_a[__AUTO_ANCHOR__%(_funcname)]%(_name)\_a")
-	// }
-	
-	//Proper names with menu
-	_talk = REPLACE(_talk, "@WD(m)", "\_a[OnFamilyAnchor,wd,Menu]WD\_a")
-	_talk = REPLACE(_talk, "@Dings(m)", "\_a[OnFamilyAnchor,dings,Menu]Dings\_a")
-	_talk = REPLACE(_talk, "@Wings(m)", "\_a[OnFamilyAnchor,wings,Menu]Wings\_a")
- 	_talk = REPLACE(_talk, "@Barcode(m)", "\_a[OnFamilyAnchor,barcode,Menu]Barcode\_a")
-	_talk = REPLACE(_talk, "@Blue Jeans(m)", "\_a[OnFamilyAnchor,bluejeans,Menu]Blue Jeans\_a")
-	_talk = REPLACE(_talk, "@Blue(m)", "\_a[OnFamilyAnchor,bluejeans,Menu]Blue\_a")
-	_talk = REPLACE(_talk, "@Abbi(m)", "\_a[OnFamilyAnchor,abbi,Menu]Abbi\_a")
-	_talk = REPLACE(_talk, "@Rosie(m)", "\_a[OnFamilyAnchor,rosie,Menu]Rosie\_a")
-	_talk = REPLACE(_talk, "@Roman(m)", "\_a[OnFamilyAnchor,roman,Menu]Roman\_a")
-	_talk = REPLACE(_talk, "@Cambria(m)", "\_a[OnFamilyAnchor,cambria,Menu]Cambria\_a")
-	_talk = REPLACE(_talk, "@Triton(m)", "\_a[OnFamilyAnchor,triton,Menu]Triton\_a")
- 	_talk = REPLACE(_talk, "@Lulo(m)", "\_a[OnFamilyAnchor,lulo,Menu]Lulo\_a")
- 	_talk = REPLACE(_talk, "@Azo(m)", "\_a[OnFamilyAnchor,azo,Menu]Azo\_a")
-	_talk = REPLACE(_talk, "@Sigil(m)", "\_a[OnFamilyAnchor,sigil,Menu]Sigil\_a")
-	_talk = REPLACE(_talk, "@Elko(m)", "\_a[OnFamilyAnchor,elko,Menu]Elko\_a")
-	
 	//Proper names
-	_talk = REPLACE(_talk, "@WD", "\_a[OnFamilyAnchor,wd]WD\_a")
-	_talk = REPLACE(_talk, "@Dings", "\_a[OnFamilyAnchor,dings]Dings\_a")
-	_talk = REPLACE(_talk, "@Wings", "\_a[OnFamilyAnchor,wings]Wings\_a")
- 	_talk = REPLACE(_talk, "@Barcode", "\_a[OnFamilyAnchor,barcode]Barcode\_a")
-	_talk = REPLACE(_talk, "@Blue Jeans", "\_a[OnFamilyAnchor,bluejeans]Blue Jeans\_a")
-	_talk = REPLACE(_talk, "@Blue", "\_a[OnFamilyAnchor,bluejeans]Blue\_a")
-	_talk = REPLACE(_talk, "@Abbi", "\_a[OnFamilyAnchor,abbi]Abbi\_a")
-	_talk = REPLACE(_talk, "@Rosie", "\_a[OnFamilyAnchor,rosie]Rosie\_a")
-	_talk = REPLACE(_talk, "@Roman", "\_a[OnFamilyAnchor,roman]Roman\_a")
-	_talk = REPLACE(_talk, "@Cambria", "\_a[OnFamilyAnchor,cambria]Cambria\_a")
-	_talk = REPLACE(_talk, "@Triton", "\_a[OnFamilyAnchor,triton]Triton\_a")
- 	_talk = REPLACE(_talk, "@Lulo", "\_a[OnFamilyAnchor,lulo]Lulo\_a")
- 	_talk = REPLACE(_talk, "@Azo", "\_a[OnFamilyAnchor,azo]Azo\_a")
-	_talk = REPLACE(_talk, "@Sigil", "\_a[OnFamilyAnchor,sigil]Sigil\_a")
-	_talk = REPLACE(_talk, "@Elko", "\_a[OnFamilyAnchor,elko]Elko\_a")
+	_talk = REPLACE(_talk, "anWD", "\_a[FAwd]WD\_a")
+	_talk = REPLACE(_talk, "anDings", "\_a[FAdings]Dings\_a")
+	_talk = REPLACE(_talk, "anWings", "\_a[FAwings]Wings\_a")
+ 	_talk = REPLACE(_talk, "anBarcode", "\_a[FAbarcode]Barcode\_a")
+	_talk = REPLACE(_talk, "anBlue", "\_a[FAbluejeans]Blue\_a")
+	_talk = REPLACE(_talk, "anBluJeans", "\_a[FAbluejeans]Blue Jeans\_a")
+	_talk = REPLACE(_talk, "anAbbi", "\_a[FAabbi]Abbi\_a")
+	_talk = REPLACE(_talk, "anRosie", "\_a[FArosie]Rosie\_a")
+	_talk = REPLACE(_talk, "anRoman", "\_a[FAroman]Roman\_a")
+	_talk = REPLACE(_talk, "anCambria", "\_a[FAcambria]Cambria\_a")
+	_talk = REPLACE(_talk, "anTriton", "\_a[FAtriton]Triton\_a")
+ 	_talk = REPLACE(_talk, "anLulo", "\_a[FAlulo]Lulo\_a")
+ 	_talk = REPLACE(_talk, "anAzo", "\_a[FAazo]Azo\_a")
+	_talk = REPLACE(_talk, "anSigil", "\_a[FAsigil]Sigil\_a")
+	_talk = REPLACE(_talk, "anElko", "\_a[FAelko]Elko\_a")
 	
 	//Relation names
-	_talk = REPLACE(_talk, "@dad(m)", "\_a[OnFamilyAnchor,wd,Menu]dad\_a")
-	_talk = REPLACE(_talk, "@mom(m)", "\_a[OnFamilyAnchor,barcode,Menu]mom\_a")
-	_talk = REPLACE(_talk, "@Dad(m)", "\_a[OnFamilyAnchor,wd,Menu]Dad\_a")
-	_talk = REPLACE(_talk, "@Mom(m)", "\_a[OnFamilyAnchor,barcode,Menu]Mom\_a")
+	_talk = REPLACE(_talk, "anhusband", "\_a[FAbluejeans]husband\_a")
+	_talk = REPLACE(_talk, "anwife", "\_a[FAbluejeans]wife\_a") //for staysafe mode
+	_talk = REPLACE(_talk, "anMySister", "\_a[FArosie]my sister\_a")
+	_talk = REPLACE(_talk, "andad", "\_a[FAwd]dad\_a")
+	_talk = REPLACE(_talk, "anmom", "\_a[FAbarcode]mom\_a")
+	_talk = REPLACE(_talk, "anDad", "\_a[FAwd]Dad\_a")
+	_talk = REPLACE(_talk, "anMom", "\_a[FAbarcode]Mom\_a")
 	
-	_talk = REPLACE(_talk, "@husband", "\_a[OnFamilyAnchor,bluejeans]husband\_a")
-	_talk = REPLACE(_talk, "@wife", "\_a[OnFamilyAnchor,bluejeans]wife\_a") //for staysafe mode
-	_talk = REPLACE(_talk, "@MySister", "\_a[OnFamilyAnchor,rosie]my sister\_a")
-	_talk = REPLACE(_talk, "@dad", "\_a[OnFamilyAnchor,wd]dad\_a")
-	_talk = REPLACE(_talk, "@mom", "\_a[OnFamilyAnchor,barcode]mom\_a")
-	_talk = REPLACE(_talk, "@Dad", "\_a[OnFamilyAnchor,wd]Dad\_a")
-	_talk = REPLACE(_talk, "@Mom", "\_a[OnFamilyAnchor,barcode]Mom\_a")
+	//Choice markers in the family menu - These all have 'Familymenu' on the end so that it'll add an 'ask about someone else' at the bottom of the text. That way, if you click on an anchor when he's just talking randomly, it wont take you back to the menu because that'd be weird, but if you click on an anchor in the family menu it'll take you back to the family menu. Not super important, but.... QoL yknow?
+	_talk = REPLACE(_talk, "anIWD", "\_a[FAwdFamilymenu]\![*]\_a")
+	_talk = REPLACE(_talk, "anIDings", "\_a[FAdingsFamilymenu]\![*]\_a")
+	_talk = REPLACE(_talk, "anIWings", "\_a[FAwingsFamilymenu]\![*]\_a")
+ 	_talk = REPLACE(_talk, "anIBarcode", "\_a[FAbarcodeFamilymenu]\![*]\_a")
+	_talk = REPLACE(_talk, "anIBlue", "\_a[FAbluejeansFamilymenu]\![*]\_a")
+	_talk = REPLACE(_talk, "anIBluJeans", "\_a[FAbluejeansFamilymenu]\![*]\_a")
+	_talk = REPLACE(_talk, "anIAbbi", "\_a[FAabbiFamilymenu]\![*]\_a")
+	_talk = REPLACE(_talk, "anIRosie", "\_a[FArosieFamilymenu]\![*]\_a")
+	_talk = REPLACE(_talk, "anIRoman", "\_a[FAromanFamilymenu]\![*]\_a")
+	_talk = REPLACE(_talk, "anICambria", "\_a[FAcambriaFamilymenu]\![*]\_a")
+	_talk = REPLACE(_talk, "anITriton", "\_a[FAtritonFamilymenu]\![*]\_a")
+ 	_talk = REPLACE(_talk, "anILulo", "\_a[FAluloFamilymenu]\![*]\_a")
+ 	_talk = REPLACE(_talk, "anIAzo", "\_a[FAazoFamilymenu]\![*]\_a")
+	_talk = REPLACE(_talk, "anISigil", "\_a[FAsigilFamilymenu]\![*]\_a")
+	_talk = REPLACE(_talk, "anIElko", "\_a[FAelkoFamilymenu]\![*]\_a")
 	
+	//Proper names, but being accessed through the family menu. They also have the 'Ask about someone else' button on the end of em. I don't need all of these, but I might as well be thorough...
+	_talk = REPLACE(_talk, "anMWD", "\_a[FAwdFamilymenu]WD\_a")
+	_talk = REPLACE(_talk, "anMDings", "\_a[FAdingsFamilymenu]Dings\_a")
+	_talk = REPLACE(_talk, "anMWings", "\_a[FAwingsFamilymenu]Wings\_a")
+ 	_talk = REPLACE(_talk, "anMBarcode", "\_a[FAbarcodeFamilymenu]Barcode\_a")
+	_talk = REPLACE(_talk, "anMBlue", "\_a[FAbluejeansFamilymenu]Blue\_a")
+	_talk = REPLACE(_talk, "anMBluJeans", "\_a[FAbluejeansFamilymenu]Blue Jeans\_a")
+	_talk = REPLACE(_talk, "anMAbbi", "\_a[FAabbiFamilymenu]Abbi\_a")
+	_talk = REPLACE(_talk, "anMRosie", "\_a[FArosieFamilymenu]Rosie\_a")
+	_talk = REPLACE(_talk, "anMRoman", "\_a[FAromanFamilymenu]Roman\_a")
+	_talk = REPLACE(_talk, "anMCambria", "\_a[FAcambriaFamilymenu]Cambria\_a")
+	_talk = REPLACE(_talk, "anMTriton", "\_a[FAtritonFamilymenu]Triton\_a")
+ 	_talk = REPLACE(_talk, "anMLulo", "\_a[FAluloFamilymenu]Lulo\_a")
+ 	_talk = REPLACE(_talk, "anMAzo", "\_a[FAazoFamilymenu]Azo\_a")
+	_talk = REPLACE(_talk, "anMSigil", "\_a[FAsigilFamilymenu]Sigil\_a")
+	_talk = REPLACE(_talk, "anMElko", "\_a[FAelkoFamilymenu]Elko\_a")
+	
+	_talk = REPLACE(_talk, "anMdad", "\_a[FAwdFamilymenu]dad\_a")
+	_talk = REPLACE(_talk, "anMmom", "\_a[FAbarcodeFamilymenu]mom\_a")
+	
+	//Choice markers in the timeline menu
+	_talk = REPLACE(_talk, "anIKit", "\_a[kit]\![*]\_a")
+	_talk = REPLACE(_talk, "anISmol", "\_a[smol]\![*]\_a")
+	_talk = REPLACE(_talk, "anIBirdy", "\_a[birdy]\![*]\_a")
+	_talk = REPLACE(_talk, "anISorrel", "\_a[sorrel]\![*]\_a")
+	_talk = REPLACE(_talk, "anIPMD", "\_a[pmd]\![*]\_a")
+ 	_talk = REPLACE(_talk, "anIBender", "\_a[bender]\![*]\_a")
+ 	_talk = REPLACE(_talk, "anINine", "\_a[nine]\![*]\_a")
+	_talk = REPLACE(_talk, "anISerif", "\_a[serif]\![*]\_a")
+	_talk = REPLACE(_talk, "anIEcho", "\_a[echo]\![*]\_a")
+	_talk = REPLACE(_talk, "anIIce", "\_a[ice]\![*]\_a")
+	_talk = REPLACE(_talk, "anIOmega", "\_a[omega]\![*]\_a")
+	
+	//Names in the timeline menu when they're first unlocked
+	_talk = REPLACE(_talk, "anMKit", "\_a[kit]The mermaid\_a")
+	_talk = REPLACE(_talk, "anMSmol", "\_a[smol]The kid\_a")
+	_talk = REPLACE(_talk, "anMBirdy", "\_a[birdy]The bird\_a")
+	_talk = REPLACE(_talk, "anMSorrel", "\_a[sorrel]The cat\_a")
+	_talk = REPLACE(_talk, "anMPMD", "\_a[pmd]The riolu\_a")
+ 	_talk = REPLACE(_talk, "anMBender", "\_a[bender]The bender\_a")
+ 	_talk = REPLACE(_talk, "anMNine", "\_a[nine]The broken one\_a")
+	_talk = REPLACE(_talk, "anMSerif", "\_a[serif]The timid one\_a")
+	_talk = REPLACE(_talk, "anMEcho", "\_a[echo]The innocent one\_a")
+	_talk = REPLACE(_talk, "anMIce", "\_a[ice]The bitter one\_a")
+	_talk = REPLACE(_talk, "anMOmega", "\_a[omega]The elemental\_a")
+	
+	//Moon phases
+	_talk = REPLACE(_talk, "anMoon01", "\_a[CheckWeather]\_b[img\Moon01,inline,--option=use_self_alpha]\_a")
+	_talk = REPLACE(_talk, "anMoon02", "\_a[CheckWeather]\_b[img\Moon02,inline,--option=use_self_alpha]\_a")
+	_talk = REPLACE(_talk, "anMoon03", "\_a[CheckWeather]\_b[img\Moon03,inline,--option=use_self_alpha]\_a")
+	_talk = REPLACE(_talk, "anMoon04", "\_a[CheckWeather]\_b[img\Moon04,inline,--option=use_self_alpha]\_a")
+	_talk = REPLACE(_talk, "anMoon05", "\_a[CheckWeather]\_b[img\Moon05,inline,--option=use_self_alpha]\_a")
+	_talk = REPLACE(_talk, "anMoon06", "\_a[CheckWeather]\_b[img\Moon06,inline,--option=use_self_alpha]\_a")
+	_talk = REPLACE(_talk, "anMoon07", "\_a[CheckWeather]\_b[img\Moon07,inline,--option=use_self_alpha]\_a")
+	_talk = REPLACE(_talk, "anMoon08", "\_a[CheckWeather]\_b[img\Moon08,inline,--option=use_self_alpha]\_a")
+	_talk = REPLACE(_talk, "anMoon09", "\_a[CheckWeather]\_b[img\Moon09,inline,--option=use_self_alpha]\_a")
 	--
 	if nowmode == "RYS"
 	{
@@ -124,361 +153,500 @@ OnTranslate
 	}
 	--
 	
-	if nowscale < 0
-	{
-		_talk = "\f[align,right]" + _talk
-		_talk = REPLACE(_talk,"\f[align,default]","\f[align,right]")
-	}
+		if reference1 == "" && reference2 == "" || reference2 == "OnTextDrop" { //send input box : no event (ref2) , no special flag (ref1)
+            EVAL('"' + REPLACE(_talk,'"','" + CHR(0x22) + "') + '"')
+        }
+        else { //event result from ghost
+            TOSTR(_talk)
+        }
+		--
+		/*if nowscale < 0 //Work on this later. Basically I could have it search for sakurascript tags and take them as a whole... that shouldn't be hard. Gotta rewrite this all tho cause idk what I did here lol
+		{
+			/*TalkArray = IARRAY
+			SETDELIM(CurrentTalk," ")
+			_words = ARRAYSIZE(CurrentTalk)
+			_i = 0
+			while _i < _words
+			{
+				if "\" _in_ CurrentTalk[_i]
+				{
+					TalkArray ,= CurrentTalk[_i]
+				}
+				else
+				{
+					for _ii = 0;  _ii < STRLEN(CurrentTalk[_i]); _ii++
+					{
+						_char = SUBSTR(CurrentTalk[_i],"%(_ii)",1)
+						TalkArray ,= _char
+					}
+				}
+				_i++
+			}
+			
+			/*TalkArray = IARRAY
+			dialogue = REPLACE(_talk," ","|")
+			SETDELIM(dialogue,"|")
+			dialoguelen = ARRAYSIZE(dialogue)
+			_i = 0
+			while _i < (dialoguelen + 1)
+			{
+				if "\" _in_ dialogue[_i,"|"]
+				{
+					_temp = dialogue[_i,"|"]
+					if "]" _in_ _temp
+					{
+						_temp2 = SPLIT(_temp,"]")
+						
+						TalkArray += "|%(_temp2[0])]"
+						
+						words = ""
+						//_len = STRLEN(dialogue[_i,"|"])
+						_ii = STRLEN(_temp2[1])
+						while _ii > 0
+						{
+							_char = SUBSTR(_temp2[1],"%(_ii - 1)",1)
+							words += _char
+							_ii--
+						}
+						TalkArray += "|%(words)"
+					}
+					else
+					{
+						/*if "\n" _in_ _temp
+						{
+							_temp3 = SPLIT(_temp,
+						} //Problem with this is double tags like \w8\w8...
+						TalkArray += "|%(_temp)"
+					}
+					
+				}
+				else
+				{
+					words = ""
+					//_len = STRLEN(dialogue[_i,"|"])
+					_ii = STRLEN(dialogue[_i,"|"])
+					while _ii > 0
+					{
+						_char = SUBSTR(dialogue[_i],"%(_ii - 1)",1)
+						words += _char
+						_ii--
+					}
+					TalkArray += "|%(words)"
+				}
+				_i++
+			}
+			SETDELIM(TalkArray,"|")
+			_TalkArray = REVERSE(TalkArray)
+			findialogue = "%(+TalkArray)"
+			findialogue = REPLACE(findialogue,"|"," ")
+		}*/
+}
+
+// OnHereDoc
+// {
+	// <<"
+	// \0Hello world!
+	// \1Hello.
+	// \0Look, automatic pauses!
+	// \1Weird, huh?
+	// \0..Yeah, a bit, huh..?
+	// \1Oh well.
+	// \0....Ok then.
+	// ">>
+// }
+
+// OnTranslateInternal.HereDocuments
+// {
+	// _talk = _argv[0]
 	
-	// if nowscale < 0
+	// if C_CRLF _in_ _talk
 	// {
-		// _tags = SakuraScooper(_talk)
+		// _br = "\n\n"
+		// _talk = REPLACE(_talk,C_CRLF,_br)
 		
-		// //Remove tags and replace with C_BYTE1 (you might want to do something more unique depending on your usage)
-		// foreach _tags; _tag
-		// {
-			// _talk = REPLACE(_talk,_tag,C_BYTE1,1)
-		// }
+		// if RE_MATCH(_talk,"^'(.*)'$"); _talk = RE_GETSTR[1]
+		// elseif RE_MATCH(_talk,'^"(.*)"$'); _talk = RE_GETSTR[1]
 		
-		// _temp = _talk
-		// _talk = ""
-		// while STRLEN(_temp) >= 1
-		// {
-			// _talk += SUBSTR(_temp,STRLEN(_temp) - 1,1)
-			// _temp = SUBSTR(_temp,0,STRLEN(_temp) - 1)
-		// }
+		// _talk = REPLACE(_talk,"....","[:HEREDOC_ELLIPSESNOPAUSE:]")
+		// _talk = REPLACE(_talk,"...","[:HEREDOC_ELLIPSES:]")
+		// _talk = REPLACE(_talk,"..?","[:HEREDOC_QUESTIONELLIPSES:]")
+		// _talk = REPLACE(_talk,"..!","[:HEREDOC_EXCLAMATIONELLIPSES:]")
+		// _talk = REPLACE(_talk,"..","[:HEREDOC_LONGELLIPSES:]")
+		// _talk = REPLACE(_talk,".","[:HEREDOC_FULLSTOP:]")
 		
+		// _talk = REPLACE(_talk,"[:HEREDOC_ELLIPSESNOPAUSE:]","...")
+		// _talk = REPLACE(_talk,"[:HEREDOC_ELLIPSES:]","...\w8\w8")
+		// _talk = REPLACE(_talk,"[:HEREDOC_LONGELLIPSES:]",".\w8.\w8.\w8\w8")
+		// _talk = REPLACE(_talk,"[:HEREDOC_FULLSTOP:]",".\w8\w8")
+		// _talk = REPLACE(_talk,"[:HEREDOC_QUESTIONELLIPSES:]","..?\w8\w8")
+		// _talk = REPLACE(_talk,"[:HEREDOC_EXCLAMATIONELLIPSES:]","..!\w8\w8")
 		
-		// //Put tags back into place
-		// foreach _tags; _tag
-		// {
-			// _talk = REPLACE(_talk,C_BYTE1,_tag,1)
-		// }
-		// _talk = "\f[align,right]" + _talk
-		// _talk = REPLACE(_talk,"\f[align,default]","\f[align,right]")
+		// _talk = REPLACE(_talk,",",",\w4")
+		// _talk = REPLACE(_talk,";",";\w4")
+		// _talk = REPLACE(_talk,"-","-\w4")
+		
+		// _talk = REPLACE(_talk,"! ","!\w8\w8")
+		// _talk = REPLACE(_talk,"!%(_br)","!\w8\w8%(_br)")
+		// _talk = REPLACE(_talk,"? ","?\w8\w8")
+		// _talk = REPLACE(_talk,"?%(_br)","?\w8\w8%(_br)")
 	// }
 	
-	//Ok, so I think I finally understand what all this EVAL stuff here is!
-	//Basically, the '"' + REPLACE(_talk,'"','" + CHR(0x22) + "') + '"' bit is making it so that any quotation marks are escaped in the string. So eh... if I have a string like this:
-	//Some text with "quotes" in it
-	//It'll turn into this:
-	//"Some text with " + '"' + "quotes" + '"' + " in it"
-	//The CHR(0x22) is of course a double quote
-	//When you pass this new string on to EVAL, it will see it as YAYA code, and concatenate the separate strings that were created! Voila!
-	//This means that in modern versions of YAYA, I can use the new quote escape syntax and simplify this a little
-	//With my new version it should look like this:
-	//"Some text with ""quotes"" in it"
-	
-	// if reference1 == "" && reference2 == "" || reference2 == "OnTextDrop" //If this is from dropped text or the input box
-	// { //send input box : no event (ref2) , no special flag (ref1)
-		// //LOGGING('"' + REPLACE(_talk,'"','" + CHR(0x22) + "') + '"')
-		
-		// _talk = EVAL('"' + REPLACE(_talk,'"','""') + '"')
-		// _talk = OnTranslateInternal.AutoPauses(_talk)
-		// _talk = OnTranslateInternal.MarkdownProcessor(_talk)
-		// _talk
-	// }
-	// else
-	// { //event result from ghost
-		// TOSTR(_talk)
-	// }
-	
-	_talk
-}
-
-//Returns an array of indices for the substring you want to find
-//arg 0: Source string to search
-//arg 1: substring to search for
-STRSCH
-{
-	_str = _argv[0]
-	_sub = _argv[1]
-	_len = STRLEN(_sub)
-	
-	_output = IARRAY
-	_pos = 0
-	for _pos = STRSTR(_str,_sub,0); _pos != -1; _pos = STRSTR(_str,_sub,_pos + _len)
-	{
-		_output ,= _pos
-	}
-	if ARRAYSIZE(_output) < 1; -1
-	else; _output
-}
-
-//Written by Zichqec https://zichqec.github.io/s-the-skeleton/
-/*
-This function should work in any YAYA ghost. Just copy the whole function into your ghost somewhere, and it should be applied automatically!
-If you're using AYA, you can just copy over the entire if check into your normal OnTranslate function, and leave out the other lines of code.
-
-IMPORTANT NOTE: Pauses will ONLY be added if there is a space after the punctuation mark, with this setup. This means that if you're adding a linebreak, you would want to format it like so: "Some text on the first line. \nSome text on the second line."
-This also means that if you do NOT want a pause to be added, you can add something instead of a space, or exclude the space, to avoid having a pause. Like so: "Some text on the first line.\nSome text on the second line." or "Some text.\![] Some other text."
-You can also add \![no-autopause] anywhere in a script to prevent pauses from being added in any part of the script! This is useful for things like menus.
-Be careful that you don't have a comma and space combination in your sakurascript tags! As long as you write them like \![raise,OnThing,Arg 1] and not \![raise, OnThing, Arg 1], you should be fine.
-
-You can adjust this all how you like. I also included options to handle ellipsis separately.
-You'll have to be a bit mindful of how you write your dialogues, but this can make it much easier/cleaner in general!
-*/
-OnTranslateInternal.AutoPauses
-{
-	_talk = _argv[0]
-	
-	if "\![no-autopause]" !_in_ _talk
-	{
-		/*
-		//Additional options if you want ellipsis to have little pauses between each dot. Personally, I think I want to do that manually, for when I want a particular flavor.
-		
-		_talk = REPLACE(_talk,"... ",".\w2.\w2.\w8 ") //Ellipsis
-		_talk = REPLACE(_talk,"..? ",".\w2.\w2?\w8 ") //Question mark + ellipsis
-		_talk = REPLACE(_talk,"..! ",".\w2.\w2!\w8 ") //Exclamation point + ellipsis
-		*/
-		
-		_talk = REPLACE(_talk,", ",",\w4 ") //Comma
-		_talk = REPLACE(_talk,". ",".\w8\w8 ") //Period
-		_talk = REPLACE(_talk,".) ",".)\w8\w8 ") //Period
-		_talk = REPLACE(_talk,"? ","?\w8\w8 ") //Question mark
-		_talk = REPLACE(_talk,"! ","!\w8\w8 ") //Exclamation point
-		_talk = REPLACE(_talk,"; ",";\w8 ") //Exclamation point
-		//_talk = REPLACE(_talk,"- ","-\w8 ") //Dash - This one seems to happen a lot when I don't want it, so I am commenting it out
-	}
-	
-	_talk
-}
-
+	// _talk
+// }
 
 OnEval
 {
 	EVAL("%(reference0)")
 }
-
-newline
-{
-	"\n \n[-100]"
-}
-
 	
 //--OnAnchorSelect
 //OnAnchorSelect runs whenever someone clicks one of the links as specified above, or a link that begins with http://.
-
-OnChoiceSelect
-{
-	EVAL("Select.%(reference0)")
-}
-
-OnFamilyAnchor : all
-{
-	knowaboutfamily = 1
-	if EVAL("askedabout%(reference0) == 0")
-	{
-		EVAL("askedabout%(reference0) = 1")
-		love += 4
-	}
-	
-	_img = ""
-	{
-		if reference0 == "wd"; _img = "01WD"
-		elseif reference0 == "dings"; _img = "02Dings"
-		elseif reference0 == "wings"; _img = "03Wings"
-		elseif reference0 == "barcode"; _img = "04Barcode"
-		elseif reference0 == "bluejeans"; _img = "05BlueJeans"
-		elseif reference0 == "abbi"; _img = "06Abbi"
-		elseif reference0 == "rosie"; _img = "07Rosie"
-		elseif reference0 == "roman"; _img = "08Roman"
-		elseif reference0 == "cambria"; _img = "09Cambria"
-		elseif reference0 == "triton"; _img = "10Triton"
-		elseif reference0 == "lulo"; _img = "11Lulo"
-		elseif reference0 == "azo"; _img = "12Azo"
-		elseif reference0 == "sigil"; _img = "13Sigil"
-		elseif reference0 == "elko"; _img = "14Elko"
-	}
-	
-	"\0\b2"
-	if SHIORI3FW.BalloonName == "Purple Soul"
-	{
-		"\_b[img\P%(_img).png,centerx,10,--option=use_self_alpha]\n[900]"
-		if reference0 == "elko"; "\n[200]"
-	}
-	else; "\_b[img\P%(_img).png,inline,--option=use_self_alpha]%(newline)\n\f[align,left]"
-	
-	if reference0 == "wd"
-	{
-		"\s[103]WD is my dad.\w8\w8\s[300] We didn't actually know each other all that well until after we started the farm.\w8\w8\s[303] It's uh,\w4 complicated.\n\n\w8\s[103]But I'm really glad to have him around,\s[0] he's sort of a stabilizing presence in the house and helps to keep the others from getting at each other's throats too much."
-	}
-	elseif reference0 == "dings"
-	{
-		"\s[0]Dings is my uncle.\w8\w8\s[300] He's uh...\w8 pretty quiet and solitary.\w8\w8\s[200] The only people he really gets along with are his sister"
-		if askedaboutwings == 1; " @Wings(m)"
-		",\w4 and her son"
-		if askedaboutroman == 1; " @Roman(m)"
-		".\w8\s[202] ...Maybe sometimes his brother"
-		if askedaboutwd == 1; " \_a[OnFamilyAnchor,wd,Menu]WD\_a"
-		",\w4 too.\w8\w8\n\n\s[1010]We're glad to have him around anyways,\w4 he's a part of the family."
-	}
-	elseif reference0 == "wings"
-	{
-		"\s[1010]Wings is my aunt.\w8\w8\s[0] She has very strong healing magic and works as a doctor at the local hospital.\w8\w8\s[300] Not all humans trust a monster to be their doctor yet,\s[104] but that doesn't stop her.\w8\s[0]\n\nShe's very no-nonsense when it comes to that stuff."
-	}
-	elseif reference0 == "barcode"
-	{
-		"\s[1010]Barcode is my mom!\w8\w8\s[103] She likes to build and repair things,\w4 and is always tinkering with stuff.\w8\s[103] If an appliance ever breaks,\w4 she's the one you should go to.\w8\s[0] It'll be good as new before you know it.\w8\w8\n\n\s[202]I hear she used to build new stuff out of scraps from the dump in Waterfall,\w4 too.\w8\s[103] She's definitely one of the most resourceful people around here."
-	}
-	elseif reference0 == "bluejeans"
-	{
-		"\s[105]Blue Jeans is my wonderful %(StSfhusband).\w8\w8\s[0] %(StSfCHe) does a lot of the large scale work on the farm,\s[106] so %(StSfHe)'s usually not around the house too much.\w8\w8\s[1010] But %(StSfHe)'s always sure to spend a little time with me each day,\w4 and makes sure I'm doing ok.\w8\s[104] I'd be lost without %(StSfhim)."
-	}
-	elseif reference0 == "abbi"
-	{
-		"\s[0]Abbi is my brother.\w8\w8\s[200] He's... a little fragile.\w8 He always has been.\w8\w8\s[202] But \s[0]now that "
-		if askedaboutbarcode == 1; "@Barcode(m)"
-		else; "my mom"
-		" and "
-		if askedaboutwings == 1; "@Wings(m)"
-		else; "my aunt" 
-		" are here,\w4 they've been able to help him with regular healing sessions.\w8\w8\n\n\s[1010]He's been getting more and more confident,\w4 and I'm glad to see it."
-	}
-	elseif reference0 == "rosie"
-	{
-		"\s[1010]Rosie's my sister.\w8\w8 \s[202]She's very energetic,\w4 unlike me.\w8\s[1010] Maybe it's because she's still just a kid.\w8\w8\n\n\s[101]...What?\w8\w8\s[202] Oh,\w4 the age gap between us?\w8\s[101] Skeletons live a very long time,\w4 it's not that weird that my parents decided to have another kid."
-	}
-	elseif reference0 == "roman"
-	{
-		"\s[200]Roman is...\w8 I guess he'd be my cousin.\w8\w8\s[1010]  He's still just a toddler,\w4 he's "
-		if askedaboutwings == 1; "@Wings(m)"
-		else; "my aunt"
-		"'s kid.\w8\w8\s[101] Though from how protective "
-		if askedaboutdings == 1; "@Dings(m)"
-		else; "my uncle"
-		" is of him,\w4 it would be very easy to get that wrong.\w8\w8\n\n\s[202]Seriously,\w4 don't even think about harming that child in any way.\w8 You'll regret it before you have a chance to actually do anything."
-	}
-	elseif reference0 == "cambria"
-	{
-		"\s[103]Cambria is my eldest child.\w8\w8\s[0] She's very bright,\s[1010] she's actually planning to become a doctor like her great aunt"
-		if askedaboutwings == 1; " @Wings(m)"
-		".\w8\w8\n\n\s[205]She's definitely got the aptitude for healing,\w4 I think she could do it if she really puts her mind to it.\w8\s[104] I'm very proud of her."
-	}
-	elseif reference0 == "triton"
-	{
-		"\s[205]Triton is my oldest son,\w4 but he doesn't like to acknowledge it directly.\w8\w8\s[200] I think he feels like he owes us a debt for taking him in and adopting him.\w8\n\n\s[202]He really doesn't,\w4 and even if he did,\w4 he's more than repaid it with the work he's done on the farm.\w8\s[104] The kid is brilliant with plants.\w8\w8\s[106] It probably helps that he's a water elemental."
-	}
-	elseif reference0 == "lulo"
-	{
-		"\s[0]Ah... Lulo is the middle child.\w8\w8\s[103] She's a very sweet,\w4 quiet girl.\w8\s[202] Much the opposite of her older sister"
-		if askedaboutcambria == 1; " @Cambria(m)"
-		".\w8\w8\n\n\s[200]...She was born prematurely,\w4 and has always been very sickly since she was little.\w8\s[300] She spends a lot of time asleep,\w4 to make up for the.\w8.\w8.\w8\w8\s[301] issue.\w8\s[1100]\n\nBut,\w4 ah,\w4\s[106] she's a very imaginitive kid.\w8\s[1010] She has very vivid dreams,\w4 and she likes to tell me all about the things she imagines there."
-	}
-	elseif reference0 == "azo"
-	{
-		"\s[103]Azo's my youngest son.\w8\w8\s[0] He's only a few years old,\w4 so we're not sure what sort of direction he's going to go yet.\w8\w8\s[1010] But he's very energetic and outgoing,\w4 and I hope he can keep that energy as he grows."
-	}
-	elseif reference0 == "sigil"
-	{
-		"\s[1010]Sigil's my youngest daughter,\w4 she's still a toddler.\w8\w8\s[106] She uh,\w4 loves fingerpainting.\w8 A lot.\w8\w8\s[104] She's a very sweet girl,\w4 \s[106]if a messy one."
-	}
-	elseif reference0 == "elko"
-	{
-		"Elko is "
-		if askedaboutcambria == 1; "@Cambria's best friend"
-		else; "a close friend of one of my kids"
-		",\w4 and is basically family.\w8\w8\s[1010] She comes over to visit a lot,\w4 and we love to have her around.\w8\w8\n\n\s[202]She's got spunk,\w4 that's for sure.\w8\s[1010] I think she's planning to become a nurse in the hopes of working alongside "
-		if askedaboutcambria == 1; "@Cambria(m)"
-		else; "my daughter"
-		" after college."
-	}
-	
-	"\n\n"
-	if reference1 == "Menu"; "\![*]\q[Ask about someone else,OnFamilyMenu]\n"
-	"\![*]\q[I'm done,cancelnodialogue]\e"
-}
 
 OnAnchorSelect //[Zi] Alright so... I decided to rewrite this. I didn't see a reason to use case/when because you apparently can't do when "thing" || when "other thing"... and I didn't want to double the size of this section for what I needed to do. using _in_ and just being careful with how I write my anchors seems like a cleaner solution.
 {
 	if "http://" _in_ reference0 || "https://" _in_ reference0 //checking to see if the link is a web address
 	{
-		"\j[%(reference0)]\e"
+	"\j[%(reference0)]\e" // \j is a tag that will open a specified url in the user's browser of choice. This basically just tells the ghost to open the webpage stored in reference0, which would be the address that the user just clicked. I didn't get too much into \j in the walkthrough page because I have literally never used it except here.
 	}	
-	elseif "__AUTO_ANCHOR__" _in_ reference0
+	elseif "FA" _in_ reference0 //Family Anchor. I don't know if I'll have other anchor words, but anything with FA is asking about a family member and should end with the 'I'm done' button
 	{
-		EVAL("Anchor.%(SPLIT(reference0,'__AUTO_ANCHOR__')[1])")
-	}
-	else
-	{
-		//-------------------Moon phases---------------------
-		if reference0 == "CheckWeather"
+		if "wd" _in_ reference0
 		{
-			if WeatherStationInstalled; OnWeatherCheckStart
+			if askedaboutwd == 0
+			{
+				askedaboutwd = 1
+				love += 4
+				knowaboutfamily = 1
+			}
+			
+			"\b2\_b[img\P01WD.png,centerx,10,--option=use_self_alpha]\n\n\n\n\n\n\n\n\n\0\s[103]WD is my dad.\w8\w8\s[300] We didn't actually know each other all that well until after we started the farm.\w8\w8\s[303] It's uh,\w4 complicated.\n\n\w8\s[103]But I'm really glad to have him around,\s[0] he's sort of a stabilizing presence in the house and helps to keep the others from getting at each other's throats too much."
 		}
-	}
-}
-
-OnWeatherCheckStart
-{
-	GetWeatherData
-	--
-	"\![raise,OnWeatherCheck]"
-}
-
-OnWeatherCheck
-{
-	if WeatherStationInstalled
-	{
-		if weather.error == "no_location"
+		elseif "dings" _in_ reference0
 		{
-			WeatherNoLocationMsg
-		}
-		else
-		{
-			"\0\s[110]Oh,\w4 the weather?\w8\w8\s[104] Sure,\w4\s[1070] give me just a moment..."
-			"\0\s[110]Oh,\w8\s[104] sure,\w4 I can get the weather.\w8\w8\s[1070] Give me a moment..."
-			"\0\s[110]Oh,\w8\s[103] alright,\w4 I'll check the weather.\w8\w8\s[1070] Just a second..."
-			"\0\s[110]Oh,\w8\s[102] sure,\w4 I'll check the weather for you. \s[1070]Let me see here..." //"\w8\w8\s[1070] Let's see,\w4 you said you live in %(curlocation)..?"
+			if askedaboutdings == 0
+			{
+				askedaboutdings = 1
+				love += 4
+				knowaboutfamily = 1
+			}
+			"\b2\_b[img\P02Dings.png,centerx,10,--option=use_self_alpha]\n\n\n\n\n\n\n\n\n\0\s[0]Dings is my uncle.\w8\w8\s[300] He's uh...\w8 pretty quiet and solitary.\w8\w8\s[200] The only people he really gets along with are his sister"
 			--
-			"\w8\w8"
+			if askedaboutwings == 1
+			{
+				" anMWings"
+			}
 			--
-			if weather.error == ""; "\![raise,OnWeatherFinish]"
-			else; "\![raise,OnWeatherError]"
+			",\w4 and her son"
+			--
+			if askedaboutroman == 1
+			{
+				" anMRoman"
+			}
+			--
+			".\w8\s[202] ...Maybe sometimes his brother"
+			--
+			if askedaboutwd == 1
+			{
+				" anMWD"
+			}
+			--
+			",\w4 too.\w8\w8\n\n\s[1010]We're glad to have him around anyways,\w4 he's a part of the family."
 		}
-	}
-	else
-	{
-		InstallWeatherPluginMsg
+		elseif "wings" _in_ reference0
+		{
+			if askedaboutwings == 0
+			{
+				askedaboutwings = 1
+				love += 4
+				knowaboutfamily = 1
+			}
+			"\b2\_b[img\P03Wings.png,centerx,10,--option=use_self_alpha]\n\n\n\n\n\n\n\n\n\0\s[1010]Wings is my aunt.\w8\w8\s[0] She has very strong healing magic and works as a doctor at the local hospital.\w8\w8\s[300] Not all humans trust a monster to be their doctor yet,\s[104] but that doesn't stop her.\w8\s[0]\n\nShe's very no-nonsense when it comes to that stuff."
+		}
+		elseif "barcode" _in_ reference0
+		{
+			if askedaboutbarcode == 0
+			{
+				askedaboutbarcode = 1
+				love += 4
+				knowaboutfamily = 1
+			}
+			"\b2\_b[img\P04Barcode.png,centerx,10,--option=use_self_alpha]\n\n\n\n\n\n\n\n\n\0\s[1010]Barcode is my mom!\w8\w8\s[103] She likes to build and repair things,\w4 and is always tinkering with stuff.\w8\s[103] If an appliance ever breaks,\w4 she's the one you should go to.\w8\s[0] It'll be good as new before you know it.\w8\w8\n\n\s[202]I hear she used to build new stuff out of scraps from the dump in Waterfall,\w4 too.\w8\s[103] She's definitely one of the most resourceful people around here."
+		}
+		elseif "bluejeans" _in_ reference0
+		{
+			if askedaboutbluejeans == 0
+			{
+				askedaboutbluejeans = 1
+				love += 4
+				knowaboutfamily = 1
+			}
+			"\b2\_b[img\P05BlueJeans.png,centerx,10,--option=use_self_alpha]\n\n\n\n\n\n\n\n\n\0\s[105]Blue Jeans is my wonderful %(StSfhusband).\w8\w8\s[0] %(StSfCHe) does a lot of the large scale work on the farm,\s[106] so %(StSfHe)'s usually not around the house too much.\w8\w8\s[1010] But %(StSfHe)'s always sure to spend a little time with me each day,\w4 and makes sure I'm doing ok.\w8\s[104] I'd be lost without %(StSfhim)."
+		}
+		elseif "abbi" _in_ reference0
+		{
+			if askedaboutabbi == 0
+			{
+				askedaboutabbi = 1
+				love += 4
+				knowaboutfamily = 1
+			}
+			"\b2\_b[img\P06Abbi.png,centerx,10,--option=use_self_alpha]\n\n\n\n\n\n\n\n\n\0\s[0]Abbi is my brother.\w8\w8\s[200] He's... a little fragile.\w8 He always has been.\w8\w8\s[202] But \s[0]now that "
+			--
+			if askedaboutbarcode == 1
+			{
+				"anMBarcode"
+			}
+			else
+			{
+				"my mom"
+			}
+			--
+			" and "
+			--
+			if askedaboutwings == 1
+			{
+				"anMWings"
+			}
+			else
+			{
+				"my aunt" 
+			}
+			--
+			" are here,\w4 they've been able to help him with regular healing sessions.\w8\w8\n\n\s[1010]He's been getting more and more confident,\w4 and I'm glad to see it."
+		}
+		elseif "rosie" _in_ reference0
+		{
+			if askedaboutrosie == 0
+			{
+				askedaboutrosie = 1
+				love += 4
+				knowaboutfamily = 1
+			}
+			"\b2\_b[img\P07Rosie.png,centerx,10,--option=use_self_alpha]\n\n\n\n\n\n\n\n\n\0\s[1010]Rosie's my sister.\w8\w8 \s[202]She's very energetic,\w4 unlike me.\w8\s[1010] Maybe it's because she's still just a kid.\w8\w8\n\n\s[101]...What?\w8\w8\s[202] Oh,\w4 the age gap between us?\w8\s[101] Skeletons live a very long time,\w4 it's not that weird that my parents decided to have another kid."
+		}
+		elseif "roman" _in_ reference0
+		{
+			if askedaboutroman == 0
+			{
+				askedaboutroman = 1
+				love += 4
+				knowaboutfamily = 1
+			}
+			"\b2\_b[img\P08Roman.png,centerx,10,--option=use_self_alpha]\n\n\n\n\n\n\n\n\n\0\s[200]Roman is...\w8 I guess he'd be my cousin.\w8\w8\s[1010]  He's still just a toddler,\w4"
+			--
+			if askedaboutwings == 1
+			{
+				" he's anMWings's kid."
+			}
+			else
+			{
+				" he's my aunt's kid."
+			}
+			--
+			"\w8\w8\s[101] Though from how protective "
+			--
+			if askedaboutdings == 1
+			{
+				"anMDings"
+			}
+			else
+			{
+				"my uncle"
+			}
+			--
+			" is of him,\w4 it would be very easy to get that wrong.\w8\w8\n\n\s[202]Seriously,\w4 don't even think about harming that child in any way.\w8 You'll regret it before you have a chance to actually do anything."
+		}			
+		elseif "cambria" _in_ reference0
+		{
+			if askedaboutcambria == 0
+			{
+				askedaboutcambria = 1
+				love += 4
+				knowaboutfamily = 1
+			}
+			"\b2\_b[img\P09Cambria.png,centerx,10,--option=use_self_alpha]\n\n\n\n\n\n\n\n\n\0\s[103]Cambria is my eldest child.\w8\w8\s[0] She's very bright,\s[1010] she's actually planning to become a doctor like her great aunt"
+			--
+			if askedaboutwings == 1
+			{
+				" anMWings"
+			}
+			--
+			".\w8\w8\n\n\s[205]She's definitely got the aptitude for healing,\w4 I think she could do it if she really puts her mind to it.\w8\s[104] I'm very proud of her."
+		}
+		elseif "triton" _in_ reference0
+		{
+			if askedabouttriton == 0
+			{
+				askedabouttriton = 1
+				love += 4
+				knowaboutfamily = 1
+			}
+			"\b2\_b[img\P10Triton.png,centerx,10,--option=use_self_alpha]\n\n\n\n\n\n\n\n\n\0\s[205]Triton is my oldest son,\w4 but he doesn't like to acknowledge it directly.\w8\w8\s[200] I think he feels like he owes us a debt for taking him in and adopting him.\w8\n\n\s[202]He really doesn't,\w4 and even if he did,\w4 he's more than repaid it with the work he's done on the farm.\w8\s[104] The kid is brilliant with plants.\w8\w8\s[106] It probably helps that he's a water elemental."
+		}
+		elseif "lulo" _in_ reference0
+		{
+			if askedaboutlulo == 0
+			{
+				askedaboutlulo = 1
+				love += 4
+				knowaboutfamily = 1
+			}
+			"\b2\_b[img\P11Lulo.png,centerx,10,--option=use_self_alpha]\n\n\n\n\n\n\n\n\n\0\s[0]Ah... Lulo is the middle child.\w8\w8\s[103] She's a very sweet,\w4 quiet girl.\w8\s[202] Much the opposite of her older sister"
+			--
+			if askedaboutcambria == 1
+			{
+				" anMCambria"
+			}
+			--
+			".\w8\w8\n\n\s[200]...She was born prematurely,\w4 and has always been very sickly since she was little.\w8\s[300] She spends a lot of time asleep,\w4 to make up for the.\w8.\w8.\w8\w8\s[301] issue.\w8\s[1100]\n\nBut,\w4 ah,\w4\s[106] she's a very imaginitive kid.\w8\s[1010] She has very vivid dreams,\w4 and she likes to tell me all about the things she imagines there."
+		}
+		elseif "azo" _in_ reference0
+		{
+			if askedaboutazo == 0
+			{
+				askedaboutazo = 1
+				love += 4
+				knowaboutfamily = 1
+			}
+			"\b2\_b[img\P12Azo.png,centerx,10,--option=use_self_alpha]\n\n\n\n\n\n\n\n\n\0\s[103]Azo's my youngest son.\w8\w8\s[0] He's only a few years old,\w4 so we're not sure what sort of direction he's going to go yet.\w8\w8\s[1010] But he's very energetic and outgoing,\w4 and I hope he can keep that energy as he grows."
+		}
+		elseif "sigil" _in_ reference0
+		{
+			if askedaboutsigil == 0
+			{
+				askedaboutsigil = 1
+				love += 4
+				knowaboutfamily = 1
+			}
+			"\b2\_b[img\P13Sigil.png,centerx,10,--option=use_self_alpha]\n\n\n\n\n\n\n\n\n\0\s[1010]Sigil's my youngest daughter,\w4 she's still a toddler.\w8\w8\s[106] She uh,\w4 loves fingerpainting.\w8 A lot.\w8\w8\s[104] She's a very sweet girl,\w4 \s[106]if a messy one."
+		}
+		elseif "elko" _in_ reference0
+		{
+			if askedaboutelko == 0
+			{
+				askedaboutelko = 1
+				love += 4
+				knowaboutfamily = 1
+			}
+			--
+			if askedaboutcambria == 1
+			{
+				"\b2\_b[img\P14Elko.png,centerx,10,--option=use_self_alpha]\n\n\n\n\n\n\n\n\n\n\n\0\s[0]Elko is anCambria's best friend,"
+			}
+			else
+			{
+				"\b2\_b[img\P14Elko.png,centerx,10,--option=use_self_alpha]\n\n\n\n\n\n\n\n\n\n\n\0\s[0]Elko is a close friend of one of my kids,"
+			}
+			--
+			"\w4 and is basically family.\w8\w8\s[1010] She comes over to visit a lot,\w4 and we love to have her around.\w8\w8\n\n\s[202]She's got spunk,\w4 that's for sure.\w8\s[1010] I think she's planning to become a nurse in the hopes of working alongside "
+			--
+			if askedaboutcambria == 1
+			{
+				"anMCambria"
+			}
+			else
+			{
+				"my daughter"
+			}
+			--
+			" after college."
+		}
 		--
-		"\x\![raise,Onbacktofunctions]"
+		"\n\n" //No matter which option is first, they'll be spaced properly
+		--
+		if "Familymenu" _in_ reference0 //As mentioned above, if you're accessing anchor text from the family menu, this'll let you go back to it
+		{
+			"\![*]\q[Ask about someone else,OnFamilyMenu]\n"
+		}
+		--
+		"\![*]\q[I'm done,cancelnodialogue]\e" //Either way, here's a cancel button that leads to nothing. This is also here to prevent anchor text from being overwritten by random text... I may or may not make it so that this doesn't time out.
+		
 	}
-}
-
-OnWeatherError
-{
-	if weather.error == "location_invalid"
-	{
-		"\s[106]Sorry kiddo, it's saying your location is invalid. You'll have to try setting it again."
+	else
+	{	
+		//-----Timeline menu-----
+		if reference0 == "kit"
+		{
+			"\0\b[4]\_b[img\TP01Kit.png,centerx,12,--option=use_self_alpha,--option=fixed]\s[102]His name is Kit,\w4\s[0] short for Kitkat,\w4 I believe.\w8\w8 \s[208]His timeline is pretty different compared to mine.\w8\w8\s[106] Monsters don't even exist in the same way,\w4\s[0] instead it's humans on the surface and mers in the water.\w8\w8\n\n\s[208]It seems as though mers have only recently really been discovered,\w4\s[206] and ah...\w8\w8\s[201] humankind hasn't treated them well,\w4 for the most part.\w8\w8\s[104]\n\nBut,\w4 thanks to the efforts of a few humans who love marine life,\w4 things have started to change for the better.\w8\w8\s[0] They've built a rehabilitation center to help injured mers recover and release them back into the ocean.\w8\w8\s[104] That's where Kit lived when I met him.%(timelinequestions)"
+			knowaboutkit = 2
+		}
+		elseif reference0 == "smol"
+		{
+			"\0\b[4]\_b[img\TP02Smol.png,centerx,12,--option=use_self_alpha,--option=fixed]\s[0]Ah,\w4 that one?\w8\w8\s[205] Well,\w4 from what I could gather,\w4 that timeline was a sort of...\w8\w8 swap\w4 of mine.\w8\w8\s[0] I took the place of my %(red('first son')),\w4 and anAbbi took the place of my %(teal('partner')).\w8\w8\s[200]\n\nBut ah,\w4 since the timelines changed,\w4\s[204] it's just the two of them now.\w8\w8\s[108] It's very clear that he misses his brother and"
+			--
+			if staysafe == 0
+			{
+			" other"
+			}
+			--
+			" %(StSfdad) dearly.%(timelinequestions)"
+			knowaboutsmol = 2
+		}
+		elseif reference0 == "birdy"
+		{
+			"\0\b[4]\_b[img\TP03Birdy.png,centerx,12,--option=use_self_alpha,--option=fixed]\s[206]That timeline was actually a pretty sad one...\w8\w8\s[201] I found him alone in a forest,\w4 desperately defending a nest of eggs.\w8\w8\s[108] I had no way to communicate with him,\w4 but it was pretty clear from how upset he was that his %(orange('partner')) was gone,\w4\s[109] and almost certainly some eggs,\w4 too.\w8\w8\n\n\s[200]It took a while to convince him that I wasn't going to hurt him or his eggs,\w4 but eventually he calmed down and I waited with him until my andad found me.\w8\w8\n\n\s[106]I brought him home with me,\w4 and we found a less dangerous place for him to raise his brood.%(timelinequestions)"
+			knowaboutbirdy = 2
+		}
+		elseif reference0 == "sorrel"
+		{
+			"\0\b[4]\_b[img\TP04Sorrel.png,centerx,12,--option=use_self_alpha,--option=fixed]\s[202]Honestly,\w4 that timeline was really strange.\w8\w8\s[1020] Usually alternate versions of me still somewhat resemble me,\w4 but this literally was just a cat.\w8\w8\s[208] How I knew it was a version of myself is a good question,\w4\s[106] and the only answer I can give is that I just had a strong feeling.\w8\w8\n\n\s[202]I think she could tell too,\w4 she was definitely feral,\w4\s[102] but she was a lot more calm and curious towards me than a feral cat normally would be.%(timelinequestions)"
+			knowaboutsorrel = 2
+		}
+		elseif reference0 == "pmd" //Yeah... I'm a PMD nerd |D Yes I actually have a save file with S and Blue Jeans as the main characters, and various family members as recruited members...
+		{
+			"\0\b[4]\_b[img\TP05PMD.png,centerx,12,--option=use_self_alpha,--option=fixed]\s[101]Ah,\w4 that was one of the strangest timelines I've been to,\w4\s[107] and believe me I've been to some weird places.\w8\w8\n\n\s[208]Monsters are completely different in that timeline.\w8\w8 Despite functioning somewhat similarly,\w4 they all just...\w8\w8\s[206] look vastly different from what I'm used to.\w8\w8\s[0]\n\nThe version of me was this small blue-and-black creature that could sense emotions.\w8\w8\s[106] I don't really understand half of what he told me,\w4\s[104] but he seemed to really like his timeline.%(timelinequestions)"
+			knowaboutpmd = 2
+		}
+		elseif reference0 == "bender"
+		{
+			"\0\b[4]\_b[img\TP06Bender.png,centerx,12,--option=use_self_alpha,--option=fixed]\s[208]Ah,\w4 that timeline was really interesting,\w4\s[206] though harrowing.\w8\w8\s[0] There were only 4 types of magic;\w4 water,\w4 fire,\w4 earth,\w4 and air.\w8\w8\s[110] And they didn't even call it magic,\w4 they called it bending.\w8\w8\n\n\s[205]The version of me there could bend fire,\w4\s[104] it was pretty cool to watch.\w8\w8\s[300] But he was also constantly on the run;\w4 apparently his nation is at war with the other 3,\w4 and...\w8\w8\s[302] his version of anAbbi is a water bender.%(timelinequestions)"
+			knowaboutbender = 2
+		}
+		elseif reference0 == "nine"
+		{
+			"\0\b[4]\_b[img\TP07Nine.png,centerx,12,--option=use_self_alpha,--option=fixed]\![raise,OnDialogueVariables,suppressCoordsOn]\s[109]* (He sighs deeply.)\w8\w8\n\nHow do I even begin to explain this one...?\w8\w8\s[200] I guess to understand,\w4 you'd need to know my own origin.\w8\w8\n\n\s[201]I was made in a lab,\w4 I told you that much already.\w8\w8\s[109] But it's uh...\w8\w8 more complicated than just that.\w8\w8\s[204] I'm...\w8\w8 sort of the remnant of someone who died,\w4 a very long time ago.\w8\w8\n\n\s[200]He was killed by the %(yellow('scientist')) who made me,\w4 and I was constructed out of the pieces that remained.\w8\w8 \s[108]I'm made of that kid's body and soul,\w4 put back together.\x\c\0\b[4]\_b[img\TP07Nine.png,centerx,12,--option=use_self_alpha,--option=fixed]\s[303]When you put a soul back together that had already shattered into pieces,\w4 it doesn't really...\w8\w8\s[302] go back the same way.\w8\w8\s[303] I'm not the same person as Sans was.\w8\w8\s[300] I don't have any of his memories,\w4 we have different interests,\w4 different world views.\w8\w8\s[204] We're two very different people.\x\c\0\b[4]\_b[img\TP07Nine.png,centerx,12,--option=use_self_alpha,--option=fixed]\s[108]Anyways.\w8\w8 Nine,\w4 as he called himself,\w4 is what happens when that same process happens a second time.\w8\w8\s[200] Something happened to the version of me in that timeline,\w4 and he was killed and put back together again.\w8\w8\s[204] But...\w8\w8\s[109]\n\nIt seems each time you do this,\w4 a little more is lost.\w8\w8\s[108] I ended up ok,\w4 but Nine is severely impaired,\w4 to the point they can't even get him to start calling himself by a real name.\w8\w8\s[200] 9 is part of the designation the Doctor gave him.\w8\w8\w8\x\c\0\b[4]\_b[img\TP07Nine.png,centerx,12,--option=use_self_alpha,--option=fixed]\s[206]I don't really know the exact details of what happened to him.\w8\w8\s[108] He and his anAbbi were taken in by the Toriel in their timeline after they were freed.\w8\w8\s[106] It seems like she's doing a good job of caring for them,\w4 so that's good at least.\![raise,OnDialogueVariables,suppressCoordsOff]%(timelinequestions)"
+			knowaboutnine = 2
+		}
+		elseif reference0 == "serif"
+		{
+			"\0\b[4]\_b[img\TP08Serif.png,centerx,12,--option=use_self_alpha,--option=fixed]\s[110]Ah,\w4 that one's a little more general.\w8\w8\s[208] There are some timelines where a younger version of myself is rescued from the labs before we break out on our own,\w4\s[206] which changes things quite a bit.\w8\w8\s[110]\n\nFor some reason,\w4 these versions of myself tend to end up with the name Serif.\w8\w8\s[1020] Ah-\w4 I didn't have a real name back in the labs,\w4 so I picked my own when we escaped.\w8\w8\s[208] But I guess leaving early changes the timeline enough for me not to pick what I did.\w8\w8\n\n\s[201]Serif tends to be very meek and compliant,\w4 and it often takes a long time for him to accept that he's even a person rather than a thing.\w8\w8\s[106] But with time,\w4 patience,\w4 and a lot of love,\w4 he can end up alright.%(timelinequestions)"
+			knowaboutserif = 2
+		}
+		elseif reference0 == "echo" //note to self, NOT the same Echo as the pencil doodle I made ages ago... I just decided they were similar enough to carry the name over. Wings is sad ok
+		{
+			"\0\b[4]\_b[img\TP09Echo.png,centerx,12,--option=use_self_alpha,--option=fixed]\s[208]That's honestly got to be one of the happiest timelines I've seen.\w8\w8\s[106] Echo,\w4 as they called him,\w4 fell out of his original timeline before anything bad ever happened to him in the labs.\w8\w8\s[107]\n\nHe doesn't even remember them.\w8\w8\s[205] Instead,\w4 he grew up with a similar version of my first %(StSfhusband),\w4 raised by my aunt anWings and the %(green('skeleton')) she'd married.\w8\w8\n\n\s[206]Though,\w4 as per the usual,\w4 my %(orange('first ',StSfhusband)) is gone now...\w8\w8\s[201] And so is the %(green('skeleton')) anWings married,\w4 though I don't think I've seen %(green('him')) in any timeline other than this one.%(timelinequestions)"
+			knowaboutecho = 2
+		}
+		elseif reference0 == "ice"
+		{
+			"\0\b[4]\_b[img\TP10Ice.png,centerx,12,--option=use_self_alpha,--option=fixed]\![raise,OnDialogueVariables,suppressCoordsOn]\s[200]That one was...\w8\w8 pretty far removed from my timeline.\w8\w8 He called himself Ice.\w8\w8\n\n\s[108]He'd met my %(orange('first ',StSfhusband)) the way I did,\w4\s[109] but things didn't go so well.\w8\w8\s[300] They grew close,\w4 but...\w8\w8 before they could escape that lab,\w4 the %(green('doctor')) there put them in situations specifically to strain their friendship,\w4\s[302] and eventually succeeded in driving a wedge between them.\w8\w8\s[200]\n\nMy %(orange('first ',StSfhusband))...\w8\w8 could be stubborn,\w4\s[201] excessively so.\w8\w8\s[108] Trying to get %(orange)%(StSfhim)%(default) to stop being angry about what %(orange)%(StSfHe)%(default) thought would've been a way to escape,\w4\s[109] especially in that situation and under that much stress...\w8\w8\s[204] It was an impossible task.\x\c\0\b[4]\_b[img\TP10Ice.png,centerx,12,--option=use_self_alpha,--option=fixed]\s[108]They did eventually escape,\w4 but Ice had given up on all hope and desire to live,\w4 after all that time without anyone else to lean on.\w8\w8\s[204] The version of my %(orange('first ',StSfhusband)) there insisted on keeping him alive,\w4 maybe out of spite,\w4 maybe because %(orange)%(StSfHe)%(default) didn't want to be alone,\w4 I don't know.\w8\w8 \s[200]But things were...\w8\w8 bad.\w8\w8\n\n\s[201]Ice was eventually rescued by another version of myself and my %(orange('first ',StSfhusband)) who happened along,\w4 and helped him to recover and see the joy in living again.\w8\w8\s[302] They showed him the love he'd been starved of for so long...\w8\w8\s[303] Unfortunately,\w4 the multiverse had other plans.\x\c\0\b[4]\_b[img\TP10Ice.png,centerx,12,--option=use_self_alpha,--option=fixed]\s[204]Ice fell back into the timeline he'd been in,\w4 where that version of my %(orange('first ',StSfhusband)) had...\w8\w8\n\n\s[515].\w8.\w8.\w8%(orange(StSfCHe)) had gone back into the labs,\w4 and...\w8\w8 started doing what the %(green('doctor')) had done to them,\w4 but to innocent people...\w8\w8\s[514] %(orange(StSfCHe)) was...\w8\w8 not all there.\w8\w8\s[512] And things just got worse...\w8\w8\n\n\s[109]It's...\w8\w8\s[108] hard for me to talk about %(orange(StSfhim)) that way,\w4 maybe we'll just gloss over that part.\x\c\0\b[4]\_b[img\TP10Ice.png,centerx,12,--option=use_self_alpha,--option=fixed]\s[200]Anyways,\w4 Ice got lucky enough to fall out of the timeline again,\w4 into a completely foreign place this time...\w8\w8\s[201] A place I'll freely admit that I don't understand at all.\w8\w8\s[206] Apparently they have these things called planets that they can fly between?\w8\w8\s[204] It's all a little over my head.\w8\w8\s[108]\n\nHe spent a long while there,\w4 broken in more ways than one,\w4 but eventually being nursed back to health once more...\w8\w8 %(brown('Another')) %(brown('skeleton')) there helped to bring him around.\w8\w8 He'd found a close friend that he could rely on,\w4 and things were sort of looking up.\w8\w8\s[109]\n\nBut...\w8\w8\s[204] as soon as Ice had recovered and they struck out together,\w4 his '%(brown('friend'))' decided to go his own way and leave him on his own.\w8\w8\x\c\0\b[4]\_b[img\TP10Ice.png,centerx,12,--option=use_self_alpha,--option=fixed]\s[108]I couldn't tell you if %(brown('that skeleton')) really abandoned Ice or if Ice's mind was just so twisted up and broken that he thought they were closer than they actually were,\w4 but either way that was it.\w8\w8\s[109]\n\nHe gave up on other people,\w4 he didn't even really want to talk to me at first.\w8\w8\s[200] He felt like everyone he'd ever been close to had betrayed him,\w4 even my %(teal('first partner')),\w4 who really didn't...\w8\w8\s[204]\n\nI don't think he'll ever trust anyone ever again.\![raise,OnDialogueVariables,suppressCoordsOff]%(timelinequestions)"
+			knowaboutice = 2
+		}
+		elseif reference0 == "omega" //TODO might need to edit this a bit since this info has changed?
+		{
+			"\0\b[4]\_b[img\TP11Omega.png,centerx,12,--option=use_self_alpha,--option=fixed]\s[106]Ah,\w4 I'm not really sure if it's right to call Omega an elemental or not,\w4\s[206] but he's not really a skeleton,\w4 either.\w8\w8\s[108]\n\nI don't know exactly what happened to him,\w4 just that his body was destroyed at some point,\w4 but his soul was also strengthened enough for him to exist in a form of pure magic.\w8\w8\s[110] Thanks to that,\w4 he's actually able to slip between timelines.\w8\w8\s[205]\n\nHe's decided to use this ability to rescue various versions of myself and my family from bad situations.\w8\w8 He's even built a shelter for them to recover in a quiet timeline.\w8\w8\s[206]\n\nIt's uh...\w8\w8\s[201] kinda concerning and sad that such a place even has to exist,\w4\s[104] but I'm glad he's out there helping them.%(timelinequestions)"
+			knowaboutomega = 2
+		}
+		
+		//-------------------Moon phases---------------------
+		elseif reference0 == "CheckWeather"
+		{
+			weatherquiet = 0
+			if curlocation != "" && curlocation != "Set a location"
+			{
+				fromfunctionmenu = 0
+				"\0\s[110]Oh,\w4 the weather?\w8\w8\s[104] Sure,\w4\s[1070] give me just a moment..."
+				"\0\s[110]Oh,\w8\s[104] sure,\w4 I can get the weather.\w8\w8\s[1070] Give me a moment..."
+				"\0\s[110]Oh,\w8\s[103] alright,\w4 I'll check the weather.\w8\w8\s[1070] Just a second..."
+				"\0\s[110]Oh,\w8\s[102] sure,\w4 I'll check the weather for you.\w8\w8\s[1070] Let's see,\w4 you said you live in %(curlocation)..?"
+				--
+				"\w8\w8\![raise,OnDownloadCurWeather]"
+			}
+			else
+			{
+				OnWeatherLocation
+				fromfunctionmenu = 1
+			}
+		}
 	}
-	elseif weather.error == "api_quota_exceeded"
-	{
-		"\s[107]Ah, looks like the plugin is out of weather checks for the month... \s[106]Sorry about that, you should probably let @Zichqec know, if you don't mind."
-	}
-	elseif weather.error == "api_key_disabled"
-	{
-		"\s[107]Ah, darn, the plugin's been disabled. \s[106]Someone must've stolen the key or something. Might want to check in the plugin menu and see if an update is available for it."
-	}
-	elseif weather.error == "api_internal_error"
-	{
-		"\s[106]Ah, something's gone wrong in the plugin, sorry. \s[107]I'm not sure what, \s[106]maybe try again in a few minutes?"
-	}
-	elseif weather.error == "no_api_response"
-	{
-		"\s[107]I'm not getting a response from the weather info... \s[106]Sorry, you might have to wait a few minutes and then try again."
-	}
-	else //other
-	{
-		"\s[106]Ah, something's gone wrong, but I'm not sure what. It just says ""%(reference1)"". \s[107]Might want to let @Zichqec know about that one."
-	}
-	--
-	"\n\n\![*]\q[Open the plugin menu,OnOpenWeatherStationMenu]\n\![*]\q[I'm done,cancelnodialogue]"
-}
-
-//CRLF to \n
-BreakLines
-{
-	_input = _argv[0]
-	_input = REPLACE(_input,C_CRLF,"\n\n")
-	_input
 }

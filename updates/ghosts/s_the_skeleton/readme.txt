@@ -12,6 +12,8 @@ You can also find my links and links to more about S at the top of the right cli
 Thanks also to the members of the Ukagaka Dream Team Discord server, who have helped me understand some of the ghost functions that are a little too complicated for me, it really made the last 10% of the ghost so much easier to do!
 And thanks also to the members of the EVN Discord server, who have put up with my off-topic ramblings about skeletons for months now. If any of you are reading this, hello, and thanks for supporting the stuff I'm making even though it's likely not relevant to your interests <3
 
+Weather checking code by Vita, @yuyudev on twitter. Modified somewhat by me to simplify it and make it in character for S, you can find the original code with all the original functions here: https://docs.google.com/document/d/1qMyEEsunVIFGBBA97hC9i9IRRsx5ahDQ66QWPWVTMh4
+
 If you find any bugs or typos, or have other feedback, please do contact me and let me know! I want to make S as solid as I possibly can, but sometimes I'm too zoomed in to catch the little mistakes.
 
 

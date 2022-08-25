@@ -3,7 +3,7 @@
 
 OnTeachName
 {
-	"\![raise,OnDialogueVariables,suppressCoordsOn]\![open,inputbox,OnNameTeach,-1]\![set,balloontimeout,-1]"
+	"\![raise,OnDialogueVariables,suppressCoordsOn]"
 	--
 	if nowmode == "RYS"
 	{
@@ -13,14 +13,7 @@ OnTeachName
 	{
 		if LV == 0
 		{
-			"\0\s[110]Oh,\w4 you want to change your name?\w8\w8"
-			"\0\s[110]Oh,\w4 you want a different name?\w8\w8"
-			"\0\s[110]Hm?\w8\w8 You want your name to be different?\w8\w8"
-			--
-			"\s[1010] Ok,\w4 what should I call you then?"
-			"\s[104] Alright,\w4 what should I call you?"
-			"\s[103] Sure,\w4 what'll it be?"
-			
+			"\0\s[110]Oh,\w4 you want to change your name?\w8\w8\s[1010] Ok,\w4 what should I call you then?"
 		}
 		else
 		{
@@ -28,7 +21,7 @@ OnTeachName
 		}
 	}
 	--
-	"\e"
+	"\![open,inputbox,OnNameTeach,-1]\![set,balloontimeout,-1]\e"
 }
 
 
@@ -88,6 +81,7 @@ OnNameTeach
 				username = "kid"
 			
 				"\0\s[106]Oh,\w4 uh...\w8\w8\s[107] I guess I'll just call you kid,\w4 then,\w4 if that's alright.\w8\w8\s[202] Let me know if you want to change it.\e"
+			//You can change this snip to whatever.
 			}
 			elseif _input == "wd" || _input == "dings" || _input == "wings" || _input == "barcode" || _input == "blue jeans" || _input == "abbi" || _input == "rosie" || _input == "rosella" || _input == "roman" || _input == "cambria" || _input == "triton" || _input == "lulo" || _input == "azo" ||_input == "sigil" || _input == "elko"
 			{
@@ -356,14 +350,15 @@ OnUserBornDay
 			if userbirthday == dayslot //if today is the user's birthday
 			{
 				"\0\s[101]Oh,\w4 it's today?\w8\s[1010] Well then,\w4 happy birthday,\w4 %(username)!\w8\w8\s[106] Sorry,\w4 I'd have made some cake for you if I'd known it was coming up.\w8\s[1010] Maybe next time,\w4 eh?\x"
+				//replace this dialogue with whatever you like
 			}
 			elseif userbirthday == "12month 25day"
 			{
-				"\0\s[1010]A giftmas birthday,\w4 eh?\w8 I'll have to keep that in mind.\x"
+				"\0\s[1010]A gyftmas birthday,\w4 eh?\w8 I'll have to keep that in mind.\x"
 			}
-			elseif userbirthday == "8month 25day"
+			elseif userbirthday == "8month 25day"	
 			{
-				"\0\s[110]Oh!\w8\w8\s[104] ...Heh,\w4 that's my birthday,\w4 too.\w8 That's pretty neat.\x"
+				"\0\s[110]Oh!\w8\w8\s[1010] ...Heh,\w4 that's my birthday,\w4 too.\w8 That's pretty neat.\x"
 			}	
 			else //if the birthday is not listed above.
 			{
@@ -374,15 +369,11 @@ OnUserBornDay
 		{
 			if userbirthday == dayslot //if today is the user's birthday
 			{
-				"\0\s[510]...Today.\w8\w8 I'll remember.\x"
+				"\0\s[510]...%(bornmonthprint) %(bornmonthday).\w8\w8 I'll remember.\x"
 			}
 			elseif userbirthday == "8month 25day"	
 			{
 				"\0\s[515]* (He shivers.)\w8\w8\s[510]\n\n...I'll remember.\x"
-			}
-			else
-			{
-				"\0\s[510]...%(bornmonthprint) %(bornmonthday).\w8\w8 I'll remember.\x"
 			}
 		}
 		--
@@ -416,16 +407,16 @@ OnTeachPronouns
 				"\0\s[510]...What pronouns do you want?\_q"
 				
 			}
-			else //TODO probably don't need this?
+			else
 			{
 				"\s[400]I don't care.\e"
 			}
 		}
 	}
 	--
-	"\n\n\![*]\q[He/Him/His,choicemasc]\n/
-	\![*]\q[She/Her/Hers,choicefem]\n/	
-	\![*]\q[They/Them/Theirs,choiceneither]\![no-autopause]\e"
+	"\n\n\![*]\q[He-His-Him,choicemasc]\n/
+	\![*]\q[She-Her-Her,choicefem]\n/	
+	\![*]\q[They-Their-Them,choiceneither]\e"
 }
 
 Select.choicemasc

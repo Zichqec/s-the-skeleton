@@ -7,11 +7,6 @@ charset.file, UTF-8
 charset.save, UTF-8
 charset.extension, UTF-8
 
-dic, yaya_base/config.dic, UTF-8
-dic, yaya_base/shiori3.dic, UTF-8
-dicif, yaya_base/optional.dic, UTF-8
-dicif, yaya_base/compatible.dic, UTF-8
-
 include, system_config.txt				
 dic, s_emerg.dic
 
