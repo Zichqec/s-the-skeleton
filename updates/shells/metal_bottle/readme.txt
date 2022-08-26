@@ -1,1 +1,1 @@
-Made by Zdzisiu
+Designed after my favorite metal bottle. Mine looks specifically like the Galaxy Red design!
