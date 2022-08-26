@@ -55,8 +55,9 @@
         <p><b>Link format A:</b> https://raw.githubusercontent.com/YourUsername/YourRepository/master/Updates/YourGhost/</p>
         <p><b>Link format B:</b> https://YourUsername.github.io/YourRepository/Updates/YourGhost/</p>
 		</div>
-		<p>Please note, sometimes the word master in the url needs to be capitalized, and sometimes it doesn't! I'm not sure why that is. Make sure you look at your repository's URL carefully, and if updates aren't working, try changing that! Also, don't forget to change the homeurl in the string.dic that's in your repository so they both match.</p>
-        <p>Your string.dic should look something like this.</p>
+		<p>Please note, these urls ARE CASE SENSITIVE! Also, yours may 'Main' instead of 'Master'. I'm not sure why that is. Make sure you look at your repository's URL carefully, and if updates aren't working, try changing that! Also, don't forget to change the homeurl in the string.dic that's in your repository so they both match.</p>
+		<p>Additional note: If you're using the github.io link, you <i>cannot</i> have names of files in your repository start with an underscore. <i>This is really important,</i> because it'll cause your updates to throw a 404 error. If you're using newer versions of YAYA, you might have a file called _loading_order.txt in your yaya_base folder. If this is the case and you want to use the github.io link, you'll need to take the contents of the _loading_order.txt file, copy them into your yaya.txt, and then delete the _loading_order.txt file. It may be better to use the raw.githubusercontent link in case more edge cases like this come up in the future.</p>
+        <p>All that being said, your string.dic should now look something like this.</p>
         <img src="githubtutorial/10.png" alt="String.dic example" class="center" width="829" height="110">
         <p>Now that your files are ready, drag and drop the ghost's entire folder onto your ghost (or any ghost)! They should give you a few options. To create a file that other people can use to install your ghost, you'll want to create a .nar file. To create files that will allow users to update, create an update file. The update files will automatically be placed in the appropriate folders.</p>
         <img src="githubtutorial/11.gif" alt="Dragging the folder onto your ghost" class="center" width="488" height="482">
