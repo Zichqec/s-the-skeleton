@@ -63,14 +63,14 @@ OnBoot //Normal booting
 	"(Be good to you!)"
 	"(It's ok to miss one,\w4 but try not to miss two in a row!)"
 	--
-	if AutoUpdates == "ON"
+	if AutoUpdates[0] == "ON"
 	{
-		AutoUpdateCheck = 1
+		AutoUpdates[1] = 1
 		"\![updatebymyself,checkonly]\e"
 	}
 	else
 	{
-		AutoUpdateCheck = 0 //Just in case
+		AutoUpdates[1] = 0 //Just in case
 		"\e"
 	}
 }
@@ -134,6 +134,24 @@ OnShellChanging //Starting to change the shell
 
 OnShellChanged //After the shell has changed
 {
+	shellchange[7] = reference0
+	"\s[-1]\![get,property,OnGetCoords2,currentghost.scope(0).rect]\e"
+}
+
+OnGetCoords //This gets the x coordinate
+{
+	shellchange[0] = reference0[0] //Head height
+	shellchange[1] = reference0[3] //Feet height
+	shellchange[2] = TOINT(reference0[3]) - TOINT(reference0[1]) //Frame height
+}
+
+OnGetCoords2
+{
+	shellchange[3] = reference0[0] //Head height
+	shellchange[4] = reference0[3] //Feet height
+	shellchange[5] = TOINT(reference0[3]) - TOINT(reference0[1]) //Frame height
+	shellchange[6] = TOINT(shellchange[1]) - TOINT(shellchange[5]) //Should be the feet 
+	
 	_f = FENUM(SHIORI3FW.ShellPath) //This block of text checks for a file called DressupRules.dic, and if it exists, writes everything in it into its own file and reloads the shiori! That means you can add custom dressup rules to the random dressup generator!!
 	_files = SPLIT(_f,",")
 	if ASEARCH("DressupRules.dic",_files) != -1
@@ -164,32 +182,146 @@ OnShellChanged //After the shell has changed
 	}
 	--
 	_last = nowshell
-	nowshell = reference0
-	"\![get,property,OnShellAuthor,currentghost.shelllist.current.craftman,currentghost.shelllist.current.craftmanw,currentghost.shelllist.current.craftmanurl]\0\![move,--X=%(shellcoord[0]),--Y=fix,--base=primaryscreen]\1\s[-1]\0\s[0]" //Default surfaces, and moves the ghost to where it was before changing shells
+	nowshell = shellchange[7]
+	
+	AutoUpdates[4] = 0
+	"\![get,property,OnShellAuthor,currentghost.shelllist.current.craftman,currentghost.shelllist.current.craftmanw,currentghost.shelllist.current.craftmanurl]\0\![move,--X=%(shellchange[0]),--Y=%(TOINT(shellchange[6])),--base=primaryscreen]\1\s[-1]\0\s[0]" //Default surfaces, and moves the ghost to where it was before changing shells
 	--
-	if reference0 == _last //If the shell they changed to is the same as the last one
+	if nowshell == _last //If the shell they changed to is the same as the last one
 	{
-		"\e"
+		"(Reloaded %(SHIORI3FW.ShellName)!)"
 	}
-	elseif reference0 == "Clear" //If they've switched back to the default
+	elseif nowshell == "Clear" //If they've switched back to the default
 	{
-		"(Default water.)\e"
+		"(Default water.)"
+	}
+	else
+	{
+		"(Now using %(nowshell).)\w8\w8\n\n" //If they're using anything other than the default
+		--
+		ShellChangeComments
 	}
 	--
-	"(Now using %(reference0).)\w8\w8\n\n" //If they're using anything other than the default
-	--
-	if reference0 == "Alkohol" //Optional comments for individual shells
+	if AutoUpdates[0] == "ON"
 	{
-		"(Drink responsibly!)"
+		AutoUpdates[1] = 1
+		"\![update,shell,checkonly]"
 	}
-	elseif reference0 == "Teacup"
+}
+
+//Optional comments for individual shells
+ShellChangeComments
+{
+	if nowshell == "A bottle of souls"
 	{
-		"(Make sure to drink water, too!)"
-		"(Possibly full of caffiene!)"
-		"(Hot leaf water!)"
-		"(Drink it before it gets too cold!)\n\n(Unless that's your thing.)"
+		"(A delicious treat!)"
+		"(Screams of the damned!)"
+		"(Set them free!)\n\n\f[height,-2](*Hydrate is not liable for any damages caused as a result of setting the souls free.)"
 	}
-	elseif reference0 == "Metal Bottle"
+	elseif nowshell == "Alkohol"
+	{
+		"(Don't get all your hydration through alcohol!)"
+	}
+	elseif nowshell == "Ballpoint Pen"
+	{
+		"(Cheap but effective!)\n\n(For writing, probably not for drinking!)"
+		"(Always getting clogged!)"
+		"(Easy to lose!)"
+		"(Best used on dark backgrounds!)"
+	}
+	elseif nowshell == "Bishoujo Hydrate"
+	{
+		"(uwu~!)"
+		"(✨>wo)"
+	}
+	elseif nowshell == "Bleach"
+	{
+		"(Not for drinking!)"
+		"(Not safe for consumption!)"
+		"(Probably doesn't taste good,\w4 but don't test that!)"
+		"(Don't try this at home!)"
+		"(Be careful what you mix it with!)"
+	}
+	elseif nowshell == "Bowie Bottle"
+	{
+		"(Pair it with Bowie!)"
+		"(Part of a complete ghost set!)"
+	}
+	elseif nowshell == "Can"
+	{
+		"(Soda!)"
+		"(Pop!)"
+		"(Soda pop!)"
+	}
+	elseif nowshell == "Canned Food"
+	{
+		"(Beans!)"
+	}
+	elseif nowshell == "Coffee Cup"
+	{
+		"(Try the \_a[https://zichqec.github.io/s-the-skeleton/needle]Needle\_a sleeve! It's pointy!)"
+		"(Not sponsored!)"
+		"(Try all the varieties, for free!)"
+	}
+	elseif nowshell == "Fishbowl"
+	{
+		"(Surely the occupant won't mind a few straws!)"
+		"(Fish friend!)"
+	}
+	elseif nowshell == "Geoffrey"
+	{
+		"(It's Geoffrey!)"
+		"(It's Geoffrey.)"
+		"(Hypnotizing!)"
+	}
+	elseif nowshell == "Hydrate Shell Nim"
+	{
+		"(Pure H2O!)"
+		"(New look, same great taste!)"
+	}
+	elseif nowshell == "Hydrate Shell Template"
+	{
+		"(Make something neat!)"
+		"(Zi spent hours perfecting this amazing lineart!)"
+	}
+	elseif nowshell == "Ink"
+	{
+		"(Don't drink ink!)"
+		"(Refreshing!)\n\n(If you're a pen!)"
+	}
+	elseif nowshell == "Jam"
+	{
+		"(Jam time!)"
+		"(Get ready to jam!)"
+	}
+	elseif nowshell == "Kid's birthday cup"
+	{
+		"(Happy birthday!)"
+		"(\f[height,+20]\f[name,arial]🎉🎉🎉\f[default])"
+	}
+	elseif nowshell == "Lava in a Cup"
+	{
+		"(Delicious for volcanoes!)"
+		"(Volcano extract!)"
+	}
+	elseif nowshell == "LOL Mug"
+	{
+		"(LOL!)"
+		"(Lots Of Love!)"
+		"(Laughing Out Loud!)"
+	}
+	elseif nowshell == "Martini Gore"
+	{
+		"(Don't ask where the eye came from!)"
+		"(Where did the eye come from!)"
+		"(Perfect for all the vampires in your life!)"
+	}
+	elseif nowshell == "Mate Cup"
+	{
+		"(Full of interesting info in the shell readme!)"
+		"(Read all about it in the shell readme!)"
+	}
+	elseif nowshell == "Metal Bottle"
 	{
 		"(Comes in a variety of designs!)"
 		"(Keeps your water cold!)"
@@ -204,14 +336,29 @@ OnShellChanged //After the shell has changed
 		"(Cats love to lick them!)"
 		"(Cool to the touch!)"
 	}
-	elseif reference0 == "Potion"
+	elseif nowshell == "Milk"
 	{
-		"(Magical effects!*)\n\n\f[height,-2](*Magical effects not guaranteed.)"
-		"(Mysterious and strange!)"
-		"(Good for regenerating stats, but too precious for general hydration!)"
-		"(Pretty colors!)"
+		"(Cow juice!)"
+		"(Cereal water!)"
+		"(Try the space milk, it's out of this world!)"
 	}
-	elseif reference0 == "Poison"
+	elseif nowshell == "Molotov Cocktail"
+	{
+		"(Don't try this at home!)"
+		"(Watch out for glass shards!)"
+		"(Fwoosh!)"
+	}
+	elseif nowshell == "Not Haunted Water-Based Vegetarian Shoe"
+	{
+		"(Mildewy!)"
+		"(Not haunted! Not at all!)"
+	}
+	elseif nowshell == "Paint tube"
+	{
+		"(Better used on a canvas!)"
+		"(Put the cap back on when you're done!)"
+	}
+	elseif nowshell == "Poison"
 	{
 		"(You should probably drink water instead!)"
 		"(Water is definitely healthier!)"
@@ -219,16 +366,59 @@ OnShellChanged //After the shell has changed
 		"(Not a good choice for hydration, but it sure is pretty!)"
 		"(Hydration for your worst enemies!*)\n\n\f[height,-2](*Murder is bad and illegal.)"
 	}
-	elseif reference0 == "Bleach"
+	elseif nowshell == "Potion"
 	{
-		"(Not for drinking!)"
-		"(Not safe for consumption!)"
-		"(Probably doesn't taste good,\w4 but don't test that!)"
-		"(Don't try this at home!)"
-		"(Be careful what you mix it with!)"
+		"(Magical effects!*)\n\n\f[height,-2](*Magical effects not guaranteed.)"
+		"(Mysterious and strange!)"
+		"(Good for regenerating stats, but too precious for general hydration!)"
+		"(Pretty colors!)"
 	}
-	--
-	"\e"
+	elseif nowshell == "Ramune"
+	{
+		"(Try all the flavors!)"
+		"(Marble not for consumption!)"
+	}
+	elseif nowshell == "Rilakkuma"
+	{
+		"(It's bear-y important to be hydrated!)"
+	}
+	elseif nowshell == "Slimedration"
+	{
+		"(Squoosh squorsh!)"
+		"(Use a firm straw!)"
+		"(If you blow bubbles it may scream to let the air out!)\w8\w8\n\n(This is a natural reaction and most definitely not a pain response!)"
+	}
+	elseif nowshell == "Syringe"
+	{
+		"(Also doubles as a shell for \_a[https://zichqec.github.io/s-the-skeleton/needle]Needle\_a!)"
+		"(Careful handling sharps!)"
+		"(Probably don't inject yourself with whatever's in there!)"
+	}
+	elseif nowshell == "Teacup"
+	{
+		"(Make sure to drink water, too!)"
+		"(Possibly full of caffiene!)"
+		"(Hot leaf water!)"
+		"(Drink it before it gets too cold!)\n\n(Unless that's your thing.)"
+	}
+	elseif nowshell == "Test Tubes"
+	{
+		"(Yum, lab equipment!)"
+		"(Don't drink things that come out of test tubes!)"
+		"(Someone fit the whole sky in a few little tubes!)"
+	}
+	elseif nowshell == "TV Aquarium"
+	{
+		"(Don't touch that dial!)"
+		"(High definition fish!)"
+	}
+	elseif nowshell == "Water Dishes"
+	{
+		"(Dog water!)"
+		"(Cat water!)"
+		"(Yum!)"
+		"(Refill them often!)"
+	}
 }
 
 OnShellAuthor
@@ -240,10 +430,7 @@ OnShellAuthor
 	shellauthor[2] = reference2 //craftmanurl
 }
 
-OnGetCoords //This gets the x coordinate
-{
-	shellcoord[0] = reference0[0]
-}
+
 
 OnUpdateVars
 {
@@ -278,7 +465,7 @@ OnUpdateVars
 	}
 	if ISVAR('waitingcommuS') == 0; waitingcommuS = IARRAY
 	if ISVAR('waitingcommuM') == 0; waitingcommuM = IARRAY
-	if ISVAR('AutoUpdates') == 0; AutoUpdates = ("ON",0)
+	if ISVAR('AutoUpdates') == 0; AutoUpdates = ("ON",0,,0,0,0)
 	if ISVAR('nowscale') == 0; nowscale = 100
 	
 	if !ISVAR("notif"); notif = "None"

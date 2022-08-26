@@ -23,12 +23,12 @@ OnInstallComplete //Installing something ghost related
 
 Select.ChangeToGhost
 {
-	"\![call,ghost,lastinstalled]"
+	"\![change,ghost,lastinstalled]"
 }
 
 Select.CallGhost
 {
-	"\![change,ghost,lastinstalled]"
+	"\![call,ghost,lastinstalled]"
 }
 
 OnInstallFailure //If the install fails
@@ -106,7 +106,20 @@ OnUpdateCheckComplete //When the ghost finishes checking for updates
 	{
 		if AutoUpdates[1] == 1 //If this was an automatic check (always true but shrug)
 		{
-			AutoUpdates[2] = reference3 //This makes it so the ghost will tell the user there's a new update next time they open their menu
+			AutoUpdates[1] = 1 //Sets it so it won't check again until at least midnight
+			if reference0 == "none" //If there are no new files
+			{
+				if reference3 == "ghost"; AutoUpdates[3] = 0
+				elseif reference3 == "shell"; AutoUpdates[4] = 0
+				elseif reference3 == "balloon"; AutoUpdates[5] = 0
+			}
+			else
+			{
+				if reference3 == "ghost"; AutoUpdates[3] = 1
+				elseif reference3 == "shell"; AutoUpdates[4] = 1
+				elseif reference3 == "balloon"; AutoUpdates[5] = 1
+			}
+			--
 			if reference3 == "ghost"; "\![update,shell,checkonly]"
 			elseif reference3 == "shell"; "\![update,balloon,checkonly]"
 			else; "\e Update Check Complete"
@@ -131,7 +144,12 @@ OnStartUpdate
 	}
 	else
 	{
-		"\![update,%(reference0)]"
+		_cmd = ""
+		if AutoUpdates[3] == 1; _cmd += "ghost+"
+		if AutoUpdates[4] == 1; _cmd += "shell+"
+		if AutoUpdates[5] == 1; _cmd += "balloon+"
+		_cmd = ERASE(_cmd,(STRLEN(_cmd) - 1),1)
+		"\![update,%(_cmd)]"
 	}
 }
 
@@ -173,7 +191,21 @@ OnChangeLog : all
 {
 	"\![set,autoscroll,disable]\_q\b2"
 	
-	"\f[align,center]— Version 1.2.0 —%(newline)\f[align,left]\n\n"
+	"\f[align,center]— Version 1.2.1 —\n\f[align,default]\n"
+	
+	"• Added unique switch dialogues for all currently known shells.\n\n"
+	"• Added an option to swap to a random shell.\n\n"
+	"• Changing shells will now check for shell updates if you have auto update checks on.\n\n"
+	"• Fixed the auto updates system, it now does what it says it does!\n\n"
+	"• Fixed a bug where the shell would not be placed correctly when changing shells.\n\n"
+	"• Fixed a bug where if you installed another ghost, the buttons to change to/call the other ghost had their labels swapped.\n\n"
+	"• Fixed some minor formatting issues.\n\n"
+	"• Changed the right click menu to include functions I had previously excluded.\n\n"
+	"• Changed the slider input when changing the reminder rate back to a normal input box. This should allow finer control, independent of balloon. Also you can set your reminders to absurd lengths now."
+	
+	"\n\n"
+	
+	"\f[align,center]— Version 1.2.0 —\n\f[align,default]\n"
 	
 	"• You can now choose to have a sound play when a reminder pops up! Choose from 6 defaults, or set your own custom sound.\n\n"
 	"• Added pause mode; pause your drink reminders when you step away from your computer, without losing your drink streak!\n\n"
@@ -185,23 +217,6 @@ OnChangeLog : all
 	"• Prettied up some of the other menus a little.\n\n"
 	"• Updated to YAYAtc571-3.\n\n"
 	"• Updates to some of the old code."
-	
-	"\n\n\n"
-	
-	
-	"\f[align,center]— Version 1.1.0 —%(newline)\f[align,left]\n\n"
-	
-	"• Hydrate will now have special comments based on how many drinks in a row you've hit!\n\n"
-	"• Changed the shell menu to dynamically change depending on what shells you have installed. Check the link in it if you want to download more shells!\n\n"
-	"• Added a dynamic dressup menu if the current shell has available dressup items!\n\n"
-	"• Added a stats menu to track your stats! Please note that most of these will start at 0 since they were just added.\n\n"
-	"• Added an option to tell Hydrate you took an extra sip of water! This won't count towards the timed drinks, but you still get some credit!\n\n"
-	"• Hydrate will now send your stats to other ghosts when pinged, and will ping them every hour with your stats! If other ghosts are set up to receive and process these stats, you might see your other ghosts comment on them!\n\n"
-	"• Added in the auto update system that I had removed for some reason. Hydrate will now check for updates once a day and let you know if there's something new!\n\n"
-	"• Unfortunately, it cannot automatically check for balloon and shell updates. There are buttons in the menu to check for updates for balloons and shells, make sure you check now and then for your favorite shells!\n\n"
-	"• Please note, if you're using the H2O balloon, that got an update as well. You should see larger balloons in the menus; if not, please ask Hydrate to update the balloon in the Config menu!\n\n"
-	"• The reminder balloon will now time out if you don't interact with it for long enough. This is set for 5 minutes by default, but it will be shorter if you set a shorter reminder time!\n\n"
-	"• If you're interested in having your ghost receive stats from Hydrate, or you'd like to make a shell for Hydrate, please check in Hydrate's folder for documentation!"
 	
 	"\n\n\n"
 	
@@ -308,6 +323,7 @@ OnUpdateOtherReady
 
 OnUpdateOtherComplete
 {
+	AutoUpdates[1] = 0
 	if reference0 == "none"
 	{
 		"\0\s[0](No new files for the current %(reference3) to update with.)\e"

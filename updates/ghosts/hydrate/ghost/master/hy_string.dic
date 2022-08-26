@@ -105,26 +105,30 @@ On_headlinesenserootbutton.caption //Water facts
 	"(You should drink more when it's hot or if you're sick.)"
 }
 
-On_biffbutton.caption //Inspirational quotes
+On_biffbutton.caption 
 {
-	'"When you reach the end of your rope, tie a knot in it and hang on."  -Franklin D. Roosevelt'
-	'"Quality is not an act, it is a habit"  -Aristotle'
-	'"It does not matter how slowly you go as long as you do not stop."  -Confucius'
-	'"Positive thinking will let you do everything better than negative thinking will."  -Zig Ziglar'
-	"''People often say that motivation doesn't last. Well, neither does bathing - that's why we recommend it daily.''  -Zig Ziglar"
-	'"Either you run the day or the day runs you." -Jim Rohn'
-	'"Perseverence is failing 19 times and succeeding the 20th." -Julie Andrews'
-	"''You can't wait for inspiration. You have to go after it with a club.'' -Jack London"
-}
-
-On_dressuprootbutton.caption //Encouragement
-{
+	//Encouragement
 	"(You're doing good, keep going!)"
 	"(Be kind to yourself today!)"
 	"(Keep taking small steps, you'll eventually get there!)"
 	"(Get up and stretch, movement helps you feel better!)"
 	"(You should be proud of the things you've gotten done today, no matter how small!)"
 	"(Treat yourself like you would a friend!)"
+	
+	//Inspirational quotes
+	// '"When you reach the end of your rope, tie a knot in it and hang on."  -Franklin D. Roosevelt'
+	// '"Quality is not an act, it is a habit"  -Aristotle'
+	// '"It does not matter how slowly you go as long as you do not stop."  -Confucius'
+	// '"Positive thinking will let you do everything better than negative thinking will."  -Zig Ziglar'
+	// "''People often say that motivation doesn't last. Well, neither does bathing - that's why we recommend it daily.''  -Zig Ziglar"
+	// '"Either you run the day or the day runs you." -Jim Rohn'
+	// '"Perseverence is failing 19 times and succeeding the 20th." -Julie Andrews'
+	// "''You can't wait for inspiration. You have to go after it with a club.'' -Jack London"
+}
+
+On_dressuprootbutton.caption
+{
+	
 }
 
 On_dressuprootbutton.visible
@@ -139,7 +143,7 @@ On_headlinesenserootbutton.visible
 
 On_biffbutton.visible
 {
-	"0"
+	"1"
 }
 
 
