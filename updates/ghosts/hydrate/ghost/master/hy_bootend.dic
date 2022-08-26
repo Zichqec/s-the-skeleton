@@ -79,7 +79,8 @@ OnClose
 {
 	if todayswaters > 0
 	{
-		"\0\s[0](You took %(todayswaters) sips of water today,\w4 well done!)"
+		_s = "s"; if todayswaters == 1; _s = ""
+		"\0\s[0](You took %(todayswaters) sip%(_s) of water today,\w4 well done!)"
 	}
 	else
 	{
