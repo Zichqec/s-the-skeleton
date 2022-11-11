@@ -5,11 +5,18 @@ charset.file, UTF-8
 charset.save, UTF-8
 charset.extension, UTF-8
 
-include, system_config.txt
+dic, yaya_base/config.dic	// YAYA: System dictionary
+dic, yaya_base/shiori3.dic	// YAYA: System dictionary
+dic, yaya_base/optional.dic	// YAYA: Optional functions dictionary
+
+dic, ../../enable_extra_content.txt
 
 dic, main.dic
 dic, envelopes.dic
 dic, formatting.dic
 dic, randomtalk.dic
 
-messagetxt,messagetxt/english.txt
+msglang,english
+
+ignoreiolog, ID: OnSecondChange //Ignores OnSecondChange
+ignoreiolog, ID: OnMouse        //Ignores all OnMouse functions

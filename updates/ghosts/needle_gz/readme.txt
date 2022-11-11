@@ -4,6 +4,7 @@ Content warnings:
 Mentions of violence
 Gaslighting
 General unsettlingness
+Some movement/jittery effects that may harm users with photosensitivity (These must be explicitly turned on in the enable_extra_content.txt which is included in Needle's folder)
 
-Galla: (May contain explicit content!) https://twitter.com/gallathegalla
+Galla: https://gallathegalla.github.io/gtg-ghosts/
 Zichqec: https://zichqec.github.io/s-the-skeleton/

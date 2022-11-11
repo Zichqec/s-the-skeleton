@@ -104,6 +104,12 @@ Capital
 	_firstletter + _rest_of_word
 }
 
+randomcase_all
+{
+	if RAND(2); TOUPPER(_argv[0])
+	else; TOLOWER(_argv[0])
+}
+
 two
 {
 	"\_s"
@@ -127,4 +133,38 @@ threeoff
 emdash
 {
 	"\f[name,calibri]—\f[name,default]"
+}
+
+marquee
+{
+	_str = _argv[0]
+	_len = STRLEN(_str)
+	
+	_display = "\f[align,right]%(_str)"
+	--
+	for _i = 0; _i < _len; _i++
+	{
+		_display += "\c[char,1,0]\w1"
+	}
+	
+	_display
+}
+
+Capitalize
+{
+	_first = SUBSTR(_argv[0],0,1)
+	_rest = ERASE(_argv[0],0,1) //Erase the first character and store everything else in _rest
+	TOUPPER(_first) + _rest
+}
+
+nowmin
+{
+	_minute = TOSTR(minute)
+	if STRLEN(_minute) == 1; _minute = "0" + _minute
+	_minute
+}
+
+ap
+{
+	('AM','PM')[ampm]
 }

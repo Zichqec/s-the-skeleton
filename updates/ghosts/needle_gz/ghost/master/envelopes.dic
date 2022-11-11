@@ -14,11 +14,11 @@ poke
 {
 	"poke poke"
 	"POKE POKE"
-	"stab stab"
+	"stab stab" //stabbed
 	"STAB STAB"
-	"prod prod"
+	"prod prod" //prodded
 	"PROD PROD"
-	"jab jab"
+	"jab jab" //jabbed
 	"JAB JAB"
 	"needle needle"
 	"NEEDLE NEEDLE"
@@ -27,8 +27,8 @@ poke
 	"nudge nudge"
 	"pry pry"
 	"stick stick"
-	"stir stir"
-	"dig dig"
+	"stir stir" //stirred
+	"dig dig" //digged
 	"meddle meddle"
 	"putt putt"
 	"loiter loiter"
@@ -41,8 +41,8 @@ poke
 	"strain strain"
 	"harass harass"
 	"annoy annoy"
-	"nag nag"
-	"ram ram"
+	"nag nag" //nagged
+	"ram ram" //rammed
 	"hurt hurt"
 	"injure injure"
 	"taunt taunt"
@@ -52,6 +52,36 @@ poke
 	"trouble trouble"
 	"goad goad"
 	"irk irk"
+}
+
+poked
+{
+	_poke = poke
+	if _argv[0] != ""; _poke = _argv[0]
+	_upper = 0
+	
+	if ISUPPER(_poke); _upper = 1
+	
+	_poke = TOLOWER(_poke)
+	
+	if EndsWith(_poke,"e")
+	{
+		_poke += "d"
+	}
+	else
+	{
+		_special = ("stab","prod","jab","stir","dig","nag","ram")
+		_one = SPLIT(_poke," ")[0]
+		if ASEARCH(_one,_special) != -1
+		{
+			_len = STRLEN(_poke)
+			_poke += SUBSTR(_poke,_len - 1,1) + "ed"
+		}
+		else; _poke += "ed"
+	}
+	
+	if _upper; TOUPPER(_poke)
+	else;_poke
 }
 
 importantitem
@@ -113,6 +143,9 @@ importantitem
 	"glitter gel pen"
 	"glue"
 	"set of stacking pencils shaped like fish"
+	"ticket processing machine"
+	
+	"envelope full of waffles"
 }
 
 laugh : nonoverlap
@@ -258,6 +291,29 @@ Title
 	"Universally Loved"
 	"The Loathesome"
 	"The Ever Shrinking"
+	"Associate"
+	"Postmaster General"
+	"Toastmaster General"
+	"Fatemaster"
+	"Grandmaster"
+	"The Fated"
+	"The Cherished"
+	"My Liege"
+	"Majesty"
+	"Magistrate"
+	"The Miserable"
+	"The Indeterminate"
+	"Space Lord"
+	"Star Lord"
+	"Probably"
+	"Most Definitely"
+	"Almost Certainly"
+	"The Esteemed"
+	"The" //"The Zi"
+	
+	
+	"Jester"
+	"The Collecter of %(creatures), "
 }
 
 Suffix
@@ -296,10 +352,12 @@ Suffix
 		"Faint of %(Capital(bodypart))"
 		"Digger of Holes"
 		"Breaker of Promises"
-		"the %(trait) One"
 		"the Menace"
 		"the Threat to Society"
+		"My Partner in Crime"
+		"the Knowledge Black Hole"
 	}
+	"the %(trait) One"
 }
 
 killer
@@ -446,6 +504,140 @@ trait
 	"Trapped-In-A-Timeloop"
 	"Tasteless"
 	"A-Little-Too-Literate"
+	"Would-Be-Better-As-A-Cat"
+	"Thinks-%(Capital(creature))-Is-Best-When-%(Capital(processed))"
+	"Likes-Carrots"
+	"Doesn't-Like-The-Feel-Of-Velvet"
+	"Feels-Like-A-Wet-Towel"
+	"Folds-Towels-Wrong"
+	"Sleeps-Weirdly"
+	"Once-Considered-Painting-The-Carpet"
+	"Singed"
+	"Uses-Too-Many-Emojis"
+	"Uses-Too-Few-Emojis"
+	"Only-Has-$%(mysterynum)"
+	"Wants-To-Fly-A-Hovercraft"
+	"Still-Listens-To-The-Radio"
+	"Wants-Claws-But-Can't-Have-Them"
+	"Needs-Mouthwash"
+	"Unbubbled"
+	"Reconstituted"
+	"Obsessed-With-Baking-Peanut-Butter-Cookies-But-Without-The-Peanuts-Or-The-Butter"
+	"Needs-A-New-Toothbrush"
+	"Could-Stand-To-Hydrate"
+	"Overhydrated"
+	"Slightly-Wrong-But-Not-How-You'd-Expect"
+	"Fuzzy"
+	"Grainy"
+	"Mispronounced"
+	"More-Than-Alive"
+	"Concerning"
+	"Concerned"
+	"Built-A-Desk-Once"
+	"Has-A-New-Chair"
+	"Crunch-Pop-Ahh-My-Back-Feels-Better-Now"
+	"Uses-A-Lot-Of-Exclamation-Points!!!!!!!!"
+	"Tried-To-Go-To-Bed-But-Failed"
+	"Starstruck"
+	"Went-To-A-Concert-Once-And-Wasn't-Impressed"
+	"Look-At-My-Zipper-Pockets-They're-So-Fancy"
+	"Embroidered"
+	"%(processed)"
+	"Unscathed"
+	"Once-Bought-A-Lawnmower"
+	"Likes-Space"
+	"Sings-In-The-Shower"
+	"Doesn't-Like-Lemonade"
+	"Smells-Like-A-Wet-Leaf"
+	"Embossed"
+	"No-Shirt-No-Shoes-No-Service-But-They-Didn't-Say-Anything-About-No-Pants"
+	"Bet-I-Can-Jump-Out-Of-This-Tree-And-Land-With-All-My-Legs-Intact-Oof-Ow-Call-An-Ambulance"
+	"Giggles-At-Own-Writing"
+	"Unhighlighted"
+	"Seething"
+	"Teething"
+	"Still-Needs-To-Uninstall-That-Chatting-App"
+	"Very-Tired-But-Won't-Go-To-Bed-Already"
+	"Entirely-Too-Enthusiastic-About-%(REPLACE(food,' ','-'))"
+	"Not-Very-Aerodynamic"
+	"Like-A-Vampire-But-Less-Cool"
+	"Tired-But-Not-Sleepy"
+	"Half-Awake"
+	"Tormented"
+	"Can-Smell-Ants"
+	"Talks-To-Pidgeons"
+	"Built-A-Whole-Entire-Bridge-Like-A-Modern-Suspension-Bridge-And-It-Took-A-Really-Long-While-Because-They-Kept-Changing-The-Building-Codes"
+	"Almost-Cool"
+	"Licks-Doornobs"
+	"Shrouded"
+	"Literally-Falling-Asleep-Right-Now"
+	"By-The-Way-Did-You-Check-It's-Nice-To-Talk-To-A-Home"
+	"Got-So-Hungry-Actually-Did-Eat-A-Horse"
+	"Eats-Paper"
+	"Hoards-Napkins"
+	"Unrealistic"
+	"Snores-Really-Loud"
+	"Has-Only-Ever-Had-Instant-Coffee-And-Not-The-Good-Stuff"
+	"Mixes-Up-The-Salt-And-The-Sugar"
+	"Baking-Averse"
+	"Considerable"
+	"Never-Washes-The-Dish-Towels"
+	"Owns-A-Spork"
+	"Owns-No-Sporks"
+	"Stained"
+	"Jumpy"
+	"Jittery"
+	"Rattled"
+	"Thinks-Chain-Link-Fences-Are-Neat"
+	"Has-Never-Smelled-Freshly-Cut-Trees"
+	"Touches-Things-Even-Without-10-Foot-Poles"
+	"Once-Lit-A-Box-Of-Sparklers-On-Fire"
+	"Tried-A-Gaming-Chair-Once"
+	"Doesn't-Know-What-A-Cronut-Is-And-At-This-Point-Is-Too-Afraid-To-Ask"
+	"Microwaves-Paper-Plates-Without-Food-On-Them"
+	"Cannot-Get-An-Inkjet-Printer-Working"
+	"Owns-A-Folding-Chair"
+	"Likes-Tablecloths"
+	"Unyielding"
+	"Brown-Isn't-A-Real-Color"
+	"Overuses-Highlighters"
+	"Can-Never-Get-Checks-To-Tear-Cleanly-Out-Of-The-Checkbook"
+	"Always-Loses-Chapsticks"
+	"Always-Forgets-To-Unmute-Phone"
+	"Holey-Socks"
+	"Drinks-Entirely-Too-Much-Apple-Juice"
+	"Wanders-Aimlessly-Through-The-Woods-In-Search-Of-Film-Canisters"
+	"Draws-On-The-Walls"
+	"Thinks-Beetles-Are-Scary"
+	"Has-Never-Tried-%(REPLACE(food,' ','-'))"
+	"My-Hips-Are-Aching"
+	"Don't-Fall-Down-The-Stairs"
+	"Quote-Unquote"
+	"Technically-A-Programmer-But-Only-Technically"
+	"Doesn't-Read-Books"
+	"Eats-Books"
+	"Banned-From-The-Library"
+	"Has-A-Lot-Of-Fish-And-Will-Stab-You-If-You-Look-At-Them-Funny"
+	"Skeletal"
+	"Undying"
+	"Almost-Powerful"
+	"Untrippable"
+	"Climbs-Trees-To-Look-Cool"
+	"Toothless"
+	"Smashes-Mirrors"
+	
+	
+	"Meta"
+	"Unthinkable"
+	"Exceeding"
+	"Sneezy"
+	"Twitching"
+	"Winged"
+	"Doesn't-Trust-Door-Hinges"
+	"Squeaky"
+	
+	"Dumps-Chips-Of-Different-Flavors-In-The-Same-Bowl"
+	
 }
 
 thinkabout
@@ -487,6 +679,48 @@ thinkabout
 	"sending out a wave of spam texts"
 	"how much water you'll drink in your entire lifetime"
 	"loving and adoring your strangely acquired children"
+	
+	
+	//Add to doc later
+	"gluing together the pages of every sketchbook in the art store"
+	"dyeing your %(bodypart) a fun new color"
+	"popping a balloon or 8"
+	"cats"
+	"where witches come from"
+	"how many flowers can kill you"
+	"not covering your sneezes"
+	"%(red) paint"
+	"what %(mysterynum) even means"
+	"switching to hexadecimal"
+	"getting your %(bodypart) %(processed)"
+	"letters"
+	"making a giant tower of facial tissue"
+	"opening the wrappers of all the candy bars but not actually buying them"
+	"going to the store and leaving new items on the shelves"
+	"why canvasses are called that"
+	"eyes"
+	"%(emoji)"
+	"how many legs the average dog has"
+	"actually reading the label on the bottle"
+	
+	"licking the monitor"
+	"buying another %(object) so you have two of them"
+	"breathing"
+	"touching the ceiling"
+	"popping your knee"
+	"flexing your %(bodypart)"
+	"eating an entire spool of thread"
+	"trying to drink the whole entire ocean"
+	"making a giant pile of %(bodypart)"
+	"carrying around a puddle in an eyedropper"
+	
+	"having your %(bodypart) infused with %(element)"
+	"rolling over onto your back when you're not even laying down"
+	"doing a barrel roll"
+	"turning the gravity inside out"
+	"wrapping your %(bodypart),\w4 with ribbons and a cute little bow on top"
+	
+	
 }
 
 bodypart
@@ -642,6 +876,7 @@ red
 	"vampire juice"
 	"murderous intent"
 	"the taste of iron"
+	"\f[color,255,0,0]%(ANY('■,▲,▼'))\f[color,default]"
 }
 
 
@@ -970,7 +1205,33 @@ maketruename
 	"%(name2) %(name1)"
 }
 
-creature //nothing classified as a person according to vamps au
+normal_email_provider
+{
+	"jmail"
+	"needlesite"
+	"someplace"
+	"lorem"
+	"ipsum"
+	"email"
+}
+
+.com
+{
+	".com"
+	".web"
+	".net"
+	".needle"
+	".io"
+	".mail"
+	".org"
+	".xyz"
+	".edu"
+	".gov"
+	".internet"
+	".email"
+}
+
+creature //nothing classified as a person
 {
 	"cat"
 	"lion"
@@ -1009,6 +1270,15 @@ creature //nothing classified as a person according to vamps au
 	"swan"
 	"nue"
 	"penguin"
+}
+
+creatures
+{
+	_creature = creature
+	if EndsWith(_creature,"x") || EndsWith(_creature,"s"); _creature += "es"
+	elseif _creature == "wolf"; _creature = "wolves"
+	else; _creature += "s"
+	_creature
 }
 
 element
@@ -1134,7 +1404,7 @@ object
 	"pile of bodies"
 	"laundry pile"
 	"haystack"
-	"blinds"
+	//"blinds"
 	"bug light"
 	"pile of squirming june bugs"
 	"hand saw"
@@ -1362,6 +1632,18 @@ flavor
 	"potato"
 }
 
+tastes
+{
+	"ashy"
+	"broken"
+	"woolly"
+	"rotten"
+	"dipped-in-sprinkles"
+	"sparkling"
+	"chicken noodley"
+	"writhing"
+}
+
 cuts
 {
 	"steaks"
@@ -1587,7 +1869,7 @@ processed
 	"zested"
 	"tested"
 	"exploded"
-	"cut-into-tiny-pieces-but-then-we-realized-that-was-a-mistake-so-now-it's-glued"
+	"cut-into-tiny-pieces-but-then-we-realized-that-was-a-mistake-so-now-it's-glued-back-together"
 	"parboiled"
 	"refried"
 	"seared"
@@ -1641,20 +1923,116 @@ processed
 	"flame-broiled"
 }
 
-//Not sold on this one yet
-// packaged
-// {
-	// "boxed"
-	// "individually wrapped"
-	// "bagged"
-	// "resealable"
-	// "canned"
-	// "preserved"
-	// "vacuum sealed"
-	// "sealed"
-	// "corked"
-	// "bottled"
-	// "single-use"
-// }
+keysmash : all
+{
+	_l = "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,.,;,',0,1,2,3,4,5,6,7,8,9,-,=,_,+,!,@,#,$,%,^,&,*,(,)"
+	
+	_amt = _argv[0]
+	if _amt < 1; _amt = 20
+	
+	for _i = 0; _i < _amt; _i++
+	{
+		if RAND(2); TOUPPER(ANY(_l))
+		else; ANY(_l)
+	}
+}
+
+group
+{
+	"group"
+	"horde"
+	"gaggle"
+	"herd"
+	"swarm"
+	"murder"
+	"troop"
+	"fleet"
+	"party"
+	"gang"
+	"gathering"
+	"family"
+}
+
+lifehacks.adjective
+{
+	"simple"
+	"ingenious"
+	"clever"
+	"incredible"
+	"fascinating"
+	"unreal"
+	"exceptional"
+	"extraordinary"
+	"easy"
+	"amazing"
+	"hidden"
+	"fantastic"
+	"unthinkable"
+	"radical"
+	"intricate"
+	"spectacular"
+	"eye-opening"
+	"awe-inspiring"
+	"unbelievable"
+	"%(red)"
+	"genius"
+	"best"
+	"useful"
+	"handy"
+	"everyday"
+	"weird"
+	"lazy"
+	"must-know"
+	"funny"
+	"super cool"
+}
+
+lifehacks.keyword
+{
+	"hacks"
+	"pro tips"
+	"life hacks"
+	"tips"
+	"secrets"
+}
+
+lifehacks.promise
+{
+	"that will change your life"
+	"that will save you a fortune"
+	"to save you time, money, and hassle"
+	"that will leave you speechless"
+	"to improve your day"
+	"to impress all the girls"
+	"that will save your life"
+	"that they don't want you to know"
+	"that will improve your %(food)"
+	"that really work"
+	"that work magic"
+	"and pranks"
+	"that are worth memorizing"
+	"few people know about"
+	"that will change you"
+	"you wish you knew sooner"
+	"that will take your life to a whole new level"
+	"for every life situation"
+	"with simple things"
+	"100% real"
+	"for any occasion"
+	"for smart people"
+	"tested and approved"
+	"you must know"
+	"that may save your life"
+	"for your home"
+	"for your car"
+	"that work extremely well"
+	"for lighter"
+	"| best random hacks"
+	"for everyday problems"
+	"to make your life easier"
+	"that will blow your mind"
+	"that are a real treasure trove"
+	"| you won't believe #%(RAND(5) + 1)!" //Yes this may go over sometimes
+}
 
 //.

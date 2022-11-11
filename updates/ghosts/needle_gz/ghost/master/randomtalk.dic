@@ -1,39 +1,44 @@
-OnAiTalk : nonoverlap_pool
+OnAiTalk
+{
+	if SHIORI3FW.IsChain; ChainTalk
+	else; RandomTalk
+}
+
+RandomTalk : nonoverlap_pool
 {
 	_importantitem = importantitem
 	
-	aitalkinterval = (RAND(100) + 1) * 10
-	if RAND(1000) == 0; aitalkinterval = 3600 //rare chance for an hour lol rip you
-	LOGGING("NEW INTERVAL: %(aitalkinterval)")
+	OnNewTalkInterval
 	
-	"the %(_importantitem) is gone,\w4 where did it go?\w8 WHERE DID IT GO,\w4 COME BACK %(TOUPPER(_importantitem))\e"
-	"YOU CAN'T HAVE MY %(TOUPPER(_importantitem)),\w4 GIVE IT BACK\n\n\n\n\_w[10000]or dont\e"
-	"who asked you who asked you WHO ASKED YOU ANYWAY, %(bold)NOT ME %(laugh)%(boldoff)\e"
-	"SCREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE\e"
-	"YOU TRIED,\w4 YOU TRIED,\w4 BUT DID IT WORK?\w8 HOW WOULD YOU KNOW IF IT DID?\e"
-	"THEY CAN'T WIN,\w4 THEY NEVER COULD\e"
-	"WHY EVEN ASK,\w4 THE ONLY ANSWER YOU'LL GET HAS UNDEFINED EDGES\e"
-	"COLLAPSE\e"
-	"SHUDDER\e"
-	"..................................................................\n\n\_w[2000]%(importantitem)\e"
-	"I WANT TO-\w4 I WANT TO-\w4 I WANT TO-\e"
+	
+	"the %(_importantitem) is gone,\w4 where did it go?\w8 WHERE DID IT GO,\w4 COME BACK %(TOUPPER(_importantitem))"
+	"YOU CAN'T HAVE MY %(TOUPPER(_importantitem)),\w4 GIVE IT BACK\n\n\n\n\_w[10000]or dont"
+	"who asked you who asked you WHO ASKED YOU ANYWAY, %(bold)NOT ME %(laugh)%(boldoff)"
+	"SCREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"
+	"YOU TRIED,\w4 YOU TRIED,\w4 BUT DID IT WORK?\w8 HOW WOULD YOU KNOW IF IT DID?"
+	"THEY CAN'T WIN,\w4 THEY NEVER COULD"
+	"WHY EVEN ASK,\w4 THE ONLY ANSWER YOU'LL GET HAS UNDEFINED EDGES"
+	"COLLAPSE"
+	"SHUDDER"
+	"..................................................................\n\n\_w[2000]%(importantitem)"
+	"I WANT TO-\w4 I WANT TO-\w4 I WANT TO-"
 	"go ahead,\w4 try and stop me"
-	"IF YOU WOULD HAVE ASKED\w8\n\n[30]DID YOU THINK OF THAT\e"
-	"around and around and around and around and around,\w4 but when does it stop?\n\n\n\n\ndoes it stop?\e"
-	"get get get get get back,\w4 Get Back,\w4 GET %(bold)BACK!!!\e"
-	"I'LL SHOW THEM ALL,\w4 I'LL SHOW THEM THAT-\e"
-	"EVER EVER EVER EVER EVER EVER EVER EVER EVER EVER EVER\e"
-	"JUST HOLD STILL,\w4 HOLD STILL,\w4 DON'T MOVE YOU HAVE TO STOP MOVING\e"
-	"SQUIRM SHUDDER WRITHE\e"
-	"%(laugh)\w8\w8\n\n%(laugh)\w8\w8\n\n%(laugh)\e"
-	"IT'S JUST ME,\w4 AND ME,\w4 AND ME\e"
-	"Did you notice?\e"
-	"Lurking.\e"
-	"They watch.\e"
-	"YEAH well you didn't ASK ME THAT,\w4 %(bold)DID%(boldoff) YOU!?\e"
+	"IF YOU WOULD HAVE ASKED\w8\n\n[30]DID YOU THINK OF THAT"
+	"around and around and around and around and around,\w4 but when does it stop?\n\n\n\n\ndoes it stop?"
+	"get get get get get back,\w4 Get Back,\w4 GET %(bold)BACK!!!"
+	"I'LL SHOW THEM ALL,\w4 I'LL SHOW THEM THAT-"
+	"EVER EVER EVER EVER EVER EVER EVER EVER EVER EVER EVER"
+	"JUST HOLD STILL,\w4 HOLD STILL,\w4 DON'T MOVE YOU HAVE TO STOP MOVING"
+	"SQUIRM SHUDDER WRITHE"
+	"%(laugh)\w8\w8\n\n%(laugh)\w8\w8\n\n%(laugh)"
+	"IT'S JUST ME,\w4 AND ME,\w4 AND ME"
+	"Did you notice?"
+	"Lurking."
+	"They watch."
+	"YEAH well you didn't ASK ME THAT,\w4 %(bold)DID%(boldoff) YOU!?"
 	"%(screamrand(1000))"
-	"do you tire\e"
-	"the eyes,\w4 watch the eyes,\w4 wATCH THE E%(bold)YES\e"
+	"do you tire"
+	"the eyes,\w4 watch the eyes,\w4 wATCH THE E%(bold)YES"
 	"\f[height,+100]😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎"
 	"one time i got in \_a[OnDollTrouble]trouble\_a for poking the yarn basket, even though it's way more dangerous to keep a yarn basket next to a \_a[OnDollFireplace]fireplace\_a than it is for yarn to get the %(poke) from me. the worst i could do is make it \_a[OnDollBleed]bleed\_a, and anything you could make from yarn could do with more color in it anyway\w8\w8"
 	"Ah,\w4 to sprout\w4\nTo grow\w4\nTo bloom\w4\nTo wither\w4\nTo rot\w4\nTo nourish\w4\nTo feed,\w4 to grow\w4\nTo feed,\w4 to grow\w4\nTo feed,\w4 to grow\w4\nAnd let it be that which we repeat that brings us to completion\w4\nTo make us whole not in the fulfillment of purpose,\w4 but in the knowledge that we have done what comes to us so naturally\w4\nThat we have done good in our end,\w4 no matter the harm done in the journey\w4\nThat all we are and all we have to be\w4\nIs to grow.\w4 To rot.\w4 To feed.\w4\nAnd not to think more of it.\w8\w8\w8\w8\w8"
@@ -216,7 +221,7 @@ OnAiTalk : nonoverlap_pool
 	"%(nickname).\w8\w8 You're better than that."
 	"i wonder if %(creature) steak smells like %(red)."
 	"k"
-	"so i tried to make some waffles the other day and you would not BELIEVE what happened,\w4 right,\w4 so first of all there were a bunch of %(red) ants crawling around in the waffle mix,\w4 so i had to roll my way out to the store to get some more. on the way there i had to run away from a horde of %(creature)s,\w4 horrible things,\w4 and then the store didn't even HAVE waffle mix,\w4 i had to go all the way home and make it myself by crushing up the %(object) I had laying around. and then i had %(italics)too many%(italicsoff) waffles%(emdash)like,\w4 who ends up with too many, seriously%(emdash)and I had to offload them somewhere.\w8 so i thought and i thought and i thought and after a lot of thinking i decided to put them on top of the ant colony in the hopes that they'd suffocate under there and leave my new waffle mix alone. but no,\w4 oh no,\w4 the next day they came back with a VENGEANCE,\w4 there were at least twenty times as many ants,\w4 crawling,\w4 climbing,\w4 %(poke)ing their way around.\w8 nobody was happy about that. so then i had ant duty,\w4 and got to %(poke) %(needle) each one of those miserable things,\w4 because how else was i to get rid of them?\w8 do you know how many ants there are in one colony?\w8 %(bold)do you?%(boldoff) IT'S A LOT OK,\w4 %(needle)!\w8\w8\w8 anyways so it was a good day,\w4 had a lot of fun.\w8 and now i've got all these dead ants to do something with.\w8 maybe i can %(poke) them until they are suitable to add to the next brew.\w8 probably won't taste too good but i'm sure it'll have some kind of effect,\w4 right?\w8 in high enough quantities it's gotta do something.\w8 i guess i have some experimentation to do,\w4 hopefully it'll be as good as that time i used ground up %(bodypart).\w8 now THAT was a fun time,\w4 let me tell you...\w8\w8 i was stuck to the ceiling for 3 days,\w4 no amount of %(poke) %(poke) %(needle) could get me free.\w8 how did i get free eventually?\w8 that's not important,\w4 what's important is that i'm here now,\w4 waffle-less.\w8 do you like waffles?\w8 i could make you some waffles.\w8 but this time if there are ants crawling around the waffle mix i'm just gonna use it as is,\w4 i'm tired from all the running around.\w8 %(poke) %(poke) %(poke) unless you want your ants to be alive,\w4 do you think they give better nutrients when they're alive?\w8 what kind of nutrients do ants give anyways?\w8 will %(poke)ing them crush the nutrients inside?\w8 can you crush a nutrient?\w8 what even is a nutrient,\w4 really?\w8 do you have them?\w8 do i have them?\w8 does ANYBODY have them?\w8 WHY DOES NOBODY KNOW WHAT A NUTRIENT IS!?\w8\w8 Do you think the ant legs are better or worse for you than the shells?\w8 Maybe I should de-shell them. %(poke) %(poke) that sounds fun.\w8 I can do that.\w8 i'm GREAT at that.\w8 do you know anyone who is a good as me at %(poke)ing?\w8 no you don't.\w8 don't lie to yourself.\w8 I'm the greatest %(poke) master there ever was.\w8 just ask those ants.\w8 those delicious,\w4 delicious ants.\w8 i saved a cup of them in the fridge for you.\w8 they're still writhing,\w4 so they stay fresh.\w8 nobody wants stale ants.\w8 did you know that ants think they're dead if they smell a certain way?\w8 you can get em to walk themselves to the ant graveyard.\w8 and then give them the %(needle) so they stay permanently.\w8 why do all that work to make them walk over themselves in the first place then?\w8 fun.\w8 do you think if you smelled bad enough you'd think you were dead?\w8 maybe if i find the right mix of chemicals we can make it happen.\w8 and then i get to %(poke) %(poke) take that %(needle) %(bodypart) of yours.\w8 say how would you describe your blood,\w4 is it more %(red) or %(red)?\w8 i'm looking for something nice to paint the ceiling with.\w8 something that i can layer to get a nice effect.\w8 maybe sprinkle some ants into and have them stay put.\w8 do you think that'd work?\w8 i figure i can try it anyways.\w8 how much blood you got swimming around in there anyways?\w8 if i take it a bit at a time can you keep producing more?\w8 i bet you could get a gig doing that.\w8 i wish i could get a gig doing that,\w4 would you pay me to take your blood?\w8 you should pay me to take your blood,\w4 i'd do a really good job.\w8 i mean the alternative is i take your blood and you DON'T pay me,\w4 so really this is a great deal i'm offering you. just a little %(poke) %(poke) %(needle) and we'll have lots of %(red) to make beautiful murals with.\w8 it'll be lots of fun,\w4 lots and lots of fun.\w8 %(laugh)\w8\w8\nSo anyway,\w4 that's how my day went.\w8 you were paying attention to all that,\w4 right?\w8 weren't you,\w4 %(nickname)?\w8 ugh don't tell me i have to repeat myself,\w4 no way.\w8 not happening.\w8 %(needle)"
+	"so i tried to make some waffles the other day and you would not BELIEVE what happened,\w4 right,\w4 so first of all there were a bunch of %(red) ants crawling around in the waffle mix,\w4 so i had to roll my way out to the store to get some more. on the way there i had to run away from a horde of %(creature)s,\w4 horrible things,\w4 and then the store didn't even HAVE waffle mix,\w4 i had to go all the way home and make it myself by crushing up the %(object) I had laying around. and then i had %(italics)too many%(italicsoff) waffles%(emdash)like,\w4 who ends up with too many, seriously%(emdash)and I had to offload them somewhere.\w8 so i thought and i thought and i thought and after a lot of thinking i decided to put them on top of the ant colony in the hopes that they'd suffocate under there and leave my new waffle mix alone. but no,\w4 oh no,\w4 the next day they came back with a VENGEANCE,\w4 there were at least twenty times as many ants,\w4 crawling,\w4 climbing,\w4 %(poke)ing their way around.\w8 nobody was happy about that. so then i had ant duty,\w4 and got to %(poke) %(needle) each one of those miserable things,\w4 because how else was i to get rid of them?\w8 do you know how many ants there are in one colony?\w8 %(bold)do you?%(boldoff) IT'S A LOT OK,\w4 %(needle)!\w8\w8\w8 anyways so it was a good day,\w4 had a lot of fun.\w8 and now i've got all these dead ants to do something with.\w8 maybe i can %(poke) them until they are suitable to add to the next brew.\w8 probably won't taste too good but i'm sure it'll have some kind of effect,\w4 right?\w8 in high enough quantities it's gotta do something.\w8 i guess i have some experimentation to do,\w4 hopefully it'll be as good as that time i used ground up %(bodypart).\w8 now THAT was a fun time,\w4 let me tell you...\w8\w8 i was stuck to the ceiling for 3 days,\w4 no amount of %(poke) %(poke) %(needle) could get me free.\w8 how did i get free eventually?\w8 that's not important,\w4 what's important is that i'm here now,\w4 waffle-less.\w8 do you like waffles?\w8 i could make you some waffles.\w8 but this time if there are ants crawling around the waffle mix i'm just gonna use it as is,\w4 i'm tired from all the running around.\w8 %(poke) %(poke) %(poke) unless you want your ants to be alive,\w4 do you think they give better nutrients when they're alive?\w8 what kind of nutrients do ants give anyways?\w8 will %(poke)ing them crush the nutrients inside?\w8 can you crush a nutrient?\w8 what even is a nutrient,\w4 really?\w8 do you have them?\w8 do i have them?\w8 does ANYBODY have them?\w8 WHY DOES NOBODY KNOW WHAT A NUTRIENT IS!?\w8\w8 Do you think the ant legs are better or worse for you than the shells?\w8 Maybe I should de-shell them. %(poke) %(poke) that sounds fun.\w8 I can do that.\w8 i'm GREAT at that.\w8 do you know anyone who is as good as me at %(poke)ing?\w8 no you don't.\w8 don't lie to yourself.\w8 I'm the greatest %(poke) master there ever was.\w8 just ask those ants.\w8 those delicious,\w4 delicious ants.\w8 i saved a cup of them in the fridge for you.\w8 they're still writhing,\w4 so they stay fresh.\w8 nobody wants stale ants.\w8 did you know that ants think they're dead if they smell a certain way?\w8 you can get em to walk themselves to the ant graveyard.\w8 and then give them the %(needle) so they stay permanently.\w8 why do all that work to make them walk over themselves in the first place then?\w8 fun.\w8 do you think if you smelled bad enough you'd think you were dead?\w8 maybe if i find the right mix of chemicals we can make it happen.\w8 and then i get to %(poke) %(poke) take that %(needle) %(bodypart) of yours.\w8 say how would you describe your blood,\w4 is it more %(red) or %(red)?\w8 i'm looking for something nice to paint the ceiling with.\w8 something that i can layer to get a nice effect.\w8 maybe sprinkle some ants into and have them stay put.\w8 do you think that'd work?\w8 i figure i can try it anyways.\w8 how much blood you got swimming around in there anyways?\w8 if i take it a bit at a time can you keep producing more?\w8 i bet you could get a gig doing that.\w8 i wish i could get a gig doing that,\w4 would you pay me to take your blood?\w8 you should pay me to take your blood,\w4 i'd do a really good job.\w8 i mean the alternative is i take your blood and you DON'T pay me,\w4 so really this is a great deal i'm offering you. just a little %(poke) %(poke) %(needle) and we'll have lots of %(red) to make beautiful murals with.\w8 it'll be lots of fun,\w4 lots and lots of fun.\w8 %(laugh)\w8\w8\nSo anyway,\w4 that's how my day went.\w8 you were paying attention to all that,\w4 right?\w8 weren't you,\w4 %(nickname)?\w8 ugh don't tell me i have to repeat myself,\w4 no way.\w8 not happening.\w8 %(needle)"
 	"have you considered crushing cans as a job?"
 	"two.\w8 just two.\w8 no more than that.\w8 i mean it,\w4 don't even consider more."
 	"%(poke) hey is this thing on %(poke)"
@@ -510,25 +515,468 @@ OnAiTalk : nonoverlap_pool
 	"i got popcorn and tried to salt it a little, as a treat for doing so well all week, but the salt shaker was moist and clumpy inside and i tried to clear it out but i got simultaneously too much and not enough salt on my popcorn"
 	"what do needles taste like?\w8 i'll never tell"
 	"now and then i get a surprise bowl............ of skins"
-	"......i didn't realize these were liquid inside. the bubble moves"
+	"......i didn't realize these were liquid inside.\w8 the bubble moves."
 	"%(processed) %(food) %(ANY('with,or,and')) %(flavor) %(creature) %(cuts).\w8 %(poke)"
 	
 	
 	
 	
+	//1.1.0
+	"down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down\n[10]down"
+	"N is for %(needle)\w8\w8\n\nE is for %(element),\w4 and %(element)\w8\w8\n\nD is for %(DoAThing)\w8\w8\n\nL is for %(laugh)\w8\w8\n\nand the final E, is for %(screamrand(100))"
+	"how to get into the %(processed) %(creature) clan:\w8\w8\n\nmeditate for %(mysterynum) hours on %(thinkabout)\w8\w8\n\nit'll cleanse your soul\w8\w8\w8\w8\n\nprobably"
+	"you should pop some balloons today"
+	"bring %(ANY(ghostexlist,ANY(REPLACE(ghostexlist,C_BYTE1,',')))) over here so i can %(poke) %(needle)" //TODO lool this is broken do we want it this way - I must've???
+	"does ur outline feel a bit fuzzy"
+	"spiral bound is the way to go"
+	"%(mysterynum) spokes"
+	"bet u can't count to %(mysterynum) with one eye closed"
+	"let me get an axe real quick"
+	"look ma no hands\w8\c[char,1,0]\w1\c[char,1,0]\w1\c[char,1,0]\w1\c[char,1,0]\w1\c[char,1,0]\w1\c[char,1,0]\w1\c[char,1,0]\w1\c[char,1,0]\w1\c[char,1,0]\w1\c[char,1,0]\w1\c[char,1,0]\w1\c[char,1,0]\w1\c[char,1,0]\w1\c[char,1,0]\w1\c[char,1,0]\w1\c[char,1,0]"
+	"look what i can do\n\n\f[shadowstyle,offset]oooooooooooooo\f[shadowstyle,default]\w8\w8\n\nok im done"
+	"stress relief"
+	"lighting matches and licking them clean"
+	"bend"
+	"no don't take my bones"
+	//"\C\n\nyou know what nevermind i take it back"
+	"\C\![raise,OnTakeItBack,%(STRLEN(SHIORI3FW.LastTalk))]"
+	"\_l[-10000]they'll never find me here"
 	
+	
+	"i would quite like a waffle hose,\w4 assuming it's a hose that sprays waffle"
+	"%food %[0] %[0] %[0] gonna go get some %[0] to %poke %[1] %[1]\w8\w8\n\n%[0]"
+	"make sure to get a heaping spoonful"
+	"is it dry yet"
+	"cut open the clouds and scoop out the %(cuts)"
+	"Yes of course."
+	"you rang"
+	"%(big)h%(small)%(small)e%(big)%(big)l%(small)%(small)l%(big)%(big)o%(small)"
+	"-gshhhk- you're listening to %(RAND(100) + 10).%(RAND(10)),\w4 the only station where you can hear %(screamrand(25)) every hour on the hour -gshhhk-"
+	"%(maketruename) owes me money"
+	//--
+	"≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡"
+	"unreasonable"
+	":sparkles:"
+	"-=≡=-   -=≡=-   -=≡=-   -=≡=-\n\nlook out it's the martians"
+	"music LIVES" //:3c
+	"\f[align,right]\n-=≡=-   -=≡=-   -=≡=-   -=≡=-\c[char,1,0]\w1\c[char,1,0]\w1\c[char,1,0]\w1\c[char,1,0]\w1\c[char,1,0]\w1\c[char,1,0]\w1\c[char,1,0]\w1\c[char,1,0]\w1\c[char,1,0]\w1\c[char,1,0]\w1\c[char,1,0]\w1\c[char,1,0]\w1\c[char,1,0]\w1\c[char,1,0]\w1\c[char,1,0]\w1\c[char,1,0]\w1\c[char,1,0]\w1\c[char,1,0]\w1\c[char,1,0]\w1\c[char,1,0]\w1\c[char,1,0]\w1\c[char,1,0]\w1\c[char,1,0]\w1\c[char,1,0]\w1\c[char,1,0]\w1\c[char,1,0]\w1\c[char,1,0]\w1\c[char,1,0]\w1\c[char,1,0]\w8\w8\w8\n\nnyoom"
+	"\_b[""%(SHIORI3FW.ShellPath)surface0.png"",inline,--option=use_self_alpha]"
+	"i scream you scream we all scream for %(screamrand)"
+	'how much is too much'
+	"%(keysmash)\w8\n\noops sorry i dropped my keyboard"
+	"asdf"
+	"\![raise,OnMysteryNumeral]"
+	
+	"drawing out all the bugs since 2022"
+	"i'm older than you\w8\w8\w8\w8\w8\n\n(maybe)"
+	
+	{
+		_name1 = name1
+		_name2_0 = name2
+		_name2_1 = name2
+		_name2_2 = name2
+		_name2_3 = name2
+		"How about... %(_name1).\w8 %(_name1)...\w8 what goes with %(_name1)?\w8\w8\n\n%(_name1) %(_name2_0)...\w8 %(_name1) %(_name2_1)...?\w8 %(_name1) %(_name2_2)-%(_name2_3)...\w8\w8\n\n"
+		--
+		"Hmm,\w4 %(_name1) %(_name2_0) might be where it's at."
+		"Perhaps %(_name1) %(_name2_1) is the right choice."
+		"%(_name1) %(_name2_2)-%(_name2_3)...\w8 It's powerful."
+		"Or maybe even...\w8 %(_name1) %(_name2_0) %(_name2_1) %(_name2_2)-%(_name2_3)."
+		"Alternatively,\w4 and this is %(italics)really%(italicsoff) out there,\w4 but we could try %(_name1) %(_name2_0)-%(_name2_1)."
+	}
+	
+	"rerrerrrererrrererrererererr"
+	"%(laugh)%(keysmash)"
+	
+	"needle onesie"
+	
+	"\n_\\|/_\\|/_\\|/_\\|/_\\|/_\\|/_"
+	
+	"reading comprehension"
+	
+	//random modifier because I wouldn't want the pool modifier to make these super super common
+	random :/
+	{
+		// "nggyunglyd"
+		// "eoiopeoeoo"
+		// "vnvu vntuw"
+		// "ene  en  n"
+		// "ra   ra   "
+		
+		"ifltialhimc"
+		"teihs aonyh"
+		" eke  rl  e"
+		" ler  ge  s"
+		" s e  e   t"
+	}
+	
+	random :/
+	{
+		"lntlg"
+		"eoreo"
+		"a at "
+		"v c' "
+		"e es "
+		"  s  "
+	}
+	
+	"is it mermay yet"
+	"\n\f[align,center] \\\w1\c[char,1]|\w1\c[char,1]/\w1\c[char,1]—\w1\c[char,1]\\\w1\c[char,1]|\w1\c[char,1]/\w1\c[char,1]—\w1\c[char,1]\\\w1\c[char,1]|\w1\c[char,1]/\w1\c[char,1]—\w1\c[char,1]\\\w1\c[char,1]|\w1\c[char,1]/\w1\c[char,1]—\w1\c[char,1]\\\w1\c[char,1]|\w1\c[char,1]/\w1\c[char,1]—\w1\c[char,1]\\\w1\c[char,1]|\w1\c[char,1]/\w1\c[char,1]—\w1\c[char,1]\\\w1\c[char,1]|\w1\c[char,1]/\w1\c[char,1]—\w1\c[char,1]\\\w1\c[char,1]|\w1\c[char,1]/\w1\c[char,1]—\w1\c[char,1]\\\w1\c[char,1]|\w1\c[char,1]/\w1\c[char,1]—\w1\c[char,1]\\\w1\c[char,1]|\w1\c[char,1]/\w1\c[char,1]—\w1\c[char,1]\\\w1\c[char,1]|\w1\c[char,1]/\w1\c[char,1]—\w1\c[char,1]\\\w1\c[char,1]|\w1\c[char,1]/\w1\c[char,1]—\w1\c[char,1]\\\w1\c[char,1]|\w1\c[char,1]/\w1\c[char,1]—\w1\c[char,1]\\\w1\c[char,1]|\w1\c[char,1]/\w1\c[char,1]—\w1\c[char,1]\\\w1\c[char,1]|\w1\c[char,1]/\w1\c[char,1]—\w1\c[char,1]\\\w1\c[char,1]|\w1\c[char,1]/\w1\c[char,1]—\w1\c[char,1]\\\w1\c[char,1]|\w1\c[char,1]/\w1\c[char,1]—\w1\c[char,1]\\\w1\c[char,1]|\w1\c[char,1]/\w1\c[char,1]—\w1\c[char,1]\\\w1\c[char,1]|\w1\c[char,1]/\w1\c[char,1]—\w1\c[char,1]\\\w1\c[char,1]|\w1\c[char,1]/\w1\c[char,1]—\w1\c[char,1]\\\w1\c[char,1]|\w1\c[char,1]/\w1\c[char,1]—\w1\c[char,1]\\\w1\c[char,1]|\w1\c[char,1]/\w1\c[char,1]—\w1\c[char,1]\\\w1\c[char,1]|\w1\c[char,1]/\w1\c[char,1]—\w1\c[char,1]\\\w1\c[char,1]|\w1\c[char,1]/\w1\c[char,1]—\w1\c[char,1]\\\w1\c[char,1]|\w1\c[char,1]/\w1\c[char,1]—\w1\c[char,1]\\\w1\c[char,1]|\w1\c[char,1]/\w1\c[char,1]—\w1\c[char,1]\\\w1\c[char,1]|\w1\c[char,1]/\w1\c[char,1]—\w1\c[char,1]\\\w1\c[char,1]|\w1\c[char,1]/\w1\c[char,1]—\w1\c[char,1]\\\w1\c[char,1]|\w1\c[char,1]/\w1\c[char,1]—\w1\c[char,1]\\\w1\c[char,1]|\w1\c[char,1]/\w1\c[char,1]—\w1\c[char,1]\\\w1\c[char,1]|\w1\c[char,1]/\w1\c[char,1]—\w1\c[char,1]\\\w1\c[char,1]|\w1\c[char,1]/\w1\c[char,1]—\w1\c[char,1]\\\w1\c[char,1]|\w1\c[char,1]/\w1\c[char,1]—\w1\c[char,1]\\\w1\c[char,1]|\w1\c[char,1]/\w1\c[char,1]—\w1\c[char,1]\\\w1\c[char,1]|\w1\c[char,1]/\w1\c[char,1]—\w1\c[char,1]\\\w1\c[char,1]|\w1\c[char,1]/\w1\c[char,1]—\w1\c[char,1]\\\w1\c[char,1]|\w1\c[char,1]/\w1\c[char,1]—\w1\c[char,1]\\\w1\c[char,1]|\w1\c[char,1]/\w1\c[char,1]—\w1\c[char,1]\\\w1\c[char,1]|\w1\c[char,1]/\w1\c[char,1]—\w1\c[char,1]\\\w1\c[char,1]|\w1\c[char,1]/\w1\c[char,1]—\w1\c[char,1]\\\w1\c[char,1]|\w1\c[char,1]/\w1\c[char,1]—\w1\c[char,1]\\\w1\c[char,1]|\w1\c[char,1]/\w1\c[char,1]—\w1\c[char,1]\b[-1]"
+	"oh thats what modulus is for"
+	"throw the doll in the lava"
+	
+	"not another eclipse"
+	"what crimes will they commit"
+	
+	"the paper ate my homework"
+	"don't forget to eat the wrapper"
+	
+	"there's a whole %(group) of %(creatures) coming for me"
+	"can you even call it a %(group) if it only has %(mysterynum) members"
+	"hey %(nickname)\w8\njust between you and me\w8\ni don't actually like %(food)"
+	
+	
+	"\_a[OnLifeHack]%(RAND(50) + 2) %(randomcase_all(lifehacks.adjective)) %(randomcase_all(lifehacks.keyword)) %(randomcase_all(lifehacks.promise))\_a"
+	"If I had a bag of candy,\w4 I simply would not eat it.\w8 I do not need the sugar,\w4 and I do not even like candy all that much to begin with.\w8 If it was a choice of either I get the candy or a baby gets the candy,\w4 however,\w4 I would eat it despite my distaste.\w8 I simply hate candy,\w4 and I simply hate babies more."
+	
+	"limitless %(creature) %(cuts),\w4 while supplies last"
+	
+	"dammit i collapsed everything again"
+	
+	//goddamn it i collapsed everything again
+	//↑ I did the same damn thing twice and thought it'd be a funny needle dialogue BOTH TIMES
+	
+	
+	"what will %(year + RAND(20) + 1) bring"
+	"beep beep BEEP %(italics)beep%(italicsoff) beep beep %(bold)beep%(boldoff) bEEP %(bold)beep BEEP%(boldoff) beep BEEP %(italics)beEP %(bold)BEEP BEEP BEEP%(italicsoff) beep beep%(boldoff) %(big)beep BEEP %(big)BEEP %(small)BEEP %(small)beep %(small)beep %(small) beep %(big)%(big)BEEP BEep %(bold)beep%(boldoff) beep bEeP BeEp %(underline)beep beep%(underlineoff) beep BEEEP beep beep %(italics)%(bold)BEEP%(italicsoff)%(boldoff) beep beep BEEP beep beep beep BEEP BEEP BEEP %(bold) BEEP BEEP BEEP BEEP%(boldoff) beep beep %(italics)beep%(italicsoff) beep beep im tired"
+	
+	"turn all the lights off"
+	"my eye is full i can't hear you"
+	"hope you can swim"
+	"chews on leftover commas"
+	"you'll hear from me again in %(aitalkinterval) seconds"
+	//"%(SHIORI3FW.BalloonName).\w8\w8 %(('Interesting.','The correct choice.')[SHIORI3FW.BalloonName == 'Needloon'])" //something akin to t... t... t... tsomethingorother operators. tertiary is not the right word. the ones you write with a ?, you know     TERNARY!! something akin to ternary operators
+	//"they're siblings, zi"
+	{
+		"%(SHIORI3FW.BalloonName).\w8\w8 "
+		--
+		if SHIORI3FW.BalloonName == "Needloon"; "The correct choice."
+		elseif SHIORI3FW.BalloonName == "Balloons Balloon"; "Perfectly Poppable."
+		elseif SHIORI3FW.BalloonName == "Paperboard"; "Good kindling."
+		else; "Interesting."
+	}
+	"yum"
+	"2 2 2 2 2 2 2 2 2 2 2 2 2 2"
+	"stares into your soul.\w8\w8\w8\w8\w8\w8\n\ninteresting."
+	"i bet you'd like %(maketruename).\w8\w8 you seem like you'd get along."
+	"are you real?"
+	"i WANT to GO to THE store AND buy ALL the SHELVES"
+	"make sure you pop a balloon today,\w4 it's good for your health"
+	"wish this lint thing would work"
+	"echo%(small) echo%(small) echo%(small) echo%(small) echo%(small) echo%(small) echo"
+	"~ternary~"
+	"imagine; were-needles"
+	"%(STRLEN(truename)).\w8\w8 That's your number.\w8\w8 Don't forget it."
+	if ARRAYSIZE(nicknames) > 0; "%(ARRAYSIZE(nicknames)).\w8\w8 I wonder when you'll tire.\w8\w8\n\nYou'll come back to me eventually,\w4 %(truename)."
+	else; "All Is As It Should Be."
+	"%(poke).\w8\w8 %(ARRAYSIZE(nicknames)).\w8\w8 %(needle)"
+	"%(ARRAYSIZE(nicknames)) funny alternatives to %(truename)!\w8 Buy now and get the book 25% off,\w4 with FREE SHIPPING!"
+	"pair with a bluetooth device near you"
+	"scalp scalp scalp pick pick pick"
+	
+	
+	
+	"It's July."
+	
+	"i am in control\![raise,OnNewTalkInterval,special,30]\e:chain=chain.in_control"
+	"im so tired... but... chicken noodle night...\![raise,OnNewTalkInterval,special,60]\e:chain=chain.chicken_noodle_night"
+	
+	"%(small)%(small)DO NOT PULL LONG YARN ENDS%(regsize)"
+	"safety scissors"
+	"Stuffed Garbage Bulk Sale"
+	"Your sick child can wait"
+	"worble"
+	"an eye for an eye and a yey for a yey"
+	
+	"chews on %(importantitem)"
+	"↑ that's a good one i like that one"
+	"don't forget to replace your refrigerator"
+	"roll roll roll your boat, gently up the stream"
+	"if you add the hour and minute together you get %(hour12ex + minute)"
+	"sometimes i wonder"
+	"i should write a novel"
+	"it's tiring at times, honestly"
+	"fuzz fuzz fuzz fuzz"
+	"1,\w1 2,\w2 3,\w3 4,\w4 5,\w5 6,\w6 7,\w7 8,\w8 9...\w9 can't go higher than 9."
+	"lays down"
+	"blinky blinky blinky"
+	"are these things even growing, i can't tell"
+	"\![embed,OnDialogueCount].\w8\w8 have you seen them all?"
+	"\f[align,center]<><><><><><><><><><>\w8\w8\n\ni'm thinking about making some ugly sweaters\w8\w8\nwhat do you think of this design\w8\w8\n\n<><><><><><><><><><>"
+	"my hands get all blotchy in the wintertime"
+	"hut hut hut\w8\nswamp swamp swamp\w8\nmud mud mud"
+	"%(60 - second) second%(('s','')[60 - second == 1]) until %(hour12ex):%((minute + 1,'0' + TOSTR(minute + 1))[minute + 1 <= 9])"
+	"so anyways i was thinking"
+	"\f[align,center]no"
+	"seventy eight seventy eight seventy eight seventy eight seventy eight seventy eight seventy eight seventy eight seventy eight seventy eight seventy eight"
+	
+	"word salsa\w8\n\n\f[align,right]yum yum yum\w4\n\n\f[align,left] yumyum yum\w4\n\n\f[align,center]yum yum\w2\n\n\f[align,right]yum\w2\f[align,center] \w2\f[align,left] "
+	"wanna play hangman?\w8\nguess the word:\n\_q%(ERASE('_ _ _ _ _ _ _ _ _ _ ',0,RAND(8) * 2))"
+	"i wanna do something drastic\_w[10000]\f[height,+40]\_qBOO"
+	"maybe i should've %(poked) him while i had the chance"
+	"full moon"
+	"gonna swim around in a can of soda"
+	"i %(poked) a %(creature) once.\w8 got his %(bodypart) as a prize.\w8\w8\w8\n\n%(small)these two events are unrelated i just thought i'd share"
+	"you ever  just feel,\w4 like,\w8\w8 %(needle) ???"
+	"\f[align,center]-+-+-+-+-+-+-+-+-+-+-+-+-\w8\n\nSweater, round two\w8\n\nHow's this one?\w8 Too blue?\w8\n\nSad,\w4 but it's true\w8\n\n-+-+-+-+-+-+-+-+-+-+-+-+-"
+	"how many birds %(italics)can%(italicsoff) one kill with a single stone,\w4 theoretically?\w8 like,\w4 what's the upper limit?\w8 has anyone checked?"
+	"crunch munch\w8\nyum this is really tasty"
+	""""""""""""""""""""""""""""""""""""""""""""""""
+	"let me tell you something about cats,\w4 they are %(italics)perceptive.%(italicsoff)\w8 she's always onto me,\w4 when she's around.\w8 skitter skitter roll roll oop her ear has twisted to hear me better,\w4 guess i have to wait to give the %(importantitem) a %(poke).\w8 can't a needle get a break for once?"
+	"my %(importantitem) got moved around when i wasn't looking,\w4 i dunno where it went.\w8\n\nyou wouldn't happen to know,\w4 would you?\w8 there might be some good %(bodypart) in it for you if you do.\w8 i'll even sweeten the deal with some %(creature) %(cuts) if you want."
+	
+	"you've collected %(mysterynum) so far.\w8\w8\n\nyou can do better than that,\w4 %(nickname)."
+	"hm\w8\w8\nah\w8\w8\w8\noh!\w8\nno...\w8 no wait\w8\w8\nbut what if-\w4 no no no that's not right at all\w8\w8\nmaybe...?\w8\w8\nbut that could have other effects,\w4 too...\w8\w8\nhmmmmmmm"
+	"candied %(bodypart)...\w8\w8 \f[height,+30]\n\f[align,center]😋"
+	"when you wish\w8\nupon a\w8\nneedle\w8\w8\nyour dreams\w8\ncome\w8\n\![set,balloonwait,0.3]truer than you want"
+	"\![set,balloonwait,0.1]aaaAAAAAAAAAAAAAAAAAAAAAAaaaaaaaaa!"
+	"i should learn to juggle"
+	"yeah yeah i hear you,\w4 but have you considered %(thinkabout) instead?\w8 way cooler than whatever you're worrying about"
+	"happy birthday 🎉"
+	"0\n 1\n  2\n   3\n    4\n     5\n      6\n       7\n        8\n         9\_l[0,0]\f[align,right]9         \n8        \n7       \n6      \n5     \n4    \n3   \n2  \n1 \n0"
+	"look at them all go"
+	
+	"i wanna have gut worms, give them to me"
+	"wanna hear a joke?"
+	"i'm gonna tell"
+	"gonna write a book gonna write a book gonna write a book gonna write a book"
+	"hehe,\w4 you'll never find it.\w8 and even if you did there's nothing you can do about it"
+	"ah,\w4 that explains it"
+	
+	"notice me, answer my inquiry"
+	"%(emailtest)"
+	
+	"Beep beep!\w8\w8 Your timer has ended!"
+	
+	"did you know that i can talk for 13 hours straight with no breaks if i wanted to\w8\n\ni did it once,\w4 no lie"
+	"PLOT ARMOR!!!???"
+	"imagine youre a time traveler right\w8\nyou just crash landed and you don't know when you are\w8\nyou ask someone what the date is and its busy and crowded so you only hear the first bit of what they say\w8\nin YMD,\w4 youre golden\w8\nin MDY,\w4 you at least know some info about what time of year it is\w8\nin DMY,\w4 youve learned nothing"
+	"i'm going to chew you up and turn you into birdfood"
+	"BRRRRRR-SHCK-BRRRRRRRR-BRRRRRRR-SCHK"
+	"how much needle can be in a bucket of ink before it's rendered inedible"
+	"this just in:\w4 a needle in your head PROVEN to increase PRODUCTIVITY,\w4 but being PRODUCTIVE is BORING"
+	"%(nickname) is there anything else you need from me or may i now return to lying down with the oversized penguin plushie"
+	"i love you lumpy asymmetrical round squares"
+	"how fickle friendship is...\w8\w8\nat least he did not barf"
+	"he sounds like the gate greeting us all in the morning"
+	
+	
+	//Content that is locked off unless the user allows motion, just to be on the safe side
+	parallel MotionEnabledDialogues
 
-	
-	
-	
-	
-	
-	"Version 1.0.3" //If you're peeking in this file - yes, this is the version number of your current needle. No, there is no easier way to find this information. :)
+	"\f[height,-3]made by galla and zichqec\w8\nsome portions inspired by galla's cat\w8\n%(mysterynum) %(creatures) were %(poked) in the making of this ghost"
+	"Version 1.1.0" //If you're peeking in this file - yes, this is the version number of your current needle. No, there is no easier way to find this information. :)
+}
+
+MotionEnabledDialogues : array_pool
+{
+	if MOTION_ENABLED
+	{
+		"\![set,scaling,100,-100]\w8\![set,scaling,-100,-100]\w8\![set,scaling,-100,100]\w8\![set,scaling,100,100]"
+		"\![get,property,OnNeedleWarp,currentghost.scope(0).rect]"
+		
+		"\n\_qBoing\_q\w4\f[align,center] \w4\f[align,right] \w4\f[align,center] \w4\f[align,left] \w4\f[align,center] \w4\f[align,right] \w4\f[align,center] \w4\f[align,left] \w4\f[align,center] \w4\f[align,right] \w4\f[align,center] \w4\f[align,left] \w4\f[align,center] \w4\f[align,right] \w4\f[align,center] \w4\f[align,left] \w4\f[align,center] \w4\f[align,right] \w4\f[align,center] \w4\f[align,left] \w4\f[align,center] \w4\f[align,right] \w4\f[align,center] \w4\f[align,left] "
+		"w\f[align,left]h\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]e\f[align,center]e\f[align,right]e\f[align,center]e\f[align,left]"
+		
+		"look watch this\w8\w8\b[2]\nboom.\w8 like magic.\w8\n\nwatch watch i'll do it again.\w8\w8\b[4] whoa.\w8 incredible.\w8\w8\n\nok ok ok ok one more time are you ready for this.\w4\b[6]\w4\b[8]\w4\b[10]\w4\b[12]\w4\b[14]\w4\b[16]\w4\b[18]\w4\b[20]\w4\b[22]\w4\b[24]\w4\b[26]\w4\b[28]\w4\b[30]\w4\b[32]\w4\b[34]\w4\b[36]\w4\b[38]\w4\b[40]\w4\b[42]\w4\b[44]\w4\b[46]\w4\b[0]\w8\w8\n\ndid you get all that?"
+	}
+	else
+	{
+		"on my best behavior"
+		"motion disallowed"
+		"holding very still,\w4 just for you"
+		"you owe me for this"
+		"bound by legal contract"
+	}
+}
+
+emailtest : all
+{
+	_name = maketruename
+	{
+		"\b2%(_name) <%(name1)@%(normal_email_provider)%(.com)>\n"
+		"%(hour):%(nowmin) %(ap) (0 minutes ago)\n"
+		"to Needle\n\n"
+		
+		_num = RAND(80) + 3
+		nonoverlap:/
+		{
+			"To whom it may concern,\n\n"
+			"Dear Needle,\n\n"
+			--
+			"Please return the %(importantitem) to the boss's desk at once."
+			"Please ask next time before demolishing %(('a','an')[SUBSTR(TOSTR(_num),0,1) == '8' || _num == 11 || _num == 18]) %(_num) story building."
+			"Please do not steal the expense forms."
+			"Please put unneeded papers in the shredder,\w4 do not ""shred"" them yourself."
+			"You are officially banned from returning to the library at any time in the future.\n\nIf you violate this order, library staff will call law enforcement to remove you from the premises."
+			"Please do not poke holes in the walls."
+			"Lounge pillows are not to be used as pincushions. You will be billed for damages shortly."
+			"Please refrain from attracting %(creatures) to company property."
+			"You. Are. Not. A. Holepunch."
+			"I want my money back."
+			"I'm never letting you pierce my ears again."
+			--
+			"\n\n"
+			--
+			"Sincerely"
+			"Thank you"
+			"Regards"
+			"Best regards"
+			"Thank you for your time"
+			--
+			",\n%(_name)"
+		}
+		//more options here later maybe?
+	}
+}
+
+chain.in_control
+{{CHAIN
+	aitalkinterval = 30
+	"%(italics)i am not in control%(italicsoff)"
+	"I Am In Control.\![raise,OnNewTalkInterval]\e:chain=end"
+}}CHAIN
+
+chain.chicken_noodle_night
+{{CHAIN
+	aitalkinterval = 60
+	"chimken"
+	"chimken............"
+	"%(small):chicken_noodle_soup.gif:%(regsize)\![raise,OnNewTalkInterval]\e:chain=end"
+}}CHAIN
+
+makestatic : all
+{
+	"\_q\f[height,5]\f[shadowstyle,none]"
+	for _i = 0; _i < 500; _i++
+	{
+		_rand1 = RAND(256)
+		_rand2 = RAND(256)
+		_rand3 = RAND(256)
+		if _argv[0] == "bw"
+		{
+			_rand2 = _rand1
+			_rand3 = _rand1
+		}
+		"\f[color,%(_rand1),%(_rand2),%(_rand3)]■ "
+	}
+	"\_q"
 }
 
 
+//lol maybe
+OnTextDrop
+{
+	//NameMangler(reference0) //TODO do we want this?
+}
 
+OnNeedleWarp
+{
+	_rate = 3
+	_speed = RAND(100) + 10
+	_targetX = RAND(600) - 300
+	_targetY = RAND(600) - 300
+	
+	if reference1 == ""
+	{
+		reference1 = reference0[1]
+		reference0 = reference0[0]
+	}
+	
+	_nowX = 100
+	if reference2 != ""; _nowX = reference2
+	_nowY = 100
+	if reference3 != ""; _nowY = reference3
+	
+	_cmd = ""
+	
+	while !(_nowX == _targetX && _nowY == _targetY)
+	{
+		if _nowX > _targetX
+		{
+			if _nowX - _targetX <= _rate; _nowX = _targetX
+			else; _nowX -= _rate
+		}
+		else //Less than target X
+		{
+			if _targetX - _nowX <= _rate; _nowX = _targetX
+			else; _nowX += _rate
+		}
+		if _nowY > _targetY
+		{
+			if _nowY - _targetY <= _rate; _nowY = _targetY
+			else; _nowY -= _rate
+		}
+		else //Less than target Y
+		{
+			if _targetY - _nowY <= _rate; _nowY = _targetY
+			else; _nowY += _rate
+		}
+		_cmd += "\![set,scaling,%(_nowX),%(_nowY)]\_w[%(_speed)]"
+	}
+	
+	"\t"
+	--
+	_cmd
+	--
+	ErrorLog("ref0: %(reference0); ref1: %(reference1); _nowX: %(_nowX); _nowY: %(_nowY); reference2: %(reference2); reference3; %(reference3)","info")
+	ErrorLog("![raise,OnNeedleWarp,%(reference0),%(reference1),%(_nowX),%(_nowY)]","info")
+	"\![raise,OnNeedleWarp,%(reference0),%(reference1),%(_nowX),%(_nowY)]"
+	{
+		"\w8\![set,scaling,100,100]"
+		--
+		"\![move,--X=%(reference0),--Y=%(reference1),--base=primaryscreen]"
+	}
+}
 
+OnNeedleSpin : all
+{
+	_amt = _argv[0]
+	if _amt < 1; _amt = 1
+	_spd = _argv[1]
+	if _spd < 1; _spd = 1
+	_rate = _argv[2]
+	if _rate < 1; _rate = 1
+	_debug = 0
+	
+	"\![set,scaling,100,100]"
+	for _i = 0; _i < _amt; _i++
+	{
+		_nowX = 100
+		
+		while _nowX >= -100
+		{
+			_debug++
+			_nowX -= _rate
+			"\![set,scaling,%(_nowX),100]"
+			if _nowX >= 0; "\![move,--X=%(_rate),--base=me]"
+			else; "\![move,--X=-%(_rate),--base=me]"
+			"\_w[%(_spd)]"
+		}
+		//"\![move,--X=%(_rate),--base=me]"
+		while _nowX < 100
+		{
+			_debug--
+			_nowX += _rate
+			"\![set,scaling,%(_nowX),100]"
+			if _nowX >= 0; "\![move,--X=-%(_rate),--base=me]"
+			else; "\![move,--X=%(_rate),--base=me]"
+			"\_w[%(_spd)]"
+		}
+	}
+	ErrorLog(_debug,"info")
+	"\![set,scaling,100,100]"//"\![move,--X=-%(_rate),--base=me]"
+}
 
 OnDollTrouble
 {
@@ -1028,7 +1476,7 @@ OnCreature.Complete : nonoverlap
 	
 	"Once upon a time there was a %(_creature) called %(_name) with a %(_red) %(_bodypart).\w8\w8 One day,\w4 someone stole its %(_importantitem).\w8\w8 So it went on an angry quest to %(poke) %(poke) the thief and retrieve its %(_importantitem).\w8\w8 And then it died the end."
 	
-	"Once upon a time,\w4 there was a little baby %(_creature) named %(_name).\w8%(_name) didn't like being a %(_creature) very much because what it really wanted a purple %(_importantitem), but it could only get a purple %(_importantitem) if it showed off its %(_red) %(_bodypart) in the state faire.\w8 %(_name) was a very,\w4 very shy %(_creature),\w4 so it didn't do that and settled for a yellow %(_importantitem) instead.\w8\w8\nThe End."
+	"Once upon a time,\w4 there was a little baby %(_creature) named %(_name).\w8 %(_name) didn't like being a %(_creature) very much because what it really wanted was a purple %(_importantitem), but it could only get a purple %(_importantitem) if it showed off its %(_red) %(_bodypart) in the state faire.\w8 %(_name) was a very,\w4 very shy %(_creature),\w4 so it didn't do that and settled for a yellow %(_importantitem) instead.\w8\w8\nThe End."
 	
 	"One time I got into a fist fight with a %(_creature) over this %(_importantitem) I found behind a dumpster,\w4 but instead of fighting fair it fought with its %(_bodypart) and totally tried to %(poke) me before I could get a hit in.\w8 Don't worry,\w4 I'm super duper mega fast,\w4 and my %(poke) is way more %(poke)y,\w4 so that thing was a smear of %(_red) before any serious damage was done.\w8 It told me in its dying breath that it's name is %(_name) and it was going to share the %(_importantitem) with me anyway,\w4 OOPS!\w8\w8"
 	
@@ -1041,4 +1489,41 @@ OnCreature.Test
 	_creature2 = creature
 	
 	"so hey %(nickname),\w4 if you were writing a story about some poor sap,\w4 what kind of creature would you pick to %(poke)?\w8\w8 i'm thinking a \_a[OnCreature.Creature1,%(_creature1)]%(_creature1)\_a or \_a[OnCreature.Creature2,%(_creature2)]%(_creature2)\_a."
+}
+
+OnTakeItBack : all
+{
+	"\C\n\nyou know what nevermind i take it back"
+	
+	for _i = 0; _i < TOINT(reference0) + 38; _i++
+	{
+		"\c[char,1,0]\w1"
+	}
+}
+
+OnMysteryNumeral : all
+{
+	_num = mysterynum
+	if reference0 > 0; _num = reference0
+	
+	while _num > 3999
+	{
+		IntToNumeral(3999)
+		_num -= 3999
+		if _num > 0; " + "
+	}
+	if _num > 0; IntToNumeral(_num)
+}
+
+OnLifeHack : nonoverlap
+{
+	"\C\n\n\![set,balloontimeout,1500]*"
+	--
+	"For entertainment purposes only"
+	"Results may vary"
+	"Do not use on %(creatures)"
+	"Do not try at home"
+	"Not safe for %(creature) consumption"
+	"May be unsafe for children"
+	"Try at own risk"
 }

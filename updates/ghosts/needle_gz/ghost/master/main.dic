@@ -3,11 +3,11 @@ OnSurfaceRestore
 	// if !(SHIORI3FW.LastSurface[1] == -1); "\1\s[-1]"
 	// --
 	// if !(SHIORI3FW.LastSurface[0] == 0); "\0\s[0]"
-	"\p[2]\s[-1]"
+	if SHIORI3FW.IsVisible[2] == 1; "\p[2]\s[-1]"
 	--
-	"\1\s[-1]"
+	if SHIORI3FW.IsVisible[1] == 1; "\1\s[-1]"
 	--
-	"\0\s[0]"
+	if SHIORI3FW.IsVisible[0] != 1 || SHIORI3FW.LastSurface[0] != 0; "\0\s[0]"
 }
 
 OnBoot
@@ -29,9 +29,9 @@ OnBoot
 	}
 	else; _newname = truename
 	
-	"\p[2]\s[-1]\![move,--x=0,--y=0,--base=0,--option=ignore-sticky-window]"
+	"\p[2]\s[-1]\![move,--x=0,--y=0,--base=0,--option=ignore-sticky-window]\![set,balloonoffset,0,-300]"
 	--
-	"\1\s[-1]\![move,--x=0,--y=0,--base=0,--option=ignore-sticky-window]"
+	"\1\s[-1]\![move,--x=0,--y=0,--base=0,--option=ignore-sticky-window]\![set,balloonoffset,-350,-150]"
 	--
 	"\0\s[0]"
 	--
@@ -42,11 +42,13 @@ OnBoot
 	"Needly day to you,\w4 %(_newname)"
 }
 
+OnGhostChanged {OnBoot} //For reloading
+
 OnShellChanged
 {
-	"\p[2]\s[-1]\![move,--x=0,--y=0,--base=0,--option=ignore-sticky-window]"
+	"\p[2]\s[-1]\![move,--x=0,--y=0,--base=0,--option=ignore-sticky-window]\![set,balloonoffset,0,-300]"
 	--
-	"\1\s[-1]\![move,--x=0,--y=0,--base=0,--option=ignore-sticky-window]"
+	"\1\s[-1]\![move,--x=0,--y=0,--base=0,--option=ignore-sticky-window]\![set,balloonoffset,-350,-150]"
 	--
 	"\0\s[0]"
 	--
@@ -79,7 +81,7 @@ OnFirstBoot
 	
 	_rand = RAND(30) + 1
 	
-	"\1\s[-1]\![move,--x=0,--y=0,--base=0,--option=ignore-sticky-window]\p[2]\s[-1]\![move,--x=0,--y=0,--base=0,--option=ignore-sticky-window]\0\s[0]\t\_w[%(_rand * 1000)]"
+	"\1\s[-1]\![move,--x=0,--y=0,--base=0,--option=ignore-sticky-window]\![set,balloonoffset,-350,-150]\p[2]\s[-1]\![move,--x=0,--y=0,--base=0,--option=ignore-sticky-window]\![set,balloonoffset,0,-300]\0\s[0]\t\_w[%(_rand * 1000)]"
 	--
 	"NEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE\1EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE\p[2]EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEDLE"
 }
@@ -88,6 +90,11 @@ OnTranslate
 {
 	_input = reference0
 	//_input = "\n\n\n" + _input
+	if reference1 == "" && reference2 == ""
+	{
+		_replace = REPLACE(_input,'"','""')
+		_input = EVAL('"' + _replace + '"')
+	}
 	
 	_nicknamelist = ASORT("string,descending,length",nicknames)
 	if !(reference2 == "OnName" || reference2 == "OnNewName")
@@ -125,23 +132,30 @@ OnTranslate
 	{
 		_input = REPLACE(_input,"%(truename)","\_a[OnName,True]%(truename)\_a")
 	}
-	
-	
-	
-	if reference1 == "" && reference2 == ""
-	{
-		_replace = REPLACE(_input,'"','""')
-		EVAL('"' + _replace + '"')
-	}
-	else
-	{
-		TOSTR(_input)
-	}
+	TOSTR(_input)
 }
 
 
+OnNewTalkInterval
+{
+	LOGGING("reference: %(reference)")
+	if reference0 == "special"
+	{
+		aitalkinterval = TOINT(reference1)
+	}
+	else
+	{
+		aitalkinterval = (RAND(100) + 1) * 10
+		if RAND(1000) == 0; aitalkinterval = 3600 //rare chance for an hour lol rip you
+	}
+	LOGGING("NEW INTERVAL: %(aitalkinterval)")
+}
 
-
+OnTestChain : nonoverlap
+{
+	"i am in control\![raise,OnNewTalkInterval,special,30]\e:chain=chain.in_control"
+	"im so tired... but... chicken noodle night...\![raise,OnNewTalkInterval,special,60]\e:chain=chain.chicken_noodle_night"
+}
 
 OnName
 {
@@ -292,7 +306,8 @@ OnNewName
 
 OnKeyPress
 {
-	if reference0 == "t" && debug == 1; OnAiTalk
+	if reference0 == "t" && debug >= 1; OnAiTalk
+	elseif reference0 == "c" && debug == 1; "\C\![raise,OnTakeItBack,%(STRLEN(SHIORI3FW.LastTalk))]"
 }
 
 
@@ -301,6 +316,8 @@ OnKeyPress
 TO IMPLEMENT NEEDLE POKING YOUR GHOST:
 
 When needle pokes a ghost (overlaps it, when it previously was not overlapping it) it sends the OnNeedlePoke event. It also sends which character it's poking, as a number. So 0 for sakura, 1 for kero, etc.
+
+reference1 is the name of the current shell.
 
 At the moment, this just sends the events one after the other... so if you've got more than one character that might get complicated. Uh. Hm... I miiiight update this later to send an array or something, but that might be very complicated. So! For now it's gonna be one at a time, sorry.
 
@@ -357,7 +374,7 @@ OnOtherOverlap : all
 				_final += _char[_i]
 			}
 			
-			_command += "\![raiseother,%(_final),OnNeedlePoke,%(_num)]"
+			_command += "\![raiseother,%(_final),OnNeedlePoke,%(_num),""%(SHIORI3FW.ShellName)""]"
 		}
 	}
 	if _command != ""
@@ -375,10 +392,9 @@ On_homeurl
 
 OnMouseDoubleClick
 {
+	LOGGING("test: MOTION_ENABLED")
 	poke
 }
-
-
 
 NameMangler
 {
@@ -540,6 +556,74 @@ Mangler.RepeatParticle
 	REPLACE(_input,_chunk,_output)
 }
 
+Mangler.Username
+{
+	_input = _argv[0]
+	"xX" + REPLACE(_input," ","_") + "Xx"
+}
+
+Mangler.Year
+{
+	_argv[0] + " " + ANY(year,RAND(200) + (year - 213))
+}
+
+Mangler.Qu
+{
+	_check = TOLOWER(_argv[0])
+	
+	_output = ""
+	if "q" _in_ _check
+	{
+		_output = REPLACE(_argv[0],"q","qu")
+		_output = REPLACE(_output,"Q","Qu")
+	}
+	else
+	{
+		_output = INSERT(_argv[0],RAND(STRLEN(_argv[0])),"qu")
+	}
+	_output
+}
+
+Mangler.J
+{
+	_output = _argv[0]
+	_num = RAND(5) + 1
+	for _i = 0; _i < _num; _i++
+	{
+		_output = INSERT(_output,RAND(STRLEN(_argv[0])),"j")
+	}
+	_output
+}
+
+//maybe
+// Mangler.SnipSnip
+// {
+	// _output = ""
+	// for _i = 0; _i < STRLEN(_argv[0]); _i += 2
+	// {
+		// _output += SUBSTR(_argv[0],_i,1)
+	// }
+	// _output
+// }
+
+// Mangler.UpsideDown
+// {
+	// _input = _argv[0]
+	
+	// _right = "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z"
+	// _down = "ɐ,q,ɔ,p,ǝ,ɟ,ƃ,,ɥ,ᴉ,ɾ,ʞ,l,ɯ,u,o,d,b,ɹ,s,ʇ,n,ʌ,ʍ,x,ʎ,z,∀,q,Ɔ,p,Ǝ,Ⅎ,פ,H,I,ſ,ʞ,˥,W,N,O,Ԁ,Q,ɹ,S,┴,∩,Λ,M,X,⅄,Z"
+	
+	// //_input = TRANSLATE("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ","ɐqɔpǝɟƃɥᴉɾʞlɯuodbɹsʇnʌʍxʎz∀qƆpƎℲפHIſʞ˥WNOԀQɹS┴∩ΛMX⅄Z")
+	
+	// for _i = 0; _i < ARRAYSIZE(SPLIT(_right,",")); _i++
+	// {
+		// _input = REPLACE(_input,_right[_i],_down[_i])
+	// }
+	
+	// _input
+// }
+//ABCDEFGHIJKLMNOPQRSTUVWXYZ
+
 
 //Thanks to https://www.industrian.net/tutorials/converting-numbers-to-roman-numerals/ for helping me figure out the logic for this
 IntToNumeral
@@ -606,8 +690,9 @@ OnTest
 
 On_tamaOpen
 {
-	SETTAMAHWND(reference[0])
-	SHIORI3FW.Push_X_SSTP_PassThru('Tittle',"%(ANY(poke,needle,poke + ' ' + needle))") //These settings are all optional
+	TamaHWND = reference0
+	SETTAMAHWND(TamaHWND)
+	SHIORI3FW.Push_X_SSTP_PassThru('Title',"%(ANY(poke,needle,poke + ' ' + needle))") //These settings are all optional
 	SHIORI3FW.Push_X_SSTP_PassThru('border.color','999999')
 	SHIORI3FW.Push_X_SSTP_PassThru('background.color','707070')
 	SHIORI3FW.Push_X_SSTP_PassThru('default.color','e5e5e5') //and any other settings you can find in tama.txt
@@ -620,4 +705,122 @@ On_tamaExit
 {
 	SETTAMAHWND(0)
 	"Tama %(poke)d"
+}
+
+OnInitialize
+{
+	ErrorsToPush.level = IARRAY
+	ErrorsToPush.description = IARRAY
+	if reference0 == "reload" && TamaHWND != ""; SETTAMAHWND(TamaHWND)
+	else; TamaHWND = ""
+}
+
+OnDestroy
+{
+	if reference0 != "reload"; TamaHWND = ""
+	SETTAMAHWND(0)
+}
+
+//Gets other ghost names and saves them to a list
+On_otherghostname
+{
+	ghostexlist = ""
+	foreach reference; _ghost
+	{
+		if ghostexlist != ""; ghostexlist += C_BYTE1
+		ghostexlist += _ghost[0]
+	}
+	ghostexcount = ARRAYSIZE(SPLIT(ghostexlist,C_BYTE1))
+}
+
+OnSecondChange
+{
+	//Create arrays if none exist
+	if !ISVAR("ErrorsToPush.level"); ErrorsToPush.level = IARRAY
+	if !ISVAR("ErrorsToPush.description"); ErrorsToPush.description = IARRAY
+
+	if ARRAYSIZE(ErrorsToPush.level) > 0 //If there are errors
+	{
+		_levels = ""
+		_descriptions = ""
+		for _i = 0; _i < ARRAYSIZE(ErrorsToPush.level); _i++ //CHR(1) in here is the divider between errors
+		{
+			if _i > 0; {_levels += CHR(1); _descriptions += CHR(1)}
+			_levels += ErrorsToPush.level[_i]
+			_descriptions += ErrorsToPush.description[_i]
+		}
+		//Push the whole list of errors together
+		SHIORI3FW.PushAdditionalReturn('ErrorLevel',_levels)
+		SHIORI3FW.PushAdditionalReturn('ErrorDescription',_descriptions)
+		
+		//Clear the arrays so we don't send any more errors later
+		ErrorsToPush.level = IARRAY
+		ErrorsToPush.description = IARRAY
+	}
+}
+
+ErrorLog
+{
+	//Create arrays if none exist
+	if !ISVAR("ErrorsToPush.level"); ErrorsToPush.level = IARRAY
+	if !ISVAR("ErrorsToPush.description"); ErrorsToPush.description = IARRAY
+	
+	_level = "warning" //It defaults to warning if it doesn't recognize what you've put in, so I will too
+	if _argv[1] != ""; _level = _argv[1]
+	
+	ErrorsToPush.level ,= _level
+	ErrorsToPush.description ,= _argv[0]
+}
+
+//Functions for checking if the given string is all uppercase or lowercase. If the given string matches itself when the case is changed, then it must be all upper/lowercase. Note that empty strings and numbers are always treated as being true.
+ISUPPER
+{
+	_argv[0] == TOUPPER(_argv[0])
+}
+
+ISLOWER
+{
+	_argv[0] == TOLOWER(_argv[0])
+}
+
+//Searches the start of a string for the requested substring.
+//Argument 0 is the source string to search, argument 1 is the substring to search for.
+//Returns 1 if true, 0 if false.
+//Usage example:
+//StartsWith("Testing","Test")
+StartsWith
+{
+	SUBSTR(_argv[0],0,STRLEN(_argv[1])) == _argv[1]
+}
+
+//Searches the end of a string for the requested substring.
+//Argument 0 is the source string to search, argument 1 is the substring to search for.
+//Returns 1 if true, 0 if false.
+//Usage example:
+//EndsWith("Testing","ing")
+EndsWith
+{
+	SUBSTR(_argv[0],STRLEN(_argv[0]) - STRLEN(_argv[1]),STRLEN(_argv[1])) == _argv[1]
+}
+
+OnFileDrop2 : all
+{
+	_filearray = SPLIT(reference.raw[0],C_BYTE1)
+	
+	foreach _filearray; _file
+	{
+		_filepath = SPLITPATH(_file)
+		_filename = _filepath[2] + _filepath[3]
+		
+		"%(poke) %(_filename)\w8\n"
+	}
+}
+
+OnDirectoryDrop
+{
+	_path = SPLITPATH(reference0)[1]
+	SETDELIM(_path,"\")
+	_len = ARRAYSIZE(_path) - 2
+	_folder = _path[_len] //This stuff gets the folder name
+	"%(poke) %(_folder)"
 }
