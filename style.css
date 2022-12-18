@@ -37,6 +37,12 @@ pre
 	font-size: 13px;
 }
 
+code
+{
+	font-family: 'Courier New', monospace;
+	background: #d1d1d1;
+}
+
 /* removed navlink stuff because it didnt seem to be doing anything */
 
 /* Navbar container */
