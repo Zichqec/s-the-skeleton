@@ -29,6 +29,7 @@ let links = [
 	] },
 	{ path: 'balloons', title: 'Balloons' },
 	{ title: 'Guides', sublinks: [
+		{ path: 'https://zichqec.github.io/YAYA_Fundamentals/', title: 'YAYA Fundamentals' },
 		{ path: 'github', title: 'Network updates with Github' },
 		{ path: 'saori_basic', title: 'Creating SAORI-Basic' },
 		{ path: 'loops_and_arrays', title: 'Loops and Arrays (AYA/YAYA)' },
