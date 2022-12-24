@@ -46,6 +46,7 @@ let links = [
 		{ path: 'advent_calendar_2021', title: 'Advent Calendar 2021' },
 		{ path: 'advent_calendar_2022_00', title: 'Advent Calendar 2022 (#00)' },
 		{ path: 'advent_calendar_2022_01', title: 'Advent Calendar 2022 (#01)' },
+		{ path: 'advent_calendar_2022_02', title: 'Advent Calendar 2022 (#02)' },
 	] },
 ];
 
