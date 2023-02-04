@@ -5,14 +5,15 @@ let islocal = location.protocol == "https:" ? '' : '.html';
 let links = [
 	{ path: 'index', title: 'Home' },
 	{ title: 'Ghosts', sublinks: [
-		{ title: '—Main—' },
+		{ title: '— Solo —' },
 		{ path: 's_the_skeleton', title: 'S the Skeleton' },
 		{ path: 'dusty', title: 'Dusty and Obsidian' },
-		{ title: '—Side—' },
 		{ path: 'flux', title: 'FLUX' },
 		{ path: 'warrior_generator', title: 'Warrior Generator' },
 		{ path: 'guard', title: 'Skyrim Guard' },
-		{ title: '—Collabs—' },
+		{ path: 'xtemplate', title: 'X. Template' },
+		{ path: 'ukatranslator', title: 'Ukatranslator' },
+		{ title: '— Collabs —' },
 		{ path: 'hydrate', title: 'Hydrate' },
 		{ path: 'paper', title: 'Paper' },
 		{ path: 'needle', title: 'Needle' },
@@ -20,8 +21,7 @@ let links = [
 		{ path: 'ct_epoch_jam', title: 'CT Epoch Jam' },
 		{ path: 'iea', title: 'Iea' },
 	] },
-	{ path: 'xtemplate', title: 'X. Template' },
-	{ path: 'ukatranslator', title: 'Ukatranslator' },
+	{ path: 'simplicity_template', title: 'Simplicity Template' },	
 	{ title: 'Code', sublinks: [
 		{ path: 'saoris_plugins_tools', title: 'SAORIs/Plugins/Tools' },
 		{ path: 'functions', title: 'Functions' },

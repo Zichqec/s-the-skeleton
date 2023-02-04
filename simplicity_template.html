@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zi's Ukagaka Hub</title>
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="Zi's Ukagaka Hub"/>
+    <meta property="og:description" content="Zi's hub for Ukagakas and related things"/>
+    <meta property="og:url" content="https://zichqec.github.io/s-the-skeleton/index.html"/>
+    <meta property="og:image" content="https://zichqec.github.io/s-the-skeleton/img/AllTogether.png"/>
+</head>
+
+<body>
+    <nav><div id="navbar" class="navbar"></div></nav>
+	
+    <article>
+        <!--<h1>Zi's Ukagaka Hub</h1>-->
+        <h1>Simplicity Template</h1>
+        <img src="img/simplicity_template_00.png" alt="Simplicity Template Thumbnail" width="200" height="200" class="centersq">
+        <br>
+        <div class="cntr"><a href="https://www.mediafire.com/file/5171mh1zlp2f3uk/simplicity_template_v1.0.0.nar/file">Download the latest .nar file here!</a></div>
+        <p>Does ukagaka development seem intimidating? Does it sound like a huge task that would take forever to complete? Do you wish things could be easier?</p>
+		
+		<p>Or perhaps, are you an experienced developer wanting to try something new? Looking for something more open, with fewer features to decide whether or not you should remove? Wanting to free yourself from the standard setup and make things your own way?</p>
+		
+		<p>Introducing the Simplicity Template! A template built on the philosophy that <i>content</i> is what matters the most, and all other is secondary. There are very few functions here, only a few basic things such as petting, random dialogue, and a talk rate menu. Even the user's name, pronouns, and birthday, are all decided through SSP's preferences menu.</p>
+		
+		<p>If you're skeptical, I urge you to give it a chance! I, too, was skeptical when I first considered making a ghost without a template, but once I finally tried it and made <a href="https://zichqec.github.io/s-the-skeleton/needle">Needle</a>, my perspective totally shifted, and now I need the freedom that having no template provides. This template attempts to strike a balance, giving you an extremely basic setup instead of throwing you completely into the deep end.</p>
+		
+		<p>I really think content is what matters most in a ghost! Think a lot about what you want to <i>do</i> with your ghost; there's so many things they can do and be! "X character but on your desktop" is a very common angle, but you don't have to go that route! Suspension of disbelief is 100% a thing in ghosts. It could be that you're visiting them somewhere, or they're visiting you, or you live together, or you work together. What places other than your desktop might they be? Or what place might they think your desktop is? And what about the user? Are they just a person playing with a desktop toy, or are they drawn into the world as well? It can be vague, or you can pick something wild, like having the user find out they've actually been a werewolf the whole time!</p>
+		
+		<p>So with all of those possibilities in mind, having fewer functions dictated by the template gives you a lot of freedom to explore what your ghost can be! Plus, it means you don't have to spend hours filling in functions that you're not really interested in, only to get burned out before you ever reach the fun and interesting content you wanted to add in the first place! I hope that keeping it simple will make it easier for folks new to ghost coding to get in as well, since it should be less overwhelming to start out with.</p>
+		
+		<p>Give it a try! You can always add in more features from other templates if you decide you want them!</p>
+        <br>
+        <webring-banner>
+			<p>Member of the <a href="https://ukagakawebring.netlify.com/">Ukagaka/Ghost Development and Download</a> webring</p>
+			<a href="https://ukagakawebring.netlify.com//prev">Previous</a>
+			<a href="https://ukagakawebring.netlify.com//random">Random</a>
+			<a href="https://ukagakawebring.netlify.com//next">Next</a>
+		</webring-banner>
+		<script async src="https://ukagakawebring.netlify.com//embed.js" charset="utf-8"></script>
+    </article>
+    <article>
+        <h1 id="history">Version history</h1>
+		<label class="collapsible">Version 1.0.0</label>
+		<div class="collapsible-content">
+			<div class="ver">
+				<div class="centerhead"><b>=====1.0.0=====</b>
+					<div class="ctr">(2/4/23)</div></div>
+				<ul>
+					<li>Initial release</li>
+				</ul>
+				<br>
+			</div>
+		</div>
+        
+    </article>
+
+    <footer>
+        More from Zichqec<br>
+        <a href="https://www.deviantart.com/zichqec"class="footlink">Deviantart</a> | 
+        <a href="https://zichqec.tumblr.com/" class="footlink">Tumblr</a> | 
+        <a href="https://twitter.com/Zichqec" class="footlink">Twitter</a> | 
+        <a href="https://toyhou.se/Zichqec" class="footlink">Toyhouse</a> |
+        <a href="https://www.youtube.com/channel/UC_9BGh45mIL3b3riZ4aTRIA" class="footlink">Youtube</a>
+    </footer>
+	
+	<script> <!--For the collapsible-->
+	var coll = document.getElementsByClassName("collapsible");
+	var i;
+
+	for (i = 0; i < coll.length; i++)
+	{
+		coll[i].addEventListener("click", function()
+		{
+			this.classList.toggle("active");
+			var content = this.nextElementSibling;
+			if (content.style.display === "block")
+			{
+				content.style.display = "none";
+			}
+			else
+			{
+				content.style.display = "block";
+			}
+		}
+	  );
+	}
+	</script>
+
+	<script src="navbar.js"></script>
+
+</body>
+
+</html>
