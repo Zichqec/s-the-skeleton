@@ -18,101 +18,70 @@ OnAiTalk
 	// }
 }
 
-testpool : nonoverlap
+RandomTalk : nonoverlap
 {
-	if !AreThesePopped("Happy","Confused","Shy","Sad")
+	_candidates = IARRAY
+	foreach RandomTalkEx; _dialogue
 	{
-		if !HappyIsPopped; "%(happy)Hum dee dum~\w8%(happyoff) "
-		else; PoppedDialogue("Happy")
-		--
-		if !ConfusedIsPopped; "%(confused)Hum dee doo??\w8%(confusedoff) "
-		else; PoppedDialogue("Confused")
-		--
-		if !ShyIsPopped; "%(shy)H-hum deedle... deedle...\w8%(shyoff) "
-		else; PoppedDialogue("Shy")
-		--
-		if !SadIsPopped; "%(sad)dee...\w8%(sadoff) "
-		else; PoppedDialogue("Sad")
-		--
-		"\n\n(They're all humming together.)"
+		_found = 0
+		if "\![narration-only]" _in_ _dialogue
+		{
+			_found = 1
+		}
+		else
+		{
+			foreach WhichArentPopped; _emotion
+			{
+				_emotion = "\![" + Capitalize(_emotion) + "-start]"
+				if _emotion _in_ _dialogue; {_found = 1; break}
+			}
+		}
+		if _found; _candidates ,= _dialogue
 	}
+	parallel _candidates
 }
 
-//nonoverlap_pool is an amazing modifier added by steve02081504! This makes it so that ALL dialogues you put in the RandomTalk function will have an equal probability of being chosen, no matter how deeply you nest them! Not only that; the nonoverlap part means that it won't repeat itself until it runs out of dialogues, or the number of available dialogues changes. The only exception is if you use a -- to attach two pieces of dialogue together; I'll include an example of what I mean.
-RandomTalk : nonoverlap_pool
+RandomTalkEx : array_pool
 {
 	//"bloons"
 	
 	//————— Dialogues that will work no matter what balloons are popped —————
-	"%(untalk)(They seem content to float here.)\w8"
+	"\![narration-only]%(untalk)(They seem content to float here.)\w8"
 	"%(happy)Bubble,\w4 bubble,\w4 bubble!\w8 %(happyoff)%(confused)What's in the pot??\w8\n\n%(confusedoff)%(pot)"
 	
 	//————— Dialogues for individual balloons —————
-	if !ShyIsPopped
-	{
-		"%(shy)Uhm... I... N-nevermind...\w8%(shyoff)"
-		"%(shy)Rub rub...\w8%(shyoff)"
-	}
+	"%(shy)Uhm... I... N-nevermind...\w8%(shyoff)"
+	"%(shy)Rub rub...\w8%(shyoff)"
 	
-	if !UnamusedIsPopped
-	{
-		"%(unamused)wow this is great\w8%(unamusedoff)"
-		"%(unamused)yawn\w8%(unamusedoff)"
-	}
+	"%(unamused)wow this is great\w8%(unamusedoff)"
+	"%(unamused)yawn\w8%(unamusedoff)"
 	
-	if !ScaredIsPopped
-	{
-		"%(scared)Should we say something about all of these papers everywhere?\w8 No,\w4 no,\w4 stop it,\w4 that isn't any of our business.\w8%(scaredoff)"
-		"%(scared)Oh no,\w4 are our strings getting tangled?\w8 Careful,\w4 don't pull too hard...\w8 No,\w4 we're okay.\w8%(scaredoff)"
-		"%(scared)Are we h-h-haunted?\w8%(scaredoff)"
-	}
+	"%(scared)Should we say something about all of these papers everywhere?\w8 No,\w4 no,\w4 stop it,\w4 that isn't any of our business.\w8%(scaredoff)"
+	"%(scared)Oh no,\w4 are our strings getting tangled?\w8 Careful,\w4 don't pull too hard...\w8 No,\w4 we're okay.\w8%(scaredoff)"
+	"%(scared)Are we h-h-haunted?\w8%(scaredoff)"
 	
-	if !SadIsPopped
-	{
-		"%(sad)... squeak...\w8%(sadoff)"
-	}
+	"%(sad)... squeak...\w8%(sadoff)"
 	
-	if !ConfusedIsPopped
-	{
-		"%(confused)Did you say something??\w8 No???\w8 Did I?\w8 I can't remember??\w8%(confusedoff)"
-		"%(confused)Did you know?\w8 Balloons?\w8 Can look like %(bloonshape)??\w8%(confusedoff)"
-	}
+	"%(confused)Did you say something??\w8 No???\w8 Did I?\w8 I can't remember??\w8%(confusedoff)"
+	"%(confused)Did you know?\w8 Balloons?\w8 Can look like %(bloonshape)??\w8%(confusedoff)"
 	
-	if !HappyIsPopped
-	{
-		"%(happy)Float,\w4 float,\w4 float!\w8%(happyoff)"
-		"%(happy)Hey!!!\w8 Watch my mouth move!\w8 Auuuguuu gobbledygook mucky mook put the duckie in the brook!!\w8%(happyoff)\n\n(It's given itself a case of the giggles.)"
-	}
+	"%(happy)Float,\w4 float,\w4 float!\w8%(happyoff)"
+	"%(happy)Hey!!!\w8 Watch my mouth move!\w8 Auuuguuu gobbledygook mucky mook put the duckie in the brook!!\w8%(happyoff)\n\n(It's given itself a case of the giggles.)"
 	
-	if !AngryIsPopped
-	{
-		"%(angry)DON'T EVEN THINK ABOUT POKING ME!\w8%(angryoff)"
-	}
+	"%(angry)DON'T EVEN THINK ABOUT POKING ME!\w8%(angryoff)"
 	
-	if !ThinkIsPopped
-	{
-		"%(think)I wonder,\w4 what time is it at home?\w8 If it is %(nowhour):%(nowmin) here,\w4 then...\w8%(thinkoff)"
-		"%(think)Bounce and bob.\w8%(thinkoff)"
-		"%(think)How many of us are here?\w8 I wonder.\w8%(thinkoff)"
-		"%(think)Do you believe that a balloon can also be %(bloonbe)?\w8%(thinkoff)"
-	}
+	"%(think)I wonder,\w4 what time is it at home?\w8 If it is %(nowhour):%(nowmin) here,\w4 then...\w8%(thinkoff)"
+	"%(think)Bounce and bob.\w8%(thinkoff)"
+	"%(think)How many of us are here?\w8 I wonder.\w8%(thinkoff)"
+	"%(think)Do you believe that a balloon can also be %(bloonbe)?\w8%(thinkoff)"
 	
 	//————— Dialogues that require groups of balloons —————
 	
-	if !AreThesePopped("Happy","Confused","Shy","Sad")
-	{
-		"%(happy)Hum dee dum~\w8 %(happyoff)%(confused)Hum dee doo??\w8 %(confusedoff)%(shy)H-hum deedle... deedle...\w8 %(shyoff)%(sad)dee...\w8\n\n%(sadoff)(They're all humming together.)"
-	}
+	"%(happy)Hum dee dum~\w8 %(happyoff)%(confused)Hum dee doo??\w8 %(confusedoff)%(shy)H-hum deedle... deedle...\w8 %(shyoff)%(sad)dee...\w8\n\n%(sadoff)(They're all humming together.)"
 	
-	if !AreThesePopped("Happy","Sad","Unamused")
-	{
-		"%(happy)Oh!\w8 We should play a game!!\w8 %(happyoff)%(sad)...\w8 but...\w8 i don't have a pen...\w8 all the games i know need a pen... \w8%(sadoff)%(unamused)forget it,\w4 i don't like games anyway\w8%(unamusedoff)"
-	}
+	"%(happy)Oh!\w8 We should play a game!!\w8 %(happyoff)%(sad)...\w8 but...\w8 i don't have a pen...\w8 all the games i know need a pen... \w8%(sadoff)%(unamused)forget it,\w4 i don't like games anyway\w8%(unamusedoff)"
 	
-	if !AreThesePopped("Sad","Angry","Unamused")
-	{
-		"%(sad)pop... pop... pop...\w8 %(sadoff)%(angry)POP!\w8%(angryoff)%(unamused)\n\ni'm not even popped right now%(unamusedoff)"
-	}
+	"%(sad)pop... pop... pop...\w8 %(sadoff)%(angry)POP!\w8%(angryoff)%(unamused)\n\ni'm not even popped right now%(unamusedoff)"
 	
 
 	
@@ -265,12 +234,9 @@ RandomTalk : nonoverlap_pool
 	
 	//---Noticing and commenting on other ghosts---
 	//Remember that you have to check for the sakura name of another ghost, not the ghost name.
-	if !AreThesePopped("Unamused","Happy")
+	if "Needle" _in_ ghostexlist
 	{
-		if "Needle" _in_ ghostexlist
-		{
-			"%(unamused)don't even think about it, needle\w8 %(unamusedoff)%(happy)Oh!\w8 We could play the poke game!\w8%(happyoff)"
-		}
+		"%(unamused)don't even think about it, needle\w8 %(unamusedoff)%(happy)Oh!\w8 We could play the poke game!\w8%(happyoff)"
 	}
 	
 }

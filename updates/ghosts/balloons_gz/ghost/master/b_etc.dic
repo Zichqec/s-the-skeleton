@@ -657,7 +657,7 @@ OnUpdateComplete
 //I've put this here so it's easier to remember to update the version number while you're updating the changelog. This will display on the ghost's menu. I made it an envelope so you can have it be the same across multiple menus for multiple modes, if you want.
 ghostver
 {
-	"1.0.1"
+	"1.0.2"
 }
 
 //the autoscroll tag here means the user will see the changelog starting from the top. I recommend putting the new versions on top, and old versions under that.
@@ -705,6 +705,16 @@ OnChangeLog : all //Haha I hope I remember to update this
 //Newer changelogs up top
 ChangeLog : array
 {	
+	all:/
+	{
+		"2/12/23"; C_BYTE1
+		"\f[align,center]%(emdash)Version 1.0.2%(emdash)\n \n\n[half]\f[align,left]"
+		"• Fixed an issue in Balloons Balloon, undetected before because of an SSP bug. Please ensure your SSP is up to date and make sure you perform a balloon update!\n\n"
+		"• Drastically cleaned up some code in the backend, making it much easier to add new dialogue in the future.\n\n"
+		"• Updated YAYA to Tc571-5.\n\n"
+		"\n"
+	}
+
 	all:/
 	{
 		"6/3/22"; C_BYTE1

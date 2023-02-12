@@ -122,9 +122,7 @@ Anchor.Name_1
 }
 
 //Setting variables in random dialogue
-//You can use this to do detailed variable changes and such in dialogue. If you only need to set one variable, I recommend using EVAL in the line of dialogue, like so:
-//"Some dialogue that changes a variable.\e:eval=somevar='some value'"
-//Otherwise, you can use this system like so: "Some dialogue\![raise,OnDialogueVars,example]", changing the word example to whatever reference you want to send to OnDialogueVars
+//You can use this system like so: "Some dialogue\![raise,OnDialogueVars,example]", changing the word example to whatever reference you want to send to OnDialogueVars
 OnDialogueVars
 {
 	case reference0

@@ -42,8 +42,7 @@ Select.UpdateOff
 	AutoUpdates[0] = "Off"
 	AutoUpdates[1] = 1
 	
-	if !SadIsPopped; "%(sad)...ok,\w4 i won't check for updates anymore...\w8%(sadoff)"
-	else; PoppedDialogue("Sad")
+	"%(sad)...ok,\w4 i won't check for updates anymore...\w8%(sadoff)"
 }
 
 //Main menu. The all modifier here means every string will be output in order, so you don't need to write -- between lines
@@ -103,18 +102,30 @@ OnGoodbye
 
 OnDressupMenu : all
 {
-	"\C\![lock,balloonrepaint]\![set,autoscroll,disable]\0\c\b2\_q" //flicker prevention not working? idk why
+	_colors = "Red,Orange,Yellow,Green,Cyan,Blue,Purple,Pink"
+	_charms = "Heart,Star,Balloon"
+	
+	"\C\![lock,balloonrepaint]\![set,autoscroll,disable]\0\c\b2\_q"
 	"\f[align,center]%(emdash) Customization %(emdash)%(newline)\n\n"
 	
-	foreach dressups_available; _dressup
+	if reference0 != "" //If a category has been selected
 	{
-		_name = _dressup[1,"|"]
-		_cat = _dressup[0,"|"]
 		
-		if ASEARCH("%(_cat)|%(_name)",dressups_current) != -1; "\![*]"
-		
-		"\q[%(_name),OnDressupMenuAdd,%(_cat),%(_name)]  "
 	}
+	else
+	{
+		foreach dressups_available; _dressup
+		{
+			_name = _dressup[1,"|"]
+			_cat = _dressup[0,"|"]
+			
+			if ASEARCH("%(_cat)|%(_name)",dressups_current) != -1; "\![*]"
+			
+			"\q[%(_name),OnDressupMenuAdd,%(_cat),%(_name)]  "
+		}
+	}
+	
+	
 	"\n\n\n\![*]\q[Back,OnMenuRun]\![unlock,balloonrepaint]"
 }
 
@@ -269,7 +280,7 @@ OnConfigMenu : all
 	_h = "\f[color,default.anchor]" //Highlight
 	_d = "\f[color,default]" //Default
 	
-	"\0\_q\b2\![close,inputbox,%(reference0)]"
+	"\C\![lock,balloonrepaint]\c\0\_q\b2\![close,inputbox,%(reference0)]"
 	
 	"\f[align,center]%(emdash) Config %(emdash)\n\n\f[align,default]"
 	
@@ -288,7 +299,7 @@ OnConfigMenu : all
 	"\![*]Auto update checks: %(_h)\__q[OnToggleUpdate]%(AutoUpdates[0])\__q%(_d)\n"
 	"\![*]Enable Uninstall? %(_h)\__q[OnToggleUninstall]%(deletebutton)\__q%(_d)\n\n"
 	
-	"\![*]\q[Back to the menu,OnMenuRun]\e"
+	"\![*]\q[Back to the menu,OnMenuRun]\![unlock,balloonrepaint]\e"
 }
 
 //This is here in case the variables get erased. The buttons will be set to default so the user has something to click in the config menu. This has happened to my users before and resetting them is a painful process. Do not remove these, you'll want to add in new ones for any toggle buttons you have in the config menu. This is also called in BootVars and UpdateVars, which is why it's separate from the config menu itself.
@@ -729,4 +740,9 @@ OnDestroy
 		x.up_all = x.up_total //I rewrote the timekeeping system... I like the way it's set up in the base SHIORI files, except that it goes back to 0 every time the ghost reloads and that's annoying. So I recreated it lol
 	}
 	SETTAMAHWND(0)
+}
+
+OnTestDialogue
+{
+	"%(reference0)"
 }
