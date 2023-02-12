@@ -25,12 +25,12 @@
 		<p>Based on the <a href="https://emily.shillest.net/ayaya/index.php?StartUp/AYA%E3%81%8B%E3%82%89%E3%81%AE%E7%A7%BB%E8%A1%8C">conversion notes from AYAYA</a>, but modified to suit the new YAYA setup.</p>
 		
 		<ol>
-			<li>In ghost/master/descript.txt, change <b>shiori,aya5.dll</b> to <b>shiori,yaya.dll</b></li>
-			<li>Delete aya5.dll and put yaya.dll in its place. (yaya.dll download <a href="https://github.com/ponapalt/yaya-shiori/releases">here</a> - download the regular yaya.zip of the latest version)</li>
+			<li>In ghost/master/descript.txt, change <b>shiori,aya5.dll</b> to <b>shiori,yaya.dll</b>.</li>
+			<li>Delete aya5.dll and put yaya.dll in its place. (yaya.dll download <a href="https://github.com/ponapalt/yaya-shiori/releases">here</a> - download the regular yaya.zip of the latest version).</li>
 			<li>Rename <b>aya5.txt</b> to <b>yaya.txt</b></li>
-			<li>Download the system dictionary files <a href="https://github.com/ponapalt/yaya-dic">here</a> (you can click Code>Download Zip), exctract them, and copy the <b>yaya_base</b> folder into your <b>ghost/master/</b> folder. Not the contents of it, the whole folder. <u>You do not need the other files that you downloaded and can ignore them</u></li>
+			<li>Download the system dictionary files <a href="https://github.com/ponapalt/yaya-dic">here</a> (you can click Code>Download Zip), exctract them, and copy the <b>yaya_base</b> folder into your <b>ghost/master/</b> folder. Not the contents of it, the whole folder. <u>You do not need the other files that you downloaded and can ignore them</u>.</li>
 			<li>In yaya.txt, delete <b>dic, aya_shiori3.dic</b> and replace it with <b>dicdir, yaya_base</b></li>
-			<li>In yaya_base/config.dic, make sure <b>SHIORI3FW.AUTO_DATA_CONVERT</b> is set to <b>1</b>, and <b>SHIORI3FW.REF_ACCEL</b> is set to <b>0</b></li>
+			<li>In yaya_base/config.dic, make sure <b>SHIORI3FW.AUTO_DATA_CONVERT</b> is set to <b>1</b>, and <b>SHIORI3FW.REF_ACCEL</b> is set to <b>0</b>. If you want to know more about AUTO_DATA_CONVERT, you can read about it <a href="https://ukagakadreamteam.com/wiki/guide/aya_yaya/what_is_auto_data_convert_zichqec">here</a>. As far as I know, AYA uses AUTO_DATA_CONVERT, so you should turn it on unless you know for sure you do not need it.</li>
 			<li>In your aitalk.dic, run a search for a function called <b>AiTalk</b>. If it is named <b>AiTalk</b>, rename it to <b>OnAiTalk</b></li>
 			<li>Run a search in your ghost's files for a function called <b>OnChoiceSelect</b>. If it does not exist, add this function into a file somewhere:
 <pre>

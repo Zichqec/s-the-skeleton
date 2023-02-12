@@ -26,12 +26,12 @@
 		<p>When upgrading from old versions of YAYA, there are a few possible versions you might have. You may be able to skip some of these steps. If you have any questions, please do ask.</p>
 		
 		<ol>
-			<li>If you have a folder called <b>system</b> in your <b>ghost/master/</b>  folder, delete it</li>
-			<li>If you have a folder called <b>messagetxt</b> in your <b>ghost/master/</b>  folder, delete it</li>
+			<li>If you have a folder called <b>system</b> in your <b>ghost/master/</b> folder, delete it</li>
+			<li>If you have a folder called <b>messagetxt</b> in your <b>ghost/master/</b> folder, delete it</li>
 			<li>If you have a file called <b>system_config.txt</b> in your <b>ghost/master/</b>  folder, cut and paste anything in it (except the bits that call dic files) into yaya.txt, and then delete system_config.txt</li>
-			<li>If you have a file called <b>yaya_config.txt</b> in your <b>ghost/master/</b>  folder, delete it. If you've made any changes in this file before, you may want to take note of them so you can apply them in the updated config file you will be adding.</li>
+			<li>If you have a file called <b>yaya_config.txt</b> in your <b>ghost/master/</b>  folder, open it and check the contents. If you've made any changes in this file before, you will want to make note of them so that you can apply them in the new config file you'll be adding later. In particular, check what value is set for AUTO_DATA_CONVERT. Then, delete the yaya_config.txt file.</li>
 			<li>Download the system dictionary files <a href="https://github.com/ponapalt/yaya-dic">here</a> (you can click Code>Download Zip), extract them, and copy the <b>yaya_base</b> folder into your <b>ghost/master/</b> folder. Not the contents of it, the whole folder. <u>You do not need the other files that you downloaded and can ignore them</u></li>
-			<li>In yaya_base/config.dic, make sure <b>SHIORI3FW.AUTO_DATA_CONVERT</b> is set to <b>1</b>, and <b>SHIORI3FW.REF_ACCEL</b> is set to <b>0</b> (You can skip this step if you know what auto data convert is and were not originally using it)</li>
+			<li>In yaya_base/config.dic, make sure your settings are as they were before. Note that they may have been rearranged. AUTO_DATA_CONVERT and REF_ACCEL in particular are important. If you want to learn more about AUTO_DATA_CONVERT and whether you do or do not need it, you can read about it <a href="https://ukagakadreamteam.com/wiki/guide/aya_yaya/what_is_auto_data_convert_zichqec">here</a>.</li>
 			<li>In yaya.txt, delete <b>include, system_config.txt</b> and replace it with <b>dicdir, yaya_base</b></li>
 			<li>In yaya.txt, run a search for <b>messagetxt</b>. If you find this option, replace it with <b>msglang,english</b> (or your preferred supported language). If you have neither of these, add <b>msglang,english</b> (or your preferred supported language)</li>
 			<li>Replace your yaya.dll with the latest version of yaya.dll (yaya.dll download <a href="https://github.com/ponapalt/yaya-shiori/releases">here</a> - download the regular yaya.zip of the latest version)</li>
