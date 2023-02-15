@@ -5,7 +5,11 @@ charset.file, UTF-8
 charset.save, UTF-8
 charset.extension, UTF-8
 
-dicdir, yaya_base
+dic, yaya_base/config.dic, UTF-8
+dic, yaya_base/shiori3.dic, UTF-8
+dicif, yaya_base/optional.dic, UTF-8
+dicif, yaya_base/compatible.dic, UTF-8
+
 dic, b_aitalk.dic
 dic, b_anchor.dic
 dic, b_bootend.dic
