@@ -1,0 +1,196 @@
+OnMouseMove
+{
+	//reference3 is what character the mouse is over. 0 is Sakura, 1 is Kero
+	if reference3 == 0; MouseMoveSakura
+	else; MouseMoveKero
+}
+
+//stroke is an array here, to save on variables. stroke[0] is the original stroke value, which resets after every successful pet. stroke[1] is the continuous stroking. It's the same as stroke[0], but it does not reset until your mouse leaves the character. stroke[2] is the number of successful pets in a row.
+MouseMoveSakura
+{
+	if reference4 == "Head"
+	{
+		stroke[0]++ //Stroke value only goes up when over the appropriate areas
+		stroke[1]++
+		
+		if stroke[1] >= 160 //this would happen starting at 4 pets
+		{
+			if stroke[0] >= 160 //Stroke count is longer so that you have time to read the dialogue here. Adjust as you like.
+			{
+				stroke[0] = 0
+				stroke[2]++
+				totalpets++
+				
+				"\0%(s0)This is dialogue for petting me continuously!\w8\w8 You're on a %(stroke[2]) pet streak!\e"
+			}
+		}
+		elseif stroke[0] >= 40
+		{
+			stroke[0] = 0 //Stroke value is reset
+			stroke[2]++
+			totalpets++
+			
+			"\0%(s0)Petting dialogue!\e"
+		}
+	}
+	elseif reference4 == "Face"
+	{
+		stroke[0]++
+		
+		if stroke[0] >= 40
+		{
+			stroke[0] = 0
+			"\0%(s0)That's my face!\e"
+		}
+	}
+}
+
+//When the mouse is no longer on a hitbox. You can change to OnMouseLeave if you want it to happen when you leave any hitbox for another one
+OnMouseLeaveAll
+{
+	if stroke[1] > 160 && stroke[1] > pethighscore[0] //Checks if you're in continuous petting, and if you are, if you got a high score.
+	{
+		pethighscore[0] = stroke[1]
+		if BalloonIsOpen //Checks to see if the balloon is open, and if it is, \C means this will be added onto the previous dialogue.
+		{
+			"\C\n\n(New high score! %(pethighscore[0])!)\e"
+		}
+	}
+	--
+	if stroke[2] > pethighscore[1] //Same thing here, but it's counting the number of successful pets you got. You can use this instead of the stroke count if you like.
+	{
+		pethighscore[1] = stroke[2]
+	}
+	--
+	stroke[0] = 0
+	stroke[1] = 0
+	stroke[2] = 0
+}
+
+OnMouseDoubleClick
+{
+	if reference5 == 0 && reference3 == 0 //reference5 is the mouse button being clicked, in this case a left click. Also checks to see if this is during the first boot, and if so, prevents the menus from being opened
+	{
+		if reference4 == "menu"; OpenSakuraMenu
+		elseif ClickMode != "Single" && "Balloon_" _in_ reference4; BalloonPopCheck
+		
+		
+		
+		// _test = ""
+		// if ClickMode != "Single" && "Balloon_" _in_ reference4; _test = BalloonPopCheck
+		
+		// if _test == ""; OpenSakuraMenu
+		// else; _test
+	}
+}
+
+OnMouseClick
+{
+	if reference3 == 0 && reference5 == 0 && ClickMode == "Single"
+	{
+		BalloonPopCheck
+	}
+}
+
+PopSound
+{
+	if SoundsOn == "On"
+	{
+		_sound = pop_sounds
+		"\![sound,play,%(_sound),--volume=%(Volume),--rate=%(RAND(75) + 75)]"
+	}
+}
+
+BalloonPopCheck
+{
+	if "Balloon_" _in_ reference4 && !EVAL("%(SPLIT(reference4,'_')[1])IsPopped") //The EVAL here checks if the balloon is popped before playing the sound
+	{
+		PopSound
+	}
+	--
+	if reference4 == "Balloon_Shy" && !ShyIsPopped
+	{
+		"\![embed,OnPopShy]"
+	}
+	elseif reference4 == "Balloon_Unamused" && !UnamusedIsPopped
+	{
+		"\![embed,OnPopUnamused]"
+	}
+	elseif reference4 == "Balloon_Scared" && !ScaredIsPopped
+	{
+		"\![embed,OnPopScared]"
+	}
+	elseif reference4 == "Balloon_Sad" && !SadIsPopped
+	{
+		"\![embed,OnPopSad]"
+	}
+	elseif reference4 == "Balloon_Confused" && !ConfusedIsPopped
+	{
+		"\![embed,OnPopConfused]"
+	}
+	elseif reference4 == "Balloon_Happy" && !HappyIsPopped
+	{
+		"\![embed,OnPopHappy]"
+	}
+	elseif reference4 == "Balloon_Angry" && !AngryIsPopped
+	{
+		"\![embed,OnPopAngry]"
+	}
+	elseif reference4 == "Balloon_Think" && !ThinkIsPopped
+	{
+		"\![embed,OnPopThink]"
+	}
+	--
+	LOGGING("====================================================================")
+	LOGGING("reference4: %(reference4)")
+	LOGGING("AllArePopped: %(AllArePopped)")
+	if "Balloon_" _in_ reference4; "\![embed,OnMouseUnpopCheck,%(reference4)]"
+}
+
+OnMouseUnpopCheck
+{
+	if "Balloon_" _in_ reference0 && AllArePopped
+	{
+		//UnpopAll
+		"\t\w8\w8"
+		--
+		UnpopAllWithEmbeds
+		//--
+		//"(bloop)"
+	}
+}
+
+UnpopAllWithEmbeds
+{
+	"\t"
+	--
+	"\![embed,OnUnpopShy]\w2"
+	--
+	"\![embed,OnUnpopUnamused]\w2"
+	--
+	"\![embed,OnUnpopScared]\w2"
+	--
+	"\![embed,OnUnpopSad]\w2"
+	--
+	"\![embed,OnUnpopConfused]\w2"
+	--
+	"\![embed,OnUnpopHappy]\w2"
+	--
+	"\![embed,OnUnpopAngry]\w2"
+	--
+	"\![embed,OnUnpopThink]\w2"
+}
+
+pop_sounds : nonoverlap
+{
+	"snd/balloon_pop_0"
+	--
+	"0"
+	"1"
+	"2"
+	"3"
+	"4"
+	"5"
+	--
+	".wav"
+}

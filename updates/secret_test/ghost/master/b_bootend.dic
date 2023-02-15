@@ -1,0 +1,349 @@
+//Dialogue when you first open the ghost
+OnFirstBoot
+{
+	if reference0 != "novars"; FirstBootVars //Initialize all your variables at the very bottom!
+
+	"\t\1\s[-1]\0\![set,alpha,0]\s[0]%(FadeIn)"
+	--
+	"(A sudden sharp wind brings a colorful mass of rubber and strings fluttering into view.)\w8\n\n%(scared)EEK!\w8 That was a big one...\w8%(scaredoff) %(confused)Where are we???\w8%(confusedoff)\n\n(It's a bunch of balloons.)\w8\x"
+	--
+	"%(shy)O-oh,\w4 uhm,\w4 s-sorry,\w4 we didn't mean to bump into you like that...\w8%(shyoff) %(unamused)though you were in the way, so it's not really our fault\w8%(unamusedoff)\n\n(They're more talkative than most balloons.)\w8\n\n%(think)Apologies.\w8 Allow me to start over.\w8%(thinkoff)\x"
+	--
+	"%(happy)We just drifted in!\w8 It's so fun to meet new people,\w4 and you're new,\w4 so hello!!!\w8 It's nice to meet you!\w8%(happyoff)\n\n\![*]\q[""Hello!"",OnFirstBootChoice,Hello]\n\![*]\q[""This is a little weird."",OnFirstBootChoice,Weird]\n\![*]\q[""..."",OnFirstBootChoice,Ellipses]"
+	--
+	"\_l[-10000,-10000]\*\q[ ,__VERY_FIRST_BOOT__]"
+}
+
+OnFirstBootChoice
+{
+	"\t"
+	--
+	if reference0 == "Hello"
+	{
+		_zalgo = "H̷͉͗ͫͩE̛̮͖̹̪̓͜L̍̿̓L̡̤̞͆͝O̵̳͔͎ͭͧ̂̕ͅ,͈̯̰̙ͪ́͘ ̢̢̳͕̱͍̇ͧ̐Ḟ̛̰͕̭̼R̡̖̼̊̒̇ͯI͈̗̱̒Ê̙ͮN̬͕̾͟D̳̖̂!̩̼̐͜"
+		
+		"%(alltalk)\![set,balloonwait,0.4]%(_zalgo)\![set,balloonwait,1]\w8%(notalk)\x"
+		--
+		"%(happy)Haha,\w4 sorry,\w4 we get a little excited!\w8%(happyoff)%(br)%(scared)Don't be too loud...\w8 Don't be too annoying...\w8 Friends don't scare friends away...\w8%(scaredoff) %(confused)So?\w8 What's your name???\w8%(confusedoff)"
+	}
+	elseif reference0 == "Weird"
+	{
+		"%(angry)YOU'RE THE WEIRD ONE!\w8%(angryoff) %(unamused)so what if we're weird?\w8%(unamusedoff) %(sad)there's no reason to be mean about it...\w8 i didn't even do anything...\w8%(sadoff)\x"
+		--
+		"%(unamused)whatever.\w8 we're stuck here until the wind picks up either way.\w8%(unamusedoff) %(think)May I inquire about your name?\w8%(thinkoff)"
+	}
+	else //Ellipses
+	{
+		"%(shy).\w4.\w4.\w4 Uhm... Okay... W-well...\w8%(shyoff) %(sad)is there anything i can call you...?\w8%(sadoff)"
+	}
+	--
+	"\![open,inputbox,OnNameTeach,-1,--reference=firstboot]\_l[-10000,-10000]\*\q[ ,__VERY_FIRST_BOOT__]"
+}
+
+//Normal booting
+OnBoot
+{
+	"\1\s[-1]" //This line ensures the Kero character does not appear. Feel free to remove if you want a Kero.
+	--
+	// if "%(month)/%(day)" == birthday[1] //If you want to write dates as DD/MM, feel free to swap this around. Also, feel free to add any other holidays you like here. Some ideas would be April Fools, Christmas, Halloween, your character's birthday, etc.
+	// {
+		// "\0%(s0)Happy birthday %(username)!\e"
+	// }
+	// else
+	// {
+		// NormalBoot
+	// }
+	"\t\0\s[0]\![set,alpha,0]%(FadeIn)\![raise,OnBootDialogue]"
+}
+
+OnBootDialogue
+{
+	"%(happy)Oh,\w4 hi!!!\w8 Hello!\w8 It's nice to see you again!\w8%(happyoff)"
+	"%(sad)... hi...\w8%(sadoff)"
+	"%(angry)WHAT!?\w8%(angryoff)"
+	"%(think)Salutations.\w8%(thinkoff)"
+	"%(shy)H-hello there...\w8%(shyoff)"
+	"%(unamused)sup\w8%(unamusedoff)"
+	"%(confused)Uhm?\w8 When did I get here???\w8%(confusedoff)"
+	"(The wind brings back muttering friends.)\w8\n\n%(scared)It's okay,\w4 we're friends,\w4 we can just say%(br)'hi' to each other...\w8 so just...\w8 say 'hi'...\w8\n\n%(narrator)(They may be muttering for a while.)\w8%(scaredoff)"
+	"%(happy)Hello again!!\w8%(happyoff) %(angry)FRIEND.\w8%(angryoff)"
+	"%(think)Ah.\w8 Here once again.\w8 %(thinkoff)%(unamused)could be worse,\w4 i guess\w8%(unamusedoff)"
+	"%(confused)Huh?\w8 Did you come find me??\w8 %(confusedoff)%(sad)or did i drift here again...?\w8%(sadoff)"
+	"%(scared)AHH!\w8\w8 %(scaredoff)%(shy)... O-oh,\w4 it's you.\w8 %(shyoff)%(scared)We're okay,\w4 it's nothing to worry about...\w4 Deep breaths...\w8 %(scaredoff)%(shy)H-hello!\w8%(shyoff)"
+}
+
+//Closing the ghost
+OnClose : pool
+{	
+	//if x.up_mins >= 5 //If the ghost has been open longer than 5 minutes.
+	
+	if !AreThesePopped("Unamused","Think","Scared","Sad","Angry")
+	{
+		"%(unamused)oh no wow a wind storm out of nowhere,\w4 guess we have to leave now, bye\w8%(unamusedoff)"
+		"%(think)Busy?\w8 Another time,\w4 perhaps.\w8%(thinkoff)"
+		"%(scared)Oh,\w4 oh no,\w4 are we being shooed away?\w8 What did we do?\w8 Oh no,\w4 no,\w4 no... We'd better just go before we make it worse...\w8%(scaredoff)"
+		"%(sad)oh.\w4.\w4.\w4 okay... bye then...\w8%(sadoff)"
+		"%(angry)FINE!\w8 I WANTED TO GO ANYWAY!\w8%(angry)"
+	}
+	else
+	{
+		"(A sudden breeze whisks it away before anything can be said.)\w8"
+	}
+	--
+	"\t%(FadeOut)\w8\w8\-\e"
+}
+
+//reference0 user or system depending on if this was manual or because the computer shut down
+OnCloseAll : pool
+{
+	LOGGING("====================================================================")
+	LOGGING("====================================================================")
+	LOGGING("====================================================================")
+	LOGGING("reference0: %(reference0)")
+	if (ghostexcount > 0 && reference0 == "user") || reference0 == "system"
+	{
+		"%(think)Leaving?\w8 %(thinkoff)%(shy)U-um,\w4 take care going home...%(shyoff)"
+		"%(sad)... oh,\w4 it's time for you to go...?\w8 okay...\w8 %(sadoff)%(happy)See you next time!!%(happyoff)"
+		"%(scared)Oh,\w4 %(username)'s leaving...\w8 Um,\w4 I should say something...\w8 %(scaredoff)%(happy)Bye!!\w8 %(happyoff)%(shy)W-we'll just...\w8 Be right here,\w4 if you d-decide to come back...%(shyoff)"
+		"%(think)You're heading out?\w8 %(thinkoff)%(unamused)sure,\w4 just leave me here,\w4 that's fine%(unamusedoff)"
+		"%(angry)TAKE ME WITH YOU!!\w8 %(angryoff)%(scared)Uhhh,\w4 um,\w4 that was too much wasn't it...\w8 %(scaredoff)%(shy)U-um,\w4 or,\w4 uh,\w4 I'll just...\w8 Drift home on my own,\w4 eventually...\w8 %(shyoff)%(unamused)cya%(unamusedoff)"
+		"%(confused)Oh???\w8 You're leaving??? %(confusedoff)%(think)I suppose I will wait here for the wind to take me home.\w8 %(thinkoff)%(unamused)later%(unamusedoff)"
+		--
+		"\t%(FadeOut)\w8\w8\-\e"
+	}
+	else; OnClose
+}
+
+//When you minimize the ghost
+OnWindowStateMinimize
+{
+	_zalgo = "L̷̨̺͉̍ͣͅǪ̜ͣͧ͢O͌͑͒͐K ̪̞͆̏̀W̠̯̓̅͋H̬͕̏Ă̪̻̪͇ͩŢ̶͚͚͓ ̡͖ͨŶ͕̫̘̋͘O͇̔Ŭ̮̮'̘͖̻͇͐͊ͩͥ͘V̺̥̝̬Ḙ͍ ̟̠̠ͯ̀͞D͛ͣ̍́O͕̖̠͙̕͢Ṋ̥̎ͯ̕Ę̗̩̳͗͗ͥ"
+	
+	
+	
+	
+	if !ShyIsPopped; "%(PopSound)\i[2050]\i[1010]\w2"
+	--
+	if !UnamusedIsPopped; "%(PopSound)\i[2150]\i[1110]\w2"
+	--
+	if !ScaredIsPopped; "%(PopSound)\i[2250]\i[1210]\w2"
+	--
+	if !SadIsPopped; "%(PopSound)\i[2350]\i[1310]\w2"
+	--
+	if !ConfusedIsPopped; "%(PopSound)\i[2450]\i[1410]\w2"
+	--
+	if !HappyIsPopped; "%(PopSound)\i[2550]\i[1510]\w2"
+	--
+	if !AngryIsPopped; "%(PopSound)\i[2650]\i[1610]\w2"
+	--
+	if !ThinkIsPopped; "%(PopSound)\i[2750]\i[1710]\w2"
+	--
+	
+	"\t\![set,balloonwait,0.4]%(_zalgo)\w8\![set,balloonwait,1]"
+	--
+	"\n\n(Shreds of balloons are stuffed out of sight.)\w8\e"
+	
+	ShyIsPopped = 1
+	UnamusedIsPopped = 1
+	ScaredIsPopped = 1
+	SadIsPopped = 1
+	ConfusedIsPopped = 1
+	HappyIsPopped = 1
+	AngryIsPopped = 1
+	ThinkIsPopped = 1
+}
+
+//When you bring the ghost back up after minimizing it
+OnWindowStateRestore
+{
+	"%(s0)\w8"
+	--
+	"\t"
+	--
+	"\![embed,OnUnpopShy]\w2"
+	--
+	"\![embed,OnUnpopUnamused]\w2"
+	--
+	"\![embed,OnUnpopScared]\w2"
+	--
+	"\![embed,OnUnpopSad]\w2"
+	--
+	"\![embed,OnUnpopConfused]\w2"
+	--
+	"\![embed,OnUnpopHappy]\w2"
+	--
+	"\![embed,OnUnpopAngry]\w2"
+	--
+	"\![embed,OnUnpopThink]\w2"
+	--
+	"( ... They seem okay, now that they have space again.)"
+	"(Back to normal.)"
+}
+
+//Changing to another ghost
+OnGhostChanging
+{
+	_path = REPLACE(SHIORI3FW.Path,"\","/")
+	_path = REPLACE(_path,"ghost/master/","")
+	
+	if reference3 == _path //If reloading.
+	{
+		"(Balloons will return after this commercial break.)"
+	}
+	else
+	{	
+		"%(happy)Oh!!\w8 Another friend!!\w8 Let's go say hi!!%(happyoff)"
+		"%(sad)oh,\w4 goodbye...?\w8 %(sadoff)%(confused)You're bringing someone else in???\w8 %(confusedoff)%(think)Then,\w4 I suppose we shall take our leave.\w8%(thinkoff)%(shy)\n\nB-bye.%(shyoff)"
+		"%(angry)OH,\w4 I SEE HOW IT IS,\w4 YOU WANT TO SPEND TIME WITH %(TOUPPER(reference0)) INSTEAD OF ME.\w8 %(angryoff)%(unamused)fine whatever cya%(unamusedoff)"
+		"%(scared)Oh,\w4 someone else is coming,\w4 I should go...\w8 %(scaredoff)%(shy)U-um,\w4 I'll s-see you later...?%(shyoff)"
+		"%(happy)Another friend another friend!!\w8 %(happyoff)%(unamused)guess i gotta go%(unamusedoff)"
+	}
+	--
+	"\t%(FadeOut(20))\w8\w8\w8\e" //Gives the user a moment to read the dialogue before they disappear
+}
+
+//After switching
+OnGhostChanged
+{
+	_path = REPLACE(SHIORI3FW.Path,"\","/")
+	_path = REPLACE(_path,"ghost/master/","")
+	
+	if reference3 == _path //Finished reloading.
+	{
+		"\t\1\s[-1]\0\s[0]\![set,alpha,0]%(FadeIn(20))\![raise,OnReloadedDialogue]"
+		
+	}
+	else; OnBoot //TODO might be an SSP bug that this doesn't work without the else? If there's no response from this it should go to OnBoot, right..? Do the variables make a difference?
+	// else
+	// {
+
+		// "\0%(s0)Cya %(reference0)!\e"
+	// }
+}
+
+OnReloadedDialogue
+{
+	"(Now returning to your regularly scheduled balloons.)"
+}
+
+OnBasewareUpdating
+{
+	"(A storm is coming. Perhaps it will bring good things.)\t%(FadeOut(20))\w8\w8\e"
+}
+
+//Starting to change the shell
+// OnShellChanging
+// {
+	// if reference0 == nowshell
+	// {
+		// "\0%(s0)I'm already wearing that?\w8\w8 But ok I guess!"
+	// }
+	// elseif reference0 == "Default Shell"
+	// {
+		// "\0%(s0)Ok,\w4 I'll switch back to the default!"
+	// }
+	// --
+	// "\w8\w8\e"
+// }
+
+//After the shell has changed
+// OnShellChanged
+// {
+	// _old = nowshell
+	// nowshell = reference0 //Sets nowshell to the new value
+	
+	// "\1\s[-1]" //This hides the kero, get rid of it if you want a kero
+	// --
+	// if reference0 == _old //If the user switches to the shell they're already using
+	// {
+		// "\0%(s0)Nothing has changed.\e"
+	// }
+	// elseif reference0 == "Default Shell"
+	// {
+		// "\0%(s0)Back to the default!\e"
+	// }
+	// else
+	// {
+		// "\0%(s0)Some other shell!\e"
+	// }
+// }
+
+
+
+//These are new variables to initialize after an update. By checking if the variable doesn't exist before initializing it, we prevent variables already in use from being overwritten. This is VERY IMPORTANT, or you risk resetting the user's progress on your new variables every time they update.
+//ISVAR is a built in YAYA function that checks if a variable exists(is initialized) or not. It returns 0 if the variable doesn't exist, and 1 if it does.
+UpdateVars
+{
+	FixDefaultOptions //Putting this here too, since the variable issues I've had seemed to happen mostly when updates went wrong!
+	//if !ISVAR("examplevariable"); examplevariable = 0 //If examplevariable does _not_ already exist, initialize it
+}
+
+//These are all the variables that need to be initialized when the user first installs the ghost.
+FirstBootVars
+{
+	lastTalk = ""
+	nowshell = "Default Shell" //Make sure to change this if you change your shell name
+	username = "User"
+	pronouns = "undef"
+	birthday[0] = "???"	 //The user's birthday, written out with words
+	birthday[1] = "??/??"	 //The user's birthday, written in DD/MM format
+	talkrate = "every 5 minutes"
+	aitalkinterval = 300
+	totalpunches = 0
+	nowscale = (100,100) //Current scale, as a percentage
+	//---Petting related variables---
+	stroke[0] = 0		 //The stroke value, which resets after each pet
+	stroke[1] = 0		 //The stroke value, but it doesn't reset after each pet
+	stroke[2] = 0		 //The current streak of successful pets
+	pethighscore[0] = 0	 //The petting high score, as the number of the stroke value
+	pethighscore[1] = 0	 //The petting high score, as the number of pets
+	totalpets = 0		 //The total times the ghost has been pet
+	offscreen = IARRAY
+	//---
+	deletebutton = "Off"
+	AutoUpdates = ("On",0)
+	//nowmode = "Default" //Uncomment if you plan to add more modes
+	installdate = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)","%(ghostver)") //This tracks the exact day and time the ghost was installed, in case you want to mess around with that later. It also tracks what version the user installed, which may be helpful for debugging!
+	FlagArray = IARRAY	 //For the flag system
+	
+	x.boot_min = GETSECCOUNT / 60 //What time (epoch) the ghost was booted
+	x.up_all = 0 //How many minutes the ghost was up for in total, not including current session
+	
+	HourNotifs = "Off"
+	
+	ShyIsPopped = 0
+	UnamusedIsPopped = 0
+	ScaredIsPopped = 0
+	SadIsPopped = 0
+	ConfusedIsPopped = 0
+	HappyIsPopped = 0
+	AngryIsPopped = 0
+	ThinkIsPopped = 0
+	
+	Volume = 50
+	SoundsOn = "On"
+	ClickMode = "Double"
+	BalloonMode = "Inflated"
+	
+	
+	ShyIsTalking = 0
+	UnamusedIsTalking = 0
+	ScaredIsTalking = 0
+	SadIsTalking = 0
+	ConfusedIsTalking = 0
+	HappyIsTalking = 0
+	AngryIsTalking = 0
+	ThinkIsTalking = 0
+}
+
+//How many minutes the ghost was up in total, including current session
+x.up_total
+{
+	x.up_all + x.up_mins
+}
+
+//How long the ghost has been up in the current session
+x.up_mins
+{
+	(GETSECCOUNT / 60) - x.boot_min
+}

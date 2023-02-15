@@ -1,0 +1,19 @@
+charset,UTF-8
+
+name,Balloons
+type,ghost
+
+sakura.name,Balloons
+kero.name,Air currents
+
+craftman,Galla & Zichqec
+craftmanw,Galla & Zichqec
+craftmanurl,https://zichqec.github.io/s-the-skeleton/
+
+sstp.allowunspecifiedsend,0
+shiori,yaya.dll
+
+//http://www.convertico.com/ is handy for making .icos
+icon,icon00.ico
+icon.minimize,balloon_popped.ico
+balloon,Balloons Balloon

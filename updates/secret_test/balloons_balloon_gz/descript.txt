@@ -1,0 +1,85 @@
+charset,UTF-8
+use_self_alpha,1
+use_input_alpha,1
+
+type,balloon
+name,Balloons Balloon
+
+craftman,Galla & Zichqec
+craftmanw,Galla & Zichqec
+craftmanurl,https://zichqec.github.io/s-the-skeleton/
+
+homeurl,https://zichqec.github.io/s-the-skeleton/updates/balloons/balloons_balloon_gz/
+
+origin.x,9
+origin.y,9
+
+validrect.left,93
+validrect.top,5
+validrect.right,-93
+validrect.bottom,-66
+
+wordwrappoint.x,-103
+wordwrappoint.y,0
+
+font.name,Essays1743.ttf
+font.height,16
+font.color.r,75
+font.color.g,75
+font.color.b,75
+font.bold,0
+
+disable.font.color.r,125
+disable.font.color.g,118
+disable.font.color.b,127
+
+// font.shadowcolor.r,0
+// font.shadowcolor.g,0
+// font.shadowcolor.b,0
+// font.shadowstyle,outline
+
+windowposition.x,0
+windowposition.y,0
+
+anchor.font.color.r,144
+anchor.font.color.g,000
+anchor.font.color.b,255
+
+cursor.blendmethod,none
+cursor.style,underline
+
+arrow0.x,-80
+arrow0.y,-120
+
+arrow1.x,-80
+arrow1.y,-100
+
+onlinemarker.x,66
+onlinemarker.y,-105
+
+sstpmarker.x,112
+sstpmarker.y,-62
+
+sstpmessage.font.name,Calibri
+sstpmessage.font.height,10
+sstpmessage.font.color.r,100
+sstpmessage.font.color.g,100
+sstpmessage.font.color.b,100
+sstpmessage.x,123
+sstpmessage.y,-64
+
+number.font.name,Calibri
+number.font.height,10
+number.font.color.r,100
+number.font.color.g,100
+number.font.color.b,100
+number.xr,-135
+number.y,-56
+
+communicatebox.x,13
+communicatebox.y,15
+
+communicatebox.width,330
+communicatebox.height,30
+
+communicatebox.font.name,Calibri

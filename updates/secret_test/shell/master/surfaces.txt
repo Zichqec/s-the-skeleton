@@ -1,0 +1,1022 @@
+//IMPORTANT NOTE ABOUT SERIKO! You CANNOT have mid-line comments! SERIKO errors don't prevent you from loading your ghost, but it will still give annoying errors and cause unexpected behaviors! Put ALL COMMENTS ON THEIR OWN LINES. This will save you a lot of headache, trust me!
+
+descript
+{
+	version,1
+}
+//This is using the new seriko definition. If you want to use the old one, change the version to 0
+
+//Sakura surfaces
+
+surface0
+{
+	//Collisions
+	// collisionex0,Balloon_Shy,polygon,110,95,110,81,102,61,90,47,75,42,60,43,52,49,44,63,42,78,43,95,52,111,69,127,84,132,92,134,93,122,96,108,104,98
+	// collisionex1,Balloon_Unamused,polygon,275,94,278,76,276,58,269,45,255,39,241,39,227,47,219,58,216,70,214,81,215,85,223,93,226,107,227,118,227,123,234,125,240,124,244,113,251,102,263,95
+	// collisionex2,Balloon_Scared,polygon,192,76,193,59,189,42,180,28,169,22,156,21,145,27,135,36,130,49,129,65,132,82,137,93,145,99,153,108,157,114,161,114,164,101,172,87,182,79
+	// collisionex3,Balloon_Sad,polygon,92,136,82,132,66,131,58,134,50,139,46,146,43,163,44,181,54,197,64,208,79,215,95,216,109,211,119,206,122,201,120,191,120,181,112,175,103,166,95,156,94,146
+	// collisionex4,Balloon_Confused,polygon,155,181,161,167,163,144,161,127,157,113,147,100,134,93,120,91,106,98,95,112,92,124,92,141,98,160,111,176,127,184,145,189
+	// collisionex5,Balloon_Happy,polygon,254,189,274,180,287,168,298,151,305,133,301,110,288,95,278,93,265,95,249,104,243,118,238,130,238,141,246,148,250,159,253,177
+	// collisionex6,Balloon_Angry,polygon,178,167,186,166,192,153,201,142,216,137,223,136,226,122,225,104,221,90,211,81,197,76,188,77,178,81,168,91,164,100,160,112,161,129,163,141,167,153,173,162
+	// collisionex7,Balloon_Think,polygon,204,237,223,230,238,219,246,204,253,185,250,162,242,146,232,139,218,137,206,141,196,149,189,161,184,179,184,195,188,211,195,226
+	
+	collision0,110,263,201,363,menu
+	
+	// //Blink
+	// animation0.interval,random,4
+	// animation0.pattern0,overlay,-1,100,0,0
+	// animation0.pattern1,overlay,100,50,0,0
+	// animation0.pattern2,overlay,101,100,0,0
+	// animation0.pattern3,overlay,-1,30,0,0
+	
+	// //Talk
+	// animation1.interval,talk,4
+	// animation1.pattern0,alternativestart,(2,3,4)
+	
+	// animation2.interval,never
+	// animation2.pattern0,overlay,150,20,0,0
+	// animation2.pattern1,overlay,-1,100,0,0
+
+	// animation3.interval,never
+	// animation3.pattern0,overlay,151,20,0,0
+	// animation3.pattern1,overlay,-1,100,0,0
+
+	// animation4.interval,never
+	// animation4.pattern0,overlay,152,20,0,0
+	// animation4.pattern1,overlay,153,100,0,0
+	// animation4.pattern2,overlay,151,80,0,0
+	// animation4.pattern3,overlay,-1,100,0,0
+	
+	animation10.interval,runonce
+	animation10.pattern0,parallelstop,(20200,21200,22200,23200,24200,25200,26200,27200)
+	
+	
+	//Strings
+	animation1000.interval,runonce
+	animation1000.pattern0,overlay,1000,0,0,0
+	
+	animation1100.interval,runonce
+	animation1100.pattern0,overlay,1100,0,0,0
+	
+	animation1200.interval,runonce
+	animation1200.pattern0,overlay,1200,0,0,0
+	
+	animation1300.interval,runonce
+	animation1300.pattern0,overlay,1300,0,0,0
+	
+	animation1400.interval,runonce
+	animation1400.pattern0,overlay,1400,0,0,0
+	
+	animation1500.interval,runonce
+	animation1500.pattern0,overlay,1500,0,0,0
+	
+	animation1600.interval,runonce
+	animation1600.pattern0,overlay,1600,0,0,0
+	
+	animation1700.interval,runonce
+	animation1700.pattern0,overlay,1700,0,0,0
+	
+	
+	
+	//Strings Breaking
+	
+	//Shy
+	animation1010.interval,never
+	animation1010.pattern0,overlay,1010,0,0,0
+	animation1010.pattern1,stop,1000
+	animation1010.pattern2,overlay,1011,100,0,0
+	animation1010.pattern3,overlay,1012,100,0,0
+	animation1010.pattern4,overlay,1013,100,0,0
+	animation1010.pattern5,overlay,1014,100,0,0
+	animation1010.pattern6,overlay,1015,100,0,0
+	animation1010.pattern7,overlay,-1,100,0,0
+	
+	//Unamused
+	animation1110.interval,never
+	animation1110.pattern0,overlay,1110,0,0,0
+	animation1110.pattern1,stop,1100
+	animation1110.pattern2,overlay,1111,100,0,0
+	animation1110.pattern3,overlay,1112,100,0,0
+	animation1110.pattern4,overlay,1113,100,0,0
+	animation1110.pattern5,overlay,1114,100,0,0
+	animation1110.pattern6,overlay,1115,100,0,0
+	animation1110.pattern7,overlay,-1,100,0,0
+	
+	//Scared
+	animation1210.interval,never
+	animation1210.pattern0,overlay,1210,0,0,0
+	animation1210.pattern1,stop,1200
+	animation1210.pattern2,overlay,1211,100,0,0
+	animation1210.pattern3,overlay,1212,100,0,0
+	animation1210.pattern4,overlay,1213,100,0,0
+	animation1210.pattern5,overlay,1214,100,0,0
+	animation1210.pattern6,overlay,1215,100,0,0
+	animation1210.pattern7,overlay,-1,100,0,0
+	
+	//Sad
+	animation1310.interval,never
+	animation1310.pattern0,overlay,1310,0,0,0
+	animation1310.pattern1,stop,1300
+	animation1310.pattern2,overlay,1311,100,0,0
+	animation1310.pattern3,overlay,1312,100,0,0
+	animation1310.pattern4,overlay,1313,100,0,0
+	animation1310.pattern5,overlay,1314,100,0,0
+	animation1310.pattern6,overlay,1315,100,0,0
+	animation1310.pattern7,overlay,-1,100,0,0
+	
+	//Confused
+	animation1410.interval,never
+	animation1410.pattern0,overlay,1410,0,0,0
+	animation1410.pattern1,stop,1400
+	animation1410.pattern2,overlay,1411,100,0,0
+	animation1410.pattern3,overlay,1412,100,0,0
+	animation1410.pattern4,overlay,1413,100,0,0
+	animation1410.pattern5,overlay,1414,100,0,0
+	animation1410.pattern6,overlay,1415,100,0,0
+	animation1410.pattern7,overlay,-1,100,0,0
+	
+	//Happy
+	animation1510.interval,never
+	animation1510.pattern0,overlay,1510,0,0,0
+	animation1510.pattern1,stop,1500
+	animation1510.pattern2,overlay,1511,100,0,0
+	animation1510.pattern3,overlay,1512,100,0,0
+	animation1510.pattern4,overlay,1513,100,0,0
+	animation1510.pattern5,overlay,1514,100,0,0
+	animation1510.pattern6,overlay,1515,100,0,0
+	animation1510.pattern7,overlay,-1,100,0,0
+	
+	//Angry
+	animation1610.interval,never
+	animation1610.pattern0,overlay,1610,0,0,0
+	animation1610.pattern1,stop,1600
+	animation1610.pattern2,overlay,1611,100,0,0
+	animation1610.pattern3,overlay,1612,100,0,0
+	animation1610.pattern4,overlay,1613,100,0,0
+	animation1610.pattern5,overlay,1614,100,0,0
+	animation1610.pattern6,overlay,1615,100,0,0
+	animation1610.pattern7,overlay,-1,100,0,0
+	
+	//Think
+	animation1710.interval,never
+	animation1710.pattern0,overlay,1710,0,0,0
+	animation1710.pattern1,stop,1700
+	animation1710.pattern2,overlay,1711,100,0,0
+	animation1710.pattern3,overlay,1712,100,0,0
+	animation1710.pattern4,overlay,1713,100,0,0
+	animation1710.pattern5,overlay,1714,100,0,0
+	animation1710.pattern6,overlay,1715,100,0,0
+	animation1710.pattern7,overlay,-1,100,0,0
+	
+	
+	
+	//Strings unbreaking
+	//Shy
+	animation1011.interval,never
+	animation1011.pattern0,overlay,1015,0,0,0
+	animation1011.pattern1,stop,1000
+	animation1011.pattern2,overlay,1014,100,0,0
+	animation1011.pattern3,overlay,1013,100,0,0
+	animation1011.pattern4,overlay,1012,100,0,0
+	animation1011.pattern5,overlay,1011,100,0,0
+	animation1011.pattern6,overlay,1010,100,0,0
+	animation1011.pattern7,overlay,1010,100,0,0
+	animation1011.pattern8,start,1000
+	animation1011.pattern9,overlay,-1,0,0,0
+	
+	//Unamused
+	animation1111.interval,never
+	animation1111.pattern0,overlay,1115,0,0,0
+	animation1111.pattern1,stop,1100
+	animation1111.pattern2,overlay,1114,100,0,0
+	animation1111.pattern3,overlay,1113,100,0,0
+	animation1111.pattern4,overlay,1112,100,0,0
+	animation1111.pattern5,overlay,1111,100,0,0
+	animation1111.pattern6,overlay,1110,100,0,0
+	animation1111.pattern7,overlay,1110,100,0,0
+	animation1111.pattern8,start,1100
+	animation1111.pattern9,overlay,-1,0,0,0
+	
+	//Scared
+	animation1211.interval,never
+	animation1211.pattern0,overlay,1215,0,0,0
+	animation1211.pattern1,stop,1200
+	animation1211.pattern2,overlay,1214,100,0,0
+	animation1211.pattern3,overlay,1213,100,0,0
+	animation1211.pattern4,overlay,1212,100,0,0
+	animation1211.pattern5,overlay,1211,100,0,0
+	animation1211.pattern6,overlay,1210,100,0,0
+	animation1211.pattern7,overlay,1210,100,0,0
+	animation1211.pattern8,start,1200
+	animation1211.pattern9,overlay,-1,0,0,0
+	
+	//Sad
+	animation1311.interval,never
+	animation1311.pattern0,overlay,1315,0,0,0
+	animation1311.pattern1,stop,1300
+	animation1311.pattern2,overlay,1314,100,0,0
+	animation1311.pattern3,overlay,1313,100,0,0
+	animation1311.pattern4,overlay,1312,100,0,0
+	animation1311.pattern5,overlay,1311,100,0,0
+	animation1311.pattern6,overlay,1310,100,0,0
+	animation1311.pattern7,overlay,1310,100,0,0
+	animation1311.pattern8,start,1300
+	animation1311.pattern9,overlay,-1,0,0,0
+	
+	//Confused
+	animation1411.interval,never
+	animation1411.pattern0,overlay,1415,0,0,0
+	animation1411.pattern1,stop,1400
+	animation1411.pattern2,overlay,1414,100,0,0
+	animation1411.pattern3,overlay,1413,100,0,0
+	animation1411.pattern4,overlay,1412,100,0,0
+	animation1411.pattern5,overlay,1411,100,0,0
+	animation1411.pattern6,overlay,1410,100,0,0
+	animation1411.pattern7,overlay,1410,100,0,0
+	animation1411.pattern8,start,1400
+	animation1411.pattern9,overlay,-1,0,0,0
+	
+	//Happy
+	animation1511.interval,never
+	animation1511.pattern0,overlay,1515,0,0,0
+	animation1511.pattern1,stop,1500
+	animation1511.pattern2,overlay,1514,100,0,0
+	animation1511.pattern3,overlay,1513,100,0,0
+	animation1511.pattern4,overlay,1512,100,0,0
+	animation1511.pattern5,overlay,1511,100,0,0
+	animation1511.pattern6,overlay,1510,100,0,0
+	animation1511.pattern7,overlay,1510,100,0,0
+	animation1511.pattern8,start,1500
+	animation1511.pattern9,overlay,-1,0,0,0
+	
+	//Angry
+	animation1611.interval,never
+	animation1611.pattern0,overlay,1615,0,0,0
+	animation1611.pattern1,stop,1600
+	animation1611.pattern2,overlay,1614,100,0,0
+	animation1611.pattern3,overlay,1613,100,0,0
+	animation1611.pattern4,overlay,1612,100,0,0
+	animation1611.pattern5,overlay,1611,100,0,0
+	animation1611.pattern6,overlay,1610,100,0,0
+	animation1611.pattern7,overlay,1610,100,0,0
+	animation1611.pattern8,start,1600
+	animation1611.pattern9,overlay,-1,0,0,0
+	
+	//Think
+	animation1711.interval,never
+	animation1711.pattern0,overlay,1715,0,0,0
+	animation1711.pattern1,stop,1700
+	animation1711.pattern2,overlay,1714,100,0,0
+	animation1711.pattern3,overlay,1713,100,0,0
+	animation1711.pattern4,overlay,1712,100,0,0
+	animation1711.pattern5,overlay,1711,100,0,0
+	animation1711.pattern6,overlay,1710,100,0,0
+	animation1711.pattern7,overlay,1710,100,0,0
+	animation1711.pattern8,start,1700
+	animation1711.pattern9,overlay,-1,0,0,0
+	
+	//Knot
+	animation1999.interval,runonce
+	animation1999.pattern0,overlay,0,0,0,0
+	
+	
+	
+	
+	//Balloon bases
+	animation2000.interval,always
+	animation2000.pattern0,overlay,2000,0,0,-6
+	animation2000.pattern1,overlay,2000,1000-1200,0,-5
+	animation2000.pattern2,overlay,2000,300-350,0,-3
+	animation2000.pattern3,overlay,2000,200-250,0,-1
+	animation2000.pattern4,overlay,2000,400-450,0,-0
+	animation2000.pattern5,overlay,2000,600-800,0,-1
+	animation2000.pattern6,overlay,2000,400-450,0,-3
+	animation2000.pattern7,overlay,2000,200-250,0,-5
+	animation2000.pattern8,overlay,2000,300-350,0,-6
+	
+	animation2000.collisionex0,Balloon_Shy,region,collision_0_shy.png,140,000,255
+	
+	animation2100.interval,always
+	animation2100.pattern0,overlay,2100,0,0,0
+	animation2100.pattern1,overlay,2100,600-800,0,-1
+	animation2100.pattern2,overlay,2100,300-350,0,-3
+	animation2100.pattern3,overlay,2100,200-250,0,-5
+	animation2100.pattern4,overlay,2100,400-450,0,-6
+	animation2100.pattern5,overlay,2100,1000-1200,0,-5
+	animation2100.pattern6,overlay,2100,400-450,0,-3
+	animation2100.pattern7,overlay,2100,200-250,0,-1
+	animation2100.pattern8,overlay,2100,300-350,0,0
+	
+	animation2100.collisionex1,Balloon_Unamused,region,collision_1_unamused.png,140,000,255
+	
+	animation2200.interval,always
+	animation2200.pattern0,overlay,2200,0,0,-5
+	animation2200.pattern1,overlay,2200,400-450,0,-3
+	animation2200.pattern2,overlay,2200,200-250,0,-1
+	animation2200.pattern3,overlay,2200,300-350,0,0
+	animation2200.pattern4,overlay,2200,600-800,0,-1
+	animation2200.pattern5,overlay,2200,300-350,0,-3
+	animation2200.pattern6,overlay,2200,200-250,0,-5
+	animation2200.pattern7,overlay,2200,400-450,0,-6
+	animation2200.pattern8,overlay,2200,1000-1200,0,-5
+	
+	animation2200.collisionex2,Balloon_Scared,region,collision_2_scared.png,140,000,255
+	
+	animation2300.interval,always
+	animation2300.pattern0,overlay,2300,0,0,-3
+	animation2300.pattern1,overlay,2300,200-250,0,-5
+	animation2300.pattern2,overlay,2300,400-450,0,-6
+	animation2300.pattern3,overlay,2300,1000-1200,0,-5
+	animation2300.pattern4,overlay,2300,400-450,0,-3
+	animation2300.pattern5,overlay,2300,200-250,0,-1
+	animation2300.pattern6,overlay,2300,300-350,0,0
+	animation2300.pattern7,overlay,2300,600-800,0,-1
+	animation2300.pattern8,overlay,2300,300-350,0,-3
+	
+	animation2300.collisionex3,Balloon_Sad,region,collision_3_sad.png,140,000,255
+	
+	animation2400.interval,always
+	animation2400.pattern0,overlay,2400,0,0,-1
+	animation2400.pattern1,overlay,2400,300-350,0,-3
+	animation2400.pattern2,overlay,2400,200-250,0,-5
+	animation2400.pattern3,overlay,2400,400-450,0,-6
+	animation2400.pattern4,overlay,2400,1000-1200,0,-5
+	animation2400.pattern5,overlay,2400,400-450,0,-3
+	animation2400.pattern6,overlay,2400,200-250,0,-1
+	animation2400.pattern7,overlay,2400,300-350,0,0
+	animation2400.pattern8,overlay,2400,600-800,0,-1
+	
+	animation2400.collisionex4,Balloon_Confused,region,collision_4_confused.png,140,000,255
+	
+	animation2500.interval,always
+	animation2500.pattern0,overlay,2500,0,0,-6
+	animation2500.pattern1,overlay,2500,1000-1200,0,-5
+	animation2500.pattern2,overlay,2500,400-450,0,-3
+	animation2500.pattern3,overlay,2500,200-250,0,-1
+	animation2500.pattern4,overlay,2500,300-350,0,0
+	animation2500.pattern5,overlay,2500,600-800,0,-1
+	animation2500.pattern6,overlay,2500,300-350,0,-3
+	animation2500.pattern7,overlay,2500,200-250,0,-5
+	animation2500.pattern8,overlay,2500,400-450,0,-6
+	
+	animation2500.collisionex5,Balloon_Happy,region,collision_5_happy.png,140,000,255
+	
+	animation2600.interval,always
+	animation2600.pattern0,overlay,2600,0,0,-3
+	animation2600.pattern1,overlay,2600,200-250,0,-1
+	animation2600.pattern2,overlay,2600,300-350,0,0
+	animation2600.pattern3,overlay,2600,600-800,0,-1
+	animation2600.pattern4,overlay,2600,300-350,0,-3
+	animation2600.pattern5,overlay,2600,200-250,0,-5
+	animation2600.pattern6,overlay,2600,400-450,0,-6
+	animation2600.pattern7,overlay,2600,1000-1200,0,-5
+	animation2600.pattern8,overlay,2600,400-450,0,-3
+	
+	animation2600.collisionex6,Balloon_Angry,region,collision_6_angry.png,140,000,255
+	
+	animation2700.interval,always
+	animation2700.pattern0,overlay,2700,0,0,-1
+	animation2700.pattern1,overlay,2700,300-350,0,-3
+	animation2700.pattern2,overlay,2700,200-250,0,-5
+	animation2700.pattern3,overlay,2700,400-450,0,-6
+	animation2700.pattern4,overlay,2700,1000-1200,0,-5
+	animation2700.pattern5,overlay,2700,400-450,0,-3
+	animation2700.pattern6,overlay,2700,200-250,0,-1
+	animation2700.pattern7,overlay,2700,300-350,0,0
+	animation2700.pattern8,overlay,2700,600-800,0,-1
+	
+	animation2700.collisionex7,Balloon_Think,region,collision_7_think.png,140,000,255
+	
+	animation2999.interval,always
+	animation2999.pattern0,move,-1,0,0,0
+	animation2999.pattern1,move,-1,800-1000,0,-1
+	animation2999.pattern2,move,-1,400,0,-2
+	animation2999.pattern3,move,-1,500,0,-3
+	animation2999.pattern4,move,-1,1000-2000,0,-2
+	animation2999.pattern5,move,-1,500,0,-1
+	animation2999.pattern6,move,-1,400,0,0
+	
+	//Balloons when talking
+	animation2001.interval,never
+	animation2001.pattern0,overlay,2000,0,0,0
+	animation2001.pattern1,stop,2000
+	animation2001.pattern2,start,20200
+	
+	animation2001.collisionex0,Balloon_Shy,region,collision_talk_0_shy.png,140,000,255
+	
+	animation2101.interval,never
+	animation2101.pattern0,overlay,2100,0,0,0
+	animation2101.pattern1,stop,2100
+	animation2101.pattern2,start,21200
+	
+	animation2101.collisionex1,Balloon_Unamused,region,collision_talk_1_unamused.png,140,000,255
+	
+	animation2201.interval,never
+	animation2201.pattern0,overlay,2200,0,0,0
+	animation2201.pattern1,stop,2200
+	animation2201.pattern2,start,22200
+	
+	animation2201.collisionex2,Balloon_Scared,region,collision_talk_2_scared.png,140,000,255
+	
+	animation2301.interval,never
+	animation2301.pattern0,overlay,2300,0,0,0
+	animation2301.pattern1,stop,2300
+	animation2301.pattern2,start,23200
+	
+	animation2301.collisionex3,Balloon_Sad,region,collision_talk_3_sad.png,140,000,255
+	
+	animation2401.interval,never
+	animation2401.pattern0,overlay,2400,0,0,0
+	animation2401.pattern1,stop,2400
+	animation2401.pattern2,start,24200
+	
+	animation2401.collisionex4,Balloon_Confused,region,collision_talk_4_confused.png,140,000,255
+	
+	animation2501.interval,never
+	animation2501.pattern0,overlay,2500,0,0,0
+	animation2501.pattern1,stop,2500
+	animation2501.pattern2,start,25200
+	
+	animation2501.collisionex5,Balloon_Happy,region,collision_talk_5_happy.png,140,000,255
+	
+	animation2601.interval,never
+	animation2601.pattern0,overlay,2600,0,0,0
+	animation2601.pattern1,stop,2600
+	animation2601.pattern2,start,26200
+	
+	animation2601.collisionex6,Balloon_Angry,region,collision_talk_6_angry.png,140,000,255
+	
+	animation2701.interval,never
+	animation2701.pattern0,overlay,2700,0,0,0
+	animation2701.pattern1,stop,2700
+	animation2701.pattern2,start,27200
+	
+	animation2701.collisionex7,Balloon_Think,region,collision_talk_7_think.png,140,000,255
+	
+	
+	
+	//Stop talking and restart bobbing
+	animation2002.interval,never
+	animation2002.pattern0,parallelstop,(2001,20200,2021,2022,2023)
+	animation2002.pattern1,start,2000
+	
+	animation2102.interval,never
+	animation2102.pattern0,parallelstop,(2101,21200,2121,2122,2123)
+	animation2102.pattern1,start,2100
+
+	animation2202.interval,never
+	animation2202.pattern0,parallelstop,(2201,22200,2221,2222,2223)
+	animation2202.pattern1,start,2200
+	
+	animation2302.interval,never
+	animation2302.pattern0,parallelstop,(2301,23200,2321,2322,2323)
+	animation2302.pattern1,start,2300
+	
+	animation2402.interval,never
+	animation2402.pattern0,parallelstop,(2401,24200,2421,2422,2423)
+	animation2402.pattern1,start,2400
+	
+	animation2502.interval,never
+	animation2502.pattern0,parallelstop,(2501,25200,2521,2522,2523)
+	animation2502.pattern1,start,2500
+	
+	animation2602.interval,never
+	animation2602.pattern0,parallelstop,(2601,26200,2621,2622,2623)
+	animation2602.pattern1,start,2600
+	
+	animation2702.interval,never
+	animation2702.pattern0,parallelstop,(2701,27200,2721,2722,2723)
+	animation2702.pattern1,start,2700
+	
+	
+	//Balloons already popped
+	//Shy
+	animation2003.interval,never
+	animation2003.pattern0,parallelstop,(2000,2001,20200,2021,2022,2023,1000)
+	
+	//Unamused
+	animation2103.interval,never
+	animation2103.pattern0,parallelstop,(2100,2101,21200,2121,2122,2123,1100)
+	
+	//Scared
+	animation2203.interval,never
+	animation2203.pattern0,parallelstop,(2200,2201,22200,2221,2222,2223,1200)
+	
+	//Sad
+	animation2303.interval,never
+	animation2303.pattern0,parallelstop,(2300,2301,23200,2321,2322,2323,1300)
+	
+	//Confused
+	animation2403.interval,never
+	animation2403.pattern0,parallelstop,(2400,2401,24200,2421,2422,2423,1400)
+	
+	//Happy
+	animation2503.interval,never
+	animation2503.pattern0,parallelstop,(2500,2501,25200,2521,2522,2523,1500)
+	
+	//Angry
+	animation2603.interval,never
+	animation2603.pattern0,parallelstop,(2600,2601,26200,2621,2622,2623,1600)
+	
+	//Think
+	animation2703.interval,never
+	animation2703.pattern0,parallelstop,(2700,2701,27200,2721,2722,2723,1700)
+	
+	
+	//Balloon faces
+	// animation2010.interval,runonce
+	// animation2010.pattern0,overlay,2010,0,0,0
+	
+	// animation2110.interval,runonce
+	// animation2110.pattern0,overlay,2110,0,0,0
+	
+	// animation2210.interval,runonce
+	// animation2210.pattern0,overlay,2210,0,0,0
+	
+	// animation2310.interval,runonce
+	// animation2310.pattern0,overlay,2310,0,0,0
+	
+	// animation2410.interval,runonce
+	// animation2410.pattern0,overlay,2410,0,0,0
+	
+	// animation2510.interval,runonce
+	// animation2510.pattern0,overlay,2510,0,0,0
+	
+	// animation2610.interval,runonce
+	// animation2610.pattern0,overlay,2610,0,0,0
+	
+	// animation2710.interval,runonce
+	// animation2710.pattern0,overlay,2710,0,0,0
+	
+	
+	
+	//Balloon default mouths
+	// animation2020.interval,runonce
+	// animation2020.pattern0,overlay,2020,0,0,0
+	
+		//Talk
+		animation20200.interval,talk,3
+		animation20200.pattern0,alternativestart,(2021,2022,2023)
+		
+			animation2021.interval,never
+			animation2021.pattern0,overlay,2021,0,0,0
+			animation2021.pattern1,overlay,2022,70-150,0,0
+			animation2021.pattern2,overlay,-1,70-150,0,0
+			
+			animation2022.interval,never
+			animation2022.pattern0,overlay,2023,0,0,0
+			animation2022.pattern1,overlay,2022,70-150,0,0
+			animation2022.pattern2,overlay,-1,70-150,0,0
+			
+			animation2023.interval,never
+			animation2023.pattern0,overlay,2022,0,0,0
+			animation2023.pattern1,overlay,2020,70-150,0,0
+			animation2023.pattern2,overlay,2023,70-150,0,0
+			animation2023.pattern3,overlay,-1,70-150,0,0
+		
+	// animation2120.interval,runonce
+	// animation2120.pattern0,overlay,2120,0,0,0
+	
+		//Talk
+		animation21200.interval,talk,4
+		animation21200.pattern0,alternativestart,(2121,2122,2123)
+		
+			animation2121.interval,never
+			animation2121.pattern0,overlay,2121,0,0,0
+			animation2121.pattern1,overlay,2122,70-150,0,0
+			animation2121.pattern2,overlay,-1,70-150,0,0
+			
+			animation2122.interval,never
+			animation2122.pattern0,overlay,2123,0,0,0
+			animation2122.pattern1,overlay,2122,70-150,0,0
+			animation2122.pattern2,overlay,-1,70-150,0,0
+			
+			animation2123.interval,never
+			animation2123.pattern0,overlay,2122,0,0,0
+			animation2123.pattern1,overlay,2120,70-150,0,0
+			animation2123.pattern2,overlay,2123,70-150,0,0
+			animation2123.pattern3,overlay,-1,70-150,0,0
+	
+	
+	// animation2220.interval,runonce
+	// animation2220.pattern0,overlay,2220,0,0,0
+	
+		//Talk
+		animation22200.interval,talk,4
+		animation22200.pattern0,alternativestart,(2221,2222,2223)
+		
+			animation2221.interval,never
+			animation2221.pattern0,overlay,2221,0,0,0
+			animation2221.pattern1,overlay,2222,70-150,0,0
+			animation2221.pattern2,overlay,-1,70-150,0,0
+			
+			animation2222.interval,never
+			animation2222.pattern0,overlay,2223,0,0,0
+			animation2222.pattern1,overlay,2222,70-150,0,0
+			animation2222.pattern2,overlay,-1,70-150,0,0
+			
+			animation2223.interval,never
+			animation2223.pattern0,overlay,2222,0,0,0
+			animation2223.pattern1,overlay,2220,70-150,0,0
+			animation2223.pattern2,overlay,2223,70-150,0,0
+			animation2223.pattern3,overlay,-1,70-150,0,0
+			
+	
+	// animation2320.interval,runonce
+	// animation2320.pattern0,overlay,2320,0,0,0
+	
+		//Talk
+		animation23200.interval,talk,4
+		animation23200.pattern0,alternativestart,(2321,2322,2323)
+		
+			animation2321.interval,never
+			animation2321.pattern0,overlay,2321,0,0,0
+			animation2321.pattern1,overlay,2322,70-150,0,0
+			animation2321.pattern2,overlay,-1,70-150,0,0
+			
+			animation2322.interval,never
+			animation2322.pattern0,overlay,2323,0,0,0
+			animation2322.pattern1,overlay,2322,70-150,0,0
+			animation2322.pattern2,overlay,-1,70-150,0,0
+			
+			animation2323.interval,never
+			animation2323.pattern0,overlay,2322,0,0,0
+			animation2323.pattern1,overlay,2320,70-150,0,0
+			animation2323.pattern2,overlay,2323,70-150,0,0
+			animation2323.pattern3,overlay,-1,70-150,0,0
+	
+	// animation2420.interval,runonce
+	// animation2420.pattern0,overlay,2420,0,0,0
+	
+		//Talk
+		animation24200.interval,talk,4
+		animation24200.pattern0,alternativestart,(2421,2422,2423)
+		
+			animation2421.interval,never
+			animation2421.pattern0,overlay,2421,0,0,0
+			animation2421.pattern1,overlay,2422,70-150,0,0
+			animation2421.pattern2,overlay,-1,70-150,0,0
+			
+			animation2422.interval,never
+			animation2422.pattern0,overlay,2423,0,0,0
+			animation2422.pattern1,overlay,2422,70-150,0,0
+			animation2422.pattern2,overlay,-1,70-150,0,0
+			
+			animation2423.interval,never
+			animation2423.pattern0,overlay,2422,0,0,0
+			animation2423.pattern1,overlay,2420,70-150,0,0
+			animation2423.pattern2,overlay,2423,70-150,0,0
+			animation2423.pattern3,overlay,-1,70-150,0,0
+	
+	// animation2520.interval,runonce
+	// animation2520.pattern0,overlay,2520,0,0,0
+	
+		//Talk
+		animation25200.interval,talk,4
+		animation25200.pattern0,alternativestart,(2521,2522,2523)
+		
+			animation2521.interval,never
+			animation2521.pattern0,overlay,2521,0,0,0
+			animation2521.pattern1,overlay,2522,70-150,0,0
+			animation2521.pattern2,overlay,-1,70-150,0,0
+			
+			animation2522.interval,never
+			animation2522.pattern0,overlay,2521,0,0,0
+			animation2522.pattern1,overlay,2522,70-150,0,0
+			animation2522.pattern2,overlay,-1,70-150,0,0
+			
+			animation2523.interval,never
+			animation2523.pattern0,overlay,2522,0,0,0
+			animation2523.pattern1,overlay,2521,70-150,0,0
+			animation2523.pattern2,overlay,2523,70-150,0,0
+			animation2523.pattern3,overlay,-1,70-150,0,0
+	
+	// animation2620.interval,runonce
+	// animation2620.pattern0,overlay,2620,0,0,0
+	
+		//Talk
+		animation26200.interval,talk,4
+		animation26200.pattern0,alternativestart,(2621,2622,2623)
+		
+			animation2621.interval,never
+			animation2621.pattern0,overlay,2621,0,0,0
+			animation2621.pattern1,overlay,2622,70-150,0,0
+			animation2621.pattern2,overlay,-1,70-150,0,0
+			
+			animation2622.interval,never
+			animation2622.pattern0,overlay,2623,0,0,0
+			animation2622.pattern1,overlay,2622,70-150,0,0
+			animation2622.pattern2,overlay,-1,70-150,0,0
+			
+			animation2623.interval,never
+			animation2623.pattern0,overlay,2622,0,0,0
+			animation2623.pattern1,overlay,2620,70-150,0,0
+			animation2623.pattern2,overlay,2623,70-150,0,0
+			animation2623.pattern3,overlay,-1,70-150,0,0
+	
+	// animation2720.interval,runonce
+	// animation2720.pattern0,overlay,2720,0,0,0
+	
+		//Talk
+		animation27200.interval,talk,4
+		animation27200.pattern0,alternativestart,(2721,2722,2723)
+		
+			animation2721.interval,never
+			animation2721.pattern0,overlay,2721,0,0,0
+			animation2721.pattern1,overlay,2722,70-150,0,0
+			animation2721.pattern2,overlay,-1,70-150,0,0
+			
+			animation2722.interval,never
+			animation2722.pattern0,overlay,2723,0,0,0
+			animation2722.pattern1,overlay,2722,70-150,0,0
+			animation2722.pattern2,overlay,-1,70-150,0,0
+			
+			animation2723.interval,never
+			animation2723.pattern0,overlay,2722,0,0,0
+			animation2723.pattern1,overlay,2720,70-150,0,0
+			animation2723.pattern2,overlay,2723,70-150,0,0
+			animation2723.pattern3,overlay,-1,70-150,0,0
+	
+	
+	
+	//Breaking anims
+	
+	//Shy
+	animation2050.interval,never
+	animation2050.pattern0,overlay,2050,0,0,0
+	animation2050.pattern1,parallelstop,(2000,2001,20200,2021,2022,2023)
+	animation2050.pattern2,overlay,2051,50,0,0
+	animation2050.pattern3,overlay,2052,50,0,0
+	animation2050.pattern4,overlay,2053,100,0,0
+	animation2050.pattern5,overlay,2054,100,0,0
+	animation2050.pattern6,overlay,2055,100,0,0
+	animation2050.pattern7,overlay,2056,100,0,0
+	animation2050.pattern8,overlay,-1,100,0,0
+	
+	//Unamused
+	animation2150.interval,never
+	animation2150.pattern0,overlay,2150,0,0,0
+	animation2150.pattern1,parallelstop,(2100,2101,21200,2121,2122,2123)
+	animation2150.pattern2,overlay,2151,50,0,0
+	animation2150.pattern3,overlay,2152,50,0,0
+	animation2150.pattern4,overlay,2153,100,0,0
+	animation2150.pattern5,overlay,2154,100,0,0
+	animation2150.pattern6,overlay,2155,100,0,0
+	animation2150.pattern7,overlay,2156,100,0,0
+	animation2150.pattern8,overlay,-1,100,0,0
+	
+	//Scared
+	animation2250.interval,never
+	animation2250.pattern0,overlay,2250,0,0,0
+	animation2250.pattern1,parallelstop,(2200,2201,22200,2221,2222,2223)
+	animation2250.pattern2,overlay,2251,50,0,0
+	animation2250.pattern3,overlay,2252,50,0,0
+	animation2250.pattern4,overlay,2253,100,0,0
+	animation2250.pattern5,overlay,2254,100,0,0
+	animation2250.pattern6,overlay,2255,100,0,0
+	animation2250.pattern7,overlay,2256,100,0,0
+	animation2250.pattern8,overlay,-1,100,0,0
+	
+	//Sad
+	animation2350.interval,never
+	animation2350.pattern0,overlay,2350,0,0,0
+	animation2350.pattern1,parallelstop,(2300,2301,23200,2321,2322,2323)
+	animation2350.pattern2,overlay,2351,50,0,0
+	animation2350.pattern3,overlay,2352,50,0,0
+	animation2350.pattern4,overlay,2353,100,0,0
+	animation2350.pattern5,overlay,2354,100,0,0
+	animation2350.pattern6,overlay,2355,100,0,0
+	animation2350.pattern7,overlay,2356,100,0,0
+	animation2350.pattern8,overlay,-1,100,0,0
+	
+	
+	//Confused
+	animation2450.interval,never
+	animation2450.pattern0,overlay,2450,0,0,0
+	animation2450.pattern1,parallelstop,(2400,2401,24200,2421,2422,2423)
+	animation2450.pattern2,overlay,2451,50,0,0
+	animation2450.pattern3,overlay,2452,50,0,0
+	animation2450.pattern4,overlay,2453,100,0,0
+	animation2450.pattern5,overlay,2454,100,0,0
+	animation2450.pattern6,overlay,2455,100,0,0
+	animation2450.pattern7,overlay,2456,100,0,0
+	animation2450.pattern8,overlay,-1,100,0,0
+	
+	//Happy
+	animation2550.interval,never
+	animation2550.pattern0,overlay,2550,0,0,0
+	animation2550.pattern1,parallelstop,(2500,2501,25200,2521,2522,2523)
+	animation2550.pattern2,overlay,2551,50,0,0
+	animation2550.pattern3,overlay,2552,50,0,0
+	animation2550.pattern4,overlay,2553,100,0,0
+	animation2550.pattern5,overlay,2554,100,0,0
+	animation2550.pattern6,overlay,2555,100,0,0
+	animation2550.pattern7,overlay,2556,100,0,0
+	animation2550.pattern8,overlay,-1,100,0,0
+	
+	//Angry
+	animation2650.interval,never
+	animation2650.pattern0,overlay,2650,0,0,0
+	animation2650.pattern1,parallelstop,(2600,2601,26200,2621,2622,2623)
+	animation2650.pattern2,overlay,2651,50,0,0
+	animation2650.pattern3,overlay,2652,50,0,0
+	animation2650.pattern4,overlay,2653,100,0,0
+	animation2650.pattern5,overlay,2654,100,0,0
+	animation2650.pattern6,overlay,2655,100,0,0
+	animation2650.pattern7,overlay,2656,100,0,0
+	animation2650.pattern8,overlay,-1,100,0,0
+	
+	//Think
+	animation2750.interval,never
+	animation2750.pattern0,overlay,2750,0,0,0
+	animation2750.pattern1,parallelstop,(2700,2701,27200,2721,2722,2723)
+	animation2750.pattern2,overlay,2751,50,0,0
+	animation2750.pattern3,overlay,2752,50,0,0
+	animation2750.pattern4,overlay,2753,100,0,0
+	animation2750.pattern5,overlay,2754,100,0,0
+	animation2750.pattern6,overlay,2755,100,0,0
+	animation2750.pattern7,overlay,2756,100,0,0
+	animation2750.pattern8,overlay,-1,100,0,0
+	
+	
+	
+	
+	
+	
+	//Unbreaking anims
+	//Shy
+	animation2051.interval,never
+	animation2051.pattern0,overlay,2056,0,0,0
+	animation2051.pattern1,overlay,2055,50,0,0
+	animation2051.pattern2,overlay,2054,50,0,0
+	animation2051.pattern3,overlay,2053,100,0,0
+	animation2051.pattern4,overlay,2052,100,0,0
+	animation2051.pattern5,overlay,2051,100,0,0
+	animation2051.pattern6,overlay,2050,100,0,0
+	animation2051.pattern7,overlay,2050,100,0,0
+	animation2051.pattern8,start,2000
+	animation2051.pattern9,overlay,-1,0,0,0
+	
+	//Unamused
+	animation2151.interval,never
+	animation2151.pattern0,overlay,2156,0,0,0
+	animation2151.pattern1,overlay,2155,50,0,0
+	animation2151.pattern2,overlay,2154,50,0,0
+	animation2151.pattern3,overlay,2153,100,0,0
+	animation2151.pattern4,overlay,2152,100,0,0
+	animation2151.pattern5,overlay,2151,100,0,0
+	animation2151.pattern6,overlay,2150,100,0,0
+	animation2151.pattern7,overlay,2150,100,0,0
+	animation2151.pattern8,start,2100
+	animation2151.pattern9,overlay,-1,0,0,0
+	
+	//Scared
+	animation2251.interval,never
+	animation2251.pattern0,overlay,2256,0,0,0
+	animation2251.pattern1,overlay,2255,50,0,0
+	animation2251.pattern2,overlay,2254,50,0,0
+	animation2251.pattern3,overlay,2253,100,0,0
+	animation2251.pattern4,overlay,2252,100,0,0
+	animation2251.pattern5,overlay,2251,100,0,0
+	animation2251.pattern6,overlay,2250,100,0,0
+	animation2251.pattern7,overlay,2250,100,0,0
+	animation2251.pattern8,start,2200
+	animation2251.pattern9,overlay,-1,0,0,0
+	
+	//Sad
+	animation2351.interval,never
+	animation2351.pattern0,overlay,2356,0,0,0
+	animation2351.pattern1,overlay,2355,50,0,0
+	animation2351.pattern2,overlay,2354,50,0,0
+	animation2351.pattern3,overlay,2353,100,0,0
+	animation2351.pattern4,overlay,2352,100,0,0
+	animation2351.pattern5,overlay,2351,100,0,0
+	animation2351.pattern6,overlay,2350,100,0,0
+	animation2351.pattern7,overlay,2350,100,0,0
+	animation2351.pattern8,start,2300
+	animation2351.pattern9,overlay,-1,0,0,0
+	
+	//Confused
+	animation2451.interval,never
+	animation2451.pattern0,overlay,2456,0,0,0
+	animation2451.pattern1,overlay,2455,50,0,0
+	animation2451.pattern2,overlay,2454,50,0,0
+	animation2451.pattern3,overlay,2453,100,0,0
+	animation2451.pattern4,overlay,2452,100,0,0
+	animation2451.pattern5,overlay,2451,100,0,0
+	animation2451.pattern6,overlay,2450,100,0,0
+	animation2451.pattern7,overlay,2450,100,0,0
+	animation2451.pattern8,start,2400
+	animation2451.pattern9,overlay,-1,0,0,0
+	
+	//Happy
+	animation2551.interval,never
+	animation2551.pattern0,overlay,2556,0,0,0
+	animation2551.pattern1,overlay,2555,50,0,0
+	animation2551.pattern2,overlay,2554,50,0,0
+	animation2551.pattern3,overlay,2553,100,0,0
+	animation2551.pattern4,overlay,2552,100,0,0
+	animation2551.pattern5,overlay,2551,100,0,0
+	animation2551.pattern6,overlay,2550,100,0,0
+	animation2551.pattern7,overlay,2550,100,0,0
+	animation2551.pattern8,start,2500
+	animation2551.pattern9,overlay,-1,0,0,0
+	
+	//Angry
+	animation2651.interval,never
+	animation2651.pattern0,overlay,2656,0,0,0
+	animation2651.pattern1,overlay,2655,50,0,0
+	animation2651.pattern2,overlay,2654,50,0,0
+	animation2651.pattern3,overlay,2653,100,0,0
+	animation2651.pattern4,overlay,2652,100,0,0
+	animation2651.pattern5,overlay,2651,100,0,0
+	animation2651.pattern6,overlay,2650,100,0,0
+	animation2651.pattern7,overlay,2650,100,0,0
+	animation2651.pattern8,start,2600
+	animation2651.pattern9,overlay,-1,0,0,0
+	
+	//Think
+	animation2751.interval,never
+	animation2751.pattern0,overlay,2756,0,0,0
+	animation2751.pattern1,overlay,2755,50,0,0
+	animation2751.pattern2,overlay,2754,50,0,0
+	animation2751.pattern3,overlay,2753,100,0,0
+	animation2751.pattern4,overlay,2752,100,0,0
+	animation2751.pattern5,overlay,2751,100,0,0
+	animation2751.pattern6,overlay,2750,100,0,0
+	animation2751.pattern7,overlay,2750,100,0,0
+	animation2751.pattern8,start,2700
+	animation2751.pattern9,overlay,-1,0,0,0
+	
+	
+	
+	//Charm
+	animation3000.interval,bind
+	animation3000.pattern0,overlay,3000,0,0,0
+	
+	animation3100.interval,bind
+	animation3100.pattern0,overlay,3100,0,0,0
+	
+	animation3200.interval,bind
+	animation3200.pattern0,overlay,3200,0,0,0
+	
+	
+	
+	
+}
+
+surface2000
+{
+	element0,overlay,surface2000.png,0,0
+	element1,overlay,surface2010.png,0,0
+	element2,overlay,surface2020.png,0,0
+}
+
+surface2100
+{
+	element0,overlay,surface2100.png,0,0
+	element1,overlay,surface2110.png,0,0
+	element2,overlay,surface2120.png,0,0
+}
+
+surface2200
+{
+	element0,overlay,surface2200.png,0,0
+	element1,overlay,surface2210.png,0,0
+	element2,overlay,surface2220.png,0,0
+}
+
+surface2300
+{
+	element0,overlay,surface2300.png,0,0
+	element1,overlay,surface2310.png,0,0
+	element2,overlay,surface2320.png,0,0
+}
+
+surface2400
+{
+	element0,overlay,surface2400.png,0,0
+	element1,overlay,surface2410.png,0,0
+	element2,overlay,surface2420.png,0,0
+}
+
+surface2500
+{
+	element0,overlay,surface2500.png,0,0
+	element1,overlay,surface2510.png,0,0
+	element2,overlay,surface2520.png,0,0
+}
+
+surface2600
+{
+	element0,overlay,surface2600.png,0,0
+	element1,overlay,surface2610.png,0,0
+	element2,overlay,surface2620.png,0,0
+}
+
+surface2700
+{
+	element0,overlay,surface2700.png,0,0
+	element1,overlay,surface2710.png,0,0
+	element2,overlay,surface2720.png,0,0
+}

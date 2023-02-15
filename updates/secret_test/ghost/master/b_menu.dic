@@ -1,0 +1,748 @@
+OpenSakuraMenu
+{
+	if AutoUpdates[1] == 2 //If an update is available, the user will be notified when they try to open the menu
+	{
+		if !HappyIsPopped; "%(happy)There's an update!!!\w8%(happyoff)"
+		else
+		{
+			PoppedDialogue("Happy")
+			--
+			"(Seems there is an update available.)"
+		}
+		--
+		//Note: the download it now option will go straight into updating without directing to another function. You can do this with some things using 'script:' in the function name, but it's finicky. If this gives you issues feel free to replace it.
+		all:/
+		{
+			"\_q\n\n"
+			"\![*]\q[Download it now,script:\![updatebymyself\]]\n"
+			"\![*]\q[Maybe later,UpdateLater]\n\n"
+			"\![*]\q[Turn off auto updates,UpdateOff]\e"
+		}
+	}
+	else //Normal menu opening
+	{
+		// "\0\b2%(s0)Hi there!"
+		// "\0\b2%(s0)Hello!"
+		// --
+		OnMenuRun
+	}
+}
+
+//If the user decides to update later
+Select.UpdateLater
+{
+	AutoUpdates[1] = 1
+	
+	//"\0%(s0)Alright,\w4 I'll remind you once a day!\e"
+}
+
+//If the user no longer wants to be notified about updates
+Select.UpdateOff
+{
+	AutoUpdates[0] = "Off"
+	AutoUpdates[1] = 1
+	
+	"%(sad)...ok,\w4 i won't check for updates anymore...\w8%(sadoff)"
+}
+
+//Main menu. The all modifier here means every string will be output in order, so you don't need to write -- between lines
+OnMenuRun : all
+{
+	"\b2\_q\![set,autoscroll,disable]"
+
+	
+	"\![*]\q[Hello!,OnAiTalk]  "
+	if lastTalk != ""; "\![*]\q[What was that?,OnLastTalk]"
+	"\n"
+	//"\![*]\q[Talk to another ghost,OnStartTalking]\n\n"
+	"\n\![*]\q[Customization,OnDressupMenu]  \![*]\q[Functions,OnFunctionMenu]  "
+	"\![*]\q[Config,OnConfigMenu]\n\n"
+	if debug >= 1 //%(debug = 1) in script input to show the debug options
+	{
+		"\f[height,-2]\f[color,disable]"
+		if debug != 2
+		{
+			"\![*]\q[Test variable,OnTestVar]  \![*]\q[Unpop all,OnUnpopAllBalloons]\n"
+			//"\![*]\q[To-do list,OnTemplateTodo]\n"
+			"\f[height,-2]X. Template v1.1.5    %(LICENSE[0])\f[height,+2]"
+		}
+		"\n\n"
+		"\f[height,+2]\f[color,default]"
+		//The template update check is in zzz_todo.dic. It doesn't do a network update, it checks my website and compares your version to the most recent version. It cannot update automatically, so as not to erase your progress.
+	}
+	"\![*]\q[Credits,OnCreditsRoll]\n\n"
+	"\![*]\q[Nevermind,Cancel]  "
+	"\![*]\q[Goodbye!,OnGoodbye]\n\n[half]"
+	"\nRuntime: %(runtime)%(newline)\f[align,right]Version %(ghostver)\e"
+}
+
+//Repeats the last thing the ghost said
+OnLastTalk
+{
+	"%(lastTalk)\e"
+}
+
+OnGoodbye
+{
+	if !AreThesePopped("Shy","Happy","Think","Confused","Sad")
+	{
+		if !ShyIsPopped; "%(shy)Erm...\w8 I enjoyed this visit...\w8 and...\w8 I h-hope you did,\w4 too.\w8%(shyoff)"
+		if !HappyIsPopped; "%(happy)Oh!\w8 Time to go!\w8 Let's have way more fun next time!!\w8 Byyeee!!!\w8%(happyoff)"
+		if !ThinkIsPopped; "%(think)I am sure we will see one another again soon.\w8 Take care of yourself until then.\w8%(thinkoff)"
+		if !ConfusedIsPopped; "%(confused)Goodbye???\w8 Like forever?\w8 Or until tomorrow?\w8 How about,\w4 until next time??\w8%(confusedoff)"
+		if !SadIsPopped; "%(sad)... i wish we didn't have to go...\w8 but at least we'll see you again,\w4 right...?\w8 ... so...\w8 it's not all bad...\w8%(sadoff)"
+	}
+	else
+	{
+		"(A breeze is picking up.\w8 It looks like that's the end of this visit.)"
+	}
+	--
+	"\t%(FadeOut)\w8\w8\-\e"
+}
+
+OnDressupMenu : all
+{
+	_colors = "Red,Orange,Yellow,Green,Cyan,Blue,Purple,Pink"
+	_charms = "Heart,Star,Balloon"
+	
+	"\C\![lock,balloonrepaint]\![set,autoscroll,disable]\0\c\b2\_q"
+	"\f[align,center]%(emdash) Customization %(emdash)%(newline)\n\n"
+	
+	if reference0 != "" //If a category has been selected
+	{
+		
+	}
+	else
+	{
+		foreach dressups_available; _dressup
+		{
+			_name = _dressup[1,"|"]
+			_cat = _dressup[0,"|"]
+			
+			if ASEARCH("%(_cat)|%(_name)",dressups_current) != -1; "\![*]"
+			
+			"\q[%(_name),OnDressupMenuAdd,%(_cat),%(_name)]  "
+		}
+	}
+	
+	
+	"\n\n\n\![*]\q[Back,OnMenuRun]\![unlock,balloonrepaint]"
+}
+
+OnDressupMenuAdd
+{
+	"\C\![lock,balloonrepaint]\![bind,%(reference0),%(reference1)]\b2 \![raise,OnDressupMenu]"
+}
+
+OnNotifyDressupInfo
+{
+	dressups_current = IARRAY
+	dressups_available = IARRAY
+	foreach reference.raw; _dressup
+	{
+		_add = "%(_dressup[1,C_BYTE1])|%(_dressup[2,C_BYTE1])"
+		if _dressup[4,C_BYTE1] == "1"
+		{
+			dressups_current ,= _add
+		}
+		if "mustselect" _in_ _dressup[3,C_BYTE1]; _add += "|mustselect"
+		dressups_available ,= _add
+	}
+}
+
+//----------Function Menu----------
+OnFunctionMenu : all
+{
+	"\0\b2"
+	
+	//This will make the opening dialogue random (ignoring the all modifier) with a nonoverlap modifier, if you add more dialogues
+	// nonoverlap:/
+	// { 
+		// "%(s0)Sure,\w4 what do you want me to do?"
+	// }
+	"\_q"
+	
+	"\![*]\q[Check Email,script:\![biff\]]\n"
+	"\![*]\q[Fix the Clock,script:\![execute,sntp\]]\n"
+	"\![*]\q[Open Calendar,OpenCalendar]\n"
+	"\![*]\q[Open SSP Preferences,SSPPrefs]\n"
+	"\![*]\q[Empty Recycle Bin,RecycleBin]\n"
+	"\![*]\q[Show System Information,SystemInfo]\n"
+	"\![*]\q[Report a bug,BugReport]\n"
+	"\![*]\q[Check for updates,UpdateCheck]\n"
+	"\![*]\q[View the Changelog,OnChangeLog]\n"
+	"\n"
+	
+	"\![*]\q[Back to main menu,OnMenuRun]\e"
+}
+
+Select.OpenCalendar
+{
+	if !HappyIsPopped; "%(happy)Calendar,\w4 calendar~\w8%(happyoff) "
+	else; PoppedDialogue("Happy")
+	--
+	"\![open,calendar]\e"
+}
+
+Select.SSPPrefs
+{
+	if !HappyIsPopped; "%(happy)Preferences~\w8%(happyoff) "
+	else; PoppedDialogue("Happy")
+	--
+	"\![open,configurationdialog]\e"
+}
+
+Select.RecycleBin
+{
+	// _gomicheck = FUNCTIONEX("saori/gomi.dll", "-n") //Gets the number of items in the recycle bin
+	
+	// "Ok,\w4 I'll go empty the recycle bin!\w8\w8\s[-1]\w8\w8\w8\w8\n\n"
+	// --
+	// if _gomicheck > 0 //If there was something to empty
+	// {
+		// _gomi = FUNCTIONEX("saori/gomi.dll", "-f") //Calling the Saori to empty the recycle bin
+		// _s = ""; if _gomicheck != 1; _s = "s" //Plural check
+		
+		// "%(s0)Done!\w8\w8 %(_gomicheck) item%(_s) cleared."
+	// }
+	// else //If it's empty
+	// {
+		// "%(s0)It was empty."
+	// }
+	
+	if !AreThesePopped("Anger","Unamused")
+	{
+		if !UnamusedIsPopped; "%(unamused)no hands\w8%(unamusedoff) "
+		else; PoppedDialogue("Unamused")
+		
+		if !AngryIsPopped; "%(angry)NO!\w8 WE'RE NOT TRASH AND WE'RE NOT TOUCHING TRASH!\w8%(angryoff) "
+		else; PoppedDialogue("Angry")
+	}
+	else; AllPoppedDialogue
+	--
+	"\n\n\![*]\q[Back to functions menu,OnFunctionMenu]  \![*]\q[Done,cancelnodialogue]\e"
+}
+
+//Partially copied from the GT template, but I tweaked a few things
+Select.SystemInfo : all
+{
+	_h = "\f[color,default.anchor]" //Highlight
+	_d = "\f[color,default]" //Default
+	
+	os_name = FUNCTIONEX("saori/saori_cpuid.dll","os.name")
+	os_version = FUNCTIONEX("saori/saori_cpuid.dll","os.version")
+	cpu_name = FUNCTIONEX("saori/saori_cpuid.dll","cpu.name")
+	cpu_clockex = FUNCTIONEX("saori/saori_cpuid.dll","cpu.clockex")
+	
+	"\0\b[2]\_q"
+	
+	"OS: %(_h)%(os_name) %(os_version)%(_d)\n"
+	"Memory Load: %(_h)%(memoryload)%%(_d)\n"
+	"Physical Memory: %(_h)%(memoryavailphys) KB%(_d)\n"
+	"CPU: %(_h)%(cpu_name) %(cpu_clockex)MHz%(_d)\n"
+	"Uptime: %(_h)%(systemuphour):%(systemupminute):%(systemupsecond)%(_d)\n\n"
+	
+	"Ukagaka: %(_h)%property[baseware.version]%(_d)\n\n"
+	
+	"\![*]\q[Back to functions,OnFunctionMenu]  "
+	"\![*]\q[Done,cancelnodialogue]\e"
+}
+
+Select.BugReport
+{
+	if !AreThesePopped("Angry","Unamused")
+	{
+		if !AngryIsPopped; "%(angry)THERE ARE NO BUGS!\w8 WE'RE \f[bold,1]PERFECT\f[bold,0]!!!\w8%(angryoff) "
+		else; PoppedDialogue("Angry")
+		--
+		if !UnamusedIsPopped; "%(unamused)you can report bugs to \_a[https://zichqec.github.io/s-the-skeleton/]zichqec\_a i guess,\w4 but you know this was made in 72 hours right\w8%(unamusedoff) "
+		else; PoppedDialogue("Unamused")
+	}
+	else
+	{
+		"(Bugs can be reported to \_a[https://zichqec.github.io/s-the-skeleton/]Zichqec\_a.)"
+	}
+}
+
+Select.UpdateCheck //Starts an update check
+{
+	"\![updatebymyself]\e"
+}
+
+
+
+//----------Config Menu----------
+//I moved changing name/pronouns/birthday over to Nameteach, because they're info about the user
+OnConfigMenu : all
+{
+	FixDefaultOptions
+	
+	_h = "\f[color,default.anchor]" //Highlight
+	_d = "\f[color,default]" //Default
+	
+	"\C\![lock,balloonrepaint]\c\0\_q\b2\![close,inputbox,%(reference0)]"
+	
+	"\f[align,center]%(emdash) Config %(emdash)\n\n\f[align,default]"
+	
+	"\![*]Your name: %(_h)\__q[OnChangeName]%(username)\__q%(_d)\n"
+	//"\![*]Your pronouns: %(_h)\__q[OnChangePronoun]%(Capitalize(heshe))/%(Capitalize(himher))/%(Capitalize(hisher))\__q%(_d)\n"
+	"\![*]Your birthday: %(_h)\__q[OnChangeBirthday]%(birthday[0])\__q%(_d)\n"
+	"\![*]Your hemisphere: %(_h)\__q[OnToggleHemisphere]%(hemisphere)\__q%(_d)\n\n"
+	
+	"\![*]Talk rate: %(_h)\__q[OnChangeTalk]%(talkrate)\__q%(_d)\n"
+	"\![*]Hour Notifications: %(_h)\__q[OnToggleHourNotifs]%(HourNotifs)\__q%(_d)\n\n"
+	
+	if SHIORI3FW.BalloonName == "Balloons Balloon"; "\![*]Balloon Mode: %(_h)\__q[OnToggleBalloonMode]%(BalloonMode)\__q%(_d)\n"
+	else; "\n"
+	"\![*]Pop balloons with %(_h)\__q[OnToggleClickMode]%(ClickMode)\__q%(_d) click\n"
+	"\![*]Enable sounds? %(_h)\__q[OnToggleSounds]%(SoundsOn)\__q%(_d)  Volume: \__q[OnVolumeUp]▲\__q\__q[OnVolumeDown]▼\__q %(Volume)\n\n"
+	"\![*]Auto update checks: %(_h)\__q[OnToggleUpdate]%(AutoUpdates[0])\__q%(_d)\n"
+	"\![*]Enable Uninstall? %(_h)\__q[OnToggleUninstall]%(deletebutton)\__q%(_d)\n\n"
+	
+	"\![*]\q[Back to the menu,OnMenuRun]\![unlock,balloonrepaint]\e"
+}
+
+//This is here in case the variables get erased. The buttons will be set to default so the user has something to click in the config menu. This has happened to my users before and resetting them is a painful process. Do not remove these, you'll want to add in new ones for any toggle buttons you have in the config menu. This is also called in BootVars and UpdateVars, which is why it's separate from the config menu itself.
+FixDefaultOptions
+{
+	if username == ""; username = "User"
+	if birthday[0] == ""; birthday[0] = "???"
+	if hemisphere == ""; hemisphere = "Northern"
+	if talkrate == ""; {talkrate = "every 5 minutes"; aitalkinterval = 300}
+	if deletebutton == ""; deletebutton = "Off"
+	if AutoUpdates[0] == ""; AutoUpdates[0] = "On"
+	if HourNotifs == ""; HourNotifs = "Off"
+	if Volume == ""; Volume = 50
+	if SoundsOn == ""; SoundsOn = "On"
+	if ClickMode == ""; ClickMode = "Double"
+	if BalloonMode == ""; BalloonMode = "Inflated"
+}
+
+OnToggleHemisphere
+{
+	if hemisphere != "Northern"; hemisphere = "Northern"
+	else; hemisphere = "Southern"
+	--
+	OnConfigMenu
+}
+
+OnChangeTalk : all
+{
+	nonoverlap:/
+	{
+		if !ThinkIsPopped; "%(think)How often should we talk?\w8%(thinkoff) "
+		else; PoppedDialogue("Think")
+	}
+	
+	"\n\n\_q"
+	"\![*]\q[Every 30 seconds,OnTalkRate,30]\n"
+	"\![*]\q[Every minute,OnTalkRate,60]\n"
+	"\![*]\q[Every 3 minutes,OnTalkRate,180]\n"
+	"\![*]\q[Every 5 minutes,OnTalkRate,300]\n"
+	"\![*]\q[Don't speak,OnTalkRate,0]\n\n"
+	
+	"\![*]\q[Nevermind,OnConfigMenu]\e"
+}
+
+OnToggleHourNotifs
+{
+	if HourNotifs != "On"; HourNotifs = "On"
+	else; HourNotifs = "Off"
+	--
+	OnConfigMenu
+}
+
+OnTalkRate
+{
+	aitalkinterval = TOINT(reference0) //this changes the talk rate, in seconds. reference0 is sent from the menu options above
+	
+	if reference0 == "30"
+	{
+		talkrate = "every 30 seconds" //this displays the talk rate in the menu
+		
+		if !HappyIsPopped; "%(happy)Woo!\w8 Alright!!\w8%(happyoff) "
+		else; PoppedDialogue("Happy")
+	}
+	elseif reference0 == "60"
+	{
+		talkrate = "every minute"
+		
+		if !ShyIsPopped; "%(shy)Every minute is a lot...\w8 but o-ok.\w8%(shyoff) "
+		else; PoppedDialogue("Shy")
+	}
+	elseif reference0 == "180"
+	{
+		talkrate = "every 3 minutes"
+		
+		if !ThinkIsPopped; "%(think)A reasonable amount.\w8%(thinkoff) "
+		else; PoppedDialogue("Think")
+	}
+	elseif reference0 == "300"
+	{
+		talkrate = "every 5 minutes"
+		
+		if !ThinkIsPopped; "%(think)Certainly.\w8%(thinkoff) "
+		else; PoppedDialogue("Think")
+	}
+	else
+	{
+		talkrate = "never"
+		
+		if !UnamusedIsPopped; "%(unamused)whatever\w8%(unamusedoff) "
+		else; PoppedDialogue("Unamused")
+	}
+	--
+	"\n\n\![*]\q[Back to config,OnConfigMenu]  \![*]\q[Done,cancelnodialogue]\e"
+}
+
+OnToggleBalloonMode
+{
+	if BalloonMode != "Inflated"; BalloonMode = "Inflated"
+	else; BalloonMode = "Slim"
+	
+	OnConfigMenu
+}
+
+OnToggleClickMode
+{
+	if ClickMode != "Double"; ClickMode = "Double"
+	else; ClickMode = "Single"
+	
+	OnConfigMenu
+}
+
+OnToggleSounds
+{
+	if SoundsOn != "On"; SoundsOn = "On"
+	else; SoundsOn = "Off"
+	
+	OnConfigMenu
+}
+
+OnVolumeUp
+{
+	Volume += 5
+	if Volume > 100; Volume = 100
+	
+	OnConfigMenu
+}
+
+OnVolumeDown
+{
+	Volume -= 5
+	if Volume < 0; Volume = 0
+	
+	OnConfigMenu
+}
+
+OnToggleUpdate
+{
+	if AutoUpdates[0] != "On"; AutoUpdates[0] = "On"
+	else; AutoUpdates[0] = "Off"
+	
+	OnConfigMenu
+}
+
+OnToggleUninstall
+{
+	if deletebutton != "On"; deletebutton = "On"
+	else; deletebutton = "Off"
+	
+	OnConfigMenu
+}
+
+
+
+OnUnpopAllBalloons
+{
+	ShyIsPopped = 0
+	UnamusedIsPopped = 0
+	ScaredIsPopped = 0
+	SadIsPopped = 0
+	ConfusedIsPopped = 0
+	HappyIsPopped = 0
+	AngryIsPopped = 0
+	ThinkIsPopped = 0
+	"%(s0)"
+}
+
+//----------Misc Functions----------
+
+//Menu has timed out
+OnChoiceTimeout
+{
+	if !UnamusedIsPopped; "%(unamused)helllooooooooo\w8%(unamusedoff) "
+	else; PoppedDialogue("Unamused")
+	
+	if !AngryIsPopped; "%(angry)HELLOOOOOO!?\w8%(angryoff) "
+	else; PoppedDialogue("Angry")
+	
+	if !SadIsPopped; "%(sad)...are you still there...?\w8%(sadoff) "
+	else; PoppedDialogue("Sad")
+	
+	if !ConfusedIsPopped; "%(confused)Where did you go???\w8%(confusedoff) "
+	else; PoppedDialogue("Confused")
+	
+	if !ShyIsPopped; "%(shy)U-um,\w4 I guess we'll talk later...\w8%(shyoff) "
+	else; PoppedDialogue("Shy")
+}
+
+OnCreditsRoll : all
+{
+	"\b2\t\*\_q\![set,autoscroll,disable]"
+	//"\n\n\n\n\n\n\n\n\n\n" //10, one more than needed I think
+	
+	"\f[align,center]"
+	"Zichqec Presents\n"
+	"A Galla Ghost\n"
+	"Starring: Balloons\n\n"
+
+	"Director: Galla\n"
+	"Lead Writer: Galla\n"
+	"Assistant Writer: Zichqec\n"
+	"Producer: Zichqec\n"
+	"Executive Producer: Zichqec\n\n"
+
+	"\f[align,center]Cast\n"
+	"Angry - Angry Balloon\n"
+	"Confused - Confused Balloon\n"
+	"Happy - Happy Balloon\n"
+	"Sad - Sad Balloon\n"
+	"Scared - Scared Balloon\n"
+	"Shy - Shy Balloon\n"
+	"Think - Think Balloon\n"
+	"Unamused - Unamused Balloon\n\n"
+
+	"Senior Software Engineer: Zichqec\n"
+	"Junior Software Engineer: Galla\n"
+	"Stunt Coordinator: Zichqec\n"
+	"Stunt Performer: Galla\n"
+	"Lead Artist: Galla\n"
+	"Assistant Artist: Zichqec\n"
+	"Camera Operator: Zichqec\n"
+	"Sound Design: Zichqec\n"
+	"On-Set Mixer: Zichqec\n"
+	"Boom Operator: Zichqec\n"
+	"Wardrobe: Galla\n"
+	"Hair/Makeup: Zichqec\n"
+	"Visual Effects: Galla\n"
+	"Colorist: Galla\n"
+	"Title Design: Galla\n\n"
+
+	"\f[align,center]Special Thanks To:\n"
+	"Ghost Jam 2022\n"
+	"Zi's Cat\n\n\n\n"
+
+	"Real balloons were harmed in the making of this ghost.\n\n"
+	
+	"\![*]\q[Back,OnMenuRun]"
+	
+}
+
+OnCreditsRollNew : all
+{
+	"\b2\t\*\_q\![set,autoscroll,disable]"
+	"\n\n\n\n\n\n\n\n\n\n" //10, one more than needed I think
+	
+	"\f[align,center]"
+	"Zichqec Presents\n"
+	"A Galla Ghost\n"
+	"Starring: Balloons\n\n"
+
+	"Director: Galla\n"
+	"Lead Writer: Galla\n"
+	"Assistant Writer: Zichqec\n"
+	"Producer: Zichqec\n"
+	"Executive Producer: Zichqec\n\n"
+
+	"\f[align,center]Cast\n"
+	"Angry - Angry Balloon\n"
+	"Confused - Confused Balloon\n"
+	"Happy - Happy Balloon\n"
+	"Sad - Sad Balloon\n"
+	"Scared - Scared Balloon\n"
+	"Shy - Shy Balloon\n"
+	"Think - Think Balloon\n"
+	"Unamused - Unamused Balloon\n\n"
+
+	"Senior Software Engineer: Zichqec\n"
+	"Junior Software Engineer: Galla\n"
+	"Stunt Coordinator: Zichqec\n"
+	"Stunt Performer: Galla\n"
+	"Lead Artist: Galla\n"
+	"Assistant Artist: Zichqec\n"
+	"Camera Operator: Zichqec\n"
+	"Sound Design: Zichqec\n"
+	"On-Set Mixer: Zichqec\n"
+	"Boom Operator: Zichqec\n"
+	"Wardrobe: Galla\n"
+	"Hair/Makeup: Zichqec\n"
+	"Visual Effects: Galla\n"
+	"Colorist: Galla\n"
+	"Title Design: Galla\n\n"
+
+	"\f[align,center]Special Thanks To:\n"
+	"Ghost Jam 2022\n"
+	"Zi's Cat\n\n\n\n"
+
+	"Real balloons were harmed in the making of this ghost.\n\n"
+	
+	"\![*]\q[Back,OnMenuRun]"
+	
+	"\![set,autoscroll,enable]\_l[0,0]"
+	
+	for _i = 0; _i < 100; _i++
+	{
+		"\n \w1."
+	}
+}
+
+//If the main menu has been cancelled
+Select.Cancel
+{
+	if !SadIsPopped; "%(sad)...oh.\w8 ok...\w8%(sadoff) "
+	else; PoppedDialogue("Sad")
+	
+	if !ConfusedIsPopped; "%(confused)Oh?\w8 Ok...?\w8%(confusedoff) "
+	else; PoppedDialogue("Confused")
+	
+	if !AngryIsPopped; "%(angry)FINE,\w4 NEVERMIND.\w8%(angryoff) "
+	else; PoppedDialogue("Angry")
+	
+	if !UnamusedIsPopped; "%(unamused)yeah whatever\w8%(unamusedoff) "
+	else; PoppedDialogue("Unamused")
+}
+
+OnTestVar
+{
+	LOGGING("====================================================================")
+	LOGGING("====================================================================")
+	LOGGING("====================================================================")
+	TAMA("!AreThesePopped('Angry','Sad','Confused','Shy')")
+
+	// if !AreThesePopped("Angry","Sad","Confused","Shy")
+	// {
+		// if !ShyIsPopped; "%(shy)shy shy shy\w8%(shyoff) "
+		// else; PoppedDialogue("Shy")
+
+		// --
+
+		// if !SadIsPopped; "%(sad)sad sad sad\w8%(sadoff) "
+		// else; PoppedDialogue("Sad")
+		// --
+		// if !ConfusedIsPopped; "%(confused)confused confused confused\w8%(confusedoff) "
+		// else; PoppedDialogue("Confused")
+
+		// --
+		// if !AngryIsPopped; "%(angry)angry angry angry\w8%(angryoff) "
+		// else; PoppedDialogue("Angry")
+
+	// }
+	// else; AllPoppedDialogue
+	
+	// if !AreThesePopped("Angry","Sad","Confused","Shy")
+	// {
+		// "%(shy)shy shy shy\w8 %(shyoff)%(sad)sad sad sad\w8 %(sadoff)%(confused)confused confused confused\w8 %(confusedoff)%(angry)angry angry angry\w8%(angryoff)"
+	// }
+	// else; AllPoppedDialogue
+	
+	
+	if !AreThesePopped("Angry","Sad","Confused","Shy","Unamused","Think","Scared","Happy")
+	{
+		"%(shy)S-some complicated dialogue involving multiple emotions... %(shyoff)%(angry)BUT NOW YOU HAVE TO PUT THE SPACES BETWEEN EMOTIONS BEFORE THE ENDING TAGS OR THE SPACING WILL GET MESSED UP!! %(angryoff)%(think)It is a small sacrifice in order to not need the more complicated formatting,\w4 though... %(thinkoff)%(happy)\n\nYay!!\w8 It's all working!! %(happyoff)%(unamused)probably%(unamusedoff)%(confused)\n\nI??\w8 Really hope??\w8 This doesn't need messed with again in the future??? %(confusedoff)%(scared)Oh,\w4 I don't want to have to trouble Zi if it does... %(scaredoff)%(shy)U-um,\w4 please tell Zi if you um,\w4 f-find any issues... %(shyoff)%(angry)OR ELSE.%(angryoff)"
+	}
+	else; AllPoppedDialogue
+}
+
+
+//============Kero Menu============
+
+OpenKeroMenu
+{
+	"\1\s[10]Yo."
+	"\1\s[10]Hi."
+	--
+	OnKeroMenu
+}
+
+OnKeroMenu : all
+{
+	//Fill in as you like
+}
+
+TamaOpenDialogues : nonoverlap
+{
+	"Tama opened"
+}
+
+TamaCloseDialogues
+{
+	"Tama closed"
+}
+
+On_tamaOpen
+{
+	TamaHWND = reference0
+	SETTAMAHWND(TamaHWND)
+	SHIORI3FW.Push_X_SSTP_PassThru('Title',"bloons bloons bloons") //These settings are all optional
+	SHIORI3FW.Push_X_SSTP_PassThru('border.color','232323')
+	SHIORI3FW.Push_X_SSTP_PassThru('background.color','333333')
+	SHIORI3FW.Push_X_SSTP_PassThru('default.color','EEEEEE') //and any other settings you can find in tama.txt
+	SHIORI3FW.Push_X_SSTP_PassThru('fatal.color','f23e3e')
+	SHIORI3FW.Push_X_SSTP_PassThru('error.color','f23e3e')
+	SHIORI3FW.Push_X_SSTP_PassThru('warning.color','ff972d')
+	TamaOpenDialogues
+}
+
+On_tamaExit
+{
+	SETTAMAHWND(0)
+	TamaCloseDialogues
+}
+
+OnInitialize
+{
+	if reference0 == "reload" //If reloading
+	{
+		if TamaHWND != ""; SETTAMAHWND(TamaHWND)
+	}
+	else //Actual boot
+	{
+		FixDefaultOptions //In case variables get erased, they should be fixed here
+		lastTalk = ""
+		AutoUpdates[1] = 0
+		x.boot_min = GETSECCOUNT / 60 //What time (epoch) the ghost was booted
+		
+		ShyIsPopped = 0
+		UnamusedIsPopped = 0
+		ScaredIsPopped = 0
+		SadIsPopped = 0
+		ConfusedIsPopped = 0
+		HappyIsPopped = 0
+		AngryIsPopped = 0
+		ThinkIsPopped = 0
+		
+		TamaHWND = ""
+	}
+}
+
+OnDestroy
+{
+	if reference0 == "reload"
+	{
+		
+	}
+	else //Actual closing
+	{
+		TamaHWND = ""
+		
+		lastclosed = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)") //This tracks the last time the ghost was closed.
+		x.up_all = x.up_total //I rewrote the timekeeping system... I like the way it's set up in the base SHIORI files, except that it goes back to 0 every time the ghost reloads and that's annoying. So I recreated it lol
+	}
+	SETTAMAHWND(0)
+}
+
+OnTestDialogue
+{
+	"%(reference0)"
+}

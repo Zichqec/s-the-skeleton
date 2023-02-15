@@ -1,0 +1,41 @@
+//This file is for if there's an error in your dic files. If the ghost doesn't have anything to load into, the errors won't be able to display in the error log, so I've added this simple file. You can change it if you like, but there's no need to! If used as given, this is the only dic file that will load until you fix the error.
+
+#define ERRORMESSAGE "\0\s[0]Error detected in the dic files, please check the error log for details.\![ERRORDETECTEDMESSAGE]\x"
+
+OnMouseDoubleClick
+{
+	ERRORMESSAGE
+}
+
+OnBoot
+{
+	ERRORMESSAGE
+}
+
+OnBalloonBreak
+{
+	if !("ERRORDETECTEDMESSAGE" _in_ reference0); ERRORMESSAGE
+}
+
+OnBalloonTimeout
+{
+	if !("ERRORDETECTEDMESSAGE" _in_ reference0); ERRORMESSAGE
+}
+
+OnBalloonClose
+{
+	if !("ERRORDETECTEDMESSAGE" _in_ reference0); ERRORMESSAGE
+}
+
+OnKeyPress
+{
+	case reference0
+	{
+		when "f1"; "\![open,readme]"
+		when "f5"; {if debug; "\![reload,ghost]"}
+		when "f6"; {if debug; "\![reload,shiori]"}
+		when "f7"; {if debug; "\![reload,shell]"}
+		when "f8"; {if debug; "\![reload,balloon]"}
+		others; ERRORMESSAGE
+	}
+}

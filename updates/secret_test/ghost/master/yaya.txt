@@ -1,0 +1,41 @@
+charset, UTF-8
+charset.dic, UTF-8
+charset.output, UTF-8
+charset.file, UTF-8
+charset.save, UTF-8
+charset.extension, UTF-8
+
+dicdir, yaya_base
+dic, b_aitalk.dic
+dic, b_anchor.dic
+dic, b_bootend.dic
+dic, b_commu.dic
+dic, b_etc.dic
+dic, b_menu.dic
+dic, b_mouse.dic
+dic, b_nameteach.dic
+dic, b_string.dic
+dic, b_tools.dic
+dic, b_word.dic
+
+
+
+//log, ayame.log
+msglang,english
+
+
+
+//------------------------------------------------------------------------------
+//実行ログ
+//実行ログをayame.logに記録します。開発時には記録しておいたほうが良いです。
+//------------------------------------------------------------------------------
+// log, ayame.log	
+//ignoreiolog, ID: OnSecondChange //OnSecondChange無視
+//ignoreiolog, ID: OnMouse        //OnMouse系無視
+
+//These are here because I always forget the formatting. You can use these in place of ignoreiolog, and it will allow you to use it like a whitelist! But also, if you just do OnMouse like I have it below, it filters out ALL the mouse events, which is not how ignoreiolog works. Unsure if that's a bug or not.
+iolog.filter.mode,blacklist
+iolog.filter.keyword,OnSecondChange
+iolog.filter.keyword,OnMouse
+
+maxlognum,1000

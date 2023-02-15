@@ -1,0 +1,270 @@
+//I put anything related to who the user is in here. Name, pronouns, birthday.
+
+OnChangeName
+{
+	if !AreThesePopped("Scared","Confused","Happy")
+	{
+		"%(scared)Oh no,\w4 we didn't get it wrong,\w4 did we?\w 8%(scaredoff)"
+		--
+		"%(happy)New names are fun!\w8 %(happyoff)"
+		--
+		"%(confused)What do you want yours to be now?\w8 %(confusedoff)"
+	}
+	else
+	{
+		AllPoppedDialogue
+		--
+		"\n\n(What do you want your name to be?)"
+	}
+	--
+	"\n\n\![*]\q[Cancel,OnConfigMenu,OnNameTeach]\*\![open,inputbox,OnNameTeach,-1]\e"
+}
+
+OnNameTeach //TODO THIS DOESN'T HANDLE IF BALLOONS ARE POPPED BECAUSE I WAS THINKING OF FIRSTBOOT
+{	
+	_tempname = CUTSPACE(reference.raw[0]) //this stores the original name in _tempname
+	_name = reference.raw[0] //putting the raw name into _name to do some tests on it
+	_name = TOLOWER(_name) //changes it to lowercase
+	_name = REPLACE(_name," ","") //removes spaces
+	_name = REPLACE(_name,".","") //removes periods
+	_name = REPLACE(_name,"-","") //removes dashes
+	
+	_is_first_boot = 0; if reference2 == "firstboot"; _is_first_boot = 1
+	
+	if _tempname == username && !_is_first_boot //If the user gives the exact same name as before. The firstboot check has to be there in case they put in 'user'
+	{
+		"\![raise,OnConfigMenu]"
+	}
+	elseif _name == "needle"
+	{
+		if _is_first_boot; "\_l[-10000,-10000]\q[ ,__VERY_FIRST_BOOT__]\_l[0,0]\*\t" //Prevents balloon from timing out if this is during first boot. Also prevents the user from closing out the input box
+		
+		"%(unamused)yeah,\w4 right,\w4 like i wouldn't know my own family\w8%(unamusedoff)"
+		--
+		EnterNameAgain
+	}
+	elseif _name == "everglow"
+	{
+		if _is_first_boot; "\_l[-10000,-10000]\q[ ,__VERY_FIRST_BOOT__]\_l[0,0]\*\t" //Prevents balloon from timing out if this is during first boot. Also prevents the user from closing out the input box
+		
+		
+		"%(angry)HOW DO YOU KNOW THAT NAME!?\w8 STOP LYING!\w8%(angryoff)"
+		--
+		EnterNameAgain
+	}
+	elseif _name == "orna"
+	{
+		username = _tempname
+		"%(shy)Oh,\w4 r-really?\w8 Can you...\w8 change your face,\w4 too?\w8%(shyoff) "
+	}
+	elseif _name == "zichqec"
+	{
+		username = _tempname
+		"%(happy)Oh!\w8 Not just a friend!\w8 A BEST friend!\w8%(happyoff)%(br)"
+		
+	}
+	elseif _name == "galla"
+	{
+		username = _tempname
+		
+		"%(think)Ah.\w8 The incorrect choice.\w8%(thinkoff) "
+	}
+	elseif _name == "" //If the user doesn't put in anything
+	{
+		if _is_first_boot; "\_l[-10000,-10000]\q[ ,__VERY_FIRST_BOOT__]\_l[0,0]\*\t" //Prevents balloon from timing out if this is during first boot. Also prevents the user from closing out the input box
+		
+		if _is_first_boot; "%(scared)I was too quiet,\w4 wasn't I?\w8 It's alright,\w4 don't worry about it,\w4 just try again...\w8 a little louder this time...\w8 %(scaredoff)%(shy)U-uhm...\w8 I-\w4 I-\w4 %(shyoff)%(angry)I ASKED YOUR NAME,\w4 SO GIVE IT TO ME!%(angryoff)"
+		else
+		{
+			if !AngryIsPopped && !UnamusedIsPopped; "%(unamused)yeah,\w4 i know you wanted to change your name %(unamusedoff)%(angry)SO TELL ME WHAT YOU WANT ALREADY %(angryoff)%(unamused)and stop wasting everyone's time%(unamusedoff)"
+			else
+			{
+				if AngryIsPopped; PoppedDialogue("Angry")
+				if UnamusedIsPopped; PoppedDialogue("Unamused")
+			}
+		}
+		--
+		EnterNameAgain
+	}
+	else //if it's none of these above names, we can use it. You can add names that just have comments and can still be used, just don't add a \e at the end.
+	{
+		username = SHIORI3FW.EscapeAllTags(_tempname) //Escape any tags the user might've stuck in there
+	}
+	--
+	if !_is_first_boot //If the user was changing their name through the config menu
+	{
+		"%(think)Consider your prior name dead and buried.\w8 It will never be mentioned again.\w8%(thinkoff)"
+		--
+		"\n\n\![*]\q[Back to config,OnConfigMenu]\n\![*]\q[I'm done,cancelnodialogue]\e"
+	}
+	else //This is continuing from FirstBoot
+	{
+		"%(confused)%(username)?\w8 It's %(username),\w4 right?\w8 I got it right???\w8%(confusedoff) %(happy)Yay!\w8 It's so nice to meet you,\w4 %(username)!\w8%(happyoff) %(think)As long as we are here,\w4 I think we should do our best to get along.\w8 There is no telling when another breeze will take us elsewhere,\w4 after all.\w8%(thinkoff)"
+	}
+}
+
+//If the user put in an invalid name
+EnterNameAgain
+{
+	_is_first_boot = 0; if reference2 == "firstboot"; _is_first_boot = 1
+	_function = "OnNameTeach"; if _is_first_boot; _function = "OnFirstNameTeach"
+	
+	if !_is_first_boot; "\n\n\![*]\q[Cancel,OnConfigMenu,OnNameTeach]" //If changing name through the menu
+	--
+	"\![open,inputbox,OnNameTeach,-1,--reference=firstboot]\e"
+}
+
+//Envelope names are the same as the GT template, since I figured most people will be used to them.
+OnChangePronoun
+{
+	"\0%(s0)How should I refer to you?"
+	--
+	all:/
+	{
+		"\n\n\_q"
+		"\![*]\q[He/Him/His,OnPronouns,masc]\n"
+		"\![*]\q[She/Her/Hers,OnPronouns,fem]\n"
+		"\![*]\q[They/Them/Their,OnPronouns,undef]\n\n"
+		"\![*]\q[Cancel,OnConfigMenu]\e"
+	}
+}
+
+
+OnPronouns
+{
+	pronouns = reference0
+	--
+	if reference1 == "firstboot" //This is the end of the firstboot dialogue
+	{
+		"\0%(s0)Sounds good!\w8\w8 To access the test variable or the to-do list,\w4 you can open script input with ctrl + s and type \%\(debug = 1)\w8\w8\n\nYou can also check if there's a newer version of the template!\w8\w8 Have fun!\e"
+	}
+	else //This is if the user is changing their pronouns through the menu
+	{
+		"\0%(s0)Ok,\w4 I'll use %(heshe) %(himher) and %(hisher)."
+		--
+		"\n\n\![*]\q[Back to config,OnConfigMenu]\n\![*]\q[I'm done,cancelnodialogue]\e"
+	}
+}
+//Pronoun examples for my own sake:
+//"%(heshe) left that there."
+//"%(hisher) work is really cool."
+//"I'll ask %(himher) later."
+//"%(hesshes) really good at it."
+
+OnChangeBirthday //Pulled a lot of this from the GT template, but I also modified it a lot
+{
+	if !AreThesePopped("Angry","Unamused")
+	{
+		"%(angry)WHAT?\w8 BIRTHDAY?\w8 %(angryoff)"
+		--
+		if !UnamusedIsPopped; "%(unamused)whatever, what month's your birthday then\w8%(unamusedoff)"
+		else
+		{
+			PoppedDialogue("Unamused")
+			--
+			"(What month were you born in?)"
+		}
+	}
+	else
+	{
+		AllPoppedDialogue
+		--
+		"\n\n(What month were you born in?)"
+	}
+	--
+	"\n\n\![*]\q[Cancel,OnConfigMenu,OnUserBornMonth]\![open,inputbox,OnUserBornMonth,-1]\*\e"
+}
+
+//birthday[0] - word birthday
+//birthday[1] - number birthday
+//Use birthday[0] to display the user's birthday, and birthday[1] to do checks with the numbers
+OnUserBornMonth
+{
+	_tempmonth = reference0 //this stores what the user put in as a variable called _tempmonth
+	_tempmonth = TOLOWER(_tempmonth) //changes it to lowercase
+	_month = 0
+	
+	if _tempmonth == "january" || _tempmonth == "1"; _month = 1
+	elseif _tempmonth == "february" || _tempmonth == "2"; _month = 2
+	elseif _tempmonth == "march" || _tempmonth == "3"; _month = 3
+	elseif _tempmonth == "april" || _tempmonth == "4"; _month = 4
+	elseif _tempmonth == "may" || _tempmonth == "5"; _month = 5
+	elseif _tempmonth == "june" || _tempmonth == "6"; _month = 6
+	elseif _tempmonth == "july" || _tempmonth == "7"; _month = 7
+	elseif _tempmonth == "august" || _tempmonth == "8"; _month = 8
+	elseif _tempmonth == "september" || _tempmonth == "9"; _month = 9
+	elseif _tempmonth == "october" || _tempmonth == "10"; _month = 10
+	elseif _tempmonth == "november" || _tempmonth == "11"; _month = 11
+	elseif _tempmonth == "december" || _tempmonth == "12"; _month = 12
+	else //if the month isn't a valid month, like 32 or something.
+	{
+		if !AreThesePopped("Shy","Happy")
+		{
+			"%(shy)I don't know... w-what... %(_tempmonth) is... uh...\w8 %(shyoff)"
+			--
+			"%(happy)Try again!\w8%(happyoff)"
+		}
+		else
+		{
+			AllPoppedDialogue
+			--
+			"\n\n(Invalid month,\w4 try again.)"
+		}
+		--
+		"\n\n\![*]\q[Cancel,OnConfigMenu,OnUserBornMonth]\![open,inputbox,OnUserBornMonth,-1]\*\e"
+	}
+	--
+	//If it's a valid month
+	if !ConfusedIsPopped; "%(confused)%(Capitalize(MonthName(_month)))?\w8 Do you have a day to go with that??\w8%(confusedoff)"
+	else
+	{
+		AllPoppedDialogue
+		--
+		"\n\n(What day were you born on?)"
+	}
+	--
+	"\n\n\![*]\q[Cancel,OnConfigMenu,OnUserBornDay]\![open,inputbox,OnUserBornDay,-1,--reference=%(_month)]\*\e"
+}
+
+OnUserBornDay
+{
+	
+	_tempday = reference0 //storing the input in _tempday
+	_tempday = TOLOWER(_tempday) //changes it to lowercase
+	_tempday = REPLACE(_tempday,"st","") //if the user types something like 2nd, 3rd, etc, this will make it just the number. It'll just add the suffix back later on the one that actually shows.
+	_tempday = REPLACE(_tempday,"nd","")
+	_tempday = REPLACE(_tempday,"rd","")
+	_tempday = REPLACE(_tempday,"th","")
+	_tempday = TOINT(_tempday) //Converts it to an integer
+	_month = reference2 //Just for readability
+	
+	if IsValidDay(_month,_tempday)
+	{
+		birthday[0] = "%(Capitalize(MonthName(_month))) %(NumSuffix(_tempday))"
+		birthday[1] = "%(_month)/%(_tempday)" //If you want to write dates as DD/MM, feel free to swap this around
+		
+		if birthday[1] == "%(month)/%(day)" //if today is the user's birthday. Don't forget to switch this if you change the format to DD/MM
+		{
+			"%(unamused)%(username),\w4 you did that on purpose,\w4 didn't you?\w8 yeah,\w4 i'll say it next year.\w8\w8 maybe.\w8%(unamusedoff)"
+
+		}
+		else //if the birthday is not listed above.
+		{
+			"%(think)I will remember %(birthday[0]) as your day of birth.\w8 Forever.\w8%(thinkoff)"
+		}
+		--
+		"\n\n\![*]\q[Back to config,OnConfigMenu]\n\![*]\q[I'm done,cancelnodialogue]\e"
+	}
+	else //If it isn't a valid day, we open the input box again
+	{
+		if !SadIsPopped; "%(sad)i'm not sure i understand...?\w8 could you tell me one more time?\w8%(sadoff)"
+		else
+		{
+			PoppedDialogue("Sad")
+			--
+			"(Invalid day,\w4 try again.)"
+		}
+		--
+		"\n\n\![*]\q[Cancel,OnConfigMenu,OnUserBornDay]\![open,inputbox,OnUserBornDay,-1]\*\e"
+	}
+}

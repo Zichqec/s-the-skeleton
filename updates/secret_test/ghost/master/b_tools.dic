@@ -1,0 +1,439 @@
+//Pure functions and other utilities
+//This file is kind of a mess atm but I just can't decide how I want to organize these.
+
+//If you write all your envelopes as lowercase, you can send them through this function whenever you need the first letter capitalized! It'd look something like this: "%(Capitalize(exampleenvelope))"
+Capitalize
+{
+	_first = SUBSTR(_argv[0],0,1)
+	_rest = ERASE(_argv[0],0,1) //Erase the first character and store everything else in _rest
+	TOUPPER(_first) + _rest
+}
+
+
+//As the name implies, this checks if the balloon is currently open or not.
+//Will be 0 if the balloon is not open, and 1 if the balloon is open
+BalloonIsOpen
+{
+	"balloon" _in_ var.req.value[ASEARCH("Status",var.req.key)]
+}
+
+//This function allows you to add a line break, but only for the balloon you intend your ghost to use! So if a bit of text wraps awkwardly, but you don't want to add a \n because it may look super weird in other balloons, you can put a %(br) instead! It'll be a \n in your balloon, and a single space in any other balloon. Make sure you add the name of your balloon here!
+//Example: "This dialogue would cut awkwardly in a hypothetical default%(br)balloon,\w4 so a manual linebreak is added for only that balloon.\w8\w8 In any other balloon this would be a%(br)continuous line,\w4 and use SSP's default word wrap.\e"
+br
+{
+	if SHIORI3FW.BalloonName == "Balloons Balloon"; "\n"
+	else; " "
+}
+
+//This function is to help with changing text alignment in the same line! It makes a new line by using \n, displaying a space, and then going back up a line. So you'd use it like this:
+//"Text on the left%(newline)\f[align,right]Text on the right"
+newline
+{
+	"\n \_l[0]\n[-100]"
+}
+
+//Searches the start of a string for the requested substring.
+//Argument 0 is the source string to search, argument 1 is the substring to search for.
+//Returns 1 if true, 0 if false.
+//Usage example:
+//StartsWith("Testing","Test")
+StartsWith
+{
+	//Check the length of the substr to test for, check that many characters at the beginning of the string, and see if it matches the given substr
+	_teststr_len = STRLEN(_argv[1])
+	SUBSTR(_argv[0],0,_teststr_len) == _argv[1]
+}
+
+//Searches the end of a string for the requested substring.
+//Argument 0 is the source string to search, argument 1 is the substring to search for.
+//Returns 1 if true, 0 if false.
+//Usage example:
+//EndsWith("Testing","ing")
+EndsWith
+{
+	//Check the length of the substr to test for, check that many characters at the end of the string, and see if it matches the given substr
+	_teststr_len = STRLEN(_argv[0])
+	_substr_len = STRLEN(_argv[1])
+	SUBSTR(_argv[0],_teststr_len - _substr_len,_substr_len) == _argv[1]
+}
+
+//Sets the appropriate suffix for whatever number you pass in
+NumSuffix : all
+{
+	_str = TOSTR(_argv[0])
+	_last = SUBSTR(_str,STRLEN(_str) - 1,1)
+	_last2 = SUBSTR(_str,STRLEN(_str) - 2,2)
+	CVINT(_last2)
+	
+	_str //Add the number, suffixes added below
+	
+	//Handle teen numbers
+	if _last2 >= 11 && _last2 <= 13
+	{
+		"th"
+		return
+	}
+	
+	//Everything else
+	case TOINT(_last)
+	{
+		when 1; "st"
+		when 2; "nd"
+		when 3; "rd"
+		others; "th"
+	}
+}
+
+//Checks if the day is valid for the month given
+//Month is argument 0, day is argument 1
+//Returns 1 if it's a valid day, 0 if it's not
+IsValidDay
+{
+	_month = TOINT(_argv[0])
+	_day = TOINT(_argv[1])
+
+	case _month
+	{
+		when 2
+		{
+			if _day >= 1 && _day <= 29; 1
+			else; 0
+		}
+		when 4, 6, 9, 11
+		{
+			if _day >= 1 && _day <= 30; 1
+			else; 0
+		}
+		others //1, 3, 5, 7, 8, 10, 12
+		{
+			if _day >= 1 && _day <= 31; 1
+			else; 0
+		}
+	}
+}
+
+//Take an integer, give the name of the month it goes with
+MonthName
+{
+	switch _argv[0]
+	{
+		"" //0
+		"january"
+		"february"
+		"march"
+		"april"
+		"may"
+		"june"
+		"july"
+		"august"
+		"september"
+		"october"
+		"november"
+		"december"
+	}
+}
+
+//Some lorem ipsum for when you need quick filler text
+loremipsum
+{
+	"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+}
+
+//— Flag System —
+//Usage: This is intended to take the place of single-use variables that only contain 0 or 1, used as flags for certain events and such. With these functions, you can store all those flags as a single array, meaning you can make as many flags as you want without having to really worry about save bloat. It can also make your code a bit more readable!
+
+//You'll want to put 'FlagArray = IARRAY' into your OnFirstBoot. That'll set up an empty array for flags to be stored in.
+//When you want to check if a flag is set or not, you can do it like so:
+//if Flag("My Flag") == 0
+//or
+//if Flag("My Flag") == 1
+
+//Any flags that are NOT in the array are 0, and any flags that ARE in the array are 1. So, to set a flag to 1, you add it to the array like this:
+//AddFlag("My Flag")
+
+//If you want to set a flag back to 0, you can remove it like so:
+//RemoveFlag("My Flag")
+
+//Flag names can be just about anything you want! They're just stored as strings. For example, for S I have "Saw Gaster with googly eyes", and for Lulo I have things like "Unlocked MP3 player" and "Unlocked journal". If you want to see what flags are set, you can just put %(FlagArray) into script input, so it's helpful to have names that describe the flag!
+
+//Checks to see if a flag exists. Returns 1 if yes, returns 0 if no
+Flag
+{
+	if !ISVAR("FlagArray"); FlagArray = IARRAY
+	if ASEARCH(_argv[0],FlagArray) != -1; 1
+	else; 0
+}
+
+//Adds a flag to the array
+AddFlag
+{
+	if !ISVAR("FlagArray"); FlagArray = IARRAY
+	if !Flag(_argv); FlagArray ,= _argv
+}
+
+//Removes all instances of a flag in the array
+RemoveFlag
+{
+	if !ISVAR("FlagArray"); FlagArray = IARRAY
+	_elements = ASEARCHEX(_argv[0],FlagArray)
+	if ARRAYSIZE(_elements) > 0
+	{
+		for _i = ARRAYSIZE(_elements) - 1; _i >= 0; _i-- //Goes from the end of the list to the start, so the elements stay in the same positions while we erase
+		{
+			_current = _elements[_i]
+			FlagArray[_current] = IARRAY
+		}
+	}
+}
+
+//-----Menu stuff-----
+heshe
+{
+	if pronouns == "masc"; "he"
+	elseif pronouns == "fem"; "she"
+	else; "they"
+}
+
+himher
+{
+	if pronouns == "masc"; "him"
+	elseif pronouns == "fem"; "her"
+	else; "them"
+}
+
+hisher
+{
+	if pronouns == "masc"; "his"
+	elseif pronouns == "fem"; "her"
+	else; "their"
+}
+
+hesshes
+{
+	if pronouns == "masc"; "he's"
+	elseif pronouns == "fem"; "she's"
+	else; "they're"
+}
+
+//Current season
+season
+{
+	if hemisphere == "Southern"
+	{
+		case month
+		{
+			when 3-5; "Autumn"
+			when 6-8; "Winter"
+			when 9-11; "Spring"
+			others; "Summer"
+		}
+	}
+	else
+	{
+		case month
+		{
+			when 3-5; "Spring"
+			when 6-8; "Summer"
+			when 9-11; "Autumn"
+			others; "Winter"
+		}
+	}
+}
+
+//hour12 displays the hour like a 12 hour clock, except for 12 which is displayed as 0
+nowhour
+{
+	if hour12 == 0; "12"
+	else; "%(hour12)"
+}
+
+//Adding a 0 to the minute if it's under 10
+nowmin
+{
+	if minute < 10; "0%(minute)"
+	else; "%(minute)"
+}
+
+//Total hours
+totalhours
+{
+	x.up_total / 60
+}
+
+//Total hours + minutes
+totalruntime
+{
+	_hours = x.up_total / 60
+	_mins = x.up_total % 60
+	if _mins <= 9; _mins = "0%(_mins)"
+	
+	"%(_hours):%(_mins)"
+}
+
+//Current runtime as hours + minutes
+runtime
+{
+	_hours = x.up_mins / 60
+	_mins = x.up_mins % 60
+	if _mins <= 9; _mins = "0%(_mins)"
+	
+	"%(_hours):%(_mins)"
+}
+
+//AM or PM - ampm is 0 during am, and 1 during pm
+ap
+{
+ 	if ampm == 0; "AM"
+ 	else; "PM"
+}
+
+//Abbreviated week day
+wd
+{
+	switch weekday
+	{
+		"Sun" //weekday starts at 0 for some reason
+		"Mon"
+		"Tue"
+		"Wed"
+		"Thu"
+		"Fri"
+		"Sat"
+	}
+}
+
+//Full week day
+nowday
+{
+	_weekday = weekday
+	if _argv[0] == "next"
+	{
+		_weekday++
+		if _weekday > 6; _weekday = 0
+	}
+	if _argv[0] == "last"
+	{
+		_weekday--
+		if _weekday < 0; _weekday = 6
+	}
+	
+	if GETTYPE(_argv[0]) == 1 //If it's an integer
+	{
+		while _argv[0] > 6; {_argv[0] -= 7}
+		while _argv[0] < 0; {_argv[0] += 7}
+		_weekday = _argv[0]
+	}
+	
+	switch _weekday
+	{
+		"Sunday" //weekday starts at 0 for some reason
+		"Monday"
+		"Tuesday"
+		"Wednesday"
+		"Thursday"
+		"Friday"
+		"Saturday"
+	}
+}
+
+//The current month name
+nowmonth
+{
+	_month = month
+	
+	if _argv[0] == "next"
+	{
+		_month++
+		if _month > 12; _month = 1
+	}
+	if _argv[0] == "last"
+	{
+		_month--
+		if _month < 1; _month = 12
+	}
+	
+	if GETTYPE(_argv[0]) == 1 //If it's an integer
+	{
+		while _argv[0] > 12; {_argv[0] -= 12}
+		while _argv[0] < 1; {_argv[0] += 12}
+		_month = _argv[0]
+	}
+	
+	switch _month
+	{
+		"" //0
+		"January"
+		"February"
+		"March"
+		"April"
+		"May"
+		"June"
+		"July"
+		"August"
+		"September"
+		"October"
+		"November"
+		"December"
+	}
+}
+
+//Checks if this is a leap year
+leapyear
+{
+	if year % 4 != 0; 0
+	elseif year % 100 != 0; 1
+	elseif year % 400 != 0; 0
+	else; 1
+}
+
+//Gets the day of the year it currently is, starting from 1 because starting from 0 here is silly
+yearday
+{
+	GETTIME[7] + 1
+}
+
+//Current week in the year, 1-53
+yearweek
+{
+	//Get the current day of the year
+	_days = yearday
+
+	//Get the number of days into the current week that we are
+	_trailingdays = 0
+	while weekday - _trailingdays >= 0
+	{
+		_trailingdays++
+	}
+
+	//Get the number of weeks minus leading and trailing days
+	_days -= _trailingdays
+	_weeks = _days / 7
+	_leadingdays = _days % 7
+
+	//Add in the trailing weeks
+	if _leadingdays > 0; _weeks++
+	if _trailingdays > 0; _weeks++
+
+	//Handles week 53
+	if _weeks == 53
+	{
+		_daysleft = 31 - day
+		if _daysleft + _trailingdays < 7; _weeks = 1
+	}
+	_weeks
+}
+
+//From the GT template. Breaking down the day into a few distinct chunks so you dont have to add checks for every hour.
+timeslot
+{
+	case hour
+	{
+		when 5-8; "earlymorning" //5-8am
+		when 9-11; "morning" //9-11am
+		when 12-14; "lunch" //12-2pm
+		when 15-17; "afternoon" //3-5pm
+		when 18-20; "evening" //6-8pm
+		when 21-23; "latenight" //9-11pm
+		others; "midnight" //12-4am
+	}
+}
