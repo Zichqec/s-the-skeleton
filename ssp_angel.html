@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zi's Ukagaka Hub</title>
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="Zi's Ukagaka Hub"/>
+    <meta property="og:description" content="Zi's hub for Ukagakas and related things"/>
+    <meta property="og:url" content="https://zichqec.github.io/s-the-skeleton/index.html"/>
+    <meta property="og:image" content="https://zichqec.github.io/s-the-skeleton/img/AllTogether.png"/>
+</head>
+
+<body>
+    <nav><div id="navbar" class="navbar"></div></nav>
+	
+    <article>
+        <!--<h1>Zi's Ukagaka Hub</h1>-->
+        <h1>SSP Angel</h1>
+        <img src="img/ssp_angel_00.png" alt="SSP Angel Thumbnail" width="490" height="380" class="centersq">
+        <br>
+        <div class="cntr"><a href="https://github.com/Zichqec/SSP_Angel/releases/latest">Download their latest .nar file here!</a></div>
+        <p>SSP Angel is your new companion, and a guide to SSP! They can give you all kinds of tips and tricks, and teach you all about ghosts! And if you're already an experienced user, fear not! You can turn off their tip dialogues and use them like a normal ghost as well. They have over 100 dialogues not related to SSP at all.</p>
+		
+		<div class="centerreg">
+			<div class="sBs">
+				<img src="img/ssp_angel_01.png" alt="A tip in random dialogue" class="center" width="734" height="562">
+			</div>
+			<div class="sBs">
+				<img src="img/ssp_angel_02.png" alt="A random dialogue" class="center" width="734" height="562">
+			</div>
+		</div>
+		
+		<p>The two have menus for asking them all sorts of questions about ghosts, a glossary of terms, and a listing of key combinations!</p>
+		
+		<div class="centerreg">
+				<img src="img/ssp_angel_03.png" alt="A menu with questions the user can ask" class="center" width="877" height="527">
+		</div>
+		
+		<p>They also come with 3 balloons, 2 of which have a special option to customize which colors each character should use. There are a wide variety of options!</p>
+		
+		<div class="centerreg">
+				<img src="img/ssp_angel_04.png" alt="The balloon customization menu" class="center" width="1272" height="538">
+		</div>
+		
+		<p>Give them a try! Even if you've used SSP for a long time, you might learn something new. I sure did while I was working on them!</p>
+		
+		<h2>Credits</h2>
+		<p>SSP Angel and its associated balloons were a collaborative effort between multiple people, listed collectively as the "Angel Team".</p>
+		<ul>
+			<li><a href="https://github.com/Ayakamtka">Ayakamtka</a> - Writing, feedback, and bug testing</li>
+			<li><a href="https://gallathegalla.github.io/gtg-ghosts/">GallaTheGalla</a> - Writing help and balloon details (including all the pretty colors)</li>
+			<li><a href="https://twitter.com/yuyudev">Yuyudev</a> - Shell art and Cotton Candy balloon base</li>
+			<li><a href="https://zichqec.github.io/s-the-skeleton/">Zichqec</a> - Writing, programming, and Angelbox balloon base</li>
+		</ul>
+        <br>
+        <webring-banner>
+			<p>Member of the <a href="https://ukagakawebring.netlify.com/">Ukagaka/Ghost Development and Download</a> webring</p>
+			<a href="https://ukagakawebring.netlify.com//prev">Previous</a>
+			<a href="https://ukagakawebring.netlify.com//random">Random</a>
+			<a href="https://ukagakawebring.netlify.com//next">Next</a>
+		</webring-banner>
+		<script async src="https://ukagakawebring.netlify.com//embed.js" charset="utf-8"></script>
+    </article>
+    <article>
+        <h1 id="history">Version history</h1>
+		<label class="collapsible">Version 1.0.x - Initial Release</label>
+		<div class="collapsible-content">
+			<div class="ver">
+				<div class="centerhead"><b>=====1.0.0=====</b>
+					<div class="ctr">(3/23/23)</div></div>
+				<ul>
+					<li>Initial release</li>
+				</ul>
+				<br>
+			</div>
+		</div>
+        
+    </article>
+
+    <footer>
+        More from Zichqec<br>
+        <a href="https://www.deviantart.com/zichqec"class="footlink">Deviantart</a> | 
+        <a href="https://zichqec.tumblr.com/" class="footlink">Tumblr</a> | 
+        <a href="https://twitter.com/Zichqec" class="footlink">Twitter</a> | 
+        <a href="https://toyhou.se/Zichqec" class="footlink">Toyhouse</a> |
+        <a href="https://www.youtube.com/channel/UC_9BGh45mIL3b3riZ4aTRIA" class="footlink">Youtube</a>
+    </footer>
+	
+	<script> <!--For the collapsible-->
+	var coll = document.getElementsByClassName("collapsible");
+	var i;
+
+	for (i = 0; i < coll.length; i++)
+	{
+		coll[i].addEventListener("click", function()
+		{
+			this.classList.toggle("active");
+			var content = this.nextElementSibling;
+			if (content.style.display === "block")
+			{
+				content.style.display = "none";
+			}
+			else
+			{
+				content.style.display = "block";
+			}
+		}
+	  );
+	}
+	</script>
+
+	<script src="navbar.js"></script>
+
+</body>
+
+</html>

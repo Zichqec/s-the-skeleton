@@ -14,6 +14,7 @@ let links = [
 		{ path: 'xtemplate', title: 'X. Template' },
 		{ path: 'ukatranslator', title: 'Ukatranslator' },
 		{ title: '— Collabs —' },
+		{ path: 'ssp_angel', title: 'SSP Angel' },
 		{ path: 'hydrate', title: 'Hydrate' },
 		{ path: 'paper', title: 'Paper' },
 		{ path: 'needle', title: 'Needle' },
