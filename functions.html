@@ -14,9 +14,14 @@
     <meta property="og:description" content="Zi's hub for Ukagakas and related things"/>
     <meta property="og:url" content="https://zichqec.github.io/s-the-skeleton/index.html"/>
     <meta property="og:image" content="https://zichqec.github.io/s-the-skeleton/img/AllTogether.png"/>
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/stackoverflow-light.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+	<script>hljs.highlightAll();</script>
 </head>
 
 <body>
+	
     <nav><div id="navbar" class="navbar"></div></nav>
 	
 	<article>
@@ -39,7 +44,7 @@
 		<br>
 		<label class="collapsible">See the code here</label>
 		<div class="collapsible-content">
-		<pre>
+		<pre><code class="language-c">
 //Written by Zichqec https://zichqec.github.io/s-the-skeleton/
 
 //parallel Pool("Pool_Example","%(example == 'True')")
@@ -164,7 +169,7 @@ Pool_AfterNoonDialogue : array
 */
 //When set up like this, if the hour is 12 or less, there will be 3 dialogues available with a 1/3 chance of being picked each. And when the hour is greater than 12, there will be 6 dialogues available with a 1/6 chance of being picked each. Not only that, but nonoverlap will apply to each dialogue individually! Success! 
 //One more note as well. You can put Pool functions inside of any function you want, including other pools! Nest them as deep as you want, every dialogue in a pool function will be given equal probability and will be seen correctly by nonoverlap. Have fun writing lots of dynamic dialogues!
-		</pre>
+		</code></pre>
 		</div>
 	</article>
 	
