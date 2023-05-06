@@ -96,7 +96,7 @@
 					<ul>
 						<li>Made cancel buttons lead to a dummy function instead of being blank, since this was causing a small bug with RSS feeds</li>
 						<li>Added a note about OnInitialize being a NOTIFY event</li>
-						<li>Added OnWindowStateRestore to prevent bugs with unminimizing bringing up the default surfaces</li>
+						<li>Added OnWindowStateRestore to prevent an oversight where unminimizing would use the default surfaces, which might not be suitable for all ghosts</li>
 					</ul>
 			</div>
 			<br>
