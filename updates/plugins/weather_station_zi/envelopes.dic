@@ -1,3 +1,8 @@
+emdash
+{
+	"\f[name,calibri]—\f[name,default]"
+}
+
 nowhour //Fixing the damn 12 hour display
 {
 	if hour12 == 0; 12

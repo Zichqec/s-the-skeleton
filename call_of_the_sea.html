@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zi's Ukagaka Hub</title>
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="Zi's Ukagaka Hub"/>
+    <meta property="og:description" content="Zi's hub for Ukagakas and related things"/>
+    <meta property="og:url" content="https://zichqec.github.io/s-the-skeleton/index.html"/>
+    <meta property="og:image" content="https://zichqec.github.io/s-the-skeleton/img/AllTogether.png"/>
+</head>
+
+<body>
+    <nav><div id="navbar" class="navbar"></div></nav>
+	
+    <article>
+        <h1>Call of the Sea</h1>
+		<img src="img/call_of_the_sea_00.png" alt="Thumbnail" width="210" height="210" class="center">
+		
+        <br>
+        <div class="cntr"><a href="https://github.com/Zichqec/call_of_the_sea/releases/latest">Download the latest .nar file here!</a></div>
+        <p>Call of the Sea is a very straightforward ghost, though out of the ordinary. This is not a typical desktop companion; it will sit on your desktop, and now and then you'll hear snips of conversation from the other side of the shell. What those snips of conversation mean? That's up to you to figure out.</p>
+		<p>Originally made for <a href="http://earlduant.blog.fc2.com/blog-entry-876.html">Ghost Masquerade 5</a>, as an experience lasting approximately 3 hours. Note that there is now a talk rate option. I recommend leaving it at 3 minutes, but you can adjust it if you like to make the experience take more or less time.</p>
+		<img src="img/call_of_the_sea_01.png" alt="The ghost's main menu" width="458" height="155" class="center">
+        <br>
+
+    </article>
+    <article>
+        <h1 id="history">Version history</h1>
+		<label class="collapsible">Version 1.0.x - Initial Release</label>
+		<div class="collapsible-content">
+			<div class="ver">
+				<div class="centerhead"><b>=====1.0=====</b>
+				<div class="ctr">(5/2/23)</div></div>
+				<ul>
+					<li>Initial release for Ghost Masquerade 5.</li>
+				</ul>
+				<br>
+			</div>
+			<br>
+			<div class="ver">
+					<div class="centerheadsm"><b>---1.0.1---</b>
+						<div class="ctr">(5/26/23)</div></div>
+						<ul>
+							<li>Update craftman information.</li>
+							<li>Update readme.</li>
+							<li>Add talkrate option.</li>
+							<li>Fix balloon's thumbnail.</li>
+						</ul>
+				</div>
+			<br>
+        </div>
+    </article>
+
+    <footer>
+        More from Zichqec<br>
+        <a href="https://www.deviantart.com/zichqec" class="footlink">Deviantart</a> | 
+        <a href="https://zichqec.tumblr.com/" class="footlink">Tumblr</a> | 
+        <a href="https://twitter.com/Zichqec" class="footlink">Twitter</a> | 
+        <a href="https://toyhou.se/Zichqec" class="footlink">Toyhouse</a> |
+        <a href="https://www.youtube.com/channel/UC_9BGh45mIL3b3riZ4aTRIA" class="footlink">Youtube</a>
+    </footer>
+	
+	<script> <!--For the collapsible-->
+	var coll = document.getElementsByClassName("collapsible");
+	var i;
+
+	for (i = 0; i < coll.length; i++)
+	{
+		coll[i].addEventListener("click", function()
+		{
+			this.classList.toggle("active");
+			var content = this.nextElementSibling;
+			if (content.style.display === "block")
+			{
+				content.style.display = "none";
+			}
+			else
+			{
+				content.style.display = "block";
+			}
+		}
+	  );
+	}
+
+	var coll = document.getElementsByClassName("invis-collapsible");
+	var i;
+
+	for (i = 0; i < coll.length; i++)
+	{
+		coll[i].addEventListener("click", function()
+		{
+			this.classList.toggle("active");
+			var content = this.nextElementSibling;
+			if (content.style.display === "block")
+			{
+				content.style.display = "none";
+			}
+			else
+			{
+				content.style.display = "block";
+			}
+		}
+	  );
+	}
+	</script>
+
+	<script src="navbar.js"></script>
+</body>
+</html>
