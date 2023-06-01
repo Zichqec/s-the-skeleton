@@ -14,6 +14,7 @@ let links = [
 		{ path: 'ukatranslator', title: 'Ukatranslator' },
 		{ path: 'warrior_generator', title: 'Warrior Generator' },
 		{ path: 'xtemplate', title: 'X. Template' },
+		
 		{ title: '— Collabs —' },
 		{ path: 'balloons_ghost', title: 'Balloons' },
 		{ path: 'ct_epoch_jam', title: 'CT Epoch Jam' },
@@ -22,6 +23,7 @@ let links = [
 		{ path: 'iea', title: 'Iea' },
 		{ path: 'keep_frozen', title: 'KEEP FROZEN' },
 		{ path: 'needle', title: 'Needle' },
+		{ path: 'noodle', title: 'Noodle' },
 		{ path: 'paper', title: 'Paper' },
 		{ path: 'please_arrive_15_minutes_before_your_scheduled_interview_time', title: 'Please arrive 15 minutes before your scheduled interview time' },
 		{ path: 'ssp_angel', title: 'SSP Angel' },
