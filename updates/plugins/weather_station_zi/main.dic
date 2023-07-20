@@ -163,7 +163,7 @@ OnMenuExec : all
 	if !ISVAR("Settings.weather_interval"); Settings.weather_interval = 60
 
 	
-	"\0\b2\_q\*\![set,autoscroll,disable]\f[anchorvisitedfontcolor,default.anchor]\![close,inputbox,OnWeatherLocation]"
+	"\0\b2\_q\*\![set,autoscroll,disable]\![no-autopause]\f[anchorvisitedfontcolor,default.anchor]\![close,inputbox,OnWeatherLocation]"
 	"\f[align,center]%(emdash) Weather Station %(emdash)\n\n[half]\f[align,default]"
 	
 	if Info.update_available; "\![*]\_a[OnWeatherStationUpdate]An update is available!\_a\n\n[half]"
@@ -291,7 +291,7 @@ OnWeatherStationUpdate
 {
 	res_marker = version
 	
-	"\0\b2\_q\![set,autoscroll,disable]\f[anchorstyle,none]\f[anchorvisitedfontcolor,default.anchor]Weather Station will attempt to update. Most ghosts do not have dialogue for plugin updates; please run the plugin again once the update is complete. You can update manually by opening the Ghost Explorer with %(h)Ctrl + E%(d), changing the %(h)Type%(d) tab to %(h)Plugin%(d), and right clicking on %(h)Weather Station%(d). The %(h)Network Update%(d) option will update the plugin.\n\nThe latest version of Weather Station can always be downloaded from \_a[https://zichqec.github.io/s-the-skeleton/]Zichqec's website\_a.\n\nClick to continue...\x\![updateother,--plugin=Weather Station]Updating...\e"
+	"\0\b2\_q\![set,autoscroll,disable]\![no-autopause]\f[anchorstyle,none]\f[anchorvisitedfontcolor,default.anchor]Weather Station will attempt to update. Most ghosts do not have dialogue for plugin updates; please run the plugin again once the update is complete. You can update manually by opening the Ghost Explorer with %(h)Ctrl + E%(d), changing the %(h)Type%(d) tab to %(h)Plugin%(d), and right clicking on %(h)Weather Station%(d). The %(h)Network Update%(d) option will update the plugin.\n\nThe latest version of Weather Station can always be downloaded from \_a[https://zichqec.github.io/s-the-skeleton/]Zichqec's website\_a.\n\nClick to continue...\x\![updateother,--plugin=Weather Station]Updating...\e"
 }
 
 //Menu for location, units, and if you want to let ghosts see your location data
@@ -302,7 +302,7 @@ OnSettingsMenu : all
 	_location = "(Not set)"
 	if UserInfo.location != ""; _location = UserInfo.location
 	
-	"\0\*\_q\b2\![set,autoscroll,disable]\f[anchorvisitedfontcolor,default.anchor]\![close,inputbox,OnWeatherLocation]"
+	"\0\*\_q\b2\![set,autoscroll,disable]\![no-autopause]\f[anchorvisitedfontcolor,default.anchor]\![close,inputbox,OnWeatherLocation]"
 	"\f[align,center]%(emdash) Settings %(emdash)\n \f[align,default]\n"
 	//"Send: %(Info.Send_Weather_Now)\n"
 	"Location: \![*]\_a[OnChangeLocation]%(_location)\_a"
@@ -414,7 +414,7 @@ OnForecastMenu.Daily : all
 	_DMY = _YMD[2,"-"] + "-" + _YMD[1,"-"] + "-" + _YMD[0,"-"]
 	_MDY = TOINT(_YMD[1,"-"]) + "-" + _YMD[2,"-"] + "-" + _YMD[0,"-"] //Hoping the TOINT here removes any leading 0s lol
 	
-	"\0\b2\_q\*\![set,autoscroll,disable]\f[anchorvisitedfontcolor,default.anchor]"
+	"\0\b2\_q\*\![set,autoscroll,disable]\![no-autopause]\f[anchorvisitedfontcolor,default.anchor]"
 	("\q[<<,OnPreviousForecastDay,%(_day)]","\f[color,disable]<<\f[color,default]")[_day <= 0]
 	
 	"%(newline)\f[align,center]"
@@ -524,7 +524,7 @@ OnForecastMenu.Hourly : all
 	_date_imperial = "%(_MDY) %(_12h)"
 	_date_metric = "%(_DMY) %(_24h):00"
 	
-	"\0\b2\_q\*\![set,autoscroll,disable]\f[anchorvisitedfontcolor,default.anchor]"
+	"\0\b2\_q\*\![set,autoscroll,disable]\![no-autopause]\f[anchorvisitedfontcolor,default.anchor]"
 	("\q[<<,OnPreviousForecastHour,%(_day),%(_hour)]","\f[color,disable]<<\f[color,default]")[_hour <= 0 && _day <= 0]
 	
 	"%(newline)\f[align,center]"
@@ -674,7 +674,7 @@ OnAstronomyMenu : all
 {
 	res_marker = version
 	
-	"\0\b2\*\![set,autoscroll,disable]\_q\f[anchorstyle,none]\f[anchorvisitedfontcolor,default.anchor]"
+	"\0\b2\*\![set,autoscroll,disable]\![no-autopause]\_q\f[anchorstyle,none]\f[anchorvisitedfontcolor,default.anchor]"
 	"\f[align,center]%(emdash) Astronomy %(emdash)\n \f[align,default]\n"
 	AstronomyDisplay(0)
 	"\n\n\![*]\q[Back,OnMenuExec]"
@@ -688,7 +688,7 @@ OnWeatherAlertMenu : all
 	_info = SPLIT(Weather.alerts[_alert],C_BYTE1)
 	res_marker = version
 	
-	"\0\b2\*\![set,autoscroll,disable]\_q\f[anchorstyle,none]\f[anchorvisitedfontcolor,default.anchor]"
+	"\0\b2\*\![set,autoscroll,disable]\![no-autopause]\_q\f[anchorstyle,none]\f[anchorvisitedfontcolor,default.anchor]"
 	
 	("\q[<<,OnPreviousAlert,%(_alert)]","\f[color,disable]<<\f[color,default]")[_alert <= 0]
 	
@@ -1141,7 +1141,7 @@ OnWeatherLocation
 			_display += "\![*]\__q[OnWeatherLocationChosen,%(_url),%(_nocomma), %(_lat), %(_lon)]%(_name)\__q\n\n[half]" //There are spaces here to ensure these are transferred as strings and not ints
 		}
 		
-		"\*\_q\b2\![set,autoscroll,disable]\f[anchorvisitedfontcolor,default.anchor]"
+		"\*\_q\b2\![set,autoscroll,disable]\![no-autopause]\f[anchorvisitedfontcolor,default.anchor]"
 		--
 		"\![*]\q[Back,OnSettingsMenu]\n\n"
 		--
