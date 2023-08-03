@@ -213,7 +213,7 @@ OnFileDrop2 //When you drop a file on the ghost that isn't something it can inst
 			{
 				if nowmode == "Awake"
 				{
-					"\0%(b)\s[1104]Oh,\w4 these are neat.  I can't do anything with them,\w4 though.\e"
+					"\0%(b)\s[1104]Oh,\w4 these are neat. I can't do anything with them,\w4 though.\e"
 				}
 				else
 				{
@@ -848,7 +848,7 @@ Select.SeeHeaders
 	--
 	"\_q%(headers)\*\n\n\![*]\q[Done,cancelnodialogue]"
 	--
-	headers = NULL
+	ERASEVAR("headers")
 }
 
 OnBIFFFailure //Email checking failed
@@ -1065,12 +1065,15 @@ OnUpdateComplete
 
 ghostver
 {
-	"0.0.2"
+	"0.0.3"
 }
 
 OnChangeLog //the autoscroll tag here means the user will see the changelog starting from the top
 {
 	"\![set,autoscroll,disable]\_q%(bb)/
+	\_l[75]-Version b0.0.3-\n\n/
+	-Released lost content as project is now abandoned\n\n/
+	-There are other changes but I don't remember what all they are. I think some games got added and bugs got fixed.\n\n/
 	\_l[75]-Version b0.0.2-\n\n/
 	-Fixed an issue with OnFirstBoot\n\n/
 	-Fixed an issue where the changelog balloon wasn't mode-dependant\n\n\n/
@@ -2048,6 +2051,8 @@ OnCurWeatherFound
 			//---
 			if RE_SEARCH (_buff2,'REGSUNRISE--(.*)--REGSUNRISE'); {_regsunrise = RE_GETSTR[1]}
 			if RE_SEARCH (_buff2,'REGSUNSET--(.*)--REGSUNSET'); {_regsunset = RE_GETSTR[1]}
+			//---
+			if RE_SEARCH (_buff2,'REGPHASE--(.*)--REGPHASE'); {regphase = RE_GETSTR[1]}
 		}
 	}
 	--
@@ -2233,7 +2238,7 @@ OnMoonFound
     //line being read
     _buff=""
     //regular expressions to extract data
-    _regphase=',"Phase: <span>([\w|\s]*)<./span>'
+    //_regphase=',"Phase: <span>([\w|\s]*)<./span>'
     _found = 0;
     //using UTF-8 charset
     FCHARSET(1)
@@ -2243,7 +2248,7 @@ OnMoonFound
     if FOPEN(_file,'r') {
         for _buff = FREAD(_file); _buff != -1 && !_found; _buff = FREAD(_file)
 		{
-            if RE_SEARCH ( _buff, _regphase ) {
+            if RE_SEARCH ( _buff, regphase ) {
                 
                 phase = RE_GETSTR[1]
                 _found = 1; //break loop since we dont need to continue parsing
@@ -2270,7 +2275,7 @@ OnMoonFound
     --
 	
 	
-	
+	ERASEVAR("regphase")
 	weatherquiet = 0
 	//change the dialogue as you wish
 	//[temp, degrees, feels like temp, humidity, wind, state (cloudy, rainy, etc)]
@@ -2308,7 +2313,7 @@ OnMoonFound
 		"\0%(b)\s[105]"
 	}
 	--
-	"\b2\_qThe weather for %(curlocation):\n\n/
+	"%(bb)\_qThe weather for %(curlocation):\n\n/
 	Weather: %(weather)\n/
 	Temperature: %(tempurature[0])%(Degrees[1])\n/
 	Feels like: %(feelslike[0])%(Degrees[1])\n/
@@ -2317,7 +2322,7 @@ OnMoonFound
 	Moon Phase: %(phase)"
 	
     --
-    if currentweatherarray[6] == "Local Pollen Alert"
+    if pollen == "Local Pollen Alert"
 	{
 		if nowmode == "Awake"
 		{

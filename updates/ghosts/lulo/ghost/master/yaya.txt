@@ -21,4 +21,10 @@ dic, l_word.dic
 
 
 //log, ayame.log
-msglang,english
+messagetxt,system/messagetxt/english.txt
+
+ignoreiolog, ID: OnGroupEvent
+ignoreiolog, ID: OnSurfaceChange
+ignoreiolog, ID: OnTranslate
+ignoreiolog, ID: OnNetworkStatusChange
+ignoreiolog, ID: OnMinuteChange

@@ -17,32 +17,35 @@ On_homeurl
 	}
 }
 
+FormatLinks
+{
+	_output = ""
+	foreach _argv; _element
+	{
+		_name = CUTSPACE(_element[0,' | '])
+		_link = CUTSPACE(_element[1,' | '])
+		_output += _name + "%ASC(1)" + _link + "%ASC(2)"
+	}
+	_output
+}
+
 On_recommendrootbutton.caption //Change to your username
 {
 	"More from Zichqec"
 }
 
+recommendlinks : array
+{
+	"Zi's Ukagaka Hub  | https://zichqec.github.io/s-the-skeleton/index.html"
+	"Lulo on Toyhouse  | https://toyhou.se/5587547.lulo"
+	"Zichqec's DA      | https://www.deviantart.com/zichqec"
+	"Zichqec's Tumblr  | https://zichqec.tumblr.com"
+	"Zichqec's Twitter | https://twitter.com/Zichqec"
+}
+
 On_sakura.recommendsites
 {
-	"Zi's Ukagaka Hub"
-	--
-	"%ASC(1)https://zichqec.github.io/s-the-skeleton/index.html%ASC(2)"
-	--
-	"Lulo on Toyhouse"
-	--
-	"%ASC(1)https://toyhou.se/5587547.lulo%ASC(2)"
-	--
- 	"Zichqec's DA"
-	--
-	"%ASC(1)https://www.deviantart.com/zichqec%ASC(2)"
-	--
-	"Zichqec's Tumblr"
-	--
-	"%ASC(1)https://www.zichqec.tumblr.com%ASC(2)"
-	--
-	"Zichqec's Twitter"
-	--
-	"%ASC(1)https://twitter.com/Zichqec%ASC(2)"
+	FormatLinks(recommendlinks)
 }
  
 On_portalrootbutton.caption
@@ -50,35 +53,20 @@ On_portalrootbutton.caption
 	"Reference Sites"
 }
 
+portallinks : array
+{
+	"Built on X. Template YAYA (Beta ver) | https://zichqec.github.io/s-the-skeleton/xtemplate.html"
+	"Zarla's Ghost Template Walkthrough   | http://www.ashido.com/ukagaka/walkthrough.html"
+	"SSP                                  | http://ssp.shillest.net/"
+	"Ukadoc (Translated)                  | https://translate.google.com/translate?hl=&sl=ja&tl=en&u=http%3A%2F%2Fssp.shillest.net%2Fukadoc%2Fmanual%2Flist_sakura_script.html"
+	"YAYA Wiki (Translated)               | https://translate.google.com/translate?hl=&sl=ja&tl=en&u=http%3A%2F%2Femily.shillest.net%2Fayaya%2F%3FFrontPage"
+	"Crow + SSP Reference (J)             | http://crow.aqrs.jp/reference/all/index.html"
+	"Ghost Documentation (J)              | http://usada.sakura.vg/contents/specification.html"
+}
+
 On_sakura.portalsites //You can make these anything you like. I've set them to link to my template, Zarla's template, and anything else helpful for making ghosts.
 {
-	"Built on X. Template YAYA (Beta ver)"
-	--
-	"%ASC(1)https://zichqec.github.io/s-the-skeleton/xtemplate.html%ASC(2)"
-	--
-	"Zarla's Ghost Template Walkthrough"
-	--
-	"%ASC(1)http://www.ashido.com/ukagaka/walkthrough.html%ASC(2)"
-	--
-	"SSP"
-	--
-	"%ASC(1)http://ssp.shillest.net/%ASC(2)"
-	--
-	"SSP Wiki (Translated)"
-	--
-	"%ASC(1)https://translate.google.com/translate?hl=&sl=ja&tl=en&u=http%3A%2F%2Fssp.shillest.net%2Fukadoc%2Fmanual%2Flist_sakura_script.html%ASC(2)"
-	--
-	"YAYA Wiki (Translated)"
-	--
-	"%ASC(1)https://translate.google.com/translate?hl=&sl=ja&tl=en&u=http%3A%2F%2Femily.shillest.net%2Fayaya%2F%3FFrontPage%ASC(2)"
-	--
-	"Crow + SSP Reference (J)"
-	--
-	"%ASC(1)http://crow.aqrs.jp/reference/all/index.html%ASC(2)"
-	--
-	"Ghost Documentation (J)"
-	--
-	"%ASC(1)http://usada.sakura.vg/contents/specification.html%ASC(2)"
+	FormatLinks(portallinks)
 }
  
 On_kero.recommendbuttoncaption
@@ -99,7 +87,7 @@ On_kero.recommendsites
 
 On_dressuprootbutton.visible
 {
-	0
+	//0
 }
 
 On_updatebutton.caption

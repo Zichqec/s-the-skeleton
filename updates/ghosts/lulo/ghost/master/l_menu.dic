@@ -75,6 +75,33 @@ OnSakuraMenu
 	}
 }
 
+StartRecursive
+{
+	Recursive = 0
+	RecursiveTest('One','Two','Three')
+	ERASEVAR("Recursive")
+}
+
+RecursiveTest
+{
+	_array = IARRAY
+	_recursive = IARRAY
+	foreach _argv; _arg
+	{
+		Recursive++
+		_array ,= _arg
+	}
+	if Recursive < 10
+	{
+		LOGGING("===START RECURSIVE FUNCTION===")
+		_recursive = RecursiveTest(_argv)
+		LOGGING("===RECURSION DONE, GOT %(_recursive)===")
+		_array ,= _recursive
+	}
+	LOGGING("Returning: %(_array)")
+	_array
+}
+
 Select.UpdateLater
 {
 	AutoUpdateCheck = 1
@@ -157,7 +184,7 @@ OnMenuRun
 		" %(moonphase)"
 	}
 	--
-	"\nRuntime: %(passhour):%(nowpassmin)           v%(ghostver)"
+	"\nRuntime: %(passhour):%(nowpassmin)                    v%(ghostver)"
 	--
 	if debug == 1
 	{
@@ -1072,6 +1099,19 @@ InteractReturn
 	"\_q\n\n\![*]\q[Do something else?,OnInteractMenu]\n\![*]\q[I'm done,cancelnodialogue]\e"
 }
 
+OnTestMenuThing
+{
+	_display = ""
+	for _i = 0; _i < 1000; _i++
+	{
+		_display += ANY("thing ","Stuff ","\![*]\q[Choice,choice] ","\_a[anchor]Anchor\_a ","Morestuff ")
+	}
+	
+	if reference0 == "update"; "\C"
+	--
+	"\0\b2\*\_q\![set,autoscroll,disable]\c%(_display)\_w[300]\![raise,OnTestMenuThing,update]\e"
+}
+
 
 //---------------Shop---------------
 
@@ -1084,11 +1124,15 @@ OnInventoryMenu //Need to add a way to move items around in the arrays, or sort 
 	if reference1 == "slacks" || reference1 == "jeans"; reference1 = "pants"
 	if reference1 == "sweaters" || reference1 == "hoodies" || reference1 == "tshirts" || reference1 == "sleeveless"; reference1 = "shirts"
 	
-	"\0\_q\*%(bb)\![set,autoscroll,disable]"
+	"\C\0\_q\c\*%(bb)\![set,autoscroll,disable]"
 	--
-	"\f[height,-1]\![*]\q[To shop,OnShopMenu,%(reference0),%(reference1),%(reference2)]\f[default]           \f[height,+2]\f[anchorstyle,none]\_a[OnBlank]Inventory\_a\f[default]    \f[height,-1]\![*]\q[Back to Menu,OnMenuRun]"
+	"\f[height,-1]\![*]\q[To shop,OnShopMenu,%(reference0),%(reference1),%(reference2)]\f[default]"
 	--
-	"\nCurrent dp: %(DP)\f[default]\n\n[half]        "
+	"\n \n[-100]\f[height,+2]\f[anchorstyle,none]\f[align,center]\_a[OnBlank]Inventory\_a\f[default]"
+	--
+	"\f[height,-1]\n \n[-100]\f[align,right]\![*]\q[Back,OnMenuRun]\n \n[-100]"
+	--
+	"\n\f[align,center]Current dp: %(DP)\n\n[half]\f[default]\f[align,center]"
 	--
 	if reference0 == "consumables"; "\_a[OnInventoryMenu,consumables]Consumables\_a  "
 	else; "\q[Consumables,OnInventoryMenu,consumables]  "
@@ -1099,7 +1143,7 @@ OnInventoryMenu //Need to add a way to move items around in the arrays, or sort 
 	if reference0 == "clothes"; "\_a[OnInventoryMenu,clothes,shirts]Clothes\_a"
 	else; "\q[Clothes,OnInventoryMenu,clothes,shirts]"
 	--
-	"\n\n[half]"
+	"\n\n[half]\f[align,default]"
 	--
 	if reference0 == "accessories"
 	{
@@ -1328,7 +1372,7 @@ OnGiveConsumable
 				
 				if nowmode == "Awake"
 				{
-					"\s[1111]Ooh,\w4 what kind of juice is that?\w8\w8\s[1104] Juice is my favorite.\w8\w8\s[1000]* (She takes it eagerly and punches the straw through the hole,\w4 draining the box halfway in a few seconds.)\w8\w8\n\n\s[1102]Mmm...\e"
+					"\s[1111]Ooh,\w4 what kind of juice is that?\w8\w8\s[1104] Juice is my favorite.\w8\w8\n\n\s[1000]\i[10]* (She takes it eagerly and punches the straw through the hole,\w4 draining the box halfway in a few seconds.)\w8\w8\n\n\s[1102]Mmm...\e"
 				}
 				else //Sleepy
 				{
@@ -1619,7 +1663,7 @@ OnBuyItem
 		--
 		if _price <= DP //If the user can afford it
 		{
-			"* (Do you want to manifest this item for %(_price)dp?)"
+			"\i[10]* (Do you want to manifest this item for %(_price)dp?)"
 			/*if nowmode == "Awake"
 			{
 				
@@ -1760,11 +1804,17 @@ OnGamesMenu
 	{
 		"\0%(bb)\s[111]...sure,\w4 what game d'you wanna play..?"
 	}
-	--
+	-- //Note to self might be interesting to make junior jumble only available when she has a junior jumble
+	//Dream quest game might be really fun...
 	"\_q\n\n/
 	\![*]\q[Hangman,OnStartHangman]\n/
-	\![*]\q[Madlibs,OnStartMadlibs]\n/
+	\![*]\q[Madlibs,OnMadlibsMenu]\n/
 	\![*]\q[Rock Paper Scissors,OnStartRPS]\n/
+	\![*]\q[Tic-Tac-Toe,OnStartTicTacToe]\n/
+	\![*]\q[Guess the Number,OnStartGuessNumber]\n/
+	\![*]\q[Reaction speed,OnStartReactionTime]\n/
+	\![*]\q[Junior Jumble,OnJuniorJumble,,new]\n/
+	\![*]\q[Word Search,OnStartWordSearch]/
 	"
 	--
 	"\n\n\![*]\q[Back to Main Menu,OnMenuRun]\n\![*]\q[I'm done,cancelnodialogue]\e"
@@ -1825,11 +1875,11 @@ OnJournalOpen //Puts us on the first page before opening the journal
 		MiscFlags ,= "Seen journal instructions"
 		if nowmode == "Awake"
 		{
-			"\0%(b)\s[1104]I can write some journal entries or something for you,\w4 if you want.\w8\w8\s[1110] Oh,\w4 but,\w4 the files are stored in plain text,\w4 so maybe you shouldn't write anything too sensitive.\w8\w8\s[1106] Especially if you share this computer with anyone else.\w8\w8\n\n\s[1104]Otherwise,\w4 just tell me what you wanna write.\x"
+			"\0%(b)\s[1504]I can write some journal entries or something for you,\w4 if you want.\w8\w8\s[1510] Oh,\w4 but,\w4 the files are stored in plain text,\w4 so maybe you shouldn't write anything too sensitive.\w8\w8\s[1506] Especially if you share this computer with anyone else.\w8\w8\n\n\s[1504]Otherwise,\w4 just tell me what you wanna write.\x"
 		}
 		else //Sleepy
 		{
-			"\0%(b)\s[0]...i can write some journal entries or something for you,\w4 if you want...\w8\w8\s[108] oh,\w4 but,\w4 the files are stored in plain text,\w4 so don't write anything too sensitive...\w8\w8\s[107] especially if you share this computer with anyone else...\w8\w8\n\n\s[0]...otherwise,\w4 just tell me what you want to write...\x"
+			"\0%(b)\s[500]...i can write some journal entries or something for you,\w4 if you want...\w8\w8\s[501] oh,\w4 but,\w4 the files are stored in plain text,\w4 so don't write anything too sensitive...\w8\w8\s[507] especially if you share this computer with anyone else...\w8\w8\n\n\s[500]...otherwise,\w4 just tell me what you want to write...\x"
 		}
 	}
 	--
@@ -1848,6 +1898,15 @@ OnJournalMenu
 	_len = ARRAYSIZE(_entries) //get the amount of files
 
 	
+	if nowmode == "Awake"
+	{
+		"\0\s[1500]"
+	}
+	else //Sleepy
+	{
+		"\0\s[500]"
+	}
+	--
 	if reference0 == "First" //If the user has clicked a nav button, change the page number appropriately
 	{
 		JournalPage = 1
@@ -1929,9 +1988,11 @@ OnJournalMenu
 			--
 			_f = FCLOSE("journal/%(_entries[_i])")
 		}
-	}	
+	}
 	--
-	"\_q%(bb)\![set,autoscroll,0]Total entries: %(_len)       \![*]\q[%(JournalSort),OnJournalSort]\n\![*]\q[Write a new journal entry,OnNewJournal]      \![*]\q[Menu,OnMenuRun]\n\n\n[half]" //Top buttons and entry count
+	"\_q%(bb)\![set,autoscroll,0]"
+	--
+	"Total entries: %(_len)       \![*]\q[%(JournalSort),OnJournalSort]\n\![*]\q[Write a new journal entry,OnNewJournal]      \![*]\q[Menu,OnMenuRun]\n\n\n[half]" //Top buttons and entry count
 	--
 	//These are all the nav buttons
 	if JournalPage <= 1 //If you're on the first page, or somehow, before the first page
@@ -1995,11 +2056,11 @@ OnJournalCustomPage //Jumping to a page that the user types in
 	--
 	if nowmode == "Awake"
 	{
-		"\s[1000]There are %(_avail) total pages,\w4 which do you want?" //TODO newframe
+		"\s[1500]There are %(_avail) total pages,\w4 which do you want?"
 	}
 	else //Sleepy
 	{
-		"\s[0]...there are %(_avail) pages,\w4 which d'you want..?" //TODO newframe
+		"\s[500]...there are %(_avail) pages,\w4 which d'you want..?"
 	}
 	//"%(b)\_qType a page from 1 to %(_avail)."
 	--
@@ -2020,11 +2081,11 @@ OnJournalPage //Actually switching to the page the user typed in
 		--
 		if nowmode == "Awake"
 		{
-			"\0%(b)\s[1106]That's not a valid number,\w4 it's gotta be from 1 to %(_avail).\w8\w8\s[1104] Try again." //TODO newframe
+			"\0%(b)\s[1506]That's not a valid number,\w4 it's gotta be from 1 to %(_avail).\w8\w8\s[1504] Try again."
 		}
 		else //Sleepy
 		{
-			"\0%(b)\s[106]...that's not a valid number,\w4 try again...\w8\w8\s[0] there are %(_avail) pages total..." //TODO newframe
+			"\0%(b)\s[507]...that's not a valid number,\w4 try again...\w8\w8\s[500] there are %(_avail) pages total..."
 		}
 		--
 		"\*\![set,balloontimeout,-1]\n\n\![*]\q[Back to menu,OnJournalMenu,Cancel]\e"
@@ -2055,11 +2116,11 @@ OnNewJournal //Starting a new journal entry. \n will be taken as a linebreak, ev
 	--
 	if nowmode == "Awake"
 	{
-		"\s[1000]Alright,\w4 what do you want me to write?\w8\w8 If you want a line break, just write \_a[OnBlank]\_?\n\_?\_a." //TODO newframe
+		"\s[1500]Alright,\w4 what do you want me to write?\w8\w8\s[1501] If you want a line break, just write \_a[OnBlank]\_?\n\_?\_a."
 	}
 	else //Sleepy
 	{
-		"\s[0]...what do you want me to write..?\w8\w8 if you want a line break,\w4 write it as \_a[OnBlank]\_?\n\_?\_a..." //TODO newframe
+		"\s[500]...what do you want me to write..?\w8\w8\s[501] if you want a line break,\w4 write it as \_a[OnBlank]\_?\n\_?\_a..."
 	}
 	//"\_qWrite something, use '\_?\n\_?' to create a linebreak"
 	--
@@ -2118,11 +2179,11 @@ OnNewEntry //Actually saving the input
 	--
 	if nowmode == "Awake"
 	{
-		"\0%(b)\s[1104]Got it!\w8\w8\s[1000] I'll keep it safe." //TODO newframe
+		"\0%(b)\s[1504]Got it!\w8\w8\s[1500] I'll keep it safe."
 	}
 	else //Sleepy
 	{
-		"\0%(b)\s[0]...got it...\w8\w8 it's safe with me..." //TODO newframe
+		"\0%(b)\s[501]...got it...\w8\w8\s[500] it's safe with me..."
 	}
 	--
 	"\_q\n\n/
@@ -2152,7 +2213,18 @@ OnViewJournalEntry //Reading a journal entry in full
 	--
 	_f = FCLOSE("journal/%(reference0)","r")
 	--
-	"%(bb)\![set,autoscroll,0]\*\![set,balloontimeout,-1]\_q\![*]\q[Back to menu,OnJournalMenu]\n\n%(_date)\n\n%(_display)"
+	"\0%(bb)"
+	--
+	if nowmode == "Awake"
+	{
+		"\s[1501]"
+	}
+	else //Sleepy
+	{
+		"\s[501]"
+	}
+	--
+	"\![set,autoscroll,0]\*\![set,balloontimeout,-1]\_q\![*]\q[Back to menu,OnJournalMenu]\n\n%(_date)\n\n%(_display)"
 	--
 	"\n\![*]\q[Edit,OnEditJournal,%(reference0)] or \![*]\q[Delete,OnDeleteJournal,%(reference0)] journal entry\n\![*]\q[Back to menu,OnJournalMenu]\n\![*]\q[I'm done,cancelnodialogue]"
 }
@@ -2194,15 +2266,15 @@ OnEditJournal //Editing a journal entry. Reads the entry's file again, replacing
 	--
 	_f = FCLOSE("journal/%(reference0)")
 	--
-	"%(bb)\_q\![set,autoscroll,0]\![set,balloontimeout,-1]\![open,inputbox,OnEditEntry,-1,%(_entry)]\*"
+	"\0%(bb)\_q\![set,autoscroll,0]\![set,balloontimeout,-1]\![open,inputbox,OnEditEntry,-1,%(_entry)]\*"
 	--
 	if nowmode == "Awake"
 	{
-		"This is what I have; what do you want me to change?" //TODO newframe
+		"\s[1501]This is what I have; what do you want me to change?"
 	}
 	else //Sleepy
 	{
-		"...here's what i have, what do you want changed..?" //TODO newframe
+		"\s[501]...here's what i have, what do you want changed..?"
 	}
 	--
 	"\n\n%(_display)\n\![*]\q[Cancel,OnCancelJournalEdit,%(reference0)]" //After the -1 to stop the inputbox timing out, the _entry string we made is put into the inputbox so the user can actually edit the text instead of having to type it all out again
@@ -2260,11 +2332,11 @@ OnDeleteJournal //Asking the user if they're sure they want to delete this entry
 	--
 	if nowmode == "Awake"
 	{
-		"\s[1106]Are you sure you want me to delete this?\w8\w8 Once it's gone,\w4 I can't bring it back." //TODO newframe
+		"\s[1510]Are you sure you want me to delete this?\w8\w8 Once it's gone,\w4 I can't bring it back."
 	}
 	else //Sleepy
 	{
-		"\s[109]...are you sure you want this deleted..?\w8\w8\s[108] i can't bring it back once it's gone..." //TODO newframe
+		"\s[511]...are you sure you want this deleted..?\w8\w8\s[507] i can't bring it back once it's gone..."
 	}
 	--
 	"\n\n\![*]\q[Yes,OnDeleteEntry,%(reference0)]  \![*]\q[No,OnViewJournalEntry,%(reference0)]"
@@ -2280,22 +2352,22 @@ OnDeleteEntry //Actually deleting the entry
 	{
 		if nowmode == "Awake"
 		{
-			"\0%(b)\s[1000]Alright,\w4 it's gone." //TODO newframe
+			"\0%(b)\s[1500]Alright,\w4 it's gone."
 		}
 		else //Sleepy
 		{
-			"\0%(b)\s[105]...done..." //TODO newframe
+			"\0%(b)\s[501]...done..."
 		}
 	}
 	else
 	{
 		if nowmode == "Awake"
 		{
-			"\0%(b)\s[1108]Sorry,\w4 something went wrong.\w8\w8 You can delete it manually \_a[OnJournalPath]here\_a if you need to." //TODO newframe
+			"\0%(b)\s[1507]Sorry,\w4 something went wrong.\w8\w8 You can delete it manually \_a[OnJournalPath]here\_a if you need to."
 		}
 		else //Sleepy
 		{
-			"\0%(b)\s[107]...something went wrong...\w8\w8 you can delete it manually \_a[OnJournalPath]here\_a if you need to..." //TODO newframe
+			"\0%(b)\s[507]...something went wrong...\w8\w8 you can delete it manually \_a[OnJournalPath]here\_a if you need to..."
 		}
 		//"Something went wrong, entry could not be deleted. You can delete it manually at SSP/ghost/lulo/ghost/master/journal/%(reference0)\x"
 	}
@@ -2352,7 +2424,7 @@ OnMusicMenu //Main music player window
 		_len = STRLEN(_song) - 4 //File extensions that the player can accept are always 4 characters, so I can do this
 		_song = ERASE(_song,_len,4)
 		_display += "\q[(x),OnRemoveSong,%(_i)]"
-		if _current == NowPlaying[0]
+		if _i == NowPlaying[1]
 		{
 			_display += " \![*]\f[bold,1]"
 			_currentsong[0] = _song
@@ -2364,7 +2436,7 @@ OnMusicMenu //Main music player window
 		}
 		_display += " \_a[OnPlaySong,%(_i),%(_current),frommenu]%(_song)\_a\n"
 		//_display += "%(_i) - %(CurrentPlaylist[_i])\n"
-		if _current == NowPlaying[0]
+		if _i == NowPlaying[1]
 		{
 			_display += "\f[default]"
 		}
@@ -2416,7 +2488,7 @@ OnMusicMenu //Main music player window
 	}
 	else
 	{
-		"\![*]\q[Close window,cancelnodialogue]  \![*]\q[Back to Main Menu,OnMenuRun]\e music player main menu"
+		"\![*]\q[Close window,script: \e]  \![*]\q[Back to Main Menu,OnMenuRun]\e music player main menu"
 	}
 }
 
@@ -2479,7 +2551,7 @@ OnStopMusic //Stopping any playing song
 
 OnPauseSong //Pausing/resuming song
 {
-	if reference1 == "hotkey" && TOINT(reference2) == "1"; "\C"
+	if reference1 == "hotkey" && TOINT(reference2) == "1"; "\C" //???? TOINT?????
 	--
 	if reference0 == "resume"
 	{
@@ -2525,7 +2597,7 @@ OnNextSong //Going to the next song
 	--
 	if MusicSettings[3] == "shuffle and loop"
 	{
-		ShuffledPlaylist = ArrayCycle('+',ShuffledPlaylist)
+		ShuffledPlaylist = ACYCLE('+',ShuffledPlaylist)
 		--
 		_shuf = ShuffledPlaylist[0]
 		NowPlaying[0] = CurrentPlaylist[_shuf] //song name
@@ -2568,7 +2640,7 @@ OnPrevSong //Going to the previous song
 	--
 	if MusicSettings[3] == "shuffle and loop"
 	{
-		ShuffledPlaylist = ArrayCycle('-',ShuffledPlaylist)
+		ShuffledPlaylist = ACYCLE('-',ShuffledPlaylist)
 		--
 		_shuf = ShuffledPlaylist[0]
 		NowPlaying[0] = CurrentPlaylist[_shuf] //song name
@@ -2600,6 +2672,7 @@ OnPrevSong //Going to the previous song
 OnRemoveSong //Removing a song from the current playlist
 {
 	if CurrentPlaylist[reference0] == NowPlaying[2]; NowPlaying[2] = ""
+	CurrentPlaylist[reference0] = IARRAY
 	if NowPlaying[0] == CurrentPlaylist[reference0]
 	{
 		ShuffledPlaylist = ShufflePlaylist('|removed|',CurrentPlaylist)
@@ -2608,7 +2681,7 @@ OnRemoveSong //Removing a song from the current playlist
 	{
 		ShuffledPlaylist = ShufflePlaylist(NowPlaying[1],CurrentPlaylist)
 	}
-	CurrentPlaylist[reference0] = IARRAY
+	
 	//ShuffledPlaylist = ShufflePlaylist(NowPlaying[1],CurrentPlaylist)
 	--
 	"\![raise,OnMusicMenu]"
@@ -2626,7 +2699,6 @@ OnSongLocation
 
 OnClearPlaylist
 {
-	NowPlaying[2] = ""
 	if nowmode == "Awake"
 	{
 		"\0%(b)\s[1406]Are you sure you wanna clear the whole list?\w8\w8 I can't bring em back once they're gone,\w4 unless you saved it."
@@ -2648,6 +2720,7 @@ OnPlaylistCleared
 	CurrentPlaylist = IARRAY
 	NowPlaying[0] = "" //song name
 	NowPlaying[1] = 0 //song position
+	NowPlaying[2] = "" //Paused song
 	"\![sound,stop]"
 	--
 	OnMusicMenu
@@ -2666,7 +2739,7 @@ OnSoundStop //When the currently playing song ends on its own
 	}
 	elseif MusicSettings[3] == "shuffle and loop"
 	{
-		ShuffledPlaylist = ArrayCycle('+',ShuffledPlaylist)
+		ShuffledPlaylist = ACYCLE('+',ShuffledPlaylist)
 		--
 		_shuf = ShuffledPlaylist[0]
 		NowPlaying[0] = CurrentPlaylist[_shuf] //song name
@@ -2811,7 +2884,7 @@ OnMusicSet //Bringing up input boxes
 		}
 		"Pick a balance, balance will update when the next song starts. Default value is 0, negative values are left, positive values are right."
 		--
-		"\n\n\![*]\q[Cancel,OnCloseMusicSet,speed]\e"
+		"\n\n\![*]\q[Cancel,OnCloseMusicSet,balance]\e"
 	}
 	elseif reference0 == "speed"
 	{
@@ -3083,8 +3156,6 @@ OnLoadPlaylist //Load playlist menu
 
 OnSelectPlaylist //Loading the playlist
 {
-	ShuffledPlaylist = ShufflePlaylist(NowPlaying[1],CurrentPlaylist)
-	
 	CurrentPlaylist = IARRAY
 	_playlists = FENUM("playlists/","|") //Get the files
 	SETDELIM(_playlists,"|")
@@ -3098,6 +3169,7 @@ OnSelectPlaylist //Loading the playlist
 	}
 	--
 	_f = FCLOSE("playlists/%(_file)")
+	ShuffledPlaylist = ShufflePlaylist(NowPlaying[1],CurrentPlaylist)
 	--
 	"\![stop,sound]"
 	--
@@ -3233,7 +3305,7 @@ OnQuestionMenu
 	"\n\n\![*]\q[Back to Main Menu,OnMenuRun]\n\![*]\q[I'm done,cancelnodialogue]\e"
 }
 
-OnAboutLulo : nonoverlap
+OnAboutLulo : nonoverlap_pool
 {
 	friendship += smfriendplus
 	
@@ -3252,7 +3324,7 @@ OnAboutLulo : nonoverlap
 		{
 			if ghostexcount == 0; "\s[1113]I'm a little bored,\w4\s[1106] wouldn't it be more interesting here if you brought other people?"
 			"\s[1107]I'm not usually awake like this,\w4 'cept when I'm dreaming.\w8\w8\s[1208] It's nice..."
-			"\s[1104]I have a lot of fun creating worlds in my dreams.\w8\w8\s[1112] Sometimes I try to draw them,\w4 so my family can see what I've made...\w8\w8\s[1107] But it's not really the same,\w4 you know?\![raise,OnDialogueVars,learnaboutdreams]"
+			"\s[1104]I have a lot of fun creating worlds in my dreams.\w8\w8\s[1112] Sometimes I try to draw them,\w4 so my family can see what I've made...\w8\w8\s[1107] But it's%(br)not really the same,\w4 you know?\![raise,OnDialogueVars,learnaboutdreams]"
 			"\s[1205]I wanna see more of the world one day.\w8\w8\s[1000] I have a lot of fun making cool places to explore in my dreams,\w4 but there are so many cool places in the real world to discover,\w4 too.\w8\w8\s[1104] And whatever I see,\w4 I can use in my dreams later,\w4 too.\![raise,OnDialogueVars,learnaboutdreams]"
 			"\s[1113]I'm wondering how long this energy'll last.\w8\w8\s[1107] It's not usually all that long..."
 			"\s[1000]I like all kinds of stories,\w4\s[1113] I spend most of my time coming up with stories,\w4 honestly..."
@@ -3369,7 +3441,7 @@ OnAboutFamily
 	--
 	if Family[6] == 1; "anIAbbi\q[Abbi,AboutAbbi]  "; else; "---- "
 	--
-	if Family[7] == 1; "anIRosie\q[Rosie,AboutWD]  "; else; "----- "
+	if Family[7] == 1; "anIRosie\q[Rosie,AboutRosie]  "; else; "----- "
 	--
 	if Family[8] == 1; "anIRoman\q[Roman,AboutRoman]"; else; "-----"
 	--
@@ -3392,7 +3464,7 @@ OnAboutFamily
 	"\n\n\![*]\q[Back to menu,OnQuestionMenu]\n\![*]\q[I'm done,cancelnodialogue]\e"
 }
 
-Select.AboutWD : nonoverlap
+Select.AboutWD : nonoverlap_pool
 {
 	friendship += smfriendplus
 	
@@ -3401,8 +3473,12 @@ Select.AboutWD : nonoverlap
 	if nowmode == "Awake"
 	{
 		"\s[1104]He's really great,\w4 he always knows the best games to play.\w8\w8\s[1112] He always covers for us if we get into trouble,\w4 too."
-if Family[3] > 0; "\s[1208]He loves my anGrandma a lot,\w4 I can tell.\w8\w8\s[1112] He's always doing little things for her,\w4 like fetching the things she'll need for a project before she even asks.\w8\w8\s[1110] I guess when you've known someone for that long,\w4 you figure out a lot about them."
-if Family[3] > 0; "\s[1106]He's really old.\w8\w8 Like,\w4 \f[italic,1]really\f[italic,0] old.\w8\w8\s[1208] So are his siblings,\w4 since they're triplets.\w8\w8\s[1110] My anGrandma's almost the same age,\w4 too.\w8\w8 \s[1107] I can't imagine living that long..."
+		if Family[3] > 0
+		{
+			"\s[1208]He loves my anGrandma a lot,\w4 I can tell.\w8\w8\s[1112] He's always doing little things for her,\w4 like fetching the things she'll need for a project before she even asks.\w8\w8\s[1110] I guess when you've known someone for that long,\w4 you figure out a lot about them."
+		
+			"\s[1106]He's really old.\w8\w8 Like,\w4 \f[italic,1]really\f[italic,0] old.\w8\w8\s[1208] So are his siblings,\w4 since they're triplets.\w8\w8\s[1110] My anGrandma's almost the same age,\w4 too.\w8\w8 \s[1107] I can't imagine living that long..."
+		}
 		"\s[1110]He's really good at fighting.\w8\w8 He spars with some of the others sometimes,\w4 and I can tell he's holding back.\w8\w8\s[1206] I guess he's had a long time to practice..?"
 		"\s[1102]He's one of the gentlest people I know,\w4\s[1112] and most of my family is pretty gentle so that's saying something."
 		"\s[1106]If my anDad can't take me to the hospital,\w4 he's usually the one who takes me instead.\w8\w8\s[1206] I'm glad,\w4 I feel safer with him there if my anDad can't be..."
@@ -3420,29 +3496,31 @@ if Family[3] > 0; "\s[1106]He's really old.\w8\w8 Like,\w4 \f[italic,1]really\f[
 	"%(FamilyReturn)"
 }
 
-Select.AboutDings : nonoverlap
+Select.AboutDings
 {
 	friendship += smfriendplus
 	
 	"\0%(b)"
 	--
-	if nowmode == "Awake"
-	{
-		"\s[1206]He mostly keeps to himself,\w4\s[1106] I guess he's just not as social as his siblings?\w8\w8\s[1110] Sometimes I run into him late at night when I can't sleep,\w4 though,\w4 and he'll let me see some of what he's working on.\w8\w8\n\n\s[1113]It's really complex stuff,\w4 but it's kinda cool..."
-		"\s[1112]Some of the stuff he's working looks really cool,\w4\s[1110] I wonder what it's actually for,\w4 though.\w8\w8\s[1206] He doesn't really talk about it..."
-		"\s[1206]He seems kinda lonely.\w8\w8\s[1108] I understand that,\w4 though,\w4\s[1109] if there's something bothering you you can feel lonely even when you're surrounded by so many people..."
-	}
-	else //Sleepy
-	{
-		"\s[112]...i want to see more of what he's working on,\w4 it looks really cool...\w8\w8\s[206] dunno if he'll let me,\w4 though..."
-		"\s[0]...he's always working on stuff,\w4 i never really see him relaxing around the house...\w8\w8\s[112] he always turns up on time for dinner and stuff,\w4 though..."
-		"\s[112]...he always seems like something's bothering him,\w4 but i dunno what...\w8\w8\s[206] i dunno if i can help,\w4 either..."
+	nonoverlap_pool:{
+		if nowmode == "Awake"
+		{
+			"\s[1206]He mostly keeps to himself,\w4\s[1106] I guess he's just not as social as his siblings?\w8\w8\s[1110] Sometimes I run into him late at night when I can't sleep,\w4 though,\w4 and he'll let me see some of what he's working on.\w8\w8\n\n\s[1113]It's really complex stuff,\w4 but it's kinda cool..."
+			"\s[1112]Some of the stuff he's working on looks really cool,\w4\s[1110] I wonder what it's actually for,\w4 though.\w8\w8\s[1206] He doesn't really talk about it..."
+			"\s[1206]He seems kinda lonely.\w8\w8\s[1108] I understand that,\w4 though,\w4\s[1109] if there's something bothering you you can feel lonely even when you're surrounded by so many people..."
+		}
+		else //Sleepy
+		{
+			"\s[112]...i want to see more of what he's working on,\w4 it looks really cool...\w8\w8\s[206] dunno if he'll let me,\w4 though..."
+			"\s[0]...he's always working on stuff,\w4 i never really see him relaxing around the house...\w8\w8\s[112] he always turns up on time for dinner and stuff,\w4 though..."
+			"\s[112]...he always seems like something's bothering him,\w4 but i dunno what...\w8\w8\s[206] i dunno if i can help,\w4 either..."
+		}
 	}
 	--
 	"%(FamilyReturn)"
 }
 
-Select.AboutWings : nonoverlap
+Select.AboutWings : nonoverlap_pool
 {
 	friendship += smfriendplus
 	
@@ -3464,7 +3542,7 @@ Select.AboutWings : nonoverlap
 	"%(FamilyReturn)"
 }
 
-Select.AboutBarcode : nonoverlap
+Select.AboutBarcode : nonoverlap_pool
 {
 	friendship += smfriendplus
 	
@@ -3486,7 +3564,7 @@ Select.AboutBarcode : nonoverlap
 	"%(FamilyReturn)"
 }
 
-Select.AboutS : nonoverlap
+Select.AboutS : nonoverlap_pool
 {
 	"\0%(b)"
 	--
@@ -3528,7 +3606,7 @@ Select.AboutS : nonoverlap
 	"%(FamilyReturn)"
 }
 
-Select.AboutBlueJeans : nonoverlap
+Select.AboutBlueJeans : nonoverlap_pool
 {
 	friendship += smfriendplus
 	
@@ -3544,8 +3622,11 @@ Select.AboutBlueJeans : nonoverlap
 		}
 		else
 		{
-			if highesttrust; "\s[1206]He's a lot of andad's emotional support right now...\w8\w8\s[1109] He really needs it after everything that happened,\w4 so I'm glad for that."
-			if highesttrust; "\s[1206]He and andad warmed up to each other so fast once things calmed down,\w4 it's like they already knew each other really well...\w8\w8\s[1109] i dunno,\w4 some weird stuff happened back then..."
+			if highesttrust
+			{
+				"\s[1206]He's a lot of andad's emotional support right now...\w8\w8\s[1109] He really needs it after everything that happened,\w4 so I'm glad for that."
+				"\s[1206]He and andad warmed up to each other so fast once things calmed down,\w4 it's like they already knew each other really well...\w8\w8\s[1109] i dunno,\w4 some weird stuff happened back then..."
+			}
 			"\s[1113]He makes anDad happy,\w4 that's good to see."
 			"\s[1206]I don't really talk to him a whole lot,\w4 he's usually pretty busy trying to keep anSigil occupied, or out working in the fields..."
 		}
@@ -3578,7 +3659,7 @@ Select.AboutBlueJeans : nonoverlap
 	"%(FamilyReturn)"
 }
 
-Select.AboutAbbi : nonoverlap
+Select.AboutAbbi : nonoverlap_pool
 {
 	friendship += smfriendplus
 	
@@ -3600,7 +3681,7 @@ Select.AboutAbbi : nonoverlap
 	"%(FamilyReturn)"
 }
 
-Select.AboutRosie : nonoverlap
+Select.AboutRosie : nonoverlap_pool
 {
 	friendship += smfriendplus
 	
@@ -3622,7 +3703,7 @@ Select.AboutRosie : nonoverlap
 	"%(FamilyReturn)"
 }
 
-Select.AboutRoman : nonoverlap
+Select.AboutRoman : nonoverlap_pool
 {
 	friendship += smfriendplus
 	
@@ -3644,7 +3725,7 @@ Select.AboutRoman : nonoverlap
 	"%(FamilyReturn)"
 }
 
-Select.AboutCambria : nonoverlap
+Select.AboutCambria : nonoverlap_pool
 {
 	friendship += smfriendplus
 	
@@ -3681,7 +3762,7 @@ Select.AboutCambria : nonoverlap
 	"%(FamilyReturn)"
 }
 
-Select.AboutTriton : nonoverlap
+Select.AboutTriton : nonoverlap_pool
 {
 	friendship += smfriendplus
 	
@@ -3703,7 +3784,7 @@ Select.AboutTriton : nonoverlap
 	"%(FamilyReturn)"
 }
 
-Select.AboutAzo : nonoverlap
+Select.AboutAzo : nonoverlap_pool
 {
 	friendship += smfriendplus
 	
@@ -3723,7 +3804,7 @@ Select.AboutAzo : nonoverlap
 	"%(FamilyReturn)"
 }
 
-Select.AboutSigil : nonoverlap
+Select.AboutSigil : nonoverlap_pool
 {
 	friendship += smfriendplus
 	
@@ -3744,7 +3825,7 @@ Select.AboutSigil : nonoverlap
 	"%(FamilyReturn)"
 }
 
-Select.AboutElko : nonoverlap
+Select.AboutElko : nonoverlap_pool
 {
 	friendship += smfriendplus
 	
@@ -3781,7 +3862,7 @@ Select.AboutElko : nonoverlap
 	"%(FamilyReturn)"
 }
 
-Select.AboutGeneral : nonoverlap
+Select.AboutGeneral : nonoverlap_pool
 {
 	friendship += smfriendplus
 	
@@ -3792,7 +3873,7 @@ Select.AboutGeneral : nonoverlap
 		"\s[1104]They're really great!\w8\w8\s[1112] I wish you could meet em all..."
 		"\s[1107]There's a lot of us,\w4 I won't be upset if you have trouble keeping all our names straight."
 		"\s[1104]It's a lot of fun when we all go out and do stuff together.\w8\w8\s[1113] It's kind of a challenge getting everyone organized,\w4\s[1107] but I'm usually an easy one."
-		"\s[1208]I wonder what they'd think of this place.\w8\w8\s[1110] I'm not sure your desktop could handle all of us at once,\w4 would we even fit?"
+		"\s[1208]I wonder what they'd think of this place.\w8\w8\s[1110] I'm%(br)not sure your desktop could handle all of us at once,\w4 would we even fit?"
 		"\s[1112]I bet anMRosie and I could have some fun if she were here too..."
 		"\s[1107]If anMSigil ever ends up here,\w4 she'd probably end up lost in your files somewhere...\w8\w8\s[1106] She's hard to keep track of on a good day."
 	}
@@ -3821,7 +3902,7 @@ FamilyReturn
 
 
 //---Regular questions---
-OnAboutSoul : nonoverlap
+OnAboutSoul : nonoverlap_pool
 {
 	friendship += smfriendplus
 	"\0%(b)"
@@ -3864,7 +3945,7 @@ OnAboutSoul : nonoverlap
 	"%(QuestionReturn)"
 }
 
-OnAboutDreams : nonoverlap
+OnAboutDreams : nonoverlap_pool
 {
 	friendship += smfriendplus
 	"\0%(b)"
@@ -3872,7 +3953,7 @@ OnAboutDreams : nonoverlap
 	if nowmode == "Awake"
 	{
 		"\s[1111]I have so much fun when I'm dreaming!\w8\w8\s[1113] It'd be really nice if I could bring someone else along,\w4 though..."
-		"\s[1104]I create all kinds of things!\w8\w8\s[1112] Giant monsters,\w4 complicated puzzles,\w4 busy towns,\w4 pretty scenery...\w8\w8\s[1104] And all kinds of stories,\w4 too."
+		"\s[1104]I create all kinds of things!\w8\w8\s[1112] Giant monsters,\w4%(br)complicated puzzles,\w4 busy towns,\w4 pretty scenery...\w8\w8\s[1104] And all kinds of stories,\w4 too."
 		"\s[1112]Sometimes I make myself a character in the story,\w4 and sometimes I make other characters and just watch what they'll do.\w8\w8\s[1104] It's pretty fun either way."
 		"\s[1208]Time seems a lot slower when I'm dreaming,\w4 so I kinda spend more time dreaming than I do awake.\w8\w8\s[1107] That's probably not a good thing?\w8\w8\s[1206] But I don't have much choice in the matter,\w4 so..."
 		"\s[1112]I've gotten really good at manipulating my dreams,\w4 I can shape them just about any way I want.\w8\w8\s[1111] I can even make stuff that's impossible in the waking world.\w8\w8\s[1107] Being awake is kinda disappointing,\w4 sometimes..."
@@ -3891,14 +3972,14 @@ OnAboutDreams : nonoverlap
 	"%(QuestionReturn)"
 }
 
-OnAboutMpt : nonoverlap
+OnAboutMpt : nonoverlap_pool
 {
 	friendship += smfriendplus
 	"\0%(b)"
 	--
 	if nowmode == "Awake"
 	{
-		"\s[1000]It goes everywhere with me,\w4\s[1113] though I don't usually use it much while I'm feeling this awake."
+		"\s[1000]It goes everywhere with me,\w4\s[1113] though I don't%(br)usually use it much while I'm feeling this awake."
 		"\s[1113]I don't use it much unless I'm feeling tired,\w4 really."
 		if NowPlaying[0] == ""; "\s[1111]Did you wanna listen to something?\w8\w8\s[1104] Just let me know and I can get some music going."
 		"\s[1112]It's nothing fancy,\w4 but I do like it a lot.\w8\w8\s[1110] It can hold a ton of songs,\w4 I'm not even close to the limit."
@@ -3914,7 +3995,7 @@ OnAboutMpt : nonoverlap
 	"%(QuestionReturn)"
 }
 
-OnAboutNotebook : nonoverlap
+OnAboutNotebook : nonoverlap_pool
 {
 	friendship += smfriendplus
 	"\0%(b)"
@@ -4172,13 +4253,15 @@ OnConfigMenu //I moved changing name/pronouns/birthday over to Nameteach, becaus
 	if Degrees == ""; {Degrees[0] = "Fahrenheit"; Degrees[1] = "°F"}
 	else; {_menutemplocation = REPLACE(curlocation,",","\,")} //Makes commas display appropriately
 	if AutoUpdate == ""; {AutoUpdate = "On"}
+	if TextSpeed == ""; TextSpeed = "On"
 	--
 	//the \_l[95] is telling it to put the ---Config--- at x 95. Adjust as needed.
 	"\_q%(bb)\_l[95]---Config---\n\n/
 	Your name: \q[%(userprop),OnChangeName]\n/
 	Your pronouns: \q[%(Capitalize(heshe))/%(Capitalize(himher))/%(Capitalize(hisher)),OnChangePronoun]\n/
 	Your birthday: \q[%(birthdayprint),OnChangeBirthday]\n\n[half]/
-	Talk rate: \q[%(talkrate),ChangeTalk]\n\n[half]/
+	Talk rate: \q[%(talkrate),ChangeTalk]\n/
+	Text speed based on mode: \q[%(TextSpeed),OnToggleTextSpeed]\n\n[half]/
 	\![*]Enable weather checks? (Currently: \q[%(AutoWeather),ToggleAutoWeather])  (\q[%(Degrees[0]),ToggleDegreesConfig])\n/
 	Current location:                      \q[(Reset location),locationreset]\n\![*]\q[%(_menutemplocation),OnWeatherLocation]\n\n/
 	\![*]Enable Auto Update checks?\n(Currently: \q[%(AutoUpdate),ToggleUpdate])\n/
@@ -4205,6 +4288,14 @@ Select.ChangeTalk
 	\![*]\q[Every 5 minutes,TalkFiveMin]\n/
 	\![*]\q[Don't speak,TalkNone]\n\n/
 	\![*]\q[Nevermind,OnConfigMenu]\e"
+}
+
+OnToggleTextSpeed
+{
+	if TextSpeed != "On"; TextSpeed = "On"
+	else; TextSpeed = "Off"
+	--
+	OnConfigMenu
 }
 
 Select.TalkThirty
@@ -4375,7 +4466,11 @@ Select.ToggleUninstall
 
 OnChoiceTimeout //Menu has timed out
 {
-	if "notimeout" !_in_ reference0
+	if "ReactGame" _in_ reference0
+	{
+		OnReactClick("Lose")
+	}
+	elseif "notimeout" !_in_ reference0
 	{
 		if nowmode == "Awake"
 		{
@@ -4619,11 +4714,3 @@ OnDescriptTxt
 	_i = FUNCTIONEX("clipcopy.dll",_output)
 	"\_q\b2%(_output)\x"
 }
-
-
-
-
-
-
-
-

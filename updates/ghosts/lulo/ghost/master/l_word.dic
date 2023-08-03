@@ -139,6 +139,8 @@ ShopItems : array
 	"Medium Gray Hoodie,clothes-hoodies-medium,Shirts,%(_cheapclothing),1,%(ASEARCH('Medium Gray Hoodie',PurchasedShirts))"
 	"Light Gray Hoodie,clothes-hoodies-light,Shirts,%(_cheapclothing),1,%(ASEARCH('Light Gray Hoodie',PurchasedShirts))"
 	
+	//"Galaxy Hoodie Test,clothes-hoodies-unique,Shirts,%(_cheapclothing),1,%(ASEARCH('Galaxy Hoodie Test',PurchasedShirts))"
+	
 	
 	
 	//---Tshirts---
@@ -1116,6 +1118,54 @@ humid
 	else; "Unknown"
 }
 
+weather_clear
+{
+	if weather == "Clear" || weather == "Mostly Clear" || weather == "Sunny" || weather == "Mostly Sunny" || weather == "Fair"; 1
+	else; 0
+}
+
+weather_cloudy
+{
+	if weather == "Partly Cloudy" || weather == "Mostly Cloudy" || weather == "Cloudy"; 1
+	else; 0
+}
+
+weather_mightrain
+{
+	if weather == "Showers in the Vicinity" || weather == "Few Showers" || weather == "Showers"; 1
+	else; 0
+}
+
+weather_raining
+{
+	if weather == "Rain Shower" || weather == "Light Rain" || weather == "Rain" || weather == "Heavy Rain"; 1
+	else; 0
+}
+
+weather_snowing
+{
+	if weather == "Rain and Snow" || weather == "Snow Shower" || weather == "Snow" || weather == "Light Snow" || weather == "Wintry Mix"; 1
+	else; 0
+}
+
+weather_thunderstorm
+{
+	if weather == "Light Rain with Thunder" || weather == "Isolated Thunderstorms" || weather == "Scattered Thunderstorms" || weather == "Thunderstorm" || weather == "Heavy Thunderstorm"; 1
+	else; 0
+}
+
+weather_foghaze
+{
+	if weather == "Fog" || weather == "Haze"; 1
+	else; 0
+}
+
+pollen_alert
+{
+	if pollen == "Local Pollen Alert"; 1
+	else; 0
+}
+
 loadingmoon
 {
 	"%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)%(lm)"
@@ -1152,6 +1202,16 @@ moonphase //Moon phase for main menu
 	elseif phase == "Last Quarter"; "anMoon07"
 	elseif phase == "Waning Crescent"; "anMoon08"
 	else; "anMoon09"
+}
+
+daytime //Note: S is based in a particular geopraphical location, so FOR HIM, this is accurate-ish. If you're in another hemisphere, or near a pole or something, this will be wrong. Oh well XD
+{
+	//Top if is the timeslots that will always be day.
+	//Elseifs are extra timeslots during summer months.
+	//If it's none of those, it's not daytime.
+	if timeslot == "morning" || timeslot == "lunch" || timeslot == "afternoon"; 1
+	elseif season == "Summer" && (timeslot == "earlymorning" || timeslot == "evening"); 1
+	else; 0
 }
 
 friendshiplow //Threshold for unlocking stuff with minimal friendship
@@ -1302,6 +1362,7 @@ ShuffleArray
 	_output
 }
 
+
 ShufflePlaylist //Like ShuffleArray, but whatever _argv0 is remains the first one
 {
 	_start = IARRAY
@@ -1324,7 +1385,8 @@ ShufflePlaylist //Like ShuffleArray, but whatever _argv0 is remains the first on
 	_output
 }
 
-ArrayCycle
+
+ACYCLE
 {
 	_output = IARRAY
 	if _argv[0] == "-" //Backwards
@@ -1347,8 +1409,103 @@ ArrayCycle
 	_output
 }
 
+ASCOOT //Scoot a value in an array forwards or backwards. If there are multiple elements with the same name, it'll take the first one, so only use it for arrays with unique elements
+{
+	_array = _argv //Take in all the arguments as an array
+	_array[1] = IARRAY //Erase the other arguments because we don't want them in the array
+	_array[0] = IARRAY 
+	_index = ASEARCHEX(_argv[0],_array)
+	if ARRAYSIZE(_index) < 1
+	{
+		_array
+		return
+	}
+	if ARRAYSIZE(_index) > 1; _index = TOINT(_index[0])
+	
+	if _argv[1] == "-" //Backwards
+	{
+		if _argv[0] == _array[0] //If it's already at the start of the array
+		{
+			_array
+			return
+		}
+		_curnum = _index //Get positions
+		_prvnum = _curnum - 1
+		
+		_current = _array[_curnum] //Assign elements to temp vars
+		_prev = _array[_prvnum]
+		
+		_array[_curnum] = _prev //Replace elements with swapped elements
+		_array[_prvnum] = _current
+	}
+	else //Forwards
+	{
+		if _argv[0] == _array[ARRAYSIZE(_array) - 1] //If it's already at the end of the array
+		{
+			_array
+			return
+		}
+		_curnum = _index //Get positions
+		_nxtnum = _curnum + 1
+		
+		_current = _array[_curnum] //Assign elements to temp vars
+		_next = _array[_nxtnum]
+		
+		_array[_curnum] = _next //Replace elements with swapped elements
+		_array[_nxtnum] = _current
+	}
+	_array
+}
+
+ASCOOTEX //Scoots elements around in an array, by ID number. Works with duplicate elements, but you need to plan ahead and build the ID numbers into your buttons
+{
+	_array = _argv //Take in all the arguments as an array
+	_array[1] = IARRAY //Erase the other arguments because we don't want them in the array
+	_array[0] = IARRAY
+	_index = TOINT(_argv[0])
+	if _index > ARRAYSIZE(_array) - 1 || _index < 0
+	{
+		_array
+		return
+	}
+	if _argv[1] == "-" //Backwards
+	{
+		if _argv[0] == _array[0] //If it's already at the start of the array
+		{
+			_array
+			return
+		}
+		_curnum = _index //Get positions
+		_prvnum = _curnum - 1
+		
+		_current = _array[_curnum] //Assign elements to temp vars
+		_prev = _array[_prvnum]
+		
+		_array[_curnum] = _prev //Replace elements with swapped elements
+		_array[_prvnum] = _current
+	}
+	else //Forwards
+	{
+		if _argv[0] == _array[ARRAYSIZE(_array) - 1] //If it's already at the end of the array
+		{
+			_array
+			return
+		}
+		_curnum = _index //Get positions
+		_nxtnum = _curnum + 1
+		
+		_current = _array[_curnum] //Assign elements to temp vars
+		_next = _array[_nxtnum]
+		
+		_array[_curnum] = _next //Replace elements with swapped elements
+		_array[_nxtnum] = _current
+	}
+	_array
+}
+
 Slow
 {
+	_argv[0] = REPLACE(_argv[0],"##","'") //Replaces ## with an apostrophe, change it if you like
 	_output = ""
 	_p = ""
 	if _argv[2] == "1" //If it's a precision \_w tag
@@ -1368,6 +1525,7 @@ Slow
 
 Fast
 {
+	_argv[0] = REPLACE(_argv[0],"##","'") //Replaces ## with an apostrophe, change it if you like
 	_output = ""
 	_argv[1] = TOINT(_argv[1]) //These two prevent infinite loops
 	if _argv[1] < 1; _argv[1] = 1
@@ -1381,6 +1539,67 @@ Fast
 	_output
 }
 
+Mock
+{
+	_argv[0] = REPLACE(_argv[0],"##","'") //Replaces ## with an apostrophe, change it if you like
+    _output = ""
+    if TOINT(_argv[1]) == 1 //Random mock case
+    {
+        for _i = 0; _i < STRLEN(_argv[0]); _i++
+        {
+            _let = SUBSTR(_argv[0],_i,1)
+            if RAND(2) == 1
+            {
+                _output += TOLOWER(_let)
+            }
+            else
+            {
+                _output += TOUPPER(_let)
+            }
+        }
+    }
+    else //Perfect mock case
+    {
+		_m = 0
+        for _i = 0; _i < STRLEN(_argv[0]); _i++
+        {
+            _let = SUBSTR(_argv[0],_i,1)
+			if _let == " "
+			{
+				_output += _let
+				continue
+			}
+            if _m % 2 == 0
+            {
+                _output += TOLOWER(_let)
+            }
+            else
+            {
+                _output += TOUPPER(_let)
+            }
+			_m++
+        }
+    }
+    _output
+}
+
+CreepyText
+{
+	_argv[0] = REPLACE(_argv[0],"##","'") //Replaces ## with an apostrophe, change it if you like
+    _display = ""
+    for _i = 0; _i < STRLEN(_argv[0]); _i++
+    {
+		_w = 0
+		_x = 0
+		_y = 0
+		if _argv[1] != ""; _w = RAND(_argv[1]); else; _w = RAND(10)  //Set this to the maximum pause time you want, or comment it out if you don't want random pauses (Don't put it higher than 10 or you'll call invalid \w commands)
+        if _argv[2] != ""; _x = RAND(_argv[2]); else; _x = RAND(250) //Set this to the maximum X coordinate you want
+        if _argv[3] != ""; _y = RAND(_argv[3]); else; _y = RAND(100) //Set this to the maximum Y coordinate you want
+        
+        _display += ("\_l[%(_x),%(_y)]" + SUBSTR(_argv[0],_i,1) + "\w%(_w)")
+    }
+    _display
+}  
 
 
 
@@ -1410,3 +1629,524 @@ NameGen : nonoverlap
 	"gre"
 	"hi"
 }
+
+Wobble
+{
+	_argv[0] = REPLACE(_argv[0],"##","'") //replaces ## with an apostrophe, you can change this if you want to use something else
+	
+	//Default values - Set these to whatever you'd like, you can override them for each individual dialogue if you like
+	_UPlow = 0		//Controls if letters are randomly converted to upper/lowercase. 0 for off, 1 for on.
+	_Xjitter = 5	//Controls how much space can be between each letter. Higher numbers will be more spaced out.
+	_Yjitter = 5	//Controls how much letters can vary up and down. Higher numbers will be more spaced out.
+	_SizeJitter = 0 //Controls how much the font size can change per letter. Higher numbers will have more extreme variance.
+	_SizeUpDown = 1 //Controls if the font size can go up, down, or both. 0 for both, 1 for up, 2 for down.
+	
+	if _argv[1] != ""; _UPlow = _argv[1] //These check if the user has sent special arguments, and if not, uses the default values
+	if _argv[2] != ""; _Xjitter = _argv[2]
+	if _argv[3] != ""; _Yjitter = _argv[3]
+	if _argv[4] != ""; _SizeJitter = _argv[4]
+	if _argv[5] != ""; _SizeUpDown = _argv[5]
+	
+	
+	_word = "" //Initialize display
+	for _i = 0; _i < STRLEN(_argv[0]); _i++
+	{
+		_let = SUBSTR(_argv[0],_i,1) //Get the current letter
+		if TOINT(_UPlow) == 1 //If random upper/lower is on, flip a coin to determine which this letter will be
+		{
+			if RAND(2) == 1; _let = TOUPPER(_let); else; _let = TOLOWER(_let)
+		}
+		_X = RAND(_Xjitter) //Get random values for X, Y, and Size
+		_Y = RAND(_Yjitter)
+		_Sz = RAND(_SizeJitter)
+		if _SizeUpDown == 1 //Size only goes up
+		{
+			_Sz = "+" + _Sz
+		}
+		elseif _SizeUpDown == 2 //Size only goes down
+		{
+			_Sz = "-" + _Sz
+		}
+		else //Flip a coin on if the size should go up or down
+		{
+			if RAND(2) == 1; _Sz = "+" + _Sz; else; _Sz = "-" + _Sz 
+		}
+		_word += "\_l[@%(_X),%(_Y)]\f[height,%(_Sz)]" + _let //Add to the display
+	}
+	_word
+}
+
+OnSpeechSynthesisStatus
+{
+	if reference0 == 1
+	{
+		readLabels = "On"
+	}
+	else
+	{
+		readLabels = "Off"
+	}
+}
+
+OnChoiceHover
+{
+	if readLabels == "On"
+	{
+		"\C\_l[-100000,0]\![set,autoscroll,disable]%(reference0)"
+	}
+}
+
+On_balloon_tooltip
+{
+	if reference1 == "OnMadlibHover"
+	{
+		if reference0 == "verb"
+		{
+			"Verbs convey actions, occurrences, or a state of being; 'painted', 'looked', 'eats', 'runs', 'became'."
+		}
+		elseif reference0 == "adverb"
+		{
+			"Adverbs modify verbs(actions); 'loudly', 'fiercely', 'gleefully', 'gloomily'."
+		}
+		elseif reference0 == "noun"
+		{
+			"Nouns are a person, place, or thing; 'the cat', 'the tower', 'the paper'."
+		}
+		elseif reference0 == "adjective"
+		{
+			"Adjectives modify nouns(things); 'big', 'wooden', 'lovely', 'broken'."
+		}
+		elseif reference0 == ""
+	}
+}
+
+Shuffle
+{
+	_output = IARRAY
+	if GETTYPE(_argv) == 4 //If it's an array. General purpose arrays only!
+	{
+		while ARRAYSIZE(_argv) > 0
+		{
+			_rand = RAND(ARRAYSIZE(_argv))
+			_output ,= _argv[_rand]
+			_argv[_rand] = IARRAY
+		}
+	}
+	else //If it's anything else it'll be treated as a string
+	{
+		_argv = TOSTR(_argv)
+		while STRLEN(_argv) > 0
+		{
+			_rand = RAND(STRLEN(_argv))
+			_output += SUBSTR(_argv,_rand,1)
+			_argv = ERASE(_argv,_rand,1)
+		}
+	}
+	_output
+}
+
+/*SongSaoriTest //Experimenting with a saori I grabbed from FLELE, but it only works with ID3 v1 tags it seems, which is super sad. Oh well
+{
+	_i = FUNCTIONEX("KI.dll","ExtractMP3",NowPlaying[0],"GetTrack")
+	_i
+}*/
+
+Tem
+{
+	_output = ""
+	for _i = 0; _i < STRLEN(_argv[0]); _i++
+	{
+		_r = RAND(15)
+		
+		case _r
+		{
+			when 0, 1 //Add duplicate letters
+			{
+				_amt = RAND(5) + 1
+				for _ii = 0; _ii < _amt; _ii++
+				{
+					_len = RAND(4) + 1
+					if RAND(2) == 0; _len = 1
+					_output += SUBSTR(_argv[0],_i,_len)
+				}
+			}
+			when 2, 3 //Insert random character
+			{
+				if RAND(2) == 0 //From earlier in the word
+				{
+					_len = STRLEN(_output)
+					_output += SUBSTR(_output,RAND(_len),1)
+				}
+				else //Random
+				{
+					_output += ANY(temalphabet)
+				}
+			}
+			when 4, 5
+			{
+				_output += ANY(tempunctuation)
+			}
+			when 6 //Add a space
+			{
+				_output += " "
+			}
+			when 7 //Remove letter
+			{
+				continue
+			}
+			others 
+			{
+				if RAND(4) == 0 //make it uppercase
+				{
+					_output += TOUPPER(SUBSTR(_argv[0],_i,1))
+				}
+				else
+				{
+					_output += SUBSTR(_argv[0],_i,1)
+				}
+			}
+		}
+	}
+	_output
+}
+
+temalphabet : array
+{
+	"A"; "B"; "C"; "D"; "E"; "F"; "G"; "H"; "I"; "J"; "K"; "L"; "M"; "N"; "O"; "P"; "Q"; "R"; "S"; "T"; "U"; "V"; "W"; "X"; "Y"; "Z"
+	"a"; "b"; "c"; "d"; "e"; "f"; "g"; "h"; "i"; "j"; "k"; "l"; "m"; "n"; "o"; "p"; "q"; "r"; "s"; "t"; "u"; "v"; "w"; "x"; "y"; "z"
+}
+
+tempunctuation : array
+{
+	","; "."; ":"; ";"; "/"; ")"; "("; "-"; "_"
+}
+
+Rainbow
+{
+	_output = ""
+	_c = 0
+	if _argv[3] == 1
+	{
+		if _argv[1] == 1; _c = RAND(8)
+		else; _c = RAND(7)
+	}
+	if !(_argv[2] > 0); _argv[2] = 1
+	for _i = 0; _i < STRLEN(_argv[0]); _i += _argv[2]
+	{
+		case _c
+		{
+			when 0; _output += "\f[color,255,0,0]"//red
+			when 1; _output += "\f[color,255,120,0]" //Orange
+			when 2; _output += "\f[color,255,255,0]" //Yellow
+			when 3; _output += "\f[color,0,255,0]" //Green
+			when 4; _output += "\f[color,0,255,255]" //Cyan
+			when 5; _output += "\f[color,0,100,255]" //Blue
+			when 6; _output += "\f[color,160,0,255]" //Purple
+			when 7; _output += "\f[color,255,0,255]" //Magenta, optional	
+		}
+		_output += SUBSTR(_argv[0],_i,_argv[2])
+		_c++
+		if _c >= 7 && _argv[1] != 1; _c = 0
+		elseif _c >= 8; _c = 0
+	}
+	_output += "\f[default]"
+	_output
+}
+
+HSVtoRGB
+{
+    _H = TOREAL(_argv[0])
+    _S = TOREAL(_argv[1])
+    _V = TOREAL(_argv[2])
+    _r = 0.0
+    _g = 0.0
+    _b = 0.0
+    --
+    if _H > 360 || _H < 0 || _S > 100 || _S < 0 || _V > 100 || _V < 0
+    {
+        0
+    }
+    else
+    {
+        _s = _S/100.0
+        _v = _V/100.0
+        _C = _s*_v
+        _fmod = fmod(_H/60.0, 2)
+        _abs = abs(_fmod-1.0)
+        _X = _C*(1.0-_abs)
+        _m = _v-_C
+        --
+        _H = TOINT(_H)
+        --
+        if _H >= 0 && _H < 60
+        {
+            _r = _C
+            _g = _X
+            _b = 0
+        }
+        elseif _H >= 60 && _H < 120
+        {
+            _r = _X
+            _g = _C
+            _b = 0
+        }
+        elseif _H >= 120 && _H < 180
+        {
+            _r = 0
+            _g = _C
+            _b = _X
+        }
+        elseif _H >= 180 && _H < 240
+        {
+            _r = 0
+            _g = _X
+            _b = _C
+        }
+        elseif _H >= 240 && _H < 300
+        {
+            _r = _X
+            _g = 0
+            _b = _C
+        }
+        else
+        {
+            _r = _C
+            _g = 0
+            _b = _X
+        }
+        --
+        _R = TOINT(ROUND((_r + _m)*255))
+        _G = TOINT(ROUND((_g + _m)*255))
+        _B = TOINT(ROUND((_b + _m)*255))
+        --
+        /*"H : " + _H + "\n\n[half]s : " + _s + "\nS : " + _S + "\n\n[half]v : " + _v + "\nV : " + _V + "\n\n[half]X : " + _X + "\nM : " + _m + "\nC : " + _C + "\n\n[half]"
+        --
+        "r : " + _r + "\ng : " + _g + "\nb : " + _b + "\n\n[half]"
+        --
+        "R : " + _R + "\nG : " + _G + "\nB : " + _B*/
+        _R,_G,_B
+    }
+}
+
+abs
+{
+    if _argv[0] < 0
+    {
+        _argv[0]*=-1
+    }
+    --
+    _argv[0]
+}
+
+fmod
+{
+    _num = _argv[0]
+    _den = TOREAL(_argv[1])
+    //fmod = numerator - t*denominator 
+    //where 't' is the truncated value of numerator/denominator. 
+    _t = _num/_den 
+    //_temp = _t * _den
+    _temp = _num - _t
+    //_fmod = _num - _temp
+    _fmod = _temp * _den
+    --
+    _fmod
+    //_t + "=" + _num + "/" + _den + "\n" + _temp + "=" + _t + "*" + _den + "\n" + _fmod + "=" + _num + "-" + _temp
+}
+
+ColorShift
+{
+	_output = ""
+	_hue = TOINT(_argv[1])
+	_sat = TOINT(_argv[2])
+	_val = TOINT(_argv[3])
+	_shf = TOINT(_argv[4]); if _shf <= 0; _shf = 1
+	_amt = TOINT(_argv[5]); if _amt <= 0; _amt = 1
+	for _i = 0; _i < STRLEN(_argv[0]); _i++
+	{
+		_hue += _shf
+		if _hue >= 360; _hue = 0
+		_output += "\f[color,%(HSVtoRGB(_hue,_sat,_val))]%(SUBSTR(_argv[0],_i,_argv[5]))"
+	}
+	_output
+}
+
+Pallete
+{
+	if _argv[0] == ""; _argv[0] = 3
+	_output = "\_q\f[height,+20]\f[shadowcolor,255,255,255]"
+	for _i = 0; _i < _argv[0]; _i++
+	{
+		_hue = RAND(361)
+		_sat = RAND(101)
+		_val = RAND(101)
+		
+		_rgb = HSVtoRGB(_hue,_sat,_val)
+		_output += "\f[color,%(_rgb)]■ "
+	}
+	_output
+}
+
+OnPalleteMenu
+{
+	if PalleteOption[3] == ""; PalleteOption[3] = 3
+	//if reference1 == ""; reference1 = PalleteOption[3]
+	
+	_g = "\f[color,150,150,150]"
+	_d = "\f[color,default]"
+	
+	"\0\b2\*\_q"
+	--
+	if reference0 == "ChangeHueOpt"; PalleteOption[0] = reference1
+	elseif reference0 == "ChangeSatOpt"; PalleteOption[1] = reference1
+	elseif reference0 == "ChangeValOpt"; PalleteOption[2] = reference1
+	elseif reference0 == "ChangeColorOpt"
+	{
+		if reference1 == "-"; PalleteOption[3] = TOINT(PalleteOption[3]) - 1
+		elseif reference1 == "Custom"; "\![open,inputbox,OnPalleteMenu,-1]"
+		else; PalleteOption[3] = TOINT(PalleteOption[3]) + 1
+	}
+	elseif reference0 == ""; "\![close,inputbox,OnPalleteMenu]"
+	else
+	{
+		PalleteOption[3] = TOINT(reference0)
+		if PalleteOption[3] > 100; PalleteOption[3] = 100
+		if PalleteOption[3] < 1; PalleteOption[3] = 1
+	}
+	--
+	"Hue: ";
+	--
+	if PalleteOption[0] != "Random"; "%(_g)"
+	--
+	"\q[Random,OnPalleteMenu,ChangeHueOpt,Random]%(_d)  "
+	--
+	if PalleteOption[0] != "Similar"; "%(_g)"
+	--
+	"\q[Similar,OnPalleteMenu,ChangeHueOpt,Similar]%(_d)  "
+	--
+	if PalleteOption[0] != "Distinct"; "%(_g)"
+	--
+	"\q[Distinct,OnPalleteMenu,ChangeHueOpt,Distinct]%(_d)"
+	--
+	"\nSat: "
+	--
+	if PalleteOption[1] != "Random"; "%(_g)"
+	--
+	"\q[Random,OnPalleteMenu,ChangeSatOpt,Random]%(_d)  "
+	--
+	if PalleteOption[1] != "Similar"; "%(_g)"
+	--
+	"\q[Similar,OnPalleteMenu,ChangeSatOpt,Similar]%(_d)  "
+	--
+	if PalleteOption[1] != "Distinct"; "%(_g)"
+	--
+	"\q[Distinct,OnPalleteMenu,ChangeSatOpt,Distinct]%(_d)"
+	--
+	"\nVal: "
+	--
+	if PalleteOption[2] != "Random"; "%(_g)"
+	--
+	"\q[Random,OnPalleteMenu,ChangeValOpt,Random]%(_d)  "
+	--
+	if PalleteOption[2] != "Similar"; "%(_g)"
+	--
+	"\q[Similar,OnPalleteMenu,ChangeValOpt,Similar]%(_d)  "
+	--
+	if PalleteOption[2] != "Distinct"; "%(_g)"
+	--
+	"\q[Distinct,OnPalleteMenu,ChangeValOpt,Distinct]%(_d)"
+	--
+	"\nColors: \q[%(PalleteOption[3]),OnPalleteMenu,ChangeColorOpt,Custom]  "
+	--
+	if PalleteOption[3] < 100; "\q[+,OnPalleteMenu,ChangeColorOpt,+]  "
+	else; "%(_g)+%(_d)  "
+	--
+	if PalleteOption[3] > 1; "\q[-,OnPalleteMenu,ChangeColorOpt,-]"
+	else; "%(_g)-%(_d)  "
+	--
+	"\n\n\![*]\q[Generate again,OnPalleteMenu]\n\n"
+	--
+	//--------------------------------------------------
+	_output = "\f[height,+20]\f[shadowcolor,255,255,255]"
+	
+	for _i = 0; _i < PalleteOption[3]; _i++
+	{
+		_hue = RAND(361)
+		_sat = RAND(101)
+		_val = RAND(101)
+		
+		_rgb = HSVtoRGB(_hue,_sat,_val)
+		_output += "\f[color,%(_rgb)]■ "
+		if _i > 110; break
+	}
+	_output
+}
+
+Counter //Increment counter, creates one if none exists
+{
+	_index = ASUBEX(_argv[0],Counters) //Find all instances of the substring in the Counters array
+	foreach _index; _element //Check each one
+	{
+		_current = Counters[_element]
+		_name = _current[0,'||']
+		if _name == _argv[0] //If the exact match for the counter is found, increment it and end the function
+		{
+			_count = TOINT(_current[1,'||'])
+			if _argv[1] == "-"; _count--
+			else; _count++
+			if _count < 0 && _argv[2] != 1; _count = 0
+			Counters[_element] = "%(_name)||%(_count)"
+			return
+		}
+	}
+	Counters ,= "%(_argv)||1" //If no counter is found, make one
+}
+
+CounterGet //Display value of counter
+{
+	_index = ASUBEX(_argv[0],Counters) //Find all instances of the substring in the Counters array
+	foreach _index; _element //Check each one
+	{
+		_current = Counters[_element]
+		_name = _current[0,'||']
+		if _name == _argv[0] //If the exact match for the counter is found, return it
+		{
+			_count = TOINT(_current[1,'||'])
+			_count
+			return
+		}
+	}
+	-1 //if no counter is found
+}
+
+ASUB //ASEARCH but for substrings
+{
+	_array = _argv //Takes in all the elements of the array
+	_array[0] = IARRAY //erases _argv[0] since that's the string we're searching for
+	for _i = 0; _i < ARRAYSIZE(_array); _i++
+	{
+		if TOSTR(_argv[0]) _in_ _array[_i]
+		{
+			_i
+			return
+		}
+	}
+	-1
+}
+
+ASUBEX //ASEARCHEX but for substrings
+{
+	_output = IARRAY
+	_array = _argv //Takes in all the elements of the array
+	_array[0] = IARRAY //erases _argv[0] since that's the string we're searching for
+	for _i = 0; _i < ARRAYSIZE(_array); _i++
+	{
+		if TOSTR(_argv[0]) _in_ _array[_i]
+		{
+			_output ,= _i
+		}
+	}
+	if ARRAYSIZE(_output) < 1; -1
+	else; _output
+}
+

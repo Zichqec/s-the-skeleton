@@ -4,41 +4,41 @@ OnCommunicate
  	{
 		//Answering the user - I've removed the function that goes along with this because it doesn't link to anything.
 	}
+	elseif "GetLuloStats" _in_ reference1
+	{
+		ConvoTag = SPLIT(reference1,"\e")[1]
+		CurrentPos[4] = reference0 //Ghost that sent the ping
+		"\![get,property,OnSendStats,currentghost.scope(0).x,currentghost.scope(0).y,currentghost.scope(1).x,currentghost.scope(1).y]\e"
+	}
  	else
 	{
  		//Answering another ghost
-		/*_b = BalloonCheck
-		if _b == 1 && "\![commu]" !_in_ CurrentTalk
+		_b = BalloonCheck
+		if _b == 1 && "\![commu-%(reference0)]" !_in_ SHIORI3FW.LastTalk //If the balloon is open and the commu tag does NOT match the current conversation, or does not exist, store this message in the arrays so it can be responded to later
 		{
-			waitingcommu[0] = reference0
-			waitingcommu[1] = reference1
-		}
-		else
-		{
-			if reference0 == "|-|waitingcommu|-|"
+			_check = ASEARCH(reference0,waitingcommuS)
+			if _check == -1 //If there are no other messages from this ghost waiting in the queue
 			{
-				reference0 = waitingcommu[0]; waitingcommu[0] = ""
-				reference1 = waitingcommu[1]; waitingcommu[1] = ""
+				waitingcommuS ,= reference0 //Sender - Stores the name of the ghost in an array
+				waitingcommuM ,= reference1 //Message - Stores the message that was sent in an array
 			}
-			--*/
+			else //If there is a message from this ghost waiting in the queue, replace it with the one that was just received
+			{
+				waitingcommuS[_check] = reference0
+				waitingcommuM[_check] = reference1
+			}
+		}
+		else //The balloon is not open, or the conversation tag matches the ghost that is currently sending a message
+		{
+			if reference0 == "|-|waitingcommu|-|" //If this was called because there was a commu waiting
+			{
+				reference0 = waitingcommuS[0]; waitingcommuS[0] = IARRAY //Sets the name of the ghost as reference0 and clears the first element of the array
+				reference1 = waitingcommuM[0]; waitingcommuM[0] = IARRAY //Sets reference1 as the message that was saved and clears the first element of the array
+			}
+			--
 			ReplyToGhost
-		//}
+		}
  	}
-}
-
-OnBalloonClose
-{
-	if waitingcommu[0] != ""; WaitingCommu
-}
-
-OnBalloonBreak
-{
-	if waitingcommu[0] != ""; WaitingCommu
-}
-
-OnBalloonTimeout
-{
-	if waitingcommu[0] != ""; WaitingCommu
 }
 
 WaitingCommu
@@ -49,7 +49,10 @@ WaitingCommu
 //This is your ghost starting a conversation with another ghost. It will choose a random one from the currently open ghosts.
 OnStartTalking
 {
-	"\![commu]"
+	_ghost = ANY(ghostexlist)
+	if reference0 != ""; _ghost = reference0 //If this was a manual ping
+	
+	"\![commu-%(_ghost)]"
 	--
 	if nowmode == "Asleep"
 	{
@@ -60,9 +63,6 @@ OnStartTalking
 		AlreadyResponded = 1
 		if ghostexcount > 0
 		{
-			_num = RAND(ghostexcount)
-			_ghost = "%(ghostexlist[_num])"
-			--
 			//Checks for the Sakura name
 			case _ghost
 			{
@@ -73,15 +73,25 @@ OnStartTalking
 					"\0\s[0]Hello Girl!\w8\w8 Hello Triangle!\w8\w8\e GirlTriangleHello01"
 					"\0\s[0]Hi Girl!\w8\w8 How are you,\w4 Triangle?\w8\w8\e GirlTriangleHello03"
 				}
-				/*when "RYS-0825"
+				when "RYS-0825"
 				{
-					ConvoTag = "ExampleA_L1"
-					--
-					"%(DustySLulo)"
-				}*/
+					res_reference0 = "RYS-0825"
+					
+					"\e GetSStats"
+				}
+				when "Dusty"
+				{
+					res_reference0 = "Dusty"
+					
+					"\e GetDustyStats"
+				}
 				others //Ghosts there is no specific response to.
 				{
 					res_reference0 = _ghost
+					if ASEARCH(_ghost,MetGhosts) == -1
+					{
+						MetGhosts ,= _ghost
+					}
 					
 					AlreadyResponded = 1
 					
@@ -112,6 +122,48 @@ OnStartTalking
 	}
 }
 
+OnCommuMenu
+{
+	_display = ""
+	foreach ghostexlist; _ghost
+	{
+		_display += "\![*]\q[%(_ghost),OnStartTalking,%(_ghost)]\n"
+	}
+	_display += "\n\![*]\q[Custom ping,OnCustomPing]"
+	_display
+}
+
+OnCommuPing
+{
+	res_reference0 = reference0
+	"\0\s[0]...hi,\w4 %(TOLOWER(reference0))...\e"
+}
+
+OnCustomPing
+{
+	"What do you want to send?\![open,inputbox,OnCustomCommu,-1]"
+}
+
+OnCustomCommu
+{
+	reference0 = REPLACE(reference0,",","##")
+	_display = ""
+	foreach ghostexlist; _ghost
+	{
+		_display += "\![*]\q[%(_ghost),OnCustomPingSend,%(_ghost),%(reference0)]\n"
+	}
+	"Send to which ghost?\n\n"
+	--
+	_display
+}
+
+OnCustomPingSend
+{
+	res_reference0 = reference0
+	reference1 = REPLACE(reference1,"##",",")
+	"%(reference1)"
+}
+
 ReplyToGhost //This is your ghost receiving a communication.
 {
 	_Speech = SPLIT(reference1,"\e")[0] //Everything the ghost said that the user can see
@@ -119,18 +171,45 @@ ReplyToGhost //This is your ghost receiving a communication.
 	_Last = SPLIT(reference1,"::")[1] //Ghosts using the reflect system send ":%(_Speech)" at the end of every communication, so _Last is what THIS ghost last said. See below.
 	
 	_Last = RemovePauses(_Last) //removes any \w tags and quicksection tags
-	"\![commu]" //tag for noninterrupting system; shouldn't show in dialogue
+	"\![commu-%(reference0)]" //tag for noninterrupting system; shouldn't show in dialogue
+	
+	_f = "left"; if "Facing:left" _in_ ConvoTag; _f = "right" //If the other ghost is facing left, face this one right. Left by default
+	
 	--
-	if nowmode == "Asleep"
+	"\0%(b)"
+	--
+	if "SentSStats" _in_ ConvoTag //Receiving stats from S
+	{
+		res_reference0 = "RYS-0825"
+		if TOINT(ConvoTag[19]) > XCoord; _f = "right" //If S is to her right
+		--
+		if nowmode == "Awake"
+		{
+			"%(SConversationPoolAwake)"
+		}
+		else
+		{
+			"%(SConversationPoolSleepy)"
+		}
+		--
+		" Facing:%(_f)::%(_Speech)"
+	}
+	elseif nowmode == "Asleep"
 	{
 		res_reference0 = ""
 		
-		"\0%(b)\s[2000]* (She's too deeply asleep to notice %(reference0)...)\e"
-		"\0%(b)\s[2000]* (She's asleep,\w4 she doesn't notice %(reference0)...)\e"
-		"\0%(b)\s[2000]...%(mumble)...\w8\w8\n\n* (She's too asleep to respond...)\e"
+		"\s[2000]* (She's too deeply asleep to notice %(reference0)...)\e"
+		"\s[2000]* (She's asleep,\w4 she doesn't notice %(reference0)...)\e"
+		"\s[2000]...%(mumble)...\w8\w8\n\n* (She's too asleep to respond...)\e"
 	}
 	else
 	{
+		if ASEARCH(reference0,MetGhosts) == -1
+		{
+			MetGhosts ,= reference0
+		}
+		
+		
 		if "Dusty-S-Lulo" _in_ ConvoTag //3 way convos
 		{
 			"%(DustySLulo)"
@@ -141,11 +220,24 @@ ReplyToGhost //This is your ghost receiving a communication.
 			{
 				when "RYS-0825"
 				{
+					res_reference0 = "RYS-0825"
+					
 					"\![quicksection,true]%(_Last)\![quicksection,false]"
 					--
-					"%(TalkToS)"
+					if nowmode == "Awake"
+					{
+						"%(TalkToSAwake)"
+					}
+					elseif nowmode == "Asleep"
+					{
+						"%(TalkToSAsleep)"
+					}
+					else //Sleepy
+					{
+						"%(TalkToSSleepy)"
+					}
 					--
-					"::%(_Speech)" //Only add this for ghosts that use the reflect system
+					" Facing:%(_f)::%(_Speech)" //Only add this for ghosts that use the reflect system
 				}
 				when "Dusty"
 				{
@@ -187,11 +279,11 @@ ReplyToGhost //This is your ghost receiving a communication.
 					}*/
 					if nowmode == "Awake"
 					{
-						"\0%(b)\s[1104]Hi,\w4 Dusty!\e"
+						"\s[1104]Hi,\w4 Dusty!\e"
 					}
 					else //Sleepy
 					{
-						"\0%(b)\s[0]...hey,\w4 dusty...\e"
+						"\s[0]...hey,\w4 dusty...\e"
 					}
 				}
 				others //Responses to unknown ghosts. AlreadyResponded keeps them from getting stuck in a loop.
@@ -204,20 +296,20 @@ ReplyToGhost //This is your ghost receiving a communication.
 						{
 							res_reference0 = reference0
 							
-							"\0%(b)\s[1104]Hey there,\w4 %(reference0)!\w8\w8\e"
+							"\s[1104]Hey there,\w4 %(reference0)!\w8\w8\e"
 						}
 						elseif nowmode == "Asleep"
 						{
 							res_reference0 = ""
 							
-							"\0%(b)\s[2000]* (She's too asleep to notice...)\e"
+							"\s[2000]* (She's too asleep to notice...)\e"
 						}
 						else //Sleepy
 						{
 							res_reference0 = reference0
 							_lower = TOLOWER(reference0)
 							
-							"\0%(b)\s[0]...hey,\w4 %(_lower)...\w8\w8\e"
+							"\s[0]...hey,\w4 %(_lower)...\w8\w8\e"
 						}
 					}
 					else
@@ -227,15 +319,15 @@ ReplyToGhost //This is your ghost receiving a communication.
 						
 						if nowmode == "Awake"
 						{
-							"\0%(b)\s[1000]How are you?\w8\w8\e"
+							"\s[1000]How are you?\w8\w8\e"
 						}
 						elseif nowmode == "Asleep"
 						{
-							"\0%(b)\s[2000]* (She continues sleeping,\w4 unaware...)\e"
+							"\s[2000]* (She continues sleeping,\w4 unaware...)\e"
 						}
 						else //Sleepy
 						{
-							"\0%(b)\s[0]...hope you're doing well...\w8\w8\e"
+							"\s[0]...hope you're doing well...\w8\w8\e"
 						}
 					}
 				}
@@ -244,9 +336,177 @@ ReplyToGhost //This is your ghost receiving a communication.
 	}
 }
 
-TalkToS
+SConversationPoolAwake
 {
-	if "commuchain1b" _in_ ConvoTag
+	if ConvoTag[6] == 1 //If he's offscreen
+	{
+		res_reference0 = ""
+		"\s[110]Um,\w4 %(username)?\w8\w8\s[206] My dad really doesn't like tight spaces,\w4 maybe you should take him away from the side of the screen?\w8\w8 It's not very nice out there...\e"
+	}
+	elseif ConvoTag[1] == "RYS" //RYS mode
+	{
+		res_reference0 = ""
+		OnAiTalk
+	}
+	elseif ConvoTag[1] == "Asleep" //Asleep mode
+	{
+		res_reference0 = ""
+		"\S[1110]Wow,\w4 I can't believe dad's asleep while I'm still so awake.\w8\w8\s[1107] I'll get sleepy eventually...\e"
+	}
+	else //Default
+	{
+		if TOINT(ConvoTag[3]) > 0 //If the user has punched S
+		{
+			if ConvoTag[4] == "-1" //Mad route
+			{
+				res_reference0 = ""
+				OnAiTalk
+			}
+			else //Sad route
+			{
+				if ConvoTag[5] == "-1" //Normal
+				{
+					res_reference0 = ""
+					OnAiTalk
+				}
+				else //Broken
+				{
+					res_reference0 = ""
+					OnAiTalk
+				}
+			}
+		}
+		else //Normal S
+		{
+			
+		}
+	}
+}
+
+SConversationPoolSleepy
+{
+	if ConvoTag[6] == 1 //If he's offscreen
+	{
+		res_reference0 = ""
+		"\s[108]...um,\w4 %(username),\w4 my dad really doesn't like tight spaces...\w8\w8 maybe you should get him away from the edge of the screen..?\w8\w8\s[113]  it's really dark there...\e"
+	}
+	elseif ConvoTag[1] == "RYS" //RYS mode
+	{
+		res_reference0 = ""
+		OnAiTalk
+	}
+	elseif ConvoTag[1] == "Asleep" //Asleep mode
+	{
+		res_reference0 = ""
+		"\S[107]...hm,\w4 maybe dad has the right idea...\e"
+	}
+	else //Default
+	{
+		if TOINT(ConvoTag[3]) > 0 //If the user has punched S
+		{
+			if ConvoTag[4] == "-1" //Mad route
+			{
+				res_reference0 = ""
+				OnAiTalk
+			}
+			else //Sad route
+			{
+				if ConvoTag[5] == "-1" //Normal
+				{
+					res_reference0 = ""
+					OnAiTalk
+				}
+				else //Broken
+				{
+					res_reference0 = ""
+					OnAiTalk
+				}
+			}
+		}
+		else //Normal S
+		{
+			"\S[0]...hey, dad...\w8\w8 you were cleaning in %(username)'s %(usersfolder),\w4 weren't you..?\w8\w8 you left this glove back there...\e 00_Lulo-S_SleepyGeneral-01"
+		}
+	}
+}
+
+TalkToSAwake
+{
+	// if "S-Lulo_AwakeGeneral-00" _in_ ConvoTag
+	// {
+		// if "00_" _in_ ConvoTag
+		// {
+			// "\s[1112]Yeah,\w4 lots of energy.\w8\w8\S[1111] Wanna race me to %(username)'s %(usersfolder)?\w8\w8\e,01"
+		// }
+		// elseif "02_" _in_ ConvoTag
+		// {
+			// _time = RAND(6) + 5
+			// _ms = _time * 1000
+			// "\n\n\s[1111]\t\![enter,nouserbreakmode]Ok!\w8\s[-1]\n\n* (She darts off in an instant...)\_w[%(_ms)]\n\n\s[1104]Back!\w8\w8\e,%(_time),,03"
+		// }
+		// elseif "04_" _in_ ConvoTag
+		// {
+			// "\n\n\S[1106]C'mon dad,\w4 you said yourself you can't run that far.\w8\w8\e,05"
+		// }
+		// elseif "06_" _in_ ConvoTag
+		// {
+			// res_reference0 = ""
+			// "\n\n\S[1107]Dad!!\e"
+		// }
+		// --
+		// ",S-Lulo_AwakeGeneral-00"
+	// }
+	if "S-Lulo_AwakeGeneral-00" _in_ ConvoTag
+	{
+		_pos = TOINT(ConvoTag[1])
+		if _pos == 06; res_reference0 = ""
+		
+		_time = RAND(6) + 5
+		_ms = _time * 1000
+		
+		switch _pos
+		{
+			
+			"\s[1112]Yeah,\w4 lots of energy.\w8\w8\S[1111] Wanna race me to %(username)'s %(usersfolder)?\w8\w8\e,01"
+			""
+			"\n\n\s[1111]\t\![enter,nouserbreakmode]Ok!\w8\s[-1]\n\n* (She darts off in an instant...)\_w[%(_ms)]\n\n\s[1104]\![leave,nouserbreakmode]Back!\w8\w8\e,03"
+			""
+			"\n\n\S[1106]C'mon dad,\w4 you said yourself you can't run that far.\w8\w8\e,05"
+			""
+			"\n\n\S[1107]Dad!!\e,"
+		}
+		--
+		",S-Lulo_AwakeGeneral-00,%(_time),"
+	}
+	
+	else
+	{
+		res_reference0 = ""
+		"\s[1104]Hey dad!\e"
+		--
+		" [Make sure both ghosts are up to date!]"
+	}
+}
+
+OnCommuEnd
+{
+	res_reference0 = ""
+}
+
+TalkToSAsleep
+{
+	//else
+	//{
+		res_reference0 = ""
+		"\s[2000]...%(mumb)%(mumb)...\w8\w8 dad..?\e"
+		--
+		" [Make sure both ghosts are up to date!]"
+	//}
+}
+
+TalkToSSleepy
+{
+	/*if "commuchain1b" _in_ ConvoTag
 	{
 		res_reference0 = ""
 		
@@ -269,10 +529,40 @@ TalkToS
 		res_reference0 = ""
 		
 		"\n\nEnd of part 4\e"
+	}*/
+	
+	if "S-Lulo_SleepyGeneral-00" _in_ ConvoTag
+	{
+		if "00_" _in_ ConvoTag
+		{
+			"\S[108]...dad..?\w8\w8\e 01"
+		}
+		elseif "02_" _in_ ConvoTag
+		{
+			"\n\n\s[108]...are you ok..?\w8\w8\e 03"
+		}
+		elseif "04_" _in_ ConvoTag
+		{
+			"\n\n\s[113]...ok...\w8\w8\e 05"
+		}
+		elseif "06_" _in_ ConvoTag
+		{
+			"\n\n\S[108]...but you sound so tired...\w8\w8\e 07"
+		}
+		elseif "08_" _in_ ConvoTag
+		{
+			res_reference0 = ""
+			"\n\n\s[206]...if you're sure...\e"
+		}
+		--
+		"_S-Lulo_SleepyGeneral-00"
 	}
+
 	else
 	{
-		"hey dad\e"
+		"\s[0]...hey,\w4 dad...\e"
+		--
+		" [Make sure both ghosts are up to date!]"
 	}
 }
 
@@ -321,7 +611,17 @@ DustySLulo //3 way conversations between Dusty, S, and Lulo
 	}
 }
 
-RemovePauses //Removes \w tags and quicksection tags
+//Maybe can make something to automate the above, when I'm not actively falling asleep...
+// MultiGhostConvo
+// {
+	// _output = "\0%(b)"
+	// if _argv[0] != 0
+	// {
+		// _output += "\_q"
+	// }
+// }
+
+RemovePauses //Removes \w tags, \_w tags, and quicksection tags
 {
 	_argv[0] = REPLACE(_argv[0],"\![quicksection,true]","")
 	_argv[0] = REPLACE(_argv[0],"\![quicksection,false]","")
@@ -334,6 +634,7 @@ RemovePauses //Removes \w tags and quicksection tags
 	_argv[0] = REPLACE(_argv[0],"\w3","")
 	_argv[0] = REPLACE(_argv[0],"\w2","")
 	_argv[0] = REPLACE(_argv[0],"\w1","")
+	_argv[0] = RE_REPLACE(_argv[0],"\\_w\[\d*]","") //removes any \_w[] tags
 	_argv[0]
 }
 
@@ -386,4 +687,161 @@ OnWindowStateMinimize
         holdingObsidian = 0
         "\e LuloObsiMinimize"
     }
+}
+
+sf
+{
+	//if _argv[1] == "right"; _argv[0] = "3" + _argv[0]; else; _argv[0] = "4" + _argv[0]
+	
+	"\s[%(_argv[0])]"
+}
+
+OnSendStats
+{
+	CurrentPos[0] = reference0 //Dusty's X
+	CurrentPos[1] = reference1 //Dusty's Y
+	CurrentPos[2] = reference2 //Obsi's X
+	CurrentPos[3] = reference3 //Obsi's Y
+	res_reference0 = CurrentPos[4]
+	
+	_songnocommas = REPLACE(NowPlaying[0],",","")
+	_pausenocommas = REPLACE(NowPlaying[2],",","")
+	"\e SentLuloStats %(ConvoTag),%(nowmode),%(friendship),%(DP),%(totalhours),%(toppetstreak),%(pethighscore),%(aitalkinterval),%(updateavailable),%(lastinteracted),%(ARRAYSIZE(TodaysActions)),%(mikireflag),%(resets),%(CurrentPos[0]),%(CurrentPos[1]),%(CurrentPos[2]),%(CurrentPos[3])," //The important stuff
+	--
+	"%(passhour),%(passmin),%(sleephour),%(sleepmin),%(wakehour),%(wakemin)," //Sleep stats
+	--
+	"%(TalkedToS),%(TalkedToDusty),%(TalkedToCambria),%(ASEARCH(reference0,MetGhosts)),%(ARRAYSIZE(MetGhosts))," //Ghosts she's talked to
+	--
+	"%(totalpets),%(totalboops),%(totalhugs),%(totalread),%(totalsangfor),%(changedclothes),%(journalssaved),%(showedproject),%(addedsongs),%(checked),%(confided),%(gushed),%(joked)," //Misc counters
+	--
+	"%(ARRAYSIZE(CurrentPlaylist)),%(_songnocommas),%(_pausenocommas),%(MusicSettings[0]),%(MusicSettings[1]),%(MusicSettings[2]),%(MusicSettings[3])," //Music player related
+	--
+	"%(Dressups[0]),%(Dressups[1]),%(Dressups[2]),%(Dressups[3]),%(Dressups[4]),%(Dressups[5])," //Current outfit
+	--
+	"%(ARRAYSIZE(PurchasedShirts)),%(ARRAYSIZE(PurchasedPants)),%(ARRAYSIZE(PurchasedBlankets)),%(ARRAYSIZE(PurchasedPlushes)),%(ARRAYSIZE(PurchasedHats)),%(ARRAYSIZE(PurchasedSocks)),%(ARRAYSIZE(PurchasedConsumables))," //Purchased items
+	--
+	"%(Family[0]),%(Family[1]),%(Family[2]),%(Family[3]),%(Family[4]),%(Family[5]),%(Family[6]),%(Family[7]),%(Family[8]),%(Family[9]),%(Family[10]),%(Family[11]),%(Family[12]),%(Family[13]),%(Family[14])," //Family members unlocked
+	--
+	"%(Degrees[0]),%(tempurature[0]),%(feelslike[0]),%(humidity),%(wind[0]),,%(weather),%(pollen),%(sunrise),%(sunset),%(phase)," //Current weather (Note I've left an extra space for if I finally add kph vs mph
+	--
+	"%(firstbooted[0]),%(firstbooted[1]),%(firstbooted[2]),%(firstbooted[3]),%(firstbooted[4]),%(firstbooted[5])," //When she was first booted
+	--
+	"%(ASEARCH('askedabouther',MiscFlags)),%(ASEARCH('knowaboutfamily',MiscFlags)),%(ASEARCH('knowaboutsoul',MiscFlags)),%(ASEARCH('knowaboutdreams',MiscFlags)),%(ASEARCH('knowaboutmp3',MiscFlags)),%(ASEARCH('knowaboutnotebook',MiscFlags)),%(ASEARCH('knowaboutgames',MiscFlags)),%(ASEARCH('knowaboutshop',MiscFlags)),"
+	
+	//{
+	//0 - \e SentLuloStats + ConvoTag (Use an _in_ check if you want to see what the convo tag was)
+	
+	//1 - Current mode
+	//2 - Current friendship with the user
+	//3 - Dream Points (currency)
+	//4 - Total hours she's been run
+	//5 - The user's pet high score, as a number of complete pets
+	//6 - The user's pet high score, as the stroke value when they stopped (this is what she displays as the 'high score')
+	//7 - Her current talk rate, in seconds
+	//8 - If an update is available. 1 for yes, 0 for no/hasn't checked
+	//9 - The number of hours since the user last interacted with her
+	//10 - A count of what's in the array TodaysActions. This is stuff like if the user has written a journal entry today, or listened to music today. If the count is low, the user hasn't interacted with Lulo much. If it's high, the user has been interacting with her a lot
+	//11 - 1 if Lulo is off the screen, 0 if not
+	//12 - Number of times the user has reinstalled Lulo
+	//13 - Lulo's X
+	//14 - Lulo's Y
+	//15 - Kero's X (Unused)
+	//16 - Kero's Y (Unused)
+	
+	//17 - The number of hours that have passed since she was opened
+	//18 - The number of minutes that have passed since she was opened, resets to 0 when passhour increments
+	//19 - The number of hours she's been sleeping, but this value will go down while she's awake
+	//20 - The number of minutes she's been sleeping, does not go down while awake, but does loop back to 0 like passmin does
+	//21 - The number of hours she's been awake, but this value will reset if she falls asleep
+	//22 - The number of minutes she's been awake, resets to 0 when wakehour increments
+	
+	//23 - If she's talked to S, 0 if no, 1 if she has spoken to him at least once, possibly other values later
+	//24 - If she's talked to Dusty, 0 if no, 1 if she has spoken to him at least once, possibly other values later
+	//25 - If she's talked to Cambria, 0 if no, 1 if she has spoken to her at least once, possibly other values later
+	//26 - If she's previously met the ghost currently requesting her stats. -1 if no, some other number if yes.
+	//27 - The number of ghosts she's met before
+	
+	//28 - Total number of times the user has pet her
+	//29 - Total number of times the user has booped her
+	//30 - Total number of times the user has hugged her
+	//31 - Total number of times the user has read to her
+	//32 - Total number of times the user has sang for her
+	//33 - Total number of times the user has had her change clothes
+	//34 - Total number of times the user has saved a journal entry (if the user has deleted entries, this will not match their current journal count)
+	//35 - Total number of times the user has showed her a project
+	//36 - Total number of times the user has added a song to the playlist (Does not reflect the current number of songs in the playlist, just the total ever added. See below for the amount in the current playlist)
+	//37 - Total number of times the user has checked her
+	//38 - Total number of times the user has confided in her
+	//39 - Total number of times the user has gushed to her
+	//40 - Total number of times the user has told her a joke
+	
+	//41 - The number of songs in the current playlist
+	//42 - The name of the current song (Commas have been removed so they don't break the simple array). If it's empty, no song is playing.
+	//43 - If the current song is paused, the name of it will be stored here (again, no commas)
+	//44 - Current music player volume (0-100)
+	//45 - Current music player speed (100 is normal speed)
+	//46 - Current music player balance (0 is middle, negatives is left, positive is right)
+	//47 - Current music player mode ('loop playlist', 'shuffle and loop', 'loop one song', 'play one song')
+
+	//48 - Current shirt
+	//49 - Current pants
+	//50 - Current blanket, if any
+	//51 - Current plush, if any
+	//52 - Current hat, if any
+	//53 - Current socks, if any
+	
+	//54 - Number of shirts purchased
+	//55 - Number of pants purchased
+	//56 - Number of blankets purchased
+	//57 - Number of plushes purchased
+	//58 - Number of hats purchased
+	//59 - Number of socks purchased
+	//60 - Number of consumables currently in the inventory
+	
+	//61 - If WD has been unlocked
+	//62 - If Dings has been unlocked
+	//63 - If Wings has been unlocked
+	//64 - If Barcode has been unlocked
+	//65 - If S has been unlocked
+	//66 - If Blue Jeans has been unlocked
+	//67 - If Abbi has been unlocked
+	//68 - If Rosie has been unlocked
+	//69 - If Roman has been unlocked
+	//70 - If Cambria has been unlocked
+	//71 - If Triton has been unlocked
+	//72 - If Lulo has been unlocked (This will always be 0, I do this to keep the array consistent across ghosts in this family)
+	//73 - If Azo has been unlocked
+	//74 - If Sigil has been unlocked
+	//75 - If Elko has been unlocked
+
+	//76 - 'Fahrenheit' if the user is using fahrenheit, 'Celsius' if the user is using celsius
+	//77 - Current temperature
+	//78 - Current feels like temperature
+	//79 - Current humidity as a percentage
+	//80 - Current wind speed
+	//81 - Blank for now, but I'll add in kph or mph later probably
+	//82 - Weather type (Cloudy, sunny, etc. See the weather dialogues in aitalk for a possibly incomplete list of types)
+	//83 - If there is a pollen alert. It will be blank if there is no pollen alert.
+	//84 - Time of today's sunrise, including if it's am or pm
+	//85 - Time of today's sunset, including if it's am or pm
+	//86 - Current moon phase
+	
+	//The next ones are when she was first booted
+	//87 - year
+	//88 - month
+	//89 - day
+	//90 - hour
+	//91 - minute
+	//92 - second
+
+	//The next ones are miscellaneous flags. They will be -1 if not set, and some other number if they are set.
+	//93 - If the user has asked about her
+	//94 - If the user knows she has a family
+	//95 - If the user knows about her soul
+	//96 - If the user knows about her dreams
+	//97 - If the user has access to her mp3 player
+	//98 - If the user has access to the journal
+	//99 - If the user can play games
+	//100 - If the user can access the shop
+	//}
 }

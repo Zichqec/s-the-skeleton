@@ -3,7 +3,12 @@ OnTranslate
 	_talk = reference0
 	
 	_talk = REPLACE(_talk, "* (", "\__v[disable]*\__v (")
-	
+	if TextSpeed == "On"
+	{
+		if nowmode == "Awake"; _talk = "\![set,balloonwait,0.9]" + _talk
+		elseif nowmode == "Asleep"; _talk = "\![set,balloonwait,1.3]" + _talk
+		else; _talk = "\![set,balloonwait,1.15]" + _talk //Sleepy
+	}
 	/*if userpronounce != "" && "---Config---" !_in_ _talk //Too dangerous
 	{
 		_talk = REPLACE(_talk,username,"\__v[alternate,%(userpronounce)]%(username)\__v")
@@ -127,6 +132,27 @@ OnTranslate
 	
 	_talk = REPLACE(_talk, "andad", "\_a[andad]dad\_a")
 	
+	
+	if reference2 == "OnCommunicate" //If this is a commu message
+	{
+		_references = reference3
+		_ghost = references[0]
+		/*if "Facing:right" _in_ _references[1] //If the other ghost is facing right
+		{
+			_talk = REPLACE(_talk,"\S[","\s[3")
+		}
+		elseif "Facint:left" _in_ _references[1] //If the other ghost is facing left
+		{
+			_talk = REPLACE(_talk,"\S[","\s[4")
+		}
+		else //If no facing direction is given
+		{
+			_talk = REPLACE(_talk,"\S[","\s[")
+		}*/
+		_talk = REPLACE(_talk,"\S[","\s[") //Until I add the facing frames
+	}
+	
+	
 	if reference1 == "" && reference2 == "" //If ref2 is blank, it must be coming from an input box, and if ref1 is blank, it's not being sent with a special flag
 	{ //send input box : no event (ref2) , no special flag (ref1)
 		EVAL('"' + REPLACE(_talk,'"','" + CHR(0x22) + "') + '"')
@@ -159,6 +185,56 @@ BalloonCheck
             0
         }
     }
+}
+
+Pool
+{
+    _output = IARRAY
+	_amt = 1; if _argv[2] != ""; _amt = TOINT(_argv[2])
+    if TOINT(_argv[1])
+    {
+		_targetarray = IARRAY
+        EVAL("_targetarray = %(_argv[0])")
+        foreach _targetarray; _dialogue
+        {
+			for _i = 0; _i < _amt; _i++; {_output ,= _dialogue}
+        }
+    }
+    _output
+}
+
+Flag //Checks to see if a flag exists. Returns 1 if yes, returns 0 if no
+{
+	if ASEARCH(_argv[0],MiscFlags) != -1; 1
+	else; 0
+}
+
+RemoveFlag //Removes all instances of a flag in the array. Returns 0 if there was no flag to erase, and 1 upon successfully erasing all flags
+{
+	_elements = ASEARCHEX(_argv[0],MiscFlags)
+	if ARRAYSIZE(_elements) == 0; 0 //If there was no flag to erase
+	else
+	{
+		for _i = ARRAYSIZE(_elements) - 1; _i >= 0; _i-- //Goes from the end of the list to the start, so the elements stay in the same positions while we erase
+		{
+			_current = _elements[_i]
+			MiscFlags[_current] = IARRAY
+		}
+		1
+	}
+}
+
+br
+{
+	if SHIORI3FW.BalloonName == "Dream Cloud"
+	{
+		"\n"
+	}
+}
+
+OnChoiceSelect
+{
+	EVAL("Select.%(reference0)")
 }
 
 OnAnchorSelect
@@ -441,7 +517,7 @@ OnAnchorSelect
 			--
 			if nowmode == "Awake"
 			{
-				"\s[1104]He's by big brother.\w8\w8\s[1113] He's not a skeleton,\w4 so he doesn't actually have a special font,\w4 but he was named after the font KR Triton.\w8\w8\s[1107] Don't ask me why,\w4 'cause I dunno.\w8\w8\s[1104] He doesn't seem bothered by it anyways."
+				"\s[1104]He's my big brother.\w8\w8\s[1113] He's not a skeleton,\w4 so he doesn't actually have a special font,\w4 but he was named after the font KR Triton.\w8\w8\s[1107] Don't ask me why,\w4 'cause I dunno.\w8\w8\s[1104] He doesn't seem bothered by it anyways."
 			}
 			else //Sleepy
 			{

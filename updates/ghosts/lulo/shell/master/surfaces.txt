@@ -11,7 +11,6 @@ surface0
 	element4,overlay,surface4300.png,0,0 //Eyebrows
 	element5,overlay,surface4400.png,0,0 //Mouth
 	
-	
 	//collision0,80,122,122,149,Head
 	
 	//collision1,47,4,102,60,Face
@@ -39,9 +38,6 @@ surface0
 	//4pattern2,151,8,overlay,0,0
 	//4pattern3,-1,10,overlay,0,0
 }
-
-
-
 
 
 
@@ -318,6 +314,66 @@ surface411 //Mp3 interested
 }
 
 
+//Journal forward
+surface500 
+{
+	element0,overlay,surface3000.png,0,0 //Shoulders
+	element1,overlay,surface3001.png,0,0 //Head
+	
+	element2,overlay,surface4100.png,0,0 //Eyesockets
+	element3,overlay,surface4200.png,0,0 //Eyelights
+	element4,overlay,surface4300.png,0,0 //Eyebrows
+	element5,overlay,surface4400.png,0,0 //Mouth
+}
+
+//Journal Down
+surface501 
+{
+	element0,overlay,surface3000.png,0,0 //Shoulders
+	element1,overlay,surface3001.png,0,0 //Head
+	
+	element2,overlay,surface4100.png,0,0 //Eyesockets
+	element3,overlay,surface4204.png,0,0 //Eyelights
+	element4,overlay,surface4300.png,0,0 //Eyebrows
+	element5,overlay,surface4400.png,0,0 //Mouth
+}
+
+//Journal content
+surface502
+{
+	element0,overlay,surface3000.png,0,0 //Shoulders
+	element1,overlay,surface3001.png,0,0 //Head
+	
+	element2,overlay,surface4102.png,0,0 //Eyesockets
+	element4,overlay,surface4300.png,0,0 //Eyebrows
+	element5,overlay,surface4400.png,0,0 //Mouth
+}
+
+//Journal sigh
+surface507
+{
+	element0,overlay,surface3000.png,0,0 //Shoulders
+	element1,overlay,surface3001.png,0,0 //Head
+
+	element2,overlay,surface4102.png,0,0 //Eyesockets
+	element3,overlay,surface4700.png,0,0 //sweat
+	element4,overlay,surface4301.png,0,0 //Eyebrows
+	element5,overlay,surface4400.png,0,0 //Mouth
+}
+
+//Journal interested
+surface511
+{
+	element0,overlay,surface3000.png,0,0 //Shoulders
+	element1,overlay,surface3001.png,0,0 //Head
+
+	element2,overlay,surface4100.png,0,0 //Eyesockets
+	element3,overlay,surface4200.png,0,0 //Eyelights
+	element4,overlay,surface4302.png,0,0 //Eyebrows
+	element5,overlay,surface4400.png,0,0 //Mouth
+}
+
+
 //===================Awake===================
 //Standing
 surface1000
@@ -529,6 +585,17 @@ surface1401
 	element5,overlay,surface6400.png,0,0 //Mouth
 }
 
+//Mp3 Content
+surface1402
+{
+	element0,overlay,surface3500.png,0,0 //Shoulders
+	element1,overlay,surface3501.png,0,0 //Head
+
+	element2,overlay,surface6102.png,0,0 //Eyesockets
+	element4,overlay,surface6300.png,0,0 //Eyebrows
+	element5,overlay,surface6400.png,0,0 //Mouth
+}
+
 //Mp3 smile
 surface1404
 {
@@ -567,6 +634,80 @@ surface1407
 
 //Mp3 mild surprise
 surface1410
+{
+	element0,overlay,surface3500.png,0,0 //Shoulders
+	element1,overlay,surface3501.png,0,0 //Head
+
+	element2,overlay,surface6100.png,0,0 //Eyesockets
+	element3,overlay,surface6200.png,0,0 //Eyelights
+	element4,overlay,surface6302.png,0,0 //Eyebrows
+	element5,overlay,surface6401.png,0,0 //Mouth
+}
+
+
+
+//Journal forward
+surface1500
+{
+	element0,overlay,surface3500.png,0,0 //Shoulders
+	element1,overlay,surface3501.png,0,0 //Head
+
+	element2,overlay,surface6100.png,0,0 //Eyesockets
+	element3,overlay,surface6200.png,0,0 //Eyelights
+	element4,overlay,surface6300.png,0,0 //Eyebrows
+	element5,overlay,surface6400.png,0,0 //Mouth
+}
+
+//Journal down
+surface1501
+{
+	element0,overlay,surface3500.png,0,0 //Shoulders
+	element1,overlay,surface3501.png,0,0 //Head
+
+	element2,overlay,surface6100.png,0,0 //Eyesockets
+	element3,overlay,surface6204.png,0,0 //Eyelights
+	element4,overlay,surface6300.png,0,0 //Eyebrows
+	element5,overlay,surface6400.png,0,0 //Mouth
+}
+
+//Journal smile
+surface1504
+{
+	element0,overlay,surface3500.png,0,0 //Shoulders
+	element1,overlay,surface3501.png,0,0 //Head
+
+	element2,overlay,surface6103.png,0,0 //Eyesockets
+	element4,overlay,surface6300.png,0,0 //Eyebrows
+	element5,overlay,surface6402.png,0,0 //Mouth
+}
+
+//Journal sweat smile
+surface1506
+{
+	element0,overlay,surface3500.png,0,0 //Shoulders
+	element1,overlay,surface3501.png,0,0 //Head
+
+	element2,overlay,surface6101.png,0,0 //Eyesockets
+	element3,overlay,surface6202.png,0,0 //Eyelights
+	element4,overlay,surface6301.png,0,0 //Eyebrows
+	element5,overlay,surface6400.png,0,0 //Mouth
+	element6,overlay,surface6700.png,0,0 //Sweat
+}
+
+//Journal sweat smile closed
+surface1507
+{
+	element0,overlay,surface3500.png,0,0 //Shoulders
+	element1,overlay,surface3501.png,0,0 //Head
+
+	element2,overlay,surface6102.png,0,0 //Eyesockets
+	element4,overlay,surface6301.png,0,0 //Eyebrows
+	element5,overlay,surface6400.png,0,0 //Mouth
+	element6,overlay,surface6700.png,0,0 //Sweat
+}
+
+//Journal mild surprise
+surface1510
 {
 	element0,overlay,surface3500.png,0,0 //Shoulders
 	element1,overlay,surface3501.png,0,0 //Head
@@ -645,6 +786,26 @@ surface.append2000-2999
 {
 	collision0,79,129,124,177,Head
 	collision1,79,159,124,177,Face
+}
+
+surface.append400-499 //Mp3 - Sleepy
+{
+	collision3,98,205,115,224,Mp3
+}
+
+surface.append1400-1499 //Mp3 - Awake
+{
+	collision3,95,138,112,156,Mp3
+}
+
+surface.append500-599 //Journal - Sleepy
+{
+	collision3,85,204,114,230,Journal
+}
+
+surface.append1500-1599 //Journal - Awake
+{
+	collision3,82,137,111,163,Journal
 }
 
 
@@ -874,6 +1035,14 @@ surface.append100-299,0,!112,!113,!206,!208,2000-2999 //sleepy/asleep regular sh
 	//light gray hoodie
 	animation11076.interval,bind
 	animation11076.pattern0,add,11076,0,0,0
+	
+	//galaxy hoodie test
+	animation11077.interval,bind + always
+	animation11077.pattern0,overlay,11077,0,0,0
+	animation11077.pattern1,overlay,11078,150,0,0
+	animation11077.pattern2,overlay,11079,150,0,0
+	animation11077.pattern3,overlay,11078,150,0,0
+	animation11077.pattern4,overlay,11077,150,0,0
 	
 	
 	//dark red tshirt
@@ -1994,6 +2163,456 @@ surface.append400-499 //Sleepy mp3 shirts
 	
 }
 
+
+
+surface.append500-599 //Sleepy Journal shirts
+{
+	//Default sweater
+	animation11000.interval,bind
+	animation11000.pattern0,add,14000,0,0,0
+	
+	//dark red sweater
+	animation11001.interval,bind
+	animation11001.pattern0,add,14001,0,0,0
+
+	//normal red sweater
+	animation11002.interval,bind
+	animation11002.pattern0,add,14002,0,0,0
+
+	//light red sweater
+	animation11003.interval,bind
+	animation11003.pattern0,add,14003,0,0,0
+
+	//dark orange sweater
+	animation11004.interval,bind
+	animation11004.pattern0,add,14004,0,0,0
+
+	//normal orange sweater
+	animation11005.interval,bind
+	animation11005.pattern0,add,14005,0,0,0
+
+	//light orange sweater
+	animation11006.interval,bind
+	animation11006.pattern0,add,14006,0,0,0
+
+	//dark yellow sweater
+	animation11007.interval,bind
+	animation11007.pattern0,add,14007,0,0,0
+
+	//normal yellow sweater
+	animation11008.interval,bind
+	animation11008.pattern0,add,14008,0,0,0
+
+	//light yellow sweater
+	animation11009.interval,bind
+	animation11009.pattern0,add,14009,0,0,0
+
+	//dark green sweater
+	animation11010.interval,bind
+	animation11010.pattern0,add,14010,0,0,0
+
+	//normal green sweater
+	animation11011.interval,bind
+	animation11011.pattern0,add,14011,0,0,0
+
+	//light green sweater
+	animation11012.interval,bind
+	animation11012.pattern0,add,14012,0,0,0
+
+	//dark cyan sweater
+	animation11013.interval,bind
+	animation11013.pattern0,add,14013,0,0,0
+
+	//normal cyan sweater
+	animation11014.interval,bind
+	animation11014.pattern0,add,14014,0,0,0
+
+	//light cyan sweater
+	animation11015.interval,bind
+	animation11015.pattern0,add,14015,0,0,0
+
+	//dark blue sweater
+	animation11016.interval,bind
+	animation11016.pattern0,add,14016,0,0,0
+
+	//normal blue sweater
+	animation11017.interval,bind
+	animation11017.pattern0,add,14017,0,0,0
+
+	//light blue sweater
+	animation11018.interval,bind
+	animation11018.pattern0,add,14018,0,0,0
+
+	//dark purple sweater
+	animation11019.interval,bind
+	animation11019.pattern0,add,14019,0,0,0
+
+	//normal purple sweater
+	animation11020.interval,bind
+	animation11020.pattern0,add,14020,0,0,0
+
+	//light purple sweater
+	animation11021.interval,bind
+	animation11021.pattern0,add,14021,0,0,0
+
+	//dark magenta sweater
+	animation11022.interval,bind
+	animation11022.pattern0,add,14022,0,0,0
+
+	//normal magenta sweater
+	animation11023.interval,bind
+	animation11023.pattern0,add,14023,0,0,0
+
+	//light magenta sweater
+	animation11024.interval,bind
+	animation11024.pattern0,add,14024,0,0,0
+
+	//dark gray sweater
+	animation11025.interval,bind
+	animation11025.pattern0,add,14025,0,0,0
+
+	//normal gray sweater
+	animation11026.interval,bind
+	animation11026.pattern0,add,14026,0,0,0
+
+	//light gray sweater
+	animation11027.interval,bind
+	animation11027.pattern0,add,14027,0,0,0
+
+	
+	//dark red hoodie
+	animation11050.interval,bind
+	animation11050.pattern0,add,14050,0,0,0
+
+	//normal red hoodie
+	animation11051.interval,bind
+	animation11051.pattern0,add,14051,0,0,0
+
+	//light red hoodie
+	animation11052.interval,bind
+	animation11052.pattern0,add,14052,0,0,0
+
+	//dark orange hoodie
+	animation11053.interval,bind
+	animation11053.pattern0,add,14053,0,0,0
+
+	//normal orange hoodie
+	animation11054.interval,bind
+	animation11054.pattern0,add,14054,0,0,0
+
+	//light orange hoodie
+	animation11055.interval,bind
+	animation11055.pattern0,add,14055,0,0,0
+
+	//dark yellow hoodie
+	animation11056.interval,bind
+	animation11056.pattern0,add,14056,0,0,0
+
+	//normal yellow hoodie
+	animation11057.interval,bind
+	animation11057.pattern0,add,14057,0,0,0
+
+	//light yellow hoodie
+	animation11058.interval,bind
+	animation11058.pattern0,add,14058,0,0,0
+
+	//dark green hoodie
+	animation11059.interval,bind
+	animation11059.pattern0,add,14059,0,0,0
+
+	//normal green hoodie
+	animation11060.interval,bind
+	animation11060.pattern0,add,14060,0,0,0
+
+	//light green hoodie
+	animation11061.interval,bind
+	animation11061.pattern0,add,14061,0,0,0
+
+	//dark cyan hoodie
+	animation11062.interval,bind
+	animation11062.pattern0,add,14062,0,0,0
+
+	//normal cyan hoodie
+	animation11063.interval,bind
+	animation11063.pattern0,add,14063,0,0,0
+
+	//light cyan hoodie
+	animation11064.interval,bind
+	animation11064.pattern0,add,14064,0,0,0
+
+	//dark blue hoodie
+	animation11065.interval,bind
+	animation11065.pattern0,add,14065,0,0,0
+
+	//normal blue hoodie
+	animation11066.interval,bind
+	animation11066.pattern0,add,14066,0,0,0
+
+	//light blue hoodie
+	animation11067.interval,bind
+	animation11067.pattern0,add,14067,0,0,0
+
+	//dark purple hoodie
+	animation11068.interval,bind
+	animation11068.pattern0,add,14068,0,0,0
+
+	//normal purple hoodie
+	animation11069.interval,bind
+	animation11069.pattern0,add,14069,0,0,0
+
+	//light purple hoodie
+	animation11070.interval,bind
+	animation11070.pattern0,add,14070,0,0,0
+
+	//dark magenta hoodie
+	animation11071.interval,bind
+	animation11071.pattern0,add,14071,0,0,0
+
+	//normal magenta hoodie
+	animation11072.interval,bind
+	animation11072.pattern0,add,14072,0,0,0
+
+	//light magenta hoodie
+	animation11073.interval,bind
+	animation11073.pattern0,add,14073,0,0,0
+
+	//dark gray hoodie
+	animation11074.interval,bind
+	animation11074.pattern0,add,14074,0,0,0
+
+	//normal gray hoodie
+	animation11075.interval,bind
+	animation11075.pattern0,add,14075,0,0,0
+
+	//light gray hoodie
+	animation11076.interval,bind
+	animation11076.pattern0,add,14076,0,0,0
+
+	
+	
+	//dark red tshirt
+	animation11101.interval,bind
+	animation11101.pattern0,add,14101,0,0,0
+
+	//normal red tshirt
+	animation11102.interval,bind
+	animation11102.pattern0,add,14102,0,0,0
+
+	//light red tshirt
+	animation11103.interval,bind
+	animation11103.pattern0,add,14103,0,0,0
+
+	//dark orange tshirt
+	animation11104.interval,bind
+	animation11104.pattern0,add,14104,0,0,0
+
+	//normal orange tshirt
+	animation11105.interval,bind
+	animation11105.pattern0,add,14105,0,0,0
+
+	//light orange tshirt
+	animation11106.interval,bind
+	animation11106.pattern0,add,14106,0,0,0
+
+	//dark yellow tshirt
+	animation11107.interval,bind
+	animation11107.pattern0,add,14107,0,0,0
+
+	//normal yellow tshirt
+	animation11108.interval,bind
+	animation11108.pattern0,add,14108,0,0,0
+
+	//light yellow tshirt
+	animation11109.interval,bind
+	animation11109.pattern0,add,14109,0,0,0
+
+	//dark green tshirt
+	animation11110.interval,bind
+	animation11110.pattern0,add,14111,0,0,0
+
+	//normal green tshirt
+	animation11111.interval,bind
+	animation11111.pattern0,add,14111,0,0,0
+
+	//light green tshirt
+	animation11112.interval,bind
+	animation11112.pattern0,add,14112,0,0,0
+
+	//dark cyan tshirt
+	animation11113.interval,bind
+	animation11113.pattern0,add,14113,0,0,0
+
+	//normal cyan tshirt
+	animation11114.interval,bind
+	animation11114.pattern0,add,14114,0,0,0
+
+	//light cyan tshirt
+	animation11115.interval,bind
+	animation11115.pattern0,add,14115,0,0,0
+
+	//dark blue tshirt
+	animation11116.interval,bind
+	animation11116.pattern0,add,14116,0,0,0
+
+	//normal blue tshirt
+	animation11117.interval,bind
+	animation11117.pattern0,add,14117,0,0,0
+
+	//light blue tshirt
+	animation11118.interval,bind
+	animation11118.pattern0,add,14118,0,0,0
+
+	//dark purple tshirt
+	animation11119.interval,bind
+	animation11119.pattern0,add,14119,0,0,0
+
+	//normal purple tshirt
+	animation11120.interval,bind
+	animation11120.pattern0,add,14120,0,0,0
+
+	//light purple tshirt
+	animation11121.interval,bind
+	animation11121.pattern0,add,14121,0,0,0
+
+	//dark magenta tshirt
+	animation11122.interval,bind
+	animation11122.pattern0,add,14122,0,0,0
+
+	//normal magenta tshirt
+	animation11123.interval,bind
+	animation11123.pattern0,add,14123,0,0,0
+
+	//light magenta tshirt
+	animation11124.interval,bind
+	animation11124.pattern0,add,14124,0,0,0
+
+	//dark gray tshirt
+	animation11125.interval,bind
+	animation11125.pattern0,add,14125,0,0,0
+
+	//normal gray tshirt
+	animation11126.interval,bind
+	animation11126.pattern0,add,14126,0,0,0
+
+	//light gray tshirt
+	animation11127.interval,bind
+	animation11127.pattern0,add,14127,0,0,0
+
+	
+	
+	//dark red sleeveless
+	animation11150.interval,bind
+	animation11150.pattern0,add,14150,0,0,0
+
+	//normal red sleeveless
+	animation11151.interval,bind
+	animation11151.pattern0,add,14151,0,0,0
+
+	//light red sleeveless
+	animation11152.interval,bind
+	animation11152.pattern0,add,14152,0,0,0
+
+	//dark orange sleeveless
+	animation11153.interval,bind
+	animation11153.pattern0,add,14153,0,0,0
+
+	//normal orange sleeveless
+	animation11154.interval,bind
+	animation11154.pattern0,add,14154,0,0,0
+
+	//light orange sleeveless
+	animation11155.interval,bind
+	animation11155.pattern0,add,14155,0,0,0
+
+	//dark yellow sleeveless
+	animation11156.interval,bind
+	animation11156.pattern0,add,14156,0,0,0
+
+	//normal yellow sleeveless
+	animation11157.interval,bind
+	animation11157.pattern0,add,14157,0,0,0
+
+	//light yellow sleeveless
+	animation11158.interval,bind
+	animation11158.pattern0,add,14158,0,0,0
+
+	//dark green sleeveless
+	animation11159.interval,bind
+	animation11159.pattern0,add,14159,0,0,0
+
+	//normal green sleeveless
+	animation11160.interval,bind
+	animation11160.pattern0,add,14160,0,0,0
+
+	//light green sleeveless
+	animation11161.interval,bind
+	animation11161.pattern0,add,14161,0,0,0
+
+	//dark cyan sleeveless
+	animation11162.interval,bind
+	animation11162.pattern0,add,14162,0,0,0
+
+	//normal cyan sleeveless
+	animation11163.interval,bind
+	animation11163.pattern0,add,14163,0,0,0
+
+	//light cyan sleeveless
+	animation11164.interval,bind
+	animation11164.pattern0,add,14164,0,0,0
+
+	//dark blue sleeveless
+	animation11165.interval,bind
+	animation11165.pattern0,add,14165,0,0,0
+
+	//normal blue sleeveless
+	animation11166.interval,bind
+	animation11166.pattern0,add,14166,0,0,0
+
+	//light blue sleeveless
+	animation11167.interval,bind
+	animation11167.pattern0,add,14167,0,0,0
+
+	//dark purple sleeveless
+	animation11168.interval,bind
+	animation11168.pattern0,add,14168,0,0,0
+
+	//normal purple sleeveless
+	animation11169.interval,bind
+	animation11169.pattern0,add,14169,0,0,0
+
+	//light purple sleeveless
+	animation11170.interval,bind
+	animation11170.pattern0,add,14170,0,0,0
+
+	//dark magenta sleeveless
+	animation11171.interval,bind
+	animation11171.pattern0,add,14171,0,0,0
+
+	//normal magenta sleeveless
+	animation11172.interval,bind
+	animation11172.pattern0,add,14172,0,0,0
+
+	//light magenta sleeveless
+	animation11173.interval,bind
+	animation11173.pattern0,add,14173,0,0,0
+
+	//dark gray sleeveless
+	animation11174.interval,bind
+	animation11174.pattern0,add,14174,0,0,0
+
+	//normal gray sleeveless
+	animation11175.interval,bind
+	animation11175.pattern0,add,14175,0,0,0
+
+	//light gray sleeveless
+	animation11176.interval,bind
+	animation11176.pattern0,add,14176,0,0,0
+
+	
+	
+}
+
+
 surface.append100-999,!300,0,2000-2999 //Sleepy and Sleep mode pants
 {
 	//Default pants
@@ -2219,8 +2838,12 @@ surface.append100-999,!300,0,2000-2999 //Sleepy and Sleep mode pants
 	animation10077.pattern0,add,10077,0,0,0
 }
 
-surface.append1000-1299,1400-1499 //Awake mode pants
+surface.append1000-1299,1400-1499,1500-1599 //Awake mode pants
 {
+	//Default pants
+	animation10000.interval,bind
+	animation10000.pattern0,add,20000,0,0,0
+	
 	//Dark Red Slacks
 	animation10001.interval,bind
 	animation10001.pattern0,add,20001,0,0,0
@@ -2536,10 +3159,6 @@ surface.append1200-1299 //Awake left talk frames
 surface.append1000-1299,!1112,!1113,!1206,!1208 //Awake shirts
 {
 	//Anim#.Pattern#,Type,Method,Surface#,Weight,X,Y
-	
-	//Default pants
-	animation10000.interval,bind
-	animation10000.pattern0,add,20000,0,0,0
 	
 	//Default Sweater
 	animation11000.interval,bind
@@ -3007,10 +3626,6 @@ surface.append1200-1299,!1204 //Awake blink frames left
 surface.append1112,1113,1206,1208 //Awake think shirts
 {
 	//Anim#.Pattern#,Type,Method,Surface#,Weight,X,Y
-	
-	//Default pants
-	animation10000.interval,bind
-	animation10000.pattern0,add,20000,0,0,0
 	
 	//Default Sweater
 	animation11000.interval,bind
@@ -3906,3 +4521,495 @@ surface.append1400-1499 //Awake mp3 shirts
 	
 }
 
+
+
+
+surface.append1500-1599 //Awake Journal shirts
+{
+	//Default sweater
+	animation11000.interval,bind
+	animation11000.pattern0,add,24000,0,0,0
+	
+	//dark red sweater
+	animation11001.interval,bind
+	animation11001.pattern0,add,24001,0,0,0
+
+	//normal red sweater
+	animation11002.interval,bind
+	animation11002.pattern0,add,24002,0,0,0
+
+	//light red sweater
+	animation11003.interval,bind
+	animation11003.pattern0,add,24003,0,0,0
+
+	//dark orange sweater
+	animation11004.interval,bind
+	animation11004.pattern0,add,24004,0,0,0
+
+	//normal orange sweater
+	animation11005.interval,bind
+	animation11005.pattern0,add,24005,0,0,0
+
+	//light orange sweater
+	animation11006.interval,bind
+	animation11006.pattern0,add,24006,0,0,0
+
+	//dark yellow sweater
+	animation11007.interval,bind
+	animation11007.pattern0,add,24007,0,0,0
+
+	//normal yellow sweater
+	animation11008.interval,bind
+	animation11008.pattern0,add,24008,0,0,0
+
+	//light yellow sweater
+	animation11009.interval,bind
+	animation11009.pattern0,add,24009,0,0,0
+
+	//dark green sweater
+	animation11010.interval,bind
+	animation11010.pattern0,add,24010,0,0,0
+
+	//normal green sweater
+	animation11011.interval,bind
+	animation11011.pattern0,add,24011,0,0,0
+
+	//light green sweater
+	animation11012.interval,bind
+	animation11012.pattern0,add,24012,0,0,0
+
+	//dark cyan sweater
+	animation11013.interval,bind
+	animation11013.pattern0,add,24013,0,0,0
+
+	//normal cyan sweater
+	animation11014.interval,bind
+	animation11014.pattern0,add,24014,0,0,0
+
+	//light cyan sweater
+	animation11015.interval,bind
+	animation11015.pattern0,add,24015,0,0,0
+
+	//dark blue sweater
+	animation11016.interval,bind
+	animation11016.pattern0,add,24016,0,0,0
+
+	//normal blue sweater
+	animation11017.interval,bind
+	animation11017.pattern0,add,24017,0,0,0
+
+	//light blue sweater
+	animation11018.interval,bind
+	animation11018.pattern0,add,24018,0,0,0
+
+	//dark purple sweater
+	animation11019.interval,bind
+	animation11019.pattern0,add,24019,0,0,0
+
+	//normal purple sweater
+	animation11020.interval,bind
+	animation11020.pattern0,add,24020,0,0,0
+
+	//light purple sweater
+	animation11021.interval,bind
+	animation11021.pattern0,add,24021,0,0,0
+
+	//dark magenta sweater
+	animation11022.interval,bind
+	animation11022.pattern0,add,24022,0,0,0
+
+	//normal magenta sweater
+	animation11023.interval,bind
+	animation11023.pattern0,add,24023,0,0,0
+
+	//light magenta sweater
+	animation11024.interval,bind
+	animation11024.pattern0,add,24024,0,0,0
+
+	//dark gray sweater
+	animation11025.interval,bind
+	animation11025.pattern0,add,24025,0,0,0
+
+	//normal gray sweater
+	animation11026.interval,bind
+	animation11026.pattern0,add,24026,0,0,0
+
+	//light gray sweater
+	animation11027.interval,bind
+	animation11027.pattern0,add,24027,0,0,0
+
+	
+	//dark red hoodie
+	animation11050.interval,bind
+	animation11050.pattern0,add,24050,0,0,0
+
+	//normal red hoodie
+	animation11051.interval,bind
+	animation11051.pattern0,add,24051,0,0,0
+
+	//light red hoodie
+	animation11052.interval,bind
+	animation11052.pattern0,add,24052,0,0,0
+
+	//dark orange hoodie
+	animation11053.interval,bind
+	animation11053.pattern0,add,24053,0,0,0
+
+	//normal orange hoodie
+	animation11054.interval,bind
+	animation11054.pattern0,add,24054,0,0,0
+
+	//light orange hoodie
+	animation11055.interval,bind
+	animation11055.pattern0,add,24055,0,0,0
+
+	//dark yellow hoodie
+	animation11056.interval,bind
+	animation11056.pattern0,add,24056,0,0,0
+
+	//normal yellow hoodie
+	animation11057.interval,bind
+	animation11057.pattern0,add,24057,0,0,0
+
+	//light yellow hoodie
+	animation11058.interval,bind
+	animation11058.pattern0,add,24058,0,0,0
+
+	//dark green hoodie
+	animation11059.interval,bind
+	animation11059.pattern0,add,24059,0,0,0
+
+	//normal green hoodie
+	animation11060.interval,bind
+	animation11060.pattern0,add,24060,0,0,0
+
+	//light green hoodie
+	animation11061.interval,bind
+	animation11061.pattern0,add,24061,0,0,0
+
+	//dark cyan hoodie
+	animation11062.interval,bind
+	animation11062.pattern0,add,24062,0,0,0
+
+	//normal cyan hoodie
+	animation11063.interval,bind
+	animation11063.pattern0,add,24063,0,0,0
+
+	//light cyan hoodie
+	animation11064.interval,bind
+	animation11064.pattern0,add,24064,0,0,0
+
+	//dark blue hoodie
+	animation11065.interval,bind
+	animation11065.pattern0,add,24065,0,0,0
+
+	//normal blue hoodie
+	animation11066.interval,bind
+	animation11066.pattern0,add,24066,0,0,0
+
+	//light blue hoodie
+	animation11067.interval,bind
+	animation11067.pattern0,add,24067,0,0,0
+
+	//dark purple hoodie
+	animation11068.interval,bind
+	animation11068.pattern0,add,24068,0,0,0
+
+	//normal purple hoodie
+	animation11069.interval,bind
+	animation11069.pattern0,add,24069,0,0,0
+
+	//light purple hoodie
+	animation11070.interval,bind
+	animation11070.pattern0,add,24070,0,0,0
+
+	//dark magenta hoodie
+	animation11071.interval,bind
+	animation11071.pattern0,add,24071,0,0,0
+
+	//normal magenta hoodie
+	animation11072.interval,bind
+	animation11072.pattern0,add,24072,0,0,0
+
+	//light magenta hoodie
+	animation11073.interval,bind
+	animation11073.pattern0,add,24073,0,0,0
+
+	//dark gray hoodie
+	animation11074.interval,bind
+	animation11074.pattern0,add,24074,0,0,0
+
+	//normal gray hoodie
+	animation11075.interval,bind
+	animation11075.pattern0,add,24075,0,0,0
+
+	//light gray hoodie
+	animation11076.interval,bind
+	animation11076.pattern0,add,24076,0,0,0
+
+	
+	
+	//dark red tshirt
+	animation11101.interval,bind
+	animation11101.pattern0,add,24101,0,0,0
+
+	//normal red tshirt
+	animation11102.interval,bind
+	animation11102.pattern0,add,24102,0,0,0
+
+	//light red tshirt
+	animation11103.interval,bind
+	animation11103.pattern0,add,24103,0,0,0
+
+	//dark orange tshirt
+	animation11104.interval,bind
+	animation11104.pattern0,add,24104,0,0,0
+
+	//normal orange tshirt
+	animation11105.interval,bind
+	animation11105.pattern0,add,24105,0,0,0
+
+	//light orange tshirt
+	animation11106.interval,bind
+	animation11106.pattern0,add,24106,0,0,0
+
+	//dark yellow tshirt
+	animation11107.interval,bind
+	animation11107.pattern0,add,24107,0,0,0
+
+	//normal yellow tshirt
+	animation11108.interval,bind
+	animation11108.pattern0,add,24108,0,0,0
+
+	//light yellow tshirt
+	animation11109.interval,bind
+	animation11109.pattern0,add,24109,0,0,0
+
+	//dark green tshirt
+	animation11110.interval,bind
+	animation11110.pattern0,add,24111,0,0,0
+
+	//normal green tshirt
+	animation11111.interval,bind
+	animation11111.pattern0,add,24111,0,0,0
+
+	//light green tshirt
+	animation11112.interval,bind
+	animation11112.pattern0,add,24112,0,0,0
+
+	//dark cyan tshirt
+	animation11113.interval,bind
+	animation11113.pattern0,add,24113,0,0,0
+
+	//normal cyan tshirt
+	animation11114.interval,bind
+	animation11114.pattern0,add,24114,0,0,0
+
+	//light cyan tshirt
+	animation11115.interval,bind
+	animation11115.pattern0,add,24115,0,0,0
+
+	//dark blue tshirt
+	animation11116.interval,bind
+	animation11116.pattern0,add,24116,0,0,0
+
+	//normal blue tshirt
+	animation11117.interval,bind
+	animation11117.pattern0,add,24117,0,0,0
+
+	//light blue tshirt
+	animation11118.interval,bind
+	animation11118.pattern0,add,24118,0,0,0
+
+	//dark purple tshirt
+	animation11119.interval,bind
+	animation11119.pattern0,add,24119,0,0,0
+
+	//normal purple tshirt
+	animation11120.interval,bind
+	animation11120.pattern0,add,24120,0,0,0
+
+	//light purple tshirt
+	animation11121.interval,bind
+	animation11121.pattern0,add,24121,0,0,0
+
+	//dark magenta tshirt
+	animation11122.interval,bind
+	animation11122.pattern0,add,24122,0,0,0
+
+	//normal magenta tshirt
+	animation11123.interval,bind
+	animation11123.pattern0,add,24123,0,0,0
+
+	//light magenta tshirt
+	animation11124.interval,bind
+	animation11124.pattern0,add,24124,0,0,0
+
+	//dark gray tshirt
+	animation11125.interval,bind
+	animation11125.pattern0,add,24125,0,0,0
+
+	//normal gray tshirt
+	animation11126.interval,bind
+	animation11126.pattern0,add,24126,0,0,0
+
+	//light gray tshirt
+	animation11127.interval,bind
+	animation11127.pattern0,add,24127,0,0,0
+
+	
+	
+	//dark red sleeveless
+	animation11150.interval,bind
+	animation11150.pattern0,add,24150,0,0,0
+
+	//normal red sleeveless
+	animation11151.interval,bind
+	animation11151.pattern0,add,24151,0,0,0
+
+	//light red sleeveless
+	animation11152.interval,bind
+	animation11152.pattern0,add,24152,0,0,0
+
+	//dark orange sleeveless
+	animation11153.interval,bind
+	animation11153.pattern0,add,24153,0,0,0
+
+	//normal orange sleeveless
+	animation11154.interval,bind
+	animation11154.pattern0,add,24154,0,0,0
+
+	//light orange sleeveless
+	animation11155.interval,bind
+	animation11155.pattern0,add,24155,0,0,0
+
+	//dark yellow sleeveless
+	animation11156.interval,bind
+	animation11156.pattern0,add,24156,0,0,0
+
+	//normal yellow sleeveless
+	animation11157.interval,bind
+	animation11157.pattern0,add,24157,0,0,0
+
+	//light yellow sleeveless
+	animation11158.interval,bind
+	animation11158.pattern0,add,24158,0,0,0
+
+	//dark green sleeveless
+	animation11159.interval,bind
+	animation11159.pattern0,add,24159,0,0,0
+
+	//normal green sleeveless
+	animation11160.interval,bind
+	animation11160.pattern0,add,24160,0,0,0
+
+	//light green sleeveless
+	animation11161.interval,bind
+	animation11161.pattern0,add,24161,0,0,0
+
+	//dark cyan sleeveless
+	animation11162.interval,bind
+	animation11162.pattern0,add,24162,0,0,0
+
+	//normal cyan sleeveless
+	animation11163.interval,bind
+	animation11163.pattern0,add,24163,0,0,0
+
+	//light cyan sleeveless
+	animation11164.interval,bind
+	animation11164.pattern0,add,24164,0,0,0
+
+	//dark blue sleeveless
+	animation11165.interval,bind
+	animation11165.pattern0,add,24165,0,0,0
+
+	//normal blue sleeveless
+	animation11166.interval,bind
+	animation11166.pattern0,add,24166,0,0,0
+
+	//light blue sleeveless
+	animation11167.interval,bind
+	animation11167.pattern0,add,24167,0,0,0
+
+	//dark purple sleeveless
+	animation11168.interval,bind
+	animation11168.pattern0,add,24168,0,0,0
+
+	//normal purple sleeveless
+	animation11169.interval,bind
+	animation11169.pattern0,add,24169,0,0,0
+
+	//light purple sleeveless
+	animation11170.interval,bind
+	animation11170.pattern0,add,24170,0,0,0
+
+	//dark magenta sleeveless
+	animation11171.interval,bind
+	animation11171.pattern0,add,24171,0,0,0
+
+	//normal magenta sleeveless
+	animation11172.interval,bind
+	animation11172.pattern0,add,24172,0,0,0
+
+	//light magenta sleeveless
+	animation11173.interval,bind
+	animation11173.pattern0,add,24173,0,0,0
+
+	//dark gray sleeveless
+	animation11174.interval,bind
+	animation11174.pattern0,add,24174,0,0,0
+
+	//normal gray sleeveless
+	animation11175.interval,bind
+	animation11175.pattern0,add,24175,0,0,0
+
+	//light gray sleeveless
+	animation11176.interval,bind
+	animation11176.pattern0,add,24176,0,0,0
+
+	
+	
+}
+
+// surface.append0
+// {
+	// //planet test
+	// animation999999.interval,bind + always
+	// animation999999.pattern0,interpolate,999999,-1,25,75
+	// animation999999.pattern1,interpolate,999999,45,30,75
+	// animation999999.pattern2,interpolate,999999,45,35,75
+	// animation999999.pattern3,interpolate,999999,40,45,75
+	// animation999999.pattern4,interpolate,999999,40,55,75
+	// animation999999.pattern5,interpolate,999999,35,70,75
+	// //Middle
+	// animation999999.pattern6,interpolate,999999,30,90,75
+	// //Middle
+	// animation999999.pattern7,interpolate,999999,35,110,75
+	// animation999999.pattern8,interpolate,999999,40,125,75
+	// animation999999.pattern9,interpolate,999999,40,135,75
+	// animation999999.pattern10,interpolate,999999,45,145,75
+	// animation999999.pattern11,interpolate,999999,45,150,75
+	// animation999999.pattern12,interpolate,999999,50,155,75
+	
+	// animation999999.pattern13,interpolate,999999,50,155,75
+	// animation999999.pattern14,interpolate,999999,45,150,75
+	// animation999999.pattern15,interpolate,999999,45,145,75
+	// animation999999.pattern16,interpolate,999999,40,135,75
+	// animation999999.pattern17,interpolate,999999,40,125,75
+	// animation999999.pattern18,interpolate,999999,35,110,75
+	// //Middle
+	// animation999999.pattern19,interpolate,999999,30,90,75
+	// //Middle
+	// animation999999.pattern20,interpolate,999999,35,70,75
+	// animation999999.pattern21,interpolate,999999,40,55,75
+	// animation999999.pattern22,interpolate,999999,40,45,75
+	// animation999999.pattern23,interpolate,999999,45,35,75
+	// animation999999.pattern24,interpolate,999999,45,30,75
+	// animation999999.pattern25,interpolate,999999,50,25,75
+	
+// }
+
+// surface999999
+// {
+	// element0,overlay,planets/earth.png,0,0
+// }

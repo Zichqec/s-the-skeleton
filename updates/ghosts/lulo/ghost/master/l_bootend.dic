@@ -6,10 +6,12 @@ OnFirstBoot //Dialogue when you first open the ghost
 	--
 	if reference0 == 0 //Very first boot
 	{
+		resets = 0
 		"\s[2000]...zz%(mumb)%(mumb)...\w8\w8\n\n* (Here she is,\w4 looks like she's still asleep though...)\w8\w8\n\n\s[106]...%(mumb)zz..?\w8\w8\s[0]\n\n...oh...\w8\w8\s[113] where is this..?\w8\w8 i'm not still dreaming,\w4 am i..?\w8\w8 no,\w4 i'm not...\w8\w8\n\n\s[108]...oh,\w4 um,\w4 hi there...\w8\w8 who are you..?\w8\w8\s[109] ...i should probably start with my name first,\w4 shouldn't i...\w8\w8\s[0]\n\n...mine's lulo,\w8 what's yours..?\![open,inputbox,OnNameTeach]"
 	}
 	else //If you've reinstalled the ghost
 	{
+		resets++
 		"\s[2001]...mmmh...\w8\w8\w8\s[106] hm..?\w8\w8\s[113] ...i've been here before,\w4 haven't i..?\w8\w8\s[108] um,\w4 i'm lulo...\w8\w8 what's your name..?\![open,inputbox,OnNameTeach]"
 	}
 }
@@ -56,7 +58,7 @@ OnBoot //Normal booting
 	}
 	elseif month == 12 && day == 25 //Christmas
 	{
-		"\0%(b)\s[300]\w7\s[0]...oh,\w4 hey %(username)...\w8\w8\s[103] happy gyftmas...\e"
+		"\0%(b)\s[300]\w7\s[0]...oh,\w4 hey %(username)...\w8\w8\s[103] happy giftmas...\e"
 	}
 	elseif _timesince >= 90 //At least 3 months have passed
 	{
@@ -583,12 +585,11 @@ BootVars
 	totalboots++
 	booting = 0
 	TodaysActions = IARRAY
-	NowPlaying[0] = IARRAY //song name
+	NowPlaying[0] = "" //song name
 	NowPlaying[1] = 0 //song position
-	NowPlaying[2] = IARRAY //Paused song, if any
+	NowPlaying[2] = "" //Paused song, if any
 	
 	templocation = ""
-	locationcode = ""
 	tempurature = ("Unknown","0","0")
 	ForC = "Unknown"
 	feelslike = ("Unknown","0","0")
@@ -626,7 +627,7 @@ FirstBootVars
 	AutoUpdateCheck = 0
 	AutoUpdates = "Off"
 	updateavailable = 0
-	firstbooted = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)") //This tracks the exact day and time the ghost was installed
+	firstbooted = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)","%(ghostver)") //This tracks the exact day and time the ghost was installed
 	totalboots = 1
 	booting = 1 //This will be set to 0 after firstboot is complete
 	
@@ -643,7 +644,7 @@ FirstBootVars
 	NowPlaying[0] = IARRAY //song name
 	NowPlaying[1] = 0 //song position
 	NowPlaying[2] = IARRAY //Paused song, if any
-	MusicSettings = ("100","100","0","loop playlist")
+	MusicSettings = ("100","100","0","loop playlist") //Volume,Speed,Balance,Play mode
 	TodaysActions = IARRAY
 	PurchasedShirts = IARRAY
 	PurchasedPants = IARRAY
@@ -663,6 +664,7 @@ FirstBootVars
 	TalkedToCambria = 0
 	
 	//Weather variables. Could possibly make an array... Mm.
+	Degrees = "Fahrenheit,°F"
 	templocation = ""
 	locationcode = ""
 	tempurature = ("Unknown","0","0")
@@ -675,8 +677,6 @@ FirstBootVars
 	sunrise = "Unknown"
 	sunset = "Unknown"
 	phase = "Unknown"
-	sunset = "Unknown"
-	sunrise = "Unknown"
 	
 	//Sleep variables, likely to change in the future
 	sleepymod = 0
@@ -702,6 +702,7 @@ FirstBootVars
 	addedsongs = 0
 	checkedweather = 0
 	journalssaved = 0
+	continuouspets = 0
 	
 	//Some misc stuff
 	continuousstroke = 0

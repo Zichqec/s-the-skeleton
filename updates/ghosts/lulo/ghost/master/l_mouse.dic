@@ -7,6 +7,14 @@ OnMouseDoubleClick
 		{
 			Booped
 		}
+		elseif reference4 == "Mp3"
+		{
+			OnMusicMenu
+		}
+		elseif reference4 == "Journal"
+		{
+			OnJournalOpen
+		}
 		else //Menu
 		{
 			if holdingObsidian == 1
@@ -177,6 +185,7 @@ NormalPet
 ContinuousPet
 {
 	friendship += smfriendplus
+	continuouspets++
 	if ASEARCH("Petted continuously",TodaysActions) == -1
 	{
 		DP += lgDPplus

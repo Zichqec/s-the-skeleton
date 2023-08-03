@@ -31,6 +31,12 @@ group,Sleepy
 	402,mp3 content
 	407,mp3 sigh
 	411,mp3 interested
+	
+	500,Journal forward
+	501,Journal down
+	502,Journal content
+	507,Journal sigh
+	511,Journal interested
 }
 
 group,Awake
@@ -56,10 +62,18 @@ group,Awake
 	
 	1400,mp3 forward
 	1401,mp3 down
+	1401,mp3 content
 	1404,mp3 smile
 	1406,mp3 sweat smile
 	1407,mp3 sigh
 	1410,mp3 mild surprise
+	
+	1500,Journal forward
+	1501,Journal down
+	1504,Journal smile
+	1506,Journal sweat smile
+	1507,Journal sigh
+	1510,Journal mild surprise
 }
 
 group,Asleep

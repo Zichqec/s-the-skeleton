@@ -1,4 +1,4 @@
-AiTalk
+OnAiTalk
 {
 	if mikireflag == 0 //If she is not offscreen
 	{
@@ -61,7 +61,7 @@ AwakeToSleepy //b0
 
 SleepyToAwake //b4
 {
-	"\0\b[0]\s[0]* (She brightens a little,\w8\s[1102]\i[10]\b[4] then stands and stretches.)"
+	"\0\b[0]\s[0]* (She brightens a little,\w8\s[1104]\i[10]\b[4] then stands and stretches.)"
 }
 
 SleepyToAsleep //b8
@@ -162,8 +162,13 @@ NewTalk : nonoverlap //When you're running her for the first time and she doesn'
 	if totalboots == 0; "\s[0]...are you going to keep bringing me here..?\e"
 }
 
+
 AwakeTalk : nonoverlap
 {
+	_file1 = filetype
+	_file2 = filetype
+	while _file1 == _file2; {_file2 = filetype}
+	
 	"\0%(b)"
 	--	
 	"\s[1205]\i[10]* (She's humming to herself.)\e"
@@ -174,819 +179,862 @@ AwakeTalk : nonoverlap
 	"\s[1104]\i[10]* (She's rocking back and forth on her heels a little,\w4 in time to an unheard rhythm.)\e"
 	"\s[1208]There are so many squares here,\w4 it's kinda weird when you see it up close.\w8\w8\s[1112] The screen is square,\w4 your windows are square...\w8\w8\s[1106] I guess computers don't deal as easily with circles,\w4 huh?\e"
 	"\s[1205]\i[10]* (She fidgets in place,\w4 looking around your desktop as though she longs to run back and forth through your files.)\e"
-	"\s[1110]There's always so much going on here,\w4 even if you're not doing anything.\w8\w8\s[1112] There's always a quiet hum,\w4 and the little clicks...\w8\w8\s[0] I wonder what your computer is working on in the background?\e"
+	"\s[1110]There's always so much going on here,\w4 even if you're not doing anything.\w8\w8\s[1112] There's always a quiet hum,\w4 and the little clicks...\w8\w8\s[1000] I wonder what your computer is working on in the background?\e"
 	"\s[1110]Humans don't have magic,\w4 right?\w8\w8\s[1113] Or um,\w4 they have less magic?\w8\w8\s[1107] I don't really get it...\w8\w8\s[1106] How do you move and see and talk without magic?\e"
 	"\s[1106]So,\w4 um,\w4 lets say you had a %(filetype) and you can't remember where it came from.\w8\w8\s[1113] What would you do with it?\w8\w8\s[1110] It's uh,\w4 hypo-\w4\s[1206] um.\w8\w8\s[1113] Hypothetical..?\e"
 	"\s[1112]I wonder if its possible to get into things that arent computers.\w8\w8\s[1110] Could I get onto your phone?\w8\w8\s[1111] Or mp3 player?\w8\w8\s[1113] ...Do you have a printer?\e"
 	"\s[1106]Hmm,\w4 it's nice to be awake,\w8\s[1208] but I really want to finish my last dream...\w8\w8\s[1107] I guess it can wait until I'm tired again.\e"
 	"\s[1110]Can you believe a day is only 24 hours?\w8\w8\s[1106] I guess time feels slower to me while I'm dreaming.\e"
-	"\s[1106]You don't have any viruses on your computer,\w4 do you?\w8\w8\s[1206] My immune system isn't very good...\e"
+	"\s[1106]You don't have any viruses on your computer,\w4 do you?\w8\w8\s[1206] My immune system isn't%(br)very good...\e"
 	"\s[1112]If I exist on your computer,\w4 am I made of files?\w8\w8\s[1110] Do I have a folder?\w8\w8\s[1107] ...I don't know if I want to see what's in my folder.\e"
 	"\s[1000]I've got a really fun dream planned out,\w8\s[1104] I've been working on the idea for weeks.\w8\w8\s[1208] I just need to bring my current dream to a close,\w4 and then I can get started...\w8\w8\s[1104] It's gonna be great.\e"
 	"\s[1110]How many programs do you have?\w8\w8\s[1206] It seems like they go on forever...\e"
 	"\s[1110]I wonder how many file types there are...\w8\w8\s[1112] With only three or four letters,\w4 there are only so many combinations,\w4 right?\w8\w8\s[1113] I wonder if all the combinations have been used already?\e"
-	"\s[1104]Hmm-mm~\w8\w8\n\n* (She's humming as she rocks back and forth)\w8\w8\n\nI could run forever~\e"
+	"\s[1104]Hmm-mm~\i[10]\w8\w8\n\n* (She's humming as she rocks back and forth)\w8\w8\n\n\s[1104]I could run forever~\e"
 	"\s[1205]I like to see the nurses at the hospital,\w4\s[1206] but I always get homesick after a while...\e"
 	"\s[1205]I write so many things in my journal.\w8\w8\s[1104] It's really helpful for organizing all my thoughts and plans.\w8\w8\s[1113] Even if I get distracted with doodling sometimes.\e"
 	"\s[1208]I wonder what my teachers would think of the stuff I learn about here.\w8\w8\s[1112] I bet they have no idea what a %(filetype) looks like up close.\e"
-	{
-		_file1 = filetype
-		_file2 = filetype
-		
-		if _file1 != _file2
-		{
-			"\s[1110]What's so different about a %(_file1) and a %(_file2),\w4 anyway?\w8\w8\s[1113] Aren't all files just 1s and 0s?\e"
-		}
-	}
-			
-if RAND(100) == 99; "\s[1113]Your wallpaper is peeling a little,\w4 just under the taskbar.\w8\w8\s[1110] Do you want me to set up a new one for you?\w8\w8\s[1104] I could do it if you give me a picture to put up.\e"
-		
-		
-	if totalboots >= 5 && friendship >= 50
-	{
-		"\s[1106]Um,\w4 %(userprop)?\w8\w8\w8\s[1104] You're really cool,\w8\s[1000] thanks for having me over.\e"
-		"\s[1107]If I ever get my own computer,\w4 it's gonna be so strange to see it from the outside...\e"
-		{
-			"\s[1110]I wonder if I could end up in anyone else's computer.\w8\w8\s[1107] I hope not,\w4 I'd rather just stay here...\w8\w8\s[1205] It's nice here."
-			--
-			if "S the Skeleton" _in_ installedghostlist && TalkedToS >= 1
-			{
-				"\w8\w8\s[1104] and my andad comes here too."
-			}
-			if "Cambria and Elko" _in_ installedghostlist && TalkedToCambria >= 1
-			{
-				"\w8\w8\s[1104] and anCambria comes here,\w4 too."
-			}
-			--
-			"\e"
-		}
-	}
-
-	if ASEARCH("thesplit",MiscFlags) != -1 //The Split
-	{
-		
-	}
-	if TalkedToS == 1 && !SPresent //Talked to S and he is not present
-	{
-		"\s[1206]I wish anDad wouldn't worry so much over me,\w4 sometimes...\w8\w8\s[1109] I think he's afraid for me,\w4 even if he tries to hide it.\w8\w8\s[1204] But I'm alright,\w4 really.\e"
-		"\s[1102]Heh,\w4 I can tell where my anDad's been in your files,\w4 they're all dusted and straightened up.\e"
-		"\s[1000]Would you mind if I set aside a %(filetype) to show my dad later?\w8\w8\s[1208] There's something I wanted him to see...\e"
-	}
-	if HasExplored == 1
-	{
-		"\s[1110]I came across a file back there that looked glitchy...\w8\w8\s[1108] It wasn't doing well at all.\w8\w8\s[1206] Something must have corrupted it,\w4 I guess...\w8\w8\s[1109] I hope that doesn't happen to me...\e"
-		"\s[1110]There's so much stuff to see here,\w4 I wonder if I'll ever see it all.\w8\w8\s[1113] You wouldn't think one computer could have so many %(filetype) files...\e"
-	}
+	"\s[1110]What's so different about a %(_file1) and a %(_file2),\w4 anyway?\w8\w8\s[1113] Aren't all files just 1s and 0s?\e"
 	
-	if ARRAYSIZE(installedghostlist) >= 30
+	//Maybe set this up so that if you haven't had her change your wallpaper in a long time it goes off? Kinda silly, but
+	if RAND(100) == 99; "\s[1113]Your wallpaper is peeling a little,\w4 just under the taskbar.\w8\w8\s[1110] Do you want me to set up a new one for you?\w8\w8\s[1104] I could do it if you give me a picture to put up.\e"
+	
+	
+	parallel Pool("Pool_Awake_ManyBoots","%(totalboots >= 5 && friendship >= 50)")
+	parallel Pool("Pool_Awake_TheSplit","%(Flag('thesplit'))")
+	parallel Pool("Pool_Awake_SNotHere","%(TalkedToS && !SPresent)")
+	parallel Pool("Pool_Awake_HasExplored","%(Flag('HasExplored'))")
+	parallel Pool("Pool_Awake_LotsOfInstalledGhosts","%(ARRAYSIZE(installedghostlist) >= 30)")
+	parallel Pool("Pool_Awake_HighRuntime","%(passhour >= 6)")
+	
+	parallel Pool("Pool_Awake_TalkAboutWD","%(Family[0])")
+	parallel Pool("Pool_Awake_TalkAboutDings","%(Family[1])")
+	parallel Pool("Pool_Awake_TalkAboutWings","%(Family[2])")
+	parallel Pool("Pool_Awake_TalkAboutBarcode","%(Family[3])")
+	parallel Pool("Pool_Awake_TalkAboutS","%(Family[4])")
+	parallel Pool("Pool_Awake_TalkAboutBlueJeans","%(Family[5])")
+	parallel Pool("Pool_Awake_TalkAboutAbbi","%(Family[6])")
+	parallel Pool("Pool_Awake_TalkAboutRosie","%(Family[7])")
+	parallel Pool("Pool_Awake_TalkAboutRoman","%(Family[8])")
+	parallel Pool("Pool_Awake_TalkAboutCambria","%(Family[9])")
+	parallel Pool("Pool_Awake_TalkAboutTriton","%(Family[10])")
+	//Lulo
+	parallel Pool("Pool_Awake_TalkAboutAzo","%(Family[12])")
+	parallel Pool("Pool_Awake_TalkAboutSigil","%(Family[13])")
+	parallel Pool("Pool_Awake_TalkAboutElko","%(Family[14])")
+	
+	parallel Pool("Pool_Awake_timeslot_earlymorning","%(timeslot == 'earlymorning')")
+	parallel Pool("Pool_Awake_timeslot_morning","%(timeslot == 'morning')")
+	parallel Pool("Pool_Awake_timeslot_lunch","%(timeslot == 'lunch')")
+	parallel Pool("Pool_Awake_timeslot_afternoon","%(timeslot == 'afternoon')")
+	parallel Pool("Pool_Awake_timeslot_evening","%(timeslot == 'evening')")
+	parallel Pool("Pool_Awake_timeslot_latenight","%(timeslot == 'latenight')")
+	parallel Pool("Pool_Awake_timeslot_midnight","%(timeslot == 'midnight')")
+
+	parallel Pool("Pool_Awake_wd_Sun","%(wd == 'Sun')")
+	parallel Pool("Pool_Awake_wd_Mon","%(wd == 'Mon')")
+	parallel Pool("Pool_Awake_wd_Tue","%(wd == 'Tue')")
+	parallel Pool("Pool_Awake_wd_Wed","%(wd == 'Wed')")
+	parallel Pool("Pool_Awake_wd_Thu","%(wd == 'Thu')")
+	parallel Pool("Pool_Awake_wd_Fri","%(wd == 'Fri')")
+	parallel Pool("Pool_Awake_wd_Sat","%(wd == 'Sat')")
+
+	parallel Pool("Pool_Awake_startmonth","%(day < 5)")
+	parallel Pool("Pool_Awake_midmonth","%(day > 13 && day < 17)")
+	parallel Pool("Pool_Awake_endmonth","%(day > 26)")
+
+	parallel Pool("Pool_Awake_month_Jan","%(month == 1)")
+	parallel Pool("Pool_Awake_month_Feb","%(month == 2)")
+	parallel Pool("Pool_Awake_month_Mar","%(month == 3)")
+	parallel Pool("Pool_Awake_month_Apr","%(month == 4)")
+	parallel Pool("Pool_Awake_month_May","%(month == 5)")
+	parallel Pool("Pool_Awake_month_Jun","%(month == 6)")
+	parallel Pool("Pool_Awake_month_Jul","%(month == 7)")
+	parallel Pool("Pool_Awake_month_Aug","%(month == 8)")
+	parallel Pool("Pool_Awake_month_Sep","%(month == 9)")
+	parallel Pool("Pool_Awake_month_Oct","%(month == 10)")
+	parallel Pool("Pool_Awake_month_Nov","%(month == 11)")
+	parallel Pool("Pool_Awake_month_Dec","%(month == 12)")
+
+	parallel Pool("Pool_Awake_season_Spring","%(season == 'Spring')")
+	parallel Pool("Pool_Awake_season_Summer","%(season == 'Summer')")
+	parallel Pool("Pool_Awake_season_Autumn","%(season == 'Autumn')")
+	parallel Pool("Pool_Awake_season_Winter","%(season == 'Winter')")
+	
+	parallel Pool("Pool_Awake_weather_clear","%(weather_clear)")
+	parallel Pool("Pool_Awake_weather_cloudy","%(weather_cloudy)")
+	parallel Pool("Pool_Awake_weather_mightrain","%(weather_mightrain)")
+	parallel Pool("Pool_Awake_weather_raining","%(weather_raining)")
+	parallel Pool("Pool_Awake_weather_snowing","%(weather_snowing)")
+	parallel Pool("Pool_Awake_weather_thunderstorm","%(weather_thunderstorm)")
+	parallel Pool("Pool_Awake_weather_foghaze","%(weather_foghaze)")
+	
+	parallel Pool("Pool_Awake_Temp_Below0","%(temp == 'Below 0')")
+	parallel Pool("Pool_Awake_Temp_Freezing","%(temp == 'Freezing')")
+	parallel Pool("Pool_Awake_Temp_Cold","%(temp == 'Cold')")
+	parallel Pool("Pool_Awake_Temp_Chilly","%(temp == 'Chilly')")
+	parallel Pool("Pool_Awake_Temp_Pleasant","%(temp == 'Pleasant')")
+	parallel Pool("Pool_Awake_Temp_Hot","%(temp == 'Hot')")
+	parallel Pool("Pool_Awake_Temp_Boiling","%(temp == 'Boiling')")
+	
+	parallel Pool("Pool_Awake_Humid_Muggy","%(humid == 'Muggy' && (temp == 'Hot' || temp == 'Boiling'))")
+	parallel Pool("Pool_Awake_Humid_Soup","%(humid == 'Soup' && (temp == 'Hot' || temp == 'Boiling'))")
+	
+	parallel Pool("Pool_Awake_PollenAlert","%(pollen_alert)")
+	
+	parallel Pool("Pool_Awake_Moon_New","%(phase == 'New Moon')")
+	parallel Pool("Pool_Awake_Moon_Half","%(phase == 'First Quarter' || phase == 'Last Quarter')")
+	parallel Pool("Pool_Awake_Moon_Full","%(phase == 'Full Moon')")
+	
+	parallel Pool("Pool_Awake_LotsOfGhostsOpen","%(ghostexcount >= 4)")
+	parallel Pool("Pool_Awake_NoGhostsOpen","%(ghostexcount == 0)")
+	
+	parallel Pool_Awake_Onion_Dialogues
+	
+	if SeePC == "On"; "\![raise,OnSaoriRand]"
+	
+	if "Jazz" _in_ ghostexlist; "\s[1110]Whoa,\w4 he's so tall!\w8\w8\s[1104] And pointy!\e"
+}
+
+Pool_Awake_ManyBoots : array //totalboots >= 5 && friendship >= 50
+{
+	"\s[1106]Um,\w4 %(userprop)?\w8\w8\w8\s[1104] You're really cool,\w8\s[1000] thanks for having me over.\e"
+	"\s[1107]If I ever get my own computer,\w4 it's gonna be so strange to see it from the outside...\e"
 	{
-		"\s[1110]Wow,\w4 you bring a lot of different people here.\w8\w8\s[1104] That's so cool!\w8\w8\s[1208] I wonder if I'll ever meet them all...\e"
+		"\s[1110]I wonder if I could end up in anyone else's computer.\w8\w8\s[1107] I hope not,\w4 I'd rather just stay here...\w8\w8\s[1205] It's nice here."
+		--
+		if "S the Skeleton" _in_ installedghostlist && TalkedToS >= 1
+		{
+			"\w8\w8\s[1104] and my andad comes here too."
+		}
+		if "Cambria and Elko" _in_ installedghostlist && TalkedToCambria >= 1
+		{
+			"\w8\w8\s[1104] and anCambria comes here,\w4 too."
+		}
+		--
+		"\e"
 	}
-	if passhour >= 6
+}
+
+Pool_Awake_TheSplit : array //Flag("thesplit")
+{
+	
+}
+
+Pool_Awake_SNotHere : array //TalkedToS && !SPresent
+{
+	"\s[1206]I wish anDad wouldn't worry so much over me,\w4 sometimes...\w8\w8\s[1109] I think he's afraid for me,\w4 even if he tries to hide it.\w8\w8\s[1204] But I'm alright,\w4 really.\e"
+	"\s[1102]Heh,\w4 I can tell where my anDad's been in your files,\w4 they're all dusted and straightened up.\e"
+	"\s[1000]Would you mind if I set aside a %(filetype) to show my dad later?\w8\w8\s[1208] There's something I wanted him to see...\e"
+}
+
+Pool_Awake_HasExplored : array //Flag('HasExplored'))
+{
+	"\s[1110]I came across a file back there that looked glitchy...\w8\w8\s[1108] It wasn't doing well at all.\w8\w8\s[1206] Something must have corrupted it,\w4 I guess...\w8\w8\s[1109] I hope that doesn't happen to me...\e"
+	"\s[1110]There's so much stuff to see here,\w4 I wonder if I'll ever see it all.\w8\w8\s[1113] You wouldn't think one computer could have so many %(filetype) files...\e"
+}
+
+Pool_Awake_LotsOfInstalledGhosts : array //ARRAYSIZE(installedghostlist) >= 30
+{
+	"\s[1110]Wow,\w4 you bring a lot of different people here.\w8\w8\s[1104] That's so cool!\w8\w8\s[1208] I wonder if I'll ever meet them all...\e"
+}
+
+Pool_Awake_HighRuntime : array //passhour >= 6
+{
+	if !SPresent
+	{
+		/*"\0\s[113]...they must be wondering where I am by now...\w8\w8\s[206] "
+		--
+		if SInstalled
+		{
+			"anDad will figure it out...\e"
+		}
+		else
+		{
+			"anDad will be worried...\e"
+		}*/
+	}
+	{
+		"\s[1110]Wow,\w4 I can't believe I've been here %(passhour) hours already.\w8\w8 "
+		--
+		"\s[1206]I wonder what they're doing at home...\e"
+		"\s[1106]Time flies when you're having fun,\w4 I guess?\e"
+		"\s[1106]How long were you planning on hanging out?\e"
+		"\s[1104]I'm glad you like my company,\w4 I guess.\e"
+		"\s[1113]You must like having me around?\e"
+		"\s[1102]I don't mind,\w4 though.\w8\w8 It's nice to hang out here.\e"
+	}
+}
+
+Pool_Awake_TalkAboutWD : array //Family[0]
+{
+	
+}
+
+Pool_Awake_TalkAboutBarcode : array //Family[1]
+{
+	
+}
+
+Pool_Awake_TalkAboutDings : array //Family[2]
+{
+	
+}
+Pool_Awake_TalkAboutWings : array //Family[3]
+{
+	
+}
+
+Pool_Awake_TalkAboutS : array //Family[4]
+{
+	
+}
+
+Pool_Awake_TalkAboutBlueJeans : array //Family[5]
+{
+	
+}
+
+Pool_Awake_TalkAboutAbbi : array //Family[6]
+{
+	
+}
+
+Pool_Awake_TalkAboutRosie : array //Family[7]
+{
+	
+}
+
+Pool_Awake_TalkAboutRoman : array //Family[8]
+{
+	
+}
+
+Pool_Awake_TalkAboutCambria : array //Family[9]
+{
+	
+}
+
+Pool_Awake_TalkAboutTriton : array //Family[10]
+{
+	
+}
+
+Pool_Awake_TalkAboutAzo : array //Family[12]
+{
+	
+}
+
+Pool_Awake_TalkAboutSigil : array //Family[13]
+{
+	
+}
+
+Pool_Awake_TalkAboutElko : array //Family[14]
+{
+	
+}
+
+//---Timeslots---
+Pool_Awake_timeslot_earlymorning : array //timeslot == 'earlymorning' (5am - 8am)
+{
+	
+	//These are sub-pools, I've put them just below this one. Any dialogues you put in them will also get the same probabilities as all other dialogue.
+	parallel Pool("Pool_Awake_timeslot_earlymorning_uplate","%(runtime[0] >= 3)") //Been open for 3 hours or more, so the user has probably been up all night
+	parallel Pool("Pool_Awake_timeslot_earlymorning_upearly","%(runtime[0] < 3)") //Probably just got up
+}
+
+Pool_Awake_timeslot_earlymorning_uplate : array //runtime[0] >= 3 (Been open for 3 hours or more, so the user has probably been up all night)
+{
+	"\s[1106]Shouldn't you be asleep,\w4 %(userprop)..?\w8\w8\s[1107] I should be asleep,\w4 too...\e"
+	"\s[1106]Um,\w4 %(userprop)?\w8\w8 ...Have you been up all night?\e"
+	"\s[1206]It's so late,\w4 are you not planning to sleep..?\e"
+	"\s[1108]Aren't you tired,\w4 %(userprop)..?\w8\w8\s[1107] It's really late...\e"
+}
+
+Pool_Awake_timeslot_earlymorning_upearly : array //runtime[0] < 3 (Probably just got up)
+{
+	"\s[1111]Are you a morning person,\w4 %(userprop)?\w8\w8\s[1104] My anDad is too.\e"
+	"\s[1000]Is the sun up for you yet?\w8\w8\s[1104] I like watching the sun rise if I'm awake this early.\e"
+	"\s[1112]The day's only just begun,\w4 there's so much I could get done...\w8\w8\s[1106] Though I'll probably be sleepy again in an hour or two.\e"
+	if !SPresent
+	{
+		"\s[1000]Sometimes my anDad and I wake up around the same time,\w4 before the sun has come up.\w8\w8\s[1102] He usually grabs us both a juice box,\w4 and we sit on the porch for a while to listen to the birds waking up.\e"
+	}
+}
+
+Pool_Awake_timeslot_morning : array //timeslot == 'morning' (9am - 11am)
+{
+	if !(wd == 0 || wd == 6) && season != "Summer" //If it's not a weekend or summer
+	{
+		"\s[1106]...I should probably be at school right now.\w8\w8\s[1112] I can't get in trouble if I'm stuck here though,\w4 right..?\e"
+	}
+	"\s[1205]I like listening to the birds sing in the morning...\w8\w8\s[1110] Do you have birds where you are?\e"
+	"\s[1104]It's nice to be awake so early.\w8\w8\s[1106] I end up sleeping in late a lot...\e"
+	"\s[1205]It's usually pretty busy at home right now,\w4 with everyone rushing to get ready for school and work and stuff...\w8\w8\s[1104] It's nice spending the morning here instead.\e"
+}
+
+Pool_Awake_timeslot_lunch : array //timeslot == 'lunch' (12pm - 2pm)
+{
+	if SPresent
+	{
+		//"\s[1112]Hey anDad,\w4 are you hungry?\e" //TODO: commu with S here
+	}
+	elseif SInstalled
+	{
+		"\s[1113]Mm,\w4 I wonder if anDad left any snacks around here...\e"
+	}
+	else
+	{
+		"\s[1206]Hmm,\w4 I didn't bring any snacks with me,\w4 did I...\e"
+	}
+	"\s[1112]There's not usually much going on at home right now,\w4 almost everyone is out working,\w4 or at school...\w8\w8\s[1107] Sometimes I can't go to school though,\w4 so I just end up napping at home.\e"
+	"\s[1104]Halfway through the day.\w8\w8\s[1107] I haven't really gotten anything done,\w4 though...\e"
+}
+
+Pool_Awake_timeslot_afternoon : array //timeslot == 'afternoon' (3pm - 5pm)
+{
+	"\s[1104]This is the best time of the day for naps.\w8\w8\s[1112] If you're lucky,\w4 you can sleep all the way up to dinner time and wake up to tasty food.\e"
+	"\s[1205]Getting towards the end of the daylight...\w8\w8\s[1104] Still a couple hours left,\w4 though.\w8\w8\s[1106] I end up cramming stuff into the last few hours of the day a lot,\w4 it really depends on when I'm feeling the most awake...\e"
+	if !SPresent
+	{
+		"\s[1112]anDad's probably started dinner prep...\w8\w8\s[1113] I help sometimes if I'm feeling up to it,\w4 but I guess I won't be tonight...\e"
+	}
+	if !(wd == 0 || wd == 6) && season != "Summer"
+	{
+		"\s[1205]School's gonna be letting out soon...\w8\w8\s[1104] Guess I don't have to worry about that today,\w4 though.\e"
+	}
+}
+
+Pool_Awake_timeslot_evening : array //timeslot == 'evening' (6pm - 8pm)
+{
+	"\s[1205]I love twilight.\w8\w8\s[1102] It's like the world is falling asleep,\w4 but not there quite yet...\e"
+	"\s[1205]The day's just about over...\w8\w8\s[1107] I'm not ready for it to be over,\w4 I still have so much energy.\e"
+	"\s[1113]It'll be bedtime pretty soon,\w4 but I'm not tired at all yet...\e"
+	"\s[1107]I hope I'm feeling more sleepy when bedtime gets here...\e"
+}
+
+Pool_Awake_timeslot_latenight : array //timeslot == 'latenight' (9pm - 12am)
+{
+	"\s[1106]I'm not usually awake this late...\w8\w8\s[1107] I'm sure this'll wear off soon.\e"
+	"\s[1206]It's starting to get late...\w8\w8\s[1109] I'm not tired yet,\w4 though...\e"
+	"\s[1206]It's usually time to head to bed right now...\w8\w8\s[1108]%(br)I'm not tired yet,\w4 though...\w8\w8\s[1106] I guess you're not either..?\e"
+}
+
+Pool_Awake_timeslot_midnight : array //timeslot == 'midnight' (1am - 4am)
+{
+	"\s[1106]Um,\w4 it's late,\w4 isn't it %(userprop)?\w8\w8\s[1107] Shouldn't you be sleeping?\w8\w8\s[1206] I should,\w4 but I'm not feeling sleepy for once...\e"
+	"\s[1206]Mmm...\w8\w8 At this rate,\w4 I'm gonna end up sleeping in all day tomorrow...\e"
+	"\s[1206]\i[10]* (She sighs,\w4 sounding a little worried.)\e"
+	"\s[1206]I hope they're not worried about me at home...\e"
+	if lastinteracted >= 6;"\s[1110]Are you still awake out there?\w8\w8\s[1206] It's pretty late,\w4 maybe %(heshe) left...\e"
+}
+
+
+//---Days of the week---
+
+Pool_Awake_wd_Sun : array //wd == "Sun"
+{
+	if !(month == 6 || month == 7 || month == 8) //If it's not a summer month
+	{
+		"\s[1107]Back to school tomorrow...\w8\w8\s[1112] If I'm not here,\w4 anyways.\e"
+		"\s[1106]I'm not ready to go back to school tomorrow...\w8\w8\s[1107] Why can't weekends last longer?\e"
+	}
+	else
+	{
+		"\s[1112]Heh,\w4 don't have to worry about going back to school tomorrow,\w4\s[1000] there won't be any more school until September.\e"
+	}
+	"\s[1106]Monday's tomorrow.\w8\w8\s[1104] Better have fun while it's still the weekend.\e"
+}
+
+Pool_Awake_wd_Mon : array //wd == "Mon"
+{
+	"\s[1205]It's the start of a new week.\w8\w8\s[1104] It's kinda exciting,\w4\s[1106] even if it is Monday.\e"
+	"\s[1111]Are you planning anything fun this week?\w8\w8\s[1104] I had some new dream ideas over the weekend that I'm gonna work on.\e"
+}
+
+Pool_Awake_wd_Tue : array //wd == "Tue"
+{
+	"\s[1107]Not much happens on Tuesday,\w4 just waiting for Wednesday to get here...\e"
+	"\s[1112]I wonder if I can get anDad to make tacos today...\e"
+}
+
+Pool_Awake_wd_Wed : array //wd == "Wed"
+{
+	"\s[1104]Halfway through the week!\w8\w8\s[1208] Really goes by quickly sometimes...\e"
+	"\s[1107]Can't wait for the weekend to be here,\w4 all the other days are too long.\e"
+}
+
+Pool_Awake_wd_Thu : array //wd == "Thu"
+{
+	"\s[1104]It's leftover night tonight.\w8\w8\s[1112] I wonder if anyone'll notice if I grab dessert first...\e"
+	"\s[1104]Tomorrow's Friday,\w4 one of the best days of the week.\w8\w8\s[1000] I can't wait,\w4\s[1112] I've got some stuff I wanna do with the extra time...\e"
+}
+
+Pool_Awake_wd_Fri : array //wd == "Fri"
+{
+	if hour > 10 && hour < 18; "\s[1104]I bet anCambria and anElko have already headed out for the day.\w8\w8\s[1107] I wanna go,\w4 but I don't think anCambria wants anyone else tagging along...\e"
+	"\s[1000]Are you gonna get up to anything fun tomorrow?\w8\w8\s[1107] I've got a whole bunch of notes to put together in my notebook.\w8\w8\s[1104] But it should be fun!\e"
+}
+
+Pool_Awake_wd_Sat : array //wd == "Sat"
+{
+	"\s[1104]It's the weekend again~\e"
+	"\s[1112]Are you doing anything fun?\w8\w8\s[1000] I've been writing a lot in my notebook today,\w4 putting together characters and worlds and stuff.\w8\w8\s[1104] I can't wait until I dream again.\e"
+}
+
+
+//---Days in the month---
+Pool_Awake_startmonth : array //day < 5 (start of the month)
+{
+	"\s[1208]It's hard to believe %(nowmonth('last')) is over.\w8\w8\s[1110] It feels like it just started yesterday.\w8\w8\s[1104] Hopefully %(nowmonth) will be fun.\e"
+	"\s[1106]%(nowmonth('last')) went by fast,\w4 huh?\w8\w8\s[1107] Wonder if %(nowmonth)'ll feel that short when %(nowmonth('next')) comes around...\e" //Yes I absolutely wrote this to have fun with my additions to the nowmonth function
+	{
+		"\s[1206]%(nowmonth('last')) is over already...\w8\w8\s[1110] Before you know it,\w4 it'll be %(nowmonth('next')).\w8\w8 "
+		--
+		_next = month + 1; if _next == 13; _next = 1
+		switch _next
+		{
+			"\s[1107]Scary." //0 - Should be blank
+			"\s[1104]It'll be %(year + 1) then!" //1 - January
+			"\s[1104]That's when my birthday is!\w8\w8\s[1112] anAbbi and anElko's birthdays,\w4 too." //2 - Febuary
+			"\s[1102]anCambria's birthday is coming up pretty quick...\w8\w8\s[1000] anTriton's,\w4 too." //3 - March
+			"\s[1112]anRosie will be excited,\w4 her birthday is in April." //4 - April
+			"\s[1102]anSigil's birthday is in May.\w8\w8\s[1112] She was really excited for the last one." //5 - May
+			"\s[1111]That's when my anGrandma's birthday is!" //6 - June
+			"\s[1104]anAzo's birthday is in July,\w4 that'll be fun." //7 - July
+			{
+				"\s[1104]My anDad's birthday is in August,\w4 it's on the 25th." //8 - August
+				--
+				if SInstalled && !SPresent
+				{
+					"\w8\w8\s[1111] You should bring him here to say happy birthday,\w4 it can be a surprise!"
+				}
+			}
+			"\s[1000]My anStepdad's birthday is in September." //9 - September
+			"\s[1111]My anGrandpa,\w4 great anAunt,\w4 and great anUncle all have their birthday on the same day in October.\w8\w8\s[1104] That's so cool,\w4 isn't it?" //10 - October
+			"\s[1104]anAzo's birthday is in November,\w4 that'll be fun." //11 - November
+			"\s[1102]anRoman's birthday is finally coming up,\w4\s[1000] he's the last one in the year.\w8\w8\n\n\s[1104]Gyftmas is coming up,\w4 too." //12 - December
+		}
+		--
+		"\e"
+	}
+}
+
+Pool_Awake_midmonth : array //day > 13 && day < 17 (middle of the month)
+{
+	"\s[1107]Halfway through the month already...\w8\w8\s[1106] %(nowmonth('next')) is coming up quick,\w4\s[1208] And %(nowmonth('last')) is a distant memory...\w8\w8\s[1107] At least for me.\e"
+	"\s[1110]Can you believe %(nowmonth) is already halfway over?\w8\w8\s[1107] There's still so much I want to do...\e"
+	"\s[1111]Have you done anything fun so far in %(nowmonth)?\w8\w8\s[1113] I'm uh,\w4 working on it.\e"
+}
+
+Pool_Awake_endmonth : array //day > 26 (end of the month)
+{
+	"\s[1112]%(nowmonth('next')) is coming up fast...\w8\w8\s[1104] Who knows what'll happen then?\w8\w8\s[1112] Hehe.\e"
+	"\s[1110]%(nowmonth)'s almost over.\w8\w8\s[1208] I didn't get everything I wanted done,\w4 but that's ok.\w8\w8\s[1104] I had fun.\e"
+	"\s[1104]%(nowmonth('next')) is almost here!\w8\w8\s[1208] That does mean saying goodbye to %(nowmonth),\w4 but only until next year...\e"
+}
+
+
+//---Months--- (Northern hemisphere/Southern hemisphere)
+Pool_Awake_month_Jan : array //month == 1
+{
+	if day == 1; "\s[1104]New years is so fun!\w8\w8\s[1208] I wonder how different things will be a year from now,\w4 when it's %(year + 1).\w8\w8\s[1113] That's weird to think about.\e"
+	if day == 7; "\s[1104]You should persevere today.\w8\w8\s[1112] Dunno why today,\w4 it just feels right.\e"
+	"\s[1208]We've had so much snow lately.\w8\w8\s[1104] anCambria says she's gonna build a big snow fort for us to hang out in.\e"
+	"\s[1112]I wonder what I'll get for my birthday this year...\w8\w8\s[1104] It's next month!\e"
+	
+	parallel Pool("Pool_Awake_month_Jan_Early","%(day < 15)")
+}
+
+Pool_Awake_month_Jan_Early : array //day < 15
+{
+	"\s[1104]Wow,\w4 can you believe it's %(year) already?\w8\w8\s[1208] %(year - 1) is finally over,\w4 it'll just be a memory soon...\e"
+	"\s[1104]I hope %(year) is fun.\w8\w8\s[1112] I've already had some new ideas for dreams...\e"
+	"\s[1000]Are you excited for %(year)?\w8\w8\s[1104] I am.\e"
+}
+
+Pool_Awake_month_Feb : array //month == 2
+{
+	//Abbi
+	if day == 19; "\s[1104]Today's anAbbi's birthday!\w8\w8\s[1112] Just a few more days until it's mine...\e"
+	if day == 19; "\s[1000]anAbbi's birthday is today,\w4\s[1104] I hope he likes what I got him.\e"
+	
+	if day == 26 //Lulo and Elko
+	{
+		if !CambriaPresent; "\s[1104]Today's my birthday!\w8\w8\s[1112] And anElko's,\w4 too.\w8\w8\s[1104] That makes it extra special!\e"
+	}
+	"\s[1112]Things should start to warm up soon,\w4 spring is coming...\e"
+	
+	parallel Pool("Pool_Awake_month_Feb_Early","%(day < 15)")
+}
+
+Pool_Awake_month_Feb_Early : array //day < 15
+{
+	"\s[1110]There's been less and less snow lately.\w8\w8\s[1104] I guess that means spring is coming soon~\e"
+	"\s[1205]The snow's starting to melt at home...\w8\w8\s[1107] I hope this is the last of it,\w4 I'm ready for spring to start.\e"
+}
+
+Pool_Awake_month_Mar : array //month == 3 (Spring start/Autumn start)
+{
+	if day == 10 //Cambria
+	{
+		if !CambriaPresent; "\s[1104]It's anCambria's birthday today!\w8\w8\s[1206] She doesn't seem to have much fun on her birthday anymore,\w4 though..." //Might need to change.... or change S's daily dialogues
+	}
+	if day == 23; "\s[1000]anTriton's birthday is today.\w8\w8\s[1107] Not that he's gonna do anything fun for it...\w8\w8\s[1113] He'll probably just take care of his plants all day.\w8\w8 Again.\e"
+	"\s[1104]Spring's finally here!\w8\w8\s[1208] I'm so excited to see the flowers coming up again.\w8\w8\n\n\s[1107]Well,\w4 not so excited for the pollen,\w4 but y'know...\e"
+	"\s[1102]It's almost warm enough to sit out on the porch and daydream.\w8\w8\s[1113] And sometimes \f[italic,1]dream\f[italic,0] dream,\w4 too.\e"
+	
+	if day > 15; "\s[1102]The air has smelled warmer at home lately.\w8\w8\s[1208] Bugs are starting to come back out,\w4 too.\w8\w8\s[1104] My anUncle's bees will be back to work soon.\e"
+}
+
+Pool_Awake_month_Apr : array //month == 4
+{
+	if day == 27; "\s[1104]Today's anRosie's birthday.\w8\w8\s[1112] I wonder if she's getting anything cool this year...\e"
+	"\s[1102]It's been a lot warmer out the past few days.\w8\w8\s[1208] and rainy,\w4 but I don't mind.\e"
+	"\s[1104]I wonder if it's raining back home.\w8\w8\s[1208] I like to listen to it coming down while I draw.\e"
+	"\s[1102]The snow is finally done for the year.\w8\w8\s[1113] I'm not complaining,\w4 three months of snow a year is plenty for me.\e"
+}
+
+Pool_Awake_month_May : array //month == 5
+{
+	if day == 16; "\s[1000]Today's anSigil's birthday.\w8\w8\s[1107] She's probably having a great time making a mess of the cake again...\e"
+	"\s[1111]School's almost done for the year.\w8\w8\s[1104] I can't wait to have all day to myself.\w8\w8\s[1113] Though I'm not looking forward to the heat...\e"
+	"\s[1109]It's been getting really warm lately,\w4 I'm not ready for the heat of summer...\e"
+	"\s[1206]Spring is almost over already...\w8\w8\s[1109] It's always so short,\w4 but summer seems to go on forever...\e"
+}
+
+Pool_Awake_month_Jun : array //month == 6 (Summer start/Winter start)
+{
+	if day == 30; "\s[1104]My anGrandma's birthday is today!\w8\w8\s[1112] I wonder if she and anGrandpa are going anywhere fun.\e"
+	"\s[1107]It's been so warm out lately,\w4 now that summer's here...\w8\w8\s[1206] I know once summer is over we'll have to go to school again,\w4 but I still want it to be over soon...\e"
+	"\s[1109]I've been sleeping a lot lately.\w8\w8\s[1206] It's all this heat...\w8\w8\s[1204] And we're just at the start of summer.\e"
+}
+
+Pool_Awake_month_Jul : array //month == 7
+{
+	if day == 14; "\s[1104]It's anAzo's birthday today!\w8\w8\s[1112] Now he's back ahead of anSigil again.\e" //Azo
+	if day == 4; "\s[1110]There are so many fireworks today.\w8\w8\s[1104] It's really cool,\w4\s[1113] though a bit startling at first...\e"
+	"\s[1109]Summer's really here now,\w4 it's been really hot out...\w8\w8\s[1206] Some of the other kids at school said I should try swimming,\w4 but I dunno...\w8\w8\s[1110] My anDad didn't seem to like the idea.\w8\w8\s[1113]\n\nI'm not sure skeletons would be that good at it anyways...\e"
+	"\s[1113]I guess one good thing about being a skeleton is that we really don't need to worry about mosquitoes.\w8\w8\s[1110] I've heard the other kids at school talk about mosquito bites,\w4 and they sound horrible.\e"
+}
+
+Pool_Awake_month_Aug : array //month == 8
+{
+	if day == 18 && Flag("thesplit"); "\s[1206]Today's the day everyone disappeared...\w8\w8\n\n.\w8.\w8.\w8\w8\w8\s[1108]Um,\w4 I should probably be at home with my family...\e" //Mhhh... might need tinkered with
+	if day == 25 //S
 	{
 		if !SPresent
 		{
-			/*"\0\s[113]...they must be wondering where I am by now...\w8\w8\s[206] "
+			"\s[1000]My anDad's birthday is today!\w8\w8 "
 			--
 			if SInstalled
 			{
-				"anDad will figure it out...\e"
+				"\s[1104]You should bring him here and say happy birthday!\e"
 			}
 			else
 			{
-				"anDad will be worried...\e"
-			}*/
-		}
-		{
-			"\s[1110]Wow,\w4 I can't believe I've been here %(passhour) hours already.\w8\w8 "
-			--
-			"\s[1206]I wonder what they're doing at home...\e"
-			"\s[1106]Time flies when you're having fun,\w4 I guess?\e"
-			"\s[1106]How long were you planning on hanging out?\e"
-			"\s[1104]I'm glad you like my company,\w4 I guess.\e"
-			"\s[1113]You must like having me around?\e"
-			"\s[1102]I don't mind,\w4 though.\w8\w8 It's nice to hang out here.\e"
-		}
-	}
-	
-	if SeePC == "On"
-	{
-		"\![raise,OnSaoriRand]"
-	}
-	
-	if Family[0] == 1 //WD
-	{
-		
-	}
-	if Family[1] == 1 //Dings
-	{
-		
-	}
-	if Family[2] == 1 //Wings
-	{
-		
-	}
-	if Family[3] == 1 //Barcode
-	{
-		
-	}
-	if Family[4] == 1 //S
-	{
-		
-	}
-	if Family[5] == 1 //Blue Jeans
-	{
-		
-	}
-	if Family[6] == 1 //Abbi
-	{
-		
-	}
-	if Family[7] == 1 //Rosie
-	{
-		
-	}
-	if Family[8] == 1 //Roman
-	{
-		
-	}
-	if Family[9] == 1 //Cambria
-	{
-		
-	}
-	if Family[10] == 1 //Triton
-	{
-		
-	}
-	/*if Family[11] == 1 //Lulo
-	{
-		
-	}*/
-	if Family[12] == 1 //Azo
-	{
-		
-	}
-	if Family[13] == 1 //Sigil
-	{
-		
-	}
-	if Family[14] == 1 //Elko
-	{
-		
-	}
-	
-	//User Environment Ifs
-	//---Timeslots---
-	if timeslot == "earlymorning" //5am - 8am
-	{
-		if passhour > 3 //Probably been up all night
-		{
-			"\s[1106]Shouldn't you be asleep,\w4 %(userprop)..?\w8\w8\s[1107] I should be asleep,\w4 too...\e"
-			"\s[1106]Um,\w4 %(userprop)?\w8\w8 ...Have you been up all night?\e"
-			"\s[1206]It's so late,\w4 are you not planning to sleep..?\e"
-			"\s[1108]Aren't you tired,\w4 %(userprop)..?\w8\w8\s[1107] It's really late...\e"
-		}
-		else //Just got up
-		{
-			"\s[1111]Are you a morning person,\w4 %(userprop)?\w8\w8\s[1104] My anDad is too.\e"
-			"\s[1000]Is the sun up for you yet?\w8\w8\s[1104] I like watching the sun rise if I'm awake this early.\e"
-			"\s[1112]The day's only just begun,\w4 there's so much I could get done...\w8\w8\s[1106] Though I'll probably be sleepy again in an hour or two.\e"
-			if !SPresent
-			{
-				"\s[1000]Sometimes my anDad and I wake up around the same time,\w4 before the sun has come up.\w8\w8\s[1102] He usually grabs us both a juice box,\w4 and we sit on the porch for a while to listen to the birds waking up.\e"
+				"\s[1206]He always seems a little uneasy about it,\w4 though...\e"
 			}
 		}
 	}
-	if timeslot == "morning" //9am - 11am
+	"\s[1107]Summer's almost over,\w4 finally.\w8\w8\s[1206] School will be starting again soon,\w4 though...\w8\w8\s[1106] But at least the heat will be done.\e"
+	"\s[1208]Fall's coming up pretty quick.\w8\w8\s[1104] Can't wait for harvest festivals,\w4 they're always a blast.\e"
+}
+
+Pool_Awake_month_Sep : array //month == 9 (Autumn start/Spring start)
+{
+	if day == 7 //Blue Jeans
 	{
-		if !(wd == 0 || wd == 6) && season != "Summer" //If it's not a weekend or summer
-		{
-			"\s[1106]...I should probably be at school right now.\w8\w8\s[1112] I can't get in trouble if I'm stuck here though,\w4 right..?\e"
-		}
-		"\s[1205]I like listening to the birds sing in the morning...\w8\w8\s[1110] Do you have birds where you are?\e"
-		"\s[1104]It's nice to be awake so early.\w8\w8\s[1106] I end up sleeping in late a lot...\e"
-		"\s[1205]It's usually pretty busy at home right now,\w4 with everyone rushing to get ready for school and work and stuff...\w8\w8\s[1104] It's nice spending the morning here instead.\e"
+		if !SPresent;"\s[1000]My anStepdad's birthday is today.\w8\w8\s[1208] My anDad always has something special planned for them.\e"
 	}
-	if timeslot == "lunch" //12pm - 2pm
+	"\s[1104]Fall is finally here.\w8\w8\s[1113] Hopefully it lasts this year and we don't go straight into winter.\w8\w8\s[1107] That happens sometimes.\e"
+	"\s[1208]The leaves are already starting to change color a little.\w8\w8\s[1104] There'll be leaf piles to play in soon.\e"
+	"\s[1102]It's nice to be able to sit outside without overheating again.\e"
+}
+
+Pool_Awake_month_Oct : array //month == 10
+{
+	if day == 12 //WD, Dings, Wings
 	{
-		if SPresent
+		"\s[1104]It's my anGrandpa's birthday!\w8\w8\s[1112] And my anAunt and anUncle's birthdays,\w4 too.\w8\w8\s[1104] It's a pretty busy day.\e"
+	}
+	"\s[1104]Everything's so colorful this time of year.\w8\w8\s[1208] We have a lot of trees,\w4 and they're really pretty right now...\e"
+	"\s[1104]Hehe,\w4 I feel like I could go jump in all the leaf piles at home right now.\e"
+	"\s[1208]It's starting to get chilly out again.\w8\w8\s[1104] It's perfect for wearing hoodies and jackets.\e"
+}
+
+Pool_Awake_month_Nov : array //month == 11
+{
+	"\s[1106]Fall's already coming to an end...\w8\w8\s[1205] That's alright I guess,\w4 it's been a long while since we had snow.\e"
+	"\s[1112]We've been getting frost on the grass at night,\w4 lately.\w8\w8\s[1107] No more fresh vegetables from anDad's garden until next year...\e"
+	if day > 15
+	{
+		"\s[1107]It's been too cold out for light jackets lately.\w8\w8\s[1208] Winter's rolling in...\e"
+	}
+}
+
+Pool_Awake_month_Dec : array //month == 12 (Winter start/Summer start)
+{
+	if day == 13 //Roman
+	{
+		"\s[1104]Toady's anRoman's birthday!\w8\w8\s[1112] I wonder if he'll be old enough to come here with me,\w4 one day...\e"
+	}
+	"\s[1208]I forgot how pretty snow can be.\w8\w8\s[1104] It's so magical when you walk by clean snow and it sparkles.\w8\w8\s[1110] Sometimes I wonder if someone's putting glitter in the snow.\e"
+	"\s[1104]We've been getting a lot of snow lately.\w8\w8\s[1112] It kinda muffles all the usual sounds of the world.\e"
+	if day < 25
+	{
 		{
-			//"\s[1112]Hey anDad,\w4 are you hungry?\e" //TODO: commu with S here
+			"\s[1104]Gyftmas is coming soon!\w8\w8\s[1104] I'm really excited,\w4 I got %(myfamily) something"
+			--
+			" cute.\e"
+			" cool.\e"
+			" fun.\e"
+			" weird.\e"
+			" neat.\e"
 		}
-		elseif SInstalled
+	}
+}
+
+
+//---Seasons---
+Pool_Awake_season_Spring : array //season == 'Spring'
+{
+	"\s[1102]Everything feels so alive this time of year...\e"
+	"\s[1208]Everything seems so much more bright in spring.\w8\w8\s[1106] I guess because the days are getting longer,\w4 huh?\e"
+	"\s[1208]I hope we go out and have a picnic soon,\w4 it's nice to eat outside sometimes in the fresh air.\e"
+	"\s[1104]It's nice to be able to sleep with a fan in the window again.\w8\w8\s[1208] It can get so stuffy in winter...\e"
+}
+
+Pool_Awake_season_Summer : array //season == 'Summer'
+{
+	"\s[1104]It's great to be out of school,\w4 I have so much more time to myself.\w8\w8\s[1208] It's nice to sit somewhere quiet and just write down ideas...\e"
+	"\s[1109]It's been so hot at home,\w4 like it always is in summer.\w8\w8\s[1206] It's not so bad here,\w4 at least...\e"
+	if hour > 17;"\s[1208]Summer nights aren't so bad.\w8\w8\s[1102] Once it cools off a little,\w4 it's nice to be able to go outside at night with short sleeves.\e"
+	if !SPresent; "\s[1107]At least we have air conditioning at home...\w8\w8\s[1206] anDad tries not to use it unless we really need it,\w4 though.\e"
+}
+
+Pool_Awake_season_Autumn : array //season == 'Autumn'
+{
+	"\s[1102]Everything seems so much more cozy in fall.\w8\w8\s[1208] Everyone's bundled up in jackets,\w4 warm drinks are popular,\w4 there are piles of leaves to swish through...\e"
+	"\s[1104]I like the in-between seasons a lot.\w8\w8\s[1208] The tempurature is just right,\w4\s[1106] unlike in summer and winter,\w4 where it gets super hot or super cold...\e"
+	if !SPresent; "\s[1111]My anDad makes so many tasty foods in fall,\w4 the house smells good all the time.\w8\w8\s[1112] There's pies and pudding and cookies and cider...\w8\w8\s[1104] Fresh apple cider is the best.\e"
+}
+
+Pool_Awake_season_Winter : array //season == 'Winter'
+{
+	"\s[1112]Everyone looks so silly,\w4 bundled up in big puffy coats for winter.\w8\w8\s[1107] But you gotta do something to stay warm,\w4 I guess.\e"
+	"\s[1205]We always make big snow forts if we get good enough snow.\w8\w8\s[1104] Even if I don't have the energy to help build,\w4 I still get to sit in the forts and decide if they're up to code.\w8\w8\s[1110] What code?\w8\w8\s[1112] The special secret snow fort code.\e"
+	"\s[1107]It's hard to stay outside for long when it's been so cold.\w8\w8\s[1112] Hot chocolate helps with that.\e"
+	{
+		"\s[1104]I kinda wish there was some snow here so I could have a snowball fight while I'm awake.\w8\w8 "
+		--
+		if ghostexcount < 1
 		{
-			"\s[1113]Mm,\w4 I wonder if anDad left any snacks around here...\e"
+			"\s[1113]I guess there's nobody here to fight,\w4 though...\e"
+		}
+		elseif "RYS-0825" _in_ ghostexlist
+		{
+			"\s[1113]Probably wouldn't win against my anDad,\w4 though...\e"
 		}
 		else
 		{
-			"\s[1206]Hmm,\w4 I didn't bring any snacks with me,\w4 did I...\e"
-		}
-		"\s[1112]There's not usually much going on at home right now,\w4 almost everyone is out working,\w4 or at school...\w8\w8\s[1107] Sometimes I can't go to school though,\w4 so I just end up napping at home.\e"
-		"\s[1104]Halfway through the day.\w8\w8\s[1107] I haven't really gotten anything done,\w4 though...\e"
-	}
-	if timeslot == "afternoon" //3pm - 5pm
-	{
-		"\s[1104]This is the best time of the day for naps.\w8\w8\s[1112] If you're lucky,\w4 you can sleep all the way up to dinner time and wake up to tasty food.\e"
-		"\s[1205]Getting towards the end of the daylight...\w8\w8\s[1104] Still a couple hours left,\w4 though.\w8\w8\s[1106] I end up cramming stuff into the last few hours of the day a lot,\w4 it really depends on when I'm feeling the most awake...\e"
-		if !SPresent
-		{
-			"\s[1112]anDad's probably started dinner prep...\w8\w8\s[1113] I help sometimes if I'm feeling up to it,\w4 but I guess I won't be tonight...\e"
-		}
-		if !(wd == 0 || wd == 6) && season != "Summer"
-		{
-			"\s[1205]School's gonna be letting out soon...\w8\w8\s[1104] Guess I don't have to worry about that today,\w4 though.\e"
+			"\s[1112]Maybe I could fight %(ANY(ghostexlist))...\e"
 		}
 	}
-	if timeslot == "evening" //6pm - 8pm
+}
+
+Pool_Awake_weather_clear : array //weather_clear
+{
+	parallel Pool("Pool_Awake_weather_clear_daytime","%(daytime)")
+	parallel Pool("Pool_Awake_weather_clear_nighttime","%(!daytime)")
+}
+
+Pool_Awake_weather_clear_daytime : array //daytime
+{
+	if temp == "Hot" || temp == "Boiling"
 	{
-		"\s[1205]I love twilight.\w8\w8\s[1102] It's like the world is falling asleep,\w4 but not there quite yet...\e"
-		"\s[1205]The day's just about over...\w8\w8\s[1107] I'm not ready for it to be over,\w4 I still have so much energy.\e"
-		"\s[1113]It'll be bedtime pretty soon,\w4 but I'm not tired at all yet...\e"
-		"\s[1107]I hope I'm feeling more sleepy when bedtime gets here...\e"
+		"\s[1107]Would be nice if there were some clouds to keep the sun away...\e"
+		"\s[1107]It's so warm out,\w4 can't wait till the sun goes down...\e"
 	}
-	if timeslot == "latenight" //9pm - 12am
 	{
-		"\s[1106]I'm not usually awake this late...\w8\w8\s[1107] I'm sure this'll wear off soon.\e"
-		"\s[1206]It's starting to get late...\w8\w8\s[1109] I'm not tired yet,\w4 though...\e"
-		"\s[1206]It's usually time to head to bed right now...\w8\w8\s[1108] I'm not tired yet,\w4 though...\w8\w8\s[1106] I guess you're not either..?\e"
-	}
-	if timeslot == "midnight" //1am - 4am
-	{
-		"\s[1106]Um,\w4 it's late,\w4 isn't it %(userprop)?\w8\w8\s[1107] Shouldn't you be sleeping?\w8\w8\s[1206] I should,\w4 but I'm not feeling sleepy for once...\e"
-		"\s[1206]Mmm...\w8\w8 At this rate,\w4 I'm gonna end up sleeping in all day tomorrow...\e"
-		"\s[1206]\i[10]* (She sighs,\w4 sounding a little worried.)\e"
-		"\s[1206]I hope they're not worried about me at home...\e"
-if lastinteracted >= 6;"\s[1110]Are you still awake out there?\w8\w8\s[1206] It's pretty late,\w4 maybe %(heshe) left...\e"
-	}
-	
-	//---Days of the week---
-	if wd == "Sun"
-	{
-		if !(month == 6 || month == 7 || month == 8) //If it's not a summer month
+		"\s[1104]It's so nice to see the sun.\w8\w8 "
+		--
+		if temp == "Hot" || temp == "Boiling"
 		{
-			"\s[1107]Back to school tomorrow...\w8\w8\s[1112] If I'm not here,\w4 anyways.\e"
-			"\s[1106]I'm not ready to go back to school tomorrow...\w8\w8\s[1107] Why can't weekends last longer?\e"
+			"\s[1107]Though it'd be nicer if it weren't so hot out...\e"
 		}
 		else
 		{
-			"\s[1112]Heh,\w4 don't have to worry about going back to school tomorrow,\w4\s[1000] there won't be any more school until September.\e"
+			"\s[1112]Especially on a day like today,\w4 where it isn't so hot.\e"
 		}
-		"\s[1106]Monday's tomorrow.\w8\w8\s[1104] Better have fun while it's still the weekend.\e"
 	}
-	if wd == "Mon"
+}
+
+Pool_Awake_weather_clear_nighttime : array //!daytime
+{
+	"\s[1111]Can you see the stars out there?\w8\w8\s[1104] I love the stars,\w4 they're so pretty and mysterious.\e"
+	"\s[1208]I love clear nights,\w4 the world seems so much bigger when you can see all the stars...\e"
+}
+
+Pool_Awake_weather_cloudy : array //weather_cloudy
+{
+	"\s[1104]In my dreams I like to make it possible to stand and walk on clouds.\w8\w8\s[1106] I know it's not really realistic,\w8\s[1102] but it's fun.\e"
+	"\s[1111]What kinda things do you see in clouds?\w8\w8\s[1112] They're actually pretty good inspiration for new ideas...\e"
+	"\s[1110]I wanna see what clouds look like from above sometime.\w8\w8\s[1111] It's gotta be cool,\w4 right?\e"
+}
+
+Pool_Awake_weather_mightrain : array //weather_mightrain
+{
+	"\s[1110]Is it raining there?\w8\w8\s[1102] I like the rain,\w4 it's really calming.\e"
+	"\s[1111]Rain's coming,\w4 I think.\w8\w8\s[1208] I can feel it.\e"
+}
+
+Pool_Awake_weather_raining : array //weather_raining
+{
+	"\s[1102]Mmm...\w8\w8 Nothing like a good rain to relax to...\e"
+	"\s[1102]I can hear the rain coming down...\w8\w8 Even from here,\w4 it's really soothing...\e"
+	"\s[1107]I'm gonna end up falling asleep if this rain keeps up.\e"
+}
+
+Pool_Awake_weather_snowing : array //weather_snowing
+{
+	"\s[1208]I love watching snow come down.\w8\w8\s[1102] The flakes are so small and fragile,\w4 but when enough of them build up they can cover everything...\e"
+	"\s[1205]There's something magical about how quiet it is when it snows...\e"
 	{
-		"\s[1205]It's the start of a new week.\w8\w8\s[1104] It's kinda exciting,\w4\s[1106] even if it is Monday.\e"
-		"\s[1111]Are you planning anything fun this week?\w8\w8\s[1104] I had some new dream ideas over the weekend that I'm gonna work on.\e"
-	}
-	if wd == "Tue"
-	{
-		"\s[1107]Not much happens on Tuesday,\w4 just waiting for Wednesday to get here...\e"
-		"\s[1112]I wonder if I can get anDad to make tacos today...\e"
-	}
-	if wd == "Wed"
-	{
-		"\s[1104]Halfway through the week!\w8\w8\s[1208] Really goes by quickly sometimes...\e"
-		"\s[1107]Can't wait for the weekend to be here,\w4 all the other days are too long.\e"
-	}
-	if wd == "Thu"
-	{
-		"\s[1104]It's leftover night tonight.\w8\w8\s[1112] I wonder if anyone'll notice if I grab dessert first...\e"
-		"\s[1104]Tomorrow's Friday,\w4 one of the best days of the week.\w8\w8\s[1000] I can't wait,\w4\s[1112] I've got some stuff I wanna do with the extra time...\e"
-	}
-	if wd == "Fri"
-	{
-if hour > 10 && hour < 18; "\s[1104]I bet anCambria and anElko have already headed out for the day.\w8\w8\s[1107] I wanna go,\w4 but I don't think anCambria wants anyone else tagging along...\e"
-		"\s[1000]Are you gonna get up to anything fun tomorrow?\w8\w8\s[1107] I've got a whole bunch of notes to put together in my notebook.\w8\w8\s[1104] But it should be fun!\e"
-	}
-	if wd == "Sat"
-	{
-		"\s[1104]It's the weekend again~\e"
-		"\s[1112]Are you doing anything fun?\w8\w8\s[1000] I've been writing a lot in my notebook today,\w4 putting together characters and worlds and stuff.\w8\w8\s[1104] I can't wait until I dream again.\e"
-	}
-	
-	//---Days in the month---
-	if day < 5 //4th and before, start of the month
-	{
-		"\s[1208]It's hard to believe %(nowmonth('last')) is over.\w8\w8\s[1110] It feels like it just started yesterday.\w8\w8\s[1104] Hopefully %(nowmonth) will be fun.\e"
-		"\s[1106]%(nowmonth('last')) went by fast,\w4 huh?\w8\w8\s[1107] Wonder if %(nowmonth)'ll feel that short when %(nowmonth('next')) comes around...\e" //Yes I absolutely wrote this to have fun with my additions to the nowmonth function
+		"\s[1208]I wonder if it's snowing at home,\w4 too..."
+		--
+		if month == 11 || month == 12 || month == 1 || month == 2 || month == 3
 		{
-			"\s[1206]%(nowmonth('last')) is over already...\w8\w8\s[1110] Before you know it,\w4 it'll be %(nowmonth('next')).\w8\w8 "
-			--
-			_next = month + 1; if _next == 13; _next = 1
-			switch _next
-			{
-				"\s[1107]Scary." //0 - Should be blank
-				"\s[1104]It'll be %(year + 1) then!" //1 - January
-				"\s[1104]That's when my birthday is!\w8\w8\s[1112] anAbbi and anElko's birthdays,\w4 too." //2 - Febuary
-				"\s[1102]anCambria's birthday is coming up pretty quick...\w8\w8\s[1000] anTriton's,\w4 too." //3 - March
-				"\s[1112]anRosie will be excited,\w4 her birthday is in April." //4 - April
-				"\s[1102]anSigil's birthday is in May.\w8\w8\s[1112] She was really excited for the last one." //5 - May
-				"\s[1111]That's when my anGrandma's birthday is!" //6 - June
-				"\s[1104]anAzo's birthday is in July,\w4 that'll be fun." //7 - July
-				{
-					"\s[1104]My anDad's birthday is in August,\w4 it's on the 25th." //8 - August
-					--
-					if SInstalled && !SPresent
-					{
-						"\w8\w8\s[1111] You should bring him here to say happy birthday,\w4 it can be a surprise!"
-					}
-				}
-				"\s[1000]My anStepdad's birthday is in September." //9 - September
-				"\s[1111]My anGrandpa,\w4 great anAunt,\w4 and great anUncle all have their birthday on the same day in October.\w8\w8\s[1104] That's so cool,\w4 isn't it?" //10 - October
-				"\s[1104]anAzo's birthday is in November,\w4 that'll be fun." //11 - November
-				"\s[1102]anRoman's birthday is finally coming up,\w4\s[1000] he's the last one in the year.\w8\w8\n\n\s[1104]Gyftmas is coming up,\w4 too." //12 - December
-			}
-			--
 			"\e"
 		}
-	}
-	if day > 13 && day < 17 //14th-16th, halfway through
-	{
-		"\s[1107]Halfway through the month already...\w8\w8\s[1106] %(nowmonth('next')) is coming up quick,\w4\s[1208] And %(nowmonth('last')) is a distant memory...\w8\w8\s[1107] At least for me.\e"
-		"\s[1110]Can you believe %(nowmonth) is already halfway over?\w8\w8\s[1107] There's still so much I want to do...\e"
-		"\s[1111]Have you done anything fun so far in %(nowmonth)?\w8\w8\s[1113] I'm uh,\w4 working on it.\e"
-	}
-	if day > 26 //27th and after, end of the month
-	{
-		"\s[1112]%(nowmonth('next')) is coming up fast...\w8\w8\s[1104] Who knows what'll happen then?\w8\w8\s[1112] Hehe.\e"
-		"\s[1110]%(nowmonth)'s almost over.\w8\w8\s[1208] I didn't get everything I wanted done,\w4 but that's ok.\w8\w8\s[1104] I had fun.\e"
-		"\s[1104]%(nowmonth('next')) is almost here!\w8\w8\s[1208] That does mean saying goodbye to %(nowmonth),\w4 but only until next year...\e"
-	}
-	
-	//---Months---
-	if month == 1
-	{
-		if day == 1
-		{
-			"\s[1104]New years is so fun!\w8\w8\s[1208] I wonder how different things will be a year from now,\w4 when it's %(year + 1).\w8\w8\s[1113] That's weird to think about.\e"
-		}
-		if day == 7
-		{
-			"\s[1104]You should persevere today.\w8\w8\s[1112] Dunno why today,\w4 it just feels right.\e"
-		}
-		if day < 15
-		{
-			"\s[1104]Wow,\w4 can you believe it's %(year) already?\w8\w8\s[1208] %(year - 1) is finally over,\w4 it'll just be a memory soon...\e"
-			"\s[1104]I hope %(year) is fun.\w8\w8\s[1112] I've already had some new ideas for dreams...\e"
-			"\s[1000]Are you excited for %(year)?\w8\w8\s[1104] I am.\e"
-		}
-		"\s[1208]We've had so much snow lately.\w8\w8\s[1104] anCambria says she's gonna build a big snow fort for us to hang out in.\e"
-		"\s[1112]I wonder what I'll get for my birthday this year...\w8\w8\s[1104] It's next month!\e"
-	}
-	if month == 2
-	{
-		if day == 19 //Abbi
-		{
-			"\s[1104]Today's anAbbi's birthday!\w8\w8\s[1112] Just a few more days until it's mine...\e"
-			"\s[1000]anAbbi's birthday is today,\w4\s[1104] I hope he likes what I got him.\e"
-		}
-		if day == 26 //Lulo and Elko
-		{
-			if !CambriaPresent; "\s[1104]Today's my birthday!\w8\w8\s[1112] And anElko's,\w4 too.\w8\w8\s[1104] That makes it extra special!\e"
-		}
-		if day > 15
-		{
-			"\s[1110]There's been less and less snow lately.\w8\w8\s[1104] I guess that means spring is coming soon~\e"
-			"\s[1205]The snow's starting to melt at home...\w8\w8\s[1107] I hope this is the last of it,\w4 I'm ready for spring to start.\e"
-		}
-		"\s[1112]Things should start to warm up soon,\w4 spring is coming...\e"
-	}
-	if month == 3 //Spring start Northern, Autumn start Southern
-	{
-		if day == 10 //Cambria
-		{
-			if !CambriaPresent; "\s[1104]It's anCambria's birthday today!\w8\w8\s[1206] She doesn't seem to have much fun on her birthday anymore,\w4 though..."
-		}
-		if day == 23 //Triton
-		{
-			"\s[1000]anTriton's birthday is today.\w8\w8\s[1107] Not that he's gonna do anything fun for it...\w8\w8\s[1113] He'll probably just take care of his plants all day.\w8\w8 Again.\e"
-		}
-		"\s[1104]Spring's finally here!\w8\w8\s[1208] I'm so excited to see the flowers coming up again.\w8\w8\n\n\s[1107]Well,\w4 not so excited for the pollen,\w4 but y'know...\e"
-		"\s[1102]It's almost warm enough to sit out on the porch and daydream.\w8\w8\s[1113] And sometimes \f[italic,1]dream\f[italic,0] dream,\w4 too.\e"
-		if day > 15
-		{
-			"\s[1102]The air has smelled warmer at home lately.\w8\w8\s[1208] Bugs are starting to come back out,\w4 too.\w8\w8\s[1104] My anUncle's bees will be back to work soon.\e"
-		}
-	}
-	if month == 4
-	{
-		if day == 27 //Rosie
-		{
-			"\s[1104]Today's anRosie's birthday.\w8\w8\s[1112] I wonder if she's getting anything cool this year...\e"
-		}
-		"\s[1102]It's been a lot warmer out the past few days.\w8\w8\s[1208] and rainy,\w4 but I don't mind.\e"
-		"\s[1104]I wonder if it's raining back home.\w8\w8\s[1208] I like to listen to it coming down while I draw.\e"
-		"\s[1102]The snow is finally done for the year.\w8\w8\s[1113] I'm not complaining,\w4 three months of snow a year is plenty for me.\e"
-	}
-	if month == 5
-	{
-		if day == 16 //Sigil
-		{
-			"\s[1000]Today's anSigil's birthday.\w8\w8\s[1107] She's probably having a great time making a mess of the cake again...\e"
-		}
-		"\s[1111]School's almost done for the year.\w8\w8\s[1104] I can't wait to have all day to myself.\w8\w8\s[1113] Though I'm not looking forward to the heat...\e"
-		"\s[1109]It's been getting really warm lately,\w4 I'm not ready for the heat of summer...\e"
-		"\s[1206]Spring is almost over already...\w8\w8\s[1109] It's always so short,\w4 but summer seems to go on forever...\e"
-	}
-	if month == 6 //Summer start Northern, Winter start Southern
-	{
-		if day == 30 //Barcode
-		{
-			"\s[1104]My anGrandma's birthday is today!\w8\w8\s[1112] I wonder if she and anGrandpa are going anywhere fun.\e"
-		}
-		"\s[1107]It's been so warm out lately,\w4 now that summer's here...\w8\w8\s[1206] I know once summer is over we'll have to go to school again,\w4 but I still want it to be over soon...\e"
-		"\s[1109]I've been sleeping a lot lately.\w8\w8\s[1206] It's all this heat...\w8\w8\s[1204] And we're just at the start of summer.\e"
-		"\s[]"
-	}
-	if month == 7
-	{
-		if day == 14 //Azo
-		{
-			"\s[1104]It's anAzo's birthday today!\w8\w8\s[1112] Now he's back ahead of anSigil again.\e"
-		}
-		if day == 4
-		{
-			"\s[1110]There are so many fireworks today.\w8\w8\s[1104] It's really cool,\w4\s[1113] though a bit startling at first...\e"
-		}
-		"\s[1109]Summer's really here now,\w4 it's been really hot out...\w8\w8\s[1206] Some of the other kids at school said I should try swimming,\w4 but I dunno...\w8\w8\s[1110] My anDad didn't seem to like the idea.\w8\w8\s[1113]\n\nI'm not sure skeletons would be that good at it anyways...\e"
-		"\s[1113]I guess one good thing about being a skeleton is that we really don't need to worry about mosquitoes.\w8\w8\s[1110] I've heard the other kids at school talk about mosquito bites,\w4 and they sound horrible.\e"
-	}
-	if month == 8
-	{
-		if day == 18 && thesplit == 1
-		{
-			"\s[1206]Today's the day everyone disappeared...\w8\w8\n\n.\w8.\w8.\w8\w8\w8\s[1108]Um,\w4 I should probably be at home with my family...\e"
-		}
-		if day == 25 //S
-		{
-			if !SPresent
-			{
-				"\s[1000]My anDad's birthday is today!\w8\w8 "
-				--
-				if SInstalled
-				{
-					"\s[1104]You should bring him here and say happy birthday!\e"
-				}
-				else
-				{
-					"\s[1206]He always seems a little uneasy about it,\w4 though...\e"
-				}
-			}
-		}
-		"\s[1107]Summer's almost over,\w4 finally.\w8\w8\s[1206] School will be starting again soon,\w4 though...\w8\w8\s[1106] But at least the heat will be done.\e"
-		"\s[1208]Fall's coming up pretty quick.\w8\w8\s[1104] Can't wait for harvest festivals,\w4 they're always a blast.\e"
-	}
-	if month == 9 //Autumn start Northern, Spring start Southern
-	{
-		if day == 7 //Blue Jeans
-		{
-			if !SPresent;"\s[1000]My anStepdad's birthday is today.\w8\w8\s[1208] My anDad always has something special planned for them.\e"
-		}
-		"\s[1104]Fall is finally here.\w8\w8\s[1113] Hopefully it lasts this year and we don't go straight into winter.\w8\w8\s[1107] That happens sometimes.\e"
-		"\s[1208]The leaves are already starting to change color a little.\w8\w8\s[1104] There'll be leaf piles to play in soon.\e"
-		"\s[1102]It's nice to be able to sit outside without overheating again.\e"
-	}
-	if month == 10
-	{
-		if day == 12 //WD, Dings, Wings
-		{
-			"\s[1104]It's my anGrandpa's birthday!\w8\w8\s[1112] And my anAunt and anUncle's birthdays,\w4 too.\w8\w8\s[1104] It's a pretty busy day.\e"
-		}
-		"\s[1104]Everything's so colorful this time of year.\w8\w8\s[1208] We have a lot of trees,\w4 and they're really pretty right now...\e"
-		"\s[1104]Hehe,\w4 I feel like I could go jump in all the leaf piles at home right now.\e"
-		"\s[1208]It's starting to get chilly out again.\w8\w8\s[1104] It's perfect for wearing hoodies and jackets.\e"
-	}
-	if month == 11
-	{
-		"\s[1106]Fall's already coming to an end...\w8\w8\s[1205] That's alright I guess,\w4 it's been a long while since we had snow.\e"
-		"\s[1112]We've been getting frost on the grass at night,\w4 lately.\w8\w8\s[1107] No more fresh vegetables from anDad's garden until next year...\e"
-		if day > 15
-		{
-			"\s[1107]It's been too cold out for light jackets lately.\w8\w8\s[1208] Winter's rolling in...\e"
-		}
-	}
-	if month == 12 //Winter start Northern, Summer start Southern
-	{
-		if day == 13 //Roman
-		{
-			"\s[1104]Toady's anRoman's birthday!\w8\w8\s[1112] I wonder if he'll be old enough to come here with me,\w4 one day...\e"
-		}
-		"\s[1208]I forgot how pretty snow can be.\w8\w8\s[1104] It's so magical when you walk by clean snow and it sparkles.\w8\w8\s[1110] Sometimes I wonder if someone's putting glitter in the snow.\e"
-		"\s[1104]We've been getting a lot of snow lately.\w8\w8\s[1112] It kinda muffles all the usual sounds of the world.\e"
-		if day < 25
-		{
-			{
-				"\s[1104]Gyftmas is coming soon!\w8\w8\s[1104] I'm really excited,\w4 I got %(myfamily) something"
-				--
-				" cute.\e"
-				" cool.\e"
-				" fun.\e"
-				" weird.\e"
-				" neat.\e"
-			}
-		}
-	}
-	
-	//---Seasons---
-	if season == "Spring"
-	{
-		"\s[1102]Everything feels so alive this time of year...\e"
-		"\s[1208]Everything seems so much more bright in spring.\w8\w8\s[1106] I guess because the days are getting longer,\w4 huh?\e"
-		"\s[1208]I hope we go out and have a picnic soon,\w4 it's nice to eat outside sometimes in the fresh air.\e"
-		"\s[1104]It's nice to be able to sleep with a fan in the window again.\w8\w8\s[1208] It can get so stuffy in winter...\e"
-	}
-	if season == "Summer"
-	{
-		"\s[1104]It's great to be out of school,\w4 I have so much more time to myself.\w8\w8\s[1208] It's nice to sit somewhere quiet and just write down ideas...\e"
-		"\s[1109]It's been so hot at home,\w4 like it always is in summer.\w8\w8\s[1206] It's not so bad here,\w4 at least...\e"
-		if hour > 17;"\s[1208]Summer nights aren't so bad.\w8\w8\s[1102] Once it cools off a little,\w4 it's nice to be able to go outside at night with short sleeves.\e"
-		if !SPresent; "\s[1107]At least we have air conditioning at home...\w8\w8\s[1206] anDad tries not to use it unless we really need it,\w4 though.\e"
-	}
-	if season == "Autumn"
-	{
-		"\s[1102]Everything seems so much more cozy in fall.\w8\w8\s[1208] Everyone's bundled up in jackets,\w4 warm drinks are popular,\w4 there are piles of leaves to swish through...\e"
-		"\s[1104]I like the in-between seasons a lot.\w8\w8\s[1208] The tempurature is just right,\w4\s[1106] unlike in summer and winter,\w4 where it gets super hot or super cold...\e"
-		if !SPresent; "\s[1111]My anDad makes so many tasty foods in fall,\w4 the house smells good all the time.\w8\w8\s[1112] There's pies and pudding and cookies and cider...\w8\w8\s[1104] Fresh apple cider is the best.\e"
-	}
-	if season == "Winter"
-	{
-		"\s[1112]Everyone looks so silly,\w4 bundled up in big puffy coats for winter.\w8\w8\s[1107] But you gotta do something to stay warm,\w4 I guess.\e"
-		"\s[1205]We always make big snow forts if we get good enough snow.\w8\w8\s[1104] Even if I don't have the energy to help build,\w4 I still get to sit in the forts and decide if they're up to code.\w8\w8\s[1110] What code?\w8\w8\s[1112] The special secret snow fort code.\e"
-		"\s[1107]It's hard to stay outside for long when it's been so cold.\w8\w8\s[1112] Hot chocolate helps with that.\e"
-		{
-			"\s[1104]I kinda wish there was some snow here so I could have a snowball fight while I'm awake.\w8\w8 "
-			--
-			if ghostexcount < 1
-			{
-				"\s[1113]I guess there's nobody here to fight,\w4 though...\e"
-			}
-			elseif "RYS-0825" _in_ ghostexlist
-			{
-				"\s[1113]Probably wouldn't win against my anDad,\w4 though...\e"
-			}
-			else
-			{
-				"\s[1112]Maybe I could fight %(ANY(ghostexlist))...\e"
-			}
-		}
-	}
-	
-	//---Tempurature and weather related---
-	
-	//---Weather types---
-	/*Types I've gathered are as follows(please let me know if you find more that aren't included here!):
-	Clear
-	Mostly Clear
-	Sunny
-	Mostly Sunny
-	Fair
-	
-	Partly Cloudy
-	Mostly Cloudy
-	Cloudy
-	
-	Showers in the Vicinity
-	Few Showers
-	Showers
-	Rain Shower
-	Light Rain
-	Rain
-	Heavy Rain
-	
-	Rain and Snow
-	Snow Shower
-	Snow
-	Light Snow
-	Wintry Mix
-	
-	Light Rain with Thunder
-	Isolated Thunderstorms
-	Scattered Thunderstorms
-	Thunderstorm
-	Heavy Thunderstorm
-	
-	Fog
-	Haze
-	*/
-	
-	if weather == "Clear" || weather == "Mostly Clear" || weather == "Sunny" || weather == "Mostly Sunny" || weather == "Fair" //Clear/Sunny
-	{
-		if hour >= 8 && hour <= 19 //daytime hours-ish
-		{
-			if temp == "Hot" || temp == "Boiling"
-			{
-				"\s[1107]Would be nice if there were some clouds to keep the sun away...\e"
-				"\s[1107]It's so warm out,\w4 can't wait till the sun goes down...\e"
-			}
-			{
-				"\s[1104]It's so nice to see the sun.\w8\w8 "
-				--
-				if temp == "Hot" || temp == "Boiling"
-				{
-					"\s[1107]Though it'd be nicer if it weren't so hot out...\e"
-				}
-				else
-				{
-					"\s[1112]Especially on a day like today,\w4 where it isn't so hot.\e"
-				}
-			}
-		}
 		else
 		{
-			"\s[1111]Can you see the stars out there?\w8\w8\s[1104] I love the stars,\w4 they're so pretty and mysterious.\e"
-			"\s[1208]I love clear nights,\w4 the world seems so much bigger when you can see all the stars...\e"
+			"\w8\w8\s[1107] Probably not,\w4 given it's %(TOLOWER(season))...\w8\w8\s[1106] Why're you getting snow in %(TOLOWER(season))?\e"
 		}
 	}
-	if weather == "Partly Cloudy" || weather == "Mostly Cloudy" || weather == "Cloudy" //Cloudy
-	{
-		"\s[1104]In my dreams I like to make it possible to stand and walk on clouds.\w8\w8\s[1106] I know it's not really realistic,\w8\s[1102] but it's fun.\e"
-		"\s[1111]What kinda things do you see in clouds?\w8\w8\s[1112] They're actually pretty good inspiration for new ideas...\e"
-		"\s[1110]I wanna see what clouds look like from above sometime.\w8\w8\s[1111] It's gotta be cool,\w4 right?\e"
-	}
-	if weather == "Showers in the Vicinity" || weather == "Few Showers" || weather == "Showers" //Might shower
-	{
-		"\s[1110]Is it raining there?\w8\w8\s[1102] I like the rain,\w4 it's really calming.\e"
-		"\s[1111]Rain's coming,\w4 I think.\w8\w8\s[1208] I can feel it.\e"
-	}
-	if weather == "Rain Shower" || weather == "Light Rain" || weather == "Rain" || weather == "Heavy Rain" //Raining
-	{
-		"\s[1102]Mmm...\w8\w8 Nothing like a good rain to relax to...\e"
-		"\s[1102]I can hear the rain coming down...\w8\w8 Even from here,\w4 it's really soothing...\e"
-		"\s[1107]I'm gonna end up falling asleep if this rain keeps up.\e"
-	}
-	if weather == "Rain and Snow" || weather == "Snow Shower" || weather == "Snow" || weather == "Light Snow" || weather == "Wintry Mix" //Snowing -- This one is probably missing a lot atm, gotta wait til winter to gather data
-	{
-		"\s[1208]I love watching snow come down.\w8\w8\s[1102] The flakes are so small and fragile,\w4 but when enough of them build up they can cover everything...\e"
-		"\s[1205]There's something magical about how quiet it is when it snows...\e"
-		{
-			"\s[1208]I wonder if it's snowing at home,\w4 too..."
-			--
-			if month == 11 || month == 12 || month == 1 || month == 2 || month == 3
-			{
-				"\e"
-			}
-			else
-			{
-				"\w8\w8\s[1107] Probably not,\w4 given it's %(TOLOWER(season))...\w8\w8\s[1106] Why're you getting snow in %(TOLOWER(season))?\e"
-			}
-		}
-	}
-	if weather == "Light Rain with Thunder" || weather == "Isolated Thunderstorms" || weather == "Scattered Thunderstorms" || weather == "Thunderstorm" || weather == "Heavy Thunderstorm"
-	{
-		"\s[1102]Thunder's really cool...\w8\w8\s[1113] And kinda scary.\e"
-		"\s[1107]Um,\w4 is this a laptop?\w8\w8\s[1113] If it's not,\w4 I don't wanna be here if the power cuts out...\e"
-		"\s[1106]Um,\w4 you'd close me if it seemed like the power was gonna go out,\w4 right?\e"
-	}
-	if weather == "Fog" || weather == "Haze" //Limited visibility
-	{
-		_y = ""; if weather == "Fog"; _y = "foggy"; else; _y = "hazy"
+}
+
+Pool_Awake_weather_thunderstorm : array //weather_thunderstorm
+{
+	"\s[1102]Thunder's really cool...\w8\w8\s[1113] And kinda scary.\e"
+	"\s[1107]Um,\w4 is this a laptop?\w8\w8\s[1113] If it's not,\w4 I don't wanna be here if the power cuts out...\e"
+	"\s[1106]Um,\w4 you'd close me if it seemed like the power was gonna go out,\w4 right?\e"
+}
+
+Pool_Awake_weather_foghaze : array //weather_foghaze
+{
+	_y = ""; if weather == "Fog"; _y = "foggy"; else; _y = "hazy"
 		
-		"\s[1110]Whoa,\w4 all that %(TOLOWER(weather)) is so cool...\e"
-		"\s[1110]Wow,\w4 it's so %(_y) out there...\e"
-	}
-	
-	//---Tempurature---
-	if temp == "Below 0" //0F and below, 
+	"\s[1110]Whoa,\w4 all that %(TOLOWER(weather)) is so cool...\e"
+	"\s[1110]Wow,\w4 it's so %(_y) out there...\e"
+}
+
+Pool_Awake_Temp_Below0 : array //temp == "Below 0" - 0F and below, -17C and below
+{
+	"\s[1107]I'm glad it's warm in here,\w4 it looks so cold outside...\e"
+	"\s[1107]Brrr.\w8\w8 I don't wanna go outside with it this cold...\e"
+}
+
+Pool_Awake_Temp_Freezing : array //temp == "Freezing" - 0-20F, -16 to -6C
+{
+	"\s[1107]Sure looks cold out there.\w8\w8\s[1113] I'm glad I'm in here...\e"
+	"\s[1110]Looks like it's freezing out there.\w8\w8\s[1107] I'm not going out unless there's gonna be hot chocolate afterwards...\e"
+	if !SPresent; "\s[1113]My dad would probably like this weather...\e"
+}
+
+Pool_Awake_Temp_Cold : array //temp == "Cold" - 21-40F, -5 to 4C 
+{
+	"\s[1113]Looks pretty cold out,\w4 I wouldn't head out there without a puffy coat...\w8\w8\s[1110] Humans make more body heat though,\w4 right?\w8\w8 I wonder if you'd be ok with a lighter jacket.\e"
+	"\s[1106]At least it's not super cold outside,\w4 right?\w8\w8\s[1107] It could be a lot worse...\e"
+}
+
+Pool_Awake_Temp_Chilly : array //temp == "Chilly" - 41-60F, 5-15C 
+{
+	"\s[1112]Hoodie weather today,\w4 huh?\w8\w8\s[1104] Fine by me.\e"
+	"\s[1113]It looks a little chilly out there.\w8\w8\s[1104] Guess it's a good time for hoodies and jackets.\e"
+}
+
+Pool_Awake_Temp_Pleasant : array //temp == "Pleasant" - 61-80, 16-26C
+{
+	"\s[1102]Mm,\w4 it's just the right temperature to sit outside...\e"
+	"\s[1102]The temperature is really nice today,\w4\s[1208] if it's like this at home when I get back,\w4 maybe I'll spend some time on the porch...\e"
+}
+
+Pool_Awake_Temp_Hot : array //temp == "Hot" - 81-95F, 27-35C
+{
+	"\s[1107]It's pretty warm out there,\w4 I hope it doesn't get too much warmer...\e"
+	"\s[1107]At least it's not super hot,\w4 but it's still warmer than I like...\e"
+}
+
+Pool_Awake_Temp_Boiling : array //temp == "Boiling" - 96+F, 36+C
+{
+	"\s[1109]Ugh,\w4 it's so hot out...\w8\w8\s[1206] I hope it isn't this hot at home...\e"
+	"\s[1109]Hope it cools down soon...\e"
+	"\s[1109]I'm glad it's not as hot in here as it is out there...\e"
+}
+
+Pool_Awake_Humid_Muggy : array //humid == "Muggy" && (temp == 'Hot' || temp == 'Boiling')
+{
+	"\s[1109]It's getting pretty humid out there...\w8\w8 I think I'll just stay inside today...\e"
+}
+
+Pool_Awake_Humid_Soup : array //humid == "Soup" && (temp == 'Hot' || temp == 'Boiling')
+{
+	"\s[1109]Ugh,\w4 all this humidity and heat is miserable...\e"
+	"\s[1109]Bleh,\w4 this is the kind of day to stay indoors with the windows closed...\e"
+}
+
+Pool_Awake_PollenAlert : array //pollen_alert
+{
+	"\s[1109]My eyesockets are itching today...\w8\w8\s[1206] There must be a lot of pollen out there...\e"
+	"\s[1109]Ugh,\w4 bad day for allergies...\e"
+	"\s[1109]\i[10]* (She keeps rubbing at her face...)\w8\w8\n\n* (Her allergies must be bothering her.)\e"
+}
+
+Pool_Awake_Moon_New : array //phase == "New Moon"
+{
+	"\s[1206]No moon tonight...\w8\w8\s[1110] It's kinda neat I guess,\w4 it just gets so dark...\e"
+}
+
+Pool_Awake_Moon_Half : array //phase == "First Quarter" || phase == "Last Quarter"
+{
+	"\s[1000]The moon's half full tonight.\w8\w8\s[1102] You should keep an eye out for it.\e"
+}
+
+Pool_Awake_Moon_Full : array //phase == "Full Moon"
+{
+	"\s[1104]The moon is full tonight!\w8\w8\s[1111] It's really pretty,\w4 you should go out and see it if you can.\e"
+	"\s[1104]Have you seen the moon today?\w8\w8 It's full again,\w4 and it's really pretty.\e"
+}
+
+Pool_Awake_LotsOfGhostsOpen : array //ghostexcount >= 4
+{
+	"\s[1104]Wow,\w4 there are so many people here!\w8\w8\s[1112] I guess you like having a lot of company?\e"
+	"\s[1110]You have so many friends on your desktop.\w8\w8\s[1104] That's so cool.\e"
+}
+
+Pool_Awake_NoGhostsOpen : array //ghostexcount == 0
+{
+	_len = ARRAYSIZE(installedghostlist)
+	_ghost = installedghostlist[RAND(_listsize)]
+	if _len > 1 && _ghost != "Lulo" && !(_ghost == "Cambria and Elko" || _ghost == "S the Skeleton")
 	{
-		"\s[1107]I'm glad it's warm in here,\w4 it looks so cold outside...\e"
-		"\s[1107]Brrr.\w8\w8 I don't wanna go outside with it this cold...\e"
+		"\s[1112]It's so quiet here,\w8\s[1000] wouldn't it be more fun with someone else too?\w8\w8\s[1104] What about %(_ghost)?"
+		--
+		"\n\n\![*]\q[Call %(_ghost),OnRTCall,%(_ghost)]\n\![*]\q[Dismiss,cancelnodialogue]\e notimeout"
 	}
-	if temp == "Freezing" //0-20F, -16 to -6C
-	{
-		"\s[1107]Sure looks cold out there.\w8\w8\s[1113] I'm glad I'm in here...\e"
-		"\s[1110]Looks like it's freezing out there.\w8\w8\s[1107] I'm not going out unless there's gonna be hot chocolate afterwards...\e"
-		if !SPresent; "\s[1113]My dad would probably like this weather...\e"
-	}
-	if temp == "Cold" //21-40F, -5 to 4C 
-	{
-		"\s[1113]Looks pretty cold out,\w4 I wouldn't head out there without a puffy coat...\w8\w8\s[1110] Humans make more body heat though,\w4 right?\w8\w8 I wonder if you'd be ok with a lighter jacket.\e"
-		"\s[1106]At least it's not super cold outside,\w4 right?\w8\w8\s[1107] It could be a lot worse...\e"
-	}
-	if temp == "Chilly" //41-60F, 5-15C
-	{
-		"\s[1112]Hoodie weather today,\w4 huh?\w8\w8\s[1104] Fine by me.\e"
-		"\s[1113]It looks a little chilly out there.\w8\w8\s[1104] Guess it's a good time for hoodies and jackets.\e"
-	}
-	if temp == "Pleasant" //61-80, 16-26C
-	{
-		"\s[1102]Mm,\w4 it's just the right temperature to sit outside...\e"
-		"\s[1102]The temperature is really nice today,\w4\s[1208] if it's like this at home when I get back,\w4 maybe I'll spend some time on the porch...\e"
-	}
-	if temp == "Hot" //81-95F, 27-35C
-	{
-		"\s[1107]It's pretty warm out there,\w4 I hope it doesn't get too much warmer...\e"
-		"\s[1107]At least it's not super hot,\w4 but it's still warmer than I like...\e"
-	}
-	if temp == "Boiling" //96+F, 36+C
-	{
-		"\s[1109]Ugh,\w4 it's so hot out...\w8\w8\s[1206] I hope it isn't this hot at home...\e"
-		"\s[1109]Hope it cools down soon...\e"
-		"\s[1109]I'm glad it's not as hot in here as it is out there...\e"
-	}
-	
-	//---Humidity---
-	if humid == "Dry"
-	{
-		
-	}
-	if humid == "Comfortable"
-	{
-		
-	}
-	if humid == "Muggy"
-	{
-		if temp == "Hot" || temp == "Boiling"
-		{
-			"\s[1109]It's getting pretty humid out there...\w8\w8 I think I'll just stay inside today...\e"
-		}
-	}
-	if humid == "Soup"
-	{
-		if temp == "Hot" || temp == "Boiling"
-		{
-			"\s[1109]Ugh,\w4 all this humidity and heat is miserable...\e"
-			"\s[1109]Bleh,\w4 this is the kind of day to stay indoors with the windows closed...\e"
-		}
-	}
-	
-	//---Pollen---
-	if pollen == "Local Pollen Alert"
-	{
-		"\s[1109]My eyesockets are itching today...\w8\w8\s[1206] There must be a lot of pollen out there...\e"
-		"\s[1109]Ugh,\w4 bad day for allergies...\e"
-		"\s[1109]\i[10]* (She keeps rubbing at her face...)\w8\w8\n\n* (Her allergies must be bothering her.)\e"
-	}
-	
-	//---Moon phases---
-	//I've only included basic ones here, if you want more the checks would be for "Waxing Crescent", "Waxing Gibbous", "Waning Gibbous", and "Waning Crescent"
-	if phase == "New Moon"
-	{
-		"\s[1206]No moon tonight...\w8\w8\s[1110] It's kinda neat I guess,\w4 it just gets so dark...\e"
-	}
-	if phase == "First Quarter" || phase == "Last Quarter" //Half moon
-	{
-		"\s[1000]The moon's half full tonight.\w8\w8\s[1102] You should keep an eye out for it.\e"
-	}
-	if phase == "Full Moon"
-	{
-		"\s[1104]The moon is full tonight!\w8\w8\s[1111] It's really pretty,\w4 you should go out and see it if you can.\e"
-		"\s[1104]Have you seen the moon today?\w8\w8 It's full again,\w4 and it's really pretty.\e"
-	}
-	
-	if ghostexcount >= 4
-	{
-		"\s[1104]Wow,\w4 there are so many people here!\w8\w8\s[1112] I guess you like having a lot of company?\e"
-		"\s[1110]You have so many friends on your desktop.\w8\w8\s[1104] That's so cool.\e"
-	}
-	if ghostexcount == 0
-	{
-		_len = ARRAYSIZE(installedghostlist)
-		_ghost = installedghostlist[RAND(_listsize)]
-		if _len > 1 && _ghost != "Lulo" && !(_ghost == "Cambria and Elko" || _ghost == "S the Skeleton")
-		{
-			"\s[1112]It's so quiet here,\w8\s[1000] wouldn't it be more fun with someone else too?\w8\w8\s[1104] What about %(_ghost)?"
-			--
-			"\n\n\![*]\q[Call %(_ghost),OnRTCall,%(_ghost)]\n\![*]\q[Dismiss,cancelnodialogue]\e notimeout"
-		}
-		"\s[1107]It's so quiet here today...\e"
-	}
-	
-	if "Jazz" _in_ ghostexlist
-	{
-		"\s[1110]Whoa,\w4 he's so tall!\w8\w8\s[1104] And pointy!\e"
-	}
-	
-	//---Noticing and commenting on other ghosts. You MUST have an option for 'others' in the case/when, or the ghost will eventually stop talking at all! I've set it up to loop back around to aitalk, but you can put generic dialogue if you like.
-	// if ghostexcount > 0 //Based on code from Zarla's Gaster
-	// {
-		// _num = RAND(ghostexcount) // This checks the number of other ghosts summoned and chooses a random number based on it
-		// --
-		// _ghost = "%(ghostexlist[_num])" // This grabs the reference name of the ghost to check against known names.
-		// --
-		// // This will tell you the reference names of your summoned ghosts to use in the "when" cases below, along with the number of ghosts.
-		// // Comment it out when you no longer need it for reference.
-		// //"\0\s[0]Ghost List: %(ghostexlist)\n\n[half]Noticed %(_ghost), %(_num) of %(ghostexcount)\x"
-		// --
-		// // Checking the selected loaded ghost's name vs known names to comment on them
-		// case _ghost
-		// {
-			// when "Jazz"
-			// {
-				// "\s[1110]Whoa,\w4 he's so tall!\w8\w8\s[1104] And pointy!\e"
-			// }
-			// others //This is necessary. If you want them to comment on other ghosts generically you can, but if not this will just loop back around to aitalk so they don't get stuck
-			// {
-				// "\![raise,OnAiTalk]"
-			// }
-		// }
-	// }
-	
+	"\s[1107]It's so quiet here today...\e"
+}
+
+Pool_Awake_Onion_Dialogues : array //No requirement, just wanted these out of the way
+{
 	//---Onion dialogues---
 	{ //I've been working on new puzzles lately
 		"\0\s[1112]I've been working on some new puzzles lately.\w8\w8 "
 		--
 		"\s[1000]I want to get really good and make a puzzle that even my grandparents cant solve,\w8\s[1104] and believe me they're puzzle pros.\e"
-		"\s[1113]I can make all kinds of complicated stuff for them in my dreams,\w8\s[1107] though I'm not sure I could recreate them in the real world...\w8\w8\s[1208] Maybe my grandma could help?\e"
+		"\s[1113]I can make all kinds of complicated stuff for them in my dreams,\w8\s[1107] though I'm not sure I could recreate them in the real world...\w8\w8\s[1208] Maybe my \_a[FAbarcodeFamilymenu]grandma\_a could help?\e"
 		"\s[1104]It's a lot of fun,\w8\s[1208] there are so many little pieces to keep track of.\e"
 		"\s[1000]It feels really good to watch someone trying to solve them,\w8\s[1104] the look of satisfaction when they do is really special."
 		"\s[1104]The nurses at the hospital think they're really clever.\w8\w8\s[1106] Though,\w4 they don't usually have time to solve the longer ones.\e"
@@ -1153,11 +1201,12 @@ if hour > 10 && hour < 18; "\s[1104]I bet anCambria and anElko have already head
 	}
 }
 
+
 AsleepTalk : nonoverlap //Asleep randomtalks
 {
 	"\0%(b)\s[2000]%(sleepmumble)\e"
 	{
-		"\0%(b)"
+		"\0%(b)\![set,balloonwait,1]"
 		--
 		"\s[2000]* (She sighs in her sleep.)\e"
 		"\s[2000]* (She's almost completely silent,\w4 save for very slight breathing.)\e"
@@ -1172,6 +1221,10 @@ AsleepTalk : nonoverlap //Asleep randomtalks
 		"\s[2000]* (She seems at peace.)\e"
 		"\s[2000]* (She doesn't stir.)\e"
 		"\s[2000]* (She gives a long,\w4 quiet sigh.)\e"
+		"\s[2000]* (She seems very focused,\w4 despite being asleep.)\e"
+		"\s[2000]* (She snorts faintly.)\e"
+		"\s[2000]* (She mumbles something indistinct.)\e"
+		"\s[2000]* (She makes an exasperated sound.)\e"
 	}
 	{
 		"\0%(b)%(maymb)"
@@ -1278,6 +1331,29 @@ AsleepTalk : nonoverlap //Asleep randomtalks
 		"\s[2000]...how did you even get over here..."
 		"\s[2000]...oh,\w4 i should add %(material) too..."
 		"\s[2000]...maybe i should make it something other than %(TOLOWER(season))..."
+		"\s[2000]...it's not right yet..."
+		"\s[2000]...i'll have to work on this for a few more nights..."
+		"\s[2000]...maybe i'll give him freckles..."
+		"\s[2000]...the pattern isn't right,\w4 it's too uniform..."
+		"\s[2000]...not aligned quite right..."
+		"\s[2000]...colorful bubbles..."
+		"\s[2000]...he can wander around over here..."
+		"\s[2000]...a cup of pencils would fill the space..."
+		"\s[2000]...oh,\w4 i could make her float..."
+		"\s[2000]...can't forget the stripes..."
+		"\s[2000]...oops,\w4 she should be breathing,\w4 huh..?"
+		"\s[2001]...oh,\w4 i didn't mean to do that..."
+		"\s[2000]...forgot to fix that earlier,\w4 better do it now..."
+		"\s[2000]...need to trim this a bit..."
+		"\s[2000]...oh well,\w4 too late for that..."
+		"\s[2001]...oh,\w4 he can't reach that far,\w4 i'll have to move it..."
+		"\s[2000]...i could hide a secret door over there..."
+		"\s[2000]...maybe a higher ceiling..."
+		"\s[2001]...he seems a little too sad..."
+		"\s[2001]...it's too complicated..."
+		"\s[2001]...it doesn't look so good now that it's in the room..."
+		"\s[2001]...no,\w4 these colors don't match at all..."
+		"\s[2000]...that works out pretty well..."
 		--
 		"\w8\w8 %(maymb)\e"
 	}
@@ -1297,10 +1373,10 @@ SleepyTalk : nonoverlap //Sleepy mode randomtalk
 	"\s[0]...i've been practicing drawing landscapes...\w8\w8\s[105] they're nothing like in my dreams,\w8\s[0] but i think i'm getting better...\e"
 	"\s[105]...sometimes i wonder what it's like to have normal dreams...\w8\w8\s[0] everything i dream about is in my control,\w4 but it would be fun to have a dream where i get to discover it as i go...\w8\w8\n\n\s[112]...maybe not all the time,\w4 though...\e"
 	"\s[0]...it's really interesting here...\w8\w8\s[105] it's not at all like back home,\w4 or even like my dreams...\w8\w8\s[112] something feels different...\w8\w8\s[0] not bad,\w4 just...\w8\w8\s[105] different...\e"
-	"\s[107]...sleepy...\w8\w8\s[109] but i'm always sleepy...\w8\w8\s[206] ...almost always...\e"
+	"\s[107]...sleepy...\w8\w8\s[109] but i'm always sleepy...\w8\w8\s[206] almost always...\e"
 	"\s[112]...i have so many ideas for dreams...\w8\w8\s[113] i don't know if i'll ever explore them all.\w8\w8\n\n\s[107]...i explore one,\w4 and come up with three more ideas to replace it...\e"
 	"\s[111]...i have another notebook at home,\w4 full of nothing but dream ideas...\w8\w8\s[105] one day,\w4 i want to explore them all...\e" //TODO Replace with notebook surface?
-	"\s[105]...i like stories,\w4 but i have a hard time reading...\w8\w8\s[107] sitting still and quiet for so long makes me sleepy...\w8\w8\n\n\s[0]...sometimes dad reads to me,\w4 especially when i'm at the hospital...\w8\w8\s[103] i like that...\e"
+	"\s[105]...i like stories,\w4 but i have a hard time reading...\w8\w8\s[107] sitting still and quiet for so long makes me sleepy...\w8\w8\n\n\s[0]...sometimes andad reads to me,\w4 especially when i'm at the hospital...\w8\w8\s[103] i like that...\e"
 	"\s[112]...i wonder how far back your computer goes...\w8\w8\s[111] i know there's more space when you get into the files,\w4 but how deep does it go..?\w8\w8\s[208] what could i find there..?\w8\w8\w8\n\n\s[206]...\e" //Maybe flag for brother?
 	"\s[112]...it's really bright here...\w8\w8 the shadows are all weird...\w8\w8\s[208] ...i don't even have a shadow...\w8\w8 huh...\e"
 	"\s[112]...i bet sci-fi writers would love to spend time here...\w8\w8\s[0] i don't usually make sci-fi worlds,\w4 though...\w8\w8\n\n\s[112]...maybe i should start...\e"
@@ -1308,319 +1384,470 @@ SleepyTalk : nonoverlap //Sleepy mode randomtalk
 	"\s[208]...i wonder how many pixels i take up...\w8\w8\s[111] maybe i'll count when i'm more awake...\e"
 	"\s[112]...i wonder if someone could live here all the time...\w8\w8\s[111] maybe they could make a house out of %(filetype)s...\w8\w8\s[205] or find a quiet corner in your %(usersfolder)...\w8\w8\s[107] i probably can't stay that long,\w4 though...\e"
 	"\s[112]...i wonder what all these things are for...\w8\w8\s[107] your computer has so many files,\w4 how do you remember them all..?\e"
-	if Family[12] == 1 || Family[13] == 1; "\s[107]...anAzo,\w4 anRoman,\w4 and anSigil are all growing so fast...\w8\w8 not at all like me...\e"
-			
-	if friendship >= 50;"\s[200]...i wish i weren't so sleepy,\w4 i could go and explore your files some more...\w8\w8\s[113] find out where all those %(filetype)s come from...\e"
-	if friendship >= 50;"\s[107]...time seems to go on forever when i'm not asleep...\e"
-	if friendship >= 50;"\s[0]...do you like the sky..?\w8\w8\s[105] i like the sky...\w8\w8\s[112] i'd like to be a cloud,\w4 drifting along peacefully...\e"
-	if friendship >= 200;"\s[105]...sometimes my bones ache from not moving enough...\w8\w8\s[107] but i'm so tired,\w4 i just want to rest...\e"
-	if friendship >= 200;"\s[106]...sometimes i feel like something is pulling my head down...\w8\w8\s[107] something i can't see...\w8\w8\s[204] can't keep my head up...\e"
-	if friendship >= 200;"\s[200]...sometimes i just want to go back to sleep...\w8\w8\s[206] want to finish my dream,\w8\s[204] don't want to try to stay awake anymore...\e"
+	
+	if Family[12] || Family[13]; "\s[107]...anAzo,\w4 anRoman,\w4 and anSigil are all growing so fast...\w8\w8 not at all like me...\e"
+	
+	parallel Pool("Pool_Sleepy_MedFriendship","%(friendship >= 50)")
+	parallel Pool("Pool_Sleepy_HighFriendship","%(friendship >= 200)")
+	
+	parallel Pool("Pool_Sleepy_ManyBoots","%(totalboots >= 5 && friendship >= 50)")
+	parallel Pool("Pool_Sleepy_TheSplit","%(Flag('thesplit'))")
+	parallel Pool("Pool_Sleepy_KnowAboutSoul","%(ASEARCH('knowaboutsoul',MiscFlags))")
+	parallel Pool("Pool_Sleepy_SNotHere","%(TalkedToS && !SPresent)")
+	parallel Pool("Pool_Sleepy_HasExplored","%(Flag('HasExplored'))")
+	parallel Pool("Pool_Sleepy_LotsOfInstalledGhosts","%(ARRAYSIZE(installedghostlist) >= 30)")
+	parallel Pool("Pool_Sleepy_HighRuntime","%(passhour >= 6)")
+	parallel Pool("Pool_Sleepy_HighTotalTime","%(totalhours >= 50)")
+	
+	parallel Pool("Pool_Sleepy_TalkAboutWD","%(Family[0])")
+	parallel Pool("Pool_Sleepy_TalkAboutDings","%(Family[1])")
+	parallel Pool("Pool_Sleepy_TalkAboutWings","%(Family[2])")
+	parallel Pool("Pool_Sleepy_TalkAboutBarcode","%(Family[3])")
+	parallel Pool("Pool_Sleepy_TalkAboutS","%(Family[4])")
+	parallel Pool("Pool_Sleepy_TalkAboutBlueJeans","%(Family[5])")
+	parallel Pool("Pool_Sleepy_TalkAboutAbbi","%(Family[6])")
+	parallel Pool("Pool_Sleepy_TalkAboutRosie","%(Family[7])")
+	parallel Pool("Pool_Sleepy_TalkAboutRoman","%(Family[8])")
+	parallel Pool("Pool_Sleepy_TalkAboutCambria","%(Family[9])")
+	parallel Pool("Pool_Sleepy_TalkAboutTriton","%(Family[10])")
+	//Lulo
+	parallel Pool("Pool_Sleepy_TalkAboutAzo","%(Family[12])")
+	parallel Pool("Pool_Sleepy_TalkAboutSigil","%(Family[13])")
+	parallel Pool("Pool_Sleepy_TalkAboutElko","%(Family[14])")
+	
+	parallel Pool("Pool_Sleepy_timeslot_earlymorning","%(timeslot == 'earlymorning')")
+	parallel Pool("Pool_Sleepy_timeslot_morning","%(timeslot == 'morning')")
+	parallel Pool("Pool_Sleepy_timeslot_lunch","%(timeslot == 'lunch')")
+	parallel Pool("Pool_Sleepy_timeslot_afternoon","%(timeslot == 'afternoon')")
+	parallel Pool("Pool_Sleepy_timeslot_evening","%(timeslot == 'evening')")
+	parallel Pool("Pool_Sleepy_timeslot_latenight","%(timeslot == 'latenight')")
+	parallel Pool("Pool_Sleepy_timeslot_midnight","%(timeslot == 'midnight')")
 
+	parallel Pool("Pool_Sleepy_wd_Sun","%(wd == 'Sun')")
+	parallel Pool("Pool_Sleepy_wd_Mon","%(wd == 'Mon')")
+	parallel Pool("Pool_Sleepy_wd_Tue","%(wd == 'Tue')")
+	parallel Pool("Pool_Sleepy_wd_Wed","%(wd == 'Wed')")
+	parallel Pool("Pool_Sleepy_wd_Thu","%(wd == 'Thu')")
+	parallel Pool("Pool_Sleepy_wd_Fri","%(wd == 'Fri')")
+	parallel Pool("Pool_Sleepy_wd_Sat","%(wd == 'Sat')")
+
+	parallel Pool("Pool_Sleepy_startmonth","%(day < 5)")
+	parallel Pool("Pool_Sleepy_midmonth","%(day > 13 && day < 17)")
+	parallel Pool("Pool_Sleepy_endmonth","%(day > 26)")
+
+	parallel Pool("Pool_Sleepy_month_Jan","%(month == 1)")
+	parallel Pool("Pool_Sleepy_month_Feb","%(month == 2)")
+	parallel Pool("Pool_Sleepy_month_Mar","%(month == 3)")
+	parallel Pool("Pool_Sleepy_month_Apr","%(month == 4)")
+	parallel Pool("Pool_Sleepy_month_May","%(month == 5)")
+	parallel Pool("Pool_Sleepy_month_Jun","%(month == 6)")
+	parallel Pool("Pool_Sleepy_month_Jul","%(month == 7)")
+	parallel Pool("Pool_Sleepy_month_Aug","%(month == 8)")
+	parallel Pool("Pool_Sleepy_month_Sep","%(month == 9)")
+	parallel Pool("Pool_Sleepy_month_Oct","%(month == 10)")
+	parallel Pool("Pool_Sleepy_month_Nov","%(month == 11)")
+	parallel Pool("Pool_Sleepy_month_Dec","%(month == 12)")
+
+	parallel Pool("Pool_Sleepy_season_Spring","%(season == 'Spring')")
+	parallel Pool("Pool_Sleepy_season_Summer","%(season == 'Summer')")
+	parallel Pool("Pool_Sleepy_season_Autumn","%(season == 'Autumn')")
+	parallel Pool("Pool_Sleepy_season_Winter","%(season == 'Winter')")
 	
+	parallel Pool("Pool_Sleepy_weather_clear","%(weather_clear)")
+	parallel Pool("Pool_Sleepy_weather_cloudy","%(weather_cloudy)")
+	parallel Pool("Pool_Sleepy_weather_mightrain","%(weather_mightrain)")
+	parallel Pool("Pool_Sleepy_weather_raining","%(weather_raining)")
+	parallel Pool("Pool_Sleepy_weather_snowing","%(weather_snowing)")
+	parallel Pool("Pool_Sleepy_weather_thunderstorm","%(weather_thunderstorm)")
+	parallel Pool("Pool_Sleepy_weather_foghaze","%(weather_foghaze)")
 	
+	parallel Pool("Pool_Sleepy_Temp_Below0","%(temp == 'Below 0')")
+	parallel Pool("Pool_Sleepy_Temp_Freezing","%(temp == 'Freezing')")
+	parallel Pool("Pool_Sleepy_Temp_Cold","%(temp == 'Cold')")
+	parallel Pool("Pool_Sleepy_Temp_Chilly","%(temp == 'Chilly')")
+	parallel Pool("Pool_Sleepy_Temp_Pleasant","%(temp == 'Pleasant')")
+	parallel Pool("Pool_Sleepy_Temp_Hot","%(temp == 'Hot')")
+	parallel Pool("Pool_Sleepy_Temp_Boiling","%(temp == 'Boiling')")
+	
+	parallel Pool("Pool_Sleepy_Humid_Muggy","%(humid == 'Muggy' && (temp == 'Hot' || temp == 'Boiling'))")
+	parallel Pool("Pool_Sleepy_Humid_Soup","%(humid == 'Soup' && (temp == 'Hot' || temp == 'Boiling'))")
+	
+	parallel Pool("Pool_Sleepy_PollenAlert","%(pollen_alert)")
+	
+	parallel Pool("Pool_Sleepy_Moon_New","%(phase == 'New Moon')")
+	parallel Pool("Pool_Sleepy_Moon_Half","%(phase == 'First Quarter' || phase == 'Last Quarter')")
+	parallel Pool("Pool_Sleepy_Moon_Full","%(phase == 'Full Moon')")
+	
+	parallel Pool("Pool_Sleepy_LotsOfGhostsOpen","%(ghostexcount >= 4)")
+	parallel Pool("Pool_Sleepy_NoGhostsOpen","%(ghostexcount == 0)")
+	
+	parallel Pool_Sleepy_Onion_Dialogues
+	
+	if SeePC == "On"; "\![raise,OnSaoriRand]"
+	
+	if "X. Template" _in_ ghostexlist
+	{
+		"\s[112]...i know her...\w8\w8\s[113] i think i know her...\w8\w8\s[206] but from where...\e"
+	}
+}
+
+Pool_Sleepy_MedFriendship : array //friendship >= 50
+{
+	"\s[200]...i wish i weren't so sleepy,\w4 i could go and explore your files some more...\w8\w8\s[113] find out where all those %(filetype)s come from...\e"
+	"\s[107]...time seems to go on forever when i'm not asleep...\e"
+	"\s[0]...do you like the sky..?\w8\w8\s[105] i like the sky...\w8\w8\s[112] i'd like to be a cloud,\w4 drifting along peacefully...\e"
+}
+
+Pool_Sleepy_HighFriendship : array //friendship >= 200
+{
+	"\s[105]...sometimes my bones ache from not moving enough...\w8\w8\s[107] but i'm so tired,\w4 i just want to rest...\e"
+	"\s[106]...sometimes i feel like something is pulling my head down...\w8\w8\s[107] something i can't see...\w8\w8\s[204] can't keep my head up...\e"
+	"\s[200]...sometimes i just want to go back to sleep...\w8\w8\s[206] want to finish my dream,\w8\s[204] don't want to try to stay awake anymore...\e"
+}
+
+Pool_Sleepy_ManyBoots : array //totalboots >= 5 && friendship >= 50
+{
+	"\s[105]...it's nice to get away from home...\w8\w8\s[107] everyone fusses over me so much that it's frustrating sometimes...\e"
+	"\s[112]...if i brought a computer here,\w4 could i bring someone else onto it like you bring me here..?\w8\w8\s[103] ...they'd be so tiny,\w4 then...\e"
+	"\s[105]...my mind is clearer when i'm here...\w8\w8\s[107] there's less to worry about...\e"
+	"\s[0]...i wonder what you get up to out there...\w8\w8\s[105] i can't really tell from here,\w4 i can only see a little...\e"
+}
+
+Pool_Sleepy_TheSplit : array //Flag("thesplit") != -1
+{
+	"\s[206]...i wonder if any computer would be strong enough to find my anbrother...\w8\w8\s[108] if you can bring me here,\w4 could you bring him too..?\e"
+}
+
+Pool_Sleepy_KnowAboutSoul : array //ASEARCH("knowaboutsoul",MiscFlags) != -1
+{
+	"\s[105]...anGrandpa and anGrandma get real worried for me when i'm away,\w4 but it's safe here...\w8\w8\s[107] though,\w4 i guess they're worried about my soul;\w8\s[107] they wouldn't be able to take me to the hospital if i'm not there...\e"
+	"\s[107]...anDad says my soul will get stronger once i stop growing,\w4 but i don't know...\w8\w8\n\n\s[206]...i wonder if that means i'll be small forever...\e"
+}
+
+Pool_Sleepy_SNotHere : array //TalkedToS && !SPresent
+{
+	"\s[105]...anDad says it's strange here,\w4 but i dunno...\w8\w8\s[0] i guess i'm used to strange things in my dreams...\e"
+	"\s[105]...anDad worries about how much time i spend dreaming...\w8\w8\s[107] he tries to hide it,\w4 but i can tell...\e"
+}
+
+Pool_Sleepy_HasExplored : array //Flag('HasExplored'))
+{
+	
+}
+
+Pool_Sleepy_LotsOfInstalledGhosts : array //ARRAYSIZE(installedghostlist) >= 30
+{
+	
+}
+
+Pool_Sleepy_HighRuntime : array //passhour >= 6
+{
+	if !SPresent
+	{
+		"\0\s[113]...they must be wondering where i am by now...\w8\w8 "
+		--
+		if SInstalled
+		{
+			"andad will figure it out...\e"
+		}
+		else
+		{
+			"andad will be worried...\e"
+		}
+	}
+}
+
+Pool_Sleepy_HighTotalTime : array //totalhours >= 50
+{
+	"\s[112]...your computer...\w8\w8 it's alive,\w4 in a way...\w8\w8\s[111] it's like how the earth is alive,\w4 but on a smaller scale,\w4 i guess...\e"
+}
+
+Pool_Sleepy_TalkAboutWD : array //Family[0]
+{
+	
+}
+
+Pool_Sleepy_TalkAboutBarcode : array //Family[1]
+{
+	
+}
+
+Pool_Sleepy_TalkAboutDings : array //Family[2]
+{
+	
+}
+Pool_Sleepy_TalkAboutWings : array //Family[3]
+{
+	
+}
+Pool_Sleepy_TalkAboutS : array //Family[4]
+{
+	if !SPresent; "\s[111]...are you good with computers,\w4 %(username)..?\w8\w8\s[113] i know a little about them,\w4 but not much...\w8\w8\s[0] more than my andad,\w4 though...\e"
+}
+
+Pool_Sleepy_TalkAboutBlueJeans : array //Family[5]
+{
+	
+}
+
+Pool_Sleepy_TalkAboutAbbi : array //Family[6]
+{
+	
+}
+
+Pool_Sleepy_TalkAboutRosie : array //Family[7]
+{
+	
+}
+
+Pool_Sleepy_TalkAboutRoman : array //Family[8]
+{
+	
+}
+
+Pool_Sleepy_TalkAboutCambria : array //Family[9]
+{
+	
+}
+
+Pool_Sleepy_TalkAboutTriton : array //Family[10]
+{
+	"\s[113]...anTriton wouldn't care for this place at all...\w8\w8 he likes to be out in nature,\w4 with all the plants...\w8\w8\s[0] and the rain...\e"
+}
+
+Pool_Sleepy_TalkAboutAzo : array //Family[12]
+{
+	
+}
+
+Pool_Sleepy_TalkAboutSigil : array //Family[13]
+{
+	
+}
+
+Pool_Sleepy_TalkAboutElko : array //Family[14]
+{
+	
+}
+
+//---Timeslots---
+Pool_Sleepy_timeslot_earlymorning : array //timeslot == 'earlymorning' (5am - 8am)
+{
+	
+	//These are sub-pools, I've put them just below this one. Any dialogues you put in them will also get the same probabilities as all other dialogue.
+	parallel Pool("Pool_Sleepy_timeslot_earlymorning_uplate","%(runtime[0] >= 3)") //Been open for 3 hours or more, so the user has probably been up all night
+	parallel Pool("Pool_Sleepy_timeslot_earlymorning_upearly","%(runtime[0] < 3)") //Probably just got up
+}
+
+Pool_Sleepy_timeslot_earlymorning_uplate : array //runtime[0] >= 3 (Been open for 3 hours or more, so the user has probably been up all night)
+{
+	"\s[113]...still awake..?\w8\w8\s[107] i guess i am too...\e"
+	"\s[113]...um,\w4 maybe we should both try to get some sleep..?\e"
+	"\s[108]...it's so late that it's early again...\w8\w8\s[109] sleep is probably a good idea...\e"
+	"\s[108]...um,\w4 you know it's %(hour) in the morning,\w4 right..?\e"
+	"\s[105]...it's nice to see the sun again...\w8\w8\s[108] though,\w4 i guess not if you still need to sleep...\e"
+}
+
+Pool_Sleepy_timeslot_earlymorning_upearly : array //runtime[0] < 3 (Probably just got up)
+{
+	"\s[105]...up early,\w4 huh..?\w8\w8\s[111] that's nice,\w4 guess you have the whole day to do stuff...\e"
+	"\s[111]...i guess you're an early waker,\w4 huh..?\w8\w8\s[107] i just wake up whenever i wake up...\e"
+	"\s[105]...%(hour) is so early...\e"
+	"\s[0]...how do you stay awake when it's only %(hour) am..?\e"
+}
+
+Pool_Sleepy_timeslot_morning : array //timeslot == 'morning' (9am - 11am)
+{
+	"\s[107]...mmm,\w4 want to sleep in a few more hours...\e"
+	if ghostexcount <= 4;"\s[105]...this time is always busy around our house...\w8\w8\s[111] it's kinda nice to be here instead...\e"
+	"\s[107]...i'm already ready to go back to sleep...\e"
+	if !SPresent;"\s[107]...my anDad's a morning person,\w4 but i'm usually not...\e"
+	"\s[107]...they're probably having breakfast at home...\e"
+	if month == 6 || month == 7 || month == 8;"\s[102]...it's nice not to have to get ready for school...\w8\w8\s[111] don't send me home for a while,\w4 kay..?\e"
+}
+
+Pool_Sleepy_timeslot_lunch : array //timeslot == 'lunch' (12pm - 2pm)
+{
+	"\s[109]...should probably eat soon...\w8\w8 can't put it off too long...\e"
+	"\s[107]...mmm...\w8\w8 can't wait to go to bed tonight...\w8\w8\s[108] but i have to try to stay awake during the day,\w4\s[206] or i won't be able to sleep very well tonight...\e"
+	"\s[105]...midway through the daylight,\w4 i guess...\w8\w8\s[0] or something like that...\e"
+	"\s[105]...this is one of the quieter times at home...\w8\w8\s[107] if i'm not at school,\w4 anyways...\e"
+}
+
+Pool_Sleepy_timeslot_afternoon : array //timeslot == 'afternoon' (3pm - 5pm)
+{
+	"\s[112]...afternoons are always so sleepy...\e"
+	"\s[107]...it gets so loud back home sometimes...\w8\w8\s[206] it can be hard to find good places to nap when everyone is home...\e"
+	"\s[205]...i like watching the sky when i'm not sleeping...\w8\w8 it's nice to just watch the clouds for a while,\w4 and the colors are so soothing...\w8\w8\n\n\s[107]...i've taken a lot of accidental naps while watching the sky...\e"
+	"\s[102]...mmm...\w8\w8 sleep always tugs harder in the afternoon...\e"
+	"\s[205]...sometimes if it's too busy to fall asleep at home,\w4 i go outside and find a patch of sunlight to fall asleep in...\w8\w8\s[111] our cats have the right idea,\w4 it's really great...\e"
+	"\s[206]...latter half of the day...\w8\w8\s[109] it goes by quickly,\w4 huh..?\e"
+}
+
+Pool_Sleepy_timeslot_evening : array //timeslot == 'evening' (6pm - 8pm)
+{
+	"\s[112]...time to wind down for the day...\w8\w8\s[0] bed time soon...\e"
+	"\s[105]...sunsets are really pretty,\w8\s[107] but i'm usually asleep by the time the sun is going down...\e"
+	"\s[107]...day's almost over now...\e"
+	"\s[206]...the world is getting sleepy...\w8\w8\s[107] me too...\e"
+	"\s[102]...it's a lot more peaceful out,\w4 once it gets dark...\e"
+}
+
+Pool_Sleepy_timeslot_latenight : array //timeslot == 'latenight' (9pm - 12am)
+{
+	"\s[105]...it's late...\w8\w8 i should be getting to bed soon...\e"
+	"\s[205]...it gets so quiet late at night...\w8\w8\s[0] i don't mind,\w4 though...\w8\w8\s[102] it's nice after how busy it gets during the day...\e"
+	"\s[107]...the end of the day is probably my favorite part,\w4 it's so nice to lay down and give in to sleep at last...\e"
+	"\s[107]...so late...\w8\w8 can't believe i'm still awake...\e"
+	"\s[205]...if i'm awake this late at home,\w4 i sometimes go out to look at the stars...\e"
+}
+
+Pool_Sleepy_timeslot_midnight : array //timeslot == 'midnight' (1am - 4am)
+{
+	_hour = hour; if hour == 0; _hour = "12"
+	"\s[107]...hm...\w8\w8 i'm not usually up this late,\w4 maybe it's something about your computer..?\e"
+	"\s[107]...it's usually pretty lonely at home if i'm still up at %(_hour) am...\w8\w8\s[112] sometimes my anUncle is still up,\w4 though...\e"
+	"\s[206]...i'm glad i'm here,\w4 i wouldn't want to be awake at home this late,\w4 with everyone else asleep...\e"
+	"\s[109]...more than halfway through the night already...\e"
+	"\s[108]...time really gets away from you when it's late,\w4 huh..?\e"
+}
 
 
-	if totalboots >= 5 && friendship >= 50
-	{
-		"\s[105]...it's nice to get away from home...\w8\w8\s[107] everyone fusses over me so much that it's frustrating sometimes...\e"
-		"\s[112]...if i brought a computer here,\w4 could i bring someone else onto it like you bring me here..?\w8\w8\s[103] ...they'd be so tiny,\w4 then...\e"
-		"\s[105]...my mind is clearer when i'm here...\w8\w8\s[107] there's less to worry about...\e"
-		"\s[0]...i wonder what you get up to out there...\w8\w8\s[105] i can't really tell from here,\w4 i can only see a little...\e"
-	}
+//---Days of the week---
 
-	if ASEARCH("thesplit",MiscFlags) != -1 //The Split
+Pool_Sleepy_wd_Sun : array //wd == "Sun"
+{
+	"\s[105]...sundays are nice,\w4 we all have dinner together on sundays...\w8\w8\s[0] we have meals together a lot,\w4 but sometimes some of us can't make it because of work and stuff...\w8\w8\s[102] so sunday's our day for everyone to be together,\w4 and talk about the week...\e"
+	"\s[112]...is the sun any brighter on sunday..?\w8\w8\s[0] i feel like it should be...\e"
+	"\s[0]...how's your weekend been..?\w8\w8\s[105] i'm trying to use the extra time for stuff,\w4\s[107] but i've been pretty tired lately,\w4 so i didn't get much done...\e"
+}
+
+Pool_Sleepy_wd_Mon : array //wd == "Mon"
+{
+	"\s[105]...mondays are so tiring if you think of how much of the week is left...\e"
+	"\s[107]...can't wait for next weekend...\e"
+	"\s[107]...i swear monday is the longest day of them all...\e"
 	{
-		"\s[206]...i wonder if any computer would be strong enough to find my anbrother...\w8\w8\s[108] if you can bring me here,\w4 could you bring him too..?\e"
-	}
-	if TalkedToS == 1 && !SPresent //Talked to S and he is not present
-	{
-		"\s[105]...anDad says it's strange here,\w4 but i dunno...\w8\w8\s[0] i guess i'm used to strange things in my dreams...\e"
-		"\s[105]...anDad worries about how much time i spend dreaming...\w8\w8\s[107] he tries to hide it,\w4 but i can tell...\e"
-		
-	}
-	if ASEARCH("knowaboutsoul",MiscFlags) != -1
-	{
-		"\s[105]...anGrandpa and anGrandma get real worried for me when i'm away,\w4 but it's safe here...\w8\w8\s[107] though,\w4 i guess they're worried about my soul,\w8\s[107] they wouldn't be able to take me to the hospital if i'm not there...\e"
-		"\s[107]...anDad says my soul will get stronger once i stop growing,\w4 but i don't know...\w8\w8\n\n\s[206]...i wonder if that means i'll be small forever...\e"
-	}
-	
-	if passhour >= 6
-	{
-		if !SPresent
+		"\s[0]...start of the week...\w8\w8 "
+		--
+		if month == 6 || month == 7 || month == 8 //Summer months in her timeline
 		{
-			"\0\s[113]...they must be wondering where i am by now...\w8\w8 "
-			--
-			if SInstalled
-			{
-				"andad will figure it out...\e"
-			}
-			else
-			{
-				"andad will be worried...\e"
-			}
+			"\s[103]it's nice not to have to go to school...\e"
+		}
+		else
+		{
+			"\s[107]gotta go back to school...\e"
 		}
 	}
-	if totalhours >= 50
-	{
-		"\s[112]...your computer...\w8\w8 it's alive,\w4 in a way...\w8\w8\s[111] it's like how the earth is alive,\w4 but on a smaller scale,\w4 i guess...\e"
-	}
+}
+
+Pool_Sleepy_wd_Tue : array //wd == "Tue"
+{
+	"\s[107]...it's not monday anymore,\w4 that's nice...\w8\w8\s[109] tuesday isn't much further along,\w4 but it's better...\e"
+	"\s[107]...just waiting for the week to go by...\w8\w8 takes so long...\e"
+	"\s[111]...are you up to anything interesting today..?\w8\w8\s[107] i'm not,\w4 there isn't much going on on tuesdays...\e"
+}
+
+Pool_Sleepy_wd_Wed : array //wd == "Wed"
+{
+	"\s[102]...midway through the week...\w8\w8\s[112] getting closer to the weekend now...\e"
+	"\s[107]...halfway there,\w4 just a bit longer now...\w8\w8\s[206] the weekend always seems so far away...\e"
+	"\s[102]...the latter half of the week is always better than the first half,\w8\s[0] so i guess that's something to look forward to...\e"
+}
+
+Pool_Sleepy_wd_Thu : array //wd == "Thu"
+{
+	"\s[102]...it's leftover night tonight...\w8\w8\s[103] perfect time for trying weird food combos nobody wants...\e" //Onion maybe?
+	"\s[105]...thursday is a nice day,\w4 we have leftovers on thursday...\w8\w8\s[111] if you're quick,\w4 you can get your favorite foods before everyone else takes them...\e"
+	"\s[205]...getting really close to the end of the week now...\w8\w8\s[0] are you excited for friday..?\e"
+}
+
+Pool_Sleepy_wd_Fri : array //wd == "Fri"
+{
+	"\s[112]...friday...\w8\w8\s[111] anCambria likes fridays...\w8\w8 she usually goes out shopping with anElko...\w8\w8\s[103] sometimes she gets things for me, too...\e"
+	"\s[102]...friday is one of the best days of the week...\w8\w8\s[111] enjoy it while it's here,\w4 i guess...\e"
+	"\s[205]...can't wait for saturday...\w8\w8\s[102] it's almost here now...\e"
+}
+
+Pool_Sleepy_wd_Sat : array //wd == "Sat"
+{
+	"\s[102]...saturdays are nice,\w4 don't have to worry about going to school...\w8\w8\s[112] can sleep in tomorrow,\w4 too...\e"
+	"\s[102]...the weekend is finally here,\w4 it's nice...\e"
+	"\s[205]...i should work on some projects this weekend...\e"
+	"\s[111]...do you have any plans this weekend..?\e"
+	"\s[102]...sure is nice to relax on saturday,\w4 knowing tomorrow's free too...\e"
+}
+
+
+//---Days in the month---
+Pool_Sleepy_startmonth : array //day < 5 (start of the month)
+{
+	_lowmonth = TOLOWER(nowmonth)
+	_lowlast = TOLOWER(nowmonth('last'))
+	_lownext = TOLOWER(nowmonth('next'))
 	
-	if SeePC == "On"
-	{
-		"\![raise,OnSaoriRand]"
-	}
+	"\s[0]...new month,\w4 huh..?\w8\w8\s[112] i don't keep track of the months very much,\w4 'cept to see when spring is coming...\e"
+	"\s[112]...start of %(_lowmonth)...\w8\w8\s[107] i didn't really get a lot done in %(_lowlast),\w4 though...\e"
+	"\s[107]...it's hard to believe %(_lowlast) is over already...\e"
+	"\s[107]...%(_lowlast) went by so quick...\e"
+	"\s[206]...i was going to try and get more done in %(_lowlast),\w4 but it's already over...\e"
+}
+
+Pool_Sleepy_midmonth : array //day > 13 && day < 17 (middle of the month)
+{
+	_lowmonth = TOLOWER(nowmonth)
+	_lowlast = TOLOWER(nowmonth('last'))
+	_lownext = TOLOWER(nowmonth('next'))
 	
-	if Family[0] == 1 //WD
-	{
-		
-	}
-	if Family[1] == 1 //Dings
-	{
-		
-	}
-	if Family[2] == 1 //Wings
-	{
-		
-	}
-	if Family[3] == 1 //Barcode
-	{
-		
-	}
-	if Family[4] == 1 //S
-	{
-		if !SPresent; "\s[111]...are you good with computers,\w4 %(username)..?\w8\w8\s[113] i know a little about them,\w4 but not much...\w8\w8\s[0] more than my andad,\w4 though...\e"
-	}
-	if Family[5] == 1 //Blue Jeans
-	{
-		
-	}
-	if Family[6] == 1 //Abbi
-	{
-		
-	}
-	if Family[7] == 1 //Rosie
-	{
-		
-	}
-	if Family[8] == 1 //Roman
-	{
-		
-	}
-	if Family[9] == 1 //Cambria
-	{
-		
-	}
-	if Family[10] == 1 //Triton
-	{
-		"\s[113]...anTriton wouldn't care for this place at all...\w8\w8 he likes to be out in nature,\w4 with all the plants...\w8\w8\s[0] and the rain...\e"
-	}
-	/*if Family[11] == 1 //Lulo
-	{
-		
-	}*/
-	if Family[12] == 1 //Azo
-	{
-		
-	}
-	if Family[13] == 1 //Sigil
-	{
-		
-	}
-	if Family[14] == 1 //Elko
-	{
-		
-	}
+	"\s[107]...halfway through the month,\w4 just about...\w8\w8\s[109] it's going by so fast...\e"
+	"\s[109]...i can't believe %(_lowmonth) is halfway over...\e"
+	"\s[107]...%(_lowmonth) is sure going by fast,\w4 huh...\e"
+	"\s[105]...still plenty of %(_lowmonth) left,\w4 if you're working on something...\e"
+	"\s[107]...time's really flying...\w8\w8 %(_lowmonth) is almost over already,\w4 it really feels like %(_lowlast) just ended a few days ago though...\e"
+}
+
+Pool_Sleepy_endmonth : array //day > 26 (end of the month)
+{
+	_lowmonth = TOLOWER(nowmonth)
+	_lowlast = TOLOWER(nowmonth('last'))
+	_lownext = TOLOWER(nowmonth('next'))
 	
-	//User Environment Ifs
-	//---Timeslots---
-	if timeslot == "earlymorning" //5am - 8am
+	"\s[113]...%(_lowlast) went by so quick,\w4 and now %(_lowmonth) too...\e"
+	"\s[113]...%(_lowmonth)'s just about over already...\e"
+	"\s[107]...can't believe the month is almost over...\e"
+	"\s[111]...did you make it a good month,\w4 %(username)..?\w8\w8\s[105] i did what i could,\w4 maybe %(_lownext) will be better...\e"
+}
+
+
+//---Months--- (Northern hemisphere/Southern hemisphere)
+Pool_Sleepy_month_Jan : array //month == 1
+{
+	if day == 1 //New year's day
 	{
-		if passhour > 3 //Probably been up all night
-		{
-			"\s[113]...still awake..?\w8\w8\s[107] i guess i am too...\e"
-			"\s[113]...um,\w4 maybe we should both try to get some sleep..?\e"
-			"\s[108]...it's so late that it's early again...\w8\w8\s[109] sleep is probably a good idea...\e"
-			"\s[108]...um,\w4 you know it's %(hour) in the morning,\w4 right..?\e"
-			"\s[105]...it's nice to see the sun again...\w8\w8\s[108] though,\w4 i guess not if you still need to sleep...\e"
-		}
-		else //Just got up
-		{
-			"\s[105]...up early,\w4 huh..?\w8\w8\s[111] that's nice,\w4 guess you have the whole day to do stuff...\e"
-			"\s[111]...i guess you're an early waker,\w4 huh..?\w8\w8\s[107] i just wake up whenever i wake up...\e"
-			"\s[105]...%(hour) is so early...\e"
-			"\s[0]...how do you stay awake when it's only %(hour) am..?\e"
-		}
+		"\s[112]...wonder how different my dreams will be by next year...\w8\w8\s[0] i'm always trying new things,\w8\s[107] 'cause there are so many ideas to explore...\e"
 	}
-	if timeslot == "morning" //9am - 11am
+	if day == 7
 	{
-		"\s[107]...mmm,\w4 want to sleep in a few more hours...\e"
-		if ghostexcount <= 4;"\s[105]...this time is always busy around our house...\w8\w8\s[111] it's kinda nice to be here instead...\e"
-		"\s[107]...i'm already ready to go back to sleep...\e"
-		if !SPresent;"\s[107]...my anDad's a morning person,\w4 but i'm usually not...\e"
-		"\s[107]...they're probably having breakfast at home...\e"
-		if month == 6 || month == 7 || month == 8;"\s[102]...it's nice not to have to get ready for school...\w8\w8\s[111] don't send me home for a while,\w4 kay..?\e"
+		"\s[112]...hmm...\w8\w8\s[0] today is a day to persevere...\w8\w8\s[102] that's the feeling i get,\w4 anyways...\e"
 	}
-	if timeslot == "lunch" //12pm - 2pm
-	{
-		"\s[109]...should probably eat soon...\w8\w8 can't put it off too long...\e"
-		"\s[107]...mmm...\w8\w8 can't wait to go to bed tonight...\w8\w8\s[108] but i have to try to stay awake during the day,\w4\s[206] or i won't be able to sleep very well tonight...\e"
-		"\s[105]...midway through the daylight,\w4 i guess...\w8\w8\s[0] or something like that...\e"
-		"\s[105]...this is one of the quieter times at home...\w8\w8\s[107] if i'm not at school,\w4 anyways...\e"
-	}
-	if timeslot == "afternoon" //3pm - 5pm
-	{
-		"\s[112]...afternoons are always so sleepy...\e"
-		"\s[107]...it gets so loud back home sometimes...\w8\w8\s[206] it can be hard to find good places to nap when everyone is home...\e"
-		"\s[205]...i like watching the sky when i'm not sleeping...\w8\w8 it's nice to just watch the clouds for a while,\w4 and the colors are so soothing...\w8\w8\n\n\s[107]...i've taken a lot of accidental naps while watching the sky...\e"
-		"\s[102]...mmm...\w8\w8 sleep always tugs harder in the afternoon...\e"
-		"\s[205]...sometimes if it's too busy to fall asleep at home,\w4 i go outside and find a patch of sunlight to fall asleep in...\w8\w8\s[111] our cats have the right idea,\w4 it's really great...\e"
-		"\s[206]...latter half of the day...\w8\w8\s[109] it goes by quickly,\w4 huh..?\e"
-	}
-	if timeslot == "evening" //6pm - 8pm
-	{
-		"\s[112]...time to wind down for the day...\w8\w8\s[0] bed time soon...\e"
-		"\s[105]...sunsets are really pretty,\w8\s[107] but i'm usually asleep by the time the sun is going down...\e"
-		"\s[107]...day's almost over now...\e"
-		"\s[206]...the world is getting sleepy...\w8\w8\s[107] me too...\e"
-		"\s[102]...it's a lot more peaceful out,\w4 once it gets dark...\e"
-	}
-	if timeslot == "latenight" //9pm - 12am
-	{
-		"\s[105]...it's late...\w8\w8 i should be getting to bed soon...\e"
-		"\s[205]...it gets so quiet late at night...\w8\w8\s[0] i don't mind,\w4 though...\w8\w8\s[102] it's nice after how busy it gets during the day...\e"
-		"\s[107]...the end of the day is probably my favorite part,\w4 it's so nice to lay down and give in to sleep at last...\e"
-		"\s[107]...so late...\w8\w8 can't believe i'm still awake...\e"
-		"\s[205]...if i'm awake this late at home,\w4 i sometimes go out to look at the stars...\e"
-	}
-	if timeslot == "midnight" //1am - 4am
-	{
-		if hour == 0; _hour = "12"
-		"\s[107]...hm...\w8\w8 i'm not usually up this late,\w4 maybe it's something about your computer..?\e"
-		"\s[107]...it's usually pretty lonely at home if i'm still up at %(_hour) am...\w8\w8\s[112] sometimes my anUncle is still up,\w4 though...\e"
-		"\s[206]...i'm glad i'm here,\w4 i wouldn't want to be awake at home this late,\w4 with everyone else asleep...\e"
-		"\s[109]...more than halfway through the night already...\e"
-		"\s[108]...time really gets away from you when it's late,\w4 huh..?\e"
-	}
+	"\s[0]...we've been getting so much snow lately...\w8\w8\s[103] they even had to cancel school for a couple days...\e"
+	"\s[105]...it's been really cold outside...\w8\w8\s[107] i don't usually play in the snow very much,\w4 i have trouble getting warm...\e"
+	"\s[112]...my birthday's coming up soon,\w4\s[111] it's next month...\w8\w8\n\n\s[208]...wonder if i'll get anything cool this year...\e"
+	if !SPresent;"\s[107]...everyone's been having fun sledding lately,\w4 but i don't usually do it much...\w8\w8\s[206] i'm too tired to walk all the way up the hill...\w8\w8\s[107]\n\n...anDad can't walk all the way up without help,\w4 either,\w4 so we usually sit at the pavillion and drink hot chocolate...\e"
 	
-	//---Days of the week---
-	if wd == "Sun"
-	{
-		"\s[105]...sundays are nice,\w4 we all have dinner together on sundays...\w8\w8\s[0] we have meals together a lot,\w4 but sometimes some of us can't make it because of work and stuff...\w8\w8\s[102] so sunday's our day for everyone to be together,\w4 and talk about the week...\e"
-		"\s[112]...is the sun any brighter on sunday..?\w8\w8\s[0] i feel like it should be...\e"
-		"\s[0]...how's your weekend been..?\w8\w8\s[105] i'm trying to use the extra time for stuff,\w4\s[107] but i've been pretty tired lately,\w4 so i didn't get much done...\e"
-	}
-	if wd == "Mon"
-	{
-		"\s[105]...mondays are so tiring if you think of how much of the week is left...\e"
-		"\s[107]...can't wait for next weekend...\e"
-		"\s[107]...i swear monday is the longest day of them all...\e"
-		{
-			"\s[0]...start of the week...\w8\w8 "
-			--
-			if month == 6 || month == 7 || month == 8 //Summer months in her timeline
-			{
-				"\s[103]it's nice not to have to go to school...\e"
-			}
-			else
-			{
-				"\s[107]gotta go back to school...\e"
-			}
-		}
-	}
-	if wd == "Tue"
-	{
-		"\s[107]...it's not monday anymore,\w4 that's nice...\w8\w8\s[109] tuesday isn't much further along,\w4 but it's better...\e"
-		"\s[107]...just waiting for the week to go by...\w8\w8 takes so long...\e"
-		"\s[111]...are you up to anything interesting today..?\w8\w8\s[107] i'm not,\w4 there isn't much going on on tuesdays...\e"
-	}
-	if wd == "Wed"
-	{
-		"\s[102]...midway through the week...\w8\w8\s[112] getting closer to the weekend now...\e"
-		"\s[107]...halfway there,\w4 just a bit longer now...\w8\w8\s[206] the weekend always seems so far away...\e"
-		"\s[102]...the latter half of the week is always better than the first half,\w8\s[0] so i guess that's something to look forward to...\e"
-	}
-	if wd == "Thu"
-	{
-		"\s[102]...it's leftover night tonight...\w8\w8\s[103] perfect time for trying weird food combos nobody wants...\e" //Onion maybe?
-		"\s[105]...thursday is a nice day,\w4 we have leftovers on thursday...\w8\w8\s[111] if you're quick,\w4 you can get your favorite foods before everyone else takes them...\e"
-		"\s[205]...getting really close to the end of the week now...\w8\w8\s[0] are you excited for friday..?\e"
-	}
-	if wd == "Fri"
-	{
-		"\s[112]...friday...\w8\w8\s[111] anCambria likes fridays...\w8\w8 she usually goes out shopping with anElko...\w8\w8\s[103] sometimes she gets things for me, too...\e"
-		"\s[102]...friday is one of the best days of the week...\w8\w8\s[111] enjoy it while it's here,\w4 i guess...\e"
-		"\s[205]...can't wait for saturday...\w8\w8\s[102] it's almost here now...\e"
-	}
-	if wd == "Sat"
-	{
-		"\s[102]...saturdays are nice,\w4 don't have to worry about going to school...\w8\w8\s[112] can sleep in tomorrow,\w4 too...\e"
-		"\s[102]...the weekend is finally here,\w4 it's nice...\e"
-		"\s[205]...i should work on some projects this weekend...\e"
-		"\s[111]...do you have any plans this weekend..?\e"
-		"\s[102]...sure is nice to relax on saturday,\w4 knowing tomorrow's free too...\e"
-	}
-	
-	//---Days in the month---
-	if day < 5 //4th and before, start of the month
-	{
-		_lowmonth = TOLOWER(nowmonth)
-		_lowlast = TOLOWER(nowmonth('last'))
-		
-		"\s[0]...new month,\w4 huh..?\w8\w8\s[112] i don't keep track of the months very much,\w4 'cept to see when spring is coming...\e"
-		"\s[112]...start of %(_lowmonth)...\w8\w8\s[107] i didn't really get a lot done in %(_lowlast),\w4 though...\e"
-		"\s[107]...it's hard to believe %(_lowlast) is over already...\e"
-		"\s[107]...%(_lowlast) went by so quick...\e"
-		"\s[206]...i was going to try and get more done in %(_lowlast),\w4 but it's already over...\e"
-	}
-	if day > 13 && day < 17 //14th-16th, halfway through
-	{
-		_lowmonth = TOLOWER(nowmonth)
-		_lowlast = TOLOWER(nowmonth('last'))
-		
-		"\s[107]...halfway through the month,\w4 just about...\w8\w8\s[109] it's going by so fast...\e"
-		"\s[109]...i can't believe %(_lowmonth) is halfway over...\e"
-		"\s[107]...%(_lowmonth) is sure going by fast,\w4 huh...\e"
-		"\s[105]...still plenty of %(_lowmonth) left,\w4 if you're working on something...\e"
-		"\s[107]...time's really flying...\w8\w8 %(_lowmonth) is almost over already,\w4 it really feels like %(_lowlast) just ended a few days ago though...\e"
-	}
-	if day > 26 //27th and after, end of the month
-	{
-		_lowmonth = TOLOWER(nowmonth)
-		_lowlast = TOLOWER(nowmonth('last'))
-		_lownext = TOLOWER(nowmonth('next'))
-		
-		"\s[113]...%(_lowlast) went by so quick,\w4 and now %(_lowmonth) too...\e"
-		"\s[113]...%(_lowmonth)'s just about over already...\e"
-		"\s[107]...can't believe the month is almost over...\e"
-		"\s[111]...did you make it a good month,\w4 %(username)..?\w8\w8\s[105] i did what i could,\w4 maybe %(_lownext) will be better...\e"
-	}
-	
-	//---Months---
-	if month == 1
-	{
-		if day == 1 //New year's day
-		{
-			"\s[112]...wonder how different my dreams will be by next year...\w8\w8\s[0] i'm always trying new things,\w8\s[107] 'cause there are so many ideas to explore...\e"
-		}
-		if day == 7
-		{
-			"\s[112]...hmm...\w8\w8\s[0] today is a day to persevere...\w8\w8\s[102] that's the feeling i get,\w4 anyways...\e"
-		}
-		if day < 15
-		{
-			"\s[107]...i can't believe %(year - 1) is over already...\w8\w8\s[105] guess it's time to see what %(year) will be like...\e"
-			"\s[105]...%(year),\w4 huh..?\w8\w8\s[0] i hope it's a good one...\e"
-			"\s[0]...i hope your %(year) is a good one,\w4 %(username)...\w8\w8\s[113] if %(year - 1) wasn't good for you,\w4 maybe %(year) will be better...\e"
-		}
-		"\s[0]...we've been getting so much snow lately...\w8\w8\s[103] they even had to cancel school for a couple days...\e"
-		"\s[105]...it's been really cold outside...\w8\w8\s[107] i don't usually play in the snow very much,\w4 i have trouble getting warm...\e"
-		"\s[112]...my birthday's coming up soon,\w4\s[111] it's next month...\w8\w8\n\n\s[208]...wonder if i'll get anything cool this year...\e"
-		if !SPresent;"\s[107]...everyone's been having fun sledding lately,\w4 but i don't usually do it much...\w8\w8\s[206] i'm too tired to walk all the way up the hill...\w8\w8\s[107]\n\n...anDad can't walk all the way up without help,\w4 either,\w4 so we usually sit at the bottom and drink hot chocolate...\e"
-	}
-	if month == 2
-	{
-		if day == 19
+	parallel Pool("Pool_Sleepy_month_Jan_Early","%(day < 15)")
+}
+
+Pool_Sleepy_month_Jan_Early : array //day < 15
+{
+	"\s[107]...i can't believe %(year - 1) is over already...\w8\w8\s[105] guess it's time to see what %(year) will be like...\e"
+	"\s[105]...%(year),\w4 huh..?\w8\w8\s[0] i hope it's a good one...\e"
+	"\s[0]...i hope your %(year) is a good one,\w4 %(username)...\w8\w8\s[113] if %(year - 1) wasn't good for you,\w4 maybe %(year) will be better...\e"
+}
+
+Pool_Sleepy_month_Feb : array //month == 2
+{
+	if day == 19
 		{
 			"\s[111]...today's anAbbi's birthday...\w8\w8\s[105] it's nice to see him smile,\w4 he seems so sad sometimes...\e"
 		}
@@ -1628,417 +1855,341 @@ SleepyTalk : nonoverlap //Sleepy mode randomtalk
 		{
 			if !CambriaPresent; "\s[0]...today's my birthday...\w8\w8\s[105] it's anElko's birthday too,\w4 that was a surprise when we found out...\w8\w8\s[112] i don't mind sharing,\w4 it's kinda fun...\e"
 		}
-		if day > 15
+		if day > 25
 		{
 			"\s[112]...there's been a lot of grass poking out of the snow lately...\w8\w8\s[102] guess winter's almost over...\w8\w8\s[107] though,\w4 we could have another snowstorm out of nowhere,\w4 that's happened before...\e"
 		}
 		"\s[105]...winter's gonna be over soon,\w4 next month will be spring...\w8\w8\s[0] i like spring better anyways,\w4 it's not so cold...\e"
-	}
-	if month == 3 //Spring start Northern, Autumn start Southern
+}
+
+Pool_Sleepy_month_Mar : array //month == 3 (Spring start/Autumn start)
+{
+	if day == 10 //Camrbia's bday
 	{
-		if day == 10 //Camrbia's bday
-		{
-			if !CambriaPresent; "\s[111]...anCambria's birthday is today...\w8\w8\s[113] she usually doesn't spend much time celebrating it,\w4 though...\e"
-		}
-		if day == 23 //Triton's bday
-		{
-			"\s[105]...it's anTriton's birthday today...\w8\w8\s[0] he's not much for celebrating it,\w4 though...\w8\w8\n\n\s[112]...anDad usually tries to get him something nice anyways...\w8\w8\s[111] i think anTriton appreciates it,\w4 even if he doesn't say so...\e"
-		}
-		"\s[105]...all the little bugs have been coming out again...\w8\w8\s[0] i love to watch them crawl by...\w8\w8 they're so determined,\w4\s[109] even though they're so small...\e"
-		"\s[112]...i wonder what it's like to be a bug...\w8\w8\s[113] their lives are so short,\w4 and small...\w8\w8\n\n\s[111] but they don't have to worry about the things we do,\w4 right..?\w8\w8\s[200] they only know their own world...\e"
-		"\s[105]...there's always a lot of snow melting in slushy piles at this time of year...\w8\w8\s[107] it looks a lot better once it gets a bit warmer and the flowers come up...\e"
-		"\s[105]...i saw some bees buzzing around the other day...\w8\w8\s[112] spring's only just started,\w4 and they're already hard at work...\e"
-		"\s[107]...i wonder if we'll get any more snowfall out of nowhere...\w8\w8\s[108] it happens,\w4 sometimes...\e"
-		"\s[107]...i like spring,\w4 but my eyesockets have been itchy again...\w8\w8\s[113] the doctor said it's 'cause of all the plants blooming...\e"
+		if !CambriaPresent; "\s[111]...anCambria's birthday is today...\w8\w8\s[113] she usually doesn't spend much time celebrating it,\w4 though...\e"
 	}
-	if month == 4
+	if day == 23; "\s[105]...it's anTriton's birthday today...\w8\w8\s[0] he's not much for celebrating it,\w4 though...\w8\w8\n\n\s[112]...anDad usually tries to get him something nice anyways...\w8\w8\s[111] i think anTriton appreciates it,\w4 even if he doesn't say so...\e" //Triton's bday
+	"\s[105]...all the little bugs have been coming out again...\w8\w8\s[0] i love to watch them crawl by...\w8\w8 they're so determined,\w4\s[109] even though they're so small...\e"
+	"\s[112]...i wonder what it's like to be a bug...\w8\w8\s[113] their lives are so short,\w4 and small...\w8\w8\n\n\s[111] but they don't have to worry about the things we do,\w4 right..?\w8\w8\s[200] they only know their own world...\e"
+	"\s[105]...there's always a lot of snow melting in slushy piles at this time of year...\w8\w8\s[107] it looks a lot better once it gets a bit warmer and the flowers come up...\e"
+	"\s[105]...i saw some bees buzzing around the other day...\w8\w8\s[112] spring's only just started,\w4 and they're already hard at work...\e"
+	"\s[107]...i wonder if we'll get any more snowfall out of nowhere...\w8\w8\s[108] it happens,\w4 sometimes...\e"
+	"\s[107]...i like spring,\w4 but my eyesockets have been itchy again...\w8\w8\s[113] the doctor said it's 'cause of all the plants blooming...\e"
+}
+
+Pool_Sleepy_month_Apr : array //month == 4
+{
+	if day == 27; "\s[111]...anRosie's birthday is today...\w8\w8 she always gets really cool stuff for her birthday...\e" //Rosie's bday
+	"\s[0]...i like this time of year,\w4 all sorts of colorful flowers have come up and it's really nice...\e"
+	"\s[102]...the air's getting warmer again...\w8\w8 it's so nice to sit on the porch and forget about everything else...\e"
+	"\s[105]...we get a lot of rain around this time of year...\w8\w8\s[102] it's nice to sit and listen to it hitting the window...\e"
+	"\s[105]...it's nice that there aren't so many big holidays in spring,\w8\s[107] they can be really tiring...\e"
+	"\s[111]...it's been really warm out lately,\w4 spring is really here now...\w8\w8\s[105] there's no way we'll get any more surprise snows,\w4 now...\e"
+}
+
+Pool_Sleepy_month_May : array //month == 5
+{
+	if day == 16; "\s[105]...anSigil's birthday is today...\w8\w8\s[107] her last birthday was um,\w4 kinda messy...\w8\w8\s[109] at least cake makes an edible mess,\w4 i guess...\e" //Sigil's bday
+	"\s[102]...last month of school...\w8\w8\s[109] sometimes i wish we had our big break from school in spring instead...\e"
+	"\s[105]...everyone's getting excited for summer,\w4 but i want to enjoy what's left of spring...\e"
+	"\s[105]...it's been getting warmer and warmer out...\w8\w8\s[0] won't be long before summer gets here...\e"
+	"\s[205]...it'll be time to say goodbye to spring soon,\w4 until next year...\e"
+	if day > 15; "\s[107]...summer's almost here...\w8\w8\s[109] it's too warm for me,\w4 it makes me so sleepy all the time...\e"
+}
+
+Pool_Sleepy_month_Jun : array //month == 6 (Summer start/Winter start)
+{
+	if day == 22;"\s[0]...my anGrandma's birthday is today...\w8\w8\s[103] i think my anGrandpa has something special planned,\w4 he always makes it a good day for her...\e" //Barcode's bday
+	"\s[107]...summer's here,\w4 and it's been really warm at home...\e"
+	"\s[206]...it's a good thing school is out now,\w8\s[204] i've been so drowsy there's no way i'd keep up...\e"
+	"\s[107]...two months and some left of summer...\e"
+	"\s[112]...school is out now,\w4 that's nice...\w8\w8\s[107] i don't really get up to anything interesting,\w4 though...\w8\w8 i just sleep a lot...\e"
+}
+
+Pool_Sleepy_month_Jul : array //month == 7
+{
+	if day == 14; "\s[111]...anAzo's birthday is today...\w8\w8\s[112] he's the same age as anSigil for a few months,\w4 and then he jumps ahead again...\e" //Azo bday
+	if !SPresent;"\s[206]...anDad's been real worried for me lately,\w4 i can tell...\w8\w8\s[107] it's just the heat making me sleepy,\w4 i'm fine...\e"
+	"\s[107]...hottest part of the year...\w8\w8 can't wait for fall...\e"
+	"\s[206]...i wish the heat didn't affect me so much,\w4 maybe i could get something done with all this extra time...\e"
+	"\s[105]...i'm supposed to be reading some books for school over the summer,\w8\s[107] but it's going pretty slow...\w8\w8\s[109] i just can't stay awake long enough to read for very long...\e"
+	"\s[0]...are you up to anything fun this summer..?\w8\w8\s[107] i haven't done a lot...\e"
+}
+
+Pool_Sleepy_month_Aug : array //month == 8
+{
+	if day == 25 //S's bday
 	{
-		if day == 27 //Rosie's bday
-		{
-			"\s[111]...anRosie's birthday is today...\w8\w8 she always gets really cool stuff for her birthday...\e"
-		}
-		"\s[0]...i like this time of year,\w4 all sorts of colorful flowers have come up and it's really nice...\e"
-		"\s[102]...the air's getting warmer again...\w8\w8 it's so nice to sit on the porch and forget about everything else...\e"
-		"\s[105]...we get a lot of rain around this time of year...\w8\w8\s[102] it's nice to sit and listen to it hitting the window...\e"
-		"\s[105]...it's nice that there aren't so many big holidays in spring,\w8\s[107] they can be really tiring...\e"
-		"\s[111]...it's been really warm out lately,\w4 spring is really here now...\w8\w8\s[105] there's no way we'll get any more surprise snows,\w4 now...\e"	
+		if !SPresent;"\s[111]...today's my anDad's birthday...\w8\w8\s[113] he always seems a little antsy,\w4 i'm not sure why...\w8\w8\s[0] but we usually have a good time anyways...\e"
 	}
-	if month == 5
+	"\s[107]...last month of summer...\w8\w8 feels like it went on forever...\e"
+	"\s[111]...fall's coming up quick...\w8\w8\s[107] it'll be nice to feel a cool breeze again...\w8\w8\s[113] though,\w4 the warm napping spots will go away pretty quickly...\e"
+	"\s[0]...do you like harvest festivals and stuff..?\w8\w8\s[112] they're coming up pretty quick,\w4 i'm looking forward to it...\w8\w8\s[107] i'm not so good at walking around and taking everything in,\w8\s[0] but there's so much good food...\n\n\s[105]...still have to get through a bit more of summer first,\w4 though...\e"
+	"\s[107]...things should start cooling off soon,\w4 i think...\w8\w8 i'm glad...\e"
+}
+
+Pool_Sleepy_month_Sep : array //month == 9 (Autumn start/Spring start)
+{
+	if day == 7 //Blue Jeans's bday
 	{
-		if day == 16 //Sigil's bday
-		{
-			"\s[105]...anSigil's birthday is today...\w8\w8\s[107] her last birthday was um,\w4 kinda messy...\w8\w8\s[109] at least cake makes an edible mess,\w4 i guess...\e"
-		}
-		"\s[102]...last month of school...\w8\w8\s[109] sometimes i wish we had our big break from school in spring instead...\e"
-		"\s[105]...everyone's getting excited for summer,\w4 but i want to enjoy what's left of spring...\e"
-		"\s[105]...it's been getting warmer and warmer out...\w8\w8\s[0] won't be long before summer gets here...\e"
-		"\s[205]...it'll be time to say goodbye to spring soon,\w4 until next year...\e"
-		if day > 15
-		{
-			"\s[107]...summer's almost here...\w8\w8\s[109] it's too warm for me,\w4 it makes me so sleepy all the time...\e"
-		}
+		if !SPresent;"\s[205]...today's my anStepdad's birthday...\w8\w8\s[208] my anDad's probably got something planned for them...\e"
 	}
-	if month == 6 //Summer start Northern, Winter start Southern
-	{
-		if day == 22 //Barcode's bday
-		{
-			"\s[0]...my anGrandma's birthday is today...\w8\w8\s[103] i think my anGrandpa has something special planned,\w4 he always makes it a good day for her...\e"
-		}
-		"\s[107]...summer's here,\w4 and it's been really warm at home...\e"
-		"\s[206]...it's a good thing school is out now,\w8\s[204] i've been so drowsy there's no way i'd keep up...\e"
-		"\s[107]...two months and some left of summer...\e"
-		"\s[112]...school is out now,\w4 that's nice...\w8\w8\s[107] i don't really get up to anything interesting,\w4 though...\w8\w8 i just sleep a lot...\e"
-	}
-	if month == 7
-	{
-		if day == 14 //Azo bday
-		{
-			"\s[111]...anAzo's birthday is today...\w8\w8\s[112] he's the same age as anSigil for a few months,\w4 and then he jumps ahead again...\e"
-		}
-		if !SPresent;"\s[206]...anDad's been real worried for me lately,\w4 i can tell...\w8\w8\s[107] it's just the heat making me sleepy,\w4 i'm fine...\e"
-		"\s[107]...hottest part of the year...\w8\w8 can't wait for fall...\e"
-		"\s[206]...i wish the heat didn't affect me so much,\w4 maybe i could get something done with all this extra time...\e"
-		"\s[105]...i'm supposed to be reading some books for school over the summer,\w8\s[107] but it's going pretty slow...\w8\w8\s[109] i just can't stay awake long enough to read for very long...\e"
-		"\s[0]...are you up to anything fun this summer..?\w8\w8\s[107] i haven't done a lot...\e"
-	}
-	if month == 8
-	{
-		if day == 25 //S's bday
-		{
-			if !SPresent;"\s[111]...today's my anDad's birthday...\w8\w8\s[113] he always seems a little antsy,\w4 i'm not sure why...\w8\w8\s[0] but we usually have a good time anyways...\e"
-		}
-		"\s[107]...last month of summer...\w8\w8 feels like it went on forever...\e"
-		"\s[111]...fall's coming up quick...\w8\w8\s[107] it'll be nice to feel a cool breeze again...\w8\w8\s[113] though,\w4 the warm napping spots will go away pretty quickly...\e"
-		"\s[0]...do you like harvest festivals and stuff..?\w8\w8\s[112] they're coming up pretty quick,\w4 i'm looking forward to it...\w8\w8\s[107] i'm not so good at walking around and taking everything in,\w8\s[0] but there's so much good food...\n\n\s[105]...still have to get through a bit more of summer first,\w4 though...\e"
-		"\s[107]...things should start cooling off soon,\w4 i think...\w8\w8 i'm glad...\e"
-	}
-	if month == 9 //Autumn start Northern, Spring start Southern
-	{
-		if day == 7 //Blue Jeans's bday
-		{
-			if !SPresent;"\s[205]...today's my anStepdad's birthday...\w8\w8\s[208] my anDad's probably got something planned for them...\e"
-		}
-		"\s[111]...fall's here...\w8\w8\s[102] the leaves will start coming down soon...\e"
-		"\s[205]...everything pumpkin spice flavored is already out...\w8\w8\s[0] i don't mind though,\w4 pumpkin spice is nice...\w8\w8\s[112] especially when it starts getting chilly out...\e"
-		"\s[205]...autumn tends to slip by so fast...\w8\w8\s[0] enjoy it while it's here,\w4 before the chill of winter sets in...\e"
-		"\s[205]...it's been really breezy out lately...\w8\w8\s[102] it's nice to sit on the porch and listen to the leaves crackle...\e"
-	}
-	if month == 10
-	{
-		if day == 12 //WD, Dings, Wings bday
-		{
-			"\s[0]...it's my anGrandpa's birthday today...\w8\w8\s[112] and my anAunt's...\w8\w8\s[111] and my anUncle's...\w8\w8\s[103] they're triplets,\w4 they're actually my grand aunt and uncle...\e"
-		}
-		"\s[0]...it's getting too cold to go out without a jacket...\w8\w8\s[102] i guess that's fall for you...\e"
-		"\s[205]...the breeze has been really chilly lately...\w8\w8\s[0] a lot of the trees have lost their leaves already...\e"
-		"\s[205]...i love the reds and oranges on the trees right now,\w4 autumn is a really bold season...\e"
-		"\s[105]...getting into the last part of the year,\w4 huh...\e"
-	}
-	if month == 11
-	{
-		"\s[107]...fall goes by so quickly...\w8\w8\s[206] it's already started getting pretty cold at home,\w4 none of the trees have any leaves left...\e"
-		"\s[109]...we're starting to get down to freezing temperatures,\w4 we might get snow soon...\e"
-		if !SPresent;"\s[105]...there's been frost on the grass every morning lately,\w4 my anDad's already covered up his garden for winter...\e"
-		if day > 15
-		{
-			"\s[105]...winter's almost here,\w4 just a little longer...\e"
-		}
-	}
-	if month == 12 //Winter start Northern, Summer start Southern
-	{
-		"\s[105]...it's holiday season again...\w8\w8\s[107] can't wait for spring...\e"
-		"\s[205]...it's too cold for light jackets now,\w4 we've had to bring out the puffy coats...\w8\w8\s[0] at least it's warm here,\w4 that's nice...\e"
-		if !SPresent;"\s[112]...anDad always makes ginger cookies around this time of year...\w8\w8\s[0] i like those a lot,\w4 i guess that's something to look forward to...\e"
-		if day == 13 //Roman's bday
-		{
-			"\s[111]...anRoman's birthday is today...\w8\w8\s[103] he always tries to share his gifts,\w4 it's cute...\e"
-		}
-		if day < 25
-		{
-			"\s[105]...gyftmas is coming up quick...\w8\w8\s[0] are you ready for it..?\w8\w8\s[112] i got %(myfamily) something cool,\w4 it's gonna be great...\e"
-		}
-		_daysleft = (31 - day)
-		if _daysleft >= 2 && _daysleft <= 15
-		{
-			_nextyear = year + 1
-			_lastyear = year - 1
-			"\s[111]...only %(_daysleft) days left in %(year)...\w8\w8 you should make them good ones,\w4 %(_nextyear) is coming up quick...\e"
-			"\s[111]...%(_nextyear) is coming up fast,\w4 huh?\w8\w8\s[206] it's hard to believe %(year) went by so quickly,\w4 seems like just a few weeks ago we were saying goodbye to %(_lastyear)...\e"
-			"\s[208]...i hope %(_nextyear) will be a good year...\w8\w8\s[0] who knows what it'll be like...\e"
-		}
-	}
+	"\s[111]...fall's here...\w8\w8\s[102] the leaves will start coming down soon...\e"
+	"\s[205]...everything pumpkin spice flavored is already out...\w8\w8\s[0] i don't mind though,\w4 pumpkin spice is nice...\w8\w8\s[112] especially when it starts getting chilly out...\e"
+	"\s[205]...autumn tends to slip by so fast...\w8\w8\s[0] enjoy it while it's here,\w4 before the chill of winter sets in...\e"
+	"\s[205]...it's been really breezy out lately...\w8\w8\s[102] it's nice to sit on the porch and listen to the leaves crackle...\e"
+}
+
+Pool_Sleepy_month_Oct : array //month == 10
+{
+	if day == 12; "\s[0]...it's my anGrandpa's birthday today...\w8\w8\s[112] and my anAunt's...\w8\w8\s[111] and my anUncle's...\w8\w8\s[103] they're triplets,\w4 they're actually my grand aunt and uncle...\e" //WD, Dings, Wings bday
+	"\s[0]...it's getting too cold to go out without a jacket...\w8\w8\s[102] i guess that's fall for you...\e"
+	"\s[205]...the breeze has been really chilly lately...\w8\w8\s[0] a lot of the trees have lost their leaves already...\e"
+	"\s[205]...i love the reds and oranges on the trees right now,\w4 autumn is a really bold season...\e"
+	"\s[105]...getting into the last part of the year,\w4 huh...\e"
+}
+
+Pool_Sleepy_month_Nov : array //month == 11
+{
+	"\s[107]...fall goes by so quickly...\w8\w8\s[206] it's already started getting pretty cold at home,\w4 none of the trees have any leaves left...\e"
+	"\s[109]...we're starting to get down to freezing temperatures,\w4 we might get snow soon...\e"
+	if !SPresent;"\s[105]...there's been frost on the grass every morning lately,\w4 my anDad's already covered up his garden for winter...\e"
+	if day > 15; "\s[105]...winter's almost here,\w4 just a little longer...\e"
+}
+
+Pool_Sleepy_month_Dec : array //month == 12 (Winter start/Summer start)
+{
+	"\s[105]...it's holiday season again...\w8\w8\s[107] can't wait for spring...\e"
+	"\s[205]...it's too cold for light jackets now,\w4 we've had to bring out the puffy coats...\w8\w8\s[0] at least it's warm here,\w4 that's nice...\e"
+	if !SPresent;"\s[112]...anDad always makes ginger cookies around this time of year...\w8\w8\s[0] i like those a lot,\w4 i guess that's something to look forward to...\e"
+	if day == 13; "\s[111]...anRoman's birthday is today...\w8\w8\s[103] he always tries to share his gifts,\w4 it's cute...\e" //Roman's bday
+	if day < 25; "\s[105]...gyftmas is coming up quick...\w8\w8\s[0] are you ready for it..?\w8\w8\s[112] i got %(myfamily) something cool,\w4 it's gonna be great...\e"
 	
-	//---Seasons---
-	if season == "Spring"
+	_daysleft = (31 - day)
+	parallel Pool("Pool_Sleepy_month_Dec_EndNear","%(_daysleft >= 2 && _daysleft <= 15)")
+}
+
+Pool_Sleepy_month_Dec_EndNear : array //_daysleft >= 2 && _daysleft <= 15
+{
+	_nextyear = year + 1
+	_lastyear = year - 1
+	_daysleft = (31 - day) //Do I need this? Not sure
+	
+	"\s[111]...only %(_daysleft) days left in %(year)...\w8\w8 you should make them good ones,\w4 %(_nextyear) is coming up quick...\e"
+	"\s[111]...%(_nextyear) is coming up fast,\w4 huh?\w8\w8\s[206] it's hard to believe %(year) went by so quickly,\w4 seems like just a few weeks ago we were saying goodbye to %(_lastyear)...\e"
+	"\s[208]...i hope %(_nextyear) will be a good year...\w8\w8\s[0] who knows what it'll be like...\e"
+}
+
+
+//---Seasons---
+Pool_Sleepy_season_Spring : array //season == 'Spring'
+{
+	"\s[107]...spring makes me sneezy...\w8\w8 and it makes my face sting...\w8\w8\s[113] the doctor said there's medicine to stop it,\w8\s[200] but i can't take it till i'm%(br)off my other meds...\e"
+	"\s[105]...anSigil seems to like spring too,\w4 she likes colorful things...\e"
+	"\s[111]...spring is the best season...\w8\w8\s[205] everything's growing again,\w4 coming to life...\w8\w8\s[102] it's warm,\w4 but not super hot...\e"
+	"\s[208]...there's so much going on in spring...\w8\w8\s[0] all the birds are back,\w4 the bugs are coming out,\w4 flowers are blooming...\w8\w8\s[102] it's nice to sit outside and just listen to the world...\e"
+	"\s[102]...it's been really nice outside at home...\w8\w8\s[205] i could sit outside listening to the world go by forever...\e"
+	"\s[102]...i love the warm breezes we get in spring...\w8\w8\s[0] it's nice,\w4 after how cold it gets in winter...\e"
+}
+
+Pool_Sleepy_season_Summer : array //season == 'Summer'
+{
+	"\s[107]...mmm,\w4 it's been so warm at home...\w8\w8\s[204] you can put on a sweater when it's cold,\w4 but you can't get away from heat so easy...\e"
+	"\s[105]...everyone's been really excited to play in the sprinkler,\w4 with how hot it's been,\w8\s[107] but i don't have the energy to run right now...\e"
+	"\s[106]...it's cooler here than at home,\w4 thanks for bringing me...\e"
+	"\s[107]...can't wait for things to start cooling down again...\e"
+}
+
+Pool_Sleepy_season_Autumn : array //season == 'Autumn'
+{
+	"\s[205]...the leaves are so pretty when they change color...\w8\w8\s[0] it happens because the trees need to save their strength in the winter,\w4 right..?\w8\w8\n\n\s[105]...they go to sleep,\w4 to survive...\w8\w8\s[113] like me...\e"
+	"\s[0]...i love the colors of this season,\w4 even if they don't last very long...\e"
+	if !SPresent; "\s[102]...my anDad and anStepdad like to wear plaid at this time of year...\w8\w8\s[112] well,\w4 my anStepdad wears plaid most of the time,\w4 actually...\e"
+	"\s[105]...at least there aren't any chilly breezes here...\w8\w8\s[107] it's hard to keep the chill out sometimes,\w4 skeletons don't make much heat...\e"
+}
+
+Pool_Sleepy_season_Winter : array //season == 'Winter'
+{
+	if !SPresent; "\s[105]...my anDad really likes it when it snows...\w8\w8\s[0] i like watching snow fall,\w4 too...\w8\w8\s[103] he always makes hot chocolate for us after we've been playing outside...\e"
+	"\s[105]...snow can be really pretty...\w8\w8\s[0] it's like a blanket that covers the world...\w8\w8\s[107] a really cold blanket...\e"
+	"\s[205]...i like snowflakes...\w8\w8\s[0] they look so tiny and simple,\w4 but when you really look close,\w4 they're so detailed and beautiful...\e"
+	"\s[0]...we get so many icicles on the side of the house...\w8\w8\s[103] it's fun to knock them down...\e"
+	if !CambriaPresent;"\s[206]...i think anCambria's been wanting to have a snowball fight...\w8\w8 i'm too tired for it,\w4 though,\w4 and anTriton's not good in the cold...\w8\w8\n\n\s[107]...i'd have a snowball fight if i could...\e"
+}
+
+Pool_Sleepy_weather_clear : array //weather_clear
+{
+	parallel Pool("Pool_Sleepy_weather_clear_daytime","%(daytime)")
+	parallel Pool("Pool_Sleepy_weather_clear_nighttime","%(!daytime)")
+}
+
+Pool_Sleepy_weather_clear_daytime : array //daytime
+{
+	"\s[0]...the weather seems nice...\w8\w8\s[112] if you prefer sunny weather,\w4 anyways...\e"
+	if temp == "Hot" || temp == "Boiling"
 	{
-		"\s[107]...spring makes me sneezy...\w8\w8 and it makes my face sting...\w8\w8\s[113] the doctor said there's medicine to stop it,\w8\s[200] but i can't take it till i'm off my other meds...\e"
-		"\s[105]...anSigil seems to like spring too,\w4 she likes colorful things...\e"
-		"\s[111]...spring is the best season...\w8\w8\s[205] everything's growing again,\w4 coming to life...\w8\w8\s[102] it's warm,\w4 but not super hot...\e"
-		"\s[208]...there's so much going on in spring...\w8\w8\s[0] all the birds are back,\w4 the bugs are coming out,\w4 flowers are blooming...\w8\w8\s[102] it's nice to sit outside and just listen to the world...\e"
-		"\s[102]...it's been really nice outside at home...\w8\w8\s[205] i could sit outside listening to the world go by forever...\e"
-		"\s[102]...i love the warm breezes we get in spring...\w8\w8\s[0] it's nice,\w4 after how cold it gets in winter...\e"
+		"\s[107]...could really use some clouds to keep the sun away,\w4 huh...\e"
+		"\s[107]...c'mon,\w4 sun,\w4 it's %(tempurature[0]) degrees out...\w8\w8\s[206] leave us alone for a while...\e"
 	}
-	if season == "Summer"
 	{
-		"\s[107]...mmm,\w4 it's been so warm at home...\w8\w8\s[204] you can put on a sweater when it's cold,\w4 but you can't get away from heat so easy...\e"
-		"\s[105]...everyone's been really excited to play in the sprinkler,\w4 with how hot it's been,\w8\s[107] but i don't have the energy to run right now...\e"
-		"\s[106]...it's cooler here than at home,\w4 thanks for bringing me...\e"
-		"\s[107]...can't wait for things to start cooling down again...\e"
-	}
-	if season == "Autumn"
-	{
-		"\s[205]...the leaves are so pretty when they change color...\w8\w8\s[0] it happens because the trees need to save their strength in the winter,\w4 right..?\w8\w8\n\n\s[105]...they go to sleep,\w4 to survive...\w8\w8\s[113] like me...\e"
-		"\s[0]...i love the colors of this season,\w4 even if they don't last very long...\e"
-		if !SPresent; "\s[102]...my anDad and anStepdad like to wear plaid at this time of year...\w8\w8\s[112] well,\w4 my anStepdad wears plaid most of the time,\w4 actually...\e"
-		"\s[105]...at least there aren't any chilly breezes here...\w8\w8\s[107] it's hard to keep the chill out sometimes,\w4 skeletons don't make much heat...\e"
-	}
-	if season == "Winter"
-	{
-		if !SPresent; "\s[105]...my anDad really likes it when it snows...\w8\w8\s[0] i like watching snow fall,\w4 too...\w8\w8\s[103] he always makes hot chocolate for us after we've been playing outside...\e"
-		"\s[105]...snow can be really pretty...\w8\w8\s[0] it's like a blanket that covers the world...\w8\w8\s[107] a really cold blanket...\e"
-		"\s[205]...i like snowflakes...\w8\w8\s[0] they look so tiny and simple,\w4 but when you really look close,\w4 they're so detailed and beautiful...\e"
-		"\s[0]...we get so many icicles on the side of the house...\w8\w8\s[103] it's fun to knock them down...\e"
-		if !CambriaPresent;"\s[206]...i think anCambria's been wanting to have a snowball fight...\w8\w8 i'm too tired for it,\w4 though,\w4 and anTriton's not good in the cold...\w8\w8\n\n\s[107]...i'd have a snowball fight if i could...\e"
-	}
-	
-	//---Tempurature and weather related---
-	
-	//---Weather types---
-	/*Types I've gathered are as follows(please let me know if you find more that aren't included here!):
-	Clear
-	Mostly Clear
-	Sunny
-	Mostly Sunny
-	Fair
-	
-	Partly Cloudy
-	Mostly Cloudy
-	Cloudy
-	
-	Showers in the Vicinity
-	Few Showers
-	Showers
-	Rain Shower
-	Light Rain
-	Rain
-	Heavy Rain
-	
-	Rain and Snow
-	Snow Shower
-	Snow
-	Light Snow
-	Wintry Mix
-	
-	Light Rain with Thunder
-	Isolated Thunderstorms
-	Scattered Thunderstorms
-	Thunderstorm
-	Heavy Thunderstorm
-	
-	Fog
-	Haze
-	*/
-	
-	if weather == "Clear" || weather == "Mostly Clear" || weather == "Sunny" || weather == "Mostly Sunny" || weather == "Fair" //Clear/Sunny
-	{
-		if hour >= 8 && hour <= 19 //daytime hours-ish
+		"\s[0]...the sun is out,\w4 huh..?\w8\w8 "
+		--
+		if temp == "Hot" || temp == "Boiling"
 		{
-			"\s[0]...the weather seems nice...\w8\w8\s[112] if you prefer sunny weather,\w4 anyways...\e"
-			if temp == "Hot" || temp == "Boiling"
-			{
-				"\s[107]...could really use some clouds to keep the sun away,\w4 huh...\e"
-				"\s[107]...c'mon,\w4 sun,\w4 it's %(tempurature[0]) degrees out...\w8\w8\s[206] leave us alone for a while...\e"
-			}
-			{
-				"\s[0]...the sun is out,\w4 huh..?\w8\w8 "
-				--
-				if temp == "Hot" || temp == "Boiling"
-				{
-					"\s[107]wish some clouds move move in to keep the heat away...\e"
-				}
-				else
-				{
-					"\s[105]it's nice to see...\e"
-				}
-			}
+			"\s[107]wish some clouds move move in to keep the heat away...\e"
 		}
 		else
 		{
-			"\s[0]...can you see the stars..?\w8\w8\s[112] you should be able to right now,\w4 i think...\e"
-			"\s[205]...it's really nice to be able to see the moon...\w8\w8\s[0] i like cloudy weather,\w4 but not so much at night...\e"
+			"\s[105]it's nice to see...\e"
 		}
 	}
-	if weather == "Partly Cloudy" || weather == "Mostly Cloudy" || weather == "Cloudy" //Cloudy
-	{
-		_precip = "rain"; if season == "Winter"; _precip = "snow"
-		"\s[205]...clouds are so pretty...\w8\w8\s[102] i wish i could feel what it's like to actually touch one...\w8\w8\s[107] probably just wet and cold...\e"
-		"\s[105]...i like watching the clouds go by,\w4 they look so peaceful...\e"
-		"\s[112]...i wonder if it's going to %(_precip) soon,\w4 with all these clouds...\e"
-	}
-	if weather == "Showers in the Vicinity" || weather == "Few Showers" || weather == "Showers" //Might shower
-	{
-		"\s[112]...is that rain..?\w8\w8 i can't tell...\e"
-		"\s[112]...is it raining there..?\w8\w8\s[0] i like it when it rains...\e"
-		"\s[0]...light rains are really soothing,\w4 it's nice to be able to stand in the rain...\w8\w8\s[112] heavy rain is nice too,\w4 but only if you're inside...\e"
-	}
-	if weather == "Rain Shower" || weather == "Light Rain" || weather == "Rain" || weather == "Heavy Rain" //Raining
-	{
-		"\s[105]...i like listening to rain against the windows...\w8\w8\s[0] it always makes me sleepy, though...\e"
-		"\s[205]...rain is such a relaxing sound...\w8\w8\s[107] maybe too relaxing...\e"
-		"\s[106]...mmm...\w8\w8\s[107] don't want to fall asleep,\w4 want to listen to the rain...\e"
-	}
-	if weather == "Rain and Snow" || weather == "Snow Shower" || weather == "Light Snow" || weather == "Snow" || weather == "Light Snow" || weather == "Wintry Mix" //Snowing -- This one is probably missing a lot atm, gotta wait til winter to gather data
-	{
-		"\s[111]...it's snowing...\w8\w8 it's so pretty...\e"
-		"\s[0]...it looks cold out there...\w8\w8\s[112] i wonder if the snow will be wet enough to pack...\e"
-		"\s[105]...so many flakes drifting down...\w8\w8\s[0] sometimes i just stand outside and watch them...\w8\w8\s[107] and then end up really cold...\e"
-	}
-	if weather == "Light Rain with Thunder" || weather == "Isolated Thunderstorms" || weather == "Scattered Thunderstorms" || weather == "Thunderstorm" || weather == "Heavy Thunderstorm"
-	{
-		if !SPresent; "\s[111]...is that thunder..?\w8\w8\s[112] thunder's cool,\w4 it's so loud,\w4 and powerful...\w8\w8\s[107] not everyone in my family likes it though,\w4 my anDad really doesn't...\w8\w8\s[113] he doesn't say it,\w4 but i can tell...\e"
-		"\s[113]...if your power goes out,\w4 what happens to me..?\w8\w8\s[107] unless this a laptop,\w4 i guess...\e"
-		"\s[113]...um,\w4 i like thunder,\w8\s[108] but if it seems like the power is gonna go out,\w4 could you send me home..?\e"
-	}
-	if weather == "Fog" || weather == "Haze" //Limited visibility
-	{
-		_lowtype = TOLOWER(weather)
-		"\s[113]...can't see very far out there right now,\w4 huh...\e"
-		"\s[111]...%(_lowtype) is kinda cool,\w4 it's cool to see how much the world changes when you can't see that far...\e"
-		"\s[112]...wonder how long this %(_lowtype) will last...\e"
-	}
-	
-	//---Tempurature---
-	if temp == "Below 0" //0F and below, 
-	{
-		"\s[113]...it's really cold out there...\w8\w8\s[108] make sure you stay warm,\w4 %(username)...\e"
-		"\s[113]...snow will be no good for playing in at this temperature...\w8\w8\s[107] it's too cold to play in it anyways...\e"
-		"\s[107]...i'm glad it's warmer in here than it is out there...\e"
-	}
-	if temp == "Freezing" //0-20F, -16 to -6C
-	{
-		"\s[107]...it's too cold for me,\w4 i'm glad i'm in here and not out there...\e"
-		"\s[113]...today's the kind of day to curl up with a blanket and some hot chocolate,\w4 maybe read a book...\e"
-		"\s[107]...how do trees survive being out in the cold like this all the time..?\e"
-	}
-	if temp == "Cold" //21-40F, -5 to 4C 
-	{
-		"\s[105]...i'm glad i don't have to head out anywhere,\w4 it looks cold out...\w8\w8\s[0] 'course,\w4 even if i was supposed to go somewhere,\w4 i've got a good excuse...\e"
-		"\s[105]...%(tempurature[0]),\w4 huh..?\w8\w8\s[107] i'd rather stay indoors,\w4 unless i'm feeling awake for once...\e"
-	}
-	if temp == "Chilly" //41-60F, 5-15C
-	{
-		"\s[105]...kinda chilly out there,\w4 huh...\w8\w8\s[0] should be alright if you have a nice jacket,\w4 though...\e"
-		"\s[0]...perfect weather for wearing hoodies...\w8\w8\s[205] i don't mind too much,\w4 hoodies are nice...\e"
-		if !SPresent; "\s[205]...anDad will be happy,\w4 he likes it when it's cooler out...\e"
-	}
-	if temp == "Pleasant" //61-80, 16-26C
-	{
-		"\s[0]...the temperature is pretty nice today...\w8\w8\s[102] perfect for sitting out on the porch...\e"
-		"\s[112]...i wonder what the temperature is like back home,\w4 i'd be out on the porch right now if it were like this...\e"
-	}
-	if temp == "Hot" //81-95F, 27-35C
-	{
-		"\s[107]...it's so warm out there...\e"
-		"\s[113]...it's getting pretty warm out...\w8\w8\s[107] hope it doesn't get too much warmer...\e"
-	}
-	if temp == "Boiling" //96+F, 36+C
-	{
-		"\s[107]...it's so hot out...\w8\w8 i hope it's not this hot at home...\e"
-		"\s[107]...this kind of heat makes me so tired...\w8\w8\s[113] but it's hard to actually fall asleep,\w4 and it isn't a very restful sleep either...\e"
-		"\s[107]...can't wait for it to cool down,\w4 this heat is terrible...\e"
-	}
-	
-	//---Humidity---
-	if humid == "Dry"
-	{
-		
-	}
-	if humid == "Comfortable"
-	{
-		
-	}
-	if humid == "Muggy"
-	{
-		if temp == "Hot" || temp == "Boiling"
-		{
-			"\s[113]...it's kinda humid,\w4 huh...\w8\w8\s[107] it's making the heat even worse...\e"
-		}
-	}
-	if humid == "Soup"
-	{
-		if temp == "Hot" || temp == "Boiling"
-		{
-			"\s[107]...it's the worst kind of day...\w8\w8 it's so hot out,\w4 and so humid...\e"
-		}
-	}
-	
-	//---Pollen---
-	if pollen == "Local Pollen Alert"
-	{
-		"\s[107]...mmm,\w4 my eyesockets are itching...\w8\w8\s[113] must be all the pollen...\e"
-		"\s[106]...there's so much pollen today...\w8\w8\s[107] ugh...\w8\w8\n\n* (She's rubbing at her eyesockets...)\e"
-		"\s[106]...i hope you don't have hayfever,\w4 too...\w8\w8\s[107] today's a pretty bad day for it...\e"
-		"\s[106]* (She's sniffling quietly...)\w8\w8\n\n\s[107]* (Must be all the pollen.)\e"
-	}
-	
-	//---Moon phases---
-	//I've only included basic ones here, if you want more the checks would be for "Waxing Crescent", "Waxing Gibbous", "Waning Gibbous", and "Waning Crescent"
-	if phase == "New Moon"
-	{
-		"\s[107]...mmm...\w8\w8 no moon tonight...\w8\w8\s[206] it's cool i guess,\w4 but i like it when the moon is there...\e"
-	}
-	if phase == "First Quarter" || phase == "Last Quarter" //Half moon
-	{
-		"\s[105]...the moon's half full...\w8\w8\s[0] have you seen it yet..?\e"
-	}
-	if phase == "Full Moon"
-	{
-		"\s[111]...the moon's full tonight...\w8\w8\s[103] feel like i might have enough energy to stay up and see it...\e"
-		"\s[111]...have you seen the moon..?\w8\w8 it's full tonight...\e"
-	}
-	
-	if ghostexcount >= 4
-	{
-		"\s[105]...there are so many people here...\w8\w8\s[107] it's tiring,\w4 but so hard to fall asleep, too...\e"
-		"\s[113]...so many people...\w8\w8\s[107] hard to sleep with so many people around...\e"
-		"\s[113]...it's so crowded here today...\e"
-	}
-	if ghostexcount == 0
-	{
-		"\s[102]...it's so quiet right now...\w8\w8 it's nice...\e"
-		"\s[102]* (She seems content to be here on her own.)\e"
-	}
-	
-	if "X. Template" _in_ ghostexlist
-	{
-		"\s[112]...i know her...\w8\w8\s[113] i think i know her...\w8\w8\s[206] but from where...\e"
-	}
-	//Trying to stop nonoverlap from restarting, so commenting this out...
-	//---Noticing and commenting on other ghosts. You MUST have an option for 'others' in the case/when, or the ghost will eventually stop talking at all! I've set it up to loop back around to aitalk, but you can put generic dialogue if you like.
-	// if ghostexcount > 0 //Based on code from Zarla's Gaster
-	// {
-		// _number = RAND(ghostexcount) // This checks the number of other ghosts summoned and chooses a random number based on it
-		// --
-		// _ghost = "%(ghostexlist[_number])" // This grabs the reference name of the ghost to check against known names.
-		// --
-		// // This will tell you the reference names of your summoned ghosts to use in the "when" cases below, along with the number of ghosts.
-		// // Comment it out when you no longer need it for reference.
-		// //"\0\s[0]Ghost List: %(ghostexlist)\n\n[half]Noticed %(_ghost), %(_number) of %(ghostexcount)\x"
-		// --
-		// // Checking the selected loaded ghost's name vs known names to comment on them
-		// case _ghost
-		// {
-			// when "X. Template"
-			// {
-				// "\s[112]...i know her...\w8\w8\s[113] i think i know her...\w8\w8\s[206] but from where...\e"
-			// }
-			// others //This is necessary. If you want them to comment on other ghosts generically you can, but if not this will just loop back around to aitalk so they don't get stuck
-			// {
-				// "\![raise,OnAiTalk]"
-			// }
-		// }
-	// }
-	
+}
+
+Pool_Sleepy_weather_clear_nighttime : array //!daytime
+{
+	"\s[0]...can you see the stars..?\w8\w8\s[112] you should be able to right now,\w4 i think...\e"
+	"\s[205]...it's really nice to be able to see the moon...\w8\w8\s[0] i like cloudy weather,\w4 but not so much at night...\e"
+}
+
+Pool_Sleepy_weather_cloudy : array //weather_cloudy
+{
+	_precip = "rain"; if season == "Winter"; _precip = "snow"
+	"\s[205]...clouds are so pretty...\w8\w8\s[102] i wish i could feel what it's like to actually touch one...\w8\w8\s[107] probably just wet and cold...\e"
+	"\s[105]...i like watching the clouds go by,\w4 they look so peaceful...\e"
+	"\s[112]...i wonder if it's going to %(_precip) soon,\w4 with all these clouds...\e"
+}
+
+Pool_Sleepy_weather_mightrain : array //weather_mightrain
+{
+	"\s[112]...is that rain..?\w8\w8 i can't tell...\e"
+	"\s[112]...is it raining there..?\w8\w8\s[0] i like it when it rains...\e"
+	"\s[0]...light rains are really soothing,\w4 it's nice to be able to stand in the rain...\w8\w8\s[112] heavy rain is nice too,\w4 but only if you're inside...\e"
+}
+
+Pool_Sleepy_weather_raining : array //weather_raining
+{
+	"\s[105]...i like listening to rain against the windows...\w8\w8\s[0] it always makes me sleepy, though...\e"
+	"\s[205]...rain is such a relaxing sound...\w8\w8\s[107] maybe too relaxing...\e"
+	"\s[106]...mmm...\w8\w8\s[107] don't want to fall asleep,\w4 want to listen to the rain...\e"
+}
+
+Pool_Sleepy_weather_snowing : array //weather_snowing
+{
+	"\s[111]...it's snowing...\w8\w8 it's so pretty...\e"
+	"\s[0]...it looks cold out there...\w8\w8\s[112] i wonder if the snow will be wet enough to pack...\e"
+	"\s[105]...so many flakes drifting down...\w8\w8\s[0] sometimes i just stand outside and watch them...\w8\w8\s[107] and then end up really cold...\e"
+}
+
+Pool_Sleepy_weather_thunderstorm : array //weather_thunderstorm
+{
+	if !SPresent; "\s[111]...is that thunder..?\w8\w8\s[112] thunder's cool,\w4 it's so loud,\w4 and powerful...\w8\w8\s[107] not everyone in my family likes it though,\w4 my anDad really doesn't...\w8\w8\s[113] he doesn't say it,\w4 but i can tell...\e"
+	"\s[113]...if your power goes out,\w4 what happens to me..?\w8\w8\s[107] unless this a laptop,\w4 i guess...\e"
+	"\s[113]...um,\w4 i like thunder,\w8\s[108] but if it seems like the power is gonna go out,\w4 could you send me home..?\e"
+}
+
+Pool_Sleepy_weather_foghaze : array //weather_foghaze
+{
+	_lowtype = TOLOWER(weather)
+	"\s[113]...can't see very far out there right now,\w4 huh...\e"
+	"\s[111]...%(_lowtype) is kinda cool,\w4 it's neat to see how much the world changes when you can't see that far...\e"
+	"\s[112]...wonder how long this %(_lowtype) will last...\e"
+}
+
+Pool_Sleepy_Temp_Below0 : array //temp == "Below 0" - 0F and below, -17C and below
+{
+	"\s[113]...it's really cold out there...\w8\w8\s[108] make sure you stay warm,\w4 %(username)...\e"
+	"\s[113]...snow will be no good for playing in at this temperature...\w8\w8\s[107] it's too cold to play in it anyways...\e"
+	"\s[107]...i'm glad it's warmer in here than it is out there...\e"
+}
+
+Pool_Sleepy_Temp_Freezing : array //temp == "Freezing" - 0-20F, -16 to -6C
+{
+	"\s[107]...it's too cold for me,\w4 i'm glad i'm in here and not out there...\e"
+	"\s[113]...today's the kind of day to curl up with a blanket and some hot chocolate,\w4 maybe read a book...\e"
+	"\s[107]...how do trees survive being out in the cold like this all the time..?\e"
+}
+
+Pool_Sleepy_Temp_Cold : array //temp == "Cold" - 21-40F, -5 to 4C 
+{
+	"\s[105]...i'm glad i don't have to head out anywhere,\w4 it looks cold out...\w8\w8\s[0] 'course,\w4 even if i was supposed to go somewhere,\w4 i've got a good excuse...\e"
+	"\s[105]...%(tempurature[0]),\w4 huh..?\w8\w8\s[107] i'd rather stay indoors,\w4 unless i'm feeling awake for once...\e"
+}
+
+Pool_Sleepy_Temp_Chilly : array //temp == "Chilly" - 41-60F, 5-15C 
+{
+	"\s[105]...kinda chilly out there,\w4 huh...\w8\w8\s[0] should be alright if you have a nice jacket,\w4 though...\e"
+	"\s[0]...perfect weather for wearing hoodies...\w8\w8\s[205] i don't mind too much,\w4 hoodies are nice...\e"
+	if !SPresent; "\s[205]...anDad will be happy,\w4 he likes it when it's cooler out...\e"
+}
+
+Pool_Sleepy_Temp_Pleasant : array //temp == "Pleasant" - 61-80, 16-26C
+{
+	"\s[0]...the temperature is pretty nice today...\w8\w8\s[102] perfect for sitting out on the porch...\e"
+	"\s[112]...i wonder what the temperature is like back home,\w4 i'd be out on the porch right now if it were like this...\e"
+}
+
+Pool_Sleepy_Temp_Hot : array //temp == "Hot" - 81-95F, 27-35C
+{
+	"\s[107]...it's so warm out there...\e"
+	"\s[113]...it's getting pretty warm out...\w8\w8\s[107] hope it doesn't get too much warmer...\e"
+}
+
+Pool_Sleepy_Temp_Boiling : array //temp == "Boiling" - 96+F, 36+C
+{
+	"\s[107]...it's so hot out...\w8\w8 i hope it's not this hot at home...\e"
+	"\s[107]...this kind of heat makes me so tired...\w8\w8\s[113] but it's hard to actually fall asleep,\w4 and it isn't a very restful sleep either...\e"
+	"\s[107]...can't wait for it to cool down,\w4 this heat is terrible...\e"
+}
+
+Pool_Sleepy_Humid_Muggy : array //humid == "Muggy" && (temp == 'Hot' || temp == 'Boiling')
+{
+	"\s[113]...it's kinda humid,\w4 huh...\w8\w8\s[107] it's making the heat even worse...\e"
+}
+
+Pool_Sleepy_Humid_Soup : array //humid == "Soup" && (temp == 'Hot' || temp == 'Boiling')
+{
+	"\s[107]...it's the worst kind of day...\w8\w8 it's so hot out,\w4 and so humid...\e"
+}
+
+Pool_Sleepy_PollenAlert : array //pollen_alert
+{
+	"\s[107]...mmm,\w4 my eyesockets are itching...\w8\w8\s[113] must be all the pollen...\e"
+	"\s[106]...there's so much pollen today...\w8\w8\s[107] ugh...\w8\w8\n\n* (She's rubbing at her eyesockets...)\e"
+	"\s[106]...i hope you don't have hayfever,\w4 too...\w8\w8\s[107] today's a pretty bad day for it...\e"
+	"\s[106]* (She's sniffling quietly...)\w8\w8\n\n\s[107]* (Must be all the pollen.)\e"
+}
+
+Pool_Sleepy_Moon_New : array //phase == "New Moon"
+{
+	"\s[107]...mmm...\w8\w8 no moon tonight...\w8\w8\s[206] it's cool i guess,\w4 but i like it when the moon is there...\e"
+}
+
+Pool_Sleepy_Moon_Half : array //phase == "First Quarter" || phase == "Last Quarter"
+{
+	"\s[105]...the moon's half full...\w8\w8\s[0] have you seen it yet..?\e"
+}
+
+Pool_Sleepy_Moon_Full : array //phase == "Full Moon"
+{
+	"\s[111]...the moon's full tonight...\w8\w8\s[103] feel like i might have enough energy to stay up and see it...\e"
+	"\s[111]...have you seen the moon..?\w8\w8 it's full tonight...\e"
+}
+
+Pool_Sleepy_LotsOfGhostsOpen : array //ghostexcount >= 4
+{
+	"\s[105]...there are so many people here...\w8\w8\s[107] it's tiring,\w4 but so hard to fall asleep, too...\e"
+	"\s[113]...so many people...\w8\w8\s[107] hard to sleep with so many people around...\e"
+	"\s[113]...it's so crowded here today...\e"
+}
+
+Pool_Sleepy_NoGhostsOpen : array //ghostexcount == 0
+{
+	"\s[102]...it's so quiet right now...\w8\w8 it's nice...\e"
+	"\s[102]* (She seems content to be here on her own.)\e"
+}
+
+Pool_Sleepy_Onion_Dialogues : array //No requirement, just wanted these out of the way
+{
 	//Onion Dialogues
 	{
 		{ //Musing about computer based dreams
@@ -2244,6 +2395,7 @@ SaoriTalk
 			"\s[107]...be good to your computer,\w4 %(username)...\e"
 		}
 	}
+	else; "\![raise,OnAiTalk]"
 }
 
 OnRTCall
@@ -2415,23 +2567,27 @@ OnMinuteChange
 OnSecondChange
 {
 	reading++
-	if mikireflag == 1 && reference1 == 0
+	if mikireflag == 1 && reference1 == 0 //Coming back on screen
 	{
 		lastTalk = EndMikireTalk
 		--
 		lastTalk
 	}
-	if mikireflag == 0 && reference1 == 1 //Dialogue for putting them off the screen. You could make this a unique line if you wanted, and have MikireTalk be for if they continue to be offscreen
+	elseif mikireflag == 0 && reference1 == 1 //Dialogue for putting them off the screen. You could make this a unique line if you wanted, and have MikireTalk be for if they continue to be offscreen
 	{
 		lastTalk = MikireTalk
 		--
 		lastTalk
 	}
-	if mikireflag == 1 && reference1 == 0 //Dialogue for coming back on the screen
+	elseif ARRAYSIZE(waitingcommuS) > 0 && second % 3 == 0 //Every 3 seconds if a communication is waiting
 	{
-		lastTalk = EndMikireTalk
-		--
-		lastTalk
+		_b = BalloonCheck
+		if _b == 0
+		{
+			lastTalk = WaitingCommu
+			--
+			lastTalk
+		}
 	}
 	mikireflag = reference1 //reference1 is if the ghost is offscreen or not
 	/*if reference2 == 1 //This is for if your Sakura and Kero are overlapping. \4 will move the speaking character away from the other character.
@@ -2455,7 +2611,7 @@ MikireTalk //Off the screen dialogue. Ctrl Shift F12 will bring characters back 
 		"\0%(b)\s[107]...i'm off the screen..."
 	}
 	--
-	"\w8\w8\n\n* (You can press ctrl shift F12 to bring her back.)\e"
+	"\w8\w8\n\n\i[10]* (You can press ctrl shift F12 to bring her back.)\e"
 }
 
 EndMikireTalk //Being brought back on the screen.
@@ -2491,6 +2647,7 @@ OnSurfaceRestore //reference0 here stores the number of the previous surface, so
 		if NowPlaying[0] != "" && NowPlaying[2] == ""; "\0\s[1401]"
 		if NowPlaying[0] != "" && NowPlaying[2] == ""; "\0\s[1402]"
 		if NowPlaying[0] != "" && NowPlaying[2] == ""; "\0\s[1404]"
+		if ASEARCH("knowaboutnotebook",MiscFlags) != -1; "\0\s[1501]"
 		"\0\s[1000]"
 		"\0\s[1102]"
 		"\0\s[1104]"
@@ -2506,6 +2663,7 @@ OnSurfaceRestore //reference0 here stores the number of the previous surface, so
 		if NowPlaying[0] != "" && NowPlaying[2] == ""; "\0\s[400]"
 		if NowPlaying[0] != "" && NowPlaying[2] == ""; "\0\s[401]"
 		if NowPlaying[0] != "" && NowPlaying[2] == ""; "\0\s[402]"
+		if ASEARCH("knowaboutnotebook",MiscFlags) != -1; "\0\s[501]"
 		"\0\s[0]"
 		"\0\s[102]"
 		//"\0\s[104]"
@@ -2579,7 +2737,7 @@ OnKeyPress
 			if NowPlaying[0] != ""
 			{
 				NowPlaying[0] = "" //song name
-				NowPlaying[1] = 0 //song position
+				NowPlaying[1] = -1 //song position
 				NowPlaying[2] = ""
 				_b = BalloonCheck
 				if _b == 1; "\C\![sound,stop]"
@@ -2605,6 +2763,10 @@ OnKeyPress
 				if _b == 1; "\C\![raise,OnNextSong,hotkey,%(_inmenu)]"
 				else; "\![raise,OnNextSong,hotkey,%(_inmenu)]\e"
 			}
+		}
+		when "c"
+		{
+			if debug == 1; OnCommuMenu
 		}
 	}
 }

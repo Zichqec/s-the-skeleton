@@ -1,10 +1,12 @@
 THIS GHOST PROJECT IS ABANDONED!
 
+The ghost is presented as-is, in a half complete state, and with no support provided. I will not fix bugs or update this ghost any futher.
+
 This ghost made it into beta on January 1st, 2021, and then I got distracted doing other things, and eventually I realized that she just doesn't fit the way I develop ghosts now. The style is outdated, I would have to rewrite all of it from a new angle, the code is outdated and I would have to redo all of it. But above all else, I'm just not keen about sharing the characters in this universe with the world now. However, I did still put a lot of effort into this ghost, and I can't bear to have it sitting in my folders feeling like a failure forever. So, here's some lost content, I suppose you could consider it.
 
 I think the most interesting thing this ghost has is probably the journal system, which I do like (though I could redo much better now). This also has the original version of the music player that I went on to improve for FLUX, and then eventually released on its own. This is where that originated! But that also means it is an old version that is missing a lot of QOL features.
 
-The ghost is presented as-is, in a half complete state, and with no support provided. I will not fix bugs or update this ghost any futher. The original readme is preserved below for posterity.
+The original readme is preserved below for posterity.
 
 ——————————————————————————————
 
