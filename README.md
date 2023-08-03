@@ -1,5 +1,7 @@
 # s-the-skeleton
 
-This repository is where I host the latest update files for all my ghosts and balloons, and I suppose as a backup download for them should Mediafire ever go down. It's also a small website explaining what ghosts are, what each of my ghosts are about, and providing download links for them. You should check out the website if you want to actually download my ghosts. Why are you people cloning the repository? If you're someone who has cloned this repository, please explain.
+This used to be where I hosted my website for my ukagaka stuff. But that website has now moved! It can be found here: https://ukagaka.zichqec.com/
 
-Anyways, you should go here to read more about my projects. https://zichqec.github.io/s-the-skeleton/index.html
+This repo still exists to redirect to that website, and also it's where some of my update files are. Smaller stuff like balloons may continue to have updates here, I'm not sure yet.
+
+Please check out the new website! It's very cool I swear.
