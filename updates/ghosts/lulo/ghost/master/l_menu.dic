@@ -176,12 +176,9 @@ OnMenuRun
 	--
 	if AutoWeather == "On"
 	{
-		if tempurature[0] != "Unknown"
-		{
-			", %(tempurature[0])%(Degrees[1])"
-		}
-		--
-		" %(moonphase)"
+		_temp = "??"; if temperature != ""; _temp = temperature
+		_unit = "F"; if weather.units == "Metric"; _unit = "C"
+		", %(_temp)°%(_unit) \_n%(moonphase)\_n"
 	}
 	--
 	"\nRuntime: %(passhour):%(nowpassmin)                    v%(ghostver)"
@@ -1888,6 +1885,9 @@ OnJournalOpen //Puts us on the first page before opening the journal
 
 OnJournalMenu
 {
+	_topdir = FENUM("journal/")
+	if ARRAYSIZE(_topdir) == 0; _f = MKDIR("journal/") //Make the journal directory if it doesn't exist
+	
 	if JournalSort == ""; JournalSort = "Newest to oldest" //Checks for if variables have been erased
 	if JournalPage == ""; JournalPage = 1
 	
@@ -2458,11 +2458,11 @@ OnMusicMenu //Main music player window
 	--
 	if nowmode == "Asleep"
 	{
-		"\![*]\q[Close window,script: \e]\n"
+		"\![*]\q[Close window,cancelnodialogue]\n"
 	}
 	else
 	{
-		"\![*]\q[Close window,script: \e]  \![*]\q[Back to Main Menu,OnMenuRun]\n"
+		"\![*]\q[Close window,cancelnodialogue]  \![*]\q[Back to Main Menu,OnMenuRun]\n"
 	}
 	--
 	"\![*]\q[Settings and Info,OnMusicSettings]  \![*]\q[Clear current playlist,OnClearPlaylist]\n\n[half]"
@@ -2484,11 +2484,11 @@ OnMusicMenu //Main music player window
 	--
 	if nowmode == "Asleep"
 	{
-		"\![*]\q[Close window,script: \e]\e music player main menu"
+		"\![*]\q[Close window,cancelnodialogue]\e music player main menu"
 	}
 	else
 	{
-		"\![*]\q[Close window,script: \e]  \![*]\q[Back to Main Menu,OnMenuRun]\e music player main menu"
+		"\![*]\q[Close window,cancelnodialogue]  \![*]\q[Back to Main Menu,OnMenuRun]\e music player main menu"
 	}
 }
 
@@ -3096,6 +3096,9 @@ OnPlaylistName //After the user puts in a name
 	_name = REPLACE(_name,">","")
 	_name = REPLACE(_name,"|","")
 	_name = REPLACE(_name,"]","") //This one is because sakurascript
+	
+	_topdir = FENUM("/playlists/")
+	if ARRAYSIZE(_topdir) == 0; void MKDIR("/playlists/") //Make the playlist directory if it doesn't exist
 	
 	_f = FOPEN("/playlists/%(_name).txt","w") //Create a new file
 	--
@@ -4052,18 +4055,7 @@ OnFunctionMenu
 
 Select.WeatherCheck
 {
-	if curlocation != "" && curlocation != "Set a location"
-	{
-		weatherquiet = 0
-		fromfunctionmenu = 1
-		"\![raise,OnDownloadCurWeather]"
-	}
-	else
-	{
-		OnWeatherLocation
-		weatherquiet = 0
-		fromfunctionmenu = 1
-	}
+	OnWeatherCheckStart
 }
 
 Select.OpenCalendar //replaceframe
@@ -4247,11 +4239,11 @@ OnConfigMenu //I moved changing name/pronouns/birthday over to Nameteach, becaus
 	if birthdayprint == ""; {birthdayprint = "???"}
 	if talkrate == ""; {talkrate = "every 5 minutes"; aitalkinterval = 300}
 	if deleteshitai == ""; {deleteshitai = "Off"}
-	if AutoWeather == ""; {AutoWeather = "Off"}
-	_menutemplocation = ""
-	if curlocation == "" || curlocation == "Set a location"; {_menutemplocation = "Set a location"; curlocation = "Set a location"}
-	if Degrees == ""; {Degrees[0] = "Fahrenheit"; Degrees[1] = "°F"}
-	else; {_menutemplocation = REPLACE(curlocation,",","\,")} //Makes commas display appropriately
+	if AutoWeather == ""
+	{
+		AutoWeather = "OFF"
+		ClearWeatherData
+	}
 	if AutoUpdate == ""; {AutoUpdate = "On"}
 	if TextSpeed == ""; TextSpeed = "On"
 	--
@@ -4262,8 +4254,7 @@ OnConfigMenu //I moved changing name/pronouns/birthday over to Nameteach, becaus
 	Your birthday: \q[%(birthdayprint),OnChangeBirthday]\n\n[half]/
 	Talk rate: \q[%(talkrate),ChangeTalk]\n/
 	Text speed based on mode: \q[%(TextSpeed),OnToggleTextSpeed]\n\n[half]/
-	\![*]Enable weather checks? (Currently: \q[%(AutoWeather),ToggleAutoWeather])  (\q[%(Degrees[0]),ToggleDegreesConfig])\n/
-	Current location:                      \q[(Reset location),locationreset]\n\![*]\q[%(_menutemplocation),OnWeatherLocation]\n\n/
+	\![*]Weather comments? (Currently: \q[%(AutoWeather),ToggleAutoWeather])\n/
 	\![*]Enable Auto Update checks?\n(Currently: \q[%(AutoUpdate),ToggleUpdate])\n/
 	\![*]Enable Uninstall? (Currently: \q[%(deleteshitai),ToggleUninstall])\n\n/
 	\![*]\q[Back to the menu,OnMenuRun]\e"
@@ -4385,25 +4376,23 @@ Select.TalkNone
 
 Select.ToggleAutoWeather
 {
-	if AutoWeather != "On"
+	if WeatherStationInstalled
 	{
-		AutoWeather = "On"
+		if AutoWeather != "On"
+		{
+			AutoWeather = "On"
+		}
+		else
+		{
+			AutoWeather = "Off"
+			ClearWeatherData
+		}
 	}
 	else
 	{
-		AutoWeather = "Off"
-		tempurature = ("Unknown","0","0")
-		ForC = "Unknown"
-		feelslike = ("Unknown","0","0")
-		humidity = "Unknown"
-		wind = "Unknown"
-		weather = "Unknown"
-		pollen = ""
-		sunrise = "Unknown"
-		sunset = "Unknown"
-		phase = "Unknown"
-		sunset = "Unknown"
-		sunrise = "Unknown"
+		InstallWeatherPluginMsg
+		--
+		"\x"
 	}
 	--
 	OnConfigMenu

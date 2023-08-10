@@ -243,11 +243,11 @@ Booped
 	}
 	elseif nowmode == "Awake"
 	{
-		"\0\s[1110]\i[10]* (You boop her nose!)\w8\w8\n\n* (Or,\w4 the equivalent.)"
-		"\0\s[1110]\i[10]* (You give her a boop!)"
-		"\0\s[1110]\i[10]* (Boop!)"
-		"\0\s[1110]\i[10]* (You give her a boop with your cursor!)"
-		"\0\s[1110]\i[10]* (You give her a playful boop!)"
+		"\0%(b)\s[1110]\i[10]* (You boop her nose!)\w8\w8\n\n* (Or,\w4 the equivalent.)"
+		"\0%(b)\s[1110]\i[10]* (You give her a boop!)"
+		"\0%(b)\s[1110]\i[10]* (Boop!)"
+		"\0%(b)\s[1110]\i[10]* (You give her a boop with your cursor!)"
+		"\0%(b)\s[1110]\i[10]* (You give her a playful boop!)"
 		--
 		"\w8\w8\w8\n\n\s[1106]"
 		"\w8\w8\w8\n\n\s[1107]"
@@ -279,10 +279,10 @@ Booped
 	}
 	elseif nowmode == "Asleep"
 	{
-		"\0* (You give her a gentle boop.)"
-		"\0* (You give her a very soft boop.)"
-		"\0* (You boop her softly so she doesn't wake.)"
-		"\0* (You give her a boop as light as a feather.)"
+		"\0%(b)* (You give her a gentle boop.)"
+		"\0%(b)* (You give her a very soft boop.)"
+		"\0%(b)* (You boop her softly so she doesn't wake.)"
+		"\0%(b)* (You give her a boop as light as a feather.)"
 		--
 		"\w8\w8\n\n\s[2000]"
 		"\w8\w8\n\n\s[2001]"
@@ -299,10 +299,10 @@ Booped
 	}
 	else //Sleepy
 	{
-		"\0\s[111]* (You boop her softly.)"
-		"\0\s[111]* (You boop her gently with your cursor.)"
-		"\0\s[111]* (You give her a light boop.)"
-		"\0\s[111]* (Boop!)"
+		"\0%(b)\s[111]* (You boop her softly.)"
+		"\0%(b)\s[111]* (You boop her gently with your cursor.)"
+		"\0%(b)\s[111]* (You give her a light boop.)"
+		"\0%(b)\s[111]* (Boop!)"
 		--
 		"\w8\w8\w8\n\n\s[0]"
 		"\w8\w8\w8\n\n\s[105]"

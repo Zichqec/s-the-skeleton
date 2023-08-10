@@ -814,6 +814,7 @@ OnSendStats
 	//74 - If Sigil has been unlocked
 	//75 - If Elko has been unlocked
 
+	//NOTE: ALL THE FOLLOWING WEATHER ONES ARE BUSTED NOW THAT I SWITCHED HER TO WEATHER STATION AND DIDN'T UPDATE THIS SECTION. JUST GET YOUR WEATHER DATA FROM WEATHER STATION.
 	//76 - 'Fahrenheit' if the user is using fahrenheit, 'Celsius' if the user is using celsius
 	//77 - Current temperature
 	//78 - Current feels like temperature
@@ -844,4 +845,31 @@ OnSendStats
 	//99 - If the user can play games
 	//100 - If the user can access the shop
 	//}
+}
+
+OnNeedlePoke
+{
+	if reference0 == 0 //Sakura
+	{
+		"\0%(b)"
+		--
+		if nowmode == "Awake"
+		{
+			"\s[1106]Ow???"
+			"\s[1110]Ouch!"
+			"\s[1106]Hey,\w4 knock it off!"
+		}
+		elseif nowmode == "Asleep"
+		{
+			"\s[2001]%(maymb) ow...\w8\w8 stoppit...\w8\w8 %(maymb)"
+			"\s[2001]%(maymb) knock it off,\w4 'm busy...\w8\w8 %(maymb)"
+			"\s[2001]%(maymb) ow...\w8\w8 cut it out,\w4 %(ANY('cambria,rosie,sigil'))...\w8\w8 %(maymb)"
+		}
+		else //Sleepy
+		{
+			"\s[105]...ow..."
+			"\s[105]...ouch..."
+			"\s[108]...why..?"
+		}
+	}
 }

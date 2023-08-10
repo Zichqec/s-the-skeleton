@@ -1,0 +1,455 @@
+OnWeatherCheckStart
+{
+	GetWeatherData
+	--
+	"\![raise,OnWeatherCheck]"
+}
+
+OnWeatherCheck
+{
+	if WeatherStationInstalled
+	{
+		if weather.error == "no_location"
+		{
+			WeatherNoLocationMsg
+		}
+		else
+		{
+			if nowmode == "Awake"
+			{
+				"\0%(b)\s[1104]Checking the weather!"
+			}
+			else //Sleepy
+			{
+				"\0%(b)\s[105]...weather..."
+			}
+			--
+			"\w8\w8"
+			--
+			if weather.error == ""; "\![raise,OnWeatherFinish]"
+			else; "\![raise,OnWeatherError]"
+		}
+	}
+	else
+	{
+		InstallWeatherPluginMsg
+		--
+		"\x\![raise,OnFunctionMenu]"
+	}
+}
+
+OnWeatherError
+{
+	if weather.error == "location_invalid"
+	{
+		if nowmode == "Awake"
+		{
+			"\s[1106]Sorry,\w4 your location is invalid.\w8\w8 Maybe try setting it again from the plugin."
+		}
+		else //Sleepy
+		{
+			"\s[107]...location is invalid...\w8\w8 maybe try setting it again in the plugin..."
+		}
+	}
+	elseif weather.error == "api_quota_exceeded"
+	{
+		if nowmode == "Awake"
+		{
+			"\s[1106]Sorry,\w4 looks like the API has reached its quota for the month.\w8\w8 I won't be able to get the weather until next month."
+		}
+		else //Sleepy
+		{
+			"\s[107]...the api has reached its quote for the month...\w8\w8 won't be able to get weather for the rest of the month..."
+		}
+	}
+	elseif weather.error == "api_key_disabled"
+	{
+		if nowmode == "Awake"
+		{
+			"\s[1106]Oh,\w4 the API key's been disabled.\w8\w8 You should open the plugin and see if it has an update."
+		}
+		else //Sleepy
+		{
+			"\s[107]...the api key's disabled...\w8\w8 you should open the plugin and see if it needs an update..."
+		}
+	}
+	elseif weather.error == "api_internal_error"
+	{
+		if nowmode == "Awake"
+		{
+			"\s[1106]Sorry,\w4 something's gone wrong with the plugin.\w8\w8 Wait a few minutes and then try again."
+		}
+		else //Sleepy
+		{
+			"\s[107]...something's gone wrong with the plugin...\w8\w8 wait a few minutes,\w4 then try again..."
+		}
+	}
+	elseif weather.error == "no_api_response"
+	{
+		if nowmode == "Awake"
+		{
+			"\s[1106]Sorry,\w4 I'm not getting a response.\w8\w8 Wait a few minutes and then try again."
+		}
+		else //Sleepy
+		{
+			"\s[107]...not getting a response...\w8\w8 wait a few minutes,\w4 then try again..."
+		}
+	}
+	else //other
+	{
+		if nowmode == "Awake"
+		{
+			"\s[1106]Sorry,\w4 I got this error: '%(reference1)'.\w8\w8 You should probably let Zichqec know about that."
+		}
+		else //Sleepy
+		{
+			"\s[107]...got an error,\w4 ...'%(reference1)'...\w8\w8\s[0] you should let Zichqec know..."
+		}
+	}
+	--
+	"\n\n\![*]\q[Open the plugin menu,OnOpenWeatherStationMenu]\n\![*]\q[I'm done,cancelnodialogue]"
+}
+
+OnWeatherFinish
+{
+	_unit = "F"; if weather.units == "Metric"; _unit = "C"
+	_wind_unit = "mph"; if weather.units == "Metric"; _wind_unit = "kph"
+	if nowmode == "Awake"
+	{
+		"\0%(b)\s[1112]"
+	}
+	else //Sleepy
+	{
+		"\0%(b)\s[105]"
+	}
+	--
+	"%(bb)\_qThe current weather:\n\n/
+	Weather: %(weather)\n/
+	Temperature: %(temperature[0])°%(_unit)\n/
+	Feels like: %(feelslike[0])°%(_unit)\n/
+	Humidity: %(humidity)%\n/
+	Wind: %(wind[0])%(_wind_unit) %(wind[1])\n/
+	Moon Phase: %(phase)"
+	
+    --
+    if pollen == "Local Pollen Alert"
+	{
+		if nowmode == "Awake"
+		{
+			"\nThere's a local pollen alert."
+		}
+		else //Sleepy
+		{
+			"\nthere's a local pollen alert."
+		}	
+    }
+	--
+	if fromfunctionmenu == 1
+	{
+		"\n\n\![*]\q[Back to functions,OnFunctionMenu]"
+	}
+	else
+	{
+		"\n"
+	}
+	--
+	"\n\![*]\q[I'm done,cancelnodialogue]\e"
+}
+
+WeatherStationInstalled
+{
+    if ASEARCH("Weather Station",pluginlist) != -1; 1
+    else; 0
+}
+
+//Gets a list of installed plugins
+On_installedplugin
+{
+    pluginlist = IARRAY
+    foreach reference; _ref
+    {
+        pluginlist ,= _ref[0]
+    }
+}
+
+ClearWeatherData
+{
+	weather = ""
+	humidity = ""
+	weather.units = ""
+	is_day = ""
+	temperature = ""
+	feelslike = ""
+	phase = ""
+	weather.error = ""
+	wind = IARRAY
+	LastWeatherTime = 0
+}
+
+OnWeatherStation.Weather
+{
+	LastWeatherTime = GETSECCOUNT
+	weather.error = ""
+	weather = reference0
+	humidity = TOINT(reference8)
+	weather.units = reference35
+	is_day = TOINT(reference3)
+	_wind_num = TOSTR(reference10)
+	if "." _in_ _wind_num
+	{
+		_wind_num = SPLIT(_wind_num,".")
+		wind[0] = _wind_num[0] + "." + SUBSTR(_wind_num[1],0,1)
+	}
+	else
+	{
+		wind[0] = _wind_num
+	}
+	wind[1] = reference11
+	
+	if weather.units == "Metric"
+	{
+		temperature = TOINT(reference5)
+		feelslike = TOINT(reference7)
+	}
+	else //Imperial
+	{
+		temperature = TOINT(reference4)
+		feelslike = TOINT(reference6)
+	}
+}
+
+OnWeatherStation.Astro
+{
+	weather.error = ""
+	phase = reference9
+}
+
+OnWeatherStation.Error
+{
+	ClearWeatherData
+	weather.error = reference0
+}
+
+GetWeatherData
+{
+	"\![raiseplugin,Weather Station,OnWeatherStation.Weather]"
+	--
+	"\![raiseplugin,Weather Station,OnWeatherStation.Astro]"
+}
+
+
+OnToggleAutoWeather
+{
+	if AutoWeather != "ON"
+	{
+		if WeatherStationInstalled
+		{
+			GetWeatherData
+			--
+			"\![raise,OnWeatherSetOn]\![raise,OnConfigReturn]"
+		}
+		else
+		{
+			"%(InstallWeatherPluginMsg)\x\![raise,OnConfigReturn]"
+		}
+	}
+	else
+	{
+		AutoWeather = "OFF"
+		ClearWeatherData
+		--
+		TalkConfig
+	}
+	
+}
+
+InstallWeatherPluginMsg
+{
+	if nowmode == "Awake"
+	{
+		"\s[1110]Sure,\w4 I can get the weather.\w8\w8 You'll need to install the plugin \_a[https://ukagaka.zichqec.com/plugin/weather_station]Weather Station\_a first though.\w8\w8 Ask me again once you have!"
+	}
+	else //Sleepy
+	{
+		"\s[111]...yeah,\w4 i can get weather...\w8\w8 you'll need to install the \_a[https://ukagaka.zichqec.com/plugin/weather_station]weather station\_a plugin first though,\w4 then ask me again..."
+	}
+}
+
+OnWeatherSetOn
+{
+	if weather.error == "no_location"
+	{
+		WeatherNoLocationMsg("Config")
+	}
+	AutoWeather = "ON"
+}
+
+WeatherNoLocationMsg : all
+{
+	if nowmode == "Awake"
+		{
+			"\s[1106]Oh,\w4 you'll need to set your location in the weather plugin before I can get the weather.\w8\w8 Right click me, go to the plugin tab, and click on Weather station.\w8\w8\s[1104] It'll direct you from there!"
+		}
+		else //Sleepy
+		{
+			"\s[107]...you have to tell the plugin your location first...\w8\w8 right click me,\w4 go to the plugin tab,\w4 then click weather station and do what it says..."
+		}
+	
+	"\n\n"
+	if _argv[0] == "Config"; "\![*]\q[Back to Config,configmenu]\n"
+	"\![*]\q[Open the plugin menu for me,OnOpenWeatherStationMenu]\n\![*]\q[I'm done,cancelnodialogue]"
+}
+
+OnOpenWeatherStationMenu
+{
+	"\![raiseplugin,Weather Station,OnMenuExec]"
+}
+
+
+
+//—————————— Temp and humidity ——————————
+
+temp
+{
+	if feelslike == "" || temperature == ""; "Unknown"
+	elseif weather.units == "Imperial"
+	{
+		if feelslike <= 0; "Below Zero" //Below zero, 0 and below
+		elseif feelslike <= 20; "Freezing" //Freezing, 0-20
+		elseif feelslike <= 40; "Cold" //Cold, 21-40
+		elseif feelslike <= 60; "Chilly" //Chilly, 41-60
+		elseif feelslike <= 80; "Pleasant" //Pleasant, 61-80
+		elseif feelslike <= 95; "Hot" //Hot, 81-95
+		elseif feelslike >= 96; "Boiling"  //Everything is terrible, 96+
+		else; "Unknown"
+	}
+	elseif weather.units == "Metric"
+	{
+		if feelslike <= -17; "Below Zero" //Below zero, 0 and below
+		elseif feelslike <= -6; "Freezing" //Freezing, 0-20
+		elseif feelslike <= 4; "Cold" //Cold, 21-40
+		elseif feelslike <= 15; "Chilly" //Chilly, 41-60
+		elseif feelslike <= 26; "Pleasant" //Pleasant, 61-80
+		elseif feelslike <= 35; "Hot" //Hot, 81-95
+		elseif feelslike >= 36; "Boiling" //Everything is terrible, 96+
+		else; "Unknown"
+	}
+	else
+	{
+		"Unknown"
+	}
+}
+
+humid
+{
+	if humidity == ""; "Unknown"
+	elseif humidity <= 30; "Dry" //Dry
+	elseif humidity > 30 && humidity <= 60; "Comfortable" //Comfortable
+	elseif humidity >= 61 && humidity <= 80; "Muggy" //Muggy
+	elseif humidity >= 81; "Soup" //Soup
+	else; "Unknown"
+}
+
+//—————————— Conditions ——————————
+weather_clear
+{
+	weather == "Sunny" || weather == "Clear"
+}
+
+weather_cloudy
+{
+	weather == "Partly cloudy" ||/
+	weather == "Cloudy" ||/
+	weather == "Overcast"
+}
+
+weather_mightrain
+{
+	weather == "Patchy rain possible" ||/
+	weather == "Moderate rain at times" ||/
+	weather == "Heavy rain at times"
+}
+
+weather_mightsnow
+{
+	weather == "Patchy snow possible" ||/
+	weather == "Patchy sleet possible" ||/
+	weather == "Patchy freezing drizzle possible"
+}
+
+weather_mightthunder
+{
+	weather == "Thundery outbreaks possible"
+}
+
+weather_raining
+{
+	weather == "Patchy light drizzle" ||/
+	weather == "Light drizzle" ||/
+	weather == "Freezing drizzle" ||/
+	weather == "Heavy freezing drizzle" ||/
+	weather == "Patchy light rain" ||/
+	weather == "Light rain" ||/
+	weather == "Moderate rain" ||/
+	weather == "Heavy rain" ||/
+	weather == "Light rain shower" ||/
+	weather == "Moderate or heavy rain shower" ||/
+	weather == "Torrential rain shower"
+}
+
+weather_snowing
+{
+	weather == "Blowing snow" ||/
+	weather == "Blizzard" ||/
+	weather == "Patchy light snow" ||/
+	weather == "Light snow" ||/
+	weather == "Patchy moderate snow" ||/
+	weather == "Moderate snow" ||/
+	weather == "Patchy heavy snow" ||/
+	weather == "Heavy snow" ||/
+	weather == "Light snow showers" ||/
+	weather == "Moderate or heavy snow showers"
+}
+
+weather_freezingrain
+{
+	weather == "Light freezing rain" ||/
+	weather == "Moderate or heavy freezing rain"
+}
+
+//yes this is listed as sleet. i know. it's the uk's definition of sleet, apparently, which S would not use as he is not uk based.
+weather_rainsnow
+{
+	weather == "Light sleet" ||/
+	weather == "Moderate or heavy sleet" ||/
+	weather == "Light sleet showers" ||/
+	weather == "Moderate or heavy sleet showers"
+	
+}
+
+//no this is not hail, rip me
+weather_ice_pellets
+{
+	weather == "Ice pellets" ||/
+	weather == "Light showers of ice pellets" ||/
+	weather == "Moderate or heavy showers of ice pellets"
+}
+
+weather_thunderstorm
+{
+	weather == "Patchy light rain with thunder" ||/
+	weather == "Moderate or heavy rain with thunder"
+}
+
+weather_thundersnow
+{
+	weather == "Patchy light snow with thunder" ||/
+	weather == "Moderate or heavy snow with thunder"
+}
+
+weather_foghaze
+{
+	weather == "Mist" ||/
+	weather == "Fog" ||/
+	weather == "Freezing fog"
+}

@@ -289,7 +289,176 @@ AwakeTalk : nonoverlap
 	parallel Pool("Pool_Awake_LotsOfGhostsOpen","%(ghostexcount >= 4)")
 	parallel Pool("Pool_Awake_NoGhostsOpen","%(ghostexcount == 0)")
 	
-	parallel Pool_Awake_Onion_Dialogues
+	//---Onion dialogues---
+	{ //I've been working on new puzzles lately
+		"\0\s[1112]I've been working on some new puzzles lately.\w8\w8 "
+		--
+		"\s[1000]I want to get really good and make a puzzle that even my grandparents cant solve,\w8\s[1104] and believe me they're puzzle pros.\e"
+		"\s[1113]I can make all kinds of complicated stuff for them in my dreams,\w8\s[1107] though I'm not sure I could recreate them in the real world...\w8\w8\s[1208] Maybe my \_a[FAbarcodeFamilymenu]grandma\_a could help?\e"
+		"\s[1104]It's a lot of fun,\w8\s[1208] there are so many little pieces to keep track of.\e"
+		"\s[1000]It feels really good to watch someone trying to solve them,\w8\s[1104] the look of satisfaction when they do is really special."
+		"\s[1104]The nurses at the hospital think they're really clever.\w8\w8\s[1106] Though,\w4 they don't usually have time to solve the longer ones.\e"
+	}
+	{ //Your font
+		"\s[1110]Humans aren't named after fonts,\w4 are they?\w8\w8\s[1112] I wonder what your font would be if you were a skeleton.\w8\w8 "
+		--
+		{
+			"\s[1208]Maybe %(seriffont)?\w8\w8 "
+			"\s[1000]You could be a %(seriffont),\w4 serif fonts are nice.\w8\w8 "
+			"\s[1000]How about a serif font,\w4 like %(seriffont)?\w8\w8 "
+			"\s[1208]There are so many fonts to choose from...\w8\w8\s[1000] Maybe %(seriffont)?\w8\w8 "
+			--
+			{
+				"\s[1111]Oh,\w4 or a script font like %(scriptfont)?\w8\w8 "
+				"\s[1111]Ooh,\w4 or %(scriptfont)?\w8\w8 "
+				--
+				"\s[1104]Or even %(dingbatfont)!\e"
+				"\s[1104]Or %(dingbatfont),\w4 too!\e"
+				"\s[1110]Or you could even be a %(dingbatfont).\e"
+				"\s[1104]Or a dingbat font like %(dingbatfont);\w4 dingbat fonts are cool.\e"
+			}
+			{
+				"\s[1113]Or maybe %(dingbatfont) is more fitting...\w8\w8 "
+				--
+				"\s[1104]Or %(scriptfont)!\e"
+				"\s[1110]Unless...\w8\w8 You're a %(scriptfont)?\e"
+				"\s[1205]%(scriptfont) is nice too...\e"
+				"\s[1102]I guess it could be anything,\w4 really.\e"
+			}
+		}
+		{
+			"\s[1112]What about %(scriptfont)?\w8\w8 "
+			"\s[1104]How about a nice script font,\w4 like %(scriptfont)?\w8\w8 "
+			"\s[1102]Script fonts are nice,\w4 you could be a %(scriptfont).\w8\w8 "
+			--
+			{
+				"\s[1111]Oh,\w4 or %(dingbatfont)?\w8\w8 "
+				--
+				"\s[1113]Or maybe not...\w8\w8\s[1000] How about %(seriffont) instead?\e"
+				"\s[1106]No?\w8\w8 What about %(seriffont)?\e"
+				"\s[1107]Maybe a serif font would be better...\w8\w8\s[1113] Something like %(seriffont).\e"
+				"\s[1107]You might be a serif,\w4 I guess...\w8\w8\s[1000] %(seriffont),\w4 maybe?\e"
+			}
+		}
+		{
+			"\s[1000]What do you think about %(dingbatfont)?\w8\w8 "
+			"\s[1104]You could be a %(dingbatfont)!\w8\w8 "
+			"\s[1102]I bet you'd be a %(dingbatfont).\w8\w8"
+			--
+			{
+				"\s[1113]Although,\w4 %(seriffont) is nice too.\w8\w8 "
+				"\s[1106]Hm,\w4 or %(seriffont) instead?\w8\w8 "
+				--
+				"\s[1205]I like %(scriptfont)...\e"
+				"\s[1205]I think you'd make a nice %(scriptfont)...\e"
+				"\s[1104]Or %(scriptfont)!\e"
+				"\s[1104]Or %(scriptfont),\w4 that one's pretty.\e"
+				"\s[1110]Oh,\w4 maybe you're a %(scriptfont)?\e"
+				"\s[1113]No,\w4 that's not right...\w8\w8\s[1111] What about %(scriptfont)?\e"
+			}
+		}
+	}
+	{ //Been working on a really complex dream
+		"\s[1205]I've been working on a really complex dream idea for the past few months...\w8\w8 "
+		--
+		{
+			"\s[1000]I still need to work on some of the puzzles,\w8 "
+			--
+			{
+				{
+					"\s[1107]One of them is a little too easy if you know the trick to it.\w8\w8\n\n"
+					--
+					"\s[1113]Though,\w4 it's not that obvious of a trick...\e"
+					"\s[1113]Or maybe it would be better to give that information only to those who are worthy...\w8\w8\s[1104] It could be a feature rather than a bug.\e"
+					"\s[1107]I was really proud of that one,\w4 too...\e"
+					{
+						"\s[1104]I think I have an idea for a better puzzle to replace it,\w4 though.\w8\w8 "
+						--
+						"\s[1111]It's gonna have "
+						--
+						"lasers"
+						"jetpacks"
+						"moving tiles"
+						"water traps"
+						"boulders to push"
+						"swinging ropes"
+						"crosswords"
+						"volcanoes"
+						"a rickety bridge"
+						"flamethrowers"
+						"falling rocks"
+						--
+						" and giant"
+						" and lots of"
+						" and mini"
+						" and scary"
+						" and angry"
+						" and awesome"
+						--
+						" %(creature)s!\e"
+					}
+				}
+			}
+		}
+		{
+			"\s[1104]I think I'm almost ready to go for it,\w4 "
+			--
+			{
+				"\s[1112]I just need to work on a couple more side characters...\w8\w8 "
+				--
+				"\s[1106]The bard is kinda flat right now.\w8\w8\s[1107] ...Pun not intended.\w8\w8\s[1208] That's an idea,\w4 though...\e"
+				"\s[1107]The comic relief's kinda annoying,\w4 I need to do something to make him more interesting...\e"
+				"\s[1208]I've been working on developing a thief,\w4 he's been pretty fun to work on so far...\e"
+				{
+					"\s[1104]There's a really cool dragon,\w8\s[1113] but I haven't decided what he likes to hoard yet...\w8\w8 "
+					--
+					"\s[1106]Is clocks a little too out there?\w8\w8\s[1107] I think it'd be cool for him to hoard time...\e"
+					"\s[1111]Gold's kinda boring after the millionth time,\w4 so I've been trying to come up with other things.\e"
+					"\s[1208]Books could be fun,\w4 a wise,\w4 ancient dragon that hoards knowledge and history...\e"
+					"\s[1104]Hehe,\w4 maybe he hoards art,\w4 and raids all the nearby museums.\w8\w8\s[1110] He'd have to be careful not to burn down the towns,\w4 then,\w4 or he'd risk damaging the art.\e"
+					"\s[1208]Heh,\w4 maybe he could hoard eggs?\w8\w8\s[1104] But his hoard keeps turning into hundreds and hundreds of little birds.\e"
+					"\s[1208]Maybe he hoards glitter.\w8\w8\s[1104] That'd certainly keep the knights away,\w4 with that much glitter you wouldn't get it out of your armor for months.\e"
+				}
+			}
+			{
+				"\s[1112]I just need to polish up the final dungeon design a bit.\w8\w8\n\n"
+				--
+				"\s[1107]I definitely picked the wrong shade of blue for the bricks...\e"
+				"\s[1107]The scary candles on the wall don't really match with anything else...\e"
+				"\s[1113]It's a bit too square,\w4 it's not interesting enough...\e"
+				"\s[1113]I think the shortcut I added is a little too obvious right now...\e"
+				"\s[1113]Still need to add some kind of monsters to the moat...\e"
+				"\s[1110]The atmosphere's not quite right yet.\e"
+				"\s[1107]I'm not sure where I want all the guards to patrol yet;\w8 it really makes a big difference what route the heroes will have to take...\e"
+				"\s[1107]I think the inter-dimensional portal is a bit too close to the surface right now...\e"
+			}
+			{
+				"\s[1106]but I need to test some of the puzzles a little more.\w8\w8\n\n"
+				--
+				"\s[1107]There's always some loophole you didn't think to cover...\e"
+				"\s[1107]I'm pretty sure I left out a really important clue for one of them...\e"
+				"\s[1113]I shuffled around the order of some of them,\w4 I need to make sure it still flows nicely...\e"
+				"\s[1110]It's actually really tricky to test them thoroughly,\w4 people trying the puzzle for the first time see it differently than you do.\e"
+			}
+			{
+				"I can hardly stand the anticipation.\e"
+				"I can hardly sit still just thinking about it.\e"
+				"it's gonna be so much fun!\e"
+			}
+		}
+		{
+			"\s[1107]There are so many details to work out still...\w8\w8\n\n"
+			--
+			"\s[1208]What's the climate like?\w8\w8 How do they deal with weather..?\e"
+			"\s[1112]Do they grow their food themselves,\w4 or do they trade for it..?\e"
+			"\s[1110]How does having a nearby coven of vampires affect day to day life?\w8\w8\s[1106] It'd have to have some impact,\w4 right?\e"
+			"\s[1112]What color clothes do the royal court wear?\w8\w8\s[1107] Probably something gaudy...\e"
+			"\s[1110]What kind of magic do the monsters there use?\w8\w8 Is it different from ours?\w8\w8\s[1104] Maybe,\w4 it's fun to think of new magic types.\e"
+			"\s[1106]I haven't even really started on characters yet,\w4 I've just been building a world...\e"
+			"\s[1205]It'll be worth it in the end,\w4 though.\e"
+			"\s[1106]This one's gonna need a lot of notes in my notebook...\e"
+		}
+	}
 	
 	if SeePC == "On"; "\![raise,OnSaoriRand]"
 	
@@ -523,7 +692,7 @@ Pool_Awake_timeslot_latenight : array //timeslot == 'latenight' (9pm - 12am)
 
 Pool_Awake_timeslot_midnight : array //timeslot == 'midnight' (1am - 4am)
 {
-	"\s[1106]Um,\w4 it's late,\w4 isn't it %(userprop)?\w8\w8\s[1107] Shouldn't you be sleeping?\w8\w8\s[1206] I should,\w4 but I'm not feeling sleepy for once...\e"
+	//"\s[1106]Um,\w4 it's late,\w4 isn't it %(userprop)?\w8\w8\s[1107] Shouldn't you be sleeping?\w8\w8\s[1206] I should,\w4 but I'm not feeling sleepy for once...\e"
 	"\s[1206]Mmm...\w8\w8 At this rate,\w4 I'm gonna end up sleeping in all day tomorrow...\e"
 	"\s[1206]\i[10]* (She sighs,\w4 sounding a little worried.)\e"
 	"\s[1206]I hope they're not worried about me at home...\e"
@@ -1029,176 +1198,7 @@ Pool_Awake_NoGhostsOpen : array //ghostexcount == 0
 
 Pool_Awake_Onion_Dialogues : array //No requirement, just wanted these out of the way
 {
-	//---Onion dialogues---
-	{ //I've been working on new puzzles lately
-		"\0\s[1112]I've been working on some new puzzles lately.\w8\w8 "
-		--
-		"\s[1000]I want to get really good and make a puzzle that even my grandparents cant solve,\w8\s[1104] and believe me they're puzzle pros.\e"
-		"\s[1113]I can make all kinds of complicated stuff for them in my dreams,\w8\s[1107] though I'm not sure I could recreate them in the real world...\w8\w8\s[1208] Maybe my \_a[FAbarcodeFamilymenu]grandma\_a could help?\e"
-		"\s[1104]It's a lot of fun,\w8\s[1208] there are so many little pieces to keep track of.\e"
-		"\s[1000]It feels really good to watch someone trying to solve them,\w8\s[1104] the look of satisfaction when they do is really special."
-		"\s[1104]The nurses at the hospital think they're really clever.\w8\w8\s[1106] Though,\w4 they don't usually have time to solve the longer ones.\e"
-	}
-	{ //Your font
-		"\s[1110]Humans aren't named after fonts,\w4 are they?\w8\w8\s[1112] I wonder what your font would be if you were a skeleton.\w8\w8 "
-		--
-		{
-			"\s[1208]Maybe %(seriffont)?\w8\w8 "
-			"\s[1000]You could be a %(seriffont),\w4 serif fonts are nice.\w8\w8 "
-			"\s[1000]How about a serif font,\w4 like %(seriffont)?\w8\w8 "
-			"\s[1208]There are so many fonts to choose from...\w8\w8\s[1000] Maybe %(seriffont)?\w8\w8 "
-			--
-			{
-				"\s[1111]Oh,\w4 or a script font like %(scriptfont)?\w8\w8 "
-				"\s[1111]Ooh,\w4 or %(scriptfont)?\w8\w8 "
-				--
-				"\s[1104]Or even %(dingbatfont)!\e"
-				"\s[1104]Or %(dingbatfont),\w4 too!\e"
-				"\s[1110]Or you could even be a %(dingbatfont).\e"
-				"\s[1104]Or a dingbat font like %(dingbatfont);\w4 dingbat fonts are cool.\e"
-			}
-			{
-				"\s[1113]Or maybe %(dingbatfont) is more fitting...\w8\w8 "
-				--
-				"\s[1104]Or %(scriptfont)!\e"
-				"\s[1110]Unless...\w8\w8 You're a %(scriptfont)?\e"
-				"\s[1205]%(scriptfont) is nice too...\e"
-				"\s[1102]I guess it could be anything,\w4 really.\e"
-			}
-		}
-		{
-			"\s[1112]What about %(scriptfont)?\w8\w8 "
-			"\s[1104]How about a nice script font,\w4 like %(scriptfont)?\w8\w8 "
-			"\s[1102]Script fonts are nice,\w4 you could be a %(scriptfont).\w8\w8 "
-			--
-			{
-				"\s[1111]Oh,\w4 or %(dingbatfont)?\w8\w8 "
-				--
-				"\s[1113]Or maybe not...\w8\w8\s[1000] How about %(seriffont) instead?\e"
-				"\s[1106]No?\w8\w8 What about %(seriffont)?\e"
-				"\s[1107]Maybe a serif font would be better...\w8\w8\s[1113] Something like %(seriffont).\e"
-				"\s[1107]You might be a serif,\w4 I guess...\w8\w8\s[1000] %(seriffont),\w4 maybe?\e"
-			}
-		}
-		{
-			"\s[1000]What do you think about %(dingbatfont)?\w8\w8 "
-			"\s[1104]You could be a %(dingbatfont)!\w8\w8 "
-			"\s[1102]I bet you'd be a %(dingbatfont).\w8\w8"
-			--
-			{
-				"\s[1113]Although,\w4 %(seriffont) is nice too.\w8\w8 "
-				"\s[1106]Hm,\w4 or %(seriffont) instead?\w8\w8 "
-				--
-				"\s[1205]I like %(scriptfont)...\e"
-				"\s[1205]I think you'd make a nice %(scriptfont)...\e"
-				"\s[1104]Or %(scriptfont)!\e"
-				"\s[1104]Or %(scriptfont),\w4 that one's pretty.\e"
-				"\s[1110]Oh,\w4 maybe you're a %(scriptfont)?\e"
-				"\s[1113]No,\w4 that's not right...\w8\w8\s[1111] What about %(scriptfont)?\e"
-			}
-		}
-	}
-	{ //Been working on a really complex dream
-		"\s[1205]I've been working on a really complex dream idea for the past few months...\w8\w8 "
-		--
-		{
-			"\s[1000]I still need to work on some of the puzzles,\w8 "
-			--
-			{
-				{
-					"\s[1107]One of them is a little too easy if you know the trick to it.\w8\w8\n\n"
-					--
-					"\s[1113]Though,\w4 it's not that obvious of a trick...\e"
-					"\s[1113]Or maybe it would be better to give that information only to those who are worthy...\w8\w8\s[1104] It could be a feature rather than a bug.\e"
-					"\s[1107]I was really proud of that one,\w4 too...\e"
-					{
-						"\s[1104]I think I have an idea for a better puzzle to replace it,\w4 though.\w8\w8 "
-						--
-						"\s[1111]It's gonna have "
-						--
-						"lasers"
-						"jetpacks"
-						"moving tiles"
-						"water traps"
-						"boulders to push"
-						"swinging ropes"
-						"crosswords"
-						"volcanoes"
-						"a rickety bridge"
-						"flamethrowers"
-						"falling rocks"
-						--
-						" and giant"
-						" and lots of"
-						" and mini"
-						" and scary"
-						" and angry"
-						" and awesome"
-						--
-						" %(creature)s!\e"
-					}
-				}
-			}
-		}
-		{
-			"\s[1104]I think I'm almost ready to go for it,\w4 "
-			--
-			{
-				"\s[1112]I just need to work on a couple more side characters...\w8\w8 "
-				--
-				"\s[1106]The bard is kinda flat right now.\w8\w8\s[1107] ...Pun not intended.\w8\w8\s[1208] That's an idea,\w4 though...\e"
-				"\s[1107]The comic relief's kinda annoying,\w4 I need to do something to make him more interesting...\e"
-				"\s[1208]I've been working on developing a thief,\w4 he's been pretty fun to work on so far...\e"
-				{
-					"\s[1104]There's a really cool dragon,\w8\s[1113] but I haven't decided what he likes to hoard yet...\w8\w8 "
-					--
-					"\s[1106]Is clocks a little too out there?\w8\w8\s[1107] I think it'd be cool for him to hoard time...\e"
-					"\s[1111]Gold's kinda boring after the millionth time,\w4 so I've been trying to come up with other things.\e"
-					"\s[1208]Books could be fun,\w4 a wise,\w4 ancient dragon that hoards knowledge and history...\e"
-					"\s[1104]Hehe,\w4 maybe he hoards art,\w4 and raids all the nearby museums.\w8\w8\s[1110] He'd have to be careful not to burn down the towns,\w4 then,\w4 or he'd risk damaging the art.\e"
-					"\s[1208]Heh,\w4 maybe he could hoard eggs?\w8\w8\s[1104] But his hoard keeps turning into hundreds and hundreds of little birds.\e"
-					"\s[1208]Maybe he hoards glitter.\w8\w8\s[1104] That'd certainly keep the knights away,\w4 with that much glitter you wouldn't get it out of your armor for months.\e"
-				}
-			}
-			{
-				"\s[1112]I just need to polish up the final dungeon design a bit.\w8\w8\n\n"
-				--
-				"\s[1107]I definitely picked the wrong shade of blue for the bricks...\e"
-				"\s[1107]The scary candles on the wall don't really match with anything else...\e"
-				"\s[1113]It's a bit too square,\w4 it's not interesting enough...\e"
-				"\s[1113]I think the shortcut I added is a little too obvious right now...\e"
-				"\s[1113]Still need to add some kind of monsters to the moat...\e"
-				"\s[1110]The atmosphere's not quite right yet.\e"
-				"\s[1107]I'm not sure where I want all the guards to patrol yet;\w8 it really makes a big difference what route the heroes will have to take...\e"
-				"\s[1107]I think the inter-dimensional portal is a bit too close to the surface right now...\e"
-			}
-			{
-				"\s[1106]but I need to test some of the puzzles a little more.\w8\w8\n\n"
-				--
-				"\s[1107]There's always some loophole you didn't think to cover...\e"
-				"\s[1107]I'm pretty sure I left out a really important clue for one of them...\e"
-				"\s[1113]I shuffled around the order of some of them,\w4 I need to make sure it still flows nicely...\e"
-				"\s[1110]It's actually really tricky to test them thoroughly,\w4 people trying the puzzle for the first time see it differently than you do.\e"
-			}
-			{
-				"I can hardly stand the anticipation.\e"
-				"I can hardly sit still just thinking about it.\e"
-				"it's gonna be so much fun!\e"
-			}
-		}
-		{
-			"\s[1107]There are so many details to work out still...\w8\w8\n\n"
-			--
-			"\s[1208]What's the climate like?\w8\w8 How do they deal with weather..?\e"
-			"\s[1112]Do they grow their food themselves,\w4 or do they trade for it..?\e"
-			"\s[1110]How does having a nearby coven of vampires affect day to day life?\w8\w8\s[1106] It'd have to have some impact,\w4 right?\e"
-			"\s[1112]What color clothes do the royal court wear?\w8\w8\s[1107] Probably something gaudy...\e"
-			"\s[1110]What kind of magic do the monsters there use?\w8\w8 Is it different from ours?\w8\w8\s[1104] Maybe,\w4 it's fun to think of new magic types.\e"
-			"\s[1106]I haven't even really started on characters yet,\w4 I've just been building a world...\e"
-			"\s[1205]It'll be worth it in the end,\w4 though.\e"
-			"\s[1106]This one's gonna need a lot of notes in my notebook...\e"
-		}
-	}
+	
 }
 
 
@@ -1481,7 +1481,164 @@ SleepyTalk : nonoverlap //Sleepy mode randomtalk
 	parallel Pool("Pool_Sleepy_LotsOfGhostsOpen","%(ghostexcount >= 4)")
 	parallel Pool("Pool_Sleepy_NoGhostsOpen","%(ghostexcount == 0)")
 	
-	parallel Pool_Sleepy_Onion_Dialogues
+	//Onion Dialogues
+	{
+		{ //Musing about computer based dreams
+			_type1 = filetype
+			_type2 = filetype
+			
+			if _type1 != _type2
+			{
+				"\0\s[112]...i wonder what stories are possible,\w4 exploring a computer...\w8\w8\s[111] there are so many file types,\w4 they could be interesting monsters...\w8\w8\n\n...maybe a %(_type1) could have large %(bodypiece),\w4 or %(_type2)s could "
+				--
+				"swarm like bees"
+				"lurk under the taskbar"
+				"swoop down from above"
+				--
+				"...\w8\w8\s[112] hmm...\e"
+			}
+		}
+		{ //I can see the backs of your windows
+			"\s[112]...i can see the backs of your windows...\w8\w8 "
+			--
+			"\s[103]heheh...\w8\w8 i'll never tell you what's on them,\w4 though...\e"
+			"\s[111]you're curious now too,\w4 aren't you..?\w8\w8\s[103] heh..."
+			"\s[111]i can't tell you what they look like,\w4 you wouldn't be able to handle the knowledge...\e"
+			"\s[111]you wouldn't believe what they look like if i told you...\w8\w8\s[103] so i'm not gonna...\e"
+			"\s[103]so strange...\w8\w8 so mysterious...\e"
+		}
+		{ //file stuck under your taskbar
+			_file1 = filetype
+			_file2 = filetype
+			"\s[208]...huh...\w8\w8 there's a %(_file1) under your taskbar...\w8\w8 "
+			--
+			"\s[-1]\n\n* (She slips under your taskbar for a moment.)\w8\w8\w8\w8\w8\n\n.\w8.\w8.\w8\w8\w8\n\n\s[0]...it's out now,\w4 i put it over in your %(usersfolder)...\e"
+			"\s[206] looks like it's stuck pretty good,\w4 though...\e"
+			"\s[113]i wonder how it got down there...\e"
+			"\s[111]i didn't put it there,\w4 promise...\e"
+			if _file1 != _file2
+			{
+				"\s[112]wait,\w4 maybe that's a %(_file2)...\w8\w8 "
+				--
+				"\s[111]they're hard to tell apart sometimes...\e"
+				"\s[107]it's so smooshed under there,\w4 it's hard to tell...\e"
+				"\s[206]either way,\w4 it's pretty stuck...\e"
+				"\s[113]i don't think i can get it out,\w4 though,\w4 so...\e"
+			}
+			{
+				"\s[113]i wonder what's in it...\w8\w8 "
+				--
+				"\s[206]i don't think i can reach it,\w4 though...\e"
+				"\s[111]it could be anything...\e"
+				"\s[111]something secret..?\e"
+				"\s[111]i guess we'll never know...\e"
+				"\s[111]do you have any idea..?\w8\w8\s[206] i can't read the name from here,\w4 though,\w4 so i guess you wouldn't know...\e"
+				if !FamilyPresent && (TalkedToS == 1 || TalkedToDusty == 1 || TalkedToCambria == 1)
+				{
+					
+					"\s[208]mysterious...\w8\w8\s[0] maybe i can get "
+					--
+					if TalkedToS == 1; "andad"
+					if TalkedToDusty == 1; "Dusty"
+					if TalkedToCambria == 1;"ancambria"
+					--
+					" to help me...\e"
+				}
+			}
+			if totalhours >= 50; "\s[108]you sure get a lot of files stuck under your taskbar...\e"
+			if season == "Spring"; "\s[112]maybe you should do some spring cleaning..?\e"
+			if season == "Autumn"; "\s[112]do folders shed files in fall like trees shed leaves..?\e"
+		}
+		if NowPlaying[0] == ""
+		{ //Messing with mp3 player
+			"\s[401]* (She's fiddling with her mp3 player.)\w8\w8\n\n"
+			--
+			"\s[407]* (Seems like she cant find a good song...)\e"
+			"\s[402]* (She relaxes visibly.)\w8\w8\n\n* (She must have found the perfect song.)\e"
+			"\s[402]* (She nods her head a little to the music.)"
+			"\s[407]* (Her music seems to be making her drowsy...)\e"
+			"* (How many songs can one skeleton have?)\e"
+			{
+				"* (From what little you can make out,\w4 it sounds like she's listening to "
+				--
+				"metal.)\e"
+				"rock.)\e"
+				"kazoos..?)\e"
+				"jazz.)\e"
+				"something electronic.)\e"
+				"chiptunes.)\e"
+				"memes.)\e"
+				"bass.)\e"
+				"a podcast.)\e"
+				"space rock.)\e"
+				"space metal.)\e"
+				"sci-fi dark-pop.)\e"
+				"a video game soundtrack.)\e"
+				"something orchestral.)\e"
+				"polkas.)\e"
+				"music boxes.)\e"
+			}
+			"* (She's clicking the buttons so fast,\w4 she must know her library in and out.)\e"
+		}
+		
+		/*if wd == "Fri" //thrift store
+		{
+			_item = ThriftItem[0]
+			_let = SUBSTR(_item,0,1)
+			_an = ""; if _let == "a" || _let == "e" || _let == "i" || _let == "o" || _let == "u"; _an = "an"; else; _an = "a"
+			"\s[111]...it's family day at the thrift store...\w8\w8 they always have big sales on fridays...\w8\w8\n\n"
+			--
+			{
+			   "\s[112]...i think dad said he was going to try to find %(_an) %(_item) for %(family)...\w8\w8 "
+			   --
+			   "\s[111]don't tell %(_himher) though,\w4 it's a surprise...\e"
+			   "\s[113]i want %(_an) %(_item),\w4 too...\w8\w8\s[111] maybe they'll have two..?\e"
+			}
+			{
+			   "\s[112]...they had a cool %(_item) last week,\w4\s[0] i think %(family) might like it...\w8\w8 "
+			   --
+			   "\s[107]if it's still there,\w4 anyways...\e"
+			   "\s[107]though,\w4 it might be gone by now...\e"
+			   "\s[208]it should be on sale now,\w4 so i can afford it...\e"
+if month == 12 && day < 25;"\s[103]just in time for gyftmas,\w4 too...\e"
+			}
+			"\s[107]...we're trying to find %(_an) %(_item) in good condition,\w4 but no luck so far...\e"
+			"\s[105]...the employees there are really nice,\w8\s[103] one of the ladies gives us lollipops...\e"
+			"\s[105]...dad says it's the best way to keep up with clothes for us,\w4 since we grow so fast...\e"
+			{
+				_num = (RAND(4) + 3) //3-6
+				_amount = (RAND(21) + 20) //20-40
+			   "\s[107]...there's so much stuff in there,\w4 sometimes it's hard to decide where to start...\w8\w8\s[111] dad's a pro at it,\w4 though...\w8\w8 "
+			   --
+			   "he's really good at finding the stuff on sale,\w8\s[103] we once got %(_num) giant bags of clothes for %(_amount)g...\e"
+			   "\s[103]all the employees know him by now,\w4 they always say hi when we come in...\e"
+			   "he never buys anything we don't need,\w4 and makes us bring a little of our own money if we want to buy something extra for ourselves...\e"
+			   "he's really good at spotting which clothes are worn out,\w4 and which are almost new...\e"
+			   "\s[103]the employees let him have one of their racks instead of a cart if he's buying a lot...\e"
+			}
+			{
+				_descript = ThriftDescript
+				_let = SUBSTR(_descript,0,1)
+				_an = ""; if _let == "a" || _let == "e" || _let == "i" || _let == "o" || _let == "u"; _an = "an"; else; _an = "a"
+				_item = ThriftItem
+				_thing = _item[0]
+				_thingstuff = _item[1]
+			   "\s[105]...you never know what you'll find,\w4 sometimes they have really weird stuff...\w8\w8\s[103] heh...\w8\w8 "
+			   --
+			   {
+				  "one time,\w4 i found a %(_descript) %(_thing)...\w8\w8 it%(_thingstuff),\w4 "
+				  --
+				  "it's really cool...\e"
+				  "i like it a lot...\e"
+				  "i can't believe i got it so cheap...\e"
+				  "i can't believe someone gave it up...\e"
+				  "i wonder who made it, and why...\e"
+			   }
+			   "i have a %(_descript) %(_thing) i got there once,\w4 it%(_thingstuff)...\e"
+			   "i even found a %(_descript) %(_thing),\w4 if you can believe it...\w8\w8 it%(_thingstuff)...\e"
+			}
+		}*/
+	}
 	
 	if SeePC == "On"; "\![raise,OnSaoriRand]"
 	
@@ -2190,164 +2347,7 @@ Pool_Sleepy_NoGhostsOpen : array //ghostexcount == 0
 
 Pool_Sleepy_Onion_Dialogues : array //No requirement, just wanted these out of the way
 {
-	//Onion Dialogues
-	{
-		{ //Musing about computer based dreams
-			_type1 = filetype
-			_type2 = filetype
-			
-			if _type1 != _type2
-			{
-				"\0\s[112]...i wonder what stories are possible,\w4 exploring a computer...\w8\w8\s[111] there are so many file types,\w4 they could be interesting monsters...\w8\w8\n\n...maybe a %(_type1) could have large %(bodypiece),\w4 or %(_type2)s could "
-				--
-				"swarm like bees"
-				"lurk under the taskbar"
-				"swoop down from above"
-				--
-				"...\w8\w8\s[112] hmm...\e"
-			}
-		}
-		{ //I can see the backs of your windows
-			"\s[112]...i can see the backs of your windows...\w8\w8 "
-			--
-			"\s[103]heheh...\w8\w8 i'll never tell you what's on them,\w4 though...\e"
-			"\s[111]you're curious now too,\w4 aren't you..?\w8\w8\s[103] heh..."
-			"\s[111]i can't tell you what they look like,\w4 you wouldn't be able to handle the knowledge...\e"
-			"\s[111]you wouldn't believe what they look like if i told you...\w8\w8\s[103] so i'm not gonna...\e"
-			"\s[103]so strange...\w8\w8 so mysterious...\e"
-		}
-		{ //file stuck under your taskbar
-			_file1 = filetype
-			_file2 = filetype
-			"\s[208]...huh...\w8\w8 there's a %(_file1) under your taskbar...\w8\w8 "
-			--
-			"\s[-1]\n\n* (She slips under your taskbar for a moment.)\w8\w8\w8\w8\w8\n\n.\w8.\w8.\w8\w8\w8\n\n\s[0]...it's out now,\w4 i put it over in your %(usersfolder)...\e"
-			"\s[206] looks like it's stuck pretty good,\w4 though...\e"
-			"\s[113]i wonder how it got down there...\e"
-			"\s[111]i didn't put it there,\w4 promise...\e"
-			if _file1 != _file2
-			{
-				"\s[112]wait,\w4 maybe that's a %(_file2)...\w8\w8 "
-				--
-				"\s[111]they're hard to tell apart sometimes...\e"
-				"\s[107]it's so smooshed under there,\w4 it's hard to tell...\e"
-				"\s[206]either way,\w4 it's pretty stuck...\e"
-				"\s[113]i don't think i can get it out,\w4 though,\w4 so...\e"
-			}
-			{
-				"\s[113]i wonder what's in it...\w8\w8 "
-				--
-				"\s[206]i don't think i can reach it,\w4 though...\e"
-				"\s[111]it could be anything...\e"
-				"\s[111]something secret..?\e"
-				"\s[111]i guess we'll never know...\e"
-				"\s[111]do you have any idea..?\w8\w8\s[206] i can't read the name from here,\w4 though,\w4 so i guess you wouldn't know...\e"
-				if !FamilyPresent && (TalkedToS == 1 || TalkedToDusty == 1 || TalkedToCambria == 1)
-				{
-					
-					"\s[208]mysterious...\w8\w8\s[0] maybe i can get "
-					--
-					if TalkedToS == 1; "andad"
-					if TalkedToDusty == 1; "Dusty"
-					if TalkedToCambria == 1;"ancambria"
-					--
-					" to help me...\e"
-				}
-			}
-			if totalhours >= 50; "\s[108]you sure get a lot of files stuck under your taskbar...\e"
-			if season == "Spring"; "\s[112]maybe you should do some spring cleaning..?\e"
-			if season == "Autumn"; "\s[112]do folders shed files in fall like trees shed leaves..?\e"
-		}
-		if NowPlaying[0] == ""
-		{ //Messing with mp3 player
-			"\s[401]* (She's fiddling with her mp3 player.)\w8\w8\n\n"
-			--
-			"\s[407]* (Seems like she cant find a good song...)\e"
-			"\s[402]* (She relaxes visibly.)\w8\w8\n\n* (She must have found the perfect song.)\e"
-			"\s[402]* (She nods her head a little to the music.)"
-			"\s[407]* (Her music seems to be making her drowsy...)\e"
-			"* (How many songs can one skeleton have?)\e"
-			{
-				"* (From what little you can make out,\w4 it sounds like she's listening to "
-				--
-				"metal.)\e"
-				"rock.)\e"
-				"kazoos..?)\e"
-				"jazz.)\e"
-				"something electronic.)\e"
-				"chiptunes.)\e"
-				"memes.)\e"
-				"bass.)\e"
-				"a podcast.)\e"
-				"space rock.)\e"
-				"space metal.)\e"
-				"sci-fi dark-pop.)\e"
-				"a video game soundtrack.)\e"
-				"something orchestral.)\e"
-				"polkas.)\e"
-				"music boxes.)\e"
-			}
-			"* (She's clicking the buttons so fast,\w4 she must know her library in and out.)\e"
-		}
-		
-		/*if wd == "Fri" //thrift store
-		{
-			_item = ThriftItem[0]
-			_let = SUBSTR(_item,0,1)
-			_an = ""; if _let == "a" || _let == "e" || _let == "i" || _let == "o" || _let == "u"; _an = "an"; else; _an = "a"
-			"\s[111]...it's family day at the thrift store...\w8\w8 they always have big sales on fridays...\w8\w8\n\n"
-			--
-			{
-			   "\s[112]...i think dad said he was going to try to find %(_an) %(_item) for %(family)...\w8\w8 "
-			   --
-			   "\s[111]don't tell %(_himher) though,\w4 it's a surprise...\e"
-			   "\s[113]i want %(_an) %(_item),\w4 too...\w8\w8\s[111] maybe they'll have two..?\e"
-			}
-			{
-			   "\s[112]...they had a cool %(_item) last week,\w4\s[0] i think %(family) might like it...\w8\w8 "
-			   --
-			   "\s[107]if it's still there,\w4 anyways...\e"
-			   "\s[107]though,\w4 it might be gone by now...\e"
-			   "\s[208]it should be on sale now,\w4 so i can afford it...\e"
-if month == 12 && day < 25;"\s[103]just in time for gyftmas,\w4 too...\e"
-			}
-			"\s[107]...we're trying to find %(_an) %(_item) in good condition,\w4 but no luck so far...\e"
-			"\s[105]...the employees there are really nice,\w8\s[103] one of the ladies gives us lollipops...\e"
-			"\s[105]...dad says it's the best way to keep up with clothes for us,\w4 since we grow so fast...\e"
-			{
-				_num = (RAND(4) + 3) //3-6
-				_amount = (RAND(21) + 20) //20-40
-			   "\s[107]...there's so much stuff in there,\w4 sometimes it's hard to decide where to start...\w8\w8\s[111] dad's a pro at it,\w4 though...\w8\w8 "
-			   --
-			   "he's really good at finding the stuff on sale,\w8\s[103] we once got %(_num) giant bags of clothes for %(_amount)g...\e"
-			   "\s[103]all the employees know him by now,\w4 they always say hi when we come in...\e"
-			   "he never buys anything we don't need,\w4 and makes us bring a little of our own money if we want to buy something extra for ourselves...\e"
-			   "he's really good at spotting which clothes are worn out,\w4 and which are almost new...\e"
-			   "\s[103]the employees let him have one of their racks instead of a cart if he's buying a lot...\e"
-			}
-			{
-				_descript = ThriftDescript
-				_let = SUBSTR(_descript,0,1)
-				_an = ""; if _let == "a" || _let == "e" || _let == "i" || _let == "o" || _let == "u"; _an = "an"; else; _an = "a"
-				_item = ThriftItem
-				_thing = _item[0]
-				_thingstuff = _item[1]
-			   "\s[105]...you never know what you'll find,\w4 sometimes they have really weird stuff...\w8\w8\s[103] heh...\w8\w8 "
-			   --
-			   {
-				  "one time,\w4 i found a %(_descript) %(_thing)...\w8\w8 it%(_thingstuff),\w4 "
-				  --
-				  "it's really cool...\e"
-				  "i like it a lot...\e"
-				  "i can't believe i got it so cheap...\e"
-				  "i can't believe someone gave it up...\e"
-				  "i wonder who made it, and why...\e"
-			   }
-			   "i have a %(_descript) %(_thing) i got there once,\w4 it%(_thingstuff)...\e"
-			   "i even found a %(_descript) %(_thing),\w4 if you can believe it...\w8\w8 it%(_thingstuff)...\e"
-			}
-		}*/
-	}
+	
 }
 
 
@@ -2557,10 +2557,9 @@ OnMinuteChange
 		"\![updatebymyself,checkonly]"
 	}
 	--
-	if (SinceTalk >= 30 && AutoWeather == "On" && weatherquiet == 2) || passmin == 0 && AutoWeather == "On"
+	if (SinceTalk >= 30 && AutoWeather == "On" && WeatherStationInstalled && GETSECCOUNT - LastWeatherTime > 3600)
 	{
-		weatherquiet = 1
-		"\![raise,OnDownloadCurWeather]"
+		"\![raiseplugin,Weather Station,OnWeatherStation.Astro]"
 	}
 }
 

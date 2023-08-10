@@ -189,18 +189,7 @@ BalloonCheck
 
 Pool
 {
-    _output = IARRAY
-	_amt = 1; if _argv[2] != ""; _amt = TOINT(_argv[2])
-    if TOINT(_argv[1])
-    {
-		_targetarray = IARRAY
-        EVAL("_targetarray = %(_argv[0])")
-        foreach _targetarray; _dialogue
-        {
-			for _i = 0; _i < _amt; _i++; {_output ,= _dialogue}
-        }
-    }
-    _output
+    if TOINT(_argv[1]); EVAL("%(_argv[0])")
 }
 
 Flag //Checks to see if a flag exists. Returns 1 if yes, returns 0 if no
@@ -647,16 +636,6 @@ OnAnchorSelect
 	}
 	elseif reference0 == "CheckWeather"
 	{
-		weatherquiet = 0
-		if curlocation != "" && curlocation != "Set a location"
-		{
-			fromfunctionmenu = 0
-			"\![raise,OnDownloadCurWeather]"
-		}
-		else
-		{
-			OnWeatherLocation
-			fromfunctionmenu = 2
-		}
+		if WeatherStationInstalled; OnWeatherCheckStart
 	}
 }

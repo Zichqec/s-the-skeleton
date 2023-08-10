@@ -602,6 +602,7 @@ BootVars
 	phase = "Unknown"
 	sunset = "Unknown"
 	sunrise = "Unknown"
+	if WeatherStationInstalled; ClearWeatherData
 }
 
 FirstBootVars

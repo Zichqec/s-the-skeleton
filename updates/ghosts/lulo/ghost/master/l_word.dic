@@ -1078,93 +1078,93 @@ timeslot //From the GT template. Breaking down the day into a few distinct chunk
 	else; "midnight" //1-4am
 }
 
-temp //I've based this on the feelslike tempurature. If you want actual tempurature, just do a find and replace and change feelslike to tempurature
-{
-	if ForC == "°F"
-	{
-		if feelslike <= 0; "Below Zero" //Below zero, 0 and below 
-		elseif feelslike <= 20; "Freezing" //Freezing, 0-20
-		elseif feelslike <= 40; "Cold" //Cold, 21-40
-		elseif feelslike <= 60; "Chilly" //Chilly, 41-60
-		elseif feelslike <= 80; "Pleasant" //Pleasant, 61-80
-		elseif feelslike <= 95; "Hot" //Hot, 81-95
-		elseif feelslike >= 96; "Boiling"  //Everything is terrible, 96+
-		else; "Unknown"
-	}
-	elseif ForC == "°C"
-	{
-		if feelslike <= -17; "Below Zero" //Below zero, 0 and below
-		elseif feelslike <= -6; "Freezing" //Freezing, 0-20
-		elseif feelslike <= 4; "Cold" //Cold, 21-40
-		elseif feelslike <= 15; "Chilly" //Chilly, 41-60
-		elseif feelslike <= 26; "Pleasant" //Pleasant, 61-80
-		elseif feelslike <= 35; "Hot" //Hot, 81-95
-		elseif feelslike >= 36; "Boiling" //Everything is terrible, 96+
-		else; "Unknown"
-	}
-	else
-	{
-		"Unknown"
-	}
-}
+// temp //I've based this on the feelslike tempurature. If you want actual tempurature, just do a find and replace and change feelslike to tempurature
+// {
+	// if ForC == "°F"
+	// {
+		// if feelslike <= 0; "Below Zero" //Below zero, 0 and below 
+		// elseif feelslike <= 20; "Freezing" //Freezing, 0-20
+		// elseif feelslike <= 40; "Cold" //Cold, 21-40
+		// elseif feelslike <= 60; "Chilly" //Chilly, 41-60
+		// elseif feelslike <= 80; "Pleasant" //Pleasant, 61-80
+		// elseif feelslike <= 95; "Hot" //Hot, 81-95
+		// elseif feelslike >= 96; "Boiling"  //Everything is terrible, 96+
+		// else; "Unknown"
+	// }
+	// elseif ForC == "°C"
+	// {
+		// if feelslike <= -17; "Below Zero" //Below zero, 0 and below
+		// elseif feelslike <= -6; "Freezing" //Freezing, 0-20
+		// elseif feelslike <= 4; "Cold" //Cold, 21-40
+		// elseif feelslike <= 15; "Chilly" //Chilly, 41-60
+		// elseif feelslike <= 26; "Pleasant" //Pleasant, 61-80
+		// elseif feelslike <= 35; "Hot" //Hot, 81-95
+		// elseif feelslike >= 36; "Boiling" //Everything is terrible, 96+
+		// else; "Unknown"
+	// }
+	// else
+	// {
+		// "Unknown"
+	// }
+// }
 
-humid
-{
-	if humidity == "Unknown"; "Unknown"
-	elseif humidity <= 30; "Dry"
-	elseif humidity > 30 && humidity <= 60; "Comfortable"
-	elseif humidity >= 61 && humidity <= 80; "Muggy"
-	elseif humidity >= 81; "Soup"
-	else; "Unknown"
-}
+// humid
+// {
+	// if humidity == "Unknown"; "Unknown"
+	// elseif humidity <= 30; "Dry"
+	// elseif humidity > 30 && humidity <= 60; "Comfortable"
+	// elseif humidity >= 61 && humidity <= 80; "Muggy"
+	// elseif humidity >= 81; "Soup"
+	// else; "Unknown"
+// }
 
-weather_clear
-{
-	if weather == "Clear" || weather == "Mostly Clear" || weather == "Sunny" || weather == "Mostly Sunny" || weather == "Fair"; 1
-	else; 0
-}
+// weather_clear
+// {
+	// if weather == "Clear" || weather == "Mostly Clear" || weather == "Sunny" || weather == "Mostly Sunny" || weather == "Fair"; 1
+	// else; 0
+// }
 
-weather_cloudy
-{
-	if weather == "Partly Cloudy" || weather == "Mostly Cloudy" || weather == "Cloudy"; 1
-	else; 0
-}
+// weather_cloudy
+// {
+	// if weather == "Partly Cloudy" || weather == "Mostly Cloudy" || weather == "Cloudy"; 1
+	// else; 0
+// }
 
-weather_mightrain
-{
-	if weather == "Showers in the Vicinity" || weather == "Few Showers" || weather == "Showers"; 1
-	else; 0
-}
+// weather_mightrain
+// {
+	// if weather == "Showers in the Vicinity" || weather == "Few Showers" || weather == "Showers"; 1
+	// else; 0
+// }
 
-weather_raining
-{
-	if weather == "Rain Shower" || weather == "Light Rain" || weather == "Rain" || weather == "Heavy Rain"; 1
-	else; 0
-}
+// weather_raining
+// {
+	// if weather == "Rain Shower" || weather == "Light Rain" || weather == "Rain" || weather == "Heavy Rain"; 1
+	// else; 0
+// }
 
-weather_snowing
-{
-	if weather == "Rain and Snow" || weather == "Snow Shower" || weather == "Snow" || weather == "Light Snow" || weather == "Wintry Mix"; 1
-	else; 0
-}
+// weather_snowing
+// {
+	// if weather == "Rain and Snow" || weather == "Snow Shower" || weather == "Snow" || weather == "Light Snow" || weather == "Wintry Mix"; 1
+	// else; 0
+// }
 
-weather_thunderstorm
-{
-	if weather == "Light Rain with Thunder" || weather == "Isolated Thunderstorms" || weather == "Scattered Thunderstorms" || weather == "Thunderstorm" || weather == "Heavy Thunderstorm"; 1
-	else; 0
-}
+// weather_thunderstorm
+// {
+	// if weather == "Light Rain with Thunder" || weather == "Isolated Thunderstorms" || weather == "Scattered Thunderstorms" || weather == "Thunderstorm" || weather == "Heavy Thunderstorm"; 1
+	// else; 0
+// }
 
-weather_foghaze
-{
-	if weather == "Fog" || weather == "Haze"; 1
-	else; 0
-}
+// weather_foghaze
+// {
+	// if weather == "Fog" || weather == "Haze"; 1
+	// else; 0
+// }
 
-pollen_alert
-{
-	if pollen == "Local Pollen Alert"; 1
-	else; 0
-}
+// pollen_alert
+// {
+	// if pollen == "Local Pollen Alert"; 1
+	// else; 0
+// }
 
 loadingmoon
 {
