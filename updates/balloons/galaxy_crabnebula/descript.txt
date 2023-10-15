@@ -1,0 +1,103 @@
+charset,UTF-8
+type,balloon
+use_self_alpha,1
+use_input_alpha,1
+
+//——— Basic information ———
+name,Galaxy (Crab Nebula)
+craftman,Zichqec
+craftmanurl,https://ukagaka.zichqec.com/
+homeurl,https://raw.githubusercontent.com/Zichqec/s-the-skeleton/master/updates/balloons/galaxy_crabnebula/
+
+
+//——— Display area ———
+origin.x,19
+origin.y,10
+
+validrect.left,19
+validrect.top,15
+validrect.right,-33
+validrect.bottom,-26
+
+wordwrappoint.x,-33
+
+
+//——— Font ———
+font.name,Tahoma
+font.height,13
+
+font.color.r,255
+font.color.g,255
+font.color.b,255
+
+font.bold,1
+
+anchor.font.color.r,194
+anchor.font.color.g,228
+anchor.font.color.b,247
+
+cursor.font.color.r,255
+cursor.font.color.g,255
+cursor.font.color.b,255
+
+cursor.style,underline
+
+disable.font.color.r,170
+disable.font.color.g,170
+disable.font.color.b,170
+
+font.shadowcolor.r,30
+font.shadowcolor.g,30
+font.shadowcolor.b,30
+
+font.shadowstyle,outline
+
+
+
+//——— Arrows ———
+arrow0.x,-21
+arrow0.y,10
+
+arrow1.x,-21
+arrow1.y,-21
+
+
+//——— Online marker ———
+onlinemarker.x,10
+onlinemarker.y,-20
+
+
+//——— SSTP ———
+sstpmarker.x,25
+sstpmarker.y,-20
+
+sstpmessage.font.name,Microsoft Sans Serif
+sstpmessage.font.height,10
+
+sstpmessage.x,40
+sstpmessage.xr,-25
+sstpmessage.y,-20
+
+sstpmessage.font.color.r,150
+sstpmessage.font.color.g,150
+sstpmessage.font.color.b,150
+
+
+//——— Number ———
+number.font.name,Microsoft Sans Serif
+number.font.height,10
+
+number.xr,-25
+number.y,-20
+
+number.font.color.r,125
+number.font.color.g,127
+number.font.color.b,139
+
+
+//——— Input box ———
+communicatebox.x,10
+communicatebox.y,21
+
+communicatebox.width,281
+communicatebox.height,19
