@@ -1,0 +1,45 @@
+descript
+{
+	version,1
+}
+
+surface1,6,25
+{
+	element0,overlay,surface0.png,0,0
+}
+
+surface0,1,6,25
+{
+	animation200.interval,bind
+	animation200.pattern0,overlay,200,0,0,0
+	
+	animation300.interval,bind
+	animation300.pattern0,overlay,300,0,0,0
+	
+	animation400.interval,bind
+	animation400.pattern0,overlay,400,0,0,0
+	
+	animation500.interval,bind
+	animation500.pattern0,overlay,500,0,0,0
+	
+	collisionex0,menu,region,collisions.png,97,97,97
+	collisionex1,stop_button1,region,collisions.png,38,38,38
+	collisionex2,play_button,region,collisions.png,67,67,67
+	collisionex3,k_window,region,collisions.png,194,194,194
+	collisionex4,next_button,region,collisions.png,138,138,138
+	collisionex5,previous_button,region,collisions.png,161,161,161
+	collisionex6,pause_button,region,collisions.png,242,242,242
+	collisionex7,clear_button,region,collisions.png,212,212,212
+	collisionex8,stop_after_current,region,collisions.png,250,250,250
+	collisionex9,body,region,collisions.png,145,145,145
+}
+
+surface25
+{	
+	animation1000.interval,always
+	animation1000.pattern0,overlay,1000,0,0,0
+	animation1000.pattern1,overlay,1001,600,0,0
+	animation1000.pattern2,overlay,1002,600,0,0
+	animation1000.pattern3,overlay,1003,600,0,0
+	animation1000.pattern4,overlay,1003,600,0,0
+}
