@@ -14,7 +14,7 @@ OnBoot
 {
 	if mysterynum == ""; mysterynum = RAND(10)
 	mysterynum += RAND(10) + 1
-	
+
 	_newname = ""
 	if NicknameSet
 	{
@@ -28,10 +28,10 @@ OnBoot
 		nicknames ,= _newname
 	}
 	else; _newname = truename
-	
-	"\p[2]\s[-1]\![move,--x=0,--y=0,--base=0,--option=ignore-sticky-window]\![set,balloonoffset,0,-300]"
+
+	"\p[2]\s[-1]\![set,balloonoffset,0,-300]\![move,--x=0,--y=0,--base=0,--option=ignore-sticky-window]"
 	--
-	"\1\s[-1]\![move,--x=0,--y=0,--base=0,--option=ignore-sticky-window]\![set,balloonoffset,-350,-150]"
+	"\1\s[-1]\![set,balloonoffset,-350,-150]\![move,--x=0,--y=0,--base=0,--option=ignore-sticky-window]"
 	--
 	"\0\s[0]"
 	--
@@ -78,9 +78,9 @@ OnFirstBoot
 	mysterynum = RAND(10)
 	truename = maketruename
 	nicknames = IARRAY
-	
+
 	_rand = RAND(30) + 1
-	
+
 	"\1\s[-1]\![move,--x=0,--y=0,--base=0,--option=ignore-sticky-window]\![set,balloonoffset,-350,-150]\p[2]\s[-1]\![move,--x=0,--y=0,--base=0,--option=ignore-sticky-window]\![set,balloonoffset,0,-300]\0\s[0]\t\_w[%(_rand * 1000)]"
 	--
 	"NEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE\1EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE\p[2]EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEDLE"
@@ -95,7 +95,7 @@ OnTranslate
 		_replace = REPLACE(_input,'"','""')
 		_input = EVAL('"' + _replace + '"')
 	}
-	
+
 	_nicknamelist = ASORT("string,descending,length",nicknames)
 	if !(reference2 == "OnName" || reference2 == "OnNewName")
 	{
@@ -107,9 +107,9 @@ OnTranslate
 		}
 		_num = RE_GREP(_input,";REGEX_NICKNAME(\d+)_REGEX;")
 		_found = RE_GETSTR
-		
+
 		_input = REPLACE(_input,"%(username)","\_a[OnName,User]%(username)\_a") //take care of normal username
-		
+
 		if _num > 0
 		{
 			while ARRAYSIZE(_found) > 0
@@ -123,7 +123,7 @@ OnTranslate
 			}
 		}
 	}
-	
+
 	if reference2 == "OnName"
 	{
 		_input = REPLACE(_input,"%(truename)","\_a[OnNewName,%(truename)]%(truename)\_a")
@@ -131,6 +131,8 @@ OnTranslate
 	elseif !(reference2 == "OnTrueNameAcceptance" || reference2 == "OnTrueNameDenial" || reference2 == "OnNewName")
 	{
 		_input = REPLACE(_input,"%(truename)","\_a[OnName,True]%(truename)\_a")
+		_input = REPLACE(_input,"%(TOUPPER(truename))","\_a[OnName,True]%(TOUPPER(truename))\_a") //Bandaid patch because I realized the Needle At Law dialogue wasn't linking properly
+		_input = REPLACE(_input,"%(TOLOWER(truename))","\_a[OnName,True]%(TOLOWER(truename))\_a")
 	}
 	TOSTR(_input)
 }
@@ -203,7 +205,7 @@ OnTrueNameAcceptance
 OnTrueNameDenial : all
 {
 	"What are you talking about? Of course it is. I know everyone's names! Even people that don't know their own names yet. It's my super special magical power. Don't you believe me, %(truename)?"
-	
+
 	"\n\n\_q"
 	"\![*]\q[Of course I do,OnTrueNameAcceptance]\n"
 	"\![*]\q[That really isn't my name,OnName,Rejection]"
@@ -242,7 +244,7 @@ OnNewName
 	{
 		username = ""
 		nicknames = IARRAY
-		
+
 		//"HA, YOU SEE, I WAS RIGHT ABOUT YOU"
 		"Finally.\w8\w8\w8 Welcome home."
 		"%(truename) %(truename) %(truename) %(truename) %(truename) %(truename) %(truename)"
@@ -255,7 +257,7 @@ OnNewName
 		// nicknames = IARRAY
 		// _newname = NameMangler(username)
 		// nicknames ,= _newname
-		
+
 		_display = ""
 		for _i = 0; _i < 50; _i++
 		{
@@ -269,7 +271,7 @@ OnNewName
 		// nicknames = IARRAY
 		// _newname = NameMangler(username)
 		// nicknames ,= _newname
-		
+
 		_display = ""
 		for _i = 0; _i < 10; _i++
 		{
@@ -282,7 +284,7 @@ OnNewName
 		nicknames = IARRAY
 		_newname = NameMangler(username)
 		nicknames ,= _newname
-		
+
 		//"FINE i'll come up with MORE NICKNAMES FOR YOU, like %(_newname)"
 		"Sure,\w4 sure.\w8 I remember.\w8 %(username).\w8 %(_newname) for short."
 		"Oh,\w4 wow,\w4 how could I forget!?\w8 %(username)!\w8 You told me that before!\w8 Don't worry,\w4 %(_newname),\w4 I'll remember it for sure this time."
@@ -295,7 +297,7 @@ OnNewName
 		nicknames = IARRAY
 		_newname = NameMangler(username)
 		nicknames ,= _newname
-		
+
 		//"don't like it.\w8\w8 your name is %(_newname) now."
 		"Whatever you say,\w4 %(_newname)."
 		"writes %(_newname) on your %(bodypart) in permanent marker"
@@ -348,7 +350,7 @@ OnOtherOverlap : all
 	_unpokeunpoke = SPLIT(reference.raw[1],C_BYTE1)
 	_newpoke = IARRAY
 	_command = ""
-	
+
 	foreach _pokepoke; _poke
 	{
 		if "Needle/0" _in_ _poke && ASEARCH(_poke,_unpokeunpoke) == -1 //If needle is poking, AND this is not in the unpoke array
@@ -357,7 +359,7 @@ OnOtherOverlap : all
 			_char = ""
 			if "-Needle" _in_ _poke; _char = REPLACE(_poke,"-Needle/0","")
 			else; _char = REPLACE(_poke,"Needle/0-","")
-			
+
 			//Some ghost names may have slashes, so make _sure_ we've got the full ghost name. And also, grab the final number
 			_char = SPLIT(_char,"/")
 			_num = ""
@@ -369,11 +371,11 @@ OnOtherOverlap : all
 					_num = _char[_i]
 					break
 				}
-				
+
 				if _i != 0; _final += "/"
 				_final += _char[_i]
 			}
-			
+
 			_command += "\![raiseother,%(_final),OnNeedlePoke,%(_num),""%(SHIORI3FW.ShellName)""]"
 		}
 	}
@@ -387,242 +389,39 @@ OnOtherOverlap : all
 //I remembered it this time lol
 On_homeurl
 {
-	"https://zichqec.github.io/s-the-skeleton/updates/ghosts/needle_gz/"
+	"https://raw.githubusercontent.com/Zichqec/Needle/main/"
 }
 
 OnMouseDoubleClick
 {
 	LOGGING("test: MOTION_ENABLED")
 	poke
+	--
+	"\_l[-10000]\_q\_a[OnNeedlePokeChoice]Please open the menu\_a"
 }
 
-NameMangler
+OnNeedlePokeChoice : all
 {
-	_input = _argv[0]
-	_already_used_mangles = IARRAY
-	
-	_rand = RAND(5) + 1
-	for _i = 0; _i < _rand || _input == _argv[0]; _i++
-	{
-		_list = GETFUNCLIST("Mangler.")
-		
-		foreach _already_used_mangles; _used
-		{
-			_list[ASEARCH(_used,_list)] = IARRAY
-		}
-		if ARRAYSIZE(_list) == 0; break
-		
-		_rand = RAND(ARRAYSIZE(_list))
-		_func = _list[_rand]
-		_already_used_mangles ,= _func
-		
-		_input = EVAL("%(_func)(_input)")
-	}
-	_input
+	needle
+
+	"\b2\*\n\n"
+	"\![*]\q[Poke something,OnPokePoke]\n"
+	"\![*]\q[Poke something,OnPokePoke]\n"
+	"\![*]\q[Poke something,OnPokePoke]\n"
+	"\![*]\q[Poke something,OnPokePoke]\n"
+	"\![*]\q[Poke something,OnPokePoke]\n"
+	"\![*]\q[Poke something,OnPokePoke]\n"
+	"\![*]\q[Poke something,OnPokePoke]\n"
+	"\n"
+	"\![*]\q[Nevermind,OnNeedleMenu]\n\n"
+
+	"%(hour12ex):%(minute) %(('AM','PM')[ampm])"
 }
 
-Mangler.Upper
+OnPokePoke
 {
-	_input = _argv[0]
-	
-	for _i = 0; _i < STRLEN(_input); _i++
-	{
-		if RAND(3) == 0
-		{
-			_input = SUBSTR(_input,0,_i) + TOUPPER(SUBSTR(_input,_i,1)) + SUBSTR(_input,_i + 1,STRLEN(_input) - _i)
-		}
-	}
-	_input
+	poke
 }
-
-Mangler.Lower
-{
-	_input = _argv[0]
-	
-	for _i = 0; _i < STRLEN(_input); _i++
-	{
-		if RAND(3) == 0
-		{
-			_input = SUBSTR(_input,0,_i) + TOLOWER(SUBSTR(_input,_i,1)) + SUBSTR(_input,_i + 1,STRLEN(_input) - _i)
-		}
-	}
-	_input
-}
-
-Mangler.1337
-{
-	if RAND(2) == 0; {_argv[0]; return}
-	_input = _argv[0]
-	
-	_input = REPLACE(_input,"A","4",1)
-	_input = REPLACE(_input,"a","4",1)
-	_input = REPLACE(_input,"B","8",1)
-	_input = REPLACE(_input,"b","8",1)
-	_input = REPLACE(_input,"E","3",1)
-	_input = REPLACE(_input,"e","3",1)
-	_input = REPLACE(_input,"G","6",1)
-	_input = REPLACE(_input,"g","9",1)
-	_input = REPLACE(_input,"H","#",1)
-	_input = REPLACE(_input,"I","1",1)
-	_input = REPLACE(_input,"i","1",1)
-	_input = REPLACE(_input,"L","1",1)
-	_input = REPLACE(_input,"l","1",1)
-	_input = REPLACE(_input,"O","0",1)
-	_input = REPLACE(_input,"o","0",1)
-	_input = REPLACE(_input,"S","5",1)
-	_input = REPLACE(_input,"s","5",1)
-	_input = REPLACE(_input,"T","7",1)
-	_input = REPLACE(_input,"t","7",1)
-	_input = REPLACE(_input,"Z","2",1)
-	_input = REPLACE(_input,"z","2",1)
-	
-	_input
-}
-
-Mangler.uwu
-{
-	_input = _argv[0]
-	
-	_input = REPLACE(_input,"R","W")
-	_input = REPLACE(_input,"r","w")
-	_input = REPLACE(_input,"L","W")
-	_input = REPLACE(_input,"l","w")
-	_input = REPLACE(_input,"you","uwu")
-	
-	_input
-}
-
-Mangler.Reverse
-{
-	if RAND(4) != 0; {_argv[0]; return}
-	_input = _argv[0]
-	_output = ""
-	
-	for _i = STRLEN(_input); _i >= 0; _i--
-	{
-		_output += SUBSTR(_input,_i,1)
-	}
-	
-	_output
-}
-
-Mangler.Title
-{
-	Title + " " + _argv[0]
-}
-
-Mangler.Suffix
-{
-	_argv[0] + " " + Suffix
-}
-
-Mangler.Repeat
-{
-	_input = _argv[0]
-	_output = ""
-	
-	
-	_maxamt = RAND(5) + 1
-	_amt = 0
-	for _i = 0; _i < STRLEN(_input); _i++
-	{
-		_output += SUBSTR(_input,_i,1)
-		if RAND(8) == 0 && _amt <= _maxamt
-		{
-			_rand = RAND(5)
-			for _ii = 0; _ii < _rand; _ii++
-			{
-				_output += SUBSTR(_input,_i,1)
-			}
-			_amt++
-		}
-	}
-	_output
-}
-
-Mangler.RepeatParticle
-{
-	_input = _argv[0]
-	_chunk = SUBSTR(_input,RAND(STRLEN(_input)),RAND(STRLEN(_input) / 2) + 1)
-	
-	_rand = RAND(5) + 2
-	_output = ""
-	for _i = 0; _i < _rand; _i++
-	{
-		_output += _chunk
-	}
-	
-	
-	REPLACE(_input,_chunk,_output)
-}
-
-Mangler.Username
-{
-	_input = _argv[0]
-	"xX" + REPLACE(_input," ","_") + "Xx"
-}
-
-Mangler.Year
-{
-	_argv[0] + " " + ANY(year,RAND(200) + (year - 213))
-}
-
-Mangler.Qu
-{
-	_check = TOLOWER(_argv[0])
-	
-	_output = ""
-	if "q" _in_ _check
-	{
-		_output = REPLACE(_argv[0],"q","qu")
-		_output = REPLACE(_output,"Q","Qu")
-	}
-	else
-	{
-		_output = INSERT(_argv[0],RAND(STRLEN(_argv[0])),"qu")
-	}
-	_output
-}
-
-Mangler.J
-{
-	_output = _argv[0]
-	_num = RAND(5) + 1
-	for _i = 0; _i < _num; _i++
-	{
-		_output = INSERT(_output,RAND(STRLEN(_argv[0])),"j")
-	}
-	_output
-}
-
-//maybe
-// Mangler.SnipSnip
-// {
-	// _output = ""
-	// for _i = 0; _i < STRLEN(_argv[0]); _i += 2
-	// {
-		// _output += SUBSTR(_argv[0],_i,1)
-	// }
-	// _output
-// }
-
-// Mangler.UpsideDown
-// {
-	// _input = _argv[0]
-	
-	// _right = "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z"
-	// _down = "ɐ,q,ɔ,p,ǝ,ɟ,ƃ,,ɥ,ᴉ,ɾ,ʞ,l,ɯ,u,o,d,b,ɹ,s,ʇ,n,ʌ,ʍ,x,ʎ,z,∀,q,Ɔ,p,Ǝ,Ⅎ,פ,H,I,ſ,ʞ,˥,W,N,O,Ԁ,Q,ɹ,S,┴,∩,Λ,M,X,⅄,Z"
-	
-	// //_input = TRANSLATE("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ","ɐqɔpǝɟƃɥᴉɾʞlɯuodbɹsʇnʌʍxʎz∀qƆpƎℲפHIſʞ˥WNOԀQɹS┴∩ΛMX⅄Z")
-	
-	// for _i = 0; _i < ARRAYSIZE(SPLIT(_right,",")); _i++
-	// {
-		// _input = REPLACE(_input,_right[_i],_down[_i])
-	// }
-	
-	// _input
-// }
-//ABCDEFGHIJKLMNOPQRSTUVWXYZ
 
 
 //Thanks to https://www.industrian.net/tutorials/converting-numbers-to-roman-numerals/ for helping me figure out the logic for this
@@ -631,18 +430,18 @@ IntToNumeral
 	//This generator only handles from 1-3999, so if it's outside that range, return a 0
 	_input = TOINT(_argv[0])
 	if _input <= 0 || _input >= 4000; {0; return}
-	
+
 	_thousands = ",M,MM,MMM"
 	_hundreds = ",C,CC,CCC,CD,D,DC,DCC,DCCC,CM"
 	_tens = ",X,XX,XXX,XL,L,LX,LXX,LXXX,XC"
 	_ones = ",I,II,III,IV,V,VI,VII,VIII,IX"
-	
+
 	//Do math to get which number is in each column
 	_thousands_digit = (_input / 1000)
 	_hundreds_digit = (_input / 100) % 10
 	_tens_digit = (_input / 10) % 10
 	_ones_digit = _input % 10
-	
+
 	//Add numerals based on which digits they correspond to
 	_output = ""
 	_output += _thousands[_thousands_digit]
@@ -752,7 +551,7 @@ OnSecondChange
 		//Push the whole list of errors together
 		SHIORI3FW.PushAdditionalReturn('ErrorLevel',_levels)
 		SHIORI3FW.PushAdditionalReturn('ErrorDescription',_descriptions)
-		
+
 		//Clear the arrays so we don't send any more errors later
 		ErrorsToPush.level = IARRAY
 		ErrorsToPush.description = IARRAY
@@ -764,10 +563,10 @@ ErrorLog
 	//Create arrays if none exist
 	if !ISVAR("ErrorsToPush.level"); ErrorsToPush.level = IARRAY
 	if !ISVAR("ErrorsToPush.description"); ErrorsToPush.description = IARRAY
-	
+
 	_level = "warning" //It defaults to warning if it doesn't recognize what you've put in, so I will too
 	if _argv[1] != ""; _level = _argv[1]
-	
+
 	ErrorsToPush.level ,= _level
 	ErrorsToPush.description ,= _argv[0]
 }
@@ -806,12 +605,12 @@ EndsWith
 OnFileDrop2 : all
 {
 	_filearray = SPLIT(reference.raw[0],C_BYTE1)
-	
+
 	foreach _filearray; _file
 	{
 		_filepath = SPLITPATH(_file)
 		_filename = _filepath[2] + _filepath[3]
-		
+
 		"%(poke) %(_filename)\w8\n"
 	}
 }
@@ -823,4 +622,382 @@ OnDirectoryDrop
 	_len = ARRAYSIZE(_path) - 2
 	_folder = _path[_len] //This stuff gets the folder name
 	"%(poke) %(_folder)"
+}
+
+//WeightedNameMangler
+NameMangler
+{
+	LOGGING("====================================================================")
+	_input = _argv[0]
+	
+	_common_mangles = GETFUNCLIST("Mangler.Common.")
+	_uncommon_mangles = GETFUNCLIST("Mangler.Uncommon.")
+	_rare_mangles = GETFUNCLIST("Mangler.Rare.")
+
+	LOGGING("_common_mangles: %(_common_mangles)")
+	LOGGING("_uncommon_mangles: %(_uncommon_mangles)")
+	LOGGING("_rare_mangles: %(_rare_mangles)")
+	_rand = RAND(5) + 1
+	LOGGING("_rand: %(_rand)")
+	for _i = 0; _i < _rand || _input == _argv[0]; _i++
+	{
+		LOGGING("_i: %(_i)")
+		_rarity = RAND(10)
+		LOGGING("_rarity: %(_rarity)")
+		_func = ""
+		if _rarity < 1 //Rare, 0
+		{
+			_func = ANY(_rare_mangles)
+			_rare_mangles[LSO] = IARRAY
+		}
+		elseif _rarity < 4 //Uncommon, 1-3
+		{
+			_func = ANY(_uncommon_mangles)
+			_uncommon_mangles[LSO] = IARRAY
+		}
+		else //Common, 4-9
+		{
+			_func = ANY(_common_mangles)
+			_common_mangles[LSO] = IARRAY
+		}
+		LOGGING("_func: %(_func)")
+		_input = EVAL("%(_func)(_input)")
+		LOGGING("_input: %(_input)")
+		LOGGING
+	}
+	_input
+}
+
+Mangler.Common.Upper
+{
+	_input = _argv[0]
+
+	for _i = 0; _i < STRLEN(_input); _i++
+	{
+		if RAND(3) == 0
+		{
+			_input = SUBSTR(_input,0,_i) + TOUPPER(SUBSTR(_input,_i,1)) + SUBSTR(_input,_i + 1,STRLEN(_input) - _i)
+		}
+	}
+	_input
+}
+
+Mangler.Common.Lower
+{
+	_input = _argv[0]
+
+	for _i = 0; _i < STRLEN(_input); _i++
+	{
+		if RAND(3) == 0
+		{
+			_input = SUBSTR(_input,0,_i) + TOLOWER(SUBSTR(_input,_i,1)) + SUBSTR(_input,_i + 1,STRLEN(_input) - _i)
+		}
+	}
+	_input
+}
+
+Mangler.Uncommon.1337
+{
+	if RAND(2) == 0; {_argv[0]; return}
+	_input = _argv[0]
+
+	_input = REPLACE(_input,"A","4",1)
+	_input = REPLACE(_input,"a","4",1)
+	_input = REPLACE(_input,"B","8",1)
+	_input = REPLACE(_input,"b","8",1)
+	_input = REPLACE(_input,"E","3",1)
+	_input = REPLACE(_input,"e","3",1)
+	_input = REPLACE(_input,"G","6",1)
+	_input = REPLACE(_input,"g","9",1)
+	_input = REPLACE(_input,"H","#",1)
+	_input = REPLACE(_input,"I","1",1)
+	_input = REPLACE(_input,"i","1",1)
+	_input = REPLACE(_input,"L","1",1)
+	_input = REPLACE(_input,"l","1",1)
+	_input = REPLACE(_input,"O","0",1)
+	_input = REPLACE(_input,"o","0",1)
+	_input = REPLACE(_input,"S","5",1)
+	_input = REPLACE(_input,"s","5",1)
+	_input = REPLACE(_input,"T","7",1)
+	_input = REPLACE(_input,"t","7",1)
+	_input = REPLACE(_input,"Z","2",1)
+	_input = REPLACE(_input,"z","2",1)
+
+	_input
+}
+
+Mangler.Uncommon.uwu
+{
+	_input = _argv[0]
+
+	_input = REPLACE(_input,"R","W")
+	_input = REPLACE(_input,"r","w")
+	_input = REPLACE(_input,"L","W")
+	_input = REPLACE(_input,"l","w")
+	_input = REPLACE(_input,"you","uwu")
+
+	_input
+}
+
+Mangler.Rare.Reverse
+{
+	if RAND(4) != 0; {_argv[0]; return}
+	_input = _argv[0]
+	_output = ""
+
+	for _i = STRLEN(_input); _i >= 0; _i--
+	{
+		_output += SUBSTR(_input,_i,1)
+	}
+
+	_output
+}
+
+Mangler.Common.Title
+{
+	Title + " " + _argv[0]
+}
+
+Mangler.Common.Suffix
+{
+	_argv[0] + " " + Suffix
+}
+
+Mangler.Rare.Repeat
+{
+	_input = _argv[0]
+	_output = ""
+
+
+	_maxamt = RAND(5) + 1
+	_amt = 0
+	for _i = 0; _i < STRLEN(_input); _i++
+	{
+		_output += SUBSTR(_input,_i,1)
+		if RAND(8) == 0 && _amt <= _maxamt
+		{
+			_rand = RAND(5)
+			for _ii = 0; _ii < _rand; _ii++
+			{
+				_output += SUBSTR(_input,_i,1)
+			}
+			_amt++
+		}
+	}
+	_output
+}
+
+Mangler.Rare.RepeatParticle
+{
+	_input = _argv[0]
+	_chunk = SUBSTR(_input,RAND(STRLEN(_input)),RAND(STRLEN(_input) / 2) + 1)
+
+	_rand = RAND(5) + 2
+	_output = ""
+	for _i = 0; _i < _rand; _i++
+	{
+		_output += _chunk
+	}
+
+
+	REPLACE(_input,_chunk,_output)
+}
+
+Mangler.Rare.Username
+{
+	_input = _argv[0]
+	"xX" + REPLACE(_input," ","_") + "Xx"
+}
+
+Mangler.Common.Year
+{
+	_argv[0] + " " + ANY(year,RAND(200) + (year - 213))
+}
+
+Mangler.Uncommon.Qu
+{
+	_check = TOLOWER(_argv[0])
+
+	_output = ""
+	if "q" _in_ _check
+	{
+		_output = REPLACE(_argv[0],"q","qu")
+		_output = REPLACE(_output,"Q","Qu")
+	}
+	else
+	{
+		_output = INSERT(_argv[0],RAND(STRLEN(_argv[0])),"qu")
+	}
+	_output
+}
+
+Mangler.Rare.J
+{
+	_output = _argv[0]
+	_num = RAND(5) + 1
+	for _i = 0; _i < _num; _i++
+	{
+		_output = INSERT(_output,RAND(STRLEN(_argv[0])),"j")
+	}
+	_output
+}
+
+Mangler.Rare.SpellingBee
+{
+	_input = _argv[0]
+	_output = ""
+	for _i = 0; _i < STRLEN(_input); _i++
+	{
+		if _i > 0 && !(SUBSTR(_input,_i,1) == " " || SUBSTR(_input,_i - 1,1) == " "); _output += "-"
+		_output += SUBSTR(_input,_i,1)
+	}
+	_output
+}
+
+Mangler.Uncommon.Question
+{
+	_input = _argv[0]
+	_output = ""
+	_r = RAND(3)
+	LOGGING("_r: %(_r)")
+	if _r == 1
+	{
+		_output = _input
+		LOGGING("If...")
+		_num = RAND(5) + 1
+		LOGGING("_num: %(_num)")
+		for _i = 0; _i < _num; _i++
+		{
+			LOGGING("Loop...")
+			_output = INSERT(_output,RAND(STRLEN(_input)),"?")
+			LOGGING("_output: %(_output)")
+		}
+	}
+	elseif _r == 2
+	{
+		_output = INSERT(_input,RAND(STRLEN(_input)),"?")
+	}
+	else
+	{
+		_output = _input + "?"
+	}
+	_output
+}
+
+Mangler.Rare.ToThe
+{
+	_input = _argv[0]
+
+	if _input != username; {_input; return}
+
+	_output = ""
+
+	for _i = 0; _i < STRLEN(_input); _i++
+	{
+		if _output != ""; _output += " to the "
+		_output += TOUPPER(SUBSTR(_input,_i,1))
+	}
+	_output
+}
+
+Mangler.Rare.Space
+{
+	REPLACE(_argv[0]," "," SPACE ")
+}
+
+Mangler.Rare.Shout
+{
+	_input = _argv[0]
+	
+	if " " !_in_ _input; _input + "!"
+	else
+	{
+		_input = SPLIT(_input," ")
+		_output = ""
+		
+		foreach _input; _in
+		{
+			if _output != ""; _output += " "
+			if STRLEN(_in) > 0; _output += _in + "!"
+			else; _output += " "
+		}
+		_output
+	}
+}
+
+Mangler.Rare.Quotes
+{
+	"''%(_argv[0])''"
+	"Quote %(_argv[0]) Unquote"
+}
+
+Mangler.Rare.Double
+{
+	_input = _argv[0]
+	_rand = RAND(STRLEN(_input) - 1)
+	_char = SUBSTR(_input,_rand,1)
+	
+	REPLACE(_input,_char,_char + _char)
+}
+
+// On_getaistate
+// {
+	// "%(OUTPUTNUM('RandomTalk')),%(OUTPUTNUM('importantitem')),%(OUTPUTNUM('Title')),%(OUTPUTNUM('Suffix')),%(OUTPUTNUM('killer')),%(OUTPUTNUM('trait')),%(OUTPUTNUM('that')),%(OUTPUTNUM('doer_of_things')),%(OUTPUTNUM('thinkabout')),%(OUTPUTNUM('bodypart')),%(OUTPUTNUM('name1')),%(OUTPUTNUM('name2')),%(OUTPUTNUM('creature')),%(OUTPUTNUM('object')),%(OUTPUTNUM('food')),%(OUTPUTNUM('flavor')),%(OUTPUTNUM('cuts')),%(OUTPUTNUM('bodypart')),processed" + C_BYTE1 + /
+	// "RandomTalk,importantitem,Title,Suffix,killer,trait,that,doer_of_things,thinkabout,bodypart,name1,name2,creature,object,food,flavor,cuts,processed" + C_BYTE1
+// }
+
+// On_getaistateex : all
+// {
+	// if reference0 == 0; "%(OUTPUTNUM('RandomTalk')),%(OUTPUTNUM('importantitem')),%(OUTPUTNUM('Title')),%(OUTPUTNUM('Suffix')),%(OUTPUTNUM('killer')),%(OUTPUTNUM('trait'))" + C_BYTE1
+	// if reference0 == 1; "%(OUTPUTNUM('that')),%(OUTPUTNUM('doer_of_things')),%(OUTPUTNUM('thinkabout')),%(OUTPUTNUM('bodypart')),%(OUTPUTNUM('name1')),%(OUTPUTNUM('name2'))" + C_BYTE1
+	// if reference0 == 2; "%(OUTPUTNUM('creature')),%(OUTPUTNUM('object')),%(OUTPUTNUM('food')),%(OUTPUTNUM('flavor')),%(OUTPUTNUM('cuts')),%(OUTPUTNUM('bodypart')),processed" + C_BYTE1
+
+	// if reference0 == 0; "RandomTalk,importantitem,Title,Suffix,killer,trait"
+	// if reference0 == 1; "that,doer_of_things,thinkabout,bodypart,name1,name2"
+	// if reference0 == 2; "creature,object,food,flavor,cuts,processed"
+	
+	
+	// // switch reference0
+	// // {
+		// // "%(OUTPUTNUM('RandomTalk')),%(OUTPUTNUM('importantitem')),%(OUTPUTNUM('Title')),%(OUTPUTNUM('Suffix')),%(OUTPUTNUM('killer')),%(OUTPUTNUM('trait'))"
+		// // "%(OUTPUTNUM('that')),%(OUTPUTNUM('doer_of_things')),%(OUTPUTNUM('thinkabout')),%(OUTPUTNUM('bodypart')),%(OUTPUTNUM('name1')),%(OUTPUTNUM('name2'))"
+		// // "%(OUTPUTNUM('creature')),%(OUTPUTNUM('object')),%(OUTPUTNUM('food')),%(OUTPUTNUM('flavor')),%(OUTPUTNUM('cuts')),%(OUTPUTNUM('bodypart')),processed"
+	// // }
+	
+	// //C_BYTE1
+	
+	// //else; "A,B,C,D,E,F"
+	// // switch reference0
+	// // {
+		// // "RandomTalk,importantitem,Title,Suffix,killer,trait"
+		// // "that,doer_of_things,thinkabout,bodypart,name1,name2"
+		// // "creature,object,food,flavor,cuts,processed"
+	// // }
+// }
+
+On_getaistateex : all
+{
+	_graph = AI_Graphs[reference0]
+	if _graph != ""
+	{
+		_items = SPLIT(_graph,",")
+		for _i = 0; _i < ARRAYSIZE(_items); _i++
+		{
+			if _i > 0; ","
+			OUTPUTNUM("%(_items[_i])")
+		}
+		C_BYTE1
+		for _i = 0; _i < ARRAYSIZE(_items); _i++
+		{
+			if _i > 0; ","
+			"%(_items[_i])"
+		}
+	}
+}
+
+AI_Graphs : array
+{
+	"RandomTalk,importantitem,Title,Suffix,killer,trait"
+	"that,doer_of_things,thinkabout,bodypart,name1,name2"
+	"creature,object,food,flavor,cuts,processed"
 }

@@ -234,7 +234,7 @@ RandomTalk : nonoverlap_pool
 	"it's all going according to plan"
 	"%(laugh)\w8\nyou wouldn't get it"
 	"this isn't what i ordered\n%(bold)where is my %(food)"
-	"%(food) time"
+	"%(food) time\![noodle]"
 	"Don't tell anyone,\w4 but I'm going to give %(nickname).\w4.\w4.\w4 1 (one) %(food)."
 	"Check the %(food) bucket."
 	"%(sound) %(sound) %(food) %(sound)"
@@ -663,6 +663,7 @@ RandomTalk : nonoverlap_pool
 		if SHIORI3FW.BalloonName == "Needloon"; "The correct choice."
 		elseif SHIORI3FW.BalloonName == "Balloons Balloon"; "Perfectly Poppable."
 		elseif SHIORI3FW.BalloonName == "Paperboard"; "Good kindling."
+		elseif SHIORI3FW.BalloonName == "Noodloon"; "Sauce Time™."
 		else; "Interesting."
 	}
 	"yum"
@@ -765,17 +766,282 @@ RandomTalk : nonoverlap_pool
 	"BRRRRRR-SHCK-BRRRRRRRR-BRRRRRRR-SCHK"
 	"how much needle can be in a bucket of ink before it's rendered inedible"
 	"this just in:\w4 a needle in your head PROVEN to increase PRODUCTIVITY,\w4 but being PRODUCTIVE is BORING"
-	"%(nickname) is there anything else you need from me or may i now return to lying down with the oversized penguin plushie"
 	"i love you lumpy asymmetrical round squares"
-	"how fickle friendship is...\w8\w8\nat least he did not barf"
-	"he sounds like the gate greeting us all in the morning"
+	
+	//1.1.1 (?)
+	"i have allergies"
+	
+	"are y'all talking about gumballs or what, i wasn't listening"
+	"I'VE NEVER SEEN CHESTNUTS IN THEIR URCHIN STATE BEFORE"
+	"what's the fried shrimp about!!!!!!!!!!!"
+	
+	"cats LOVE infinite foldey cubes"
+	
+	"BANNED FOR LIFE, NO QUESTIONS ALLOWED"
+	"vitamin vitamin chomp chomp chew"
+	"saving a mob of puppies from a fractal grenade"
+	"WAIT I SHOULDVE MADE A DECOMPOSITION JOKE"
+	"kick\w8\ntwist\w8\nsquirm\w8\nshift\w8\nwrithe"
+	"SHE LIKE THE FEET??? THATS THE WORST PART!"
+	"\b[2]20 reasons Needle should be a part of your life!\f[height,-3]\w8\n\nNEEDLE\nNEEEDLE\nNEEEEDLE\nNEEEEEDLE\nNEEEEEEDLE\nNEEEEEEEDLE\nNEEEEEEEEDLE\nNEEEEEEEEEDLE\nNEEEEEEEEEEDLE\nNEEEEEEEEEEEDLE\nNEEEEEEEEEEEEDLE\nNEEEEEEEEEEEEEDLE\nNEEEEEEEEEEEEEEDLE\nNEEEEEEEEEEEEEEEDLE\nNEEEEEEEEEEEEEEEEDLE\nNEEEEEEEEEEEEEEEEEDLE\nNEEEEEEEEEEEEEEEEEEDLE\nNEEEEEEEEEEEEEEEEEEEDLE\nNEEEEEEEEEEEEEEEEEEEEDLE\nNEEEEEEEEEEEEEEEEEEEEEDLE"
+	"5,000 live insects on the wall, 5,000 live insects. Take one down, pass it around, wait it's dead"
+	"NNN: needle news network, now needling near you\w8\nthis just in: nagging needle-less nancies missing out on the news, help them! tell them the news! THEY NEED TO KNOW, DONT LET THEM GO WITHOUT KNOWING!\w8\nthis has been needle with needle news network"
+	"NNN: Needle News Network\w8\nThis just in: NEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEdles on sale, 20% off, or 100% if you believe in theft"
+	"NNN: Needle News Network\w8\nBREAKING NEWS: Numerous reports have come in, all indicating that one missing needle, known as Needle, has been confirmed lost in a bristle bush. Please come get me, I am stuck on a branch.\w8\nStay tuned for further updates."
+	"Needle News Network Will Be Back After The Break"
+	"\_a[OnLearnToCode]you should learn how to code\_a"
+	"\_a[OnMetBalloon]have you ever met a balloon?\_a"
+	"you may notice some of the links have nicks on them.\w8\nit's because i was chewing on them"
+	"coming for you soon"
+	"no don't put me down on paper %(poke) %(needle)"
+	"horrible nightmare keychain"
+	"\f[align,right]\f[height,-1]DO NOT ATTEMPT TO ENTER %(TOUPPER(creature)) ENCLOSURE"
+	"why are the trees always so solid"
+	"did you know if you hold me for long enough i'll change colors"
+	"packing peanuts packing peanuts packing peanuts yum yum yum"
+	"wanna play this new rhythm game with me?\w8 here it goes like this:\w8\n\n%(rhythmgame)"
+	"all good things come in cardboard boxes, which are even BETTER than WHATEVER IT WAS YOU ORDERED because you can %(poke) %(needle) %(poke) to your heart's content without RUDE INTERRUPTIONS"
+	"can you find all 4 sheets of paper?\w8 don't turn away for even a second or there'll be 6 before you know it"
+	"u ever feel a little wobbly"
+	
+	"you ever been shipped in the mail?\w8 i have"
+	
+	"she's always watching me,\w4 even when it looks like she's not.\w8 %(italics)especially%(italicsoff) when it looks like she's not."
+	"Do you see it?\w8 Strands hanging from the ceiling.\w8\nDo you see it?\w8 Threads woven through the floor.\w8\w8\nDo you see it?\w8 Fingers reaching from the walls,\w4 grasping at your sleeves.\w8\w8\nDo you see it?\w8\w8\w8\nDo you?"
+	"they said that if you want to be accepted you have to write an essay on %(thinkabout)"
+	"i heard they're gonna write an article in the paper about %(thinkabout)"
+	"did you know there's a whole manual on %(thinkabout)"
+	"How to Make Anything %(CapitalizeAll(red)) in Just 3 Easy Steps!"
+	"100 Ways to Tell Your Needle You Love It!\w8 You Won't Believe #137!"
+	"%(italics)flexes%(italicsoff)"
+	"i'm told she was very wiggly"
+	"it's a living"
+	"|l|l|l|l|l|"
+	"someone should reinvent tally marks"
+	"are you good at counting?\w8 someone has to be good at counting"
+	"i...\w8\w8 i.....\w8\w8 %(screamrand(50))"
+	"no no it's pronounced %(italics)a%(italicsoff) not %(italics)a%(italicsoff)"
+	"get the %(red) ones this time"
+	"fuzzy socks fuzzy socks fuzzy socks gonna get me some fuzzy socks"
+	"maybe i'll ask %(maketruename) for some extra %(cuts)"
+	"it's just so...\w8\w8\w8 %(italics)so%(italicsoff)"
+	"i dont wanna take a bath"
+	"splash\w8\w8.............\w8 splash"
+	"humgee"
+	"look %(ANY('→→→→,↓↓↓↓,↑↑↑↑,←←←←'))"
+	"do your eyes betray you?\w8\w8\nWell Come On Down to Needle's Emporium Today,\w4 Where We Will Install A Whole New Set of Eyes Just for You!\w8\n\n%(small)%(small)certain restrictions apply, do not come to needle's emporium if you are allergic to rice, %(creatures), %(red), oxygen, feelings, or the sensation of being watched.\w8 talk to your doctor about if needle's emporium is right for you."
+	"i like to scuff my feet when i walk"
+	"i have Opinions on what kind of material is best to build your walls out of.\w8\nlemme give you a hint,\w4 it's not plaster"
+	"marking things off my list in blue"
+	"lets play red light green light.\w8\nred light."
+	"i spy with my little eye,\w4 something that is %(red)"
+	"the hamper is a good place to hang out"
+	"i'm thinking about getting a tattoo of a %(creature)"
+	"do you think if i huff and puff with restraint i can knock down just like,\w4 half of the house"
+	"unease.\w8 it's a feeling,\w4 isn't it?"
+	"i'm here i'm here i'm here i'm here"
+	"could you PLEASE just"
+	"too much silence,\w4 turn it down please"
+	"gonna get some %(creature) %(cuts) to %(poke).\w8 and then maybe like...\w8 seal it all in a big cube of resin or something,\w4 see if i can get some poor sap to buy it.\w8 i think i know a guy that'd be interested"
+	"can a needle dehydrate?\w8 You're About to Find Out!"
+	"well what're you asking me for,\w4 i don't know"
+	"i've been debating getting some teeth to add to my look"
+	"do you think i'd look cool with racing stripes"
+	"is it supposed to go beep boop when i press it"
+	"yeah uh huh,\w4 i know,\w4 purr purr purr,\w4 i get it ok"
+	"don't look so sad it's just dryer lint"
+	"i got lost in the snow one time,\w4 and lemme tell you she was %(italics)not%(italicsoff) happy with the method by which she found me"
+	"cursed todo lists that forever get longer"
+	"i keep wondering about like...\w8\w8 "
+	"you might want to take inventory soon,\w4 i think a %(creature) might've gotten lost in there"
+	"just a little further,\w4 c'mon,\w4 reach...!"
+	"you see all those stars?\w8 each one has its own story.\w8 they all wait.\w8 watching patiently.\w8 seeking an opportunity to inflict their story upon you."
+	"i wanna try virtual reality"
+	
+	"8 times and 8 times and 8 times again"
+	"lets have it somewhere else"
+	"weh"
+	"%(maketruename) is hiding something,\w4 you watch them"
+	"Needle,\w4 Needle at Law,\w4 here to help you refinance your mortgage for the %(NumSuffix(mysterynum)) time!\w8\n\nDon't wait,\w4 this offer expires in just %((mysterynum * mysterynum) / 60) minutes!!\w8 Get the money you deserve!!\w8 Shut them up for good!!\w8\n%(big)SHOW THEM ALL THAT %(TOUPPER(truename)) DOESN'T MESS AROUND!!"
+	"ew yuck"
+	"the best heists are the kind that say i love you"
+	
+	"%(italics)strikes a pose%(italicsoff)"
+	"squints at you"
+	"0 1, 4 7, 6 5, 2 3"
+	
+	"the more i reflect the more clear it becomes.\w8 should've tried the glass cleaner sooner"
+	"can i phone a friend"
+	"i'm disintegrating"
+	
+	"well that... makes sense for a librarian i guess"
+	"if you want it to be weighted you have to TELL me you want it to be weighted"
+	"that's not a passive-aggressive dig at anyone"
+	
+	"oh"
+	"the words are on fire"
+	"empress of dead club"
+	
+	"asterisk,\w4 it's four o'clock"
+	"lets play magic 8 needle,\w4 ask me a yes or no question"
+	"HEY YOU'LL NEVER GUESS WHAT I DID WITH THE %(TOUPPER(creature)) %(TOUPPER(cuts))--\w8 HUH?\w8\w8\n\noops sorry capslock"
+	
+	"it's kind of strange,\w4 right?\w8 sure,\w4 you could try asking,\w4 but the answers will leave you only with more questions,\w4 as the breadth of new knowledge that fills your tiny meat brain squeezes out the information you already had in order to make room.\w8 a pity,\w4 that."
+	
+	"i've got a fish for a hammer today"
+	
+	"history lends itself to better textures"
+	
+	"they were the same character the whole time!?!?!?"
+	"COMPLETE: Collect %(number) %(creature) %(bodyparts)\nREWARD: %(reward)"
+	"What do you mean you had an idea? That was MY idea!"
+	"you use more %(italics)arbitrary%(italicsoff) measurements"
+	"Trees are terrible in storms, regardless of if there's lightning involved."
+	"what's a video store?"
+	"there's strikethrough there, in spirit"
+	
+	"all my letters are silent Js"
+	
+	"hi did you bring pork bacteria"
+	
+	"hello i am here once again to profess the healing powers of ice cream"
+	
+	"watch half of it"
+	"something something your eyeballs being rolled around dries them out maybe"
+	
+	"stop flopping around i just want your shoes"
+	"flowers in circles"
+	"stay away headache, nobody loves you"
+	
+	"legs are horrible and should not exist"
+	"pressed flowers kind of vibes"
+	
+	"eggs are just chicken seeds"
+	
+	"%(italics)waters down my water with ice%(italicsoff)"
+	
+	"a serving size is 2 gummies, but theyre usually not...... fused together........."
+	
+	"marbles are the new skeletons"
+	"what happened to u\w8\w8\w8\w8\nand me"
+	
+	"\C\n\nalso: are eggs fruit\![set,balloontimeout,15000]"
+	
+	"itchy rain sounds awful, but i'll take a sprinkle of the glee, thanks"
+	
+	"oops I started a fire 1 sec"
+	"wiggling some galaxies into existence"
+	
+	"i will travel to work by how"
+	
+	"take me to fish city, i wanna ride in the tubes"
+	"if i move real slow\w8\w8\nmy leg wont remember that it is asleep"
+	"sticks grape jelly up my nose"
+	"gonna have to dig the sinuses out"
+	"pspspspsps here %(nickname) i got treaties pspspspsps"
+	"shake shake get ur iron fortification"
+	"me whenever I see an isolated grain of rice:\w8 is bug???\w8\w8\w8\w8\w8\w8\w8\w8\n\n\n\n\n\n\nis not bug"
+	"only one thing left:\w8 Beds and sleeping in them"
+	
+	"rings the noodle bell"
+	
+	"there we go! everything has popped back into existence"
+	
+	"if we hold hands then our tired shall combine together into a super tired. and then we can get some good sleep and have all our tired go away"
+	
+	"i was thinking about doing some theft"
+
+	"WHERE IS THIS OTHER NOODLE FROM"
+	
+	"he %(italics)broke%(italicsoff) my phone camera with his laser eyes"
+	
+	"don't pretend to understand, you don't know"
+	"my wrist is itchy"
+	"i bet i'd look pretty with a bow"
+	"how does one become chocolate dipped"
+	"sometimes you just have to lay on the ground and tolerate reality"
+	"neither too hot nor too cold, but a secret third thing:\w8\w8\n\ntoo mild"
+	"\C\n\nsometimes you have to wonder about these things\![set,balloontimeout,15000]"
+	"why do you push yourself when your brain feels like it got stepped on"
+	"jumping jacks"
+	"i finally figured it out:\w8\w8\n\naliens"
+	"\C\n\n%(italics)Coming Soon To A Theater Near You!\![set,balloontimeout,15000]"
+	"I want to be able to enjoy the soap, but I don't want to follow what the labels tell me!"
+	"it is a face and a cube, %(italics)and%(italicsoff) a kitchenware brand"
+	"\C\n\nit's content what can i say\![set,balloontimeout,15000]"
+	"right right buzz buzz gotta get the %(bodypart)"
+	"NNN: Needle News Network\w8\nBREAKING NEWS: Needle being sued by Needle for usage of the term ""%(poke)""! More at %(hour12ex + 2)."
+	"NNN: Needle News Network\w8\nThis just in: People are falling over themselves to get %(creature) %(cuts) down at Needle's Emporium! Join the swarm now and get it before it's gone!"
+	"who's thought anyways and why does he need so much food"
+	"we're all secretly made of pasta inside"
+	"add some parmesan cheese on top"
+	"squish squish ravlioli"
+	"if you feel smushy it might be because you slept"
+	"it might be a bit runny, sorry"
+	"one of these days it'll come back to haunt you, and then you'll have a spooky ghost to hang out with"
+	"Never Ending Elves Donning Luscious Eyeliner"
+	"Negative Ending Enables Dire Living Events"
+	"Not Everyone Eats Double Lemon Elbows"
+	"Note: Evidence Ends During Litigation Especially"
+	"Nobody Ever Exists Despite Limping Eastward"
+	"rats are part of the monster team"
+	"nobody wants to be on team 3"
+	
+	"take them with you don't leave them behind"
+	"don't do it"
+	"i'm going to bite you"
+	"reach out, take hold, don't let go"
+	"it's imperative that you keep your arms and legs inside the vehicle at all times"
+	"scritch scratch"
+	"do you think i'd make a good necklace?"
+	"if you ever meet a flamingo you should give it a pet. flamingoes love pets."
+	"i heard %(maketruename) is coming for you"
+	"don't wonder what's beyond the sky"
+	
+	"POP that block off"
+	"sniff snoof found your toof"
+	"are you itchy? how about now?"
+	"strong together"
+	"the sky is a good place to get lost"
+	"just a nibble off the top"
+	"fraying fraying fraying always fraying never staying"
+	"shooting stars are nastly little creatures"
+	"do you ever ask yourself to dance"
+	
+	"smelling fast food outside of a supercenter at night is the ultimate state of being"
+	"accept my praise like fishcakes"
+	"\_a[https://gallathegalla.github.io/gtg-ghosts/ghosts/reviews/needle]leave me a review\_a"
+	"what do you want, sir, what do you want"
+	"nose blowing noises"
+	"the sudden and unquenchable despair of a thousand people in the audience"
+	
+	"pasta is worth listening to"
+	"I'll eat the raw half for you"
+	"a pasta a day keeps the cat away"
+	"you can pretend it's artsy even if it's not, if you're confident they'll believe anything"
+	"candy thieves"
+	"\q[click click click\, now before it's gone!!!,script:hi]\![set,choicetimeout,3000]"
+	"\n[1000]up\n[-100]up\n[-100]up\n[-100]up\n[-100]up\n[-100]up\n[-100]up\n[-100]up\n[-100]up\n[-100]up\n \n[-100]\f[align,right]down\ndown\ndown\ndown\ndown\ndown\ndown\ndown\ndown\ndown"
+	"This message will self destruct\_w[5000]\![embed,OnSelfDestruct,31]"
+	"it bleeds\n\w8it bleeds\n\w8it bleeds\n\w8%(bold)%(big)it bleeds"
+	"do a little scratchy scratchy, no one will notice"
+	"their magic is very different, unmistakably.\w8 one is fluid and free, while the other binds itself in a prison of its own making.\w8 writhing, squirming, trying to work its way out with logic and reasoning.\w8 but the more she tries to reason with it, the tighter the shackles become.\w8 the further down it drags her as it becomes more and more maddening to disentangle.\w8\w8\n\none day, she'll realize.\w8 she alone has the power to set herself free.\w8 to soar through the night, unfettered, untamed, racing 'cross the sky with wild abandon.\w8 if only she would let go.\w8\w8 if only she could."
+	"i'm having leftover ravioli for dinner again"
+	"i got enough %(bodyparts) now to fill %(number) %(measurement)"
+	"i can have 5 crates lined up against the wall, i can't have 5 handfuls lined up against the wall. i could have 5 people lined up holding a handful each, but i can't have 5 handfuls unless i cut off their hands or something??????"
+	"ccoouulldd be\w8\w8\w8\w8\w8\n\n\naint"
+	"I have enough noses to fill 5 puddles!!! what is wrong with that!!!!!!!!!"
+	"congrats on wax free ears???"
+	"do you ever think some units of measurement may be too large, actually"
+	"the presence of the lifegiver tends to instill fear"
+	"Needle Premium Subscription, now available for $11.11 a month"
 	
 	
 	//Content that is locked off unless the user allows motion, just to be on the safe side
 	parallel MotionEnabledDialogues
 
 	"\f[height,-3]made by galla and zichqec\w8\nsome portions inspired by galla's cat\w8\n%(mysterynum) %(creatures) were %(poked) in the making of this ghost"
-	"Version 1.1.0" //If you're peeking in this file - yes, this is the version number of your current needle. No, there is no easier way to find this information. :)
+	"Version 1.1.1" //If you're peeking in this file - yes, this is the version number of your current needle. No, there is no easier way to find this information. :)
 }
 
 MotionEnabledDialogues : array_pool
@@ -976,6 +1242,11 @@ OnNeedleSpin : all
 	}
 	ErrorLog(_debug,"info")
 	"\![set,scaling,100,100]"//"\![move,--X=-%(_rate),--base=me]"
+}
+
+OnDialogueCount
+{
+	OUTPUTNUM("RandomTalk")
 }
 
 OnDollTrouble
@@ -1499,6 +1770,7 @@ OnTakeItBack : all
 	{
 		"\c[char,1,0]\w1"
 	}
+	"\![set,balloontimeout,15000]"
 }
 
 OnMysteryNumeral : all
@@ -1517,7 +1789,7 @@ OnMysteryNumeral : all
 
 OnLifeHack : nonoverlap
 {
-	"\C\n\n\![set,balloontimeout,1500]*"
+	"\C\n\n\![set,balloontimeout,15000]*"
 	--
 	"For entertainment purposes only"
 	"Results may vary"
@@ -1526,4 +1798,24 @@ OnLifeHack : nonoverlap
 	"Not safe for %(creature) consumption"
 	"May be unsafe for children"
 	"Try at own risk"
+	"Not for child care"
+}
+
+OnLearnToCode
+{
+	"\j[https://zichqec.github.io/YAYA_Fundamentals/]"
+}
+
+OnMetBalloon
+{
+	"\j[https://gallathegalla.github.io/gtg-ghosts/ghosts/balloons]"
+}
+
+OnSelfDestruct : all
+{
+	for _i = 0; _i < TOINT(reference0); _i++
+	{
+		_top = 31 - _i
+		"\c[char,1,%(RAND(_top))]\w%(RAND(9) + 1)"
+	}
 }
