@@ -1,0 +1,45 @@
+charset,UTF-8
+type,shell
+
+name,Tuxeedle
+craftman,Zichqec
+craftmanurl,https://ukagaka.zichqec.com/
+homeurl,https://raw.githubusercontent.com/Zichqec/s-the-skeleton/master/updates/shells/needle/tuxeedle_zi/
+
+seriko.alignmenttodesktop,free
+seriko.use_self_alpha,1
+
+menu.foreground.bitmap.filename,menu_foreground.png
+menu.background.bitmap.filename,menu_background.png
+
+menu.foreground.alignment,lefttop + repeatx + repeaty
+menu.background.alignment,lefttop + repeatx + repeaty
+
+menu.foreground.font.color.r,000
+menu.foreground.font.color.g,000
+menu.foreground.font.color.b,000
+
+menu.background.font.color.r,255
+menu.background.font.color.g,255
+menu.background.font.color.b,255
+
+menu.disable.font.color.r,220
+menu.disable.font.color.g,220
+menu.disable.font.color.b,220
+
+seriko.sticky-window,0,1,2
+
+sakura.bindgroup1.default,1
+sakura.bindgroup1.name,Attire,Tuxedo
+sakura.bindgroup2.name,Attire,Gown
+
+sakura.bindoption3.group,Accessory,multiple
+sakura.bindgroup3.name,Accessory,Rose
+sakura.bindgroup4000.name,Accessory,Veil
+
+
+sakura.bindgroup1000.name,Ring (back),Gold
+sakura.bindgroup1000.addid,1001
+
+sakura.bindgroup2000.name,Ring (front),Gold
+sakura.bindgroup2000.addid,2001

@@ -1,0 +1,34 @@
+descript
+{
+	version,1
+}
+
+surface0
+{
+	animation1.interval,bind
+	animation1.pattern0,overlay,1,0,0,0
+	
+	animation2.interval,bind
+	animation2.pattern0,overlay,2,0,0,0
+	
+	animation3.interval,bind
+	animation3.pattern0,overlay,3,0,0,0
+	
+	
+	animation1000.interval,bind
+	animation1000.pattern0,overlay,1000,0,0,0
+	
+	animation1001.interval,bind
+	animation1001.pattern0,overlay,1001,0,0,0
+	animation1001.option,background
+	
+	animation2000.interval,bind
+	animation2000.pattern0,overlay,2000,0,0,0
+	
+	animation2001.interval,bind
+	animation2001.pattern0,overlay,2001,0,0,0
+	animation2001.option,background
+	
+	animation4000.interval,bind
+	animation4000.pattern0,overlay,4,0,0,0
+}
