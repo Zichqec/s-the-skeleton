@@ -1,0 +1,26 @@
+descript
+{
+	version,1
+}
+
+surface0
+{
+	animation100.interval,bind
+	animation100.pattern0,add,100,0,0,0
+	
+	animation101.interval,bind
+	animation101.pattern0,add,101,0,0,0
+}
+
+
+surface100
+{
+	animation200.interval,bind
+	animation200.pattern0,add,200,0,0,0
+}
+
+surface101
+{
+	animation200.interval,bind
+	animation200.pattern0,add,201,0,0,0
+}
