@@ -7,14 +7,7 @@ On_username
 
 On_homeurl
 {
-	if debug == 1
-	{
-		
-	}
-	else
-	{
-		"https://zichqec.github.io/s-the-skeleton/updates/ghosts/hydrate/" //I recommend using Github Pages to set up a site and store their files! It's free and reliable!
-	}
+	"https://raw.githubusercontent.com/Zichqec/hydrate/refs/heads/main/"
 }
 
 On_recommendrootbutton.caption //Change to your username
