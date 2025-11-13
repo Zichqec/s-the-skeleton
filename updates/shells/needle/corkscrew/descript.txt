@@ -1,0 +1,49 @@
+charset,UTF-8
+type,shell
+
+name,Corkscrew
+craftman,Zichqec
+craftmanw,Zichqec
+craftmanurl,https://ukagaka.zichqec.com/
+homeurl,https://raw.githubusercontent.com/Zichqec/s-the-skeleton/master/updates/shells/needle/corkscrew/
+
+seriko.alignmenttodesktop,free
+seriko.use_self_alpha,1
+
+menu.foreground.bitmap.filename,menu_foreground.png
+menu.background.bitmap.filename,menu_background.png
+
+menu.foreground.alignment,lefttop + repeatx + repeaty
+menu.background.alignment,lefttop + repeatx + repeaty
+
+menu.background.font.color.r,255
+menu.background.font.color.g,255
+menu.background.font.color.b,255
+
+menu.disable.font.color.r,220
+menu.disable.font.color.g,220
+menu.disable.font.color.b,220
+
+seriko.sticky-window,0,1,2
+
+sakura.bindoption100.group,Type,mustselect
+sakura.bindgroup100.default,1
+
+sakura.bindgroup100.name,Type,Iron
+sakura.bindgroup101.name,Type,Stainless steel
+sakura.bindgroup102.name,Type,Nickel
+sakura.bindgroup103.name,Type,Copper
+sakura.bindgroup104.name,Type,Brass
+sakura.bindgroup105.name,Type,Tin
+sakura.bindgroup106.name,Type,Wrought iron
+sakura.bindgroup107.name,Type,Carbon steel
+sakura.bindgroup108.name,Type,Aluminum
+sakura.bindgroup109.name,Type,Titanium
+
+sakura.bindgroup1000.name,Effect,Iridescent
+
+sakura.bindgroup2000.name,Handle,Walnut
+sakura.bindgroup2001.name,Handle,Chestnut
+sakura.bindgroup2002.name,Handle,Birch
+
+sakura.menu,auto

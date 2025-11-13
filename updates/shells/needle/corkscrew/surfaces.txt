@@ -1,0 +1,49 @@
+descript
+{
+	version,1
+}
+
+surface0
+{
+	animation100.interval,bind
+	animation100.pattern0,replace,100,0,0,0
+	
+	animation101.interval,bind
+	animation101.pattern0,replace,101,0,0,0
+	
+	animation102.interval,bind
+	animation102.pattern0,replace,102,0,0,0
+	
+	animation103.interval,bind
+	animation103.pattern0,replace,103,0,0,0
+	
+	animation104.interval,bind
+	animation104.pattern0,replace,104,0,0,0
+	
+	animation105.interval,bind
+	animation105.pattern0,replace,105,0,0,0
+	
+	animation106.interval,bind
+	animation106.pattern0,replace,106,0,0,0
+	
+	animation107.interval,bind
+	animation107.pattern0,replace,107,0,0,0
+	
+	animation108.interval,bind
+	animation108.pattern0,replace,108,0,0,0
+	
+	animation109.interval,bind
+	animation109.pattern0,replace,109,0,0,0
+	
+	animation1000.interval,bind
+	animation1000.pattern0,overlaymultiply,1000,0,0,0
+	
+	animation2000.interval,bind
+	animation2000.pattern0,overlay,2000,0,0,0
+	
+	animation2001.interval,bind
+	animation2001.pattern0,overlay,2001,0,0,0
+	
+	animation2002.interval,bind
+	animation2002.pattern0,overlay,2002,0,0,0
+}
