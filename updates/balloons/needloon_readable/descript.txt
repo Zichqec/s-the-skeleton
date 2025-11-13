@@ -1,0 +1,115 @@
+charset,UTF-8
+type,balloon
+use_self_alpha,1
+use_input_alpha,1
+overlay_outside_balloon,1
+
+
+//——— Basic information ———
+name,Needloon (readable)
+craftman,Galla & Zichqec
+craftmanw,Galla & Zichqec
+craftmanurl,https://ukagaka.zichqec.com/
+homeurl,https://raw.githubusercontent.com/Zichqec/s-the-skeleton/master/updates/balloons/needloon_readable/
+
+
+//——— Display area ———
+origin.x,0
+origin.y,100
+
+validrect.left,35
+validrect.top,50
+validrect.right,-35
+validrect.bottom,-50
+
+wordwrappoint.x,-45
+
+
+//——— Font ———
+font.name,Calibri
+font.height,14
+
+font.color.r,040
+font.color.g,040
+font.color.b,040
+
+font.shadowcolor.r,145
+font.shadowcolor.g,145
+font.shadowcolor.b,145
+
+anchor.font.color.r,140
+anchor.font.color.g,063
+anchor.font.color.b,063
+
+anchor.visited.font.color.r,140
+anchor.visited.font.color.g,063
+anchor.visited.font.color.b,063
+
+anchor.font.shadowcolor.r,181
+anchor.font.shadowcolor.g,098
+anchor.font.shadowcolor.b,098
+anchor.font.shadowstyle,offset
+
+anchor.visited.font.shadowcolor.r,181
+anchor.visited.font.shadowcolor.g,098
+anchor.visited.font.shadowcolor.b,098
+anchor.visited.font.shadowstyle,offset
+
+cursor.style,underline
+
+//disable.font.color.r,146
+//disable.font.color.g,135
+//disable.font.color.b,178
+disable.font.shadowstyle,offset
+
+
+//——— Arrows ———
+arrow0.x,-32
+arrow0.y,25
+
+arrow1.x,-32
+arrow1.y,-50
+
+
+//——— Online marker ———
+onlinemarker.x,27
+onlinemarker.y,-57
+
+onlinemarker.interval,50
+
+
+
+//——— SSTP ———
+sstpmarker.x,25
+sstpmarker.y,25
+
+sstpmessage.font.name,Calibri
+sstpmessage.font.height,11
+
+sstpmessage.x,42
+sstpmessage.xr,-25
+sstpmessage.y,25
+
+sstpmessage.font.color.r,50
+sstpmessage.font.color.g,50
+sstpmessage.font.color.b,50
+
+
+//——— Number ———
+number.font.name,Calibri
+number.font.height,11
+
+number.xr,-33
+number.y,-38
+
+number.font.color.r,50
+number.font.color.g,50
+number.font.color.b,50
+
+
+//——— Input box ———
+communicatebox.x,23
+communicatebox.y,19
+
+communicatebox.width,293
+communicatebox.height,20
