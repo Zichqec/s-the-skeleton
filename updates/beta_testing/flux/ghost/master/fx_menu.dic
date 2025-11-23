@@ -1,0 +1,2095 @@
+OpenSakuraMenu
+{
+	if AutoUpdates[3] == 1 || AutoUpdates[4] == 1 || AutoUpdates[5] == 1  //If an update is available, the user will be notified when they try to open the menu
+	{
+		"\0%(b)"
+		--
+		if language == "Placeholder" //TRANSLATORS: If the user tries to open the menu and an update is available, they will be given this dialogue once a day
+		{
+			
+		}
+		elseif language == "Deutsch"
+		{
+			"[Es sind Updates verfügbar für:]\n\n\![]"
+			--
+			if AutoUpdates[3] == 1; "[FLUX Player]\n\![]"
+			--
+			if AutoUpdates[4] == 1; "['%(nowshell)' Shell]\n\![]"
+			--
+			if AutoUpdates[5] == 1; "['%(SHIORI3FW.BalloonName)' Balloon]\n"
+			--
+			"\_q\n\![*]\q[Updates jetzt herunterladen,OnStartUpdates]\n/
+			\![*]\q[Updates später herunterladen,UpdateLater]\n\n/
+			\![*]\q[Auto-Updates ausschalten,UpdateOff]\e"
+		}
+		elseif language == "Русский"
+		{
+			"[Есть обновление для:]\n\n\![]"
+			--
+			if AutoUpdates[3] == 1; "[Плеер FLUX]\n\![]"
+			--
+			if AutoUpdates[4] == 1; "[Внешний Вид '%(nowshell)']\n\![]"
+			--
+			if AutoUpdates[5] == 1; "[Поле с Текстом '%(SHIORI3FW.BalloonName)']\n"
+			--
+			"\_q\n\n\![*]\q[Загрузить сейчас,OnStartUpdates]\n/
+			\![*]\q[Не сейчас,UpdateLater]\n\n/
+			\![*]\q[Выключить авто-обновлении,UpdateOff]\e"
+		}
+		elseif language == "Français"
+		{
+			"[Mises à jour disponibles pour :]\n\n\![]"
+			--
+			if AutoUpdates[3] == 1; "[Lecteur FLUX]\n\![]"
+			--
+			if AutoUpdates[4] == 1; "[Shell  '%(nowshell)']\n\![]"
+			--
+			if AutoUpdates[5] == 1; "[Ballon '%(SHIORI3FW.BalloonName)']\n"
+			--
+			"\_q\n\![*]\q[Télécharger les mises à jour maintenant,OnStartUpdates]\n/
+			\![*]\q[Peut-être plus tard,UpdateLater]\n\n/
+			\![*]\q[Désactiver les mises à jour autos,UpdateOff]\e"
+		}
+		elseif language == "Polski"
+		{
+			"[Aktualizacje są dostępne dla:]\n\n\![]"
+			--
+			if AutoUpdates[3] == 1; "[Playera FLUX]\n\![]"
+			--
+			if AutoUpdates[4] == 1; "[Skorupy '%(nowshell)']\n\![]"
+			--
+			if AutoUpdates[5] == 1; "[Balona '%(SHIORI3FW.BalloonName)']\n"
+			--
+			"\_q\n\n\![*]\q[Pobierz teraz,OnStartUpdates]\n/
+			\![*]\q[Może potem,UpdateLater]\n\n/
+			\![*]\q[Wyłącz auto-aktualizacje,UpdateOff]\e"
+		}
+		else //English
+		{
+			//"[An update is available.\w8 Do you want to download it?]" //TODO JAPANESE - Have to update this
+			"[Updates are available for:]\n\n\![]"
+			--
+			if AutoUpdates[3] == 1; "[FLUX Player]\n\![]"
+			--
+			if AutoUpdates[4] == 1; "['%(nowshell)' shell]\n\![]"
+			--
+			if AutoUpdates[5] == 1; "['%(SHIORI3FW.BalloonName)' balloon]\n"
+			--
+			"\_q\n\![*]\q[Download updates now,OnStartUpdates]\n/
+			\![*]\q[Maybe later,UpdateLater]\n\n/
+			\![*]\q[Turn off auto updates,UpdateOff]\e"
+		}
+	}
+	else //Normal menu opening
+	{
+		OnMenuRun
+	}
+}
+
+Select.UpdateLater //If the user decides to update later
+{
+	AutoUpdates[1] = 1
+	AutoUpdates[3] = 0
+	AutoUpdates[4] = 0
+	AutoUpdates[5] = 0
+	
+	"\0%(b)"
+	--
+	if language == "Placeholder" //TRANSLATORS: This is if the user decides not to update right away
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"[Du wirst einmal am Tag daran erinnert werden.]\e"
+	}
+	elseif language == "Русский"
+	{
+		"[У тебя будет напоминания один раз в день.]\e"
+	}
+	elseif language == "Français"
+	{
+		"[Tu auras un rappel une fois par jour.]\e"
+	}
+	elseif language == "Polski"
+	{
+		"[Będę ci przypominiać raz dziennie.]\e"
+	}
+	else //English
+	{
+		"[You will be reminded once a day.]\e"
+	}
+}
+
+Select.UpdateOff //If the user no longer wants to be notified about updates
+{
+	AutoUpdates[0] = 0
+	AutoUpdates[1] = 1
+	AutoUpdates[3] = 0
+	AutoUpdates[4] = 0
+	AutoUpdates[5] = 0
+	
+	"\0%(b)"
+	--
+	if language == "Placeholder" //TRANSLATORS: This is if the user decides they don't want update notifications anymore
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"[Auto-Update-Überprüfungen wurden ausgeschaltet,\w4 du kannst sie in den Einstellungen wieder einschalten.]\e"
+	}
+	elseif language == "Русский"
+	{
+		"[Авто-обновлении выключен.\w4 Ты можешь снова включить в меню конфигурации.]\e"
+	}
+	elseif language == "Français"
+	{
+		"[Mise à jour auto désactivée,\w4 tu peux les activer dans le menu Config.]\e"
+	}
+	elseif language == "Polski"
+	{
+		"[Auto-aktualizacje wyłączone,\w4 Możesz ję włączyć spowrotem w ustawieniach.]\e"
+	}
+	else //English
+	{
+		"[Auto Update checks turned off,\w4 you can turn them on again in the Config menu.]\e"
+	}
+}
+
+OnMenuRun //Main menu
+{
+	_currentsong = SPLITPATH(NowPlaying[0])[2]
+	_currentsong = REPLACE(_currentsong,"%(C_BYTE1)",",")
+	_currentsong = REPLACE(_currentsong,"]","\]")
+	
+	"\0%(bb)\_q\![set,autoscroll,disable]"
+	--
+	if language == "Placeholder" //TRANSLATORS: This is the main menu, use _currentsong for the currently playing song
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		if NowPlaying[0] == ""//If no song is playing
+		{
+			"[Player ist inaktiv.]"
+		}
+		elseif NowPlaying[2] != "" //If a song is paused
+		{
+			"[Pausiert: \_a[OnMusicMenu]%(_currentsong)\_a]"
+		}
+		else //If a song is playing
+		{
+			"[Jetzt läuft: \_a[OnMusicMenu]%(_currentsong)\_a]"
+		}
+		--
+		"\n\n\![*]\q[Musik-Bedienung,OnMusicMenu]\n"
+		--
+		if lastTalk != ""
+		{
+			"\n\![*]\q[Wiederhole letzten Dialog,OnLastTalk]"
+		}
+		--
+		if ISFUNC("OnCustom_RandomTalk") && CustomFuncs[0] == 1; "\n\![*]\q[Sag etwas,OnAiTalk,Menu]\n"
+		--
+		"\n\![*]\q[Shell ändern,OnShellMenu]\n"
+		--
+		if ARRAYSIZE(availabledressups) > 0; "\![*]\q[Dress-Ups,OnDressupMenu]\n"
+		--
+		if ISFUNC("OnCustom_Menu") && CustomFuncs[0] == 1; "\n%(OnCustom_Menu)\n"
+		--
+		"\n\![*]\q[Einstellungen,OnConfigMenu]"
+		--
+		if debug > 0 //%(debug = 1) in script input to show the debug options
+		{
+			if CustomFuncs[0] == 1; "\n\n\![*]\q[Shell-Funktionen neu laden,OnReloadShellFuncs]"
+			else; "\n\n[100][Shell-Spezifische Funktionen/Dialoge sind ausgeschaltet]"
+			--
+			if ISFUNC("OnCustom_TestFunc") && CustomFuncs[0] == 1; "  \![*]\q[Benutzerdefinierte Test-Funktion,OnCustom_TestFunc]"
+		}
+		--
+		if debug > 1
+		{
+			"  \![*]\q[Test Variable,OnTestVar]"
+		}
+		--
+		"\n\n\![*]\q[Schließen,OnCancel]"
+		--
+		"\n\n\n[half]\f[height,-2]"
+		--
+		//"\n%(wd) %(nowhour):%(nowmin) %(ap), %(month)/%(day)/%(year) - %(season)\n"
+		--
+		"Programmlaufzeit: %(runtime[0]):%(runmin)"
+		--
+		"\nFLUX v%(ghostver)"
+		--
+		if ISFUNC("shellver") && CustomFuncs[0] == 1; "     %(nowshell) v%(shellver)"
+	}
+	elseif language == "Русский"
+	{
+		if NowPlaying[0] == ""//If no song is playing
+		{
+			"[Плеер пустой.]"
+		}
+		elseif NowPlaying[2] != "" //If a song is paused
+		{
+			"[Приостановлен: \_a[OnMusicMenu]%(_currentsong)\_a]"
+		}
+		else //If a song is playing
+		{
+			"[Играет Сейчас: \_a[OnMusicMenu]%(_currentsong)\_a]"
+		}
+		--
+		"\n\n\![*]\q[Контроля Музыки,OnMusicMenu]\n"
+		--
+		if lastTalk != ""
+		{
+			"\n\![*]\q[Повторить последний Разговор,OnLastTalk]"
+		}
+		--
+		if ISFUNC("OnCustom_RandomTalk") && CustomFuncs[0] == 1; "\n\![*]\q[Скажи Что-нибудь,OnAiTalk,Menu]\n"
+		--
+		"\n\![*]\q[Сменить Внешние Видов,OnShellMenu]\n"
+		--
+		if ARRAYSIZE(availabledressups) > 0; "\![*]\q[Одежда,OnDressupMenu]\n"
+		--
+		if ISFUNC("OnCustom_Menu") && CustomFuncs[0] == 1; "\n%(OnCustom_Menu)\n"
+		--
+		"\n\![*]\q[Конфигурация,OnConfigMenu]"
+		--
+		if debug > 0 //%(debug = 1) in script input to show the debug options
+		{
+			if CustomFuncs[0] == 1; "\n\n\![*]\q[Перезагрузить функции вида,OnReloadShellFuncs]"
+			else; "\n\n[100][Особенные функции/разговоры выключен]"
+			--
+			if ISFUNC("OnCustom_TestFunc") && CustomFuncs[0] == 1; "  \![*]\q[Специальная Тест Функция,OnCustom_TestFunc]"
+		}
+		--
+		if debug > 1
+		{
+			"\n\![*]\q[Параметер тесты,OnTestVar]"
+		}
+		--
+		"\n\n\![*]\q[Закрыть,OnCancel]"
+		--
+		"\n\n\n[half]\f[height,-2]"
+		--
+		//"\n%(wd) %(nowhour):%(nowmin) %(ap), %(month)/%(day)/%(year) - %(season)\n"
+		--
+		"Рабочем Состоянии: %(runtime[0]):%(runmin)"
+		--
+		"\nFLUX в%(ghostver)"
+		--
+		if ISFUNC("shellver") && CustomFuncs[0] == 1; "     %(nowshell) в%(shellver)"
+	}
+	elseif language == "Français"
+	{
+		if NowPlaying[0] == ""//If no song is playing
+		{
+			"[Le lecteur est inoccupé.]"
+		}
+		elseif NowPlaying[2] != "" //If a song is paused
+		{
+			"[En pause : \_a[OnMusicMenu]%(_currentsong)\_a]"
+		}
+		else //If a song is playing
+		{
+			"[Actuellement jouée : \_a[OnMusicMenu]%(_currentsong)\_a]"
+		}
+		--
+		"\n\n\![*]\q[Controls de musique,OnMusicMenu]\n"
+		--
+		if lastTalk != ""
+		{
+			"\n\![*]\q[Répéter le dernier dialogue,OnLastTalk]"
+		}
+		--
+		if ISFUNC("OnCustom_RandomTalk"); "\n\![*]\q[Dis quelque chose,OnAiTalk,Menu]\n"
+		--
+		"\n\![*]\q[Changer le shell,OnShellMenu]\n"
+		--
+		if ARRAYSIZE(availabledressups) > 0; "\![*]\q[Habits,OnDressupMenu]\n"
+		--
+		"\n\![*]\q[Config,OnConfigMenu]"
+		--
+		if debug > 0 //%(debug = 1) in script input to show the debug options
+		{
+			if CustomFuncs[0] == 1; "\n\n\![*]\q[Recharger les Fonctions du Shell,OnReloadShellFuncs]"
+			else; "\n\n[100][Les fonctions/dialogues personnalisés du shell sont désactivés]"
+			--
+			if ISFUNC("OnCustom_TestFunc") && CustomFuncs[0] == 1; "  \![*]\q[Fonction de Test Personnalisée,OnCustom_TestFunc]"
+		}
+		--
+		if debug > 1 //%(debug = 1) in script input to show the debug options
+		{
+			"    \![*]\q[Test Variable,OnTestVar]"
+		}
+		--
+		"\n\n\![*]\q[Fermer,OnCancel]"
+		--
+		"\n\n\n[half]\f[height,-2]"
+		--
+		//"\n%(wd) %(nowhour):%(nowmin) %(ap), %(month)/%(day)/%(year) - %(season)\n"
+		--
+		"Temps depuis le démarrage : %(runtime[0]):%(runmin)"
+		--
+		"\nFLUX v%(ghostver)"
+		--
+		if ISFUNC("shellver"); "     %(nowshell) v%(shellver)"
+	}
+	elseif language == "Polski"
+	{
+		if NowPlaying[0] == ""//If no song is playing
+		{
+			"[Odtwarzacz jest nieaktywny..]"
+		}
+		elseif NowPlaying[2] != "" //If a song is paused
+		{
+			"[Wstrzymane: \_a[OnMusicMenu]%(_currentsong)\_a]"
+		}
+		else //If a song is playing
+		{
+			"[Obecnie gra: \_a[OnMusicMenu]%(_currentsong)\_a]"
+		}
+		--
+		"\n\n\![*]\q[Sterowanie muzyką,OnMusicMenu]\n"
+		--
+		if lastTalk != ""
+		{
+			"\n\![*]\q[Powtórz ostatni dialog,OnLastTalk]"
+		}
+		--
+		if ISFUNC("OnCustom_RandomTalk") && CustomFuncs[0] == 1; "\n\![*]\q[Powiedz coś,OnAiTalk,Menu]\n"
+		--
+		"\n\![*]\q[Zmiana skorupy,OnShellMenu]\n"
+		--
+		if ARRAYSIZE(availabledressups) > 0; "\![*]\q[Ubrania,OnDressupMenu]\n"
+		--
+		if ISFUNC("OnCustom_Menu") && CustomFuncs[0] == 1; "\n%(OnCustom_Menu)\n"
+		--
+		"\n\![*]\q[Ustawienia,OnConfigMenu]"
+		--
+		if debug > 0 //%(debug = 1) in script input to show the debug options
+		{
+			if CustomFuncs[0] == 1; "\n\n\![*]\q[Przeładuj funkcje skorupy,OnReloadShellFuncs]"
+			else; "\n\n[100][Specjalne funkcje/dialogi skorupy są wyłączone]"
+			--
+			if ISFUNC("OnCustom_TestFunc") && CustomFuncs[0] == 1; "  \![*]\q[Test funkcji specjalnych,OnCustom_TestFunc]"
+		}
+		--
+		if debug > 1 //%(debug = 1) in script input to show the debug options
+		{
+			"     \![*]\q[Test Variable,OnTestVar]"
+		}
+		--
+		"\n\n\![*]\q[Zamknij,OnCancel]"
+		--
+		"\n\n\n[half]\f[height,-2]"
+		--
+		//"\n%(wd) %(nowhour):%(nowmin) %(ap), %(month)/%(day)/%(year) - %(season)\n"
+		--
+		"Czas pracy: %(runtime[0]):%(runmin)"
+		--
+		"\nFLUX v%(ghostver)"
+		--
+		if ISFUNC("shellver"); "     %(nowshell) v%(shellver)"
+	}
+	else //English
+	{
+		if NowPlaying[0] == ""//If no song is playing
+		{
+			"[Player is idle.]"
+		}
+		elseif NowPlaying[2] != "" //If a song is paused
+		{
+			"[Paused: \_a[OnMusicMenu]%(_currentsong)\_a]"
+		}
+		else //If a song is playing
+		{
+			"[Currently playing: \_a[OnMusicMenu]%(_currentsong)\_a]"
+		}
+		--
+		"\n\n\![*]\q[Music Controls,OnMusicMenu]\n"
+		--
+		if lastTalk != ""
+		{
+			"\n\![*]\q[Repeat last dialogue,OnLastTalk]"
+		}
+		--
+		if ISFUNC("OnCustom_RandomTalk") && CustomFuncs[0] == 1; "\n\![*]\q[Say something,OnAiTalk,Menu]\n"
+		--
+		"\n\![*]\q[Change shells,OnShellMenu]\n"
+		--
+		if ARRAYSIZE(availabledressups) > 0; "\![*]\q[Dressups,OnDressupMenu]\n"
+		--
+		if ISFUNC("OnCustom_Menu") && CustomFuncs[0] == 1; "\n%(OnCustom_Menu)\n"
+		--
+		"\n\![*]\q[Config,OnConfigMenu]"
+		--
+		if debug > 0 //%(debug = 1) in script input to show the debug options
+		{
+			if CustomFuncs[0] == 1; "\n\n\![*]\q[Reload Shell Functions,OnReloadShellFuncs]"
+			else; "\n\n[100][Custom shell functions/dialogue are disabled]"
+			--
+			if ISFUNC("OnCustom_TestFunc") && CustomFuncs[0] == 1; "  \![*]\q[Custom Test Function,OnCustom_TestFunc]"
+		}
+		--
+		if debug > 1
+		{
+			"  \![*]\q[Test Variable,OnTestVar]"
+		}
+		--
+		"\n\n\![*]\q[Close,OnCancel]"
+		--
+		"\n\n\n[half]\f[height,-2]"
+		--
+		//"\n%(wd) %(nowhour):%(nowmin) %(ap), %(month)/%(day)/%(year) - %(season)\n"
+		--
+		"Runtime: %(runtime[0]):%(runmin)"
+		--
+		"\nFLUX v%(ghostver)"
+		--
+		if ISFUNC("shellver") && CustomFuncs[0] == 1; "     %(nowshell) v%(shellver)"
+	}
+	--
+	"\e FLUX main menu"
+}
+
+OnLastTalk //Repeats the last thing the ghost said
+{
+	"%(lastTalk)\e"
+}
+
+//----------Config Menu----------
+OnConfigMenu //I moved changing name/pronouns/birthday over to Nameteach, because they're info about the user
+{
+	if deleteshitai[1] == ""; {deleteshitai[0] = 0; deleteshitai[1] = onoff[1]}
+	if AutoUpdates[2] == ""; {AutoUpdates[0] = 1; AutoUpdates[2] = onoff[0]}
+	if CustomFuncs[1] == ""; {CustomFuncs[0] = 1; CustomFuncs[1] = onoff[0]}
+	if HourNotifs[1] == ""; {HourNotifs[0] = 0; HourNotifs[1] = onoff[1]}
+	if DiscordDisplay[0] == ""; {DiscordDisplay[0] = 1}
+	if TooltipDisplay == ""; {TooltipDisplay = 1}
+	
+	if birthday[0] == "" || birthday[2] == ""; {birthday = IARRAY; birthday[0] = "???"}
+	if gender == ""; gender = "undef"
+	if username == ""; username = DefaultUsername
+	
+	_uninstbtn = ""; if deleteshitai[0] == 1; _uninstbtn = onoff[0]; else; _uninstbtn = onoff[1]
+	_cstfncbtn = ""; if CustomFuncs[0] == 1; _cstfncbtn = onoff[0]; else; _cstfncbtn = onoff[1]
+	_atoupdbtn = ""; if AutoUpdates[0] == 1; _atoupdbtn = onoff[0]; else; _atoupdbtn = onoff[1]
+	_hnotifbtn = ""; if HourNotifs[0] == 1; _hnotifbtn = onoff[0]; else; _hnotifbtn = onoff[1]
+	_discordbtn = ""; if DiscordDisplay[0] == 1; _discordbtn = onoff[0]; else; _discordbtn = onoff[1]
+	_tooltipbtn = ""; if TooltipDisplay == 1; _tooltipbtn = onoff[0]; else; _tooltipbtn = onoff[1]
+	
+	
+	"\0\![close,inputbox,OnNameTeach]\![close,inputbox,OnUserBornMonth]\![close,inputbox,OnUserBornDay]\![set,autoscroll,disable]\_q%(bbb)"
+	--
+	if language == "Placeholder" //TRANSLATORS: The config menu. I imagine the pronoun system is going to get tricky between languages, talk to me about this and we can work something out. It's important to be able to pick them, though, because shells aren't necessarily going to be translated and might use these envelopes. If your language doesn't have pronouns, you could put something like 'masculine', 'feminine', or 'neutral' in their place.
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		//This is here in case the variables get erased. The buttons will be set to default so the user has something to click. This has happened to my users before and resetting them is a painful process. Do not remove these.
+		
+		if hemisphere == ""; {hemisphere = 0}
+		if talkrate == ""; {talkrate = "alle 5 Minuten"; aitalkinterval = 300}
+		if talkoption == ""; {talkoption = 0}
+		--
+		"/
+		Dein Name: \_a[OnChangeName]%(username)\_a\n/
+		Deine Pronomen: \_a[OnChangePronoun]%(ersie)/%(ihmihr)/%(ihnsie)/%(seinihr)\_a\n"
+		--
+		if birthday[0] == "???"; "Dein Geburtstag: \_a[OnChangeBirthday]???\_a\n"
+		else; "Dein Geburtstag: \_a[OnChangeBirthday]%(MonthName(birthday[4],language)) %(GetDaySuffix(birthday[5],language))\_a\n"
+		--
+		"Deine Hemisphere: \_a[OnToggleHemisphere]%(nowhemisphere)\_a\n/
+		Sprache: \_a[OnLanguageMenu]%(language)\_a\n"
+		--
+		if SHIORI3FW.BalloonName == "Notes"
+		{
+			if balloonmode == 1; "\f[anchorfontcolor,150,150,150]"
+			--
+			"\_a[OnBalloonModeToggle,Dark]Dunkler Modus\_a"
+			--
+			"\f[default]  "
+			--
+			if balloonmode != 1; "\f[anchorfontcolor,150,150,150]"
+			--
+			"\_a[OnBalloonModeToggle,Light]Heller Modus\_a"
+			--
+			"\f[default]\n"
+		}
+		--
+		"\nRedehäufigkeit: \_a[OnChangeTalk]%(nowtalkrate)\_a\n/
+		Rede \_a[OnToggleTalkOption]%(nowtalkopt)\_a\n\n/
+		Nachrichten zu vollen Stunden: \_a[OnToggleHourNotifs]%(_hnotifbtn)\_a\n\n/
+		Auto-Update-Überprüfungen \_a[OnToggleUpdate]%(_atoupdbtn)\_a\n/
+		\![*]\q[Nach FLUX-Updates suchen,UpdateCheck]\n/
+		\![*]\q[Nach Shell-Updates suchen,UpdateShell]\n/
+		Shell-Spezifische Funktionen/Dialoge \_a[OnToggleCustomFuncs]%(_cstfncbtn)\_a\n"
+		--
+		if IsEmergencyMode; "\_a[OnExplainShellError,config][SHELL-FEHLER: SHELL-SPEZIFISCHE FUNKTIONEN AUSGESCHALTET]\_a\n";
+		else; "\n"
+		--
+		"Derzeitiges Lied und derzeitige Shell auf Discord anzeigen? \_a[OnToggleDiscordPlugin]%(_discordbtn)\_a \q[(Info),DiscordPluginInfo]\n"
+		--
+		"Kurzinfo für interaktive Bereiche anzeigen? \_a[OnToggleTooltips]%(_tooltipbtn)\_a\n\n"
+		--
+		"\![*]\q[Bug melden,BugReport]\n\n/
+		Deinstallieren freischalten? \_a[OnToggleUninstall]%(_uninstbtn)\_a\n\n/
+		\![*]\q[Zurück zum Hauptmenü,OnMenuRun]\e"
+	}
+	elseif language == "Русский"
+	{
+		if hemisphere == ""; {hemisphere = 0}
+		if talkrate == ""; {talkrate = "every 5 minutes"; aitalkinterval = 300}
+		if talkoption == ""; {talkoption = 0}
+		--
+		"/
+		Твоя имя: \_a[OnChangeName]%(username)\_a\n/
+		Твои Местоимение: \_a[OnChangePronoun]%(онона)/%(егоее)\_a\n"
+		--
+		if birthday[0] == "???"; "Твой день рождения: \_a[OnChangeBirthday]???\_a\n"
+		else; "Твой день рождения: \_a[OnChangeBirthday]%(MonthName(birthday[4],language)) %(GetDaySuffix(birthday[5],language))\_a\n"
+		--
+		"Твое полушарие: \_a[OnToggleHemisphere]%(nowhemisphere)\_a\n/
+		Язык: \_a[OnLanguageMenu]%(language)\_a\n"
+		--
+		if SHIORI3FW.BalloonName == "Notes"
+		{
+			if balloonmode == 1; "\f[anchorfontcolor,150,150,150]"
+			--
+			"\_a[OnBalloonModeToggle,Dark]Тёмный режим\_a"
+			--
+			"\f[default]  "
+			--
+			if balloonmode != 1; "\f[anchorfontcolor,150,150,150]"
+			--
+			"\_a[OnBalloonModeToggle,Light]Светлый режим\_a"
+			--
+			"\f[default]\n"
+		}
+		--
+		"\nВремени разговоров: \_a[OnChangeTalk]%(nowtalkrate)\_a\n/
+		Говорить \_a[OnToggleTalkOption]%(nowtalkopt)\_a\n\n/
+		Уведомление Часов: \_a[OnToggleHourNotifs]%(_hnotifbtn)\_a\n\n/
+		Авто-обновлении \_a[OnToggleUpdate]%(_atoupdbtn)\_a\n/
+		\![*]\q[Проверять обновление FLUX,UpdateCheck]\n/
+		\![*]\q[Проверять обновление Видов,UpdateShell]\n/
+		Особенные Функции/Разговоры Вида \_a[OnToggleCustomFuncs]%(_cstfncbtn)\_a\n"
+		--
+		if IsEmergencyMode; "\_a[OnExplainShellError,config][ОШИБКА С ВНЕШНОГО ВИДА: ПОЛЬЗОВАТЕЛЬСКИЕ ФУНКЦИЯ ВЫКЛЮЧЕН]\_a\n";
+		else; "\n"
+		--
+		"Показать текущий песня и внешний вид в Дискорд? \_a[OnToggleDiscordPlugin]%(_discordbtn)\_a \q[(Info),DiscordPluginInfo]\n"
+		--
+		"Использовать подсказки для горячие точки? \_a[OnToggleTooltips]%(_tooltipbtn)\_a\n\n"
+		--
+		"\![*]\q[Сообщить о ошибке,BugReport]\n\n/
+		Включить Удаление? \_a[OnToggleUninstall]%(_uninstbtn)\_a\n\n[70]/
+		\![*]\q[Назад в Меню,OnMenuRun]\e"
+	}
+	elseif language == "Français"
+	{
+		//This is here in case the variables get erased. The buttons will be set to default so the user has something to click. This has happened to my users before and resetting them is a painful process. Do not remove these.
+		if username == ""; username = "User"
+		if hemisphere == ""; {hemisphere = 0}
+		if talkrate == ""; {talkrate = "every 5 minutes"; aitalkinterval = 300}
+		if talkoption == ""; {talkoption = 0}
+		--
+		"/
+		Ton nom : \_a[OnChangeName]%(username)\_a\n/
+		Tes pronoms : \_a[OnChangePronoun]%(Capitalize(ilelle))/%(Capitalize(luielle))/%(Capitalize(celuicelle))\_a\n"
+		--
+		if birthday[0] == "???"; "Ton anniversaire : \_a[OnChangeBirthday]???\_a\n"
+		else; "Ton anniversaire : \_a[OnChangeBirthday]%(birthday[5]) %(MonthName(birthday[4],language))\_a\n"
+		--
+		"Ton hémisphère: \_a[OnToggleHemisphere]%(nowhemisphere)\_a\n/
+		Langage: \_a[OnLanguageMenu]%(language)\_a\n"
+		--
+		if SHIORI3FW.BalloonName == "Notes"
+		{
+			if balloonmode == 1; "\f[anchorfontcolor,150,150,150]"
+			--
+			"\_a[OnBalloonModeToggle,Dark]Dark mode\_a"
+			--
+			"\f[default]  "
+			--
+			if balloonmode != 1; "\f[anchorfontcolor,150,150,150]"
+			--
+			"\_a[OnBalloonModeToggle,Light]Light mode\_a"
+			--
+			"\f[default]\n"
+		}
+		--
+		"\nFréquence des dialogues : \_a[OnChangeTalk]%(nowtalkrate)\_a\n/
+		Parle \_a[OnToggleTalkOption]%(nowtalkopt)\_a\n\n/
+		Notifications chaque heure : \_a[OnToggleHourNotifs]%(_hnotifbtn)\_a\n\n/
+		Vérification auto des mises à jour \_a[OnToggleUpdate]%(_atoupdbtn)\_a\n/
+		\![*]\q[Vérifier les mises à jour de FLUX,UpdateCheck]\n/
+		\![*]\q[Vérifier les mises à jour du shell,UpdateShell]\n/
+		Fonctions/Dialogues personnalisés du shell \_a[OnToggleCustomFuncs]%(_cstfncbtn)\_a\n"
+		--
+		if IsEmergencyMode; "\_a[OnExplainShellError,config][ERREUR DE SHELL: FONCTIONS PERSONALISÉES DÉSACTIVÉES]\_a\n"
+		else; "\n"
+		--
+		"Display current song and shell in Discord? \_a[OnToggleDiscordPlugin]%(_discordbtn)\_a \q[(Info),DiscordPluginInfo]\n"
+		--
+		"Use tooltips for hotspots? \_a[OnToggleTooltips]%(_tooltipbtn)\_a\n\n"
+		--
+		"\![*]\q[Reporter un bug,BugReport]\n\n/
+		Activer la désinstallation ? \_a[OnToggleUninstall](%(_uninstbtn))\_a\n\n/
+		\![*]\q[Retourner au menu,OnMenuRun]\e"
+	}
+	elseif language == "Polski"
+	{
+		//This is here in case the variables get erased. The buttons will be set to default so the user has something to click. This has happened to my users before and resetting them is a painful process. Do not remove these.
+		if hemisphere == ""; {hemisphere = 0}
+		if talkrate == ""; {talkrate = "every 5 minutes"; aitalkinterval = 300}
+		if talkoption == ""; {talkoption = 0}
+		--
+		"/
+		Twoje imię: \_a[OnChangeName]%(username)\_a\n/
+		Twoje zaimki: \_a[OnChangePronoun]%(Capitalize(onona))/%(Capitalize(jejjemu))/%(Capitalize(jejjego))\_a\n"
+		--
+		if birthday[0] == "???"; "Twoje urodziny: \_a[OnChangeBirthday]???\_a\n"
+		else; "Twoje urodziny: \_a[OnChangeBirthday]%(GetDaySuffix(birthday[5],language)) %(MonthName(birthday[4],language))\_a\n"
+		--
+		"Twoja półkula: \_a[OnToggleHemisphere]%(nowhemisphere)\_a\n/
+		Język: \_a[OnLanguageMenu]%(language)\_a\n"
+		--
+		if SHIORI3FW.BalloonName == "Notes"
+		{
+			if balloonmode == 1; "\f[anchorfontcolor,150,150,150]"
+			--
+			"\_a[OnBalloonModeToggle,Dark]Tryb ciemny\_a"
+			--
+			"\f[default]  "
+			--
+			if balloonmode != 1; "\f[anchorfontcolor,150,150,150]"
+			--
+			"\_a[OnBalloonModeToggle,Light]Tryb jasny\_a"
+			--
+			"\f[default]\n"
+		}
+		--
+		"\nCzęstotliwość rozmowy: \_a[OnChangeTalk]%(nowtalkrate)\_a\n/
+		Mów \_a[OnToggleTalkOption]%(nowtalkopt)\_a\n\n/
+		Powiadomienia godzinowe: \_a[OnToggleHourNotifs]%(_hnotifbtn)\_a\n\n/
+		Automatyczne sprawdzanie aktualizacji \_a[OnToggleUpdate]%(_atoupdbtn)\_a\n/
+		\![*]\q[Sprawdź aktualizacje FLUX,UpdateCheck]\n/
+		\![*]\q[Sprawdź aktualizacje skorupy,UpdateShell]\n/
+		Specjalne funkcje/dialogi skorupy \_a[OnToggleCustomFuncs]%(_cstfncbtn)\_a\n"
+		--
+		if IsEmergencyMode; "\_a[OnExplainShellError,config][BŁĄD SKORUPY: NIESTANDARDOWE FUNKCJE WYŁĄCZONE]\_a\n";
+		else; "\n"
+		--
+		"Wyświetlaj bieżący utwór i skorupę na Discordzie?%(br)\_a[OnToggleDiscordPlugin]%(_discordbtn)\_a \q[(Info),DiscordPluginInfo]\n"
+		--
+		"Używać etykiet narzędzi dla hotspotów? \_a[OnToggleTooltips]%(_tooltipbtn)\_a\n\n"
+		--
+		"\![*]\q[Zgłoś błąd,BugReport]\n\n/
+		Włącz odinstalowywanie? \_a[OnToggleUninstall]%(_uninstbtn)\_a\n\n/
+		\![*]\q[Powrót do menu,OnMenuRun]\e"
+	}
+	else //English
+	{
+		//This is here in case the variables get erased. The buttons will be set to default so the user has something to click. This has happened to my users before and resetting them is a painful process. Do not remove these.
+		if hemisphere == ""; {hemisphere = 0}
+		if talkrate == ""; {talkrate = "every 5 minutes"; aitalkinterval = 300}
+		if talkoption == ""; {talkoption = 0}
+		--
+		"/
+		Your name: \_a[OnChangeName]%(username)\_a\n/
+		Your pronouns: \_a[OnChangePronoun]%(Capitalize(heshe))/%(Capitalize(himher))/%(Capitalize(hisher))\_a\n"
+		--
+		if birthday[0] == "???"; "Your birthday: \_a[OnChangeBirthday]???\_a\n"
+		else; "Your birthday: \_a[OnChangeBirthday]%(MonthName(birthday[4],language)) %(GetDaySuffix(birthday[5],language))\_a\n"
+		--
+		"Your hemisphere: \_a[OnToggleHemisphere]%(nowhemisphere)\_a\n/
+		Language: \_a[OnLanguageMenu]%(language)\_a\n"
+		--
+		if SHIORI3FW.BalloonName == "Notes"
+		{
+			if balloonmode == 1; "\f[anchorfontcolor,150,150,150]"
+			--
+			"\_a[OnBalloonModeToggle,Dark]Dark mode\_a"
+			--
+			"\f[default]  "
+			--
+			if balloonmode != 1; "\f[anchorfontcolor,150,150,150]"
+			--
+			"\_a[OnBalloonModeToggle,Light]Light mode\_a"
+			--
+			"\f[default]\n"
+		}
+		--
+		//TODO Japanese - Need to update this button from Auto FLUX updates
+		"\nTalk rate: \_a[OnChangeTalk]%(nowtalkrate)\_a\n/
+		Talk \_a[OnToggleTalkOption]%(nowtalkopt)\_a\n/
+		Hour Notifications: \_a[OnToggleHourNotifs]%(_hnotifbtn)\_a\n\n/
+		Auto Update Checks \_a[OnToggleUpdate]%(_atoupdbtn)\_a\n/
+		\![*]\q[Check for FLUX updates,UpdateCheck]\n/
+		\![*]\q[Check for shell updates,UpdateShell]\n/
+		Custom Shell Functions/Dialogue \_a[OnToggleCustomFuncs]%(_cstfncbtn)\_a\n"
+		--
+		if IsEmergencyMode; "\_a[OnExplainShellError,config][SHELL ERROR: CUSTOM FUNCTIONS DISABLED]\_a\n";
+		else; "\n"
+		--
+		"Display current song and shell in Discord? \_a[OnToggleDiscordPlugin]%(_discordbtn)\_a \q[(Info),DiscordPluginInfo]\n"
+		--
+		"Use tooltips for hotspots? \_a[OnToggleTooltips]%(_tooltipbtn)\_a\n\n"
+		--
+		"\![*]\q[Report a bug,BugReport]\n\n/
+		Enable Uninstall? \_a[OnToggleUninstall]%(_uninstbtn)\_a\n\n/
+		\![*]\q[Back to the menu,OnMenuRun]\e"
+	}
+}
+
+OnToggleHemisphere
+{
+	if hemisphere != 0 //Switching to northern
+	{
+		hemisphere = 0
+	}
+	else //Switching to southern
+	{
+		hemisphere = 1
+	}
+	--
+	OnConfigMenu
+}
+
+OnLanguageMenu
+{
+	"\0%(bb)\_q\![set,autoscroll,disable]"
+	--
+	if language == "Placeholder" //TRANSLATORS: This uses the language menu function set up in fx_anchor.dic. Make sure you've set that up. This blurb here is the top of the language menu.
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"[Bitte wähle eine Sprache für FLUX-Player. Beachte, dass dies keinen Einfluss auf die Sprache der Shell hat.]"
+	}
+	elseif language == "Русский"
+	{
+		"[Пожалуйсты, выбирать язык для плеер FLUX. Помни, что это не будет изменить язык Видов.]"
+	}
+	elseif language == "Français"
+	{
+		"[Stp choisis un langage pour le lecteur FLUX. Note cependant que cela ne change pas le langage des shells.]"
+	}
+	elseif language == "Polski"
+	{
+		"[Proszę wybrać język dla odtwarzacza FLUX. Proszę zauważyć, że nie ma to wpływu na język skorupy.]"
+	}
+	else //English
+	{
+		"[Please choose a language for FLUX player. Note that this does not affect the language of shells.]"
+	}
+	--
+	"\_l[0,60]"
+	--
+	LanguageMenuDisplay("OnLanguage")
+	--
+	if language == "Placeholder" //TRANSLATORS: A cancel button under the language menu, and also a button that leads to documentation for translating FLUX.
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"\n\n\![*]\q[Übersetze FLUX,OnTranslateDocument]/
+		\n\![*]\q[Zurück zu Einstellungen,OnConfigMenu]\e"
+	}
+	elseif language == "Русский"
+	{
+		"\n\n\![*]\q[Переводить FLUX,OnTranslateDocument]/
+		\n\![*]\q[Назад в Конфигурация,OnConfigMenu]\e"
+	}
+	elseif language == "Français"
+	{
+		"\n\n\![*]\q[Traduire FLUX,OnTranslateDocument]/
+		\n\![*]\q[Retour à Config,OnConfigMenu]\e"
+	}
+	elseif language == "Polski"
+	{
+		"\n\n\![*]\q[Przetłumacz FLUX,OnTranslateDocument]/
+		\n\![*]\q[Powrót do ustawień,OnConfigMenu]\e"
+	}
+	else //English
+	{
+		"\n\n\![*]\q[Translate FLUX,OnTranslateDocument]/
+		\n\![*]\q[Back to Config,OnConfigMenu]\e"
+	}
+}
+
+OnLanguage
+{
+	language = reference0
+	
+	UpdateTooltips
+	--
+	OnConfigMenu
+}
+
+OnTranslateDocument
+{
+	"\C\![open,file,translating_flux.txt]"
+}
+
+OnChangeTalk
+{
+	if language == "Placeholder" //TRANSLATORS: The menu for changing the talk rate. Make sure to leave the numbers in the second argument, those are what actually sends the info to the next function
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"\0%(bb)\_q[Wie oft soll zufälliger Dialog gesagt werden? Beachte, dass nicht alle Shells zufälligen Dialog beinhalten.]\n\n/
+		\![*]\q[Alle 30 Sekunden,OnTalkRate,Thirty,30]\n/
+		\![*]\q[Jede Minute,OnTalkRate,Minute,60]\n/
+		\![*]\q[Alle 3 Minuten,OnTalkRate,ThreeMin,180]\n/
+		\![*]\q[Alle 5 Minuten,OnTalkRate,FiveMin,300]\n/
+		\![*]\q[Nie,OnTalkRate,None,0]\n\n/
+		\![*]\q[Abbrechen,OnConfigMenu]\e"
+	}
+	elseif language == "Русский"
+	{
+		"\0%(bb)\_q[Как часто говорить? Помни, что не все виды есть разговоры.]\n\n/
+		\![*]\q[Каждый 30 секунд,OnTalkRate,Thirty,30]\n/
+		\![*]\q[Каждая минута,OnTalkRate,Minute,60]\n/
+		\![*]\q[Каждый 3 минут,OnTalkRate,ThreeMin,180]\n/
+		\![*]\q[Каждый 5 минута,OnTalkRate,FiveMin,300]\n/
+		\![*]\q[Никогда,OnTalkRate,None,0]\n\n/
+		\![*]\q[Назад,OnConfigMenu]\e"
+	}
+	elseif language == "Français"
+	{
+		"\0%(bb)\_q[Tout les combien de temps veux-tu qu'un dialogue aléatoire soit dit ? Note que pas tout les shells incluent des dialogues aléatoires.]\n\n/
+		\![*]\q[Toutes les 30 secondes,OnTalkRate,Thirty,30]\n/
+		\![*]\q[Toutes les minutes,OnTalkRate,Minute,60]\n/
+		\![*]\q[Toutes les 3 minutes,OnTalkRate,ThreeMin,180]\n/
+		\![*]\q[Toutes les 5 minutes,OnTalkRate,FiveMin,300]\n/
+		\![*]\q[Pas de dialogue,OnTalkRate,None,0]\n\n/
+		\![*]\q[Annuler,OnConfigMenu]\e"
+	}
+	elseif language == "Polski"
+	{
+		"\0%(bb)\_q[Jak często powinny być wypowiadane losowe dialogi? Zauważ, że nie wszystkie skorupy zawierają losowe dialogi.]\n\n/
+		\![*]\q[co 30 sekund,OnTalkRate,Thirty,30]\n/
+		\![*]\q[co minute,OnTalkRate,Minute,60]\n/
+		\![*]\q[co 3 minuty,OnTalkRate,ThreeMin,180]\n/
+		\![*]\q[co 5 minut,OnTalkRate,FiveMin,300]\n/
+		\![*]\q[Nie mów.,OnTalkRate,None,0]\n\n/
+		\![*]\q[Anuluj,OnConfigMenu]\e"
+	}
+	else
+	{
+		"\0%(bb)\_q[How often should random dialogue be said? Note that not all shells include random dialogue.]\n\n/
+		\![*]\q[Every 30 seconds,OnTalkRate,Thirty,30]\n/
+		\![*]\q[Every minute,OnTalkRate,Minute,60]\n/
+		\![*]\q[Every 3 minutes,OnTalkRate,ThreeMin,180]\n/
+		\![*]\q[Every 5 minutes,OnTalkRate,FiveMin,300]\n/
+		\![*]\q[Don't speak,OnTalkRate,None,0]\n\n/
+		\![*]\q[Nevermind,OnConfigMenu]\e"
+	}
+}
+
+OnTalkRate
+{
+	aitalkinterval = TOINT(reference1) //this changes the talk rate, in seconds
+	
+	if reference0 == "Thirty" //don't touch these
+	{
+		talkrate = "every 30 seconds"
+	}
+	elseif reference0 == "Minute"
+	{
+		talkrate = "every minute"
+	}
+	elseif reference0 == "ThreeMin"
+	{
+		talkrate = "every 3 minutes"
+	}
+	elseif reference0 == "FiveMin"
+	{
+		talkrate = "every 5 minutes"
+	}
+	else
+	{
+		talkrate = "never"
+	}
+	
+	OnConfigMenu
+}
+
+nowtalkrate
+{
+	if language == "Placeholder" //TRANSLATORS: Envelope for the talk rate, affects the display in the menu
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		if talkrate == "every 30 seconds"
+		{
+			"alle 30 Sekunden"
+		}
+		elseif talkrate == "every minute"
+		{
+			"jede Minute"
+		}
+		elseif talkrate == "every 3 minutes"
+		{
+			"alle 3 Minuten"
+		}
+		elseif talkrate == "every 5 minutes"
+		{
+			"alle 5 Minuten"
+		}
+		else //Never
+		{
+			"nie"
+		}
+	}
+	elseif language == "Русский"
+	{
+		if talkrate == "every 30 seconds"
+		{
+			"каждый 30 секунд"
+		}
+		elseif talkrate == "every minute"
+		{
+			"каждая минута"
+		}
+		elseif talkrate == "every 3 minutes"
+		{
+			"каждый 3 минут"
+		}
+		elseif talkrate == "every 5 minutes"
+		{
+			"каждый 5 минута"
+		}
+		else //Never
+		{
+			"никогда"
+		}
+	}
+	elseif language == "Français"
+	{
+		if talkrate == "every 30 seconds"
+		{
+			"toutes les 30 secondes" //this displays the talk rate in the menu
+		}
+		elseif talkrate == "every minute"
+		{
+			"toutes les minutes"
+		}
+		elseif talkrate == "every 3 minutes"
+		{
+			"toutes les 3 minutes"
+		}
+		elseif talkrate == "every 5 minutes"
+		{
+			"toutes les 5 minutes"
+		}
+		else //Never
+		{
+			"jamais"
+		}
+	}
+	elseif language == "Polski"
+	{
+		if talkrate == "every 30 seconds"
+		{
+			"co 30 sekund" //this displays the talk rate in the menu
+		}
+		elseif talkrate == "every minute"
+		{
+			"co minute"
+		}
+		elseif talkrate == "every 3 minutes"
+		{
+			"co 3 minuty"
+		}
+		elseif talkrate == "every 5 minutes"
+		{
+			"co 5 minut"
+		}
+		else //Never
+		{
+			"nigdy"
+		}
+	}
+	else //English
+	{
+		if talkrate == "every 30 seconds"
+		{
+			"every 30 seconds"
+		}
+		elseif talkrate == "every minute"
+		{
+			"every minute"
+		}
+		elseif talkrate == "every 3 minutes"
+		{
+			"every 3 minutes"
+		}
+		elseif talkrate == "every 5 minutes"
+		{
+			"every 5 minutes"
+		}
+		else //Never
+		{
+			"never"
+		}
+	}
+}
+
+OnToggleUpdate
+{	
+	if AutoUpdates[0] != 1
+	{
+		AutoUpdates[0] = 1
+		AutoUpdates[2] = onoff[0]
+	}
+	else
+	{
+		AutoUpdates[0] = 0
+		AutoUpdates[2] = onoff[1]
+	}
+	--
+	OnConfigMenu
+}
+
+OnToggleCustomFuncs
+{
+	if CustomFuncs[0] != 1
+	{
+		CustomFuncs[0] = 1
+		CustomFuncs[1] = onoff[0]
+		OnGetCustomShellDialogue
+	}
+	else
+	{
+		CustomFuncs[0] = 0
+		CustomFuncs[1] = onoff[1]
+		OnGetCustomShellDialogue
+	}
+	--
+	OnConfigMenu
+}
+
+OnExplainShellError
+{
+	_fromconfig = 0; if reference0 == "config"; _fromconfig = 1
+	
+	if _fromconfig; "\0\s[0]%(bb)"
+	else; "\0\s[0]%(b)"
+	--
+	if language == "Placeholder" //TRANSLATORS: If the user switches to a shell that has an error in the custom functions, FLUX will ignore that file and keep running. This is the message it will use to notify the user that the shell has an error.
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"[Beim Laden des Shell-Spezifischen Codes ist ein Fehler aufgetreten;\w4 die Shell wurde geladen aber wird keine Shell-Spezifischen Funktionen oder Dialoge haben.]\n\n\w8\w8[Bitte kontaktiere den Shell Autor,\w4 _a[%(shellauthor[2])]%(shellauthor[0])_a,\w4 um diesen Fehler zu melden.]"
+	}
+	elseif language == "Русский"
+	{
+		"[Получилось ошибка, когда загружает пользовательский код внешного вида;\w4 загрузил вид, но пользовательские функцие не работает.]\n\n\w8\w8[Пожалуйста, сообщите автор этого внешного вида,\w4 _a[%(shellauthor[2])]%(shellauthor[0])_a,\w4 чтобы он_а  знает об этом.]"
+	}
+	elseif language == "Français"
+	{
+		"[Erreur durant le chargement du code personnalisé du shell;\w4 le shell a été chargé mais n'aura pas de dialogues ni de fonctions personnalisés.]\n\n\w8\w8[Merci de contacter l'auteur du shell,\w4 \_a[%(shellauthor[2])]%(shellauthor[0])\_a,\w4 pour rapporter l'erreur.]"
+	}
+	elseif language == "Polski"
+	{
+		"[Błąd podczas ładowania niestandardowego kodu skorupy; skorupa została załadowana, ale nie będzie miała niestandardowych dialogów i funkcji.]\n\n\w8\w8[Prosimy o kontakt z autorem skorupy,\w4 \_a[%(shellauthor[2])]%(shellauthor[0])\_a,\w4 aby zgłosić ten błąd.]"
+	}
+	else //English
+	{
+		"[Error while loading custom shell code;\w4 the shell has been loaded but will not have custom dialogue and functions.]\n\n\w8\w8[Please contact the shell author,\w4 \_a[%(shellauthor[2])]%(shellauthor[0])\_a,\w4 to report this error.]"
+	}
+	--
+	if _fromconfig; "\x\![raise,OnConfigMenu]"
+	else; "\e"
+}
+
+OnBalloonModeToggle
+{
+	if reference0 == "Light"
+	{
+		balloonmode = 1
+	}
+	else
+	{
+		balloonmode = 0
+	}
+	--
+	OnConfigMenu
+}
+
+OnToggleDiscordPlugin
+{
+	if DiscordDisplay[0] != 1
+	{
+		if Singing; _song = "♫ %(CHR(34))%(SPLITPATH(NowPlaying[0])[2])%(CHR(34)) ♫"
+
+		DiscordDisplay[0] = 1
+		"\![raiseplugin,Discord Rich Presence,OnDiscordPluginCustomDetail,Shell: %(CHR(34))%(nowshell)%(CHR(34))]"
+		--
+		"\![raiseplugin,Discord Rich Presence,OnDiscordPluginCustomState,%(_song)]"
+	}
+	else
+	{
+		DiscordDisplay[0] = 0
+		"\![raiseplugin,Discord Rich Presence,OnDiscordPluginCustomDetail, ]"
+		--
+		"\![raiseplugin,Discord Rich Presence,OnDiscordPluginCustomState, ]"
+	}
+	--
+	OnConfigMenu
+}
+
+OnToggleTooltips
+{
+	if TooltipDisplay != 1
+	{
+
+		TooltipDisplay = 1
+	}
+	else
+	{
+		TooltipDisplay = 0
+	}
+	--
+	UpdateTooltips
+	--
+	OnConfigMenu
+}
+
+Select.DiscordPluginInfo
+{
+	"\0%(bb)\_q"
+	--
+	if language == "Placeholder" //TRANSLATORS: Information about where to get the discord plugin and how to use it
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"[FLUX kann das derzeitige Lied und die derzeitige Shell in deinem Discord-Status anzeigen, wenn das \_a[https://ssp.shillest.net/plugin/discord.nar]Discord Rich Presence\_a Plugin für SSP installiert wurde.]\n\n[100][Nachdem das Plugin installiert wurde kann man FLUX rechts-klicken, zur \_a[OnBlank]Plugins\_a-Option gehen und dann auf \_a[OnBlank]Discord Rich Presence\_a klicken um in diesem Menü FLUX als den aktiven Ghost auszuwählen. Nach dem Schließen dieses Menüs sollte die Information dann in Discord auftauchen.]\x"
+	}
+	elseif language == "Русский"
+	{
+		"[FLUX может показать твой текущий песня и внешний вид в статусе Дискорд, если ты установишь модуль \_a[https://ssp.shillest.net/plugin/discord.nar]Discord Rich Presence\_a для SSP.]\n\n[100][После установки модуля, щелкни правой кнопкой мышей на FLUX, иди в настроек \_a[OnBlank]Модули\_a, и нажми \_a[OnBlank]Discord Rich Presence\_a. Выбирать FLUX как активное привидение в меню, который пуьунлун, и после закрытие меню,информация должно быть видно в Дискорд.]\x"
+	}
+	//TODO FRENCH
+	elseif language == "Polski"
+	{
+		"[FLUX może wyświetlać bieżący utwór i skorupę w statusie Discorda, jeśli zainstalujesz wtyczkę \_a[https://ssp.shillest.net/plugin/discord.nar]Discord Rich Presence\_a dla SSP.]\n\n[100][Po zainstalowaniu wtyczki, kliknij prawym przyciskiem myszy na FLUX, przejdź do opcji \_a[OnBlank]Plugins\_a i kliknij na \_a[OnBlank]Discord Rich Presence\_a. W menu, które się pojawi, wybierz FLUX jako aktywnego ducha, a po zamknięciu menu w Discordzie powinny pojawić się informacje.]\x"
+	}
+	else //English
+	{
+		"[FLUX can display your current song and shell in your Discord status if you install the \_a[https://ssp.shillest.net/plugin/discord.nar]Discord Rich Presence\_a plugin for SSP.]\n\n[100][After installing the plugin, right click FLUX, go to the \_a[OnBlank]Plugins\_a option, and click on \_a[OnBlank]Discord Rich Presence\_a. Select FLUX as your active ghost in the menu that comes up, and you should see the info appear in Discord after you close the menu.]\x"
+	}
+	--
+	"\![raise,OnConfigMenu]"
+}
+
+OnToggleUninstall
+{
+	if deleteshitai[0] != 1
+	{
+		deleteshitai[0] = 1
+		deleteshitai[1] = onoff[0]
+	}
+	else
+	{
+		deleteshitai[0] = 0
+		deleteshitai[1] = onoff[1]
+	}
+	--
+	OnConfigMenu
+}
+
+OnToggleTalkOption
+{
+	if talkoption == 1 //Talk only while playing music
+	{
+		talkoption = 2
+	}
+	elseif talkoption == 2 //Talk only while not playing music
+	{
+		talkoption = 0
+	}
+	else //Talk any time
+	{
+		talkoption = 1
+	}
+	--
+	OnConfigMenu
+}
+
+OnToggleHourNotifs
+{	
+	if HourNotifs[0] != 1
+	{
+		HourNotifs[0] = 1
+		HourNotifs[2] = onoff[0]
+	}
+	else
+	{
+		HourNotifs[0] = 0
+		HourNotifs[2] = onoff[1]
+	}
+	--
+	OnConfigMenu
+}
+
+nowtalkopt
+{
+	if language == "Placeholder" //TRANSLATORS: Set the dialogue you want to show for the talk options in the config menu here. There's an option for talking only while FLUX is playing music, one for talking only when FLUX is NOT playing music, and one for talking at any time
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		if talkoption == 1 //Talk only while playing music
+		{
+			"nur während Musik gespielt wird"
+		}
+		elseif talkoption == 2 //Talk only while not playing music
+		{
+			"nur während keine Musik gespielt wird"
+		}
+		else //Talk any time
+		{
+			"jederzeit"
+		}
+	}
+	elseif language == "Русский"
+	{
+		if talkoption == 1 //Talk only while playing music
+		{
+			"только когда музыка играет"
+		}
+		elseif talkoption == 2 //Talk only while not playing music
+		{
+			"только когда музыка не играет"
+		}
+		else //Talk any time
+		{
+			"любое время"
+		}
+	}
+	elseif language == "Français"
+	{
+		if talkoption == 1 //Talk only while playing music
+		{
+			"seulement quand de la musique est jouée"
+		}
+		elseif talkoption == 2 //Talk only while not playing music
+		{
+			"seulement sans musique jouée"
+		}
+		else //Talk any time
+		{
+			"n'importe quand"
+		}
+	}
+	elseif language == "Polski"
+	{
+		if talkoption == 1 //Talk only while playing music
+		{
+			"tylko podczas grania muzyki"
+		}
+		elseif talkoption == 2 //Talk only while not playing music
+		{
+			"tylko gdy nie grania muzyki"
+		}
+		else //Talk any time
+		{
+			"kiedykolwiek"
+		}
+	}
+	else //English
+	{
+		if talkoption == 1 //Talk only while playing music
+		{
+			"only while playing music"
+		}
+		elseif talkoption == 2 //Talk only while not playing music
+		{
+			"only while not playing music"
+		}
+		else //Talk any time
+		{
+			"any time"
+		}
+	}
+}
+
+Select.BugReport
+{
+	"\0%(b)"
+	--
+	if language == "Placeholder" //TRANSLATORS: The bug report option. If you want to allow people to contact you about errors in your translation, go ahead and mention that here and give a url/means of contacting you. You can replace the mention/link to me for the english dialogues with your own.
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"[Bugs in FLUX-Player's Mechaniken können \_a[https://zichqec.github.io/s-the-skeleton/index.html]Zichqec\_a,\w4 via jeder ihrer Social-Medias gemeldet werden.]\n\n\w8\w8[Bugs in der Shell, die du gerade benutzt, '%(nowshell)',\w4 sollten ihrem Entwickler,\w4 \_a[%(shellauthor[1])]%(shellauthor[0])\_a gemeldet werden.]\n\n\w8\w8[Typos und jegliche andere Fehler in der deutschen Übersetzung von FLUX können \_a[https://koguri3108.tumblr.com]Koguri3108\_a gemeldet werden.]"
+		--
+		"\n\n\![*]\q[Zurück zu Einstellungen,OnConfigMenu]\n\![*]\q[Schließen,OnCancel]\e"
+	}
+	elseif language == "Русский"
+	{
+		"[Можно сообщить об ошибки в Функции FLUX к \_a[https://zichqec.github.io/s-the-skeleton/index.html]Zichqec\_a,\w4 с любое из ее социяльных сетях.]\n\n\w8\w8[Ты должен сообщить обо ошибки во Внешнего Вида, в котором ты сейчас используешь, '%(nowshell)',\w4 к автора,\w4 \_a[%(shellauthor[1])]%(shellauthor[0])\_a.]\n\n\w8\w8[Сообщить, пожалуйста, Смоукы обо ошибки в русском переводе на его \_a[https://ev-n-learning.tumblr.com/]Tumblr\_a.]"
+		--
+		"\n\n\![*]\q[Назад в Конфигурация,OnConfigMenu]\n\![*]\q[Закрыть,OnCancel]\e"
+	}
+	elseif language == "Français"
+	{
+		"[Les bugs de méchaniques du lecteur FLUX peuvent être rapporté à \_a[https://zichqec.github.io/s-the-skeleton/index.html]Zichqec\_a,\w4 via n'importe quel réseau social.]\n\n\w8\w8[Les bugs du shell actuellement utilisé, '%(nowshell)',\w4 doivent être rapporté à son developpeur,\w4 \_a[%(shellauthor[1])]%(shellauthor[0])\_a.]\n\n\w8\w8[Toute faute de frappe dans les menus français/dialogues génériques pour FLUX peuvent être rapportés à \_a[https://levidre.github.io/]Levidre\_a.]"
+		--
+		"\n\n\![*]\q[Retour à Config,OnConfigMenu]\n\![*]\q[Close,OnCancel]\e"
+	}
+	elseif language == "Polski"
+	{
+		"[Błędy w mechanice odtwarzacza FLUX można zgłaszać do \_a[https://zichqec.github.io/s-the-skeleton/index.html]Zichqec\_a,\w4 za pośrednictwem jednego z jej mediów społecznościowych.]\n\n\w8\w8[Błędy w skorupie, którą aktualnie używasz, '%(nowshell)',\w4 powinny być zgłaszane do jej twórcy,\w4 \_a[%(shellauthor[1])]%(shellauthor[0])\_a.]\n\n\w8\w8[Wszelkie literówki w polskim tłumaczeniue dla FLUXa mogą być zgłaszane do \_a[https://zdzisiu.github.io/Ukagaka/]Zdzicha\_a przez Discorda.]"
+		--
+		"\n\n\![*]\q[Powrót do ustawień,OnConfigMenu]\n\![*]\q[Zamknij,OnCancel]\e"
+	}
+	else //English
+	{
+		"[Bugs with FLUX player's mechanics can be reported to \_a[https://zichqec.github.io/s-the-skeleton/index.html]Zichqec\_a,\w4 via any of her social medias.]\n\n\w8\w8[Bugs in the shell you're currently running, '%(nowshell)',\w4 should be reported to it's dev,\w4 \_a[%(shellauthor[1])]%(shellauthor[0])\_a.]\n\n\w8\w8[Any typos in the English menus/generic dialogue for FLUX can be reported to \_a[https://zichqec.github.io/s-the-skeleton/index.html]Zichqec\_a.]"
+		--
+		"\n\n\![*]\q[Back to Config,OnConfigMenu]\n\![*]\q[Close,OnCancel]\e"
+	}
+}
+
+Select.UpdateCheck //Starts an update check
+{
+	"\![updatebymyself]\e"
+}
+
+onoff
+{
+	//TRANSLATORS: This is for the on/off toggles in the config menu and such! Put your equivalent for On, then a comma, then your equivalent for Off. If this doesn't work for your language for some reason, let me know and we can work something out.
+	if language == "Placeholder"
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"Ein,Aus"
+	}
+	elseif language == "Русский"
+	{
+		"Вкл,Выкл"
+	}
+	elseif language == "Français"
+	{
+		"Activé,Désactivé"
+	}
+	elseif language == "Polski"
+	{
+		"On,Off"
+	}
+	else //English
+	{
+		"On,Off"
+	}
+}
+
+//-----------Shell and Dressups-----------
+On_installedshellname //Gathers available shells
+{
+	ShellList = IARRAY
+	foreach reference; _shell
+	{
+		ShellList ,= _shell
+	}
+}
+
+OnShellMenu //Menu to display all the shells
+{
+	_display = ""
+	for _i = 0; _i < ARRAYSIZE(ShellList); _i++
+	{
+		if ShellList[_i] == nowshell; _display += "\![*]"
+		_display += "\q[%(ShellList[_i]),OnSwitchShell,%(ShellList[_i])]\n"
+	}
+	--
+	if ARRAYSIZE(ShellList) > 16; "\0%(bbb)"
+	else; "\0%(bb)"
+	--
+	"\*\_q\![set,autoscroll,0]"
+	--
+	if language == "Placeholder" //TRANSLATORS: The shell menu. If you're interested in translating the documentation for how to create a FLUX shell, do let me know and I could set it up to open the language-specific documentation
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"\![*]\q[Mehr Shells herunterladen,OnShellUrl]"
+		--
+		"\n\![*]\q[Mache deine eigene Shell,OnCustomShell]"
+		--
+		"\n\![*]\q[Zufällige Shell,OnRandomShell]"
+		--
+		if ARRAYSIZE(ShellList) > 19; "\n\n[half]\![*]\q[Back to menu,OnMenuRun]"
+		--
+		"\n\n%(_display)" //Displays the available shells
+		--
+		"\n\n[half]\![*]\q[zurück zum Hauptmenü,OnMenuRun]"
+		--
+		"\n\![*]\q[Schließen,OnCancel]\e"
+	}
+	elseif language == "Русский"
+	{
+		"\![*]\q[Скачать больше Видов,OnShellUrl]"
+		--
+		"\n\![*]\q[Создать свой собственный Вид,OnCustomShell]"
+		--
+		"\n\![*]\q[Случайный Вид,OnRandomShell]"
+		--
+		if ARRAYSIZE(ShellList) > 19; "\n\n[half]\![*]\q[Назад в Меню,OnMenuRun]"
+		--
+		"\n\n%(_display)" //Displays the available shells
+		--
+		"\n\n[half]\![*]\q[Назад в Меню,OnMenuRun]"
+		--
+		"\n\![*]\q[Закрыть,OnCancel]\e"
+	}
+	elseif language == "Français"
+	{
+		"\![*]\q[Télécharger plus de shells,OnShellUrl]"
+		--
+		"\n\![*]\q[Créer ton propre shell,OnCustomShell]"
+		--
+		"\n\![*]\q[Shell aléatoire,OnRandomShell]"
+		--
+		if ARRAYSIZE(ShellList) > 19; "\n\n[half]\![*]\q[Back to menu,OnMenuRun]"
+		--
+		"\n\n%(_display)" //Displays the available shells
+		--
+		"\n\n[half]\![*]\q[Retour au menu,OnMenuRun]"
+		--
+		"\n\![*]\q[Fermer,OnCancel]\e"
+	}
+	elseif language == "Polski"
+	{
+		"\![*]\q[Pobierz więcej skorup,OnShellUrl]"
+		--
+		"\n\![*]\q[Stwórz własną skorupę,OnCustomShell]"
+		--
+		"\n\![*]\q[Losowa skorupa,OnRandomShell]"
+		--
+		if ARRAYSIZE(ShellList) > 19; "\n\n[half]\![*]\q[Powrót do menu,OnMenuRun]"
+		--
+		"\n\n%(_display)" //Displays the available shells
+		--
+		"\n\n[half]\![*]\q[Powrót do menu,OnMenuRun]"
+		--
+		"\n\![*]\q[Zamknij,OnCancel]\e"
+	}
+	else //English
+	{
+		"\![*]\q[Download more shells,OnShellUrl]"
+		--
+		"\n\![*]\q[Make your own shell,OnCustomShell]"
+		--
+		"\n\![*]\q[Random Shell,OnRandomShell]"
+		--
+		if ARRAYSIZE(ShellList) > 19; "\n\n[half]\![*]\q[Back to menu,OnMenuRun]"
+		--
+		"\n\n%(_display)" //Displays the available shells
+		--
+		"\n\n[half]\![*]\q[Back to menu,OnMenuRun]"
+		--
+		"\n\![*]\q[Close,OnCancel]\e"
+	}
+}
+
+OnShellUrl //Directs the user to my website where I will link any shells I know of
+{
+	"\C\j[https://zichqec.github.io/s-the-skeleton/flux.html]"
+}
+
+OnCustomShell //Opens the documentation file
+{
+	"\C\![open,file,make_your_own_shell]"
+}
+
+OnSwitchShell //Changing shells
+{
+	"\![get,property,OnGetCoords,currentghost.scope(0).rect]\![change,shell,%(reference0),--option=raise-event]"
+}
+
+OnRandomShell
+{
+	"\![get,property,OnGetCoords,currentghost.scope(0).rect]\![change,shell,random,--option=raise-event]"
+}
+
+OnDressupMenu //Menu for dressups
+{
+	//This block is to make sure all characters redisplay their surfaces, in case you're using custom shell code to append intervals
+	_surfaces = ""
+	_i = 0
+	foreach SHIORI3FW.IsVisible; _isvisible
+	{
+		if _isvisible
+		{
+			_surfaces += "\p[%(_i)]\s[%(SHIORI3FW.LastSurface[_i])]"
+		}
+		_i++
+	}
+	
+	_display = "" //Initializing variables
+	_currentcharacters = IARRAY
+	_currentcategories = IARRAY
+	_items = 0
+	if ARRAYSIZE(dressupcharacters) == 1; {reference0 = dressupcharacters[0]}
+	
+	foreach availabledressups; _dressup //For every dressup that the ghost has
+	{
+		_character = _dressup[0,"|"]
+		_category = _dressup[1,"|"] //Gather the character, name, and category of the current dressup
+		_name = _dressup[2,"|"]
+		
+		if reference0 == "" && ASEARCH(_character,_currentcharacters) == -1
+		{
+			_currentcharacters ,= _character //Add the character to the list
+			if language == "Placeholder" //TRANSLATORS: If the shell has more than 1 character, they'll have options to select which character they want to dress up. Character 0 is the Sakura, Character 1 is the Kero, etc. This \__q tag is a lot like an anchor tag, the displayed name of the option is between the \__q[] and \__q. The _character variable is the current character number
+			{
+				
+			}
+			elseif language == "Deutsch"
+			{
+				_display += "\__q[OnDressupMenu,%(_character)]Charakter %(_character)\__q\n"
+			}
+			elseif language == "Русский"
+			{
+				_display += "\__q[OnDressupMenu,%(_character)]Характер %(_character)\__q\n"
+			}
+			elseif language == "Français"
+			{
+				_display += "\__q[OnDressupMenu,%(_character)]Personnage %(_character)\__q\n"
+			}
+			elseif language == "Polski"
+			{
+				_display += "\__q[OnDressupMenu,%(_character)]Postać %(_character)\__q\n"
+			}
+			else //English
+			{
+				_display += "\__q[OnDressupMenu,%(_character)]Character %(_character)\__q\n"
+			}
+		}
+		elseif _character == reference0 && reference1 == "" && ASEARCH(_category,_currentcategories) == -1 //If the user is not in a submenu AND we haven't logged this category yet
+		{
+			_currentcategories ,= _category //Add the category to a list
+			if ASUB("%(_character)|%(_category)|",currentdressups) != -1; _display += "\![*]" //If a dressup in this category is on, add a menu choice marker to it
+			_display += "\__q[OnDressupMenu,%(_character),%(_category)]%(_category)\__q\n" //Make a menu option for it
+		}
+		elseif _character == reference0 && _category == reference1 //Otherwise, if the user IS in a submenu, AND this item matches the current submenu category
+		{
+			_items++
+			_pos = ASEARCH("%(_character)|%(_category)|%(_name)",currentdressups) //See if the name of this item is in the name of dressups currently being used
+			if _pos != -1; _display += "\![*]"
+			_display += "\__q[OnChangeDesign,%(_character),%(_category),%(_name)]%(_name)\__q\n"
+		}
+	}
+	--
+	"\C\![lock,balloonrepaint]%(_surfaces)\c\*\_q\![set,autoscroll,0]"
+	--
+	if language == "Placeholder" //TRANSLATORS: This is the top of the dressup menu. It looks a bit complicated, but most of it is just back buttons tbh.
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		if reference0 == "" //Top level
+		{
+			if ARRAYSIZE(_currentcharacters) > 16; "\0%(bbb)"
+			else; "\0%(bb)"
+			--
+			"Charaktere:"
+			--
+			if ARRAYSIZE(_currentcharacters) > 22; "\n\n\![*]\q[Zurück zum Hauptmenü,OnMenuRun]"
+		}
+		elseif reference1 == "" //After a character is chosen
+		{
+			if ARRAYSIZE(_currentcategories) > 16; "\0%(bbb)"
+			else; "\0%(bb)"
+			--
+			if ARRAYSIZE(dressupcharacters) == 1; "Kategorien:\n\n"
+			else; "Charakter %(reference0) Kategorien:\n\n" //Note: This is when the user clicks into a character submenu. So this is the same as the "Character %(_character)" translation above
+			--
+			"\![*]\q[Zufällige Dressups,OnRandomDressup,%(reference0)]"
+			--
+			if ARRAYSIZE(_currentcategories) > 22
+			{
+				if ARRAYSIZE(dressupcharacters) == 1; "\n\![*]\q[Zurück zum Hauptmenü,OnMenuRun]"
+				else; "\n\![*]\q[Zurück,OnDressupMenu]"
+			}
+		}
+		else //After a category is chosen
+		{
+			if _items > 16; "\0%(bbb)"
+			else; "\0%(bb)"
+			--
+			if ARRAYSIZE(dressupcharacters) == 1; "Kategorie: %(reference1)"
+			else; "Charakter %(reference0) %(reference1):"
+			--
+			if _items > 22; "\n\n\![*]\q[Zurück,OnDressupMenu,%(reference0)]"
+		}
+	}
+	elseif language == "Русский"
+	{
+		if reference0 == "" //Top level
+		{
+			if ARRAYSIZE(_currentcharacters) > 16; "\0%(bbb)"
+			else; "\0%(bb)"
+			--
+			"Characters:"
+			--
+			if ARRAYSIZE(_currentcharacters) > 22; "\n\n\![*]\q[Назад в Меню,OnMenuRun]"
+		}
+		elseif reference1 == "" //After a character is chosen
+		{
+			if ARRAYSIZE(_currentcategories) > 16; "\0%(bbb)"
+			else; "\0%(bb)"
+			--
+			if ARRAYSIZE(dressupcharacters) == 1; "Категория:\n\n"
+			else; "Характер %(reference0) категории:\n\n" //Note: This is when the user clicks into a character submenu. So this is the same as the "Character %(_character)" translation above
+			--
+			"\![*]\q[Случайная Одежда,OnRandomDressup,%(reference0)]"
+			--
+			if ARRAYSIZE(_currentcategories) > 22
+			{
+				if ARRAYSIZE(dressupcharacters) == 1; "\n\![*]\q[Назад в Меню,OnMenuRun]"
+				else; "\n\![*]\q[Назад,OnDressupMenu]"
+			}
+		}
+		else //After a category is chosen
+		{
+			if _items > 16; "\0%(bbb)"
+			else; "\0%(bb)"
+			--
+			if ARRAYSIZE(dressupcharacters) == 1; "Категория: %(reference1)"
+			else; "Характер %(reference0) %(reference1):"
+			--
+			if _items > 22; "\n\n\![*]\q[Назад,OnDressupMenu,%(reference0)]"
+		}
+	}
+	elseif language == "Français"
+	{
+		if reference0 == "" //Top level
+		{
+			if ARRAYSIZE(_currentcharacters) > 16; "\0%(bbb)"
+			else; "\0%(bb)"
+			--
+			"Personnages :"
+			--
+			if ARRAYSIZE(_currentcharacters) > 22; "\n\n\![*]\q[Retour au Menu,OnMenuRun]"
+		}
+		elseif reference1 == "" //After a character is chosen
+		{
+			if ARRAYSIZE(_currentcategories) > 16; "\0%(bbb)"
+			else; "\0%(bb)"
+			--
+			if ARRAYSIZE(dressupcharacters) == 1; "Categories:\n\n"
+			else; "Categories du personnage %(reference0):\n\n" //Note: This is when the user clicks into a character submenu. So this is the same as the "Character %(_character)" translation above
+			--
+			"\![*]\q[Vêtements Aléatoires,OnRandomDressup,%(reference0)]"
+			--
+			if ARRAYSIZE(_currentcategories) > 22
+			{
+				if ARRAYSIZE(dressupcharacters) == 1; "\n\![*]\q[Retour au Menu,OnMenuRun]"
+				else; "\n\![*]\q[Retour,OnDressupMenu]"
+			}
+		}
+		else //After a category is chosen
+		{
+			if _items > 16; "\0%(bbb)"
+			else; "\0%(bb)"
+			--
+			if ARRAYSIZE(dressupcharacters) == 1; "Category: %(reference1)"
+			else; "Personnage %(reference0) %(reference1):"
+			--
+			if _items > 22; "\n\n\![*]\q[Retour,OnDressupMenu,%(reference0)]"
+		}
+	}
+	elseif language == "Polski"
+	{
+		if reference0 == "" //Top level
+		{
+			if ARRAYSIZE(_currentcharacters) > 16; "\0%(bbb)"
+			else; "\0%(bb)"
+			--
+			"Postacie:"
+			--
+			if ARRAYSIZE(_currentcharacters) > 22; "\n\n\![*]\q[Powrót do menu,OnMenuRun]"
+		}
+		elseif reference1 == "" //After a character is chosen
+		{
+			if ARRAYSIZE(_currentcategories) > 16; "\0%(bbb)"
+			else; "\0%(bb)"
+			--
+			if ARRAYSIZE(dressupcharacters) == 1; "Kategorie:\n\n"
+			else; "Kategorie dla %(reference0):\n\n" //Note: This is when the user clicks into a character submenu. So this is the same as the "Character %(_character)" translation above
+			--
+			"\![*]\q[Losowe ubrania,OnRandomDressup,%(reference0)]"
+			--
+			if ARRAYSIZE(_currentcategories) > 22
+			{
+				if ARRAYSIZE(dressupcharacters) == 1; "\n\![*]\q[Powrót do menu,OnMenuRun]"
+				else; "\n\![*]\q[Powrót,OnDressupMenu]"
+			}
+		}
+		else //After a category is chosen
+		{
+			if _items > 16; "\0%(bbb)"
+			else; "\0%(bb)"
+			--
+			if ARRAYSIZE(dressupcharacters) == 1; "Kategoria: %(reference1)"
+			else; "Postać %(reference0) %(reference1):"
+			--
+			if _items > 22; "\n\n\![*]\q[Powrót,OnDressupMenu,%(reference0)]"
+		}
+	}
+	else //English
+	{
+		if reference0 == "" //Top level
+		{
+			if ARRAYSIZE(_currentcharacters) > 16; "\0%(bbb)"
+			else; "\0%(bb)"
+			--
+			"Characters:"
+			--
+			if ARRAYSIZE(_currentcharacters) > 22; "\n\n\![*]\q[Back to Menu,OnMenuRun]"
+		}
+		elseif reference1 == "" //After a character is chosen
+		{
+			if ARRAYSIZE(_currentcategories) > 16; "\0%(bbb)"
+			else; "\0%(bb)"
+			--
+			if ARRAYSIZE(dressupcharacters) == 1; "Categories:\n\n"
+			else; "Character %(reference0) categories:\n\n" //Note: This is when the user clicks into a character submenu. So this is the same as the "Character %(_character)" translation above
+			--
+			"\![*]\q[Random Dressups,OnRandomDressup,%(reference0)]"
+			--
+			if ARRAYSIZE(_currentcategories) > 22
+			{
+				if ARRAYSIZE(dressupcharacters) == 1; "\n\![*]\q[Back to Menu,OnMenuRun]"
+				else; "\n\![*]\q[Back,OnDressupMenu]"
+			}
+		}
+		else //After a category is chosen
+		{
+			if _items > 16; "\0%(bbb)"
+			else; "\0%(bb)"
+			--
+			if ARRAYSIZE(dressupcharacters) == 1; "Category: %(reference1)"
+			else; "Character %(reference0) %(reference1):"
+			--
+			if _items > 22; "\n\n\![*]\q[Back,OnDressupMenu,%(reference0)]"
+		}
+	}
+	--
+	"\n\n%(_display)\n" //The actual display of the items in the current submenu
+	--
+	if language == "Placeholder" //TRANSLATORS: This is the bottom of the dressup menu, much simpler thankfully
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		if reference0 == ""
+		{
+			"\![*]\q[Zurück zum Hauptmenü,OnMenuRun]\n\![*]\q[Schließen,Cancel]"
+		}
+		elseif reference1 == ""
+		{
+			if ARRAYSIZE(dressupcharacters) == 1; "\![*]\q[Zurück zum Hauptmenü,OnMenuRun]"
+			else; "\![*]\q[Zurück,OnDressupMenu]"
+			--
+			"\n\![*]\q[Schließen,Cancel]"
+		}
+		else
+		{
+			"\![*]\q[Zurück,OnDressupMenu,%(reference0)]\n\![*]\q[Schließen,Cancel]"
+		}
+	}
+	elseif language == "Русский"
+	{
+		if reference0 == ""
+		{
+			"\![*]\q[Назад в Меню,OnMenuRun]\n\![*]\q[Закрыть,Cancel]"
+		}
+		elseif reference1 == ""
+		{
+			if ARRAYSIZE(dressupcharacters) == 1; "\![*]\q[Назад в Меню,OnMenuRun]"
+			else; "\![*]\q[Назад,OnDressupMenu]"
+			--
+			"\n\![*]\q[Закрыть,Cancel]"
+		}
+		else
+		{
+			"\![*]\q[Назад,OnDressupMenu,%(reference0)]\n\![*]\q[Закрыть,Cancel]"
+		}
+	}
+	elseif language == "Français"
+	{
+		if reference0 == ""
+		{
+			"\![*]\q[Retour au Menu,OnMenuRun]\n\![*]\q[Fermer,Cancel]"
+		}
+		elseif reference1 == ""
+		{
+			if ARRAYSIZE(dressupcharacters) == 1; "\![*]\q[Retour au Menu,OnMenuRun]"
+			else; "\![*]\q[Retour,OnDressupMenu]"
+			--
+			"\n\![*]\q[Fermer,Cancel]"
+		}
+		else
+		{
+			"\![*]\q[Retour,OnDressupMenu,%(reference0)]\n\![*]\q[Fermer,Cancel]"
+		}
+	}
+	elseif language == "Polski"
+	{
+		if reference0 == ""
+		{
+			"\![*]\q[Powrót do menu,OnMenuRun]\n\![*]\q[Close,Cancel]"
+		}
+		elseif reference1 == ""
+		{
+			if ARRAYSIZE(dressupcharacters) == 1; "\![*]\q[Powrót do menu,OnMenuRun]"
+			else; "\![*]\q[Powrót,OnDressupMenu]"
+			--
+			"\n\![*]\q[Zamknij,Cancel]"
+		}
+		else
+		{
+			"\![*]\q[Powrót,OnDressupMenu,%(reference0)]\n\![*]\q[Zamknij,Cancel]"
+		}
+	}
+	else //English
+	{
+		if reference0 == ""
+		{
+			"\![*]\q[Back to Menu,OnMenuRun]\n\![*]\q[Close,Cancel]"
+		}
+		elseif reference1 == ""
+		{
+			if ARRAYSIZE(dressupcharacters) == 1; "\![*]\q[Back to Menu,OnMenuRun]"
+			else; "\![*]\q[Back,OnDressupMenu]"
+			--
+			"\n\![*]\q[Close,Cancel]"
+		}
+		else
+		{
+			"\![*]\q[Back,OnDressupMenu,%(reference0)]\n\![*]\q[Close,Cancel]"
+		}
+	}
+	--
+	"\![unlock,balloonrepaint]\e"
+}
+
+OnChangeDesign
+{
+	"\C\![set,autoscroll,disable]\0\_q\![bind,%(reference1),%(reference2)] \![raise,OnDressupMenu,%(reference0),%(reference1)]"
+}
+
+OnRandomDressup
+{
+	_command = ""
+	foreach currentdressups; _dressup //Gets the data for all current dressups and removes them
+	{
+		if _dressup[0,"|"] != TOSTR(reference0); continue
+		_category = _dressup[1,"|"]
+		_name = _dressup[2,"|"]
+		_command += "\![bind,%(_category),%(_name),0]"
+	}
+	"\C\p[%(reference0)]%(_command)\![done    removing]" //removes all current dressups
+	--
+	_currentcategories = IARRAY
+	foreach availabledressups; _dressup //For every dressup that the ghost has - This breaks up the big list of all the dressups into categories
+	{
+		if _dressup[0,"|"] != TOSTR(reference0); continue
+		_category = _dressup[1,"|"] //Gather the name and category of the current dressup
+		_name = _dressup[2,"|"]
+		
+		_index = ASUB("%(_category)|",_currentcategories)
+		if _index == -1 //If the user is not in a submenu AND we haven't logged this category yet
+		{
+			_adding = _category + "|"
+			if _dressup[3,"|"] == "mustselect" || _dressup[4,"|"] == "mustselect"; _adding += "!-!mustselect!-!" + "|" //Add the category to a list
+			if _dressup[3,"|"] == "multiple" || _dressup[4,"|"] == "multiple"; _adding += "!-!multiple!-!" + "|" //Add the category to a list
+			_adding += _name
+			_currentcategories ,= _adding
+			
+		}
+		else
+		{
+			_currentcategories[_index] += "|" + _name
+		}
+		
+	}
+	--
+	_command = ""
+	_skipchance = 3
+	foreach _currentcategories; _category //Picks a random dressup from every category
+	{
+		_temp = REPLACE(_category,"|",",") //Changes to comma delimiter
+		_temp = SPLIT(_temp,",") //Makes _temp into a general purpose array
+		_currentctg = _temp[0] //Gets the name of the category
+		
+		_loops = 1 //Always do the loop at least once, I suppose this is what a do-while loop is for haha
+		_multiple = 0
+		_mustselect = 0
+		
+		if _temp[1] == "!-!multiple!-!" || _temp[2] == "!-!multiple!-!" //If it's a multiple option, mark it as such and up the number of loops to be 1 for every dressup available
+		{
+			_multicheck = 1
+			_loops = ARRAYSIZE(_temp) - 2
+		}
+		if _temp[1] == "!-!mustselect!-!" || _temp[2] == "!-!mustselect!-!" //If it's a mustselect, mark it as such. If it's also a multiple, reduce the number of times the loop is run, because this is taking up a slot of the array and we don't want to count it
+		{
+			_mustselect = 1
+			if _multicheck == 1; _loops--
+		}
+		
+		if _temp[2] == "!-!mustselect!-!" || _temp[2] == "!-!multiple!-!" ; _temp[2] = IARRAY //Erase these flags if they're present
+		if _temp[1] == "!-!mustselect!-!" || _temp[1] == "!-!multiple!-!" ; _temp[1] = IARRAY
+		_temp[0] = IARRAY //Erase the category name
+		
+		for _i = 0; _i < _loops; _i++ //Run the loop as determined above
+		{
+			if RAND(_skipchance) != 0 //If it decides it should skip
+			{
+				if _i == 0 //If it's at the start of the category, skip the whole category
+				{
+					if _mustselect == 0; break
+				}
+				else //Otherwise, skip just this one
+				{
+					continue
+				}
+			}
+			
+			_toadd = ANY(_temp) //If it doesn't skip, set _toadd to any dressup on the array
+			_num = LSO //LSO is a function that gets the element number ANY chose
+			_temp[_num] = IARRAY //Erase the dressup that was chosen
+			
+			if _toadd == ""; continue //If it's empty, skip
+			_command += "\![bind,%(_currentctg),%(_toadd),1]" //Otherwise, add to the command
+		}
+	}
+	"%(_command)"
+	--
+	"%(bb) \![raise,OnDressupMenu,%(reference0)]"
+}
+
+OnNotifyDressupInfo
+{
+	availabledressups = IARRAY //This one is to display the dressup menu
+	currentdressups = IARRAY //This one is so we can display which dressups are currently in use
+	dressupcharacters = IARRAY //A list of all the characters with dressups available
+	
+	foreach reference; _dressup //if you just write reference, you get all the references, apparently? Which is super useful
+	{
+		//Ok, so here's the deal. When it lists the dressups, the amount of options that can be specified _varies._ It can be empty, 1, 2, or 3. To the best of my knowledge. SO. This inner loop starts at 3 (because elements 0 1 and 2 are static), checks to see if the next element has a keyword, and skips it if it does. Then when it finds the on/off indicator, it breaks the loop. IT DIDNT HAVE TO BE THIS WAY.
+		_onoff = 0
+		_must = 0
+		_mult = 0
+		for _i = 3; _i < ARRAYSIZE(_dressup); _i++
+		{
+			if _dressup[_i] == "default" || _dressup[_i] == ""; continue
+			elseif _dressup[_i] == "mustselect" {_must = 1; continue}
+			elseif _dressup[_i] == "multiple" {_mult = 1; continue}
+			else; _onoff = _dressup[_i]; break
+		}
+		_toadd = _dressup[0] + "|" + _dressup[1] + "|" + _dressup[2]
+		if _must == 1; _toadd += "|mustselect"
+		if _mult == 1; _toadd += "|multiple"
+		availabledressups ,= _toadd
+		if _onoff == 1; currentdressups ,= _dressup[0] + "|" + _dressup[1] + "|" + _dressup[2]
+		
+		if ASEARCH(_dressup[0],dressupcharacters) == -1; dressupcharacters ,= _dressup[0]
+	}
+}
+
+ASUB //ASEARCH but for substrings
+{
+	_array = _argv //Takes in all the elements of the array
+	_array[0] = IARRAY //erases _argv[0] since that's the string we're searching for
+	for _i = 0; _i < ARRAYSIZE(_array); _i++
+	{
+		if _argv[0] _in_ _array[_i]
+		{
+			_i
+			return
+		}
+	}
+	-1
+}
+
+
+
+OnTestVar
+{
+	LOGGING("Nothing to test right now :)")
+}
+
+OnReloadShellFuncs
+{
+	if reference0 == "done"
+	{
+		if IsEmergencyMode
+		{
+			"\0\s[0]%(b)"
+			--
+			if language == "Placeholder" //TRANSLATORS: If the dev reloads their shell from the main menu and there's an error, this message will appear
+			{
+				
+			}
+			elseif language == "Deutsch"
+			{
+				"[Beim Neu-Laden der Shell-Spezifischen Funktionen ist ein Fehler aufgetreten.\w8\w8 Sie dir das Fehlerprotokoll für genauere Informationen an.]"
+			}
+			elseif language == "Русский"
+			{
+				"[Получилось ошибка, когда загружает пользовательский код внешного вида.\w8\w8 Посмотри на лог изменение, чтобы больше знать.]" 
+			}
+			elseif language == "Français"
+			{
+				"[Erreur lors du rechargement des fonctions personnalisées.\w8\w8 Voir le log de l'erreur pour plus de détails.]"
+			}
+			elseif language == "Polski"
+			{
+				"[Błąd podczas ładowania funkcji niestandardowych.\NSprawdź dziennik błędów, aby uzyskać szczegółowe informacje.]"
+			}
+			else //English
+			{
+				"[Error while reloading custom functions.\w8\w8 Check the error log for details.]"
+			}
+			--
+			"\e"
+		}
+	}
+	else
+	{
+		OnGetCustomShellDialogue
+		--
+		"\![raise,OnReloadShellFuncs,done]"
+	}
+}

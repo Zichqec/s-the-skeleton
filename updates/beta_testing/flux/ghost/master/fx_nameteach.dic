@@ -1,0 +1,678 @@
+//I put anything related to who the user is in here. Name, pronouns, birthday.
+
+OnChangeName
+{
+	"\0%(b)\*\![open,inputbox,OnNameTeach,-1]"
+	--
+	if language == "Placeholder" //TRANSLATORS: Start of changing your name
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"[Gib deinen Namen ein.]"
+		--
+		"\n\n\![*]\q[Abbrechen,OnConfigMenu]\e"
+	}
+	elseif language == "Русский"
+	{
+		"[Написать твоя имя.]"
+		--
+		"\n\n\![*]\q[Отменить,OnConfigMenu]\e"
+	}
+	elseif language == "Français"
+	{
+		"[Rentre le nom que tu désires.]"
+		--
+		"\n\n\![*]\q[Annuler,OnConfigMenu]\e"
+	}
+	elseif language == "Polski"
+	{
+		"[Ustaw swoją nazwę.]"
+		--
+		"\n\n\![*]\q[Anuluj,OnConfigMenu]\e"
+	}
+	else //English
+	{
+		"[Set your desired name.]"
+		--
+		"\n\n\![*]\q[Cancel,OnConfigMenu]\e"
+	}
+}
+
+DefaultUsername
+{
+	if language == "Placeholder" //TRANSLATORS: The default username, if the user doesn't pick one.
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"Benutzer"
+	}
+	elseif language == "Русский"
+	{
+		"Пользователь"
+	}
+	elseif language == "Français"
+	{
+		"Utilisateur"
+	}
+	elseif language == "Polski"
+	{
+		"Użytkownik"
+	}
+	else //English
+	{
+		"User"
+	}
+}
+
+OnNameTeach
+{
+	_name = CUTSPACE(reference.raw[0])
+	_tempname = _name
+	_tempname = TOLOWER(_tempname) //changes it to lowercase
+	_tempname = REPLACE(_tempname," ","") //removes spaces
+	_tempname = REPLACE(_tempname,".","") //removes periods
+	_tempname = REPLACE(_tempname,"-","") //removes dashes
+	
+	"\0%(b)"
+	--
+	if language == "Placeholder" //TRANSLATORS: Setting the new name. FLUX is the only name that is blocked.
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		if _name == username && booting != 1 //If the user gives the exact same name as before. The booting check has to be there in case they put in 'user'
+		{
+			"[Namensänderung wurde abgebrochen.]"
+		}
+		elseif _tempname == "FLUX"
+		{
+			"[Name ungültig.\w8\w8 Versuche es nochmal.]\x\![raise,OnChangeName]\e"
+		}
+		elseif _tempname == "" //If the user doesn't put in anything
+		{
+			username = DefaultUsername
+			
+			"[Du wirst mit %(username) angesprochen werden,\w4 Du kannst das jederzeit in den Einstellungen ändern.]"
+		}
+		else //if it's none of these above names, we can use it. You can add names that just have comments and can still be used, just don't add a \e at the end.
+		{
+			username = _name
+			"[Name wurde als %(username) eingestellt.]"
+		}
+		--
+		"\_q\n\n\![*]\q[Zurück zu Einstellungen,OnConfigMenu]\n\![*]\q[Schließen,OnCancel]\e"
+	}
+	elseif language == "Русский"
+	{
+		if _name == username && booting != 1 //If the user gives the exact same name as before. The booting check has to be there in case they put in 'user'
+		{
+			"[Отменил.]"
+		}
+		elseif _tempname == "FLUX"
+		{
+			"[Этот имен нельзя.\w8\w8 Попробуй еще раз.]\x\![raise,OnChangeName]\e"
+		}
+		elseif _tempname == "" //If the user doesn't put in anything
+		{
+			username = DefaultUsername
+			
+			"[Будешь называть как %(username),\w4 но можно изменить в любое время с меню конфигурации.]"
+		}
+		else //if it's none of these above names, we can use it. You can add names that just have comments and can still be used, just don't add a \e at the end.
+		{
+			username = _name
+			"[Твоя имя теперь %(username).]"
+		}
+		--
+		"\_q\n\n\![*]\q[Назад в Конфигурации,OnConfigMenu]\n\![*]\q[Закрыть,OnCancel]\e"
+	}
+	elseif language == "Français"
+	{
+		if _name == username && booting != 1 //If the user gives the exact same name as before. The booting check has to be there in case they put in 'user'
+		{
+			"\0[Changement de nom annulé.]"
+		}
+		elseif _tempname == "FLUX"
+		{
+			"\0[Nom invalide.\w8\w8 Essaye à nouveau.]\x\![raise,OnChangeName]\e"
+		}
+		elseif _tempname == "" //If the user doesn't put in anything
+		{
+			username = DefaultUsername
+			
+			"\0[Tu seras appelé %(username),\w4 tu peux le changer n'importe quand dans le menu config.]"
+		}
+		else //if it's none of these above names, we can use it. You can add names that just have comments and can still be used, just don't add a \e at the end.
+		{
+			username = _name
+			"\0[Nom défini comme %(username).]"
+		}
+		--
+		"\_q\n\n\![*]\q[Retour à config,OnConfigMenu]\n\![*]\q[Fermer,OnCancel]\e"
+	}
+	elseif language == "Polski"
+	{
+		if _name == username && booting != 1 //If the user gives the exact same name as before. The booting check has to be there in case they put in 'user'
+		{
+			"[Anulowano zmianę nazwy.]"
+		}
+		elseif _tempname == "FLUX"
+		{
+			"[Nieprawidłowa nazwa.\w8\w8 spróbuj ponownie.]\x\![raise,OnChangeName]\e"
+		}
+		elseif _tempname == "" //If the user doesn't put in anything
+		{
+			username = DefaultUsername
+			
+			"[Będziesz określany jako %(username),\w4 można to zmienić w każdej chwili w menu konfiguracji.]"
+		}
+		else //if it's none of these above names, we can use it. You can add names that just have comments and can still be used, just don't add a \e at the end.
+		{
+			username = _name
+			"[Nazwa ustawiona jako %(username).]"
+		}
+		--
+		"\_q\n\n\![*]\q[Powrót do ustawień,OnConfigMenu]\n\![*]\q[Zamknij,OnCancel]\e"
+	}
+	else //English
+	{
+		if _name == username && booting != 1 //If the user gives the exact same name as before. The booting check has to be there in case they put in 'user'
+		{
+			"[Cancelled the name change.]"
+		}
+		elseif _tempname == "FLUX"
+		{
+			"[Invalid name.\w8\w8 Try again.]\x\![raise,OnChangeName]\e"
+		}
+		elseif _tempname == "" //If the user doesn't put in anything
+		{
+			username = DefaultUsername
+			
+			"[You will be referred to as %(username),\w4 you can change this at any time in the config menu.]"
+		}
+		else //if it's none of these above names, we can use it. You can add names that just have comments and can still be used, just don't add a \e at the end.
+		{
+			username = _name
+			"[Name set as %(username).]"
+		}
+		--
+		"\_q\n\n\![*]\q[Back to config,OnConfigMenu]\n\![*]\q[Close,OnCancel]\e"
+	}
+}
+
+OnChangePronoun //Envelope names are the same as the GT template, since I figured most people will be used to them.
+{
+	"\0%(bbb)\_q"
+	--
+	if language == "Placeholder" //TRANSLATORS: If the pronoun system needs something extra in your language, do let me know and we can try to work something out. It's important the user be able to change these, though, because most shells probably won't get translated and may rely on these envelopes.
+	{
+		
+	}
+	elseif language == "Deutsch"  //%(ersie)/%(ihmihr)/%(ihnsie)/%(seinihr)
+	{
+		"[Welche Pronomen möchtest du verwenden?]"
+		--
+		"\n\n\_q/
+		\![*]\q[er/ihm/ihn/sein,OnPronouns,masc]\n/
+		\![*]\q[sie/ihr/sie/ihr,OnPronouns,fem]\n/	
+		\![*]\q[dey/denen/demm/deren,OnPronouns,undef]"
+		--
+		"\n\n\![*]\q[Abbrechen,OnConfigMenu]\e"
+	}
+	elseif language == "Русский" //%(онона)/%(егоее)
+	{
+		"[Как твои местоименение?]"
+		--
+		"\n\n\_q/
+		\![*]\q[Он/Его/Его,OnPronouns,masc]\n/
+		\![*]\q[Она/Ее/Ее,OnPronouns,fem]\n/	
+		\![*]\q[Они/Им/Их,OnPronouns,undef]"
+		--
+		"\n\n\![*]\q[Отменить,OnConfigMenu]\e"
+	}
+	elseif language == "Français" //%(Capitalize(ilelle))/%(Capitalize(luielle))/%(Capitalize(celuicelle))
+	{
+		"[Comment veux-tu qu'on s'adresse à toi ?]"
+		--
+		"\n\n\_q/
+		\![*]\q[Il/Lui/Celui,OnPronouns,masc]\n/
+		\![*]\q[Elle/Elle/Celle,OnPronouns,fem]\n/
+		\![*]\q[Neutre (Il/Lui),OnPronouns,undef]\n/
+		\![*]\q[Neutre (Elle/Elle),OnPronouns,undef-fem]"
+		--
+		"\n\n\![*]\q[Annuler,OnConfigMenu]\e"
+	}
+	elseif language == "Polski" //%(Capitalize(onona))/%(Capitalize(jejjemu))/%(Capitalize(jejjego))
+	{
+		"[Jak chcesz być nazywany?]"
+		--
+		"\n\n\_q/
+		\![*]\q[On/Jemu/Jego,OnPronouns,masc]\n/
+		\![*]\q[Ona/Jej/Jej,OnPronouns,fem]\n/	
+		\![*]\q[Oni/Im/Ich,OnPronouns,undef]"
+		--
+		"\n\n\![*]\q[Anuluj,OnConfigMenu]\e"
+	}
+	else //English
+	{
+		"[How would you like to be referred to?]"
+		--
+		"\n\n\_q/
+		\![*]\q[He/Him/His,OnPronouns,masc]\n/
+		\![*]\q[She/Her/Hers,OnPronouns,fem]\n/	
+		\![*]\q[They/Them/Their,OnPronouns,undef]"
+		--
+		"\n\n\![*]\q[Cancel,OnConfigMenu]\e"
+	}
+}
+
+
+OnPronouns
+{
+	gender = reference0
+	OnConfigMenu
+}
+//Pronoun examples for my own sake:
+//"%(heshe) left that there."
+//"%(hisher) work is really cool."
+//"I'll ask %(himher) later."
+//"%(hesshes) really good at it."
+
+OnChangeBirthday //Pulled a lot of this from the GT template, but I also modified it a lot
+{
+	oldbirthday = birthday
+	"\0%(b)\![open,inputbox,OnUserBornMonth,-1]\*"
+	--
+	if language == "Placeholder" //TRANSLATORS: Starting the birthday input
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"[Gib den Namen oder die Zahl des Monats ein in dem du geboren wurdest.]"
+		--
+		"\n\n\![*]\q[Abbrechen,OnConfigMenu]\e"
+	}
+	elseif language == "Русский"
+	{
+		"[Напиши назва или номер месяц, в котором родились.]"
+		//using the plural bc it would be. a lot. to set up those envelopes just 4 this
+		--
+		"\n\n\![*]\q[Отменить,OnConfigMenu]\e"
+	}
+	elseif language == "Français"
+	{
+		"[Entre le nom ou le numéro de ton mois d'anniversaire.]"
+		--
+		"\n\n\![*]\q[Cancel,OnConfigMenu]\e"
+	}
+	elseif language == "Polski"
+	{
+		"[Napisz nazwę lub numer miesiąca, w którym się urodziłeś.]"
+		--
+		"\n\n\![*]\q[Zamknij,OnConfigMenu]\e"
+	}
+	else //English
+	{
+		"[Write the name or number of the month you were born in.]"
+		--
+		"\n\n\![*]\q[Cancel,OnConfigMenu]\e"
+	}
+}
+
+//birthday[0] - word birthday
+//birthday[1] - number birthday
+//birthday[2] - word month
+//birthday[3] - word day
+//birthday[4] - number month
+//birthday[5] - number day
+//birthday[6] - DD/MM format
+//Use birthday[0] to display the user's birthday, and birthday[1] to do checks with the numbers
+
+OnUserBornMonth
+{
+	_tempmonth = reference0 //this stores what the user put in as a variable called _tempmonth
+	_tempmonth = TOLOWER(TOSTR(_tempmonth)) //changes it to lowercase
+	
+	_month1 = IARRAY
+	_month2 = IARRAY
+	_month3 = IARRAY
+	_month4 = IARRAY
+	_month5 = IARRAY
+	_month6 = IARRAY
+	_month7 = IARRAY
+	_month8 = IARRAY
+	_month9 = IARRAY
+	_month10 = IARRAY
+	_month11 = IARRAY
+	_month12 = IARRAY
+	
+	//TRANSLATORS: These are the month names! Create a new local variable for your language, and write them as a comma separated list, the same as the examples below. Make sure there is a comma at the start, too! That's on purpose.
+	_Placeholder_months = ",,,,,,,,,,,,,"
+	_Deutsch_months = ",jänner,februar,märz,april,mai,juni,juli,august,september,oktober,november,dezember"
+	_Русский_months = ",январь,февраль,марта,апрель,май,июнь,июль,августь,сентябрь,октябрь,ноябрь,декабрь"
+	_Français_months = ",janvier,fevrier,mars,avril,mai,juin,juillet,août,septembre,octobre,novembre,decembre"
+	_Polski_months = ",styczeń,luty,marzec,kwiecień,maj,czerwiec,lipiec,sierpień,wrzesień,październik,listopad,grudzień"
+	_English_months = ",january,february,march,april,may,june,july,august,september,october,november,december"
+	_Number_months = ",1,2,3,4,5,6,7,8,9,10,11,12"
+	
+	//TRANSLATORS: Add the local variable you created above into this array!
+	_All_months = (_Placeholder_months,_Number_months,_English_months,_Polski_months,_Français_months,_Русский_months,_Deutsch_months)
+	
+	foreach _All_months; _language
+	{
+		for _i = 1; _i <= 12; _i++
+		{
+			EVAL("_month%(_i) ,= _language[_i]")
+		}
+	}
+	
+	if ASEARCH(_tempmonth,_month1) != -1; birthday[4] = 1
+	elseif ASEARCH(_tempmonth,_month2) != -1; birthday[4] = 2
+	elseif ASEARCH(_tempmonth,_month3) != -1; birthday[4] = 3
+	elseif ASEARCH(_tempmonth,_month4) != -1; birthday[4] = 4
+	elseif ASEARCH(_tempmonth,_month5) != -1; birthday[4] = 5
+	elseif ASEARCH(_tempmonth,_month6) != -1; birthday[4] = 6
+	elseif ASEARCH(_tempmonth,_month7) != -1; birthday[4] = 7
+	elseif ASEARCH(_tempmonth,_month8) != -1; birthday[4] = 8
+	elseif ASEARCH(_tempmonth,_month9) != -1; birthday[4] = 9
+	elseif ASEARCH(_tempmonth,_month10) != -1; birthday[4] = 10
+	elseif ASEARCH(_tempmonth,_month11) != -1; birthday[4] = 11
+	elseif ASEARCH(_tempmonth,_month12) != -1; birthday[4] = 12
+	else //if the month isn't a valid month, like 32 or something.
+	{
+		"\0%(b)"
+		--
+		if language == "Placeholder" //TRANSLATORS: If the user inputs an invalid month for their birthday
+		{
+			
+		}
+		elseif language == "Deutsch"
+		{
+			"[Monat ungültig.\w8\w8 Bitte versuche es nochmal.]"
+		}
+		elseif language == "Русский"
+		{
+			"[Неправильный месяць.\w8\w8 Попробуй еще раз, пожалуйста.]"
+		}
+		elseif language == "Français"
+		{
+			"[Mois invalide.\w8\w8 Stp essaye à nouveau.]"
+		}
+		elseif language == "Polski"
+		{
+			"[Nieprawidłowy miesiąc.\w8\w8 Proszę spróbować ponownie.]"
+		}
+		else //English
+		{
+			"[Invalid month.\w8\w8 Please try again.]"
+		}
+		--
+		"\x\![raise,OnChangeBirthday]"
+	}
+	--
+	//If it's a valid month - TODO ME, CHANGE THIS PLEASE. IN X. TEMPLATE TOO
+	OnChangeBirthdayDay
+}
+
+OnChangeBirthdayDay
+{
+	birthday[2] = "%(MonthName(birthday[4],language))"
+	
+	"\0%(b)\![open,inputbox,OnUserBornDay,-1]\*"
+	--
+	if language == "Placeholder" //TRANSLATORS: Second stage of inputting your birthday. birthday[2] will be the month name that the user put in
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"[Gib den Tag im %(birthday[2]) ein in dem du geboren wurdest.]"
+		--
+		"\n\n\![*]\q[Abbrechen,OnBirthdayCancel]"
+	}
+	elseif language == "Русский"
+	{
+		"[Напиши, пожалуйста, день, в котором ты родились.]"
+		--
+		"\n\n\![*]\q[Отменить,OnBirthdayCancel]"
+	}
+	elseif language == "Français"
+	{
+		"[Entre le jour de ton anniversaire dans %(birthday[2]).]"
+		--
+		"\n\n\![*]\q[Cancel,OnBirthdayCancel]"
+	}
+	elseif language == "Polski"
+	{
+		"[Wpisz dzień w którym się urodziłeś.]"
+		--
+		"\n\n\![*]\q[Cancel,OnBirthdayCancel]"
+	}
+	else //English
+	{
+		"[Enter the day in %(birthday[2]) that you were born.]"
+		--
+		"\n\n\![*]\q[Cancel,OnBirthdayCancel]"
+	}
+}
+
+OnBirthdayCancel
+{
+	birthday = oldbirthday
+	"\![close,inputbox,OnUserBornDay]\![raise,OnConfigMenu]"
+}
+
+OnUserBornDay
+{
+	_tempday = reference0 //storing the input in _tempday
+	_tempday = TOLOWER(_tempday) //changes it to lowercase
+	_tempday = REPLACE(_tempday,"st","") //if the user types something like 2nd, 3rd, etc, this will make it just the number. It'll just add the suffix back later on the one that actually shows.
+	_tempday = REPLACE(_tempday,"nd","")
+	_tempday = REPLACE(_tempday,"rd","")
+	_tempday = REPLACE(_tempday,"th","")
+	_tempday = TOINT(_tempday) //Converts it to an integer
+	_month = birthday[4] //Just for readability
+	
+	if !IsValidDay(_month,_tempday) //If it isn't a valid day, we open the input box again and have a \e so the dialogue below doesn't play.
+	{
+		"\0%(b)"
+		--
+		if language == "Placeholder" //TRANSLATORS: If the user puts in an invalid day for their birthday
+		{
+			
+		}
+		elseif language == "Deutsch"
+		{
+			"[Tag ungültig,\w4 bitte versuche es nochmal.]"
+		}
+		elseif language == "Русский"
+		{
+			"[Неправильный день,\w4 Попробуй еще раз, пожалуйста.]"
+		}
+		elseif language == "Français"
+		{
+			"[Jour invalide,\w4 Stp rentre-le à nouveau.]"
+		}
+		elseif language == "Polski"
+		{
+			"[Nieprawidłowy dzień,\w4 proszę spróbować ponownie.]"
+		}
+		else //English
+		{
+			"[Invalid day,\w4 please try again.]"
+		}
+		--
+		"\x\![raise,OnChangeBirthdayDay]"
+	}
+	else //All of these only happen if it's a valid birthday
+	{
+		birthday[5] = _tempday
+		birthday[3] = Printday
+		birthday[1] = "%(birthday[4])/%(birthday[5])" //MM/DD format
+		birthday[6] = "%(birthday[5])/%(birthday[4])" //DD/MM format
+		birthday[0] = "%(birthday[2]) %(birthday[3])" //Words format, MM/DD
+		
+		if birthday[1] == "%(month)/%(day)" //if today is the user's birthday. Don't forget to switch this if you change the format to DD/MM
+		{
+			if ISFUNC("OnCustom_BirthdaySet") && CustomFuncs[0] == 1; REPLACE(OnCustom_BirthdaySet,"\e","")
+			else
+			{
+				"\0%(b)"
+				--
+				if language == "Placeholder" //TRANSLATORS: If the user's birthday was set successfully and is today, AND there's no special shell dialogue for it
+				{
+					
+				}
+				elseif language == "Deutsch"
+				{
+					"[Geburtstag wurde auf heute eingestellt.\w8\w8 Alles gute zum Geburtstag, %(username)!]"
+				}
+				elseif language == "Русский"
+				{
+					"[День рождения ставил на сегодняшний день.\w8\w8 С днем рождения %(username)!]"
+				}
+				elseif language == "Français"
+				{
+					"\0%(b)[Anniversaire mis à aujourd'hui.\w8\w8 Bon anniversaire %(username) !]"
+				}
+				elseif language == "Polski"
+				{
+					"[Urodziny ustawione na dzisiaj.\w8\w8 Wszystkiego najlepszego %(username)!]"
+				}
+				else //English
+				{
+					"[Birthday set for today.\w8\w8 Happy birthday %(username)!]"
+				}
+			}
+		}
+		else //if the birthday is not listed above.
+		{
+			//birthday[0] - word birthday (Based on the current language)
+			//birthday[1] - number birthday, MM/DD format
+			//birthday[2] - word month (Based on the current language)
+			//birthday[3] - word day (Based on current language)
+			//birthday[4] - number month
+			//birthday[5] - number day
+			//birthday[6] - number birthday, DD/MM format
+			
+			"\0%(b)"
+			--
+			if language == "Placeholder" //TRANSLATORS: Finishing setting the birthday. Above are the variables that you can use to display the user's birthday, pick and choose what you need.
+			{
+				
+			}
+			elseif language == "Deutsch"
+			{
+				"[Geburtstag wurde als %(birthday[0]) eingestellt.]"
+				--
+				"\n\n\![*]\q[Zurück zu Einstellungen,OnConfigMenu]\n\![*]\q[Schließen,OnCancel]\e"
+			}
+			elseif language == "Русский"
+			{
+				"[День рождения ставил на %(birthday[0]).]"
+				--
+				"\n\n\![*]\q[назад в конфигурации,OnConfigMenu]\n\![*]\q[закрыть,OnCancel]\e"
+			}
+			elseif language == "Français"
+			{
+				"[Anniversaire mis le %(birthday[5]) %(MonthName(birthday[4],language)).]"
+				--
+				"\n\n\![*]\q[Retour à config,OnConfigMenu]\n\![*]\q[Fermer,OnCancel]\e"
+			}
+			elseif language == "Polski"
+			{
+				"[Urodziny ustawione na %(birthday[0]).]"
+				--
+				"\n\n\![*]\q[Powróć do ustawień,OnConfigMenu]\n\![*]\q[Zamknij,OnCancel]\e"
+			}
+			else //English
+			{
+				"[Birthday set as %(birthday[0]).]"
+				--
+				"\n\n\![*]\q[Back to config,OnConfigMenu]\n\![*]\q[Close,OnCancel]\e"
+			}
+		}
+	}
+	ERASEVAR("oldbirthday")
+}
+
+IsValidDay
+{
+	_month = TOINT(_argv[0])
+	_day = TOINT(_argv[1])
+
+	case _month
+	{
+		when 1, 3, 5, 7, 8, 10, 12
+		{
+			if _day >= 1 && _day <= 31; 1
+			else; 0
+		}
+		when 4, 6, 9, 11
+		{
+			if _day >= 1 && _day <= 30; 1
+			else; 0
+		}
+		others //2
+		{
+			if _day >= 1 && _day <= 29; 1
+			else; 0
+		}
+	}
+}
+
+Printday //Sets the appropriate suffix
+{
+	GetDaySuffix(birthday[5],language)
+}
+
+GetDaySuffix
+{
+	if language == "Placeholder" //TRANSLATORS: This is setting up the suffixes for days. _argv[0] is the day number
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"%(_argv[0])"
+	}
+	elseif language == "Русский"
+	{
+		//i think russian and it's numbers changes something here but i cant be bothered to figure it out
+		"%(_argv[0])"
+	}
+	elseif language == "Français"
+	{
+		"%(_argv[0])"
+	}
+	elseif language == "Polski"
+	{
+		//in polish just leave the number, we don't really have smth like this as far as I know
+		"%(_argv[0])"
+	}
+	else //English - _No other language so far has suffixes for this and I'm very confused_
+	{
+		if _argv[0] == 1 || _argv[0] == 21 || _argv[0] == 31
+		{
+			"%(_argv[0])st"
+		}
+		elseif _argv[0] == 2 || _argv[0] == 22
+		{
+			"%(_argv[0])nd"
+		}
+		elseif _argv[0] == 3 || _argv[0] == 23
+		{
+			"%(_argv[0])rd"
+		}
+		else
+		{
+			"%(_argv[0])th"
+		}
+	}
+}

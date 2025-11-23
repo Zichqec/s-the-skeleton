@@ -1,0 +1,417 @@
+OnAiTalk
+{
+	LOGGING("====================================================================")
+	LOGGING("aitalk")
+	LOGGING("talkoption: ",talkoption)
+	LOGGING("Singing: ",Singing)
+	if talkoption == 0 || (talkoption == 1 && Singing) || (talkoption == 2 && !Singing) || reference0 == "Hotkey" || reference0 == "Menu"
+	{
+		if mikireflag == 0
+		{
+			if CHAIN.IDName == ""
+			{
+				lastTalk = RandomTalk
+			}
+			else
+			{
+				lastTalk = ChainTalk
+			}
+		}
+		else
+		{ 
+			lastTalk = MikireTalk
+		}
+		--
+		lastTalk
+	}
+	else; "\e This prevents aitalk from breaking until this issue is fixed" //TODO if this gets patched, remove this bit
+}
+
+
+//nonoverlap means that all possible dialogue candidates will be chosen at least once before any dialogues are repeated. Note that anything within brackets counts as a single dialogue candidate! This causes the probability issues mentioned in the YAYA tips file, and also, if you separate your RandomTalk into different modes or something, you'll have to make them separate functions if you still want to use nonoverlap!
+RandomTalk
+{
+	if ISFUNC("OnCustom_RandomTalk") && CustomFuncs[0] == 1
+	{
+		if SHIORI3FW.BalloonName == "Notes"; "%(b)"
+		--
+		OnCustom_RandomTalk
+	}
+}
+
+//-----------Timekeeping systems and related dialogue-----------
+
+OnMinuteChange
+{
+	if hour == 0 && minute == 0 //Resetting auto updates
+	{
+		AutoUpdates[1] = 0
+		AutoUpdates[3] = 0
+		AutoUpdates[4] = 0
+		AutoUpdates[5] = 0
+	}
+	
+	if HourNotifs[0] == 0 && minute == 0 && hour == 0 && day == 1 && month == 1 //Even if you've got hour notifs off, if there's custom dialogue for the new year it'll display
+	{
+		if ISFUNC("OnCustom_NewYear") && CustomFuncs[0] == 1; OnCustom_NewYear 
+	}
+	elseif minute == 0 && HourNotifs[0] == 1 //Top of the hour notifications
+	{
+		
+		
+		"\0%(b)"
+		--
+		if language == "Placeholder" //TRANSLATORS: Top of the hour notifications, as well as a new years message
+		{
+			
+		}
+		elseif language == "Deutsch"
+		{
+			if hour == 0
+			{
+				if day == 1 && month == 1
+				{
+					if ISFUNC("OnCustom_NewYear") && CustomFuncs[0] == 1; OnCustom_NewYear
+					else; "[Frohes neues Jahr!]\e"
+				}
+				else
+				{
+					"[Es ist Mitternacht.]\e"
+				}
+			}
+			elseif hour == 12
+			{
+				"[Es ist Mittag.]\e"
+			}
+			else
+			{
+				"[Es ist %(hour12) Uhr.]\e"
+			}
+		}
+		elseif language == "Русский"
+		{
+			if hour == 0
+			{
+				if day == 1 && month == 1
+				{
+					if ISFUNC("OnCustom_NewYear") && CustomFuncs[0] == 1; OnCustom_NewYear
+					else; "[С новым годом!]\e"
+				}
+				else
+				{
+					"[Это полночь.]\e"
+				}
+			}
+			elseif hour == 12
+			{
+				"[Это полдень.]\e" //я не знаю если это ж слов или нет
+			}
+			else
+			{
+				"[Это %(hour12) часов.]\e" //? часы?
+			}
+		}
+		elseif language == "Français"
+		{
+			if hour == 0
+			{
+				if day == 1 && month == 1
+				{
+					if ISFUNC("OnCustom_NewYear") && CustomFuncs[0] == 1; OnCustom_NewYear
+					else; "[Bonne année !]\e"
+				}
+				else
+				{
+					"[Il est minuit.]\e"
+				}
+			}
+			elseif hour == 12
+			{
+				"[Il est midi.]\e"
+			}
+			else
+			{
+				"[Il est %(hour12) heure.]\e"
+			}
+		}
+		elseif language == "Polski"
+		{
+			if hour == 0
+			{
+				if day == 1 && month == 1
+				{
+					if ISFUNC("OnCustom_NewYear") && CustomFuncs[0] == 1; OnCustom_NewYear
+					else; "[Szczęśliwego nowego roku!]\e"
+				}
+				else
+				{
+					"[Jest północ.]\e"
+				}
+			}
+			elseif hour == 12
+			{
+				"[Jest połódnie.]\e"
+			}
+			else
+			{
+				"[jest %(hour12) %(ranoorsmth).]\e"
+			}
+		}
+		else //English
+		{
+			if hour == 0
+			{
+				if day == 1 && month == 1
+				{
+					if ISFUNC("OnCustom_NewYear") && CustomFuncs[0] == 1; OnCustom_NewYear
+					else; "[Happy new year!]\e"
+				}
+				else
+				{
+					"[It's midnight.]\e"
+				}
+			}
+			elseif hour == 12
+			{
+				"[It's noon.]\e"
+			}
+			else
+			{
+				"[It's %(hour12) o'clock.]\e"
+			}
+		}
+	}
+	else //Won't do offscreen dialogue or update checks if the top of the hour notif happens instead
+	{
+		if mikireflag == 1 //If the ghost is off the screen, it will run the off screen dialogue every minute
+		{
+			MikireTalk
+		}
+		--
+		if AutoUpdates[0] == 1 && AutoUpdates[1] == 0 //Once a day the ghost will check for updates if the user has auto updates on
+		{
+			AutoUpdates[1] = 1
+			AutoUpdates[3] = 0
+			AutoUpdates[4] = 0
+			AutoUpdates[5] = 0
+			"\![update,ghost,checkonly]"
+		}
+	}
+}
+
+OnSecondChange
+{
+	if runtime[2] >= 59
+	{
+		runtime[2] = 0
+		runtime[1]++
+		if runtime[1] >= 59
+		{
+			runtime[1] = 0
+			runtime[0]++
+			totalhours++
+		}
+	}
+	else
+	{
+		runtime[2]++
+	}
+	if Singing
+	{
+		if playtime[2] >= 59
+		{
+			playtime[2] = 0
+			playtime[1]++
+			if playtime[1] >= 59
+			{
+				playtime[1] = 0
+				playtime[0]++
+			}
+		}
+		else
+		{
+			playtime[2]++
+		}
+	}
+	if DiscordDisplay[1] == 2 && SHIORI3FW.CanTalk //If FLUX was chosen on the Discord plugin and that hasn't been handled yet
+	{
+		DiscordDisplay[1] = 1
+		if BalloonCheck; "\C"
+		--
+		"\![raise,OnDiscordPluginBoot]"
+	}
+	--
+	if SHIORI3FW.CanTalk //If not talking
+	{
+		SinceTalk++
+	}
+	else
+	{
+		SinceTalk = 0
+	}
+	if InstalledShellName != "" //If the user installed a shell that's supposed to be only FLELE compatible
+	{
+		void OnEmptyTempFolder
+		
+		"\0\s[0]%(b)\*"
+		--
+		if language == "Placeholder" //TRANSLATORS: After installing a new shell. This one happens when FLUX uses my workaround to install FLELE shells that are set up to only be installed by FLELE. It should match the normal shell installed dialogue, except for the envelope used. InstalledShellName will be the name of the shell.
+		{
+			
+		}
+		elseif language == "Deutsch"
+		{
+			"['%(InstalledShellName)' erfolgreich installiert.]\n\n"
+			--
+			"\![*]\q[Zu %(InstalledShellName) wechseln,OnChangeToShell,%(InstalledShellName)]\n\n/
+			\![*]\q[Schließen,OnCancel]"
+		}
+		elseif language == "Русский"
+		{
+			"[Удалось Установить '%(InstalledShellName)'.]\n\n"
+			--
+			"\![*]\q[Сменить в %(InstalledShellName),OnChangeToShell,%(InstalledShellName)]\n\n/
+			\![*]\q[Закрыть,OnCancel]"
+		}
+		elseif language == "Français"
+		{
+			"\0\s[0]\*['%(InstalledShellName)' installé avec succès.]\n\n"
+			--
+			"\![*]\q[Changer pour %(InstalledShellName),OnChangeToShell,%(InstalledShellName)]\n\n/
+			\![*]\q[Fermer,OnCancel]"
+		}
+		elseif language == "Polski"
+		{
+			"[Zainstalowałem '%(InstalledShellName)'.]\n\n"
+			--
+			"\![*]\q[Zmień na %(InstalledShellName),OnChangeToShell,%(InstalledShellName)]\n\n/
+			\![*]\q[Zamknij,OnCancel]"
+		}
+		else //English
+		{
+			"[Successfully installed '%(InstalledShellName)'.]\n\n"
+			--
+			"\![*]\q[Change to %(InstalledShellName),OnChangeToShell,%(InstalledShellName)]\n\n/
+			\![*]\q[Close,OnCancel]"
+		}
+		--
+		"\![raise,OnDialogueVars,InstalledNewShell]\e"
+		ERASEVAR("DraggedFile")
+	}
+	elseif mikireflag == 0 && reference1 == 1 //Dialogue for putting them off the screen. You could make this a unique line if you wanted, and have MikireTalk be for if they continue to be offscreen
+	{
+		MikireTalk
+	}
+	elseif mikireflag == 1 && reference1 == 0 //Dialogue for coming back on the screen
+	{
+		EndMikireTalk
+	}
+	elseif ARRAYSIZE(waitingcommuS) > 0 && second % 5 == 0 //Every 5 seconds, check if the balloon is closed and a communication is waiting, and if so trigger a response
+	{
+		_b = BalloonCheck
+		if _b == 0; WaitingCommu
+	}
+	mikireflag = reference1 //reference1 is if the ghost is offscreen or not
+}
+
+MikireTalk //Off the screen dialogue. Ctrl Shift F12 will bring characters back onto the screen
+{
+	"\0%(b)"
+	--
+	if language == "Placeholder" //TRANSLATORS: If FLUX is off screen. Ctrl-Shift-F12 is the key combination to bring it back
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"[FLUX-Player ist außerhalb des Bildschirms.\w8\w8 Du kannst ihn zurückholen indem du Ctrl-Shift-F12 drückst.]\e"
+	}	
+	elseif language == "Русский"
+	{
+		"[Плеер FLUX не на экране.\w8\w8 Ты можешь его вернуть с Ctrl-Shift-F12.]\e"
+	}
+	elseif language == "Français"
+	{
+		"[Le lecteur FLUX est hors de l'écran.\w8\w8 Tu peux le ramener avec Ctrl-Shift-F12.]\e"
+	}
+	elseif language == "Polski"
+	{
+		"[FLUX player jest poza ekranem.\w8\w8 Możesz go przywrócić klikająć Ctrl-Shift-F12.]\e"
+	}
+	else //English
+	{
+		"[FLUX player is off screen.\w8\w8 You can bring it back with Ctrl-Shift-F12.]\e"
+	}
+}
+
+EndMikireTalk //Being brought back on the screen.
+{
+	"\0%(b)"
+	--
+	if language == "Placeholder" //TRANSLATORS: Bringing FLUX back on screen
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"[FLUX-Player ist wieder auf dem Bildschirm.]\e"
+	}	
+	elseif language == "Русский"
+	{
+		"[Плеер FLUX вернулась к экране.]\e"
+	}
+	elseif language == "Français"
+	{
+		"[Le lecteur FLUX est de retour sur l'écran.]\e"
+	}
+	elseif language == "Polski"
+	{
+		"[FLUX player jest spowrotem na ekranie.]\e"
+	}
+	else //English
+	{
+		"[FLUX player is back on screen.]\e"
+	}
+}
+
+OnOverlap
+{
+	if "0-1" _in_ reference0 || "1-0" _in_ reference0
+	{
+		if ISFUNC("OnCustom_Overlap"); OnCustom_Overlap
+	}
+	else
+	{
+		if ISFUNC("OnCustom_OverlapExtra"); OnCustom_OverlapExtra
+	}
+}
+
+OnSurfaceRestore //OnSurfaceRestore happens around 30 seconds after the ghost's last dialogue. reference0 here stores the number of the previous surface, so you can have them comment when they change back if you like.
+{
+	if Singing; SingingSurfaces //If a song is playing
+	else; NonSingingSurfaces //If no song is playing
+	--
+	"\e"
+}
+
+NonSingingSurfaces
+{
+	if ISFUNC("OnCustom_IdleSurfaces") && CustomFuncs[0] == 1; REPLACE(OnCustom_IdleSurfaces,"\e","")
+	else
+	{
+		if SHIORI3FW.IsVisible[1] != 0; "\1\s[-1]"
+		--
+		if SHIORI3FW.LastSurface[0] != 0 || SHIORI3FW.Eventid == "OnWindowStateRestore"; "\0\s[0]"
+	}
+}
+
+SingingSurfaces
+{
+	if ISFUNC("OnCustom_SingingSurfaces") && CustomFuncs[0] == 1; REPLACE(OnCustom_SingingSurfaces,"\e","")
+	else
+	{
+		if SHIORI3FW.IsVisible[1] != 0; "\1\s[-1]"
+		--
+		if SHIORI3FW.LastSurface[0] != 25 || SHIORI3FW.Eventid == "OnWindowStateRestore" || SHIORI3FW.Eventid == "OnShellChanged" || SHIORI3FW.Eventid == "OnGetCoords2"; "\0\s[25]"
+	}
+}

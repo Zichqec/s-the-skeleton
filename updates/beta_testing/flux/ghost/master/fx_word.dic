@@ -1,0 +1,707 @@
+//-----Envelopes-----
+
+b //Small balloon
+{
+	if SHIORI3FW.BalloonName == "Notes"
+	{
+		if balloonmode == 1; "\b[6]" //Light
+		else; "\b[0]" //Dark
+	}
+	else
+	{
+		"\b[0]"
+	}
+}
+
+bb //Large balloon
+{
+	if SHIORI3FW.BalloonName == "Notes"
+	{
+		if balloonmode == 1; "\b[8]" //Light
+		else; "\b[2]" //Dark
+	}
+	else
+	{
+		"\b[2]"
+	}
+}
+
+bbb //Extra large balloon
+{
+	if SHIORI3FW.BalloonName == "Notes"
+	{
+		if balloonmode == 1; "\b[10]" //Light
+		else; "\b[4]" //Dark
+	}
+	else
+	{
+		"\b[2]"
+	}
+}
+
+//TRANSLATORS: Right, so here's the deal. Pronouns between languages... are complicated. So I've decided that each language gets its own pronoun functions! I'll leave the english functions at the top as an example, you can copy that format if you want, or you can set them up however you need. If you're not sure what to do, talk with me and I can help you with this! The english pronoun functions are heshe, himher, hisher, and hishers. You could also call them something like they, them, their, theirs, if you wanted, if it makes it shorter. Whatever you think will be intuitive for shell developers, as those are the people who will be using these!
+
+
+//English
+heshe
+{
+	if gender == "masc"; "he"
+	elseif gender == "fem"; "she"
+	else; "they" //Neutral
+}
+
+himher
+{
+	if gender == "masc"; "him"
+	elseif gender == "fem"; "her"
+	else; "them" //Neutral
+}
+
+hisher
+{
+	if gender == "masc"; "his"
+	elseif gender == "fem"; "her"
+	else; "their" //Neutral
+}
+
+hesshes
+{
+	if gender == "masc"; "he's"
+	elseif gender == "fem"; "she's"
+	else; "they're" //Neutral
+}
+
+//German
+ersie
+{
+	if gender == "masc"; "er"
+	elseif gender == "fem"; "sie"
+	else; "dey" //the neutral ones are neopronouns because german doesn't really have a neutral form for people, I hope that's ok -Koguri3108
+}
+
+ihnsie
+{
+	if gender == "masc"; "ihn"
+	elseif gender == "fem"; "sie"
+	else; "demm"
+}
+
+ihmihr
+{
+	if gender == "masc"; "ihm"
+	elseif gender == "fem"; "ihr"
+	else; "denen"
+}
+
+seinihr
+{
+	if gender == "masc"; "sein"
+	elseif gender == "fem"; "ihr"
+	else; "deren"
+}
+
+seineihre
+{
+	if gender == "masc"; "seine"
+	elseif gender == "fem"; "ihre"
+	else; "deren"
+}
+
+seinerihrer
+{
+	if gender == "masc"; "seiner"
+	elseif gender == "fem"; "ihrer"
+	else; "derer"
+}
+
+//Russian
+онона
+{
+	if gender == "masc"; "он"
+	elseif gender == "fem"; "она"
+	else; "они" //Neutral
+}
+
+егоее
+{
+	if gender == "masc"; "его"
+	elseif gender == "fem"; "ее"
+	else; "их" //Neutral
+}
+
+негонее
+{
+	if gender == "masc"; "него"
+	elseif gender == "fem"; "неё"
+	else; "них" //Neutral
+}
+
+негонеё {негонее}
+
+емуей
+{
+	if gender == "masc"; "ему"
+	elseif gender == "fem"; "ей"
+	else; "им" //Neutral
+}
+
+имей
+{
+	if gender == "masc"; "им"
+	elseif gender == "fem"; "ей"
+	else; "ими" //Neutral
+}
+
+нимней
+{
+	if gender == "masc"; "ним"
+	elseif gender == "fem"; "ней"
+	else; "ними" //Neutral
+}
+
+немней
+{
+	if gender == "masc"; "нём"
+	elseif gender == "fem"; "ней"
+	else; "них" //Neutral
+}
+
+нёмней {немней}
+
+лла
+{
+	if gender == "masc"; "л"
+	elseif gender == "fem"; "ла"
+	else; "ли" //Neutral
+}
+
+лсялась
+{
+	if gender == "masc"; "лся"
+	elseif gender == "fem"; "лась"
+	else; "лись" //Neutral
+}
+
+ойая
+{
+	if gender == "masc"; "ой"
+	elseif gender == "fem"; "ая"
+	else; "ой" //Neutral
+}
+
+ийая
+{
+	if gender == "masc"; "ий"
+	elseif gender == "fem"; "ая"
+	else; "ие" //Neutral
+}
+
+ыйая
+{
+	if gender == "masc"; "ый"
+	elseif gender == "fem"; "ая"
+	else; "ые" //Neutral
+}
+
+//French
+ilelle
+{
+	if gender == "masc"; "il"
+	elseif gender == "fem"; "elle"
+	elseif gender == "undef-fem"; "elle"
+	else; "il" //Undef (masc)
+}
+
+luielle
+{
+	if gender == "masc"; "lui"
+	elseif gender == "fem"; "elle"
+	elseif gender == "undef-fem"; "elle"
+	else; "lui" //Undef (masc)
+}
+
+celuicelle
+{
+	if gender == "masc"; "celui"
+	elseif gender == "fem"; "celle"
+	elseif gender == "undef-fem"; "celle"
+	else; "celui" //Undef (masc)
+}
+
+
+
+
+//Polish
+onona
+{
+	if gender == "masc"; "on"
+	elseif gender == "fem"; "ona"
+	else; "oni" //Neutral
+}
+
+jejjemu
+{
+	if gender == "masc"; "jemu"
+	elseif gender == "fem"; "jej"
+	else; "im" //Neutral
+}
+
+jejjego
+{
+	if gender == "masc"; "jego"
+	elseif gender == "fem"; "jej"
+	else; "ich" //Neutral
+}
+
+jestsa
+{
+	if gender == "masc"; "on jest"
+	elseif gender == "fem"; "ona jest"
+	else; "oni są" //Neutral
+}
+
+
+
+
+//---End of the pronoun functions---
+
+//Check if the ghost is in emergency mode
+IsEmergencyMode
+{
+	if GETSETTING('coreinfo.mode') == "emergency"; 1
+	else; 0
+}
+
+//If you write all your envelopes as lowercase, you can send them through this function whenever you need the first letter capitalized! It'd look something like this: "%(Capitalize(exampleenvelope))"
+Capitalize
+{
+	_word = _argv[0] //Sets _word to the word the user sent
+	_buffer = SUBSTR(_word,0,1) //Storing the first character in _buffer
+	_word = ERASE(_word,0,1) //Erasing the first character from _word
+	_word = INSERT(_word,0,TOUPPER(_buffer)) //Making the character in _buffer uppercase and inserting it back into _word
+	_word //Returns the capitalized word
+}
+
+//-----Menu stuff-----
+season //Current season
+{
+	if hemisphere == 1 //Southern hemisphere
+	{
+		if month > 2 && month < 6; "Autumn"
+		elseif month > 5 && month < 9; "Winter"
+		elseif month > 8 && month < 12; "Spring"
+		else; "Summer"
+	}
+	else //Northern hemisphere
+	{
+		if month > 2 && month < 6; "Spring"
+		elseif month > 5 && month < 9; "Summer"
+		elseif month > 8 && month < 12; "Autumn"
+		else; "Winter"
+	}
+}
+
+nowhour //hour12 displays the hour like a 12 hour clock, except for 12 which is displayed as 0
+{
+	if clockmode == 1 //24 hour
+	{
+		"%(hour)"
+	}
+	else //12 hour
+	{
+		if hour12 == 0; "12"
+		else; "%(hour12)"
+	}
+}
+
+nowmin //Adding a 0 to the minute if it's under 10
+{
+	if minute < 10; "0%(minute)"
+	else; "%(minute)"
+}
+
+runmin //Same as above but with the runtime minutes
+{
+	if runtime[1] < 10; "0%(runtime[1])"
+	else; "%(runtime[1])"
+}
+
+ap //AM or PM - ampm is 0 during am, and 1 during pm
+{
+ 	if ampm == 0; "AM"
+ 	else; "PM"
+}
+
+ranoorsmth //Translator note from Zdzisiu: This is an envelope for Polish time to replace am/pm
+{
+	if hour < 12 && hour >= 4
+	{
+		"rano"
+	}
+	elseif hour < 16
+	{
+		"po południu"
+	}
+	elseif hour < 20
+	{
+		"wieczorem"
+	}
+	elseif hour >= 20 && hour < 4
+	{
+		"w nocy"
+	}
+}
+
+nowhemisphere
+{
+	if language == "Placeholder" //TRANSLATORS: labels for hemispheres, for the config menu
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		if hemisphere == 1 //Southern Hemisphere
+		{
+			"Südlich"
+		}
+		else //Northern hemisphere
+		{
+			"Nördlich"
+		}
+	}
+	elseif language == "Русский"
+	{
+		if hemisphere == 1 //Southern Hemisphere
+		{
+			"Южном"
+		}
+		else //Northern hemisphere
+		{
+			"Северном" //так как песня северная лень, помни? каждый раз...
+		}
+	}
+	elseif language == "Français"
+	{
+		if hemisphere == 1 //Southern Hemisphere
+		{
+			"Sud"
+		}
+		else //Northern hemisphere
+		{
+			"Nord"
+		}
+	}
+	elseif language == "Polski"
+	{
+		if hemisphere == 1 //Southern Hemisphere
+		{
+			"Południowa"
+		}
+		else //Northern hemisphere
+		{
+			"Północna"
+		}
+	}
+	else //English
+	{
+		if hemisphere == 1 //Southern Hemisphere
+		{
+			"Southern"
+		}
+		else //Northern hemisphere
+		{
+			"Northern"
+		}
+	}
+}
+
+wd //Abbreviated week day
+{
+	if weekday == 0; "Sun"
+	elseif weekday == 1; "Mon"
+	elseif weekday == 2; "Tue"
+	elseif weekday == 3; "Wed"
+	elseif weekday == 4; "Thu"
+	elseif weekday == 5; "Fri"
+	else; "Sat"
+}
+
+nowday //Full week day
+{
+	_day = weekday
+	if _argv[0] == "next"
+	{
+		_day++
+		if _day > 6; _day = 0
+	}
+	if _argv[0] == "last"
+	{
+		_day--
+		if _day < 0; _day = 6
+	}
+	
+	if _day == 0; "Sunday"
+	elseif _day == 1; "Monday"
+	elseif _day == 2; "Tuesday"
+	elseif _day == 3; "Wednesday"
+	elseif _day == 4; "Thursday"
+	elseif _day == 5; "Friday"
+	else; "Saturday"
+}
+
+nowmonth //The current month name
+{
+	_month = month
+	if _argv[0] == "next"
+	{
+		_month++
+		if _month > 12; _month = 1
+	}
+	if _argv[0] == "last"
+	{
+		_month--
+		if _month < 1; _month = 12
+	}
+	
+	if _month == 1; "January"
+	elseif _month == 2; "February"
+	elseif _month == 3; "March"
+	elseif _month == 4; "April"
+	elseif _month == 5; "May"
+	elseif _month == 6; "June"
+	elseif _month == 7; "July"
+	elseif _month == 8; "August"
+	elseif _month == 9; "September"
+	elseif _month == 10; "October"
+	elseif _month == 11; "November"
+	else; "December"
+}
+
+MonthName
+{
+	_lang = ""
+	_1 = "" //January
+	_2 = "" //February
+	_3 = "" //March
+	_4 = "" //April
+	_5 = "" //May
+	_6 = "" //June
+	_7 = "" //July
+	_8 = "" //August
+	_9 = "" //September
+	_10 = "" //October
+	_11 = "" //November
+	_12 = "" //December
+	
+	if _argv[1] == "Placeholder" //TRANSLATORS: The check here for languages is slightly different, make sure to copy the format carefully! Same goes with the one below.
+	{
+		
+	}
+	elseif _argv[1] == "Deutsch"
+	{
+		_lang = "Deutsch"
+	}
+	elseif _argv[1] == "Русский"
+	{
+		_lang = "Русский"
+	}
+	elseif _argv[1] == "French"
+	{
+		_lang = "French"
+	}
+	elseif _argv[1] == "Polski"
+	{
+		_lang = "Polski"
+	}
+	else
+	{
+		_lang = language
+	}
+	--
+	if _lang == "Placeholder" //TRANSLATORS: Copy the set of local variables, and fill in the month names for each one.
+	{
+		
+	}
+	elseif _lang == "Deutsch"
+	{
+		_1 = "Januar" //January
+		_2 = "Februar" //February
+		_3 = "März" //March
+		_4 = "April" //April
+		_5 = "Mai" //May
+		_6 = "Juni" //June
+		_7 = "Juli" //July
+		_8 = "August" //August
+		_9 = "September" //September
+		_10 = "Oktober" //October
+		_11 = "November" //November
+		_12 = "Dezember" //December
+	}
+	elseif _lang == "Русский"
+	{
+		_1 = "Январь" //January
+		_2 = "Февраль" //February
+		_3 = "Марта" //March
+		_4 = "Апрель" //April
+		_5 = "Май" //May
+		_6 = "Июнь" //June
+		_7 = "Июль" //July
+		_8 = "Августь" //August
+		_9 = "Сентябрь" //September
+		_10 = "Октябрь" //October
+		_11 = "Ноябрь" //November
+		_12 = "Декабрь" //December
+	}
+	elseif _lang == "French"
+	{
+		_1 = "Janvier" //January
+		_2 = "Février" //February
+		_3 = "Mars" //March
+		_4 = "Avril" //April
+		_5 = "Mai" //May
+		_6 = "Juin" //June
+		_7 = "Juillet" //July
+		_8 = "Août" //August
+		_9 = "Septembre" //September
+		_10 = "Octobre" //October
+		_11 = "Novembre" //November
+		_12 = "Décembre" //December
+	}
+	elseif _lang == "Polski"
+	{
+		_1 = "Styczeń" //January
+		_2 = "Luty" //February
+		_3 = "Marzec" //March
+		_4 = "Kwiecień" //April
+		_5 = "Maj" //May
+		_6 = "Czerwiec" //June
+		_7 = "Lipiec" //July
+		_8 = "Sierpień" //August
+		_9 = "Wrzesień" //September
+		_10 = "Październik" //October
+		_11 = "Listopad" //November
+		_12 = "Grudzień" //December
+	}
+	else //English
+	{
+		_1 = "January" //January
+		_2 = "February" //February
+		_3 = "March" //March
+		_4 = "April" //April
+		_5 = "May" //May
+		_6 = "June" //June
+		_7 = "July" //July
+		_8 = "August" //August
+		_9 = "September" //September
+		_10 = "October" //October
+		_11 = "November" //November
+		_12 = "December" //December
+	}
+	
+	if _argv[0] == 1; _1
+	elseif _argv[0] == 2; _2
+	elseif _argv[0] == 3; _3
+	elseif _argv[0] == 4; _4
+	elseif _argv[0] == 5; _5
+	elseif _argv[0] == 6; _6
+	elseif _argv[0] == 7; _7
+	elseif _argv[0] == 8; _8
+	elseif _argv[0] == 9; _9
+	elseif _argv[0] == 10; _10
+	elseif _argv[0] == 11; _11
+	elseif _argv[0] == 12; _12
+}
+
+//From the GT template. Breaking down the day into a few distinct chunks so you dont have to add checks for every hour.
+timeslot
+{
+	case hour
+	{
+		when 5-8; "earlymorning" //5-8am
+		when 9-11; "morning" //9-11am
+		when 12-14; "lunch" //12-2pm
+		when 15-17; "afternoon" //3-5pm
+		when 18-20; "evening" //6-8pm
+		when 21-24; "latenight" //9pm-12am
+		others; "midnight" //1-4am
+	}
+}
+
+leapyear //Checks if this is a leap year
+{
+    if year % 4 != 0; 0
+    elseif year % 100 != 0; 1
+    elseif year % 400 != 0; 0
+    else; 1
+}
+
+
+
+//---Flag---
+//Checks to see if a flag exists (is "set") in the MiscFlags array.
+//Argument 0: The flag you want to check for
+//Note, if you want to add a flag to the flag system, write it like so: MiscFlags ,= "Some flag"
+
+//if Flag("Discovered her darkest secrets") == 1
+
+Flag //Checks to see if a flag exists. Returns 1 if yes, returns 0 if no
+{
+	if ASEARCH(_argv[0],MiscFlags) != -1; 1
+	else; 0
+}
+
+
+//---RemoveFlag---
+//Removes all instances of a flag from the MiscFlags array. Returns 0 if there was no flag to erase.
+//Argument 0: The flag you want to "unset", or erase.
+
+//RemoveFlag("Discovered her darkest secrets")
+
+RemoveFlag //Removes all instances of a flag in the array.
+{
+	_elements = ASEARCHEX(_argv[0],MiscFlags)
+	if ARRAYSIZE(_elements) > 0
+	{
+		for _i = ARRAYSIZE(_elements) - 1; _i >= 0; _i-- //Goes from the end of the list to the start, so the elements stay in the same positions while we erase
+		{
+			_current = _elements[_i]
+			MiscFlags[_current] = IARRAY
+		}
+	}
+}
+
+Singing //Returns 1 if singing, 0 if not
+{
+	if NowPlaying[0] == "" || NowPlaying[2] != ""
+	{
+		0
+	}
+	else
+	{
+		1
+	}
+}
+
+CurrentSong
+{
+	_currentsong = SPLITPATH(NowPlaying[0])[2]
+	_currentsong = REPLACE(_currentsong,"%(C_BYTE1)",",")
+	_currentsong = REPLACE(_currentsong,"]","\]")
+	_currentsong
+}
+
+n
+{
+	"\f[name,arial]♪\f[name,default]"
+	"\f[name,arial]♫\f[name,default]"
+}
+
+n1
+{
+	"\f[name,arial]♪\f[name,default]"
+}
+
+n2
+{
+	"\f[name,arial]♫\f[name,default]"
+}

@@ -1,0 +1,261 @@
+OnTranslate
+{
+	_talk = reference0
+	
+	
+	//---Important other stuff, written by Ponapalt---
+	if reference1 == "" && reference2 == ""
+	{ //send input box : no event (ref2) , no special flag (ref1)
+		EVAL('"' + REPLACE(_talk,'"','" + CHR(0x22) + "') + '"')
+	}
+    else
+	{ //event result from ghost
+		TOSTR(_talk)
+	}
+}
+
+OnDiscordPluginCustom
+{
+	DiscordDisplay[1] = 2
+}
+
+OnDiscordPluginCustomEnd
+{
+	DiscordDisplay[1] = 0
+}
+
+OnDiscordPluginBoot
+{
+	if Singing; _song = "♫ %(CHR(34))%(SPLITPATH(NowPlaying[0])[2])%(CHR(34)) ♫"
+	
+	"\![raiseplugin,Discord Rich Presence,OnDiscordPluginCustomALL,903843216200179753,,,thumbnail,https://zichqec.github.io/s-the-skeleton/flux,]"
+	--
+	if DiscordDisplay[0]
+	{
+		"\![raiseplugin,Discord Rich Presence,OnDiscordPluginCustomDetail,Shell: %(CHR(34))%(nowshell)%(CHR(34))]"
+		--
+		"\![raiseplugin,Discord Rich Presence,OnDiscordPluginCustomState,%(_song)]"
+	}
+	--
+	if debug
+	{
+		"\![raiseplugin,Discord Rich Presence,OnDiscordPluginCustomSmallImageKey,dev]"
+		--
+		"\![raiseplugin,Discord Rich Presence,OnDiscordPluginCustomSmallImageText,Shell dev]"
+	}
+}
+
+TooltipLabels
+{
+	//Play,Stop,Pause,Resume,Next,Previous,Menu,Music Controls,Clear Playlist,Stop after current song,Minimize,Close FLUX
+	if language == "Placeholder" //TRANSLATORS: A list of the labels needed for hotspot tool tips
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"Start,Stop,Pause,Fortsetzen,Nächstes Lied,Vorheriges Lied,Menü,Musik-Bedienung,Playlist leeren,Nach derzeitigem Lied stoppen,Minimieren,FLUX schließen"
+	}
+	elseif language == "Русский"
+	{
+		//TODO Russian need the last couple tooltips
+		"Играть,Остановить,Пауза,Продолжить,Следующий,Предыдущий,Меню,Управления Музыка,Отчистить Плейлист"
+	}
+	//TODO French
+	elseif language == "Polski"
+	{
+		"Odtwórz,Zatrzymaj,Wstrzymaj,Wznów,Następny,Poprzedni,Menu,Sterowanie muzyką,Wyczyść listę odtwarzania,Zatrzymaj po zakończeniu utworu,Minimalizuj,Zamknij FLUX"
+	}
+	else //English
+	{
+		"Play,Stop,Pause,Resume,Next,Previous,Menu,Music Controls,Clear Playlist,Stop after current song,Minimize,Close FLUX" //Stop after current song,Minimize,Close FLUX
+	}
+}
+
+UpdateTooltips
+{
+	_p = "currentghost.seriko.tooltip.scope(0).textlist"
+	
+	_play_button = ""
+	_stop_button = ""
+	_k_window = ""
+	_clear_button = ""
+	_menu = ""
+	_pause_button = ""
+	_next_button = ""
+	_previous_button = ""
+	_stop_after_current = ""
+	_minimize = ""
+	_end_sect = ""
+	
+	if TooltipDisplay == 1
+	{
+		if Singing
+		{
+			_play_button = TooltipLabels[4]
+			_pause_button = TooltipLabels[2]
+		}
+		else
+		{
+			_play_button = TooltipLabels[0]
+			_pause_button = TooltipLabels[3]
+		}
+		_stop_button = TooltipLabels[1]
+		_next_button = TooltipLabels[4]
+		_previous_button = TooltipLabels[5]
+		_menu = TooltipLabels[6]
+		_k_window = TooltipLabels[7]
+		_clear_button = TooltipLabels[8]
+		_stop_after_current = TooltipLabels[9]
+		_minimize = TooltipLabels[10]
+		_end_sect = TooltipLabels[11]
+	}
+	
+	//\![set,property,currentghost.seriko.tooltip.scope(0).textlist(play_button).text,play music]
+	"\![set,property,%(_p)(play_button).text,%(_play_button)]"
+	--
+	"\![set,property,%(_p)(pause_button).text,%(_pause_button)]"
+	--
+	"\![set,property,%(_p)(stop_button1).text,%(_stop_button)]"
+	--
+	"\![set,property,%(_p)(stop_button2).text,%(_stop_button)]"
+	--
+	"\![set,property,%(_p)(k_window).text,%(_k_window)]"
+	--
+	"\![set,property,%(_p)(menu).text,%(_menu)]"
+	--
+	"\![set,property,%(_p)(clear_button).text,%(_clear_button)]"
+	--
+	"\![set,property,%(_p)(next_button).text,%(_next_button)]"
+	--
+	"\![set,property,%(_p)(previous_button).text,%(_previous_button)]"
+	--
+	"\![set,property,%(_p)(stop_after_current).text,%(_stop_after_current)]"
+	--
+	"\![set,property,%(_p)(minimize).text,%(_minimize)]"
+	--
+	"\![set,property,%(_p)(end_sect).text,%(_end_sect)]"
+}
+
+//This bit of code is what makes menu options that don't start with On direct to Select.options instead. Remove or comment it if you prefer!
+OnChoiceSelect
+{
+	EVAL("Select.%(reference0)")
+}
+
+OnAnchorSelect
+{
+	if "http://" _in_ reference0 || "https://" _in_ reference0 //checking to see if the link is a web address
+	{
+		"\j[%(reference0)]\e"
+	}
+	else
+	{
+		case reference0
+		{
+			when "exampleanchor"
+			{
+				//"\0\s[0]You clicked the example!\e"
+			}
+		}
+	}
+}
+
+LanguageMenuDisplay
+{
+	//TRANSLATORS: Add the name of your language to this list! However you type it here is how you should also type your if checks. Once you add your language here, it should automatically appear in the first boot language menu and config menu. Double check to make sure the spacing is ok! If it doesn't work for some reason, let me know.
+	_languages = "English,Polski,Français,Русский,Deutsch"
+	
+	_function = _argv[0]
+	
+	_display = ""
+	_i = 0
+	foreach _languages; _language
+	{
+		//Max length for the notes balloon: ~30 comfortably. Doesn't account for alternate text sizes, but there's not really a way to handle that... perhaps a feature to request.
+		if _i >= 3; _i = 0
+		if _i == 1; {_display += "\_l[100]"}
+		elseif _i == 2; {_display += "\_l[200]"}
+		else; {_display += "\n"}
+		_i++
+		_display += "\![*]\q[%(_language),%(_function),%(_language)]"
+	}
+	_display
+}
+
+//As the name implies, this checks if the balloon is currently open or not. This was written by Levidre!
+//To use it I would do this, so you don't have to copy this whole chunk of code:
+//_b = BalloonCheck
+//if _b == 0 //_b will be 0 if the balloon is not open, or 1 if it is open
+BalloonCheck
+{
+	if ASEARCH("Status",var.req.key) != -1
+    {
+        _currentstatus = var.req.value[ASEARCH("Status",var.req.key)]
+        if "balloon" _in_ _currentstatus; 1
+        else; 0
+    }
+	else; 0
+}
+
+MenuCheck
+{
+	if ASEARCH("Status",var.req.key) != -1
+    {
+        _currentstatus = var.req.value[ASEARCH("Status",var.req.key)]
+        if "choosing" _in_ _currentstatus
+        {
+			1
+        }
+        else
+        {
+			0
+        }
+    }
+	else; 0
+}
+
+IsMinimized
+{
+	if ASEARCH("Status",var.req.key) != -1
+    {
+        _currentstatus = var.req.value[ASEARCH("Status",var.req.key)]
+        if "minimizing" _in_ _currentstatus
+        {
+			1
+        }
+        else
+        {
+			0
+        }
+    }
+	else
+	{
+		0
+	}
+}
+
+br
+{
+	if SHIORI3FW.BalloonName == "Notes"; "\n"
+	else; " "
+}
+
+//Setting variables in random dialogue
+//In the YAYA tips, I go into detail about setting single variables in random dialogue. This function will allow you to set more than one, or anything else you might want to do. Call it with \![raise,OnDialogueVars,yourValue], replacing yourValue with whatever you want reference0 to be.
+OnDialogueVars
+{
+	case reference0
+	{
+		when "InstalledNewShell"
+		{
+			InstalledShellName = ""
+		}
+	}
+}
+
+//Added with help from steve02081504. Send an argument to this function to send it with ValueNotify. This can be used even while the ghost is minimized to run tags like the sound command.
+SHIORI3FW.MakeValueNotify : void
+{
+	SHIORI3FW.PushAdditionalReturn('ValueNotify',_argv)
+}

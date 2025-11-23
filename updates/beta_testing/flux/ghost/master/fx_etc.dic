@@ -1,0 +1,3615 @@
+//----Drag and Drop----
+
+//When you drop a file on the ghost that isn't something it can install
+//reference0 is the file path, which is split up amongst the local variables below
+OnFileDrop2
+{
+	LOGGING("FileDrop2")
+	_filearray = SPLIT(reference.raw[0],C_BYTE1)
+	//reference0 = OnJustMakeThemADamnArrayInTheFirstPlaceEX(reference0)
+	//"%(GETTYPE(reference0))\n\n\_q\_?%(reference0[2])\_?"
+	//"\b4\_q%(GETTYPE(reference0))    %(ARRAYSIZE(reference0))\n\n\_?%(reference0)\_?\x"
+	--
+	
+	
+	//"\_q%(ARRAYSIZE(reference0))\n\n%(GETTYPE(reference0))\n\n%(reference0[1])\e"
+	if ARRAYSIZE(_filearray) == 1 //If it's a single file
+	{
+		_filepath = SPLITPATH(_filearray)
+		_filename = _filepath[2]
+		_fileext = TOLOWER(_filepath[3])
+		LOGGING("Single file")
+		//Incompatible audio types: cdda, cvs, cvsd, cvu, dvms, fssd, grst, htk, ima, prc, smp, sndr, sndt, sou, txw, vms, vox
+		_imgtypes = (".jpg",".jpeg",".bmp",".png")
+		if ASEARCH(_fileext,_imgtypes) != -1
+		{
+			SetWallpaper(_filearray)
+		}
+		elseif ASEARCH(_fileext,CompatibleMusicFileTypes) != -1
+		{
+			//_filearray = REPLACE(_filearray,",","%(C_BYTE1)")
+			//_filearray = REPLACE(_filearray,"]","\]")
+			CurrentPlaylist ,= _filearray
+			ShuffledPlaylist = ShufflePlaylist(NowPlaying[1],CurrentPlaylist)
+			_filearray = "%(CHR(34))%(_filearray)%(CHR(34))"
+			
+			//_filename = REPLACE(_filename,"%(C_BYTE1)",",")
+			//_filename = REPLACE(_filename,"]","\]")
+			"\0%(b)"
+			--
+			if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+			else; "\s[6]"
+			--
+			if language == "Placeholder" //TRANSLATORS: When the user drags a single compatible music file onto FLUX
+			{
+				
+			}
+			elseif language == "Deutsch"
+			{
+				"['%(Capitalize(_filename))' wurde zur Playlist hinzugefügt.]"
+				--
+				"\n\n\_q\![*]\q[Jetzt abspielen,OnPlaySong,%(_filearray),justadded]\n\![*]\q[Musik-Player öffnen,OnMusicMenu]\n\n\![*]\q[Schließen,OnCancel]\e"
+			}
+			elseif language == "Русский"
+			{
+				"[Добавил '%(_filename)' в плейлисте.]"
+				--
+				"\n\n\_q\![*]\q[Играй сейчас,OnPlaySong,%(_filearray),justadded]\n\![*]\q[Открыть плеер,OnMusicMenu]\n\n\![*]\q[Закрыть,OnCancel]\e"
+			}
+			elseif language == "Français"
+			{
+				"['%(_filename)' ajouté à la playlist.]"
+				--
+				"\n\n\_q\![*]\q[La lire maintenant,OnPlaySong,%(_filearray),justadded]\n\![*]\q[Ouvrir le lecteur de musique,OnMusicMenu]\n\n\![*]\q[Fermer,OnCancel]\e"
+			}
+			elseif language == "Polski"
+			{
+				
+				"[Dodano '%(_filename)' do playlisty.]"
+				--
+				"\n\n\_q\![*]\q[Zagraj teraz,OnPlaySong,%(_filearray),justadded]\n\![*]\q[Otwórz player,OnMusicMenu]\n\n\![*]\q[Zamknij,OnCancel]\e"
+
+			}
+			else //English
+			{
+				"[Added '%(_filename)' to the playlist.]"
+				--
+				"\n\n\_q\![*]\q[Play it now,OnPlaySong,%(_filearray),justadded]\n\![*]\q[Open music player,OnMusicMenu]\n\n\![*]\q[Close,OnCancel]\e"
+			}
+		}
+		elseif _fileext == ".m3u"
+		{
+			LOGGING("Playlist")
+			_path = "/../../playlists/"
+			_playlists = FENUM(_path)
+			_playlists = SPLIT(_playlists,",")
+			if ASEARCH("%(_filename).m3u",_playlists) != -1
+			{
+				"\0%(b)"
+				--
+				if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Refuse]"
+				else; "\s[6]"
+				--
+				if language == "Placeholder" //TRANSLATORS: If the user drags and drops a .m3u playlist onto FLUX, but one with the same name already exists, it should ask if they want to overwrite it. _filename is the name of the playlist in question.
+				{
+					
+				}
+				elseif language == "Deutsch"
+				{
+					"[Eine Playlist mit dem Namen '%(_filename)' existiert bereits.\w8 Möchtest du sie überschreiben?]"
+					--
+					"\n\n\![*]\q[Playlist überschreiben,OnPlaylistCopy,Overwrite,%(_filearray),%(_filename)]\n\![*]\q[Abbrechen,OnPlaylistCopy,Don't]"
+				}
+				elseif language == "Русский"
+				{
+					"[Плейлист с название '%(_filename)' уже существует.\w8 Ты хочешь его overwrite?]"
+					--
+					"\n\n\![*]\q[Overwrite it,OnPlaylistCopy,Overwrite,%(_filearray),%(_filename)]\n\![*]\q[Отменить,OnPlaylistCopy,Don't]"
+				}
+				elseif language == "Français" 
+				{
+					"[Une playlist nommée '%(_filename)' existe déjà.\w8 Veux-tu l'écraser ?]"
+					--
+					"\n\n\![*]\q[Ecraser,OnPlaylistCopy,Overwrite,%(_filearray),%(_filename)]\n\![*]\q[Annuler,OnPlaylistCopy,Don't]"
+				}
+				elseif language == "Polski"
+				{
+					"[Playlista nazwana '%(_filename)' już istnieje.\w8 Czy chcesz ją nadpisać?]"
+					--
+					"\n\n\![*]\q[Nadpisz,OnPlaylistCopy,Overwrite,%(_filearray),%(_filename)]\n\![*]\q[Anuluj,OnPlaylistCopy,Don't]"
+				}
+				else //English
+				{
+					"[A playlist called '%(_filename)' already exists.\w8 Do you wish to overwrite it?]"
+					--
+					"\n\n\![*]\q[Overwrite it,OnPlaylistCopy,Overwrite,%(_filearray),%(_filename)]\n\![*]\q[Cancel,OnPlaylistCopy,Don't]"
+				}
+			}
+			else
+			{
+				if FENUM(_path) == ""; void MKDIR(_path)
+				_f = FCOPY(_filearray,_path)
+				
+				PlaylistCopied("%(_f)","%(_filename)")
+			}
+		}
+		else //Incompatible
+		{
+			"\0%(b)"
+			--
+			if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Refuse]"
+			else; "\s[6]"
+			--
+			if language == "Placeholder" //TRANSLATORS: If the user drags a file with no known extension onto FLUX
+			{
+				
+			}
+			elseif language == "Deutsch"
+			{
+				"[Diese Datei ist nicht mit FLUX-Player kompatibel.]\e"
+			}
+			elseif language == "Русский"
+			{
+				"[Этот файл не compatible с плеер FLUX.]\e"
+			}
+			elseif language == "Français"
+			{
+				"[Ce fichier n'est pas compatible avec le lecteur FLUX.]\e"
+			}
+			elseif language == "Polski"
+			{
+				"[Ten plik jest nie kompatybilny z FLUX player.]\e"
+			}
+			else //English
+			{
+				"[This file is not compatible with FLUX player.]\e"
+			}
+		}
+	}
+	else //More than 1 file
+	{
+		_musicfiles = OnFindSongs(,_filearray)
+		//"\b4\_q%(GETTYPE(_musicfiles))    %(ARRAYSIZE(_musicfiles))\n\n\_?%(_musicfiles)\_?\x"
+		//--
+		"\0%(b)"
+		--
+		if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Refuse]"
+		else; "\s[6]"
+		--
+		if ARRAYSIZE(_musicfiles) == 0 //If there are no music files
+		{
+			if language == "Placeholder" //TRANSLATORS: If the user dragged and dropped multiple files on FLUX, but none of them were compatible music files
+			{
+				
+			}
+			elseif language == "Deutsch"
+			{
+				"[Keine dieser Dateien ist mit FLUX-Player kompatibel.]\e"
+			}
+			elseif language == "Русский"
+			{
+				"[Ни одна их этих файлов не совместимый с плеер FLUX.]\e"
+			}
+			elseif language == "Français"
+			{
+				"[Aucun de ces fichiers n'est compatible avec le lecteur FLUX.]\e"
+			}
+			elseif language == "Polski"
+			{
+				"[Żaden z tych plików jest kompatybilny z FLUX player.]\e"
+			}
+			else //English
+			{
+				"[None of these files are compatible with FLUX player.]\e"
+			}
+		}
+		else //If there are music files
+		{
+			_num = ARRAYSIZE(_musicfiles)
+			
+			"\0%(b)"
+			--
+			if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+			else; "\s[6]"
+			--
+			if language == "Placeholder" //TRANSLATORS: If the user dragged and dropped multiple files on FLUX, and at least some of them are compatible. Use _num as the count of songs that were added
+			{
+				
+			}
+			elseif language == "Deutsch"
+			{
+				_er = ""; if _num != 1; _er = "er"
+				_n = ""; if _num != 1; _n = "n"
+				_s = ""; if _num == 1; _s = "s"
+				"[Es wurde%(_n) %(_num) kompatible%(_s) Lied%(_er) zur Playlist hinzugefügt.]"
+				--
+				"\n\n\_q\![*]\q[Musik-Player öffnen,OnMusicMenu]\n\![*]\q[Schließen,OnCancel]\e"
+			}
+			elseif language == "Русский"
+			{
+				"[%(_num) песен добавлен в плейлисте.]"
+				--
+				"\n\n\_q\![*]\q[Открыть плеер,OnMusicMenu]\n\![*]\q[Закрыть,OnCancel]\e"
+			}
+			elseif language == "Français"
+			{
+				"[%(_num) musiques compatibles ajoutées à la playlist.]"
+				--
+				"\n\n\_q\![*]\q[Ouvrir le lecteur de musique,OnMusicMenu]\n\![*]\q[Fermer,OnCancel]\e"
+			}
+			elseif language == "Polski"
+			{
+				"[%(_num) piosenek dodane do playlisty.]"
+				--
+				"\n\n\_q\![*]\q[Otwórz player,OnMusicMenu]\n\![*]\q[Zamknij,OnCancel]\e"
+			}
+			else //English
+			{
+				_s = ""; if _num != 1; _s = "s"
+				
+				"[%(_num) compatible song%(_s) added to the playlist.]"
+				--
+				"\n\n\_q\![*]\q[Open music player,OnMusicMenu]\n\![*]\q[Close,OnCancel]\e"
+			}
+		}
+	}
+}
+
+OnDirectoryDrop
+{
+	_files = FENUM(reference0,'|') //Gets all the files in the folder
+	_orig = _files
+	//_files = SPLIT(_files,",")
+	
+	//"\b4\_q%(GETTYPE(_files))  %(ARRAYSIZE(_files))\n\n\_?%(_files)\_?\n\n\nOrig:\n\_?%(_orig)\_?\x"
+	//--
+	_musicfiles = OnFindSongs(reference0,_files)
+	
+	_path = SPLITPATH(reference0)[1]
+	SETDELIM(_path,"\")
+	_len = ARRAYSIZE(_path) - 2
+	_folder = _path[_len] //This stuff gets the folder name
+	
+	if ARRAYSIZE(_musicfiles) == 0 //If there were no compatible songs inside
+	{
+		"\0%(b)"
+		--
+		if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Refuse]"
+		else; "\s[6]"
+		--
+		if language == "Placeholder" //TRANSLATORS: If the user drags a folder on FLUX, and none of the files inside are compatible music files. Use _folder for the folder name
+		{
+			
+		}
+		elseif language == "Deutsch"
+		{
+			"[Keine der Dateien in %(_folder) sind kompatible Musikdateien.]\e"
+		}
+		elseif language == "Русский"
+		{
+			"[Ни одна из всех файлов в папке %(_folder) compatible файлов музыки.]\e"
+		}
+		elseif language == "Français"
+		{
+			"[Aucun fichier dans %(_folder) n'est un fichier de musique compatible.]\e"
+		}
+		elseif language == "Polski"
+		{
+			"[Żaden z plików w %(_folder) jest kompatybilnym plikiem muzycznym.]\e"
+		}
+		else //English
+		{
+			"[None of the files in %(_folder) are compatible music files.]\e"
+		}
+	}
+	else //If there are compatible songs
+	{
+		_num = ARRAYSIZE(_musicfiles)
+		
+		"\0%(b)"
+		--
+		if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+		else; "\s[6]"
+		--
+		if language == "Placeholder" //TRANSLATORS: If the user drags a folder on FLUX, and at least some of the files inside are compatible music files. Use _num for the number of songs that were added, and _folder for the folder name
+		{
+			
+		}
+		elseif language == "Deutsch"
+		{
+			_er = ""; if _num != 1; _er = "er"
+			_n = ""; if _num != 1; _n = "n"
+			"[Es wurde%(_n) %(_num) Lied%(_er) aus %(_folder) hinzugefügt.]"
+			--
+			"\n\n\_q\![*]\q[Musik-Player öffnen,OnMusicMenu]\n\![*]\q[Schließen,OnCancel]\e"
+		}
+		elseif language == "Русский"
+		{
+			_песня = "песня"; if _num != 1; _песня = "песен"
+			"[Добавил %(_num) %(_песня) из %(_folder).]"
+			--
+			"\n\n\_q\![*]\q[Открыть плеер,OnMusicMenu]\n\![*]\q[Закрыть,OnCancel]\e"
+		}
+		elseif language == "Français"
+		{
+			"[%(_num) musiques ajoutées de %(_folder).]"
+			--
+			"\n\n\_q\![*]\q[Ouvrir le lecteur de musique,OnMusicMenu]\n\![*]\q[Fermer,OnCancel]\e"
+		}
+		elseif language == "Polski"
+		{
+			"[Dodano %(_num) piosenek z %(_folder).]"
+			--
+			"\n\n\_q\![*]\q[Otwórz player,OnMusicMenu]\n\![*]\q[Zamknij,OnCancel]\e"
+		}
+		else //English
+		{
+			_s = ""; if _num != 1; _s = "s"
+			
+			"[Added %(_num) song%(_s) from %(_folder).]"
+			--
+			"\n\n\_q\![*]\q[Open music player,OnMusicMenu]\n\![*]\q[Close,OnCancel]\e"
+		}
+	}
+}
+
+/*
+//I don't need this function anymore since I learned about reference.raw! But that makes me kinda sad because it gives me a giggle every time I scroll past, so I'm gonna leave it here. This existed because if you have auto type convert on, the list of filenames you get from OnFileDrop2 when there's multiple files is separated by commas, and filenames can have commas in them. Fun!
+OnJustMakeThemADamnArrayInTheFirstPlace
+{
+	_input = SPLIT(_argv,",") //Take in the input, make sure it's a general array
+	//_input = REPLACE(_input,"\","/")
+	_outputarray = IARRAY //Create an empty output array
+	_toadd = "" //Define an empty string to store pieces
+	_needscomma = 0
+	
+	foreach _input; _element //Run through every section in the array
+	{
+		if ":" _in_ _element //If it has a :, it must be the start of a new file. You can't put a : in a file name; instead they're just after the drive names, which every file path has to have AFAIK.
+		{
+			if _toadd != "" //If it's empty, skip it so we don't add an empty element. If it's _not_ empty, add the piece from the last loop to the output
+			{
+				_outputarray ,= _toadd
+			}
+			_toadd = "" //Clear the piece from last loop so we can start over
+		}
+		else //If it's a particle
+		{
+			if _needscomma == 1; _toadd += "||" //The | is here in place of an escape character. If I make it just a \, then it gets picked up by SPLITPATH :deargodhelpme:
+		}
+		_toadd += _element //Add the piece from this loop, and continue to the next
+		_needscomma = 0 //Reset this flag every time
+		if !RE_SEARCH(TOLOWER(_element),"\.[\w|\d][\w|\d][\w|\d]?[\w|\d]?$"); _needscomma = 1 //If there's no file name, this is either a folder or a particle. We'll check on the next loop and add one if needed.
+	}
+	_outputarray ,= _toadd //Add the last piece
+	_outputarray
+}
+*/
+
+OnPlaylistCopy
+{
+	if reference0 == "Overwrite"
+	{
+		_path = "../../playlists/"
+		if FENUM(_path) == ""; void MKDIR(_path)
+		_f = FCOPY(reference1,_path)
+		
+		PlaylistCopied("%(_f)","%(reference2)")
+	}
+	else
+	{
+		"\0%(b)"
+		--
+		if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+		else; "\s[6]"
+		--
+		if language == "Placeholder" //TRANSLATORS: When the user decides not to overwrite the playlist the ghost already has
+		{
+			
+		}
+		elseif language == "Deutsch"
+		{
+			"[Bitte benenne die Playlist um,\w4 dann zieh sie noch einmal auf FLUX.]\e"
+		}
+		elseif language == "Русский"
+		{
+			"[Пожалуйста, переименовать плейлист\w4, а потом перетаскивать его снова.]\e"
+		}
+		elseif language == "Français"
+		{
+			"[Stp renomme la playlist,\w4 puis glisse-dépose la à nouveau.]\e"
+		}
+		elseif language == "Polski"
+		{
+			"[Zmień nazwe playlisty,\w4 wtedy przeciągni i puść ją ponownie.]\e"
+		}
+		else //English
+		{
+			"[Please rename the playlist,\w4 then drag and drop it again.]\e"
+		}
+	}
+}
+
+PlaylistCopied
+{
+	"\0%(b)"
+	--
+	if _argv[0] == 1 //If it was successful
+	{
+		if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+		else; "\s[6]"
+	}
+	else //If it failed
+	{
+		if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Error]"
+		else; "\s[6]"
+	}
+	--
+	_playlist = _argv[1]
+	if language == "Placeholder" //TRANSLATORS: When FLUX finishes copying a .m3u file that the user dragged onto them. Use _playlist for the name of the playlist
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		if _argv[0] == "1" //If it was successful
+		{
+			"\0%(b)"
+			--
+			if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+			else; "\s[6]"
+			--
+			"[Die Playlist '%(_playlist)' wurde erfolgreich kopiert.\w8 Möchtest du sie jetzt gleich laden?]"
+			--
+			"\n\n\![*]\q['%(_playlist) laden',OnSelectPlaylist,%(_playlist)]\n\![*]\q[Musik-Player öffnen,OnMusicMenu]\n\n\![*]\q[Schließen,OnCancel]\e"
+		}
+		else //If it failed
+		{
+			"\0%(b)"
+			--
+			if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Error]"
+			else; "\s[6]"
+			--
+			"[Kopiervorgang fehlgeschlagen,\w4 bitte versuche es noch einmal.]\e"
+		}
+	}
+	elseif language == "Русский"
+	{
+		if _argv[0] == "1" //If it was successful
+		{
+			"\0%(b)"
+			--
+			if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+			else; "\s[6]"
+			--
+			"[С успехом скопировано плейлист '%(_playlist)'.\w8 Хочешь загрузить сейчас?]"
+			--
+			"\n\n\![*]\q[Загрузить '%(_playlist)',OnSelectPlaylist,%(_playlist)]\n\![*]\q[Открыть плеер,OnMusicMenu]\n\n\![*]\q[Close,OnCancel]\e"
+		}
+		else //If it failed
+		{
+			"\0%(b)"
+			--
+			if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Error]"
+			else; "\s[6]"
+			--
+			"[Не удалось скопировать,\w4 пожалуйста, попробуй еще раз.]\e"
+		}
+	}
+	elseif language == "Français"
+	{
+		if _argv[0] == "1" //If it was successful
+		{
+			"[Playlist '%(_playlist)' copiée avec succès.\w8 Veux-tu la charger maintenant ?]"
+			--
+			"\n\n\![*]\q[Charger '%(_playlist)',OnSelectPlaylist,%(_playlist)]\n\![*]\q[Ouvrir le lecteur de musique,OnMusicMenu]\n\n\![*]\q[Fermer,OnCancel]\e"
+		}
+		else //If it failed
+		{
+			"[Echec de la copie,\w4 stp essaye à nouveau.]\e"
+		}
+	}
+	elseif language == "Polski"
+	{
+		if _argv[0] == "1" //If it was successful
+		{
+			"[Skopiowano playliste '%(_playlist)'.\w8 Czy chcesz ją załadować?]"
+			--
+			"\n\n\![*]\q[Załaduj '%(_playlist)',OnSelectPlaylist,%(_playlist)]\n\![*]\q[Otwórz player,OnMusicMenu]\n\n\![*]\q[Zamknij,OnCancel]\e"
+		}
+		else //If it failed
+		{
+			"[Kopiowanie się nie udało,\w4 spróbuj ponowie.]\e"
+		}
+	}
+	else //English
+	{
+		if _argv[0] == "1" //If it was successful
+		{
+			"[Successfully copied playlist '%(_playlist)'.\w8 Do you want to load it now?]"
+			--
+			"\n\n\![*]\q[Load '%(_playlist)',OnSelectPlaylist,%(_playlist)]\n\![*]\q[Open music player,OnMusicMenu]\n\n\![*]\q[Close,OnCancel]\e"
+		}
+		else //If it failed
+		{
+			"[Copying failed,\w4 please try again.]\e"
+		}
+	}
+}
+
+SetWallpaper
+{
+	_filepath = SPLITPATH(_argv[0])
+	_name = _filepath[2] +_filepath[3]
+	_file = REPLACE(_argv[0],"]","\]")
+	
+	if language == "Placeholder" //TRANSLATORS: If the user drags an image file onto FLUX. _filename is the file name, and _fileext is the extension
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"\0%(b)"
+		--
+		if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+		else; "\s[6]"
+		--
+		"[Bildschirmhintergrund wird zu '%(_name)' geändert...]\n\n\_q"
+		--
+		"\![*]\q[Zentriert,OnWallpaper,%(_file),center]\n/
+		\![*]\q[Kachel,OnWallpaper,%(_file),tile]\n/
+		\![*]\q[Dehnen,OnWallpaper,%(_file),stretch]"
+		--
+		if "Windows 10" _in_ NotifyOS //NotifyOS is set just below. The Span option is only available if you're on Win 10, so this means it won't display unless you're on Win 10
+		{
+			"\n\![*]\q[Strecken,OnWallpaper,%(_file),span]"
+		}
+		--
+		if "Windows 7" || "Windows 10" _in_ NotifyOS //These are the 'fit' and 'fill' options available from win 7 on
+		{
+			"\n\![*]\q[Ausfüllen,OnWallpaper,%(_file),stretch-x]/
+			\n\![*]\q[Anpassen,OnWallpaper,%(_file),stretch-y]"
+		}
+		--
+		"\n\n\![*]\q[Abbrechen,OnCancel]\e"
+	}
+	elseif language == "Русский"
+	{
+		"\0%(b)"
+		--
+		if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+		else; "\s[6]"
+		--
+		"[Установлю '%(_name)' в качеством обои...]\n\n\_q"
+		--
+		"\![*]\q[По и центру рабочего стола,OnWallpaper,%(_file),center]\n/
+		\![*]\q[На рабочий стол черепицей,OnWallpaper,%(_file),tile]\n/
+		\![*]\q[Протянутый,OnWallpaper,%(_file),stretch]"
+		--
+		if "Windows 10" _in_ NotifyOS //NotifyOS is set just below. The Span option is only available if you're on Win 10, so this means it won't display unless you're on Win 10
+		{
+			"\n\![*]\q[Охватывающий,OnWallpaper,%(_file),span]"
+		}
+		--
+		if "Windows 7" || "Windows 10" _in_ NotifyOS //These are the 'fit' and 'fill' options available from win 7 on
+		{
+			"\n![]\q[Наполнить,OnWallpaper,%(_file),stretch-x]/
+			\n![]\q[Вписаться,OnWallpaper,%(_file),stretch-y]" 
+		}
+		--
+		"\n\n\![*]\q[Отменить,OnCancel]\e"
+	}
+	elseif language == "Français"
+	{
+		"\0%(b)"
+		--
+		if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+		else; "\s[6]"
+		--
+		--
+		"[Paramètre '%(_name)' comme fond d'écran...]\n\n\_q"
+		--
+		"\![*]\q[Centré,OnWallpaper,%(_file),center]\n/
+		\![*]\q[Tuile,OnWallpaper,%(_file),tile]\n/
+		\![*]\q[Etiré,OnWallpaper,%(_file),stretch]"
+		--
+		if "Windows 10" _in_ NotifyOS //NotifyOS is set just below. The Span option is only available if you're on Win 10, so this means it won't display unless you're on Win 10
+		{
+			"\n\![*]\q[Espacé,OnWallpaper,%(_file),span]"
+		}
+		--
+		if "Windows 7" || "Windows 10" _in_ NotifyOS //These are the 'fit' and 'fill' options available from win 7 on
+		{
+			"\n\![*]\q[Remplir,OnWallpaper,%(_file),stretch-x]/
+			\n\![*]\q[Ajuster,OnWallpaper,%(_file),stretch-y]"
+		}
+		--
+		"\n\n\![*]\q[Annuler,OnCancel]\e"
+	}
+	elseif language == "Polski"
+	{
+		"\0%(b)"
+		--
+		if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+		else; "\s[6]"
+		--
+		"[Ustaw '%(_name)' jako tapetę...]\n\n\_q"
+		--
+		"\![*]\q[Wyśrodkowaną,OnWallpaper,%(_file),center]\n/
+		\![*]\q[Kafelki,OnWallpaper,%(_file),tile]\n/
+		\![*]\q[Rozciągnięty,OnWallpaper,%(_file),stretch]"
+		--
+		if "Windows 10" _in_ NotifyOS //NotifyOS is set just below. The Span option is only available if you're on Win 10, so this means it won't display unless you're on Win 10
+		{
+			"\n\![*]\q[Rozpięty,OnWallpaper,%(_file),span]"
+		}
+		--
+		if "Windows 7" || "Windows 10" _in_ NotifyOS //These are the 'fit' and 'fill' options available from win 7 on
+		{
+			"\n\![*]\q[Wypełni,OnWallpaper,%(_file),stretch-x]/
+			\n\![*]\q[Dopasuj,OnWallpaper,%(_file),stretch-y]"
+		}
+		--
+		"\n\n\![*]\q[Anuluj,OnCancel]\e"
+	}
+	else //English
+	{
+		"\0%(b)"
+		--
+		if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+		else; "\s[6]"
+		--
+		"[Setting '%(_name)' as wallpaper...]\n\n\_q"
+		--
+		"\![*]\q[Centered,OnWallpaper,%(_file),center]\n/
+		\![*]\q[Tiled,OnWallpaper,%(_file),tile]\n/
+		\![*]\q[Stretched,OnWallpaper,%(_file),stretch]"
+		--
+		if "Windows 10" _in_ NotifyOS //NotifyOS is set just below. The Span option is only available if you're on Win 10, so this means it won't display unless you're on Win 10
+		{
+			"\n\![*]\q[Spanned,OnWallpaper,%(_file),span]"
+		}
+		--
+		if "Windows 7" || "Windows 10" _in_ NotifyOS //These are the 'fit' and 'fill' options available from win 7 on
+		{
+			"\n\![*]\q[Fill,OnWallpaper,%(_file),stretch-x]/
+			\n\![*]\q[Fit,OnWallpaper,%(_file),stretch-y]"
+		}
+		--
+		"\n\n\![*]\q[Cancel,OnCancel]\e"
+	}
+}
+
+OnWallpaper
+{
+	"\0\![set,wallpaper,%(REPLACE(reference0,']','\]')),%(reference1)]\e"
+}
+
+//You can get other information about the OS here, it's in the other references. Reference0 includes the OS system, version, and display name
+OnNotifyOSInfo
+{
+	NotifyOS = reference0
+}
+
+OnInstallBegin
+{
+	"\0%(b)"
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+	else; "\s[6]"
+	--
+	if language == "Placeholder" //TRANSLATORS: Beginning an installation
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"[Installationsvorgang wird gestartet...]\e"
+	}
+	elseif language == "Русский"
+	{
+		"[Начинает установление...]\e"
+	}
+	elseif language == "Français"
+	{
+		"[Début de l'installation...]\e"
+	}
+	elseif language == "Polski"
+	{
+		"[Zaczynam instalacje...]\e"
+	}
+	else //English
+	{
+		"[Beginning installation...]\e"
+	}
+}
+
+//Finished installing something ghost related. You can remove any of the ifs here if you like, and just have it go to the else.
+//reference0 is the type of installed item, reference1 is the name.
+OnInstallComplete
+{
+	"\0%(b)"
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+	else; "\s[6]"
+	--
+	if reference0 == "ghost"
+	{
+		if language == "Placeholder" //TRANSLATORS: When a ghost has finished installing. reference1 is the name of the installed ghost
+		{
+			
+		}
+		elseif language == "Deutsch"
+		{
+			"['%(reference1)' wurde erfolgreich installiert.]\n\n"
+			--
+			"\![*]\q[%(reference1) rufen,CallGhost]\n/
+			\![*]\q[Zu %(reference1) wechseln,ChangeToGhost]\n\n/
+			\![*]\q[Schließen,OnCancel]\e"
+		}
+		elseif language == "Русский"
+		{
+			"[Установил '%(reference1)'.]\n\n"
+			--
+			"\![*]\q[Вызвать %(reference1),CallGhost]\n/
+			\![*]\q[Сменить в %(reference1),ChangeToGhost]\n\n/
+			\![*]\q[Закрыть,OnCancel]\e"
+		}
+		elseif language == "Français"
+		{
+			"['%(reference1)' installé avec succès.]\n\n"
+			--
+			"\![*]\q[Appeler %(reference1),CallGhost]\n/
+			\![*]\q[Changer pour %(reference1),ChangeToGhost]\n\n/
+			\![*]\q[Fermer,OnCancel]\e"
+		}
+		elseif language == "Polski"
+		{
+			"[Zainstalowałem '%(reference1)'.]\n\n"
+			--
+			"\![*]\q[Przywołaj %(reference1),CallGhost]\n/
+			\![*]\q[Zmień na %(reference1),ChangeToGhost]\n\n/
+			\![*]\q[Zamknij,OnCancel]\e"
+		}
+		else //English
+		{
+			"[Successfully installed '%(reference1)'.]\n\n"
+			--
+			"\![*]\q[Call %(reference1),CallGhost]\n/
+			\![*]\q[Change to %(reference1),ChangeToGhost]\n\n/
+			\![*]\q[Close,OnCancel]\e"
+		}
+	}
+	elseif reference0 == "shell"
+	{
+		if language == "Placeholder" //TRANSLATORS: When a shell has finished installing. reference1 is the name of the installed shell
+		{
+			
+		}
+		elseif language == "Deutsch"
+		{
+			"['%(reference1)' wurde erfolgreich installiert.]\n\n"
+			--
+			"\![*]\q[Zu %(reference1) wechseln,OnChangeToShell]\n\n/
+			\![*]\q[Schließen,OnCancel]\e"
+		}
+		elseif language == "Русский"
+		{
+			"[Установил '%(reference1)'.]\n\n"
+			--
+			"\![*]\q[Сменить в  %(reference1),OnChangeToShell]\n\n/
+			\![*]\q[Закрыть,OnCancel]\e"
+		}
+		elseif language == "Français"
+		{
+			"['%(reference1)' installé avec succès.]\n\n"
+			--
+			"\![*]\q[Changer pour %(reference1),OnChangeToShell]\n\n/
+			\![*]\q[Fermer,OnCancel]\e"
+		}
+		elseif language == "Polski"
+		{
+			"[Zainstalowałem '%(reference1)'.]\n\n"
+			--
+			"\![*]\q[Zmień na %(reference1),OnChangeToShell]\n\n/
+			\![*]\q[Zamknij,OnCancel]\e"
+		}
+		else //English
+		{
+			"[Successfully installed '%(reference1)'.]\n\n"
+			--
+			"\![*]\q[Change to %(reference1),OnChangeToShell]\n\n/
+			\![*]\q[Close,OnCancel]\e"
+		}
+	}
+	else
+	{
+		if language == "Placeholder" //TRANSLATORS: Generic install finished dialogue. reference1 is the name of the installed thing
+		{
+			
+		}
+		elseif language == "Deutsch"
+		{
+			"['%(reference1)' wurde erfolgreich installiert.]\e"
+		}
+		elseif language == "Русский"
+		{
+			"[Установил '%(reference1)'.]\e"
+		}
+		elseif language == "Français"
+		{
+			"['%(reference1)' installé avec succès.]\e"
+		}
+		elseif language == "Polski"
+		{
+			"[Zainstalowałem '%(reference1)'.]\e"
+		}
+		else //English
+		{
+			"[Successfully installed '%(reference1)'.]\e"
+		}
+	}
+}
+
+//Calling the ghost that was just installed. Add dialogues to these if you like.
+Select.CallGhost
+{
+	"\![call,ghost,lastinstalled]\e"
+}
+
+//Opening the ghost that was just installed.
+Select.ChangeToGhost
+{
+	"\![change,ghost,lastinstalled]\e"
+}
+
+OnChangeToShell
+{
+	"\![get,property,OnGetCoords,currentghost.scope(0).rect]"
+	--
+	if reference0 != ""; "\![change,shell,%(reference0)]\e"
+	else; "\![change,shell,lastinstalled]\e"
+}
+
+//reference0 is the reason the install failed
+OnInstallFailure //If the install fails
+{
+	"\0%(b)"
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Error]"
+	else; "\s[6]"
+	--
+	if reference0 == "artificial" //If the user cancels by double clicking the balloon
+	{
+		if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+		else; "\s[6]"
+		--
+		if language == "Placeholder" //TRANSLATORS: When the user cancels the installation
+		{
+			
+		}
+		elseif language == "Deutsch"
+		{
+			"[Installationsvorgang wurde abgebrochen.]\e"
+		}
+		elseif language == "Русский"
+		{
+			"[Установление отменил.]\e" //кто это делали? может, отменил_а...
+		}
+		elseif language == "Français"
+		{
+			"[Installation annulée]\e"
+		}
+		elseif language == "Polski"
+		{
+			"[Instalacja anulowana.]\e"
+		}
+		else //English
+		{
+			"[Cancelled installation.]\e"
+		}
+	}
+	else
+	{
+		if language == "Placeholder" //TRANSLATORS: If the installation failed. reference0 is the reason why it failed
+		{
+			
+		}
+		elseif language == "Deutsch"
+		{
+			"[Installation fehlgeschlagen.\w8\w8 '%(reference0)'.]\e"
+		}
+		elseif language == "Русский"
+		{
+			"[Не удалось установить.\w8\w8 '%(reference0)'.]\e"
+		}
+		elseif language == "Français"
+		{
+			"[L'installation a échouée.\w8\w8 '%(reference0)'.]\e"
+		}
+		elseif language == "Polski"
+		{
+			"[Instalacja się nie udała.\w8\w8 '%(reference0)'.]\e"
+		}
+		else //English
+		{
+			"[The installation failed.\w8\w8 '%(reference0)'.]\e"
+		}
+	}
+}
+
+OnFileDropping //When the user is holding a file over FLUX, before it's dropped
+{
+	DraggedFile = reference0 //This is for converting FLELE shells
+}
+
+OnInstallReroute //When you try to install a file meant for another ghost, and that ghost is also running
+{
+	"\0%(b)"
+	--
+	if reference0 == "flele" && reference1 == "shell"
+	{
+		if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Refuse]"
+		else; "\s[6]"
+	}
+	else
+	{
+		if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Error]"
+		else; "\s[6]"
+	}
+	--
+	if language == "Placeholder" //TRANSLATORS: This is if the user tries to install a file for another ghost while the other ghost is running. Rather than copy over the function from below, since I think that'd feel weird in practice, I'm going to have it direct the user to close FLELE in order to install FLELE shells. reference1 is the type of item you tried to install, reference0 is the sakura name of the ghost it's compatible with
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		if reference0 == "flele" && reference1 == "shell"
+		{
+			"[Diese Shell ist darauf eingestellt nur von FLELE installiert zu werden.\w8\w8 Sie kann auch von FLUX installiert werden\w4 aber dazu musst du FLELE erst schließen.\w8\w8 Du kannst stattdessen auch das install.txt der Shell bearbeiten um diese Beschränkung zu entfernen.]\e"
+		}
+		else //Other ghosts
+		{
+			"[Diese Shell ist ausschließlich mit %(reference0) kompatibel.]\e"
+		}
+	}
+	elseif language == "Русский"
+	{
+		if reference0 == "flele" && reference1 == "shell"
+		{
+			"[Только FLELE можно установить этот Внешний Вид.\w8\w8 Зато FLUX все-таки может установить,\w4 но впервые, ты должен закрыть FLELE.\w8\w8 Ты  также можешь изменить install.txt этого вида, чтобы отчистить этот недостаток.]\e"
+		}
+		else //Other ghosts
+		{
+			"[Этот %(reference1) только совместимый с %(reference0).]\e"
+		}
+	}
+	elseif language == "Français"
+	{
+		if reference0 == "flele" && reference1 == "shell"
+		{
+			"[Ce shell a été fait pour n'être installé que pour FLELE.\w8\w8 FLUX peut tout de même l'installer,\w4 mais tu dois fermer FLELE en premier.\w8\w8 Sinon,\w4 tu peux aussi modifier le install.txt du shell pour enlever la restriction.]\e"
+		}
+		else //Other ghosts
+		{
+			"[Ce %(reference1) est compatible avec %(reference0) seulement.]\e"
+		}
+	}
+	elseif language == "Polski"
+	{
+		if reference0 == "flele" && reference1 == "shell"
+		{
+			"[Ta skorupa jest ustawiona by tylko się instalować na FLELE.\w8\w8 It can still be installed by FLUX,\w4 but you must close FLELE first.\w8\w8 Alternatively,\w4 you can alter the install.txt of the shell to remove the restriction.]\e"
+		}
+		else
+		{
+			"[Ten plik jest kompatybilny tylko z %(reference0).]\e"
+		}
+	}
+	else //English
+	{
+		if reference0 == "flele" && reference1 == "shell"
+		{
+			"[This shell is set to install only for FLELE.\w8\w8 It can still be installed by FLUX,\w4 but you must close FLELE first.\w8\w8 Alternatively,\w4 you can alter the install.txt of the shell to remove the restriction.]\e"
+		}
+		else //Other ghosts
+		{
+			"[This %(reference1) is compatible with %(reference0) only.]\e"
+		}
+	}
+}
+
+//reference0 is the Sakura name of the ghost the item was meant for, reference1 (since SSP 2.4.85) is the type of item you tried to install
+OnInstallRefuse
+{
+	if reference0 == "flele" && reference1 == "shell" //If this is meant for FLELE, then FLUX will convert it so that you can install it
+	{
+		//Ok look, I gotta talk about all this nonsense below, because HAHA THIS WAS A PAIN AND ITS KINDA JANKY BUT IT WORKS OK
+		//So here's the deal. UNFORTUNATELY, most FLELE shells are set up such that ONLY FLELE will install them, and other ghosts will refuse. But! Thanks to the magic of OnFileDropping, I was able to grab the file path of the .nar file you just dropped. Then, if it sees it's supposed to be for FLELE, it does all this stuff!
+		//First, it copies the .nar file into its shell folder. It renames it to a .zip (I'm not sure if this step is actually necessary but I'm not gonna fuss with it now), then it uses a SAORI I found (@the person who made the SAORI, I love you so much) to unzip the contents. It deletes the copied archive since we don't need it, then it scans through the install.txt to get the name and directory. It saves the name for after it reloads, and it renames the folder to what the directory is supposed to be called.
+		//Then, after it reloads, OnSecondChange sees that the InstalledNewShell variable is not empty, and brings up a dialogue box for having installed a new shell. Tada! Got around the FLELE only problem! Hahahahaha this is so janky XD I can't believe this works.
+		//I should probably add some sort of error handling or something???
+		
+		//Possible errors that need to be handled:
+		// -Zarc fails
+		// -Copying or opening the install.txt fails
+		// -It can't find the install.txt because it's nested in a stupid amount of directories
+		// -There is no name or directory in the install.txt
+		// -If the directory it wants to make already exists
+		
+		if FENUM("../../temp/") == ""; void MKDIR("../../temp/")
+		else; void OnEmptyTempFolder
+		
+		_temppath = "../../temp/"
+		_path = "../../shell/"
+		_f = FCOPY(DraggedFile,_temppath) //Copy the file that was dropped
+		if _f == 0; {"\![raise,OnShellInstallFailure,can't copy]"; return}
+		_name = SPLITPATH(DraggedFile)[2] //Get the name and extension
+		_ext = SPLITPATH(DraggedFile)[3]
+		
+		_r = FRENAME("%(_temppath)%(_name)%(_ext)","%(_temppath)%(_name).zip") //Rename it to a .zip
+		if _r == 0
+		{
+			_del = FDEL("%(_temppath)%(_name)%(_ext)")
+			"\![raise,OnShellInstallFailure,can't rename to a zip## folder with same name may already exist,%(_del)]"
+			return
+		}
+		_i = FUNCTIONEX("zarc.dll","unzip","%(_temppath)%(_name).zip","%(_temppath)%(_name)/") //Unzip it
+		if _i != ""; {"\![raise,OnShellInstallFailure,can't extract: %(_i)]"; return}
+		LOGGING("Zarc: %(_i)")
+		_f = FDEL("%(_temppath)%(_name).zip") //Delete the archive since we have the contents in a folder now
+		
+		_dir = "%(_temppath)%(_name)/"
+		_file = ""
+		_i = 0
+		_nested = ""
+		_dirfound = 0
+		while _dirfound == 0
+		{
+			if _i > 10; break
+			
+			_test = FENUM(_dir + _nested)
+			
+			if ARRAYSIZE(_test) == 1; _nested += REPLACE(_test,"\","/")
+			elseif "install.txt" _in_ _test; {_file = "%(_dir)%(_nested)/install.txt"; _dirfound = 1}
+			else
+			{
+				break
+			}
+			_i++
+		}
+		-- //==
+		if _dirfound == 0 //probably need to delete the copied file/directory
+		{
+			//_del = RMDIREX(_dir)
+			"\![raise,OnShellInstallFailure,can't find install.txt,%(_del)]" //THIS ISN'T DONE, HAVE TO FIGURE OUT HOW TO DELETE THE DIRECTORY. TODO FINISH THIS - want to maybe make it use a temp folder instead
+			//Did I finish this???? Idk man
+			return
+		}
+		else //If the proper directory was found
+		{
+			LOGGING("=========================")
+			LOGGING(_file)
+			LOGGING(FENUM(REPLACE(_file,"install.txt",""),","))
+			//_file = "%(_path)%(_name)/install.txt" //Initialize loop variables
+			_found = ""
+			InstalledShellName = ""
+			
+			_o = FOPEN(_file,"r")
+			--
+			for _buff = FREAD(_file); _buff != -1; _buff = FREAD(_file) //Loop through to get the name and directory
+			{
+				if "directory," _in_ _buff; _found = CUTSPACE(_buff[1])
+				if "name," _in_ _buff; InstalledShellName = CUTSPACE(_buff[1]) //Note, by putting something into InstalledShellName, it will trigger the dialogue in OnSecondChange after reloading
+			}
+			--
+			_f = FCLOSE(_file)
+			
+			if _found != ""
+			{
+				LOGGING("====================================================================")
+				LOGGING("====================================================================")
+				LOGGING("====================================================================")
+				LOGGING("====================================================================")
+				LOGGING("FENUM")
+				LOGGING(REPLACE(FENUM(_path,"|"),"\","/"))
+				if "/%(_found)" _in_ REPLACE(FENUM(_path,"|"),"\","/") //If a folder with this name exists already
+				{
+					"\![raise,OnShellInstallFailure,can't move directory## folder with the target name already exists,%(_mov),%(_del),%(_del2)]"
+					return
+				}
+				
+				if _i > 0 //If this is a nested folder
+				{
+					_mov = OnMoveFolder("%(_dir)%(_nested)","%(_path)%(_found)/")
+					//_del = RMDIREX(_dir)
+					
+					if _mov != 1
+					{
+						LOGGING("====================================================================")
+						LOGGING("====================================================================")
+						LOGGING("CAN'T UN-NEST")
+						LOGGING("====================================================================")
+						LOGGING("====================================================================")
+						_del2 = RMDIREX("%(_temppath)%(_found)/")
+						"\![raise,OnShellInstallFailure,can't un-nest the directory## something went wrong while moving,%(_mov),%(_del),%(_del2)]"
+						return
+					}
+				}
+				else
+				{
+					_mov = OnMoveFolder("%(_temppath)%(_name)/","%(_path)%(_found)/") //Rename the folder to match the directory name in install.txt (minus any spaces on the left and right)
+					//_r = FRENAME("%(_path)%(_name)/","%(_path)%(_found)/") 
+					if _mov == 0
+					{
+						//_del = RMDIREX(_dir)
+						"\![raise,OnShellInstallFailure,can't move folder to shell directory.,%(_del)]"
+						return
+					}
+				}
+			}
+			else;
+			{
+				//_del = RMDIREX(_dir)
+				"\![raise,OnShellInstallFailure,can't find name/directory in install.txt,%(_del)]" //ALSO NEED TO REMOVE DIRECTORY IN THIS CASE, TODO
+				return
+			}
+			
+			if _o == 1 && InstalledShellName != "" //If the file opened successfully and a name exists, it must have installed properly, so go ahead and reload
+			{
+				"\![raise,OnStopSong,reload]\![reload,ghost]"
+			}
+			else
+			{
+				"\0%(b)"
+				--
+				if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Error]"
+				else; "\s[6]"
+				--
+				if language == "Placeholder" //TRANSLATORS: If the user tries to install a FLELE only shell, and it fails for some reason
+				{
+					
+				}
+				elseif language == "Deutsch"
+				{
+					"[Die Shell konnte nicht installiert werden.\w8 Bitte extrahiere das Archiv,\w4 gehe zu install.txt\w4 und entferne die Zeile 'accept,flele'.\w8 Dann komprimiere den Ordner wieder\w4 und versuche es nochmal.]\e"
+				}
+				elseif language == "Русский"
+				{
+					"[Не удалось установить вид.\w8 Пожалуйста, извлечь его,\w4 перейти в install.txt,\w4 и удалить строк 'accept,flele'.\w8 Затем вновь его архировать,\w4 и попробуй еще раз.]\e"
+				}
+				elseif language == "Français"
+				{
+					"[N'aie pas pu installer le shell.\w8 Stp extrais l'archive,\w4 va dans l'install.txt,\w4 et supprime la ligne 'accept,flele'.\w8 Puis zip-le,\w4 et essaye à nouveau.]\e"
+				}
+				elseif language == "Polski"
+				{
+					"[Nie można zainstalować skorupy.\w8 Proszę rozpakować archiwum,\w4 przejdź do pliku install.txt,\w4 i usuń linię 'accept,flele'.\w8 Następnie zapakuj je ponownie\w4 i spróbuj jeszcze raz.]\e"
+				}
+				else //English
+				{
+					"[Could not install the shell.\w8 Please extract the archive,\w4 go into install.txt,\w4 and remove the line 'accept,flele'.\w8 Then zip it,\w4 and try it again.]\e"
+				}
+			}	
+		}
+	}
+	else
+	{
+		"\0%(b)"
+		--
+		if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Error]"
+		else; "\s[6]"
+		--
+		if language == "Placeholder" //TRANSLATORS: If the user tries to install something that's only compatible with another ghost. reference1 is the type of thing they tried to install, reference0 is the sakura name of the other ghost
+		{
+			
+		}
+		elseif language == "Deutsch"
+		{
+			_r = ""
+			_es = ""
+			if TOLOWER(reference1) == "shell" || TOLOWER(reference1) == "headline"
+			{
+				_r = ""
+				_es = "sie"
+			}
+			elseif TOLOWER(reference1) == "ghost" || TOLOWER(reference1) == "balloon" || TOLOWER(reference1) == "calendar skin"
+			{
+				_r = "r"
+				_es = "er"
+			}
+			else
+			{
+				_r = "s"
+				_es = "es"
+			}
+			--
+			"Diese%(_r) %(Capitalize(reference1)) konnte nicht installiert werden,\w4 %(_es) ist nur mit %(reference0) kompatibel.]\e"
+		}
+		elseif language == "Русский"
+		{
+			"[Не удалось установить этот %(reference1),\w4 поэтому и совместимый только с %(reference0).]\e"
+		}
+		elseif language == "Français"
+		{
+			"[Impossible d'installer %(reference1),\w4 c'est compatible uniquement avec %(reference0).]\e"
+		}
+		elseif language == "Polski"
+		{
+			_temp = ""
+			if TOLOWER(reference1) == "shell"
+			{
+				_temp = "tej skorupy"
+			}
+			else
+			{
+				_temp = "tego pliku"
+			}
+			--
+			"[Nie moge zainstalować %(_temp),\w4 jest on kompatybilny tylko z %(reference0).]\e"
+		}
+		else //English
+		{
+			"[Cannot install this %(reference1),\w4 it is compatible only with %(reference0).]\e"
+		}
+	}
+}
+
+OnEmptyTempFolder
+{
+	_dir = "../../temp/"
+	
+	if FENUM(_dir,"|") == ""; {1; return}
+	_error = ""
+	_files = SPLIT(FENUM(_dir,"|"),"|")
+	foreach _files; _file
+	{
+		LOGGING("====================================================================")
+		LOGGING("To delete: %(_dir)%(_file)")
+		_enum = FENUM("%(_dir)%(_file)","|")
+		LOGGING("FENUM: %(_enum)")
+		if _enum != ""
+		{
+			LOGGING("Using RMDIREX")
+			_del = RMDIREX("%(_dir)%(_file)")
+			LOGGING(_del)
+			if _del == 0; {_error = "Can't delete directory %(_dir)%(_file) with RMDIREX"; break}
+		}
+		else
+		{
+			LOGGING("Using FDEL")
+			_del = FDEL("%(_dir)%(_file)")
+			LOGGING(_del)
+			if _del == 0;
+			{
+				LOGGING("Using RMDIR")
+				_del = RMDIR("%(_dir)%(_file)")
+				LOGGING(_del)
+			}
+			if _del == 0; {_error = "Can't delete file %(_dir)%(_file)"; break}
+		}
+	}
+	
+	void RMDIR(_dir)
+	
+	if _error == ""; 1
+	else; _error
+}
+
+//Searches for and deletes files in a folder, then deletes the folder itself. Also goes into subfolders and does the same thing. Recursive function, use wisely.
+RMDIREX
+{
+	_input = FENUM(_argv[0],"|") //Enumerate the folder
+	
+	if _input != "" //If this is not an empty folder
+	{
+		_input = SPLIT(_input,"|") //Split the folder into an array
+		
+		LOGGING("INPUT: %(_input)")
+		
+		foreach _input; _file
+		{
+			_path = SPLITPATH(_file)
+			_ext = TOLOWER(_path[3])
+			
+			if _ext != "" //If it's not a folder
+			{
+				_del = FDEL("%(_argv[0])\%(_file)")
+				if _del != 1; {"Couldn't delete file \_?%(_argv[0])%(_file)\_?"; return}
+			}
+			else //If it's a folder
+			{
+				LOGGING("===START RECURSIVE FUNCTION=== : %(_argv[0])\%(_file)")
+				_recursive = RMDIREX("%(_argv[0])\%(_file)")
+				LOGGING("Response: %(_recursive)")
+				if _recursive != 1; {"Recursive call failed: %(_recursive)"; return}
+			}
+		}
+	}
+	_del = RMDIR(_argv[0])
+	
+	if _del == 1; 1
+	else; "Couldn't delete directory"
+}
+
+//Moves a folder up into a new directory. Used to get rid of nested folders. _argv[0] is the origin folder, _argv[1] is the new folder
+OnMoveFolder
+{
+	_input = FENUM(_argv[0],"|") //Enumerate the folder
+	_f = MKDIR(_argv[1]) //Make the new folder
+	
+	if _input != "" //If this is not an empty folder
+	{
+		_input = SPLIT(_input,"|") //Split the folder into an array
+		
+		LOGGING("INPUT: %(_input)")
+		
+		foreach _input; _file
+		{
+			_path = SPLITPATH(_file)
+			_ext = TOLOWER(_path[3])
+			
+			if _ext != "" //If it's not a folder
+			{
+				_mov = FMOVE("%(_argv[0])\%(_file)","%(_argv[1])")
+				if _mov != 1; {"Couldn't move file \_?%(_argv[0])%(_file)\_?"; return}
+			}
+			else //If it's a folder
+			{
+				LOGGING("===START RECURSIVE FUNCTION=== : %(_argv[0])\%(_file) to %(_argv[1])\%(_file)")
+				_recursive = OnMoveFolder("%(_argv[0])\%(_file)","%(_argv[1])\%(_file)")
+				LOGGING("Response: %(_recursive)")
+				if _recursive != 1; {"Recursive call failed: %(_recursive)"; return}
+			}
+		}
+	}
+	
+	_del = RMDIR(_argv[0])
+	if _del == 1; 1
+	else; "Couldn't delete old directory"
+}
+
+OnShellInstallFailure //Installing a shell that is set as FLELE only fails
+{
+	void OnEmptyTempFolder
+	/* Possible error types:
+	can't copy
+	can't rename to a zip## folder with same name may already exist
+	can't extract: %(_i)
+	can't find install.txt
+	can't find name/directory in install.txt
+	can't change to the name specified in install.txt## folder with same name may already exist
+	can't un-nest the directory## a folder with the target name may already exist
+	*/
+	InstalledShellName = "" //Prevents it from saying the 'installed shell' dialogue
+	_error = REPLACE(reference0,"##",",")
+	
+	"\0%(b)"
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Error]"
+	else; "\s[6]"
+	--
+	if language == "Placeholder" //TRANSLATORS: If a FLELE shell fails to install with FLUX's workaround, this is the error message. I'm not worried about translating the content of the error messages (the list up there is... not up to date), plus if people are contacting me as the message directs them to do, I need to be able to see what the error is. _error contains the error message
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"[Diese Shell konnte nicht installiert werden.\w8\w8 Der aufgetretene Fehler ist '%(_error)'.\w8\w8 Bitte kontaktiere \_a[https://zichqec.github.io/s-the-skeleton/]Zichqec\_a für Hilfe.]"
+	}
+	elseif language == "Русский"
+	{
+		"[Не удалось установить этот внешний вид.\w8\w8 Вот ошибка: '%(_error)'.\w8\w8 Пожалуйста, сообщите \_a[https://zichqec.github.io/s-the-skeleton/]Zichqec\_a за помощь.]" 
+	}
+	elseif language == "Français"
+	{
+		"[Impossible d'installer ce shell.\w8\w8 L'erreur renvoyée est '%(_error)'.\w8\w8 Merci de contacter \_a[https://zichqec.github.io/s-the-skeleton/]Zichqec\_a pour de toute assistance.]"
+	}
+	elseif language == "Polski"
+	{
+		"[Nie można zainstalować tej skorupy. Błąd to: '%(_error)'. Prosimy o kontakt z \a[https://zichqec.github.io/s-the-skeleton/]Zichqec\a w celu uzyskania pomocy.]"
+	}
+	else //English
+	{
+		"[Could not install this shell.\w8\w8 The error returned is '%(_error)'.\w8\w8 Please contact \_a[https://zichqec.github.io/s-the-skeleton/]Zichqec\_a for assistance.]"
+	}
+	--
+	"\e"
+}
+
+OnUpdatedataCreating //Creating an updates2.dau
+{
+	"\0%(b)"
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+	else; "\s[6]"
+	--
+	if language == "Placeholder" //TRANSLATORS: Creating an updates2.dau file
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"[Update-Datei wird erstellt...]\e"
+	}
+	elseif language == "Русский"
+	{
+		"[Создаю файл обновлении...]\e"
+	}
+	elseif language == "Français"
+	{
+		"[Creation d'un fichier de mise à jour...]\e"
+	}
+	elseif language == "Polski"
+	{
+		"[Tworzenie pliku aktualizacji...]\e"
+	}
+	else //English
+	{
+		"[Creating an update file...]\e"
+	}
+}
+
+OnUpdatedataCreated //Finished creating
+{
+	"\0%(b)"
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+	else; "\s[6]"
+	--
+	if language == "Placeholder" //TRANSLATORS: Finished creating an updates2.dau file
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"[Updates2.dau wurde erfolgreich erstellt.]\e"
+	}
+	elseif language == "Русский"
+	{
+		"[Создал updates2.dau.]\e"
+	}
+	elseif language == "Français"
+	{
+		"[Creation du updates2.dau finie.]\e"
+	}
+	elseif language == "Polski"
+	{
+		"[Zakończono tworzenie pliku updates2.dau.]\e"
+	}
+	else //English
+	{
+		"[Finished creating updates2.dau.]\e"
+	}
+}
+
+//reference0 is the name of what you're making a nar for, reference2 is what you're making (balloon/ghost/etc)
+OnNarCreating //Creating a .nar
+{
+	"\0%(b)"
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+	else; "\s[6]"
+	--
+	if language == "Placeholder" //TRANSLATORS: Creating a .nar file
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"[.nar wird erstellt...]\e"
+	}
+	elseif language == "Русский"
+	{
+		"[Создаю .nar...]\e"
+	}
+	elseif language == "Français"
+	{
+		"[Création d'un .nar...]\e"
+	}
+	elseif language == "Polski"
+	{
+		"[Tworzenie pliku .nar...]\e"
+	}
+	else //English
+	{
+		"[Creating a .nar...]\e"
+	}
+}
+
+//reference0 is the name of what you're making a nar for, reference2 is what you're making (balloon/ghost/etc)
+OnNarCreated //Finished creating
+{
+	"\0%(b)"
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+	else; "\s[6]"
+	--
+	if language == "Placeholder" //TRANSLATORS: Finished creating a .nar. The anchor will open the folder where the .nar was saved
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"[\_a[OnNarLocation,%(reference1)]%(reference0)\_a wurde erfolgreich erstellt.]\e"
+	}
+	elseif language == "Русский"
+	{
+		"[Создал \_a[OnNarLocation,%(reference1)]%(reference0)\_a.]\e"
+	}
+	elseif language == "Français"
+	{
+		"[Création de \_a[OnNarLocation,%(reference1)]%(reference0)\_a finie.]\e"
+	}
+	elseif language == "Polski"
+	{
+		"[Zakończono tworzenie \_a[OnNarLocation,%(reference1)]%(reference0)\_a.]\e"
+	}
+	else //English
+	{
+		"[Finished creating \_a[OnNarLocation,%(reference1)]%(reference0)\_a.]\e"
+	}
+}
+
+//When you click on the anchor in the OnNarCreated dialogue, this function will open the folder you created the .nar in
+OnNarLocation
+{
+	_path = SPLITPATH(reference0)[0] + SPLITPATH(reference0)[1]
+	
+	"\C\![open,file,%(_path)]"
+}
+
+//----Uninstalling----
+
+//Bringing up the uninstall option
+OnVanishSelecting
+{
+	"\0%(b)"
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+	else; "\s[6]"
+	--
+	if language == "Placeholder" //TRANSLATORS: The user has brought up the uninstall option
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"[Bist du sicher, dass du FLUX-Player und alle Shells, die du installiert hast, deinstallieren möchtest?]\e"
+	}
+	elseif language == "Русский"
+	{
+		"[Ты уверен_а, что хочешь удалить плеер FLUX и всех твоих внешних видов?]\e"
+	}
+	elseif language == "Français"
+	{
+		"[Désinstallation de FLUX...]\n\n\w8\w8\s[0][Passe une bonne journée.]"
+	}
+	elseif language == "Polski"
+	{
+		"[Czy na pewno chcesz odinstalować FLUX player i wszystkie zainstalowane przez Ciebie skorupy?]\e"
+	}
+	else //English
+	{
+		"[Are you sure you want to uninstall FLUX player and all the shells you have installed?]\e"
+	}
+}
+
+//Deciding to uninstall
+OnVanishSelected
+{
+	"\0%(b)"
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+	else; "\s[6]"
+	--
+	if language == "Placeholder" //TRANSLATORS: The user has decided to uninstall. Added some extra wait time here in case they change their minds or clicked by accident
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"[FLUX wird deinstalliert...]\n\n\w8\w8\w8\s[0][Mach's gut.]"
+	}
+	elseif language == "Русский"
+	{
+		"[Удалает FLUX...]\n\n\w8\w8\w8\s[0][Хорошего дня.]"
+	}
+	elseif language == "Français"
+	{
+		"[Désinstallation de FLUX...]\n\n\w8\w8\s[0][Passe une bonne journée.]"
+	}
+	elseif language == "Polski"
+	{
+		"[Odinstalowywanie FLUX...]\n\n\w8\w8\s[0][Życzę miłego dnia.]"
+	}
+	else //English
+	{
+		"[Uninstalling FLUX...]\n\n\w8\w8\w8\s[0][Have a nice day.]"
+	}
+	--
+	"\_w[3000]\e"
+}
+
+//Changing your mind
+OnVanishCancel 
+{
+	"\0%(b)"
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+	else; "\s[6]"
+	--
+	if language == "Placeholder" //TRANSLATORS: The user has decided not to uninstall
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"[Deinstallation wurde abgebrochen.]\e"
+	}
+	elseif language == "Русский"
+	{
+		"[Удаленно отметил_а.]\e" //???
+	}
+	elseif language == "Français"
+	{
+		"[Désinstallation annulée.]\e"
+	}
+	elseif language == "Polski"
+	{
+		"[Anulowano dezinstalację.]\e"
+	}
+	else //English
+	{
+		"[Cancelled uninstall.]\e"
+	}
+}
+
+//Canceling uninstallation by double clicking the balloon
+OnVanishButtonHold
+{
+	"\0%(b)"
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+	else; "\s[6]"
+	--
+	if language == "Placeholder" //TRANSLATORS: The user cancelled the uninstall before it could complete
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"[Deinstallation wurde abgebrochen.]\e"
+	}
+	elseif language == "Русский"
+	{
+		"[Удаленно отметил_а.]\e" //???
+	}
+	elseif language == "Français"
+	{
+		"\0%(b)\s[6][Désinstallation annulée.]\e"
+	}
+	elseif language == "Polski"
+	{
+		"[Anulowano dezinstalację.]\e"
+	}
+	else //English
+	{
+		"[Cancelled uninstall.]\e"
+	}
+}
+
+//When another ghost has been uninstalled and it switches to this ghost - Also happens if this ghost is open when another is uninstalled
+//reference0 is the name of the uninstalled ghost
+OnVanished
+{
+	if ISFUNC("OnCustom_OnVanished") && CustomFuncs[0] == 1
+	{
+		BootVars
+		"%(OnNotifySongInfo)%(OnDiscordPluginBoot)%(UpdateTooltips)\![get,property,OnShellAuthor,currentghost.shelllist.current.craftman,currentghost.shelllist.current.craftmanw,currentghost.shelllist.current.craftmanurl]"
+		--
+		if ISFUNC("OnCustom_trayicon"); OnCustom_trayicon
+		else; "\![set,tasktrayicon,flux.ico]"
+		--
+		EVAL("OnCustom_OnVanished('boot')")
+	}
+}
+
+OnOtherGhostVanished
+{
+	if ISFUNC("OnCustom_OnVanished") && CustomFuncs[0] == 1; OnCustom_OnVanished
+	else
+	{
+		if BalloonCheck; "\C"
+		--
+		"\![this-is-just-to-stop-it-from-running-the-boot-dialogue-please-let-this-work]"
+	}
+}
+
+//----Mail checking----
+
+//reference2 is the email address it's checking? Wiki says mail server.
+OnBIFFBegin
+{
+	"\0%(b)"
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+	else; "\s[6]"
+	--
+	if language == "Placeholder" //TRANSLATORS: Starting an email check
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"[Posteingang wird auf neue E-Mails überprüft...]\e"
+	}
+	elseif language == "Русский"
+	{
+		"[Проверяет почту...]\e"
+	}
+	elseif language == "Français"
+	{
+		"[Vérification des emails...]\e"
+	}
+	elseif language == "Polski"
+	{
+		"[Sprawdzanie wiadomości e-mail...]\e"
+	}
+	else //English
+	{
+		"[Checking for emails...]\e"
+	}
+}
+
+//reference0 is the number of emails found
+OnBIFFComplete
+{
+	headers = ""
+	if reference7 != "" && reference0 < 100 //AHAHAHA I FINALLY FIGURED OUT HOW TO GET AN ARRAY OF THE HEADERS WITH AUTO TYPE CONVERT ON. They're normally in reference7, but since auto type convert changes the C_BYTE1 characters to commas, any headers with commas screw things up badly. But you can get the nonconverted values! Still need a loop to add menu markers and stuff to the display, but that can happen in the other function...
+	{
+		LOGGING("=======")
+		LOGGING(reference.raw[7])
+		headers = SPLIT(reference.raw[7],C_BYTE1)
+	}
+	--
+	"\0%(b)"
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+	else; "\s[6]"
+	--
+	if language == "Placeholder" //TRANSLATORS: Result of checking emails, reference0 is the number of emails. It will only offer to show headers if headers are on and there are less than 100 of them
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		_s = ""; if reference0 != 1; _s = "s" //Plural check, adds an s if the number of emails is not 1
+		_e = ""; if reference0 != 1; _e = "e"
+		_pl = ""
+		if reference0 == 1
+		{
+			_pl = "den"
+		}
+		else
+		{
+			_pl = "die" 
+		}
+		
+		if reference0 == 0 //No new emails
+		{
+			"[Es wurden keine neuen E-Mails gefunden.]\e"
+		}
+		else //There are new emails
+		{
+			"[Du hast %(reference0) neue E-Mail%(_s).]"
+			--
+			if headers != "" //If there are headers
+			{
+				"\n\n\w8\w8[Möchtest du %(_pl) Betreff%(_e) sehen?]"
+				--
+				"\n\n\![*]\q[Ja,OnSeeHeaders]  \![*]\q[Nein,OnCancel]"
+			}
+			--
+			"\e"
+		}
+	}
+	elseif language == "Русский"
+	{
+		_и = "а"; if reference0 != 1; _и = "и"; _новые = "новая"; if reference0 != 1; _новые = "новые"; _почти = "электронная почта"; if reference0 != 1; _почти = "электронные почти"
+		
+		if reference0 == 0 //No new emails
+		{
+			"[Ничего нового.]\e"
+		}
+		else //There are new emails
+		{
+			"[%(reference0) %(_новые) %(_почти).]"
+			--
+			if headers != "" //If there are headers
+			{
+				"\n\n\w8\w8[Хочешь поглядеть на заголовк%(_и)?]"
+				--
+				"\n\n\![*]\q[Да,OnSeeHeaders]  \![*]\q[Нет,OnCancel]"
+			}
+			--
+			"\e"
+		}
+	}
+	elseif language == "Français"
+	{
+		_s = ""; if reference0 != 1; _s = "s" //Plural check, adds an s if the number of emails is not 1
+		
+		if reference0 == 0 //No new emails
+		{
+			"[Pas de nouveaux emails.]\e"
+		}
+		else //There are new emails
+		{
+			"[%(reference0) nouveaux email%(_s).]"
+			--
+			if reference7 != "" && reference0 < 100 //If it's less than 100 emails and there are headers
+			{
+				"\n\n\w8\w8[Veux-tu voir les en-têtes ?]"
+				--
+				"\n\n\![*]\q[Oui,OnSeeHeaders]  \![*]\q[Non,OnCancel]"
+			}
+			--
+			"\e"
+		}
+	}
+	elseif language == "Polski"
+	{
+		_s = ""; if reference0 != 1; _s = "i" //Plural check, adds an s if the number of emails is not 1
+		--
+		_c = ""; if reference0 != 1; _c = "ch"
+		--
+		_ki = ""; if reference0 != 1; _ki = "ek"
+		else; _ki = "ki"
+		
+		if reference0 == 0 //No new emails
+		{
+			"[Brak nowych e-maili.]\e"
+		}
+		else //There are new emails
+		{
+			"[%(reference0) nowy%(_c) email%(_s).]"
+			--
+			if headers != "" //If there are headers
+			{
+				"\n\n\w8\w8[Czy chcesz zobaczyć nagłów%(_ki)?]"
+				--
+				"\n\n\![*]\q[Tak,OnSeeHeaders]  \![*]\q[Nie,OnCancel]"
+			}
+			--
+			"\e"
+		}
+	}
+	else //English
+	{
+		_s = ""; if reference0 != 1; _s = "s" //Plural check, adds an s if the number of emails is not 1
+		
+		if reference0 == 0 //No new emails
+		{
+			"[No new emails.]\e"
+		}
+		else //There are new emails
+		{
+			"[%(reference0) new email%(_s).]"
+			--
+			if headers != "" //If there are headers
+			{
+				"\n\n\w8\w8[Do you want to see the header%(_s)?]"
+				--
+				"\n\n\![*]\q[Yes,OnSeeHeaders]  \![*]\q[No,OnCancel]"
+			}
+			--
+			"\e"
+		}
+	}
+}
+
+//Displaying the headers. No need to touch this other than changing the surface, or if you want to make the buttons different or something. Reference0 is the list of headers
+OnSeeHeaders
+{
+	_display = ""
+	foreach headers; _header
+	{
+		_display += "\![*]"
+		_display += SHIORI3FW.EscapeAllTags(_header)
+		_display += "\n\n"
+	}
+	
+	"\0%(bbb)"
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+	else; "\s[6]"
+	--
+	"\_q%(_display)\*"
+	--
+	if language == "Placeholder" //TRANSLATORS: This is just the button for when you're done looking at email headers
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"\n\n\![*]\q[Schließen,OnCancel]\e"
+	}
+	elseif language == "Русский"
+	{
+		"\n\n\![*]\q[Закрыть,OnCancel]\e"
+	}
+	elseif language == "Français"
+	{
+		"\n\n\![*]\q[Fermer,OnCancel]\e"
+	}
+	elseif language == "Polski"
+	{
+		"\n\n\![*]\q[Zamknij,OnCancel]\e"
+	}
+	else //English
+	{
+		"\n\n\![*]\q[Close,OnCancel]\e"
+	}
+	--
+	ERASEVAR("headers") //This erases the variable so you're not storing all those headers and bloating your save. Also, privacy reasons.
+}
+
+//Email checking failed
+//reference0 is the error returned
+OnBIFFFailure
+{
+	"\0%(b)"
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Error]"
+	else; "\s[6]"
+	--
+	if language == "Placeholder" //TRANSLATORS: If the email checking fails
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		if reference0 == "timeout" //If the connection times out
+		{
+			"[Es gab eine Zeitüberschreitung beim Verbindungsversuch.]\e"
+		}
+		elseif reference0 == "kick" //if the ghost can't get into the account. Gmail requires an app specific password to get in
+		{
+			"[Es kann nicht auf den Account zugegriffen werden.]\e"
+		}
+		elseif reference0 == "defect" //If info in the POP menu is wrong
+		{
+			"[Die POP Einstellungen sind nicht korrekt.]"
+			--
+			"\![open,configurationdialog,biff]\e"
+		}
+		elseif reference0 == "artificial" //As far as I can tell, artificial is if the user double clicks on the balloon to stop it
+		{
+			"[Die Suche nach E-Mails wurde abgebrochen.]\e"
+		}
+		else //Some other kind of error.
+		{
+			"[Die Suche nach E-Mails ist fehlgeschlagen: '%(reference0)'.]\e"
+		}
+	}
+	elseif language == "Русский"
+	{
+		if reference0 == "timeout" //If the connection times out
+		{
+			"[Связь истекшим временем ожидания.]\e"
+		}
+		elseif reference0 == "kick" //if the ghost can't get into the account. Gmail requires an app specific password to get in
+		{
+			"[Я не могу войти в аккаунт.]\e"
+		}
+		elseif reference0 == "defect" //If info in the POP menu is wrong
+		{
+			"[Настройки POP неправильная.]"
+			--
+			"\![open,configurationdialog,biff]\e"
+		}
+		elseif reference0 == "artificial" //As far as I can tell, artificial is if the user double clicks on the balloon to stop it
+		{
+			"[Отметил_а проверяние.]\e"
+		}
+		else //Some other kind of error.
+		{
+			"[Не удалось проверять, потому что: '%(reference0)'.]\e"
+		}
+	}
+	elseif language == "Français" 
+	{
+		if reference0 == "timeout" //If the connection times out
+		{
+			"[La connexion a expirée.]\e"
+		}
+		elseif reference0 == "kick" //if the ghost can't get into the account. Gmail requires an app specific password to get in
+		{
+			"[Impossible de se connecter au compte.]\e"
+		}
+		elseif reference0 == "defect" //If info in the POP menu is wrong
+		{
+			"[Les paramètres POP ne sont pas corrects.]"
+			--
+			"\![open,configurationdialog,biff]\e"
+		}
+		elseif reference0 == "artificial" //As far as I can tell, artificial is if the user double clicks on the balloon to stop it
+		{
+			"[Vérification des emails annulée.]\e"
+		}
+		else //Some other kind of error.
+		{
+			"[Echec de la vérification des emails: '%(reference0)'.]\e"
+		}
+	}
+	elseif language == "Polski"
+	{
+		if reference0 == "timeout" //If the connection times out
+		{
+			"[Połączenie zostało przerwane..]\e"
+		}
+		elseif reference0 == "kick" //if the ghost can't get into the account. Gmail requires an app specific password to get in
+		{
+			"[Nie można dostać się na konto.]\e"
+		}
+		elseif reference0 == "defect" //If info in the POP menu is wrong
+		{
+			"[Ustawienia POP są nieprawidłowe.]"
+			--
+			"\![open,configurationdialog,biff]\e"
+		}
+		elseif reference0 == "artificial" //As far as I can tell, artificial is if the user double clicks on the balloon to stop it
+		{
+			"[Anulowano sprawdzanie poczty elektronicznej.]\e"
+		}
+		else //Some other kind of error.
+		{
+			"[Sprawdzanie poczty elektronicznej nie powiodło się: '%(reference0)'.]\e"
+		}
+	}
+	else //English
+	{
+		if reference0 == "timeout" //If the connection times out
+		{
+			"[The connection timed out.]\e"
+		}
+		elseif reference0 == "kick" //if the ghost can't get into the account. Gmail requires an app specific password to get in
+		{
+			"[Cannot get into the account.]\e"
+		}
+		elseif reference0 == "defect" //If info in the POP menu is wrong
+		{
+			"[The POP settings are not correct.]"
+			--
+			"\![open,configurationdialog,biff]\e"
+		}
+		elseif reference0 == "artificial" //As far as I can tell, artificial is if the user double clicks on the balloon to stop it
+		{
+			"[Cancelled email check.]\e"
+		}
+		else //Some other kind of error.
+		{
+			"[Email check failed: '%(reference0)'.]\e"
+		}
+	}
+}
+
+//----Network update---
+
+OnStartUpdates
+{
+	_cmd = ""
+	if AutoUpdates[3] == 1; _cmd += "ghost+"
+	if AutoUpdates[4] == 1; _cmd += "shell+"
+	if AutoUpdates[5] == 1; _cmd += "balloon+"
+	_cmd = ERASE(_cmd,(STRLEN(_cmd) - 1),1)
+	"\![update,%(_cmd)]"
+}
+
+//When the ghost finishes checking for updates
+//reference0 is 'none' if there are no new files, and 'changed' if there are new files. reference1 is a list of the changed files, separated by commas
+OnUpdateCheckComplete
+{
+	AutoUpdates[1] = 1 //Sets it so it won't check again until at least midnight
+	if reference0 == "none" //If there are no new files
+	{
+		if reference3 == "ghost"; AutoUpdates[3] = 0
+		elseif reference3 == "shell"; AutoUpdates[4] = 0
+		elseif reference3 == "balloon"; AutoUpdates[5] = 0
+	}
+	else
+	{
+		if reference3 == "ghost"; AutoUpdates[3] = 1
+		elseif reference3 == "shell"; AutoUpdates[4] = 1
+		elseif reference3 == "balloon"; AutoUpdates[5] = 1
+	}
+	--
+	if reference3 == "ghost"; "\![update,shell,checkonly]"
+	elseif reference3 == "shell"; "\![update,balloon,checkonly]"
+	else; "\e Update Check Complete"
+}
+
+OnUpdateCheckFailure
+{
+	AutoUpdates[1] = 1 //Sets it so it won't check again until at least midnight
+	if reference3 == "ghost"; AutoUpdates[3] = 0
+	elseif reference3 == "shell"; AutoUpdates[4] = 0
+	elseif reference3 == "balloon"; AutoUpdates[5] = 0
+	--
+	if reference3 == "ghost"; "\![update,shell,checkonly]"
+	elseif reference3 == "shell"; "\![update,balloon,checkonly]"
+	else; "\e Update Check Complete"
+}
+
+
+//Starting to actually update
+OnUpdateBegin
+{
+	"\0%(b)"
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+	else; "\s[6]"
+	--
+	if language == "Placeholder" //TRANSLATORS: Beginning an update
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"[Updatevorgang wird gestartet...]\w8\e"
+	}
+	elseif language == "Русский"
+	{
+		"[Начинает обновления...]\w8\e"
+	}
+	elseif language == "Français"
+	{
+		"\0%(b)\s[6][Démarrage de la mise à jour...]\w8\e"
+	}
+	elseif language == "Polski"
+	{
+		"[Zaczynam aktualizacjie...]\w8\e"
+	}
+	else //English
+	{
+		"[Beginning update...]\w8\e"
+	}
+}
+
+//reference0 is the number of new files, starting from 0
+OnUpdateReady
+{
+	reference0++ //Number of files starts from 0, so this displays the correct amount
+	
+	"\0%(b)"
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+	else; "\s[6]"
+	--
+	if language == "Placeholder" //TRANSLATORS: If update files were found. reference0 is the number of files
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		_s = ""; if reference0 != 1; _s = "en" //plural checks, adds an s and changes is to are if there's more than 1 file
+
+		"[Es gibt %(reference0) neue Datei%(_s).]"
+	}
+	elseif language == "Русский"
+	{
+		_новые = "новый"; _файли = "файл"; if reference0 != 1; {_новые = "новые"; _файли = "файли"}
+
+		"[Есть %(reference0) %(_новые) %(_файли).]"
+	}
+	elseif language == "Français"
+	{
+		_s = ""; _is = ""; if reference0 != 1; {_s = "s"; _is = "x"} //plural checks, adds an s and changes is to are if there's more than 1 file
+
+		"[Il y a %(reference0) nouveau%(_is) fichier%(_s).]"
+	}
+	elseif language == "Polski"
+	{
+		_s = ""; if reference0 != 1; _s = "ów"; //plural checks, adds an s and changes is to are if there's more than 1 file
+
+		"[Znalezłem %(reference0) nowych plik%(_s).]"
+	}
+	else //English
+	{
+		_s = ""; _is = "is"; if reference0 != 1; {_s = "s"; _is = "are"} //plural checks, adds an s and changes is to are if there's more than 1 file
+
+		"[There %(_is) %(reference0) new file%(_s).]"
+	}
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\w8\w8\![embed,OnCustom_ActionSurfaces,Action]\e"
+	else; "\w8\w8\s[6]\e"
+}
+
+//When the update finishes. Don't forget to initialize any new variables you've created, more on that in Bootend.
+//reference0 is 'none' if there were no new files to update with, reference1 is a list of new file names, separated by commas
+OnUpdateComplete
+{
+	UpdateVars
+	AutoUpdates[1] = 0
+	
+	"\0%(b)"
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+	else; "\s[6]"
+	--
+	if language == "Placeholder" //TRANSLATORS: If there are no new files, or an update completed successfully
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		if reference0 == "none"
+		{
+			"[FLUX ist auf dem neuesten Stand.\w8\w8 Um nach Shell-Updates zu suchen\w4 klicke die 'Update Shell' Option in den Einstellungen.]\e"
+			
+		}
+		else
+		{
+			"[FLUX-Update wurde fertiggestellt.\w8\w8 Soll das Änderungsprotokoll geöffnet werden?]"
+			--
+			"\n\n\![*]\q[Ja,OnChangeLog]\n\![*]\q[Nein,OnCancel]\e"
+		}
+	}
+	elseif language == "Русский"
+	{
+		if reference0 == "none"
+		{
+			"[FLUX на последняя версия.\w8\w8 Чтобы проверять обновление вида,\w4 нажмите на настройка в меню конфигурации.]\e"
+		}
+		else
+		{
+			//"[Обновления FLUX закончено.]" //готов?
+			"[Обновление FLUX успешно.\w8\w8 Открыть лог изменение?]"
+			--
+			"\n\n![]\q[Да,OnChangeLog]\n![]\q[Нет,OnCancel]\e"
+		}
+	}
+	elseif language == "Français"
+	{
+		if reference0 == "none"
+		{
+			"[FLUX est à jour.\w8\w8 Pour vérifier les mises à jour du shell,\w4 clique l'option de mise à jour du shell du menu config.]\e"
+		}
+		else
+		{
+			"[Mise à jour de FLUX complète.\w8\w8 Ouvrir le changelog ?]"
+			--
+			"\n\n\![*]\q[Oui,OnChangeLog]\n\![*]\q[Non,OnCancel]\e"
+		}
+	}
+	elseif language == "Polski"
+	{
+		if reference0 == "none"
+		{
+			"[FLUX jest aktualny.\w8\w8 Aby sprawdzić dostępność aktualizacji skorupy,\w4 kliknij opcję aktualizacji skorupy w ustawieniach.]\e"
+		}
+		else
+		{
+			//"[FLUX został zaktualizowany]"
+			"[FLUX został zaktualizowany.\w8\w8 Czy chcesz zobaczyć liste zmian??]"
+			--
+			"\n\n\![*]\q[Tak,OnChangeLog]\n\![*]\q[Nie,OnCancel]\e"
+		}
+	}
+	else //English - TODO NOTE TO SELF MAKE SURE THIS SAYS CONFIG MENU
+	{
+		if reference0 == "none"
+		{
+			"[FLUX is up to date.\w8\w8 To check for shell updates,\w4 click the update shell option in the config menu.]\e"
+		}
+		else
+		{
+			"[FLUX Update complete.\w8\w8 Open the changelog?]"
+			--
+			"\n\n\![*]\q[Yes,OnChangeLog]\n\![*]\q[No,OnCancel]\e"
+		}
+	}
+}
+
+OnChangeLog
+{
+	"\![open,file,changelog.txt]\e"
+}
+
+//I've put this here so it's easier to remember to update the version number while you're updating the changelog. This will display on the ghost's menu. I made it an envelope so you can have it be the same across multiple menus for multiple modes, if you want.
+ghostver
+{
+	"1.2.2"
+}
+
+//Taken from the GT template because I see no reason to redo this and probably break it
+//reference0 is the file currently being downloaded
+OnUpdate.OnDownloadBegin
+{
+	"\0%(b)\_q"
+	--
+	//if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+	//else; "\s[6]" //This makes the poses go crazy, rip... I'm adding an exception for the master shell cause it's kinda funny, but I don't think everyone else wants that
+	if nowshell == "FLUX"; "\![embed,OnCustom_ActionSurfaces,Action]"
+	--
+	if language == "Placeholder" //TRANSLATORS: While files are downloading
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"[%(Capitalize(reference0)) wird heruntergeladen...]\n\n"
+	}
+	elseif language == "Русский"
+	{
+		"[Загрузу %(reference0)...]\n\n" //?
+	}
+	elseif language == "Français"
+	{
+		"[Téléchargement de %(reference0)...]\n\n"
+	}
+	elseif language == "Polski"
+	{
+		"[Pobieram %(reference0)...]\n\n"
+	}
+	else //English
+	{
+		"[Downloading %(reference0)...]\n\n"
+	}
+	--
+	_Update_Progress = TOINT(reference1) + 1
+	_Update_Total = TOINT(reference2) + 1
+	Update_Remaining = _Update_Total - _Update_Progress
+	
+
+	//defining starting points
+	_PointA = 1
+	_PointB = 1
+
+	//defining text buffers beforehand, otherwise they don't display right
+	_filled = ""
+	_empty = ""
+
+	//loop calculates how many check boxes to display based on the variables above
+
+	while _PointA <= _Update_Progress
+	{
+		_filled += "♪"
+		_PointA++
+	}
+	//see above except for blank boxes
+	while _PointB <= Update_Remaining
+	{
+		_empty += "♪"
+		_PointB++
+	}
+	--
+	"\f[name,arial]\f[height,+4]%(_filled)\f[color,120,120,120]%(_empty)\f[default]"
+	--
+	"\n\n%(_Update_Progress)/%(_Update_Total)\e"
+} 
+
+//reference0 is the reason the update failed
+OnUpdateFailure //If the update fails
+{
+	_currentfile = SPLITPATH(reference1)[2] + SPLITPATH(reference1)[3]
+	
+	"\0%(b)"
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Error]"
+	else; "\s[6]"
+	--
+	if language == "Placeholder" //TRANSLATORS: If the update fails for some reason. For the md5 miss one, _currentfile is the name of the file that had the error
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		if reference0 == "timeout" //If it timed out
+		{
+			"[Es gab eine Zeitüberschreitung beim Verbindungsversuch.]\e"
+		}
+		elseif reference0 == "md5 miss" //If the update files have not been uploaded correctly and don't match the updates2.dau
+		{	
+			"[Die MD5 Werte stimmen nicht mit jenen in '%(_currentfile)' überein.\w8\w8 Du solltest \_a[https://zichqec.github.io/s-the-skeleton/index.html]Zichqec\_a kontaktieren und sie darüber in Kenntnis setzen.]\e"
+		}
+		elseif reference0 == "artificial" //If the user cancels the update by double clicking the balloon
+		{
+			"[Update wurde abgebrochen.]\e"
+		}
+		else //Any other errors
+		{
+			"[Update konnte nicht durchgeführt werden: '%(reference0)'.]\e"
+		}
+	}
+	elseif language == "Русский"
+	{
+		if reference0 == "timeout" //If it timed out
+		{
+			"[Связь истекшим временем ожидания.]\e"
+		}
+		elseif reference0 == "md5 miss" //If the update files have not been uploaded correctly and don't match the updates2.dau
+		{
+			"[Хеш-значении MD5 не согласится друг друга.\w8\w8 Сообщить автором \_a[https://zichqec.github.io/s-the-skeleton/index.html]Zichqec\_a и расскажи нее, что файл '%(_currentfile)' даёт ошибок MD5.]\e"
+		}
+		elseif reference0 == "artificial" //If the user cancels the update by double clicking the balloon
+		{
+			"[Отметил_а обновление.]\e" //обновления?
+		}
+		else //Any other errors
+		{
+			"[Ошибок был: '%(reference0)'.]\e"
+		}	
+	}
+	elseif language == "Français"
+	{
+		if reference0 == "timeout" //If it timed out
+		{
+			"[La connexion a expirée.]\e"
+		}
+		elseif reference0 == "md5 miss" //If the update files have not been uploaded correctly and don't match the updates2.dau
+		{
+			"[La valeur MD5 ne correspond pas pour '%(_currentfile)'.\w8\w8 Tu devrais contacter \_a[https://zichqec.github.io/s-the-skeleton/index.html]Zichqec\_a et lui faire savoir.]\e"
+		}
+		elseif reference0 == "artificial" //If the user cancels the update by double clicking the balloon
+		{
+			"[Mise à jour annulée.]\e"
+		}
+		else //Any other errors
+		{
+			"[Impossible de mettre à jour : '%(reference0)'.]\e"
+		}
+	}
+	elseif language == "Polski"
+	{
+		if reference0 == "timeout" //If it timed out
+		{
+			"[Połączenie zostało przerwane..]\e"
+		}
+		elseif reference0 == "md5 miss" //If the update files have not been uploaded correctly and don't match the updates2.dau
+		{
+			"[Wartości MD5 nie zgadzają się na '%(_currentfile)'.\w8\w8 Powinieneś skontaktować się z \_a[https://zichqec.github.io/s-the-skeleton/index.html]Zichqec\_a i dać im znać.]\e"
+		}
+		elseif reference0 == "artificial" //If the user cancels the update by double clicking the balloon
+		{
+			"[Aktualizacja anulowana.]\e"
+		}
+		else //Any other errors
+		{
+			"[Nie można było zaktualiować: '%(reference0)'.]\e"
+		}	
+	}
+	else //English
+	{
+		if reference0 == "timeout" //If it timed out
+		{
+			"[The connection has timed out.]\e"
+		}
+		elseif reference0 == "md5 miss" //If the update files have not been uploaded correctly and don't match the updates2.dau
+		{
+			"[The MD5 values don't match on '%(_currentfile)'.\w8\w8 You should contact \_a[https://zichqec.github.io/s-the-skeleton/index.html]Zichqec\_a and let her know.]\e"
+		}
+		elseif reference0 == "artificial" //If the user cancels the update by double clicking the balloon
+		{
+			"[Update cancelled.]\e"
+		}
+		else //Any other errors
+		{
+			"[Couldn't update: '%(reference0)'.]\e"
+		}
+	}
+}
+
+OnUpdateOtherBegin
+{
+	_target = ""
+	
+	"\0%(b)"
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+	else; "\s[6]"
+	--
+	if language == "Placeholder" //TRANSLATORS: Beginning an update for a shell/balloon. reference3 will have either shell or balloon, depending on what is being updated. You can use _target like Polski does to change the label appropriately
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"[%(Capitalize(reference3))-Update wird gestartet...]"
+	}
+	elseif language == "Русский"
+	{
+		if reference3 == "shell"; _target = "Внешнего Вида"
+		elseif reference3 == "balloon"; _target = "Поле с Текстом"
+		
+		"[Начинает обновление %(_target)...]"
+	}
+	elseif language == "Français"
+	{
+		if reference3 == "shell"; _target = "shell"
+		elseif reference3 == "balloon"; _target = "ballon"
+		
+		"[Début de la mise à jour de %(_target)...]"
+	}
+	elseif language == "Polski"
+	{
+		if reference3 == "shell"; _target = "skorupy"
+		elseif reference3 == "balloon"; _target = "balona"
+		
+		"[Zaczynam aktualizacje %(_target)...]"
+	}
+	else //English
+	{
+		"[Beginning %(reference3) update...]"
+	}
+	--
+	"\w8\e"
+}
+
+OnUpdateOtherReady
+{
+	reference0++ //Number of files starts from 0, so this displays the correct amount
+	
+	"\0%(b)"
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+	else; "\s[6]"
+	--
+	if language == "Placeholder" //TRANSLATORS: If update files were found for a shell/balloon. reference0 is the number of files
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		_s = ""; if reference0 != 1; _s = "en"
+
+		"[Es gibt %(reference0) neue Datei%(_s).]"
+	}
+	elseif language == "Русский"
+	{
+		_новые = "новый"; _файли = "файл"; if reference0 != 1; {_новые = "новые"; _файли = "файли"}
+
+		"[Есть %(reference0) %(_новые) %(_файли).]"
+	}
+	elseif language == "Français"
+	{
+		_s = ""; _is = ""; if reference0 != 1; {_s = "s"; _is = "x"} //plural checks, adds an s and changes is to are if there's more than 1 file
+
+		"[Il y a %(reference0) nouveau%(_is) fichier%(_s).]"
+	}
+	elseif language == "Polski"
+	{
+		_s = ""; if reference0 != 1; _s = "ów"; //plural checks, adds an s and changes is to are if there's more than 1 file
+
+		"[Znalezłem %(reference0) nowych plik%(_s).]"
+	}
+	else //English
+	{
+		_s = ""; _is = "is"; if reference0 != 1; {_s = "s"; _is = "are"} //plural checks, adds an s and changes 'is' to 'are' if there's more than 1 file
+
+		"[There %(_is) %(reference0) new file%(_s).]"
+	}
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\w8\w8\![embed,OnCustom_ActionSurfaces,Action]\e"
+	else; "\w8\w8\s[6]\e"
+}
+
+OnUpdateOtherComplete
+{
+	UpdateVars
+	AutoUpdates[1] = 0
+	
+	_target = reference3
+	_name = ""
+	if reference3 == "shell"; _name = nowshell
+	elseif reference3 == "balloon"; _name = SHIORI3FW.BalloonName
+	
+	"\0%(b)"
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+	else; "\s[6]"
+	--
+	if reference3 == "shell"; OnGetCustomShellDialogue
+	--
+	if language == "Placeholder" //TRANSLATORS: If there are no new files, or an update completed successfully
+	{
+		if reference0 == "none" //If whatever was updated is up to date
+		{
+			
+		}
+		else //If an update completed successfully
+		{
+			
+		}
+	}
+	elseif language == "Deutsch"
+	{
+		if reference0 == "none"
+		{
+			"[%(_target) ist auf dem neuesten Stand.]\e"
+		}
+		else
+		{
+			"[%(Capitalize(reference3))-Update wurde fertiggestellt.]\e"
+		}
+	}
+	elseif language == "Русский"
+	{
+		if reference0 == "none"
+		{
+			"[Есть последняя версия %(_target).]\e"
+		}
+		else
+		{
+			"[обновления %(reference3) готов.]\e"
+		}
+	}
+	elseif language == "Français"
+	{
+		if reference3 == "shell"; _target = "shell"
+		elseif reference3 == "balloon"; _target = "ballon"
+		
+		if reference0 == "none"
+		{
+			"['%(_name)' est à jour.]\e"
+		}
+		else
+		{
+			"[Mise à jour de %(_target) complète.]\e"
+		}
+	}
+	elseif language == "Polski"
+	{
+		if reference3 == "shell"; _target = "skorupy"
+		elseif reference3 == "balloon"; _target = "balona"
+		
+		if reference0 == "none"
+		{
+			"['%(_name)' jest aktualny.]\e"
+		}
+		else
+		{
+			"[Aktualizacje %(_target) zakończona.]\e"
+		}
+	}
+	else //English
+	{
+		if reference0 == "none"
+		{
+			"['%(_name)' is up to date.]\e"
+		}
+		else
+		{
+			"[%(Capitalize(_target)) update complete.]\e"
+		}
+	}
+	
+}
+
+OnUpdateOther.OnDownloadBegin
+{
+	"\0%(b)\_q"
+	--
+	//if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+	//else; "\s[6]" //This makes the poses go crazy, rip... I'm adding an exception for the master shell cause it's kinda funny, but I don't think everyone else wants that
+	if nowshell == "FLUX"; "\![embed,OnCustom_ActionSurfaces,Action]"
+	--
+	if language == "Placeholder" //TRANSLATORS: While files are downloading
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"[%(Capitalize(reference0)) wird heruntergeladen...]\n\n"
+	}
+	elseif language == "Русский"
+	{
+		"[Загрузу %(reference0)...]\n\n"
+	}
+	elseif language == "Français"
+	{
+		"[Téléchargement de %(reference0)...]\n\n"
+	}
+	elseif language == "Polski"
+	{
+		"[Pobieram %(reference0)...]\n\n"
+	}
+	else //English
+	{
+		"[Downloading %(reference0)...]\n\n"
+	}
+	--
+	_Update_Progress = TOINT(reference1) + 1
+	_Update_Total = TOINT(reference2) + 1
+	Update_Remaining = _Update_Total - _Update_Progress
+	
+
+	//defining starting points
+	_PointA = 1
+	_PointB = 1
+
+	//defining text buffers beforehand, otherwise they don't display right
+	_filled = ""
+	_empty = ""
+
+	//loop calculates how many check boxes to display based on the variables above
+
+	while _PointA <= _Update_Progress
+	{
+		_filled += "♪"
+		_PointA++
+	}
+	//see above except for blank boxes
+	while _PointB <= Update_Remaining
+	{
+		_empty += "♪"
+		_PointB++
+	}
+	--
+	"\f[name,arial]\f[height,+4]%(_filled)\f[color,120,120,120]%(_empty)\f[default]"
+	--
+	"\n\n%(_Update_Progress)/%(_Update_Total)\e"
+}
+
+OnUpdateOtherFailure
+{
+	_target = reference3
+	_author = shellauthor[0]
+	_authorurl = shellauthor[2]
+	_currentfile = SPLITPATH(reference1)[2] + SPLITPATH(reference1)[3]
+	"\0%(b)"
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Error]"
+	else; "\s[6]"
+	--
+	if language == "Placeholder" //TRANSLATORS: If the shell/balloon update fails for some reason. For the md5 miss one, _currentfile is the name of the file that had the error, _author is the name of the shell/balloon author, and _authorurl is their url which you can put into the anchor. reference3 will be either shell or ghost, depending on what type of update this is. You can use _target like Polski does to set up labels for shell/balloon specifically for your language
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		if reference0 == "timeout" //If it timed out
+		{
+			"[Es gab eine Zeitüberschreitung beim Verbindungsversuch.]\e"
+		}
+		elseif reference0 == "md5 miss" //If the update files have not been uploaded correctly and don't match the updates2.dau
+		{
+			"[Die MD5 Werte stimmen nicht mit jenen in '%(_currentfile)' überein.\w8\w8 Du solltest \_a[%(_authorurl)]%(_author)\_a kontaktieren.]\e"
+		}
+		elseif reference0 == "artificial" //If the user cancels the update by double clicking the balloon
+		{
+			"[%(Capitalize(reference3))-Update wurde abgebrochen.]\e"
+		}
+		else //Any other errors
+		{
+			"[%(Capitalize(reference3)) konnte nicht geupdatet werden: '%(reference0)'.]\e"
+		}
+	}
+	elseif language == "Русский"
+	{
+		if reference3 == "shell"; _target = "Внешний Вид"
+		elseif reference3 == "balloon"; _target = "Поле с Текстом"
+		
+		if reference0 == "timeout" //If it timed out
+		{
+			"[Связь истекшим временем ожидания.]\e"
+		}
+		elseif reference0 == "md5 miss" //If the update files have not been uploaded correctly and don't match the updates2.dau
+		{
+			"[Хеш-значении MD5 не согласится друг друга.\w8\w8 Сообщить автором \_a[%(_authorurl)]%(_author)\_a и расскажи нее, что файл '%(_currentfile)' даёт ошибок MD5.]\e"
+		}
+		elseif reference0 == "artificial" //If the user cancels the update by double clicking the balloon
+		{
+			"[Отметил_а обновление.]\e" //обновления?
+		}
+		else //Any other errors
+		{
+			"[Ошибок был: %(_target) '%(reference0)'.]\e"
+		}	
+	}
+	elseif language == "Français"
+	{
+		if reference3 == "shell"; _target = "shell"
+		elseif reference3 == "balloon"; _target = "ballon"
+		
+		if reference0 == "timeout" //If it timed out
+		{
+			"[La connexion a expiré.]\e"
+		}
+		elseif reference0 == "md5 miss" //If the update files have not been uploaded correctly and don't match the updates2.dau
+		{
+			"[La valeur MD5 ne correspond pas pour le fichier '%(_currentfile)'.\w8\w8 Tu devrais contacter \_a[%(_authorurl)]%(_author)\_a.]\e"
+		}
+		elseif reference0 == "artificial" //If the user cancels the update by double clicking the balloon
+		{
+			"[Mise à jour de %(_target) annulée.]\e"
+		}
+		else //Any other errors
+		{
+			"[Mise à jour de %(_target) impossible : '%(reference0)'.]\e"
+		}
+	}
+	elseif language == "Polski"
+	{
+		if reference3 == "shell"; _target = "skorupy"
+		elseif reference3 == "balloon"; _target = "balona"
+		
+		if reference0 == "timeout" //If it timed out
+		{
+			"[Połączenie zostało przerwane..]\e"
+		}
+		elseif reference0 == "md5 miss" //If the update files have not been uploaded correctly and don't match the updates2.dau
+		{
+			"[Wartości MD5 nie zgadzają się na '%(_currentfile)'.\w8\w8 Powinieneś skontaktować się z \_a[%(_authorurl)]%(_author)\_a i dać im znać.]\e"
+		}
+		elseif reference0 == "artificial" //If the user cancels the update by double clicking the balloon
+		{
+			"[Aktualizacja anulowana.]\e"
+		}
+		else //Any other errors
+		{
+			"[Nie udało się zaktualiować %(_target): '%(reference0)'.]\e"
+		}	
+	}
+	else //English
+	{
+		if reference0 == "timeout" //If it timed out
+		{
+			"[The connection has timed out.]\e"
+		}
+		elseif reference0 == "md5 miss" //If the update files have not been uploaded correctly and don't match the updates2.dau
+		{
+			"[The MD5 values don't match on '%(_currentfile)'.\w8\w8 You should contact \_a[%(_authorurl)]%(_author)\_a.]\e"
+		}
+		elseif reference0 == "artificial" //If the user cancels the update by double clicking the balloon
+		{
+			"[%(Capitalize(reference3)) update cancelled.]\e"
+		}
+		else //Any other errors
+		{
+			"[Couldn't update %(reference3): '%(reference0)'.]\e"
+		}
+	}
+}
+
+//reference0 is the name of the site, reference1 is the url
+OnHeadlinesenseBegin
+{
+	"\0%(b)"
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+	else; "\s[6]"
+	--
+	if language == "Placeholder" //TRANSLATORS: Opening an RSS feed
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"[%(Capitalize(reference0)) wird geöffnet...]\e"
+	}
+	elseif language == "Русский"
+	{
+		"[Открывает %(reference0)...]\e"
+	}
+	elseif language == "Français"
+	{
+		"[Ouverture de %(reference0)...]\e"
+	}
+	elseif language == "Polski"
+	{
+		"[Otwieram %(reference0)...]\e"
+	}
+	else //English
+	{
+		"[Opening %(reference0)...]\e"
+	}
+}
+
+//Taken from Zarla's GT template. Slightly modified because the top part was redundant as far as I could tell..?
+//reference0 is the site name, reference1 is the url, reference3 is the headlines
+OnHeadlinesense.OnFind
+{
+	_display = REPLACE(reference3,"\_a[","\![*]\_a[")
+ 	//Headlines
+	"\0%(bb)"
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+	else; "\s[6]"
+	--
+	"%(reference0):\n\n%(_display)\n"
+ 	--
+	//Pages
+	if language == "Placeholder" //TRANSLATORS: Buttons for the RSS feed window
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		if reference2 == "First" || reference2 == "Next"
+		{
+			//Bottom buttons
+			"\![*]\q[Weiter,] - "
+		}
+		--
+		"\![*]\q[Schließen,OnCancel]\e"
+	}
+	elseif language == "Русский"
+	{
+		if reference2 == "First" || reference2 == "Next"
+		{
+			//Bottom buttons
+			"\![*]\q[Следующий,] - "
+		}
+		--
+		"\![*]\q[Закрыть,OnCancel]\e"
+	}
+	elseif language == "Français"
+	{
+		if reference2 == "First" || reference2 == "Next"
+		{
+			//Bottom buttons
+			"\![*]\q[Suivant,] - "
+		}
+		--
+		"\![*]\q[Fermer,OnCancel]\e"
+	}
+	elseif language == "Polski"
+	{
+		if reference2 == "First" || reference2 == "Next"
+		{
+			//Bottom buttons
+			"\![*]\q[Następny,] - "
+		}
+		--
+		"\![*]\q[Zamknij,OnCancel]\e"
+	}
+	else //English
+	{
+		if reference2 == "First" || reference2 == "Next"
+		{
+			//Bottom buttons
+			"\![*]\q[Next,] - "
+		}
+		--
+		"\![*]\q[Close,OnCancel]\e"
+	}
+}
+
+//Looks like this happens if you view a headline and nothing has changed. I can only get RSS to work, so... I'll leave it here just in case.
+OnHeadlinesenseComplete 
+{
+	"\0%(b)"
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+	else; "\s[6]"
+	--
+	if language == "Placeholder" //TRANSLATORS: Supposedly this happens if there's no update to a headline when you check it
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"[Keine Updates.]\e"
+	}
+	elseif language == "Русский"
+	{
+		"[Ничего нового.]\e"
+	}
+	elseif language == "Français"
+	{
+		"[Pas de mise à jour.]\e"
+	}
+	elseif language == "Polski"
+	{
+		"[Brak aktualizacji.]\e"
+	}
+	else //English
+	{
+		"[No update.]\e"
+	}
+}
+
+//reference0 is the reason it failed
+OnHeadlinesenseFailure
+{
+	"\0%(b)"
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Error]"
+	else; "\s[6]"
+	--
+	if language == "Placeholder" //TRANSLATORS: If there's an error when getting an RSS feed
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"[Feed konnte nicht geupdatet werden: '%(reference0)'.]"
+	}
+	elseif language == "Русский" 
+	{
+		"[Не могу обновить новости: '%(reference0)'.]"
+	}
+	elseif language == "Français"
+	{
+		"[Impossible de mettre à jour le flux : '%(reference0)'.]"
+	}
+	elseif language == "Polski" 
+	{
+		"[Nie można zaktualizować kanału: '%(reference0)'.]"
+	}
+	else //English
+	{
+		"[Can't update feed: '%(reference0)'.]"
+	}
+}
+
+//----Misc----
+
+//reference0 is the name of the server it's connecting to
+OnSNTPBegin
+{
+	"\0%(b)"
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+	else; "\s[6]"
+	--
+	if language == "Placeholder" //TRANSLATORS: Starting an SNTP check
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"[Zeit wird abgefragt...]"
+	}
+	elseif language == "Русский"
+	{
+		"[Проверяет часы...]"
+	}
+	elseif language == "Français"
+	{
+		"[Vérification de l'heure...]"
+	}
+	elseif language == "Polski"
+	{
+		"[Sprawdzam czas...]"
+	}
+	else //English
+	{
+		"[Checking the time...]"
+	}
+	--
+	"\w8\w8\e"
+}
+
+//Grabbed this from the GT template, don't see a reason to redo this
+//**** 미카 (http://homepage2.nifty.com/ko-ki/)의 사전을 참고했습니다．감사＞こ 나무 성
+//Above comment from the person who originally coded these functions
+//reference0 is the name of the server it's connecting to, reference1 is the server's time, reference2 is the computer's time, reference3 is the difference (in seconds)
+OnSNTPCompare
+{
+	"\0%(b)"
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+	else; "\s[6]"
+	--
+	if language == "Placeholder" //TRANSLATORS: Comparing the time
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"[Abgefragte Zeit: %(reference1[1])/%(reference1[2])/%(reference1[0]) %(reference1[3]):%(reference1[4]):%(reference1[5])]\n\_w[1]"
+		--
+		"[Deine Zeit: %(reference2[1])/%(reference2[2])/%(reference2[0]) %(reference2[3]):%(reference2[4]):%(reference2[5])]\n\n\_w[1]"
+		--
+		if reference3 == 0 //if your clock is already accurate.
+		{
+			"[Deine Uhr geht richtig.]\e"
+		}
+		else //if your clock doesn't match
+		{
+			"[Deine Uhr stimmt nicht überein.]\n\n"
+			--
+			"\_q\![*]\q[Neue Zeit übernehmen,OnSNTPExecute]  \![*]\q[Alte Zeit beibehalten,OnCancel]\e" 
+		}
+	}
+	elseif language == "Русский"
+	{
+		"[Время получил: %(reference1[1])/%(reference1[2])/%(reference1[0]) %(reference1[3]):%(reference1[4]):%(reference1[5])]\n\_w[1]"
+		--
+		"[Твоя время: %(reference2[1])/%(reference2[2])/%(reference2[0]) %(reference2[3]):%(reference2[4]):%(reference2[5])]\n\n\_w[1]"
+		--
+		if reference3 == 0 //if your clock is already accurate.
+		{
+			"[Твой часы в порядке.]\e"
+		}
+		else //if your clock doesn't match
+		{
+			"[Твой часы сломал.]\n\n"
+			--
+			"\_q\![*]\q[Починить его,OnSNTPExecute]  \![*]\q[Оставить его,OnCancel]\e" 
+		}
+	}
+	elseif language == "Français"
+	{
+		"[Heure récupérée : %(reference1[1])/%(reference1[2])/%(reference1[0]) %(reference1[3]):%(reference1[4]):%(reference1[5])]\n\_w[1]"
+		--
+		"[Ton Heure : %(reference2[1])/%(reference2[2])/%(reference2[0]) %(reference2[3]):%(reference2[4]):%(reference2[5])]\n\n\_w[1]"
+		--
+		if reference3 == 0 //if your clock is already accurate.
+		{
+			"[Ton horloge est à l'heure.]\e"
+		}
+		else //if your clock doesn't match
+		{
+			"[Ton horloge ne correspond pas.]\n\n"
+			--
+			"\![*]\q[Régler,OnSNTPExecute]  \![*]\q[La laisser,OnCancel]\e" 
+		}
+	}
+	elseif language == "Polski"
+	{
+		"[Zwrócony czas: %(reference1[1])/%(reference1[2])/%(reference1[0]) %(reference1[3]):%(reference1[4]):%(reference1[5])]\n\_w[1]"
+		--
+		"[Twój czas: %(reference2[1])/%(reference2[2])/%(reference2[0]) %(reference2[3]):%(reference2[4]):%(reference2[5])]\n\n\_w[1]"
+		--
+		if reference3 == 0 //if your clock is already accurate.
+		{
+			"[Twój zegar jest prawidłowy.]\e"
+		}
+		else //if your clock doesn't match
+		{
+			"[Twój zegar nie pasuje.]\n\n"
+			--
+			"\![*]\q[Napraw,OnSNTPExecute]  \![*]\q[Zostaw jak jest,OnCancel]\e" 
+		}
+	}
+	else //English
+	{
+		"[Retrieved Time: %(reference1[1])/%(reference1[2])/%(reference1[0]) %(reference1[3]):%(reference1[4]):%(reference1[5])]\n\_w[1]"
+		--
+		"[Your Time: %(reference2[1])/%(reference2[2])/%(reference2[0]) %(reference2[3]):%(reference2[4]):%(reference2[5])]\n\n\_w[1]"
+		--
+		if reference3 == 0 //if your clock is already accurate.
+		{
+			"[Your clock is accurate.]\e"
+		}
+		else //if your clock doesn't match
+		{
+			"[Your clock doesn't match.]\n\n"
+			--
+			"\_q\![*]\q[Fix it,OnSNTPExecute]  \![*]\q[Leave it alone,OnCancel]\e" 
+		}
+	}
+}
+
+//The \6 is what actually changes the clock
+OnSNTPExecute
+{
+	"\0%(b)"
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Action]"
+	else; "\s[6]"
+	--
+	"\6"
+	--
+	if language == "Placeholder" //TRANSLATORS: Fixing the clock
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"[Deine Uhr wurde richtiggestellt.]\e"
+	}
+	elseif language == "Русский"
+	{
+		"[Починил часы.]\e"
+	}
+	elseif language == "Français"
+	{
+		"[L'horloge a été réglée.]\e"
+	}
+	elseif language == "Polski"
+	{
+		"[Zegar został naprawiony.]\e"
+	}
+	else //English
+	{
+		"[The clock has been fixed.]\e"
+	}
+}
+
+//reference0 is the name of the SNTP server - Note that this may happen before any other STNP dialogue is said! Keep in mind when writing your dialogue that the user will not necessarily have clicked the yes button.
+OnSNTPFailure
+{
+	"\0%(b)"
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Error]"
+	else; "\s[6]"
+	--
+	if language == "Placeholder" //TRANSLATORS: If the SNTP check fails
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"[Die Zeit konnte nicht abgefragt werden.]\e"
+	}
+	elseif language == "Русский"
+	{
+		"[Не получил времени.]\e"
+	}
+	elseif language == "Français"
+	{
+		"[Impossible de récuperer l'heure.]\e"
+	}
+	elseif language == "Polski"
+	{
+		"[Nie udało się odzyskać czasu.]\e"
+	}
+	else
+	{
+		"[Couldn't get the time.]\e"
+	}
+}
+
+OnDisplayChange
+{
+	displaybpp = reference0
+ 	displaywidth = reference1
+	displayheight = reference2
+}
+
+//Usually at 20% battery or less
+//reference0 should be the exact percentage left
+OnBatteryLow
+{
+	"\0%(b)"
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Refuse]"
+	else; "\s[6]"
+	--
+	if language == "Placeholder" //TRANSLATORS: If the battery is getting low
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"[Dein Akkustand ist niedrig.]\e"
+	}
+	elseif language == "Русский"
+	{
+		"[Зарядка низкая.]\e"
+	}
+	elseif language == "Français"
+	{
+		"[Ta batterie est faible.]\e"
+	}
+	elseif language == "Polski"
+	{
+		"[Bateria jest na wyczerpaniu..]\e"
+	}
+	else
+	{
+		"[Your battery is getting low.]\e"
+	}
+}
+
+//Usually at 5% battery or less
+//reference0 should be the exact percentage left
+OnBatteryCritical
+{
+	"\0%(b)"
+	--
+	if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Error]"
+	else; "\s[6]"
+	--
+	if language == "Placeholder" //TRANSLATORS: If the battery is getting critically low
+	{
+		
+	}
+	elseif language == "Deutsch"
+	{
+		"[Dein Akku ist fast leer.]\e"
+	}
+	elseif language == "Русский"
+	{
+		"[Зарядка так низкая, она в опасности.]\e"
+	}
+	elseif language == "Français"
+	{
+		"[Ta batterie a atteint un seuil critique.]\e"
+	}
+	elseif language == "Polski"
+	{
+		"[Bateria jest krytycznie rozładowana..]\e"
+	}
+	else
+	{
+		"[Your battery is critically low.]\e"
+	}
+}
+
+//reference0 is the new size, reference1 is the previous size. Sadly, you can't check for the Y scale.
+OnShellScaling
+{
+	nowscale = reference0
+}
+
+//Hotkeys. reference0 is the name of the key as displayed on the keycap. reference4, for SSP only, will have things like ctrl and alt, separated by commas.
+OnKeyPress
+{
+	CVSTR(reference0)
+	if "changing hotkey: " _in_ SHIORI3FW.LastTalk //If the hotkey input is open
+	{
+		_k = TOUPPER(reference0)
+		_changing = TOINT(SPLIT(SHIORI3FW.LastTalk,"changing hotkey: ")[1])
+		
+		if language == "Placeholder" //TRANSLATORS: If the user puts in a hotkey that isn't valid
+		{
+			
+		}
+		elseif language == "Deutsch"
+		{
+			if _k == "T" || _k == "R" || _k == "F1" || _k == "V" //If it's reserved
+			{
+				"\0%(b)"
+				--
+				if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Error]"
+				else; "\s[6]"
+				--
+				"\_q[Dieser Hotkey ist reserviert, bitte wähle einen anderen.]\x"
+			}
+			elseif ASEARCH(_k,Hotkeys) != -1 //If this hotkey is already selected for something else
+			{
+				"\0%(b)"
+				--
+				if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Error]"
+				else; "\s[6]"
+				--
+				"\_q[Dieser Hotkey ist bereits in Verwendung, bitte lösche ihn bevor du ihm eine andere Option zuordnest.]\x"
+			}
+			else //If it's a valid key
+			{
+				Hotkeys[_changing] = TOUPPER(reference0)
+				"\![raise,OnHotkeys]\e"
+			}
+		}
+		elseif language == "Русский"
+		{
+			if _k == "T" || _k == "R" || _k == "F1" || _k == "V" //If it's reserved
+			{
+				"\0%(b)"
+				--
+				if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Error]"
+				else; "\s[6]"
+				--
+				"\_q[Та клавища уже использовает. Пожалуйста, выбирать другую.]\x"
+			}
+			elseif ASEARCH(_k,Hotkeys) != -1 //If this hotkey is already selected for something else
+			{
+				"\0%(b)"
+				--
+				if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Error]"
+				else; "\s[6]"
+				--
+				"\_q[Та клавища уже использовает. Пожалуйста, отчистить ее, чтобы изменить.]\x"
+			}
+			else //If it's a valid key
+			{
+				Hotkeys[_changing] = TOUPPER(reference0)
+				"\![raise,OnHotkeys]\e"
+			}
+		}
+		elseif language == "Français"
+		{
+			if _k == "T" || _k == "R" || _k == "F1" || _k == "V" //If it's reserved
+			{
+				"\0%(b)"
+				--
+				if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Error]"
+				else; "\s[6]"
+				--
+				"\_q[Cette touche est reservée, stp choisis-en une autre.]\x"
+			}
+			elseif ASEARCH(_k,Hotkeys) != -1 //If this hotkey is already selected for something else
+			{
+				"\0%(b)"
+				--
+				if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Error]"
+				else; "\s[6]"
+				--
+				"\_q[Cette touche est déjà utilisée, stp enlève-là avant de l'assigner à une autre option.]\x"
+			}
+			else //If it's a valid key
+			{
+				Hotkeys[_changing] = TOUPPER(reference0)
+				"\![raise,OnHotkeys]\e"
+			}
+		}
+		elseif language == "Polski"
+		{
+			if _k == "T" || _k == "R" || _k == "F1" || _k == "V" //If it's reserved
+			{
+				"\0%(b)"
+				--
+				if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Error]"
+				else; "\s[6]"
+				--
+				"\_q[Ten skrót jest zarezerwowany, proszę wybierz inny.]\x"
+			}
+			elseif ASEARCH(_k,Hotkeys) != -1 //If this hotkey is already selected for something else
+			{
+				"\0%(b)"
+				--
+				if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Error]"
+				else; "\s[6]"
+				--
+				"\_q[Ten skrót jest już używany, wyczyść go, zanim przypiszesz go do innej opcji.]\x"
+			}
+			else //If it's a valid key
+			{
+				Hotkeys[_changing] = TOUPPER(reference0)
+				"\![raise,OnHotkeys]\e"
+			}
+		}
+		else //English
+		{
+			if _k == "T" || _k == "R" || _k == "F1" || _k == "V" //If it's reserved
+			{
+				"\0%(b)"
+				--
+				if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Error]"
+				else; "\s[6]"
+				--
+				"\_q[That hotkey is reserved, please choose another.]\x"
+			}
+			elseif ASEARCH(_k,Hotkeys) != -1 //If this hotkey is already selected for something else
+			{
+				"\0%(b)"
+				--
+				if ISFUNC("OnCustom_ActionSurfaces") && CustomFuncs[0] == 1; "\![embed,OnCustom_ActionSurfaces,Error]"
+				else; "\s[6]"
+				--
+				"\_q[That hotkey is already in use, please clear it before assigning it to another option.]\x"
+			}
+			else //If it's a valid key
+			{
+				Hotkeys[_changing] = TOUPPER(reference0)
+				"\![raise,OnHotkeys]\e"
+			}
+		}
+		--
+		"\![raise,OnChangeHotkey,%(_changing)]"
+		
+	}
+	else
+	{
+		reference0 = TOUPPER(reference0)
+		if reference0 == "T"
+		{
+			"\![raise,OnAiTalk,Hotkey]"
+		}
+		elseif reference0 == "R"
+		{
+			lastTalk
+		}
+		elseif reference0 == "F1"
+		{
+			"\![open,readme]"
+		}
+		elseif reference0 == "V"
+		{
+			if debug == 1; OnTestVar
+		}
+		elseif reference0 == Hotkeys[1] //Play/Pause
+		{
+			_inmenu = ""
+			if "music player main menu" _in_ SHIORI3FW.LastTalk; _inmenu = "menuopen"
+			elseif "FLUX main menu" _in_ SHIORI3FW.LastTalk; _inmenu = "mainmenu"
+			elseif "__Music_Settings_Menu__" _in_ SHIORI3FW.LastTalk; _inmenu = "settingsmenu"
+			_b = BalloonCheck
+			_m = MenuCheck
+			if _m == 1 && _b == 1; "\C"
+			--
+			if NowPlaying[0] == ""; "\![raise,OnPlaySong,,,hotkey,%(_b),%(_inmenu)]"
+			elseif NowPlaying[2] != ""; "\![raise,OnPauseSong,resume,,hotkey,%(_b),%(_inmenu)]"
+			else; "\![raise,OnPauseSong,pause,,hotkey,%(_b),%(_inmenu)]"
+		}
+		elseif reference0 == Hotkeys[2] //Next song
+		{
+			_inmenu = ""
+			if "music player main menu" _in_ SHIORI3FW.LastTalk; _inmenu = "menuopen"
+			elseif "FLUX main menu" _in_ SHIORI3FW.LastTalk; _inmenu = "mainmenu"
+			elseif "__Music_Settings_Menu__" _in_ SHIORI3FW.LastTalk; _inmenu = "settingsmenu"
+			if NowPlaying[0] != ""
+			{
+				_b = BalloonCheck
+				_m = MenuCheck
+				if _m == 1 && _b == 1; "\C\![raise,OnNextSong,,,hotkey,,%(_inmenu)]"
+				else; "\![raise,OnNextSong,,,hotkey,,%(_inmenu)]\e"
+			}
+		}
+		elseif reference0 == Hotkeys[3] //Previous song
+		{
+			_inmenu = ""
+			if "music player main menu" _in_ SHIORI3FW.LastTalk; _inmenu = "menuopen"
+			elseif "FLUX main menu" _in_ SHIORI3FW.LastTalk; _inmenu = "mainmenu"
+			elseif "__Music_Settings_Menu__" _in_ SHIORI3FW.LastTalk; _inmenu = "settingsmenu"
+			if NowPlaying[0] != ""
+			{
+				_b = BalloonCheck
+				_m = MenuCheck
+				if _m == 1 && _b == 1; "\C\![raise,OnPrevSong,,,hotkey,,%(_inmenu)]"
+				else; "\![raise,OnPrevSong,,,hotkey,,%(_inmenu)]\e"
+			}
+		}
+		elseif reference0 == Hotkeys[4] //Stop song
+		{
+			OnStopSong
+		}
+		elseif reference0 == Hotkeys[5] //Music menu
+		{
+			OnMusicMenu("manual")
+		}
+	}
+}
+
+OnBalloonBreak
+{
+	//Should make it so that if the user closes the balloon while the song is waiting to repeat, it repeats properly
+	if "\![raise,OnSoundStop]" _in_ SHIORI3FW.LastTalk; "\![raise,OnSoundStop]"
+}
+
+// OnBalloonBreak
+// {
+	//OnSurfaceRestore
+
+// LOGGING("============")
+// LOGGING("_b: %(_b)")
+// LOGGING("TalkingChar: %(TalkingChar)")
+// LOGGING("LastTalk: %(SHIORI3FW.LastTalk)")
+// LOGGING("EventidOld: %(SHIORI3FW.EventidOld)")
+
+	// _script = reference0
+	// _pos = reference2
+	
+	// // _array = SPLIT(_script," ")
+	
+	// // foreach _array; _element
+	// // {
+		
+	// // }
+	
+	// _first = SUBSTR(_script,_0,_pos)
+	// _last = SUBSTR(_script,_pos,(STRLEN(_script) - _pos))
+	
+	// "\_q%(_first)-\n\_qCut that out\n\n%(_last)\_q\n\n\n%(reference2)"
+//}
+
+OnBalloonTimeout
+{
+	//OnSurfaceRestore
+}
+
+OnBalloonClose
+{
+	//OnSurfaceRestore
+}
+
+OnCancel
+{
+	OnSurfaceRestore
+}
+
+
+OnTestInput
+{
+	LOGGING("==================")
+	LOGGING(reference0)
+	LOGGING(reference.raw[0])
+	LOGGING(GETTYPE(reference.raw[0]))
+	"\![open,inputbox,OnTestInput,-1]"
+}
