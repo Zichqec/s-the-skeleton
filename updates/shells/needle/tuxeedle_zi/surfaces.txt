@@ -17,17 +17,21 @@ surface0
 	
 	animation1000.interval,bind
 	animation1000.pattern0,overlay,1000,0,0,0
+	animation1000.pattern1,interpolate,1001,0,0,0
 	
-	animation1001.interval,bind
-	animation1001.pattern0,overlay,1001,0,0,0
-	animation1001.option,background
+	animation1010.interval,bind
+	animation1010.pattern0,overlay,1010,0,0,0
+	animation1010.pattern1,interpolate,1011,0,0,0
+	
 	
 	animation2000.interval,bind
 	animation2000.pattern0,overlay,2000,0,0,0
+	animation2000.pattern1,interpolate,2001,0,0,0
 	
-	animation2001.interval,bind
-	animation2001.pattern0,overlay,2001,0,0,0
-	animation2001.option,background
+	animation2010.interval,bind
+	animation2010.pattern0,overlay,2010,0,0,0
+	animation2010.pattern1,interpolate,2011,0,0,0
+	
 	
 	animation4000.interval,bind
 	animation4000.pattern0,overlay,4,0,0,0
