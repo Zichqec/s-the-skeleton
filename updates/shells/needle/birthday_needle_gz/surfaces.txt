@@ -10,9 +10,12 @@ surface0
 	
 	animation101.interval,bind
 	animation101.pattern0,add,101,0,0,0
+	
+	animation102.interval,bind
+	animation102.pattern0,add,102,0,0,0
 }
 
-
+//Since they are all the same animation number, I could remove the additional images and use coordinates... but that's a pain. Maybe one day...
 surface100
 {
 	animation200.interval,bind
@@ -23,4 +26,10 @@ surface101
 {
 	animation200.interval,bind
 	animation200.pattern0,add,201,0,0,0
+}
+
+surface102
+{
+	animation200.interval,bind
+	animation200.pattern0,add,202,0,0,0
 }
